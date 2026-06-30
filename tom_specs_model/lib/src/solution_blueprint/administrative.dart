@@ -15,7 +15,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 // The former `Administrative` (`ADMN`) wrapper was dissolved in L34C-5: its
 // children now hang directly off SBP.4 `StakeholdersAndGovernance`
 // (`ProjectOrganization`, `ProjectTeamStaffing`, `DistributionList`,
-// `ChangeProcedure`, `OtherAdministrativeRequirements`, and the
+// `ChangeProcedure`, `LegalAndContractualRequirements`, and the
 // `AdministrativeSummary` governance overview), and `ReferenceDocuments` was
 // re-homed to SBP.1 `DocumentControl` (ISO/IEC/IEEE 29148 §6 front matter).
 // The classes below remain here; only the wrapper class was removed.
@@ -1271,7 +1271,7 @@ class ChangeCategoryEntryGovernance {
     'elsewhere. Include legal agreements, compliance obligations, and '
     'organizational constraints that affect project execution.')
 @SectionId('OAR')
-class OtherAdministrativeRequirements {
+class LegalAndContractualRequirements {
   @ContentType('description', 'Overview of additional administrative '
       'requirements and their impact on the project.')
   String? content;

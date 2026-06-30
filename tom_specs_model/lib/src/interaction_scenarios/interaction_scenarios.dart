@@ -48,7 +48,7 @@ class D05InteractionScenarios {
   /// End-to-end test scenarios.
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
-  List<EndToEndTestScenarios> endToEndTestScenarios = [];
+  List<EndToEndTestScenario> endToEndTestScenarios = [];
 
   /// Use case traceability.
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();

@@ -1,4 +1,4 @@
-/// Section 12: Components to Use. Seeds → ATS.
+/// Section 12: Components and Dependencies. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system.
 library;
@@ -7,7 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 12. Components to Use. Seeds → ATS.
+/// 12. Components and Dependencies. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system. All
 /// subsections seed the ATS document, where component choices are expanded
@@ -18,9 +18,9 @@ import '../document_stubs.dart';
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
-class ComponentsToUse {
+class ComponentsAndDependencies {
     @ContentHelp('''
-## Components to Use (Chapter 12)
+## Components and Dependencies (Chapter 12)
 
 External and standard components planned for the system.
 

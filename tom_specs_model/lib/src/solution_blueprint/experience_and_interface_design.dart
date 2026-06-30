@@ -30,7 +30,7 @@ provides a consistent user experience across all application areas.
 5. **Data Structure Alignment** — Mapping of UI fields to data model entities
 6. **Authorization Compliance** — UI adaptation based on user roles and permissions
 7. **Error Handling** — User feedback for validation errors and system failures
-8. **Help Concept** — Contextual help, tooltips, onboarding, and documentation
+8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation
 9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support
 10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile
 11. **UI Components** — Reusable component library and design system
@@ -70,7 +70,7 @@ to pixel-perfect designs with exact typography and spacing.
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
   /// 10.4. Print Layout. Seeds → XDS.
-  PrintLayout printLayout = PrintLayout();
+  PrintAndExportLayout printLayout = PrintAndExportLayout();
 
   /// Data Structure Alignment.
   TextSection dataStructureAlignment = TextSection();
@@ -78,11 +78,11 @@ to pixel-perfect designs with exact typography and spacing.
   /// Authorization Compliance.
   TextSection authorizationCompliance = TextSection();
 
-  /// 10.7. Error Handling Concept. Seeds → XDS.
-  ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
+  /// 10.7. Error Handling. Seeds → XDS.
+  ErrorHandling errorHandling = ErrorHandling();
 
-  /// 10.8. Help Concept. Seeds → XDS.
-  HelpConcept helpConcept = HelpConcept();
+  /// 10.8. User Assistance. Seeds → XDS.
+  UserAssistance userAssistance = UserAssistance();
 
   /// 10.9. Accessibility. Seeds → XDS.
   Accessibility accessibility = Accessibility();
@@ -93,8 +93,8 @@ to pixel-perfect designs with exact typography and spacing.
   /// 10.11. UI Components. Seeds → XDS.
   UiComponents uiComponents = UiComponents();
 
-  /// 10.12. Multi-language and Rollout Support.
-  MultiLanguageAndRollout multiLanguage = MultiLanguageAndRollout();
+  /// 10.12. Multi-language Support.
+  MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
 
   /// 10.13. Prototype. Seeds → XDS.
   Prototype prototype = Prototype();
@@ -260,14 +260,14 @@ Principles configure shared behaviors:
   /// Contains 0+× UiDesignPrinciple.
   @SectionId('UDPEN-ITEM-LST')
   @SectionIdPattern('UDPEN-ITEM-xxx')
-  List<UiDesignPrincipleEntry> items = [];
+  List<DesignPrincipleEntry> items = [];
 }
 
 /// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
 @SectionId('UDPEN')
-class UiDesignPrincipleEntry {
+class DesignPrincipleEntry {
   @Form([
     Field('principleName', String, 'Principle Name', required: true),
     Field('description', String, 'Description',
@@ -2475,7 +2475,7 @@ class NavigationGuardEntryRouting {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRI')
-class PrintLayout {
+class PrintAndExportLayout {
   @Form([
     Field('printStrategy', String, 'Print Strategy',
         hint: 'Browser-native / Server-side-PDF / Hybrid / Third-party-service'),
@@ -3921,7 +3921,7 @@ class ExportTemplateEntryAccess {
 // 10.7 Error Handling
 // ---------------------------------------------------------------------------
 
-/// 10.7. Error Handling Concept.
+/// 10.7. Error Handling.
 ///
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
@@ -3930,7 +3930,7 @@ class ExportTemplateEntryAccess {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ERR')
-class ErrorHandlingConcept {
+class ErrorHandling {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
   // ─────────────────────────────────────────────────────────────────────────
@@ -3948,16 +3948,16 @@ class ErrorHandlingConcept {
   String? errorPhilosophyContent;
 
   /// Error categorization and display priority.
-  ErrorHandlingConceptClassification classification =
-      ErrorHandlingConceptClassification();
+  ErrorHandlingClassification classification =
+      ErrorHandlingClassification();
 
   /// Accessibility and inclusive error cues.
-  ErrorHandlingConceptAccessibility accessibility =
-      ErrorHandlingConceptAccessibility();
+  ErrorHandlingAccessibility accessibility =
+      ErrorHandlingAccessibility();
 
   /// Localization and analytics behavior.
-  ErrorHandlingConceptOperations operations =
-      ErrorHandlingConceptOperations();
+  ErrorHandlingOperations operations =
+      ErrorHandlingOperations();
 
   /// Error handling overview and strategy.
   @ContentHelp('Executive summary of error handling approach, '
@@ -3986,7 +3986,7 @@ class ErrorHandlingConcept {
 
 /// Error categorization and display priority.
 @SectionId('EHCC')
-class ErrorHandlingConceptClassification {
+class ErrorHandlingClassification {
     @Form([
         Field('errorCategories', String, 'Error Categories',
                 hint: 'Validation, network, server, permission, data'),
@@ -4000,7 +4000,7 @@ class ErrorHandlingConceptClassification {
 
 /// Accessibility and inclusive error cues.
 @SectionId('EHCA')
-class ErrorHandlingConceptAccessibility {
+class ErrorHandlingAccessibility {
     @Form([
         Field('errorAccessibility', String, 'Error Accessibility',
                 hint: 'Screen reader announcements, ARIA live regions'),
@@ -4014,7 +4014,7 @@ class ErrorHandlingConceptAccessibility {
 
 /// Localization and analytics behavior.
 @SectionId('EHCO')
-class ErrorHandlingConceptOperations {
+class ErrorHandlingOperations {
     @Form([
         Field('errorLocalization', String, 'Error Localization',
                 hint: 'All messages localized, fallback language'),
@@ -4488,10 +4488,10 @@ class RecoveryScenarioEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 10.8 Help Concept
+// 10.8 User Assistance
 // ---------------------------------------------------------------------------
 
-/// 10.8. Help Concept.
+/// 10.8. User Assistance.
 ///
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
@@ -4499,7 +4499,7 @@ class RecoveryScenarioEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-HLP')
-class HelpConcept {
+class UserAssistance {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -4518,10 +4518,10 @@ class HelpConcept {
   String? helpOverviewContent;
 
   /// Content stewardship and help affordances.
-  HelpConceptDelivery delivery = HelpConceptDelivery();
+  UserAssistanceDelivery delivery = UserAssistanceDelivery();
 
   /// Analytics and improvement feedback.
-  HelpConceptInsights insights = HelpConceptInsights();
+  UserAssistanceInsights insights = UserAssistanceInsights();
 
   /// Help system overview narrative.
   @ContentHelp('Executive summary of help system approach, '
@@ -4544,7 +4544,7 @@ class HelpConcept {
 
 /// Content stewardship and help affordances.
 @SectionId('HECODE')
-class HelpConceptDelivery {
+class UserAssistanceDelivery {
     @Form([
         Field('helpContentOwnership', String, 'Help Content Ownership',
                 hint: 'Who maintains help content'),
@@ -4562,7 +4562,7 @@ class HelpConceptDelivery {
 
 /// Analytics and improvement feedback.
 @SectionId('HECOIN')
-class HelpConceptInsights {
+class UserAssistanceInsights {
     @Form([
         Field('helpAnalytics', String, 'Help Analytics',
                 hint: 'Track help usage, identify gaps'),
@@ -5526,14 +5526,14 @@ class UiComponents {
   String? componentLibraryOverview;
 
   /// Visual language and brand alignment.
-  UiComponentsVisualLanguage visualLanguage = UiComponentsVisualLanguage();
+  ComponentVisualLanguage visualLanguage = ComponentVisualLanguage();
 
   /// Component naming and documentation approach.
-  UiComponentsComponentApproach componentApproach =
-      UiComponentsComponentApproach();
+  ComponentApproach componentApproach =
+      ComponentApproach();
 
   /// Extension and theming boundaries.
-  UiComponentsCustomization customization = UiComponentsCustomization();
+  ComponentCustomization customization = ComponentCustomization();
 
   /// 10.11.1. Component Library.
   ComponentLibrary componentLibrary = ComponentLibrary();
@@ -5551,7 +5551,7 @@ class UiComponents {
 
 /// Visual language and brand alignment.
 @SectionId('UCVL')
-class UiComponentsVisualLanguage {
+class ComponentVisualLanguage {
     @Form([
         Field('visualLanguage', String, 'Visual Language',
                 hint: 'Clean, playful, professional, minimal'),
@@ -5565,7 +5565,7 @@ class UiComponentsVisualLanguage {
 
 /// Component naming and documentation approach.
 @SectionId('UCCA')
-class UiComponentsComponentApproach {
+class ComponentApproach {
     @Form([
         Field('componentGranularity', String, 'Component Granularity',
                 hint: 'Atomic design levels: atoms, molecules, organisms'),
@@ -5579,7 +5579,7 @@ class UiComponentsComponentApproach {
 
 /// Extension and theming boundaries.
 @SectionId('UICOCU')
-class UiComponentsCustomization {
+class ComponentCustomization {
     @Form([
         Field('extensionModel', String, 'Extension Model',
                 hint: 'How components can be extended or themed'),
@@ -6344,10 +6344,10 @@ class ComponentPropertyEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 10.12 Multi-language and Rollout
+// 10.12 Multi-language Support
 // ---------------------------------------------------------------------------
 
-/// 10.12. Multi-language and Rollout Support.
+/// 10.12. Multi-language Support.
 ///
 /// Locale-picker / UX-side multi-language concerns that stay on the
 /// Experience & Interface Design side. IP-6 re-homed the requirement-side
@@ -6355,7 +6355,7 @@ class ComponentPropertyEntry {
 /// execution-side concerns (localization/translation processes, rollout
 /// sequencing) to SBP.15; only the stay-put UX members remain here.
 @SectionId('MLAR')
-class MultiLanguageAndRollout {
+class MultiLanguageSupport {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -6389,7 +6389,7 @@ class MultiLanguageAndRollout {
 
 /// Locale modeling and fallback behavior.
 @SectionId('MLARLH')
-class MultiLanguageAndRolloutLocaleHandling {
+class LocaleHandlingRequirements {
     @Form([
         Field('localeFormat', String, 'Locale Format',
                 hint: 'BCP 47, ISO 639-1, custom'),
@@ -6405,7 +6405,7 @@ class MultiLanguageAndRolloutLocaleHandling {
 
 /// Rollout sequencing by region and time.
 @SectionId('MLARP')
-class MultiLanguageAndRolloutPlan {
+class LocaleRolloutPlan {
     @Form([
         Field('rolloutStrategy', String, 'Rollout Strategy',
                 hint: 'Big bang, phased, pilot'),
@@ -6438,13 +6438,13 @@ class LocalizationProcess {
   String? localizationProcessContent;
 
   /// Review process.
-  LocalizationProcessReview review = LocalizationProcessReview();
+  LocalizationReview review = LocalizationReview();
 
   /// Formatting rules.
-  LocalizationProcessFormatting formatting = LocalizationProcessFormatting();
+  LocalizationFormatting formatting = LocalizationFormatting();
 
   /// Deployment settings.
-  LocalizationProcessDeployment deployment = LocalizationProcessDeployment();
+  LocalizationDeployment deployment = LocalizationDeployment();
 
   /// Localization process narrative.
   TextSection localizationNarrative = TextSection();
@@ -6455,7 +6455,7 @@ class LocalizationProcess {
 
 /// Review process.
 @SectionId('LOPRR1')
-class LocalizationProcessReview {
+class LocalizationReview {
     @Form([
         Field('reviewWorkflow', String, 'Review Workflow',
                 hint: 'Steps in the localization review'),
@@ -6469,7 +6469,7 @@ class LocalizationProcessReview {
 
 /// Formatting rules.
 @SectionId('LOPRFO')
-class LocalizationProcessFormatting {
+class LocalizationFormatting {
     @Form([
         Field('dateFormatRules', String, 'Date Format Rules',
                 hint: 'Locale-specific date formatting'),
@@ -6487,7 +6487,7 @@ class LocalizationProcessFormatting {
 
 /// Deployment settings.
 @SectionId('LOPRDE')
-class LocalizationProcessDeployment {
+class LocalizationDeployment {
     @Form([
         Field('localeDeployment', String, 'Locale Deployment',
                 hint: 'How locales are deployed'),
@@ -6520,17 +6520,17 @@ class TranslationProcess {
   String? translationProcessContent;
 
   /// Translation workflow.
-  TranslationProcessWorkflow workflow = TranslationProcessWorkflow();
+  TranslationWorkflow workflow = TranslationWorkflow();
 
   /// Quality assurance.
-  TranslationProcessQuality quality = TranslationProcessQuality();
+  TranslationQuality quality = TranslationQuality();
 
   /// Terminology and voice management.
-  TranslationProcessTerminology terminology =
-      TranslationProcessTerminology();
+  TranslationTerminology terminology =
+      TranslationTerminology();
 
   /// Ongoing localization operations.
-  TranslationProcessOngoing ongoing = TranslationProcessOngoing();
+  TranslationOngoing ongoing = TranslationOngoing();
 
   /// Translation process narrative.
   TextSection translationNarrative = TextSection();
@@ -6543,7 +6543,7 @@ class TranslationProcess {
 
 /// Translation workflow.
 @SectionId('TRPRWO')
-class TranslationProcessWorkflow {
+class TranslationWorkflow {
     @Form([
         Field('translationWorkflow', String, 'Translation Workflow',
                 hint: 'Steps: extract → translate → review → integrate'),
@@ -6559,7 +6559,7 @@ class TranslationProcessWorkflow {
 
 /// Quality assurance.
 @SectionId('TRPRQU')
-class TranslationProcessQuality {
+class TranslationQuality {
     @Form([
         Field('qualityChecks', String, 'Quality Checks',
                 hint: 'Automated quality checks'),
@@ -6573,7 +6573,7 @@ class TranslationProcessQuality {
 
 /// Terminology and voice management.
 @SectionId('TRPRTE')
-class TranslationProcessTerminology {
+class TranslationTerminology {
     @Form([
         Field('glossaryManagement', String, 'Glossary Management',
                 hint: 'Term base management'),
@@ -6587,7 +6587,7 @@ class TranslationProcessTerminology {
 
 /// Ongoing localization operations.
 @SectionId('TRPRON')
-class TranslationProcessOngoing {
+class TranslationOngoing {
     @Form([
         Field('continuousLocalization', String, 'Continuous Localization',
                 hint: 'CI/CD integration for translations'),
@@ -6657,7 +6657,7 @@ class UserDocumentationRequirements {
 /// half in L34C-7 (SR-29). Logically re-homed under SBP.9
 /// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 /// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 /// content in one D12 subsection rather than fragmenting it across a new id.
 @SectionId('TRMAT')
 @MapsTo(D12TransitionRolloutPlan)
@@ -7041,7 +7041,7 @@ class Prototype {
   PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
   /// 10.13.3. Prototype Type.
-  PrototypeTypeSection prototypeType = PrototypeTypeSection();
+  PrototypeType prototypeType = PrototypeType();
 
   /// Prototype schedule.
   @ContentHelp('Detailed timeline for prototype development and evaluation.')
@@ -7261,7 +7261,7 @@ class PrototypeFeatureEntry {
 ///
 /// Classification and implications of the prototype type.
 @SectionId('PRTYSE')
-class PrototypeTypeSection {
+class PrototypeType {
   @Form([
     Field('prototypeType', String, 'Prototype Type', required: true,
         hint: 'Reusable, Training, Throwaway'),

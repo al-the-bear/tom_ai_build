@@ -18,12 +18,12 @@ class AssumptionsConstraintsDependencies {
   String? content;
 
   /// The consolidated assumption / constraint register.
-  AssumptionConstraintRegister register = AssumptionConstraintRegister();
+  AssumptionConstraintDependencyRegister register = AssumptionConstraintDependencyRegister();
 }
 
 /// A consolidated register of assumptions and constraints.
 @SectionId('ACRG')
-class AssumptionConstraintRegister {
+class AssumptionConstraintDependencyRegister {
   @Unused()
   String? content;
 

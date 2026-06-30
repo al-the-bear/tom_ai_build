@@ -89,7 +89,7 @@ authentication and authorization by defining who the users are.
     AccessUserCategories userCategories = AccessUserCategories();
 
   /// 9.1.2. User Lifecycle.
-  UserLifecycleSection userLifecycle = UserLifecycleSection();
+  UserLifecycle userLifecycle = UserLifecycle();
 
   /// 9.1.3. User Attributes.
   UserAttributes userAttributes = UserAttributes();
@@ -145,7 +145,7 @@ class UserCategoryDefinition {
 /// states, approval requirements for each transition, and operational policies
 /// for registration, activation, modification, deactivation, and deletion.
 @SectionId('USLCS')
-class UserLifecycleSection {
+class UserLifecycle {
   @ContentHelp('''
 Document the complete lifecycle of user accounts from creation to permanent
 deletion. A well-defined lifecycle ensures proper access control, auditability,

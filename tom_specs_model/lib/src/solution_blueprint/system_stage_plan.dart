@@ -38,13 +38,13 @@ class SystemStagePlan {
   String? content;
 
   /// Overall schedule and buffer model.
-  SystemStagePlanTimeline timeline = SystemStagePlanTimeline();
+  StagePlanTimeline timeline = StagePlanTimeline();
 
   /// Dependencies, risks, and compliance constraints across stages.
-  SystemStagePlanCoordination coordination = SystemStagePlanCoordination();
+  StagePlanCoordination coordination = StagePlanCoordination();
 
   /// Organizational capacity and plan confidence.
-  SystemStagePlanReadiness readiness = SystemStagePlanReadiness();
+  StagePlanReadiness readiness = StagePlanReadiness();
 
   /// 13.1. Staging Strategy.
   StagingStrategy strategy = StagingStrategy();
@@ -76,7 +76,7 @@ class SystemStagePlan {
 
 /// Overall schedule and buffer model.
 @SectionId('SSPTM')
-class SystemStagePlanTimeline {
+class StagePlanTimeline {
     @Form([
         Field('overallPlannedStart', String, 'Overall Planned Start Date',
                 hint: 'Start date of the first stage'),
@@ -95,7 +95,7 @@ class SystemStagePlanTimeline {
 
 /// Dependencies, risks, and compliance constraints across stages.
 @SectionId('SSPCO')
-class SystemStagePlanCoordination {
+class StagePlanCoordination {
     @Form([
         Field('crossStageDependencySummary', String,
                 'Cross-Stage Dependency Summary',
@@ -116,7 +116,7 @@ class SystemStagePlanCoordination {
 
 /// Organizational capacity and plan confidence.
 @SectionId('SSPRD')
-class SystemStagePlanReadiness {
+class StagePlanReadiness {
     @Form([
         Field('organizationalReadinessLevel', String,
                 'Organizational Readiness Level',

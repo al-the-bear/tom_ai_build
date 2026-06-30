@@ -163,7 +163,7 @@ class ArchitecturePrincipleEntry;
 class ArchitecturePrincipleEntryGovernance;
 class ArchitecturePrincipleEntryGuidance;
 class ArchitectureStyle;
-class AssumptionConstraintRegister;
+class AssumptionConstraintDependencyRegister;
 class AssumptionRegisterEntry;
 class AssumptionsConstraintsDependencies;
 class AttributeInterdependencyEntry;
@@ -279,6 +279,7 @@ class BusinessComponentEntryDescription;
 class BusinessComponentEntryInterface;
 class BusinessComponentEntryReuse;
 class BusinessComponentEntryTesting;
+class BusinessDomain;
 class BusinessGoalEntry;
 class BusinessGoalEntryDefinition;
 class BusinessGoalEntryGovernance;
@@ -472,8 +473,10 @@ class ComplianceVerificationSectionTools;
 class ComponentActionEntry;
 class ComponentActionEntryExecution;
 class ComponentActionEntryGovernance;
+class ComponentApproach;
 class ComponentCompliance;
 class ComponentCost;
+class ComponentCustomization;
 class ComponentDeployment;
 class ComponentDocs;
 class ComponentEntry;
@@ -543,7 +546,8 @@ class ComponentVariantEntry;
 class ComponentVariantEntryBehavior;
 class ComponentVariantEntryVisual;
 class ComponentVendor;
-class ComponentsToUse;
+class ComponentVisualLanguage;
+class ComponentsAndDependencies;
 class ComputeResourceRequirements;
 class ComputeResourceRequirementsGpu;
 class ComputeResourceRequirementsMemory;
@@ -611,13 +615,13 @@ class CurrentBusinessProcesses;
 class CurrentDataClassification;
 class CurrentDataLandscape;
 class CurrentLandscape;
-class CurrentOperationalMetrics;
+class CurrentOperationalMetric;
 class CurrentProcessImprovementEntry;
 class CurrentStateRiskAssessment;
 class CurrentWorkflowEntry;
 class CustomDistributionGroup;
 class CustomMetricEntry;
-class CutoverProcedures;
+class CutoverProcedure;
 class D00SolutionBlueprint;
 class D01CurrentLandscapeAssessment;
 class D02TargetOperatingModel;
@@ -859,6 +863,7 @@ class DesignPatternEntryEnforcement;
 class DesignPatternEntryImplementation;
 class DesignPatternEntryStructure;
 class DesignPatternsAndStandards;
+class DesignPrincipleEntry;
 class DesignPrinciples;
 class DesignPrinciplesOverview;
 class DesignVision;
@@ -867,7 +872,7 @@ class DesktopOsRequirementEntryRequirements;
 class DesktopOsRequirementEntrySoftware;
 class DesktopOsRequirementEntrySupport;
 class DesktopOsRequirementEntryTesting;
-class DetailedProcessWorkflows;
+class DetailedProcessWorkflow;
 class DeveloperOnboarding;
 class DeveloperOnboardingAccess;
 class DeveloperOnboardingFirstTasks;
@@ -975,7 +980,7 @@ class EncryptedDataCategoryEntry;
 class EncryptionAtRest;
 class EncryptionAtRestPolicy;
 class EncryptionInTransit;
-class EndToEndTestScenarios;
+class EndToEndTestScenario;
 class EnterpriseSystemCompatibilityEntry;
 class EnterpriseSystemCompatibilityEntryIntegration;
 class EnterpriseSystemCompatibilityEntryRequirements;
@@ -1018,10 +1023,10 @@ class EquipmentRequirements;
 class ErrorBudgetTracking;
 class ErrorBudgetTrackingGovernance;
 class ErrorBudgetTrackingMonitoring;
-class ErrorHandlingConcept;
-class ErrorHandlingConceptAccessibility;
-class ErrorHandlingConceptClassification;
-class ErrorHandlingConceptOperations;
+class ErrorHandling;
+class ErrorHandlingAccessibility;
+class ErrorHandlingClassification;
+class ErrorHandlingOperations;
 class ErrorHandlingStandards;
 class ErrorHandlingStandardsExceptions;
 class ErrorHandlingStandardsPatterns;
@@ -1159,7 +1164,6 @@ class FlexibilityExtensibility;
 class FlexibilityModularity;
 class FragilePointEntry;
 class FrameworkCompatibility;
-class FrameworkConditions;
 class FrameworkIdentity;
 class FrameworkJustification;
 class FrameworkRequirementEntry;
@@ -1219,9 +1223,6 @@ class HealthCheckEndpointsConfiguration;
 class HealthCheckEndpointsContent;
 class HealthCheckEndpointsTiming;
 class HealthChecksAndDiagnosticsSection;
-class HelpConcept;
-class HelpConceptDelivery;
-class HelpConceptInsights;
 class HighAvailabilityRequirements;
 class HighAvailabilityRequirementsDisasterRecovery;
 class HighAvailabilityRequirementsFailover;
@@ -1450,6 +1451,7 @@ class LegacyCompatibilityEntryConstraints;
 class LegacyCompatibilityEntryIntegration;
 class LegacyCompatibilityEntryMigration;
 class LegacyCompatibilityEntryRisk;
+class LegalAndContractualRequirements;
 class LiabilityLimitations;
 class LifecycleTransitionEntry;
 class LifecycleTransitionEntryConditions;
@@ -1466,10 +1468,12 @@ class LocalDevelopmentSetupRunning;
 class LocalDevelopmentSetupTesting;
 class LocalDevelopmentSetupTroubleshooting;
 class LocalDevelopmentSetupWorkflow;
+class LocaleHandlingRequirements;
+class LocaleRolloutPlan;
+class LocalizationDeployment;
+class LocalizationFormatting;
 class LocalizationProcess;
-class LocalizationProcessDeployment;
-class LocalizationProcessFormatting;
-class LocalizationProcessReview;
+class LocalizationReview;
 class LocalizationTranslationProcess;
 class LocalizationTranslationRequirements;
 class LogAggregationRequirements;
@@ -1636,9 +1640,7 @@ class MoscowEntryStageAssignment;
 class MoscowEntryTraceability;
 class MoscowEntryValue;
 class MultiChannelExperience;
-class MultiLanguageAndRollout;
-class MultiLanguageAndRolloutLocaleHandling;
-class MultiLanguageAndRolloutPlan;
+class MultiLanguageSupport;
 class MustPassCriteria;
 class MustPassCriterionEntry;
 class MustPassCriterionEntryDefinition;
@@ -1736,6 +1738,7 @@ class OngoingTrainingEntry;
 class OngoingTrainingEntryCompliance;
 class OngoingTrainingEntryContent;
 class OngoingTrainingEntrySchedule;
+class OperatingEnvironment;
 class OperationalMonitoring;
 class OperationalPainPoints;
 class OperationalPainPointsSummary;
@@ -1769,7 +1772,6 @@ class OsCompatibilityEntryLifecycle;
 class OsCompatibilityEntryRequirements;
 class OsCompatibilityEntrySupport;
 class OsCompatibilityEntryTesting;
-class OtherAdministrativeRequirements;
 class OtherAgreementEntry;
 class OutOfScope;
 class OutOfScopeEntry;
@@ -1859,7 +1861,7 @@ class PrimaryNavigation;
 class PrimaryNavigationBottomNav;
 class PrimaryNavigationDrawer;
 class PrimaryNavigationSidebar;
-class PrintLayout;
+class PrintAndExportLayout;
 class PrintLayoutArchive;
 class PrintLayoutBranding;
 class PrintLayoutHeaderFooter;
@@ -1922,12 +1924,12 @@ class ProcessInterdependencyMatrix;
 class ProcessKpiEntry;
 class ProcessKpiEntryMeasurement;
 class ProcessKpiEntryOperations;
+class ProcessMetric;
 class ProcessMetricCategory;
 class ProcessMetricEntry;
 class ProcessMetricEntryMeasurement;
 class ProcessMetricEntryTargets;
 class ProcessMetrics;
-class ProcessMetricsAndKpis;
 class ProcessOutputEntry;
 class ProcessOverviewDiagram;
 class ProcessPainPoints;
@@ -1981,7 +1983,7 @@ class PrototypeGoalsRisk;
 class PrototypeGovernance;
 class PrototypeResources;
 class PrototypeTimeline;
-class PrototypeTypeSection;
+class PrototypeType;
 class PwaRequirements;
 class PwaRequirementsIcons;
 class PwaRequirementsInstallation;
@@ -2253,7 +2255,7 @@ class RollbackStrategyOperations;
 class RollbackStrategyTargets;
 class RollbackStrategyTriggers;
 class RolloutPlan;
-class RolloutTrainingMaterials;
+class RolloutTrainingMaterial;
 class RowLevelSecurityPolicy;
 class RpoRtoRequirements;
 class RpoRtoRequirementsByTier;
@@ -2508,6 +2510,7 @@ class SolutionArchitectureAndTechnology;
 class SpecializedEquipmentEntry;
 class SpecializedEquipmentEntryPlanning;
 class SpecializedEquipmentEntryTechnical;
+class SpecificationStatus;
 class SsoPolicy;
 class StaffingBudget;
 class StaffingBudgetAllocations;
@@ -2555,6 +2558,9 @@ class StageOverviewResources;
 class StageOverviewRisk;
 class StageOverviewSchedule;
 class StageOverviewStatus;
+class StagePlanCoordination;
+class StagePlanReadiness;
+class StagePlanTimeline;
 class StageQuality;
 class StageResources;
 class StageRisk;
@@ -2636,6 +2642,8 @@ class SystemBusinessCriticalityGovernance;
 class SystemBusinessCriticalityOperations;
 class SystemBusinessProcessEntry;
 class SystemBusinessUnitEntry;
+class SystemClassification;
+class SystemComplexity;
 class SystemConfigurationManagement;
 class SystemConfigurationManagementDynamic;
 class SystemConfigurationManagementEnvironment;
@@ -2683,21 +2691,15 @@ class SystemMigrationPlanExecution;
 class SystemMigrationRiskEntry;
 class SystemOperation;
 class SystemOperationAndMonitoring;
-class SystemOverviewSummary;
-class SystemOverviewSummaryClassification;
-class SystemOverviewSummaryComplexity;
-class SystemOverviewSummaryScale;
-class SystemOverviewSummaryStatus;
 class SystemPurpose;
 class SystemQualityGoals;
 class SystemReplacementStrategy;
 class SystemReplacementStrategyCutover;
 class SystemReplacementStrategyTimeline;
-class SystemRolloutConcept;
+class SystemRollout;
+class SystemScale;
 class SystemStagePlan;
-class SystemStagePlanCoordination;
-class SystemStagePlanReadiness;
-class SystemStagePlanTimeline;
+class SystemSummary;
 class SystemTaskEntry;
 class SystemTaskEntryContext;
 class SystemTaskEntryData;
@@ -2724,13 +2726,12 @@ class TabBarDefinitionEntryBehavior;
 class TabBarDefinitionEntryLoading;
 class TabItemEntry;
 class TargetBusinessProcessModel;
-class TargetOperatingModelConcept;
+class TargetOperatingModel;
 class TargetPlatformEntry;
 class TargetPlatformEntryArchitecture;
 class TargetPlatformEntryLifecycle;
 class TargetPlatformEntryRequirements;
 class TargetPlatformEntryVersion;
-class TaskArea;
 class TeamMemberAvailability;
 class TeamMemberEntry;
 class TeamMemberEntryAllocation;
@@ -2743,12 +2744,12 @@ class TeamStructureOverview;
 class TechnicalCharacteristicEntry;
 class TechnicalConstraintEntry;
 class TechnicalDependencyEntry;
+class TechnicalEnvironment;
+class TechnicalEnvironmentGovernance;
+class TechnicalEnvironmentNetwork;
+class TechnicalEnvironmentSecurity;
+class TechnicalEnvironmentStandards;
 class TechnicalFrameworkConcept;
-class TechnicalFrameworkConditions;
-class TechnicalFrameworkConditionsGovernance;
-class TechnicalFrameworkConditionsNetwork;
-class TechnicalFrameworkConditionsSecurity;
-class TechnicalFrameworkConditionsStandards;
 class TechnicalGoalConstraints;
 class TechnicalGoalDependencies;
 class TechnicalGoalEntry;
@@ -2898,17 +2899,17 @@ class TransitionSuccessMetrics;
 class TransitionSupportOverview;
 class TransitionSupportResourceEntry;
 class TransitionSupportStructure;
+class TranslationOngoing;
 class TranslationProcess;
-class TranslationProcessOngoing;
-class TranslationProcessQuality;
-class TranslationProcessTerminology;
-class TranslationProcessWorkflow;
+class TranslationQuality;
 class TranslationRequirements;
 class TranslationRequirementsFormatting;
 class TranslationRequirementsRtl;
 class TranslationRequirementsTechnical;
 class TranslationRequirementsVariants;
+class TranslationTerminology;
 class TranslationVendorEntry;
+class TranslationWorkflow;
 class TransportSecurityPolicy;
 class TriggerOverview;
 class TroubleshootingCapabilities;
@@ -2944,10 +2945,6 @@ class UiComponentEntryScroll;
 class UiComponentEntrySpacing;
 class UiComponentEntrySurface;
 class UiComponents;
-class UiComponentsComponentApproach;
-class UiComponentsCustomization;
-class UiComponentsVisualLanguage;
-class UiDesignPrincipleEntry;
 class UpgradeCycleFramework;
 class Usability;
 class UsabilityClarity;
@@ -2964,6 +2961,9 @@ class UserAccessPermissionsGovernance;
 class UserAccessPermissionsRestrictions;
 class UserAccessibilityNeeds;
 class UserAccountStatesDefinition;
+class UserAssistance;
+class UserAssistanceDelivery;
+class UserAssistanceInsights;
 class UserAttributeEntry;
 class UserAttributes;
 class UserAuthorization;
@@ -2982,14 +2982,14 @@ class UserInteractionModel;
 class UserInteractionModelSummary;
 class UserJourney;
 class UserJourneyPainPointEntry;
-class UserLifecycleSection;
+class UserLifecycle;
 class UserLifecycleTransitionEntry;
 class UserLifecycleTransitionEntryApproval;
 class UserLifecycleTransitionEntryAutomation;
 class UserLifecycleTransitionEntryEffects;
 class UserLifecycleTransitions;
 class UserManagement;
-class UserManuals;
+class UserManual;
 class UserNotificationPreferences;
 class UserPersonaDetails;
 class UserPersonaDetailsBehavior;
@@ -3480,8 +3480,10 @@ class ComplianceVerificationSectionToolsContentForm;
 class ComponentActionEntryContentForm;
 class ComponentActionEntryExecutionContentForm;
 class ComponentActionEntryGovernanceContentForm;
+class ComponentApproachContentForm;
 class ComponentComplianceContentForm;
 class ComponentCostContentForm;
+class ComponentCustomizationContentForm;
 class ComponentDeploymentContentForm;
 class ComponentDocsContentForm;
 class ComponentEntryContentForm;
@@ -3549,6 +3551,7 @@ class ComponentVariantEntryBehaviorContentForm;
 class ComponentVariantEntryContentForm;
 class ComponentVariantEntryVisualContentForm;
 class ComponentVendorContentForm;
+class ComponentVisualLanguageContentForm;
 class ComputeResourceRequirementsContentForm;
 class ComputeResourceRequirementsGpuContentForm;
 class ComputeResourceRequirementsMemoryContentForm;
@@ -3814,6 +3817,7 @@ class DesignPatternEntryContextContentForm;
 class DesignPatternEntryEnforcementContentForm;
 class DesignPatternEntryImplementationContentForm;
 class DesignPatternEntryStructureContentForm;
+class DesignPrincipleEntryContentForm;
 class DesignPrinciplesOverviewContentForm;
 class DesktopOsRequirementEntryContentForm;
 class DesktopOsRequirementEntryRequirementsContentForm;
@@ -3956,10 +3960,10 @@ class EquipmentOverviewContentForm;
 class ErrorBudgetTrackingContentForm;
 class ErrorBudgetTrackingGovernanceContentForm;
 class ErrorBudgetTrackingMonitoringContentForm;
-class ErrorHandlingConceptAccessibilityContentForm;
-class ErrorHandlingConceptClassificationContentForm;
-class ErrorHandlingConceptErrorPhilosophyContentForm;
-class ErrorHandlingConceptOperationsContentForm;
+class ErrorHandlingAccessibilityContentForm;
+class ErrorHandlingClassificationContentForm;
+class ErrorHandlingErrorPhilosophyContentForm;
+class ErrorHandlingOperationsContentForm;
 class ErrorHandlingStandardsContentForm;
 class ErrorHandlingStandardsExceptionsContentForm;
 class ErrorHandlingStandardsPatternsContentForm;
@@ -4126,9 +4130,6 @@ class HealthCheckEndpointsConfigurationContentForm;
 class HealthCheckEndpointsContentContentForm;
 class HealthCheckEndpointsContentForm;
 class HealthCheckEndpointsTimingContentForm;
-class HelpConceptDeliveryContentForm;
-class HelpConceptHelpOverviewContentForm;
-class HelpConceptInsightsContentForm;
 class HighAvailabilityRequirementsContentForm;
 class HighAvailabilityRequirementsDisasterRecoveryContentForm;
 class HighAvailabilityRequirementsFailoverContentForm;
@@ -4343,10 +4344,12 @@ class LocalDevelopmentSetupRunningContentForm;
 class LocalDevelopmentSetupTestingContentForm;
 class LocalDevelopmentSetupTroubleshootingContentForm;
 class LocalDevelopmentSetupWorkflowContentForm;
-class LocalizationProcessDeploymentContentForm;
-class LocalizationProcessFormattingContentForm;
+class LocaleHandlingRequirementsContentForm;
+class LocaleRolloutPlanContentForm;
+class LocalizationDeploymentContentForm;
+class LocalizationFormattingContentForm;
 class LocalizationProcessLocalizationProcessContentForm;
-class LocalizationProcessReviewContentForm;
+class LocalizationReviewContentForm;
 class LogAggregationRequirementsAnalysisContentForm;
 class LogAggregationRequirementsCollectionContentForm;
 class LogAggregationRequirementsContentForm;
@@ -4498,9 +4501,7 @@ class MoscowEntryStageAssignmentContentForm;
 class MoscowEntryTraceabilityContentForm;
 class MoscowEntryValueContentForm;
 class MultiChannelExperienceMultiChannelConfigurationForm;
-class MultiLanguageAndRolloutLocaleHandlingContentForm;
-class MultiLanguageAndRolloutMultiLanguageOverviewForm;
-class MultiLanguageAndRolloutPlanContentForm;
+class MultiLanguageSupportMultiLanguageOverviewForm;
 class MustPassCriteriaMustPassOverviewContentForm;
 class MustPassCriterionEntryContentForm;
 class MustPassCriterionEntryDefinitionContentForm;
@@ -4686,9 +4687,9 @@ class PrimaryNavigationBottomNavContentForm;
 class PrimaryNavigationContentForm;
 class PrimaryNavigationDrawerContentForm;
 class PrimaryNavigationSidebarContentForm;
+class PrintAndExportLayoutContentForm;
 class PrintLayoutArchiveContentForm;
 class PrintLayoutBrandingContentForm;
-class PrintLayoutContentForm;
 class PrintLayoutHeaderFooterContentForm;
 class PrintLayoutPageSetupContentForm;
 class PrintLayoutWatermarkContentForm;
@@ -4784,7 +4785,7 @@ class PrototypeGovernanceContentForm;
 class PrototypePrototypeOverviewForm;
 class PrototypeResourcesContentForm;
 class PrototypeTimelineContentForm;
-class PrototypeTypeSectionPrototypeTypeOverviewForm;
+class PrototypeTypePrototypeTypeOverviewForm;
 class PwaRequirementsContentForm;
 class PwaRequirementsIconsContentForm;
 class PwaRequirementsInstallationContentForm;
@@ -5243,6 +5244,7 @@ class SoftwareLayerEntryTechnologyContentForm;
 class SpecializedEquipmentEntryContentForm;
 class SpecializedEquipmentEntryPlanningContentForm;
 class SpecializedEquipmentEntryTechnicalContentForm;
+class SpecificationStatusContentForm;
 class StaffingBudgetAllocationsContentForm;
 class StaffingBudgetContentForm;
 class StaffingBudgetGovernanceContentForm;
@@ -5288,6 +5290,9 @@ class StageOverviewResourcesContentForm;
 class StageOverviewRiskContentForm;
 class StageOverviewScheduleContentForm;
 class StageOverviewStatusContentForm;
+class StagePlanCoordinationContentForm;
+class StagePlanReadinessContentForm;
+class StagePlanTimelineContentForm;
 class StageQualityContentForm;
 class StageResourcesContentForm;
 class StageRiskContentForm;
@@ -5351,6 +5356,8 @@ class SystemBusinessCriticalityGovernanceContentForm;
 class SystemBusinessCriticalityOperationsContentForm;
 class SystemBusinessProcessEntryContentForm;
 class SystemBusinessUnitEntryContentForm;
+class SystemClassificationContentForm;
+class SystemComplexityContentForm;
 class SystemConfigurationManagementContentForm;
 class SystemConfigurationManagementDynamicContentForm;
 class SystemConfigurationManagementEnvironmentContentForm;
@@ -5391,19 +5398,13 @@ class SystemMigrationPlanContentForm;
 class SystemMigrationPlanCutoverContentForm;
 class SystemMigrationPlanExecutionContentForm;
 class SystemMigrationRiskEntryContentForm;
-class SystemOverviewSummaryClassificationContentForm;
-class SystemOverviewSummaryComplexityContentForm;
-class SystemOverviewSummaryContentForm;
-class SystemOverviewSummaryScaleContentForm;
-class SystemOverviewSummaryStatusContentForm;
 class SystemQualityGoalsGovernanceContentForm;
 class SystemReplacementStrategyContentForm;
 class SystemReplacementStrategyCutoverContentForm;
 class SystemReplacementStrategyTimelineContentForm;
+class SystemScaleContentForm;
 class SystemStagePlanContentForm;
-class SystemStagePlanCoordinationContentForm;
-class SystemStagePlanReadinessContentForm;
-class SystemStagePlanTimelineContentForm;
+class SystemSummaryContentForm;
 class SystemTaskEntryContentForm;
 class SystemTaskEntryContextContentForm;
 class SystemTaskEntryDataContentForm;
@@ -5444,11 +5445,11 @@ class TeamStructureOverviewContentForm;
 class TechnicalCharacteristicEntryContentForm;
 class TechnicalConstraintEntryContentForm;
 class TechnicalDependencyEntryContentForm;
-class TechnicalFrameworkConditionsGovernanceContentForm;
-class TechnicalFrameworkConditionsNetworkContentForm;
-class TechnicalFrameworkConditionsSecurityContentForm;
-class TechnicalFrameworkConditionsStandardsContentForm;
-class TechnicalFrameworkConditionsTechnicalOverviewContentForm;
+class TechnicalEnvironmentGovernanceContentForm;
+class TechnicalEnvironmentNetworkContentForm;
+class TechnicalEnvironmentSecurityContentForm;
+class TechnicalEnvironmentStandardsContentForm;
+class TechnicalEnvironmentTechnicalOverviewContentForm;
 class TechnicalGoalEntryContentForm;
 class TechnicalGoalEntryGovernanceContentForm;
 class TechnicalGoalEntryMeasurementContentForm;
@@ -5577,17 +5578,17 @@ class TransitionRiskEntryContentForm;
 class TransitionRiskEntryResponseContentForm;
 class TransitionSupportOverviewContentForm;
 class TransitionSupportResourceEntryContentForm;
-class TranslationProcessOngoingContentForm;
-class TranslationProcessQualityContentForm;
-class TranslationProcessTerminologyContentForm;
+class TranslationOngoingContentForm;
 class TranslationProcessTranslationProcessContentForm;
-class TranslationProcessWorkflowContentForm;
+class TranslationQualityContentForm;
 class TranslationRequirementsFormattingContentForm;
 class TranslationRequirementsRtlContentForm;
 class TranslationRequirementsTechnicalContentForm;
 class TranslationRequirementsTranslationRequirementsContentForm;
 class TranslationRequirementsVariantsContentForm;
+class TranslationTerminologyContentForm;
 class TranslationVendorEntryContentForm;
+class TranslationWorkflowContentForm;
 class TriggerOverviewContentForm;
 class TroubleshootingCapabilitiesAccessContentForm;
 class TroubleshootingCapabilitiesCommunicationContentForm;
@@ -5627,11 +5628,7 @@ class UiComponentEntryScrollContentForm;
 class UiComponentEntrySpacingContentForm;
 class UiComponentEntrySurfaceContentForm;
 class UiComponentEntryVisualDesignForm;
-class UiComponentsComponentApproachContentForm;
 class UiComponentsComponentLibraryOverviewForm;
-class UiComponentsCustomizationContentForm;
-class UiComponentsVisualLanguageContentForm;
-class UiDesignPrincipleEntryContentForm;
 class UsabilityClarityContentForm;
 class UsabilityContentForm;
 class UsabilityInteractionContentForm;
@@ -5645,6 +5642,9 @@ class UserAccessPermissionsGovernanceContentForm;
 class UserAccessPermissionsPermissionsFormForm;
 class UserAccessPermissionsRestrictionsContentForm;
 class UserAccessibilityNeedsAccessibilityFormForm;
+class UserAssistanceDeliveryContentForm;
+class UserAssistanceHelpOverviewContentForm;
+class UserAssistanceInsightsContentForm;
 class UserAttributeEntryContentForm;
 class UserCategoryDefinitionContentForm;
 class UserCategoryEntryContentForm;
@@ -7284,9 +7284,9 @@ class ArchitectureStyle : public som::SomNode {
 };
 
 // A consolidated register of assumptions and constraints.
-class AssumptionConstraintRegister : public som::SomNode {
+class AssumptionConstraintDependencyRegister : public som::SomNode {
  public:
-  AssumptionConstraintRegister(som::SpecDocument& doc, std::string path);
+  AssumptionConstraintDependencyRegister(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // Assumptions the solution depends on being true.
@@ -7318,7 +7318,7 @@ class AssumptionsConstraintsDependencies : public som::SomNode {
   std::string content() const;
   void setContent(const std::string& value);
   // The consolidated assumption / constraint register.
-  AssumptionConstraintRegister register_() const;
+  AssumptionConstraintDependencyRegister register_() const;
 };
 
 // A single attribute interdependency entry.
@@ -8470,6 +8470,33 @@ class BusinessComponentEntryTesting : public som::SomNode {
   BusinessComponentEntryTestingContentForm content() const;
 };
 
+// 4.1.3. Description of Business Domain.
+//
+// Describes the business domain and task area the system addresses.
+// Defines the domain vocabulary and key concepts (ubiquitous language)
+// that will be used throughout the project. Based on Domain-Driven Design
+// principles for establishing a shared understanding.
+class BusinessDomain : public som::SomNode {
+ public:
+  BusinessDomain(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 4.1.3.1. Domain Overview.
+  DomainOverview domainOverview() const;
+  // 4.1.3.2. Domain Vocabulary.
+  DomainVocabulary domainVocabulary() const;
+  // 4.1.3.3. Key Concepts.
+  KeyConcepts keyConcepts() const;
+  // 4.1.3.4. Domain Boundaries.
+  DomainBoundaries domainBoundaries() const;
+  // 4.1.3.5. Business Rules.
+  DomainBusinessRules businessRules() const;
+  // 4.1.3.6. Domain Processes.
+  DomainProcesses domainProcesses() const;
+  // 4.1.3.7. Domain Events.
+  DomainEvents domainEvents() const;
+};
+
 // A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
@@ -8715,14 +8742,14 @@ class BusinessProcessDescriptions : public som::SomNode {
   // 6.1.6. Process Relationships.
   ProcessRelationships processRelationships() const;
   // 6.1.7. Detailed Process Workflows.
-  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+  // Returns the list view; element type: DetailedProcessWorkflow (construct from item paths).
   som::SomList detailedWorkflows() const;
   // 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis crossProcessAnalysis() const;
   // 6.1.9. Process Exception Handling.
   ProcessExceptionHandling exceptionHandling() const;
   // 6.1.10. Process Metrics and KPIs.
-  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+  // Returns the list view; element type: ProcessMetric (construct from item paths).
   som::SomList processMetricsAndKpis() const;
 };
 
@@ -10450,6 +10477,13 @@ class ComponentActionEntryGovernance : public som::SomNode {
   ComponentActionEntryGovernanceContentForm content() const;
 };
 
+// Component naming and documentation approach.
+class ComponentApproach : public som::SomNode {
+ public:
+  ComponentApproach(som::SpecDocument& doc, std::string path);
+  ComponentApproachContentForm content() const;
+};
+
 // Compliance for component.
 class ComponentCompliance : public som::SomNode {
  public:
@@ -10462,6 +10496,13 @@ class ComponentCost : public som::SomNode {
  public:
   ComponentCost(som::SpecDocument& doc, std::string path);
   ComponentCostContentForm content() const;
+};
+
+// Extension and theming boundaries.
+class ComponentCustomization : public som::SomNode {
+ public:
+  ComponentCustomization(som::SpecDocument& doc, std::string path);
+  ComponentCustomizationContentForm content() const;
 };
 
 // Deployment for component.
@@ -11134,15 +11175,22 @@ class ComponentVendor : public som::SomNode {
   ComponentVendorContentForm content() const;
 };
 
-// 12. Components to Use. Seeds → ATS.
+// Visual language and brand alignment.
+class ComponentVisualLanguage : public som::SomNode {
+ public:
+  ComponentVisualLanguage(som::SpecDocument& doc, std::string path);
+  ComponentVisualLanguageContentForm content() const;
+};
+
+// 12. Components and Dependencies. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
-class ComponentsToUse : public som::SomNode {
+class ComponentsAndDependencies : public som::SomNode {
  public:
-  ComponentsToUse(som::SpecDocument& doc, std::string path);
+  ComponentsAndDependencies(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // 12.1. Component Strategy.
@@ -11902,7 +11950,7 @@ class CurrentLandscape : public som::SomNode {
   // 1.4. Current Data Landscape.
   CurrentDataLandscape currentDataLandscape() const;
   // 1.5. Operational Metrics.
-  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+  // Returns the list view; element type: CurrentOperationalMetric (construct from item paths).
   som::SomList operationalMetrics() const;
   // 1.6. Current State Risks.
   CurrentStateRiskAssessment currentStateRisks() const;
@@ -11913,9 +11961,9 @@ class CurrentLandscape : public som::SomNode {
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
 // derive non-functional requirements.
-class CurrentOperationalMetrics : public som::SomNode {
+class CurrentOperationalMetric : public som::SomNode {
  public:
-  CurrentOperationalMetrics(som::SpecDocument& doc, std::string path);
+  CurrentOperationalMetric(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -12002,9 +12050,9 @@ class CustomMetricEntry : public som::SomNode {
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
-class CutoverProcedures : public som::SomNode {
+class CutoverProcedure : public som::SomNode {
  public:
-  CutoverProcedures(som::SpecDocument& doc, std::string path);
+  CutoverProcedure(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -12038,7 +12086,7 @@ class D00SolutionBlueprint : public som::SomNode {
   // SBP.6 Assumptions, Constraints & Dependencies.
   AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() const;
   // SBP.7 Target Operating Model concept. Seeds → TOM.
-  TargetOperatingModelConcept targetOperatingModelConcept() const;
+  TargetOperatingModel targetOperatingModelConcept() const;
   // SBP.8 Information & Data Model. Seeds → IFM.
   InformationAndDataModel informationAndDataModel() const;
   // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
@@ -12083,7 +12131,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   // Current data landscape.
   CurrentDataLandscape currentDataLandscape() const;
   // Current operational metrics.
-  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+  // Returns the list view; element type: CurrentOperationalMetric (construct from item paths).
   som::SomList operationalMetrics() const;
   // Current-state risk assessment.
   CurrentStateRiskAssessment currentStateRisks() const;
@@ -12125,14 +12173,14 @@ class D02TargetOperatingModel : public som::SomNode {
   // Process relationships.
   ProcessRelationships processRelationships() const;
   // Detailed process workflows.
-  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+  // Returns the list view; element type: DetailedProcessWorkflow (construct from item paths).
   som::SomList detailedWorkflows() const;
   // Cross-process analysis.
   CrossProcessAnalysis crossProcessAnalysis() const;
   // Process exception handling.
   ProcessExceptionHandling exceptionHandling() const;
   // Process metrics and KPIs.
-  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+  // Returns the list view; element type: ProcessMetric (construct from item paths).
   som::SomList processMetricsAndKpis() const;
 };
 
@@ -12260,7 +12308,7 @@ class D05InteractionScenarios : public som::SomNode {
   // Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram() const;
   // End-to-end test scenarios.
-  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+  // Returns the list view; element type: EndToEndTestScenario (construct from item paths).
   som::SomList endToEndTestScenarios() const;
   // Use case traceability.
   UseCaseTraceability useCaseTraceability() const;
@@ -12305,9 +12353,9 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   // System architecture (new in Phase A).
   SystemArchitectureSpec systemArchitecture() const;
   // Components to use (whole).
-  ComponentsToUse componentsToUse() const;
+  ComponentsAndDependencies componentsToUse() const;
   // Technical framework conditions (whole).
-  TechnicalFrameworkConditions technicalFrameworkConditions() const;
+  TechnicalEnvironment technicalEnvironment() const;
   // Translation handling requirements (whole).
   TranslationRequirements translationRequirements() const;
 };
@@ -12421,11 +12469,11 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   // Screen flow structure.
   ScreenFlowStructure screenFlow() const;
   // Print layout.
-  PrintLayout printLayout() const;
+  PrintAndExportLayout printLayout() const;
   // Error handling concept.
-  ErrorHandlingConcept errorHandling() const;
+  ErrorHandling errorHandling() const;
   // Help concept.
-  HelpConcept helpConcept() const;
+  UserAssistance userAssistance() const;
   // Accessibility.
   Accessibility accessibility() const;
   // Responsive design.
@@ -12574,15 +12622,15 @@ class D12TransitionRolloutPlan : public som::SomNode {
   // Migration plan.
   MigrationPlan migrationPlan() const;
   // User manuals.
-  // Returns the list view; element type: UserManuals (construct from item paths).
+  // Returns the list view; element type: UserManual (construct from item paths).
   som::SomList userManuals() const;
   // Training materials.
-  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+  // Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
   som::SomList trainingMaterials() const;
   // Pilot plan.
   PilotPlan pilotPlan() const;
   // Cutover procedures.
-  // Returns the list view; element type: CutoverProcedures (construct from item paths).
+  // Returns the list view; element type: CutoverProcedure (construct from item paths).
   som::SomList cutoverProcedures() const;
   // Knowledge transfer.
   KnowledgeTransfer knowledgeTransfer() const;
@@ -14309,13 +14357,13 @@ class DeliveryTransitionAndRollout : public som::SomNode {
   // Staged delivery / phase plan.
   SystemStagePlan systemStagePlan() const;
   // Rollout and transition concept.
-  SystemRolloutConcept systemRolloutConcept() const;
+  SystemRollout systemRollout() const;
   // Localization & translation *execution* processes (re-homed from MLAR in
   // IP-6: the execution side of i18n, as opposed to the requirements that
   // live in SBP.9).
   LocalizationTranslationProcess localizationTranslationProcess() const;
   // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  MultiLanguageAndRolloutPlan multiLanguageRolloutPlan() const;
+  LocaleRolloutPlan localeRolloutPlan() const;
 };
 
 // 1.1.3. Dependencies and Integrations.
@@ -14919,6 +14967,15 @@ class DesignPatternsAndStandards : public som::SomNode {
   TestingStandards testingStandards() const;
 };
 
+// A design principle entry (form).
+//
+// Each principle guides UI decisions with rationale and examples.
+class DesignPrincipleEntry : public som::SomNode {
+ public:
+  DesignPrincipleEntry(som::SpecDocument& doc, std::string path);
+  DesignPrincipleEntryContentForm content() const;
+};
+
 // 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
@@ -14931,7 +14988,7 @@ class DesignPrinciples : public som::SomNode {
   // Overview of the design principle framework.
   // (skipped: overview has no target type)
   // Contains 0+× UiDesignPrinciple.
-  // Returns the list view; element type: UiDesignPrincipleEntry (construct from item paths).
+  // Returns the list view; element type: DesignPrincipleEntry (construct from item paths).
   som::SomList items() const;
 };
 
@@ -15006,9 +15063,9 @@ class DesktopOsRequirementEntryTesting : public som::SomNode {
 //
 // Per-process workflow detail beyond the catalog overview.
 // .
-class DetailedProcessWorkflows : public som::SomNode {
+class DetailedProcessWorkflow : public som::SomNode {
  public:
-  DetailedProcessWorkflows(som::SpecDocument& doc, std::string path);
+  DetailedProcessWorkflow(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -16101,9 +16158,9 @@ class EncryptionInTransit : public som::SomNode {
 //
 // Test scenarios that exercise complete user journeys across processes
 // and use cases..
-class EndToEndTestScenarios : public som::SomNode {
+class EndToEndTestScenario : public som::SomNode {
  public:
-  EndToEndTestScenarios(som::SpecDocument& doc, std::string path);
+  EndToEndTestScenario(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -16515,21 +16572,21 @@ class ErrorBudgetTrackingMonitoring : public som::SomNode {
   ErrorBudgetTrackingMonitoringContentForm content() const;
 };
 
-// 10.7. Error Handling Concept.
+// 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
 // UX best practices for error prevention, detection, and graceful recovery.
-class ErrorHandlingConcept : public som::SomNode {
+class ErrorHandling : public som::SomNode {
  public:
-  ErrorHandlingConcept(som::SpecDocument& doc, std::string path);
-  ErrorHandlingConceptErrorPhilosophyContentForm errorPhilosophyContent() const;
+  ErrorHandling(som::SpecDocument& doc, std::string path);
+  ErrorHandlingErrorPhilosophyContentForm errorPhilosophyContent() const;
   // Error categorization and display priority.
-  ErrorHandlingConceptClassification classification() const;
+  ErrorHandlingClassification classification() const;
   // Accessibility and inclusive error cues.
-  ErrorHandlingConceptAccessibility accessibility() const;
+  ErrorHandlingAccessibility accessibility() const;
   // Localization and analytics behavior.
-  ErrorHandlingConceptOperations operations() const;
+  ErrorHandlingOperations operations() const;
   // Error handling overview and strategy.
   // (skipped: errorHandlingOverview has no target type)
   // 10.7.1. Validation Feedback.
@@ -16545,24 +16602,24 @@ class ErrorHandlingConcept : public som::SomNode {
 };
 
 // Accessibility and inclusive error cues.
-class ErrorHandlingConceptAccessibility : public som::SomNode {
+class ErrorHandlingAccessibility : public som::SomNode {
  public:
-  ErrorHandlingConceptAccessibility(som::SpecDocument& doc, std::string path);
-  ErrorHandlingConceptAccessibilityContentForm content() const;
+  ErrorHandlingAccessibility(som::SpecDocument& doc, std::string path);
+  ErrorHandlingAccessibilityContentForm content() const;
 };
 
 // Error categorization and display priority.
-class ErrorHandlingConceptClassification : public som::SomNode {
+class ErrorHandlingClassification : public som::SomNode {
  public:
-  ErrorHandlingConceptClassification(som::SpecDocument& doc, std::string path);
-  ErrorHandlingConceptClassificationContentForm content() const;
+  ErrorHandlingClassification(som::SpecDocument& doc, std::string path);
+  ErrorHandlingClassificationContentForm content() const;
 };
 
 // Localization and analytics behavior.
-class ErrorHandlingConceptOperations : public som::SomNode {
+class ErrorHandlingOperations : public som::SomNode {
  public:
-  ErrorHandlingConceptOperations(som::SpecDocument& doc, std::string path);
-  ErrorHandlingConceptOperationsContentForm content() const;
+  ErrorHandlingOperations(som::SpecDocument& doc, std::string path);
+  ErrorHandlingOperationsContentForm content() const;
 };
 
 // Error handling and exception patterns.
@@ -16895,23 +16952,23 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   // 10.3. Screen Flow Structure. Seeds → XDS.
   ScreenFlowStructure screenFlow() const;
   // 10.4. Print Layout. Seeds → XDS.
-  PrintLayout printLayout() const;
+  PrintAndExportLayout printLayout() const;
   // Data Structure Alignment.
   // (skipped: dataStructureAlignment has no target type)
   // Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
-  // 10.7. Error Handling Concept. Seeds → XDS.
-  ErrorHandlingConcept errorHandling() const;
-  // 10.8. Help Concept. Seeds → XDS.
-  HelpConcept helpConcept() const;
+  // 10.7. Error Handling. Seeds → XDS.
+  ErrorHandling errorHandling() const;
+  // 10.8. User Assistance. Seeds → XDS.
+  UserAssistance userAssistance() const;
   // 10.9. Accessibility. Seeds → XDS.
   Accessibility accessibility() const;
   // 10.10. Responsive Design. Seeds → XDS.
   ResponsiveDesign responsiveDesign() const;
   // 10.11. UI Components. Seeds → XDS.
   UiComponents uiComponents() const;
-  // 10.12. Multi-language and Rollout Support.
-  MultiLanguageAndRollout multiLanguage() const;
+  // 10.12. Multi-language Support.
+  MultiLanguageSupport multiLanguageSupport() const;
   // 10.13. Prototype. Seeds → XDS.
   Prototype prototype() const;
   // 10.14. Wireframes and Mockups..
@@ -17984,27 +18041,6 @@ class FrameworkCompatibility : public som::SomNode {
   FrameworkCompatibilityContentForm content() const;
 };
 
-// 4.6. Framework Conditions.
-//
-// Documents the organizational and technical environment in which the system
-// will operate. Covers organizational structure, functional responsibilities,
-// technical constraints, and external dependencies. Follows TOGAF enterprise
-// context patterns and PMBOK environmental factors analysis.
-class FrameworkConditions : public som::SomNode {
- public:
-  FrameworkConditions(som::SpecDocument& doc, std::string path);
-  // Framework conditions overview.
-  // (skipped: overview has no target type)
-  // 4.6.1. Organizational Environment.
-  OrganizationalEnvironment organizationalEnvironment() const;
-  // 4.6.2. Functional Responsibilities — contains 0+×.
-  FunctionalResponsibilities functionalResponsibilities() const;
-  // 4.6.3. Technical Framework Conditions. Seeds → ATS.
-  TechnicalFrameworkConditions technicalFrameworkConditions() const;
-  // 4.6.4. Constraints and Dependencies — contains 0+×.
-  ConstraintsAndDependencies constraintsAndDependencies() const;
-};
-
 // Identity details.
 class FrameworkIdentity : public som::SomNode {
  public:
@@ -18645,44 +18681,6 @@ class HealthChecksAndDiagnosticsSection : public som::SomNode {
   TroubleshootingCapabilities troubleshooting() const;
   // Dependency health monitoring.
   DependencyHealthMonitoring dependencyHealth() const;
-};
-
-// 10.8. Help Concept.
-//
-// Comprehensive in-app help system including contextual help, onboarding,
-// and support access mechanisms.
-class HelpConcept : public som::SomNode {
- public:
-  HelpConcept(som::SpecDocument& doc, std::string path);
-  HelpConceptHelpOverviewContentForm helpOverviewContent() const;
-  // Content stewardship and help affordances.
-  HelpConceptDelivery delivery() const;
-  // Analytics and improvement feedback.
-  HelpConceptInsights insights() const;
-  // Help system overview narrative.
-  // (skipped: helpOverview has no target type)
-  // 10.8.1. Contextual Help.
-  ContextualHelp contextualHelp() const;
-  // 10.8.2. Onboarding.
-  OnboardingHelp onboarding() const;
-  // 10.8.3. Support Access.
-  SupportAccess supportAccess() const;
-  // Help content inventory.
-  // (skipped: helpContentInventory has no target type)
-};
-
-// Content stewardship and help affordances.
-class HelpConceptDelivery : public som::SomNode {
- public:
-  HelpConceptDelivery(som::SpecDocument& doc, std::string path);
-  HelpConceptDeliveryContentForm content() const;
-};
-
-// Analytics and improvement feedback.
-class HelpConceptInsights : public som::SomNode {
- public:
-  HelpConceptInsights(som::SpecDocument& doc, std::string path);
-  HelpConceptInsightsContentForm content() const;
 };
 
 // High availability requirements.
@@ -20333,7 +20331,7 @@ class InteroperabilityRequirementsTesting : public som::SomNode {
   InteroperabilityRequirementsTestingContentForm content() const;
 };
 
-// 4. System Overview.
+// 4. Introduction & Scope.
 //
 // High-level overview of the system to be built: its purpose, goals,
 // scope boundaries, and the environment it operates in. This section
@@ -20344,7 +20342,7 @@ class IntroductionAndScope : public som::SomNode {
   std::string content() const;
   void setContent(const std::string& value);
   // System overview summary statistics.
-  SystemOverviewSummary summary() const;
+  SystemSummary summary() const;
   // System context diagram showing major system boundaries.
   std::string systemContextDiagram() const;
   void setSystemContextDiagram(const std::string& value);
@@ -20358,8 +20356,8 @@ class IntroductionAndScope : public som::SomNode {
   SystemsToReplace systemsToReplace() const;
   // 4.5. System Boundaries. Seeds → IIS.
   SystemBoundaries systemBoundaries() const;
-  // 4.6. Framework Conditions.
-  FrameworkConditions frameworkConditions() const;
+  // 4.6. Operating Environment.
+  OperatingEnvironment operatingEnvironment() const;
   // 4.7. Risks and Assumptions.
   RisksAndAssumptions risksAndAssumptions() const;
 };
@@ -20963,6 +20961,31 @@ class LegacyCompatibilityEntryRisk : public som::SomNode {
   LegacyCompatibilityEntryRiskContentForm content() const;
 };
 
+// 3.6. Other Administrative Requirements.
+//
+// Additional administrative agreements, constraints, or requirements not
+// covered by other sections: IP ownership, NDAs, regulatory compliance,
+// audit requirements, and other legal or organizational agreements.
+class LegalAndContractualRequirements : public som::SomNode {
+ public:
+  LegalAndContractualRequirements(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 3.6.1. Intellectual Property.
+  IntellectualPropertyRequirements intellectualProperty() const;
+  // 3.6.2. Confidentiality and NDAs.
+  ConfidentialityRequirements confidentiality() const;
+  // 3.6.3. Regulatory Compliance.
+  RegulatoryComplianceRequirements regulatoryCompliance() const;
+  // 3.6.4. Audit Requirements.
+  AuditRequirements auditRequirements() const;
+  // 3.6.5. Insurance and Liability.
+  InsuranceLiabilityRequirements insuranceLiability() const;
+  // 3.6.6. Other Agreements — contains 0+× Agreement.
+  // Returns the list view; element type: OtherAgreementEntry (construct from item paths).
+  som::SomList otherAgreements() const;
+};
+
 // Liability limitations.
 class LiabilityLimitations : public som::SomNode {
  public:
@@ -21099,6 +21122,34 @@ class LocalDevelopmentSetupWorkflow : public som::SomNode {
   LocalDevelopmentSetupWorkflowContentForm content() const;
 };
 
+// Locale modeling and fallback behavior.
+class LocaleHandlingRequirements : public som::SomNode {
+ public:
+  LocaleHandlingRequirements(som::SpecDocument& doc, std::string path);
+  LocaleHandlingRequirementsContentForm content() const;
+};
+
+// Rollout sequencing by region and time.
+class LocaleRolloutPlan : public som::SomNode {
+ public:
+  LocaleRolloutPlan(som::SpecDocument& doc, std::string path);
+  LocaleRolloutPlanContentForm content() const;
+};
+
+// Deployment settings.
+class LocalizationDeployment : public som::SomNode {
+ public:
+  LocalizationDeployment(som::SpecDocument& doc, std::string path);
+  LocalizationDeploymentContentForm content() const;
+};
+
+// Formatting rules.
+class LocalizationFormatting : public som::SomNode {
+ public:
+  LocalizationFormatting(som::SpecDocument& doc, std::string path);
+  LocalizationFormattingContentForm content() const;
+};
+
 // 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
@@ -21107,43 +21158,29 @@ class LocalizationProcess : public som::SomNode {
   LocalizationProcess(som::SpecDocument& doc, std::string path);
   LocalizationProcessLocalizationProcessContentForm localizationProcessContent() const;
   // Review process.
-  LocalizationProcessReview review() const;
+  LocalizationReview review() const;
   // Formatting rules.
-  LocalizationProcessFormatting formatting() const;
+  LocalizationFormatting formatting() const;
   // Deployment settings.
-  LocalizationProcessDeployment deployment() const;
+  LocalizationDeployment deployment() const;
   // Localization process narrative.
   // (skipped: localizationNarrative has no target type)
   // Localization workflow diagram.
   // (skipped: workflowDiagram has no target type)
 };
 
-// Deployment settings.
-class LocalizationProcessDeployment : public som::SomNode {
- public:
-  LocalizationProcessDeployment(som::SpecDocument& doc, std::string path);
-  LocalizationProcessDeploymentContentForm content() const;
-};
-
-// Formatting rules.
-class LocalizationProcessFormatting : public som::SomNode {
- public:
-  LocalizationProcessFormatting(som::SpecDocument& doc, std::string path);
-  LocalizationProcessFormattingContentForm content() const;
-};
-
 // Review process.
-class LocalizationProcessReview : public som::SomNode {
+class LocalizationReview : public som::SomNode {
  public:
-  LocalizationProcessReview(som::SpecDocument& doc, std::string path);
-  LocalizationProcessReviewContentForm content() const;
+  LocalizationReview(som::SpecDocument& doc, std::string path);
+  LocalizationReviewContentForm content() const;
 };
 
 // Localization & Translation execution processes.
 //
 // Public anchor: ISO 29148 transition requirements. Bundles the localization
 // and translation *workflow* concerns re-homed from the former
-// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// `MultiLanguageSupport` cluster (their requirement counterparts live in
 // SBP.9 [LocalizationTranslationRequirements]).
 class LocalizationTranslationProcess : public som::SomNode {
  public:
@@ -21168,7 +21205,7 @@ class LocalizationTranslationRequirements : public som::SomNode {
   // Technical internationalization requirements (re-homed from MLAR).
   TranslationRequirements translationRequirements() const;
   // Locale modeling and fallback requirements (re-homed from MLAR).
-  MultiLanguageAndRolloutLocaleHandling localeHandling() const;
+  LocaleHandlingRequirements localeHandling() const;
 };
 
 // Log aggregation and analysis requirements.
@@ -22781,17 +22818,17 @@ class MultiChannelExperience : public som::SomNode {
   MultiChannelExperienceMultiChannelConfigurationForm multiChannelConfiguration() const;
 };
 
-// 10.12. Multi-language and Rollout Support.
+// 10.12. Multi-language Support.
 //
 // Locale-picker / UX-side multi-language concerns that stay on the
 // Experience & Interface Design side. IP-6 re-homed the requirement-side
 // concerns (i18n requirements, documentation, training) to SBP.9 and the
 // execution-side concerns (localization/translation processes, rollout
 // sequencing) to SBP.15; only the stay-put UX members remain here.
-class MultiLanguageAndRollout : public som::SomNode {
+class MultiLanguageSupport : public som::SomNode {
  public:
-  MultiLanguageAndRollout(som::SpecDocument& doc, std::string path);
-  MultiLanguageAndRolloutMultiLanguageOverviewForm multiLanguageOverview() const;
+  MultiLanguageSupport(som::SpecDocument& doc, std::string path);
+  MultiLanguageSupportMultiLanguageOverviewForm multiLanguageOverview() const;
   // Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
   // 10.12.4. Language and Country Selection.
@@ -22799,20 +22836,6 @@ class MultiLanguageAndRollout : public som::SomNode {
   // Supported locale entries.
   // Returns the list view; element type: SupportedLocaleEntry (construct from item paths).
   som::SomList supportedLocales() const;
-};
-
-// Locale modeling and fallback behavior.
-class MultiLanguageAndRolloutLocaleHandling : public som::SomNode {
- public:
-  MultiLanguageAndRolloutLocaleHandling(som::SpecDocument& doc, std::string path);
-  MultiLanguageAndRolloutLocaleHandlingContentForm content() const;
-};
-
-// Rollout sequencing by region and time.
-class MultiLanguageAndRolloutPlan : public som::SomNode {
- public:
-  MultiLanguageAndRolloutPlan(som::SpecDocument& doc, std::string path);
-  MultiLanguageAndRolloutPlanContentForm content() const;
 };
 
 // 11.7.1. Must-Pass Criteria.
@@ -23764,6 +23787,27 @@ class OngoingTrainingEntrySchedule : public som::SomNode {
   OngoingTrainingEntryScheduleContentForm content() const;
 };
 
+// 4.6. Operating Environment.
+//
+// Documents the organizational and technical environment in which the system
+// will operate. Covers organizational structure, functional responsibilities,
+// technical constraints, and external dependencies. Follows TOGAF enterprise
+// context patterns and PMBOK environmental factors analysis.
+class OperatingEnvironment : public som::SomNode {
+ public:
+  OperatingEnvironment(som::SpecDocument& doc, std::string path);
+  // Framework conditions overview.
+  // (skipped: overview has no target type)
+  // 4.6.1. Organizational Environment.
+  OrganizationalEnvironment organizationalEnvironment() const;
+  // 4.6.2. Functional Responsibilities — contains 0+×.
+  FunctionalResponsibilities functionalResponsibilities() const;
+  // 4.6.3. Technical Environment. Seeds → ATS.
+  TechnicalEnvironment technicalEnvironment() const;
+  // 4.6.4. Constraints and Dependencies — contains 0+×.
+  ConstraintsAndDependencies constraintsAndDependencies() const;
+};
+
 // 11.4.3. Monitoring quality.
 class OperationalMonitoring : public som::SomNode {
  public:
@@ -24169,31 +24213,6 @@ class OsCompatibilityEntryTesting : public som::SomNode {
  public:
   OsCompatibilityEntryTesting(som::SpecDocument& doc, std::string path);
   OsCompatibilityEntryTestingContentForm content() const;
-};
-
-// 3.6. Other Administrative Requirements.
-//
-// Additional administrative agreements, constraints, or requirements not
-// covered by other sections: IP ownership, NDAs, regulatory compliance,
-// audit requirements, and other legal or organizational agreements.
-class OtherAdministrativeRequirements : public som::SomNode {
- public:
-  OtherAdministrativeRequirements(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 3.6.1. Intellectual Property.
-  IntellectualPropertyRequirements intellectualProperty() const;
-  // 3.6.2. Confidentiality and NDAs.
-  ConfidentialityRequirements confidentiality() const;
-  // 3.6.3. Regulatory Compliance.
-  RegulatoryComplianceRequirements regulatoryCompliance() const;
-  // 3.6.4. Audit Requirements.
-  AuditRequirements auditRequirements() const;
-  // 3.6.5. Insurance and Liability.
-  InsuranceLiabilityRequirements insuranceLiability() const;
-  // 3.6.6. Other Agreements — contains 0+× Agreement.
-  // Returns the list view; element type: OtherAgreementEntry (construct from item paths).
-  som::SomList otherAgreements() const;
 };
 
 // An other agreement entry.
@@ -25105,10 +25124,10 @@ class PrimaryNavigationSidebar : public som::SomNode {
 };
 
 // 10.4. Print Layout.
-class PrintLayout : public som::SomNode {
+class PrintAndExportLayout : public som::SomNode {
  public:
-  PrintLayout(som::SpecDocument& doc, std::string path);
-  PrintLayoutContentForm content() const;
+  PrintAndExportLayout(som::SpecDocument& doc, std::string path);
+  PrintAndExportLayoutContentForm content() const;
   // Page margins and setup.
   PrintLayoutPageSetup pageSetup() const;
   // Branding configuration.
@@ -25695,6 +25714,16 @@ class ProcessKpiEntryOperations : public som::SomNode {
   ProcessKpiEntryOperationsContentForm content() const;
 };
 
+// 6.1.10. Process Metrics and KPIs.
+//
+// Process-level KPIs, SLAs, and measurement strategy.
+class ProcessMetric : public som::SomNode {
+ public:
+  ProcessMetric(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+};
+
 // A category of process metrics.
 class ProcessMetricCategory : public som::SomNode {
  public:
@@ -25765,16 +25794,6 @@ class ProcessMetrics : public som::SomNode {
   som::SomList items() const;
   // Baseline comparison table.
   MetricsBaselineTable baselineTable() const;
-};
-
-// 6.1.10. Process Metrics and KPIs.
-//
-// Process-level KPIs, SLAs, and measurement strategy.
-class ProcessMetricsAndKpis : public som::SomNode {
- public:
-  ProcessMetricsAndKpis(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
 };
 
 // A process output entry.
@@ -25951,7 +25970,7 @@ class ProcessStepsAndActorInteractions : public som::SomNode {
   // Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram() const;
   // 6.2.4. End-to-End Test Scenarios..
-  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+  // Returns the list view; element type: EndToEndTestScenario (construct from item paths).
   som::SomList endToEndTestScenarios() const;
   // 6.2.5. Use Case Traceability.
   UseCaseTraceability useCaseTraceability() const;
@@ -26236,7 +26255,7 @@ class Prototype : public som::SomNode {
   // 10.13.2. Selected Feature Subset.
   PrototypeFeatureSubset featureSubset() const;
   // 10.13.3. Prototype Type.
-  PrototypeTypeSection prototypeType() const;
+  PrototypeType prototypeType() const;
   // Prototype schedule.
   // (skipped: prototypeSchedule has no target type)
 };
@@ -26343,10 +26362,10 @@ class PrototypeTimeline : public som::SomNode {
 // 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
-class PrototypeTypeSection : public som::SomNode {
+class PrototypeType : public som::SomNode {
  public:
-  PrototypeTypeSection(som::SpecDocument& doc, std::string path);
-  PrototypeTypeSectionPrototypeTypeOverviewForm prototypeTypeOverview() const;
+  PrototypeType(som::SpecDocument& doc, std::string path);
+  PrototypeTypePrototypeTypeOverviewForm prototypeTypeOverview() const;
   // 10.13.3.1. Reusable Prototype.
   ReusablePrototype reusablePrototype() const;
   // 10.13.3.2. Training Prototype.
@@ -29014,9 +29033,9 @@ class RolloutPlan : public som::SomNode {
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
-class RolloutTrainingMaterials : public som::SomNode {
+class RolloutTrainingMaterial : public som::SomNode {
  public:
-  RolloutTrainingMaterials(som::SpecDocument& doc, std::string path);
+  RolloutTrainingMaterial(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -31531,7 +31550,7 @@ class SolutionArchitectureAndTechnology : public som::SomNode {
   // Technical framework and platform concept.
   TechnicalFrameworkConcept technicalFramework() const;
   // Components, libraries, and services to reuse.
-  ComponentsToUse componentsToUse() const;
+  ComponentsAndDependencies componentsToUse() const;
 };
 
 // Specialized equipment entry (form).
@@ -31557,6 +31576,13 @@ class SpecializedEquipmentEntryTechnical : public som::SomNode {
  public:
   SpecializedEquipmentEntryTechnical(som::SpecDocument& doc, std::string path);
   SpecializedEquipmentEntryTechnicalContentForm content() const;
+};
+
+// Specification status.
+class SpecificationStatus : public som::SomNode {
+ public:
+  SpecificationStatus(som::SpecDocument& doc, std::string path);
+  SpecificationStatusContentForm content() const;
 };
 
 // Single Sign-On (SSO) policy (form).
@@ -32060,6 +32086,27 @@ class StageOverviewStatus : public som::SomNode {
   StageOverviewStatusContentForm content() const;
 };
 
+// Dependencies, risks, and compliance constraints across stages.
+class StagePlanCoordination : public som::SomNode {
+ public:
+  StagePlanCoordination(som::SpecDocument& doc, std::string path);
+  StagePlanCoordinationContentForm content() const;
+};
+
+// Organizational capacity and plan confidence.
+class StagePlanReadiness : public som::SomNode {
+ public:
+  StagePlanReadiness(som::SpecDocument& doc, std::string path);
+  StagePlanReadinessContentForm content() const;
+};
+
+// Overall schedule and buffer model.
+class StagePlanTimeline : public som::SomNode {
+ public:
+  StagePlanTimeline(som::SpecDocument& doc, std::string path);
+  StagePlanTimelineContentForm content() const;
+};
+
 // Quality and governance for a stage entry.
 class StageQuality : public som::SomNode {
  public:
@@ -32443,7 +32490,7 @@ class StakeholdersAndGovernance : public som::SomNode {
   ChangeProcedure changeProcedure() const;
   // Legal and contractual requirements (IP, NDAs, compliance, audit).
   // Renamed to `LegalAndContractualRequirements` in L34C-9.
-  OtherAdministrativeRequirements legalAndContractual() const;
+  LegalAndContractualRequirements legalAndContractual() const;
   // Stakeholder register (§5 completeness addition).
   StakeholderRegister stakeholderRegister() const;
 };
@@ -32968,6 +33015,20 @@ class SystemBusinessUnitEntry : public som::SomNode {
   SystemBusinessUnitEntryContentForm content() const;
 };
 
+// System classification.
+class SystemClassification : public som::SomNode {
+ public:
+  SystemClassification(som::SpecDocument& doc, std::string path);
+  SystemClassificationContentForm content() const;
+};
+
+// Complexity indicators.
+class SystemComplexity : public som::SomNode {
+ public:
+  SystemComplexity(som::SpecDocument& doc, std::string path);
+  SystemComplexityContentForm content() const;
+};
+
 // System configuration management.
 class SystemConfigurationManagement : public som::SomNode {
  public:
@@ -33165,8 +33226,8 @@ class SystemDescription : public som::SomNode {
   SystemPurpose systemPurpose() const;
   // 4.1.2. System Context.
   SystemContext systemContext() const;
-  // 4.1.3. Description of Task Area.
-  TaskArea taskArea() const;
+  // 4.1.3. Description of Business Domain.
+  BusinessDomain businessDomain() const;
   // 4.1.4. User Categories — contains 1+× User Category.
   // Returns the list view; element type: UserCategoryEntry (construct from item paths).
   som::SomList userCategories() const;
@@ -33468,49 +33529,6 @@ class SystemOperationAndMonitoring : public som::SomNode {
   CapacityPlanningSection capacityPlanning() const;
 };
 
-// System overview summary for quick reference.
-class SystemOverviewSummary : public som::SomNode {
- public:
-  SystemOverviewSummary(som::SpecDocument& doc, std::string path);
-  SystemOverviewSummaryContentForm content() const;
-  // System classification.
-  SystemOverviewSummaryClassification classification() const;
-  // Scale indicators.
-  SystemOverviewSummaryScale scale() const;
-  // Specification status.
-  SystemOverviewSummaryStatus status() const;
-  // Complexity indicators.
-  SystemOverviewSummaryComplexity complexity() const;
-};
-
-// System classification.
-class SystemOverviewSummaryClassification : public som::SomNode {
- public:
-  SystemOverviewSummaryClassification(som::SpecDocument& doc, std::string path);
-  SystemOverviewSummaryClassificationContentForm content() const;
-};
-
-// Complexity indicators.
-class SystemOverviewSummaryComplexity : public som::SomNode {
- public:
-  SystemOverviewSummaryComplexity(som::SpecDocument& doc, std::string path);
-  SystemOverviewSummaryComplexityContentForm content() const;
-};
-
-// Scale indicators.
-class SystemOverviewSummaryScale : public som::SomNode {
- public:
-  SystemOverviewSummaryScale(som::SpecDocument& doc, std::string path);
-  SystemOverviewSummaryScaleContentForm content() const;
-};
-
-// Specification status.
-class SystemOverviewSummaryStatus : public som::SomNode {
- public:
-  SystemOverviewSummaryStatus(som::SpecDocument& doc, std::string path);
-  SystemOverviewSummaryStatusContentForm content() const;
-};
-
 // 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
@@ -33632,9 +33650,9 @@ class SystemReplacementStrategyTimeline : public som::SomNode {
 };
 
 // 15. System Rollout Concept. Seeds → TRP.
-class SystemRolloutConcept : public som::SomNode {
+class SystemRollout : public som::SomNode {
  public:
-  SystemRolloutConcept(som::SpecDocument& doc, std::string path);
+  SystemRollout(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // 15.1. Rollout Plan.
@@ -33642,20 +33660,27 @@ class SystemRolloutConcept : public som::SomNode {
   // 15.2. Migration Plan.
   MigrationPlan migrationPlan() const;
   // 15.3. User Manuals.
-  // Returns the list view; element type: UserManuals (construct from item paths).
+  // Returns the list view; element type: UserManual (construct from item paths).
   som::SomList userManuals() const;
   // 15.4. Training Materials.
-  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+  // Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
   som::SomList trainingMaterials() const;
   // 15.5. Pilot Plan.
   PilotPlan pilotPlan() const;
   // 15.6. Cutover Procedures.
-  // Returns the list view; element type: CutoverProcedures (construct from item paths).
+  // Returns the list view; element type: CutoverProcedure (construct from item paths).
   som::SomList cutoverProcedures() const;
   // 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer() const;
   // 15.8. Warranty and Support.
   WarrantyAndSupport warrantyAndSupport() const;
+};
+
+// Scale indicators.
+class SystemScale : public som::SomNode {
+ public:
+  SystemScale(som::SpecDocument& doc, std::string path);
+  SystemScaleContentForm content() const;
 };
 
 // 13. System Stage Plan. Seeds → DRM.
@@ -33671,11 +33696,11 @@ class SystemStagePlan : public som::SomNode {
   SystemStagePlan(som::SpecDocument& doc, std::string path);
   SystemStagePlanContentForm content() const;
   // Overall schedule and buffer model.
-  SystemStagePlanTimeline timeline() const;
+  StagePlanTimeline timeline() const;
   // Dependencies, risks, and compliance constraints across stages.
-  SystemStagePlanCoordination coordination() const;
+  StagePlanCoordination coordination() const;
   // Organizational capacity and plan confidence.
-  SystemStagePlanReadiness readiness() const;
+  StagePlanReadiness readiness() const;
   // 13.1. Staging Strategy.
   StagingStrategy strategy() const;
   // 13.2. Stage Overview.
@@ -33695,25 +33720,19 @@ class SystemStagePlan : public som::SomNode {
   UpgradeCycleFramework upgradeCycleFramework() const;
 };
 
-// Dependencies, risks, and compliance constraints across stages.
-class SystemStagePlanCoordination : public som::SomNode {
+// System overview summary for quick reference.
+class SystemSummary : public som::SomNode {
  public:
-  SystemStagePlanCoordination(som::SpecDocument& doc, std::string path);
-  SystemStagePlanCoordinationContentForm content() const;
-};
-
-// Organizational capacity and plan confidence.
-class SystemStagePlanReadiness : public som::SomNode {
- public:
-  SystemStagePlanReadiness(som::SpecDocument& doc, std::string path);
-  SystemStagePlanReadinessContentForm content() const;
-};
-
-// Overall schedule and buffer model.
-class SystemStagePlanTimeline : public som::SomNode {
- public:
-  SystemStagePlanTimeline(som::SpecDocument& doc, std::string path);
-  SystemStagePlanTimelineContentForm content() const;
+  SystemSummary(som::SpecDocument& doc, std::string path);
+  SystemSummaryContentForm content() const;
+  // System classification.
+  SystemClassification classification() const;
+  // Scale indicators.
+  SystemScale scale() const;
+  // Specification status.
+  SpecificationStatus status() const;
+  // Complexity indicators.
+  SystemComplexity complexity() const;
 };
 
 // A system task entry.
@@ -33998,9 +34017,9 @@ class TargetBusinessProcessModel : public som::SomNode {
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
-class TargetOperatingModelConcept : public som::SomNode {
+class TargetOperatingModel : public som::SomNode {
  public:
-  TargetOperatingModelConcept(som::SpecDocument& doc, std::string path);
+  TargetOperatingModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // Target organizational structure and roles.
@@ -34050,33 +34069,6 @@ class TargetPlatformEntryVersion : public som::SomNode {
  public:
   TargetPlatformEntryVersion(som::SpecDocument& doc, std::string path);
   TargetPlatformEntryVersionContentForm content() const;
-};
-
-// 4.1.3. Description of Task Area.
-//
-// Describes the business domain and task area the system addresses.
-// Defines the domain vocabulary and key concepts (ubiquitous language)
-// that will be used throughout the project. Based on Domain-Driven Design
-// principles for establishing a shared understanding.
-class TaskArea : public som::SomNode {
- public:
-  TaskArea(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 4.1.3.1. Domain Overview.
-  DomainOverview domainOverview() const;
-  // 4.1.3.2. Domain Vocabulary.
-  DomainVocabulary domainVocabulary() const;
-  // 4.1.3.3. Key Concepts.
-  KeyConcepts keyConcepts() const;
-  // 4.1.3.4. Domain Boundaries.
-  DomainBoundaries domainBoundaries() const;
-  // 4.1.3.5. Business Rules.
-  DomainBusinessRules businessRules() const;
-  // 4.1.3.6. Domain Processes.
-  DomainProcesses domainProcesses() const;
-  // 4.1.3.7. Domain Events.
-  DomainEvents domainEvents() const;
 };
 
 // Team member availability constraints.
@@ -34184,6 +34176,80 @@ class TechnicalDependencyEntry : public som::SomNode {
   TechnicalDependencyEntryContentForm content() const;
 };
 
+// 4.6.3. Technical Environment. Seeds → ATS.
+//
+// Documents pre-existing technical constraints including mandated platforms,
+// network restrictions, compliance requirements, existing infrastructure
+// that must be reused, and technology standards to follow. Provides the
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
+class TechnicalEnvironment : public som::SomNode {
+ public:
+  TechnicalEnvironment(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentTechnicalOverviewContentForm technicalOverviewContent() const;
+  // Architecture governance context.
+  TechnicalEnvironmentGovernance governance() const;
+  // Platform standards and preferred technologies.
+  TechnicalEnvironmentStandards standards() const;
+  // Security and compliance requirements.
+  TechnicalEnvironmentSecurity security() const;
+  // Network and infrastructure standards.
+  TechnicalEnvironmentNetwork network() const;
+  // Existing infrastructure that must be reused or integrated with.
+  // (skipped: existingInfrastructure has no target type)
+  // Data center and hosting environment details.
+  // Returns the list view; element type: DatacenterEntry (construct from item paths).
+  som::SomList datacenters() const;
+  // Network topology and connectivity constraints.
+  // (skipped: networkTopology has no target type)
+  // Technology standards that must be followed.
+  // (skipped: standardsOverview has no target type)
+  // Technology standards — contains 0+× TechnologyStandard.
+  // Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
+  som::SomList technologyStandards() const;
+  // Integration constraints overview.
+  // (skipped: integrationOverview has no target type)
+  // Integration constraints — contains 0+× IntegrationConstraint.
+  // Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
+  som::SomList integrationConstraints() const;
+};
+
+// Architecture governance context.
+class TechnicalEnvironmentGovernance : public som::SomNode {
+ public:
+  TechnicalEnvironmentGovernance(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentGovernanceContentForm content() const;
+};
+
+// Network and infrastructure standards.
+class TechnicalEnvironmentNetwork : public som::SomNode {
+ public:
+  TechnicalEnvironmentNetwork(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentNetworkContentForm content() const;
+  // DevOps and deployment standards.
+  // Returns the list view; element type: DevopsStandardEntry (construct from item paths).
+  som::SomList devopsStandards() const;
+  // Monitoring and observability requirements.
+  // Returns the list view; element type: ObservabilityRequirementEntry (construct from item paths).
+  som::SomList observabilityRequirements() const;
+  // Disaster recovery and business continuity requirements.
+  // (skipped: disasterRecovery has no target type)
+};
+
+// Security and compliance requirements.
+class TechnicalEnvironmentSecurity : public som::SomNode {
+ public:
+  TechnicalEnvironmentSecurity(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentSecurityContentForm content() const;
+};
+
+// Platform standards and preferred technologies.
+class TechnicalEnvironmentStandards : public som::SomNode {
+ public:
+  TechnicalEnvironmentStandards(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentStandardsContentForm content() const;
+};
+
 // 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept : public som::SomNode {
  public:
@@ -34208,80 +34274,6 @@ class TechnicalFrameworkConcept : public som::SomNode {
   TechnicalSecurityRequirements security() const;
   // 8.9. System Architecture..
   SystemArchitectureSpec systemArchitecture() const;
-};
-
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-//
-// Documents pre-existing technical constraints including mandated platforms,
-// network restrictions, compliance requirements, existing infrastructure
-// that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds the detailed
-// Architecture & Technology Specification (ATS) document.
-class TechnicalFrameworkConditions : public som::SomNode {
- public:
-  TechnicalFrameworkConditions(som::SpecDocument& doc, std::string path);
-  TechnicalFrameworkConditionsTechnicalOverviewContentForm technicalOverviewContent() const;
-  // Architecture governance context.
-  TechnicalFrameworkConditionsGovernance governance() const;
-  // Platform standards and preferred technologies.
-  TechnicalFrameworkConditionsStandards standards() const;
-  // Security and compliance requirements.
-  TechnicalFrameworkConditionsSecurity security() const;
-  // Network and infrastructure standards.
-  TechnicalFrameworkConditionsNetwork network() const;
-  // Existing infrastructure that must be reused or integrated with.
-  // (skipped: existingInfrastructure has no target type)
-  // Data center and hosting environment details.
-  // Returns the list view; element type: DatacenterEntry (construct from item paths).
-  som::SomList datacenters() const;
-  // Network topology and connectivity constraints.
-  // (skipped: networkTopology has no target type)
-  // Technology standards that must be followed.
-  // (skipped: standardsOverview has no target type)
-  // Technology standards — contains 0+× TechnologyStandard.
-  // Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
-  som::SomList technologyStandards() const;
-  // Integration constraints overview.
-  // (skipped: integrationOverview has no target type)
-  // Integration constraints — contains 0+× IntegrationConstraint.
-  // Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
-  som::SomList integrationConstraints() const;
-};
-
-// Architecture governance context.
-class TechnicalFrameworkConditionsGovernance : public som::SomNode {
- public:
-  TechnicalFrameworkConditionsGovernance(som::SpecDocument& doc, std::string path);
-  TechnicalFrameworkConditionsGovernanceContentForm content() const;
-};
-
-// Network and infrastructure standards.
-class TechnicalFrameworkConditionsNetwork : public som::SomNode {
- public:
-  TechnicalFrameworkConditionsNetwork(som::SpecDocument& doc, std::string path);
-  TechnicalFrameworkConditionsNetworkContentForm content() const;
-  // DevOps and deployment standards.
-  // Returns the list view; element type: DevopsStandardEntry (construct from item paths).
-  som::SomList devopsStandards() const;
-  // Monitoring and observability requirements.
-  // Returns the list view; element type: ObservabilityRequirementEntry (construct from item paths).
-  som::SomList observabilityRequirements() const;
-  // Disaster recovery and business continuity requirements.
-  // (skipped: disasterRecovery has no target type)
-};
-
-// Security and compliance requirements.
-class TechnicalFrameworkConditionsSecurity : public som::SomNode {
- public:
-  TechnicalFrameworkConditionsSecurity(som::SpecDocument& doc, std::string path);
-  TechnicalFrameworkConditionsSecurityContentForm content() const;
-};
-
-// Platform standards and preferred technologies.
-class TechnicalFrameworkConditionsStandards : public som::SomNode {
- public:
-  TechnicalFrameworkConditionsStandards(som::SpecDocument& doc, std::string path);
-  TechnicalFrameworkConditionsStandardsContentForm content() const;
 };
 
 // 4.2.2.n.4. Constraints.
@@ -35376,7 +35368,7 @@ class TrainingAssessmentReporting : public som::SomNode {
 // half in L34C-7 (SR-29). Logically re-homed under SBP.9
 // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 // content in one D12 subsection rather than fragmenting it across a new id.
 class TrainingDeliverableRequirements : public som::SomNode {
  public:
@@ -35781,6 +35773,13 @@ class TransitionSupportStructure : public som::SomNode {
   som::SomList escalationPaths() const;
 };
 
+// Ongoing localization operations.
+class TranslationOngoing : public som::SomNode {
+ public:
+  TranslationOngoing(som::SpecDocument& doc, std::string path);
+  TranslationOngoingContentForm content() const;
+};
+
 // 10.12.2. Translation Process.
 //
 // Workflow for translating content.
@@ -35789,13 +35788,13 @@ class TranslationProcess : public som::SomNode {
   TranslationProcess(som::SpecDocument& doc, std::string path);
   TranslationProcessTranslationProcessContentForm translationProcessContent() const;
   // Translation workflow.
-  TranslationProcessWorkflow workflow() const;
+  TranslationWorkflow workflow() const;
   // Quality assurance.
-  TranslationProcessQuality quality() const;
+  TranslationQuality quality() const;
   // Terminology and voice management.
-  TranslationProcessTerminology terminology() const;
+  TranslationTerminology terminology() const;
   // Ongoing localization operations.
-  TranslationProcessOngoing ongoing() const;
+  TranslationOngoing ongoing() const;
   // Translation process narrative.
   // (skipped: translationNarrative has no target type)
   // Translation vendor entries.
@@ -35803,32 +35802,11 @@ class TranslationProcess : public som::SomNode {
   som::SomList vendors() const;
 };
 
-// Ongoing localization operations.
-class TranslationProcessOngoing : public som::SomNode {
- public:
-  TranslationProcessOngoing(som::SpecDocument& doc, std::string path);
-  TranslationProcessOngoingContentForm content() const;
-};
-
 // Quality assurance.
-class TranslationProcessQuality : public som::SomNode {
+class TranslationQuality : public som::SomNode {
  public:
-  TranslationProcessQuality(som::SpecDocument& doc, std::string path);
-  TranslationProcessQualityContentForm content() const;
-};
-
-// Terminology and voice management.
-class TranslationProcessTerminology : public som::SomNode {
- public:
-  TranslationProcessTerminology(som::SpecDocument& doc, std::string path);
-  TranslationProcessTerminologyContentForm content() const;
-};
-
-// Translation workflow.
-class TranslationProcessWorkflow : public som::SomNode {
- public:
-  TranslationProcessWorkflow(som::SpecDocument& doc, std::string path);
-  TranslationProcessWorkflowContentForm content() const;
+  TranslationQuality(som::SpecDocument& doc, std::string path);
+  TranslationQualityContentForm content() const;
 };
 
 // 10.12.5. Translation Handling Requirements.
@@ -35878,11 +35856,25 @@ class TranslationRequirementsVariants : public som::SomNode {
   TranslationRequirementsVariantsContentForm content() const;
 };
 
+// Terminology and voice management.
+class TranslationTerminology : public som::SomNode {
+ public:
+  TranslationTerminology(som::SpecDocument& doc, std::string path);
+  TranslationTerminologyContentForm content() const;
+};
+
 // A translation vendor entry.
 class TranslationVendorEntry : public som::SomNode {
  public:
   TranslationVendorEntry(som::SpecDocument& doc, std::string path);
   TranslationVendorEntryContentForm content() const;
+};
+
+// Translation workflow.
+class TranslationWorkflow : public som::SomNode {
+ public:
+  TranslationWorkflow(som::SpecDocument& doc, std::string path);
+  TranslationWorkflowContentForm content() const;
 };
 
 // HSTS and Transport Security Policy (form).
@@ -36213,11 +36205,11 @@ class UiComponents : public som::SomNode {
   UiComponents(som::SpecDocument& doc, std::string path);
   UiComponentsComponentLibraryOverviewForm componentLibraryOverview() const;
   // Visual language and brand alignment.
-  UiComponentsVisualLanguage visualLanguage() const;
+  ComponentVisualLanguage visualLanguage() const;
   // Component naming and documentation approach.
-  UiComponentsComponentApproach componentApproach() const;
+  ComponentApproach componentApproach() const;
   // Extension and theming boundaries.
-  UiComponentsCustomization customization() const;
+  ComponentCustomization customization() const;
   // 10.11.1. Component Library.
   ComponentLibrary componentLibrary() const;
   // 10.11.2. Component Specifications — contains 0+×.
@@ -36226,36 +36218,6 @@ class UiComponents : public som::SomNode {
   // 10.11.3. Component Families — contains 0+×.
   // Returns the list view; element type: ComponentFamilyEntry (construct from item paths).
   som::SomList componentFamilies() const;
-};
-
-// Component naming and documentation approach.
-class UiComponentsComponentApproach : public som::SomNode {
- public:
-  UiComponentsComponentApproach(som::SpecDocument& doc, std::string path);
-  UiComponentsComponentApproachContentForm content() const;
-};
-
-// Extension and theming boundaries.
-class UiComponentsCustomization : public som::SomNode {
- public:
-  UiComponentsCustomization(som::SpecDocument& doc, std::string path);
-  UiComponentsCustomizationContentForm content() const;
-};
-
-// Visual language and brand alignment.
-class UiComponentsVisualLanguage : public som::SomNode {
- public:
-  UiComponentsVisualLanguage(som::SpecDocument& doc, std::string path);
-  UiComponentsVisualLanguageContentForm content() const;
-};
-
-// A design principle entry (form).
-//
-// Each principle guides UI decisions with rationale and examples.
-class UiDesignPrincipleEntry : public som::SomNode {
- public:
-  UiDesignPrincipleEntry(som::SpecDocument& doc, std::string path);
-  UiDesignPrincipleEntryContentForm content() const;
 };
 
 // 13.8. Upgrade Cycle Framework.
@@ -36448,6 +36410,44 @@ class UserAccountStatesDefinition : public som::SomNode {
   void setContent(const std::string& value);
   // State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
+};
+
+// 10.8. User Assistance.
+//
+// Comprehensive in-app help system including contextual help, onboarding,
+// and support access mechanisms.
+class UserAssistance : public som::SomNode {
+ public:
+  UserAssistance(som::SpecDocument& doc, std::string path);
+  UserAssistanceHelpOverviewContentForm helpOverviewContent() const;
+  // Content stewardship and help affordances.
+  UserAssistanceDelivery delivery() const;
+  // Analytics and improvement feedback.
+  UserAssistanceInsights insights() const;
+  // Help system overview narrative.
+  // (skipped: helpOverview has no target type)
+  // 10.8.1. Contextual Help.
+  ContextualHelp contextualHelp() const;
+  // 10.8.2. Onboarding.
+  OnboardingHelp onboarding() const;
+  // 10.8.3. Support Access.
+  SupportAccess supportAccess() const;
+  // Help content inventory.
+  // (skipped: helpContentInventory has no target type)
+};
+
+// Content stewardship and help affordances.
+class UserAssistanceDelivery : public som::SomNode {
+ public:
+  UserAssistanceDelivery(som::SpecDocument& doc, std::string path);
+  UserAssistanceDeliveryContentForm content() const;
+};
+
+// Analytics and improvement feedback.
+class UserAssistanceInsights : public som::SomNode {
+ public:
+  UserAssistanceInsights(som::SpecDocument& doc, std::string path);
+  UserAssistanceInsightsContentForm content() const;
 };
 
 // A user attribute entry (form).
@@ -36689,9 +36689,9 @@ class UserJourneyPainPointEntry : public som::SomNode {
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
 // for registration, activation, modification, deactivation, and deletion.
-class UserLifecycleSection : public som::SomNode {
+class UserLifecycle : public som::SomNode {
  public:
-  UserLifecycleSection(som::SpecDocument& doc, std::string path);
+  UserLifecycle(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
   // Overview (text).
@@ -36781,7 +36781,7 @@ class UserManagement : public som::SomNode {
   // 9.1.1. User Categories.
   AccessUserCategories userCategories() const;
   // 9.1.2. User Lifecycle.
-  UserLifecycleSection userLifecycle() const;
+  UserLifecycle userLifecycle() const;
   // 9.1.3. User Attributes.
   UserAttributes userAttributes() const;
 };
@@ -36789,9 +36789,9 @@ class UserManagement : public som::SomNode {
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
-class UserManuals : public som::SomNode {
+class UserManual : public som::SomNode {
  public:
-  UserManuals(som::SpecDocument& doc, std::string path);
+  UserManual(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
 };
@@ -43323,6 +43323,18 @@ class ComponentActionEntryGovernanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class ComponentApproachContentForm : public som::SomNode {
+ public:
+  ComponentApproachContentForm(som::SpecDocument& doc, std::string path);
+  std::string componentGranularity() const;
+  void setComponentGranularity(const std::string& value);
+  std::string componentNaming() const;
+  void setComponentNaming(const std::string& value);
+  std::string componentDocumentation() const;
+  void setComponentDocumentation(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class ComponentComplianceContentForm : public som::SomNode {
  public:
   ComponentComplianceContentForm(som::SpecDocument& doc, std::string path);
@@ -43340,6 +43352,18 @@ class ComponentCostContentForm : public som::SomNode {
   void setTotalCostFirstYear(const std::string& value);
   std::string totalCostOngoing() const;
   void setTotalCostOngoing(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class ComponentCustomizationContentForm : public som::SomNode {
+ public:
+  ComponentCustomizationContentForm(som::SpecDocument& doc, std::string path);
+  std::string extensionModel() const;
+  void setExtensionModel(const std::string& value);
+  std::string themingApproach() const;
+  void setThemingApproach(const std::string& value);
+  std::string customizationBoundaries() const;
+  void setCustomizationBoundaries(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -44218,6 +44242,18 @@ class ComponentVendorContentForm : public som::SomNode {
   void setVendorName(const std::string& value);
   std::string vendorStability() const;
   void setVendorStability(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class ComponentVisualLanguageContentForm : public som::SomNode {
+ public:
+  ComponentVisualLanguageContentForm(som::SpecDocument& doc, std::string path);
+  std::string visualLanguage() const;
+  void setVisualLanguage(const std::string& value);
+  std::string brandAlignment() const;
+  void setBrandAlignment(const std::string& value);
+  std::string motionPrinciples() const;
+  void setMotionPrinciples(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -47901,6 +47937,28 @@ class DesignPatternEntryStructureContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class DesignPrincipleEntryContentForm : public som::SomNode {
+ public:
+  DesignPrincipleEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string principleName() const;
+  void setPrincipleName(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string rationale() const;
+  void setRationale(const std::string& value);
+  std::string category() const;
+  void setCategory(const std::string& value);
+  std::string examples() const;
+  void setExamples(const std::string& value);
+  std::string exceptions() const;
+  void setExceptions(const std::string& value);
+  std::string sourceReference() const;
+  void setSourceReference(const std::string& value);
+  std::string relatedGoals() const;
+  void setRelatedGoals(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class DesignPrinciplesOverviewContentForm : public som::SomNode {
  public:
   DesignPrinciplesOverviewContentForm(som::SpecDocument& doc, std::string path);
@@ -49901,9 +49959,9 @@ class ErrorBudgetTrackingMonitoringContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptAccessibilityContentForm : public som::SomNode {
+class ErrorHandlingAccessibilityContentForm : public som::SomNode {
  public:
-  ErrorHandlingConceptAccessibilityContentForm(som::SpecDocument& doc, std::string path);
+  ErrorHandlingAccessibilityContentForm(som::SpecDocument& doc, std::string path);
   std::string errorAccessibility() const;
   void setErrorAccessibility(const std::string& value);
   std::string colorContrastCompliance() const;
@@ -49913,9 +49971,9 @@ class ErrorHandlingConceptAccessibilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptClassificationContentForm : public som::SomNode {
+class ErrorHandlingClassificationContentForm : public som::SomNode {
  public:
-  ErrorHandlingConceptClassificationContentForm(som::SpecDocument& doc, std::string path);
+  ErrorHandlingClassificationContentForm(som::SpecDocument& doc, std::string path);
   std::string errorCategories() const;
   void setErrorCategories(const std::string& value);
   std::string errorSeverityLevels() const;
@@ -49925,9 +49983,9 @@ class ErrorHandlingConceptClassificationContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `errorPhilosophyContent` @Form section.
-class ErrorHandlingConceptErrorPhilosophyContentForm : public som::SomNode {
+class ErrorHandlingErrorPhilosophyContentForm : public som::SomNode {
  public:
-  ErrorHandlingConceptErrorPhilosophyContentForm(som::SpecDocument& doc, std::string path);
+  ErrorHandlingErrorPhilosophyContentForm(som::SpecDocument& doc, std::string path);
   std::string errorPhilosophy() const;
   void setErrorPhilosophy(const std::string& value);
   std::string errorToneOfVoice() const;
@@ -49939,9 +49997,9 @@ class ErrorHandlingConceptErrorPhilosophyContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptOperationsContentForm : public som::SomNode {
+class ErrorHandlingOperationsContentForm : public som::SomNode {
  public:
-  ErrorHandlingConceptOperationsContentForm(som::SpecDocument& doc, std::string path);
+  ErrorHandlingOperationsContentForm(som::SpecDocument& doc, std::string path);
   std::string errorLocalization() const;
   void setErrorLocalization(const std::string& value);
   std::string dynamicContentHandling() const;
@@ -52378,46 +52436,6 @@ class HealthCheckEndpointsTimingContentForm : public som::SomNode {
   void setFailureThreshold(const std::string& value);
   std::string successThreshold() const;
   void setSuccessThreshold(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class HelpConceptDeliveryContentForm : public som::SomNode {
- public:
-  HelpConceptDeliveryContentForm(som::SpecDocument& doc, std::string path);
-  std::string helpContentOwnership() const;
-  void setHelpContentOwnership(const std::string& value);
-  std::string helpUpdateProcess() const;
-  void setHelpUpdateProcess(const std::string& value);
-  std::string helpIconStandard() const;
-  void setHelpIconStandard(const std::string& value);
-  std::string helpIconPlacement() const;
-  void setHelpIconPlacement(const std::string& value);
-  std::string helpTooltipStyle() const;
-  void setHelpTooltipStyle(const std::string& value);
-};
-
-// Generated form facade for the `helpOverviewContent` @Form section.
-class HelpConceptHelpOverviewContentForm : public som::SomNode {
- public:
-  HelpConceptHelpOverviewContentForm(som::SpecDocument& doc, std::string path);
-  std::string helpPhilosophy() const;
-  void setHelpPhilosophy(const std::string& value);
-  std::string helpAccessibility() const;
-  void setHelpAccessibility(const std::string& value);
-  std::string helpPersonalization() const;
-  void setHelpPersonalization(const std::string& value);
-  std::string helpContentStrategy() const;
-  void setHelpContentStrategy(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class HelpConceptInsightsContentForm : public som::SomNode {
- public:
-  HelpConceptInsightsContentForm(som::SpecDocument& doc, std::string path);
-  std::string helpAnalytics() const;
-  void setHelpAnalytics(const std::string& value);
-  std::string helpFeedback() const;
-  void setHelpFeedback(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -55429,9 +55447,35 @@ class LocalDevelopmentSetupWorkflowContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessDeploymentContentForm : public som::SomNode {
+class LocaleHandlingRequirementsContentForm : public som::SomNode {
  public:
-  LocalizationProcessDeploymentContentForm(som::SpecDocument& doc, std::string path);
+  LocaleHandlingRequirementsContentForm(som::SpecDocument& doc, std::string path);
+  std::string localeFormat() const;
+  void setLocaleFormat(const std::string& value);
+  std::string countryVariants() const;
+  void setCountryVariants(const std::string& value);
+  std::string localeDetection() const;
+  void setLocaleDetection(const std::string& value);
+  std::string localeFallbackChain() const;
+  void setLocaleFallbackChain(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class LocaleRolloutPlanContentForm : public som::SomNode {
+ public:
+  LocaleRolloutPlanContentForm(som::SpecDocument& doc, std::string path);
+  std::string rolloutStrategy() const;
+  void setRolloutStrategy(const std::string& value);
+  std::string rolloutTimeline() const;
+  void setRolloutTimeline(const std::string& value);
+  std::string rolloutRegions() const;
+  void setRolloutRegions(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class LocalizationDeploymentContentForm : public som::SomNode {
+ public:
+  LocalizationDeploymentContentForm(som::SpecDocument& doc, std::string path);
   std::string localeDeployment() const;
   void setLocaleDeployment(const std::string& value);
   std::string localeToggling() const;
@@ -55441,9 +55485,9 @@ class LocalizationProcessDeploymentContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessFormattingContentForm : public som::SomNode {
+class LocalizationFormattingContentForm : public som::SomNode {
  public:
-  LocalizationProcessFormattingContentForm(som::SpecDocument& doc, std::string path);
+  LocalizationFormattingContentForm(som::SpecDocument& doc, std::string path);
   std::string dateFormatRules() const;
   void setDateFormatRules(const std::string& value);
   std::string numberFormatRules() const;
@@ -55471,9 +55515,9 @@ class LocalizationProcessLocalizationProcessContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessReviewContentForm : public som::SomNode {
+class LocalizationReviewContentForm : public som::SomNode {
  public:
-  LocalizationProcessReviewContentForm(som::SpecDocument& doc, std::string path);
+  LocalizationReviewContentForm(som::SpecDocument& doc, std::string path);
   std::string reviewWorkflow() const;
   void setReviewWorkflow(const std::string& value);
   std::string stakeholderApproval() const;
@@ -57754,24 +57798,10 @@ class MultiChannelExperienceMultiChannelConfigurationForm : public som::SomNode 
   void setOfflineFirst(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class MultiLanguageAndRolloutLocaleHandlingContentForm : public som::SomNode {
- public:
-  MultiLanguageAndRolloutLocaleHandlingContentForm(som::SpecDocument& doc, std::string path);
-  std::string localeFormat() const;
-  void setLocaleFormat(const std::string& value);
-  std::string countryVariants() const;
-  void setCountryVariants(const std::string& value);
-  std::string localeDetection() const;
-  void setLocaleDetection(const std::string& value);
-  std::string localeFallbackChain() const;
-  void setLocaleFallbackChain(const std::string& value);
-};
-
 // Generated form facade for the `multiLanguageOverview` @Form section.
-class MultiLanguageAndRolloutMultiLanguageOverviewForm : public som::SomNode {
+class MultiLanguageSupportMultiLanguageOverviewForm : public som::SomNode {
  public:
-  MultiLanguageAndRolloutMultiLanguageOverviewForm(som::SpecDocument& doc, std::string path);
+  MultiLanguageSupportMultiLanguageOverviewForm(som::SpecDocument& doc, std::string path);
   std::string supportedLanguages() const;
   void setSupportedLanguages(const std::string& value);
   std::string primaryLanguage() const;
@@ -57780,18 +57810,6 @@ class MultiLanguageAndRolloutMultiLanguageOverviewForm : public som::SomNode {
   void setFutureLanguages(const std::string& value);
   std::string rtlLanguages() const;
   void setRtlLanguages(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class MultiLanguageAndRolloutPlanContentForm : public som::SomNode {
- public:
-  MultiLanguageAndRolloutPlanContentForm(som::SpecDocument& doc, std::string path);
-  std::string rolloutStrategy() const;
-  void setRolloutStrategy(const std::string& value);
-  std::string rolloutTimeline() const;
-  void setRolloutTimeline(const std::string& value);
-  std::string rolloutRegions() const;
-  void setRolloutRegions(const std::string& value);
 };
 
 // Generated form facade for the `mustPassOverviewContent` @Form section.
@@ -60519,6 +60537,18 @@ class PrimaryNavigationSidebarContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class PrintAndExportLayoutContentForm : public som::SomNode {
+ public:
+  PrintAndExportLayoutContentForm(som::SpecDocument& doc, std::string path);
+  std::string printStrategy() const;
+  void setPrintStrategy(const std::string& value);
+  std::string defaultPaperSize() const;
+  void setDefaultPaperSize(const std::string& value);
+  std::string defaultOrientation() const;
+  void setDefaultOrientation(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class PrintLayoutArchiveContentForm : public som::SomNode {
  public:
   PrintLayoutArchiveContentForm(som::SpecDocument& doc, std::string path);
@@ -60546,18 +60576,6 @@ class PrintLayoutBrandingContentForm : public som::SomNode {
   void setBrandingFontFamily(const std::string& value);
   std::string brandingFontSizeBase() const;
   void setBrandingFontSizeBase(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class PrintLayoutContentForm : public som::SomNode {
- public:
-  PrintLayoutContentForm(som::SpecDocument& doc, std::string path);
-  std::string printStrategy() const;
-  void setPrintStrategy(const std::string& value);
-  std::string defaultPaperSize() const;
-  void setDefaultPaperSize(const std::string& value);
-  std::string defaultOrientation() const;
-  void setDefaultOrientation(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -62077,9 +62095,9 @@ class PrototypeTimelineContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `prototypeTypeOverview` @Form section.
-class PrototypeTypeSectionPrototypeTypeOverviewForm : public som::SomNode {
+class PrototypeTypePrototypeTypeOverviewForm : public som::SomNode {
  public:
-  PrototypeTypeSectionPrototypeTypeOverviewForm(som::SpecDocument& doc, std::string path);
+  PrototypeTypePrototypeTypeOverviewForm(som::SpecDocument& doc, std::string path);
   std::string prototypeType() const;
   void setPrototypeType(const std::string& value);
   std::string typeRationale() const;
@@ -68583,6 +68601,20 @@ class SpecializedEquipmentEntryTechnicalContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class SpecificationStatusContentForm : public som::SomNode {
+ public:
+  SpecificationStatusContentForm(som::SpecDocument& doc, std::string path);
+  std::string specificationVersion() const;
+  void setSpecificationVersion(const std::string& value);
+  std::string specificationDate() const;
+  void setSpecificationDate(const std::string& value);
+  std::string specificationStatus() const;
+  void setSpecificationStatus(const std::string& value);
+  std::string targetGoLiveDate() const;
+  void setTargetGoLiveDate(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class StaffingBudgetAllocationsContentForm : public som::SomNode {
  public:
   StaffingBudgetAllocationsContentForm(som::SpecDocument& doc, std::string path);
@@ -69262,6 +69294,46 @@ class StageOverviewStatusContentForm : public som::SomNode {
   void setPlanConfidenceLevel(const std::string& value);
   std::string confidenceBasis() const;
   void setConfidenceBasis(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class StagePlanCoordinationContentForm : public som::SomNode {
+ public:
+  StagePlanCoordinationContentForm(som::SpecDocument& doc, std::string path);
+  std::string crossStageDependencySummary() const;
+  void setCrossStageDependencySummary(const std::string& value);
+  std::string crossStageRiskSummary() const;
+  void setCrossStageRiskSummary(const std::string& value);
+  std::string regulatoryComplianceConsiderations() const;
+  void setRegulatoryComplianceConsiderations(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class StagePlanReadinessContentForm : public som::SomNode {
+ public:
+  StagePlanReadinessContentForm(som::SpecDocument& doc, std::string path);
+  std::string organizationalReadinessLevel() const;
+  void setOrganizationalReadinessLevel(const std::string& value);
+  std::string changeAbsorptionCapacity() const;
+  void setChangeAbsorptionCapacity(const std::string& value);
+  std::string confidenceLevel() const;
+  void setConfidenceLevel(const std::string& value);
+  std::string lastPlanReviewDate() const;
+  void setLastPlanReviewDate(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class StagePlanTimelineContentForm : public som::SomNode {
+ public:
+  StagePlanTimelineContentForm(som::SpecDocument& doc, std::string path);
+  std::string overallPlannedStart() const;
+  void setOverallPlannedStart(const std::string& value);
+  std::string overallTargetCompletion() const;
+  void setOverallTargetCompletion(const std::string& value);
+  std::string totalDuration() const;
+  void setTotalDuration(const std::string& value);
+  std::string bufferStrategy() const;
+  void setBufferStrategy(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -70213,6 +70285,30 @@ class SystemBusinessUnitEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class SystemClassificationContentForm : public som::SomNode {
+ public:
+  SystemClassificationContentForm(som::SpecDocument& doc, std::string path);
+  std::string systemType() const;
+  void setSystemType(const std::string& value);
+  std::string businessDomain() const;
+  void setBusinessDomain(const std::string& value);
+  std::string deploymentModel() const;
+  void setDeploymentModel(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class SystemComplexityContentForm : public som::SomNode {
+ public:
+  SystemComplexityContentForm(som::SpecDocument& doc, std::string path);
+  std::string overallComplexity() const;
+  void setOverallComplexity(const std::string& value);
+  std::string keyRisks() const;
+  void setKeyRisks(const std::string& value);
+  std::string keyAssumptions() const;
+  void setKeyAssumptions(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class SystemConfigurationManagementContentForm : public som::SomNode {
  public:
   SystemConfigurationManagementContentForm(som::SpecDocument& doc, std::string path);
@@ -70776,74 +70872,6 @@ class SystemMigrationRiskEntryContentForm : public som::SomNode {
   void setOwner(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryClassificationContentForm : public som::SomNode {
- public:
-  SystemOverviewSummaryClassificationContentForm(som::SpecDocument& doc, std::string path);
-  std::string systemType() const;
-  void setSystemType(const std::string& value);
-  std::string businessDomain() const;
-  void setBusinessDomain(const std::string& value);
-  std::string deploymentModel() const;
-  void setDeploymentModel(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryComplexityContentForm : public som::SomNode {
- public:
-  SystemOverviewSummaryComplexityContentForm(som::SpecDocument& doc, std::string path);
-  std::string overallComplexity() const;
-  void setOverallComplexity(const std::string& value);
-  std::string keyRisks() const;
-  void setKeyRisks(const std::string& value);
-  std::string keyAssumptions() const;
-  void setKeyAssumptions(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryContentForm : public som::SomNode {
- public:
-  SystemOverviewSummaryContentForm(som::SpecDocument& doc, std::string path);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
-  std::string systemAcronym() const;
-  void setSystemAcronym(const std::string& value);
-  std::string systemVersion() const;
-  void setSystemVersion(const std::string& value);
-  std::string projectCodeName() const;
-  void setProjectCodeName(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryScaleContentForm : public som::SomNode {
- public:
-  SystemOverviewSummaryScaleContentForm(som::SpecDocument& doc, std::string path);
-  std::string estimatedUserCount() const;
-  void setEstimatedUserCount(const std::string& value);
-  std::string userCategoryCount() const;
-  void setUserCategoryCount(const std::string& value);
-  std::string externalInterfaceCount() const;
-  void setExternalInterfaceCount(const std::string& value);
-  std::string functionalRequirementCount() const;
-  void setFunctionalRequirementCount(const std::string& value);
-  std::string nonFunctionalRequirementCount() const;
-  void setNonFunctionalRequirementCount(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryStatusContentForm : public som::SomNode {
- public:
-  SystemOverviewSummaryStatusContentForm(som::SpecDocument& doc, std::string path);
-  std::string specificationVersion() const;
-  void setSpecificationVersion(const std::string& value);
-  std::string specificationDate() const;
-  void setSpecificationDate(const std::string& value);
-  std::string specificationStatus() const;
-  void setSpecificationStatus(const std::string& value);
-  std::string targetGoLiveDate() const;
-  void setTargetGoLiveDate(const std::string& value);
-};
-
 // Generated form facade for the `governanceContent` @Form section.
 class SystemQualityGoalsGovernanceContentForm : public som::SomNode {
  public:
@@ -70897,6 +70925,22 @@ class SystemReplacementStrategyTimelineContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class SystemScaleContentForm : public som::SomNode {
+ public:
+  SystemScaleContentForm(som::SpecDocument& doc, std::string path);
+  std::string estimatedUserCount() const;
+  void setEstimatedUserCount(const std::string& value);
+  std::string userCategoryCount() const;
+  void setUserCategoryCount(const std::string& value);
+  std::string externalInterfaceCount() const;
+  void setExternalInterfaceCount(const std::string& value);
+  std::string functionalRequirementCount() const;
+  void setFunctionalRequirementCount(const std::string& value);
+  std::string nonFunctionalRequirementCount() const;
+  void setNonFunctionalRequirementCount(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class SystemStagePlanContentForm : public som::SomNode {
  public:
   SystemStagePlanContentForm(som::SpecDocument& doc, std::string path);
@@ -70909,43 +70953,17 @@ class SystemStagePlanContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class SystemStagePlanCoordinationContentForm : public som::SomNode {
+class SystemSummaryContentForm : public som::SomNode {
  public:
-  SystemStagePlanCoordinationContentForm(som::SpecDocument& doc, std::string path);
-  std::string crossStageDependencySummary() const;
-  void setCrossStageDependencySummary(const std::string& value);
-  std::string crossStageRiskSummary() const;
-  void setCrossStageRiskSummary(const std::string& value);
-  std::string regulatoryComplianceConsiderations() const;
-  void setRegulatoryComplianceConsiderations(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemStagePlanReadinessContentForm : public som::SomNode {
- public:
-  SystemStagePlanReadinessContentForm(som::SpecDocument& doc, std::string path);
-  std::string organizationalReadinessLevel() const;
-  void setOrganizationalReadinessLevel(const std::string& value);
-  std::string changeAbsorptionCapacity() const;
-  void setChangeAbsorptionCapacity(const std::string& value);
-  std::string confidenceLevel() const;
-  void setConfidenceLevel(const std::string& value);
-  std::string lastPlanReviewDate() const;
-  void setLastPlanReviewDate(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemStagePlanTimelineContentForm : public som::SomNode {
- public:
-  SystemStagePlanTimelineContentForm(som::SpecDocument& doc, std::string path);
-  std::string overallPlannedStart() const;
-  void setOverallPlannedStart(const std::string& value);
-  std::string overallTargetCompletion() const;
-  void setOverallTargetCompletion(const std::string& value);
-  std::string totalDuration() const;
-  void setTotalDuration(const std::string& value);
-  std::string bufferStrategy() const;
-  void setBufferStrategy(const std::string& value);
+  SystemSummaryContentForm(som::SpecDocument& doc, std::string path);
+  std::string systemName() const;
+  void setSystemName(const std::string& value);
+  std::string systemAcronym() const;
+  void setSystemAcronym(const std::string& value);
+  std::string systemVersion() const;
+  void setSystemVersion(const std::string& value);
+  std::string projectCodeName() const;
+  void setProjectCodeName(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -71521,9 +71539,9 @@ class TechnicalDependencyEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsGovernanceContentForm : public som::SomNode {
+class TechnicalEnvironmentGovernanceContentForm : public som::SomNode {
  public:
-  TechnicalFrameworkConditionsGovernanceContentForm(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentGovernanceContentForm(som::SpecDocument& doc, std::string path);
   std::string secondaryCloudProviders() const;
   void setSecondaryCloudProviders(const std::string& value);
   std::string technologyGovernance() const;
@@ -71531,9 +71549,9 @@ class TechnicalFrameworkConditionsGovernanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsNetworkContentForm : public som::SomNode {
+class TechnicalEnvironmentNetworkContentForm : public som::SomNode {
  public:
-  TechnicalFrameworkConditionsNetworkContentForm(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentNetworkContentForm(som::SpecDocument& doc, std::string path);
   std::string networkArchitecture() const;
   void setNetworkArchitecture(const std::string& value);
   std::string firewallPolicies() const;
@@ -71547,9 +71565,9 @@ class TechnicalFrameworkConditionsNetworkContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsSecurityContentForm : public som::SomNode {
+class TechnicalEnvironmentSecurityContentForm : public som::SomNode {
  public:
-  TechnicalFrameworkConditionsSecurityContentForm(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentSecurityContentForm(som::SpecDocument& doc, std::string path);
   std::string securityFramework() const;
   void setSecurityFramework(const std::string& value);
   std::string complianceRequirements() const;
@@ -71563,9 +71581,9 @@ class TechnicalFrameworkConditionsSecurityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsStandardsContentForm : public som::SomNode {
+class TechnicalEnvironmentStandardsContentForm : public som::SomNode {
  public:
-  TechnicalFrameworkConditionsStandardsContentForm(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentStandardsContentForm(som::SpecDocument& doc, std::string path);
   std::string preferredLanguages() const;
   void setPreferredLanguages(const std::string& value);
   std::string preferredFrameworks() const;
@@ -71579,9 +71597,9 @@ class TechnicalFrameworkConditionsStandardsContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `technicalOverviewContent` @Form section.
-class TechnicalFrameworkConditionsTechnicalOverviewContentForm : public som::SomNode {
+class TechnicalEnvironmentTechnicalOverviewContentForm : public som::SomNode {
  public:
-  TechnicalFrameworkConditionsTechnicalOverviewContentForm(som::SpecDocument& doc, std::string path);
+  TechnicalEnvironmentTechnicalOverviewContentForm(som::SpecDocument& doc, std::string path);
   std::string architectureMaturity() const;
   void setArchitectureMaturity(const std::string& value);
   std::string cloudStrategy() const;
@@ -73585,37 +73603,13 @@ class TransitionSupportResourceEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TranslationProcessOngoingContentForm : public som::SomNode {
+class TranslationOngoingContentForm : public som::SomNode {
  public:
-  TranslationProcessOngoingContentForm(som::SpecDocument& doc, std::string path);
+  TranslationOngoingContentForm(som::SpecDocument& doc, std::string path);
   std::string continuousLocalization() const;
   void setContinuousLocalization(const std::string& value);
   std::string translationMemoryMaintenance() const;
   void setTranslationMemoryMaintenance(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class TranslationProcessQualityContentForm : public som::SomNode {
- public:
-  TranslationProcessQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string qualityChecks() const;
-  void setQualityChecks(const std::string& value);
-  std::string linguisticQA() const;
-  void setLinguisticQA(const std::string& value);
-  std::string functionalQA() const;
-  void setFunctionalQA(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class TranslationProcessTerminologyContentForm : public som::SomNode {
- public:
-  TranslationProcessTerminologyContentForm(som::SpecDocument& doc, std::string path);
-  std::string glossaryManagement() const;
-  void setGlossaryManagement(const std::string& value);
-  std::string styleGuide() const;
-  void setStyleGuide(const std::string& value);
-  std::string brandVoice() const;
-  void setBrandVoice(const std::string& value);
 };
 
 // Generated form facade for the `translationProcessContent` @Form section.
@@ -73633,17 +73627,15 @@ class TranslationProcessTranslationProcessContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class TranslationProcessWorkflowContentForm : public som::SomNode {
+class TranslationQualityContentForm : public som::SomNode {
  public:
-  TranslationProcessWorkflowContentForm(som::SpecDocument& doc, std::string path);
-  std::string translationWorkflow() const;
-  void setTranslationWorkflow(const std::string& value);
-  std::string reviewCycles() const;
-  void setReviewCycles(const std::string& value);
-  std::string inCountryReview() const;
-  void setInCountryReview(const std::string& value);
-  std::string contextualReview() const;
-  void setContextualReview(const std::string& value);
+  TranslationQualityContentForm(som::SpecDocument& doc, std::string path);
+  std::string qualityChecks() const;
+  void setQualityChecks(const std::string& value);
+  std::string linguisticQA() const;
+  void setLinguisticQA(const std::string& value);
+  std::string functionalQA() const;
+  void setFunctionalQA(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -73713,6 +73705,18 @@ class TranslationRequirementsVariantsContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class TranslationTerminologyContentForm : public som::SomNode {
+ public:
+  TranslationTerminologyContentForm(som::SpecDocument& doc, std::string path);
+  std::string glossaryManagement() const;
+  void setGlossaryManagement(const std::string& value);
+  std::string styleGuide() const;
+  void setStyleGuide(const std::string& value);
+  std::string brandVoice() const;
+  void setBrandVoice(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class TranslationVendorEntryContentForm : public som::SomNode {
  public:
   TranslationVendorEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -73730,6 +73734,20 @@ class TranslationVendorEntryContentForm : public som::SomNode {
   void setQualityRating(const std::string& value);
   std::string contactInfo() const;
   void setContactInfo(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class TranslationWorkflowContentForm : public som::SomNode {
+ public:
+  TranslationWorkflowContentForm(som::SpecDocument& doc, std::string path);
+  std::string translationWorkflow() const;
+  void setTranslationWorkflow(const std::string& value);
+  std::string reviewCycles() const;
+  void setReviewCycles(const std::string& value);
+  std::string inCountryReview() const;
+  void setInCountryReview(const std::string& value);
+  std::string contextualReview() const;
+  void setContextualReview(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -74334,18 +74352,6 @@ class UiComponentEntryVisualDesignForm : public som::SomNode {
   void setIconography(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class UiComponentsComponentApproachContentForm : public som::SomNode {
- public:
-  UiComponentsComponentApproachContentForm(som::SpecDocument& doc, std::string path);
-  std::string componentGranularity() const;
-  void setComponentGranularity(const std::string& value);
-  std::string componentNaming() const;
-  void setComponentNaming(const std::string& value);
-  std::string componentDocumentation() const;
-  void setComponentDocumentation(const std::string& value);
-};
-
 // Generated form facade for the `componentLibraryOverview` @Form section.
 class UiComponentsComponentLibraryOverviewForm : public som::SomNode {
  public:
@@ -74358,52 +74364,6 @@ class UiComponentsComponentLibraryOverviewForm : public som::SomNode {
   void setBasedOnFramework(const std::string& value);
   std::string tomFlutterUiIntegration() const;
   void setTomFlutterUiIntegration(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class UiComponentsCustomizationContentForm : public som::SomNode {
- public:
-  UiComponentsCustomizationContentForm(som::SpecDocument& doc, std::string path);
-  std::string extensionModel() const;
-  void setExtensionModel(const std::string& value);
-  std::string themingApproach() const;
-  void setThemingApproach(const std::string& value);
-  std::string customizationBoundaries() const;
-  void setCustomizationBoundaries(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class UiComponentsVisualLanguageContentForm : public som::SomNode {
- public:
-  UiComponentsVisualLanguageContentForm(som::SpecDocument& doc, std::string path);
-  std::string visualLanguage() const;
-  void setVisualLanguage(const std::string& value);
-  std::string brandAlignment() const;
-  void setBrandAlignment(const std::string& value);
-  std::string motionPrinciples() const;
-  void setMotionPrinciples(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class UiDesignPrincipleEntryContentForm : public som::SomNode {
- public:
-  UiDesignPrincipleEntryContentForm(som::SpecDocument& doc, std::string path);
-  std::string principleName() const;
-  void setPrincipleName(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
-  std::string rationale() const;
-  void setRationale(const std::string& value);
-  std::string category() const;
-  void setCategory(const std::string& value);
-  std::string examples() const;
-  void setExamples(const std::string& value);
-  std::string exceptions() const;
-  void setExceptions(const std::string& value);
-  std::string sourceReference() const;
-  void setSourceReference(const std::string& value);
-  std::string relatedGoals() const;
-  void setRelatedGoals(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -74582,6 +74542,46 @@ class UserAccessibilityNeedsAccessibilityFormForm : public som::SomNode {
   void setWcagLevel(const std::string& value);
   std::string additionalStandards() const;
   void setAdditionalStandards(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class UserAssistanceDeliveryContentForm : public som::SomNode {
+ public:
+  UserAssistanceDeliveryContentForm(som::SpecDocument& doc, std::string path);
+  std::string helpContentOwnership() const;
+  void setHelpContentOwnership(const std::string& value);
+  std::string helpUpdateProcess() const;
+  void setHelpUpdateProcess(const std::string& value);
+  std::string helpIconStandard() const;
+  void setHelpIconStandard(const std::string& value);
+  std::string helpIconPlacement() const;
+  void setHelpIconPlacement(const std::string& value);
+  std::string helpTooltipStyle() const;
+  void setHelpTooltipStyle(const std::string& value);
+};
+
+// Generated form facade for the `helpOverviewContent` @Form section.
+class UserAssistanceHelpOverviewContentForm : public som::SomNode {
+ public:
+  UserAssistanceHelpOverviewContentForm(som::SpecDocument& doc, std::string path);
+  std::string helpPhilosophy() const;
+  void setHelpPhilosophy(const std::string& value);
+  std::string helpAccessibility() const;
+  void setHelpAccessibility(const std::string& value);
+  std::string helpPersonalization() const;
+  void setHelpPersonalization(const std::string& value);
+  std::string helpContentStrategy() const;
+  void setHelpContentStrategy(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class UserAssistanceInsightsContentForm : public som::SomNode {
+ public:
+  UserAssistanceInsightsContentForm(som::SpecDocument& doc, std::string path);
+  std::string helpAnalytics() const;
+  void setHelpAnalytics(const std::string& value);
+  std::string helpFeedback() const;
+  void setHelpFeedback(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

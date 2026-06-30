@@ -1276,7 +1276,7 @@ section-types:
     description: System diagnostic tools.
   TEFRCO:
     prefix: tefrco
-    description: 4.6.3. Technical Framework Conditions. Seeds → ATS.
+    description: 4.6.3. Technical Environment. Seeds → ATS.
   TESTOR:
     prefix: testor
     description: Additional test types and organization.
@@ -2584,7 +2584,7 @@ section-types:
     description: Component governance and maintenance policies.
   COMP:
     prefix: comp
-    description: 12. Components to Use. Seeds → ATS.
+    description: 12. Components and Dependencies. Seeds → ATS.
   COOR:
     prefix: coor
     description: Component organization and boundaries.
@@ -4697,7 +4697,7 @@ document:
     componentstouse:
       section-type: COMP
       optional: true
-    technicalframeworkconditions:
+    technicalenvironment:
       section-type: TEFRCO
       optional: true
     translationrequirements:

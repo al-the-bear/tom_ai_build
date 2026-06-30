@@ -96,7 +96,7 @@ TOM (Target Operating Model) document.
   /// 6.1.7. Detailed Process Workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
-  List<DetailedProcessWorkflows> detailedWorkflows = [];
+  List<DetailedProcessWorkflow> detailedWorkflows = [];
 
   /// 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
@@ -107,7 +107,7 @@ TOM (Target Operating Model) document.
   /// 6.1.10. Process Metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
-  List<ProcessMetricsAndKpis> processMetricsAndKpis = [];
+  List<ProcessMetric> processMetricsAndKpis = [];
 }
 
 /// 6.1.1. Process Vision.
@@ -1226,7 +1226,7 @@ postconditions in the ISC (Interaction Scenarios) document.
   /// 6.2.4. End-to-End Test Scenarios..
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
-  List<EndToEndTestScenarios> endToEndTestScenarios = [];
+  List<EndToEndTestScenario> endToEndTestScenarios = [];
 
   /// 6.2.5. Use Case Traceability.
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
@@ -1284,7 +1284,7 @@ class ActorRelationshipDiagram {
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-DET')
-class DetailedProcessWorkflows {
+class DetailedProcessWorkflow {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,
 decision points, handoffs, swim lanes, timing, and system-actor vs human
@@ -1366,7 +1366,7 @@ process recovery.
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-E2E')
-class EndToEndTestScenarios {
+class EndToEndTestScenario {
   @ContentHelp('''
 End-to-end test scenarios derived from use cases and key user journeys.
 Feeds BQP test strategy and the Phase 5 test derivation step.
@@ -2394,7 +2394,7 @@ class ScenarioValidation {
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-MET')
-class ProcessMetricsAndKpis {
+class ProcessMetric {
   @ContentHelp('''
 How each business process is measured for success once in production.
 

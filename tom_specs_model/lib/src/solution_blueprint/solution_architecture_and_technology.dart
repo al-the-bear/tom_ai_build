@@ -2,7 +2,7 @@
 ///
 /// Consolidates the technical solution framing: the technology framework
 /// concept (from [TechnicalFrameworkConcept]) and the catalogue of components
-/// to use (from [ComponentsToUse]). Seeds the Architecture & Technology
+/// to use (from [ComponentsAndDependencies]). Seeds the Architecture & Technology
 /// Specification (ATS) document.
 library;
 
@@ -23,5 +23,5 @@ class SolutionArchitectureAndTechnology {
   TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
 
   /// Components, libraries, and services to reuse.
-  ComponentsToUse componentsToUse = ComponentsToUse();
+  ComponentsAndDependencies componentsToUse = ComponentsAndDependencies();
 }

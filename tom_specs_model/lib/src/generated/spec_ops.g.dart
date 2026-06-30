@@ -1974,9 +1974,9 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ArchitectureStyle).content,
   ));
-  SpecRegistry.register(AssumptionConstraintRegister, SpecClassOps(
+  SpecRegistry.register(AssumptionConstraintDependencyRegister, SpecClassOps(
     slots: (o) {
-      final n = o as AssumptionConstraintRegister;
+      final n = o as AssumptionConstraintDependencyRegister;
       return [
         SpecSlot.list(() => n.assumptions, (v) => n.assumptions = v.cast<AssumptionRegisterEntry>(), label: 'assumptions'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<ConstraintRegisterEntry>(), label: 'constraints'),
@@ -1984,14 +1984,14 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as AssumptionConstraintRegister;
-      return AssumptionConstraintRegister()
+      final n = o as AssumptionConstraintDependencyRegister;
+      return AssumptionConstraintDependencyRegister()
         ..content = n.content
         ..assumptions = n.assumptions
         ..constraints = n.constraints
         ..dependencies = n.dependencies;
     },
-    yamlScalar: (o) => (o as AssumptionConstraintRegister).content,
+    yamlScalar: (o) => (o as AssumptionConstraintDependencyRegister).content,
   ));
   SpecRegistry.register(AssumptionRegisterEntry, SpecClassOps(
     slots: (o) => const [],
@@ -2006,7 +2006,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as AssumptionsConstraintsDependencies;
       return [
-        SpecSlot.node(() => n.register, (v) => n.register = v as AssumptionConstraintRegister, label: 'register'),
+        SpecSlot.node(() => n.register, (v) => n.register = v as AssumptionConstraintDependencyRegister, label: 'register'),
       ];
     },
     cloneShallow: (o) {
@@ -3450,6 +3450,33 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as BusinessComponentEntryTesting).content,
   ));
+  SpecRegistry.register(BusinessDomain, SpecClassOps(
+    slots: (o) {
+      final n = o as BusinessDomain;
+      return [
+        SpecSlot.node(() => n.domainOverview, (v) => n.domainOverview = v as DomainOverview, label: 'domainOverview'),
+        SpecSlot.node(() => n.domainVocabulary, (v) => n.domainVocabulary = v as DomainVocabulary, label: 'domainVocabulary'),
+        SpecSlot.node(() => n.keyConcepts, (v) => n.keyConcepts = v as KeyConcepts, label: 'keyConcepts'),
+        SpecSlot.node(() => n.domainBoundaries, (v) => n.domainBoundaries = v as DomainBoundaries, label: 'domainBoundaries'),
+        SpecSlot.node(() => n.businessRules, (v) => n.businessRules = v as DomainBusinessRules, label: 'businessRules'),
+        SpecSlot.node(() => n.domainProcesses, (v) => n.domainProcesses = v as DomainProcesses, label: 'domainProcesses'),
+        SpecSlot.node(() => n.domainEvents, (v) => n.domainEvents = v as DomainEvents, label: 'domainEvents'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as BusinessDomain;
+      return BusinessDomain()
+        ..content = n.content
+        ..domainOverview = n.domainOverview
+        ..domainVocabulary = n.domainVocabulary
+        ..keyConcepts = n.keyConcepts
+        ..domainBoundaries = n.domainBoundaries
+        ..businessRules = n.businessRules
+        ..domainProcesses = n.domainProcesses
+        ..domainEvents = n.domainEvents;
+    },
+    yamlScalar: (o) => (o as BusinessDomain).content,
+  ));
   SpecRegistry.register(BusinessGoalEntry, SpecClassOps(
     slots: (o) {
       final n = o as BusinessGoalEntry;
@@ -3719,10 +3746,10 @@ void registerSpecOps() {
         SpecSlot.node(() => n.processOverviewDiagram, (v) => n.processOverviewDiagram = v as ProcessOverviewDiagram, label: 'processOverviewDiagram'),
         SpecSlot.node(() => n.improvementSummary, (v) => n.improvementSummary = v as ProcessImprovementSummary, label: 'improvementSummary'),
         SpecSlot.node(() => n.processRelationships, (v) => n.processRelationships = v as ProcessRelationships, label: 'processRelationships'),
-        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflows>(), label: 'detailedWorkflows'),
+        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflow>(), label: 'detailedWorkflows'),
         SpecSlot.node(() => n.crossProcessAnalysis, (v) => n.crossProcessAnalysis = v as CrossProcessAnalysis, label: 'crossProcessAnalysis'),
         SpecSlot.node(() => n.exceptionHandling, (v) => n.exceptionHandling = v as ProcessExceptionHandling, label: 'exceptionHandling'),
-        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetricsAndKpis>(), label: 'processMetricsAndKpis'),
+        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetric>(), label: 'processMetricsAndKpis'),
       ];
     },
     cloneShallow: (o) {
@@ -5873,6 +5900,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ComponentActionEntryGovernance).content,
   ));
+  SpecRegistry.register(ComponentApproach, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ComponentApproach;
+      return ComponentApproach()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ComponentApproach).content,
+  ));
   SpecRegistry.register(ComponentCompliance, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -5890,6 +5926,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as ComponentCost).content,
+  ));
+  SpecRegistry.register(ComponentCustomization, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ComponentCustomization;
+      return ComponentCustomization()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ComponentCustomization).content,
   ));
   SpecRegistry.register(ComponentDeployment, SpecClassOps(
     slots: (o) => const [],
@@ -6710,9 +6755,18 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ComponentVendor).content,
   ));
-  SpecRegistry.register(ComponentsToUse, SpecClassOps(
+  SpecRegistry.register(ComponentVisualLanguage, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ComponentVisualLanguage;
+      return ComponentVisualLanguage()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ComponentVisualLanguage).content,
+  ));
+  SpecRegistry.register(ComponentsAndDependencies, SpecClassOps(
     slots: (o) {
-      final n = o as ComponentsToUse;
+      final n = o as ComponentsAndDependencies;
       return [
         SpecSlot.node(() => n.strategy, (v) => n.strategy = v as ComponentStrategy, label: 'strategy'),
         SpecSlot.list(() => n.componentCatalog, (v) => n.componentCatalog = v.cast<ComponentEntry>(), label: 'componentCatalog'),
@@ -6723,8 +6777,8 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as ComponentsToUse;
-      return ComponentsToUse()
+      final n = o as ComponentsAndDependencies;
+      return ComponentsAndDependencies()
         ..content = n.content
         ..strategy = n.strategy
         ..componentCatalog = n.componentCatalog
@@ -6733,7 +6787,7 @@ void registerSpecOps() {
         ..maintenanceDependencies = n.maintenanceDependencies
         ..riskAssessment = n.riskAssessment;
     },
-    yamlScalar: (o) => (o as ComponentsToUse).content,
+    yamlScalar: (o) => (o as ComponentsAndDependencies).content,
   ));
   SpecRegistry.register(ComputeResourceRequirements, SpecClassOps(
     slots: (o) {
@@ -7578,7 +7632,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.currentBusinessProcesses, (v) => n.currentBusinessProcesses = v as CurrentBusinessProcesses, label: 'currentBusinessProcesses'),
         SpecSlot.node(() => n.painPointsAndGaps, (v) => n.painPointsAndGaps = v as PainPointsAndGaps, label: 'painPointsAndGaps'),
         SpecSlot.node(() => n.currentDataLandscape, (v) => n.currentDataLandscape = v as CurrentDataLandscape, label: 'currentDataLandscape'),
-        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetrics>(), label: 'operationalMetrics'),
+        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetric>(), label: 'operationalMetrics'),
         SpecSlot.node(() => n.currentStateRisks, (v) => n.currentStateRisks = v as CurrentStateRiskAssessment, label: 'currentStateRisks'),
       ];
     },
@@ -7595,14 +7649,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as CurrentLandscape).content,
   ));
-  SpecRegistry.register(CurrentOperationalMetrics, SpecClassOps(
+  SpecRegistry.register(CurrentOperationalMetric, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CurrentOperationalMetrics;
-      return CurrentOperationalMetrics()
+      final n = o as CurrentOperationalMetric;
+      return CurrentOperationalMetric()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as CurrentOperationalMetrics).content,
+    yamlScalar: (o) => (o as CurrentOperationalMetric).content,
   ));
   SpecRegistry.register(CurrentProcessImprovementEntry, SpecClassOps(
     slots: (o) => const [],
@@ -7682,14 +7736,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as CustomMetricEntry).content,
   ));
-  SpecRegistry.register(CutoverProcedures, SpecClassOps(
+  SpecRegistry.register(CutoverProcedure, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CutoverProcedures;
-      return CutoverProcedures()
+      final n = o as CutoverProcedure;
+      return CutoverProcedure()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as CutoverProcedures).content,
+    yamlScalar: (o) => (o as CutoverProcedure).content,
   ));
   SpecRegistry.register(D00SolutionBlueprint, SpecClassOps(
     slots: (o) {
@@ -7701,7 +7755,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.stakeholdersAndGovernance, (v) => n.stakeholdersAndGovernance = v as StakeholdersAndGovernance, label: 'stakeholdersAndGovernance'),
         SpecSlot.node(() => n.currentLandscape, (v) => n.currentLandscape = v as CurrentLandscape, label: 'currentLandscape'),
         SpecSlot.node(() => n.assumptionsConstraintsDependencies, (v) => n.assumptionsConstraintsDependencies = v as AssumptionsConstraintsDependencies, label: 'assumptionsConstraintsDependencies'),
-        SpecSlot.node(() => n.targetOperatingModelConcept, (v) => n.targetOperatingModelConcept = v as TargetOperatingModelConcept, label: 'targetOperatingModelConcept'),
+        SpecSlot.node(() => n.targetOperatingModelConcept, (v) => n.targetOperatingModelConcept = v as TargetOperatingModel, label: 'targetOperatingModelConcept'),
         SpecSlot.node(() => n.informationAndDataModel, (v) => n.informationAndDataModel = v as InformationAndDataModel, label: 'informationAndDataModel'),
         SpecSlot.node(() => n.requirements, (v) => n.requirements = v as Requirements, label: 'requirements'),
         SpecSlot.node(() => n.solutionArchitectureAndTechnology, (v) => n.solutionArchitectureAndTechnology = v as SolutionArchitectureAndTechnology, label: 'solutionArchitectureAndTechnology'),
@@ -7741,7 +7795,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.currentBusinessProcesses, (v) => n.currentBusinessProcesses = v as CurrentBusinessProcesses, label: 'currentBusinessProcesses'),
         SpecSlot.node(() => n.painPointsAndGaps, (v) => n.painPointsAndGaps = v as PainPointsAndGaps, label: 'painPointsAndGaps'),
         SpecSlot.node(() => n.currentDataLandscape, (v) => n.currentDataLandscape = v as CurrentDataLandscape, label: 'currentDataLandscape'),
-        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetrics>(), label: 'operationalMetrics'),
+        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetric>(), label: 'operationalMetrics'),
         SpecSlot.node(() => n.currentStateRisks, (v) => n.currentStateRisks = v as CurrentStateRiskAssessment, label: 'currentStateRisks'),
         SpecSlot.node(() => n.replacementInventory, (v) => n.replacementInventory = v as ReplacementInventory, label: 'replacementInventory'),
         SpecSlot.node(() => n.migrationConsiderations, (v) => n.migrationConsiderations = v as MigrationConsiderations, label: 'migrationConsiderations'),
@@ -7774,10 +7828,10 @@ void registerSpecOps() {
         SpecSlot.node(() => n.processOverviewDiagram, (v) => n.processOverviewDiagram = v as ProcessOverviewDiagram, label: 'processOverviewDiagram'),
         SpecSlot.node(() => n.improvementSummary, (v) => n.improvementSummary = v as ProcessImprovementSummary, label: 'improvementSummary'),
         SpecSlot.node(() => n.processRelationships, (v) => n.processRelationships = v as ProcessRelationships, label: 'processRelationships'),
-        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflows>(), label: 'detailedWorkflows'),
+        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflow>(), label: 'detailedWorkflows'),
         SpecSlot.node(() => n.crossProcessAnalysis, (v) => n.crossProcessAnalysis = v as CrossProcessAnalysis, label: 'crossProcessAnalysis'),
         SpecSlot.node(() => n.exceptionHandling, (v) => n.exceptionHandling = v as ProcessExceptionHandling, label: 'exceptionHandling'),
-        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetricsAndKpis>(), label: 'processMetricsAndKpis'),
+        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetric>(), label: 'processMetricsAndKpis'),
       ];
     },
     cloneShallow: (o) {
@@ -7875,7 +7929,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.interactionCatalog, (v) => n.interactionCatalog = v as InteractionCatalog, label: 'interactionCatalog'),
         SpecSlot.node(() => n.keyScenarios, (v) => n.keyScenarios = v as KeyScenarios, label: 'keyScenarios'),
         SpecSlot.node(() => n.actorRelationshipDiagram, (v) => n.actorRelationshipDiagram = v as ActorRelationshipDiagram, label: 'actorRelationshipDiagram'),
-        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenarios>(), label: 'endToEndTestScenarios'),
+        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenario>(), label: 'endToEndTestScenarios'),
         SpecSlot.node(() => n.useCaseTraceability, (v) => n.useCaseTraceability = v as UseCaseTraceability, label: 'useCaseTraceability'),
       ];
     },
@@ -7908,8 +7962,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.systemOperationAndMonitoring, (v) => n.systemOperationAndMonitoring = v as SystemOperationAndMonitoring, label: 'systemOperationAndMonitoring'),
         SpecSlot.node(() => n.technicalSecurityRequirements, (v) => n.technicalSecurityRequirements = v as TechnicalSecurityRequirements, label: 'technicalSecurityRequirements'),
         SpecSlot.node(() => n.systemArchitecture, (v) => n.systemArchitecture = v as SystemArchitectureSpec, label: 'systemArchitecture'),
-        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
-        SpecSlot.node(() => n.technicalFrameworkConditions, (v) => n.technicalFrameworkConditions = v as TechnicalFrameworkConditions, label: 'technicalFrameworkConditions'),
+        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsAndDependencies, label: 'componentsToUse'),
+        SpecSlot.node(() => n.technicalEnvironment, (v) => n.technicalEnvironment = v as TechnicalEnvironment, label: 'technicalEnvironment'),
         SpecSlot.node(() => n.translationRequirements, (v) => n.translationRequirements = v as TranslationRequirements, label: 'translationRequirements'),
       ];
     },
@@ -7928,7 +7982,7 @@ void registerSpecOps() {
         ..technicalSecurityRequirements = n.technicalSecurityRequirements
         ..systemArchitecture = n.systemArchitecture
         ..componentsToUse = n.componentsToUse
-        ..technicalFrameworkConditions = n.technicalFrameworkConditions
+        ..technicalEnvironment = n.technicalEnvironment
         ..translationRequirements = n.translationRequirements;
     },
     yamlScalar: (o) => (o as D06ArchitectureTechnologySpecification).content,
@@ -8007,9 +8061,9 @@ void registerSpecOps() {
         SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
         SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
         SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
-        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
-        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
-        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
+        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintAndExportLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandling, label: 'errorHandling'),
+        SpecSlot.node(() => n.userAssistance, (v) => n.userAssistance = v as UserAssistance, label: 'userAssistance'),
         SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
         SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
         SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
@@ -8028,7 +8082,7 @@ void registerSpecOps() {
         ..screenFlow = n.screenFlow
         ..printLayout = n.printLayout
         ..errorHandling = n.errorHandling
-        ..helpConcept = n.helpConcept
+        ..userAssistance = n.userAssistance
         ..accessibility = n.accessibility
         ..responsiveDesign = n.responsiveDesign
         ..uiComponents = n.uiComponents
@@ -8135,10 +8189,10 @@ void registerSpecOps() {
         SpecSlot.node(() => n.trainingDeliverables, (v) => n.trainingDeliverables = v as TrainingDeliverableRequirements, label: 'trainingDeliverables'),
         SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
         SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
-        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManuals>(), label: 'userManuals'),
-        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterials>(), label: 'trainingMaterials'),
+        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManual>(), label: 'userManuals'),
+        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterial>(), label: 'trainingMaterials'),
         SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
-        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedures>(), label: 'cutoverProcedures'),
+        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedure>(), label: 'cutoverProcedures'),
         SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
         SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
       ];
@@ -10236,9 +10290,9 @@ void registerSpecOps() {
       final n = o as DeliveryTransitionAndRollout;
       return [
         SpecSlot.node(() => n.systemStagePlan, (v) => n.systemStagePlan = v as SystemStagePlan, label: 'systemStagePlan'),
-        SpecSlot.node(() => n.systemRolloutConcept, (v) => n.systemRolloutConcept = v as SystemRolloutConcept, label: 'systemRolloutConcept'),
+        SpecSlot.node(() => n.systemRollout, (v) => n.systemRollout = v as SystemRollout, label: 'systemRollout'),
         SpecSlot.node(() => n.localizationTranslationProcess, (v) => n.localizationTranslationProcess = v as LocalizationTranslationProcess, label: 'localizationTranslationProcess'),
-        SpecSlot.node(() => n.multiLanguageRolloutPlan, (v) => n.multiLanguageRolloutPlan = v as MultiLanguageAndRolloutPlan, label: 'multiLanguageRolloutPlan'),
+        SpecSlot.node(() => n.localeRolloutPlan, (v) => n.localeRolloutPlan = v as LocaleRolloutPlan, label: 'localeRolloutPlan'),
       ];
     },
     cloneShallow: (o) {
@@ -10246,9 +10300,9 @@ void registerSpecOps() {
       return DeliveryTransitionAndRollout()
         ..content = n.content
         ..systemStagePlan = n.systemStagePlan
-        ..systemRolloutConcept = n.systemRolloutConcept
+        ..systemRollout = n.systemRollout
         ..localizationTranslationProcess = n.localizationTranslationProcess
-        ..multiLanguageRolloutPlan = n.multiLanguageRolloutPlan;
+        ..localeRolloutPlan = n.localeRolloutPlan;
     },
     yamlScalar: (o) => (o as DeliveryTransitionAndRollout).content,
   ));
@@ -10998,12 +11052,21 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DesignPatternsAndStandards).content,
   ));
+  SpecRegistry.register(DesignPrincipleEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as DesignPrincipleEntry;
+      return DesignPrincipleEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as DesignPrincipleEntry).content,
+  ));
   SpecRegistry.register(DesignPrinciples, SpecClassOps(
     slots: (o) {
       final n = o as DesignPrinciples;
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.list(() => n.items, (v) => n.items = v.cast<UiDesignPrincipleEntry>(), label: 'items'),
+        SpecSlot.list(() => n.items, (v) => n.items = v.cast<DesignPrincipleEntry>(), label: 'items'),
       ];
     },
     cloneShallow: (o) {
@@ -11100,14 +11163,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DesktopOsRequirementEntryTesting).content,
   ));
-  SpecRegistry.register(DetailedProcessWorkflows, SpecClassOps(
+  SpecRegistry.register(DetailedProcessWorkflow, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DetailedProcessWorkflows;
-      return DetailedProcessWorkflows()
+      final n = o as DetailedProcessWorkflow;
+      return DetailedProcessWorkflow()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DetailedProcessWorkflows).content,
+    yamlScalar: (o) => (o as DetailedProcessWorkflow).content,
   ));
   SpecRegistry.register(DeveloperOnboarding, SpecClassOps(
     slots: (o) {
@@ -12466,14 +12529,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as EncryptionInTransit).content,
   ));
-  SpecRegistry.register(EndToEndTestScenarios, SpecClassOps(
+  SpecRegistry.register(EndToEndTestScenario, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as EndToEndTestScenarios;
-      return EndToEndTestScenarios()
+      final n = o as EndToEndTestScenario;
+      return EndToEndTestScenario()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as EndToEndTestScenarios).content,
+    yamlScalar: (o) => (o as EndToEndTestScenario).content,
   ));
   SpecRegistry.register(EnterpriseSystemCompatibilityEntry, SpecClassOps(
     slots: (o) {
@@ -12973,13 +13036,13 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ErrorBudgetTrackingMonitoring).content,
   ));
-  SpecRegistry.register(ErrorHandlingConcept, SpecClassOps(
+  SpecRegistry.register(ErrorHandling, SpecClassOps(
     slots: (o) {
-      final n = o as ErrorHandlingConcept;
+      final n = o as ErrorHandling;
       return [
-        SpecSlot.node(() => n.classification, (v) => n.classification = v as ErrorHandlingConceptClassification, label: 'classification'),
-        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as ErrorHandlingConceptAccessibility, label: 'accessibility'),
-        SpecSlot.node(() => n.operations, (v) => n.operations = v as ErrorHandlingConceptOperations, label: 'operations'),
+        SpecSlot.node(() => n.classification, (v) => n.classification = v as ErrorHandlingClassification, label: 'classification'),
+        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as ErrorHandlingAccessibility, label: 'accessibility'),
+        SpecSlot.node(() => n.operations, (v) => n.operations = v as ErrorHandlingOperations, label: 'operations'),
         SpecSlot.node(() => n.errorHandlingOverview, (v) => n.errorHandlingOverview = v as TextSection, label: 'errorHandlingOverview'),
         SpecSlot.node(() => n.validationFeedback, (v) => n.validationFeedback = v as ValidationFeedback, label: 'validationFeedback'),
         SpecSlot.node(() => n.systemErrorDisplay, (v) => n.systemErrorDisplay = v as SystemErrorDisplay, label: 'systemErrorDisplay'),
@@ -12989,8 +13052,8 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as ErrorHandlingConcept;
-      return ErrorHandlingConcept()
+      final n = o as ErrorHandling;
+      return ErrorHandling()
         ..errorPhilosophyContent = n.errorPhilosophyContent
         ..classification = n.classification
         ..accessibility = n.accessibility
@@ -13002,34 +13065,34 @@ void registerSpecOps() {
         ..errorMessageCatalog = n.errorMessageCatalog
         ..errorVisualDesign = n.errorVisualDesign;
     },
-    yamlScalar: (o) => (o as ErrorHandlingConcept).errorPhilosophyContent,
+    yamlScalar: (o) => (o as ErrorHandling).errorPhilosophyContent,
   ));
-  SpecRegistry.register(ErrorHandlingConceptAccessibility, SpecClassOps(
+  SpecRegistry.register(ErrorHandlingAccessibility, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ErrorHandlingConceptAccessibility;
-      return ErrorHandlingConceptAccessibility()
+      final n = o as ErrorHandlingAccessibility;
+      return ErrorHandlingAccessibility()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ErrorHandlingConceptAccessibility).content,
+    yamlScalar: (o) => (o as ErrorHandlingAccessibility).content,
   ));
-  SpecRegistry.register(ErrorHandlingConceptClassification, SpecClassOps(
+  SpecRegistry.register(ErrorHandlingClassification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ErrorHandlingConceptClassification;
-      return ErrorHandlingConceptClassification()
+      final n = o as ErrorHandlingClassification;
+      return ErrorHandlingClassification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ErrorHandlingConceptClassification).content,
+    yamlScalar: (o) => (o as ErrorHandlingClassification).content,
   ));
-  SpecRegistry.register(ErrorHandlingConceptOperations, SpecClassOps(
+  SpecRegistry.register(ErrorHandlingOperations, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ErrorHandlingConceptOperations;
-      return ErrorHandlingConceptOperations()
+      final n = o as ErrorHandlingOperations;
+      return ErrorHandlingOperations()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ErrorHandlingConceptOperations).content,
+    yamlScalar: (o) => (o as ErrorHandlingOperations).content,
   ));
   SpecRegistry.register(ErrorHandlingStandards, SpecClassOps(
     slots: (o) {
@@ -13420,15 +13483,15 @@ void registerSpecOps() {
         SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
         SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
         SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
-        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintAndExportLayout, label: 'printLayout'),
         SpecSlot.node(() => n.dataStructureAlignment, (v) => n.dataStructureAlignment = v as TextSection, label: 'dataStructureAlignment'),
         SpecSlot.node(() => n.authorizationCompliance, (v) => n.authorizationCompliance = v as TextSection, label: 'authorizationCompliance'),
-        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
-        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
+        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandling, label: 'errorHandling'),
+        SpecSlot.node(() => n.userAssistance, (v) => n.userAssistance = v as UserAssistance, label: 'userAssistance'),
         SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
         SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
         SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
-        SpecSlot.node(() => n.multiLanguage, (v) => n.multiLanguage = v as MultiLanguageAndRollout, label: 'multiLanguage'),
+        SpecSlot.node(() => n.multiLanguageSupport, (v) => n.multiLanguageSupport = v as MultiLanguageSupport, label: 'multiLanguageSupport'),
         SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
         SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
       ];
@@ -13444,11 +13507,11 @@ void registerSpecOps() {
         ..dataStructureAlignment = n.dataStructureAlignment
         ..authorizationCompliance = n.authorizationCompliance
         ..errorHandling = n.errorHandling
-        ..helpConcept = n.helpConcept
+        ..userAssistance = n.userAssistance
         ..accessibility = n.accessibility
         ..responsiveDesign = n.responsiveDesign
         ..uiComponents = n.uiComponents
-        ..multiLanguage = n.multiLanguage
+        ..multiLanguageSupport = n.multiLanguageSupport
         ..prototype = n.prototype
         ..wireframesAndMockups = n.wireframesAndMockups;
     },
@@ -14747,27 +14810,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as FrameworkCompatibility).content,
   ));
-  SpecRegistry.register(FrameworkConditions, SpecClassOps(
-    slots: (o) {
-      final n = o as FrameworkConditions;
-      return [
-        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.node(() => n.organizationalEnvironment, (v) => n.organizationalEnvironment = v as OrganizationalEnvironment, label: 'organizationalEnvironment'),
-        SpecSlot.node(() => n.functionalResponsibilities, (v) => n.functionalResponsibilities = v as FunctionalResponsibilities, label: 'functionalResponsibilities'),
-        SpecSlot.node(() => n.technicalFrameworkConditions, (v) => n.technicalFrameworkConditions = v as TechnicalFrameworkConditions, label: 'technicalFrameworkConditions'),
-        SpecSlot.node(() => n.constraintsAndDependencies, (v) => n.constraintsAndDependencies = v as ConstraintsAndDependencies, label: 'constraintsAndDependencies'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as FrameworkConditions;
-      return FrameworkConditions()
-        ..overview = n.overview
-        ..organizationalEnvironment = n.organizationalEnvironment
-        ..functionalResponsibilities = n.functionalResponsibilities
-        ..technicalFrameworkConditions = n.technicalFrameworkConditions
-        ..constraintsAndDependencies = n.constraintsAndDependencies;
-    },
-  ));
   SpecRegistry.register(FrameworkIdentity, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -15540,51 +15582,6 @@ void registerSpecOps() {
         ..dependencyHealth = n.dependencyHealth;
     },
     yamlScalar: (o) => (o as HealthChecksAndDiagnosticsSection).content,
-  ));
-  SpecRegistry.register(HelpConcept, SpecClassOps(
-    slots: (o) {
-      final n = o as HelpConcept;
-      return [
-        SpecSlot.node(() => n.delivery, (v) => n.delivery = v as HelpConceptDelivery, label: 'delivery'),
-        SpecSlot.node(() => n.insights, (v) => n.insights = v as HelpConceptInsights, label: 'insights'),
-        SpecSlot.node(() => n.helpOverview, (v) => n.helpOverview = v as TextSection, label: 'helpOverview'),
-        SpecSlot.node(() => n.contextualHelp, (v) => n.contextualHelp = v as ContextualHelp, label: 'contextualHelp'),
-        SpecSlot.node(() => n.onboarding, (v) => n.onboarding = v as OnboardingHelp, label: 'onboarding'),
-        SpecSlot.node(() => n.supportAccess, (v) => n.supportAccess = v as SupportAccess, label: 'supportAccess'),
-        SpecSlot.node(() => n.helpContentInventory, (v) => n.helpContentInventory = v as TextSection, label: 'helpContentInventory'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as HelpConcept;
-      return HelpConcept()
-        ..helpOverviewContent = n.helpOverviewContent
-        ..delivery = n.delivery
-        ..insights = n.insights
-        ..helpOverview = n.helpOverview
-        ..contextualHelp = n.contextualHelp
-        ..onboarding = n.onboarding
-        ..supportAccess = n.supportAccess
-        ..helpContentInventory = n.helpContentInventory;
-    },
-    yamlScalar: (o) => (o as HelpConcept).helpOverviewContent,
-  ));
-  SpecRegistry.register(HelpConceptDelivery, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as HelpConceptDelivery;
-      return HelpConceptDelivery()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as HelpConceptDelivery).content,
-  ));
-  SpecRegistry.register(HelpConceptInsights, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as HelpConceptInsights;
-      return HelpConceptInsights()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as HelpConceptInsights).content,
   ));
   SpecRegistry.register(HighAvailabilityRequirements, SpecClassOps(
     slots: (o) {
@@ -17641,13 +17638,13 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as IntroductionAndScope;
       return [
-        SpecSlot.node(() => n.summary, (v) => n.summary = v as SystemOverviewSummary, label: 'summary'),
+        SpecSlot.node(() => n.summary, (v) => n.summary = v as SystemSummary, label: 'summary'),
         SpecSlot.node(() => n.systemDescription, (v) => n.systemDescription = v as SystemDescription, label: 'systemDescription'),
         SpecSlot.node(() => n.goals, (v) => n.goals = v as Goals, label: 'goals'),
         SpecSlot.node(() => n.requirements, (v) => n.requirements = v as RequirementsOverview, label: 'requirements'),
         SpecSlot.node(() => n.systemsToReplace, (v) => n.systemsToReplace = v as SystemsToReplace, label: 'systemsToReplace'),
         SpecSlot.node(() => n.systemBoundaries, (v) => n.systemBoundaries = v as SystemBoundaries, label: 'systemBoundaries'),
-        SpecSlot.node(() => n.frameworkConditions, (v) => n.frameworkConditions = v as FrameworkConditions, label: 'frameworkConditions'),
+        SpecSlot.node(() => n.operatingEnvironment, (v) => n.operatingEnvironment = v as OperatingEnvironment, label: 'operatingEnvironment'),
         SpecSlot.node(() => n.risksAndAssumptions, (v) => n.risksAndAssumptions = v as RisksAndAssumptions, label: 'risksAndAssumptions'),
       ];
     },
@@ -17662,7 +17659,7 @@ void registerSpecOps() {
         ..requirements = n.requirements
         ..systemsToReplace = n.systemsToReplace
         ..systemBoundaries = n.systemBoundaries
-        ..frameworkConditions = n.frameworkConditions
+        ..operatingEnvironment = n.operatingEnvironment
         ..risksAndAssumptions = n.risksAndAssumptions;
     },
     yamlScalar: (o) => (o as IntroductionAndScope).content,
@@ -18369,6 +18366,31 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as LegacyCompatibilityEntryRisk).content,
   ));
+  SpecRegistry.register(LegalAndContractualRequirements, SpecClassOps(
+    slots: (o) {
+      final n = o as LegalAndContractualRequirements;
+      return [
+        SpecSlot.node(() => n.intellectualProperty, (v) => n.intellectualProperty = v as IntellectualPropertyRequirements, label: 'intellectualProperty'),
+        SpecSlot.node(() => n.confidentiality, (v) => n.confidentiality = v as ConfidentialityRequirements, label: 'confidentiality'),
+        SpecSlot.node(() => n.regulatoryCompliance, (v) => n.regulatoryCompliance = v as RegulatoryComplianceRequirements, label: 'regulatoryCompliance'),
+        SpecSlot.node(() => n.auditRequirements, (v) => n.auditRequirements = v as AuditRequirements, label: 'auditRequirements'),
+        SpecSlot.node(() => n.insuranceLiability, (v) => n.insuranceLiability = v as InsuranceLiabilityRequirements, label: 'insuranceLiability'),
+        SpecSlot.list(() => n.otherAgreements, (v) => n.otherAgreements = v.cast<OtherAgreementEntry>(), label: 'otherAgreements'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as LegalAndContractualRequirements;
+      return LegalAndContractualRequirements()
+        ..content = n.content
+        ..intellectualProperty = n.intellectualProperty
+        ..confidentiality = n.confidentiality
+        ..regulatoryCompliance = n.regulatoryCompliance
+        ..auditRequirements = n.auditRequirements
+        ..insuranceLiability = n.insuranceLiability
+        ..otherAgreements = n.otherAgreements;
+    },
+    yamlScalar: (o) => (o as LegalAndContractualRequirements).content,
+  ));
   SpecRegistry.register(LiabilityLimitations, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -18547,13 +18569,49 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as LocalDevelopmentSetupWorkflow).content,
   ));
+  SpecRegistry.register(LocaleHandlingRequirements, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as LocaleHandlingRequirements;
+      return LocaleHandlingRequirements()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as LocaleHandlingRequirements).content,
+  ));
+  SpecRegistry.register(LocaleRolloutPlan, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as LocaleRolloutPlan;
+      return LocaleRolloutPlan()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as LocaleRolloutPlan).content,
+  ));
+  SpecRegistry.register(LocalizationDeployment, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as LocalizationDeployment;
+      return LocalizationDeployment()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as LocalizationDeployment).content,
+  ));
+  SpecRegistry.register(LocalizationFormatting, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as LocalizationFormatting;
+      return LocalizationFormatting()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as LocalizationFormatting).content,
+  ));
   SpecRegistry.register(LocalizationProcess, SpecClassOps(
     slots: (o) {
       final n = o as LocalizationProcess;
       return [
-        SpecSlot.node(() => n.review, (v) => n.review = v as LocalizationProcessReview, label: 'review'),
-        SpecSlot.node(() => n.formatting, (v) => n.formatting = v as LocalizationProcessFormatting, label: 'formatting'),
-        SpecSlot.node(() => n.deployment, (v) => n.deployment = v as LocalizationProcessDeployment, label: 'deployment'),
+        SpecSlot.node(() => n.review, (v) => n.review = v as LocalizationReview, label: 'review'),
+        SpecSlot.node(() => n.formatting, (v) => n.formatting = v as LocalizationFormatting, label: 'formatting'),
+        SpecSlot.node(() => n.deployment, (v) => n.deployment = v as LocalizationDeployment, label: 'deployment'),
         SpecSlot.node(() => n.localizationNarrative, (v) => n.localizationNarrative = v as TextSection, label: 'localizationNarrative'),
         SpecSlot.node(() => n.workflowDiagram, (v) => n.workflowDiagram = v as FlowDiagramSection, label: 'workflowDiagram'),
       ];
@@ -18570,32 +18628,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as LocalizationProcess).localizationProcessContent,
   ));
-  SpecRegistry.register(LocalizationProcessDeployment, SpecClassOps(
+  SpecRegistry.register(LocalizationReview, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as LocalizationProcessDeployment;
-      return LocalizationProcessDeployment()
+      final n = o as LocalizationReview;
+      return LocalizationReview()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as LocalizationProcessDeployment).content,
-  ));
-  SpecRegistry.register(LocalizationProcessFormatting, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as LocalizationProcessFormatting;
-      return LocalizationProcessFormatting()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as LocalizationProcessFormatting).content,
-  ));
-  SpecRegistry.register(LocalizationProcessReview, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as LocalizationProcessReview;
-      return LocalizationProcessReview()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as LocalizationProcessReview).content,
+    yamlScalar: (o) => (o as LocalizationReview).content,
   ));
   SpecRegistry.register(LocalizationTranslationProcess, SpecClassOps(
     slots: (o) {
@@ -18619,7 +18659,7 @@ void registerSpecOps() {
       final n = o as LocalizationTranslationRequirements;
       return [
         SpecSlot.node(() => n.translationRequirements, (v) => n.translationRequirements = v as TranslationRequirements, label: 'translationRequirements'),
-        SpecSlot.node(() => n.localeHandling, (v) => n.localeHandling = v as MultiLanguageAndRolloutLocaleHandling, label: 'localeHandling'),
+        SpecSlot.node(() => n.localeHandling, (v) => n.localeHandling = v as LocaleHandlingRequirements, label: 'localeHandling'),
       ];
     },
     cloneShallow: (o) {
@@ -20606,9 +20646,9 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as MultiChannelExperience).content,
   ));
-  SpecRegistry.register(MultiLanguageAndRollout, SpecClassOps(
+  SpecRegistry.register(MultiLanguageSupport, SpecClassOps(
     slots: (o) {
-      final n = o as MultiLanguageAndRollout;
+      final n = o as MultiLanguageSupport;
       return [
         SpecSlot.node(() => n.overviewNarrative, (v) => n.overviewNarrative = v as TextSection, label: 'overviewNarrative'),
         SpecSlot.node(() => n.languageCountrySelection, (v) => n.languageCountrySelection = v as LanguageCountrySelection, label: 'languageCountrySelection'),
@@ -20616,32 +20656,14 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as MultiLanguageAndRollout;
-      return MultiLanguageAndRollout()
+      final n = o as MultiLanguageSupport;
+      return MultiLanguageSupport()
         ..multiLanguageOverview = n.multiLanguageOverview
         ..overviewNarrative = n.overviewNarrative
         ..languageCountrySelection = n.languageCountrySelection
         ..supportedLocales = n.supportedLocales;
     },
-    yamlScalar: (o) => (o as MultiLanguageAndRollout).multiLanguageOverview,
-  ));
-  SpecRegistry.register(MultiLanguageAndRolloutLocaleHandling, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MultiLanguageAndRolloutLocaleHandling;
-      return MultiLanguageAndRolloutLocaleHandling()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MultiLanguageAndRolloutLocaleHandling).content,
-  ));
-  SpecRegistry.register(MultiLanguageAndRolloutPlan, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MultiLanguageAndRolloutPlan;
-      return MultiLanguageAndRolloutPlan()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MultiLanguageAndRolloutPlan).content,
+    yamlScalar: (o) => (o as MultiLanguageSupport).multiLanguageOverview,
   ));
   SpecRegistry.register(MustPassCriteria, SpecClassOps(
     slots: (o) {
@@ -21832,6 +21854,27 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as OngoingTrainingEntrySchedule).content,
   ));
+  SpecRegistry.register(OperatingEnvironment, SpecClassOps(
+    slots: (o) {
+      final n = o as OperatingEnvironment;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.organizationalEnvironment, (v) => n.organizationalEnvironment = v as OrganizationalEnvironment, label: 'organizationalEnvironment'),
+        SpecSlot.node(() => n.functionalResponsibilities, (v) => n.functionalResponsibilities = v as FunctionalResponsibilities, label: 'functionalResponsibilities'),
+        SpecSlot.node(() => n.technicalEnvironment, (v) => n.technicalEnvironment = v as TechnicalEnvironment, label: 'technicalEnvironment'),
+        SpecSlot.node(() => n.constraintsAndDependencies, (v) => n.constraintsAndDependencies = v as ConstraintsAndDependencies, label: 'constraintsAndDependencies'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as OperatingEnvironment;
+      return OperatingEnvironment()
+        ..overview = n.overview
+        ..organizationalEnvironment = n.organizationalEnvironment
+        ..functionalResponsibilities = n.functionalResponsibilities
+        ..technicalEnvironment = n.technicalEnvironment
+        ..constraintsAndDependencies = n.constraintsAndDependencies;
+    },
+  ));
   SpecRegistry.register(OperationalMonitoring, SpecClassOps(
     slots: (o) {
       final n = o as OperationalMonitoring;
@@ -22295,31 +22338,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as OsCompatibilityEntryTesting).content,
-  ));
-  SpecRegistry.register(OtherAdministrativeRequirements, SpecClassOps(
-    slots: (o) {
-      final n = o as OtherAdministrativeRequirements;
-      return [
-        SpecSlot.node(() => n.intellectualProperty, (v) => n.intellectualProperty = v as IntellectualPropertyRequirements, label: 'intellectualProperty'),
-        SpecSlot.node(() => n.confidentiality, (v) => n.confidentiality = v as ConfidentialityRequirements, label: 'confidentiality'),
-        SpecSlot.node(() => n.regulatoryCompliance, (v) => n.regulatoryCompliance = v as RegulatoryComplianceRequirements, label: 'regulatoryCompliance'),
-        SpecSlot.node(() => n.auditRequirements, (v) => n.auditRequirements = v as AuditRequirements, label: 'auditRequirements'),
-        SpecSlot.node(() => n.insuranceLiability, (v) => n.insuranceLiability = v as InsuranceLiabilityRequirements, label: 'insuranceLiability'),
-        SpecSlot.list(() => n.otherAgreements, (v) => n.otherAgreements = v.cast<OtherAgreementEntry>(), label: 'otherAgreements'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as OtherAdministrativeRequirements;
-      return OtherAdministrativeRequirements()
-        ..content = n.content
-        ..intellectualProperty = n.intellectualProperty
-        ..confidentiality = n.confidentiality
-        ..regulatoryCompliance = n.regulatoryCompliance
-        ..auditRequirements = n.auditRequirements
-        ..insuranceLiability = n.insuranceLiability
-        ..otherAgreements = n.otherAgreements;
-    },
-    yamlScalar: (o) => (o as OtherAdministrativeRequirements).content,
   ));
   SpecRegistry.register(OtherAgreementEntry, SpecClassOps(
     slots: (o) => const [],
@@ -23427,9 +23445,9 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as PrimaryNavigationSidebar).content,
   ));
-  SpecRegistry.register(PrintLayout, SpecClassOps(
+  SpecRegistry.register(PrintAndExportLayout, SpecClassOps(
     slots: (o) {
-      final n = o as PrintLayout;
+      final n = o as PrintAndExportLayout;
       return [
         SpecSlot.node(() => n.pageSetup, (v) => n.pageSetup = v as PrintLayoutPageSetup, label: 'pageSetup'),
         SpecSlot.node(() => n.branding, (v) => n.branding = v as PrintLayoutBranding, label: 'branding'),
@@ -23442,8 +23460,8 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as PrintLayout;
-      return PrintLayout()
+      final n = o as PrintAndExportLayout;
+      return PrintAndExportLayout()
         ..content = n.content
         ..pageSetup = n.pageSetup
         ..branding = n.branding
@@ -23454,7 +23472,7 @@ void registerSpecOps() {
         ..exportFormats = n.exportFormats
         ..exportTemplates = n.exportTemplates;
     },
-    yamlScalar: (o) => (o as PrintLayout).content,
+    yamlScalar: (o) => (o as PrintAndExportLayout).content,
   ));
   SpecRegistry.register(PrintLayoutArchive, SpecClassOps(
     slots: (o) => const [],
@@ -24174,6 +24192,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ProcessKpiEntryOperations).content,
   ));
+  SpecRegistry.register(ProcessMetric, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ProcessMetric;
+      return ProcessMetric()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ProcessMetric).content,
+  ));
   SpecRegistry.register(ProcessMetricCategory, SpecClassOps(
     slots: (o) {
       final n = o as ProcessMetricCategory;
@@ -24254,15 +24281,6 @@ void registerSpecOps() {
         ..baselineTable = n.baselineTable;
     },
     yamlScalar: (o) => (o as ProcessMetrics).content,
-  ));
-  SpecRegistry.register(ProcessMetricsAndKpis, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ProcessMetricsAndKpis;
-      return ProcessMetricsAndKpis()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ProcessMetricsAndKpis).content,
   ));
   SpecRegistry.register(ProcessOutputEntry, SpecClassOps(
     slots: (o) => const [],
@@ -24475,7 +24493,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.interactionCatalog, (v) => n.interactionCatalog = v as InteractionCatalog, label: 'interactionCatalog'),
         SpecSlot.node(() => n.keyScenarios, (v) => n.keyScenarios = v as KeyScenarios, label: 'keyScenarios'),
         SpecSlot.node(() => n.actorRelationshipDiagram, (v) => n.actorRelationshipDiagram = v as ActorRelationshipDiagram, label: 'actorRelationshipDiagram'),
-        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenarios>(), label: 'endToEndTestScenarios'),
+        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenario>(), label: 'endToEndTestScenarios'),
         SpecSlot.node(() => n.useCaseTraceability, (v) => n.useCaseTraceability = v as UseCaseTraceability, label: 'useCaseTraceability'),
       ];
     },
@@ -24858,7 +24876,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.overviewNarrative, (v) => n.overviewNarrative = v as TextSection, label: 'overviewNarrative'),
         SpecSlot.node(() => n.prototypeGoals, (v) => n.prototypeGoals = v as PrototypeGoals, label: 'prototypeGoals'),
         SpecSlot.node(() => n.featureSubset, (v) => n.featureSubset = v as PrototypeFeatureSubset, label: 'featureSubset'),
-        SpecSlot.node(() => n.prototypeType, (v) => n.prototypeType = v as PrototypeTypeSection, label: 'prototypeType'),
+        SpecSlot.node(() => n.prototypeType, (v) => n.prototypeType = v as PrototypeType, label: 'prototypeType'),
         SpecSlot.node(() => n.prototypeSchedule, (v) => n.prototypeSchedule = v as TextSection, label: 'prototypeSchedule'),
       ];
     },
@@ -25000,9 +25018,9 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as PrototypeTimeline).content,
   ));
-  SpecRegistry.register(PrototypeTypeSection, SpecClassOps(
+  SpecRegistry.register(PrototypeType, SpecClassOps(
     slots: (o) {
-      final n = o as PrototypeTypeSection;
+      final n = o as PrototypeType;
       return [
         SpecSlot.node(() => n.reusablePrototype, (v) => n.reusablePrototype = v as ReusablePrototype, label: 'reusablePrototype'),
         SpecSlot.node(() => n.trainingPrototype, (v) => n.trainingPrototype = v as TrainingPrototype, label: 'trainingPrototype'),
@@ -25010,14 +25028,14 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as PrototypeTypeSection;
-      return PrototypeTypeSection()
+      final n = o as PrototypeType;
+      return PrototypeType()
         ..prototypeTypeOverview = n.prototypeTypeOverview
         ..reusablePrototype = n.reusablePrototype
         ..trainingPrototype = n.trainingPrototype
         ..throwawayPrototype = n.throwawayPrototype;
     },
-    yamlScalar: (o) => (o as PrototypeTypeSection).prototypeTypeOverview,
+    yamlScalar: (o) => (o as PrototypeType).prototypeTypeOverview,
   ));
   SpecRegistry.register(PwaRequirements, SpecClassOps(
     slots: (o) {
@@ -28267,14 +28285,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RolloutPlan).content,
   ));
-  SpecRegistry.register(RolloutTrainingMaterials, SpecClassOps(
+  SpecRegistry.register(RolloutTrainingMaterial, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as RolloutTrainingMaterials;
-      return RolloutTrainingMaterials()
+      final n = o as RolloutTrainingMaterial;
+      return RolloutTrainingMaterial()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as RolloutTrainingMaterials).content,
+    yamlScalar: (o) => (o as RolloutTrainingMaterial).content,
   ));
   SpecRegistry.register(RowLevelSecurityPolicy, SpecClassOps(
     slots: (o) {
@@ -31384,7 +31402,7 @@ void registerSpecOps() {
       final n = o as SolutionArchitectureAndTechnology;
       return [
         SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
-        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
+        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsAndDependencies, label: 'componentsToUse'),
       ];
     },
     cloneShallow: (o) {
@@ -31430,6 +31448,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as SpecializedEquipmentEntryTechnical).content,
+  ));
+  SpecRegistry.register(SpecificationStatus, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SpecificationStatus;
+      return SpecificationStatus()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SpecificationStatus).content,
   ));
   SpecRegistry.register(SsoPolicy, SpecClassOps(
     slots: (o) {
@@ -32014,6 +32041,33 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as StageOverviewStatus).content,
   ));
+  SpecRegistry.register(StagePlanCoordination, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as StagePlanCoordination;
+      return StagePlanCoordination()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as StagePlanCoordination).content,
+  ));
+  SpecRegistry.register(StagePlanReadiness, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as StagePlanReadiness;
+      return StagePlanReadiness()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as StagePlanReadiness).content,
+  ));
+  SpecRegistry.register(StagePlanTimeline, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as StagePlanTimeline;
+      return StagePlanTimeline()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as StagePlanTimeline).content,
+  ));
   SpecRegistry.register(StageQuality, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -32426,7 +32480,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.projectTeamStaffing, (v) => n.projectTeamStaffing = v as ProjectTeamStaffing, label: 'projectTeamStaffing'),
         SpecSlot.node(() => n.distributionList, (v) => n.distributionList = v as DistributionList, label: 'distributionList'),
         SpecSlot.node(() => n.changeProcedure, (v) => n.changeProcedure = v as ChangeProcedure, label: 'changeProcedure'),
-        SpecSlot.node(() => n.legalAndContractual, (v) => n.legalAndContractual = v as OtherAdministrativeRequirements, label: 'legalAndContractual'),
+        SpecSlot.node(() => n.legalAndContractual, (v) => n.legalAndContractual = v as LegalAndContractualRequirements, label: 'legalAndContractual'),
         SpecSlot.node(() => n.stakeholderRegister, (v) => n.stakeholderRegister = v as StakeholderRegister, label: 'stakeholderRegister'),
       ];
     },
@@ -33023,6 +33077,24 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SystemBusinessUnitEntry).content,
   ));
+  SpecRegistry.register(SystemClassification, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SystemClassification;
+      return SystemClassification()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SystemClassification).content,
+  ));
+  SpecRegistry.register(SystemComplexity, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SystemComplexity;
+      return SystemComplexity()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SystemComplexity).content,
+  ));
   SpecRegistry.register(SystemConfigurationManagement, SpecClassOps(
     slots: (o) {
       final n = o as SystemConfigurationManagement;
@@ -33255,7 +33327,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.descriptionSummary, (v) => n.descriptionSummary = v as SystemDescriptionSummary, label: 'descriptionSummary'),
         SpecSlot.node(() => n.systemPurpose, (v) => n.systemPurpose = v as SystemPurpose, label: 'systemPurpose'),
         SpecSlot.node(() => n.systemContext, (v) => n.systemContext = v as SystemContext, label: 'systemContext'),
-        SpecSlot.node(() => n.taskArea, (v) => n.taskArea = v as TaskArea, label: 'taskArea'),
+        SpecSlot.node(() => n.businessDomain, (v) => n.businessDomain = v as BusinessDomain, label: 'businessDomain'),
         SpecSlot.list(() => n.userCategories, (v) => n.userCategories = v.cast<UserCategoryEntry>(), label: 'userCategories'),
         SpecSlot.node(() => n.userInteractionModel, (v) => n.userInteractionModel = v as UserInteractionModel, label: 'userInteractionModel'),
       ];
@@ -33267,7 +33339,7 @@ void registerSpecOps() {
         ..descriptionSummary = n.descriptionSummary
         ..systemPurpose = n.systemPurpose
         ..systemContext = n.systemContext
-        ..taskArea = n.taskArea
+        ..businessDomain = n.businessDomain
         ..userCategories = n.userCategories
         ..userInteractionModel = n.userInteractionModel;
     },
@@ -33636,63 +33708,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SystemOperationAndMonitoring).content,
   ));
-  SpecRegistry.register(SystemOverviewSummary, SpecClassOps(
-    slots: (o) {
-      final n = o as SystemOverviewSummary;
-      return [
-        SpecSlot.node(() => n.classification, (v) => n.classification = v as SystemOverviewSummaryClassification, label: 'classification'),
-        SpecSlot.node(() => n.scale, (v) => n.scale = v as SystemOverviewSummaryScale, label: 'scale'),
-        SpecSlot.node(() => n.status, (v) => n.status = v as SystemOverviewSummaryStatus, label: 'status'),
-        SpecSlot.node(() => n.complexity, (v) => n.complexity = v as SystemOverviewSummaryComplexity, label: 'complexity'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as SystemOverviewSummary;
-      return SystemOverviewSummary()
-        ..content = n.content
-        ..classification = n.classification
-        ..scale = n.scale
-        ..status = n.status
-        ..complexity = n.complexity;
-    },
-    yamlScalar: (o) => (o as SystemOverviewSummary).content,
-  ));
-  SpecRegistry.register(SystemOverviewSummaryClassification, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemOverviewSummaryClassification;
-      return SystemOverviewSummaryClassification()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemOverviewSummaryClassification).content,
-  ));
-  SpecRegistry.register(SystemOverviewSummaryComplexity, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemOverviewSummaryComplexity;
-      return SystemOverviewSummaryComplexity()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemOverviewSummaryComplexity).content,
-  ));
-  SpecRegistry.register(SystemOverviewSummaryScale, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemOverviewSummaryScale;
-      return SystemOverviewSummaryScale()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemOverviewSummaryScale).content,
-  ));
-  SpecRegistry.register(SystemOverviewSummaryStatus, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemOverviewSummaryStatus;
-      return SystemOverviewSummaryStatus()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemOverviewSummaryStatus).content,
-  ));
   SpecRegistry.register(SystemPurpose, SpecClassOps(
     slots: (o) {
       final n = o as SystemPurpose;
@@ -33817,23 +33832,23 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SystemReplacementStrategyTimeline).content,
   ));
-  SpecRegistry.register(SystemRolloutConcept, SpecClassOps(
+  SpecRegistry.register(SystemRollout, SpecClassOps(
     slots: (o) {
-      final n = o as SystemRolloutConcept;
+      final n = o as SystemRollout;
       return [
         SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
         SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
-        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManuals>(), label: 'userManuals'),
-        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterials>(), label: 'trainingMaterials'),
+        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManual>(), label: 'userManuals'),
+        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterial>(), label: 'trainingMaterials'),
         SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
-        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedures>(), label: 'cutoverProcedures'),
+        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedure>(), label: 'cutoverProcedures'),
         SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
         SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as SystemRolloutConcept;
-      return SystemRolloutConcept()
+      final n = o as SystemRollout;
+      return SystemRollout()
         ..content = n.content
         ..rolloutPlan = n.rolloutPlan
         ..migrationPlan = n.migrationPlan
@@ -33844,15 +33859,24 @@ void registerSpecOps() {
         ..knowledgeTransfer = n.knowledgeTransfer
         ..warrantyAndSupport = n.warrantyAndSupport;
     },
-    yamlScalar: (o) => (o as SystemRolloutConcept).content,
+    yamlScalar: (o) => (o as SystemRollout).content,
+  ));
+  SpecRegistry.register(SystemScale, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SystemScale;
+      return SystemScale()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SystemScale).content,
   ));
   SpecRegistry.register(SystemStagePlan, SpecClassOps(
     slots: (o) {
       final n = o as SystemStagePlan;
       return [
-        SpecSlot.node(() => n.timeline, (v) => n.timeline = v as SystemStagePlanTimeline, label: 'timeline'),
-        SpecSlot.node(() => n.coordination, (v) => n.coordination = v as SystemStagePlanCoordination, label: 'coordination'),
-        SpecSlot.node(() => n.readiness, (v) => n.readiness = v as SystemStagePlanReadiness, label: 'readiness'),
+        SpecSlot.node(() => n.timeline, (v) => n.timeline = v as StagePlanTimeline, label: 'timeline'),
+        SpecSlot.node(() => n.coordination, (v) => n.coordination = v as StagePlanCoordination, label: 'coordination'),
+        SpecSlot.node(() => n.readiness, (v) => n.readiness = v as StagePlanReadiness, label: 'readiness'),
         SpecSlot.node(() => n.strategy, (v) => n.strategy = v as StagingStrategy, label: 'strategy'),
         SpecSlot.node(() => n.stageOverview, (v) => n.stageOverview = v as StageOverview, label: 'stageOverview'),
         SpecSlot.list(() => n.stages, (v) => n.stages = v.cast<StageEntry>(), label: 'stages'),
@@ -33881,32 +33905,26 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SystemStagePlan).content,
   ));
-  SpecRegistry.register(SystemStagePlanCoordination, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemStagePlanCoordination;
-      return SystemStagePlanCoordination()
-        ..content = n.content;
+  SpecRegistry.register(SystemSummary, SpecClassOps(
+    slots: (o) {
+      final n = o as SystemSummary;
+      return [
+        SpecSlot.node(() => n.classification, (v) => n.classification = v as SystemClassification, label: 'classification'),
+        SpecSlot.node(() => n.scale, (v) => n.scale = v as SystemScale, label: 'scale'),
+        SpecSlot.node(() => n.status, (v) => n.status = v as SpecificationStatus, label: 'status'),
+        SpecSlot.node(() => n.complexity, (v) => n.complexity = v as SystemComplexity, label: 'complexity'),
+      ];
     },
-    yamlScalar: (o) => (o as SystemStagePlanCoordination).content,
-  ));
-  SpecRegistry.register(SystemStagePlanReadiness, SpecClassOps(
-    slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as SystemStagePlanReadiness;
-      return SystemStagePlanReadiness()
-        ..content = n.content;
+      final n = o as SystemSummary;
+      return SystemSummary()
+        ..content = n.content
+        ..classification = n.classification
+        ..scale = n.scale
+        ..status = n.status
+        ..complexity = n.complexity;
     },
-    yamlScalar: (o) => (o as SystemStagePlanReadiness).content,
-  ));
-  SpecRegistry.register(SystemStagePlanTimeline, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemStagePlanTimeline;
-      return SystemStagePlanTimeline()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemStagePlanTimeline).content,
+    yamlScalar: (o) => (o as SystemSummary).content,
   ));
   SpecRegistry.register(SystemTaskEntry, SpecClassOps(
     slots: (o) {
@@ -34245,22 +34263,22 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TargetBusinessProcessModel).content,
   ));
-  SpecRegistry.register(TargetOperatingModelConcept, SpecClassOps(
+  SpecRegistry.register(TargetOperatingModel, SpecClassOps(
     slots: (o) {
-      final n = o as TargetOperatingModelConcept;
+      final n = o as TargetOperatingModel;
       return [
         SpecSlot.node(() => n.organizationalFramework, (v) => n.organizationalFramework = v as OrganizationalFramework, label: 'organizationalFramework'),
         SpecSlot.node(() => n.targetBusinessProcess, (v) => n.targetBusinessProcess = v as TargetBusinessProcessModel, label: 'targetBusinessProcess'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as TargetOperatingModelConcept;
-      return TargetOperatingModelConcept()
+      final n = o as TargetOperatingModel;
+      return TargetOperatingModel()
         ..content = n.content
         ..organizationalFramework = n.organizationalFramework
         ..targetBusinessProcess = n.targetBusinessProcess;
     },
-    yamlScalar: (o) => (o as TargetOperatingModelConcept).content,
+    yamlScalar: (o) => (o as TargetOperatingModel).content,
   ));
   SpecRegistry.register(TargetPlatformEntry, SpecClassOps(
     slots: (o) {
@@ -34318,33 +34336,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as TargetPlatformEntryVersion).content,
-  ));
-  SpecRegistry.register(TaskArea, SpecClassOps(
-    slots: (o) {
-      final n = o as TaskArea;
-      return [
-        SpecSlot.node(() => n.domainOverview, (v) => n.domainOverview = v as DomainOverview, label: 'domainOverview'),
-        SpecSlot.node(() => n.domainVocabulary, (v) => n.domainVocabulary = v as DomainVocabulary, label: 'domainVocabulary'),
-        SpecSlot.node(() => n.keyConcepts, (v) => n.keyConcepts = v as KeyConcepts, label: 'keyConcepts'),
-        SpecSlot.node(() => n.domainBoundaries, (v) => n.domainBoundaries = v as DomainBoundaries, label: 'domainBoundaries'),
-        SpecSlot.node(() => n.businessRules, (v) => n.businessRules = v as DomainBusinessRules, label: 'businessRules'),
-        SpecSlot.node(() => n.domainProcesses, (v) => n.domainProcesses = v as DomainProcesses, label: 'domainProcesses'),
-        SpecSlot.node(() => n.domainEvents, (v) => n.domainEvents = v as DomainEvents, label: 'domainEvents'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TaskArea;
-      return TaskArea()
-        ..content = n.content
-        ..domainOverview = n.domainOverview
-        ..domainVocabulary = n.domainVocabulary
-        ..keyConcepts = n.keyConcepts
-        ..domainBoundaries = n.domainBoundaries
-        ..businessRules = n.businessRules
-        ..domainProcesses = n.domainProcesses
-        ..domainEvents = n.domainEvents;
-    },
-    yamlScalar: (o) => (o as TaskArea).content,
   ));
   SpecRegistry.register(TeamMemberAvailability, SpecClassOps(
     slots: (o) => const [],
@@ -34482,6 +34473,87 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TechnicalDependencyEntry).content,
   ));
+  SpecRegistry.register(TechnicalEnvironment, SpecClassOps(
+    slots: (o) {
+      final n = o as TechnicalEnvironment;
+      return [
+        SpecSlot.node(() => n.governance, (v) => n.governance = v as TechnicalEnvironmentGovernance, label: 'governance'),
+        SpecSlot.node(() => n.standards, (v) => n.standards = v as TechnicalEnvironmentStandards, label: 'standards'),
+        SpecSlot.node(() => n.security, (v) => n.security = v as TechnicalEnvironmentSecurity, label: 'security'),
+        SpecSlot.node(() => n.network, (v) => n.network = v as TechnicalEnvironmentNetwork, label: 'network'),
+        SpecSlot.node(() => n.existingInfrastructure, (v) => n.existingInfrastructure = v as TextSection, label: 'existingInfrastructure'),
+        SpecSlot.list(() => n.datacenters, (v) => n.datacenters = v.cast<DatacenterEntry>(), label: 'datacenters'),
+        SpecSlot.node(() => n.networkTopology, (v) => n.networkTopology = v as TextSection, label: 'networkTopology'),
+        SpecSlot.node(() => n.standardsOverview, (v) => n.standardsOverview = v as TextSection, label: 'standardsOverview'),
+        SpecSlot.list(() => n.technologyStandards, (v) => n.technologyStandards = v.cast<TechnologyStandardEntry>(), label: 'technologyStandards'),
+        SpecSlot.node(() => n.integrationOverview, (v) => n.integrationOverview = v as TextSection, label: 'integrationOverview'),
+        SpecSlot.list(() => n.integrationConstraints, (v) => n.integrationConstraints = v.cast<IntegrationConstraintEntry>(), label: 'integrationConstraints'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TechnicalEnvironment;
+      return TechnicalEnvironment()
+        ..technicalOverviewContent = n.technicalOverviewContent
+        ..governance = n.governance
+        ..standards = n.standards
+        ..security = n.security
+        ..network = n.network
+        ..existingInfrastructure = n.existingInfrastructure
+        ..datacenters = n.datacenters
+        ..networkTopology = n.networkTopology
+        ..standardsOverview = n.standardsOverview
+        ..technologyStandards = n.technologyStandards
+        ..integrationOverview = n.integrationOverview
+        ..integrationConstraints = n.integrationConstraints;
+    },
+    yamlScalar: (o) => (o as TechnicalEnvironment).technicalOverviewContent,
+  ));
+  SpecRegistry.register(TechnicalEnvironmentGovernance, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TechnicalEnvironmentGovernance;
+      return TechnicalEnvironmentGovernance()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TechnicalEnvironmentGovernance).content,
+  ));
+  SpecRegistry.register(TechnicalEnvironmentNetwork, SpecClassOps(
+    slots: (o) {
+      final n = o as TechnicalEnvironmentNetwork;
+      return [
+        SpecSlot.list(() => n.devopsStandards, (v) => n.devopsStandards = v.cast<DevopsStandardEntry>(), label: 'devopsStandards'),
+        SpecSlot.list(() => n.observabilityRequirements, (v) => n.observabilityRequirements = v.cast<ObservabilityRequirementEntry>(), label: 'observabilityRequirements'),
+        SpecSlot.node(() => n.disasterRecovery, (v) => n.disasterRecovery = v as TextSection, label: 'disasterRecovery'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TechnicalEnvironmentNetwork;
+      return TechnicalEnvironmentNetwork()
+        ..content = n.content
+        ..devopsStandards = n.devopsStandards
+        ..observabilityRequirements = n.observabilityRequirements
+        ..disasterRecovery = n.disasterRecovery;
+    },
+    yamlScalar: (o) => (o as TechnicalEnvironmentNetwork).content,
+  ));
+  SpecRegistry.register(TechnicalEnvironmentSecurity, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TechnicalEnvironmentSecurity;
+      return TechnicalEnvironmentSecurity()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TechnicalEnvironmentSecurity).content,
+  ));
+  SpecRegistry.register(TechnicalEnvironmentStandards, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TechnicalEnvironmentStandards;
+      return TechnicalEnvironmentStandards()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TechnicalEnvironmentStandards).content,
+  ));
   SpecRegistry.register(TechnicalFrameworkConcept, SpecClassOps(
     slots: (o) {
       final n = o as TechnicalFrameworkConcept;
@@ -34512,87 +34584,6 @@ void registerSpecOps() {
         ..systemArchitecture = n.systemArchitecture;
     },
     yamlScalar: (o) => (o as TechnicalFrameworkConcept).content,
-  ));
-  SpecRegistry.register(TechnicalFrameworkConditions, SpecClassOps(
-    slots: (o) {
-      final n = o as TechnicalFrameworkConditions;
-      return [
-        SpecSlot.node(() => n.governance, (v) => n.governance = v as TechnicalFrameworkConditionsGovernance, label: 'governance'),
-        SpecSlot.node(() => n.standards, (v) => n.standards = v as TechnicalFrameworkConditionsStandards, label: 'standards'),
-        SpecSlot.node(() => n.security, (v) => n.security = v as TechnicalFrameworkConditionsSecurity, label: 'security'),
-        SpecSlot.node(() => n.network, (v) => n.network = v as TechnicalFrameworkConditionsNetwork, label: 'network'),
-        SpecSlot.node(() => n.existingInfrastructure, (v) => n.existingInfrastructure = v as TextSection, label: 'existingInfrastructure'),
-        SpecSlot.list(() => n.datacenters, (v) => n.datacenters = v.cast<DatacenterEntry>(), label: 'datacenters'),
-        SpecSlot.node(() => n.networkTopology, (v) => n.networkTopology = v as TextSection, label: 'networkTopology'),
-        SpecSlot.node(() => n.standardsOverview, (v) => n.standardsOverview = v as TextSection, label: 'standardsOverview'),
-        SpecSlot.list(() => n.technologyStandards, (v) => n.technologyStandards = v.cast<TechnologyStandardEntry>(), label: 'technologyStandards'),
-        SpecSlot.node(() => n.integrationOverview, (v) => n.integrationOverview = v as TextSection, label: 'integrationOverview'),
-        SpecSlot.list(() => n.integrationConstraints, (v) => n.integrationConstraints = v.cast<IntegrationConstraintEntry>(), label: 'integrationConstraints'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TechnicalFrameworkConditions;
-      return TechnicalFrameworkConditions()
-        ..technicalOverviewContent = n.technicalOverviewContent
-        ..governance = n.governance
-        ..standards = n.standards
-        ..security = n.security
-        ..network = n.network
-        ..existingInfrastructure = n.existingInfrastructure
-        ..datacenters = n.datacenters
-        ..networkTopology = n.networkTopology
-        ..standardsOverview = n.standardsOverview
-        ..technologyStandards = n.technologyStandards
-        ..integrationOverview = n.integrationOverview
-        ..integrationConstraints = n.integrationConstraints;
-    },
-    yamlScalar: (o) => (o as TechnicalFrameworkConditions).technicalOverviewContent,
-  ));
-  SpecRegistry.register(TechnicalFrameworkConditionsGovernance, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TechnicalFrameworkConditionsGovernance;
-      return TechnicalFrameworkConditionsGovernance()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TechnicalFrameworkConditionsGovernance).content,
-  ));
-  SpecRegistry.register(TechnicalFrameworkConditionsNetwork, SpecClassOps(
-    slots: (o) {
-      final n = o as TechnicalFrameworkConditionsNetwork;
-      return [
-        SpecSlot.list(() => n.devopsStandards, (v) => n.devopsStandards = v.cast<DevopsStandardEntry>(), label: 'devopsStandards'),
-        SpecSlot.list(() => n.observabilityRequirements, (v) => n.observabilityRequirements = v.cast<ObservabilityRequirementEntry>(), label: 'observabilityRequirements'),
-        SpecSlot.node(() => n.disasterRecovery, (v) => n.disasterRecovery = v as TextSection, label: 'disasterRecovery'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TechnicalFrameworkConditionsNetwork;
-      return TechnicalFrameworkConditionsNetwork()
-        ..content = n.content
-        ..devopsStandards = n.devopsStandards
-        ..observabilityRequirements = n.observabilityRequirements
-        ..disasterRecovery = n.disasterRecovery;
-    },
-    yamlScalar: (o) => (o as TechnicalFrameworkConditionsNetwork).content,
-  ));
-  SpecRegistry.register(TechnicalFrameworkConditionsSecurity, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TechnicalFrameworkConditionsSecurity;
-      return TechnicalFrameworkConditionsSecurity()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TechnicalFrameworkConditionsSecurity).content,
-  ));
-  SpecRegistry.register(TechnicalFrameworkConditionsStandards, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TechnicalFrameworkConditionsStandards;
-      return TechnicalFrameworkConditionsStandards()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TechnicalFrameworkConditionsStandards).content,
   ));
   SpecRegistry.register(TechnicalGoalConstraints, SpecClassOps(
     slots: (o) {
@@ -36413,14 +36404,23 @@ void registerSpecOps() {
         ..escalationPaths = n.escalationPaths;
     },
   ));
+  SpecRegistry.register(TranslationOngoing, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TranslationOngoing;
+      return TranslationOngoing()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TranslationOngoing).content,
+  ));
   SpecRegistry.register(TranslationProcess, SpecClassOps(
     slots: (o) {
       final n = o as TranslationProcess;
       return [
-        SpecSlot.node(() => n.workflow, (v) => n.workflow = v as TranslationProcessWorkflow, label: 'workflow'),
-        SpecSlot.node(() => n.quality, (v) => n.quality = v as TranslationProcessQuality, label: 'quality'),
-        SpecSlot.node(() => n.terminology, (v) => n.terminology = v as TranslationProcessTerminology, label: 'terminology'),
-        SpecSlot.node(() => n.ongoing, (v) => n.ongoing = v as TranslationProcessOngoing, label: 'ongoing'),
+        SpecSlot.node(() => n.workflow, (v) => n.workflow = v as TranslationWorkflow, label: 'workflow'),
+        SpecSlot.node(() => n.quality, (v) => n.quality = v as TranslationQuality, label: 'quality'),
+        SpecSlot.node(() => n.terminology, (v) => n.terminology = v as TranslationTerminology, label: 'terminology'),
+        SpecSlot.node(() => n.ongoing, (v) => n.ongoing = v as TranslationOngoing, label: 'ongoing'),
         SpecSlot.node(() => n.translationNarrative, (v) => n.translationNarrative = v as TextSection, label: 'translationNarrative'),
         SpecSlot.list(() => n.vendors, (v) => n.vendors = v.cast<TranslationVendorEntry>(), label: 'vendors'),
       ];
@@ -36438,41 +36438,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TranslationProcess).translationProcessContent,
   ));
-  SpecRegistry.register(TranslationProcessOngoing, SpecClassOps(
+  SpecRegistry.register(TranslationQuality, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as TranslationProcessOngoing;
-      return TranslationProcessOngoing()
+      final n = o as TranslationQuality;
+      return TranslationQuality()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as TranslationProcessOngoing).content,
-  ));
-  SpecRegistry.register(TranslationProcessQuality, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TranslationProcessQuality;
-      return TranslationProcessQuality()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TranslationProcessQuality).content,
-  ));
-  SpecRegistry.register(TranslationProcessTerminology, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TranslationProcessTerminology;
-      return TranslationProcessTerminology()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TranslationProcessTerminology).content,
-  ));
-  SpecRegistry.register(TranslationProcessWorkflow, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as TranslationProcessWorkflow;
-      return TranslationProcessWorkflow()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as TranslationProcessWorkflow).content,
+    yamlScalar: (o) => (o as TranslationQuality).content,
   ));
   SpecRegistry.register(TranslationRequirements, SpecClassOps(
     slots: (o) {
@@ -36533,6 +36506,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TranslationRequirementsVariants).content,
   ));
+  SpecRegistry.register(TranslationTerminology, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TranslationTerminology;
+      return TranslationTerminology()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TranslationTerminology).content,
+  ));
   SpecRegistry.register(TranslationVendorEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -36541,6 +36523,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as TranslationVendorEntry).content,
+  ));
+  SpecRegistry.register(TranslationWorkflow, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as TranslationWorkflow;
+      return TranslationWorkflow()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as TranslationWorkflow).content,
   ));
   SpecRegistry.register(TransportSecurityPolicy, SpecClassOps(
     slots: (o) {
@@ -36928,9 +36919,9 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as UiComponents;
       return [
-        SpecSlot.node(() => n.visualLanguage, (v) => n.visualLanguage = v as UiComponentsVisualLanguage, label: 'visualLanguage'),
-        SpecSlot.node(() => n.componentApproach, (v) => n.componentApproach = v as UiComponentsComponentApproach, label: 'componentApproach'),
-        SpecSlot.node(() => n.customization, (v) => n.customization = v as UiComponentsCustomization, label: 'customization'),
+        SpecSlot.node(() => n.visualLanguage, (v) => n.visualLanguage = v as ComponentVisualLanguage, label: 'visualLanguage'),
+        SpecSlot.node(() => n.componentApproach, (v) => n.componentApproach = v as ComponentApproach, label: 'componentApproach'),
+        SpecSlot.node(() => n.customization, (v) => n.customization = v as ComponentCustomization, label: 'customization'),
         SpecSlot.node(() => n.componentLibrary, (v) => n.componentLibrary = v as ComponentLibrary, label: 'componentLibrary'),
         SpecSlot.list(() => n.componentSpecs, (v) => n.componentSpecs = v.cast<UiComponentEntry>(), label: 'componentSpecs'),
         SpecSlot.list(() => n.componentFamilies, (v) => n.componentFamilies = v.cast<ComponentFamilyEntry>(), label: 'componentFamilies'),
@@ -36948,42 +36939,6 @@ void registerSpecOps() {
         ..componentFamilies = n.componentFamilies;
     },
     yamlScalar: (o) => (o as UiComponents).componentLibraryOverview,
-  ));
-  SpecRegistry.register(UiComponentsComponentApproach, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as UiComponentsComponentApproach;
-      return UiComponentsComponentApproach()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as UiComponentsComponentApproach).content,
-  ));
-  SpecRegistry.register(UiComponentsCustomization, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as UiComponentsCustomization;
-      return UiComponentsCustomization()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as UiComponentsCustomization).content,
-  ));
-  SpecRegistry.register(UiComponentsVisualLanguage, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as UiComponentsVisualLanguage;
-      return UiComponentsVisualLanguage()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as UiComponentsVisualLanguage).content,
-  ));
-  SpecRegistry.register(UiDesignPrincipleEntry, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as UiDesignPrincipleEntry;
-      return UiDesignPrincipleEntry()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as UiDesignPrincipleEntry).content,
   ));
   SpecRegistry.register(UpgradeCycleFramework, SpecClassOps(
     slots: (o) => const [],
@@ -37200,6 +37155,51 @@ void registerSpecOps() {
         ..stateTransitionDiagram = n.stateTransitionDiagram;
     },
     yamlScalar: (o) => (o as UserAccountStatesDefinition).content,
+  ));
+  SpecRegistry.register(UserAssistance, SpecClassOps(
+    slots: (o) {
+      final n = o as UserAssistance;
+      return [
+        SpecSlot.node(() => n.delivery, (v) => n.delivery = v as UserAssistanceDelivery, label: 'delivery'),
+        SpecSlot.node(() => n.insights, (v) => n.insights = v as UserAssistanceInsights, label: 'insights'),
+        SpecSlot.node(() => n.helpOverview, (v) => n.helpOverview = v as TextSection, label: 'helpOverview'),
+        SpecSlot.node(() => n.contextualHelp, (v) => n.contextualHelp = v as ContextualHelp, label: 'contextualHelp'),
+        SpecSlot.node(() => n.onboarding, (v) => n.onboarding = v as OnboardingHelp, label: 'onboarding'),
+        SpecSlot.node(() => n.supportAccess, (v) => n.supportAccess = v as SupportAccess, label: 'supportAccess'),
+        SpecSlot.node(() => n.helpContentInventory, (v) => n.helpContentInventory = v as TextSection, label: 'helpContentInventory'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as UserAssistance;
+      return UserAssistance()
+        ..helpOverviewContent = n.helpOverviewContent
+        ..delivery = n.delivery
+        ..insights = n.insights
+        ..helpOverview = n.helpOverview
+        ..contextualHelp = n.contextualHelp
+        ..onboarding = n.onboarding
+        ..supportAccess = n.supportAccess
+        ..helpContentInventory = n.helpContentInventory;
+    },
+    yamlScalar: (o) => (o as UserAssistance).helpOverviewContent,
+  ));
+  SpecRegistry.register(UserAssistanceDelivery, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as UserAssistanceDelivery;
+      return UserAssistanceDelivery()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as UserAssistanceDelivery).content,
+  ));
+  SpecRegistry.register(UserAssistanceInsights, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as UserAssistanceInsights;
+      return UserAssistanceInsights()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as UserAssistanceInsights).content,
   ));
   SpecRegistry.register(UserAttributeEntry, SpecClassOps(
     slots: (o) => const [],
@@ -37475,9 +37475,9 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as UserJourneyPainPointEntry).content,
   ));
-  SpecRegistry.register(UserLifecycleSection, SpecClassOps(
+  SpecRegistry.register(UserLifecycle, SpecClassOps(
     slots: (o) {
-      final n = o as UserLifecycleSection;
+      final n = o as UserLifecycle;
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
         SpecSlot.node(() => n.accountStates, (v) => n.accountStates = v as UserAccountStatesDefinition, label: 'accountStates'),
@@ -37492,8 +37492,8 @@ void registerSpecOps() {
       ];
     },
     cloneShallow: (o) {
-      final n = o as UserLifecycleSection;
-      return UserLifecycleSection()
+      final n = o as UserLifecycle;
+      return UserLifecycle()
         ..content = n.content
         ..overview = n.overview
         ..accountStates = n.accountStates
@@ -37506,7 +37506,7 @@ void registerSpecOps() {
         ..selfService = n.selfService
         ..serviceAccounts = n.serviceAccounts;
     },
-    yamlScalar: (o) => (o as UserLifecycleSection).content,
+    yamlScalar: (o) => (o as UserLifecycle).content,
   ));
   SpecRegistry.register(UserLifecycleTransitionEntry, SpecClassOps(
     slots: (o) {
@@ -37578,7 +37578,7 @@ void registerSpecOps() {
       final n = o as UserManagement;
       return [
         SpecSlot.node(() => n.userCategories, (v) => n.userCategories = v as AccessUserCategories, label: 'userCategories'),
-        SpecSlot.node(() => n.userLifecycle, (v) => n.userLifecycle = v as UserLifecycleSection, label: 'userLifecycle'),
+        SpecSlot.node(() => n.userLifecycle, (v) => n.userLifecycle = v as UserLifecycle, label: 'userLifecycle'),
         SpecSlot.node(() => n.userAttributes, (v) => n.userAttributes = v as UserAttributes, label: 'userAttributes'),
       ];
     },
@@ -37592,14 +37592,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as UserManagement).content,
   ));
-  SpecRegistry.register(UserManuals, SpecClassOps(
+  SpecRegistry.register(UserManual, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UserManuals;
-      return UserManuals()
+      final n = o as UserManual;
+      return UserManual()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UserManuals).content,
+    yamlScalar: (o) => (o as UserManual).content,
   ));
   SpecRegistry.register(UserNotificationPreferences, SpecClassOps(
     slots: (o) => const [],

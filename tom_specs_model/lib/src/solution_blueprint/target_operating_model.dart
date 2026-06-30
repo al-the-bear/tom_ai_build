@@ -15,7 +15,7 @@ import 'target_business_process.dart';
 ///
 /// Public anchor: BABOK future-state analysis.
 @SectionId('TOMC')
-class TargetOperatingModelConcept {
+class TargetOperatingModel {
   @Unused()
   String? content;
 

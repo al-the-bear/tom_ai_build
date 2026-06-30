@@ -61,12 +61,12 @@ class D12TransitionRolloutPlan {
   /// User manuals.
   @SectionId('USRMAN-USER-LST')
   @SectionIdPattern('USRMAN-USER-xxx')
-  List<UserManuals> userManuals = [];
+  List<UserManual> userManuals = [];
 
   /// Training materials.
   @SectionId('RLTTM-TRAI-LST')
   @SectionIdPattern('RLTTM-TRAI-xxx')
-  List<RolloutTrainingMaterials> trainingMaterials = [];
+  List<RolloutTrainingMaterial> trainingMaterials = [];
 
   /// Pilot plan.
   PilotPlan pilotPlan = PilotPlan();
@@ -74,7 +74,7 @@ class D12TransitionRolloutPlan {
   /// Cutover procedures.
   @SectionId('CUTPRC-CUTO-LST')
   @SectionIdPattern('CUTPRC-CUTO-xxx')
-  List<CutoverProcedures> cutoverProcedures = [];
+  List<CutoverProcedure> cutoverProcedures = [];
 
   /// Knowledge transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();

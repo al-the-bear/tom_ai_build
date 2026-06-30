@@ -50,7 +50,7 @@ class D01CurrentLandscapeAssessment {
   /// Current operational metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
-  List<CurrentOperationalMetrics> operationalMetrics = [];
+  List<CurrentOperationalMetric> operationalMetrics = [];
 
   /// Current-state risk assessment.
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();

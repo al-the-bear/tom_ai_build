@@ -3148,32 +3148,32 @@ func (x *ArchitectureStyle) DecisionRecords() *som.SomList[*ArchitectureDecision
 }
 
 // A consolidated register of assumptions and constraints.
-type AssumptionConstraintRegister struct {
+type AssumptionConstraintDependencyRegister struct {
 	som.SomNode
 }
 
-// NewAssumptionConstraintRegister binds a AssumptionConstraintRegister facade to a document and a path.
-func NewAssumptionConstraintRegister(doc *som.SpecDocument, path string) *AssumptionConstraintRegister {
-	return &AssumptionConstraintRegister{SomNode: som.NewSomNode(doc, path)}
+// NewAssumptionConstraintDependencyRegister binds a AssumptionConstraintDependencyRegister facade to a document and a path.
+func NewAssumptionConstraintDependencyRegister(doc *som.SpecDocument, path string) *AssumptionConstraintDependencyRegister {
+	return &AssumptionConstraintDependencyRegister{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AssumptionConstraintRegister) Content() string {
+func (x *AssumptionConstraintDependencyRegister) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *AssumptionConstraintRegister) SetContent(value string) {
+func (x *AssumptionConstraintDependencyRegister) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // Assumptions the solution depends on being true.
-func (x *AssumptionConstraintRegister) Assumptions() *som.SomList[*AssumptionRegisterEntry] {
+func (x *AssumptionConstraintDependencyRegister) Assumptions() *som.SomList[*AssumptionRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-ASMP-LST", func(d *som.SpecDocument, p string) *AssumptionRegisterEntry {
 		return NewAssumptionRegisterEntry(d, p)
 	})
 }
 
 // Constraints the solution must operate within.
-func (x *AssumptionConstraintRegister) Constraints() *som.SomList[*ConstraintRegisterEntry] {
+func (x *AssumptionConstraintDependencyRegister) Constraints() *som.SomList[*ConstraintRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-CONS-LST", func(d *som.SpecDocument, p string) *ConstraintRegisterEntry {
 		return NewConstraintRegisterEntry(d, p)
 	})
@@ -3181,7 +3181,7 @@ func (x *AssumptionConstraintRegister) Constraints() *som.SomList[*ConstraintReg
 
 // Dependencies the solution relies on (external systems, teams, vendors,
 // prerequisite deliverables, framework conditions).
-func (x *AssumptionConstraintRegister) Dependencies() *som.SomList[*DependencyRegisterEntry] {
+func (x *AssumptionConstraintDependencyRegister) Dependencies() *som.SomList[*DependencyRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-DEPS-LST", func(d *som.SpecDocument, p string) *DependencyRegisterEntry {
 		return NewDependencyRegisterEntry(d, p)
 	})
@@ -3223,8 +3223,8 @@ func (x *AssumptionsConstraintsDependencies) SetContent(value string) {
 }
 
 // The consolidated assumption / constraint register.
-func (x *AssumptionsConstraintsDependencies) Register() *AssumptionConstraintRegister {
-	return NewAssumptionConstraintRegister(x.Doc(), x.Path() + "/register")
+func (x *AssumptionsConstraintsDependencies) Register() *AssumptionConstraintDependencyRegister {
+	return NewAssumptionConstraintDependencyRegister(x.Doc(), x.Path() + "/register")
 }
 
 // A single attribute interdependency entry.
@@ -5599,6 +5599,64 @@ func (x *BusinessComponentEntryTesting) Content() *BusinessComponentEntryTesting
 	return NewBusinessComponentEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 4.1.3. Description of Business Domain.
+//
+// Describes the business domain and task area the system addresses.
+// Defines the domain vocabulary and key concepts (ubiquitous language)
+// that will be used throughout the project. Based on Domain-Driven Design
+// principles for establishing a shared understanding.
+type BusinessDomain struct {
+	som.SomNode
+}
+
+// NewBusinessDomain binds a BusinessDomain facade to a document and a path.
+func NewBusinessDomain(doc *som.SpecDocument, path string) *BusinessDomain {
+	return &BusinessDomain{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *BusinessDomain) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BusinessDomain) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 4.1.3.1. Domain Overview.
+func (x *BusinessDomain) DomainOverview() *DomainOverview {
+	return NewDomainOverview(x.Doc(), x.Path() + "/domainOverview")
+}
+
+// 4.1.3.2. Domain Vocabulary.
+func (x *BusinessDomain) DomainVocabulary() *DomainVocabulary {
+	return NewDomainVocabulary(x.Doc(), x.Path() + "/domainVocabulary")
+}
+
+// 4.1.3.3. Key Concepts.
+func (x *BusinessDomain) KeyConcepts() *KeyConcepts {
+	return NewKeyConcepts(x.Doc(), x.Path() + "/keyConcepts")
+}
+
+// 4.1.3.4. Domain Boundaries.
+func (x *BusinessDomain) DomainBoundaries() *DomainBoundaries {
+	return NewDomainBoundaries(x.Doc(), x.Path() + "/domainBoundaries")
+}
+
+// 4.1.3.5. Business Rules.
+func (x *BusinessDomain) BusinessRules() *DomainBusinessRules {
+	return NewDomainBusinessRules(x.Doc(), x.Path() + "/businessRules")
+}
+
+// 4.1.3.6. Domain Processes.
+func (x *BusinessDomain) DomainProcesses() *DomainProcesses {
+	return NewDomainProcesses(x.Doc(), x.Path() + "/domainProcesses")
+}
+
+// 4.1.3.7. Domain Events.
+func (x *BusinessDomain) DomainEvents() *DomainEvents {
+	return NewDomainEvents(x.Doc(), x.Path() + "/domainEvents")
+}
+
 // A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
@@ -6121,9 +6179,9 @@ func (x *BusinessProcessDescriptions) ProcessRelationships() *ProcessRelationshi
 }
 
 // 6.1.7. Detailed Process Workflows.
-func (x *BusinessProcessDescriptions) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
-		return NewDetailedProcessWorkflows(d, p)
+func (x *BusinessProcessDescriptions) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflow] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflow {
+		return NewDetailedProcessWorkflow(d, p)
 	})
 }
 
@@ -6138,9 +6196,9 @@ func (x *BusinessProcessDescriptions) ExceptionHandling() *ProcessExceptionHandl
 }
 
 // 6.1.10. Process Metrics and KPIs.
-func (x *BusinessProcessDescriptions) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
-		return NewProcessMetricsAndKpis(d, p)
+func (x *BusinessProcessDescriptions) ProcessMetricsAndKpis() *som.SomList[*ProcessMetric] {
+	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetric {
+		return NewProcessMetric(d, p)
 	})
 }
 
@@ -9726,6 +9784,20 @@ func (x *ComponentActionEntryGovernance) Content() *ComponentActionEntryGovernan
 	return NewComponentActionEntryGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// Component naming and documentation approach.
+type ComponentApproach struct {
+	som.SomNode
+}
+
+// NewComponentApproach binds a ComponentApproach facade to a document and a path.
+func NewComponentApproach(doc *som.SpecDocument, path string) *ComponentApproach {
+	return &ComponentApproach{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentApproach) Content() *ComponentApproachContentForm {
+	return NewComponentApproachContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Compliance for component.
 type ComponentCompliance struct {
 	som.SomNode
@@ -9752,6 +9824,20 @@ func NewComponentCost(doc *som.SpecDocument, path string) *ComponentCost {
 
 func (x *ComponentCost) Content() *ComponentCostContentForm {
 	return NewComponentCostContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Extension and theming boundaries.
+type ComponentCustomization struct {
+	som.SomNode
+}
+
+// NewComponentCustomization binds a ComponentCustomization facade to a document and a path.
+func NewComponentCustomization(doc *som.SpecDocument, path string) *ComponentCustomization {
+	return &ComponentCustomization{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentCustomization) Content() *ComponentCustomizationContentForm {
+	return NewComponentCustomizationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Deployment for component.
@@ -11120,36 +11206,50 @@ func (x *ComponentVendor) Content() *ComponentVendorContentForm {
 	return NewComponentVendorContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12. Components to Use. Seeds → ATS.
+// Visual language and brand alignment.
+type ComponentVisualLanguage struct {
+	som.SomNode
+}
+
+// NewComponentVisualLanguage binds a ComponentVisualLanguage facade to a document and a path.
+func NewComponentVisualLanguage(doc *som.SpecDocument, path string) *ComponentVisualLanguage {
+	return &ComponentVisualLanguage{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentVisualLanguage) Content() *ComponentVisualLanguageContentForm {
+	return NewComponentVisualLanguageContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 12. Components and Dependencies. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
-type ComponentsToUse struct {
+type ComponentsAndDependencies struct {
 	som.SomNode
 }
 
-// NewComponentsToUse binds a ComponentsToUse facade to a document and a path.
-func NewComponentsToUse(doc *som.SpecDocument, path string) *ComponentsToUse {
-	return &ComponentsToUse{SomNode: som.NewSomNode(doc, path)}
+// NewComponentsAndDependencies binds a ComponentsAndDependencies facade to a document and a path.
+func NewComponentsAndDependencies(doc *som.SpecDocument, path string) *ComponentsAndDependencies {
+	return &ComponentsAndDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ComponentsToUse) Content() string {
+func (x *ComponentsAndDependencies) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *ComponentsToUse) SetContent(value string) {
+func (x *ComponentsAndDependencies) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // 12.1. Component Strategy.
-func (x *ComponentsToUse) Strategy() *ComponentStrategy {
+func (x *ComponentsAndDependencies) Strategy() *ComponentStrategy {
 	return NewComponentStrategy(x.Doc(), x.Path() + "/strategy")
 }
 
 // 12.2. Component Catalog — contains 0+× Component.
-func (x *ComponentsToUse) ComponentCatalog() *som.SomList[*ComponentEntry] {
+func (x *ComponentsAndDependencies) ComponentCatalog() *som.SomList[*ComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMPNT-COMP-LST", func(d *som.SpecDocument, p string) *ComponentEntry {
 		return NewComponentEntry(d, p)
 	})
@@ -11159,17 +11259,17 @@ func (x *ComponentsToUse) ComponentCatalog() *som.SomList[*ComponentEntry] {
 // (skipped: componentRoleInSystem has no target type)
 
 // 12.4. Runtime Dependencies.
-func (x *ComponentsToUse) RuntimeDependencies() *RuntimeDependencies {
+func (x *ComponentsAndDependencies) RuntimeDependencies() *RuntimeDependencies {
 	return NewRuntimeDependencies(x.Doc(), x.Path() + "/runtimeDependencies")
 }
 
 // 12.5. Maintenance Dependencies.
-func (x *ComponentsToUse) MaintenanceDependencies() *MaintenanceDependencies {
+func (x *ComponentsAndDependencies) MaintenanceDependencies() *MaintenanceDependencies {
 	return NewMaintenanceDependencies(x.Doc(), x.Path() + "/maintenanceDependencies")
 }
 
 // 12.6. Risk Assessment.
-func (x *ComponentsToUse) RiskAssessment() *ComponentRiskAssessment {
+func (x *ComponentsAndDependencies) RiskAssessment() *ComponentRiskAssessment {
 	return NewComponentRiskAssessment(x.Doc(), x.Path() + "/riskAssessment")
 }
 
@@ -12706,9 +12806,9 @@ func (x *CurrentLandscape) CurrentDataLandscape() *CurrentDataLandscape {
 }
 
 // 1.5. Operational Metrics.
-func (x *CurrentLandscape) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
-		return NewCurrentOperationalMetrics(d, p)
+func (x *CurrentLandscape) OperationalMetrics() *som.SomList[*CurrentOperationalMetric] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetric {
+		return NewCurrentOperationalMetric(d, p)
 	})
 }
 
@@ -12722,20 +12822,20 @@ func (x *CurrentLandscape) CurrentStateRisks() *CurrentStateRiskAssessment {
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
 // derive non-functional requirements.
-type CurrentOperationalMetrics struct {
+type CurrentOperationalMetric struct {
 	som.SomNode
 }
 
-// NewCurrentOperationalMetrics binds a CurrentOperationalMetrics facade to a document and a path.
-func NewCurrentOperationalMetrics(doc *som.SpecDocument, path string) *CurrentOperationalMetrics {
-	return &CurrentOperationalMetrics{SomNode: som.NewSomNode(doc, path)}
+// NewCurrentOperationalMetric binds a CurrentOperationalMetric facade to a document and a path.
+func NewCurrentOperationalMetric(doc *som.SpecDocument, path string) *CurrentOperationalMetric {
+	return &CurrentOperationalMetric{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CurrentOperationalMetrics) Content() string {
+func (x *CurrentOperationalMetric) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *CurrentOperationalMetrics) SetContent(value string) {
+func (x *CurrentOperationalMetric) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -12910,20 +13010,20 @@ func (x *CustomMetricEntry) Content() *CustomMetricEntryContentForm {
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
-type CutoverProcedures struct {
+type CutoverProcedure struct {
 	som.SomNode
 }
 
-// NewCutoverProcedures binds a CutoverProcedures facade to a document and a path.
-func NewCutoverProcedures(doc *som.SpecDocument, path string) *CutoverProcedures {
-	return &CutoverProcedures{SomNode: som.NewSomNode(doc, path)}
+// NewCutoverProcedure binds a CutoverProcedure facade to a document and a path.
+func NewCutoverProcedure(doc *som.SpecDocument, path string) *CutoverProcedure {
+	return &CutoverProcedure{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CutoverProcedures) Content() string {
+func (x *CutoverProcedure) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *CutoverProcedures) SetContent(value string) {
+func (x *CutoverProcedure) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -12994,8 +13094,8 @@ func (x *D00SolutionBlueprint) AssumptionsConstraintsDependencies() *Assumptions
 }
 
 // SBP.7 Target Operating Model concept. Seeds → TOM.
-func (x *D00SolutionBlueprint) TargetOperatingModelConcept() *TargetOperatingModelConcept {
-	return NewTargetOperatingModelConcept(x.Doc(), x.Path() + "/targetOperatingModelConcept")
+func (x *D00SolutionBlueprint) TargetOperatingModelConcept() *TargetOperatingModel {
+	return NewTargetOperatingModel(x.Doc(), x.Path() + "/targetOperatingModelConcept")
 }
 
 // SBP.8 Information & Data Model. Seeds → IFM.
@@ -13096,9 +13196,9 @@ func (x *D01CurrentLandscapeAssessment) CurrentDataLandscape() *CurrentDataLands
 }
 
 // Current operational metrics.
-func (x *D01CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
-		return NewCurrentOperationalMetrics(d, p)
+func (x *D01CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetric] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetric {
+		return NewCurrentOperationalMetric(d, p)
 	})
 }
 
@@ -13190,9 +13290,9 @@ func (x *D02TargetOperatingModel) ProcessRelationships() *ProcessRelationships {
 }
 
 // Detailed process workflows.
-func (x *D02TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
-		return NewDetailedProcessWorkflows(d, p)
+func (x *D02TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflow] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflow {
+		return NewDetailedProcessWorkflow(d, p)
 	})
 }
 
@@ -13207,9 +13307,9 @@ func (x *D02TargetOperatingModel) ExceptionHandling() *ProcessExceptionHandling 
 }
 
 // Process metrics and KPIs.
-func (x *D02TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
-		return NewProcessMetricsAndKpis(d, p)
+func (x *D02TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetric] {
+	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetric {
+		return NewProcessMetric(d, p)
 	})
 }
 
@@ -13481,9 +13581,9 @@ func (x *D05InteractionScenarios) ActorRelationshipDiagram() *ActorRelationshipD
 }
 
 // End-to-end test scenarios.
-func (x *D05InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
-		return NewEndToEndTestScenarios(d, p)
+func (x *D05InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenario] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenario {
+		return NewEndToEndTestScenario(d, p)
 	})
 }
 
@@ -13581,13 +13681,13 @@ func (x *D06ArchitectureTechnologySpecification) SystemArchitecture() *SystemArc
 }
 
 // Components to use (whole).
-func (x *D06ArchitectureTechnologySpecification) ComponentsToUse() *ComponentsToUse {
-	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
+func (x *D06ArchitectureTechnologySpecification) ComponentsToUse() *ComponentsAndDependencies {
+	return NewComponentsAndDependencies(x.Doc(), x.Path() + "/componentsToUse")
 }
 
 // Technical framework conditions (whole).
-func (x *D06ArchitectureTechnologySpecification) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
-	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
+func (x *D06ArchitectureTechnologySpecification) TechnicalEnvironment() *TechnicalEnvironment {
+	return NewTechnicalEnvironment(x.Doc(), x.Path() + "/technicalEnvironment")
 }
 
 // Translation handling requirements (whole).
@@ -13835,18 +13935,18 @@ func (x *D09ExperienceDesignSpecification) ScreenFlow() *ScreenFlowStructure {
 }
 
 // Print layout.
-func (x *D09ExperienceDesignSpecification) PrintLayout() *PrintLayout {
-	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
+func (x *D09ExperienceDesignSpecification) PrintLayout() *PrintAndExportLayout {
+	return NewPrintAndExportLayout(x.Doc(), x.Path() + "/printLayout")
 }
 
 // Error handling concept.
-func (x *D09ExperienceDesignSpecification) ErrorHandling() *ErrorHandlingConcept {
-	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
+func (x *D09ExperienceDesignSpecification) ErrorHandling() *ErrorHandling {
+	return NewErrorHandling(x.Doc(), x.Path() + "/errorHandling")
 }
 
 // Help concept.
-func (x *D09ExperienceDesignSpecification) HelpConcept() *HelpConcept {
-	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
+func (x *D09ExperienceDesignSpecification) UserAssistance() *UserAssistance {
+	return NewUserAssistance(x.Doc(), x.Path() + "/userAssistance")
 }
 
 // Accessibility.
@@ -14182,16 +14282,16 @@ func (x *D12TransitionRolloutPlan) MigrationPlan() *MigrationPlan {
 }
 
 // User manuals.
-func (x *D12TransitionRolloutPlan) UserManuals() *som.SomList[*UserManuals] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
-		return NewUserManuals(d, p)
+func (x *D12TransitionRolloutPlan) UserManuals() *som.SomList[*UserManual] {
+	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManual {
+		return NewUserManual(d, p)
 	})
 }
 
 // Training materials.
-func (x *D12TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
-		return NewRolloutTrainingMaterials(d, p)
+func (x *D12TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterial] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterial {
+		return NewRolloutTrainingMaterial(d, p)
 	})
 }
 
@@ -14201,9 +14301,9 @@ func (x *D12TransitionRolloutPlan) PilotPlan() *PilotPlan {
 }
 
 // Cutover procedures.
-func (x *D12TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedures] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
-		return NewCutoverProcedures(d, p)
+func (x *D12TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedure] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedure {
+		return NewCutoverProcedure(d, p)
 	})
 }
 
@@ -17805,8 +17905,8 @@ func (x *DeliveryTransitionAndRollout) SystemStagePlan() *SystemStagePlan {
 }
 
 // Rollout and transition concept.
-func (x *DeliveryTransitionAndRollout) SystemRolloutConcept() *SystemRolloutConcept {
-	return NewSystemRolloutConcept(x.Doc(), x.Path() + "/systemRolloutConcept")
+func (x *DeliveryTransitionAndRollout) SystemRollout() *SystemRollout {
+	return NewSystemRollout(x.Doc(), x.Path() + "/systemRollout")
 }
 
 // Localization & translation *execution* processes (re-homed from MLAR in
@@ -17817,8 +17917,8 @@ func (x *DeliveryTransitionAndRollout) LocalizationTranslationProcess() *Localiz
 }
 
 // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-func (x *DeliveryTransitionAndRollout) MultiLanguageRolloutPlan() *MultiLanguageAndRolloutPlan {
-	return NewMultiLanguageAndRolloutPlan(x.Doc(), x.Path() + "/multiLanguageRolloutPlan")
+func (x *DeliveryTransitionAndRollout) LocaleRolloutPlan() *LocaleRolloutPlan {
+	return NewLocaleRolloutPlan(x.Doc(), x.Path() + "/localeRolloutPlan")
 }
 
 // 1.1.3. Dependencies and Integrations.
@@ -19076,6 +19176,22 @@ func (x *DesignPatternsAndStandards) TestingStandards() *TestingStandards {
 	return NewTestingStandards(x.Doc(), x.Path() + "/testingStandards")
 }
 
+// A design principle entry (form).
+//
+// Each principle guides UI decisions with rationale and examples.
+type DesignPrincipleEntry struct {
+	som.SomNode
+}
+
+// NewDesignPrincipleEntry binds a DesignPrincipleEntry facade to a document and a path.
+func NewDesignPrincipleEntry(doc *som.SpecDocument, path string) *DesignPrincipleEntry {
+	return &DesignPrincipleEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DesignPrincipleEntry) Content() *DesignPrincipleEntryContentForm {
+	return NewDesignPrincipleEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
@@ -19101,9 +19217,9 @@ func (x *DesignPrinciples) SetContent(value string) {
 // (skipped: overview has no target type)
 
 // Contains 0+× UiDesignPrinciple.
-func (x *DesignPrinciples) Items() *som.SomList[*UiDesignPrincipleEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/UDPEN-ITEM-LST", func(d *som.SpecDocument, p string) *UiDesignPrincipleEntry {
-		return NewUiDesignPrincipleEntry(d, p)
+func (x *DesignPrinciples) Items() *som.SomList[*DesignPrincipleEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/UDPEN-ITEM-LST", func(d *som.SpecDocument, p string) *DesignPrincipleEntry {
+		return NewDesignPrincipleEntry(d, p)
 	})
 }
 
@@ -19251,20 +19367,20 @@ func (x *DesktopOsRequirementEntryTesting) Content() *DesktopOsRequirementEntryT
 //
 // Per-process workflow detail beyond the catalog overview.
 // .
-type DetailedProcessWorkflows struct {
+type DetailedProcessWorkflow struct {
 	som.SomNode
 }
 
-// NewDetailedProcessWorkflows binds a DetailedProcessWorkflows facade to a document and a path.
-func NewDetailedProcessWorkflows(doc *som.SpecDocument, path string) *DetailedProcessWorkflows {
-	return &DetailedProcessWorkflows{SomNode: som.NewSomNode(doc, path)}
+// NewDetailedProcessWorkflow binds a DetailedProcessWorkflow facade to a document and a path.
+func NewDetailedProcessWorkflow(doc *som.SpecDocument, path string) *DetailedProcessWorkflow {
+	return &DetailedProcessWorkflow{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DetailedProcessWorkflows) Content() string {
+func (x *DetailedProcessWorkflow) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *DetailedProcessWorkflows) SetContent(value string) {
+func (x *DetailedProcessWorkflow) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -21507,20 +21623,20 @@ func (x *EncryptionInTransit) TransportSecurityPolicy() *TransportSecurityPolicy
 //
 // Test scenarios that exercise complete user journeys across processes
 // and use cases..
-type EndToEndTestScenarios struct {
+type EndToEndTestScenario struct {
 	som.SomNode
 }
 
-// NewEndToEndTestScenarios binds a EndToEndTestScenarios facade to a document and a path.
-func NewEndToEndTestScenarios(doc *som.SpecDocument, path string) *EndToEndTestScenarios {
-	return &EndToEndTestScenarios{SomNode: som.NewSomNode(doc, path)}
+// NewEndToEndTestScenario binds a EndToEndTestScenario facade to a document and a path.
+func NewEndToEndTestScenario(doc *som.SpecDocument, path string) *EndToEndTestScenario {
+	return &EndToEndTestScenario{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EndToEndTestScenarios) Content() string {
+func (x *EndToEndTestScenario) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *EndToEndTestScenarios) SetContent(value string) {
+func (x *EndToEndTestScenario) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -22374,54 +22490,54 @@ func (x *ErrorBudgetTrackingMonitoring) Content() *ErrorBudgetTrackingMonitoring
 	return NewErrorBudgetTrackingMonitoringContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.7. Error Handling Concept.
+// 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
 // UX best practices for error prevention, detection, and graceful recovery.
-type ErrorHandlingConcept struct {
+type ErrorHandling struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConcept binds a ErrorHandlingConcept facade to a document and a path.
-func NewErrorHandlingConcept(doc *som.SpecDocument, path string) *ErrorHandlingConcept {
-	return &ErrorHandlingConcept{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandling binds a ErrorHandling facade to a document and a path.
+func NewErrorHandling(doc *som.SpecDocument, path string) *ErrorHandling {
+	return &ErrorHandling{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConcept) ErrorPhilosophyContent() *ErrorHandlingConceptErrorPhilosophyContentForm {
-	return NewErrorHandlingConceptErrorPhilosophyContentForm(x.Doc(), x.Path() + "/errorPhilosophyContent")
+func (x *ErrorHandling) ErrorPhilosophyContent() *ErrorHandlingErrorPhilosophyContentForm {
+	return NewErrorHandlingErrorPhilosophyContentForm(x.Doc(), x.Path() + "/errorPhilosophyContent")
 }
 
 // Error categorization and display priority.
-func (x *ErrorHandlingConcept) Classification() *ErrorHandlingConceptClassification {
-	return NewErrorHandlingConceptClassification(x.Doc(), x.Path() + "/classification")
+func (x *ErrorHandling) Classification() *ErrorHandlingClassification {
+	return NewErrorHandlingClassification(x.Doc(), x.Path() + "/classification")
 }
 
 // Accessibility and inclusive error cues.
-func (x *ErrorHandlingConcept) Accessibility() *ErrorHandlingConceptAccessibility {
-	return NewErrorHandlingConceptAccessibility(x.Doc(), x.Path() + "/accessibility")
+func (x *ErrorHandling) Accessibility() *ErrorHandlingAccessibility {
+	return NewErrorHandlingAccessibility(x.Doc(), x.Path() + "/accessibility")
 }
 
 // Localization and analytics behavior.
-func (x *ErrorHandlingConcept) Operations() *ErrorHandlingConceptOperations {
-	return NewErrorHandlingConceptOperations(x.Doc(), x.Path() + "/operations")
+func (x *ErrorHandling) Operations() *ErrorHandlingOperations {
+	return NewErrorHandlingOperations(x.Doc(), x.Path() + "/operations")
 }
 
 // Error handling overview and strategy.
 // (skipped: errorHandlingOverview has no target type)
 
 // 10.7.1. Validation Feedback.
-func (x *ErrorHandlingConcept) ValidationFeedback() *ValidationFeedback {
+func (x *ErrorHandling) ValidationFeedback() *ValidationFeedback {
 	return NewValidationFeedback(x.Doc(), x.Path() + "/validationFeedback")
 }
 
 // 10.7.2. System Error Display.
-func (x *ErrorHandlingConcept) SystemErrorDisplay() *SystemErrorDisplay {
+func (x *ErrorHandling) SystemErrorDisplay() *SystemErrorDisplay {
 	return NewSystemErrorDisplay(x.Doc(), x.Path() + "/systemErrorDisplay")
 }
 
 // 10.7.3. Error Recovery.
-func (x *ErrorHandlingConcept) ErrorRecovery() *ErrorRecovery {
+func (x *ErrorHandling) ErrorRecovery() *ErrorRecovery {
 	return NewErrorRecovery(x.Doc(), x.Path() + "/errorRecovery")
 }
 
@@ -22432,45 +22548,45 @@ func (x *ErrorHandlingConcept) ErrorRecovery() *ErrorRecovery {
 // (skipped: errorVisualDesign has no target type)
 
 // Accessibility and inclusive error cues.
-type ErrorHandlingConceptAccessibility struct {
+type ErrorHandlingAccessibility struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptAccessibility binds a ErrorHandlingConceptAccessibility facade to a document and a path.
-func NewErrorHandlingConceptAccessibility(doc *som.SpecDocument, path string) *ErrorHandlingConceptAccessibility {
-	return &ErrorHandlingConceptAccessibility{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingAccessibility binds a ErrorHandlingAccessibility facade to a document and a path.
+func NewErrorHandlingAccessibility(doc *som.SpecDocument, path string) *ErrorHandlingAccessibility {
+	return &ErrorHandlingAccessibility{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptAccessibility) Content() *ErrorHandlingConceptAccessibilityContentForm {
-	return NewErrorHandlingConceptAccessibilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *ErrorHandlingAccessibility) Content() *ErrorHandlingAccessibilityContentForm {
+	return NewErrorHandlingAccessibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Error categorization and display priority.
-type ErrorHandlingConceptClassification struct {
+type ErrorHandlingClassification struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptClassification binds a ErrorHandlingConceptClassification facade to a document and a path.
-func NewErrorHandlingConceptClassification(doc *som.SpecDocument, path string) *ErrorHandlingConceptClassification {
-	return &ErrorHandlingConceptClassification{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingClassification binds a ErrorHandlingClassification facade to a document and a path.
+func NewErrorHandlingClassification(doc *som.SpecDocument, path string) *ErrorHandlingClassification {
+	return &ErrorHandlingClassification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptClassification) Content() *ErrorHandlingConceptClassificationContentForm {
-	return NewErrorHandlingConceptClassificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *ErrorHandlingClassification) Content() *ErrorHandlingClassificationContentForm {
+	return NewErrorHandlingClassificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Localization and analytics behavior.
-type ErrorHandlingConceptOperations struct {
+type ErrorHandlingOperations struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptOperations binds a ErrorHandlingConceptOperations facade to a document and a path.
-func NewErrorHandlingConceptOperations(doc *som.SpecDocument, path string) *ErrorHandlingConceptOperations {
-	return &ErrorHandlingConceptOperations{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingOperations binds a ErrorHandlingOperations facade to a document and a path.
+func NewErrorHandlingOperations(doc *som.SpecDocument, path string) *ErrorHandlingOperations {
+	return &ErrorHandlingOperations{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptOperations) Content() *ErrorHandlingConceptOperationsContentForm {
-	return NewErrorHandlingConceptOperationsContentForm(x.Doc(), x.Path() + "/content")
+func (x *ErrorHandlingOperations) Content() *ErrorHandlingOperationsContentForm {
+	return NewErrorHandlingOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Error handling and exception patterns.
@@ -23160,8 +23276,8 @@ func (x *ExperienceAndInterfaceDesign) ScreenFlow() *ScreenFlowStructure {
 }
 
 // 10.4. Print Layout. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintLayout {
-	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
+func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintAndExportLayout {
+	return NewPrintAndExportLayout(x.Doc(), x.Path() + "/printLayout")
 }
 
 // Data Structure Alignment.
@@ -23170,14 +23286,14 @@ func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintLayout {
 // Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
 
-// 10.7. Error Handling Concept. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) ErrorHandling() *ErrorHandlingConcept {
-	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
+// 10.7. Error Handling. Seeds → XDS.
+func (x *ExperienceAndInterfaceDesign) ErrorHandling() *ErrorHandling {
+	return NewErrorHandling(x.Doc(), x.Path() + "/errorHandling")
 }
 
-// 10.8. Help Concept. Seeds → XDS.
-func (x *ExperienceAndInterfaceDesign) HelpConcept() *HelpConcept {
-	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
+// 10.8. User Assistance. Seeds → XDS.
+func (x *ExperienceAndInterfaceDesign) UserAssistance() *UserAssistance {
+	return NewUserAssistance(x.Doc(), x.Path() + "/userAssistance")
 }
 
 // 10.9. Accessibility. Seeds → XDS.
@@ -23195,9 +23311,9 @@ func (x *ExperienceAndInterfaceDesign) UiComponents() *UiComponents {
 	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
 }
 
-// 10.12. Multi-language and Rollout Support.
-func (x *ExperienceAndInterfaceDesign) MultiLanguage() *MultiLanguageAndRollout {
-	return NewMultiLanguageAndRollout(x.Doc(), x.Path() + "/multiLanguage")
+// 10.12. Multi-language Support.
+func (x *ExperienceAndInterfaceDesign) MultiLanguageSupport() *MultiLanguageSupport {
+	return NewMultiLanguageSupport(x.Doc(), x.Path() + "/multiLanguageSupport")
 }
 
 // 10.13. Prototype. Seeds → XDS.
@@ -25379,44 +25495,6 @@ func (x *FrameworkCompatibility) Content() *FrameworkCompatibilityContentForm {
 	return NewFrameworkCompatibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.6. Framework Conditions.
-//
-// Documents the organizational and technical environment in which the system
-// will operate. Covers organizational structure, functional responsibilities,
-// technical constraints, and external dependencies. Follows TOGAF enterprise
-// context patterns and PMBOK environmental factors analysis.
-type FrameworkConditions struct {
-	som.SomNode
-}
-
-// NewFrameworkConditions binds a FrameworkConditions facade to a document and a path.
-func NewFrameworkConditions(doc *som.SpecDocument, path string) *FrameworkConditions {
-	return &FrameworkConditions{SomNode: som.NewSomNode(doc, path)}
-}
-
-// Framework conditions overview.
-// (skipped: overview has no target type)
-
-// 4.6.1. Organizational Environment.
-func (x *FrameworkConditions) OrganizationalEnvironment() *OrganizationalEnvironment {
-	return NewOrganizationalEnvironment(x.Doc(), x.Path() + "/organizationalEnvironment")
-}
-
-// 4.6.2. Functional Responsibilities — contains 0+×.
-func (x *FrameworkConditions) FunctionalResponsibilities() *FunctionalResponsibilities {
-	return NewFunctionalResponsibilities(x.Doc(), x.Path() + "/functionalResponsibilities")
-}
-
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-func (x *FrameworkConditions) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
-	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
-}
-
-// 4.6.4. Constraints and Dependencies — contains 0+×.
-func (x *FrameworkConditions) ConstraintsAndDependencies() *ConstraintsAndDependencies {
-	return NewConstraintsAndDependencies(x.Doc(), x.Path() + "/constraintsAndDependencies")
-}
-
 // Identity details.
 type FrameworkIdentity struct {
 	som.SomNode
@@ -26747,82 +26825,6 @@ func (x *HealthChecksAndDiagnosticsSection) Troubleshooting() *TroubleshootingCa
 // Dependency health monitoring.
 func (x *HealthChecksAndDiagnosticsSection) DependencyHealth() *DependencyHealthMonitoring {
 	return NewDependencyHealthMonitoring(x.Doc(), x.Path() + "/dependencyHealth")
-}
-
-// 10.8. Help Concept.
-//
-// Comprehensive in-app help system including contextual help, onboarding,
-// and support access mechanisms.
-type HelpConcept struct {
-	som.SomNode
-}
-
-// NewHelpConcept binds a HelpConcept facade to a document and a path.
-func NewHelpConcept(doc *som.SpecDocument, path string) *HelpConcept {
-	return &HelpConcept{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConcept) HelpOverviewContent() *HelpConceptHelpOverviewContentForm {
-	return NewHelpConceptHelpOverviewContentForm(x.Doc(), x.Path() + "/helpOverviewContent")
-}
-
-// Content stewardship and help affordances.
-func (x *HelpConcept) Delivery() *HelpConceptDelivery {
-	return NewHelpConceptDelivery(x.Doc(), x.Path() + "/delivery")
-}
-
-// Analytics and improvement feedback.
-func (x *HelpConcept) Insights() *HelpConceptInsights {
-	return NewHelpConceptInsights(x.Doc(), x.Path() + "/insights")
-}
-
-// Help system overview narrative.
-// (skipped: helpOverview has no target type)
-
-// 10.8.1. Contextual Help.
-func (x *HelpConcept) ContextualHelp() *ContextualHelp {
-	return NewContextualHelp(x.Doc(), x.Path() + "/contextualHelp")
-}
-
-// 10.8.2. Onboarding.
-func (x *HelpConcept) Onboarding() *OnboardingHelp {
-	return NewOnboardingHelp(x.Doc(), x.Path() + "/onboarding")
-}
-
-// 10.8.3. Support Access.
-func (x *HelpConcept) SupportAccess() *SupportAccess {
-	return NewSupportAccess(x.Doc(), x.Path() + "/supportAccess")
-}
-
-// Help content inventory.
-// (skipped: helpContentInventory has no target type)
-
-// Content stewardship and help affordances.
-type HelpConceptDelivery struct {
-	som.SomNode
-}
-
-// NewHelpConceptDelivery binds a HelpConceptDelivery facade to a document and a path.
-func NewHelpConceptDelivery(doc *som.SpecDocument, path string) *HelpConceptDelivery {
-	return &HelpConceptDelivery{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConceptDelivery) Content() *HelpConceptDeliveryContentForm {
-	return NewHelpConceptDeliveryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Analytics and improvement feedback.
-type HelpConceptInsights struct {
-	som.SomNode
-}
-
-// NewHelpConceptInsights binds a HelpConceptInsights facade to a document and a path.
-func NewHelpConceptInsights(doc *som.SpecDocument, path string) *HelpConceptInsights {
-	return &HelpConceptInsights{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConceptInsights) Content() *HelpConceptInsightsContentForm {
-	return NewHelpConceptInsightsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // High availability requirements.
@@ -30218,7 +30220,7 @@ func (x *InteroperabilityRequirementsTesting) Content() *InteroperabilityRequire
 	return NewInteroperabilityRequirementsTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4. System Overview.
+// 4. Introduction & Scope.
 //
 // High-level overview of the system to be built: its purpose, goals,
 // scope boundaries, and the environment it operates in. This section
@@ -30241,8 +30243,8 @@ func (x *IntroductionAndScope) SetContent(value string) {
 }
 
 // System overview summary statistics.
-func (x *IntroductionAndScope) Summary() *SystemOverviewSummary {
-	return NewSystemOverviewSummary(x.Doc(), x.Path() + "/summary")
+func (x *IntroductionAndScope) Summary() *SystemSummary {
+	return NewSystemSummary(x.Doc(), x.Path() + "/summary")
 }
 
 // System context diagram showing major system boundaries.
@@ -30279,9 +30281,9 @@ func (x *IntroductionAndScope) SystemBoundaries() *SystemBoundaries {
 	return NewSystemBoundaries(x.Doc(), x.Path() + "/systemBoundaries")
 }
 
-// 4.6. Framework Conditions.
-func (x *IntroductionAndScope) FrameworkConditions() *FrameworkConditions {
-	return NewFrameworkConditions(x.Doc(), x.Path() + "/frameworkConditions")
+// 4.6. Operating Environment.
+func (x *IntroductionAndScope) OperatingEnvironment() *OperatingEnvironment {
+	return NewOperatingEnvironment(x.Doc(), x.Path() + "/operatingEnvironment")
 }
 
 // 4.7. Risks and Assumptions.
@@ -31504,6 +31506,60 @@ func (x *LegacyCompatibilityEntryRisk) Content() *LegacyCompatibilityEntryRiskCo
 	return NewLegacyCompatibilityEntryRiskContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 3.6. Other Administrative Requirements.
+//
+// Additional administrative agreements, constraints, or requirements not
+// covered by other sections: IP ownership, NDAs, regulatory compliance,
+// audit requirements, and other legal or organizational agreements.
+type LegalAndContractualRequirements struct {
+	som.SomNode
+}
+
+// NewLegalAndContractualRequirements binds a LegalAndContractualRequirements facade to a document and a path.
+func NewLegalAndContractualRequirements(doc *som.SpecDocument, path string) *LegalAndContractualRequirements {
+	return &LegalAndContractualRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LegalAndContractualRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *LegalAndContractualRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 3.6.1. Intellectual Property.
+func (x *LegalAndContractualRequirements) IntellectualProperty() *IntellectualPropertyRequirements {
+	return NewIntellectualPropertyRequirements(x.Doc(), x.Path() + "/intellectualProperty")
+}
+
+// 3.6.2. Confidentiality and NDAs.
+func (x *LegalAndContractualRequirements) Confidentiality() *ConfidentialityRequirements {
+	return NewConfidentialityRequirements(x.Doc(), x.Path() + "/confidentiality")
+}
+
+// 3.6.3. Regulatory Compliance.
+func (x *LegalAndContractualRequirements) RegulatoryCompliance() *RegulatoryComplianceRequirements {
+	return NewRegulatoryComplianceRequirements(x.Doc(), x.Path() + "/regulatoryCompliance")
+}
+
+// 3.6.4. Audit Requirements.
+func (x *LegalAndContractualRequirements) AuditRequirements() *AuditRequirements {
+	return NewAuditRequirements(x.Doc(), x.Path() + "/auditRequirements")
+}
+
+// 3.6.5. Insurance and Liability.
+func (x *LegalAndContractualRequirements) InsuranceLiability() *InsuranceLiabilityRequirements {
+	return NewInsuranceLiabilityRequirements(x.Doc(), x.Path() + "/insuranceLiability")
+}
+
+// 3.6.6. Other Agreements — contains 0+× Agreement.
+func (x *LegalAndContractualRequirements) OtherAgreements() *som.SomList[*OtherAgreementEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/OTAGR-OTHE-LST", func(d *som.SpecDocument, p string) *OtherAgreementEntry {
+		return NewOtherAgreementEntry(d, p)
+	})
+}
+
 // Liability limitations.
 type LiabilityLimitations struct {
 	som.SomNode
@@ -31785,6 +31841,62 @@ func (x *LocalDevelopmentSetupWorkflow) Content() *LocalDevelopmentSetupWorkflow
 	return NewLocalDevelopmentSetupWorkflowContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// Locale modeling and fallback behavior.
+type LocaleHandlingRequirements struct {
+	som.SomNode
+}
+
+// NewLocaleHandlingRequirements binds a LocaleHandlingRequirements facade to a document and a path.
+func NewLocaleHandlingRequirements(doc *som.SpecDocument, path string) *LocaleHandlingRequirements {
+	return &LocaleHandlingRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocaleHandlingRequirements) Content() *LocaleHandlingRequirementsContentForm {
+	return NewLocaleHandlingRequirementsContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Rollout sequencing by region and time.
+type LocaleRolloutPlan struct {
+	som.SomNode
+}
+
+// NewLocaleRolloutPlan binds a LocaleRolloutPlan facade to a document and a path.
+func NewLocaleRolloutPlan(doc *som.SpecDocument, path string) *LocaleRolloutPlan {
+	return &LocaleRolloutPlan{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocaleRolloutPlan) Content() *LocaleRolloutPlanContentForm {
+	return NewLocaleRolloutPlanContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Deployment settings.
+type LocalizationDeployment struct {
+	som.SomNode
+}
+
+// NewLocalizationDeployment binds a LocalizationDeployment facade to a document and a path.
+func NewLocalizationDeployment(doc *som.SpecDocument, path string) *LocalizationDeployment {
+	return &LocalizationDeployment{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocalizationDeployment) Content() *LocalizationDeploymentContentForm {
+	return NewLocalizationDeploymentContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Formatting rules.
+type LocalizationFormatting struct {
+	som.SomNode
+}
+
+// NewLocalizationFormatting binds a LocalizationFormatting facade to a document and a path.
+func NewLocalizationFormatting(doc *som.SpecDocument, path string) *LocalizationFormatting {
+	return &LocalizationFormatting{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocalizationFormatting) Content() *LocalizationFormattingContentForm {
+	return NewLocalizationFormattingContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
@@ -31802,18 +31914,18 @@ func (x *LocalizationProcess) LocalizationProcessContent() *LocalizationProcessL
 }
 
 // Review process.
-func (x *LocalizationProcess) Review() *LocalizationProcessReview {
-	return NewLocalizationProcessReview(x.Doc(), x.Path() + "/review")
+func (x *LocalizationProcess) Review() *LocalizationReview {
+	return NewLocalizationReview(x.Doc(), x.Path() + "/review")
 }
 
 // Formatting rules.
-func (x *LocalizationProcess) Formatting() *LocalizationProcessFormatting {
-	return NewLocalizationProcessFormatting(x.Doc(), x.Path() + "/formatting")
+func (x *LocalizationProcess) Formatting() *LocalizationFormatting {
+	return NewLocalizationFormatting(x.Doc(), x.Path() + "/formatting")
 }
 
 // Deployment settings.
-func (x *LocalizationProcess) Deployment() *LocalizationProcessDeployment {
-	return NewLocalizationProcessDeployment(x.Doc(), x.Path() + "/deployment")
+func (x *LocalizationProcess) Deployment() *LocalizationDeployment {
+	return NewLocalizationDeployment(x.Doc(), x.Path() + "/deployment")
 }
 
 // Localization process narrative.
@@ -31822,53 +31934,25 @@ func (x *LocalizationProcess) Deployment() *LocalizationProcessDeployment {
 // Localization workflow diagram.
 // (skipped: workflowDiagram has no target type)
 
-// Deployment settings.
-type LocalizationProcessDeployment struct {
-	som.SomNode
-}
-
-// NewLocalizationProcessDeployment binds a LocalizationProcessDeployment facade to a document and a path.
-func NewLocalizationProcessDeployment(doc *som.SpecDocument, path string) *LocalizationProcessDeployment {
-	return &LocalizationProcessDeployment{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *LocalizationProcessDeployment) Content() *LocalizationProcessDeploymentContentForm {
-	return NewLocalizationProcessDeploymentContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Formatting rules.
-type LocalizationProcessFormatting struct {
-	som.SomNode
-}
-
-// NewLocalizationProcessFormatting binds a LocalizationProcessFormatting facade to a document and a path.
-func NewLocalizationProcessFormatting(doc *som.SpecDocument, path string) *LocalizationProcessFormatting {
-	return &LocalizationProcessFormatting{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *LocalizationProcessFormatting) Content() *LocalizationProcessFormattingContentForm {
-	return NewLocalizationProcessFormattingContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // Review process.
-type LocalizationProcessReview struct {
+type LocalizationReview struct {
 	som.SomNode
 }
 
-// NewLocalizationProcessReview binds a LocalizationProcessReview facade to a document and a path.
-func NewLocalizationProcessReview(doc *som.SpecDocument, path string) *LocalizationProcessReview {
-	return &LocalizationProcessReview{SomNode: som.NewSomNode(doc, path)}
+// NewLocalizationReview binds a LocalizationReview facade to a document and a path.
+func NewLocalizationReview(doc *som.SpecDocument, path string) *LocalizationReview {
+	return &LocalizationReview{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *LocalizationProcessReview) Content() *LocalizationProcessReviewContentForm {
-	return NewLocalizationProcessReviewContentForm(x.Doc(), x.Path() + "/content")
+func (x *LocalizationReview) Content() *LocalizationReviewContentForm {
+	return NewLocalizationReviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Localization & Translation execution processes.
 //
 // Public anchor: ISO 29148 transition requirements. Bundles the localization
 // and translation *workflow* concerns re-homed from the former
-// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// `MultiLanguageSupport` cluster (their requirement counterparts live in
 // SBP.9 [LocalizationTranslationRequirements]).
 type LocalizationTranslationProcess struct {
 	som.SomNode
@@ -31924,8 +32008,8 @@ func (x *LocalizationTranslationRequirements) TranslationRequirements() *Transla
 }
 
 // Locale modeling and fallback requirements (re-homed from MLAR).
-func (x *LocalizationTranslationRequirements) LocaleHandling() *MultiLanguageAndRolloutLocaleHandling {
-	return NewMultiLanguageAndRolloutLocaleHandling(x.Doc(), x.Path() + "/localeHandling")
+func (x *LocalizationTranslationRequirements) LocaleHandling() *LocaleHandlingRequirements {
+	return NewLocaleHandlingRequirements(x.Doc(), x.Path() + "/localeHandling")
 }
 
 // Log aggregation and analysis requirements.
@@ -35198,67 +35282,39 @@ func (x *MultiChannelExperience) MultiChannelConfiguration() *MultiChannelExperi
 	return NewMultiChannelExperienceMultiChannelConfigurationForm(x.Doc(), x.Path() + "/multiChannelConfiguration")
 }
 
-// 10.12. Multi-language and Rollout Support.
+// 10.12. Multi-language Support.
 //
 // Locale-picker / UX-side multi-language concerns that stay on the
 // Experience & Interface Design side. IP-6 re-homed the requirement-side
 // concerns (i18n requirements, documentation, training) to SBP.9 and the
 // execution-side concerns (localization/translation processes, rollout
 // sequencing) to SBP.15; only the stay-put UX members remain here.
-type MultiLanguageAndRollout struct {
+type MultiLanguageSupport struct {
 	som.SomNode
 }
 
-// NewMultiLanguageAndRollout binds a MultiLanguageAndRollout facade to a document and a path.
-func NewMultiLanguageAndRollout(doc *som.SpecDocument, path string) *MultiLanguageAndRollout {
-	return &MultiLanguageAndRollout{SomNode: som.NewSomNode(doc, path)}
+// NewMultiLanguageSupport binds a MultiLanguageSupport facade to a document and a path.
+func NewMultiLanguageSupport(doc *som.SpecDocument, path string) *MultiLanguageSupport {
+	return &MultiLanguageSupport{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MultiLanguageAndRollout) MultiLanguageOverview() *MultiLanguageAndRolloutMultiLanguageOverviewForm {
-	return NewMultiLanguageAndRolloutMultiLanguageOverviewForm(x.Doc(), x.Path() + "/multiLanguageOverview")
+func (x *MultiLanguageSupport) MultiLanguageOverview() *MultiLanguageSupportMultiLanguageOverviewForm {
+	return NewMultiLanguageSupportMultiLanguageOverviewForm(x.Doc(), x.Path() + "/multiLanguageOverview")
 }
 
 // Multi-language overview narrative.
 // (skipped: overviewNarrative has no target type)
 
 // 10.12.4. Language and Country Selection.
-func (x *MultiLanguageAndRollout) LanguageCountrySelection() *LanguageCountrySelection {
+func (x *MultiLanguageSupport) LanguageCountrySelection() *LanguageCountrySelection {
 	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
 }
 
 // Supported locale entries.
-func (x *MultiLanguageAndRollout) SupportedLocales() *som.SomList[*SupportedLocaleEntry] {
+func (x *MultiLanguageSupport) SupportedLocales() *som.SomList[*SupportedLocaleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SULOEN-SUPP-LST", func(d *som.SpecDocument, p string) *SupportedLocaleEntry {
 		return NewSupportedLocaleEntry(d, p)
 	})
-}
-
-// Locale modeling and fallback behavior.
-type MultiLanguageAndRolloutLocaleHandling struct {
-	som.SomNode
-}
-
-// NewMultiLanguageAndRolloutLocaleHandling binds a MultiLanguageAndRolloutLocaleHandling facade to a document and a path.
-func NewMultiLanguageAndRolloutLocaleHandling(doc *som.SpecDocument, path string) *MultiLanguageAndRolloutLocaleHandling {
-	return &MultiLanguageAndRolloutLocaleHandling{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandling) Content() *MultiLanguageAndRolloutLocaleHandlingContentForm {
-	return NewMultiLanguageAndRolloutLocaleHandlingContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Rollout sequencing by region and time.
-type MultiLanguageAndRolloutPlan struct {
-	som.SomNode
-}
-
-// NewMultiLanguageAndRolloutPlan binds a MultiLanguageAndRolloutPlan facade to a document and a path.
-func NewMultiLanguageAndRolloutPlan(doc *som.SpecDocument, path string) *MultiLanguageAndRolloutPlan {
-	return &MultiLanguageAndRolloutPlan{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MultiLanguageAndRolloutPlan) Content() *MultiLanguageAndRolloutPlanContentForm {
-	return NewMultiLanguageAndRolloutPlanContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 11.7.1. Must-Pass Criteria.
@@ -37219,6 +37275,44 @@ func (x *OngoingTrainingEntrySchedule) Content() *OngoingTrainingEntryScheduleCo
 	return NewOngoingTrainingEntryScheduleContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 4.6. Operating Environment.
+//
+// Documents the organizational and technical environment in which the system
+// will operate. Covers organizational structure, functional responsibilities,
+// technical constraints, and external dependencies. Follows TOGAF enterprise
+// context patterns and PMBOK environmental factors analysis.
+type OperatingEnvironment struct {
+	som.SomNode
+}
+
+// NewOperatingEnvironment binds a OperatingEnvironment facade to a document and a path.
+func NewOperatingEnvironment(doc *som.SpecDocument, path string) *OperatingEnvironment {
+	return &OperatingEnvironment{SomNode: som.NewSomNode(doc, path)}
+}
+
+// Framework conditions overview.
+// (skipped: overview has no target type)
+
+// 4.6.1. Organizational Environment.
+func (x *OperatingEnvironment) OrganizationalEnvironment() *OrganizationalEnvironment {
+	return NewOrganizationalEnvironment(x.Doc(), x.Path() + "/organizationalEnvironment")
+}
+
+// 4.6.2. Functional Responsibilities — contains 0+×.
+func (x *OperatingEnvironment) FunctionalResponsibilities() *FunctionalResponsibilities {
+	return NewFunctionalResponsibilities(x.Doc(), x.Path() + "/functionalResponsibilities")
+}
+
+// 4.6.3. Technical Environment. Seeds → ATS.
+func (x *OperatingEnvironment) TechnicalEnvironment() *TechnicalEnvironment {
+	return NewTechnicalEnvironment(x.Doc(), x.Path() + "/technicalEnvironment")
+}
+
+// 4.6.4. Constraints and Dependencies — contains 0+×.
+func (x *OperatingEnvironment) ConstraintsAndDependencies() *ConstraintsAndDependencies {
+	return NewConstraintsAndDependencies(x.Doc(), x.Path() + "/constraintsAndDependencies")
+}
+
 // 11.4.3. Monitoring quality.
 type OperationalMonitoring struct {
 	som.SomNode
@@ -38053,60 +38147,6 @@ func NewOsCompatibilityEntryTesting(doc *som.SpecDocument, path string) *OsCompa
 
 func (x *OsCompatibilityEntryTesting) Content() *OsCompatibilityEntryTestingContentForm {
 	return NewOsCompatibilityEntryTestingContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 3.6. Other Administrative Requirements.
-//
-// Additional administrative agreements, constraints, or requirements not
-// covered by other sections: IP ownership, NDAs, regulatory compliance,
-// audit requirements, and other legal or organizational agreements.
-type OtherAdministrativeRequirements struct {
-	som.SomNode
-}
-
-// NewOtherAdministrativeRequirements binds a OtherAdministrativeRequirements facade to a document and a path.
-func NewOtherAdministrativeRequirements(doc *som.SpecDocument, path string) *OtherAdministrativeRequirements {
-	return &OtherAdministrativeRequirements{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *OtherAdministrativeRequirements) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *OtherAdministrativeRequirements) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 3.6.1. Intellectual Property.
-func (x *OtherAdministrativeRequirements) IntellectualProperty() *IntellectualPropertyRequirements {
-	return NewIntellectualPropertyRequirements(x.Doc(), x.Path() + "/intellectualProperty")
-}
-
-// 3.6.2. Confidentiality and NDAs.
-func (x *OtherAdministrativeRequirements) Confidentiality() *ConfidentialityRequirements {
-	return NewConfidentialityRequirements(x.Doc(), x.Path() + "/confidentiality")
-}
-
-// 3.6.3. Regulatory Compliance.
-func (x *OtherAdministrativeRequirements) RegulatoryCompliance() *RegulatoryComplianceRequirements {
-	return NewRegulatoryComplianceRequirements(x.Doc(), x.Path() + "/regulatoryCompliance")
-}
-
-// 3.6.4. Audit Requirements.
-func (x *OtherAdministrativeRequirements) AuditRequirements() *AuditRequirements {
-	return NewAuditRequirements(x.Doc(), x.Path() + "/auditRequirements")
-}
-
-// 3.6.5. Insurance and Liability.
-func (x *OtherAdministrativeRequirements) InsuranceLiability() *InsuranceLiabilityRequirements {
-	return NewInsuranceLiabilityRequirements(x.Doc(), x.Path() + "/insuranceLiability")
-}
-
-// 3.6.6. Other Agreements — contains 0+× Agreement.
-func (x *OtherAdministrativeRequirements) OtherAgreements() *som.SomList[*OtherAgreementEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/OTAGR-OTHE-LST", func(d *som.SpecDocument, p string) *OtherAgreementEntry {
-		return NewOtherAgreementEntry(d, p)
-	})
 }
 
 // An other agreement entry.
@@ -39964,53 +40004,53 @@ func (x *PrimaryNavigationSidebar) Content() *PrimaryNavigationSidebarContentFor
 }
 
 // 10.4. Print Layout.
-type PrintLayout struct {
+type PrintAndExportLayout struct {
 	som.SomNode
 }
 
-// NewPrintLayout binds a PrintLayout facade to a document and a path.
-func NewPrintLayout(doc *som.SpecDocument, path string) *PrintLayout {
-	return &PrintLayout{SomNode: som.NewSomNode(doc, path)}
+// NewPrintAndExportLayout binds a PrintAndExportLayout facade to a document and a path.
+func NewPrintAndExportLayout(doc *som.SpecDocument, path string) *PrintAndExportLayout {
+	return &PrintAndExportLayout{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *PrintLayout) Content() *PrintLayoutContentForm {
-	return NewPrintLayoutContentForm(x.Doc(), x.Path() + "/content")
+func (x *PrintAndExportLayout) Content() *PrintAndExportLayoutContentForm {
+	return NewPrintAndExportLayoutContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Page margins and setup.
-func (x *PrintLayout) PageSetup() *PrintLayoutPageSetup {
+func (x *PrintAndExportLayout) PageSetup() *PrintLayoutPageSetup {
 	return NewPrintLayoutPageSetup(x.Doc(), x.Path() + "/pageSetup")
 }
 
 // Branding configuration.
-func (x *PrintLayout) Branding() *PrintLayoutBranding {
+func (x *PrintAndExportLayout) Branding() *PrintLayoutBranding {
 	return NewPrintLayoutBranding(x.Doc(), x.Path() + "/branding")
 }
 
 // Watermark and confidentiality.
-func (x *PrintLayout) Watermark() *PrintLayoutWatermark {
+func (x *PrintAndExportLayout) Watermark() *PrintLayoutWatermark {
 	return NewPrintLayoutWatermark(x.Doc(), x.Path() + "/watermark")
 }
 
 // Header and footer settings.
-func (x *PrintLayout) HeaderFooter() *PrintLayoutHeaderFooter {
+func (x *PrintAndExportLayout) HeaderFooter() *PrintLayoutHeaderFooter {
 	return NewPrintLayoutHeaderFooter(x.Doc(), x.Path() + "/headerFooter")
 }
 
 // Archive and batch settings.
-func (x *PrintLayout) Archive() *PrintLayoutArchive {
+func (x *PrintAndExportLayout) Archive() *PrintLayoutArchive {
 	return NewPrintLayoutArchive(x.Doc(), x.Path() + "/archive")
 }
 
 // 10.4.1. Reports — contains 0+× Report.
-func (x *PrintLayout) Reports() *som.SomList[*ReportEntry] {
+func (x *PrintAndExportLayout) Reports() *som.SomList[*ReportEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REEN-REPO-LST", func(d *som.SpecDocument, p string) *ReportEntry {
 		return NewReportEntry(d, p)
 	})
 }
 
 // 10.4.2. Export Formats — contains 0+× Export Format.
-func (x *PrintLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
+func (x *PrintAndExportLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXFOEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportFormatEntry {
 		return NewExportFormatEntry(d, p)
 	})
@@ -40018,7 +40058,7 @@ func (x *PrintLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
 
 // 10.4.3. Export Templates — contains 0+× Export
 // Template.
-func (x *PrintLayout) ExportTemplates() *som.SomList[*ExportTemplateEntry] {
+func (x *PrintAndExportLayout) ExportTemplates() *som.SomList[*ExportTemplateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXTEEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportTemplateEntry {
 		return NewExportTemplateEntry(d, p)
 	})
@@ -41178,6 +41218,26 @@ func (x *ProcessKpiEntryOperations) Content() *ProcessKpiEntryOperationsContentF
 	return NewProcessKpiEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 6.1.10. Process Metrics and KPIs.
+//
+// Process-level KPIs, SLAs, and measurement strategy.
+type ProcessMetric struct {
+	som.SomNode
+}
+
+// NewProcessMetric binds a ProcessMetric facade to a document and a path.
+func NewProcessMetric(doc *som.SpecDocument, path string) *ProcessMetric {
+	return &ProcessMetric{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ProcessMetric) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessMetric) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
 // A category of process metrics.
 type ProcessMetricCategory struct {
 	som.SomNode
@@ -41332,26 +41392,6 @@ func (x *ProcessMetrics) Items() *som.SomList[*ProcessMetricEntry] {
 // Baseline comparison table.
 func (x *ProcessMetrics) BaselineTable() *MetricsBaselineTable {
 	return NewMetricsBaselineTable(x.Doc(), x.Path() + "/baselineTable")
-}
-
-// 6.1.10. Process Metrics and KPIs.
-//
-// Process-level KPIs, SLAs, and measurement strategy.
-type ProcessMetricsAndKpis struct {
-	som.SomNode
-}
-
-// NewProcessMetricsAndKpis binds a ProcessMetricsAndKpis facade to a document and a path.
-func NewProcessMetricsAndKpis(doc *som.SpecDocument, path string) *ProcessMetricsAndKpis {
-	return &ProcessMetricsAndKpis{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ProcessMetricsAndKpis) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ProcessMetricsAndKpis) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // A process output entry.
@@ -41714,9 +41754,9 @@ func (x *ProcessStepsAndActorInteractions) ActorRelationshipDiagram() *ActorRela
 }
 
 // 6.2.4. End-to-End Test Scenarios..
-func (x *ProcessStepsAndActorInteractions) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
-		return NewEndToEndTestScenarios(d, p)
+func (x *ProcessStepsAndActorInteractions) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenario] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenario {
+		return NewEndToEndTestScenario(d, p)
 	})
 }
 
@@ -42316,8 +42356,8 @@ func (x *Prototype) FeatureSubset() *PrototypeFeatureSubset {
 }
 
 // 10.13.3. Prototype Type.
-func (x *Prototype) PrototypeType() *PrototypeTypeSection {
-	return NewPrototypeTypeSection(x.Doc(), x.Path() + "/prototypeType")
+func (x *Prototype) PrototypeType() *PrototypeType {
+	return NewPrototypeType(x.Doc(), x.Path() + "/prototypeType")
 }
 
 // Prototype schedule.
@@ -42524,31 +42564,31 @@ func (x *PrototypeTimeline) Content() *PrototypeTimelineContentForm {
 // 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
-type PrototypeTypeSection struct {
+type PrototypeType struct {
 	som.SomNode
 }
 
-// NewPrototypeTypeSection binds a PrototypeTypeSection facade to a document and a path.
-func NewPrototypeTypeSection(doc *som.SpecDocument, path string) *PrototypeTypeSection {
-	return &PrototypeTypeSection{SomNode: som.NewSomNode(doc, path)}
+// NewPrototypeType binds a PrototypeType facade to a document and a path.
+func NewPrototypeType(doc *som.SpecDocument, path string) *PrototypeType {
+	return &PrototypeType{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *PrototypeTypeSection) PrototypeTypeOverview() *PrototypeTypeSectionPrototypeTypeOverviewForm {
-	return NewPrototypeTypeSectionPrototypeTypeOverviewForm(x.Doc(), x.Path() + "/prototypeTypeOverview")
+func (x *PrototypeType) PrototypeTypeOverview() *PrototypeTypePrototypeTypeOverviewForm {
+	return NewPrototypeTypePrototypeTypeOverviewForm(x.Doc(), x.Path() + "/prototypeTypeOverview")
 }
 
 // 10.13.3.1. Reusable Prototype.
-func (x *PrototypeTypeSection) ReusablePrototype() *ReusablePrototype {
+func (x *PrototypeType) ReusablePrototype() *ReusablePrototype {
 	return NewReusablePrototype(x.Doc(), x.Path() + "/reusablePrototype")
 }
 
 // 10.13.3.2. Training Prototype.
-func (x *PrototypeTypeSection) TrainingPrototype() *TrainingPrototype {
+func (x *PrototypeType) TrainingPrototype() *TrainingPrototype {
 	return NewTrainingPrototype(x.Doc(), x.Path() + "/trainingPrototype")
 }
 
 // 10.13.3.3. Throwaway Prototype.
-func (x *PrototypeTypeSection) ThrowawayPrototype() *ThrowawayPrototype {
+func (x *PrototypeType) ThrowawayPrototype() *ThrowawayPrototype {
 	return NewThrowawayPrototype(x.Doc(), x.Path() + "/throwawayPrototype")
 }
 
@@ -47990,20 +48030,20 @@ func (x *RolloutPlan) SetContent(value string) {
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
-type RolloutTrainingMaterials struct {
+type RolloutTrainingMaterial struct {
 	som.SomNode
 }
 
-// NewRolloutTrainingMaterials binds a RolloutTrainingMaterials facade to a document and a path.
-func NewRolloutTrainingMaterials(doc *som.SpecDocument, path string) *RolloutTrainingMaterials {
-	return &RolloutTrainingMaterials{SomNode: som.NewSomNode(doc, path)}
+// NewRolloutTrainingMaterial binds a RolloutTrainingMaterial facade to a document and a path.
+func NewRolloutTrainingMaterial(doc *som.SpecDocument, path string) *RolloutTrainingMaterial {
+	return &RolloutTrainingMaterial{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *RolloutTrainingMaterials) Content() string {
+func (x *RolloutTrainingMaterial) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *RolloutTrainingMaterials) SetContent(value string) {
+func (x *RolloutTrainingMaterial) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -53174,8 +53214,8 @@ func (x *SolutionArchitectureAndTechnology) TechnicalFramework() *TechnicalFrame
 }
 
 // Components, libraries, and services to reuse.
-func (x *SolutionArchitectureAndTechnology) ComponentsToUse() *ComponentsToUse {
-	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
+func (x *SolutionArchitectureAndTechnology) ComponentsToUse() *ComponentsAndDependencies {
+	return NewComponentsAndDependencies(x.Doc(), x.Path() + "/componentsToUse")
 }
 
 // Specialized equipment entry (form).
@@ -53228,6 +53268,20 @@ func NewSpecializedEquipmentEntryTechnical(doc *som.SpecDocument, path string) *
 
 func (x *SpecializedEquipmentEntryTechnical) Content() *SpecializedEquipmentEntryTechnicalContentForm {
 	return NewSpecializedEquipmentEntryTechnicalContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Specification status.
+type SpecificationStatus struct {
+	som.SomNode
+}
+
+// NewSpecificationStatus binds a SpecificationStatus facade to a document and a path.
+func NewSpecificationStatus(doc *som.SpecDocument, path string) *SpecificationStatus {
+	return &SpecificationStatus{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SpecificationStatus) Content() *SpecificationStatusContentForm {
+	return NewSpecificationStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Single Sign-On (SSO) policy (form).
@@ -54235,6 +54289,48 @@ func (x *StageOverviewStatus) Content() *StageOverviewStatusContentForm {
 	return NewStageOverviewStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// Dependencies, risks, and compliance constraints across stages.
+type StagePlanCoordination struct {
+	som.SomNode
+}
+
+// NewStagePlanCoordination binds a StagePlanCoordination facade to a document and a path.
+func NewStagePlanCoordination(doc *som.SpecDocument, path string) *StagePlanCoordination {
+	return &StagePlanCoordination{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanCoordination) Content() *StagePlanCoordinationContentForm {
+	return NewStagePlanCoordinationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Organizational capacity and plan confidence.
+type StagePlanReadiness struct {
+	som.SomNode
+}
+
+// NewStagePlanReadiness binds a StagePlanReadiness facade to a document and a path.
+func NewStagePlanReadiness(doc *som.SpecDocument, path string) *StagePlanReadiness {
+	return &StagePlanReadiness{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanReadiness) Content() *StagePlanReadinessContentForm {
+	return NewStagePlanReadinessContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Overall schedule and buffer model.
+type StagePlanTimeline struct {
+	som.SomNode
+}
+
+// NewStagePlanTimeline binds a StagePlanTimeline facade to a document and a path.
+func NewStagePlanTimeline(doc *som.SpecDocument, path string) *StagePlanTimeline {
+	return &StagePlanTimeline{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanTimeline) Content() *StagePlanTimelineContentForm {
+	return NewStagePlanTimelineContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Quality and governance for a stage entry.
 type StageQuality struct {
 	som.SomNode
@@ -55001,8 +55097,8 @@ func (x *StakeholdersAndGovernance) ChangeProcedure() *ChangeProcedure {
 
 // Legal and contractual requirements (IP, NDAs, compliance, audit).
 // Renamed to `LegalAndContractualRequirements` in L34C-9.
-func (x *StakeholdersAndGovernance) LegalAndContractual() *OtherAdministrativeRequirements {
-	return NewOtherAdministrativeRequirements(x.Doc(), x.Path() + "/legalAndContractual")
+func (x *StakeholdersAndGovernance) LegalAndContractual() *LegalAndContractualRequirements {
+	return NewLegalAndContractualRequirements(x.Doc(), x.Path() + "/legalAndContractual")
 }
 
 // Stakeholder register (§5 completeness addition).
@@ -56094,6 +56190,34 @@ func (x *SystemBusinessUnitEntry) Content() *SystemBusinessUnitEntryContentForm 
 	return NewSystemBusinessUnitEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// System classification.
+type SystemClassification struct {
+	som.SomNode
+}
+
+// NewSystemClassification binds a SystemClassification facade to a document and a path.
+func NewSystemClassification(doc *som.SpecDocument, path string) *SystemClassification {
+	return &SystemClassification{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemClassification) Content() *SystemClassificationContentForm {
+	return NewSystemClassificationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Complexity indicators.
+type SystemComplexity struct {
+	som.SomNode
+}
+
+// NewSystemComplexity binds a SystemComplexity facade to a document and a path.
+func NewSystemComplexity(doc *som.SpecDocument, path string) *SystemComplexity {
+	return &SystemComplexity{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemComplexity) Content() *SystemComplexityContentForm {
+	return NewSystemComplexityContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // System configuration management.
 type SystemConfigurationManagement struct {
 	som.SomNode
@@ -56513,9 +56637,9 @@ func (x *SystemDescription) SystemContext() *SystemContext {
 	return NewSystemContext(x.Doc(), x.Path() + "/systemContext")
 }
 
-// 4.1.3. Description of Task Area.
-func (x *SystemDescription) TaskArea() *TaskArea {
-	return NewTaskArea(x.Doc(), x.Path() + "/taskArea")
+// 4.1.3. Description of Business Domain.
+func (x *SystemDescription) BusinessDomain() *BusinessDomain {
+	return NewBusinessDomain(x.Doc(), x.Path() + "/businessDomain")
 }
 
 // 4.1.4. User Categories — contains 1+× User Category.
@@ -57139,96 +57263,6 @@ func (x *SystemOperationAndMonitoring) CapacityPlanning() *CapacityPlanningSecti
 	return NewCapacityPlanningSection(x.Doc(), x.Path() + "/capacityPlanning")
 }
 
-// System overview summary for quick reference.
-type SystemOverviewSummary struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummary binds a SystemOverviewSummary facade to a document and a path.
-func NewSystemOverviewSummary(doc *som.SpecDocument, path string) *SystemOverviewSummary {
-	return &SystemOverviewSummary{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummary) Content() *SystemOverviewSummaryContentForm {
-	return NewSystemOverviewSummaryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// System classification.
-func (x *SystemOverviewSummary) Classification() *SystemOverviewSummaryClassification {
-	return NewSystemOverviewSummaryClassification(x.Doc(), x.Path() + "/classification")
-}
-
-// Scale indicators.
-func (x *SystemOverviewSummary) Scale() *SystemOverviewSummaryScale {
-	return NewSystemOverviewSummaryScale(x.Doc(), x.Path() + "/scale")
-}
-
-// Specification status.
-func (x *SystemOverviewSummary) Status() *SystemOverviewSummaryStatus {
-	return NewSystemOverviewSummaryStatus(x.Doc(), x.Path() + "/status")
-}
-
-// Complexity indicators.
-func (x *SystemOverviewSummary) Complexity() *SystemOverviewSummaryComplexity {
-	return NewSystemOverviewSummaryComplexity(x.Doc(), x.Path() + "/complexity")
-}
-
-// System classification.
-type SystemOverviewSummaryClassification struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryClassification binds a SystemOverviewSummaryClassification facade to a document and a path.
-func NewSystemOverviewSummaryClassification(doc *som.SpecDocument, path string) *SystemOverviewSummaryClassification {
-	return &SystemOverviewSummaryClassification{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryClassification) Content() *SystemOverviewSummaryClassificationContentForm {
-	return NewSystemOverviewSummaryClassificationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Complexity indicators.
-type SystemOverviewSummaryComplexity struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryComplexity binds a SystemOverviewSummaryComplexity facade to a document and a path.
-func NewSystemOverviewSummaryComplexity(doc *som.SpecDocument, path string) *SystemOverviewSummaryComplexity {
-	return &SystemOverviewSummaryComplexity{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryComplexity) Content() *SystemOverviewSummaryComplexityContentForm {
-	return NewSystemOverviewSummaryComplexityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Scale indicators.
-type SystemOverviewSummaryScale struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryScale binds a SystemOverviewSummaryScale facade to a document and a path.
-func NewSystemOverviewSummaryScale(doc *som.SpecDocument, path string) *SystemOverviewSummaryScale {
-	return &SystemOverviewSummaryScale{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryScale) Content() *SystemOverviewSummaryScaleContentForm {
-	return NewSystemOverviewSummaryScaleContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Specification status.
-type SystemOverviewSummaryStatus struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryStatus binds a SystemOverviewSummaryStatus facade to a document and a path.
-func NewSystemOverviewSummaryStatus(doc *som.SpecDocument, path string) *SystemOverviewSummaryStatus {
-	return &SystemOverviewSummaryStatus{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryStatus) Content() *SystemOverviewSummaryStatusContentForm {
-	return NewSystemOverviewSummaryStatusContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
@@ -57486,67 +57520,81 @@ func (x *SystemReplacementStrategyTimeline) Content() *SystemReplacementStrategy
 }
 
 // 15. System Rollout Concept. Seeds → TRP.
-type SystemRolloutConcept struct {
+type SystemRollout struct {
 	som.SomNode
 }
 
-// NewSystemRolloutConcept binds a SystemRolloutConcept facade to a document and a path.
-func NewSystemRolloutConcept(doc *som.SpecDocument, path string) *SystemRolloutConcept {
-	return &SystemRolloutConcept{SomNode: som.NewSomNode(doc, path)}
+// NewSystemRollout binds a SystemRollout facade to a document and a path.
+func NewSystemRollout(doc *som.SpecDocument, path string) *SystemRollout {
+	return &SystemRollout{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *SystemRolloutConcept) Content() string {
+func (x *SystemRollout) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *SystemRolloutConcept) SetContent(value string) {
+func (x *SystemRollout) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // 15.1. Rollout Plan.
-func (x *SystemRolloutConcept) RolloutPlan() *RolloutPlan {
+func (x *SystemRollout) RolloutPlan() *RolloutPlan {
 	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
 }
 
 // 15.2. Migration Plan.
-func (x *SystemRolloutConcept) MigrationPlan() *MigrationPlan {
+func (x *SystemRollout) MigrationPlan() *MigrationPlan {
 	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
 }
 
 // 15.3. User Manuals.
-func (x *SystemRolloutConcept) UserManuals() *som.SomList[*UserManuals] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
-		return NewUserManuals(d, p)
+func (x *SystemRollout) UserManuals() *som.SomList[*UserManual] {
+	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManual {
+		return NewUserManual(d, p)
 	})
 }
 
 // 15.4. Training Materials.
-func (x *SystemRolloutConcept) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
-		return NewRolloutTrainingMaterials(d, p)
+func (x *SystemRollout) TrainingMaterials() *som.SomList[*RolloutTrainingMaterial] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterial {
+		return NewRolloutTrainingMaterial(d, p)
 	})
 }
 
 // 15.5. Pilot Plan.
-func (x *SystemRolloutConcept) PilotPlan() *PilotPlan {
+func (x *SystemRollout) PilotPlan() *PilotPlan {
 	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
 }
 
 // 15.6. Cutover Procedures.
-func (x *SystemRolloutConcept) CutoverProcedures() *som.SomList[*CutoverProcedures] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
-		return NewCutoverProcedures(d, p)
+func (x *SystemRollout) CutoverProcedures() *som.SomList[*CutoverProcedure] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedure {
+		return NewCutoverProcedure(d, p)
 	})
 }
 
 // 15.7. Knowledge Transfer.
-func (x *SystemRolloutConcept) KnowledgeTransfer() *KnowledgeTransfer {
+func (x *SystemRollout) KnowledgeTransfer() *KnowledgeTransfer {
 	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
 }
 
 // 15.8. Warranty and Support.
-func (x *SystemRolloutConcept) WarrantyAndSupport() *WarrantyAndSupport {
+func (x *SystemRollout) WarrantyAndSupport() *WarrantyAndSupport {
 	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
+}
+
+// Scale indicators.
+type SystemScale struct {
+	som.SomNode
+}
+
+// NewSystemScale binds a SystemScale facade to a document and a path.
+func NewSystemScale(doc *som.SpecDocument, path string) *SystemScale {
+	return &SystemScale{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemScale) Content() *SystemScaleContentForm {
+	return NewSystemScaleContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 13. System Stage Plan. Seeds → DRM.
@@ -57571,18 +57619,18 @@ func (x *SystemStagePlan) Content() *SystemStagePlanContentForm {
 }
 
 // Overall schedule and buffer model.
-func (x *SystemStagePlan) Timeline() *SystemStagePlanTimeline {
-	return NewSystemStagePlanTimeline(x.Doc(), x.Path() + "/timeline")
+func (x *SystemStagePlan) Timeline() *StagePlanTimeline {
+	return NewStagePlanTimeline(x.Doc(), x.Path() + "/timeline")
 }
 
 // Dependencies, risks, and compliance constraints across stages.
-func (x *SystemStagePlan) Coordination() *SystemStagePlanCoordination {
-	return NewSystemStagePlanCoordination(x.Doc(), x.Path() + "/coordination")
+func (x *SystemStagePlan) Coordination() *StagePlanCoordination {
+	return NewStagePlanCoordination(x.Doc(), x.Path() + "/coordination")
 }
 
 // Organizational capacity and plan confidence.
-func (x *SystemStagePlan) Readiness() *SystemStagePlanReadiness {
-	return NewSystemStagePlanReadiness(x.Doc(), x.Path() + "/readiness")
+func (x *SystemStagePlan) Readiness() *StagePlanReadiness {
+	return NewStagePlanReadiness(x.Doc(), x.Path() + "/readiness")
 }
 
 // 13.1. Staging Strategy.
@@ -57627,46 +57675,38 @@ func (x *SystemStagePlan) UpgradeCycleFramework() *UpgradeCycleFramework {
 	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
 }
 
-// Dependencies, risks, and compliance constraints across stages.
-type SystemStagePlanCoordination struct {
+// System overview summary for quick reference.
+type SystemSummary struct {
 	som.SomNode
 }
 
-// NewSystemStagePlanCoordination binds a SystemStagePlanCoordination facade to a document and a path.
-func NewSystemStagePlanCoordination(doc *som.SpecDocument, path string) *SystemStagePlanCoordination {
-	return &SystemStagePlanCoordination{SomNode: som.NewSomNode(doc, path)}
+// NewSystemSummary binds a SystemSummary facade to a document and a path.
+func NewSystemSummary(doc *som.SpecDocument, path string) *SystemSummary {
+	return &SystemSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *SystemStagePlanCoordination) Content() *SystemStagePlanCoordinationContentForm {
-	return NewSystemStagePlanCoordinationContentForm(x.Doc(), x.Path() + "/content")
+func (x *SystemSummary) Content() *SystemSummaryContentForm {
+	return NewSystemSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Organizational capacity and plan confidence.
-type SystemStagePlanReadiness struct {
-	som.SomNode
+// System classification.
+func (x *SystemSummary) Classification() *SystemClassification {
+	return NewSystemClassification(x.Doc(), x.Path() + "/classification")
 }
 
-// NewSystemStagePlanReadiness binds a SystemStagePlanReadiness facade to a document and a path.
-func NewSystemStagePlanReadiness(doc *som.SpecDocument, path string) *SystemStagePlanReadiness {
-	return &SystemStagePlanReadiness{SomNode: som.NewSomNode(doc, path)}
+// Scale indicators.
+func (x *SystemSummary) Scale() *SystemScale {
+	return NewSystemScale(x.Doc(), x.Path() + "/scale")
 }
 
-func (x *SystemStagePlanReadiness) Content() *SystemStagePlanReadinessContentForm {
-	return NewSystemStagePlanReadinessContentForm(x.Doc(), x.Path() + "/content")
+// Specification status.
+func (x *SystemSummary) Status() *SpecificationStatus {
+	return NewSpecificationStatus(x.Doc(), x.Path() + "/status")
 }
 
-// Overall schedule and buffer model.
-type SystemStagePlanTimeline struct {
-	som.SomNode
-}
-
-// NewSystemStagePlanTimeline binds a SystemStagePlanTimeline facade to a document and a path.
-func NewSystemStagePlanTimeline(doc *som.SpecDocument, path string) *SystemStagePlanTimeline {
-	return &SystemStagePlanTimeline{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemStagePlanTimeline) Content() *SystemStagePlanTimelineContentForm {
-	return NewSystemStagePlanTimelineContentForm(x.Doc(), x.Path() + "/content")
+// Complexity indicators.
+func (x *SystemSummary) Complexity() *SystemComplexity {
+	return NewSystemComplexity(x.Doc(), x.Path() + "/complexity")
 }
 
 // A system task entry.
@@ -58255,30 +58295,30 @@ func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *Process
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
-type TargetOperatingModelConcept struct {
+type TargetOperatingModel struct {
 	som.SomNode
 }
 
-// NewTargetOperatingModelConcept binds a TargetOperatingModelConcept facade to a document and a path.
-func NewTargetOperatingModelConcept(doc *som.SpecDocument, path string) *TargetOperatingModelConcept {
-	return &TargetOperatingModelConcept{SomNode: som.NewSomNode(doc, path)}
+// NewTargetOperatingModel binds a TargetOperatingModel facade to a document and a path.
+func NewTargetOperatingModel(doc *som.SpecDocument, path string) *TargetOperatingModel {
+	return &TargetOperatingModel{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TargetOperatingModelConcept) Content() string {
+func (x *TargetOperatingModel) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *TargetOperatingModelConcept) SetContent(value string) {
+func (x *TargetOperatingModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // Target organizational structure and roles.
-func (x *TargetOperatingModelConcept) OrganizationalFramework() *OrganizationalFramework {
+func (x *TargetOperatingModel) OrganizationalFramework() *OrganizationalFramework {
 	return NewOrganizationalFramework(x.Doc(), x.Path() + "/organizationalFramework")
 }
 
 // Target business process model.
-func (x *TargetOperatingModelConcept) TargetBusinessProcess() *TargetBusinessProcessModel {
+func (x *TargetOperatingModel) TargetBusinessProcess() *TargetBusinessProcessModel {
 	return NewTargetBusinessProcessModel(x.Doc(), x.Path() + "/targetBusinessProcess")
 }
 
@@ -58370,64 +58410,6 @@ func NewTargetPlatformEntryVersion(doc *som.SpecDocument, path string) *TargetPl
 
 func (x *TargetPlatformEntryVersion) Content() *TargetPlatformEntryVersionContentForm {
 	return NewTargetPlatformEntryVersionContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 4.1.3. Description of Task Area.
-//
-// Describes the business domain and task area the system addresses.
-// Defines the domain vocabulary and key concepts (ubiquitous language)
-// that will be used throughout the project. Based on Domain-Driven Design
-// principles for establishing a shared understanding.
-type TaskArea struct {
-	som.SomNode
-}
-
-// NewTaskArea binds a TaskArea facade to a document and a path.
-func NewTaskArea(doc *som.SpecDocument, path string) *TaskArea {
-	return &TaskArea{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TaskArea) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TaskArea) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 4.1.3.1. Domain Overview.
-func (x *TaskArea) DomainOverview() *DomainOverview {
-	return NewDomainOverview(x.Doc(), x.Path() + "/domainOverview")
-}
-
-// 4.1.3.2. Domain Vocabulary.
-func (x *TaskArea) DomainVocabulary() *DomainVocabulary {
-	return NewDomainVocabulary(x.Doc(), x.Path() + "/domainVocabulary")
-}
-
-// 4.1.3.3. Key Concepts.
-func (x *TaskArea) KeyConcepts() *KeyConcepts {
-	return NewKeyConcepts(x.Doc(), x.Path() + "/keyConcepts")
-}
-
-// 4.1.3.4. Domain Boundaries.
-func (x *TaskArea) DomainBoundaries() *DomainBoundaries {
-	return NewDomainBoundaries(x.Doc(), x.Path() + "/domainBoundaries")
-}
-
-// 4.1.3.5. Business Rules.
-func (x *TaskArea) BusinessRules() *DomainBusinessRules {
-	return NewDomainBusinessRules(x.Doc(), x.Path() + "/businessRules")
-}
-
-// 4.1.3.6. Domain Processes.
-func (x *TaskArea) DomainProcesses() *DomainProcesses {
-	return NewDomainProcesses(x.Doc(), x.Path() + "/domainProcesses")
-}
-
-// 4.1.3.7. Domain Events.
-func (x *TaskArea) DomainEvents() *DomainEvents {
-	return NewDomainEvents(x.Doc(), x.Path() + "/domainEvents")
 }
 
 // Team member availability constraints.
@@ -58643,6 +58625,152 @@ func (x *TechnicalDependencyEntry) Content() *TechnicalDependencyEntryContentFor
 	return NewTechnicalDependencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 4.6.3. Technical Environment. Seeds → ATS.
+//
+// Documents pre-existing technical constraints including mandated platforms,
+// network restrictions, compliance requirements, existing infrastructure
+// that must be reused, and technology standards to follow. Provides the
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
+type TechnicalEnvironment struct {
+	som.SomNode
+}
+
+// NewTechnicalEnvironment binds a TechnicalEnvironment facade to a document and a path.
+func NewTechnicalEnvironment(doc *som.SpecDocument, path string) *TechnicalEnvironment {
+	return &TechnicalEnvironment{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TechnicalEnvironment) TechnicalOverviewContent() *TechnicalEnvironmentTechnicalOverviewContentForm {
+	return NewTechnicalEnvironmentTechnicalOverviewContentForm(x.Doc(), x.Path() + "/technicalOverviewContent")
+}
+
+// Architecture governance context.
+func (x *TechnicalEnvironment) Governance() *TechnicalEnvironmentGovernance {
+	return NewTechnicalEnvironmentGovernance(x.Doc(), x.Path() + "/governance")
+}
+
+// Platform standards and preferred technologies.
+func (x *TechnicalEnvironment) Standards() *TechnicalEnvironmentStandards {
+	return NewTechnicalEnvironmentStandards(x.Doc(), x.Path() + "/standards")
+}
+
+// Security and compliance requirements.
+func (x *TechnicalEnvironment) Security() *TechnicalEnvironmentSecurity {
+	return NewTechnicalEnvironmentSecurity(x.Doc(), x.Path() + "/security")
+}
+
+// Network and infrastructure standards.
+func (x *TechnicalEnvironment) Network() *TechnicalEnvironmentNetwork {
+	return NewTechnicalEnvironmentNetwork(x.Doc(), x.Path() + "/network")
+}
+
+// Existing infrastructure that must be reused or integrated with.
+// (skipped: existingInfrastructure has no target type)
+
+// Data center and hosting environment details.
+func (x *TechnicalEnvironment) Datacenters() *som.SomList[*DatacenterEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DATAC-DATA-LST", func(d *som.SpecDocument, p string) *DatacenterEntry {
+		return NewDatacenterEntry(d, p)
+	})
+}
+
+// Network topology and connectivity constraints.
+// (skipped: networkTopology has no target type)
+
+// Technology standards that must be followed.
+// (skipped: standardsOverview has no target type)
+
+// Technology standards — contains 0+× TechnologyStandard.
+func (x *TechnicalEnvironment) TechnologyStandards() *som.SomList[*TechnologyStandardEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/TESTEN-TECH-LST", func(d *som.SpecDocument, p string) *TechnologyStandardEntry {
+		return NewTechnologyStandardEntry(d, p)
+	})
+}
+
+// Integration constraints overview.
+// (skipped: integrationOverview has no target type)
+
+// Integration constraints — contains 0+× IntegrationConstraint.
+func (x *TechnicalEnvironment) IntegrationConstraints() *som.SomList[*IntegrationConstraintEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/INCOE1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationConstraintEntry {
+		return NewIntegrationConstraintEntry(d, p)
+	})
+}
+
+// Architecture governance context.
+type TechnicalEnvironmentGovernance struct {
+	som.SomNode
+}
+
+// NewTechnicalEnvironmentGovernance binds a TechnicalEnvironmentGovernance facade to a document and a path.
+func NewTechnicalEnvironmentGovernance(doc *som.SpecDocument, path string) *TechnicalEnvironmentGovernance {
+	return &TechnicalEnvironmentGovernance{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TechnicalEnvironmentGovernance) Content() *TechnicalEnvironmentGovernanceContentForm {
+	return NewTechnicalEnvironmentGovernanceContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Network and infrastructure standards.
+type TechnicalEnvironmentNetwork struct {
+	som.SomNode
+}
+
+// NewTechnicalEnvironmentNetwork binds a TechnicalEnvironmentNetwork facade to a document and a path.
+func NewTechnicalEnvironmentNetwork(doc *som.SpecDocument, path string) *TechnicalEnvironmentNetwork {
+	return &TechnicalEnvironmentNetwork{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TechnicalEnvironmentNetwork) Content() *TechnicalEnvironmentNetworkContentForm {
+	return NewTechnicalEnvironmentNetworkContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// DevOps and deployment standards.
+func (x *TechnicalEnvironmentNetwork) DevopsStandards() *som.SomList[*DevopsStandardEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DEVOP-DEVO-LST", func(d *som.SpecDocument, p string) *DevopsStandardEntry {
+		return NewDevopsStandardEntry(d, p)
+	})
+}
+
+// Monitoring and observability requirements.
+func (x *TechnicalEnvironmentNetwork) ObservabilityRequirements() *som.SomList[*ObservabilityRequirementEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/OBSER-OBSE-LST", func(d *som.SpecDocument, p string) *ObservabilityRequirementEntry {
+		return NewObservabilityRequirementEntry(d, p)
+	})
+}
+
+// Disaster recovery and business continuity requirements.
+// (skipped: disasterRecovery has no target type)
+
+// Security and compliance requirements.
+type TechnicalEnvironmentSecurity struct {
+	som.SomNode
+}
+
+// NewTechnicalEnvironmentSecurity binds a TechnicalEnvironmentSecurity facade to a document and a path.
+func NewTechnicalEnvironmentSecurity(doc *som.SpecDocument, path string) *TechnicalEnvironmentSecurity {
+	return &TechnicalEnvironmentSecurity{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TechnicalEnvironmentSecurity) Content() *TechnicalEnvironmentSecurityContentForm {
+	return NewTechnicalEnvironmentSecurityContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Platform standards and preferred technologies.
+type TechnicalEnvironmentStandards struct {
+	som.SomNode
+}
+
+// NewTechnicalEnvironmentStandards binds a TechnicalEnvironmentStandards facade to a document and a path.
+func NewTechnicalEnvironmentStandards(doc *som.SpecDocument, path string) *TechnicalEnvironmentStandards {
+	return &TechnicalEnvironmentStandards{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TechnicalEnvironmentStandards) Content() *TechnicalEnvironmentStandardsContentForm {
+	return NewTechnicalEnvironmentStandardsContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 8. Technical Framework Concept. Seeds → ATS.
 type TechnicalFrameworkConcept struct {
 	som.SomNode
@@ -58704,152 +58832,6 @@ func (x *TechnicalFrameworkConcept) Security() *TechnicalSecurityRequirements {
 // 8.9. System Architecture..
 func (x *TechnicalFrameworkConcept) SystemArchitecture() *SystemArchitectureSpec {
 	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
-}
-
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-//
-// Documents pre-existing technical constraints including mandated platforms,
-// network restrictions, compliance requirements, existing infrastructure
-// that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds the detailed
-// Architecture & Technology Specification (ATS) document.
-type TechnicalFrameworkConditions struct {
-	som.SomNode
-}
-
-// NewTechnicalFrameworkConditions binds a TechnicalFrameworkConditions facade to a document and a path.
-func NewTechnicalFrameworkConditions(doc *som.SpecDocument, path string) *TechnicalFrameworkConditions {
-	return &TechnicalFrameworkConditions{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalFrameworkConditions) TechnicalOverviewContent() *TechnicalFrameworkConditionsTechnicalOverviewContentForm {
-	return NewTechnicalFrameworkConditionsTechnicalOverviewContentForm(x.Doc(), x.Path() + "/technicalOverviewContent")
-}
-
-// Architecture governance context.
-func (x *TechnicalFrameworkConditions) Governance() *TechnicalFrameworkConditionsGovernance {
-	return NewTechnicalFrameworkConditionsGovernance(x.Doc(), x.Path() + "/governance")
-}
-
-// Platform standards and preferred technologies.
-func (x *TechnicalFrameworkConditions) Standards() *TechnicalFrameworkConditionsStandards {
-	return NewTechnicalFrameworkConditionsStandards(x.Doc(), x.Path() + "/standards")
-}
-
-// Security and compliance requirements.
-func (x *TechnicalFrameworkConditions) Security() *TechnicalFrameworkConditionsSecurity {
-	return NewTechnicalFrameworkConditionsSecurity(x.Doc(), x.Path() + "/security")
-}
-
-// Network and infrastructure standards.
-func (x *TechnicalFrameworkConditions) Network() *TechnicalFrameworkConditionsNetwork {
-	return NewTechnicalFrameworkConditionsNetwork(x.Doc(), x.Path() + "/network")
-}
-
-// Existing infrastructure that must be reused or integrated with.
-// (skipped: existingInfrastructure has no target type)
-
-// Data center and hosting environment details.
-func (x *TechnicalFrameworkConditions) Datacenters() *som.SomList[*DatacenterEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DATAC-DATA-LST", func(d *som.SpecDocument, p string) *DatacenterEntry {
-		return NewDatacenterEntry(d, p)
-	})
-}
-
-// Network topology and connectivity constraints.
-// (skipped: networkTopology has no target type)
-
-// Technology standards that must be followed.
-// (skipped: standardsOverview has no target type)
-
-// Technology standards — contains 0+× TechnologyStandard.
-func (x *TechnicalFrameworkConditions) TechnologyStandards() *som.SomList[*TechnologyStandardEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/TESTEN-TECH-LST", func(d *som.SpecDocument, p string) *TechnologyStandardEntry {
-		return NewTechnologyStandardEntry(d, p)
-	})
-}
-
-// Integration constraints overview.
-// (skipped: integrationOverview has no target type)
-
-// Integration constraints — contains 0+× IntegrationConstraint.
-func (x *TechnicalFrameworkConditions) IntegrationConstraints() *som.SomList[*IntegrationConstraintEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INCOE1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationConstraintEntry {
-		return NewIntegrationConstraintEntry(d, p)
-	})
-}
-
-// Architecture governance context.
-type TechnicalFrameworkConditionsGovernance struct {
-	som.SomNode
-}
-
-// NewTechnicalFrameworkConditionsGovernance binds a TechnicalFrameworkConditionsGovernance facade to a document and a path.
-func NewTechnicalFrameworkConditionsGovernance(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsGovernance {
-	return &TechnicalFrameworkConditionsGovernance{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalFrameworkConditionsGovernance) Content() *TechnicalFrameworkConditionsGovernanceContentForm {
-	return NewTechnicalFrameworkConditionsGovernanceContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Network and infrastructure standards.
-type TechnicalFrameworkConditionsNetwork struct {
-	som.SomNode
-}
-
-// NewTechnicalFrameworkConditionsNetwork binds a TechnicalFrameworkConditionsNetwork facade to a document and a path.
-func NewTechnicalFrameworkConditionsNetwork(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsNetwork {
-	return &TechnicalFrameworkConditionsNetwork{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalFrameworkConditionsNetwork) Content() *TechnicalFrameworkConditionsNetworkContentForm {
-	return NewTechnicalFrameworkConditionsNetworkContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// DevOps and deployment standards.
-func (x *TechnicalFrameworkConditionsNetwork) DevopsStandards() *som.SomList[*DevopsStandardEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DEVOP-DEVO-LST", func(d *som.SpecDocument, p string) *DevopsStandardEntry {
-		return NewDevopsStandardEntry(d, p)
-	})
-}
-
-// Monitoring and observability requirements.
-func (x *TechnicalFrameworkConditionsNetwork) ObservabilityRequirements() *som.SomList[*ObservabilityRequirementEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/OBSER-OBSE-LST", func(d *som.SpecDocument, p string) *ObservabilityRequirementEntry {
-		return NewObservabilityRequirementEntry(d, p)
-	})
-}
-
-// Disaster recovery and business continuity requirements.
-// (skipped: disasterRecovery has no target type)
-
-// Security and compliance requirements.
-type TechnicalFrameworkConditionsSecurity struct {
-	som.SomNode
-}
-
-// NewTechnicalFrameworkConditionsSecurity binds a TechnicalFrameworkConditionsSecurity facade to a document and a path.
-func NewTechnicalFrameworkConditionsSecurity(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsSecurity {
-	return &TechnicalFrameworkConditionsSecurity{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalFrameworkConditionsSecurity) Content() *TechnicalFrameworkConditionsSecurityContentForm {
-	return NewTechnicalFrameworkConditionsSecurityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Platform standards and preferred technologies.
-type TechnicalFrameworkConditionsStandards struct {
-	som.SomNode
-}
-
-// NewTechnicalFrameworkConditionsStandards binds a TechnicalFrameworkConditionsStandards facade to a document and a path.
-func NewTechnicalFrameworkConditionsStandards(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsStandards {
-	return &TechnicalFrameworkConditionsStandards{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalFrameworkConditionsStandards) Content() *TechnicalFrameworkConditionsStandardsContentForm {
-	return NewTechnicalFrameworkConditionsStandardsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 4.2.2.n.4. Constraints.
@@ -61061,7 +61043,7 @@ func (x *TrainingAssessmentReporting) Content() *TrainingAssessmentReportingCont
 // half in L34C-7 (SR-29). Logically re-homed under SBP.9
 // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 // content in one D12 subsection rather than fragmenting it across a new id.
 type TrainingDeliverableRequirements struct {
 	som.SomNode
@@ -61884,6 +61866,20 @@ func (x *TransitionSupportStructure) EscalationPaths() *som.SomList[*TransitionE
 	})
 }
 
+// Ongoing localization operations.
+type TranslationOngoing struct {
+	som.SomNode
+}
+
+// NewTranslationOngoing binds a TranslationOngoing facade to a document and a path.
+func NewTranslationOngoing(doc *som.SpecDocument, path string) *TranslationOngoing {
+	return &TranslationOngoing{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TranslationOngoing) Content() *TranslationOngoingContentForm {
+	return NewTranslationOngoingContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 10.12.2. Translation Process.
 //
 // Workflow for translating content.
@@ -61901,23 +61897,23 @@ func (x *TranslationProcess) TranslationProcessContent() *TranslationProcessTran
 }
 
 // Translation workflow.
-func (x *TranslationProcess) Workflow() *TranslationProcessWorkflow {
-	return NewTranslationProcessWorkflow(x.Doc(), x.Path() + "/workflow")
+func (x *TranslationProcess) Workflow() *TranslationWorkflow {
+	return NewTranslationWorkflow(x.Doc(), x.Path() + "/workflow")
 }
 
 // Quality assurance.
-func (x *TranslationProcess) Quality() *TranslationProcessQuality {
-	return NewTranslationProcessQuality(x.Doc(), x.Path() + "/quality")
+func (x *TranslationProcess) Quality() *TranslationQuality {
+	return NewTranslationQuality(x.Doc(), x.Path() + "/quality")
 }
 
 // Terminology and voice management.
-func (x *TranslationProcess) Terminology() *TranslationProcessTerminology {
-	return NewTranslationProcessTerminology(x.Doc(), x.Path() + "/terminology")
+func (x *TranslationProcess) Terminology() *TranslationTerminology {
+	return NewTranslationTerminology(x.Doc(), x.Path() + "/terminology")
 }
 
 // Ongoing localization operations.
-func (x *TranslationProcess) Ongoing() *TranslationProcessOngoing {
-	return NewTranslationProcessOngoing(x.Doc(), x.Path() + "/ongoing")
+func (x *TranslationProcess) Ongoing() *TranslationOngoing {
+	return NewTranslationOngoing(x.Doc(), x.Path() + "/ongoing")
 }
 
 // Translation process narrative.
@@ -61930,60 +61926,18 @@ func (x *TranslationProcess) Vendors() *som.SomList[*TranslationVendorEntry] {
 	})
 }
 
-// Ongoing localization operations.
-type TranslationProcessOngoing struct {
-	som.SomNode
-}
-
-// NewTranslationProcessOngoing binds a TranslationProcessOngoing facade to a document and a path.
-func NewTranslationProcessOngoing(doc *som.SpecDocument, path string) *TranslationProcessOngoing {
-	return &TranslationProcessOngoing{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TranslationProcessOngoing) Content() *TranslationProcessOngoingContentForm {
-	return NewTranslationProcessOngoingContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // Quality assurance.
-type TranslationProcessQuality struct {
+type TranslationQuality struct {
 	som.SomNode
 }
 
-// NewTranslationProcessQuality binds a TranslationProcessQuality facade to a document and a path.
-func NewTranslationProcessQuality(doc *som.SpecDocument, path string) *TranslationProcessQuality {
-	return &TranslationProcessQuality{SomNode: som.NewSomNode(doc, path)}
+// NewTranslationQuality binds a TranslationQuality facade to a document and a path.
+func NewTranslationQuality(doc *som.SpecDocument, path string) *TranslationQuality {
+	return &TranslationQuality{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TranslationProcessQuality) Content() *TranslationProcessQualityContentForm {
-	return NewTranslationProcessQualityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Terminology and voice management.
-type TranslationProcessTerminology struct {
-	som.SomNode
-}
-
-// NewTranslationProcessTerminology binds a TranslationProcessTerminology facade to a document and a path.
-func NewTranslationProcessTerminology(doc *som.SpecDocument, path string) *TranslationProcessTerminology {
-	return &TranslationProcessTerminology{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TranslationProcessTerminology) Content() *TranslationProcessTerminologyContentForm {
-	return NewTranslationProcessTerminologyContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Translation workflow.
-type TranslationProcessWorkflow struct {
-	som.SomNode
-}
-
-// NewTranslationProcessWorkflow binds a TranslationProcessWorkflow facade to a document and a path.
-func NewTranslationProcessWorkflow(doc *som.SpecDocument, path string) *TranslationProcessWorkflow {
-	return &TranslationProcessWorkflow{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TranslationProcessWorkflow) Content() *TranslationProcessWorkflowContentForm {
-	return NewTranslationProcessWorkflowContentForm(x.Doc(), x.Path() + "/content")
+func (x *TranslationQuality) Content() *TranslationQualityContentForm {
+	return NewTranslationQualityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 10.12.5. Translation Handling Requirements.
@@ -62081,6 +62035,20 @@ func (x *TranslationRequirementsVariants) Content() *TranslationRequirementsVari
 	return NewTranslationRequirementsVariantsContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// Terminology and voice management.
+type TranslationTerminology struct {
+	som.SomNode
+}
+
+// NewTranslationTerminology binds a TranslationTerminology facade to a document and a path.
+func NewTranslationTerminology(doc *som.SpecDocument, path string) *TranslationTerminology {
+	return &TranslationTerminology{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TranslationTerminology) Content() *TranslationTerminologyContentForm {
+	return NewTranslationTerminologyContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // A translation vendor entry.
 type TranslationVendorEntry struct {
 	som.SomNode
@@ -62093,6 +62061,20 @@ func NewTranslationVendorEntry(doc *som.SpecDocument, path string) *TranslationV
 
 func (x *TranslationVendorEntry) Content() *TranslationVendorEntryContentForm {
 	return NewTranslationVendorEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Translation workflow.
+type TranslationWorkflow struct {
+	som.SomNode
+}
+
+// NewTranslationWorkflow binds a TranslationWorkflow facade to a document and a path.
+func NewTranslationWorkflow(doc *som.SpecDocument, path string) *TranslationWorkflow {
+	return &TranslationWorkflow{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TranslationWorkflow) Content() *TranslationWorkflowContentForm {
+	return NewTranslationWorkflowContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // HSTS and Transport Security Policy (form).
@@ -62764,18 +62746,18 @@ func (x *UiComponents) ComponentLibraryOverview() *UiComponentsComponentLibraryO
 }
 
 // Visual language and brand alignment.
-func (x *UiComponents) VisualLanguage() *UiComponentsVisualLanguage {
-	return NewUiComponentsVisualLanguage(x.Doc(), x.Path() + "/visualLanguage")
+func (x *UiComponents) VisualLanguage() *ComponentVisualLanguage {
+	return NewComponentVisualLanguage(x.Doc(), x.Path() + "/visualLanguage")
 }
 
 // Component naming and documentation approach.
-func (x *UiComponents) ComponentApproach() *UiComponentsComponentApproach {
-	return NewUiComponentsComponentApproach(x.Doc(), x.Path() + "/componentApproach")
+func (x *UiComponents) ComponentApproach() *ComponentApproach {
+	return NewComponentApproach(x.Doc(), x.Path() + "/componentApproach")
 }
 
 // Extension and theming boundaries.
-func (x *UiComponents) Customization() *UiComponentsCustomization {
-	return NewUiComponentsCustomization(x.Doc(), x.Path() + "/customization")
+func (x *UiComponents) Customization() *ComponentCustomization {
+	return NewComponentCustomization(x.Doc(), x.Path() + "/customization")
 }
 
 // 10.11.1. Component Library.
@@ -62795,64 +62777,6 @@ func (x *UiComponents) ComponentFamilies() *som.SomList[*ComponentFamilyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMFA-COMP-LST", func(d *som.SpecDocument, p string) *ComponentFamilyEntry {
 		return NewComponentFamilyEntry(d, p)
 	})
-}
-
-// Component naming and documentation approach.
-type UiComponentsComponentApproach struct {
-	som.SomNode
-}
-
-// NewUiComponentsComponentApproach binds a UiComponentsComponentApproach facade to a document and a path.
-func NewUiComponentsComponentApproach(doc *som.SpecDocument, path string) *UiComponentsComponentApproach {
-	return &UiComponentsComponentApproach{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsComponentApproach) Content() *UiComponentsComponentApproachContentForm {
-	return NewUiComponentsComponentApproachContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Extension and theming boundaries.
-type UiComponentsCustomization struct {
-	som.SomNode
-}
-
-// NewUiComponentsCustomization binds a UiComponentsCustomization facade to a document and a path.
-func NewUiComponentsCustomization(doc *som.SpecDocument, path string) *UiComponentsCustomization {
-	return &UiComponentsCustomization{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsCustomization) Content() *UiComponentsCustomizationContentForm {
-	return NewUiComponentsCustomizationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Visual language and brand alignment.
-type UiComponentsVisualLanguage struct {
-	som.SomNode
-}
-
-// NewUiComponentsVisualLanguage binds a UiComponentsVisualLanguage facade to a document and a path.
-func NewUiComponentsVisualLanguage(doc *som.SpecDocument, path string) *UiComponentsVisualLanguage {
-	return &UiComponentsVisualLanguage{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsVisualLanguage) Content() *UiComponentsVisualLanguageContentForm {
-	return NewUiComponentsVisualLanguageContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// A design principle entry (form).
-//
-// Each principle guides UI decisions with rationale and examples.
-type UiDesignPrincipleEntry struct {
-	som.SomNode
-}
-
-// NewUiDesignPrincipleEntry binds a UiDesignPrincipleEntry facade to a document and a path.
-func NewUiDesignPrincipleEntry(doc *som.SpecDocument, path string) *UiDesignPrincipleEntry {
-	return &UiDesignPrincipleEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiDesignPrincipleEntry) Content() *UiDesignPrincipleEntryContentForm {
-	return NewUiDesignPrincipleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 13.8. Upgrade Cycle Framework.
@@ -63252,6 +63176,82 @@ func (x *UserAccountStatesDefinition) SetContent(value string) {
 
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
+
+// 10.8. User Assistance.
+//
+// Comprehensive in-app help system including contextual help, onboarding,
+// and support access mechanisms.
+type UserAssistance struct {
+	som.SomNode
+}
+
+// NewUserAssistance binds a UserAssistance facade to a document and a path.
+func NewUserAssistance(doc *som.SpecDocument, path string) *UserAssistance {
+	return &UserAssistance{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistance) HelpOverviewContent() *UserAssistanceHelpOverviewContentForm {
+	return NewUserAssistanceHelpOverviewContentForm(x.Doc(), x.Path() + "/helpOverviewContent")
+}
+
+// Content stewardship and help affordances.
+func (x *UserAssistance) Delivery() *UserAssistanceDelivery {
+	return NewUserAssistanceDelivery(x.Doc(), x.Path() + "/delivery")
+}
+
+// Analytics and improvement feedback.
+func (x *UserAssistance) Insights() *UserAssistanceInsights {
+	return NewUserAssistanceInsights(x.Doc(), x.Path() + "/insights")
+}
+
+// Help system overview narrative.
+// (skipped: helpOverview has no target type)
+
+// 10.8.1. Contextual Help.
+func (x *UserAssistance) ContextualHelp() *ContextualHelp {
+	return NewContextualHelp(x.Doc(), x.Path() + "/contextualHelp")
+}
+
+// 10.8.2. Onboarding.
+func (x *UserAssistance) Onboarding() *OnboardingHelp {
+	return NewOnboardingHelp(x.Doc(), x.Path() + "/onboarding")
+}
+
+// 10.8.3. Support Access.
+func (x *UserAssistance) SupportAccess() *SupportAccess {
+	return NewSupportAccess(x.Doc(), x.Path() + "/supportAccess")
+}
+
+// Help content inventory.
+// (skipped: helpContentInventory has no target type)
+
+// Content stewardship and help affordances.
+type UserAssistanceDelivery struct {
+	som.SomNode
+}
+
+// NewUserAssistanceDelivery binds a UserAssistanceDelivery facade to a document and a path.
+func NewUserAssistanceDelivery(doc *som.SpecDocument, path string) *UserAssistanceDelivery {
+	return &UserAssistanceDelivery{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistanceDelivery) Content() *UserAssistanceDeliveryContentForm {
+	return NewUserAssistanceDeliveryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Analytics and improvement feedback.
+type UserAssistanceInsights struct {
+	som.SomNode
+}
+
+// NewUserAssistanceInsights binds a UserAssistanceInsights facade to a document and a path.
+func NewUserAssistanceInsights(doc *som.SpecDocument, path string) *UserAssistanceInsights {
+	return &UserAssistanceInsights{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistanceInsights) Content() *UserAssistanceInsightsContentForm {
+	return NewUserAssistanceInsightsContentForm(x.Doc(), x.Path() + "/content")
+}
 
 // A user attribute entry (form).
 type UserAttributeEntry struct {
@@ -63754,20 +63754,20 @@ func (x *UserJourneyPainPointEntry) SetContent(value string) {
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
 // for registration, activation, modification, deactivation, and deletion.
-type UserLifecycleSection struct {
+type UserLifecycle struct {
 	som.SomNode
 }
 
-// NewUserLifecycleSection binds a UserLifecycleSection facade to a document and a path.
-func NewUserLifecycleSection(doc *som.SpecDocument, path string) *UserLifecycleSection {
-	return &UserLifecycleSection{SomNode: som.NewSomNode(doc, path)}
+// NewUserLifecycle binds a UserLifecycle facade to a document and a path.
+func NewUserLifecycle(doc *som.SpecDocument, path string) *UserLifecycle {
+	return &UserLifecycle{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UserLifecycleSection) Content() string {
+func (x *UserLifecycle) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *UserLifecycleSection) SetContent(value string) {
+func (x *UserLifecycle) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -63775,47 +63775,47 @@ func (x *UserLifecycleSection) SetContent(value string) {
 // (skipped: overview has no target type)
 
 // 9.1.2.1. Account States.
-func (x *UserLifecycleSection) AccountStates() *UserAccountStatesDefinition {
+func (x *UserLifecycle) AccountStates() *UserAccountStatesDefinition {
 	return NewUserAccountStatesDefinition(x.Doc(), x.Path() + "/accountStates")
 }
 
 // 9.1.2.2. Registration Process.
-func (x *UserLifecycleSection) Registration() *UserRegistrationProcess {
+func (x *UserLifecycle) Registration() *UserRegistrationProcess {
 	return NewUserRegistrationProcess(x.Doc(), x.Path() + "/registration")
 }
 
 // 9.1.2.3. Account Activation.
-func (x *UserLifecycleSection) Activation() *AccountActivationPolicy {
+func (x *UserLifecycle) Activation() *AccountActivationPolicy {
 	return NewAccountActivationPolicy(x.Doc(), x.Path() + "/activation")
 }
 
 // 9.1.2.4. Account Modification.
-func (x *UserLifecycleSection) Modification() *AccountModificationPolicy {
+func (x *UserLifecycle) Modification() *AccountModificationPolicy {
 	return NewAccountModificationPolicy(x.Doc(), x.Path() + "/modification")
 }
 
 // 9.1.2.5. Account Deactivation.
-func (x *UserLifecycleSection) Deactivation() *AccountDeactivationPolicy {
+func (x *UserLifecycle) Deactivation() *AccountDeactivationPolicy {
 	return NewAccountDeactivationPolicy(x.Doc(), x.Path() + "/deactivation")
 }
 
 // 9.1.2.6. Account Deletion and Data Retention.
-func (x *UserLifecycleSection) Deletion() *AccountDeletionPolicy {
+func (x *UserLifecycle) Deletion() *AccountDeletionPolicy {
 	return NewAccountDeletionPolicy(x.Doc(), x.Path() + "/deletion")
 }
 
 // 9.1.2.7. Lifecycle Transitions and Approvals.
-func (x *UserLifecycleSection) Transitions() *UserLifecycleTransitions {
+func (x *UserLifecycle) Transitions() *UserLifecycleTransitions {
 	return NewUserLifecycleTransitions(x.Doc(), x.Path() + "/transitions")
 }
 
 // 9.1.2.8. Self-Service Account Management.
-func (x *UserLifecycleSection) SelfService() *SelfServiceAccountManagement {
+func (x *UserLifecycle) SelfService() *SelfServiceAccountManagement {
 	return NewSelfServiceAccountManagement(x.Doc(), x.Path() + "/selfService")
 }
 
 // 9.1.2.9. Service Account Lifecycle.
-func (x *UserLifecycleSection) ServiceAccounts() *som.SomList[*ServiceAccountLifecycle] {
+func (x *UserLifecycle) ServiceAccounts() *som.SomList[*ServiceAccountLifecycle] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SACLC-SERV-LST", func(d *som.SpecDocument, p string) *ServiceAccountLifecycle {
 		return NewServiceAccountLifecycle(d, p)
 	})
@@ -63953,8 +63953,8 @@ func (x *UserManagement) UserCategories() *AccessUserCategories {
 }
 
 // 9.1.2. User Lifecycle.
-func (x *UserManagement) UserLifecycle() *UserLifecycleSection {
-	return NewUserLifecycleSection(x.Doc(), x.Path() + "/userLifecycle")
+func (x *UserManagement) UserLifecycle() *UserLifecycle {
+	return NewUserLifecycle(x.Doc(), x.Path() + "/userLifecycle")
 }
 
 // 9.1.3. User Attributes.
@@ -63965,20 +63965,20 @@ func (x *UserManagement) UserAttributes() *UserAttributes {
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
-type UserManuals struct {
+type UserManual struct {
 	som.SomNode
 }
 
-// NewUserManuals binds a UserManuals facade to a document and a path.
-func NewUserManuals(doc *som.SpecDocument, path string) *UserManuals {
-	return &UserManuals{SomNode: som.NewSomNode(doc, path)}
+// NewUserManual binds a UserManual facade to a document and a path.
+func NewUserManual(doc *som.SpecDocument, path string) *UserManual {
+	return &UserManual{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UserManuals) Content() string {
+func (x *UserManual) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *UserManuals) SetContent(value string) {
+func (x *UserManual) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
@@ -82760,6 +82760,40 @@ func (x *ComponentActionEntryGovernanceContentForm) SetConfirmationMessage(value
 	x.Doc().SetFormField(x.Path(), "confirmationMessage", value)
 }
 
+// ComponentApproachContentForm is the generated form facade for the `content` @Form section.
+type ComponentApproachContentForm struct {
+	som.SomNode
+}
+
+// NewComponentApproachContentForm binds a ComponentApproachContentForm facade to a document and a path.
+func NewComponentApproachContentForm(doc *som.SpecDocument, path string) *ComponentApproachContentForm {
+	return &ComponentApproachContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentApproachContentForm) ComponentGranularity() string {
+	return x.Doc().FormFieldOr(x.Path(), "componentGranularity")
+}
+
+func (x *ComponentApproachContentForm) SetComponentGranularity(value string) {
+	x.Doc().SetFormField(x.Path(), "componentGranularity", value)
+}
+
+func (x *ComponentApproachContentForm) ComponentNaming() string {
+	return x.Doc().FormFieldOr(x.Path(), "componentNaming")
+}
+
+func (x *ComponentApproachContentForm) SetComponentNaming(value string) {
+	x.Doc().SetFormField(x.Path(), "componentNaming", value)
+}
+
+func (x *ComponentApproachContentForm) ComponentDocumentation() string {
+	return x.Doc().FormFieldOr(x.Path(), "componentDocumentation")
+}
+
+func (x *ComponentApproachContentForm) SetComponentDocumentation(value string) {
+	x.Doc().SetFormField(x.Path(), "componentDocumentation", value)
+}
+
 // ComponentComplianceContentForm is the generated form facade for the `content` @Form section.
 type ComponentComplianceContentForm struct {
 	som.SomNode
@@ -82810,6 +82844,40 @@ func (x *ComponentCostContentForm) TotalCostOngoing() string {
 
 func (x *ComponentCostContentForm) SetTotalCostOngoing(value string) {
 	x.Doc().SetFormField(x.Path(), "totalCostOngoing", value)
+}
+
+// ComponentCustomizationContentForm is the generated form facade for the `content` @Form section.
+type ComponentCustomizationContentForm struct {
+	som.SomNode
+}
+
+// NewComponentCustomizationContentForm binds a ComponentCustomizationContentForm facade to a document and a path.
+func NewComponentCustomizationContentForm(doc *som.SpecDocument, path string) *ComponentCustomizationContentForm {
+	return &ComponentCustomizationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentCustomizationContentForm) ExtensionModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "extensionModel")
+}
+
+func (x *ComponentCustomizationContentForm) SetExtensionModel(value string) {
+	x.Doc().SetFormField(x.Path(), "extensionModel", value)
+}
+
+func (x *ComponentCustomizationContentForm) ThemingApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "themingApproach")
+}
+
+func (x *ComponentCustomizationContentForm) SetThemingApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "themingApproach", value)
+}
+
+func (x *ComponentCustomizationContentForm) CustomizationBoundaries() string {
+	return x.Doc().FormFieldOr(x.Path(), "customizationBoundaries")
+}
+
+func (x *ComponentCustomizationContentForm) SetCustomizationBoundaries(value string) {
+	x.Doc().SetFormField(x.Path(), "customizationBoundaries", value)
 }
 
 // ComponentDeploymentContentForm is the generated form facade for the `content` @Form section.
@@ -85384,6 +85452,40 @@ func (x *ComponentVendorContentForm) VendorStability() string {
 
 func (x *ComponentVendorContentForm) SetVendorStability(value string) {
 	x.Doc().SetFormField(x.Path(), "vendorStability", value)
+}
+
+// ComponentVisualLanguageContentForm is the generated form facade for the `content` @Form section.
+type ComponentVisualLanguageContentForm struct {
+	som.SomNode
+}
+
+// NewComponentVisualLanguageContentForm binds a ComponentVisualLanguageContentForm facade to a document and a path.
+func NewComponentVisualLanguageContentForm(doc *som.SpecDocument, path string) *ComponentVisualLanguageContentForm {
+	return &ComponentVisualLanguageContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ComponentVisualLanguageContentForm) VisualLanguage() string {
+	return x.Doc().FormFieldOr(x.Path(), "visualLanguage")
+}
+
+func (x *ComponentVisualLanguageContentForm) SetVisualLanguage(value string) {
+	x.Doc().SetFormField(x.Path(), "visualLanguage", value)
+}
+
+func (x *ComponentVisualLanguageContentForm) BrandAlignment() string {
+	return x.Doc().FormFieldOr(x.Path(), "brandAlignment")
+}
+
+func (x *ComponentVisualLanguageContentForm) SetBrandAlignment(value string) {
+	x.Doc().SetFormField(x.Path(), "brandAlignment", value)
+}
+
+func (x *ComponentVisualLanguageContentForm) MotionPrinciples() string {
+	return x.Doc().FormFieldOr(x.Path(), "motionPrinciples")
+}
+
+func (x *ComponentVisualLanguageContentForm) SetMotionPrinciples(value string) {
+	x.Doc().SetFormField(x.Path(), "motionPrinciples", value)
 }
 
 // ComputeResourceRequirementsContentForm is the generated form facade for the `content` @Form section.
@@ -96396,6 +96498,80 @@ func (x *DesignPatternEntryStructureContentForm) SetVariations(value string) {
 	x.Doc().SetFormField(x.Path(), "variations", value)
 }
 
+// DesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
+type DesignPrincipleEntryContentForm struct {
+	som.SomNode
+}
+
+// NewDesignPrincipleEntryContentForm binds a DesignPrincipleEntryContentForm facade to a document and a path.
+func NewDesignPrincipleEntryContentForm(doc *som.SpecDocument, path string) *DesignPrincipleEntryContentForm {
+	return &DesignPrincipleEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DesignPrincipleEntryContentForm) PrincipleName() string {
+	return x.Doc().FormFieldOr(x.Path(), "principleName")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetPrincipleName(value string) {
+	x.Doc().SetFormField(x.Path(), "principleName", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) Rationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "rationale")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "rationale", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) Category() string {
+	return x.Doc().FormFieldOr(x.Path(), "category")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetCategory(value string) {
+	x.Doc().SetFormField(x.Path(), "category", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) Examples() string {
+	return x.Doc().FormFieldOr(x.Path(), "examples")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetExamples(value string) {
+	x.Doc().SetFormField(x.Path(), "examples", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) Exceptions() string {
+	return x.Doc().FormFieldOr(x.Path(), "exceptions")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetExceptions(value string) {
+	x.Doc().SetFormField(x.Path(), "exceptions", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) SourceReference() string {
+	return x.Doc().FormFieldOr(x.Path(), "sourceReference")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetSourceReference(value string) {
+	x.Doc().SetFormField(x.Path(), "sourceReference", value)
+}
+
+func (x *DesignPrincipleEntryContentForm) RelatedGoals() string {
+	return x.Doc().FormFieldOr(x.Path(), "relatedGoals")
+}
+
+func (x *DesignPrincipleEntryContentForm) SetRelatedGoals(value string) {
+	x.Doc().SetFormField(x.Path(), "relatedGoals", value)
+}
+
 // DesignPrinciplesOverviewContentForm is the generated form facade for the `content` @Form section.
 type DesignPrinciplesOverviewContentForm struct {
 	som.SomNode
@@ -102408,155 +102584,155 @@ func (x *ErrorBudgetTrackingMonitoringContentForm) SetBurnRateTimePeriods(value 
 	x.Doc().SetFormField(x.Path(), "burnRateTimePeriods", value)
 }
 
-// ErrorHandlingConceptAccessibilityContentForm is the generated form facade for the `content` @Form section.
-type ErrorHandlingConceptAccessibilityContentForm struct {
+// ErrorHandlingAccessibilityContentForm is the generated form facade for the `content` @Form section.
+type ErrorHandlingAccessibilityContentForm struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptAccessibilityContentForm binds a ErrorHandlingConceptAccessibilityContentForm facade to a document and a path.
-func NewErrorHandlingConceptAccessibilityContentForm(doc *som.SpecDocument, path string) *ErrorHandlingConceptAccessibilityContentForm {
-	return &ErrorHandlingConceptAccessibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingAccessibilityContentForm binds a ErrorHandlingAccessibilityContentForm facade to a document and a path.
+func NewErrorHandlingAccessibilityContentForm(doc *som.SpecDocument, path string) *ErrorHandlingAccessibilityContentForm {
+	return &ErrorHandlingAccessibilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) ErrorAccessibility() string {
+func (x *ErrorHandlingAccessibilityContentForm) ErrorAccessibility() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorAccessibility")
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) SetErrorAccessibility(value string) {
+func (x *ErrorHandlingAccessibilityContentForm) SetErrorAccessibility(value string) {
 	x.Doc().SetFormField(x.Path(), "errorAccessibility", value)
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) ColorContrastCompliance() string {
+func (x *ErrorHandlingAccessibilityContentForm) ColorContrastCompliance() string {
 	return x.Doc().FormFieldOr(x.Path(), "colorContrastCompliance")
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) SetColorContrastCompliance(value string) {
+func (x *ErrorHandlingAccessibilityContentForm) SetColorContrastCompliance(value string) {
 	x.Doc().SetFormField(x.Path(), "colorContrastCompliance", value)
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) NonColorIndicators() string {
+func (x *ErrorHandlingAccessibilityContentForm) NonColorIndicators() string {
 	return x.Doc().FormFieldOr(x.Path(), "nonColorIndicators")
 }
 
-func (x *ErrorHandlingConceptAccessibilityContentForm) SetNonColorIndicators(value string) {
+func (x *ErrorHandlingAccessibilityContentForm) SetNonColorIndicators(value string) {
 	x.Doc().SetFormField(x.Path(), "nonColorIndicators", value)
 }
 
-// ErrorHandlingConceptClassificationContentForm is the generated form facade for the `content` @Form section.
-type ErrorHandlingConceptClassificationContentForm struct {
+// ErrorHandlingClassificationContentForm is the generated form facade for the `content` @Form section.
+type ErrorHandlingClassificationContentForm struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptClassificationContentForm binds a ErrorHandlingConceptClassificationContentForm facade to a document and a path.
-func NewErrorHandlingConceptClassificationContentForm(doc *som.SpecDocument, path string) *ErrorHandlingConceptClassificationContentForm {
-	return &ErrorHandlingConceptClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingClassificationContentForm binds a ErrorHandlingClassificationContentForm facade to a document and a path.
+func NewErrorHandlingClassificationContentForm(doc *som.SpecDocument, path string) *ErrorHandlingClassificationContentForm {
+	return &ErrorHandlingClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) ErrorCategories() string {
+func (x *ErrorHandlingClassificationContentForm) ErrorCategories() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorCategories")
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) SetErrorCategories(value string) {
+func (x *ErrorHandlingClassificationContentForm) SetErrorCategories(value string) {
 	x.Doc().SetFormField(x.Path(), "errorCategories", value)
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) ErrorSeverityLevels() string {
+func (x *ErrorHandlingClassificationContentForm) ErrorSeverityLevels() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorSeverityLevels")
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) SetErrorSeverityLevels(value string) {
+func (x *ErrorHandlingClassificationContentForm) SetErrorSeverityLevels(value string) {
 	x.Doc().SetFormField(x.Path(), "errorSeverityLevels", value)
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) ErrorPriorityDisplay() string {
+func (x *ErrorHandlingClassificationContentForm) ErrorPriorityDisplay() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorPriorityDisplay")
 }
 
-func (x *ErrorHandlingConceptClassificationContentForm) SetErrorPriorityDisplay(value string) {
+func (x *ErrorHandlingClassificationContentForm) SetErrorPriorityDisplay(value string) {
 	x.Doc().SetFormField(x.Path(), "errorPriorityDisplay", value)
 }
 
-// ErrorHandlingConceptErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
-type ErrorHandlingConceptErrorPhilosophyContentForm struct {
+// ErrorHandlingErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
+type ErrorHandlingErrorPhilosophyContentForm struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptErrorPhilosophyContentForm binds a ErrorHandlingConceptErrorPhilosophyContentForm facade to a document and a path.
-func NewErrorHandlingConceptErrorPhilosophyContentForm(doc *som.SpecDocument, path string) *ErrorHandlingConceptErrorPhilosophyContentForm {
-	return &ErrorHandlingConceptErrorPhilosophyContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingErrorPhilosophyContentForm binds a ErrorHandlingErrorPhilosophyContentForm facade to a document and a path.
+func NewErrorHandlingErrorPhilosophyContentForm(doc *som.SpecDocument, path string) *ErrorHandlingErrorPhilosophyContentForm {
+	return &ErrorHandlingErrorPhilosophyContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) ErrorPhilosophy() string {
+func (x *ErrorHandlingErrorPhilosophyContentForm) ErrorPhilosophy() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorPhilosophy")
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) SetErrorPhilosophy(value string) {
+func (x *ErrorHandlingErrorPhilosophyContentForm) SetErrorPhilosophy(value string) {
 	x.Doc().SetFormField(x.Path(), "errorPhilosophy", value)
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) ErrorToneOfVoice() string {
+func (x *ErrorHandlingErrorPhilosophyContentForm) ErrorToneOfVoice() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorToneOfVoice")
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) SetErrorToneOfVoice(value string) {
+func (x *ErrorHandlingErrorPhilosophyContentForm) SetErrorToneOfVoice(value string) {
 	x.Doc().SetFormField(x.Path(), "errorToneOfVoice", value)
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) ErrorLanguageStyle() string {
+func (x *ErrorHandlingErrorPhilosophyContentForm) ErrorLanguageStyle() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorLanguageStyle")
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) SetErrorLanguageStyle(value string) {
+func (x *ErrorHandlingErrorPhilosophyContentForm) SetErrorLanguageStyle(value string) {
 	x.Doc().SetFormField(x.Path(), "errorLanguageStyle", value)
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) BlameAvoidance() string {
+func (x *ErrorHandlingErrorPhilosophyContentForm) BlameAvoidance() string {
 	return x.Doc().FormFieldOr(x.Path(), "blameAvoidance")
 }
 
-func (x *ErrorHandlingConceptErrorPhilosophyContentForm) SetBlameAvoidance(value string) {
+func (x *ErrorHandlingErrorPhilosophyContentForm) SetBlameAvoidance(value string) {
 	x.Doc().SetFormField(x.Path(), "blameAvoidance", value)
 }
 
-// ErrorHandlingConceptOperationsContentForm is the generated form facade for the `content` @Form section.
-type ErrorHandlingConceptOperationsContentForm struct {
+// ErrorHandlingOperationsContentForm is the generated form facade for the `content` @Form section.
+type ErrorHandlingOperationsContentForm struct {
 	som.SomNode
 }
 
-// NewErrorHandlingConceptOperationsContentForm binds a ErrorHandlingConceptOperationsContentForm facade to a document and a path.
-func NewErrorHandlingConceptOperationsContentForm(doc *som.SpecDocument, path string) *ErrorHandlingConceptOperationsContentForm {
-	return &ErrorHandlingConceptOperationsContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewErrorHandlingOperationsContentForm binds a ErrorHandlingOperationsContentForm facade to a document and a path.
+func NewErrorHandlingOperationsContentForm(doc *som.SpecDocument, path string) *ErrorHandlingOperationsContentForm {
+	return &ErrorHandlingOperationsContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) ErrorLocalization() string {
+func (x *ErrorHandlingOperationsContentForm) ErrorLocalization() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorLocalization")
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) SetErrorLocalization(value string) {
+func (x *ErrorHandlingOperationsContentForm) SetErrorLocalization(value string) {
 	x.Doc().SetFormField(x.Path(), "errorLocalization", value)
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) DynamicContentHandling() string {
+func (x *ErrorHandlingOperationsContentForm) DynamicContentHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "dynamicContentHandling")
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) SetDynamicContentHandling(value string) {
+func (x *ErrorHandlingOperationsContentForm) SetDynamicContentHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "dynamicContentHandling", value)
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) ErrorTrackingApproach() string {
+func (x *ErrorHandlingOperationsContentForm) ErrorTrackingApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorTrackingApproach")
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) SetErrorTrackingApproach(value string) {
+func (x *ErrorHandlingOperationsContentForm) SetErrorTrackingApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "errorTrackingApproach", value)
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) UserFrustrationDetection() string {
+func (x *ErrorHandlingOperationsContentForm) UserFrustrationDetection() string {
 	return x.Doc().FormFieldOr(x.Path(), "userFrustrationDetection")
 }
 
-func (x *ErrorHandlingConceptOperationsContentForm) SetUserFrustrationDetection(value string) {
+func (x *ErrorHandlingOperationsContentForm) SetUserFrustrationDetection(value string) {
 	x.Doc().SetFormField(x.Path(), "userFrustrationDetection", value)
 }
 
@@ -109946,124 +110122,6 @@ func (x *HealthCheckEndpointsTimingContentForm) SuccessThreshold() string {
 
 func (x *HealthCheckEndpointsTimingContentForm) SetSuccessThreshold(value string) {
 	x.Doc().SetFormField(x.Path(), "successThreshold", value)
-}
-
-// HelpConceptDeliveryContentForm is the generated form facade for the `content` @Form section.
-type HelpConceptDeliveryContentForm struct {
-	som.SomNode
-}
-
-// NewHelpConceptDeliveryContentForm binds a HelpConceptDeliveryContentForm facade to a document and a path.
-func NewHelpConceptDeliveryContentForm(doc *som.SpecDocument, path string) *HelpConceptDeliveryContentForm {
-	return &HelpConceptDeliveryContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConceptDeliveryContentForm) HelpContentOwnership() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpContentOwnership")
-}
-
-func (x *HelpConceptDeliveryContentForm) SetHelpContentOwnership(value string) {
-	x.Doc().SetFormField(x.Path(), "helpContentOwnership", value)
-}
-
-func (x *HelpConceptDeliveryContentForm) HelpUpdateProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpUpdateProcess")
-}
-
-func (x *HelpConceptDeliveryContentForm) SetHelpUpdateProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "helpUpdateProcess", value)
-}
-
-func (x *HelpConceptDeliveryContentForm) HelpIconStandard() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpIconStandard")
-}
-
-func (x *HelpConceptDeliveryContentForm) SetHelpIconStandard(value string) {
-	x.Doc().SetFormField(x.Path(), "helpIconStandard", value)
-}
-
-func (x *HelpConceptDeliveryContentForm) HelpIconPlacement() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpIconPlacement")
-}
-
-func (x *HelpConceptDeliveryContentForm) SetHelpIconPlacement(value string) {
-	x.Doc().SetFormField(x.Path(), "helpIconPlacement", value)
-}
-
-func (x *HelpConceptDeliveryContentForm) HelpTooltipStyle() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpTooltipStyle")
-}
-
-func (x *HelpConceptDeliveryContentForm) SetHelpTooltipStyle(value string) {
-	x.Doc().SetFormField(x.Path(), "helpTooltipStyle", value)
-}
-
-// HelpConceptHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
-type HelpConceptHelpOverviewContentForm struct {
-	som.SomNode
-}
-
-// NewHelpConceptHelpOverviewContentForm binds a HelpConceptHelpOverviewContentForm facade to a document and a path.
-func NewHelpConceptHelpOverviewContentForm(doc *som.SpecDocument, path string) *HelpConceptHelpOverviewContentForm {
-	return &HelpConceptHelpOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConceptHelpOverviewContentForm) HelpPhilosophy() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpPhilosophy")
-}
-
-func (x *HelpConceptHelpOverviewContentForm) SetHelpPhilosophy(value string) {
-	x.Doc().SetFormField(x.Path(), "helpPhilosophy", value)
-}
-
-func (x *HelpConceptHelpOverviewContentForm) HelpAccessibility() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpAccessibility")
-}
-
-func (x *HelpConceptHelpOverviewContentForm) SetHelpAccessibility(value string) {
-	x.Doc().SetFormField(x.Path(), "helpAccessibility", value)
-}
-
-func (x *HelpConceptHelpOverviewContentForm) HelpPersonalization() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpPersonalization")
-}
-
-func (x *HelpConceptHelpOverviewContentForm) SetHelpPersonalization(value string) {
-	x.Doc().SetFormField(x.Path(), "helpPersonalization", value)
-}
-
-func (x *HelpConceptHelpOverviewContentForm) HelpContentStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpContentStrategy")
-}
-
-func (x *HelpConceptHelpOverviewContentForm) SetHelpContentStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "helpContentStrategy", value)
-}
-
-// HelpConceptInsightsContentForm is the generated form facade for the `content` @Form section.
-type HelpConceptInsightsContentForm struct {
-	som.SomNode
-}
-
-// NewHelpConceptInsightsContentForm binds a HelpConceptInsightsContentForm facade to a document and a path.
-func NewHelpConceptInsightsContentForm(doc *som.SpecDocument, path string) *HelpConceptInsightsContentForm {
-	return &HelpConceptInsightsContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *HelpConceptInsightsContentForm) HelpAnalytics() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpAnalytics")
-}
-
-func (x *HelpConceptInsightsContentForm) SetHelpAnalytics(value string) {
-	x.Doc().SetFormField(x.Path(), "helpAnalytics", value)
-}
-
-func (x *HelpConceptInsightsContentForm) HelpFeedback() string {
-	return x.Doc().FormFieldOr(x.Path(), "helpFeedback")
-}
-
-func (x *HelpConceptInsightsContentForm) SetHelpFeedback(value string) {
-	x.Doc().SetFormField(x.Path(), "helpFeedback", value)
 }
 
 // HighAvailabilityRequirementsContentForm is the generated form facade for the `content` @Form section.
@@ -119102,87 +119160,163 @@ func (x *LocalDevelopmentSetupWorkflowContentForm) SetConfigurationFiles(value s
 	x.Doc().SetFormField(x.Path(), "configurationFiles", value)
 }
 
-// LocalizationProcessDeploymentContentForm is the generated form facade for the `content` @Form section.
-type LocalizationProcessDeploymentContentForm struct {
+// LocaleHandlingRequirementsContentForm is the generated form facade for the `content` @Form section.
+type LocaleHandlingRequirementsContentForm struct {
 	som.SomNode
 }
 
-// NewLocalizationProcessDeploymentContentForm binds a LocalizationProcessDeploymentContentForm facade to a document and a path.
-func NewLocalizationProcessDeploymentContentForm(doc *som.SpecDocument, path string) *LocalizationProcessDeploymentContentForm {
-	return &LocalizationProcessDeploymentContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewLocaleHandlingRequirementsContentForm binds a LocaleHandlingRequirementsContentForm facade to a document and a path.
+func NewLocaleHandlingRequirementsContentForm(doc *som.SpecDocument, path string) *LocaleHandlingRequirementsContentForm {
+	return &LocaleHandlingRequirementsContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *LocalizationProcessDeploymentContentForm) LocaleDeployment() string {
+func (x *LocaleHandlingRequirementsContentForm) LocaleFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "localeFormat")
+}
+
+func (x *LocaleHandlingRequirementsContentForm) SetLocaleFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "localeFormat", value)
+}
+
+func (x *LocaleHandlingRequirementsContentForm) CountryVariants() string {
+	return x.Doc().FormFieldOr(x.Path(), "countryVariants")
+}
+
+func (x *LocaleHandlingRequirementsContentForm) SetCountryVariants(value string) {
+	x.Doc().SetFormField(x.Path(), "countryVariants", value)
+}
+
+func (x *LocaleHandlingRequirementsContentForm) LocaleDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "localeDetection")
+}
+
+func (x *LocaleHandlingRequirementsContentForm) SetLocaleDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "localeDetection", value)
+}
+
+func (x *LocaleHandlingRequirementsContentForm) LocaleFallbackChain() string {
+	return x.Doc().FormFieldOr(x.Path(), "localeFallbackChain")
+}
+
+func (x *LocaleHandlingRequirementsContentForm) SetLocaleFallbackChain(value string) {
+	x.Doc().SetFormField(x.Path(), "localeFallbackChain", value)
+}
+
+// LocaleRolloutPlanContentForm is the generated form facade for the `content` @Form section.
+type LocaleRolloutPlanContentForm struct {
+	som.SomNode
+}
+
+// NewLocaleRolloutPlanContentForm binds a LocaleRolloutPlanContentForm facade to a document and a path.
+func NewLocaleRolloutPlanContentForm(doc *som.SpecDocument, path string) *LocaleRolloutPlanContentForm {
+	return &LocaleRolloutPlanContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutTimeline() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutTimeline")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutTimeline(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutTimeline", value)
+}
+
+func (x *LocaleRolloutPlanContentForm) RolloutRegions() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolloutRegions")
+}
+
+func (x *LocaleRolloutPlanContentForm) SetRolloutRegions(value string) {
+	x.Doc().SetFormField(x.Path(), "rolloutRegions", value)
+}
+
+// LocalizationDeploymentContentForm is the generated form facade for the `content` @Form section.
+type LocalizationDeploymentContentForm struct {
+	som.SomNode
+}
+
+// NewLocalizationDeploymentContentForm binds a LocalizationDeploymentContentForm facade to a document and a path.
+func NewLocalizationDeploymentContentForm(doc *som.SpecDocument, path string) *LocalizationDeploymentContentForm {
+	return &LocalizationDeploymentContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocalizationDeploymentContentForm) LocaleDeployment() string {
 	return x.Doc().FormFieldOr(x.Path(), "localeDeployment")
 }
 
-func (x *LocalizationProcessDeploymentContentForm) SetLocaleDeployment(value string) {
+func (x *LocalizationDeploymentContentForm) SetLocaleDeployment(value string) {
 	x.Doc().SetFormField(x.Path(), "localeDeployment", value)
 }
 
-func (x *LocalizationProcessDeploymentContentForm) LocaleToggling() string {
+func (x *LocalizationDeploymentContentForm) LocaleToggling() string {
 	return x.Doc().FormFieldOr(x.Path(), "localeToggling")
 }
 
-func (x *LocalizationProcessDeploymentContentForm) SetLocaleToggling(value string) {
+func (x *LocalizationDeploymentContentForm) SetLocaleToggling(value string) {
 	x.Doc().SetFormField(x.Path(), "localeToggling", value)
 }
 
-func (x *LocalizationProcessDeploymentContentForm) PerLocaleCustomization() string {
+func (x *LocalizationDeploymentContentForm) PerLocaleCustomization() string {
 	return x.Doc().FormFieldOr(x.Path(), "perLocaleCustomization")
 }
 
-func (x *LocalizationProcessDeploymentContentForm) SetPerLocaleCustomization(value string) {
+func (x *LocalizationDeploymentContentForm) SetPerLocaleCustomization(value string) {
 	x.Doc().SetFormField(x.Path(), "perLocaleCustomization", value)
 }
 
-// LocalizationProcessFormattingContentForm is the generated form facade for the `content` @Form section.
-type LocalizationProcessFormattingContentForm struct {
+// LocalizationFormattingContentForm is the generated form facade for the `content` @Form section.
+type LocalizationFormattingContentForm struct {
 	som.SomNode
 }
 
-// NewLocalizationProcessFormattingContentForm binds a LocalizationProcessFormattingContentForm facade to a document and a path.
-func NewLocalizationProcessFormattingContentForm(doc *som.SpecDocument, path string) *LocalizationProcessFormattingContentForm {
-	return &LocalizationProcessFormattingContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewLocalizationFormattingContentForm binds a LocalizationFormattingContentForm facade to a document and a path.
+func NewLocalizationFormattingContentForm(doc *som.SpecDocument, path string) *LocalizationFormattingContentForm {
+	return &LocalizationFormattingContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *LocalizationProcessFormattingContentForm) DateFormatRules() string {
+func (x *LocalizationFormattingContentForm) DateFormatRules() string {
 	return x.Doc().FormFieldOr(x.Path(), "dateFormatRules")
 }
 
-func (x *LocalizationProcessFormattingContentForm) SetDateFormatRules(value string) {
+func (x *LocalizationFormattingContentForm) SetDateFormatRules(value string) {
 	x.Doc().SetFormField(x.Path(), "dateFormatRules", value)
 }
 
-func (x *LocalizationProcessFormattingContentForm) NumberFormatRules() string {
+func (x *LocalizationFormattingContentForm) NumberFormatRules() string {
 	return x.Doc().FormFieldOr(x.Path(), "numberFormatRules")
 }
 
-func (x *LocalizationProcessFormattingContentForm) SetNumberFormatRules(value string) {
+func (x *LocalizationFormattingContentForm) SetNumberFormatRules(value string) {
 	x.Doc().SetFormField(x.Path(), "numberFormatRules", value)
 }
 
-func (x *LocalizationProcessFormattingContentForm) CurrencyFormatRules() string {
+func (x *LocalizationFormattingContentForm) CurrencyFormatRules() string {
 	return x.Doc().FormFieldOr(x.Path(), "currencyFormatRules")
 }
 
-func (x *LocalizationProcessFormattingContentForm) SetCurrencyFormatRules(value string) {
+func (x *LocalizationFormattingContentForm) SetCurrencyFormatRules(value string) {
 	x.Doc().SetFormField(x.Path(), "currencyFormatRules", value)
 }
 
-func (x *LocalizationProcessFormattingContentForm) AddressFormatRules() string {
+func (x *LocalizationFormattingContentForm) AddressFormatRules() string {
 	return x.Doc().FormFieldOr(x.Path(), "addressFormatRules")
 }
 
-func (x *LocalizationProcessFormattingContentForm) SetAddressFormatRules(value string) {
+func (x *LocalizationFormattingContentForm) SetAddressFormatRules(value string) {
 	x.Doc().SetFormField(x.Path(), "addressFormatRules", value)
 }
 
-func (x *LocalizationProcessFormattingContentForm) PhoneFormatRules() string {
+func (x *LocalizationFormattingContentForm) PhoneFormatRules() string {
 	return x.Doc().FormFieldOr(x.Path(), "phoneFormatRules")
 }
 
-func (x *LocalizationProcessFormattingContentForm) SetPhoneFormatRules(value string) {
+func (x *LocalizationFormattingContentForm) SetPhoneFormatRules(value string) {
 	x.Doc().SetFormField(x.Path(), "phoneFormatRules", value)
 }
 
@@ -119228,37 +119362,37 @@ func (x *LocalizationProcessLocalizationProcessContentForm) SetLocalizationScope
 	x.Doc().SetFormField(x.Path(), "localizationScope", value)
 }
 
-// LocalizationProcessReviewContentForm is the generated form facade for the `content` @Form section.
-type LocalizationProcessReviewContentForm struct {
+// LocalizationReviewContentForm is the generated form facade for the `content` @Form section.
+type LocalizationReviewContentForm struct {
 	som.SomNode
 }
 
-// NewLocalizationProcessReviewContentForm binds a LocalizationProcessReviewContentForm facade to a document and a path.
-func NewLocalizationProcessReviewContentForm(doc *som.SpecDocument, path string) *LocalizationProcessReviewContentForm {
-	return &LocalizationProcessReviewContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewLocalizationReviewContentForm binds a LocalizationReviewContentForm facade to a document and a path.
+func NewLocalizationReviewContentForm(doc *som.SpecDocument, path string) *LocalizationReviewContentForm {
+	return &LocalizationReviewContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *LocalizationProcessReviewContentForm) ReviewWorkflow() string {
+func (x *LocalizationReviewContentForm) ReviewWorkflow() string {
 	return x.Doc().FormFieldOr(x.Path(), "reviewWorkflow")
 }
 
-func (x *LocalizationProcessReviewContentForm) SetReviewWorkflow(value string) {
+func (x *LocalizationReviewContentForm) SetReviewWorkflow(value string) {
 	x.Doc().SetFormField(x.Path(), "reviewWorkflow", value)
 }
 
-func (x *LocalizationProcessReviewContentForm) StakeholderApproval() string {
+func (x *LocalizationReviewContentForm) StakeholderApproval() string {
 	return x.Doc().FormFieldOr(x.Path(), "stakeholderApproval")
 }
 
-func (x *LocalizationProcessReviewContentForm) SetStakeholderApproval(value string) {
+func (x *LocalizationReviewContentForm) SetStakeholderApproval(value string) {
 	x.Doc().SetFormField(x.Path(), "stakeholderApproval", value)
 }
 
-func (x *LocalizationProcessReviewContentForm) QualityAssurance() string {
+func (x *LocalizationReviewContentForm) QualityAssurance() string {
 	return x.Doc().FormFieldOr(x.Path(), "qualityAssurance")
 }
 
-func (x *LocalizationProcessReviewContentForm) SetQualityAssurance(value string) {
+func (x *LocalizationReviewContentForm) SetQualityAssurance(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityAssurance", value)
 }
 
@@ -126236,122 +126370,46 @@ func (x *MultiChannelExperienceMultiChannelConfigurationForm) SetOfflineFirst(va
 	x.Doc().SetFormField(x.Path(), "offlineFirst", value)
 }
 
-// MultiLanguageAndRolloutLocaleHandlingContentForm is the generated form facade for the `content` @Form section.
-type MultiLanguageAndRolloutLocaleHandlingContentForm struct {
+// MultiLanguageSupportMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
+type MultiLanguageSupportMultiLanguageOverviewForm struct {
 	som.SomNode
 }
 
-// NewMultiLanguageAndRolloutLocaleHandlingContentForm binds a MultiLanguageAndRolloutLocaleHandlingContentForm facade to a document and a path.
-func NewMultiLanguageAndRolloutLocaleHandlingContentForm(doc *som.SpecDocument, path string) *MultiLanguageAndRolloutLocaleHandlingContentForm {
-	return &MultiLanguageAndRolloutLocaleHandlingContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMultiLanguageSupportMultiLanguageOverviewForm binds a MultiLanguageSupportMultiLanguageOverviewForm facade to a document and a path.
+func NewMultiLanguageSupportMultiLanguageOverviewForm(doc *som.SpecDocument, path string) *MultiLanguageSupportMultiLanguageOverviewForm {
+	return &MultiLanguageSupportMultiLanguageOverviewForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) LocaleFormat() string {
-	return x.Doc().FormFieldOr(x.Path(), "localeFormat")
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) SetLocaleFormat(value string) {
-	x.Doc().SetFormField(x.Path(), "localeFormat", value)
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) CountryVariants() string {
-	return x.Doc().FormFieldOr(x.Path(), "countryVariants")
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) SetCountryVariants(value string) {
-	x.Doc().SetFormField(x.Path(), "countryVariants", value)
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) LocaleDetection() string {
-	return x.Doc().FormFieldOr(x.Path(), "localeDetection")
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) SetLocaleDetection(value string) {
-	x.Doc().SetFormField(x.Path(), "localeDetection", value)
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) LocaleFallbackChain() string {
-	return x.Doc().FormFieldOr(x.Path(), "localeFallbackChain")
-}
-
-func (x *MultiLanguageAndRolloutLocaleHandlingContentForm) SetLocaleFallbackChain(value string) {
-	x.Doc().SetFormField(x.Path(), "localeFallbackChain", value)
-}
-
-// MultiLanguageAndRolloutMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
-type MultiLanguageAndRolloutMultiLanguageOverviewForm struct {
-	som.SomNode
-}
-
-// NewMultiLanguageAndRolloutMultiLanguageOverviewForm binds a MultiLanguageAndRolloutMultiLanguageOverviewForm facade to a document and a path.
-func NewMultiLanguageAndRolloutMultiLanguageOverviewForm(doc *som.SpecDocument, path string) *MultiLanguageAndRolloutMultiLanguageOverviewForm {
-	return &MultiLanguageAndRolloutMultiLanguageOverviewForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) SupportedLanguages() string {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) SupportedLanguages() string {
 	return x.Doc().FormFieldOr(x.Path(), "supportedLanguages")
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) SetSupportedLanguages(value string) {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) SetSupportedLanguages(value string) {
 	x.Doc().SetFormField(x.Path(), "supportedLanguages", value)
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) PrimaryLanguage() string {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) PrimaryLanguage() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryLanguage")
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) SetPrimaryLanguage(value string) {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) SetPrimaryLanguage(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryLanguage", value)
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) FutureLanguages() string {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) FutureLanguages() string {
 	return x.Doc().FormFieldOr(x.Path(), "futureLanguages")
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) SetFutureLanguages(value string) {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) SetFutureLanguages(value string) {
 	x.Doc().SetFormField(x.Path(), "futureLanguages", value)
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) RtlLanguages() string {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) RtlLanguages() string {
 	return x.Doc().FormFieldOr(x.Path(), "rtlLanguages")
 }
 
-func (x *MultiLanguageAndRolloutMultiLanguageOverviewForm) SetRtlLanguages(value string) {
+func (x *MultiLanguageSupportMultiLanguageOverviewForm) SetRtlLanguages(value string) {
 	x.Doc().SetFormField(x.Path(), "rtlLanguages", value)
-}
-
-// MultiLanguageAndRolloutPlanContentForm is the generated form facade for the `content` @Form section.
-type MultiLanguageAndRolloutPlanContentForm struct {
-	som.SomNode
-}
-
-// NewMultiLanguageAndRolloutPlanContentForm binds a MultiLanguageAndRolloutPlanContentForm facade to a document and a path.
-func NewMultiLanguageAndRolloutPlanContentForm(doc *som.SpecDocument, path string) *MultiLanguageAndRolloutPlanContentForm {
-	return &MultiLanguageAndRolloutPlanContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) RolloutStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutStrategy")
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) SetRolloutStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutStrategy", value)
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) RolloutTimeline() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutTimeline")
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) SetRolloutTimeline(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutTimeline", value)
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) RolloutRegions() string {
-	return x.Doc().FormFieldOr(x.Path(), "rolloutRegions")
-}
-
-func (x *MultiLanguageAndRolloutPlanContentForm) SetRolloutRegions(value string) {
-	x.Doc().SetFormField(x.Path(), "rolloutRegions", value)
 }
 
 // MustPassCriteriaMustPassOverviewContentForm is the generated form facade for the `mustPassOverviewContent` @Form section.
@@ -134660,6 +134718,40 @@ func (x *PrimaryNavigationSidebarContentForm) SetOverflowBehavior(value string) 
 	x.Doc().SetFormField(x.Path(), "overflowBehavior", value)
 }
 
+// PrintAndExportLayoutContentForm is the generated form facade for the `content` @Form section.
+type PrintAndExportLayoutContentForm struct {
+	som.SomNode
+}
+
+// NewPrintAndExportLayoutContentForm binds a PrintAndExportLayoutContentForm facade to a document and a path.
+func NewPrintAndExportLayoutContentForm(doc *som.SpecDocument, path string) *PrintAndExportLayoutContentForm {
+	return &PrintAndExportLayoutContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *PrintAndExportLayoutContentForm) PrintStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "printStrategy")
+}
+
+func (x *PrintAndExportLayoutContentForm) SetPrintStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "printStrategy", value)
+}
+
+func (x *PrintAndExportLayoutContentForm) DefaultPaperSize() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultPaperSize")
+}
+
+func (x *PrintAndExportLayoutContentForm) SetDefaultPaperSize(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultPaperSize", value)
+}
+
+func (x *PrintAndExportLayoutContentForm) DefaultOrientation() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultOrientation")
+}
+
+func (x *PrintAndExportLayoutContentForm) SetDefaultOrientation(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultOrientation", value)
+}
+
 // PrintLayoutArchiveContentForm is the generated form facade for the `content` @Form section.
 type PrintLayoutArchiveContentForm struct {
 	som.SomNode
@@ -134750,40 +134842,6 @@ func (x *PrintLayoutBrandingContentForm) BrandingFontSizeBase() string {
 
 func (x *PrintLayoutBrandingContentForm) SetBrandingFontSizeBase(value string) {
 	x.Doc().SetFormField(x.Path(), "brandingFontSizeBase", value)
-}
-
-// PrintLayoutContentForm is the generated form facade for the `content` @Form section.
-type PrintLayoutContentForm struct {
-	som.SomNode
-}
-
-// NewPrintLayoutContentForm binds a PrintLayoutContentForm facade to a document and a path.
-func NewPrintLayoutContentForm(doc *som.SpecDocument, path string) *PrintLayoutContentForm {
-	return &PrintLayoutContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *PrintLayoutContentForm) PrintStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "printStrategy")
-}
-
-func (x *PrintLayoutContentForm) SetPrintStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "printStrategy", value)
-}
-
-func (x *PrintLayoutContentForm) DefaultPaperSize() string {
-	return x.Doc().FormFieldOr(x.Path(), "defaultPaperSize")
-}
-
-func (x *PrintLayoutContentForm) SetDefaultPaperSize(value string) {
-	x.Doc().SetFormField(x.Path(), "defaultPaperSize", value)
-}
-
-func (x *PrintLayoutContentForm) DefaultOrientation() string {
-	return x.Doc().FormFieldOr(x.Path(), "defaultOrientation")
-}
-
-func (x *PrintLayoutContentForm) SetDefaultOrientation(value string) {
-	x.Doc().SetFormField(x.Path(), "defaultOrientation", value)
 }
 
 // PrintLayoutHeaderFooterContentForm is the generated form facade for the `content` @Form section.
@@ -139520,61 +139578,61 @@ func (x *PrototypeTimelineContentForm) SetEvaluationPeriod(value string) {
 	x.Doc().SetFormField(x.Path(), "evaluationPeriod", value)
 }
 
-// PrototypeTypeSectionPrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
-type PrototypeTypeSectionPrototypeTypeOverviewForm struct {
+// PrototypeTypePrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
+type PrototypeTypePrototypeTypeOverviewForm struct {
 	som.SomNode
 }
 
-// NewPrototypeTypeSectionPrototypeTypeOverviewForm binds a PrototypeTypeSectionPrototypeTypeOverviewForm facade to a document and a path.
-func NewPrototypeTypeSectionPrototypeTypeOverviewForm(doc *som.SpecDocument, path string) *PrototypeTypeSectionPrototypeTypeOverviewForm {
-	return &PrototypeTypeSectionPrototypeTypeOverviewForm{SomNode: som.NewSomNode(doc, path)}
+// NewPrototypeTypePrototypeTypeOverviewForm binds a PrototypeTypePrototypeTypeOverviewForm facade to a document and a path.
+func NewPrototypeTypePrototypeTypeOverviewForm(doc *som.SpecDocument, path string) *PrototypeTypePrototypeTypeOverviewForm {
+	return &PrototypeTypePrototypeTypeOverviewForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) PrototypeType() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) PrototypeType() string {
 	return x.Doc().FormFieldOr(x.Path(), "prototypeType")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetPrototypeType(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetPrototypeType(value string) {
 	x.Doc().SetFormField(x.Path(), "prototypeType", value)
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) TypeRationale() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) TypeRationale() string {
 	return x.Doc().FormFieldOr(x.Path(), "typeRationale")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetTypeRationale(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetTypeRationale(value string) {
 	x.Doc().SetFormField(x.Path(), "typeRationale", value)
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) TypeImplications() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) TypeImplications() string {
 	return x.Doc().FormFieldOr(x.Path(), "typeImplications")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetTypeImplications(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetTypeImplications(value string) {
 	x.Doc().SetFormField(x.Path(), "typeImplications", value)
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) CodeQualityExpectation() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) CodeQualityExpectation() string {
 	return x.Doc().FormFieldOr(x.Path(), "codeQualityExpectation")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetCodeQualityExpectation(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetCodeQualityExpectation(value string) {
 	x.Doc().SetFormField(x.Path(), "codeQualityExpectation", value)
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) DocumentationRequirement() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) DocumentationRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "documentationRequirement")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetDocumentationRequirement(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetDocumentationRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "documentationRequirement", value)
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) TransitionPlan() string {
+func (x *PrototypeTypePrototypeTypeOverviewForm) TransitionPlan() string {
 	return x.Doc().FormFieldOr(x.Path(), "transitionPlan")
 }
 
-func (x *PrototypeTypeSectionPrototypeTypeOverviewForm) SetTransitionPlan(value string) {
+func (x *PrototypeTypePrototypeTypeOverviewForm) SetTransitionPlan(value string) {
 	x.Doc().SetFormField(x.Path(), "transitionPlan", value)
 }
 
@@ -159118,6 +159176,48 @@ func (x *SpecializedEquipmentEntryTechnicalContentForm) SetCertifications(value 
 	x.Doc().SetFormField(x.Path(), "certifications", value)
 }
 
+// SpecificationStatusContentForm is the generated form facade for the `content` @Form section.
+type SpecificationStatusContentForm struct {
+	som.SomNode
+}
+
+// NewSpecificationStatusContentForm binds a SpecificationStatusContentForm facade to a document and a path.
+func NewSpecificationStatusContentForm(doc *som.SpecDocument, path string) *SpecificationStatusContentForm {
+	return &SpecificationStatusContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SpecificationStatusContentForm) SpecificationVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "specificationVersion")
+}
+
+func (x *SpecificationStatusContentForm) SetSpecificationVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "specificationVersion", value)
+}
+
+func (x *SpecificationStatusContentForm) SpecificationDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "specificationDate")
+}
+
+func (x *SpecificationStatusContentForm) SetSpecificationDate(value string) {
+	x.Doc().SetFormField(x.Path(), "specificationDate", value)
+}
+
+func (x *SpecificationStatusContentForm) SpecificationStatus() string {
+	return x.Doc().FormFieldOr(x.Path(), "specificationStatus")
+}
+
+func (x *SpecificationStatusContentForm) SetSpecificationStatus(value string) {
+	x.Doc().SetFormField(x.Path(), "specificationStatus", value)
+}
+
+func (x *SpecificationStatusContentForm) TargetGoLiveDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetGoLiveDate")
+}
+
+func (x *SpecificationStatusContentForm) SetTargetGoLiveDate(value string) {
+	x.Doc().SetFormField(x.Path(), "targetGoLiveDate", value)
+}
+
 // StaffingBudgetAllocationsContentForm is the generated form facade for the `content` @Form section.
 type StaffingBudgetAllocationsContentForm struct {
 	som.SomNode
@@ -161214,6 +161314,124 @@ func (x *StageOverviewStatusContentForm) ConfidenceBasis() string {
 
 func (x *StageOverviewStatusContentForm) SetConfidenceBasis(value string) {
 	x.Doc().SetFormField(x.Path(), "confidenceBasis", value)
+}
+
+// StagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
+type StagePlanCoordinationContentForm struct {
+	som.SomNode
+}
+
+// NewStagePlanCoordinationContentForm binds a StagePlanCoordinationContentForm facade to a document and a path.
+func NewStagePlanCoordinationContentForm(doc *som.SpecDocument, path string) *StagePlanCoordinationContentForm {
+	return &StagePlanCoordinationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanCoordinationContentForm) CrossStageDependencySummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossStageDependencySummary")
+}
+
+func (x *StagePlanCoordinationContentForm) SetCrossStageDependencySummary(value string) {
+	x.Doc().SetFormField(x.Path(), "crossStageDependencySummary", value)
+}
+
+func (x *StagePlanCoordinationContentForm) CrossStageRiskSummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossStageRiskSummary")
+}
+
+func (x *StagePlanCoordinationContentForm) SetCrossStageRiskSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "crossStageRiskSummary", value)
+}
+
+func (x *StagePlanCoordinationContentForm) RegulatoryComplianceConsiderations() string {
+	return x.Doc().FormFieldOr(x.Path(), "regulatoryComplianceConsiderations")
+}
+
+func (x *StagePlanCoordinationContentForm) SetRegulatoryComplianceConsiderations(value string) {
+	x.Doc().SetFormField(x.Path(), "regulatoryComplianceConsiderations", value)
+}
+
+// StagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
+type StagePlanReadinessContentForm struct {
+	som.SomNode
+}
+
+// NewStagePlanReadinessContentForm binds a StagePlanReadinessContentForm facade to a document and a path.
+func NewStagePlanReadinessContentForm(doc *som.SpecDocument, path string) *StagePlanReadinessContentForm {
+	return &StagePlanReadinessContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanReadinessContentForm) OrganizationalReadinessLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel")
+}
+
+func (x *StagePlanReadinessContentForm) SetOrganizationalReadinessLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", value)
+}
+
+func (x *StagePlanReadinessContentForm) ChangeAbsorptionCapacity() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeAbsorptionCapacity")
+}
+
+func (x *StagePlanReadinessContentForm) SetChangeAbsorptionCapacity(value string) {
+	x.Doc().SetFormField(x.Path(), "changeAbsorptionCapacity", value)
+}
+
+func (x *StagePlanReadinessContentForm) ConfidenceLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "confidenceLevel")
+}
+
+func (x *StagePlanReadinessContentForm) SetConfidenceLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "confidenceLevel", value)
+}
+
+func (x *StagePlanReadinessContentForm) LastPlanReviewDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "lastPlanReviewDate")
+}
+
+func (x *StagePlanReadinessContentForm) SetLastPlanReviewDate(value string) {
+	x.Doc().SetFormField(x.Path(), "lastPlanReviewDate", value)
+}
+
+// StagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
+type StagePlanTimelineContentForm struct {
+	som.SomNode
+}
+
+// NewStagePlanTimelineContentForm binds a StagePlanTimelineContentForm facade to a document and a path.
+func NewStagePlanTimelineContentForm(doc *som.SpecDocument, path string) *StagePlanTimelineContentForm {
+	return &StagePlanTimelineContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StagePlanTimelineContentForm) OverallPlannedStart() string {
+	return x.Doc().FormFieldOr(x.Path(), "overallPlannedStart")
+}
+
+func (x *StagePlanTimelineContentForm) SetOverallPlannedStart(value string) {
+	x.Doc().SetFormField(x.Path(), "overallPlannedStart", value)
+}
+
+func (x *StagePlanTimelineContentForm) OverallTargetCompletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "overallTargetCompletion")
+}
+
+func (x *StagePlanTimelineContentForm) SetOverallTargetCompletion(value string) {
+	x.Doc().SetFormField(x.Path(), "overallTargetCompletion", value)
+}
+
+func (x *StagePlanTimelineContentForm) TotalDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "totalDuration")
+}
+
+func (x *StagePlanTimelineContentForm) SetTotalDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "totalDuration", value)
+}
+
+func (x *StagePlanTimelineContentForm) BufferStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "bufferStrategy")
+}
+
+func (x *StagePlanTimelineContentForm) SetBufferStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "bufferStrategy", value)
 }
 
 // StageQualityContentForm is the generated form facade for the `content` @Form section.
@@ -164126,6 +164344,74 @@ func (x *SystemBusinessUnitEntryContentForm) SetImpactIfRemoved(value string) {
 	x.Doc().SetFormField(x.Path(), "impactIfRemoved", value)
 }
 
+// SystemClassificationContentForm is the generated form facade for the `content` @Form section.
+type SystemClassificationContentForm struct {
+	som.SomNode
+}
+
+// NewSystemClassificationContentForm binds a SystemClassificationContentForm facade to a document and a path.
+func NewSystemClassificationContentForm(doc *som.SpecDocument, path string) *SystemClassificationContentForm {
+	return &SystemClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemClassificationContentForm) SystemType() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemType")
+}
+
+func (x *SystemClassificationContentForm) SetSystemType(value string) {
+	x.Doc().SetFormField(x.Path(), "systemType", value)
+}
+
+func (x *SystemClassificationContentForm) BusinessDomain() string {
+	return x.Doc().FormFieldOr(x.Path(), "businessDomain")
+}
+
+func (x *SystemClassificationContentForm) SetBusinessDomain(value string) {
+	x.Doc().SetFormField(x.Path(), "businessDomain", value)
+}
+
+func (x *SystemClassificationContentForm) DeploymentModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "deploymentModel")
+}
+
+func (x *SystemClassificationContentForm) SetDeploymentModel(value string) {
+	x.Doc().SetFormField(x.Path(), "deploymentModel", value)
+}
+
+// SystemComplexityContentForm is the generated form facade for the `content` @Form section.
+type SystemComplexityContentForm struct {
+	som.SomNode
+}
+
+// NewSystemComplexityContentForm binds a SystemComplexityContentForm facade to a document and a path.
+func NewSystemComplexityContentForm(doc *som.SpecDocument, path string) *SystemComplexityContentForm {
+	return &SystemComplexityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemComplexityContentForm) OverallComplexity() string {
+	return x.Doc().FormFieldOr(x.Path(), "overallComplexity")
+}
+
+func (x *SystemComplexityContentForm) SetOverallComplexity(value string) {
+	x.Doc().SetFormField(x.Path(), "overallComplexity", value)
+}
+
+func (x *SystemComplexityContentForm) KeyRisks() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRisks")
+}
+
+func (x *SystemComplexityContentForm) SetKeyRisks(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRisks", value)
+}
+
+func (x *SystemComplexityContentForm) KeyAssumptions() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyAssumptions")
+}
+
+func (x *SystemComplexityContentForm) SetKeyAssumptions(value string) {
+	x.Doc().SetFormField(x.Path(), "keyAssumptions", value)
+}
+
 // SystemConfigurationManagementContentForm is the generated form facade for the `content` @Form section.
 type SystemConfigurationManagementContentForm struct {
 	som.SomNode
@@ -165822,208 +166108,6 @@ func (x *SystemMigrationRiskEntryContentForm) SetOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "owner", value)
 }
 
-// SystemOverviewSummaryClassificationContentForm is the generated form facade for the `content` @Form section.
-type SystemOverviewSummaryClassificationContentForm struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryClassificationContentForm binds a SystemOverviewSummaryClassificationContentForm facade to a document and a path.
-func NewSystemOverviewSummaryClassificationContentForm(doc *som.SpecDocument, path string) *SystemOverviewSummaryClassificationContentForm {
-	return &SystemOverviewSummaryClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) SystemType() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemType")
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) SetSystemType(value string) {
-	x.Doc().SetFormField(x.Path(), "systemType", value)
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) BusinessDomain() string {
-	return x.Doc().FormFieldOr(x.Path(), "businessDomain")
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) SetBusinessDomain(value string) {
-	x.Doc().SetFormField(x.Path(), "businessDomain", value)
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) DeploymentModel() string {
-	return x.Doc().FormFieldOr(x.Path(), "deploymentModel")
-}
-
-func (x *SystemOverviewSummaryClassificationContentForm) SetDeploymentModel(value string) {
-	x.Doc().SetFormField(x.Path(), "deploymentModel", value)
-}
-
-// SystemOverviewSummaryComplexityContentForm is the generated form facade for the `content` @Form section.
-type SystemOverviewSummaryComplexityContentForm struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryComplexityContentForm binds a SystemOverviewSummaryComplexityContentForm facade to a document and a path.
-func NewSystemOverviewSummaryComplexityContentForm(doc *som.SpecDocument, path string) *SystemOverviewSummaryComplexityContentForm {
-	return &SystemOverviewSummaryComplexityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) OverallComplexity() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallComplexity")
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) SetOverallComplexity(value string) {
-	x.Doc().SetFormField(x.Path(), "overallComplexity", value)
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) KeyRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyRisks")
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) SetKeyRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "keyRisks", value)
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) KeyAssumptions() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyAssumptions")
-}
-
-func (x *SystemOverviewSummaryComplexityContentForm) SetKeyAssumptions(value string) {
-	x.Doc().SetFormField(x.Path(), "keyAssumptions", value)
-}
-
-// SystemOverviewSummaryContentForm is the generated form facade for the `content` @Form section.
-type SystemOverviewSummaryContentForm struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryContentForm binds a SystemOverviewSummaryContentForm facade to a document and a path.
-func NewSystemOverviewSummaryContentForm(doc *som.SpecDocument, path string) *SystemOverviewSummaryContentForm {
-	return &SystemOverviewSummaryContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *SystemOverviewSummaryContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
-}
-
-func (x *SystemOverviewSummaryContentForm) SystemAcronym() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemAcronym")
-}
-
-func (x *SystemOverviewSummaryContentForm) SetSystemAcronym(value string) {
-	x.Doc().SetFormField(x.Path(), "systemAcronym", value)
-}
-
-func (x *SystemOverviewSummaryContentForm) SystemVersion() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemVersion")
-}
-
-func (x *SystemOverviewSummaryContentForm) SetSystemVersion(value string) {
-	x.Doc().SetFormField(x.Path(), "systemVersion", value)
-}
-
-func (x *SystemOverviewSummaryContentForm) ProjectCodeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "projectCodeName")
-}
-
-func (x *SystemOverviewSummaryContentForm) SetProjectCodeName(value string) {
-	x.Doc().SetFormField(x.Path(), "projectCodeName", value)
-}
-
-// SystemOverviewSummaryScaleContentForm is the generated form facade for the `content` @Form section.
-type SystemOverviewSummaryScaleContentForm struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryScaleContentForm binds a SystemOverviewSummaryScaleContentForm facade to a document and a path.
-func NewSystemOverviewSummaryScaleContentForm(doc *som.SpecDocument, path string) *SystemOverviewSummaryScaleContentForm {
-	return &SystemOverviewSummaryScaleContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) EstimatedUserCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "estimatedUserCount")
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) SetEstimatedUserCount(value string) {
-	x.Doc().SetFormField(x.Path(), "estimatedUserCount", value)
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) UserCategoryCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "userCategoryCount")
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) SetUserCategoryCount(value string) {
-	x.Doc().SetFormField(x.Path(), "userCategoryCount", value)
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) ExternalInterfaceCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "externalInterfaceCount")
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) SetExternalInterfaceCount(value string) {
-	x.Doc().SetFormField(x.Path(), "externalInterfaceCount", value)
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) FunctionalRequirementCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionalRequirementCount")
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) SetFunctionalRequirementCount(value string) {
-	x.Doc().SetFormField(x.Path(), "functionalRequirementCount", value)
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) NonFunctionalRequirementCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "nonFunctionalRequirementCount")
-}
-
-func (x *SystemOverviewSummaryScaleContentForm) SetNonFunctionalRequirementCount(value string) {
-	x.Doc().SetFormField(x.Path(), "nonFunctionalRequirementCount", value)
-}
-
-// SystemOverviewSummaryStatusContentForm is the generated form facade for the `content` @Form section.
-type SystemOverviewSummaryStatusContentForm struct {
-	som.SomNode
-}
-
-// NewSystemOverviewSummaryStatusContentForm binds a SystemOverviewSummaryStatusContentForm facade to a document and a path.
-func NewSystemOverviewSummaryStatusContentForm(doc *som.SpecDocument, path string) *SystemOverviewSummaryStatusContentForm {
-	return &SystemOverviewSummaryStatusContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SpecificationVersion() string {
-	return x.Doc().FormFieldOr(x.Path(), "specificationVersion")
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SetSpecificationVersion(value string) {
-	x.Doc().SetFormField(x.Path(), "specificationVersion", value)
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SpecificationDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "specificationDate")
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SetSpecificationDate(value string) {
-	x.Doc().SetFormField(x.Path(), "specificationDate", value)
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SpecificationStatus() string {
-	return x.Doc().FormFieldOr(x.Path(), "specificationStatus")
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SetSpecificationStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "specificationStatus", value)
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) TargetGoLiveDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetGoLiveDate")
-}
-
-func (x *SystemOverviewSummaryStatusContentForm) SetTargetGoLiveDate(value string) {
-	x.Doc().SetFormField(x.Path(), "targetGoLiveDate", value)
-}
-
 // SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 type SystemQualityGoalsGovernanceContentForm struct {
 	som.SomNode
@@ -166176,6 +166260,56 @@ func (x *SystemReplacementStrategyTimelineContentForm) SetParallelRunPeriod(valu
 	x.Doc().SetFormField(x.Path(), "parallelRunPeriod", value)
 }
 
+// SystemScaleContentForm is the generated form facade for the `content` @Form section.
+type SystemScaleContentForm struct {
+	som.SomNode
+}
+
+// NewSystemScaleContentForm binds a SystemScaleContentForm facade to a document and a path.
+func NewSystemScaleContentForm(doc *som.SpecDocument, path string) *SystemScaleContentForm {
+	return &SystemScaleContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SystemScaleContentForm) EstimatedUserCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "estimatedUserCount")
+}
+
+func (x *SystemScaleContentForm) SetEstimatedUserCount(value string) {
+	x.Doc().SetFormField(x.Path(), "estimatedUserCount", value)
+}
+
+func (x *SystemScaleContentForm) UserCategoryCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "userCategoryCount")
+}
+
+func (x *SystemScaleContentForm) SetUserCategoryCount(value string) {
+	x.Doc().SetFormField(x.Path(), "userCategoryCount", value)
+}
+
+func (x *SystemScaleContentForm) ExternalInterfaceCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "externalInterfaceCount")
+}
+
+func (x *SystemScaleContentForm) SetExternalInterfaceCount(value string) {
+	x.Doc().SetFormField(x.Path(), "externalInterfaceCount", value)
+}
+
+func (x *SystemScaleContentForm) FunctionalRequirementCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionalRequirementCount")
+}
+
+func (x *SystemScaleContentForm) SetFunctionalRequirementCount(value string) {
+	x.Doc().SetFormField(x.Path(), "functionalRequirementCount", value)
+}
+
+func (x *SystemScaleContentForm) NonFunctionalRequirementCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "nonFunctionalRequirementCount")
+}
+
+func (x *SystemScaleContentForm) SetNonFunctionalRequirementCount(value string) {
+	x.Doc().SetFormField(x.Path(), "nonFunctionalRequirementCount", value)
+}
+
 // SystemStagePlanContentForm is the generated form facade for the `content` @Form section.
 type SystemStagePlanContentForm struct {
 	som.SomNode
@@ -166210,122 +166344,46 @@ func (x *SystemStagePlanContentForm) SetParallelismApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "parallelismApproach", value)
 }
 
-// SystemStagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
-type SystemStagePlanCoordinationContentForm struct {
+// SystemSummaryContentForm is the generated form facade for the `content` @Form section.
+type SystemSummaryContentForm struct {
 	som.SomNode
 }
 
-// NewSystemStagePlanCoordinationContentForm binds a SystemStagePlanCoordinationContentForm facade to a document and a path.
-func NewSystemStagePlanCoordinationContentForm(doc *som.SpecDocument, path string) *SystemStagePlanCoordinationContentForm {
-	return &SystemStagePlanCoordinationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewSystemSummaryContentForm binds a SystemSummaryContentForm facade to a document and a path.
+func NewSystemSummaryContentForm(doc *som.SpecDocument, path string) *SystemSummaryContentForm {
+	return &SystemSummaryContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *SystemStagePlanCoordinationContentForm) CrossStageDependencySummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "crossStageDependencySummary")
+func (x *SystemSummaryContentForm) SystemName() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemName")
 }
 
-func (x *SystemStagePlanCoordinationContentForm) SetCrossStageDependencySummary(value string) {
-	x.Doc().SetFormField(x.Path(), "crossStageDependencySummary", value)
+func (x *SystemSummaryContentForm) SetSystemName(value string) {
+	x.Doc().SetFormField(x.Path(), "systemName", value)
 }
 
-func (x *SystemStagePlanCoordinationContentForm) CrossStageRiskSummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "crossStageRiskSummary")
+func (x *SystemSummaryContentForm) SystemAcronym() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemAcronym")
 }
 
-func (x *SystemStagePlanCoordinationContentForm) SetCrossStageRiskSummary(value string) {
-	x.Doc().SetFormField(x.Path(), "crossStageRiskSummary", value)
+func (x *SystemSummaryContentForm) SetSystemAcronym(value string) {
+	x.Doc().SetFormField(x.Path(), "systemAcronym", value)
 }
 
-func (x *SystemStagePlanCoordinationContentForm) RegulatoryComplianceConsiderations() string {
-	return x.Doc().FormFieldOr(x.Path(), "regulatoryComplianceConsiderations")
+func (x *SystemSummaryContentForm) SystemVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemVersion")
 }
 
-func (x *SystemStagePlanCoordinationContentForm) SetRegulatoryComplianceConsiderations(value string) {
-	x.Doc().SetFormField(x.Path(), "regulatoryComplianceConsiderations", value)
+func (x *SystemSummaryContentForm) SetSystemVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "systemVersion", value)
 }
 
-// SystemStagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
-type SystemStagePlanReadinessContentForm struct {
-	som.SomNode
+func (x *SystemSummaryContentForm) ProjectCodeName() string {
+	return x.Doc().FormFieldOr(x.Path(), "projectCodeName")
 }
 
-// NewSystemStagePlanReadinessContentForm binds a SystemStagePlanReadinessContentForm facade to a document and a path.
-func NewSystemStagePlanReadinessContentForm(doc *som.SpecDocument, path string) *SystemStagePlanReadinessContentForm {
-	return &SystemStagePlanReadinessContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemStagePlanReadinessContentForm) OrganizationalReadinessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "organizationalReadinessLevel")
-}
-
-func (x *SystemStagePlanReadinessContentForm) SetOrganizationalReadinessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "organizationalReadinessLevel", value)
-}
-
-func (x *SystemStagePlanReadinessContentForm) ChangeAbsorptionCapacity() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeAbsorptionCapacity")
-}
-
-func (x *SystemStagePlanReadinessContentForm) SetChangeAbsorptionCapacity(value string) {
-	x.Doc().SetFormField(x.Path(), "changeAbsorptionCapacity", value)
-}
-
-func (x *SystemStagePlanReadinessContentForm) ConfidenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "confidenceLevel")
-}
-
-func (x *SystemStagePlanReadinessContentForm) SetConfidenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "confidenceLevel", value)
-}
-
-func (x *SystemStagePlanReadinessContentForm) LastPlanReviewDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "lastPlanReviewDate")
-}
-
-func (x *SystemStagePlanReadinessContentForm) SetLastPlanReviewDate(value string) {
-	x.Doc().SetFormField(x.Path(), "lastPlanReviewDate", value)
-}
-
-// SystemStagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
-type SystemStagePlanTimelineContentForm struct {
-	som.SomNode
-}
-
-// NewSystemStagePlanTimelineContentForm binds a SystemStagePlanTimelineContentForm facade to a document and a path.
-func NewSystemStagePlanTimelineContentForm(doc *som.SpecDocument, path string) *SystemStagePlanTimelineContentForm {
-	return &SystemStagePlanTimelineContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemStagePlanTimelineContentForm) OverallPlannedStart() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallPlannedStart")
-}
-
-func (x *SystemStagePlanTimelineContentForm) SetOverallPlannedStart(value string) {
-	x.Doc().SetFormField(x.Path(), "overallPlannedStart", value)
-}
-
-func (x *SystemStagePlanTimelineContentForm) OverallTargetCompletion() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallTargetCompletion")
-}
-
-func (x *SystemStagePlanTimelineContentForm) SetOverallTargetCompletion(value string) {
-	x.Doc().SetFormField(x.Path(), "overallTargetCompletion", value)
-}
-
-func (x *SystemStagePlanTimelineContentForm) TotalDuration() string {
-	return x.Doc().FormFieldOr(x.Path(), "totalDuration")
-}
-
-func (x *SystemStagePlanTimelineContentForm) SetTotalDuration(value string) {
-	x.Doc().SetFormField(x.Path(), "totalDuration", value)
-}
-
-func (x *SystemStagePlanTimelineContentForm) BufferStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "bufferStrategy")
-}
-
-func (x *SystemStagePlanTimelineContentForm) SetBufferStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "bufferStrategy", value)
+func (x *SystemSummaryContentForm) SetProjectCodeName(value string) {
+	x.Doc().SetFormField(x.Path(), "projectCodeName", value)
 }
 
 // SystemTaskEntryContentForm is the generated form facade for the `content` @Form section.
@@ -168056,213 +168114,213 @@ func (x *TechnicalDependencyEntryContentForm) SetStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "status", value)
 }
 
-// TechnicalFrameworkConditionsGovernanceContentForm is the generated form facade for the `content` @Form section.
-type TechnicalFrameworkConditionsGovernanceContentForm struct {
+// TechnicalEnvironmentGovernanceContentForm is the generated form facade for the `content` @Form section.
+type TechnicalEnvironmentGovernanceContentForm struct {
 	som.SomNode
 }
 
-// NewTechnicalFrameworkConditionsGovernanceContentForm binds a TechnicalFrameworkConditionsGovernanceContentForm facade to a document and a path.
-func NewTechnicalFrameworkConditionsGovernanceContentForm(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsGovernanceContentForm {
-	return &TechnicalFrameworkConditionsGovernanceContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTechnicalEnvironmentGovernanceContentForm binds a TechnicalEnvironmentGovernanceContentForm facade to a document and a path.
+func NewTechnicalEnvironmentGovernanceContentForm(doc *som.SpecDocument, path string) *TechnicalEnvironmentGovernanceContentForm {
+	return &TechnicalEnvironmentGovernanceContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TechnicalFrameworkConditionsGovernanceContentForm) SecondaryCloudProviders() string {
+func (x *TechnicalEnvironmentGovernanceContentForm) SecondaryCloudProviders() string {
 	return x.Doc().FormFieldOr(x.Path(), "secondaryCloudProviders")
 }
 
-func (x *TechnicalFrameworkConditionsGovernanceContentForm) SetSecondaryCloudProviders(value string) {
+func (x *TechnicalEnvironmentGovernanceContentForm) SetSecondaryCloudProviders(value string) {
 	x.Doc().SetFormField(x.Path(), "secondaryCloudProviders", value)
 }
 
-func (x *TechnicalFrameworkConditionsGovernanceContentForm) TechnologyGovernance() string {
+func (x *TechnicalEnvironmentGovernanceContentForm) TechnologyGovernance() string {
 	return x.Doc().FormFieldOr(x.Path(), "technologyGovernance")
 }
 
-func (x *TechnicalFrameworkConditionsGovernanceContentForm) SetTechnologyGovernance(value string) {
+func (x *TechnicalEnvironmentGovernanceContentForm) SetTechnologyGovernance(value string) {
 	x.Doc().SetFormField(x.Path(), "technologyGovernance", value)
 }
 
-// TechnicalFrameworkConditionsNetworkContentForm is the generated form facade for the `content` @Form section.
-type TechnicalFrameworkConditionsNetworkContentForm struct {
+// TechnicalEnvironmentNetworkContentForm is the generated form facade for the `content` @Form section.
+type TechnicalEnvironmentNetworkContentForm struct {
 	som.SomNode
 }
 
-// NewTechnicalFrameworkConditionsNetworkContentForm binds a TechnicalFrameworkConditionsNetworkContentForm facade to a document and a path.
-func NewTechnicalFrameworkConditionsNetworkContentForm(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsNetworkContentForm {
-	return &TechnicalFrameworkConditionsNetworkContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTechnicalEnvironmentNetworkContentForm binds a TechnicalEnvironmentNetworkContentForm facade to a document and a path.
+func NewTechnicalEnvironmentNetworkContentForm(doc *som.SpecDocument, path string) *TechnicalEnvironmentNetworkContentForm {
+	return &TechnicalEnvironmentNetworkContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) NetworkArchitecture() string {
+func (x *TechnicalEnvironmentNetworkContentForm) NetworkArchitecture() string {
 	return x.Doc().FormFieldOr(x.Path(), "networkArchitecture")
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) SetNetworkArchitecture(value string) {
+func (x *TechnicalEnvironmentNetworkContentForm) SetNetworkArchitecture(value string) {
 	x.Doc().SetFormField(x.Path(), "networkArchitecture", value)
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) FirewallPolicies() string {
+func (x *TechnicalEnvironmentNetworkContentForm) FirewallPolicies() string {
 	return x.Doc().FormFieldOr(x.Path(), "firewallPolicies")
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) SetFirewallPolicies(value string) {
+func (x *TechnicalEnvironmentNetworkContentForm) SetFirewallPolicies(value string) {
 	x.Doc().SetFormField(x.Path(), "firewallPolicies", value)
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) VpnRequirements() string {
+func (x *TechnicalEnvironmentNetworkContentForm) VpnRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "vpnRequirements")
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) SetVpnRequirements(value string) {
+func (x *TechnicalEnvironmentNetworkContentForm) SetVpnRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "vpnRequirements", value)
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) LoadBalancingStandards() string {
+func (x *TechnicalEnvironmentNetworkContentForm) LoadBalancingStandards() string {
 	return x.Doc().FormFieldOr(x.Path(), "loadBalancingStandards")
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) SetLoadBalancingStandards(value string) {
+func (x *TechnicalEnvironmentNetworkContentForm) SetLoadBalancingStandards(value string) {
 	x.Doc().SetFormField(x.Path(), "loadBalancingStandards", value)
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) CdnStrategy() string {
+func (x *TechnicalEnvironmentNetworkContentForm) CdnStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "cdnStrategy")
 }
 
-func (x *TechnicalFrameworkConditionsNetworkContentForm) SetCdnStrategy(value string) {
+func (x *TechnicalEnvironmentNetworkContentForm) SetCdnStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "cdnStrategy", value)
 }
 
-// TechnicalFrameworkConditionsSecurityContentForm is the generated form facade for the `content` @Form section.
-type TechnicalFrameworkConditionsSecurityContentForm struct {
+// TechnicalEnvironmentSecurityContentForm is the generated form facade for the `content` @Form section.
+type TechnicalEnvironmentSecurityContentForm struct {
 	som.SomNode
 }
 
-// NewTechnicalFrameworkConditionsSecurityContentForm binds a TechnicalFrameworkConditionsSecurityContentForm facade to a document and a path.
-func NewTechnicalFrameworkConditionsSecurityContentForm(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsSecurityContentForm {
-	return &TechnicalFrameworkConditionsSecurityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTechnicalEnvironmentSecurityContentForm binds a TechnicalEnvironmentSecurityContentForm facade to a document and a path.
+func NewTechnicalEnvironmentSecurityContentForm(doc *som.SpecDocument, path string) *TechnicalEnvironmentSecurityContentForm {
+	return &TechnicalEnvironmentSecurityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SecurityFramework() string {
+func (x *TechnicalEnvironmentSecurityContentForm) SecurityFramework() string {
 	return x.Doc().FormFieldOr(x.Path(), "securityFramework")
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SetSecurityFramework(value string) {
+func (x *TechnicalEnvironmentSecurityContentForm) SetSecurityFramework(value string) {
 	x.Doc().SetFormField(x.Path(), "securityFramework", value)
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) ComplianceRequirements() string {
+func (x *TechnicalEnvironmentSecurityContentForm) ComplianceRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "complianceRequirements")
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SetComplianceRequirements(value string) {
+func (x *TechnicalEnvironmentSecurityContentForm) SetComplianceRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "complianceRequirements", value)
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) DataClassificationScheme() string {
+func (x *TechnicalEnvironmentSecurityContentForm) DataClassificationScheme() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataClassificationScheme")
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SetDataClassificationScheme(value string) {
+func (x *TechnicalEnvironmentSecurityContentForm) SetDataClassificationScheme(value string) {
 	x.Doc().SetFormField(x.Path(), "dataClassificationScheme", value)
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) EncryptionStandards() string {
+func (x *TechnicalEnvironmentSecurityContentForm) EncryptionStandards() string {
 	return x.Doc().FormFieldOr(x.Path(), "encryptionStandards")
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SetEncryptionStandards(value string) {
+func (x *TechnicalEnvironmentSecurityContentForm) SetEncryptionStandards(value string) {
 	x.Doc().SetFormField(x.Path(), "encryptionStandards", value)
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) IdentityProvider() string {
+func (x *TechnicalEnvironmentSecurityContentForm) IdentityProvider() string {
 	return x.Doc().FormFieldOr(x.Path(), "identityProvider")
 }
 
-func (x *TechnicalFrameworkConditionsSecurityContentForm) SetIdentityProvider(value string) {
+func (x *TechnicalEnvironmentSecurityContentForm) SetIdentityProvider(value string) {
 	x.Doc().SetFormField(x.Path(), "identityProvider", value)
 }
 
-// TechnicalFrameworkConditionsStandardsContentForm is the generated form facade for the `content` @Form section.
-type TechnicalFrameworkConditionsStandardsContentForm struct {
+// TechnicalEnvironmentStandardsContentForm is the generated form facade for the `content` @Form section.
+type TechnicalEnvironmentStandardsContentForm struct {
 	som.SomNode
 }
 
-// NewTechnicalFrameworkConditionsStandardsContentForm binds a TechnicalFrameworkConditionsStandardsContentForm facade to a document and a path.
-func NewTechnicalFrameworkConditionsStandardsContentForm(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsStandardsContentForm {
-	return &TechnicalFrameworkConditionsStandardsContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTechnicalEnvironmentStandardsContentForm binds a TechnicalEnvironmentStandardsContentForm facade to a document and a path.
+func NewTechnicalEnvironmentStandardsContentForm(doc *som.SpecDocument, path string) *TechnicalEnvironmentStandardsContentForm {
+	return &TechnicalEnvironmentStandardsContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) PreferredLanguages() string {
+func (x *TechnicalEnvironmentStandardsContentForm) PreferredLanguages() string {
 	return x.Doc().FormFieldOr(x.Path(), "preferredLanguages")
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) SetPreferredLanguages(value string) {
+func (x *TechnicalEnvironmentStandardsContentForm) SetPreferredLanguages(value string) {
 	x.Doc().SetFormField(x.Path(), "preferredLanguages", value)
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) PreferredFrameworks() string {
+func (x *TechnicalEnvironmentStandardsContentForm) PreferredFrameworks() string {
 	return x.Doc().FormFieldOr(x.Path(), "preferredFrameworks")
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) SetPreferredFrameworks(value string) {
+func (x *TechnicalEnvironmentStandardsContentForm) SetPreferredFrameworks(value string) {
 	x.Doc().SetFormField(x.Path(), "preferredFrameworks", value)
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) PreferredDatabases() string {
+func (x *TechnicalEnvironmentStandardsContentForm) PreferredDatabases() string {
 	return x.Doc().FormFieldOr(x.Path(), "preferredDatabases")
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) SetPreferredDatabases(value string) {
+func (x *TechnicalEnvironmentStandardsContentForm) SetPreferredDatabases(value string) {
 	x.Doc().SetFormField(x.Path(), "preferredDatabases", value)
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) MessagingPlatforms() string {
+func (x *TechnicalEnvironmentStandardsContentForm) MessagingPlatforms() string {
 	return x.Doc().FormFieldOr(x.Path(), "messagingPlatforms")
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) SetMessagingPlatforms(value string) {
+func (x *TechnicalEnvironmentStandardsContentForm) SetMessagingPlatforms(value string) {
 	x.Doc().SetFormField(x.Path(), "messagingPlatforms", value)
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) IntegrationPlatforms() string {
+func (x *TechnicalEnvironmentStandardsContentForm) IntegrationPlatforms() string {
 	return x.Doc().FormFieldOr(x.Path(), "integrationPlatforms")
 }
 
-func (x *TechnicalFrameworkConditionsStandardsContentForm) SetIntegrationPlatforms(value string) {
+func (x *TechnicalEnvironmentStandardsContentForm) SetIntegrationPlatforms(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationPlatforms", value)
 }
 
-// TechnicalFrameworkConditionsTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
-type TechnicalFrameworkConditionsTechnicalOverviewContentForm struct {
+// TechnicalEnvironmentTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
+type TechnicalEnvironmentTechnicalOverviewContentForm struct {
 	som.SomNode
 }
 
-// NewTechnicalFrameworkConditionsTechnicalOverviewContentForm binds a TechnicalFrameworkConditionsTechnicalOverviewContentForm facade to a document and a path.
-func NewTechnicalFrameworkConditionsTechnicalOverviewContentForm(doc *som.SpecDocument, path string) *TechnicalFrameworkConditionsTechnicalOverviewContentForm {
-	return &TechnicalFrameworkConditionsTechnicalOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTechnicalEnvironmentTechnicalOverviewContentForm binds a TechnicalEnvironmentTechnicalOverviewContentForm facade to a document and a path.
+func NewTechnicalEnvironmentTechnicalOverviewContentForm(doc *som.SpecDocument, path string) *TechnicalEnvironmentTechnicalOverviewContentForm {
+	return &TechnicalEnvironmentTechnicalOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) ArchitectureMaturity() string {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) ArchitectureMaturity() string {
 	return x.Doc().FormFieldOr(x.Path(), "architectureMaturity")
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) SetArchitectureMaturity(value string) {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) SetArchitectureMaturity(value string) {
 	x.Doc().SetFormField(x.Path(), "architectureMaturity", value)
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) CloudStrategy() string {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) CloudStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "cloudStrategy")
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) SetCloudStrategy(value string) {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) SetCloudStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "cloudStrategy", value)
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) PrimaryCloudProvider() string {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) PrimaryCloudProvider() string {
 	return x.Doc().FormFieldOr(x.Path(), "primaryCloudProvider")
 }
 
-func (x *TechnicalFrameworkConditionsTechnicalOverviewContentForm) SetPrimaryCloudProvider(value string) {
+func (x *TechnicalEnvironmentTechnicalOverviewContentForm) SetPrimaryCloudProvider(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryCloudProvider", value)
 }
 
@@ -174450,98 +174508,30 @@ func (x *TransitionSupportResourceEntryContentForm) SetCostCenter(value string) 
 	x.Doc().SetFormField(x.Path(), "costCenter", value)
 }
 
-// TranslationProcessOngoingContentForm is the generated form facade for the `content` @Form section.
-type TranslationProcessOngoingContentForm struct {
+// TranslationOngoingContentForm is the generated form facade for the `content` @Form section.
+type TranslationOngoingContentForm struct {
 	som.SomNode
 }
 
-// NewTranslationProcessOngoingContentForm binds a TranslationProcessOngoingContentForm facade to a document and a path.
-func NewTranslationProcessOngoingContentForm(doc *som.SpecDocument, path string) *TranslationProcessOngoingContentForm {
-	return &TranslationProcessOngoingContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTranslationOngoingContentForm binds a TranslationOngoingContentForm facade to a document and a path.
+func NewTranslationOngoingContentForm(doc *som.SpecDocument, path string) *TranslationOngoingContentForm {
+	return &TranslationOngoingContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TranslationProcessOngoingContentForm) ContinuousLocalization() string {
+func (x *TranslationOngoingContentForm) ContinuousLocalization() string {
 	return x.Doc().FormFieldOr(x.Path(), "continuousLocalization")
 }
 
-func (x *TranslationProcessOngoingContentForm) SetContinuousLocalization(value string) {
+func (x *TranslationOngoingContentForm) SetContinuousLocalization(value string) {
 	x.Doc().SetFormField(x.Path(), "continuousLocalization", value)
 }
 
-func (x *TranslationProcessOngoingContentForm) TranslationMemoryMaintenance() string {
+func (x *TranslationOngoingContentForm) TranslationMemoryMaintenance() string {
 	return x.Doc().FormFieldOr(x.Path(), "translationMemoryMaintenance")
 }
 
-func (x *TranslationProcessOngoingContentForm) SetTranslationMemoryMaintenance(value string) {
+func (x *TranslationOngoingContentForm) SetTranslationMemoryMaintenance(value string) {
 	x.Doc().SetFormField(x.Path(), "translationMemoryMaintenance", value)
-}
-
-// TranslationProcessQualityContentForm is the generated form facade for the `content` @Form section.
-type TranslationProcessQualityContentForm struct {
-	som.SomNode
-}
-
-// NewTranslationProcessQualityContentForm binds a TranslationProcessQualityContentForm facade to a document and a path.
-func NewTranslationProcessQualityContentForm(doc *som.SpecDocument, path string) *TranslationProcessQualityContentForm {
-	return &TranslationProcessQualityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TranslationProcessQualityContentForm) QualityChecks() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityChecks")
-}
-
-func (x *TranslationProcessQualityContentForm) SetQualityChecks(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityChecks", value)
-}
-
-func (x *TranslationProcessQualityContentForm) LinguisticQA() string {
-	return x.Doc().FormFieldOr(x.Path(), "linguisticQA")
-}
-
-func (x *TranslationProcessQualityContentForm) SetLinguisticQA(value string) {
-	x.Doc().SetFormField(x.Path(), "linguisticQA", value)
-}
-
-func (x *TranslationProcessQualityContentForm) FunctionalQA() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionalQA")
-}
-
-func (x *TranslationProcessQualityContentForm) SetFunctionalQA(value string) {
-	x.Doc().SetFormField(x.Path(), "functionalQA", value)
-}
-
-// TranslationProcessTerminologyContentForm is the generated form facade for the `content` @Form section.
-type TranslationProcessTerminologyContentForm struct {
-	som.SomNode
-}
-
-// NewTranslationProcessTerminologyContentForm binds a TranslationProcessTerminologyContentForm facade to a document and a path.
-func NewTranslationProcessTerminologyContentForm(doc *som.SpecDocument, path string) *TranslationProcessTerminologyContentForm {
-	return &TranslationProcessTerminologyContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TranslationProcessTerminologyContentForm) GlossaryManagement() string {
-	return x.Doc().FormFieldOr(x.Path(), "glossaryManagement")
-}
-
-func (x *TranslationProcessTerminologyContentForm) SetGlossaryManagement(value string) {
-	x.Doc().SetFormField(x.Path(), "glossaryManagement", value)
-}
-
-func (x *TranslationProcessTerminologyContentForm) StyleGuide() string {
-	return x.Doc().FormFieldOr(x.Path(), "styleGuide")
-}
-
-func (x *TranslationProcessTerminologyContentForm) SetStyleGuide(value string) {
-	x.Doc().SetFormField(x.Path(), "styleGuide", value)
-}
-
-func (x *TranslationProcessTerminologyContentForm) BrandVoice() string {
-	return x.Doc().FormFieldOr(x.Path(), "brandVoice")
-}
-
-func (x *TranslationProcessTerminologyContentForm) SetBrandVoice(value string) {
-	x.Doc().SetFormField(x.Path(), "brandVoice", value)
 }
 
 // TranslationProcessTranslationProcessContentForm is the generated form facade for the `translationProcessContent` @Form section.
@@ -174586,46 +174576,38 @@ func (x *TranslationProcessTranslationProcessContentForm) SetCatTools(value stri
 	x.Doc().SetFormField(x.Path(), "catTools", value)
 }
 
-// TranslationProcessWorkflowContentForm is the generated form facade for the `content` @Form section.
-type TranslationProcessWorkflowContentForm struct {
+// TranslationQualityContentForm is the generated form facade for the `content` @Form section.
+type TranslationQualityContentForm struct {
 	som.SomNode
 }
 
-// NewTranslationProcessWorkflowContentForm binds a TranslationProcessWorkflowContentForm facade to a document and a path.
-func NewTranslationProcessWorkflowContentForm(doc *som.SpecDocument, path string) *TranslationProcessWorkflowContentForm {
-	return &TranslationProcessWorkflowContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewTranslationQualityContentForm binds a TranslationQualityContentForm facade to a document and a path.
+func NewTranslationQualityContentForm(doc *som.SpecDocument, path string) *TranslationQualityContentForm {
+	return &TranslationQualityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *TranslationProcessWorkflowContentForm) TranslationWorkflow() string {
-	return x.Doc().FormFieldOr(x.Path(), "translationWorkflow")
+func (x *TranslationQualityContentForm) QualityChecks() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityChecks")
 }
 
-func (x *TranslationProcessWorkflowContentForm) SetTranslationWorkflow(value string) {
-	x.Doc().SetFormField(x.Path(), "translationWorkflow", value)
+func (x *TranslationQualityContentForm) SetQualityChecks(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityChecks", value)
 }
 
-func (x *TranslationProcessWorkflowContentForm) ReviewCycles() string {
-	return x.Doc().FormFieldOr(x.Path(), "reviewCycles")
+func (x *TranslationQualityContentForm) LinguisticQA() string {
+	return x.Doc().FormFieldOr(x.Path(), "linguisticQA")
 }
 
-func (x *TranslationProcessWorkflowContentForm) SetReviewCycles(value string) {
-	x.Doc().SetFormField(x.Path(), "reviewCycles", value)
+func (x *TranslationQualityContentForm) SetLinguisticQA(value string) {
+	x.Doc().SetFormField(x.Path(), "linguisticQA", value)
 }
 
-func (x *TranslationProcessWorkflowContentForm) InCountryReview() string {
-	return x.Doc().FormFieldOr(x.Path(), "inCountryReview")
+func (x *TranslationQualityContentForm) FunctionalQA() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionalQA")
 }
 
-func (x *TranslationProcessWorkflowContentForm) SetInCountryReview(value string) {
-	x.Doc().SetFormField(x.Path(), "inCountryReview", value)
-}
-
-func (x *TranslationProcessWorkflowContentForm) ContextualReview() string {
-	return x.Doc().FormFieldOr(x.Path(), "contextualReview")
-}
-
-func (x *TranslationProcessWorkflowContentForm) SetContextualReview(value string) {
-	x.Doc().SetFormField(x.Path(), "contextualReview", value)
+func (x *TranslationQualityContentForm) SetFunctionalQA(value string) {
+	x.Doc().SetFormField(x.Path(), "functionalQA", value)
 }
 
 // TranslationRequirementsFormattingContentForm is the generated form facade for the `content` @Form section.
@@ -174822,6 +174804,40 @@ func (x *TranslationRequirementsVariantsContentForm) SetContextualVariants(value
 	x.Doc().SetFormField(x.Path(), "contextualVariants", value)
 }
 
+// TranslationTerminologyContentForm is the generated form facade for the `content` @Form section.
+type TranslationTerminologyContentForm struct {
+	som.SomNode
+}
+
+// NewTranslationTerminologyContentForm binds a TranslationTerminologyContentForm facade to a document and a path.
+func NewTranslationTerminologyContentForm(doc *som.SpecDocument, path string) *TranslationTerminologyContentForm {
+	return &TranslationTerminologyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TranslationTerminologyContentForm) GlossaryManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "glossaryManagement")
+}
+
+func (x *TranslationTerminologyContentForm) SetGlossaryManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "glossaryManagement", value)
+}
+
+func (x *TranslationTerminologyContentForm) StyleGuide() string {
+	return x.Doc().FormFieldOr(x.Path(), "styleGuide")
+}
+
+func (x *TranslationTerminologyContentForm) SetStyleGuide(value string) {
+	x.Doc().SetFormField(x.Path(), "styleGuide", value)
+}
+
+func (x *TranslationTerminologyContentForm) BrandVoice() string {
+	return x.Doc().FormFieldOr(x.Path(), "brandVoice")
+}
+
+func (x *TranslationTerminologyContentForm) SetBrandVoice(value string) {
+	x.Doc().SetFormField(x.Path(), "brandVoice", value)
+}
+
 // TranslationVendorEntryContentForm is the generated form facade for the `content` @Form section.
 type TranslationVendorEntryContentForm struct {
 	som.SomNode
@@ -174886,6 +174902,48 @@ func (x *TranslationVendorEntryContentForm) ContactInfo() string {
 
 func (x *TranslationVendorEntryContentForm) SetContactInfo(value string) {
 	x.Doc().SetFormField(x.Path(), "contactInfo", value)
+}
+
+// TranslationWorkflowContentForm is the generated form facade for the `content` @Form section.
+type TranslationWorkflowContentForm struct {
+	som.SomNode
+}
+
+// NewTranslationWorkflowContentForm binds a TranslationWorkflowContentForm facade to a document and a path.
+func NewTranslationWorkflowContentForm(doc *som.SpecDocument, path string) *TranslationWorkflowContentForm {
+	return &TranslationWorkflowContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TranslationWorkflowContentForm) TranslationWorkflow() string {
+	return x.Doc().FormFieldOr(x.Path(), "translationWorkflow")
+}
+
+func (x *TranslationWorkflowContentForm) SetTranslationWorkflow(value string) {
+	x.Doc().SetFormField(x.Path(), "translationWorkflow", value)
+}
+
+func (x *TranslationWorkflowContentForm) ReviewCycles() string {
+	return x.Doc().FormFieldOr(x.Path(), "reviewCycles")
+}
+
+func (x *TranslationWorkflowContentForm) SetReviewCycles(value string) {
+	x.Doc().SetFormField(x.Path(), "reviewCycles", value)
+}
+
+func (x *TranslationWorkflowContentForm) InCountryReview() string {
+	return x.Doc().FormFieldOr(x.Path(), "inCountryReview")
+}
+
+func (x *TranslationWorkflowContentForm) SetInCountryReview(value string) {
+	x.Doc().SetFormField(x.Path(), "inCountryReview", value)
+}
+
+func (x *TranslationWorkflowContentForm) ContextualReview() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextualReview")
+}
+
+func (x *TranslationWorkflowContentForm) SetContextualReview(value string) {
+	x.Doc().SetFormField(x.Path(), "contextualReview", value)
 }
 
 // TriggerOverviewContentForm is the generated form facade for the `content` @Form section.
@@ -176750,40 +176808,6 @@ func (x *UiComponentEntryVisualDesignForm) SetIconography(value string) {
 	x.Doc().SetFormField(x.Path(), "iconography", value)
 }
 
-// UiComponentsComponentApproachContentForm is the generated form facade for the `content` @Form section.
-type UiComponentsComponentApproachContentForm struct {
-	som.SomNode
-}
-
-// NewUiComponentsComponentApproachContentForm binds a UiComponentsComponentApproachContentForm facade to a document and a path.
-func NewUiComponentsComponentApproachContentForm(doc *som.SpecDocument, path string) *UiComponentsComponentApproachContentForm {
-	return &UiComponentsComponentApproachContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsComponentApproachContentForm) ComponentGranularity() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentGranularity")
-}
-
-func (x *UiComponentsComponentApproachContentForm) SetComponentGranularity(value string) {
-	x.Doc().SetFormField(x.Path(), "componentGranularity", value)
-}
-
-func (x *UiComponentsComponentApproachContentForm) ComponentNaming() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentNaming")
-}
-
-func (x *UiComponentsComponentApproachContentForm) SetComponentNaming(value string) {
-	x.Doc().SetFormField(x.Path(), "componentNaming", value)
-}
-
-func (x *UiComponentsComponentApproachContentForm) ComponentDocumentation() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentDocumentation")
-}
-
-func (x *UiComponentsComponentApproachContentForm) SetComponentDocumentation(value string) {
-	x.Doc().SetFormField(x.Path(), "componentDocumentation", value)
-}
-
 // UiComponentsComponentLibraryOverviewForm is the generated form facade for the `componentLibraryOverview` @Form section.
 type UiComponentsComponentLibraryOverviewForm struct {
 	som.SomNode
@@ -176824,148 +176848,6 @@ func (x *UiComponentsComponentLibraryOverviewForm) TomFlutterUiIntegration() str
 
 func (x *UiComponentsComponentLibraryOverviewForm) SetTomFlutterUiIntegration(value string) {
 	x.Doc().SetFormField(x.Path(), "tomFlutterUiIntegration", value)
-}
-
-// UiComponentsCustomizationContentForm is the generated form facade for the `content` @Form section.
-type UiComponentsCustomizationContentForm struct {
-	som.SomNode
-}
-
-// NewUiComponentsCustomizationContentForm binds a UiComponentsCustomizationContentForm facade to a document and a path.
-func NewUiComponentsCustomizationContentForm(doc *som.SpecDocument, path string) *UiComponentsCustomizationContentForm {
-	return &UiComponentsCustomizationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsCustomizationContentForm) ExtensionModel() string {
-	return x.Doc().FormFieldOr(x.Path(), "extensionModel")
-}
-
-func (x *UiComponentsCustomizationContentForm) SetExtensionModel(value string) {
-	x.Doc().SetFormField(x.Path(), "extensionModel", value)
-}
-
-func (x *UiComponentsCustomizationContentForm) ThemingApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "themingApproach")
-}
-
-func (x *UiComponentsCustomizationContentForm) SetThemingApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "themingApproach", value)
-}
-
-func (x *UiComponentsCustomizationContentForm) CustomizationBoundaries() string {
-	return x.Doc().FormFieldOr(x.Path(), "customizationBoundaries")
-}
-
-func (x *UiComponentsCustomizationContentForm) SetCustomizationBoundaries(value string) {
-	x.Doc().SetFormField(x.Path(), "customizationBoundaries", value)
-}
-
-// UiComponentsVisualLanguageContentForm is the generated form facade for the `content` @Form section.
-type UiComponentsVisualLanguageContentForm struct {
-	som.SomNode
-}
-
-// NewUiComponentsVisualLanguageContentForm binds a UiComponentsVisualLanguageContentForm facade to a document and a path.
-func NewUiComponentsVisualLanguageContentForm(doc *som.SpecDocument, path string) *UiComponentsVisualLanguageContentForm {
-	return &UiComponentsVisualLanguageContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiComponentsVisualLanguageContentForm) VisualLanguage() string {
-	return x.Doc().FormFieldOr(x.Path(), "visualLanguage")
-}
-
-func (x *UiComponentsVisualLanguageContentForm) SetVisualLanguage(value string) {
-	x.Doc().SetFormField(x.Path(), "visualLanguage", value)
-}
-
-func (x *UiComponentsVisualLanguageContentForm) BrandAlignment() string {
-	return x.Doc().FormFieldOr(x.Path(), "brandAlignment")
-}
-
-func (x *UiComponentsVisualLanguageContentForm) SetBrandAlignment(value string) {
-	x.Doc().SetFormField(x.Path(), "brandAlignment", value)
-}
-
-func (x *UiComponentsVisualLanguageContentForm) MotionPrinciples() string {
-	return x.Doc().FormFieldOr(x.Path(), "motionPrinciples")
-}
-
-func (x *UiComponentsVisualLanguageContentForm) SetMotionPrinciples(value string) {
-	x.Doc().SetFormField(x.Path(), "motionPrinciples", value)
-}
-
-// UiDesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
-type UiDesignPrincipleEntryContentForm struct {
-	som.SomNode
-}
-
-// NewUiDesignPrincipleEntryContentForm binds a UiDesignPrincipleEntryContentForm facade to a document and a path.
-func NewUiDesignPrincipleEntryContentForm(doc *som.SpecDocument, path string) *UiDesignPrincipleEntryContentForm {
-	return &UiDesignPrincipleEntryContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UiDesignPrincipleEntryContentForm) PrincipleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "principleName")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetPrincipleName(value string) {
-	x.Doc().SetFormField(x.Path(), "principleName", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) Rationale() string {
-	return x.Doc().FormFieldOr(x.Path(), "rationale")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetRationale(value string) {
-	x.Doc().SetFormField(x.Path(), "rationale", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) Category() string {
-	return x.Doc().FormFieldOr(x.Path(), "category")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "category", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) Examples() string {
-	return x.Doc().FormFieldOr(x.Path(), "examples")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetExamples(value string) {
-	x.Doc().SetFormField(x.Path(), "examples", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) Exceptions() string {
-	return x.Doc().FormFieldOr(x.Path(), "exceptions")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetExceptions(value string) {
-	x.Doc().SetFormField(x.Path(), "exceptions", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SourceReference() string {
-	return x.Doc().FormFieldOr(x.Path(), "sourceReference")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetSourceReference(value string) {
-	x.Doc().SetFormField(x.Path(), "sourceReference", value)
-}
-
-func (x *UiDesignPrincipleEntryContentForm) RelatedGoals() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedGoals")
-}
-
-func (x *UiDesignPrincipleEntryContentForm) SetRelatedGoals(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedGoals", value)
 }
 
 // UsabilityClarityContentForm is the generated form facade for the `content` @Form section.
@@ -177496,6 +177378,124 @@ func (x *UserAccessibilityNeedsAccessibilityFormForm) AdditionalStandards() stri
 
 func (x *UserAccessibilityNeedsAccessibilityFormForm) SetAdditionalStandards(value string) {
 	x.Doc().SetFormField(x.Path(), "additionalStandards", value)
+}
+
+// UserAssistanceDeliveryContentForm is the generated form facade for the `content` @Form section.
+type UserAssistanceDeliveryContentForm struct {
+	som.SomNode
+}
+
+// NewUserAssistanceDeliveryContentForm binds a UserAssistanceDeliveryContentForm facade to a document and a path.
+func NewUserAssistanceDeliveryContentForm(doc *som.SpecDocument, path string) *UserAssistanceDeliveryContentForm {
+	return &UserAssistanceDeliveryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistanceDeliveryContentForm) HelpContentOwnership() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpContentOwnership")
+}
+
+func (x *UserAssistanceDeliveryContentForm) SetHelpContentOwnership(value string) {
+	x.Doc().SetFormField(x.Path(), "helpContentOwnership", value)
+}
+
+func (x *UserAssistanceDeliveryContentForm) HelpUpdateProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpUpdateProcess")
+}
+
+func (x *UserAssistanceDeliveryContentForm) SetHelpUpdateProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "helpUpdateProcess", value)
+}
+
+func (x *UserAssistanceDeliveryContentForm) HelpIconStandard() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpIconStandard")
+}
+
+func (x *UserAssistanceDeliveryContentForm) SetHelpIconStandard(value string) {
+	x.Doc().SetFormField(x.Path(), "helpIconStandard", value)
+}
+
+func (x *UserAssistanceDeliveryContentForm) HelpIconPlacement() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpIconPlacement")
+}
+
+func (x *UserAssistanceDeliveryContentForm) SetHelpIconPlacement(value string) {
+	x.Doc().SetFormField(x.Path(), "helpIconPlacement", value)
+}
+
+func (x *UserAssistanceDeliveryContentForm) HelpTooltipStyle() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpTooltipStyle")
+}
+
+func (x *UserAssistanceDeliveryContentForm) SetHelpTooltipStyle(value string) {
+	x.Doc().SetFormField(x.Path(), "helpTooltipStyle", value)
+}
+
+// UserAssistanceHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
+type UserAssistanceHelpOverviewContentForm struct {
+	som.SomNode
+}
+
+// NewUserAssistanceHelpOverviewContentForm binds a UserAssistanceHelpOverviewContentForm facade to a document and a path.
+func NewUserAssistanceHelpOverviewContentForm(doc *som.SpecDocument, path string) *UserAssistanceHelpOverviewContentForm {
+	return &UserAssistanceHelpOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) HelpPhilosophy() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpPhilosophy")
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) SetHelpPhilosophy(value string) {
+	x.Doc().SetFormField(x.Path(), "helpPhilosophy", value)
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) HelpAccessibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpAccessibility")
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) SetHelpAccessibility(value string) {
+	x.Doc().SetFormField(x.Path(), "helpAccessibility", value)
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) HelpPersonalization() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpPersonalization")
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) SetHelpPersonalization(value string) {
+	x.Doc().SetFormField(x.Path(), "helpPersonalization", value)
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) HelpContentStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpContentStrategy")
+}
+
+func (x *UserAssistanceHelpOverviewContentForm) SetHelpContentStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "helpContentStrategy", value)
+}
+
+// UserAssistanceInsightsContentForm is the generated form facade for the `content` @Form section.
+type UserAssistanceInsightsContentForm struct {
+	som.SomNode
+}
+
+// NewUserAssistanceInsightsContentForm binds a UserAssistanceInsightsContentForm facade to a document and a path.
+func NewUserAssistanceInsightsContentForm(doc *som.SpecDocument, path string) *UserAssistanceInsightsContentForm {
+	return &UserAssistanceInsightsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserAssistanceInsightsContentForm) HelpAnalytics() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpAnalytics")
+}
+
+func (x *UserAssistanceInsightsContentForm) SetHelpAnalytics(value string) {
+	x.Doc().SetFormField(x.Path(), "helpAnalytics", value)
+}
+
+func (x *UserAssistanceInsightsContentForm) HelpFeedback() string {
+	return x.Doc().FormFieldOr(x.Path(), "helpFeedback")
+}
+
+func (x *UserAssistanceInsightsContentForm) SetHelpFeedback(value string) {
+	x.Doc().SetFormField(x.Path(), "helpFeedback", value)
 }
 
 // UserAttributeEntryContentForm is the generated form facade for the `content` @Form section.

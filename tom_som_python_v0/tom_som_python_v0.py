@@ -2452,7 +2452,7 @@ class ArchitectureStyle(SomNode):
     def decisionRecords(self):
         return SomList(self.doc, f"{self.path}/ARDE-DECI-LST", lambda d, p: ArchitectureDecisionRecord(d, p))
 
-class AssumptionConstraintRegister(SomNode):
+class AssumptionConstraintDependencyRegister(SomNode):
     """A consolidated register of assumptions and constraints."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -2510,7 +2510,7 @@ class AssumptionsConstraintsDependencies(SomNode):
     # The consolidated assumption / constraint register.
     @property
     def register(self):
-        return AssumptionConstraintRegister(self.doc, f"{self.path}/register")
+        return AssumptionConstraintDependencyRegister(self.doc, f"{self.path}/register")
 
 class AttributeInterdependencyEntry(SomNode):
     """A single attribute interdependency entry."""
@@ -4334,6 +4334,60 @@ class BusinessComponentEntryTesting(SomNode):
     def content(self):
         return BusinessComponentEntryTestingContentForm(self.doc, f"{self.path}/content")
 
+class BusinessDomain(SomNode):
+    """4.1.3. Description of Business Domain.
+    
+    Describes the business domain and task area the system addresses.
+    Defines the domain vocabulary and key concepts (ubiquitous language)
+    that will be used throughout the project. Based on Domain-Driven Design
+    principles for establishing a shared understanding.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 4.1.3.1. Domain Overview.
+    @property
+    def domainOverview(self):
+        return DomainOverview(self.doc, f"{self.path}/domainOverview")
+
+    # 4.1.3.2. Domain Vocabulary.
+    @property
+    def domainVocabulary(self):
+        return DomainVocabulary(self.doc, f"{self.path}/domainVocabulary")
+
+    # 4.1.3.3. Key Concepts.
+    @property
+    def keyConcepts(self):
+        return KeyConcepts(self.doc, f"{self.path}/keyConcepts")
+
+    # 4.1.3.4. Domain Boundaries.
+    @property
+    def domainBoundaries(self):
+        return DomainBoundaries(self.doc, f"{self.path}/domainBoundaries")
+
+    # 4.1.3.5. Business Rules.
+    @property
+    def businessRules(self):
+        return DomainBusinessRules(self.doc, f"{self.path}/businessRules")
+
+    # 4.1.3.6. Domain Processes.
+    @property
+    def domainProcesses(self):
+        return DomainProcesses(self.doc, f"{self.path}/domainProcesses")
+
+    # 4.1.3.7. Domain Events.
+    @property
+    def domainEvents(self):
+        return DomainEvents(self.doc, f"{self.path}/domainEvents")
+
 class BusinessGoalEntry(SomNode):
     """A business goal entry.
     
@@ -4744,7 +4798,7 @@ class BusinessProcessDescriptions(SomNode):
     # 6.1.7. Detailed Process Workflows.
     @property
     def detailedWorkflows(self):
-        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
+        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflow(d, p))
 
     # 6.1.8. Cross-Process Analysis.
     @property
@@ -4759,7 +4813,7 @@ class BusinessProcessDescriptions(SomNode):
     # 6.1.10. Process Metrics and KPIs.
     @property
     def processMetricsAndKpis(self):
-        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
+        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetric(d, p))
 
 class BusinessProcessEntry(SomNode):
     """A business process entry.
@@ -7453,6 +7507,15 @@ class ComponentActionEntryGovernance(SomNode):
     def content(self):
         return ComponentActionEntryGovernanceContentForm(self.doc, f"{self.path}/content")
 
+class ComponentApproach(SomNode):
+    """Component naming and documentation approach."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ComponentApproachContentForm(self.doc, f"{self.path}/content")
+
 class ComponentCompliance(SomNode):
     """Compliance for component."""
     def __init__(self, doc, path):
@@ -7470,6 +7533,15 @@ class ComponentCost(SomNode):
     @property
     def content(self):
         return ComponentCostContentForm(self.doc, f"{self.path}/content")
+
+class ComponentCustomization(SomNode):
+    """Extension and theming boundaries."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ComponentCustomizationContentForm(self.doc, f"{self.path}/content")
 
 class ComponentDeployment(SomNode):
     """Deployment for component."""
@@ -8499,8 +8571,17 @@ class ComponentVendor(SomNode):
     def content(self):
         return ComponentVendorContentForm(self.doc, f"{self.path}/content")
 
-class ComponentsToUse(SomNode):
-    """12. Components to Use. Seeds → ATS.
+class ComponentVisualLanguage(SomNode):
+    """Visual language and brand alignment."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ComponentVisualLanguageContentForm(self.doc, f"{self.path}/content")
+
+class ComponentsAndDependencies(SomNode):
+    """12. Components and Dependencies. Seeds → ATS.
     
     External and standard components planned for use in the system. All
     subsections seed the ATS document, where component choices are expanded
@@ -9771,14 +9852,14 @@ class CurrentLandscape(SomNode):
     # 1.5. Operational Metrics.
     @property
     def operationalMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
+        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetric(d, p))
 
     # 1.6. Current State Risks.
     @property
     def currentStateRisks(self):
         return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
 
-class CurrentOperationalMetrics(SomNode):
+class CurrentOperationalMetric(SomNode):
     """1.5. Operational Metrics.
     
     Baseline metrics of the current systems: throughput, volume, uptime,
@@ -9922,7 +10003,7 @@ class CustomMetricEntry(SomNode):
     def content(self):
         return CustomMetricEntryContentForm(self.doc, f"{self.path}/content")
 
-class CutoverProcedures(SomNode):
+class CutoverProcedure(SomNode):
     """15.6. Cutover Procedures.
     
     Detailed cutover runbook for go-live. Minute-by-minute procedure
@@ -9998,7 +10079,7 @@ class D00SolutionBlueprint(SomNode):
     # SBP.7 Target Operating Model concept. Seeds → TOM.
     @property
     def targetOperatingModelConcept(self):
-        return TargetOperatingModelConcept(self.doc, f"{self.path}/targetOperatingModelConcept")
+        return TargetOperatingModel(self.doc, f"{self.path}/targetOperatingModelConcept")
 
     # SBP.8 Information & Data Model. Seeds → IFM.
     @property
@@ -10090,7 +10171,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     # Current operational metrics.
     @property
     def operationalMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
+        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetric(d, p))
 
     # Current-state risk assessment.
     @property
@@ -10172,7 +10253,7 @@ class D02TargetOperatingModel(SomNode):
     # Detailed process workflows.
     @property
     def detailedWorkflows(self):
-        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
+        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflow(d, p))
 
     # Cross-process analysis.
     @property
@@ -10187,7 +10268,7 @@ class D02TargetOperatingModel(SomNode):
     # Process metrics and KPIs.
     @property
     def processMetricsAndKpis(self):
-        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
+        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetric(d, p))
 
 class D03InformationModel(SomNode):
     """IFM00 Information Model.
@@ -10417,7 +10498,7 @@ class D05InteractionScenarios(SomNode):
     # End-to-end test scenarios.
     @property
     def endToEndTestScenarios(self):
-        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
+        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenario(d, p))
 
     # Use case traceability.
     @property
@@ -10505,12 +10586,12 @@ class D06ArchitectureTechnologySpecification(SomNode):
     # Components to use (whole).
     @property
     def componentsToUse(self):
-        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
+        return ComponentsAndDependencies(self.doc, f"{self.path}/componentsToUse")
 
     # Technical framework conditions (whole).
     @property
-    def technicalFrameworkConditions(self):
-        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
+    def technicalEnvironment(self):
+        return TechnicalEnvironment(self.doc, f"{self.path}/technicalEnvironment")
 
     # Translation handling requirements (whole).
     @property
@@ -10723,17 +10804,17 @@ class D09ExperienceDesignSpecification(SomNode):
     # Print layout.
     @property
     def printLayout(self):
-        return PrintLayout(self.doc, f"{self.path}/printLayout")
+        return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
 
     # Error handling concept.
     @property
     def errorHandling(self):
-        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
+        return ErrorHandling(self.doc, f"{self.path}/errorHandling")
 
     # Help concept.
     @property
-    def helpConcept(self):
-        return HelpConcept(self.doc, f"{self.path}/helpConcept")
+    def userAssistance(self):
+        return UserAssistance(self.doc, f"{self.path}/userAssistance")
 
     # Accessibility.
     @property
@@ -11036,12 +11117,12 @@ class D12TransitionRolloutPlan(SomNode):
     # User manuals.
     @property
     def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
+        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManual(d, p))
 
     # Training materials.
     @property
     def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
+        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterial(d, p))
 
     # Pilot plan.
     @property
@@ -11051,7 +11132,7 @@ class D12TransitionRolloutPlan(SomNode):
     # Cutover procedures.
     @property
     def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
+        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedure(d, p))
 
     # Knowledge transfer.
     @property
@@ -13806,8 +13887,8 @@ class DeliveryTransitionAndRollout(SomNode):
 
     # Rollout and transition concept.
     @property
-    def systemRolloutConcept(self):
-        return SystemRolloutConcept(self.doc, f"{self.path}/systemRolloutConcept")
+    def systemRollout(self):
+        return SystemRollout(self.doc, f"{self.path}/systemRollout")
 
     # Localization & translation *execution* processes (re-homed from MLAR in
     # IP-6: the execution side of i18n, as opposed to the requirements that
@@ -13818,8 +13899,8 @@ class DeliveryTransitionAndRollout(SomNode):
 
     # Multi-language rollout sequencing by region and time (re-homed from MLAR).
     @property
-    def multiLanguageRolloutPlan(self):
-        return MultiLanguageAndRolloutPlan(self.doc, f"{self.path}/multiLanguageRolloutPlan")
+    def localeRolloutPlan(self):
+        return LocaleRolloutPlan(self.doc, f"{self.path}/localeRolloutPlan")
 
 class DependenciesAndIntegrations(SomNode):
     """1.1.3. Dependencies and Integrations.
@@ -14774,6 +14855,18 @@ class DesignPatternsAndStandards(SomNode):
     def testingStandards(self):
         return TestingStandards(self.doc, f"{self.path}/testingStandards")
 
+class DesignPrincipleEntry(SomNode):
+    """A design principle entry (form).
+    
+    Each principle guides UI decisions with rationale and examples.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
+
 class DesignPrinciples(SomNode):
     """10.1.2. Design Principles.
     
@@ -14799,7 +14892,7 @@ class DesignPrinciples(SomNode):
     # Contains 0+× UiDesignPrinciple.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/UDPEN-ITEM-LST", lambda d, p: UiDesignPrincipleEntry(d, p))
+        return SomList(self.doc, f"{self.path}/UDPEN-ITEM-LST", lambda d, p: DesignPrincipleEntry(d, p))
 
 class DesignPrinciplesOverview(SomNode):
     """Design principles overview."""
@@ -14907,7 +15000,7 @@ class DesktopOsRequirementEntryTesting(SomNode):
     def content(self):
         return DesktopOsRequirementEntryTestingContentForm(self.doc, f"{self.path}/content")
 
-class DetailedProcessWorkflows(SomNode):
+class DetailedProcessWorkflow(SomNode):
     """6.1.7. Detailed Process Workflows.
     
     Per-process workflow detail beyond the catalog overview.
@@ -16632,7 +16725,7 @@ class EncryptionInTransit(SomNode):
     def encryptionInTransitNotes(self):
         return None  # (skipped: no target type)
 
-class EndToEndTestScenarios(SomNode):
+class EndToEndTestScenario(SomNode):
     """6.2.4. End-to-End Test Scenarios.
     
     Test scenarios that exercise complete user journeys across processes
@@ -17273,8 +17366,8 @@ class ErrorBudgetTrackingMonitoring(SomNode):
     def content(self):
         return ErrorBudgetTrackingMonitoringContentForm(self.doc, f"{self.path}/content")
 
-class ErrorHandlingConcept(SomNode):
-    """10.7. Error Handling Concept.
+class ErrorHandling(SomNode):
+    """10.7. Error Handling.
     
     Comprehensive error handling user experience framework covering validation
     feedback, system error presentation, and error recovery flows. Follows
@@ -17285,22 +17378,22 @@ class ErrorHandlingConcept(SomNode):
 
     @property
     def errorPhilosophyContent(self):
-        return ErrorHandlingConceptErrorPhilosophyContentForm(self.doc, f"{self.path}/errorPhilosophyContent")
+        return ErrorHandlingErrorPhilosophyContentForm(self.doc, f"{self.path}/errorPhilosophyContent")
 
     # Error categorization and display priority.
     @property
     def classification(self):
-        return ErrorHandlingConceptClassification(self.doc, f"{self.path}/classification")
+        return ErrorHandlingClassification(self.doc, f"{self.path}/classification")
 
     # Accessibility and inclusive error cues.
     @property
     def accessibility(self):
-        return ErrorHandlingConceptAccessibility(self.doc, f"{self.path}/accessibility")
+        return ErrorHandlingAccessibility(self.doc, f"{self.path}/accessibility")
 
     # Localization and analytics behavior.
     @property
     def operations(self):
-        return ErrorHandlingConceptOperations(self.doc, f"{self.path}/operations")
+        return ErrorHandlingOperations(self.doc, f"{self.path}/operations")
 
     # Error handling overview and strategy.
     @property
@@ -17332,32 +17425,32 @@ class ErrorHandlingConcept(SomNode):
     def errorVisualDesign(self):
         return None  # (skipped: no target type)
 
-class ErrorHandlingConceptAccessibility(SomNode):
+class ErrorHandlingAccessibility(SomNode):
     """Accessibility and inclusive error cues."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return ErrorHandlingConceptAccessibilityContentForm(self.doc, f"{self.path}/content")
+        return ErrorHandlingAccessibilityContentForm(self.doc, f"{self.path}/content")
 
-class ErrorHandlingConceptClassification(SomNode):
+class ErrorHandlingClassification(SomNode):
     """Error categorization and display priority."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return ErrorHandlingConceptClassificationContentForm(self.doc, f"{self.path}/content")
+        return ErrorHandlingClassificationContentForm(self.doc, f"{self.path}/content")
 
-class ErrorHandlingConceptOperations(SomNode):
+class ErrorHandlingOperations(SomNode):
     """Localization and analytics behavior."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return ErrorHandlingConceptOperationsContentForm(self.doc, f"{self.path}/content")
+        return ErrorHandlingOperationsContentForm(self.doc, f"{self.path}/content")
 
 class ErrorHandlingStandards(SomNode):
     """Error handling and exception patterns."""
@@ -17884,7 +17977,7 @@ class ExperienceAndInterfaceDesign(SomNode):
     # 10.4. Print Layout. Seeds → XDS.
     @property
     def printLayout(self):
-        return PrintLayout(self.doc, f"{self.path}/printLayout")
+        return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
 
     # Data Structure Alignment.
     @property
@@ -17896,15 +17989,15 @@ class ExperienceAndInterfaceDesign(SomNode):
     def authorizationCompliance(self):
         return None  # (skipped: no target type)
 
-    # 10.7. Error Handling Concept. Seeds → XDS.
+    # 10.7. Error Handling. Seeds → XDS.
     @property
     def errorHandling(self):
-        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
+        return ErrorHandling(self.doc, f"{self.path}/errorHandling")
 
-    # 10.8. Help Concept. Seeds → XDS.
+    # 10.8. User Assistance. Seeds → XDS.
     @property
-    def helpConcept(self):
-        return HelpConcept(self.doc, f"{self.path}/helpConcept")
+    def userAssistance(self):
+        return UserAssistance(self.doc, f"{self.path}/userAssistance")
 
     # 10.9. Accessibility. Seeds → XDS.
     @property
@@ -17921,10 +18014,10 @@ class ExperienceAndInterfaceDesign(SomNode):
     def uiComponents(self):
         return UiComponents(self.doc, f"{self.path}/uiComponents")
 
-    # 10.12. Multi-language and Rollout Support.
+    # 10.12. Multi-language Support.
     @property
-    def multiLanguage(self):
-        return MultiLanguageAndRollout(self.doc, f"{self.path}/multiLanguage")
+    def multiLanguageSupport(self):
+        return MultiLanguageSupport(self.doc, f"{self.path}/multiLanguageSupport")
 
     # 10.13. Prototype. Seeds → XDS.
     @property
@@ -19600,42 +19693,6 @@ class FrameworkCompatibility(SomNode):
     def content(self):
         return FrameworkCompatibilityContentForm(self.doc, f"{self.path}/content")
 
-class FrameworkConditions(SomNode):
-    """4.6. Framework Conditions.
-    
-    Documents the organizational and technical environment in which the system
-    will operate. Covers organizational structure, functional responsibilities,
-    technical constraints, and external dependencies. Follows TOGAF enterprise
-    context patterns and PMBOK environmental factors analysis.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    # Framework conditions overview.
-    @property
-    def overview(self):
-        return None  # (skipped: no target type)
-
-    # 4.6.1. Organizational Environment.
-    @property
-    def organizationalEnvironment(self):
-        return OrganizationalEnvironment(self.doc, f"{self.path}/organizationalEnvironment")
-
-    # 4.6.2. Functional Responsibilities — contains 0+×.
-    @property
-    def functionalResponsibilities(self):
-        return FunctionalResponsibilities(self.doc, f"{self.path}/functionalResponsibilities")
-
-    # 4.6.3. Technical Framework Conditions. Seeds → ATS.
-    @property
-    def technicalFrameworkConditions(self):
-        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
-
-    # 4.6.4. Constraints and Dependencies — contains 0+×.
-    @property
-    def constraintsAndDependencies(self):
-        return ConstraintsAndDependencies(self.doc, f"{self.path}/constraintsAndDependencies")
-
 class FrameworkIdentity(SomNode):
     """Identity details."""
     def __init__(self, doc, path):
@@ -20667,72 +20724,6 @@ class HealthChecksAndDiagnosticsSection(SomNode):
     @property
     def dependencyHealth(self):
         return DependencyHealthMonitoring(self.doc, f"{self.path}/dependencyHealth")
-
-class HelpConcept(SomNode):
-    """10.8. Help Concept.
-    
-    Comprehensive in-app help system including contextual help, onboarding,
-    and support access mechanisms.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def helpOverviewContent(self):
-        return HelpConceptHelpOverviewContentForm(self.doc, f"{self.path}/helpOverviewContent")
-
-    # Content stewardship and help affordances.
-    @property
-    def delivery(self):
-        return HelpConceptDelivery(self.doc, f"{self.path}/delivery")
-
-    # Analytics and improvement feedback.
-    @property
-    def insights(self):
-        return HelpConceptInsights(self.doc, f"{self.path}/insights")
-
-    # Help system overview narrative.
-    @property
-    def helpOverview(self):
-        return None  # (skipped: no target type)
-
-    # 10.8.1. Contextual Help.
-    @property
-    def contextualHelp(self):
-        return ContextualHelp(self.doc, f"{self.path}/contextualHelp")
-
-    # 10.8.2. Onboarding.
-    @property
-    def onboarding(self):
-        return OnboardingHelp(self.doc, f"{self.path}/onboarding")
-
-    # 10.8.3. Support Access.
-    @property
-    def supportAccess(self):
-        return SupportAccess(self.doc, f"{self.path}/supportAccess")
-
-    # Help content inventory.
-    @property
-    def helpContentInventory(self):
-        return None  # (skipped: no target type)
-
-class HelpConceptDelivery(SomNode):
-    """Content stewardship and help affordances."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return HelpConceptDeliveryContentForm(self.doc, f"{self.path}/content")
-
-class HelpConceptInsights(SomNode):
-    """Analytics and improvement feedback."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return HelpConceptInsightsContentForm(self.doc, f"{self.path}/content")
 
 class HighAvailabilityRequirements(SomNode):
     """High availability requirements."""
@@ -23246,7 +23237,7 @@ class InteroperabilityRequirementsTesting(SomNode):
         return InteroperabilityRequirementsTestingContentForm(self.doc, f"{self.path}/content")
 
 class IntroductionAndScope(SomNode):
-    """4. System Overview.
+    """4. Introduction & Scope.
     
     High-level overview of the system to be built: its purpose, goals,
     scope boundaries, and the environment it operates in. This section
@@ -23266,7 +23257,7 @@ class IntroductionAndScope(SomNode):
     # System overview summary statistics.
     @property
     def summary(self):
-        return SystemOverviewSummary(self.doc, f"{self.path}/summary")
+        return SystemSummary(self.doc, f"{self.path}/summary")
 
     # System context diagram showing major system boundaries.
     @property
@@ -23302,10 +23293,10 @@ class IntroductionAndScope(SomNode):
     def systemBoundaries(self):
         return SystemBoundaries(self.doc, f"{self.path}/systemBoundaries")
 
-    # 4.6. Framework Conditions.
+    # 4.6. Operating Environment.
     @property
-    def frameworkConditions(self):
-        return FrameworkConditions(self.doc, f"{self.path}/frameworkConditions")
+    def operatingEnvironment(self):
+        return OperatingEnvironment(self.doc, f"{self.path}/operatingEnvironment")
 
     # 4.7. Risks and Assumptions.
     @property
@@ -24274,6 +24265,54 @@ class LegacyCompatibilityEntryRisk(SomNode):
     def content(self):
         return LegacyCompatibilityEntryRiskContentForm(self.doc, f"{self.path}/content")
 
+class LegalAndContractualRequirements(SomNode):
+    """3.6. Other Administrative Requirements.
+    
+    Additional administrative agreements, constraints, or requirements not
+    covered by other sections: IP ownership, NDAs, regulatory compliance,
+    audit requirements, and other legal or organizational agreements.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 3.6.1. Intellectual Property.
+    @property
+    def intellectualProperty(self):
+        return IntellectualPropertyRequirements(self.doc, f"{self.path}/intellectualProperty")
+
+    # 3.6.2. Confidentiality and NDAs.
+    @property
+    def confidentiality(self):
+        return ConfidentialityRequirements(self.doc, f"{self.path}/confidentiality")
+
+    # 3.6.3. Regulatory Compliance.
+    @property
+    def regulatoryCompliance(self):
+        return RegulatoryComplianceRequirements(self.doc, f"{self.path}/regulatoryCompliance")
+
+    # 3.6.4. Audit Requirements.
+    @property
+    def auditRequirements(self):
+        return AuditRequirements(self.doc, f"{self.path}/auditRequirements")
+
+    # 3.6.5. Insurance and Liability.
+    @property
+    def insuranceLiability(self):
+        return InsuranceLiabilityRequirements(self.doc, f"{self.path}/insuranceLiability")
+
+    # 3.6.6. Other Agreements — contains 0+× Agreement.
+    @property
+    def otherAgreements(self):
+        return SomList(self.doc, f"{self.path}/OTAGR-OTHE-LST", lambda d, p: OtherAgreementEntry(d, p))
+
 class LiabilityLimitations(SomNode):
     """Liability limitations."""
     def __init__(self, doc, path):
@@ -24476,6 +24515,42 @@ class LocalDevelopmentSetupWorkflow(SomNode):
     def content(self):
         return LocalDevelopmentSetupWorkflowContentForm(self.doc, f"{self.path}/content")
 
+class LocaleHandlingRequirements(SomNode):
+    """Locale modeling and fallback behavior."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return LocaleHandlingRequirementsContentForm(self.doc, f"{self.path}/content")
+
+class LocaleRolloutPlan(SomNode):
+    """Rollout sequencing by region and time."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return LocaleRolloutPlanContentForm(self.doc, f"{self.path}/content")
+
+class LocalizationDeployment(SomNode):
+    """Deployment settings."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return LocalizationDeploymentContentForm(self.doc, f"{self.path}/content")
+
+class LocalizationFormatting(SomNode):
+    """Formatting rules."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return LocalizationFormattingContentForm(self.doc, f"{self.path}/content")
+
 class LocalizationProcess(SomNode):
     """10.12.1. Localization Process.
     
@@ -24491,17 +24566,17 @@ class LocalizationProcess(SomNode):
     # Review process.
     @property
     def review(self):
-        return LocalizationProcessReview(self.doc, f"{self.path}/review")
+        return LocalizationReview(self.doc, f"{self.path}/review")
 
     # Formatting rules.
     @property
     def formatting(self):
-        return LocalizationProcessFormatting(self.doc, f"{self.path}/formatting")
+        return LocalizationFormatting(self.doc, f"{self.path}/formatting")
 
     # Deployment settings.
     @property
     def deployment(self):
-        return LocalizationProcessDeployment(self.doc, f"{self.path}/deployment")
+        return LocalizationDeployment(self.doc, f"{self.path}/deployment")
 
     # Localization process narrative.
     @property
@@ -24513,39 +24588,21 @@ class LocalizationProcess(SomNode):
     def workflowDiagram(self):
         return None  # (skipped: no target type)
 
-class LocalizationProcessDeployment(SomNode):
-    """Deployment settings."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return LocalizationProcessDeploymentContentForm(self.doc, f"{self.path}/content")
-
-class LocalizationProcessFormatting(SomNode):
-    """Formatting rules."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return LocalizationProcessFormattingContentForm(self.doc, f"{self.path}/content")
-
-class LocalizationProcessReview(SomNode):
+class LocalizationReview(SomNode):
     """Review process."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return LocalizationProcessReviewContentForm(self.doc, f"{self.path}/content")
+        return LocalizationReviewContentForm(self.doc, f"{self.path}/content")
 
 class LocalizationTranslationProcess(SomNode):
     """Localization & Translation execution processes.
     
     Public anchor: ISO 29148 transition requirements. Bundles the localization
     and translation *workflow* concerns re-homed from the former
-    `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+    `MultiLanguageSupport` cluster (their requirement counterparts live in
     SBP.9 [LocalizationTranslationRequirements]).
     """
     def __init__(self, doc, path):
@@ -24594,7 +24651,7 @@ class LocalizationTranslationRequirements(SomNode):
     # Locale modeling and fallback requirements (re-homed from MLAR).
     @property
     def localeHandling(self):
-        return MultiLanguageAndRolloutLocaleHandling(self.doc, f"{self.path}/localeHandling")
+        return LocaleHandlingRequirements(self.doc, f"{self.path}/localeHandling")
 
 class LogAggregationRequirements(SomNode):
     """Log aggregation and analysis requirements."""
@@ -27085,8 +27142,8 @@ class MultiChannelExperience(SomNode):
     def multiChannelConfiguration(self):
         return MultiChannelExperienceMultiChannelConfigurationForm(self.doc, f"{self.path}/multiChannelConfiguration")
 
-class MultiLanguageAndRollout(SomNode):
-    """10.12. Multi-language and Rollout Support.
+class MultiLanguageSupport(SomNode):
+    """10.12. Multi-language Support.
     
     Locale-picker / UX-side multi-language concerns that stay on the
     Experience & Interface Design side. IP-6 re-homed the requirement-side
@@ -27099,7 +27156,7 @@ class MultiLanguageAndRollout(SomNode):
 
     @property
     def multiLanguageOverview(self):
-        return MultiLanguageAndRolloutMultiLanguageOverviewForm(self.doc, f"{self.path}/multiLanguageOverview")
+        return MultiLanguageSupportMultiLanguageOverviewForm(self.doc, f"{self.path}/multiLanguageOverview")
 
     # Multi-language overview narrative.
     @property
@@ -27115,24 +27172,6 @@ class MultiLanguageAndRollout(SomNode):
     @property
     def supportedLocales(self):
         return SomList(self.doc, f"{self.path}/SULOEN-SUPP-LST", lambda d, p: SupportedLocaleEntry(d, p))
-
-class MultiLanguageAndRolloutLocaleHandling(SomNode):
-    """Locale modeling and fallback behavior."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return MultiLanguageAndRolloutLocaleHandlingContentForm(self.doc, f"{self.path}/content")
-
-class MultiLanguageAndRolloutPlan(SomNode):
-    """Rollout sequencing by region and time."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return MultiLanguageAndRolloutPlanContentForm(self.doc, f"{self.path}/content")
 
 class MustPassCriteria(SomNode):
     """11.7.1. Must-Pass Criteria.
@@ -28616,6 +28655,42 @@ class OngoingTrainingEntrySchedule(SomNode):
     def content(self):
         return OngoingTrainingEntryScheduleContentForm(self.doc, f"{self.path}/content")
 
+class OperatingEnvironment(SomNode):
+    """4.6. Operating Environment.
+    
+    Documents the organizational and technical environment in which the system
+    will operate. Covers organizational structure, functional responsibilities,
+    technical constraints, and external dependencies. Follows TOGAF enterprise
+    context patterns and PMBOK environmental factors analysis.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # Framework conditions overview.
+    @property
+    def overview(self):
+        return None  # (skipped: no target type)
+
+    # 4.6.1. Organizational Environment.
+    @property
+    def organizationalEnvironment(self):
+        return OrganizationalEnvironment(self.doc, f"{self.path}/organizationalEnvironment")
+
+    # 4.6.2. Functional Responsibilities — contains 0+×.
+    @property
+    def functionalResponsibilities(self):
+        return FunctionalResponsibilities(self.doc, f"{self.path}/functionalResponsibilities")
+
+    # 4.6.3. Technical Environment. Seeds → ATS.
+    @property
+    def technicalEnvironment(self):
+        return TechnicalEnvironment(self.doc, f"{self.path}/technicalEnvironment")
+
+    # 4.6.4. Constraints and Dependencies — contains 0+×.
+    @property
+    def constraintsAndDependencies(self):
+        return ConstraintsAndDependencies(self.doc, f"{self.path}/constraintsAndDependencies")
+
 class OperationalMonitoring(SomNode):
     """11.4.3. Monitoring quality."""
     def __init__(self, doc, path):
@@ -29278,54 +29353,6 @@ class OsCompatibilityEntryTesting(SomNode):
     @property
     def content(self):
         return OsCompatibilityEntryTestingContentForm(self.doc, f"{self.path}/content")
-
-class OtherAdministrativeRequirements(SomNode):
-    """3.6. Other Administrative Requirements.
-    
-    Additional administrative agreements, constraints, or requirements not
-    covered by other sections: IP ownership, NDAs, regulatory compliance,
-    audit requirements, and other legal or organizational agreements.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 3.6.1. Intellectual Property.
-    @property
-    def intellectualProperty(self):
-        return IntellectualPropertyRequirements(self.doc, f"{self.path}/intellectualProperty")
-
-    # 3.6.2. Confidentiality and NDAs.
-    @property
-    def confidentiality(self):
-        return ConfidentialityRequirements(self.doc, f"{self.path}/confidentiality")
-
-    # 3.6.3. Regulatory Compliance.
-    @property
-    def regulatoryCompliance(self):
-        return RegulatoryComplianceRequirements(self.doc, f"{self.path}/regulatoryCompliance")
-
-    # 3.6.4. Audit Requirements.
-    @property
-    def auditRequirements(self):
-        return AuditRequirements(self.doc, f"{self.path}/auditRequirements")
-
-    # 3.6.5. Insurance and Liability.
-    @property
-    def insuranceLiability(self):
-        return InsuranceLiabilityRequirements(self.doc, f"{self.path}/insuranceLiability")
-
-    # 3.6.6. Other Agreements — contains 0+× Agreement.
-    @property
-    def otherAgreements(self):
-        return SomList(self.doc, f"{self.path}/OTAGR-OTHE-LST", lambda d, p: OtherAgreementEntry(d, p))
 
 class OtherAgreementEntry(SomNode):
     """An other agreement entry."""
@@ -30757,14 +30784,14 @@ class PrimaryNavigationSidebar(SomNode):
     def content(self):
         return PrimaryNavigationSidebarContentForm(self.doc, f"{self.path}/content")
 
-class PrintLayout(SomNode):
+class PrintAndExportLayout(SomNode):
     """10.4. Print Layout."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return PrintLayoutContentForm(self.doc, f"{self.path}/content")
+        return PrintAndExportLayoutContentForm(self.doc, f"{self.path}/content")
 
     # Page margins and setup.
     @property
@@ -31639,6 +31666,22 @@ class ProcessKpiEntryOperations(SomNode):
     def content(self):
         return ProcessKpiEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
+class ProcessMetric(SomNode):
+    """6.1.10. Process Metrics and KPIs.
+    
+    Process-level KPIs, SLAs, and measurement strategy.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
 class ProcessMetricCategory(SomNode):
     """A category of process metrics."""
     def __init__(self, doc, path):
@@ -31757,22 +31800,6 @@ class ProcessMetrics(SomNode):
     @property
     def baselineTable(self):
         return MetricsBaselineTable(self.doc, f"{self.path}/baselineTable")
-
-class ProcessMetricsAndKpis(SomNode):
-    """6.1.10. Process Metrics and KPIs.
-    
-    Process-level KPIs, SLAs, and measurement strategy.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class ProcessOutputEntry(SomNode):
     """A process output entry."""
@@ -32043,7 +32070,7 @@ class ProcessStepsAndActorInteractions(SomNode):
     # 6.2.4. End-to-End Test Scenarios..
     @property
     def endToEndTestScenarios(self):
-        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
+        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenario(d, p))
 
     # 6.2.5. Use Case Traceability.
     @property
@@ -32516,7 +32543,7 @@ class Prototype(SomNode):
     # 10.13.3. Prototype Type.
     @property
     def prototypeType(self):
-        return PrototypeTypeSection(self.doc, f"{self.path}/prototypeType")
+        return PrototypeType(self.doc, f"{self.path}/prototypeType")
 
     # Prototype schedule.
     @property
@@ -32668,7 +32695,7 @@ class PrototypeTimeline(SomNode):
     def content(self):
         return PrototypeTimelineContentForm(self.doc, f"{self.path}/content")
 
-class PrototypeTypeSection(SomNode):
+class PrototypeType(SomNode):
     """10.13.3. Prototype Type.
     
     Classification and implications of the prototype type.
@@ -32678,7 +32705,7 @@ class PrototypeTypeSection(SomNode):
 
     @property
     def prototypeTypeOverview(self):
-        return PrototypeTypeSectionPrototypeTypeOverviewForm(self.doc, f"{self.path}/prototypeTypeOverview")
+        return PrototypeTypePrototypeTypeOverviewForm(self.doc, f"{self.path}/prototypeTypeOverview")
 
     # 10.13.3.1. Reusable Prototype.
     @property
@@ -36781,7 +36808,7 @@ class RolloutPlan(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-class RolloutTrainingMaterials(SomNode):
+class RolloutTrainingMaterial(SomNode):
     """15.4. Training Materials.
     
     Training deliverables covering training-material content.
@@ -40753,7 +40780,7 @@ class SolutionArchitectureAndTechnology(SomNode):
     # Components, libraries, and services to reuse.
     @property
     def componentsToUse(self):
-        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
+        return ComponentsAndDependencies(self.doc, f"{self.path}/componentsToUse")
 
 class SpecializedEquipmentEntry(SomNode):
     """Specialized equipment entry (form)."""
@@ -40791,6 +40818,15 @@ class SpecializedEquipmentEntryTechnical(SomNode):
     @property
     def content(self):
         return SpecializedEquipmentEntryTechnicalContentForm(self.doc, f"{self.path}/content")
+
+class SpecificationStatus(SomNode):
+    """Specification status."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SpecificationStatusContentForm(self.doc, f"{self.path}/content")
 
 class SsoPolicy(SomNode):
     """Single Sign-On (SSO) policy (form).
@@ -41575,6 +41611,33 @@ class StageOverviewStatus(SomNode):
     def content(self):
         return StageOverviewStatusContentForm(self.doc, f"{self.path}/content")
 
+class StagePlanCoordination(SomNode):
+    """Dependencies, risks, and compliance constraints across stages."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return StagePlanCoordinationContentForm(self.doc, f"{self.path}/content")
+
+class StagePlanReadiness(SomNode):
+    """Organizational capacity and plan confidence."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return StagePlanReadinessContentForm(self.doc, f"{self.path}/content")
+
+class StagePlanTimeline(SomNode):
+    """Overall schedule and buffer model."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return StagePlanTimelineContentForm(self.doc, f"{self.path}/content")
+
 class StageQuality(SomNode):
     """Quality and governance for a stage entry."""
     def __init__(self, doc, path):
@@ -42152,7 +42215,7 @@ class StakeholdersAndGovernance(SomNode):
     # Renamed to `LegalAndContractualRequirements` in L34C-9.
     @property
     def legalAndContractual(self):
-        return OtherAdministrativeRequirements(self.doc, f"{self.path}/legalAndContractual")
+        return LegalAndContractualRequirements(self.doc, f"{self.path}/legalAndContractual")
 
     # Stakeholder register (§5 completeness addition).
     @property
@@ -43011,6 +43074,24 @@ class SystemBusinessUnitEntry(SomNode):
     def content(self):
         return SystemBusinessUnitEntryContentForm(self.doc, f"{self.path}/content")
 
+class SystemClassification(SomNode):
+    """System classification."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SystemClassificationContentForm(self.doc, f"{self.path}/content")
+
+class SystemComplexity(SomNode):
+    """Complexity indicators."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SystemComplexityContentForm(self.doc, f"{self.path}/content")
+
 class SystemConfigurationManagement(SomNode):
     """System configuration management."""
     def __init__(self, doc, path):
@@ -43339,10 +43420,10 @@ class SystemDescription(SomNode):
     def systemContext(self):
         return SystemContext(self.doc, f"{self.path}/systemContext")
 
-    # 4.1.3. Description of Task Area.
+    # 4.1.3. Description of Business Domain.
     @property
-    def taskArea(self):
-        return TaskArea(self.doc, f"{self.path}/taskArea")
+    def businessDomain(self):
+        return BusinessDomain(self.doc, f"{self.path}/businessDomain")
 
     # 4.1.4. User Categories — contains 1+× User Category.
     @property
@@ -43819,71 +43900,6 @@ class SystemOperationAndMonitoring(SomNode):
     def capacityPlanning(self):
         return CapacityPlanningSection(self.doc, f"{self.path}/capacityPlanning")
 
-class SystemOverviewSummary(SomNode):
-    """System overview summary for quick reference."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return SystemOverviewSummaryContentForm(self.doc, f"{self.path}/content")
-
-    # System classification.
-    @property
-    def classification(self):
-        return SystemOverviewSummaryClassification(self.doc, f"{self.path}/classification")
-
-    # Scale indicators.
-    @property
-    def scale(self):
-        return SystemOverviewSummaryScale(self.doc, f"{self.path}/scale")
-
-    # Specification status.
-    @property
-    def status(self):
-        return SystemOverviewSummaryStatus(self.doc, f"{self.path}/status")
-
-    # Complexity indicators.
-    @property
-    def complexity(self):
-        return SystemOverviewSummaryComplexity(self.doc, f"{self.path}/complexity")
-
-class SystemOverviewSummaryClassification(SomNode):
-    """System classification."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return SystemOverviewSummaryClassificationContentForm(self.doc, f"{self.path}/content")
-
-class SystemOverviewSummaryComplexity(SomNode):
-    """Complexity indicators."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return SystemOverviewSummaryComplexityContentForm(self.doc, f"{self.path}/content")
-
-class SystemOverviewSummaryScale(SomNode):
-    """Scale indicators."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return SystemOverviewSummaryScaleContentForm(self.doc, f"{self.path}/content")
-
-class SystemOverviewSummaryStatus(SomNode):
-    """Specification status."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return SystemOverviewSummaryStatusContentForm(self.doc, f"{self.path}/content")
-
 class SystemPurpose(SomNode):
     """4.1.1. System Purpose.
     
@@ -44121,7 +44137,7 @@ class SystemReplacementStrategyTimeline(SomNode):
     def content(self):
         return SystemReplacementStrategyTimelineContentForm(self.doc, f"{self.path}/content")
 
-class SystemRolloutConcept(SomNode):
+class SystemRollout(SomNode):
     """15. System Rollout Concept. Seeds → TRP."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -44147,12 +44163,12 @@ class SystemRolloutConcept(SomNode):
     # 15.3. User Manuals.
     @property
     def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
+        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManual(d, p))
 
     # 15.4. Training Materials.
     @property
     def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
+        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterial(d, p))
 
     # 15.5. Pilot Plan.
     @property
@@ -44162,7 +44178,7 @@ class SystemRolloutConcept(SomNode):
     # 15.6. Cutover Procedures.
     @property
     def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
+        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedure(d, p))
 
     # 15.7. Knowledge Transfer.
     @property
@@ -44173,6 +44189,15 @@ class SystemRolloutConcept(SomNode):
     @property
     def warrantyAndSupport(self):
         return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
+
+class SystemScale(SomNode):
+    """Scale indicators."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return SystemScaleContentForm(self.doc, f"{self.path}/content")
 
 class SystemStagePlan(SomNode):
     """13. System Stage Plan. Seeds → DRM.
@@ -44194,17 +44219,17 @@ class SystemStagePlan(SomNode):
     # Overall schedule and buffer model.
     @property
     def timeline(self):
-        return SystemStagePlanTimeline(self.doc, f"{self.path}/timeline")
+        return StagePlanTimeline(self.doc, f"{self.path}/timeline")
 
     # Dependencies, risks, and compliance constraints across stages.
     @property
     def coordination(self):
-        return SystemStagePlanCoordination(self.doc, f"{self.path}/coordination")
+        return StagePlanCoordination(self.doc, f"{self.path}/coordination")
 
     # Organizational capacity and plan confidence.
     @property
     def readiness(self):
-        return SystemStagePlanReadiness(self.doc, f"{self.path}/readiness")
+        return StagePlanReadiness(self.doc, f"{self.path}/readiness")
 
     # 13.1. Staging Strategy.
     @property
@@ -44246,32 +44271,34 @@ class SystemStagePlan(SomNode):
     def upgradeCycleFramework(self):
         return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
 
-class SystemStagePlanCoordination(SomNode):
-    """Dependencies, risks, and compliance constraints across stages."""
+class SystemSummary(SomNode):
+    """System overview summary for quick reference."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return SystemStagePlanCoordinationContentForm(self.doc, f"{self.path}/content")
+        return SystemSummaryContentForm(self.doc, f"{self.path}/content")
 
-class SystemStagePlanReadiness(SomNode):
-    """Organizational capacity and plan confidence."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
+    # System classification.
     @property
-    def content(self):
-        return SystemStagePlanReadinessContentForm(self.doc, f"{self.path}/content")
+    def classification(self):
+        return SystemClassification(self.doc, f"{self.path}/classification")
 
-class SystemStagePlanTimeline(SomNode):
-    """Overall schedule and buffer model."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
+    # Scale indicators.
     @property
-    def content(self):
-        return SystemStagePlanTimelineContentForm(self.doc, f"{self.path}/content")
+    def scale(self):
+        return SystemScale(self.doc, f"{self.path}/scale")
+
+    # Specification status.
+    @property
+    def status(self):
+        return SpecificationStatus(self.doc, f"{self.path}/status")
+
+    # Complexity indicators.
+    @property
+    def complexity(self):
+        return SystemComplexity(self.doc, f"{self.path}/complexity")
 
 class SystemTaskEntry(SomNode):
     """A system task entry.
@@ -44718,7 +44745,7 @@ class TargetBusinessProcessModel(SomNode):
     def processStepsAndActorInteractions(self):
         return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")
 
-class TargetOperatingModelConcept(SomNode):
+class TargetOperatingModel(SomNode):
     """SBP.7 Target Operating Model concept.
     
     Public anchor: BABOK future-state analysis.
@@ -44808,60 +44835,6 @@ class TargetPlatformEntryVersion(SomNode):
     @property
     def content(self):
         return TargetPlatformEntryVersionContentForm(self.doc, f"{self.path}/content")
-
-class TaskArea(SomNode):
-    """4.1.3. Description of Task Area.
-    
-    Describes the business domain and task area the system addresses.
-    Defines the domain vocabulary and key concepts (ubiquitous language)
-    that will be used throughout the project. Based on Domain-Driven Design
-    principles for establishing a shared understanding.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 4.1.3.1. Domain Overview.
-    @property
-    def domainOverview(self):
-        return DomainOverview(self.doc, f"{self.path}/domainOverview")
-
-    # 4.1.3.2. Domain Vocabulary.
-    @property
-    def domainVocabulary(self):
-        return DomainVocabulary(self.doc, f"{self.path}/domainVocabulary")
-
-    # 4.1.3.3. Key Concepts.
-    @property
-    def keyConcepts(self):
-        return KeyConcepts(self.doc, f"{self.path}/keyConcepts")
-
-    # 4.1.3.4. Domain Boundaries.
-    @property
-    def domainBoundaries(self):
-        return DomainBoundaries(self.doc, f"{self.path}/domainBoundaries")
-
-    # 4.1.3.5. Business Rules.
-    @property
-    def businessRules(self):
-        return DomainBusinessRules(self.doc, f"{self.path}/businessRules")
-
-    # 4.1.3.6. Domain Processes.
-    @property
-    def domainProcesses(self):
-        return DomainProcesses(self.doc, f"{self.path}/domainProcesses")
-
-    # 4.1.3.7. Domain Events.
-    @property
-    def domainEvents(self):
-        return DomainEvents(self.doc, f"{self.path}/domainEvents")
 
 class TeamMemberAvailability(SomNode):
     """Team member availability constraints."""
@@ -45015,6 +44988,128 @@ class TechnicalDependencyEntry(SomNode):
     def content(self):
         return TechnicalDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
+class TechnicalEnvironment(SomNode):
+    """4.6.3. Technical Environment. Seeds → ATS.
+    
+    Documents pre-existing technical constraints including mandated platforms,
+    network restrictions, compliance requirements, existing infrastructure
+    that must be reused, and technology standards to follow. Provides the
+    technical landscape in which the solution must operate. Seeds the detailed
+    Architecture & Technology Specification (ATS) document.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def technicalOverviewContent(self):
+        return TechnicalEnvironmentTechnicalOverviewContentForm(self.doc, f"{self.path}/technicalOverviewContent")
+
+    # Architecture governance context.
+    @property
+    def governance(self):
+        return TechnicalEnvironmentGovernance(self.doc, f"{self.path}/governance")
+
+    # Platform standards and preferred technologies.
+    @property
+    def standards(self):
+        return TechnicalEnvironmentStandards(self.doc, f"{self.path}/standards")
+
+    # Security and compliance requirements.
+    @property
+    def security(self):
+        return TechnicalEnvironmentSecurity(self.doc, f"{self.path}/security")
+
+    # Network and infrastructure standards.
+    @property
+    def network(self):
+        return TechnicalEnvironmentNetwork(self.doc, f"{self.path}/network")
+
+    # Existing infrastructure that must be reused or integrated with.
+    @property
+    def existingInfrastructure(self):
+        return None  # (skipped: no target type)
+
+    # Data center and hosting environment details.
+    @property
+    def datacenters(self):
+        return SomList(self.doc, f"{self.path}/DATAC-DATA-LST", lambda d, p: DatacenterEntry(d, p))
+
+    # Network topology and connectivity constraints.
+    @property
+    def networkTopology(self):
+        return None  # (skipped: no target type)
+
+    # Technology standards that must be followed.
+    @property
+    def standardsOverview(self):
+        return None  # (skipped: no target type)
+
+    # Technology standards — contains 0+× TechnologyStandard.
+    @property
+    def technologyStandards(self):
+        return SomList(self.doc, f"{self.path}/TESTEN-TECH-LST", lambda d, p: TechnologyStandardEntry(d, p))
+
+    # Integration constraints overview.
+    @property
+    def integrationOverview(self):
+        return None  # (skipped: no target type)
+
+    # Integration constraints — contains 0+× IntegrationConstraint.
+    @property
+    def integrationConstraints(self):
+        return SomList(self.doc, f"{self.path}/INCOE1-INTE-LST", lambda d, p: IntegrationConstraintEntry(d, p))
+
+class TechnicalEnvironmentGovernance(SomNode):
+    """Architecture governance context."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TechnicalEnvironmentGovernanceContentForm(self.doc, f"{self.path}/content")
+
+class TechnicalEnvironmentNetwork(SomNode):
+    """Network and infrastructure standards."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TechnicalEnvironmentNetworkContentForm(self.doc, f"{self.path}/content")
+
+    # DevOps and deployment standards.
+    @property
+    def devopsStandards(self):
+        return SomList(self.doc, f"{self.path}/DEVOP-DEVO-LST", lambda d, p: DevopsStandardEntry(d, p))
+
+    # Monitoring and observability requirements.
+    @property
+    def observabilityRequirements(self):
+        return SomList(self.doc, f"{self.path}/OBSER-OBSE-LST", lambda d, p: ObservabilityRequirementEntry(d, p))
+
+    # Disaster recovery and business continuity requirements.
+    @property
+    def disasterRecovery(self):
+        return None  # (skipped: no target type)
+
+class TechnicalEnvironmentSecurity(SomNode):
+    """Security and compliance requirements."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TechnicalEnvironmentSecurityContentForm(self.doc, f"{self.path}/content")
+
+class TechnicalEnvironmentStandards(SomNode):
+    """Platform standards and preferred technologies."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TechnicalEnvironmentStandardsContentForm(self.doc, f"{self.path}/content")
+
 class TechnicalFrameworkConcept(SomNode):
     """8. Technical Framework Concept. Seeds → ATS."""
     def __init__(self, doc, path):
@@ -45072,128 +45167,6 @@ class TechnicalFrameworkConcept(SomNode):
     @property
     def systemArchitecture(self):
         return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
-
-class TechnicalFrameworkConditions(SomNode):
-    """4.6.3. Technical Framework Conditions. Seeds → ATS.
-    
-    Documents pre-existing technical constraints including mandated platforms,
-    network restrictions, compliance requirements, existing infrastructure
-    that must be reused, and technology standards to follow. Provides the
-    technical landscape in which the solution must operate. Seeds the detailed
-    Architecture & Technology Specification (ATS) document.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def technicalOverviewContent(self):
-        return TechnicalFrameworkConditionsTechnicalOverviewContentForm(self.doc, f"{self.path}/technicalOverviewContent")
-
-    # Architecture governance context.
-    @property
-    def governance(self):
-        return TechnicalFrameworkConditionsGovernance(self.doc, f"{self.path}/governance")
-
-    # Platform standards and preferred technologies.
-    @property
-    def standards(self):
-        return TechnicalFrameworkConditionsStandards(self.doc, f"{self.path}/standards")
-
-    # Security and compliance requirements.
-    @property
-    def security(self):
-        return TechnicalFrameworkConditionsSecurity(self.doc, f"{self.path}/security")
-
-    # Network and infrastructure standards.
-    @property
-    def network(self):
-        return TechnicalFrameworkConditionsNetwork(self.doc, f"{self.path}/network")
-
-    # Existing infrastructure that must be reused or integrated with.
-    @property
-    def existingInfrastructure(self):
-        return None  # (skipped: no target type)
-
-    # Data center and hosting environment details.
-    @property
-    def datacenters(self):
-        return SomList(self.doc, f"{self.path}/DATAC-DATA-LST", lambda d, p: DatacenterEntry(d, p))
-
-    # Network topology and connectivity constraints.
-    @property
-    def networkTopology(self):
-        return None  # (skipped: no target type)
-
-    # Technology standards that must be followed.
-    @property
-    def standardsOverview(self):
-        return None  # (skipped: no target type)
-
-    # Technology standards — contains 0+× TechnologyStandard.
-    @property
-    def technologyStandards(self):
-        return SomList(self.doc, f"{self.path}/TESTEN-TECH-LST", lambda d, p: TechnologyStandardEntry(d, p))
-
-    # Integration constraints overview.
-    @property
-    def integrationOverview(self):
-        return None  # (skipped: no target type)
-
-    # Integration constraints — contains 0+× IntegrationConstraint.
-    @property
-    def integrationConstraints(self):
-        return SomList(self.doc, f"{self.path}/INCOE1-INTE-LST", lambda d, p: IntegrationConstraintEntry(d, p))
-
-class TechnicalFrameworkConditionsGovernance(SomNode):
-    """Architecture governance context."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TechnicalFrameworkConditionsGovernanceContentForm(self.doc, f"{self.path}/content")
-
-class TechnicalFrameworkConditionsNetwork(SomNode):
-    """Network and infrastructure standards."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TechnicalFrameworkConditionsNetworkContentForm(self.doc, f"{self.path}/content")
-
-    # DevOps and deployment standards.
-    @property
-    def devopsStandards(self):
-        return SomList(self.doc, f"{self.path}/DEVOP-DEVO-LST", lambda d, p: DevopsStandardEntry(d, p))
-
-    # Monitoring and observability requirements.
-    @property
-    def observabilityRequirements(self):
-        return SomList(self.doc, f"{self.path}/OBSER-OBSE-LST", lambda d, p: ObservabilityRequirementEntry(d, p))
-
-    # Disaster recovery and business continuity requirements.
-    @property
-    def disasterRecovery(self):
-        return None  # (skipped: no target type)
-
-class TechnicalFrameworkConditionsSecurity(SomNode):
-    """Security and compliance requirements."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TechnicalFrameworkConditionsSecurityContentForm(self.doc, f"{self.path}/content")
-
-class TechnicalFrameworkConditionsStandards(SomNode):
-    """Platform standards and preferred technologies."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TechnicalFrameworkConditionsStandardsContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalGoalConstraints(SomNode):
     """4.2.2.n.4. Constraints.
@@ -46898,7 +46871,7 @@ class TrainingDeliverableRequirements(SomNode):
     half in L34C-7 (SR-29). Logically re-homed under SBP.9
     `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
     file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-    (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+    (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
     content in one D12 subsection rather than fragmenting it across a new id.
     """
     def __init__(self, doc, path):
@@ -47488,6 +47461,15 @@ class TransitionSupportStructure(SomNode):
     def escalationPaths(self):
         return SomList(self.doc, f"{self.path}/TRESPA-ESCA-LST", lambda d, p: TransitionEscalationPaths(d, p))
 
+class TranslationOngoing(SomNode):
+    """Ongoing localization operations."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TranslationOngoingContentForm(self.doc, f"{self.path}/content")
+
 class TranslationProcess(SomNode):
     """10.12.2. Translation Process.
     
@@ -47503,22 +47485,22 @@ class TranslationProcess(SomNode):
     # Translation workflow.
     @property
     def workflow(self):
-        return TranslationProcessWorkflow(self.doc, f"{self.path}/workflow")
+        return TranslationWorkflow(self.doc, f"{self.path}/workflow")
 
     # Quality assurance.
     @property
     def quality(self):
-        return TranslationProcessQuality(self.doc, f"{self.path}/quality")
+        return TranslationQuality(self.doc, f"{self.path}/quality")
 
     # Terminology and voice management.
     @property
     def terminology(self):
-        return TranslationProcessTerminology(self.doc, f"{self.path}/terminology")
+        return TranslationTerminology(self.doc, f"{self.path}/terminology")
 
     # Ongoing localization operations.
     @property
     def ongoing(self):
-        return TranslationProcessOngoing(self.doc, f"{self.path}/ongoing")
+        return TranslationOngoing(self.doc, f"{self.path}/ongoing")
 
     # Translation process narrative.
     @property
@@ -47530,41 +47512,14 @@ class TranslationProcess(SomNode):
     def vendors(self):
         return SomList(self.doc, f"{self.path}/TRVEEN-VEND-LST", lambda d, p: TranslationVendorEntry(d, p))
 
-class TranslationProcessOngoing(SomNode):
-    """Ongoing localization operations."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TranslationProcessOngoingContentForm(self.doc, f"{self.path}/content")
-
-class TranslationProcessQuality(SomNode):
+class TranslationQuality(SomNode):
     """Quality assurance."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return TranslationProcessQualityContentForm(self.doc, f"{self.path}/content")
-
-class TranslationProcessTerminology(SomNode):
-    """Terminology and voice management."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TranslationProcessTerminologyContentForm(self.doc, f"{self.path}/content")
-
-class TranslationProcessWorkflow(SomNode):
-    """Translation workflow."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return TranslationProcessWorkflowContentForm(self.doc, f"{self.path}/content")
+        return TranslationQualityContentForm(self.doc, f"{self.path}/content")
 
 class TranslationRequirements(SomNode):
     """10.12.5. Translation Handling Requirements.
@@ -47639,6 +47594,15 @@ class TranslationRequirementsVariants(SomNode):
     def content(self):
         return TranslationRequirementsVariantsContentForm(self.doc, f"{self.path}/content")
 
+class TranslationTerminology(SomNode):
+    """Terminology and voice management."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TranslationTerminologyContentForm(self.doc, f"{self.path}/content")
+
 class TranslationVendorEntry(SomNode):
     """A translation vendor entry."""
     def __init__(self, doc, path):
@@ -47647,6 +47611,15 @@ class TranslationVendorEntry(SomNode):
     @property
     def content(self):
         return TranslationVendorEntryContentForm(self.doc, f"{self.path}/content")
+
+class TranslationWorkflow(SomNode):
+    """Translation workflow."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return TranslationWorkflowContentForm(self.doc, f"{self.path}/content")
 
 class TransportSecurityPolicy(SomNode):
     """HSTS and Transport Security Policy (form).
@@ -48146,17 +48119,17 @@ class UiComponents(SomNode):
     # Visual language and brand alignment.
     @property
     def visualLanguage(self):
-        return UiComponentsVisualLanguage(self.doc, f"{self.path}/visualLanguage")
+        return ComponentVisualLanguage(self.doc, f"{self.path}/visualLanguage")
 
     # Component naming and documentation approach.
     @property
     def componentApproach(self):
-        return UiComponentsComponentApproach(self.doc, f"{self.path}/componentApproach")
+        return ComponentApproach(self.doc, f"{self.path}/componentApproach")
 
     # Extension and theming boundaries.
     @property
     def customization(self):
-        return UiComponentsCustomization(self.doc, f"{self.path}/customization")
+        return ComponentCustomization(self.doc, f"{self.path}/customization")
 
     # 10.11.1. Component Library.
     @property
@@ -48172,45 +48145,6 @@ class UiComponents(SomNode):
     @property
     def componentFamilies(self):
         return SomList(self.doc, f"{self.path}/CMFA-COMP-LST", lambda d, p: ComponentFamilyEntry(d, p))
-
-class UiComponentsComponentApproach(SomNode):
-    """Component naming and documentation approach."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return UiComponentsComponentApproachContentForm(self.doc, f"{self.path}/content")
-
-class UiComponentsCustomization(SomNode):
-    """Extension and theming boundaries."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return UiComponentsCustomizationContentForm(self.doc, f"{self.path}/content")
-
-class UiComponentsVisualLanguage(SomNode):
-    """Visual language and brand alignment."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return UiComponentsVisualLanguageContentForm(self.doc, f"{self.path}/content")
-
-class UiDesignPrincipleEntry(SomNode):
-    """A design principle entry (form).
-    
-    Each principle guides UI decisions with rationale and examples.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return UiDesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
 
 class UpgradeCycleFramework(SomNode):
     """13.8. Upgrade Cycle Framework.
@@ -48533,6 +48467,72 @@ class UserAccountStatesDefinition(SomNode):
     @property
     def stateTransitionDiagram(self):
         return None  # (skipped: no target type)
+
+class UserAssistance(SomNode):
+    """10.8. User Assistance.
+    
+    Comprehensive in-app help system including contextual help, onboarding,
+    and support access mechanisms.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def helpOverviewContent(self):
+        return UserAssistanceHelpOverviewContentForm(self.doc, f"{self.path}/helpOverviewContent")
+
+    # Content stewardship and help affordances.
+    @property
+    def delivery(self):
+        return UserAssistanceDelivery(self.doc, f"{self.path}/delivery")
+
+    # Analytics and improvement feedback.
+    @property
+    def insights(self):
+        return UserAssistanceInsights(self.doc, f"{self.path}/insights")
+
+    # Help system overview narrative.
+    @property
+    def helpOverview(self):
+        return None  # (skipped: no target type)
+
+    # 10.8.1. Contextual Help.
+    @property
+    def contextualHelp(self):
+        return ContextualHelp(self.doc, f"{self.path}/contextualHelp")
+
+    # 10.8.2. Onboarding.
+    @property
+    def onboarding(self):
+        return OnboardingHelp(self.doc, f"{self.path}/onboarding")
+
+    # 10.8.3. Support Access.
+    @property
+    def supportAccess(self):
+        return SupportAccess(self.doc, f"{self.path}/supportAccess")
+
+    # Help content inventory.
+    @property
+    def helpContentInventory(self):
+        return None  # (skipped: no target type)
+
+class UserAssistanceDelivery(SomNode):
+    """Content stewardship and help affordances."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return UserAssistanceDeliveryContentForm(self.doc, f"{self.path}/content")
+
+class UserAssistanceInsights(SomNode):
+    """Analytics and improvement feedback."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return UserAssistanceInsightsContentForm(self.doc, f"{self.path}/content")
 
 class UserAttributeEntry(SomNode):
     """A user attribute entry (form)."""
@@ -48930,7 +48930,7 @@ class UserJourneyPainPointEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-class UserLifecycleSection(SomNode):
+class UserLifecycle(SomNode):
     """9.1.2. User Lifecycle.
     
     Defines the complete user account lifecycle: states, transitions between
@@ -49106,14 +49106,14 @@ class UserManagement(SomNode):
     # 9.1.2. User Lifecycle.
     @property
     def userLifecycle(self):
-        return UserLifecycleSection(self.doc, f"{self.path}/userLifecycle")
+        return UserLifecycle(self.doc, f"{self.path}/userLifecycle")
 
     # 9.1.3. User Attributes.
     @property
     def userAttributes(self):
         return UserAttributes(self.doc, f"{self.path}/userAttributes")
 
-class UserManuals(SomNode):
+class UserManual(SomNode):
     """15.3. User Manuals.
     
     End-user documentation deliverables covering user-manual content.
@@ -65847,6 +65847,36 @@ class ComponentActionEntryGovernanceContentForm(SomNode):
     def confirmationMessage(self, value):
         self.doc.set_form_field(self.path, "confirmationMessage", value)
 
+class ComponentApproachContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def componentGranularity(self):
+        return self.doc.form_field(self.path, "componentGranularity") or ""
+
+    @componentGranularity.setter
+    def componentGranularity(self, value):
+        self.doc.set_form_field(self.path, "componentGranularity", value)
+
+    @property
+    def componentNaming(self):
+        return self.doc.form_field(self.path, "componentNaming") or ""
+
+    @componentNaming.setter
+    def componentNaming(self, value):
+        self.doc.set_form_field(self.path, "componentNaming", value)
+
+    @property
+    def componentDocumentation(self):
+        return self.doc.form_field(self.path, "componentDocumentation") or ""
+
+    @componentDocumentation.setter
+    def componentDocumentation(self, value):
+        self.doc.set_form_field(self.path, "componentDocumentation", value)
+
 class ComponentComplianceContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -65890,6 +65920,36 @@ class ComponentCostContentForm(SomNode):
     @totalCostOngoing.setter
     def totalCostOngoing(self, value):
         self.doc.set_form_field(self.path, "totalCostOngoing", value)
+
+class ComponentCustomizationContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def extensionModel(self):
+        return self.doc.form_field(self.path, "extensionModel") or ""
+
+    @extensionModel.setter
+    def extensionModel(self, value):
+        self.doc.set_form_field(self.path, "extensionModel", value)
+
+    @property
+    def themingApproach(self):
+        return self.doc.form_field(self.path, "themingApproach") or ""
+
+    @themingApproach.setter
+    def themingApproach(self, value):
+        self.doc.set_form_field(self.path, "themingApproach", value)
+
+    @property
+    def customizationBoundaries(self):
+        return self.doc.form_field(self.path, "customizationBoundaries") or ""
+
+    @customizationBoundaries.setter
+    def customizationBoundaries(self, value):
+        self.doc.set_form_field(self.path, "customizationBoundaries", value)
 
 class ComponentDeploymentContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -68196,6 +68256,36 @@ class ComponentVendorContentForm(SomNode):
     @vendorStability.setter
     def vendorStability(self, value):
         self.doc.set_form_field(self.path, "vendorStability", value)
+
+class ComponentVisualLanguageContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def visualLanguage(self):
+        return self.doc.form_field(self.path, "visualLanguage") or ""
+
+    @visualLanguage.setter
+    def visualLanguage(self, value):
+        self.doc.set_form_field(self.path, "visualLanguage", value)
+
+    @property
+    def brandAlignment(self):
+        return self.doc.form_field(self.path, "brandAlignment") or ""
+
+    @brandAlignment.setter
+    def brandAlignment(self, value):
+        self.doc.set_form_field(self.path, "brandAlignment", value)
+
+    @property
+    def motionPrinciples(self):
+        return self.doc.form_field(self.path, "motionPrinciples") or ""
+
+    @motionPrinciples.setter
+    def motionPrinciples(self, value):
+        self.doc.set_form_field(self.path, "motionPrinciples", value)
 
 class ComputeResourceRequirementsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -78147,6 +78237,76 @@ class DesignPatternEntryStructureContentForm(SomNode):
     def variations(self, value):
         self.doc.set_form_field(self.path, "variations", value)
 
+class DesignPrincipleEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def principleName(self):
+        return self.doc.form_field(self.path, "principleName") or ""
+
+    @principleName.setter
+    def principleName(self, value):
+        self.doc.set_form_field(self.path, "principleName", value)
+
+    @property
+    def description(self):
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def rationale(self):
+        return self.doc.form_field(self.path, "rationale") or ""
+
+    @rationale.setter
+    def rationale(self, value):
+        self.doc.set_form_field(self.path, "rationale", value)
+
+    @property
+    def category(self):
+        return self.doc.form_field(self.path, "category") or ""
+
+    @category.setter
+    def category(self, value):
+        self.doc.set_form_field(self.path, "category", value)
+
+    @property
+    def examples(self):
+        return self.doc.form_field(self.path, "examples") or ""
+
+    @examples.setter
+    def examples(self, value):
+        self.doc.set_form_field(self.path, "examples", value)
+
+    @property
+    def exceptions(self):
+        return self.doc.form_field(self.path, "exceptions") or ""
+
+    @exceptions.setter
+    def exceptions(self, value):
+        self.doc.set_form_field(self.path, "exceptions", value)
+
+    @property
+    def sourceReference(self):
+        return self.doc.form_field(self.path, "sourceReference") or ""
+
+    @sourceReference.setter
+    def sourceReference(self, value):
+        self.doc.set_form_field(self.path, "sourceReference", value)
+
+    @property
+    def relatedGoals(self):
+        return self.doc.form_field(self.path, "relatedGoals") or ""
+
+    @relatedGoals.setter
+    def relatedGoals(self, value):
+        self.doc.set_form_field(self.path, "relatedGoals", value)
+
 class DesignPrinciplesOverviewContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -83591,7 +83751,7 @@ class ErrorBudgetTrackingMonitoringContentForm(SomNode):
     def burnRateTimePeriods(self, value):
         self.doc.set_form_field(self.path, "burnRateTimePeriods", value)
 
-class ErrorHandlingConceptAccessibilityContentForm(SomNode):
+class ErrorHandlingAccessibilityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -83621,7 +83781,7 @@ class ErrorHandlingConceptAccessibilityContentForm(SomNode):
     def nonColorIndicators(self, value):
         self.doc.set_form_field(self.path, "nonColorIndicators", value)
 
-class ErrorHandlingConceptClassificationContentForm(SomNode):
+class ErrorHandlingClassificationContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -83651,7 +83811,7 @@ class ErrorHandlingConceptClassificationContentForm(SomNode):
     def errorPriorityDisplay(self, value):
         self.doc.set_form_field(self.path, "errorPriorityDisplay", value)
 
-class ErrorHandlingConceptErrorPhilosophyContentForm(SomNode):
+class ErrorHandlingErrorPhilosophyContentForm(SomNode):
     """Generated form facade for the `errorPhilosophyContent` @Form section."""
 
     def __init__(self, doc, path):
@@ -83689,7 +83849,7 @@ class ErrorHandlingConceptErrorPhilosophyContentForm(SomNode):
     def blameAvoidance(self, value):
         self.doc.set_form_field(self.path, "blameAvoidance", value)
 
-class ErrorHandlingConceptOperationsContentForm(SomNode):
+class ErrorHandlingOperationsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -90450,112 +90610,6 @@ class HealthCheckEndpointsTimingContentForm(SomNode):
     @successThreshold.setter
     def successThreshold(self, value):
         self.doc.set_form_field(self.path, "successThreshold", value)
-
-class HelpConceptDeliveryContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def helpContentOwnership(self):
-        return self.doc.form_field(self.path, "helpContentOwnership") or ""
-
-    @helpContentOwnership.setter
-    def helpContentOwnership(self, value):
-        self.doc.set_form_field(self.path, "helpContentOwnership", value)
-
-    @property
-    def helpUpdateProcess(self):
-        return self.doc.form_field(self.path, "helpUpdateProcess") or ""
-
-    @helpUpdateProcess.setter
-    def helpUpdateProcess(self, value):
-        self.doc.set_form_field(self.path, "helpUpdateProcess", value)
-
-    @property
-    def helpIconStandard(self):
-        return self.doc.form_field(self.path, "helpIconStandard") or ""
-
-    @helpIconStandard.setter
-    def helpIconStandard(self, value):
-        self.doc.set_form_field(self.path, "helpIconStandard", value)
-
-    @property
-    def helpIconPlacement(self):
-        return self.doc.form_field(self.path, "helpIconPlacement") or ""
-
-    @helpIconPlacement.setter
-    def helpIconPlacement(self, value):
-        self.doc.set_form_field(self.path, "helpIconPlacement", value)
-
-    @property
-    def helpTooltipStyle(self):
-        return self.doc.form_field(self.path, "helpTooltipStyle") or ""
-
-    @helpTooltipStyle.setter
-    def helpTooltipStyle(self, value):
-        self.doc.set_form_field(self.path, "helpTooltipStyle", value)
-
-class HelpConceptHelpOverviewContentForm(SomNode):
-    """Generated form facade for the `helpOverviewContent` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def helpPhilosophy(self):
-        return self.doc.form_field(self.path, "helpPhilosophy") or ""
-
-    @helpPhilosophy.setter
-    def helpPhilosophy(self, value):
-        self.doc.set_form_field(self.path, "helpPhilosophy", value)
-
-    @property
-    def helpAccessibility(self):
-        return self.doc.form_field(self.path, "helpAccessibility") or ""
-
-    @helpAccessibility.setter
-    def helpAccessibility(self, value):
-        self.doc.set_form_field(self.path, "helpAccessibility", value)
-
-    @property
-    def helpPersonalization(self):
-        return self.doc.form_field(self.path, "helpPersonalization") or ""
-
-    @helpPersonalization.setter
-    def helpPersonalization(self, value):
-        self.doc.set_form_field(self.path, "helpPersonalization", value)
-
-    @property
-    def helpContentStrategy(self):
-        return self.doc.form_field(self.path, "helpContentStrategy") or ""
-
-    @helpContentStrategy.setter
-    def helpContentStrategy(self, value):
-        self.doc.set_form_field(self.path, "helpContentStrategy", value)
-
-class HelpConceptInsightsContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def helpAnalytics(self):
-        return self.doc.form_field(self.path, "helpAnalytics") or ""
-
-    @helpAnalytics.setter
-    def helpAnalytics(self, value):
-        self.doc.set_form_field(self.path, "helpAnalytics", value)
-
-    @property
-    def helpFeedback(self):
-        return self.doc.form_field(self.path, "helpFeedback") or ""
-
-    @helpFeedback.setter
-    def helpFeedback(self, value):
-        self.doc.set_form_field(self.path, "helpFeedback", value)
 
 class HighAvailabilityRequirementsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -98737,7 +98791,75 @@ class LocalDevelopmentSetupWorkflowContentForm(SomNode):
     def configurationFiles(self, value):
         self.doc.set_form_field(self.path, "configurationFiles", value)
 
-class LocalizationProcessDeploymentContentForm(SomNode):
+class LocaleHandlingRequirementsContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def localeFormat(self):
+        return self.doc.form_field(self.path, "localeFormat") or ""
+
+    @localeFormat.setter
+    def localeFormat(self, value):
+        self.doc.set_form_field(self.path, "localeFormat", value)
+
+    @property
+    def countryVariants(self):
+        return self.doc.form_field(self.path, "countryVariants") or ""
+
+    @countryVariants.setter
+    def countryVariants(self, value):
+        self.doc.set_form_field(self.path, "countryVariants", value)
+
+    @property
+    def localeDetection(self):
+        return self.doc.form_field(self.path, "localeDetection") or ""
+
+    @localeDetection.setter
+    def localeDetection(self, value):
+        self.doc.set_form_field(self.path, "localeDetection", value)
+
+    @property
+    def localeFallbackChain(self):
+        return self.doc.form_field(self.path, "localeFallbackChain") or ""
+
+    @localeFallbackChain.setter
+    def localeFallbackChain(self, value):
+        self.doc.set_form_field(self.path, "localeFallbackChain", value)
+
+class LocaleRolloutPlanContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def rolloutStrategy(self):
+        return self.doc.form_field(self.path, "rolloutStrategy") or ""
+
+    @rolloutStrategy.setter
+    def rolloutStrategy(self, value):
+        self.doc.set_form_field(self.path, "rolloutStrategy", value)
+
+    @property
+    def rolloutTimeline(self):
+        return self.doc.form_field(self.path, "rolloutTimeline") or ""
+
+    @rolloutTimeline.setter
+    def rolloutTimeline(self, value):
+        self.doc.set_form_field(self.path, "rolloutTimeline", value)
+
+    @property
+    def rolloutRegions(self):
+        return self.doc.form_field(self.path, "rolloutRegions") or ""
+
+    @rolloutRegions.setter
+    def rolloutRegions(self, value):
+        self.doc.set_form_field(self.path, "rolloutRegions", value)
+
+class LocalizationDeploymentContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -98767,7 +98889,7 @@ class LocalizationProcessDeploymentContentForm(SomNode):
     def perLocaleCustomization(self, value):
         self.doc.set_form_field(self.path, "perLocaleCustomization", value)
 
-class LocalizationProcessFormattingContentForm(SomNode):
+class LocalizationFormattingContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -98851,7 +98973,7 @@ class LocalizationProcessLocalizationProcessContentForm(SomNode):
     def localizationScope(self, value):
         self.doc.set_form_field(self.path, "localizationScope", value)
 
-class LocalizationProcessReviewContentForm(SomNode):
+class LocalizationReviewContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -105251,45 +105373,7 @@ class MultiChannelExperienceMultiChannelConfigurationForm(SomNode):
     def offlineFirst(self, value):
         self.doc.set_form_field(self.path, "offlineFirst", value)
 
-class MultiLanguageAndRolloutLocaleHandlingContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def localeFormat(self):
-        return self.doc.form_field(self.path, "localeFormat") or ""
-
-    @localeFormat.setter
-    def localeFormat(self, value):
-        self.doc.set_form_field(self.path, "localeFormat", value)
-
-    @property
-    def countryVariants(self):
-        return self.doc.form_field(self.path, "countryVariants") or ""
-
-    @countryVariants.setter
-    def countryVariants(self, value):
-        self.doc.set_form_field(self.path, "countryVariants", value)
-
-    @property
-    def localeDetection(self):
-        return self.doc.form_field(self.path, "localeDetection") or ""
-
-    @localeDetection.setter
-    def localeDetection(self, value):
-        self.doc.set_form_field(self.path, "localeDetection", value)
-
-    @property
-    def localeFallbackChain(self):
-        return self.doc.form_field(self.path, "localeFallbackChain") or ""
-
-    @localeFallbackChain.setter
-    def localeFallbackChain(self, value):
-        self.doc.set_form_field(self.path, "localeFallbackChain", value)
-
-class MultiLanguageAndRolloutMultiLanguageOverviewForm(SomNode):
+class MultiLanguageSupportMultiLanguageOverviewForm(SomNode):
     """Generated form facade for the `multiLanguageOverview` @Form section."""
 
     def __init__(self, doc, path):
@@ -105326,36 +105410,6 @@ class MultiLanguageAndRolloutMultiLanguageOverviewForm(SomNode):
     @rtlLanguages.setter
     def rtlLanguages(self, value):
         self.doc.set_form_field(self.path, "rtlLanguages", value)
-
-class MultiLanguageAndRolloutPlanContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def rolloutStrategy(self):
-        return self.doc.form_field(self.path, "rolloutStrategy") or ""
-
-    @rolloutStrategy.setter
-    def rolloutStrategy(self, value):
-        self.doc.set_form_field(self.path, "rolloutStrategy", value)
-
-    @property
-    def rolloutTimeline(self):
-        return self.doc.form_field(self.path, "rolloutTimeline") or ""
-
-    @rolloutTimeline.setter
-    def rolloutTimeline(self, value):
-        self.doc.set_form_field(self.path, "rolloutTimeline", value)
-
-    @property
-    def rolloutRegions(self):
-        return self.doc.form_field(self.path, "rolloutRegions") or ""
-
-    @rolloutRegions.setter
-    def rolloutRegions(self, value):
-        self.doc.set_form_field(self.path, "rolloutRegions", value)
 
 class MustPassCriteriaMustPassOverviewContentForm(SomNode):
     """Generated form facade for the `mustPassOverviewContent` @Form section."""
@@ -112923,6 +112977,36 @@ class PrimaryNavigationSidebarContentForm(SomNode):
     def overflowBehavior(self, value):
         self.doc.set_form_field(self.path, "overflowBehavior", value)
 
+class PrintAndExportLayoutContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def printStrategy(self):
+        return self.doc.form_field(self.path, "printStrategy") or ""
+
+    @printStrategy.setter
+    def printStrategy(self, value):
+        self.doc.set_form_field(self.path, "printStrategy", value)
+
+    @property
+    def defaultPaperSize(self):
+        return self.doc.form_field(self.path, "defaultPaperSize") or ""
+
+    @defaultPaperSize.setter
+    def defaultPaperSize(self, value):
+        self.doc.set_form_field(self.path, "defaultPaperSize", value)
+
+    @property
+    def defaultOrientation(self):
+        return self.doc.form_field(self.path, "defaultOrientation") or ""
+
+    @defaultOrientation.setter
+    def defaultOrientation(self, value):
+        self.doc.set_form_field(self.path, "defaultOrientation", value)
+
 class PrintLayoutArchiveContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -113006,36 +113090,6 @@ class PrintLayoutBrandingContentForm(SomNode):
     @brandingFontSizeBase.setter
     def brandingFontSizeBase(self, value):
         self.doc.set_form_field(self.path, "brandingFontSizeBase", value)
-
-class PrintLayoutContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def printStrategy(self):
-        return self.doc.form_field(self.path, "printStrategy") or ""
-
-    @printStrategy.setter
-    def printStrategy(self, value):
-        self.doc.set_form_field(self.path, "printStrategy", value)
-
-    @property
-    def defaultPaperSize(self):
-        return self.doc.form_field(self.path, "defaultPaperSize") or ""
-
-    @defaultPaperSize.setter
-    def defaultPaperSize(self, value):
-        self.doc.set_form_field(self.path, "defaultPaperSize", value)
-
-    @property
-    def defaultOrientation(self):
-        return self.doc.form_field(self.path, "defaultOrientation") or ""
-
-    @defaultOrientation.setter
-    def defaultOrientation(self, value):
-        self.doc.set_form_field(self.path, "defaultOrientation", value)
 
 class PrintLayoutHeaderFooterContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -117391,7 +117445,7 @@ class PrototypeTimelineContentForm(SomNode):
     def evaluationPeriod(self, value):
         self.doc.set_form_field(self.path, "evaluationPeriod", value)
 
-class PrototypeTypeSectionPrototypeTypeOverviewForm(SomNode):
+class PrototypeTypePrototypeTypeOverviewForm(SomNode):
     """Generated form facade for the `prototypeTypeOverview` @Form section."""
 
     def __init__(self, doc, path):
@@ -135153,6 +135207,44 @@ class SpecializedEquipmentEntryTechnicalContentForm(SomNode):
     def certifications(self, value):
         self.doc.set_form_field(self.path, "certifications", value)
 
+class SpecificationStatusContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def specificationVersion(self):
+        return self.doc.form_field(self.path, "specificationVersion") or ""
+
+    @specificationVersion.setter
+    def specificationVersion(self, value):
+        self.doc.set_form_field(self.path, "specificationVersion", value)
+
+    @property
+    def specificationDate(self):
+        return self.doc.form_field(self.path, "specificationDate") or ""
+
+    @specificationDate.setter
+    def specificationDate(self, value):
+        self.doc.set_form_field(self.path, "specificationDate", value)
+
+    @property
+    def specificationStatus(self):
+        return self.doc.form_field(self.path, "specificationStatus") or ""
+
+    @specificationStatus.setter
+    def specificationStatus(self, value):
+        self.doc.set_form_field(self.path, "specificationStatus", value)
+
+    @property
+    def targetGoLiveDate(self):
+        return self.doc.form_field(self.path, "targetGoLiveDate") or ""
+
+    @targetGoLiveDate.setter
+    def targetGoLiveDate(self, value):
+        self.doc.set_form_field(self.path, "targetGoLiveDate", value)
+
 class StaffingBudgetAllocationsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -137070,6 +137162,112 @@ class StageOverviewStatusContentForm(SomNode):
     @confidenceBasis.setter
     def confidenceBasis(self, value):
         self.doc.set_form_field(self.path, "confidenceBasis", value)
+
+class StagePlanCoordinationContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def crossStageDependencySummary(self):
+        return self.doc.form_field(self.path, "crossStageDependencySummary") or ""
+
+    @crossStageDependencySummary.setter
+    def crossStageDependencySummary(self, value):
+        self.doc.set_form_field(self.path, "crossStageDependencySummary", value)
+
+    @property
+    def crossStageRiskSummary(self):
+        return self.doc.form_field(self.path, "crossStageRiskSummary") or ""
+
+    @crossStageRiskSummary.setter
+    def crossStageRiskSummary(self, value):
+        self.doc.set_form_field(self.path, "crossStageRiskSummary", value)
+
+    @property
+    def regulatoryComplianceConsiderations(self):
+        return self.doc.form_field(self.path, "regulatoryComplianceConsiderations") or ""
+
+    @regulatoryComplianceConsiderations.setter
+    def regulatoryComplianceConsiderations(self, value):
+        self.doc.set_form_field(self.path, "regulatoryComplianceConsiderations", value)
+
+class StagePlanReadinessContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def organizationalReadinessLevel(self):
+        return self.doc.form_field(self.path, "organizationalReadinessLevel") or ""
+
+    @organizationalReadinessLevel.setter
+    def organizationalReadinessLevel(self, value):
+        self.doc.set_form_field(self.path, "organizationalReadinessLevel", value)
+
+    @property
+    def changeAbsorptionCapacity(self):
+        return self.doc.form_field(self.path, "changeAbsorptionCapacity") or ""
+
+    @changeAbsorptionCapacity.setter
+    def changeAbsorptionCapacity(self, value):
+        self.doc.set_form_field(self.path, "changeAbsorptionCapacity", value)
+
+    @property
+    def confidenceLevel(self):
+        return self.doc.form_field(self.path, "confidenceLevel") or ""
+
+    @confidenceLevel.setter
+    def confidenceLevel(self, value):
+        self.doc.set_form_field(self.path, "confidenceLevel", value)
+
+    @property
+    def lastPlanReviewDate(self):
+        return self.doc.form_field(self.path, "lastPlanReviewDate") or ""
+
+    @lastPlanReviewDate.setter
+    def lastPlanReviewDate(self, value):
+        self.doc.set_form_field(self.path, "lastPlanReviewDate", value)
+
+class StagePlanTimelineContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def overallPlannedStart(self):
+        return self.doc.form_field(self.path, "overallPlannedStart") or ""
+
+    @overallPlannedStart.setter
+    def overallPlannedStart(self, value):
+        self.doc.set_form_field(self.path, "overallPlannedStart", value)
+
+    @property
+    def overallTargetCompletion(self):
+        return self.doc.form_field(self.path, "overallTargetCompletion") or ""
+
+    @overallTargetCompletion.setter
+    def overallTargetCompletion(self, value):
+        self.doc.set_form_field(self.path, "overallTargetCompletion", value)
+
+    @property
+    def totalDuration(self):
+        return self.doc.form_field(self.path, "totalDuration") or ""
+
+    @totalDuration.setter
+    def totalDuration(self, value):
+        self.doc.set_form_field(self.path, "totalDuration", value)
+
+    @property
+    def bufferStrategy(self):
+        return self.doc.form_field(self.path, "bufferStrategy") or ""
+
+    @bufferStrategy.setter
+    def bufferStrategy(self, value):
+        self.doc.set_form_field(self.path, "bufferStrategy", value)
 
 class StageQualityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -139729,6 +139927,66 @@ class SystemBusinessUnitEntryContentForm(SomNode):
     def impactIfRemoved(self, value):
         self.doc.set_form_field(self.path, "impactIfRemoved", value)
 
+class SystemClassificationContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def systemType(self):
+        return self.doc.form_field(self.path, "systemType") or ""
+
+    @systemType.setter
+    def systemType(self, value):
+        self.doc.set_form_field(self.path, "systemType", value)
+
+    @property
+    def businessDomain(self):
+        return self.doc.form_field(self.path, "businessDomain") or ""
+
+    @businessDomain.setter
+    def businessDomain(self, value):
+        self.doc.set_form_field(self.path, "businessDomain", value)
+
+    @property
+    def deploymentModel(self):
+        return self.doc.form_field(self.path, "deploymentModel") or ""
+
+    @deploymentModel.setter
+    def deploymentModel(self, value):
+        self.doc.set_form_field(self.path, "deploymentModel", value)
+
+class SystemComplexityContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def overallComplexity(self):
+        return self.doc.form_field(self.path, "overallComplexity") or ""
+
+    @overallComplexity.setter
+    def overallComplexity(self, value):
+        self.doc.set_form_field(self.path, "overallComplexity", value)
+
+    @property
+    def keyRisks(self):
+        return self.doc.form_field(self.path, "keyRisks") or ""
+
+    @keyRisks.setter
+    def keyRisks(self, value):
+        self.doc.set_form_field(self.path, "keyRisks", value)
+
+    @property
+    def keyAssumptions(self):
+        return self.doc.form_field(self.path, "keyAssumptions") or ""
+
+    @keyAssumptions.setter
+    def keyAssumptions(self, value):
+        self.doc.set_form_field(self.path, "keyAssumptions", value)
+
 class SystemConfigurationManagementContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -141265,188 +141523,6 @@ class SystemMigrationRiskEntryContentForm(SomNode):
     def owner(self, value):
         self.doc.set_form_field(self.path, "owner", value)
 
-class SystemOverviewSummaryClassificationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def systemType(self):
-        return self.doc.form_field(self.path, "systemType") or ""
-
-    @systemType.setter
-    def systemType(self, value):
-        self.doc.set_form_field(self.path, "systemType", value)
-
-    @property
-    def businessDomain(self):
-        return self.doc.form_field(self.path, "businessDomain") or ""
-
-    @businessDomain.setter
-    def businessDomain(self, value):
-        self.doc.set_form_field(self.path, "businessDomain", value)
-
-    @property
-    def deploymentModel(self):
-        return self.doc.form_field(self.path, "deploymentModel") or ""
-
-    @deploymentModel.setter
-    def deploymentModel(self, value):
-        self.doc.set_form_field(self.path, "deploymentModel", value)
-
-class SystemOverviewSummaryComplexityContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def overallComplexity(self):
-        return self.doc.form_field(self.path, "overallComplexity") or ""
-
-    @overallComplexity.setter
-    def overallComplexity(self, value):
-        self.doc.set_form_field(self.path, "overallComplexity", value)
-
-    @property
-    def keyRisks(self):
-        return self.doc.form_field(self.path, "keyRisks") or ""
-
-    @keyRisks.setter
-    def keyRisks(self, value):
-        self.doc.set_form_field(self.path, "keyRisks", value)
-
-    @property
-    def keyAssumptions(self):
-        return self.doc.form_field(self.path, "keyAssumptions") or ""
-
-    @keyAssumptions.setter
-    def keyAssumptions(self, value):
-        self.doc.set_form_field(self.path, "keyAssumptions", value)
-
-class SystemOverviewSummaryContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def systemName(self):
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
-
-    @property
-    def systemAcronym(self):
-        return self.doc.form_field(self.path, "systemAcronym") or ""
-
-    @systemAcronym.setter
-    def systemAcronym(self, value):
-        self.doc.set_form_field(self.path, "systemAcronym", value)
-
-    @property
-    def systemVersion(self):
-        return self.doc.form_field(self.path, "systemVersion") or ""
-
-    @systemVersion.setter
-    def systemVersion(self, value):
-        self.doc.set_form_field(self.path, "systemVersion", value)
-
-    @property
-    def projectCodeName(self):
-        return self.doc.form_field(self.path, "projectCodeName") or ""
-
-    @projectCodeName.setter
-    def projectCodeName(self, value):
-        self.doc.set_form_field(self.path, "projectCodeName", value)
-
-class SystemOverviewSummaryScaleContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def estimatedUserCount(self):
-        return self.doc.form_field(self.path, "estimatedUserCount") or ""
-
-    @estimatedUserCount.setter
-    def estimatedUserCount(self, value):
-        self.doc.set_form_field(self.path, "estimatedUserCount", value)
-
-    @property
-    def userCategoryCount(self):
-        return self.doc.form_field(self.path, "userCategoryCount") or ""
-
-    @userCategoryCount.setter
-    def userCategoryCount(self, value):
-        self.doc.set_form_field(self.path, "userCategoryCount", value)
-
-    @property
-    def externalInterfaceCount(self):
-        return self.doc.form_field(self.path, "externalInterfaceCount") or ""
-
-    @externalInterfaceCount.setter
-    def externalInterfaceCount(self, value):
-        self.doc.set_form_field(self.path, "externalInterfaceCount", value)
-
-    @property
-    def functionalRequirementCount(self):
-        return self.doc.form_field(self.path, "functionalRequirementCount") or ""
-
-    @functionalRequirementCount.setter
-    def functionalRequirementCount(self, value):
-        self.doc.set_form_field(self.path, "functionalRequirementCount", value)
-
-    @property
-    def nonFunctionalRequirementCount(self):
-        return self.doc.form_field(self.path, "nonFunctionalRequirementCount") or ""
-
-    @nonFunctionalRequirementCount.setter
-    def nonFunctionalRequirementCount(self, value):
-        self.doc.set_form_field(self.path, "nonFunctionalRequirementCount", value)
-
-class SystemOverviewSummaryStatusContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def specificationVersion(self):
-        return self.doc.form_field(self.path, "specificationVersion") or ""
-
-    @specificationVersion.setter
-    def specificationVersion(self, value):
-        self.doc.set_form_field(self.path, "specificationVersion", value)
-
-    @property
-    def specificationDate(self):
-        return self.doc.form_field(self.path, "specificationDate") or ""
-
-    @specificationDate.setter
-    def specificationDate(self, value):
-        self.doc.set_form_field(self.path, "specificationDate", value)
-
-    @property
-    def specificationStatus(self):
-        return self.doc.form_field(self.path, "specificationStatus") or ""
-
-    @specificationStatus.setter
-    def specificationStatus(self, value):
-        self.doc.set_form_field(self.path, "specificationStatus", value)
-
-    @property
-    def targetGoLiveDate(self):
-        return self.doc.form_field(self.path, "targetGoLiveDate") or ""
-
-    @targetGoLiveDate.setter
-    def targetGoLiveDate(self, value):
-        self.doc.set_form_field(self.path, "targetGoLiveDate", value)
-
 class SystemQualityGoalsGovernanceContentForm(SomNode):
     """Generated form facade for the `governanceContent` @Form section."""
 
@@ -141583,6 +141659,52 @@ class SystemReplacementStrategyTimelineContentForm(SomNode):
     def parallelRunPeriod(self, value):
         self.doc.set_form_field(self.path, "parallelRunPeriod", value)
 
+class SystemScaleContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def estimatedUserCount(self):
+        return self.doc.form_field(self.path, "estimatedUserCount") or ""
+
+    @estimatedUserCount.setter
+    def estimatedUserCount(self, value):
+        self.doc.set_form_field(self.path, "estimatedUserCount", value)
+
+    @property
+    def userCategoryCount(self):
+        return self.doc.form_field(self.path, "userCategoryCount") or ""
+
+    @userCategoryCount.setter
+    def userCategoryCount(self, value):
+        self.doc.set_form_field(self.path, "userCategoryCount", value)
+
+    @property
+    def externalInterfaceCount(self):
+        return self.doc.form_field(self.path, "externalInterfaceCount") or ""
+
+    @externalInterfaceCount.setter
+    def externalInterfaceCount(self, value):
+        self.doc.set_form_field(self.path, "externalInterfaceCount", value)
+
+    @property
+    def functionalRequirementCount(self):
+        return self.doc.form_field(self.path, "functionalRequirementCount") or ""
+
+    @functionalRequirementCount.setter
+    def functionalRequirementCount(self, value):
+        self.doc.set_form_field(self.path, "functionalRequirementCount", value)
+
+    @property
+    def nonFunctionalRequirementCount(self):
+        return self.doc.form_field(self.path, "nonFunctionalRequirementCount") or ""
+
+    @nonFunctionalRequirementCount.setter
+    def nonFunctionalRequirementCount(self, value):
+        self.doc.set_form_field(self.path, "nonFunctionalRequirementCount", value)
+
 class SystemStagePlanContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -141613,111 +141735,43 @@ class SystemStagePlanContentForm(SomNode):
     def parallelismApproach(self, value):
         self.doc.set_form_field(self.path, "parallelismApproach", value)
 
-class SystemStagePlanCoordinationContentForm(SomNode):
+class SystemSummaryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
-    def crossStageDependencySummary(self):
-        return self.doc.form_field(self.path, "crossStageDependencySummary") or ""
+    def systemName(self):
+        return self.doc.form_field(self.path, "systemName") or ""
 
-    @crossStageDependencySummary.setter
-    def crossStageDependencySummary(self, value):
-        self.doc.set_form_field(self.path, "crossStageDependencySummary", value)
-
-    @property
-    def crossStageRiskSummary(self):
-        return self.doc.form_field(self.path, "crossStageRiskSummary") or ""
-
-    @crossStageRiskSummary.setter
-    def crossStageRiskSummary(self, value):
-        self.doc.set_form_field(self.path, "crossStageRiskSummary", value)
+    @systemName.setter
+    def systemName(self, value):
+        self.doc.set_form_field(self.path, "systemName", value)
 
     @property
-    def regulatoryComplianceConsiderations(self):
-        return self.doc.form_field(self.path, "regulatoryComplianceConsiderations") or ""
+    def systemAcronym(self):
+        return self.doc.form_field(self.path, "systemAcronym") or ""
 
-    @regulatoryComplianceConsiderations.setter
-    def regulatoryComplianceConsiderations(self, value):
-        self.doc.set_form_field(self.path, "regulatoryComplianceConsiderations", value)
-
-class SystemStagePlanReadinessContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
+    @systemAcronym.setter
+    def systemAcronym(self, value):
+        self.doc.set_form_field(self.path, "systemAcronym", value)
 
     @property
-    def organizationalReadinessLevel(self):
-        return self.doc.form_field(self.path, "organizationalReadinessLevel") or ""
+    def systemVersion(self):
+        return self.doc.form_field(self.path, "systemVersion") or ""
 
-    @organizationalReadinessLevel.setter
-    def organizationalReadinessLevel(self, value):
-        self.doc.set_form_field(self.path, "organizationalReadinessLevel", value)
-
-    @property
-    def changeAbsorptionCapacity(self):
-        return self.doc.form_field(self.path, "changeAbsorptionCapacity") or ""
-
-    @changeAbsorptionCapacity.setter
-    def changeAbsorptionCapacity(self, value):
-        self.doc.set_form_field(self.path, "changeAbsorptionCapacity", value)
+    @systemVersion.setter
+    def systemVersion(self, value):
+        self.doc.set_form_field(self.path, "systemVersion", value)
 
     @property
-    def confidenceLevel(self):
-        return self.doc.form_field(self.path, "confidenceLevel") or ""
+    def projectCodeName(self):
+        return self.doc.form_field(self.path, "projectCodeName") or ""
 
-    @confidenceLevel.setter
-    def confidenceLevel(self, value):
-        self.doc.set_form_field(self.path, "confidenceLevel", value)
-
-    @property
-    def lastPlanReviewDate(self):
-        return self.doc.form_field(self.path, "lastPlanReviewDate") or ""
-
-    @lastPlanReviewDate.setter
-    def lastPlanReviewDate(self, value):
-        self.doc.set_form_field(self.path, "lastPlanReviewDate", value)
-
-class SystemStagePlanTimelineContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def overallPlannedStart(self):
-        return self.doc.form_field(self.path, "overallPlannedStart") or ""
-
-    @overallPlannedStart.setter
-    def overallPlannedStart(self, value):
-        self.doc.set_form_field(self.path, "overallPlannedStart", value)
-
-    @property
-    def overallTargetCompletion(self):
-        return self.doc.form_field(self.path, "overallTargetCompletion") or ""
-
-    @overallTargetCompletion.setter
-    def overallTargetCompletion(self, value):
-        self.doc.set_form_field(self.path, "overallTargetCompletion", value)
-
-    @property
-    def totalDuration(self):
-        return self.doc.form_field(self.path, "totalDuration") or ""
-
-    @totalDuration.setter
-    def totalDuration(self, value):
-        self.doc.set_form_field(self.path, "totalDuration", value)
-
-    @property
-    def bufferStrategy(self):
-        return self.doc.form_field(self.path, "bufferStrategy") or ""
-
-    @bufferStrategy.setter
-    def bufferStrategy(self, value):
-        self.doc.set_form_field(self.path, "bufferStrategy", value)
+    @projectCodeName.setter
+    def projectCodeName(self, value):
+        self.doc.set_form_field(self.path, "projectCodeName", value)
 
 class SystemTaskEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -143287,7 +143341,7 @@ class TechnicalDependencyEntryContentForm(SomNode):
     def status(self, value):
         self.doc.set_form_field(self.path, "status", value)
 
-class TechnicalFrameworkConditionsGovernanceContentForm(SomNode):
+class TechnicalEnvironmentGovernanceContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -143309,7 +143363,7 @@ class TechnicalFrameworkConditionsGovernanceContentForm(SomNode):
     def technologyGovernance(self, value):
         self.doc.set_form_field(self.path, "technologyGovernance", value)
 
-class TechnicalFrameworkConditionsNetworkContentForm(SomNode):
+class TechnicalEnvironmentNetworkContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -143355,7 +143409,7 @@ class TechnicalFrameworkConditionsNetworkContentForm(SomNode):
     def cdnStrategy(self, value):
         self.doc.set_form_field(self.path, "cdnStrategy", value)
 
-class TechnicalFrameworkConditionsSecurityContentForm(SomNode):
+class TechnicalEnvironmentSecurityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -143401,7 +143455,7 @@ class TechnicalFrameworkConditionsSecurityContentForm(SomNode):
     def identityProvider(self, value):
         self.doc.set_form_field(self.path, "identityProvider", value)
 
-class TechnicalFrameworkConditionsStandardsContentForm(SomNode):
+class TechnicalEnvironmentStandardsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -143447,7 +143501,7 @@ class TechnicalFrameworkConditionsStandardsContentForm(SomNode):
     def integrationPlatforms(self, value):
         self.doc.set_form_field(self.path, "integrationPlatforms", value)
 
-class TechnicalFrameworkConditionsTechnicalOverviewContentForm(SomNode):
+class TechnicalEnvironmentTechnicalOverviewContentForm(SomNode):
     """Generated form facade for the `technicalOverviewContent` @Form section."""
 
     def __init__(self, doc, path):
@@ -149149,7 +149203,7 @@ class TransitionSupportResourceEntryContentForm(SomNode):
     def costCenter(self, value):
         self.doc.set_form_field(self.path, "costCenter", value)
 
-class TranslationProcessOngoingContentForm(SomNode):
+class TranslationOngoingContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
@@ -149170,66 +149224,6 @@ class TranslationProcessOngoingContentForm(SomNode):
     @translationMemoryMaintenance.setter
     def translationMemoryMaintenance(self, value):
         self.doc.set_form_field(self.path, "translationMemoryMaintenance", value)
-
-class TranslationProcessQualityContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def qualityChecks(self):
-        return self.doc.form_field(self.path, "qualityChecks") or ""
-
-    @qualityChecks.setter
-    def qualityChecks(self, value):
-        self.doc.set_form_field(self.path, "qualityChecks", value)
-
-    @property
-    def linguisticQA(self):
-        return self.doc.form_field(self.path, "linguisticQA") or ""
-
-    @linguisticQA.setter
-    def linguisticQA(self, value):
-        self.doc.set_form_field(self.path, "linguisticQA", value)
-
-    @property
-    def functionalQA(self):
-        return self.doc.form_field(self.path, "functionalQA") or ""
-
-    @functionalQA.setter
-    def functionalQA(self, value):
-        self.doc.set_form_field(self.path, "functionalQA", value)
-
-class TranslationProcessTerminologyContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def glossaryManagement(self):
-        return self.doc.form_field(self.path, "glossaryManagement") or ""
-
-    @glossaryManagement.setter
-    def glossaryManagement(self, value):
-        self.doc.set_form_field(self.path, "glossaryManagement", value)
-
-    @property
-    def styleGuide(self):
-        return self.doc.form_field(self.path, "styleGuide") or ""
-
-    @styleGuide.setter
-    def styleGuide(self, value):
-        self.doc.set_form_field(self.path, "styleGuide", value)
-
-    @property
-    def brandVoice(self):
-        return self.doc.form_field(self.path, "brandVoice") or ""
-
-    @brandVoice.setter
-    def brandVoice(self, value):
-        self.doc.set_form_field(self.path, "brandVoice", value)
 
 class TranslationProcessTranslationProcessContentForm(SomNode):
     """Generated form facade for the `translationProcessContent` @Form section."""
@@ -149269,43 +149263,35 @@ class TranslationProcessTranslationProcessContentForm(SomNode):
     def catTools(self, value):
         self.doc.set_form_field(self.path, "catTools", value)
 
-class TranslationProcessWorkflowContentForm(SomNode):
+class TranslationQualityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
-    def translationWorkflow(self):
-        return self.doc.form_field(self.path, "translationWorkflow") or ""
+    def qualityChecks(self):
+        return self.doc.form_field(self.path, "qualityChecks") or ""
 
-    @translationWorkflow.setter
-    def translationWorkflow(self, value):
-        self.doc.set_form_field(self.path, "translationWorkflow", value)
-
-    @property
-    def reviewCycles(self):
-        return self.doc.form_field(self.path, "reviewCycles") or ""
-
-    @reviewCycles.setter
-    def reviewCycles(self, value):
-        self.doc.set_form_field(self.path, "reviewCycles", value)
+    @qualityChecks.setter
+    def qualityChecks(self, value):
+        self.doc.set_form_field(self.path, "qualityChecks", value)
 
     @property
-    def inCountryReview(self):
-        return self.doc.form_field(self.path, "inCountryReview") or ""
+    def linguisticQA(self):
+        return self.doc.form_field(self.path, "linguisticQA") or ""
 
-    @inCountryReview.setter
-    def inCountryReview(self, value):
-        self.doc.set_form_field(self.path, "inCountryReview", value)
+    @linguisticQA.setter
+    def linguisticQA(self, value):
+        self.doc.set_form_field(self.path, "linguisticQA", value)
 
     @property
-    def contextualReview(self):
-        return self.doc.form_field(self.path, "contextualReview") or ""
+    def functionalQA(self):
+        return self.doc.form_field(self.path, "functionalQA") or ""
 
-    @contextualReview.setter
-    def contextualReview(self, value):
-        self.doc.set_form_field(self.path, "contextualReview", value)
+    @functionalQA.setter
+    def functionalQA(self, value):
+        self.doc.set_form_field(self.path, "functionalQA", value)
 
 class TranslationRequirementsFormattingContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -149481,6 +149467,36 @@ class TranslationRequirementsVariantsContentForm(SomNode):
     def contextualVariants(self, value):
         self.doc.set_form_field(self.path, "contextualVariants", value)
 
+class TranslationTerminologyContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def glossaryManagement(self):
+        return self.doc.form_field(self.path, "glossaryManagement") or ""
+
+    @glossaryManagement.setter
+    def glossaryManagement(self, value):
+        self.doc.set_form_field(self.path, "glossaryManagement", value)
+
+    @property
+    def styleGuide(self):
+        return self.doc.form_field(self.path, "styleGuide") or ""
+
+    @styleGuide.setter
+    def styleGuide(self, value):
+        self.doc.set_form_field(self.path, "styleGuide", value)
+
+    @property
+    def brandVoice(self):
+        return self.doc.form_field(self.path, "brandVoice") or ""
+
+    @brandVoice.setter
+    def brandVoice(self, value):
+        self.doc.set_form_field(self.path, "brandVoice", value)
+
 class TranslationVendorEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -149542,6 +149558,44 @@ class TranslationVendorEntryContentForm(SomNode):
     @contactInfo.setter
     def contactInfo(self, value):
         self.doc.set_form_field(self.path, "contactInfo", value)
+
+class TranslationWorkflowContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def translationWorkflow(self):
+        return self.doc.form_field(self.path, "translationWorkflow") or ""
+
+    @translationWorkflow.setter
+    def translationWorkflow(self, value):
+        self.doc.set_form_field(self.path, "translationWorkflow", value)
+
+    @property
+    def reviewCycles(self):
+        return self.doc.form_field(self.path, "reviewCycles") or ""
+
+    @reviewCycles.setter
+    def reviewCycles(self, value):
+        self.doc.set_form_field(self.path, "reviewCycles", value)
+
+    @property
+    def inCountryReview(self):
+        return self.doc.form_field(self.path, "inCountryReview") or ""
+
+    @inCountryReview.setter
+    def inCountryReview(self, value):
+        self.doc.set_form_field(self.path, "inCountryReview", value)
+
+    @property
+    def contextualReview(self):
+        return self.doc.form_field(self.path, "contextualReview") or ""
+
+    @contextualReview.setter
+    def contextualReview(self, value):
+        self.doc.set_form_field(self.path, "contextualReview", value)
 
 class TriggerOverviewContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -151249,36 +151303,6 @@ class UiComponentEntryVisualDesignForm(SomNode):
     def iconography(self, value):
         self.doc.set_form_field(self.path, "iconography", value)
 
-class UiComponentsComponentApproachContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def componentGranularity(self):
-        return self.doc.form_field(self.path, "componentGranularity") or ""
-
-    @componentGranularity.setter
-    def componentGranularity(self, value):
-        self.doc.set_form_field(self.path, "componentGranularity", value)
-
-    @property
-    def componentNaming(self):
-        return self.doc.form_field(self.path, "componentNaming") or ""
-
-    @componentNaming.setter
-    def componentNaming(self, value):
-        self.doc.set_form_field(self.path, "componentNaming", value)
-
-    @property
-    def componentDocumentation(self):
-        return self.doc.form_field(self.path, "componentDocumentation") or ""
-
-    @componentDocumentation.setter
-    def componentDocumentation(self, value):
-        self.doc.set_form_field(self.path, "componentDocumentation", value)
-
 class UiComponentsComponentLibraryOverviewForm(SomNode):
     """Generated form facade for the `componentLibraryOverview` @Form section."""
 
@@ -151316,136 +151340,6 @@ class UiComponentsComponentLibraryOverviewForm(SomNode):
     @tomFlutterUiIntegration.setter
     def tomFlutterUiIntegration(self, value):
         self.doc.set_form_field(self.path, "tomFlutterUiIntegration", value)
-
-class UiComponentsCustomizationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def extensionModel(self):
-        return self.doc.form_field(self.path, "extensionModel") or ""
-
-    @extensionModel.setter
-    def extensionModel(self, value):
-        self.doc.set_form_field(self.path, "extensionModel", value)
-
-    @property
-    def themingApproach(self):
-        return self.doc.form_field(self.path, "themingApproach") or ""
-
-    @themingApproach.setter
-    def themingApproach(self, value):
-        self.doc.set_form_field(self.path, "themingApproach", value)
-
-    @property
-    def customizationBoundaries(self):
-        return self.doc.form_field(self.path, "customizationBoundaries") or ""
-
-    @customizationBoundaries.setter
-    def customizationBoundaries(self, value):
-        self.doc.set_form_field(self.path, "customizationBoundaries", value)
-
-class UiComponentsVisualLanguageContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def visualLanguage(self):
-        return self.doc.form_field(self.path, "visualLanguage") or ""
-
-    @visualLanguage.setter
-    def visualLanguage(self, value):
-        self.doc.set_form_field(self.path, "visualLanguage", value)
-
-    @property
-    def brandAlignment(self):
-        return self.doc.form_field(self.path, "brandAlignment") or ""
-
-    @brandAlignment.setter
-    def brandAlignment(self, value):
-        self.doc.set_form_field(self.path, "brandAlignment", value)
-
-    @property
-    def motionPrinciples(self):
-        return self.doc.form_field(self.path, "motionPrinciples") or ""
-
-    @motionPrinciples.setter
-    def motionPrinciples(self, value):
-        self.doc.set_form_field(self.path, "motionPrinciples", value)
-
-class UiDesignPrincipleEntryContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def principleName(self):
-        return self.doc.form_field(self.path, "principleName") or ""
-
-    @principleName.setter
-    def principleName(self, value):
-        self.doc.set_form_field(self.path, "principleName", value)
-
-    @property
-    def description(self):
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
-    def rationale(self):
-        return self.doc.form_field(self.path, "rationale") or ""
-
-    @rationale.setter
-    def rationale(self, value):
-        self.doc.set_form_field(self.path, "rationale", value)
-
-    @property
-    def category(self):
-        return self.doc.form_field(self.path, "category") or ""
-
-    @category.setter
-    def category(self, value):
-        self.doc.set_form_field(self.path, "category", value)
-
-    @property
-    def examples(self):
-        return self.doc.form_field(self.path, "examples") or ""
-
-    @examples.setter
-    def examples(self, value):
-        self.doc.set_form_field(self.path, "examples", value)
-
-    @property
-    def exceptions(self):
-        return self.doc.form_field(self.path, "exceptions") or ""
-
-    @exceptions.setter
-    def exceptions(self, value):
-        self.doc.set_form_field(self.path, "exceptions", value)
-
-    @property
-    def sourceReference(self):
-        return self.doc.form_field(self.path, "sourceReference") or ""
-
-    @sourceReference.setter
-    def sourceReference(self, value):
-        self.doc.set_form_field(self.path, "sourceReference", value)
-
-    @property
-    def relatedGoals(self):
-        return self.doc.form_field(self.path, "relatedGoals") or ""
-
-    @relatedGoals.setter
-    def relatedGoals(self, value):
-        self.doc.set_form_field(self.path, "relatedGoals", value)
 
 class UsabilityClarityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -151924,6 +151818,112 @@ class UserAccessibilityNeedsAccessibilityFormForm(SomNode):
     @additionalStandards.setter
     def additionalStandards(self, value):
         self.doc.set_form_field(self.path, "additionalStandards", value)
+
+class UserAssistanceDeliveryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def helpContentOwnership(self):
+        return self.doc.form_field(self.path, "helpContentOwnership") or ""
+
+    @helpContentOwnership.setter
+    def helpContentOwnership(self, value):
+        self.doc.set_form_field(self.path, "helpContentOwnership", value)
+
+    @property
+    def helpUpdateProcess(self):
+        return self.doc.form_field(self.path, "helpUpdateProcess") or ""
+
+    @helpUpdateProcess.setter
+    def helpUpdateProcess(self, value):
+        self.doc.set_form_field(self.path, "helpUpdateProcess", value)
+
+    @property
+    def helpIconStandard(self):
+        return self.doc.form_field(self.path, "helpIconStandard") or ""
+
+    @helpIconStandard.setter
+    def helpIconStandard(self, value):
+        self.doc.set_form_field(self.path, "helpIconStandard", value)
+
+    @property
+    def helpIconPlacement(self):
+        return self.doc.form_field(self.path, "helpIconPlacement") or ""
+
+    @helpIconPlacement.setter
+    def helpIconPlacement(self, value):
+        self.doc.set_form_field(self.path, "helpIconPlacement", value)
+
+    @property
+    def helpTooltipStyle(self):
+        return self.doc.form_field(self.path, "helpTooltipStyle") or ""
+
+    @helpTooltipStyle.setter
+    def helpTooltipStyle(self, value):
+        self.doc.set_form_field(self.path, "helpTooltipStyle", value)
+
+class UserAssistanceHelpOverviewContentForm(SomNode):
+    """Generated form facade for the `helpOverviewContent` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def helpPhilosophy(self):
+        return self.doc.form_field(self.path, "helpPhilosophy") or ""
+
+    @helpPhilosophy.setter
+    def helpPhilosophy(self, value):
+        self.doc.set_form_field(self.path, "helpPhilosophy", value)
+
+    @property
+    def helpAccessibility(self):
+        return self.doc.form_field(self.path, "helpAccessibility") or ""
+
+    @helpAccessibility.setter
+    def helpAccessibility(self, value):
+        self.doc.set_form_field(self.path, "helpAccessibility", value)
+
+    @property
+    def helpPersonalization(self):
+        return self.doc.form_field(self.path, "helpPersonalization") or ""
+
+    @helpPersonalization.setter
+    def helpPersonalization(self, value):
+        self.doc.set_form_field(self.path, "helpPersonalization", value)
+
+    @property
+    def helpContentStrategy(self):
+        return self.doc.form_field(self.path, "helpContentStrategy") or ""
+
+    @helpContentStrategy.setter
+    def helpContentStrategy(self, value):
+        self.doc.set_form_field(self.path, "helpContentStrategy", value)
+
+class UserAssistanceInsightsContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def helpAnalytics(self):
+        return self.doc.form_field(self.path, "helpAnalytics") or ""
+
+    @helpAnalytics.setter
+    def helpAnalytics(self, value):
+        self.doc.set_form_field(self.path, "helpAnalytics", value)
+
+    @property
+    def helpFeedback(self):
+        return self.doc.form_field(self.path, "helpFeedback") or ""
+
+    @helpFeedback.setter
+    def helpFeedback(self, value):
+        self.doc.set_form_field(self.path, "helpFeedback", value)
 
 class UserAttributeEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

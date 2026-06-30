@@ -4,7 +4,7 @@
 /// Phase 3 DocSpec. Covers rollout plan, migration, user documentation,
 /// training, pilot, cutover, knowledge transfer, and warranty.
 ///
-/// This class is named `SystemRolloutConcept` so the `…Concept` suffix
+/// This class is named `SystemRollout` so the `…Concept` suffix
 /// matches the convention used by `TechnicalFrameworkConcept` and
 /// `SecurityAndAccessModel`. The clean name `D12TransitionRolloutPlan` is
 /// reserved for the TRP target-doc class.
@@ -18,7 +18,7 @@ import '../document_stubs.dart';
 @SectionId('ROLC')
 @Comment('Seeds → TRP')
 @MapsTo(D12TransitionRolloutPlan)
-class SystemRolloutConcept {
+class SystemRollout {
   @ContentHelp('''
 Executive summary of the rollout approach: from pilot through phased
 rollout, migration, user enablement, cutover, knowledge transfer, and
@@ -36,12 +36,12 @@ localization, translation, and documentation subtrees.
   /// 15.3. User Manuals.
   @SectionId('USRMAN-USER-LST')
   @SectionIdPattern('USRMAN-USER-xxx')
-  List<UserManuals> userManuals = [];
+  List<UserManual> userManuals = [];
 
   /// 15.4. Training Materials.
   @SectionId('RLTTM-TRAI-LST')
   @SectionIdPattern('RLTTM-TRAI-xxx')
-  List<RolloutTrainingMaterials> trainingMaterials = [];
+  List<RolloutTrainingMaterial> trainingMaterials = [];
 
   /// 15.5. Pilot Plan.
   PilotPlan pilotPlan = PilotPlan();
@@ -49,7 +49,7 @@ localization, translation, and documentation subtrees.
   /// 15.6. Cutover Procedures.
   @SectionId('CUTPRC-CUTO-LST')
   @SectionIdPattern('CUTPRC-CUTO-xxx')
-  List<CutoverProcedures> cutoverProcedures = [];
+  List<CutoverProcedure> cutoverProcedures = [];
 
   /// 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();
@@ -125,7 +125,7 @@ mapping. Focuses on the execution plan.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
-class UserManuals {
+class UserManual {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
 categories, in which languages, on what delivery channel (in-app help,
@@ -153,7 +153,7 @@ the help-concept section).
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
-class RolloutTrainingMaterials {
+class RolloutTrainingMaterial {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
 delivery mechanism. Complements the training-module catalogue which
@@ -208,7 +208,7 @@ success is measured, and the decision gate that authorizes rollout.
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-CUT')
-class CutoverProcedures {
+class CutoverProcedure {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
 Deliberately more tactical than the Rollout Plan — which sets cohorts and

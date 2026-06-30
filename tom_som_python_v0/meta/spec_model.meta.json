@@ -9661,8 +9661,8 @@
         }
       ]
     },
-    "AssumptionConstraintRegister": {
-      "name": "AssumptionConstraintRegister",
+    "AssumptionConstraintDependencyRegister": {
+      "name": "AssumptionConstraintDependencyRegister",
       "sectionId": "ACRG",
       "doc": "A consolidated register of assumptions and constraints.",
       "annotations": [
@@ -9866,7 +9866,7 @@
           "name": "register",
           "kind": "complex",
           "doc": "The consolidated assumption / constraint register.",
-          "type": "AssumptionConstraintRegister"
+          "type": "AssumptionConstraintDependencyRegister"
         }
       ]
     },
@@ -16849,6 +16849,84 @@
         }
       ]
     },
+    "BusinessDomain": {
+      "name": "BusinessDomain",
+      "sectionId": "TA",
+      "doc": "4.1.3. Description of Business Domain.\n\nDescribes the business domain and task area the system addresses.\nDefines the domain vocabulary and key concepts (ubiquitous language)\nthat will be used throughout the project. Based on Domain-Driven Design\nprinciples for establishing a shared understanding.",
+      "help": "Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project.",
+      "annotations": [
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TA"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "High-level overview of the business domain and task area, explaining what business activities and processes this system will support."
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "domainOverview",
+          "kind": "complex",
+          "doc": "4.1.3.1. Domain Overview.",
+          "type": "DomainOverview"
+        },
+        {
+          "name": "domainVocabulary",
+          "kind": "complex",
+          "doc": "4.1.3.2. Domain Vocabulary.",
+          "type": "DomainVocabulary"
+        },
+        {
+          "name": "keyConcepts",
+          "kind": "complex",
+          "doc": "4.1.3.3. Key Concepts.",
+          "type": "KeyConcepts"
+        },
+        {
+          "name": "domainBoundaries",
+          "kind": "complex",
+          "doc": "4.1.3.4. Domain Boundaries.",
+          "type": "DomainBoundaries"
+        },
+        {
+          "name": "businessRules",
+          "kind": "complex",
+          "doc": "4.1.3.5. Business Rules.",
+          "type": "DomainBusinessRules"
+        },
+        {
+          "name": "domainProcesses",
+          "kind": "complex",
+          "doc": "4.1.3.6. Domain Processes.",
+          "type": "DomainProcesses"
+        },
+        {
+          "name": "domainEvents",
+          "kind": "complex",
+          "doc": "4.1.3.7. Domain Events.",
+          "type": "DomainEvents"
+        }
+      ]
+    },
     "BusinessGoalEntry": {
       "name": "BusinessGoalEntry",
       "sectionId": "BGE",
@@ -18421,7 +18499,7 @@
               }
             }
           ],
-          "elementType": "DetailedProcessWorkflows",
+          "elementType": "DetailedProcessWorkflow",
           "elementIsComplex": true
         },
         {
@@ -18456,7 +18534,7 @@
               }
             }
           ],
-          "elementType": "ProcessMetricsAndKpis",
+          "elementType": "ProcessMetric",
           "elementIsComplex": true
         }
       ]
@@ -29633,6 +29711,56 @@
         }
       ]
     },
+    "ComponentApproach": {
+      "name": "ComponentApproach",
+      "sectionId": "UCCA",
+      "doc": "Component naming and documentation approach.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "UCCA"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "componentGranularity",
+              "label": "Component Granularity",
+              "hint": "Atomic design levels: atoms, molecules, organisms",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "componentNaming",
+              "label": "Component Naming Convention",
+              "hint": "PascalCase, kebab-case, prefix rules",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "componentDocumentation",
+              "label": "Component Documentation",
+              "hint": "Storybook, living style guide, doc site",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "ComponentCompliance": {
       "name": "ComponentCompliance",
       "sectionId": "COCO1",
@@ -29712,6 +29840,56 @@
               "name": "totalCostOngoing",
               "label": "Annual Ongoing TCO",
               "hint": "Recurring annual cost after first year",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ComponentCustomization": {
+      "name": "ComponentCustomization",
+      "sectionId": "UICOCU",
+      "doc": "Extension and theming boundaries.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "UICOCU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "extensionModel",
+              "label": "Extension Model",
+              "hint": "How components can be extended or themed",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "themingApproach",
+              "label": "Theming Approach",
+              "hint": "Token-based, widget-level, theme data",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "customizationBoundaries",
+              "label": "Customization Boundaries",
+              "hint": "What can vs. cannot be customized",
               "type": "String",
               "required": false
             }
@@ -33949,10 +34127,60 @@
         }
       ]
     },
-    "ComponentsToUse": {
-      "name": "ComponentsToUse",
+    "ComponentVisualLanguage": {
+      "name": "ComponentVisualLanguage",
+      "sectionId": "UCVL",
+      "doc": "Visual language and brand alignment.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "UCVL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "visualLanguage",
+              "label": "Visual Language",
+              "hint": "Clean, playful, professional, minimal",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "brandAlignment",
+              "label": "Brand Alignment",
+              "hint": "How design aligns with brand guidelines",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "motionPrinciples",
+              "label": "Motion Principles",
+              "hint": "Animation philosophy: subtle, expressive, functional",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ComponentsAndDependencies": {
+      "name": "ComponentsAndDependencies",
       "sectionId": "COMP",
-      "doc": "12. Components to Use. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
+      "doc": "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
       "annotations": [
@@ -33992,12 +34220,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n",
+          "help": "## Components and Dependencies (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n"
+                "guidance": "## Components and Dependencies (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n"
               }
             }
           ],
@@ -37961,7 +38189,7 @@
               }
             }
           ],
-          "elementType": "CurrentOperationalMetrics",
+          "elementType": "CurrentOperationalMetric",
           "elementIsComplex": true
         },
         {
@@ -37972,8 +38200,8 @@
         }
       ]
     },
-    "CurrentOperationalMetrics": {
-      "name": "CurrentOperationalMetrics",
+    "CurrentOperationalMetric": {
+      "name": "CurrentOperationalMetric",
       "sectionId": "CUOPME",
       "doc": "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.",
       "detailedIn": "D01CurrentLandscapeAssessment",
@@ -38610,8 +38838,8 @@
         }
       ]
     },
-    "CutoverProcedures": {
-      "name": "CutoverProcedures",
+    "CutoverProcedure": {
+      "name": "CutoverProcedure",
       "sectionId": "CUTPRC",
       "doc": "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.",
       "detailedIn": "D12TransitionRolloutPlan",
@@ -38723,7 +38951,7 @@
           "name": "targetOperatingModelConcept",
           "kind": "complex",
           "doc": "SBP.7 Target Operating Model concept. Seeds → TOM.",
-          "type": "TargetOperatingModelConcept"
+          "type": "TargetOperatingModel"
         },
         {
           "name": "informationAndDataModel",
@@ -38856,7 +39084,7 @@
               }
             }
           ],
-          "elementType": "CurrentOperationalMetrics",
+          "elementType": "CurrentOperationalMetric",
           "elementIsComplex": true
         },
         {
@@ -38978,7 +39206,7 @@
               }
             }
           ],
-          "elementType": "DetailedProcessWorkflows",
+          "elementType": "DetailedProcessWorkflow",
           "elementIsComplex": true
         },
         {
@@ -39013,7 +39241,7 @@
               }
             }
           ],
-          "elementType": "ProcessMetricsAndKpis",
+          "elementType": "ProcessMetric",
           "elementIsComplex": true
         }
       ]
@@ -39483,7 +39711,7 @@
               }
             }
           ],
-          "elementType": "EndToEndTestScenarios",
+          "elementType": "EndToEndTestScenario",
           "elementIsComplex": true
         },
         {
@@ -39595,13 +39823,13 @@
           "name": "componentsToUse",
           "kind": "complex",
           "doc": "Components to use (whole).",
-          "type": "ComponentsToUse"
+          "type": "ComponentsAndDependencies"
         },
         {
-          "name": "technicalFrameworkConditions",
+          "name": "technicalEnvironment",
           "kind": "complex",
           "doc": "Technical framework conditions (whole).",
-          "type": "TechnicalFrameworkConditions"
+          "type": "TechnicalEnvironment"
         },
         {
           "name": "translationRequirements",
@@ -39925,19 +40153,19 @@
           "name": "printLayout",
           "kind": "complex",
           "doc": "Print layout.",
-          "type": "PrintLayout"
+          "type": "PrintAndExportLayout"
         },
         {
           "name": "errorHandling",
           "kind": "complex",
           "doc": "Error handling concept.",
-          "type": "ErrorHandlingConcept"
+          "type": "ErrorHandling"
         },
         {
-          "name": "helpConcept",
+          "name": "userAssistance",
           "kind": "complex",
           "doc": "Help concept.",
-          "type": "HelpConcept"
+          "type": "UserAssistance"
         },
         {
           "name": "accessibility",
@@ -40375,7 +40603,7 @@
               }
             }
           ],
-          "elementType": "UserManuals",
+          "elementType": "UserManual",
           "elementIsComplex": true
         },
         {
@@ -40398,7 +40626,7 @@
               }
             }
           ],
-          "elementType": "RolloutTrainingMaterials",
+          "elementType": "RolloutTrainingMaterial",
           "elementIsComplex": true
         },
         {
@@ -40427,7 +40655,7 @@
               }
             }
           ],
-          "elementType": "CutoverProcedures",
+          "elementType": "CutoverProcedure",
           "elementIsComplex": true
         },
         {
@@ -52015,10 +52243,10 @@
           "type": "SystemStagePlan"
         },
         {
-          "name": "systemRolloutConcept",
+          "name": "systemRollout",
           "kind": "complex",
           "doc": "Rollout and transition concept.",
-          "type": "SystemRolloutConcept"
+          "type": "SystemRollout"
         },
         {
           "name": "localizationTranslationProcess",
@@ -52027,10 +52255,10 @@
           "type": "LocalizationTranslationProcess"
         },
         {
-          "name": "multiLanguageRolloutPlan",
+          "name": "localeRolloutPlan",
           "kind": "complex",
           "doc": "Multi-language rollout sequencing by region and time (re-homed from MLAR).",
-          "type": "MultiLanguageAndRolloutPlan"
+          "type": "LocaleRolloutPlan"
         }
       ]
     },
@@ -55685,6 +55913,90 @@
         }
       ]
     },
+    "DesignPrincipleEntry": {
+      "name": "DesignPrincipleEntry",
+      "sectionId": "UDPEN",
+      "doc": "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "UDPEN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "principleName",
+              "label": "Principle Name",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What this principle means",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rationale",
+              "label": "Rationale",
+              "hint": "Why this principle matters",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "category",
+              "label": "Category",
+              "hint": "Visual/Interaction/Accessibility/Information/Navigation",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "examples",
+              "label": "Examples",
+              "hint": "How the principle manifests in the UI",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "exceptions",
+              "label": "Exceptions",
+              "hint": "When deviation is acceptable",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "sourceReference",
+              "label": "Source Reference",
+              "hint": "Design system or external reference",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "relatedGoals",
+              "label": "Related Goals",
+              "hint": "Design goals this principle supports",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "DesignPrinciples": {
       "name": "DesignPrinciples",
       "sectionId": "DEPRI",
@@ -55739,7 +56051,7 @@
               }
             }
           ],
-          "elementType": "UiDesignPrincipleEntry",
+          "elementType": "DesignPrincipleEntry",
           "elementIsComplex": true
         }
       ]
@@ -56153,8 +56465,8 @@
         }
       ]
     },
-    "DetailedProcessWorkflows": {
-      "name": "DetailedProcessWorkflows",
+    "DetailedProcessWorkflow": {
+      "name": "DetailedProcessWorkflow",
       "sectionId": "DEPRWO",
       "doc": "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.",
       "detailedIn": "D02TargetOperatingModel",
@@ -62902,8 +63214,8 @@
         }
       ]
     },
-    "EndToEndTestScenarios": {
-      "name": "EndToEndTestScenarios",
+    "EndToEndTestScenario": {
+      "name": "EndToEndTestScenario",
       "sectionId": "ETETS",
       "doc": "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..",
       "detailedIn": "D05InteractionScenarios",
@@ -65995,10 +66307,10 @@
         }
       ]
     },
-    "ErrorHandlingConcept": {
-      "name": "ErrorHandlingConcept",
+    "ErrorHandling": {
+      "name": "ErrorHandling",
       "sectionId": "ERHACO",
-      "doc": "10.7. Error Handling Concept.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
+      "doc": "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
       "annotations": [
@@ -66075,19 +66387,19 @@
           "name": "classification",
           "kind": "complex",
           "doc": "Error categorization and display priority.",
-          "type": "ErrorHandlingConceptClassification"
+          "type": "ErrorHandlingClassification"
         },
         {
           "name": "accessibility",
           "kind": "complex",
           "doc": "Accessibility and inclusive error cues.",
-          "type": "ErrorHandlingConceptAccessibility"
+          "type": "ErrorHandlingAccessibility"
         },
         {
           "name": "operations",
           "kind": "complex",
           "doc": "Localization and analytics behavior.",
-          "type": "ErrorHandlingConceptOperations"
+          "type": "ErrorHandlingOperations"
         },
         {
           "name": "errorHandlingOverview",
@@ -66157,8 +66469,8 @@
         }
       ]
     },
-    "ErrorHandlingConceptAccessibility": {
-      "name": "ErrorHandlingConceptAccessibility",
+    "ErrorHandlingAccessibility": {
+      "name": "ErrorHandlingAccessibility",
       "sectionId": "EHCA",
       "doc": "Accessibility and inclusive error cues.",
       "annotations": [
@@ -66207,8 +66519,8 @@
         }
       ]
     },
-    "ErrorHandlingConceptClassification": {
-      "name": "ErrorHandlingConceptClassification",
+    "ErrorHandlingClassification": {
+      "name": "ErrorHandlingClassification",
       "sectionId": "EHCC",
       "doc": "Error categorization and display priority.",
       "annotations": [
@@ -66257,8 +66569,8 @@
         }
       ]
     },
-    "ErrorHandlingConceptOperations": {
-      "name": "ErrorHandlingConceptOperations",
+    "ErrorHandlingOperations": {
+      "name": "ErrorHandlingOperations",
       "sectionId": "EHCO",
       "doc": "Localization and analytics behavior.",
       "annotations": [
@@ -68460,12 +68772,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **Help Concept** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n",
+          "help": "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **Help Concept** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n"
+                "guidance": "Provide an executive overview of the User Interface Design, establishing the\nfoundation for all visual and interactive aspects of the application.\n\n**Purpose:**\nThis section bridges business requirements and visual implementation. It ensures\nthe UI supports all business processes, respects authorization boundaries, and\nprovides a consistent user experience across all application areas.\n\n**Section structure:**\n1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions\n2. **Screen Descriptions** — Detailed inventory of all application screens\n3. **Screen Flow Structure** — Navigation paths and user journeys through the application\n4. **Print Layout** — Reports, exports, and print output formats\n5. **Data Structure Alignment** — Mapping of UI fields to data model entities\n6. **Authorization Compliance** — UI adaptation based on user roles and permissions\n7. **Error Handling** — User feedback for validation errors and system failures\n8. **User Assistance** — Contextual help, tooltips, onboarding, and documentation\n9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support\n10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile\n11. **UI Components** — Reusable component library and design system\n12. **Multi-language Support** — Internationalization and localization approach\n13. **Prototype** — Clickable prototype deliverables and fidelity levels\n\n**Flutter UI framework context:**\nThis specification targets Flutter-based UI using the Tom UI framework:\n- Observable state binding via `TomObject<T>` and `TomClass`\n- Form system with typed fields, validation, and resource lookup\n- Action system for user interactions and command execution\n- Authorization-aware widgets with four-state visibility model\n- Resource-based text, icons, and configuration\n- Theming system for consistent visual styling\n\n**Specification depth:**\nThe UI specification should be detailed enough to specify every screen, field,\nbutton, icon, label, tooltip, error message, layout breakpoint, and interaction\npattern. The structure allows progressive refinement from high-level wireframes\nto pixel-perfect designs with exact typography and spacing.\n\n**Cross-references:**\n- Data Model (section 7) → field mappings and data types\n- Security & Access Model (section 9) → role-based UI visibility\n- Business Processes (section 6) → user task flows\n- Requirements (section 4) → functional requirements for each screen\n"
               }
             }
           ],
@@ -68493,7 +68805,7 @@
           "name": "printLayout",
           "kind": "complex",
           "doc": "10.4. Print Layout. Seeds → XDS.",
-          "type": "PrintLayout"
+          "type": "PrintAndExportLayout"
         },
         {
           "name": "dataStructureAlignment",
@@ -68512,14 +68824,14 @@
         {
           "name": "errorHandling",
           "kind": "complex",
-          "doc": "10.7. Error Handling Concept. Seeds → XDS.",
-          "type": "ErrorHandlingConcept"
+          "doc": "10.7. Error Handling. Seeds → XDS.",
+          "type": "ErrorHandling"
         },
         {
-          "name": "helpConcept",
+          "name": "userAssistance",
           "kind": "complex",
-          "doc": "10.8. Help Concept. Seeds → XDS.",
-          "type": "HelpConcept"
+          "doc": "10.8. User Assistance. Seeds → XDS.",
+          "type": "UserAssistance"
         },
         {
           "name": "accessibility",
@@ -68540,10 +68852,10 @@
           "type": "UiComponents"
         },
         {
-          "name": "multiLanguage",
+          "name": "multiLanguageSupport",
           "kind": "complex",
-          "doc": "10.12. Multi-language and Rollout Support.",
-          "type": "MultiLanguageAndRollout"
+          "doc": "10.12. Multi-language Support.",
+          "type": "MultiLanguageSupport"
         },
         {
           "name": "prototype",
@@ -75332,69 +75644,6 @@
         }
       ]
     },
-    "FrameworkConditions": {
-      "name": "FrameworkConditions",
-      "sectionId": "FRCO",
-      "doc": "4.6. Framework Conditions.\n\nDocuments the organizational and technical environment in which the system\nwill operate. Covers organizational structure, functional responsibilities,\ntechnical constraints, and external dependencies. Follows TOGAF enterprise\ncontext patterns and PMBOK environmental factors analysis.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "FRCO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "overview",
-          "kind": "section",
-          "doc": "Framework conditions overview.",
-          "help": "Provide executive summary of the operating environment: organizational context, technical landscape, key constraints, and critical dependencies affecting project execution.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Provide executive summary of the operating environment: organizational context, technical landscape, key constraints, and critical dependencies affecting project execution."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "organizationalEnvironment",
-          "kind": "complex",
-          "doc": "4.6.1. Organizational Environment.",
-          "type": "OrganizationalEnvironment"
-        },
-        {
-          "name": "functionalResponsibilities",
-          "kind": "complex",
-          "doc": "4.6.2. Functional Responsibilities — contains 0+×.",
-          "type": "FunctionalResponsibilities"
-        },
-        {
-          "name": "technicalFrameworkConditions",
-          "kind": "complex",
-          "doc": "4.6.3. Technical Framework Conditions. Seeds → ATS.",
-          "annotations": [
-            {
-              "name": "Comment",
-              "arguments": {
-                "text": "Seeds → ATS"
-              }
-            }
-          ],
-          "type": "TechnicalFrameworkConditions"
-        },
-        {
-          "name": "constraintsAndDependencies",
-          "kind": "complex",
-          "doc": "4.6.4. Constraints and Dependencies — contains 0+×.",
-          "type": "ConstraintsAndDependencies"
-        }
-      ]
-    },
     "FrameworkIdentity": {
       "name": "FrameworkIdentity",
       "sectionId": "FWRID",
@@ -79348,253 +79597,6 @@
           "kind": "complex",
           "doc": "Dependency health monitoring.",
           "type": "DependencyHealthMonitoring"
-        }
-      ]
-    },
-    "HelpConcept": {
-      "name": "HelpConcept",
-      "sectionId": "HECO",
-      "doc": "10.8. Help Concept.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
-      "mapsTo": "D09ExperienceDesignSpecification",
-      "detailedIn": "D09ExperienceDesignSpecification",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "HECO"
-          }
-        },
-        {
-          "name": "MapsTo",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D09ExperienceDesignSpecification",
-            "id": "XDS-HLP"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "helpOverviewContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "helpPhilosophy",
-              "label": "Help Philosophy",
-              "hint": "Self-service first, guided, on-demand",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpAccessibility",
-              "label": "Help Accessibility",
-              "hint": "Always visible, contextual, searchable",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpPersonalization",
-              "label": "Help Personalization",
-              "hint": "Role-based, skill-based, contextual",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpContentStrategy",
-              "label": "Help Content Strategy",
-              "hint": "Video, text, interactive, mixed",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "delivery",
-          "kind": "complex",
-          "doc": "Content stewardship and help affordances.",
-          "type": "HelpConceptDelivery"
-        },
-        {
-          "name": "insights",
-          "kind": "complex",
-          "doc": "Analytics and improvement feedback.",
-          "type": "HelpConceptInsights"
-        },
-        {
-          "name": "helpOverview",
-          "kind": "section",
-          "doc": "Help system overview narrative.",
-          "help": "Executive summary of help system approach, content strategy, and user empowerment goals.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Executive summary of help system approach, content strategy, and user empowerment goals."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "contextualHelp",
-          "kind": "complex",
-          "doc": "10.8.1. Contextual Help.",
-          "type": "ContextualHelp"
-        },
-        {
-          "name": "onboarding",
-          "kind": "complex",
-          "doc": "10.8.2. Onboarding.",
-          "type": "OnboardingHelp"
-        },
-        {
-          "name": "supportAccess",
-          "kind": "complex",
-          "doc": "10.8.3. Support Access.",
-          "type": "SupportAccess"
-        },
-        {
-          "name": "helpContentInventory",
-          "kind": "section",
-          "doc": "Help content inventory.",
-          "help": "Inventory of all help content by feature area.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Inventory of all help content by feature area."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        }
-      ]
-    },
-    "HelpConceptDelivery": {
-      "name": "HelpConceptDelivery",
-      "sectionId": "HECODE",
-      "doc": "Content stewardship and help affordances.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "HECODE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "helpContentOwnership",
-              "label": "Help Content Ownership",
-              "hint": "Who maintains help content",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpUpdateProcess",
-              "label": "Help Update Process",
-              "hint": "How help content is kept current",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpIconStandard",
-              "label": "Help Icon Standard",
-              "hint": "Question mark, info icon, custom",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpIconPlacement",
-              "label": "Help Icon Placement",
-              "hint": "By field labels, in headers, floating",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpTooltipStyle",
-              "label": "Help Tooltip Style",
-              "hint": "Tooltip design and behavior",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "HelpConceptInsights": {
-      "name": "HelpConceptInsights",
-      "sectionId": "HECOIN",
-      "doc": "Analytics and improvement feedback.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "HECOIN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "helpAnalytics",
-              "label": "Help Analytics",
-              "hint": "Track help usage, identify gaps",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "helpFeedback",
-              "label": "Help Feedback",
-              "hint": "Rate help articles, suggest improvements",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },
@@ -90368,7 +90370,7 @@
     "IntroductionAndScope": {
       "name": "IntroductionAndScope",
       "sectionId": "SYOV",
-      "doc": "4. System Overview.\n\nHigh-level overview of the system to be built: its purpose, goals,\nscope boundaries, and the environment it operates in. This section\nestablishes the foundation for all subsequent specification work.",
+      "doc": "4. Introduction & Scope.\n\nHigh-level overview of the system to be built: its purpose, goals,\nscope boundaries, and the environment it operates in. This section\nestablishes the foundation for all subsequent specification work.",
       "annotations": [
         {
           "name": "SectionId",
@@ -90396,7 +90398,7 @@
           "name": "summary",
           "kind": "complex",
           "doc": "System overview summary statistics.",
-          "type": "SystemOverviewSummary"
+          "type": "SystemSummary"
         },
         {
           "name": "systemContextDiagram",
@@ -90468,10 +90470,10 @@
           "type": "SystemBoundaries"
         },
         {
-          "name": "frameworkConditions",
+          "name": "operatingEnvironment",
           "kind": "complex",
-          "doc": "4.6. Framework Conditions.",
-          "type": "FrameworkConditions"
+          "doc": "4.6. Operating Environment.",
+          "type": "OperatingEnvironment"
         },
         {
           "name": "risksAndAssumptions",
@@ -93999,6 +94001,95 @@
         }
       ]
     },
+    "LegalAndContractualRequirements": {
+      "name": "LegalAndContractualRequirements",
+      "sectionId": "OAR",
+      "doc": "3.6. Other Administrative Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
+      "help": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution.",
+      "annotations": [
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "OAR"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Overview of additional administrative requirements and their impact on the project."
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "intellectualProperty",
+          "kind": "complex",
+          "doc": "3.6.1. Intellectual Property.",
+          "type": "IntellectualPropertyRequirements"
+        },
+        {
+          "name": "confidentiality",
+          "kind": "complex",
+          "doc": "3.6.2. Confidentiality and NDAs.",
+          "type": "ConfidentialityRequirements"
+        },
+        {
+          "name": "regulatoryCompliance",
+          "kind": "complex",
+          "doc": "3.6.3. Regulatory Compliance.",
+          "type": "RegulatoryComplianceRequirements"
+        },
+        {
+          "name": "auditRequirements",
+          "kind": "complex",
+          "doc": "3.6.4. Audit Requirements.",
+          "type": "AuditRequirements"
+        },
+        {
+          "name": "insuranceLiability",
+          "kind": "complex",
+          "doc": "3.6.5. Insurance and Liability.",
+          "type": "InsuranceLiabilityRequirements"
+        },
+        {
+          "name": "otherAgreements",
+          "kind": "list",
+          "doc": "3.6.6. Other Agreements — contains 0+× Agreement.",
+          "sectionId": "OTAGR-OTHE-LST",
+          "sectionIdPattern": "OTAGR-OTHE-xxx",
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "OTAGR-OTHE-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "OTAGR-OTHE-xxx"
+              }
+            }
+          ],
+          "elementType": "OtherAgreementEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "LiabilityLimitations": {
       "name": "LiabilityLimitations",
       "sectionId": "LILI",
@@ -94901,6 +94992,227 @@
         }
       ]
     },
+    "LocaleHandlingRequirements": {
+      "name": "LocaleHandlingRequirements",
+      "sectionId": "MLARLH",
+      "doc": "Locale modeling and fallback behavior.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MLARLH"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "localeFormat",
+              "label": "Locale Format",
+              "hint": "BCP 47, ISO 639-1, custom",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "countryVariants",
+              "label": "Country Variants",
+              "hint": "en-US vs en-GB, de-DE vs de-AT",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "localeDetection",
+              "label": "Locale Detection",
+              "hint": "Browser, OS, user setting, geo-IP",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "localeFallbackChain",
+              "label": "Locale Fallback Chain",
+              "hint": "Fallback order when locale not available",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "LocaleRolloutPlan": {
+      "name": "LocaleRolloutPlan",
+      "sectionId": "MLARP",
+      "doc": "Rollout sequencing by region and time.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MLARP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "rolloutStrategy",
+              "label": "Rollout Strategy",
+              "hint": "Big bang, phased, pilot",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rolloutTimeline",
+              "label": "Rollout Timeline",
+              "hint": "High-level rollout schedule",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rolloutRegions",
+              "label": "Rollout Regions",
+              "hint": "Geographic rollout order",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "LocalizationDeployment": {
+      "name": "LocalizationDeployment",
+      "sectionId": "LOPRDE",
+      "doc": "Deployment settings.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "LOPRDE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "localeDeployment",
+              "label": "Locale Deployment",
+              "hint": "How locales are deployed",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "localeToggling",
+              "label": "Locale Toggling",
+              "hint": "Feature flags for locales",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "perLocaleCustomization",
+              "label": "Per-Locale Customization",
+              "hint": "Locale-specific features or content",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "LocalizationFormatting": {
+      "name": "LocalizationFormatting",
+      "sectionId": "LOPRFO",
+      "doc": "Formatting rules.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "LOPRFO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "dateFormatRules",
+              "label": "Date Format Rules",
+              "hint": "Locale-specific date formatting",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "numberFormatRules",
+              "label": "Number Format Rules",
+              "hint": "Locale-specific number formatting",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "currencyFormatRules",
+              "label": "Currency Format Rules",
+              "hint": "Locale-specific currency formatting",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "addressFormatRules",
+              "label": "Address Format Rules",
+              "hint": "Locale-specific address formatting",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "phoneFormatRules",
+              "label": "Phone Format Rules",
+              "hint": "Locale-specific phone number formatting",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "LocalizationProcess": {
       "name": "LocalizationProcess",
       "sectionId": "LOPR",
@@ -94981,19 +95293,19 @@
           "name": "review",
           "kind": "complex",
           "doc": "Review process.",
-          "type": "LocalizationProcessReview"
+          "type": "LocalizationReview"
         },
         {
           "name": "formatting",
           "kind": "complex",
           "doc": "Formatting rules.",
-          "type": "LocalizationProcessFormatting"
+          "type": "LocalizationFormatting"
         },
         {
           "name": "deployment",
           "kind": "complex",
           "doc": "Deployment settings.",
-          "type": "LocalizationProcessDeployment"
+          "type": "LocalizationDeployment"
         },
         {
           "name": "localizationNarrative",
@@ -95011,122 +95323,8 @@
         }
       ]
     },
-    "LocalizationProcessDeployment": {
-      "name": "LocalizationProcessDeployment",
-      "sectionId": "LOPRDE",
-      "doc": "Deployment settings.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "LOPRDE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "localeDeployment",
-              "label": "Locale Deployment",
-              "hint": "How locales are deployed",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "localeToggling",
-              "label": "Locale Toggling",
-              "hint": "Feature flags for locales",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "perLocaleCustomization",
-              "label": "Per-Locale Customization",
-              "hint": "Locale-specific features or content",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "LocalizationProcessFormatting": {
-      "name": "LocalizationProcessFormatting",
-      "sectionId": "LOPRFO",
-      "doc": "Formatting rules.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "LOPRFO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "dateFormatRules",
-              "label": "Date Format Rules",
-              "hint": "Locale-specific date formatting",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "numberFormatRules",
-              "label": "Number Format Rules",
-              "hint": "Locale-specific number formatting",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "currencyFormatRules",
-              "label": "Currency Format Rules",
-              "hint": "Locale-specific currency formatting",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "addressFormatRules",
-              "label": "Address Format Rules",
-              "hint": "Locale-specific address formatting",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "phoneFormatRules",
-              "label": "Phone Format Rules",
-              "hint": "Locale-specific phone number formatting",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "LocalizationProcessReview": {
-      "name": "LocalizationProcessReview",
+    "LocalizationReview": {
+      "name": "LocalizationReview",
       "sectionId": "LOPRR1",
       "doc": "Review process.",
       "annotations": [
@@ -95178,7 +95376,7 @@
     "LocalizationTranslationProcess": {
       "name": "LocalizationTranslationProcess",
       "sectionId": "LCTP",
-      "doc": "Localization & Translation execution processes.\n\nPublic anchor: ISO 29148 transition requirements. Bundles the localization\nand translation *workflow* concerns re-homed from the former\n`MultiLanguageAndRollout` cluster (their requirement counterparts live in\nSBP.9 [LocalizationTranslationRequirements]).",
+      "doc": "Localization & Translation execution processes.\n\nPublic anchor: ISO 29148 transition requirements. Bundles the localization\nand translation *workflow* concerns re-homed from the former\n`MultiLanguageSupport` cluster (their requirement counterparts live in\nSBP.9 [LocalizationTranslationRequirements]).",
       "annotations": [
         {
           "name": "SectionId",
@@ -95249,7 +95447,7 @@
           "name": "localeHandling",
           "kind": "complex",
           "doc": "Locale modeling and fallback requirements (re-homed from MLAR).",
-          "type": "MultiLanguageAndRolloutLocaleHandling"
+          "type": "LocaleHandlingRequirements"
         }
       ]
     },
@@ -106330,10 +106528,10 @@
         }
       ]
     },
-    "MultiLanguageAndRollout": {
-      "name": "MultiLanguageAndRollout",
+    "MultiLanguageSupport": {
+      "name": "MultiLanguageSupport",
       "sectionId": "MLAR",
-      "doc": "10.12. Multi-language and Rollout Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
+      "doc": "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
       "annotations": [
         {
           "name": "SectionId",
@@ -106429,113 +106627,6 @@
           ],
           "elementType": "SupportedLocaleEntry",
           "elementIsComplex": true
-        }
-      ]
-    },
-    "MultiLanguageAndRolloutLocaleHandling": {
-      "name": "MultiLanguageAndRolloutLocaleHandling",
-      "sectionId": "MLARLH",
-      "doc": "Locale modeling and fallback behavior.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MLARLH"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "localeFormat",
-              "label": "Locale Format",
-              "hint": "BCP 47, ISO 639-1, custom",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "countryVariants",
-              "label": "Country Variants",
-              "hint": "en-US vs en-GB, de-DE vs de-AT",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "localeDetection",
-              "label": "Locale Detection",
-              "hint": "Browser, OS, user setting, geo-IP",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "localeFallbackChain",
-              "label": "Locale Fallback Chain",
-              "hint": "Fallback order when locale not available",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "MultiLanguageAndRolloutPlan": {
-      "name": "MultiLanguageAndRolloutPlan",
-      "sectionId": "MLARP",
-      "doc": "Rollout sequencing by region and time.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MLARP"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "rolloutStrategy",
-              "label": "Rollout Strategy",
-              "hint": "Big bang, phased, pilot",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rolloutTimeline",
-              "label": "Rollout Timeline",
-              "hint": "High-level rollout schedule",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rolloutRegions",
-              "label": "Rollout Regions",
-              "hint": "Geographic rollout order",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },
@@ -112656,6 +112747,69 @@
         }
       ]
     },
+    "OperatingEnvironment": {
+      "name": "OperatingEnvironment",
+      "sectionId": "FRCO",
+      "doc": "4.6. Operating Environment.\n\nDocuments the organizational and technical environment in which the system\nwill operate. Covers organizational structure, functional responsibilities,\ntechnical constraints, and external dependencies. Follows TOGAF enterprise\ncontext patterns and PMBOK environmental factors analysis.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FRCO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Framework conditions overview.",
+          "help": "Provide executive summary of the operating environment: organizational context, technical landscape, key constraints, and critical dependencies affecting project execution.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Provide executive summary of the operating environment: organizational context, technical landscape, key constraints, and critical dependencies affecting project execution."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "organizationalEnvironment",
+          "kind": "complex",
+          "doc": "4.6.1. Organizational Environment.",
+          "type": "OrganizationalEnvironment"
+        },
+        {
+          "name": "functionalResponsibilities",
+          "kind": "complex",
+          "doc": "4.6.2. Functional Responsibilities — contains 0+×.",
+          "type": "FunctionalResponsibilities"
+        },
+        {
+          "name": "technicalEnvironment",
+          "kind": "complex",
+          "doc": "4.6.3. Technical Environment. Seeds → ATS.",
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "Seeds → ATS"
+              }
+            }
+          ],
+          "type": "TechnicalEnvironment"
+        },
+        {
+          "name": "constraintsAndDependencies",
+          "kind": "complex",
+          "doc": "4.6.4. Constraints and Dependencies — contains 0+×.",
+          "type": "ConstraintsAndDependencies"
+        }
+      ]
+    },
     "OperationalMonitoring": {
       "name": "OperationalMonitoring",
       "sectionId": "MOQU",
@@ -115219,95 +115373,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "OtherAdministrativeRequirements": {
-      "name": "OtherAdministrativeRequirements",
-      "sectionId": "OAR",
-      "doc": "3.6. Other Administrative Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
-      "help": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution.",
-      "annotations": [
-        {
-          "name": "ContentHelp",
-          "arguments": {
-            "guidance": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "OAR"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "description",
-                "description": "Overview of additional administrative requirements and their impact on the project."
-              }
-            }
-          ],
-          "contentType": "description"
-        },
-        {
-          "name": "intellectualProperty",
-          "kind": "complex",
-          "doc": "3.6.1. Intellectual Property.",
-          "type": "IntellectualPropertyRequirements"
-        },
-        {
-          "name": "confidentiality",
-          "kind": "complex",
-          "doc": "3.6.2. Confidentiality and NDAs.",
-          "type": "ConfidentialityRequirements"
-        },
-        {
-          "name": "regulatoryCompliance",
-          "kind": "complex",
-          "doc": "3.6.3. Regulatory Compliance.",
-          "type": "RegulatoryComplianceRequirements"
-        },
-        {
-          "name": "auditRequirements",
-          "kind": "complex",
-          "doc": "3.6.4. Audit Requirements.",
-          "type": "AuditRequirements"
-        },
-        {
-          "name": "insuranceLiability",
-          "kind": "complex",
-          "doc": "3.6.5. Insurance and Liability.",
-          "type": "InsuranceLiabilityRequirements"
-        },
-        {
-          "name": "otherAgreements",
-          "kind": "list",
-          "doc": "3.6.6. Other Agreements — contains 0+× Agreement.",
-          "sectionId": "OTAGR-OTHE-LST",
-          "sectionIdPattern": "OTAGR-OTHE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "OTAGR-OTHE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "OTAGR-OTHE-xxx"
-              }
-            }
-          ],
-          "elementType": "OtherAgreementEntry",
-          "elementIsComplex": true
         }
       ]
     },
@@ -120930,8 +120995,8 @@
         }
       ]
     },
-    "PrintLayout": {
-      "name": "PrintLayout",
+    "PrintAndExportLayout": {
+      "name": "PrintAndExportLayout",
       "sectionId": "PRLA",
       "doc": "10.4. Print Layout.",
       "mapsTo": "D09ExperienceDesignSpecification",
@@ -125094,6 +125159,49 @@
         }
       ]
     },
+    "ProcessMetric": {
+      "name": "ProcessMetric",
+      "sectionId": "PMAK",
+      "doc": "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.",
+      "detailedIn": "D02TargetOperatingModel",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "PMAK"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D02TargetOperatingModel",
+            "id": "TOM-MET"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n"
+              }
+            }
+          ],
+          "contentType": "text"
+        }
+      ]
+    },
     "ProcessMetricCategory": {
       "name": "ProcessMetricCategory",
       "sectionId": "PRMECA",
@@ -125567,49 +125675,6 @@
             }
           ],
           "type": "MetricsBaselineTable"
-        }
-      ]
-    },
-    "ProcessMetricsAndKpis": {
-      "name": "ProcessMetricsAndKpis",
-      "sectionId": "PMAK",
-      "doc": "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.",
-      "detailedIn": "D02TargetOperatingModel",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "PMAK"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D02TargetOperatingModel",
-            "id": "TOM-MET"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "help": "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "How each business process is measured for success once in production.\n\n**What to capture:**\n- KPI catalog per process (name, formula, target, tolerance)\n- Leading vs lagging indicators\n- Measurement frequency and data source\n- Dashboard / report ownership\n- Thresholds for corrective action\n- Baseline values for comparison\n"
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -126821,7 +126886,7 @@
               }
             }
           ],
-          "elementType": "EndToEndTestScenarios",
+          "elementType": "EndToEndTestScenario",
           "elementIsComplex": true
         },
         {
@@ -128776,7 +128841,7 @@
           "name": "prototypeType",
           "kind": "complex",
           "doc": "10.13.3. Prototype Type.",
-          "type": "PrototypeTypeSection"
+          "type": "PrototypeType"
         },
         {
           "name": "prototypeSchedule",
@@ -129515,8 +129580,8 @@
         }
       ]
     },
-    "PrototypeTypeSection": {
-      "name": "PrototypeTypeSection",
+    "PrototypeType": {
+      "name": "PrototypeType",
       "sectionId": "PRTYSE",
       "doc": "10.13.3. Prototype Type.\n\nClassification and implications of the prototype type.",
       "annotations": [
@@ -147344,8 +147409,8 @@
         }
       ]
     },
-    "RolloutTrainingMaterials": {
-      "name": "RolloutTrainingMaterials",
+    "RolloutTrainingMaterial": {
+      "name": "RolloutTrainingMaterial",
       "sectionId": "RLTTM",
       "doc": "15.4. Training Materials.\n\nTraining deliverables covering training-material content.",
       "detailedIn": "D12TransitionRolloutPlan",
@@ -162656,7 +162721,7 @@
           "name": "componentsToUse",
           "kind": "complex",
           "doc": "Components, libraries, and services to reuse.",
-          "type": "ComponentsToUse"
+          "type": "ComponentsAndDependencies"
         }
       ]
     },
@@ -162818,6 +162883,63 @@
             {
               "name": "certifications",
               "label": "Certifications — PCI, EMV, etc.",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SpecificationStatus": {
+      "name": "SpecificationStatus",
+      "sectionId": "SYSTA",
+      "doc": "Specification status.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SYSTA"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "specificationVersion",
+              "label": "Specification Version",
+              "hint": "Version of this specification document",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "specificationDate",
+              "label": "Specification Date",
+              "hint": "Date of this specification",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "specificationStatus",
+              "label": "Specification Status",
+              "hint": "Draft / Review / Approved / Superseded",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "targetGoLiveDate",
+              "label": "Target Go-Live Date",
+              "hint": "Planned production deployment date",
               "type": "String",
               "required": false
             }
@@ -166263,6 +166385,170 @@
         }
       ]
     },
+    "StagePlanCoordination": {
+      "name": "StagePlanCoordination",
+      "sectionId": "SSPCO",
+      "doc": "Dependencies, risks, and compliance constraints across stages.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SSPCO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "crossStageDependencySummary",
+              "label": "Cross-Stage Dependency Summary",
+              "hint": "Key dependencies between stages that affect sequencing",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "crossStageRiskSummary",
+              "label": "Cross-Stage Risk Summary",
+              "hint": "Top risks that span multiple stages or affect staging order",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "regulatoryComplianceConsiderations",
+              "label": "Regulatory/Compliance Considerations",
+              "hint": "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "StagePlanReadiness": {
+      "name": "StagePlanReadiness",
+      "sectionId": "SSPRD",
+      "doc": "Organizational capacity and plan confidence.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SSPRD"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "organizationalReadinessLevel",
+              "label": "Organizational Readiness Level",
+              "hint": "High / Medium / Low — organization preparedness for staged rollout",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "changeAbsorptionCapacity",
+              "label": "Change Absorption Capacity",
+              "hint": "How much change the organization can absorb per period",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "confidenceLevel",
+              "label": "Plan Confidence Level",
+              "hint": "High / Medium / Low — overall confidence in staging plan feasibility",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "lastPlanReviewDate",
+              "label": "Last Plan Review Date",
+              "hint": "When the staging plan was last formally reviewed",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "StagePlanTimeline": {
+      "name": "StagePlanTimeline",
+      "sectionId": "SSPTM",
+      "doc": "Overall schedule and buffer model.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SSPTM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "overallPlannedStart",
+              "label": "Overall Planned Start Date",
+              "hint": "Start date of the first stage",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "overallTargetCompletion",
+              "label": "Overall Target Completion Date",
+              "hint": "Target completion of the final stage",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "totalDuration",
+              "label": "Total Planned Duration",
+              "hint": "End-to-end duration across all stages, e.g. 18 months",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "bufferStrategy",
+              "label": "Buffer Strategy",
+              "hint": "How schedule buffers are allocated — PerStage / Aggregated / CriticalChain",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "StageQuality": {
       "name": "StageQuality",
       "sectionId": "STQU",
@@ -168888,7 +169174,7 @@
           "name": "legalAndContractual",
           "kind": "complex",
           "doc": "Legal and contractual requirements (IP, NDAs, compliance, audit).\nRenamed to `LegalAndContractualRequirements` in L34C-9.",
-          "type": "OtherAdministrativeRequirements"
+          "type": "LegalAndContractualRequirements"
         },
         {
           "name": "stakeholderRegister",
@@ -171844,6 +172130,106 @@
         }
       ]
     },
+    "SystemClassification": {
+      "name": "SystemClassification",
+      "sectionId": "SYCLS",
+      "doc": "System classification.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SYCLS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "systemType",
+              "label": "System Type",
+              "hint": "Web Application / Mobile App / API / Desktop / Embedded / Hybrid",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "businessDomain",
+              "label": "Business Domain",
+              "hint": "Primary business domain — Finance / Healthcare / Retail / etc.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "deploymentModel",
+              "label": "Deployment Model",
+              "hint": "Cloud / On-premise / Hybrid / Edge",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SystemComplexity": {
+      "name": "SystemComplexity",
+      "sectionId": "SYCMX",
+      "doc": "Complexity indicators.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SYCMX"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "overallComplexity",
+              "label": "Overall Complexity",
+              "hint": "Low / Medium / High / Very High — based on scope and integrations",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "keyRisks",
+              "label": "Key Risks Summary",
+              "hint": "Brief list of top 3 risks",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "keyAssumptions",
+              "label": "Key Assumptions Summary",
+              "hint": "Brief list of critical assumptions",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "SystemConfigurationManagement": {
       "name": "SystemConfigurationManagement",
       "sectionId": "SYCOMA",
@@ -173013,10 +173399,10 @@
           "type": "SystemContext"
         },
         {
-          "name": "taskArea",
+          "name": "businessDomain",
           "kind": "complex",
-          "doc": "4.1.3. Description of Task Area.",
-          "type": "TaskArea"
+          "doc": "4.1.3. Description of Business Domain.",
+          "type": "BusinessDomain"
         },
         {
           "name": "userCategories",
@@ -174960,308 +175346,6 @@
         }
       ]
     },
-    "SystemOverviewSummary": {
-      "name": "SystemOverviewSummary",
-      "sectionId": "SYSUM",
-      "doc": "System overview summary for quick reference.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYSUM"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "systemName",
-              "label": "System Name",
-              "hint": "Official name of the system being built",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "systemAcronym",
-              "label": "System Acronym",
-              "hint": "Short acronym if used",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "systemVersion",
-              "label": "System Version",
-              "hint": "Target version this specification covers",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "projectCodeName",
-              "label": "Project Code Name",
-              "hint": "Internal project code name if different",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "classification",
-          "kind": "complex",
-          "doc": "System classification.",
-          "type": "SystemOverviewSummaryClassification"
-        },
-        {
-          "name": "scale",
-          "kind": "complex",
-          "doc": "Scale indicators.",
-          "type": "SystemOverviewSummaryScale"
-        },
-        {
-          "name": "status",
-          "kind": "complex",
-          "doc": "Specification status.",
-          "type": "SystemOverviewSummaryStatus"
-        },
-        {
-          "name": "complexity",
-          "kind": "complex",
-          "doc": "Complexity indicators.",
-          "type": "SystemOverviewSummaryComplexity"
-        }
-      ]
-    },
-    "SystemOverviewSummaryClassification": {
-      "name": "SystemOverviewSummaryClassification",
-      "sectionId": "SYCLS",
-      "doc": "System classification.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYCLS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "systemType",
-              "label": "System Type",
-              "hint": "Web Application / Mobile App / API / Desktop / Embedded / Hybrid",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "businessDomain",
-              "label": "Business Domain",
-              "hint": "Primary business domain — Finance / Healthcare / Retail / etc.",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "deploymentModel",
-              "label": "Deployment Model",
-              "hint": "Cloud / On-premise / Hybrid / Edge",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemOverviewSummaryComplexity": {
-      "name": "SystemOverviewSummaryComplexity",
-      "sectionId": "SYCMX",
-      "doc": "Complexity indicators.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYCMX"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "overallComplexity",
-              "label": "Overall Complexity",
-              "hint": "Low / Medium / High / Very High — based on scope and integrations",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "keyRisks",
-              "label": "Key Risks Summary",
-              "hint": "Brief list of top 3 risks",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "keyAssumptions",
-              "label": "Key Assumptions Summary",
-              "hint": "Brief list of critical assumptions",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemOverviewSummaryScale": {
-      "name": "SystemOverviewSummaryScale",
-      "sectionId": "SYSCL",
-      "doc": "Scale indicators.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYSCL"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "estimatedUserCount",
-              "label": "Estimated User Count",
-              "hint": "Expected number of users at steady state",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "userCategoryCount",
-              "label": "User Category Count",
-              "hint": "Number of distinct user categories",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "externalInterfaceCount",
-              "label": "External Interface Count",
-              "hint": "Number of external system integrations",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "functionalRequirementCount",
-              "label": "Functional Requirement Count",
-              "hint": "Number of functional requirements identified",
-              "type": "int",
-              "required": false
-            },
-            {
-              "name": "nonFunctionalRequirementCount",
-              "label": "Non-Functional Requirement Count",
-              "hint": "Number of non-functional requirements identified",
-              "type": "int",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemOverviewSummaryStatus": {
-      "name": "SystemOverviewSummaryStatus",
-      "sectionId": "SYSTA",
-      "doc": "Specification status.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYSTA"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "specificationVersion",
-              "label": "Specification Version",
-              "hint": "Version of this specification document",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "specificationDate",
-              "label": "Specification Date",
-              "hint": "Date of this specification",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "specificationStatus",
-              "label": "Specification Status",
-              "hint": "Draft / Review / Approved / Superseded",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "targetGoLiveDate",
-              "label": "Target Go-Live Date",
-              "hint": "Planned production deployment date",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
     "SystemPurpose": {
       "name": "SystemPurpose",
       "sectionId": "SYPUP",
@@ -175817,8 +175901,8 @@
         }
       ]
     },
-    "SystemRolloutConcept": {
-      "name": "SystemRolloutConcept",
+    "SystemRollout": {
+      "name": "SystemRollout",
       "sectionId": "ROLC",
       "doc": "15. System Rollout Concept. Seeds → TRP.",
       "mapsTo": "D12TransitionRolloutPlan",
@@ -175889,7 +175973,7 @@
               }
             }
           ],
-          "elementType": "UserManuals",
+          "elementType": "UserManual",
           "elementIsComplex": true
         },
         {
@@ -175912,7 +175996,7 @@
               }
             }
           ],
-          "elementType": "RolloutTrainingMaterials",
+          "elementType": "RolloutTrainingMaterial",
           "elementIsComplex": true
         },
         {
@@ -175941,7 +176025,7 @@
               }
             }
           ],
-          "elementType": "CutoverProcedures",
+          "elementType": "CutoverProcedure",
           "elementIsComplex": true
         },
         {
@@ -175955,6 +176039,70 @@
           "kind": "complex",
           "doc": "15.8. Warranty and Support.",
           "type": "WarrantyAndSupport"
+        }
+      ]
+    },
+    "SystemScale": {
+      "name": "SystemScale",
+      "sectionId": "SYSCL",
+      "doc": "Scale indicators.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SYSCL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "estimatedUserCount",
+              "label": "Estimated User Count",
+              "hint": "Expected number of users at steady state",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "userCategoryCount",
+              "label": "User Category Count",
+              "hint": "Number of distinct user categories",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "externalInterfaceCount",
+              "label": "External Interface Count",
+              "hint": "Number of external system integrations",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "functionalRequirementCount",
+              "label": "Functional Requirement Count",
+              "hint": "Number of functional requirements identified",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "nonFunctionalRequirementCount",
+              "label": "Non-Functional Requirement Count",
+              "hint": "Number of non-functional requirements identified",
+              "type": "int",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -176023,19 +176171,19 @@
           "name": "timeline",
           "kind": "complex",
           "doc": "Overall schedule and buffer model.",
-          "type": "SystemStagePlanTimeline"
+          "type": "StagePlanTimeline"
         },
         {
           "name": "coordination",
           "kind": "complex",
           "doc": "Dependencies, risks, and compliance constraints across stages.",
-          "type": "SystemStagePlanCoordination"
+          "type": "StagePlanCoordination"
         },
         {
           "name": "readiness",
           "kind": "complex",
           "doc": "Organizational capacity and plan confidence.",
-          "type": "SystemStagePlanReadiness"
+          "type": "StagePlanReadiness"
         },
         {
           "name": "strategy",
@@ -176111,15 +176259,15 @@
         }
       ]
     },
-    "SystemStagePlanCoordination": {
-      "name": "SystemStagePlanCoordination",
-      "sectionId": "SSPCO",
-      "doc": "Dependencies, risks, and compliance constraints across stages.",
+    "SystemSummary": {
+      "name": "SystemSummary",
+      "sectionId": "SYSUM",
+      "doc": "System overview summary for quick reference.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSPCO"
+            "id": "SYSUM"
           }
         }
       ],
@@ -176137,141 +176285,58 @@
           ],
           "formFields": [
             {
-              "name": "crossStageDependencySummary",
-              "label": "Cross-Stage Dependency Summary",
-              "hint": "Key dependencies between stages that affect sequencing",
+              "name": "systemName",
+              "label": "System Name",
+              "hint": "Official name of the system being built",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "systemAcronym",
+              "label": "System Acronym",
+              "hint": "Short acronym if used",
               "type": "String",
               "required": false
             },
             {
-              "name": "crossStageRiskSummary",
-              "label": "Cross-Stage Risk Summary",
-              "hint": "Top risks that span multiple stages or affect staging order",
+              "name": "systemVersion",
+              "label": "System Version",
+              "hint": "Target version this specification covers",
               "type": "String",
               "required": false
             },
             {
-              "name": "regulatoryComplianceConsiderations",
-              "label": "Regulatory/Compliance Considerations",
-              "hint": "Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS",
+              "name": "projectCodeName",
+              "label": "Project Code Name",
+              "hint": "Internal project code name if different",
               "type": "String",
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "SystemStagePlanReadiness": {
-      "name": "SystemStagePlanReadiness",
-      "sectionId": "SSPRD",
-      "doc": "Organizational capacity and plan confidence.",
-      "annotations": [
+        },
         {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SSPRD"
-          }
-        }
-      ],
-      "fields": [
+          "name": "classification",
+          "kind": "complex",
+          "doc": "System classification.",
+          "type": "SystemClassification"
+        },
         {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "organizationalReadinessLevel",
-              "label": "Organizational Readiness Level",
-              "hint": "High / Medium / Low — organization preparedness for staged rollout",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "changeAbsorptionCapacity",
-              "label": "Change Absorption Capacity",
-              "hint": "How much change the organization can absorb per period",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "confidenceLevel",
-              "label": "Plan Confidence Level",
-              "hint": "High / Medium / Low — overall confidence in staging plan feasibility",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "lastPlanReviewDate",
-              "label": "Last Plan Review Date",
-              "hint": "When the staging plan was last formally reviewed",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemStagePlanTimeline": {
-      "name": "SystemStagePlanTimeline",
-      "sectionId": "SSPTM",
-      "doc": "Overall schedule and buffer model.",
-      "annotations": [
+          "name": "scale",
+          "kind": "complex",
+          "doc": "Scale indicators.",
+          "type": "SystemScale"
+        },
         {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SSPTM"
-          }
-        }
-      ],
-      "fields": [
+          "name": "status",
+          "kind": "complex",
+          "doc": "Specification status.",
+          "type": "SpecificationStatus"
+        },
         {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "overallPlannedStart",
-              "label": "Overall Planned Start Date",
-              "hint": "Start date of the first stage",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "overallTargetCompletion",
-              "label": "Overall Target Completion Date",
-              "hint": "Target completion of the final stage",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "totalDuration",
-              "label": "Total Planned Duration",
-              "hint": "End-to-end duration across all stages, e.g. 18 months",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "bufferStrategy",
-              "label": "Buffer Strategy",
-              "hint": "How schedule buffers are allocated — PerStage / Aggregated / CriticalChain",
-              "type": "String",
-              "required": false
-            }
-          ]
+          "name": "complexity",
+          "kind": "complex",
+          "doc": "Complexity indicators.",
+          "type": "SystemComplexity"
         }
       ]
     },
@@ -177976,8 +178041,8 @@
         }
       ]
     },
-    "TargetOperatingModelConcept": {
-      "name": "TargetOperatingModelConcept",
+    "TargetOperatingModel": {
+      "name": "TargetOperatingModel",
       "sectionId": "TOMC",
       "doc": "SBP.7 Target Operating Model concept.\n\nPublic anchor: BABOK future-state analysis.",
       "annotations": [
@@ -178291,84 +178356,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "TaskArea": {
-      "name": "TaskArea",
-      "sectionId": "TA",
-      "doc": "4.1.3. Description of Task Area.\n\nDescribes the business domain and task area the system addresses.\nDefines the domain vocabulary and key concepts (ubiquitous language)\nthat will be used throughout the project. Based on Domain-Driven Design\nprinciples for establishing a shared understanding.",
-      "help": "Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project.",
-      "annotations": [
-        {
-          "name": "ContentHelp",
-          "arguments": {
-            "guidance": "Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TA"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "description",
-                "description": "High-level overview of the business domain and task area, explaining what business activities and processes this system will support."
-              }
-            }
-          ],
-          "contentType": "description"
-        },
-        {
-          "name": "domainOverview",
-          "kind": "complex",
-          "doc": "4.1.3.1. Domain Overview.",
-          "type": "DomainOverview"
-        },
-        {
-          "name": "domainVocabulary",
-          "kind": "complex",
-          "doc": "4.1.3.2. Domain Vocabulary.",
-          "type": "DomainVocabulary"
-        },
-        {
-          "name": "keyConcepts",
-          "kind": "complex",
-          "doc": "4.1.3.3. Key Concepts.",
-          "type": "KeyConcepts"
-        },
-        {
-          "name": "domainBoundaries",
-          "kind": "complex",
-          "doc": "4.1.3.4. Domain Boundaries.",
-          "type": "DomainBoundaries"
-        },
-        {
-          "name": "businessRules",
-          "kind": "complex",
-          "doc": "4.1.3.5. Business Rules.",
-          "type": "DomainBusinessRules"
-        },
-        {
-          "name": "domainProcesses",
-          "kind": "complex",
-          "doc": "4.1.3.6. Domain Processes.",
-          "type": "DomainProcesses"
-        },
-        {
-          "name": "domainEvents",
-          "kind": "complex",
-          "doc": "4.1.3.7. Domain Events.",
-          "type": "DomainEvents"
         }
       ]
     },
@@ -179176,113 +179163,10 @@
         }
       ]
     },
-    "TechnicalFrameworkConcept": {
-      "name": "TechnicalFrameworkConcept",
-      "sectionId": "TECH",
-      "doc": "8. Technical Framework Concept. Seeds → ATS.",
-      "help": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n",
-      "mapsTo": "D06ArchitectureTechnologySpecification",
-      "annotations": [
-        {
-          "name": "Comment",
-          "arguments": {
-            "text": "Seeds → ATS"
-          }
-        },
-        {
-          "name": "MapsTo",
-          "arguments": {
-            "documentClass": "D06ArchitectureTechnologySpecification"
-          }
-        },
-        {
-          "name": "ContentHelp",
-          "arguments": {
-            "guidance": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n"
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TECH"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "help": "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n"
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "basicRequirements",
-          "kind": "complex",
-          "doc": "8.1. Basic Technical Requirements.",
-          "type": "BasicTechnicalRequirements"
-        },
-        {
-          "name": "softwareDesign",
-          "kind": "complex",
-          "doc": "8.2. Software Design Requirements.",
-          "type": "SoftwareDesignRequirements"
-        },
-        {
-          "name": "standardSoftware",
-          "kind": "complex",
-          "doc": "8.3. Standard Application Software Requirements.",
-          "type": "StandardSoftwareRequirements"
-        },
-        {
-          "name": "hardware",
-          "kind": "complex",
-          "doc": "8.4. Hardware Concept Requirements.",
-          "type": "HardwareRequirements"
-        },
-        {
-          "name": "operations",
-          "kind": "complex",
-          "doc": "8.5. Operations Requirements.",
-          "type": "OperationsRequirements"
-        },
-        {
-          "name": "communication",
-          "kind": "complex",
-          "doc": "8.6. Communication Requirements.",
-          "type": "CommunicationRequirements"
-        },
-        {
-          "name": "systemOperation",
-          "kind": "complex",
-          "doc": "8.7. System Operation and Monitoring.",
-          "type": "SystemOperationAndMonitoring"
-        },
-        {
-          "name": "security",
-          "kind": "complex",
-          "doc": "8.8. Security Requirements.",
-          "type": "TechnicalSecurityRequirements"
-        },
-        {
-          "name": "systemArchitecture",
-          "kind": "complex",
-          "doc": "8.9. System Architecture..",
-          "type": "SystemArchitectureSpec"
-        }
-      ]
-    },
-    "TechnicalFrameworkConditions": {
-      "name": "TechnicalFrameworkConditions",
+    "TechnicalEnvironment": {
+      "name": "TechnicalEnvironment",
       "sectionId": "TEFRCO",
-      "doc": "4.6.3. Technical Framework Conditions. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
+      "doc": "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
       "annotations": [
@@ -179358,25 +179242,25 @@
           "name": "governance",
           "kind": "complex",
           "doc": "Architecture governance context.",
-          "type": "TechnicalFrameworkConditionsGovernance"
+          "type": "TechnicalEnvironmentGovernance"
         },
         {
           "name": "standards",
           "kind": "complex",
           "doc": "Platform standards and preferred technologies.",
-          "type": "TechnicalFrameworkConditionsStandards"
+          "type": "TechnicalEnvironmentStandards"
         },
         {
           "name": "security",
           "kind": "complex",
           "doc": "Security and compliance requirements.",
-          "type": "TechnicalFrameworkConditionsSecurity"
+          "type": "TechnicalEnvironmentSecurity"
         },
         {
           "name": "network",
           "kind": "complex",
           "doc": "Network and infrastructure standards.",
-          "type": "TechnicalFrameworkConditionsNetwork"
+          "type": "TechnicalEnvironmentNetwork"
         },
         {
           "name": "existingInfrastructure",
@@ -179513,8 +179397,8 @@
         }
       ]
     },
-    "TechnicalFrameworkConditionsGovernance": {
-      "name": "TechnicalFrameworkConditionsGovernance",
+    "TechnicalEnvironmentGovernance": {
+      "name": "TechnicalEnvironmentGovernance",
       "sectionId": "TFCG",
       "doc": "Architecture governance context.",
       "annotations": [
@@ -179555,8 +179439,8 @@
         }
       ]
     },
-    "TechnicalFrameworkConditionsNetwork": {
-      "name": "TechnicalFrameworkConditionsNetwork",
+    "TechnicalEnvironmentNetwork": {
+      "name": "TechnicalEnvironmentNetwork",
       "sectionId": "TFCN",
       "doc": "Network and infrastructure standards.",
       "annotations": [
@@ -179679,8 +179563,8 @@
         }
       ]
     },
-    "TechnicalFrameworkConditionsSecurity": {
-      "name": "TechnicalFrameworkConditionsSecurity",
+    "TechnicalEnvironmentSecurity": {
+      "name": "TechnicalEnvironmentSecurity",
       "sectionId": "TFCS1",
       "doc": "Security and compliance requirements.",
       "annotations": [
@@ -179743,8 +179627,8 @@
         }
       ]
     },
-    "TechnicalFrameworkConditionsStandards": {
-      "name": "TechnicalFrameworkConditionsStandards",
+    "TechnicalEnvironmentStandards": {
+      "name": "TechnicalEnvironmentStandards",
       "sectionId": "TFCS",
       "doc": "Platform standards and preferred technologies.",
       "annotations": [
@@ -179804,6 +179688,109 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "TechnicalFrameworkConcept": {
+      "name": "TechnicalFrameworkConcept",
+      "sectionId": "TECH",
+      "doc": "8. Technical Framework Concept. Seeds → ATS.",
+      "help": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n",
+      "mapsTo": "D06ArchitectureTechnologySpecification",
+      "annotations": [
+        {
+          "name": "Comment",
+          "arguments": {
+            "text": "Seeds → ATS"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D06ArchitectureTechnologySpecification"
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TECH"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Provide an executive summary of the technical framework approach.\n\n**Include**:\n- Key architectural decisions and rationale\n- Critical technology choices and constraints\n- Major technical risks and mitigation strategies\n- Technology evaluation criteria used\n- Timeline for technical decisions and reviews\n\n**Best Practices**:\n- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)\n- Document trade-offs explicitly (e.g., time-to-market vs. scalability)\n- Include technology radar assessment (Adopt, Trial, Assess, Hold)\n- Cross-reference with business drivers from project overview\n- Plan for technology obsolescence and migration paths\n"
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "basicRequirements",
+          "kind": "complex",
+          "doc": "8.1. Basic Technical Requirements.",
+          "type": "BasicTechnicalRequirements"
+        },
+        {
+          "name": "softwareDesign",
+          "kind": "complex",
+          "doc": "8.2. Software Design Requirements.",
+          "type": "SoftwareDesignRequirements"
+        },
+        {
+          "name": "standardSoftware",
+          "kind": "complex",
+          "doc": "8.3. Standard Application Software Requirements.",
+          "type": "StandardSoftwareRequirements"
+        },
+        {
+          "name": "hardware",
+          "kind": "complex",
+          "doc": "8.4. Hardware Concept Requirements.",
+          "type": "HardwareRequirements"
+        },
+        {
+          "name": "operations",
+          "kind": "complex",
+          "doc": "8.5. Operations Requirements.",
+          "type": "OperationsRequirements"
+        },
+        {
+          "name": "communication",
+          "kind": "complex",
+          "doc": "8.6. Communication Requirements.",
+          "type": "CommunicationRequirements"
+        },
+        {
+          "name": "systemOperation",
+          "kind": "complex",
+          "doc": "8.7. System Operation and Monitoring.",
+          "type": "SystemOperationAndMonitoring"
+        },
+        {
+          "name": "security",
+          "kind": "complex",
+          "doc": "8.8. Security Requirements.",
+          "type": "TechnicalSecurityRequirements"
+        },
+        {
+          "name": "systemArchitecture",
+          "kind": "complex",
+          "doc": "8.9. System Architecture..",
+          "type": "SystemArchitectureSpec"
         }
       ]
     },
@@ -186761,7 +186748,7 @@
     "TrainingDeliverableRequirements": {
       "name": "TrainingDeliverableRequirements",
       "sectionId": "TRMAT",
-      "doc": "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterials`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
+      "doc": "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
@@ -189579,6 +189566,49 @@
         }
       ]
     },
+    "TranslationOngoing": {
+      "name": "TranslationOngoing",
+      "sectionId": "TRPRON",
+      "doc": "Ongoing localization operations.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TRPRON"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "continuousLocalization",
+              "label": "Continuous Localization",
+              "hint": "CI/CD integration for translations",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "translationMemoryMaintenance",
+              "label": "TM Maintenance",
+              "hint": "How translation memory is maintained",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "TranslationProcess": {
       "name": "TranslationProcess",
       "sectionId": "TRPR",
@@ -189659,25 +189689,25 @@
           "name": "workflow",
           "kind": "complex",
           "doc": "Translation workflow.",
-          "type": "TranslationProcessWorkflow"
+          "type": "TranslationWorkflow"
         },
         {
           "name": "quality",
           "kind": "complex",
           "doc": "Quality assurance.",
-          "type": "TranslationProcessQuality"
+          "type": "TranslationQuality"
         },
         {
           "name": "terminology",
           "kind": "complex",
           "doc": "Terminology and voice management.",
-          "type": "TranslationProcessTerminology"
+          "type": "TranslationTerminology"
         },
         {
           "name": "ongoing",
           "kind": "complex",
           "doc": "Ongoing localization operations.",
-          "type": "TranslationProcessOngoing"
+          "type": "TranslationOngoing"
         },
         {
           "name": "translationNarrative",
@@ -189711,51 +189741,8 @@
         }
       ]
     },
-    "TranslationProcessOngoing": {
-      "name": "TranslationProcessOngoing",
-      "sectionId": "TRPRON",
-      "doc": "Ongoing localization operations.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TRPRON"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "continuousLocalization",
-              "label": "Continuous Localization",
-              "hint": "CI/CD integration for translations",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "translationMemoryMaintenance",
-              "label": "TM Maintenance",
-              "hint": "How translation memory is maintained",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "TranslationProcessQuality": {
-      "name": "TranslationProcessQuality",
+    "TranslationQuality": {
+      "name": "TranslationQuality",
       "sectionId": "TRPRQU",
       "doc": "Quality assurance.",
       "annotations": [
@@ -189797,113 +189784,6 @@
               "name": "functionalQA",
               "label": "Functional QA",
               "hint": "Functional testing of translations",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "TranslationProcessTerminology": {
-      "name": "TranslationProcessTerminology",
-      "sectionId": "TRPRTE",
-      "doc": "Terminology and voice management.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TRPRTE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "glossaryManagement",
-              "label": "Glossary Management",
-              "hint": "Term base management",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "styleGuide",
-              "label": "Style Guide",
-              "hint": "Translation style guidelines",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "brandVoice",
-              "label": "Brand Voice",
-              "hint": "How brand voice is maintained",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "TranslationProcessWorkflow": {
-      "name": "TranslationProcessWorkflow",
-      "sectionId": "TRPRWO",
-      "doc": "Translation workflow.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TRPRWO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "translationWorkflow",
-              "label": "Translation Workflow",
-              "hint": "Steps: extract → translate → review → integrate",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "reviewCycles",
-              "label": "Review Cycles",
-              "hint": "Number of review rounds",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "inCountryReview",
-              "label": "In-Country Review",
-              "hint": "Native speaker review process",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "contextualReview",
-              "label": "Contextual Review",
-              "hint": "In-app review process",
               "type": "String",
               "required": false
             }
@@ -190233,6 +190113,56 @@
         }
       ]
     },
+    "TranslationTerminology": {
+      "name": "TranslationTerminology",
+      "sectionId": "TRPRTE",
+      "doc": "Terminology and voice management.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TRPRTE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "glossaryManagement",
+              "label": "Glossary Management",
+              "hint": "Term base management",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "styleGuide",
+              "label": "Style Guide",
+              "hint": "Translation style guidelines",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "brandVoice",
+              "label": "Brand Voice",
+              "hint": "How brand voice is maintained",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "TranslationVendorEntry": {
       "name": "TranslationVendorEntry",
       "sectionId": "TVE",
@@ -190300,6 +190230,63 @@
             {
               "name": "contactInfo",
               "label": "Contact Info",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "TranslationWorkflow": {
+      "name": "TranslationWorkflow",
+      "sectionId": "TRPRWO",
+      "doc": "Translation workflow.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TRPRWO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "translationWorkflow",
+              "label": "Translation Workflow",
+              "hint": "Steps: extract → translate → review → integrate",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "reviewCycles",
+              "label": "Review Cycles",
+              "hint": "Number of review rounds",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "inCountryReview",
+              "label": "In-Country Review",
+              "hint": "Native speaker review process",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "contextualReview",
+              "label": "Contextual Review",
+              "hint": "In-app review process",
               "type": "String",
               "required": false
             }
@@ -192988,19 +192975,19 @@
           "name": "visualLanguage",
           "kind": "complex",
           "doc": "Visual language and brand alignment.",
-          "type": "UiComponentsVisualLanguage"
+          "type": "ComponentVisualLanguage"
         },
         {
           "name": "componentApproach",
           "kind": "complex",
           "doc": "Component naming and documentation approach.",
-          "type": "UiComponentsComponentApproach"
+          "type": "ComponentApproach"
         },
         {
           "name": "customization",
           "kind": "complex",
           "doc": "Extension and theming boundaries.",
-          "type": "UiComponentsCustomization"
+          "type": "ComponentCustomization"
         },
         {
           "name": "componentLibrary",
@@ -193053,240 +193040,6 @@
           ],
           "elementType": "ComponentFamilyEntry",
           "elementIsComplex": true
-        }
-      ]
-    },
-    "UiComponentsComponentApproach": {
-      "name": "UiComponentsComponentApproach",
-      "sectionId": "UCCA",
-      "doc": "Component naming and documentation approach.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "UCCA"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "componentGranularity",
-              "label": "Component Granularity",
-              "hint": "Atomic design levels: atoms, molecules, organisms",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "componentNaming",
-              "label": "Component Naming Convention",
-              "hint": "PascalCase, kebab-case, prefix rules",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "componentDocumentation",
-              "label": "Component Documentation",
-              "hint": "Storybook, living style guide, doc site",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "UiComponentsCustomization": {
-      "name": "UiComponentsCustomization",
-      "sectionId": "UICOCU",
-      "doc": "Extension and theming boundaries.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "UICOCU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "extensionModel",
-              "label": "Extension Model",
-              "hint": "How components can be extended or themed",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "themingApproach",
-              "label": "Theming Approach",
-              "hint": "Token-based, widget-level, theme data",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "customizationBoundaries",
-              "label": "Customization Boundaries",
-              "hint": "What can vs. cannot be customized",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "UiComponentsVisualLanguage": {
-      "name": "UiComponentsVisualLanguage",
-      "sectionId": "UCVL",
-      "doc": "Visual language and brand alignment.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "UCVL"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "visualLanguage",
-              "label": "Visual Language",
-              "hint": "Clean, playful, professional, minimal",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "brandAlignment",
-              "label": "Brand Alignment",
-              "hint": "How design aligns with brand guidelines",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "motionPrinciples",
-              "label": "Motion Principles",
-              "hint": "Animation philosophy: subtle, expressive, functional",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "UiDesignPrincipleEntry": {
-      "name": "UiDesignPrincipleEntry",
-      "sectionId": "UDPEN",
-      "doc": "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "UDPEN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "principleName",
-              "label": "Principle Name",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "description",
-              "label": "Description",
-              "hint": "What this principle means",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "rationale",
-              "label": "Rationale",
-              "hint": "Why this principle matters",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "category",
-              "label": "Category",
-              "hint": "Visual/Interaction/Accessibility/Information/Navigation",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "examples",
-              "label": "Examples",
-              "hint": "How the principle manifests in the UI",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "exceptions",
-              "label": "Exceptions",
-              "hint": "When deviation is acceptable",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "sourceReference",
-              "label": "Source Reference",
-              "hint": "Design system or external reference",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "relatedGoals",
-              "label": "Related Goals",
-              "hint": "Design goals this principle supports",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },
@@ -194374,6 +194127,253 @@
           "doc": "State Transition Diagram (mermaid).",
           "contentType": "mermaid",
           "sectionType": "DiagramSection"
+        }
+      ]
+    },
+    "UserAssistance": {
+      "name": "UserAssistance",
+      "sectionId": "HECO",
+      "doc": "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
+      "mapsTo": "D09ExperienceDesignSpecification",
+      "detailedIn": "D09ExperienceDesignSpecification",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "HECO"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D09ExperienceDesignSpecification",
+            "id": "XDS-HLP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "helpOverviewContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "helpPhilosophy",
+              "label": "Help Philosophy",
+              "hint": "Self-service first, guided, on-demand",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpAccessibility",
+              "label": "Help Accessibility",
+              "hint": "Always visible, contextual, searchable",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpPersonalization",
+              "label": "Help Personalization",
+              "hint": "Role-based, skill-based, contextual",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpContentStrategy",
+              "label": "Help Content Strategy",
+              "hint": "Video, text, interactive, mixed",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "delivery",
+          "kind": "complex",
+          "doc": "Content stewardship and help affordances.",
+          "type": "UserAssistanceDelivery"
+        },
+        {
+          "name": "insights",
+          "kind": "complex",
+          "doc": "Analytics and improvement feedback.",
+          "type": "UserAssistanceInsights"
+        },
+        {
+          "name": "helpOverview",
+          "kind": "section",
+          "doc": "Help system overview narrative.",
+          "help": "Executive summary of help system approach, content strategy, and user empowerment goals.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of help system approach, content strategy, and user empowerment goals."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "contextualHelp",
+          "kind": "complex",
+          "doc": "10.8.1. Contextual Help.",
+          "type": "ContextualHelp"
+        },
+        {
+          "name": "onboarding",
+          "kind": "complex",
+          "doc": "10.8.2. Onboarding.",
+          "type": "OnboardingHelp"
+        },
+        {
+          "name": "supportAccess",
+          "kind": "complex",
+          "doc": "10.8.3. Support Access.",
+          "type": "SupportAccess"
+        },
+        {
+          "name": "helpContentInventory",
+          "kind": "section",
+          "doc": "Help content inventory.",
+          "help": "Inventory of all help content by feature area.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Inventory of all help content by feature area."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        }
+      ]
+    },
+    "UserAssistanceDelivery": {
+      "name": "UserAssistanceDelivery",
+      "sectionId": "HECODE",
+      "doc": "Content stewardship and help affordances.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "HECODE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "helpContentOwnership",
+              "label": "Help Content Ownership",
+              "hint": "Who maintains help content",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpUpdateProcess",
+              "label": "Help Update Process",
+              "hint": "How help content is kept current",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpIconStandard",
+              "label": "Help Icon Standard",
+              "hint": "Question mark, info icon, custom",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpIconPlacement",
+              "label": "Help Icon Placement",
+              "hint": "By field labels, in headers, floating",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpTooltipStyle",
+              "label": "Help Tooltip Style",
+              "hint": "Tooltip design and behavior",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "UserAssistanceInsights": {
+      "name": "UserAssistanceInsights",
+      "sectionId": "HECOIN",
+      "doc": "Analytics and improvement feedback.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "HECOIN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "helpAnalytics",
+              "label": "Help Analytics",
+              "hint": "Track help usage, identify gaps",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "helpFeedback",
+              "label": "Help Feedback",
+              "hint": "Rate help articles, suggest improvements",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -195781,8 +195781,8 @@
         }
       ]
     },
-    "UserLifecycleSection": {
-      "name": "UserLifecycleSection",
+    "UserLifecycle": {
+      "name": "UserLifecycle",
       "sectionId": "USLCS",
       "doc": "9.1.2. User Lifecycle.\n\nDefines the complete user account lifecycle: states, transitions between\nstates, approval requirements for each transition, and operational policies\nfor registration, activation, modification, deactivation, and deletion.",
       "annotations": [
@@ -196234,7 +196234,7 @@
           "name": "userLifecycle",
           "kind": "complex",
           "doc": "9.1.2. User Lifecycle.",
-          "type": "UserLifecycleSection"
+          "type": "UserLifecycle"
         },
         {
           "name": "userAttributes",
@@ -196244,8 +196244,8 @@
         }
       ]
     },
-    "UserManuals": {
-      "name": "UserManuals",
+    "UserManual": {
+      "name": "UserManual",
       "sectionId": "USRMAN",
       "doc": "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.",
       "detailedIn": "D12TransitionRolloutPlan",

@@ -38,7 +38,7 @@ document alongside the systems-to-replace inventory.
   /// 1.5. Operational Metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
-  List<CurrentOperationalMetrics> operationalMetrics = [];
+  List<CurrentOperationalMetric> operationalMetrics = [];
 
   /// 1.6. Current State Risks.
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
@@ -3563,7 +3563,7 @@ class MasterDataDomainEntryGovernance {
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MET')
-class CurrentOperationalMetrics {
+class CurrentOperationalMetric {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
 landscape. Feeds requirement derivation (target throughput, peak-load

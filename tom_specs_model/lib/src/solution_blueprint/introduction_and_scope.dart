@@ -1,4 +1,4 @@
-/// Section 4: System Overview.
+/// Section 4: Introduction & Scope.
 ///
 /// High-level overview of the system: purpose, goals, scope, requirements,
 /// boundaries, and environment. This chapter provides the foundational
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 4. System Overview.
+/// 4. Introduction & Scope.
 ///
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
@@ -32,7 +32,7 @@ a quick understanding without reading the full specification.
   String? content;
 
   /// System overview summary statistics.
-  SystemOverviewSummary summary = SystemOverviewSummary();
+  SystemSummary summary = SystemSummary();
 
   /// System context diagram showing major system boundaries.
   @ContentType('mermaid', 'High-level context diagram showing the system, '
@@ -57,8 +57,8 @@ a quick understanding without reading the full specification.
   @Comment('Seeds → IIS')
   SystemBoundaries systemBoundaries = SystemBoundaries();
 
-  /// 4.6. Framework Conditions.
-  FrameworkConditions frameworkConditions = FrameworkConditions();
+  /// 4.6. Operating Environment.
+  OperatingEnvironment operatingEnvironment = OperatingEnvironment();
 
   /// 4.7. Risks and Assumptions.
   RisksAndAssumptions risksAndAssumptions = RisksAndAssumptions();
@@ -66,7 +66,7 @@ a quick understanding without reading the full specification.
 
 /// System overview summary for quick reference.
 @SectionId('SYSUM')
-class SystemOverviewSummary {
+class SystemSummary {
   @Form([
     Field('systemName', String, 'System Name',
         hint: 'Official name of the system being built', required: true),
@@ -80,23 +80,23 @@ class SystemOverviewSummary {
   String? content;
 
   /// System classification.
-  SystemOverviewSummaryClassification classification =
-      SystemOverviewSummaryClassification();
+  SystemClassification classification =
+      SystemClassification();
 
   /// Scale indicators.
-  SystemOverviewSummaryScale scale = SystemOverviewSummaryScale();
+  SystemScale scale = SystemScale();
 
   /// Specification status.
-  SystemOverviewSummaryStatus status = SystemOverviewSummaryStatus();
+  SpecificationStatus status = SpecificationStatus();
 
   /// Complexity indicators.
-  SystemOverviewSummaryComplexity complexity =
-      SystemOverviewSummaryComplexity();
+  SystemComplexity complexity =
+      SystemComplexity();
 }
 
 /// System classification.
 @SectionId('SYCLS')
-class SystemOverviewSummaryClassification {
+class SystemClassification {
   @Form([
     Field('systemType', String, 'System Type',
         hint: 'Web Application / Mobile App / API / Desktop / Embedded / Hybrid'),
@@ -110,7 +110,7 @@ class SystemOverviewSummaryClassification {
 
 /// Scale indicators.
 @SectionId('SYSCL')
-class SystemOverviewSummaryScale {
+class SystemScale {
   @Form([
     Field('estimatedUserCount', int, 'Estimated User Count',
         hint: 'Expected number of users at steady state'),
@@ -128,7 +128,7 @@ class SystemOverviewSummaryScale {
 
 /// Specification status.
 @SectionId('SYSTA')
-class SystemOverviewSummaryStatus {
+class SpecificationStatus {
   @Form([
     Field('specificationVersion', String, 'Specification Version',
         hint: 'Version of this specification document'),
@@ -144,7 +144,7 @@ class SystemOverviewSummaryStatus {
 
 /// Complexity indicators.
 @SectionId('SYCMX')
-class SystemOverviewSummaryComplexity {
+class SystemComplexity {
   @Form([
     Field('overallComplexity', String, 'Overall Complexity',
         hint: 'Low / Medium / High / Very High — based on scope and integrations'),
@@ -185,8 +185,8 @@ that all stakeholders can refer to.
   /// 4.1.2. System Context.
   SystemContext systemContext = SystemContext();
 
-  /// 4.1.3. Description of Task Area.
-  TaskArea taskArea = TaskArea();
+  /// 4.1.3. Description of Business Domain.
+  BusinessDomain businessDomain = BusinessDomain();
 
   /// 4.1.4. User Categories — contains 1+× User Category.
   @SectionId('USCA-USER-LST')
@@ -1037,10 +1037,10 @@ class ApplicableRegulationEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 4.1.3 Description of Task Area
+// 4.1.3 Description of Business Domain
 // ---------------------------------------------------------------------------
 
-/// 4.1.3. Description of Task Area.
+/// 4.1.3. Description of Business Domain.
 ///
 /// Describes the business domain and task area the system addresses.
 /// Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -1051,7 +1051,7 @@ class ApplicableRegulationEntry {
     'be used throughout the project documentation. This establishes '
     'the ubiquitous language for the project.')
 @SectionId('TA')
-class TaskArea {
+class BusinessDomain {
   @ContentType('description', 'High-level overview of the business domain '
       'and task area, explaining what business activities and processes '
       'this system will support.')
@@ -6894,17 +6894,17 @@ class BoundaryAssumptionEntryRisk {
 }
 
 // ---------------------------------------------------------------------------
-// 4.6 Framework Conditions
+// 4.6 Operating Environment
 // ---------------------------------------------------------------------------
 
-/// 4.6. Framework Conditions.
+/// 4.6. Operating Environment.
 ///
 /// Documents the organizational and technical environment in which the system
 /// will operate. Covers organizational structure, functional responsibilities,
 /// technical constraints, and external dependencies. Follows TOGAF enterprise
 /// context patterns and PMBOK environmental factors analysis.
 @SectionId('FRCO')
-class FrameworkConditions {
+class OperatingEnvironment {
   /// Framework conditions overview.
   @ContentHelp('Provide executive summary of the operating environment: '
       'organizational context, technical landscape, key constraints, '
@@ -6919,10 +6919,10 @@ class FrameworkConditions {
   FunctionalResponsibilities functionalResponsibilities =
       FunctionalResponsibilities();
 
-  /// 4.6.3. Technical Framework Conditions. Seeds → ATS.
+  /// 4.6.3. Technical Environment. Seeds → ATS.
   @Comment('Seeds → ATS')
-  TechnicalFrameworkConditions technicalFrameworkConditions =
-      TechnicalFrameworkConditions();
+  TechnicalEnvironment technicalEnvironment =
+      TechnicalEnvironment();
 
   /// 4.6.4. Constraints and Dependencies — contains 0+×.
   ConstraintsAndDependencies constraintsAndDependencies =
@@ -7252,7 +7252,7 @@ class ResponsibilityGovernance {
   String? content;
 }
 
-/// 4.6.3. Technical Framework Conditions. Seeds → ATS.
+/// 4.6.3. Technical Environment. Seeds → ATS.
 ///
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
@@ -7264,7 +7264,7 @@ class ResponsibilityGovernance {
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-TEC')
-class TechnicalFrameworkConditions {
+class TechnicalEnvironment {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
   // -------------------------------------------------------------------------
@@ -7279,20 +7279,20 @@ class TechnicalFrameworkConditions {
   String? technicalOverviewContent;
 
   /// Architecture governance context.
-  TechnicalFrameworkConditionsGovernance governance =
-      TechnicalFrameworkConditionsGovernance();
+  TechnicalEnvironmentGovernance governance =
+      TechnicalEnvironmentGovernance();
 
   /// Platform standards and preferred technologies.
-  TechnicalFrameworkConditionsStandards standards =
-      TechnicalFrameworkConditionsStandards();
+  TechnicalEnvironmentStandards standards =
+      TechnicalEnvironmentStandards();
 
   /// Security and compliance requirements.
-  TechnicalFrameworkConditionsSecurity security =
-      TechnicalFrameworkConditionsSecurity();
+  TechnicalEnvironmentSecurity security =
+      TechnicalEnvironmentSecurity();
 
   /// Network and infrastructure standards.
-  TechnicalFrameworkConditionsNetwork network =
-      TechnicalFrameworkConditionsNetwork();
+  TechnicalEnvironmentNetwork network =
+      TechnicalEnvironmentNetwork();
 
   // -------------------------------------------------------------------------
   // Existing Infrastructure
@@ -7351,7 +7351,7 @@ class TechnicalFrameworkConditions {
 
 /// Architecture governance context.
 @SectionId('TFCG')
-class TechnicalFrameworkConditionsGovernance {
+class TechnicalEnvironmentGovernance {
     @Form([
         Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
         Field('technologyGovernance', String, 'Technology Governance',
@@ -7362,7 +7362,7 @@ class TechnicalFrameworkConditionsGovernance {
 
 /// Platform standards and preferred technologies.
 @SectionId('TFCS')
-class TechnicalFrameworkConditionsStandards {
+class TechnicalEnvironmentStandards {
     @Form([
         Field('preferredLanguages', String, 'Preferred Languages',
                 hint: 'Mandated or preferred programming languages'),
@@ -7380,7 +7380,7 @@ class TechnicalFrameworkConditionsStandards {
 
 /// Security and compliance requirements.
 @SectionId('TFCS1')
-class TechnicalFrameworkConditionsSecurity {
+class TechnicalEnvironmentSecurity {
     @Form([
         Field('securityFramework', String, 'Security Framework',
                 hint: 'NIST, ISO 27001, SOC2, CIS — security framework used'),
@@ -7398,7 +7398,7 @@ class TechnicalFrameworkConditionsSecurity {
 
 /// Network and infrastructure standards.
 @SectionId('TFCN')
-class TechnicalFrameworkConditionsNetwork {
+class TechnicalEnvironmentNetwork {
     @Form([
         Field('networkArchitecture', String, 'Network Architecture',
                 hint: 'Network topology, DMZ, segmentation approach'),

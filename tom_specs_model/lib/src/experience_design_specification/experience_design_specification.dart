@@ -41,13 +41,13 @@ class D09ExperienceDesignSpecification {
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
   /// Print layout.
-  PrintLayout printLayout = PrintLayout();
+  PrintAndExportLayout printLayout = PrintAndExportLayout();
 
   /// Error handling concept.
-  ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
+  ErrorHandling errorHandling = ErrorHandling();
 
   /// Help concept.
-  HelpConcept helpConcept = HelpConcept();
+  UserAssistance userAssistance = UserAssistance();
 
   /// Accessibility.
   Accessibility accessibility = Accessibility();

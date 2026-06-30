@@ -2727,7 +2727,7 @@ class ArchitectureStyle extends SomNode {
 }
 
 // A consolidated register of assumptions and constraints.
-class AssumptionConstraintRegister extends SomNode {
+class AssumptionConstraintDependencyRegister extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -2787,7 +2787,7 @@ class AssumptionsConstraintsDependencies extends SomNode {
 
   // The consolidated assumption / constraint register.
   get register() {
-    return new AssumptionConstraintRegister(this.doc, this.path + "/register");
+    return new AssumptionConstraintDependencyRegister(this.doc, this.path + "/register");
   }
 }
 
@@ -4822,6 +4822,61 @@ class BusinessComponentEntryTesting extends SomNode {
   }
 }
 
+// 4.1.3. Description of Business Domain.
+//
+// Describes the business domain and task area the system addresses.
+// Defines the domain vocabulary and key concepts (ubiquitous language)
+// that will be used throughout the project. Based on Domain-Driven Design
+// principles for establishing a shared understanding.
+class BusinessDomain extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 4.1.3.1. Domain Overview.
+  get domainOverview() {
+    return new DomainOverview(this.doc, this.path + "/domainOverview");
+  }
+
+  // 4.1.3.2. Domain Vocabulary.
+  get domainVocabulary() {
+    return new DomainVocabulary(this.doc, this.path + "/domainVocabulary");
+  }
+
+  // 4.1.3.3. Key Concepts.
+  get keyConcepts() {
+    return new KeyConcepts(this.doc, this.path + "/keyConcepts");
+  }
+
+  // 4.1.3.4. Domain Boundaries.
+  get domainBoundaries() {
+    return new DomainBoundaries(this.doc, this.path + "/domainBoundaries");
+  }
+
+  // 4.1.3.5. Business Rules.
+  get businessRules() {
+    return new DomainBusinessRules(this.doc, this.path + "/businessRules");
+  }
+
+  // 4.1.3.6. Domain Processes.
+  get domainProcesses() {
+    return new DomainProcesses(this.doc, this.path + "/domainProcesses");
+  }
+
+  // 4.1.3.7. Domain Events.
+  get domainEvents() {
+    return new DomainEvents(this.doc, this.path + "/domainEvents");
+  }
+}
+
 // A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
@@ -5264,7 +5319,7 @@ class BusinessProcessDescriptions extends SomNode {
 
   // 6.1.7. Detailed Process Workflows.
   get detailedWorkflows() {
-    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflows(d, p));
+    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflow(d, p));
   }
 
   // 6.1.8. Cross-Process Analysis.
@@ -5279,7 +5334,7 @@ class BusinessProcessDescriptions extends SomNode {
 
   // 6.1.10. Process Metrics and KPIs.
   get processMetricsAndKpis() {
-    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetricsAndKpis(d, p));
+    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetric(d, p));
   }
 }
 
@@ -8298,6 +8353,17 @@ class ComponentActionEntryGovernance extends SomNode {
   }
 }
 
+// Component naming and documentation approach.
+class ComponentApproach extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ComponentApproachContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Compliance for component.
 class ComponentCompliance extends SomNode {
   constructor(doc, path) {
@@ -8317,6 +8383,17 @@ class ComponentCost extends SomNode {
 
   get content() {
     return new ComponentCostContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Extension and theming boundaries.
+class ComponentCustomization extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ComponentCustomizationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -9473,13 +9550,24 @@ class ComponentVendor extends SomNode {
   }
 }
 
-// 12. Components to Use. Seeds → ATS.
+// Visual language and brand alignment.
+class ComponentVisualLanguage extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ComponentVisualLanguageContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 12. Components and Dependencies. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
-class ComponentsToUse extends SomNode {
+class ComponentsAndDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -10857,7 +10945,7 @@ class CurrentLandscape extends SomNode {
 
   // 1.5. Operational Metrics.
   get operationalMetrics() {
-    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetrics(d, p));
+    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetric(d, p));
   }
 
   // 1.6. Current State Risks.
@@ -10871,7 +10959,7 @@ class CurrentLandscape extends SomNode {
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
 // derive non-functional requirements.
-class CurrentOperationalMetrics extends SomNode {
+class CurrentOperationalMetric extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -11023,7 +11111,7 @@ class CustomMetricEntry extends SomNode {
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
-class CutoverProcedures extends SomNode {
+class CutoverProcedure extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -11097,7 +11185,7 @@ class D00SolutionBlueprint extends SomNode {
 
   // SBP.7 Target Operating Model concept. Seeds → TOM.
   get targetOperatingModelConcept() {
-    return new TargetOperatingModelConcept(this.doc, this.path + "/targetOperatingModelConcept");
+    return new TargetOperatingModel(this.doc, this.path + "/targetOperatingModelConcept");
   }
 
   // SBP.8 Information & Data Model. Seeds → IFM.
@@ -11192,7 +11280,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 
   // Current operational metrics.
   get operationalMetrics() {
-    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetrics(d, p));
+    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetric(d, p));
   }
 
   // Current-state risk assessment.
@@ -11277,7 +11365,7 @@ class D02TargetOperatingModel extends SomNode {
 
   // Detailed process workflows.
   get detailedWorkflows() {
-    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflows(d, p));
+    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflow(d, p));
   }
 
   // Cross-process analysis.
@@ -11292,7 +11380,7 @@ class D02TargetOperatingModel extends SomNode {
 
   // Process metrics and KPIs.
   get processMetricsAndKpis() {
-    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetricsAndKpis(d, p));
+    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetric(d, p));
   }
 }
 
@@ -11531,7 +11619,7 @@ class D05InteractionScenarios extends SomNode {
 
   // End-to-end test scenarios.
   get endToEndTestScenarios() {
-    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenarios(d, p));
+    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenario(d, p));
   }
 
   // Use case traceability.
@@ -11622,12 +11710,12 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 
   // Components to use (whole).
   get componentsToUse() {
-    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
+    return new ComponentsAndDependencies(this.doc, this.path + "/componentsToUse");
   }
 
   // Technical framework conditions (whole).
-  get technicalFrameworkConditions() {
-    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
+  get technicalEnvironment() {
+    return new TechnicalEnvironment(this.doc, this.path + "/technicalEnvironment");
   }
 
   // Translation handling requirements (whole).
@@ -11849,17 +11937,17 @@ class D09ExperienceDesignSpecification extends SomNode {
 
   // Print layout.
   get printLayout() {
-    return new PrintLayout(this.doc, this.path + "/printLayout");
+    return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
   }
 
   // Error handling concept.
   get errorHandling() {
-    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
+    return new ErrorHandling(this.doc, this.path + "/errorHandling");
   }
 
   // Help concept.
-  get helpConcept() {
-    return new HelpConcept(this.doc, this.path + "/helpConcept");
+  get userAssistance() {
+    return new UserAssistance(this.doc, this.path + "/userAssistance");
   }
 
   // Accessibility.
@@ -12171,12 +12259,12 @@ class D12TransitionRolloutPlan extends SomNode {
 
   // User manuals.
   get userManuals() {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManuals(d, p));
+    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManual(d, p));
   }
 
   // Training materials.
   get trainingMaterials() {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterials(d, p));
+    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterial(d, p));
   }
 
   // Pilot plan.
@@ -12186,7 +12274,7 @@ class D12TransitionRolloutPlan extends SomNode {
 
   // Cutover procedures.
   get cutoverProcedures() {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedures(d, p));
+    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedure(d, p));
   }
 
   // Knowledge transfer.
@@ -15244,8 +15332,8 @@ class DeliveryTransitionAndRollout extends SomNode {
   }
 
   // Rollout and transition concept.
-  get systemRolloutConcept() {
-    return new SystemRolloutConcept(this.doc, this.path + "/systemRolloutConcept");
+  get systemRollout() {
+    return new SystemRollout(this.doc, this.path + "/systemRollout");
   }
 
   // Localization & translation *execution* processes (re-homed from MLAR in
@@ -15256,8 +15344,8 @@ class DeliveryTransitionAndRollout extends SomNode {
   }
 
   // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  get multiLanguageRolloutPlan() {
-    return new MultiLanguageAndRolloutPlan(this.doc, this.path + "/multiLanguageRolloutPlan");
+  get localeRolloutPlan() {
+    return new LocaleRolloutPlan(this.doc, this.path + "/localeRolloutPlan");
   }
 }
 
@@ -16329,6 +16417,19 @@ class DesignPatternsAndStandards extends SomNode {
   }
 }
 
+// A design principle entry (form).
+//
+// Each principle guides UI decisions with rationale and examples.
+class DesignPrincipleEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new DesignPrincipleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
@@ -16353,7 +16454,7 @@ class DesignPrinciples extends SomNode {
 
   // Contains 0+× UiDesignPrinciple.
   get items() {
-    return new SomList(this.doc, this.path + "/UDPEN-ITEM-LST", (d, p) => new UiDesignPrincipleEntry(d, p));
+    return new SomList(this.doc, this.path + "/UDPEN-ITEM-LST", (d, p) => new DesignPrincipleEntry(d, p));
   }
 }
 
@@ -16480,7 +16581,7 @@ class DesktopOsRequirementEntryTesting extends SomNode {
 //
 // Per-process workflow detail beyond the catalog overview.
 // .
-class DetailedProcessWorkflows extends SomNode {
+class DetailedProcessWorkflow extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -18404,7 +18505,7 @@ class EncryptionInTransit extends SomNode {
 //
 // Test scenarios that exercise complete user journeys across processes
 // and use cases..
-class EndToEndTestScenarios extends SomNode {
+class EndToEndTestScenario extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -19120,33 +19221,33 @@ class ErrorBudgetTrackingMonitoring extends SomNode {
   }
 }
 
-// 10.7. Error Handling Concept.
+// 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
 // UX best practices for error prevention, detection, and graceful recovery.
-class ErrorHandlingConcept extends SomNode {
+class ErrorHandling extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get errorPhilosophyContent() {
-    return new ErrorHandlingConceptErrorPhilosophyContentForm(this.doc, this.path + "/errorPhilosophyContent");
+    return new ErrorHandlingErrorPhilosophyContentForm(this.doc, this.path + "/errorPhilosophyContent");
   }
 
   // Error categorization and display priority.
   get classification() {
-    return new ErrorHandlingConceptClassification(this.doc, this.path + "/classification");
+    return new ErrorHandlingClassification(this.doc, this.path + "/classification");
   }
 
   // Accessibility and inclusive error cues.
   get accessibility() {
-    return new ErrorHandlingConceptAccessibility(this.doc, this.path + "/accessibility");
+    return new ErrorHandlingAccessibility(this.doc, this.path + "/accessibility");
   }
 
   // Localization and analytics behavior.
   get operations() {
-    return new ErrorHandlingConceptOperations(this.doc, this.path + "/operations");
+    return new ErrorHandlingOperations(this.doc, this.path + "/operations");
   }
 
   // Error handling overview and strategy.
@@ -19181,35 +19282,35 @@ class ErrorHandlingConcept extends SomNode {
 }
 
 // Accessibility and inclusive error cues.
-class ErrorHandlingConceptAccessibility extends SomNode {
+class ErrorHandlingAccessibility extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ErrorHandlingConceptAccessibilityContentForm(this.doc, this.path + "/content");
+    return new ErrorHandlingAccessibilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Error categorization and display priority.
-class ErrorHandlingConceptClassification extends SomNode {
+class ErrorHandlingClassification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ErrorHandlingConceptClassificationContentForm(this.doc, this.path + "/content");
+    return new ErrorHandlingClassificationContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Localization and analytics behavior.
-class ErrorHandlingConceptOperations extends SomNode {
+class ErrorHandlingOperations extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ErrorHandlingConceptOperationsContentForm(this.doc, this.path + "/content");
+    return new ErrorHandlingOperationsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -19795,7 +19896,7 @@ class ExperienceAndInterfaceDesign extends SomNode {
 
   // 10.4. Print Layout. Seeds → XDS.
   get printLayout() {
-    return new PrintLayout(this.doc, this.path + "/printLayout");
+    return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
   }
 
   // Data Structure Alignment.
@@ -19808,14 +19909,14 @@ class ExperienceAndInterfaceDesign extends SomNode {
     return null; // (skipped: no target type)
   }
 
-  // 10.7. Error Handling Concept. Seeds → XDS.
+  // 10.7. Error Handling. Seeds → XDS.
   get errorHandling() {
-    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
+    return new ErrorHandling(this.doc, this.path + "/errorHandling");
   }
 
-  // 10.8. Help Concept. Seeds → XDS.
-  get helpConcept() {
-    return new HelpConcept(this.doc, this.path + "/helpConcept");
+  // 10.8. User Assistance. Seeds → XDS.
+  get userAssistance() {
+    return new UserAssistance(this.doc, this.path + "/userAssistance");
   }
 
   // 10.9. Accessibility. Seeds → XDS.
@@ -19833,9 +19934,9 @@ class ExperienceAndInterfaceDesign extends SomNode {
     return new UiComponents(this.doc, this.path + "/uiComponents");
   }
 
-  // 10.12. Multi-language and Rollout Support.
-  get multiLanguage() {
-    return new MultiLanguageAndRollout(this.doc, this.path + "/multiLanguage");
+  // 10.12. Multi-language Support.
+  get multiLanguageSupport() {
+    return new MultiLanguageSupport(this.doc, this.path + "/multiLanguageSupport");
   }
 
   // 10.13. Prototype. Seeds → XDS.
@@ -21702,43 +21803,6 @@ class FrameworkCompatibility extends SomNode {
   }
 }
 
-// 4.6. Framework Conditions.
-//
-// Documents the organizational and technical environment in which the system
-// will operate. Covers organizational structure, functional responsibilities,
-// technical constraints, and external dependencies. Follows TOGAF enterprise
-// context patterns and PMBOK environmental factors analysis.
-class FrameworkConditions extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  // Framework conditions overview.
-  get overview() {
-    return null; // (skipped: no target type)
-  }
-
-  // 4.6.1. Organizational Environment.
-  get organizationalEnvironment() {
-    return new OrganizationalEnvironment(this.doc, this.path + "/organizationalEnvironment");
-  }
-
-  // 4.6.2. Functional Responsibilities — contains 0+×.
-  get functionalResponsibilities() {
-    return new FunctionalResponsibilities(this.doc, this.path + "/functionalResponsibilities");
-  }
-
-  // 4.6.3. Technical Framework Conditions. Seeds → ATS.
-  get technicalFrameworkConditions() {
-    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
-  }
-
-  // 4.6.4. Constraints and Dependencies — contains 0+×.
-  get constraintsAndDependencies() {
-    return new ConstraintsAndDependencies(this.doc, this.path + "/constraintsAndDependencies");
-  }
-}
-
 // Identity details.
 class FrameworkIdentity extends SomNode {
   constructor(doc, path) {
@@ -22869,77 +22933,6 @@ class HealthChecksAndDiagnosticsSection extends SomNode {
   // Dependency health monitoring.
   get dependencyHealth() {
     return new DependencyHealthMonitoring(this.doc, this.path + "/dependencyHealth");
-  }
-}
-
-// 10.8. Help Concept.
-//
-// Comprehensive in-app help system including contextual help, onboarding,
-// and support access mechanisms.
-class HelpConcept extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get helpOverviewContent() {
-    return new HelpConceptHelpOverviewContentForm(this.doc, this.path + "/helpOverviewContent");
-  }
-
-  // Content stewardship and help affordances.
-  get delivery() {
-    return new HelpConceptDelivery(this.doc, this.path + "/delivery");
-  }
-
-  // Analytics and improvement feedback.
-  get insights() {
-    return new HelpConceptInsights(this.doc, this.path + "/insights");
-  }
-
-  // Help system overview narrative.
-  get helpOverview() {
-    return null; // (skipped: no target type)
-  }
-
-  // 10.8.1. Contextual Help.
-  get contextualHelp() {
-    return new ContextualHelp(this.doc, this.path + "/contextualHelp");
-  }
-
-  // 10.8.2. Onboarding.
-  get onboarding() {
-    return new OnboardingHelp(this.doc, this.path + "/onboarding");
-  }
-
-  // 10.8.3. Support Access.
-  get supportAccess() {
-    return new SupportAccess(this.doc, this.path + "/supportAccess");
-  }
-
-  // Help content inventory.
-  get helpContentInventory() {
-    return null; // (skipped: no target type)
-  }
-}
-
-// Content stewardship and help affordances.
-class HelpConceptDelivery extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new HelpConceptDeliveryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Analytics and improvement feedback.
-class HelpConceptInsights extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new HelpConceptInsightsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -25777,7 +25770,7 @@ class InteroperabilityRequirementsTesting extends SomNode {
   }
 }
 
-// 4. System Overview.
+// 4. Introduction & Scope.
 //
 // High-level overview of the system to be built: its purpose, goals,
 // scope boundaries, and the environment it operates in. This section
@@ -25797,7 +25790,7 @@ class IntroductionAndScope extends SomNode {
 
   // System overview summary statistics.
   get summary() {
-    return new SystemOverviewSummary(this.doc, this.path + "/summary");
+    return new SystemSummary(this.doc, this.path + "/summary");
   }
 
   // System context diagram showing major system boundaries.
@@ -25834,9 +25827,9 @@ class IntroductionAndScope extends SomNode {
     return new SystemBoundaries(this.doc, this.path + "/systemBoundaries");
   }
 
-  // 4.6. Framework Conditions.
-  get frameworkConditions() {
-    return new FrameworkConditions(this.doc, this.path + "/frameworkConditions");
+  // 4.6. Operating Environment.
+  get operatingEnvironment() {
+    return new OperatingEnvironment(this.doc, this.path + "/operatingEnvironment");
   }
 
   // 4.7. Risks and Assumptions.
@@ -26900,6 +26893,55 @@ class LegacyCompatibilityEntryRisk extends SomNode {
   }
 }
 
+// 3.6. Other Administrative Requirements.
+//
+// Additional administrative agreements, constraints, or requirements not
+// covered by other sections: IP ownership, NDAs, regulatory compliance,
+// audit requirements, and other legal or organizational agreements.
+class LegalAndContractualRequirements extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 3.6.1. Intellectual Property.
+  get intellectualProperty() {
+    return new IntellectualPropertyRequirements(this.doc, this.path + "/intellectualProperty");
+  }
+
+  // 3.6.2. Confidentiality and NDAs.
+  get confidentiality() {
+    return new ConfidentialityRequirements(this.doc, this.path + "/confidentiality");
+  }
+
+  // 3.6.3. Regulatory Compliance.
+  get regulatoryCompliance() {
+    return new RegulatoryComplianceRequirements(this.doc, this.path + "/regulatoryCompliance");
+  }
+
+  // 3.6.4. Audit Requirements.
+  get auditRequirements() {
+    return new AuditRequirements(this.doc, this.path + "/auditRequirements");
+  }
+
+  // 3.6.5. Insurance and Liability.
+  get insuranceLiability() {
+    return new InsuranceLiabilityRequirements(this.doc, this.path + "/insuranceLiability");
+  }
+
+  // 3.6.6. Other Agreements — contains 0+× Agreement.
+  get otherAgreements() {
+    return new SomList(this.doc, this.path + "/OTAGR-OTHE-LST", (d, p) => new OtherAgreementEntry(d, p));
+  }
+}
+
 // Liability limitations.
 class LiabilityLimitations extends SomNode {
   constructor(doc, path) {
@@ -27133,6 +27175,50 @@ class LocalDevelopmentSetupWorkflow extends SomNode {
   }
 }
 
+// Locale modeling and fallback behavior.
+class LocaleHandlingRequirements extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new LocaleHandlingRequirementsContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Rollout sequencing by region and time.
+class LocaleRolloutPlan extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new LocaleRolloutPlanContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Deployment settings.
+class LocalizationDeployment extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new LocalizationDeploymentContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Formatting rules.
+class LocalizationFormatting extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new LocalizationFormattingContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
@@ -27147,17 +27233,17 @@ class LocalizationProcess extends SomNode {
 
   // Review process.
   get review() {
-    return new LocalizationProcessReview(this.doc, this.path + "/review");
+    return new LocalizationReview(this.doc, this.path + "/review");
   }
 
   // Formatting rules.
   get formatting() {
-    return new LocalizationProcessFormatting(this.doc, this.path + "/formatting");
+    return new LocalizationFormatting(this.doc, this.path + "/formatting");
   }
 
   // Deployment settings.
   get deployment() {
-    return new LocalizationProcessDeployment(this.doc, this.path + "/deployment");
+    return new LocalizationDeployment(this.doc, this.path + "/deployment");
   }
 
   // Localization process narrative.
@@ -27171,36 +27257,14 @@ class LocalizationProcess extends SomNode {
   }
 }
 
-// Deployment settings.
-class LocalizationProcessDeployment extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new LocalizationProcessDeploymentContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Formatting rules.
-class LocalizationProcessFormatting extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new LocalizationProcessFormattingContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // Review process.
-class LocalizationProcessReview extends SomNode {
+class LocalizationReview extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new LocalizationProcessReviewContentForm(this.doc, this.path + "/content");
+    return new LocalizationReviewContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -27208,7 +27272,7 @@ class LocalizationProcessReview extends SomNode {
 //
 // Public anchor: ISO 29148 transition requirements. Bundles the localization
 // and translation *workflow* concerns re-homed from the former
-// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// `MultiLanguageSupport` cluster (their requirement counterparts live in
 // SBP.9 [LocalizationTranslationRequirements]).
 class LocalizationTranslationProcess extends SomNode {
   constructor(doc, path) {
@@ -27258,7 +27322,7 @@ class LocalizationTranslationRequirements extends SomNode {
 
   // Locale modeling and fallback requirements (re-homed from MLAR).
   get localeHandling() {
-    return new MultiLanguageAndRolloutLocaleHandling(this.doc, this.path + "/localeHandling");
+    return new LocaleHandlingRequirements(this.doc, this.path + "/localeHandling");
   }
 }
 
@@ -30052,20 +30116,20 @@ class MultiChannelExperience extends SomNode {
   }
 }
 
-// 10.12. Multi-language and Rollout Support.
+// 10.12. Multi-language Support.
 //
 // Locale-picker / UX-side multi-language concerns that stay on the
 // Experience & Interface Design side. IP-6 re-homed the requirement-side
 // concerns (i18n requirements, documentation, training) to SBP.9 and the
 // execution-side concerns (localization/translation processes, rollout
 // sequencing) to SBP.15; only the stay-put UX members remain here.
-class MultiLanguageAndRollout extends SomNode {
+class MultiLanguageSupport extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get multiLanguageOverview() {
-    return new MultiLanguageAndRolloutMultiLanguageOverviewForm(this.doc, this.path + "/multiLanguageOverview");
+    return new MultiLanguageSupportMultiLanguageOverviewForm(this.doc, this.path + "/multiLanguageOverview");
   }
 
   // Multi-language overview narrative.
@@ -30081,28 +30145,6 @@ class MultiLanguageAndRollout extends SomNode {
   // Supported locale entries.
   get supportedLocales() {
     return new SomList(this.doc, this.path + "/SULOEN-SUPP-LST", (d, p) => new SupportedLocaleEntry(d, p));
-  }
-}
-
-// Locale modeling and fallback behavior.
-class MultiLanguageAndRolloutLocaleHandling extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MultiLanguageAndRolloutLocaleHandlingContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Rollout sequencing by region and time.
-class MultiLanguageAndRolloutPlan extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MultiLanguageAndRolloutPlanContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -31767,6 +31809,43 @@ class OngoingTrainingEntrySchedule extends SomNode {
   }
 }
 
+// 4.6. Operating Environment.
+//
+// Documents the organizational and technical environment in which the system
+// will operate. Covers organizational structure, functional responsibilities,
+// technical constraints, and external dependencies. Follows TOGAF enterprise
+// context patterns and PMBOK environmental factors analysis.
+class OperatingEnvironment extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // Framework conditions overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 4.6.1. Organizational Environment.
+  get organizationalEnvironment() {
+    return new OrganizationalEnvironment(this.doc, this.path + "/organizationalEnvironment");
+  }
+
+  // 4.6.2. Functional Responsibilities — contains 0+×.
+  get functionalResponsibilities() {
+    return new FunctionalResponsibilities(this.doc, this.path + "/functionalResponsibilities");
+  }
+
+  // 4.6.3. Technical Environment. Seeds → ATS.
+  get technicalEnvironment() {
+    return new TechnicalEnvironment(this.doc, this.path + "/technicalEnvironment");
+  }
+
+  // 4.6.4. Constraints and Dependencies — contains 0+×.
+  get constraintsAndDependencies() {
+    return new ConstraintsAndDependencies(this.doc, this.path + "/constraintsAndDependencies");
+  }
+}
+
 // 11.4.3. Monitoring quality.
 class OperationalMonitoring extends SomNode {
   constructor(doc, path) {
@@ -32483,55 +32562,6 @@ class OsCompatibilityEntryTesting extends SomNode {
 
   get content() {
     return new OsCompatibilityEntryTestingContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 3.6. Other Administrative Requirements.
-//
-// Additional administrative agreements, constraints, or requirements not
-// covered by other sections: IP ownership, NDAs, regulatory compliance,
-// audit requirements, and other legal or organizational agreements.
-class OtherAdministrativeRequirements extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 3.6.1. Intellectual Property.
-  get intellectualProperty() {
-    return new IntellectualPropertyRequirements(this.doc, this.path + "/intellectualProperty");
-  }
-
-  // 3.6.2. Confidentiality and NDAs.
-  get confidentiality() {
-    return new ConfidentialityRequirements(this.doc, this.path + "/confidentiality");
-  }
-
-  // 3.6.3. Regulatory Compliance.
-  get regulatoryCompliance() {
-    return new RegulatoryComplianceRequirements(this.doc, this.path + "/regulatoryCompliance");
-  }
-
-  // 3.6.4. Audit Requirements.
-  get auditRequirements() {
-    return new AuditRequirements(this.doc, this.path + "/auditRequirements");
-  }
-
-  // 3.6.5. Insurance and Liability.
-  get insuranceLiability() {
-    return new InsuranceLiabilityRequirements(this.doc, this.path + "/insuranceLiability");
-  }
-
-  // 3.6.6. Other Agreements — contains 0+× Agreement.
-  get otherAgreements() {
-    return new SomList(this.doc, this.path + "/OTAGR-OTHE-LST", (d, p) => new OtherAgreementEntry(d, p));
   }
 }
 
@@ -34125,13 +34155,13 @@ class PrimaryNavigationSidebar extends SomNode {
 }
 
 // 10.4. Print Layout.
-class PrintLayout extends SomNode {
+class PrintAndExportLayout extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new PrintLayoutContentForm(this.doc, this.path + "/content");
+    return new PrintAndExportLayoutContentForm(this.doc, this.path + "/content");
   }
 
   // Page margins and setup.
@@ -35124,6 +35154,23 @@ class ProcessKpiEntryOperations extends SomNode {
   }
 }
 
+// 6.1.10. Process Metrics and KPIs.
+//
+// Process-level KPIs, SLAs, and measurement strategy.
+class ProcessMetric extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+}
+
 // A category of process metrics.
 class ProcessMetricCategory extends SomNode {
   constructor(doc, path) {
@@ -35248,23 +35295,6 @@ class ProcessMetrics extends SomNode {
   // Baseline comparison table.
   get baselineTable() {
     return new MetricsBaselineTable(this.doc, this.path + "/baselineTable");
-  }
-}
-
-// 6.1.10. Process Metrics and KPIs.
-//
-// Process-level KPIs, SLAs, and measurement strategy.
-class ProcessMetricsAndKpis extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -35567,7 +35597,7 @@ class ProcessStepsAndActorInteractions extends SomNode {
 
   // 6.2.4. End-to-End Test Scenarios..
   get endToEndTestScenarios() {
-    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenarios(d, p));
+    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenario(d, p));
   }
 
   // 6.2.5. Use Case Traceability.
@@ -36086,7 +36116,7 @@ class Prototype extends SomNode {
 
   // 10.13.3. Prototype Type.
   get prototypeType() {
-    return new PrototypeTypeSection(this.doc, this.path + "/prototypeType");
+    return new PrototypeType(this.doc, this.path + "/prototypeType");
   }
 
   // Prototype schedule.
@@ -36263,13 +36293,13 @@ class PrototypeTimeline extends SomNode {
 // 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
-class PrototypeTypeSection extends SomNode {
+class PrototypeType extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get prototypeTypeOverview() {
-    return new PrototypeTypeSectionPrototypeTypeOverviewForm(this.doc, this.path + "/prototypeTypeOverview");
+    return new PrototypeTypePrototypeTypeOverviewForm(this.doc, this.path + "/prototypeTypeOverview");
   }
 
   // 10.13.3.1. Reusable Prototype.
@@ -40865,7 +40895,7 @@ class RolloutPlan extends SomNode {
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
-class RolloutTrainingMaterials extends SomNode {
+class RolloutTrainingMaterial extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -45285,7 +45315,7 @@ class SolutionArchitectureAndTechnology extends SomNode {
 
   // Components, libraries, and services to reuse.
   get componentsToUse() {
-    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
+    return new ComponentsAndDependencies(this.doc, this.path + "/componentsToUse");
   }
 }
 
@@ -45329,6 +45359,17 @@ class SpecializedEquipmentEntryTechnical extends SomNode {
 
   get content() {
     return new SpecializedEquipmentEntryTechnicalContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Specification status.
+class SpecificationStatus extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SpecificationStatusContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -46202,6 +46243,39 @@ class StageOverviewStatus extends SomNode {
   }
 }
 
+// Dependencies, risks, and compliance constraints across stages.
+class StagePlanCoordination extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new StagePlanCoordinationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Organizational capacity and plan confidence.
+class StagePlanReadiness extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new StagePlanReadinessContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Overall schedule and buffer model.
+class StagePlanTimeline extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new StagePlanTimelineContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Quality and governance for a stage entry.
 class StageQuality extends SomNode {
   constructor(doc, path) {
@@ -46843,7 +46917,7 @@ class StakeholdersAndGovernance extends SomNode {
   // Legal and contractual requirements (IP, NDAs, compliance, audit).
   // Renamed to `LegalAndContractualRequirements` in L34C-9.
   get legalAndContractual() {
-    return new OtherAdministrativeRequirements(this.doc, this.path + "/legalAndContractual");
+    return new LegalAndContractualRequirements(this.doc, this.path + "/legalAndContractual");
   }
 
   // Stakeholder register (§5 completeness addition).
@@ -47780,6 +47854,28 @@ class SystemBusinessUnitEntry extends SomNode {
   }
 }
 
+// System classification.
+class SystemClassification extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SystemClassificationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Complexity indicators.
+class SystemComplexity extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SystemComplexityContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // System configuration management.
 class SystemConfigurationManagement extends SomNode {
   constructor(doc, path) {
@@ -48140,9 +48236,9 @@ class SystemDescription extends SomNode {
     return new SystemContext(this.doc, this.path + "/systemContext");
   }
 
-  // 4.1.3. Description of Task Area.
-  get taskArea() {
-    return new TaskArea(this.doc, this.path + "/taskArea");
+  // 4.1.3. Description of Business Domain.
+  get businessDomain() {
+    return new BusinessDomain(this.doc, this.path + "/businessDomain");
   }
 
   // 4.1.4. User Categories — contains 1+× User Category.
@@ -48674,81 +48770,6 @@ class SystemOperationAndMonitoring extends SomNode {
   }
 }
 
-// System overview summary for quick reference.
-class SystemOverviewSummary extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemOverviewSummaryContentForm(this.doc, this.path + "/content");
-  }
-
-  // System classification.
-  get classification() {
-    return new SystemOverviewSummaryClassification(this.doc, this.path + "/classification");
-  }
-
-  // Scale indicators.
-  get scale() {
-    return new SystemOverviewSummaryScale(this.doc, this.path + "/scale");
-  }
-
-  // Specification status.
-  get status() {
-    return new SystemOverviewSummaryStatus(this.doc, this.path + "/status");
-  }
-
-  // Complexity indicators.
-  get complexity() {
-    return new SystemOverviewSummaryComplexity(this.doc, this.path + "/complexity");
-  }
-}
-
-// System classification.
-class SystemOverviewSummaryClassification extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemOverviewSummaryClassificationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Complexity indicators.
-class SystemOverviewSummaryComplexity extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemOverviewSummaryComplexityContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Scale indicators.
-class SystemOverviewSummaryScale extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemOverviewSummaryScaleContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Specification status.
-class SystemOverviewSummaryStatus extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemOverviewSummaryStatusContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
@@ -48995,7 +49016,7 @@ class SystemReplacementStrategyTimeline extends SomNode {
 }
 
 // 15. System Rollout Concept. Seeds → TRP.
-class SystemRolloutConcept extends SomNode {
+class SystemRollout extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -49020,12 +49041,12 @@ class SystemRolloutConcept extends SomNode {
 
   // 15.3. User Manuals.
   get userManuals() {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManuals(d, p));
+    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManual(d, p));
   }
 
   // 15.4. Training Materials.
   get trainingMaterials() {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterials(d, p));
+    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterial(d, p));
   }
 
   // 15.5. Pilot Plan.
@@ -49035,7 +49056,7 @@ class SystemRolloutConcept extends SomNode {
 
   // 15.6. Cutover Procedures.
   get cutoverProcedures() {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedures(d, p));
+    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedure(d, p));
   }
 
   // 15.7. Knowledge Transfer.
@@ -49046,6 +49067,17 @@ class SystemRolloutConcept extends SomNode {
   // 15.8. Warranty and Support.
   get warrantyAndSupport() {
     return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
+  }
+}
+
+// Scale indicators.
+class SystemScale extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SystemScaleContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -49068,17 +49100,17 @@ class SystemStagePlan extends SomNode {
 
   // Overall schedule and buffer model.
   get timeline() {
-    return new SystemStagePlanTimeline(this.doc, this.path + "/timeline");
+    return new StagePlanTimeline(this.doc, this.path + "/timeline");
   }
 
   // Dependencies, risks, and compliance constraints across stages.
   get coordination() {
-    return new SystemStagePlanCoordination(this.doc, this.path + "/coordination");
+    return new StagePlanCoordination(this.doc, this.path + "/coordination");
   }
 
   // Organizational capacity and plan confidence.
   get readiness() {
-    return new SystemStagePlanReadiness(this.doc, this.path + "/readiness");
+    return new StagePlanReadiness(this.doc, this.path + "/readiness");
   }
 
   // 13.1. Staging Strategy.
@@ -49122,36 +49154,34 @@ class SystemStagePlan extends SomNode {
   }
 }
 
-// Dependencies, risks, and compliance constraints across stages.
-class SystemStagePlanCoordination extends SomNode {
+// System overview summary for quick reference.
+class SystemSummary extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new SystemStagePlanCoordinationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Organizational capacity and plan confidence.
-class SystemStagePlanReadiness extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
+    return new SystemSummaryContentForm(this.doc, this.path + "/content");
   }
 
-  get content() {
-    return new SystemStagePlanReadinessContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Overall schedule and buffer model.
-class SystemStagePlanTimeline extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
+  // System classification.
+  get classification() {
+    return new SystemClassification(this.doc, this.path + "/classification");
   }
 
-  get content() {
-    return new SystemStagePlanTimelineContentForm(this.doc, this.path + "/content");
+  // Scale indicators.
+  get scale() {
+    return new SystemScale(this.doc, this.path + "/scale");
+  }
+
+  // Specification status.
+  get status() {
+    return new SpecificationStatus(this.doc, this.path + "/status");
+  }
+
+  // Complexity indicators.
+  get complexity() {
+    return new SystemComplexity(this.doc, this.path + "/complexity");
   }
 }
 
@@ -49651,7 +49681,7 @@ class TargetBusinessProcessModel extends SomNode {
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
-class TargetOperatingModelConcept extends SomNode {
+class TargetOperatingModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -49747,61 +49777,6 @@ class TargetPlatformEntryVersion extends SomNode {
 
   get content() {
     return new TargetPlatformEntryVersionContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 4.1.3. Description of Task Area.
-//
-// Describes the business domain and task area the system addresses.
-// Defines the domain vocabulary and key concepts (ubiquitous language)
-// that will be used throughout the project. Based on Domain-Driven Design
-// principles for establishing a shared understanding.
-class TaskArea extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 4.1.3.1. Domain Overview.
-  get domainOverview() {
-    return new DomainOverview(this.doc, this.path + "/domainOverview");
-  }
-
-  // 4.1.3.2. Domain Vocabulary.
-  get domainVocabulary() {
-    return new DomainVocabulary(this.doc, this.path + "/domainVocabulary");
-  }
-
-  // 4.1.3.3. Key Concepts.
-  get keyConcepts() {
-    return new KeyConcepts(this.doc, this.path + "/keyConcepts");
-  }
-
-  // 4.1.3.4. Domain Boundaries.
-  get domainBoundaries() {
-    return new DomainBoundaries(this.doc, this.path + "/domainBoundaries");
-  }
-
-  // 4.1.3.5. Business Rules.
-  get businessRules() {
-    return new DomainBusinessRules(this.doc, this.path + "/businessRules");
-  }
-
-  // 4.1.3.6. Domain Processes.
-  get domainProcesses() {
-    return new DomainProcesses(this.doc, this.path + "/domainProcesses");
-  }
-
-  // 4.1.3.7. Domain Events.
-  get domainEvents() {
-    return new DomainEvents(this.doc, this.path + "/domainEvents");
   }
 }
 
@@ -49980,6 +49955,137 @@ class TechnicalDependencyEntry extends SomNode {
   }
 }
 
+// 4.6.3. Technical Environment. Seeds → ATS.
+//
+// Documents pre-existing technical constraints including mandated platforms,
+// network restrictions, compliance requirements, existing infrastructure
+// that must be reused, and technology standards to follow. Provides the
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
+class TechnicalEnvironment extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get technicalOverviewContent() {
+    return new TechnicalEnvironmentTechnicalOverviewContentForm(this.doc, this.path + "/technicalOverviewContent");
+  }
+
+  // Architecture governance context.
+  get governance() {
+    return new TechnicalEnvironmentGovernance(this.doc, this.path + "/governance");
+  }
+
+  // Platform standards and preferred technologies.
+  get standards() {
+    return new TechnicalEnvironmentStandards(this.doc, this.path + "/standards");
+  }
+
+  // Security and compliance requirements.
+  get security() {
+    return new TechnicalEnvironmentSecurity(this.doc, this.path + "/security");
+  }
+
+  // Network and infrastructure standards.
+  get network() {
+    return new TechnicalEnvironmentNetwork(this.doc, this.path + "/network");
+  }
+
+  // Existing infrastructure that must be reused or integrated with.
+  get existingInfrastructure() {
+    return null; // (skipped: no target type)
+  }
+
+  // Data center and hosting environment details.
+  get datacenters() {
+    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d, p) => new DatacenterEntry(d, p));
+  }
+
+  // Network topology and connectivity constraints.
+  get networkTopology() {
+    return null; // (skipped: no target type)
+  }
+
+  // Technology standards that must be followed.
+  get standardsOverview() {
+    return null; // (skipped: no target type)
+  }
+
+  // Technology standards — contains 0+× TechnologyStandard.
+  get technologyStandards() {
+    return new SomList(this.doc, this.path + "/TESTEN-TECH-LST", (d, p) => new TechnologyStandardEntry(d, p));
+  }
+
+  // Integration constraints overview.
+  get integrationOverview() {
+    return null; // (skipped: no target type)
+  }
+
+  // Integration constraints — contains 0+× IntegrationConstraint.
+  get integrationConstraints() {
+    return new SomList(this.doc, this.path + "/INCOE1-INTE-LST", (d, p) => new IntegrationConstraintEntry(d, p));
+  }
+}
+
+// Architecture governance context.
+class TechnicalEnvironmentGovernance extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TechnicalEnvironmentGovernanceContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Network and infrastructure standards.
+class TechnicalEnvironmentNetwork extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TechnicalEnvironmentNetworkContentForm(this.doc, this.path + "/content");
+  }
+
+  // DevOps and deployment standards.
+  get devopsStandards() {
+    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d, p) => new DevopsStandardEntry(d, p));
+  }
+
+  // Monitoring and observability requirements.
+  get observabilityRequirements() {
+    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d, p) => new ObservabilityRequirementEntry(d, p));
+  }
+
+  // Disaster recovery and business continuity requirements.
+  get disasterRecovery() {
+    return null; // (skipped: no target type)
+  }
+}
+
+// Security and compliance requirements.
+class TechnicalEnvironmentSecurity extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TechnicalEnvironmentSecurityContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Platform standards and preferred technologies.
+class TechnicalEnvironmentStandards extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TechnicalEnvironmentStandardsContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept extends SomNode {
   constructor(doc, path) {
@@ -50037,137 +50143,6 @@ class TechnicalFrameworkConcept extends SomNode {
   // 8.9. System Architecture..
   get systemArchitecture() {
     return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
-  }
-}
-
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-//
-// Documents pre-existing technical constraints including mandated platforms,
-// network restrictions, compliance requirements, existing infrastructure
-// that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds the detailed
-// Architecture & Technology Specification (ATS) document.
-class TechnicalFrameworkConditions extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get technicalOverviewContent() {
-    return new TechnicalFrameworkConditionsTechnicalOverviewContentForm(this.doc, this.path + "/technicalOverviewContent");
-  }
-
-  // Architecture governance context.
-  get governance() {
-    return new TechnicalFrameworkConditionsGovernance(this.doc, this.path + "/governance");
-  }
-
-  // Platform standards and preferred technologies.
-  get standards() {
-    return new TechnicalFrameworkConditionsStandards(this.doc, this.path + "/standards");
-  }
-
-  // Security and compliance requirements.
-  get security() {
-    return new TechnicalFrameworkConditionsSecurity(this.doc, this.path + "/security");
-  }
-
-  // Network and infrastructure standards.
-  get network() {
-    return new TechnicalFrameworkConditionsNetwork(this.doc, this.path + "/network");
-  }
-
-  // Existing infrastructure that must be reused or integrated with.
-  get existingInfrastructure() {
-    return null; // (skipped: no target type)
-  }
-
-  // Data center and hosting environment details.
-  get datacenters() {
-    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d, p) => new DatacenterEntry(d, p));
-  }
-
-  // Network topology and connectivity constraints.
-  get networkTopology() {
-    return null; // (skipped: no target type)
-  }
-
-  // Technology standards that must be followed.
-  get standardsOverview() {
-    return null; // (skipped: no target type)
-  }
-
-  // Technology standards — contains 0+× TechnologyStandard.
-  get technologyStandards() {
-    return new SomList(this.doc, this.path + "/TESTEN-TECH-LST", (d, p) => new TechnologyStandardEntry(d, p));
-  }
-
-  // Integration constraints overview.
-  get integrationOverview() {
-    return null; // (skipped: no target type)
-  }
-
-  // Integration constraints — contains 0+× IntegrationConstraint.
-  get integrationConstraints() {
-    return new SomList(this.doc, this.path + "/INCOE1-INTE-LST", (d, p) => new IntegrationConstraintEntry(d, p));
-  }
-}
-
-// Architecture governance context.
-class TechnicalFrameworkConditionsGovernance extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TechnicalFrameworkConditionsGovernanceContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Network and infrastructure standards.
-class TechnicalFrameworkConditionsNetwork extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TechnicalFrameworkConditionsNetworkContentForm(this.doc, this.path + "/content");
-  }
-
-  // DevOps and deployment standards.
-  get devopsStandards() {
-    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d, p) => new DevopsStandardEntry(d, p));
-  }
-
-  // Monitoring and observability requirements.
-  get observabilityRequirements() {
-    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d, p) => new ObservabilityRequirementEntry(d, p));
-  }
-
-  // Disaster recovery and business continuity requirements.
-  get disasterRecovery() {
-    return null; // (skipped: no target type)
-  }
-}
-
-// Security and compliance requirements.
-class TechnicalFrameworkConditionsSecurity extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TechnicalFrameworkConditionsSecurityContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Platform standards and preferred technologies.
-class TechnicalFrameworkConditionsStandards extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TechnicalFrameworkConditionsStandardsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -52062,7 +52037,7 @@ class TrainingAssessmentReporting extends SomNode {
 // half in L34C-7 (SR-29). Logically re-homed under SBP.9
 // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 // content in one D12 subsection rather than fragmenting it across a new id.
 class TrainingDeliverableRequirements extends SomNode {
   constructor(doc, path) {
@@ -52734,6 +52709,17 @@ class TransitionSupportStructure extends SomNode {
   }
 }
 
+// Ongoing localization operations.
+class TranslationOngoing extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TranslationOngoingContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 10.12.2. Translation Process.
 //
 // Workflow for translating content.
@@ -52748,22 +52734,22 @@ class TranslationProcess extends SomNode {
 
   // Translation workflow.
   get workflow() {
-    return new TranslationProcessWorkflow(this.doc, this.path + "/workflow");
+    return new TranslationWorkflow(this.doc, this.path + "/workflow");
   }
 
   // Quality assurance.
   get quality() {
-    return new TranslationProcessQuality(this.doc, this.path + "/quality");
+    return new TranslationQuality(this.doc, this.path + "/quality");
   }
 
   // Terminology and voice management.
   get terminology() {
-    return new TranslationProcessTerminology(this.doc, this.path + "/terminology");
+    return new TranslationTerminology(this.doc, this.path + "/terminology");
   }
 
   // Ongoing localization operations.
   get ongoing() {
-    return new TranslationProcessOngoing(this.doc, this.path + "/ongoing");
+    return new TranslationOngoing(this.doc, this.path + "/ongoing");
   }
 
   // Translation process narrative.
@@ -52777,47 +52763,14 @@ class TranslationProcess extends SomNode {
   }
 }
 
-// Ongoing localization operations.
-class TranslationProcessOngoing extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TranslationProcessOngoingContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // Quality assurance.
-class TranslationProcessQuality extends SomNode {
+class TranslationQuality extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new TranslationProcessQualityContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Terminology and voice management.
-class TranslationProcessTerminology extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TranslationProcessTerminologyContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Translation workflow.
-class TranslationProcessWorkflow extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new TranslationProcessWorkflowContentForm(this.doc, this.path + "/content");
+    return new TranslationQualityContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -52903,6 +52856,17 @@ class TranslationRequirementsVariants extends SomNode {
   }
 }
 
+// Terminology and voice management.
+class TranslationTerminology extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TranslationTerminologyContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A translation vendor entry.
 class TranslationVendorEntry extends SomNode {
   constructor(doc, path) {
@@ -52911,6 +52875,17 @@ class TranslationVendorEntry extends SomNode {
 
   get content() {
     return new TranslationVendorEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Translation workflow.
+class TranslationWorkflow extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new TranslationWorkflowContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -53474,17 +53449,17 @@ class UiComponents extends SomNode {
 
   // Visual language and brand alignment.
   get visualLanguage() {
-    return new UiComponentsVisualLanguage(this.doc, this.path + "/visualLanguage");
+    return new ComponentVisualLanguage(this.doc, this.path + "/visualLanguage");
   }
 
   // Component naming and documentation approach.
   get componentApproach() {
-    return new UiComponentsComponentApproach(this.doc, this.path + "/componentApproach");
+    return new ComponentApproach(this.doc, this.path + "/componentApproach");
   }
 
   // Extension and theming boundaries.
   get customization() {
-    return new UiComponentsCustomization(this.doc, this.path + "/customization");
+    return new ComponentCustomization(this.doc, this.path + "/customization");
   }
 
   // 10.11.1. Component Library.
@@ -53500,52 +53475,6 @@ class UiComponents extends SomNode {
   // 10.11.3. Component Families — contains 0+×.
   get componentFamilies() {
     return new SomList(this.doc, this.path + "/CMFA-COMP-LST", (d, p) => new ComponentFamilyEntry(d, p));
-  }
-}
-
-// Component naming and documentation approach.
-class UiComponentsComponentApproach extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new UiComponentsComponentApproachContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Extension and theming boundaries.
-class UiComponentsCustomization extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new UiComponentsCustomizationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Visual language and brand alignment.
-class UiComponentsVisualLanguage extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new UiComponentsVisualLanguageContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A design principle entry (form).
-//
-// Each principle guides UI decisions with rationale and examples.
-class UiDesignPrincipleEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new UiDesignPrincipleEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -53894,6 +53823,77 @@ class UserAccountStatesDefinition extends SomNode {
   // State Transition Diagram (mermaid).
   get stateTransitionDiagram() {
     return null; // (skipped: no target type)
+  }
+}
+
+// 10.8. User Assistance.
+//
+// Comprehensive in-app help system including contextual help, onboarding,
+// and support access mechanisms.
+class UserAssistance extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get helpOverviewContent() {
+    return new UserAssistanceHelpOverviewContentForm(this.doc, this.path + "/helpOverviewContent");
+  }
+
+  // Content stewardship and help affordances.
+  get delivery() {
+    return new UserAssistanceDelivery(this.doc, this.path + "/delivery");
+  }
+
+  // Analytics and improvement feedback.
+  get insights() {
+    return new UserAssistanceInsights(this.doc, this.path + "/insights");
+  }
+
+  // Help system overview narrative.
+  get helpOverview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 10.8.1. Contextual Help.
+  get contextualHelp() {
+    return new ContextualHelp(this.doc, this.path + "/contextualHelp");
+  }
+
+  // 10.8.2. Onboarding.
+  get onboarding() {
+    return new OnboardingHelp(this.doc, this.path + "/onboarding");
+  }
+
+  // 10.8.3. Support Access.
+  get supportAccess() {
+    return new SupportAccess(this.doc, this.path + "/supportAccess");
+  }
+
+  // Help content inventory.
+  get helpContentInventory() {
+    return null; // (skipped: no target type)
+  }
+}
+
+// Content stewardship and help affordances.
+class UserAssistanceDelivery extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new UserAssistanceDeliveryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Analytics and improvement feedback.
+class UserAssistanceInsights extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new UserAssistanceInsightsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -54328,7 +54328,7 @@ class UserJourneyPainPointEntry extends SomNode {
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
 // for registration, activation, modification, deactivation, and deletion.
-class UserLifecycleSection extends SomNode {
+class UserLifecycle extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -54508,7 +54508,7 @@ class UserManagement extends SomNode {
 
   // 9.1.2. User Lifecycle.
   get userLifecycle() {
-    return new UserLifecycleSection(this.doc, this.path + "/userLifecycle");
+    return new UserLifecycle(this.doc, this.path + "/userLifecycle");
   }
 
   // 9.1.3. User Attributes.
@@ -54520,7 +54520,7 @@ class UserManagement extends SomNode {
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
-class UserManuals extends SomNode {
+class UserManual extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -71817,6 +71817,37 @@ class ComponentActionEntryGovernanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class ComponentApproachContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get componentGranularity() {
+    return this.doc.formField(this.path, "componentGranularity") || '';
+  }
+
+  set componentGranularity(value) {
+    this.doc.setFormField(this.path, "componentGranularity", value);
+  }
+
+  get componentNaming() {
+    return this.doc.formField(this.path, "componentNaming") || '';
+  }
+
+  set componentNaming(value) {
+    this.doc.setFormField(this.path, "componentNaming", value);
+  }
+
+  get componentDocumentation() {
+    return this.doc.formField(this.path, "componentDocumentation") || '';
+  }
+
+  set componentDocumentation(value) {
+    this.doc.setFormField(this.path, "componentDocumentation", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class ComponentComplianceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -71859,6 +71890,37 @@ class ComponentCostContentForm extends SomNode {
 
   set totalCostOngoing(value) {
     this.doc.setFormField(this.path, "totalCostOngoing", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class ComponentCustomizationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get extensionModel() {
+    return this.doc.formField(this.path, "extensionModel") || '';
+  }
+
+  set extensionModel(value) {
+    this.doc.setFormField(this.path, "extensionModel", value);
+  }
+
+  get themingApproach() {
+    return this.doc.formField(this.path, "themingApproach") || '';
+  }
+
+  set themingApproach(value) {
+    this.doc.setFormField(this.path, "themingApproach", value);
+  }
+
+  get customizationBoundaries() {
+    return this.doc.formField(this.path, "customizationBoundaries") || '';
+  }
+
+  set customizationBoundaries(value) {
+    this.doc.setFormField(this.path, "customizationBoundaries", value);
   }
 }
 
@@ -74232,6 +74294,37 @@ class ComponentVendorContentForm extends SomNode {
 
   set vendorStability(value) {
     this.doc.setFormField(this.path, "vendorStability", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class ComponentVisualLanguageContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get visualLanguage() {
+    return this.doc.formField(this.path, "visualLanguage") || '';
+  }
+
+  set visualLanguage(value) {
+    this.doc.setFormField(this.path, "visualLanguage", value);
+  }
+
+  get brandAlignment() {
+    return this.doc.formField(this.path, "brandAlignment") || '';
+  }
+
+  set brandAlignment(value) {
+    this.doc.setFormField(this.path, "brandAlignment", value);
+  }
+
+  get motionPrinciples() {
+    return this.doc.formField(this.path, "motionPrinciples") || '';
+  }
+
+  set motionPrinciples(value) {
+    this.doc.setFormField(this.path, "motionPrinciples", value);
   }
 }
 
@@ -84451,6 +84544,77 @@ class DesignPatternEntryStructureContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class DesignPrincipleEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get principleName() {
+    return this.doc.formField(this.path, "principleName") || '';
+  }
+
+  set principleName(value) {
+    this.doc.setFormField(this.path, "principleName", value);
+  }
+
+  get description() {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get rationale() {
+    return this.doc.formField(this.path, "rationale") || '';
+  }
+
+  set rationale(value) {
+    this.doc.setFormField(this.path, "rationale", value);
+  }
+
+  get category() {
+    return this.doc.formField(this.path, "category") || '';
+  }
+
+  set category(value) {
+    this.doc.setFormField(this.path, "category", value);
+  }
+
+  get examples() {
+    return this.doc.formField(this.path, "examples") || '';
+  }
+
+  set examples(value) {
+    this.doc.setFormField(this.path, "examples", value);
+  }
+
+  get exceptions() {
+    return this.doc.formField(this.path, "exceptions") || '';
+  }
+
+  set exceptions(value) {
+    this.doc.setFormField(this.path, "exceptions", value);
+  }
+
+  get sourceReference() {
+    return this.doc.formField(this.path, "sourceReference") || '';
+  }
+
+  set sourceReference(value) {
+    this.doc.setFormField(this.path, "sourceReference", value);
+  }
+
+  get relatedGoals() {
+    return this.doc.formField(this.path, "relatedGoals") || '';
+  }
+
+  set relatedGoals(value) {
+    this.doc.setFormField(this.path, "relatedGoals", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class DesignPrinciplesOverviewContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -90037,7 +90201,7 @@ class ErrorBudgetTrackingMonitoringContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptAccessibilityContentForm extends SomNode {
+class ErrorHandlingAccessibilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -90068,7 +90232,7 @@ class ErrorHandlingConceptAccessibilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptClassificationContentForm extends SomNode {
+class ErrorHandlingClassificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -90099,7 +90263,7 @@ class ErrorHandlingConceptClassificationContentForm extends SomNode {
 }
 
 // Generated form facade for the `errorPhilosophyContent` @Form section.
-class ErrorHandlingConceptErrorPhilosophyContentForm extends SomNode {
+class ErrorHandlingErrorPhilosophyContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -90138,7 +90302,7 @@ class ErrorHandlingConceptErrorPhilosophyContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ErrorHandlingConceptOperationsContentForm extends SomNode {
+class ErrorHandlingOperationsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -97063,115 +97227,6 @@ class HealthCheckEndpointsTimingContentForm extends SomNode {
 
   set successThreshold(value) {
     this.doc.setFormField(this.path, "successThreshold", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class HelpConceptDeliveryContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get helpContentOwnership() {
-    return this.doc.formField(this.path, "helpContentOwnership") || '';
-  }
-
-  set helpContentOwnership(value) {
-    this.doc.setFormField(this.path, "helpContentOwnership", value);
-  }
-
-  get helpUpdateProcess() {
-    return this.doc.formField(this.path, "helpUpdateProcess") || '';
-  }
-
-  set helpUpdateProcess(value) {
-    this.doc.setFormField(this.path, "helpUpdateProcess", value);
-  }
-
-  get helpIconStandard() {
-    return this.doc.formField(this.path, "helpIconStandard") || '';
-  }
-
-  set helpIconStandard(value) {
-    this.doc.setFormField(this.path, "helpIconStandard", value);
-  }
-
-  get helpIconPlacement() {
-    return this.doc.formField(this.path, "helpIconPlacement") || '';
-  }
-
-  set helpIconPlacement(value) {
-    this.doc.setFormField(this.path, "helpIconPlacement", value);
-  }
-
-  get helpTooltipStyle() {
-    return this.doc.formField(this.path, "helpTooltipStyle") || '';
-  }
-
-  set helpTooltipStyle(value) {
-    this.doc.setFormField(this.path, "helpTooltipStyle", value);
-  }
-}
-
-// Generated form facade for the `helpOverviewContent` @Form section.
-class HelpConceptHelpOverviewContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get helpPhilosophy() {
-    return this.doc.formField(this.path, "helpPhilosophy") || '';
-  }
-
-  set helpPhilosophy(value) {
-    this.doc.setFormField(this.path, "helpPhilosophy", value);
-  }
-
-  get helpAccessibility() {
-    return this.doc.formField(this.path, "helpAccessibility") || '';
-  }
-
-  set helpAccessibility(value) {
-    this.doc.setFormField(this.path, "helpAccessibility", value);
-  }
-
-  get helpPersonalization() {
-    return this.doc.formField(this.path, "helpPersonalization") || '';
-  }
-
-  set helpPersonalization(value) {
-    this.doc.setFormField(this.path, "helpPersonalization", value);
-  }
-
-  get helpContentStrategy() {
-    return this.doc.formField(this.path, "helpContentStrategy") || '';
-  }
-
-  set helpContentStrategy(value) {
-    this.doc.setFormField(this.path, "helpContentStrategy", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class HelpConceptInsightsContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get helpAnalytics() {
-    return this.doc.formField(this.path, "helpAnalytics") || '';
-  }
-
-  set helpAnalytics(value) {
-    this.doc.setFormField(this.path, "helpAnalytics", value);
-  }
-
-  get helpFeedback() {
-    return this.doc.formField(this.path, "helpFeedback") || '';
-  }
-
-  set helpFeedback(value) {
-    this.doc.setFormField(this.path, "helpFeedback", value);
   }
 }
 
@@ -105570,7 +105625,77 @@ class LocalDevelopmentSetupWorkflowContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessDeploymentContentForm extends SomNode {
+class LocaleHandlingRequirementsContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get localeFormat() {
+    return this.doc.formField(this.path, "localeFormat") || '';
+  }
+
+  set localeFormat(value) {
+    this.doc.setFormField(this.path, "localeFormat", value);
+  }
+
+  get countryVariants() {
+    return this.doc.formField(this.path, "countryVariants") || '';
+  }
+
+  set countryVariants(value) {
+    this.doc.setFormField(this.path, "countryVariants", value);
+  }
+
+  get localeDetection() {
+    return this.doc.formField(this.path, "localeDetection") || '';
+  }
+
+  set localeDetection(value) {
+    this.doc.setFormField(this.path, "localeDetection", value);
+  }
+
+  get localeFallbackChain() {
+    return this.doc.formField(this.path, "localeFallbackChain") || '';
+  }
+
+  set localeFallbackChain(value) {
+    this.doc.setFormField(this.path, "localeFallbackChain", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class LocaleRolloutPlanContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get rolloutStrategy() {
+    return this.doc.formField(this.path, "rolloutStrategy") || '';
+  }
+
+  set rolloutStrategy(value) {
+    this.doc.setFormField(this.path, "rolloutStrategy", value);
+  }
+
+  get rolloutTimeline() {
+    return this.doc.formField(this.path, "rolloutTimeline") || '';
+  }
+
+  set rolloutTimeline(value) {
+    this.doc.setFormField(this.path, "rolloutTimeline", value);
+  }
+
+  get rolloutRegions() {
+    return this.doc.formField(this.path, "rolloutRegions") || '';
+  }
+
+  set rolloutRegions(value) {
+    this.doc.setFormField(this.path, "rolloutRegions", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class LocalizationDeploymentContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -105601,7 +105726,7 @@ class LocalizationProcessDeploymentContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessFormattingContentForm extends SomNode {
+class LocalizationFormattingContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -105687,7 +105812,7 @@ class LocalizationProcessLocalizationProcessContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class LocalizationProcessReviewContentForm extends SomNode {
+class LocalizationReviewContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -112238,47 +112363,8 @@ class MultiChannelExperienceMultiChannelConfigurationForm extends SomNode {
   }
 }
 
-// Generated form facade for the `content` @Form section.
-class MultiLanguageAndRolloutLocaleHandlingContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get localeFormat() {
-    return this.doc.formField(this.path, "localeFormat") || '';
-  }
-
-  set localeFormat(value) {
-    this.doc.setFormField(this.path, "localeFormat", value);
-  }
-
-  get countryVariants() {
-    return this.doc.formField(this.path, "countryVariants") || '';
-  }
-
-  set countryVariants(value) {
-    this.doc.setFormField(this.path, "countryVariants", value);
-  }
-
-  get localeDetection() {
-    return this.doc.formField(this.path, "localeDetection") || '';
-  }
-
-  set localeDetection(value) {
-    this.doc.setFormField(this.path, "localeDetection", value);
-  }
-
-  get localeFallbackChain() {
-    return this.doc.formField(this.path, "localeFallbackChain") || '';
-  }
-
-  set localeFallbackChain(value) {
-    this.doc.setFormField(this.path, "localeFallbackChain", value);
-  }
-}
-
 // Generated form facade for the `multiLanguageOverview` @Form section.
-class MultiLanguageAndRolloutMultiLanguageOverviewForm extends SomNode {
+class MultiLanguageSupportMultiLanguageOverviewForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -112313,37 +112399,6 @@ class MultiLanguageAndRolloutMultiLanguageOverviewForm extends SomNode {
 
   set rtlLanguages(value) {
     this.doc.setFormField(this.path, "rtlLanguages", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class MultiLanguageAndRolloutPlanContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get rolloutStrategy() {
-    return this.doc.formField(this.path, "rolloutStrategy") || '';
-  }
-
-  set rolloutStrategy(value) {
-    this.doc.setFormField(this.path, "rolloutStrategy", value);
-  }
-
-  get rolloutTimeline() {
-    return this.doc.formField(this.path, "rolloutTimeline") || '';
-  }
-
-  set rolloutTimeline(value) {
-    this.doc.setFormField(this.path, "rolloutTimeline", value);
-  }
-
-  get rolloutRegions() {
-    return this.doc.formField(this.path, "rolloutRegions") || '';
-  }
-
-  set rolloutRegions(value) {
-    this.doc.setFormField(this.path, "rolloutRegions", value);
   }
 }
 
@@ -120099,6 +120154,37 @@ class PrimaryNavigationSidebarContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class PrintAndExportLayoutContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get printStrategy() {
+    return this.doc.formField(this.path, "printStrategy") || '';
+  }
+
+  set printStrategy(value) {
+    this.doc.setFormField(this.path, "printStrategy", value);
+  }
+
+  get defaultPaperSize() {
+    return this.doc.formField(this.path, "defaultPaperSize") || '';
+  }
+
+  set defaultPaperSize(value) {
+    this.doc.setFormField(this.path, "defaultPaperSize", value);
+  }
+
+  get defaultOrientation() {
+    return this.doc.formField(this.path, "defaultOrientation") || '';
+  }
+
+  set defaultOrientation(value) {
+    this.doc.setFormField(this.path, "defaultOrientation", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class PrintLayoutArchiveContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -120181,37 +120267,6 @@ class PrintLayoutBrandingContentForm extends SomNode {
 
   set brandingFontSizeBase(value) {
     this.doc.setFormField(this.path, "brandingFontSizeBase", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class PrintLayoutContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get printStrategy() {
-    return this.doc.formField(this.path, "printStrategy") || '';
-  }
-
-  set printStrategy(value) {
-    this.doc.setFormField(this.path, "printStrategy", value);
-  }
-
-  get defaultPaperSize() {
-    return this.doc.formField(this.path, "defaultPaperSize") || '';
-  }
-
-  set defaultPaperSize(value) {
-    this.doc.setFormField(this.path, "defaultPaperSize", value);
-  }
-
-  get defaultOrientation() {
-    return this.doc.formField(this.path, "defaultOrientation") || '';
-  }
-
-  set defaultOrientation(value) {
-    this.doc.setFormField(this.path, "defaultOrientation", value);
   }
 }
 
@@ -124665,7 +124720,7 @@ class PrototypeTimelineContentForm extends SomNode {
 }
 
 // Generated form facade for the `prototypeTypeOverview` @Form section.
-class PrototypeTypeSectionPrototypeTypeOverviewForm extends SomNode {
+class PrototypeTypePrototypeTypeOverviewForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -142886,6 +142941,45 @@ class SpecializedEquipmentEntryTechnicalContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class SpecificationStatusContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get specificationVersion() {
+    return this.doc.formField(this.path, "specificationVersion") || '';
+  }
+
+  set specificationVersion(value) {
+    this.doc.setFormField(this.path, "specificationVersion", value);
+  }
+
+  get specificationDate() {
+    return this.doc.formField(this.path, "specificationDate") || '';
+  }
+
+  set specificationDate(value) {
+    this.doc.setFormField(this.path, "specificationDate", value);
+  }
+
+  get specificationStatus() {
+    return this.doc.formField(this.path, "specificationStatus") || '';
+  }
+
+  set specificationStatus(value) {
+    this.doc.setFormField(this.path, "specificationStatus", value);
+  }
+
+  get targetGoLiveDate() {
+    return this.doc.formField(this.path, "targetGoLiveDate") || '';
+  }
+
+  set targetGoLiveDate(value) {
+    this.doc.setFormField(this.path, "targetGoLiveDate", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class StaffingBudgetAllocationsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -144845,6 +144939,115 @@ class StageOverviewStatusContentForm extends SomNode {
 
   set confidenceBasis(value) {
     this.doc.setFormField(this.path, "confidenceBasis", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class StagePlanCoordinationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get crossStageDependencySummary() {
+    return this.doc.formField(this.path, "crossStageDependencySummary") || '';
+  }
+
+  set crossStageDependencySummary(value) {
+    this.doc.setFormField(this.path, "crossStageDependencySummary", value);
+  }
+
+  get crossStageRiskSummary() {
+    return this.doc.formField(this.path, "crossStageRiskSummary") || '';
+  }
+
+  set crossStageRiskSummary(value) {
+    this.doc.setFormField(this.path, "crossStageRiskSummary", value);
+  }
+
+  get regulatoryComplianceConsiderations() {
+    return this.doc.formField(this.path, "regulatoryComplianceConsiderations") || '';
+  }
+
+  set regulatoryComplianceConsiderations(value) {
+    this.doc.setFormField(this.path, "regulatoryComplianceConsiderations", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class StagePlanReadinessContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get organizationalReadinessLevel() {
+    return this.doc.formField(this.path, "organizationalReadinessLevel") || '';
+  }
+
+  set organizationalReadinessLevel(value) {
+    this.doc.setFormField(this.path, "organizationalReadinessLevel", value);
+  }
+
+  get changeAbsorptionCapacity() {
+    return this.doc.formField(this.path, "changeAbsorptionCapacity") || '';
+  }
+
+  set changeAbsorptionCapacity(value) {
+    this.doc.setFormField(this.path, "changeAbsorptionCapacity", value);
+  }
+
+  get confidenceLevel() {
+    return this.doc.formField(this.path, "confidenceLevel") || '';
+  }
+
+  set confidenceLevel(value) {
+    this.doc.setFormField(this.path, "confidenceLevel", value);
+  }
+
+  get lastPlanReviewDate() {
+    return this.doc.formField(this.path, "lastPlanReviewDate") || '';
+  }
+
+  set lastPlanReviewDate(value) {
+    this.doc.setFormField(this.path, "lastPlanReviewDate", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class StagePlanTimelineContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get overallPlannedStart() {
+    return this.doc.formField(this.path, "overallPlannedStart") || '';
+  }
+
+  set overallPlannedStart(value) {
+    this.doc.setFormField(this.path, "overallPlannedStart", value);
+  }
+
+  get overallTargetCompletion() {
+    return this.doc.formField(this.path, "overallTargetCompletion") || '';
+  }
+
+  set overallTargetCompletion(value) {
+    this.doc.setFormField(this.path, "overallTargetCompletion", value);
+  }
+
+  get totalDuration() {
+    return this.doc.formField(this.path, "totalDuration") || '';
+  }
+
+  set totalDuration(value) {
+    this.doc.setFormField(this.path, "totalDuration", value);
+  }
+
+  get bufferStrategy() {
+    return this.doc.formField(this.path, "bufferStrategy") || '';
+  }
+
+  set bufferStrategy(value) {
+    this.doc.setFormField(this.path, "bufferStrategy", value);
   }
 }
 
@@ -147570,6 +147773,68 @@ class SystemBusinessUnitEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class SystemClassificationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get systemType() {
+    return this.doc.formField(this.path, "systemType") || '';
+  }
+
+  set systemType(value) {
+    this.doc.setFormField(this.path, "systemType", value);
+  }
+
+  get businessDomain() {
+    return this.doc.formField(this.path, "businessDomain") || '';
+  }
+
+  set businessDomain(value) {
+    this.doc.setFormField(this.path, "businessDomain", value);
+  }
+
+  get deploymentModel() {
+    return this.doc.formField(this.path, "deploymentModel") || '';
+  }
+
+  set deploymentModel(value) {
+    this.doc.setFormField(this.path, "deploymentModel", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class SystemComplexityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get overallComplexity() {
+    return this.doc.formField(this.path, "overallComplexity") || '';
+  }
+
+  set overallComplexity(value) {
+    this.doc.setFormField(this.path, "overallComplexity", value);
+  }
+
+  get keyRisks() {
+    return this.doc.formField(this.path, "keyRisks") || '';
+  }
+
+  set keyRisks(value) {
+    this.doc.setFormField(this.path, "keyRisks", value);
+  }
+
+  get keyAssumptions() {
+    return this.doc.formField(this.path, "keyAssumptions") || '';
+  }
+
+  set keyAssumptions(value) {
+    this.doc.setFormField(this.path, "keyAssumptions", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class SystemConfigurationManagementContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -149145,193 +149410,6 @@ class SystemMigrationRiskEntryContentForm extends SomNode {
   }
 }
 
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryClassificationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get systemType() {
-    return this.doc.formField(this.path, "systemType") || '';
-  }
-
-  set systemType(value) {
-    this.doc.setFormField(this.path, "systemType", value);
-  }
-
-  get businessDomain() {
-    return this.doc.formField(this.path, "businessDomain") || '';
-  }
-
-  set businessDomain(value) {
-    this.doc.setFormField(this.path, "businessDomain", value);
-  }
-
-  get deploymentModel() {
-    return this.doc.formField(this.path, "deploymentModel") || '';
-  }
-
-  set deploymentModel(value) {
-    this.doc.setFormField(this.path, "deploymentModel", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryComplexityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get overallComplexity() {
-    return this.doc.formField(this.path, "overallComplexity") || '';
-  }
-
-  set overallComplexity(value) {
-    this.doc.setFormField(this.path, "overallComplexity", value);
-  }
-
-  get keyRisks() {
-    return this.doc.formField(this.path, "keyRisks") || '';
-  }
-
-  set keyRisks(value) {
-    this.doc.setFormField(this.path, "keyRisks", value);
-  }
-
-  get keyAssumptions() {
-    return this.doc.formField(this.path, "keyAssumptions") || '';
-  }
-
-  set keyAssumptions(value) {
-    this.doc.setFormField(this.path, "keyAssumptions", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get systemName() {
-    return this.doc.formField(this.path, "systemName") || '';
-  }
-
-  set systemName(value) {
-    this.doc.setFormField(this.path, "systemName", value);
-  }
-
-  get systemAcronym() {
-    return this.doc.formField(this.path, "systemAcronym") || '';
-  }
-
-  set systemAcronym(value) {
-    this.doc.setFormField(this.path, "systemAcronym", value);
-  }
-
-  get systemVersion() {
-    return this.doc.formField(this.path, "systemVersion") || '';
-  }
-
-  set systemVersion(value) {
-    this.doc.setFormField(this.path, "systemVersion", value);
-  }
-
-  get projectCodeName() {
-    return this.doc.formField(this.path, "projectCodeName") || '';
-  }
-
-  set projectCodeName(value) {
-    this.doc.setFormField(this.path, "projectCodeName", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryScaleContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get estimatedUserCount() {
-    return this.doc.formField(this.path, "estimatedUserCount") || '';
-  }
-
-  set estimatedUserCount(value) {
-    this.doc.setFormField(this.path, "estimatedUserCount", value);
-  }
-
-  get userCategoryCount() {
-    return this.doc.formField(this.path, "userCategoryCount") || '';
-  }
-
-  set userCategoryCount(value) {
-    this.doc.setFormField(this.path, "userCategoryCount", value);
-  }
-
-  get externalInterfaceCount() {
-    return this.doc.formField(this.path, "externalInterfaceCount") || '';
-  }
-
-  set externalInterfaceCount(value) {
-    this.doc.setFormField(this.path, "externalInterfaceCount", value);
-  }
-
-  get functionalRequirementCount() {
-    return this.doc.formField(this.path, "functionalRequirementCount") || '';
-  }
-
-  set functionalRequirementCount(value) {
-    this.doc.setFormField(this.path, "functionalRequirementCount", value);
-  }
-
-  get nonFunctionalRequirementCount() {
-    return this.doc.formField(this.path, "nonFunctionalRequirementCount") || '';
-  }
-
-  set nonFunctionalRequirementCount(value) {
-    this.doc.setFormField(this.path, "nonFunctionalRequirementCount", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemOverviewSummaryStatusContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get specificationVersion() {
-    return this.doc.formField(this.path, "specificationVersion") || '';
-  }
-
-  set specificationVersion(value) {
-    this.doc.setFormField(this.path, "specificationVersion", value);
-  }
-
-  get specificationDate() {
-    return this.doc.formField(this.path, "specificationDate") || '';
-  }
-
-  set specificationDate(value) {
-    this.doc.setFormField(this.path, "specificationDate", value);
-  }
-
-  get specificationStatus() {
-    return this.doc.formField(this.path, "specificationStatus") || '';
-  }
-
-  set specificationStatus(value) {
-    this.doc.setFormField(this.path, "specificationStatus", value);
-  }
-
-  get targetGoLiveDate() {
-    return this.doc.formField(this.path, "targetGoLiveDate") || '';
-  }
-
-  set targetGoLiveDate(value) {
-    this.doc.setFormField(this.path, "targetGoLiveDate", value);
-  }
-}
-
 // Generated form facade for the `governanceContent` @Form section.
 class SystemQualityGoalsGovernanceContentForm extends SomNode {
   constructor(doc, path) {
@@ -149473,6 +149551,53 @@ class SystemReplacementStrategyTimelineContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class SystemScaleContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get estimatedUserCount() {
+    return this.doc.formField(this.path, "estimatedUserCount") || '';
+  }
+
+  set estimatedUserCount(value) {
+    this.doc.setFormField(this.path, "estimatedUserCount", value);
+  }
+
+  get userCategoryCount() {
+    return this.doc.formField(this.path, "userCategoryCount") || '';
+  }
+
+  set userCategoryCount(value) {
+    this.doc.setFormField(this.path, "userCategoryCount", value);
+  }
+
+  get externalInterfaceCount() {
+    return this.doc.formField(this.path, "externalInterfaceCount") || '';
+  }
+
+  set externalInterfaceCount(value) {
+    this.doc.setFormField(this.path, "externalInterfaceCount", value);
+  }
+
+  get functionalRequirementCount() {
+    return this.doc.formField(this.path, "functionalRequirementCount") || '';
+  }
+
+  set functionalRequirementCount(value) {
+    this.doc.setFormField(this.path, "functionalRequirementCount", value);
+  }
+
+  get nonFunctionalRequirementCount() {
+    return this.doc.formField(this.path, "nonFunctionalRequirementCount") || '';
+  }
+
+  set nonFunctionalRequirementCount(value) {
+    this.doc.setFormField(this.path, "nonFunctionalRequirementCount", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class SystemStagePlanContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -149504,111 +149629,41 @@ class SystemStagePlanContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class SystemStagePlanCoordinationContentForm extends SomNode {
+class SystemSummaryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
-  get crossStageDependencySummary() {
-    return this.doc.formField(this.path, "crossStageDependencySummary") || '';
+  get systemName() {
+    return this.doc.formField(this.path, "systemName") || '';
   }
 
-  set crossStageDependencySummary(value) {
-    this.doc.setFormField(this.path, "crossStageDependencySummary", value);
+  set systemName(value) {
+    this.doc.setFormField(this.path, "systemName", value);
   }
 
-  get crossStageRiskSummary() {
-    return this.doc.formField(this.path, "crossStageRiskSummary") || '';
+  get systemAcronym() {
+    return this.doc.formField(this.path, "systemAcronym") || '';
   }
 
-  set crossStageRiskSummary(value) {
-    this.doc.setFormField(this.path, "crossStageRiskSummary", value);
+  set systemAcronym(value) {
+    this.doc.setFormField(this.path, "systemAcronym", value);
   }
 
-  get regulatoryComplianceConsiderations() {
-    return this.doc.formField(this.path, "regulatoryComplianceConsiderations") || '';
+  get systemVersion() {
+    return this.doc.formField(this.path, "systemVersion") || '';
   }
 
-  set regulatoryComplianceConsiderations(value) {
-    this.doc.setFormField(this.path, "regulatoryComplianceConsiderations", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemStagePlanReadinessContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
+  set systemVersion(value) {
+    this.doc.setFormField(this.path, "systemVersion", value);
   }
 
-  get organizationalReadinessLevel() {
-    return this.doc.formField(this.path, "organizationalReadinessLevel") || '';
+  get projectCodeName() {
+    return this.doc.formField(this.path, "projectCodeName") || '';
   }
 
-  set organizationalReadinessLevel(value) {
-    this.doc.setFormField(this.path, "organizationalReadinessLevel", value);
-  }
-
-  get changeAbsorptionCapacity() {
-    return this.doc.formField(this.path, "changeAbsorptionCapacity") || '';
-  }
-
-  set changeAbsorptionCapacity(value) {
-    this.doc.setFormField(this.path, "changeAbsorptionCapacity", value);
-  }
-
-  get confidenceLevel() {
-    return this.doc.formField(this.path, "confidenceLevel") || '';
-  }
-
-  set confidenceLevel(value) {
-    this.doc.setFormField(this.path, "confidenceLevel", value);
-  }
-
-  get lastPlanReviewDate() {
-    return this.doc.formField(this.path, "lastPlanReviewDate") || '';
-  }
-
-  set lastPlanReviewDate(value) {
-    this.doc.setFormField(this.path, "lastPlanReviewDate", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemStagePlanTimelineContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get overallPlannedStart() {
-    return this.doc.formField(this.path, "overallPlannedStart") || '';
-  }
-
-  set overallPlannedStart(value) {
-    this.doc.setFormField(this.path, "overallPlannedStart", value);
-  }
-
-  get overallTargetCompletion() {
-    return this.doc.formField(this.path, "overallTargetCompletion") || '';
-  }
-
-  set overallTargetCompletion(value) {
-    this.doc.setFormField(this.path, "overallTargetCompletion", value);
-  }
-
-  get totalDuration() {
-    return this.doc.formField(this.path, "totalDuration") || '';
-  }
-
-  set totalDuration(value) {
-    this.doc.setFormField(this.path, "totalDuration", value);
-  }
-
-  get bufferStrategy() {
-    return this.doc.formField(this.path, "bufferStrategy") || '';
-  }
-
-  set bufferStrategy(value) {
-    this.doc.setFormField(this.path, "bufferStrategy", value);
+  set projectCodeName(value) {
+    this.doc.setFormField(this.path, "projectCodeName", value);
   }
 }
 
@@ -151221,7 +151276,7 @@ class TechnicalDependencyEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsGovernanceContentForm extends SomNode {
+class TechnicalEnvironmentGovernanceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -151244,7 +151299,7 @@ class TechnicalFrameworkConditionsGovernanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsNetworkContentForm extends SomNode {
+class TechnicalEnvironmentNetworkContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -151291,7 +151346,7 @@ class TechnicalFrameworkConditionsNetworkContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsSecurityContentForm extends SomNode {
+class TechnicalEnvironmentSecurityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -151338,7 +151393,7 @@ class TechnicalFrameworkConditionsSecurityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TechnicalFrameworkConditionsStandardsContentForm extends SomNode {
+class TechnicalEnvironmentStandardsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -151385,7 +151440,7 @@ class TechnicalFrameworkConditionsStandardsContentForm extends SomNode {
 }
 
 // Generated form facade for the `technicalOverviewContent` @Form section.
-class TechnicalFrameworkConditionsTechnicalOverviewContentForm extends SomNode {
+class TechnicalEnvironmentTechnicalOverviewContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -157216,7 +157271,7 @@ class TransitionSupportResourceEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TranslationProcessOngoingContentForm extends SomNode {
+class TranslationOngoingContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -157235,68 +157290,6 @@ class TranslationProcessOngoingContentForm extends SomNode {
 
   set translationMemoryMaintenance(value) {
     this.doc.setFormField(this.path, "translationMemoryMaintenance", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class TranslationProcessQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get qualityChecks() {
-    return this.doc.formField(this.path, "qualityChecks") || '';
-  }
-
-  set qualityChecks(value) {
-    this.doc.setFormField(this.path, "qualityChecks", value);
-  }
-
-  get linguisticQA() {
-    return this.doc.formField(this.path, "linguisticQA") || '';
-  }
-
-  set linguisticQA(value) {
-    this.doc.setFormField(this.path, "linguisticQA", value);
-  }
-
-  get functionalQA() {
-    return this.doc.formField(this.path, "functionalQA") || '';
-  }
-
-  set functionalQA(value) {
-    this.doc.setFormField(this.path, "functionalQA", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class TranslationProcessTerminologyContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get glossaryManagement() {
-    return this.doc.formField(this.path, "glossaryManagement") || '';
-  }
-
-  set glossaryManagement(value) {
-    this.doc.setFormField(this.path, "glossaryManagement", value);
-  }
-
-  get styleGuide() {
-    return this.doc.formField(this.path, "styleGuide") || '';
-  }
-
-  set styleGuide(value) {
-    this.doc.setFormField(this.path, "styleGuide", value);
-  }
-
-  get brandVoice() {
-    return this.doc.formField(this.path, "brandVoice") || '';
-  }
-
-  set brandVoice(value) {
-    this.doc.setFormField(this.path, "brandVoice", value);
   }
 }
 
@@ -157340,41 +157333,33 @@ class TranslationProcessTranslationProcessContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class TranslationProcessWorkflowContentForm extends SomNode {
+class TranslationQualityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
-  get translationWorkflow() {
-    return this.doc.formField(this.path, "translationWorkflow") || '';
+  get qualityChecks() {
+    return this.doc.formField(this.path, "qualityChecks") || '';
   }
 
-  set translationWorkflow(value) {
-    this.doc.setFormField(this.path, "translationWorkflow", value);
+  set qualityChecks(value) {
+    this.doc.setFormField(this.path, "qualityChecks", value);
   }
 
-  get reviewCycles() {
-    return this.doc.formField(this.path, "reviewCycles") || '';
+  get linguisticQA() {
+    return this.doc.formField(this.path, "linguisticQA") || '';
   }
 
-  set reviewCycles(value) {
-    this.doc.setFormField(this.path, "reviewCycles", value);
+  set linguisticQA(value) {
+    this.doc.setFormField(this.path, "linguisticQA", value);
   }
 
-  get inCountryReview() {
-    return this.doc.formField(this.path, "inCountryReview") || '';
+  get functionalQA() {
+    return this.doc.formField(this.path, "functionalQA") || '';
   }
 
-  set inCountryReview(value) {
-    this.doc.setFormField(this.path, "inCountryReview", value);
-  }
-
-  get contextualReview() {
-    return this.doc.formField(this.path, "contextualReview") || '';
-  }
-
-  set contextualReview(value) {
-    this.doc.setFormField(this.path, "contextualReview", value);
+  set functionalQA(value) {
+    this.doc.setFormField(this.path, "functionalQA", value);
   }
 }
 
@@ -157558,6 +157543,37 @@ class TranslationRequirementsVariantsContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class TranslationTerminologyContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get glossaryManagement() {
+    return this.doc.formField(this.path, "glossaryManagement") || '';
+  }
+
+  set glossaryManagement(value) {
+    this.doc.setFormField(this.path, "glossaryManagement", value);
+  }
+
+  get styleGuide() {
+    return this.doc.formField(this.path, "styleGuide") || '';
+  }
+
+  set styleGuide(value) {
+    this.doc.setFormField(this.path, "styleGuide", value);
+  }
+
+  get brandVoice() {
+    return this.doc.formField(this.path, "brandVoice") || '';
+  }
+
+  set brandVoice(value) {
+    this.doc.setFormField(this.path, "brandVoice", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class TranslationVendorEntryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -157617,6 +157633,45 @@ class TranslationVendorEntryContentForm extends SomNode {
 
   set contactInfo(value) {
     this.doc.setFormField(this.path, "contactInfo", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class TranslationWorkflowContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get translationWorkflow() {
+    return this.doc.formField(this.path, "translationWorkflow") || '';
+  }
+
+  set translationWorkflow(value) {
+    this.doc.setFormField(this.path, "translationWorkflow", value);
+  }
+
+  get reviewCycles() {
+    return this.doc.formField(this.path, "reviewCycles") || '';
+  }
+
+  set reviewCycles(value) {
+    this.doc.setFormField(this.path, "reviewCycles", value);
+  }
+
+  get inCountryReview() {
+    return this.doc.formField(this.path, "inCountryReview") || '';
+  }
+
+  set inCountryReview(value) {
+    this.doc.setFormField(this.path, "inCountryReview", value);
+  }
+
+  get contextualReview() {
+    return this.doc.formField(this.path, "contextualReview") || '';
+  }
+
+  set contextualReview(value) {
+    this.doc.setFormField(this.path, "contextualReview", value);
   }
 }
 
@@ -159365,37 +159420,6 @@ class UiComponentEntryVisualDesignForm extends SomNode {
   }
 }
 
-// Generated form facade for the `content` @Form section.
-class UiComponentsComponentApproachContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get componentGranularity() {
-    return this.doc.formField(this.path, "componentGranularity") || '';
-  }
-
-  set componentGranularity(value) {
-    this.doc.setFormField(this.path, "componentGranularity", value);
-  }
-
-  get componentNaming() {
-    return this.doc.formField(this.path, "componentNaming") || '';
-  }
-
-  set componentNaming(value) {
-    this.doc.setFormField(this.path, "componentNaming", value);
-  }
-
-  get componentDocumentation() {
-    return this.doc.formField(this.path, "componentDocumentation") || '';
-  }
-
-  set componentDocumentation(value) {
-    this.doc.setFormField(this.path, "componentDocumentation", value);
-  }
-}
-
 // Generated form facade for the `componentLibraryOverview` @Form section.
 class UiComponentsComponentLibraryOverviewForm extends SomNode {
   constructor(doc, path) {
@@ -159432,139 +159456,6 @@ class UiComponentsComponentLibraryOverviewForm extends SomNode {
 
   set tomFlutterUiIntegration(value) {
     this.doc.setFormField(this.path, "tomFlutterUiIntegration", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class UiComponentsCustomizationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get extensionModel() {
-    return this.doc.formField(this.path, "extensionModel") || '';
-  }
-
-  set extensionModel(value) {
-    this.doc.setFormField(this.path, "extensionModel", value);
-  }
-
-  get themingApproach() {
-    return this.doc.formField(this.path, "themingApproach") || '';
-  }
-
-  set themingApproach(value) {
-    this.doc.setFormField(this.path, "themingApproach", value);
-  }
-
-  get customizationBoundaries() {
-    return this.doc.formField(this.path, "customizationBoundaries") || '';
-  }
-
-  set customizationBoundaries(value) {
-    this.doc.setFormField(this.path, "customizationBoundaries", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class UiComponentsVisualLanguageContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get visualLanguage() {
-    return this.doc.formField(this.path, "visualLanguage") || '';
-  }
-
-  set visualLanguage(value) {
-    this.doc.setFormField(this.path, "visualLanguage", value);
-  }
-
-  get brandAlignment() {
-    return this.doc.formField(this.path, "brandAlignment") || '';
-  }
-
-  set brandAlignment(value) {
-    this.doc.setFormField(this.path, "brandAlignment", value);
-  }
-
-  get motionPrinciples() {
-    return this.doc.formField(this.path, "motionPrinciples") || '';
-  }
-
-  set motionPrinciples(value) {
-    this.doc.setFormField(this.path, "motionPrinciples", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class UiDesignPrincipleEntryContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get principleName() {
-    return this.doc.formField(this.path, "principleName") || '';
-  }
-
-  set principleName(value) {
-    this.doc.setFormField(this.path, "principleName", value);
-  }
-
-  get description() {
-    return this.doc.formField(this.path, "description") || '';
-  }
-
-  set description(value) {
-    this.doc.setFormField(this.path, "description", value);
-  }
-
-  get rationale() {
-    return this.doc.formField(this.path, "rationale") || '';
-  }
-
-  set rationale(value) {
-    this.doc.setFormField(this.path, "rationale", value);
-  }
-
-  get category() {
-    return this.doc.formField(this.path, "category") || '';
-  }
-
-  set category(value) {
-    this.doc.setFormField(this.path, "category", value);
-  }
-
-  get examples() {
-    return this.doc.formField(this.path, "examples") || '';
-  }
-
-  set examples(value) {
-    this.doc.setFormField(this.path, "examples", value);
-  }
-
-  get exceptions() {
-    return this.doc.formField(this.path, "exceptions") || '';
-  }
-
-  set exceptions(value) {
-    this.doc.setFormField(this.path, "exceptions", value);
-  }
-
-  get sourceReference() {
-    return this.doc.formField(this.path, "sourceReference") || '';
-  }
-
-  set sourceReference(value) {
-    this.doc.setFormField(this.path, "sourceReference", value);
-  }
-
-  get relatedGoals() {
-    return this.doc.formField(this.path, "relatedGoals") || '';
-  }
-
-  set relatedGoals(value) {
-    this.doc.setFormField(this.path, "relatedGoals", value);
   }
 }
 
@@ -160056,6 +159947,115 @@ class UserAccessibilityNeedsAccessibilityFormForm extends SomNode {
 
   set additionalStandards(value) {
     this.doc.setFormField(this.path, "additionalStandards", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class UserAssistanceDeliveryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get helpContentOwnership() {
+    return this.doc.formField(this.path, "helpContentOwnership") || '';
+  }
+
+  set helpContentOwnership(value) {
+    this.doc.setFormField(this.path, "helpContentOwnership", value);
+  }
+
+  get helpUpdateProcess() {
+    return this.doc.formField(this.path, "helpUpdateProcess") || '';
+  }
+
+  set helpUpdateProcess(value) {
+    this.doc.setFormField(this.path, "helpUpdateProcess", value);
+  }
+
+  get helpIconStandard() {
+    return this.doc.formField(this.path, "helpIconStandard") || '';
+  }
+
+  set helpIconStandard(value) {
+    this.doc.setFormField(this.path, "helpIconStandard", value);
+  }
+
+  get helpIconPlacement() {
+    return this.doc.formField(this.path, "helpIconPlacement") || '';
+  }
+
+  set helpIconPlacement(value) {
+    this.doc.setFormField(this.path, "helpIconPlacement", value);
+  }
+
+  get helpTooltipStyle() {
+    return this.doc.formField(this.path, "helpTooltipStyle") || '';
+  }
+
+  set helpTooltipStyle(value) {
+    this.doc.setFormField(this.path, "helpTooltipStyle", value);
+  }
+}
+
+// Generated form facade for the `helpOverviewContent` @Form section.
+class UserAssistanceHelpOverviewContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get helpPhilosophy() {
+    return this.doc.formField(this.path, "helpPhilosophy") || '';
+  }
+
+  set helpPhilosophy(value) {
+    this.doc.setFormField(this.path, "helpPhilosophy", value);
+  }
+
+  get helpAccessibility() {
+    return this.doc.formField(this.path, "helpAccessibility") || '';
+  }
+
+  set helpAccessibility(value) {
+    this.doc.setFormField(this.path, "helpAccessibility", value);
+  }
+
+  get helpPersonalization() {
+    return this.doc.formField(this.path, "helpPersonalization") || '';
+  }
+
+  set helpPersonalization(value) {
+    this.doc.setFormField(this.path, "helpPersonalization", value);
+  }
+
+  get helpContentStrategy() {
+    return this.doc.formField(this.path, "helpContentStrategy") || '';
+  }
+
+  set helpContentStrategy(value) {
+    this.doc.setFormField(this.path, "helpContentStrategy", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class UserAssistanceInsightsContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get helpAnalytics() {
+    return this.doc.formField(this.path, "helpAnalytics") || '';
+  }
+
+  set helpAnalytics(value) {
+    this.doc.setFormField(this.path, "helpAnalytics", value);
+  }
+
+  get helpFeedback() {
+    return this.doc.formField(this.path, "helpFeedback") || '';
+  }
+
+  set helpFeedback(value) {
+    this.doc.setFormField(this.path, "helpFeedback", value);
   }
 }
 
@@ -164078,7 +164078,7 @@ module.exports = {
   ArchitecturePrincipleEntryGovernance,
   ArchitecturePrincipleEntryGuidance,
   ArchitectureStyle,
-  AssumptionConstraintRegister,
+  AssumptionConstraintDependencyRegister,
   AssumptionRegisterEntry,
   AssumptionsConstraintsDependencies,
   AttributeInterdependencyEntry,
@@ -164194,6 +164194,7 @@ module.exports = {
   BusinessComponentEntryInterface,
   BusinessComponentEntryReuse,
   BusinessComponentEntryTesting,
+  BusinessDomain,
   BusinessGoalEntry,
   BusinessGoalEntryDefinition,
   BusinessGoalEntryGovernance,
@@ -164387,8 +164388,10 @@ module.exports = {
   ComponentActionEntry,
   ComponentActionEntryExecution,
   ComponentActionEntryGovernance,
+  ComponentApproach,
   ComponentCompliance,
   ComponentCost,
+  ComponentCustomization,
   ComponentDeployment,
   ComponentDocs,
   ComponentEntry,
@@ -164458,7 +164461,8 @@ module.exports = {
   ComponentVariantEntryBehavior,
   ComponentVariantEntryVisual,
   ComponentVendor,
-  ComponentsToUse,
+  ComponentVisualLanguage,
+  ComponentsAndDependencies,
   ComputeResourceRequirements,
   ComputeResourceRequirementsGpu,
   ComputeResourceRequirementsMemory,
@@ -164526,13 +164530,13 @@ module.exports = {
   CurrentDataClassification,
   CurrentDataLandscape,
   CurrentLandscape,
-  CurrentOperationalMetrics,
+  CurrentOperationalMetric,
   CurrentProcessImprovementEntry,
   CurrentStateRiskAssessment,
   CurrentWorkflowEntry,
   CustomDistributionGroup,
   CustomMetricEntry,
-  CutoverProcedures,
+  CutoverProcedure,
   D00SolutionBlueprint,
   D01CurrentLandscapeAssessment,
   D02TargetOperatingModel,
@@ -164774,6 +164778,7 @@ module.exports = {
   DesignPatternEntryImplementation,
   DesignPatternEntryStructure,
   DesignPatternsAndStandards,
+  DesignPrincipleEntry,
   DesignPrinciples,
   DesignPrinciplesOverview,
   DesignVision,
@@ -164782,7 +164787,7 @@ module.exports = {
   DesktopOsRequirementEntrySoftware,
   DesktopOsRequirementEntrySupport,
   DesktopOsRequirementEntryTesting,
-  DetailedProcessWorkflows,
+  DetailedProcessWorkflow,
   DeveloperOnboarding,
   DeveloperOnboardingAccess,
   DeveloperOnboardingFirstTasks,
@@ -164890,7 +164895,7 @@ module.exports = {
   EncryptionAtRest,
   EncryptionAtRestPolicy,
   EncryptionInTransit,
-  EndToEndTestScenarios,
+  EndToEndTestScenario,
   EnterpriseSystemCompatibilityEntry,
   EnterpriseSystemCompatibilityEntryIntegration,
   EnterpriseSystemCompatibilityEntryRequirements,
@@ -164933,10 +164938,10 @@ module.exports = {
   ErrorBudgetTracking,
   ErrorBudgetTrackingGovernance,
   ErrorBudgetTrackingMonitoring,
-  ErrorHandlingConcept,
-  ErrorHandlingConceptAccessibility,
-  ErrorHandlingConceptClassification,
-  ErrorHandlingConceptOperations,
+  ErrorHandling,
+  ErrorHandlingAccessibility,
+  ErrorHandlingClassification,
+  ErrorHandlingOperations,
   ErrorHandlingStandards,
   ErrorHandlingStandardsExceptions,
   ErrorHandlingStandardsPatterns,
@@ -165074,7 +165079,6 @@ module.exports = {
   FlexibilityModularity,
   FragilePointEntry,
   FrameworkCompatibility,
-  FrameworkConditions,
   FrameworkIdentity,
   FrameworkJustification,
   FrameworkRequirementEntry,
@@ -165134,9 +165138,6 @@ module.exports = {
   HealthCheckEndpointsContent,
   HealthCheckEndpointsTiming,
   HealthChecksAndDiagnosticsSection,
-  HelpConcept,
-  HelpConceptDelivery,
-  HelpConceptInsights,
   HighAvailabilityRequirements,
   HighAvailabilityRequirementsDisasterRecovery,
   HighAvailabilityRequirementsFailover,
@@ -165365,6 +165366,7 @@ module.exports = {
   LegacyCompatibilityEntryIntegration,
   LegacyCompatibilityEntryMigration,
   LegacyCompatibilityEntryRisk,
+  LegalAndContractualRequirements,
   LiabilityLimitations,
   LifecycleTransitionEntry,
   LifecycleTransitionEntryConditions,
@@ -165381,10 +165383,12 @@ module.exports = {
   LocalDevelopmentSetupTesting,
   LocalDevelopmentSetupTroubleshooting,
   LocalDevelopmentSetupWorkflow,
+  LocaleHandlingRequirements,
+  LocaleRolloutPlan,
+  LocalizationDeployment,
+  LocalizationFormatting,
   LocalizationProcess,
-  LocalizationProcessDeployment,
-  LocalizationProcessFormatting,
-  LocalizationProcessReview,
+  LocalizationReview,
   LocalizationTranslationProcess,
   LocalizationTranslationRequirements,
   LogAggregationRequirements,
@@ -165551,9 +165555,7 @@ module.exports = {
   MoscowEntryTraceability,
   MoscowEntryValue,
   MultiChannelExperience,
-  MultiLanguageAndRollout,
-  MultiLanguageAndRolloutLocaleHandling,
-  MultiLanguageAndRolloutPlan,
+  MultiLanguageSupport,
   MustPassCriteria,
   MustPassCriterionEntry,
   MustPassCriterionEntryDefinition,
@@ -165651,6 +165653,7 @@ module.exports = {
   OngoingTrainingEntryCompliance,
   OngoingTrainingEntryContent,
   OngoingTrainingEntrySchedule,
+  OperatingEnvironment,
   OperationalMonitoring,
   OperationalPainPoints,
   OperationalPainPointsSummary,
@@ -165684,7 +165687,6 @@ module.exports = {
   OsCompatibilityEntryRequirements,
   OsCompatibilityEntrySupport,
   OsCompatibilityEntryTesting,
-  OtherAdministrativeRequirements,
   OtherAgreementEntry,
   OutOfScope,
   OutOfScopeEntry,
@@ -165774,7 +165776,7 @@ module.exports = {
   PrimaryNavigationBottomNav,
   PrimaryNavigationDrawer,
   PrimaryNavigationSidebar,
-  PrintLayout,
+  PrintAndExportLayout,
   PrintLayoutArchive,
   PrintLayoutBranding,
   PrintLayoutHeaderFooter,
@@ -165837,12 +165839,12 @@ module.exports = {
   ProcessKpiEntry,
   ProcessKpiEntryMeasurement,
   ProcessKpiEntryOperations,
+  ProcessMetric,
   ProcessMetricCategory,
   ProcessMetricEntry,
   ProcessMetricEntryMeasurement,
   ProcessMetricEntryTargets,
   ProcessMetrics,
-  ProcessMetricsAndKpis,
   ProcessOutputEntry,
   ProcessOverviewDiagram,
   ProcessPainPoints,
@@ -165896,7 +165898,7 @@ module.exports = {
   PrototypeGovernance,
   PrototypeResources,
   PrototypeTimeline,
-  PrototypeTypeSection,
+  PrototypeType,
   PwaRequirements,
   PwaRequirementsIcons,
   PwaRequirementsInstallation,
@@ -166168,7 +166170,7 @@ module.exports = {
   RollbackStrategyTargets,
   RollbackStrategyTriggers,
   RolloutPlan,
-  RolloutTrainingMaterials,
+  RolloutTrainingMaterial,
   RowLevelSecurityPolicy,
   RpoRtoRequirements,
   RpoRtoRequirementsByTier,
@@ -166423,6 +166425,7 @@ module.exports = {
   SpecializedEquipmentEntry,
   SpecializedEquipmentEntryPlanning,
   SpecializedEquipmentEntryTechnical,
+  SpecificationStatus,
   SsoPolicy,
   StaffingBudget,
   StaffingBudgetAllocations,
@@ -166470,6 +166473,9 @@ module.exports = {
   StageOverviewRisk,
   StageOverviewSchedule,
   StageOverviewStatus,
+  StagePlanCoordination,
+  StagePlanReadiness,
+  StagePlanTimeline,
   StageQuality,
   StageResources,
   StageRisk,
@@ -166551,6 +166557,8 @@ module.exports = {
   SystemBusinessCriticalityOperations,
   SystemBusinessProcessEntry,
   SystemBusinessUnitEntry,
+  SystemClassification,
+  SystemComplexity,
   SystemConfigurationManagement,
   SystemConfigurationManagementDynamic,
   SystemConfigurationManagementEnvironment,
@@ -166598,21 +166606,15 @@ module.exports = {
   SystemMigrationRiskEntry,
   SystemOperation,
   SystemOperationAndMonitoring,
-  SystemOverviewSummary,
-  SystemOverviewSummaryClassification,
-  SystemOverviewSummaryComplexity,
-  SystemOverviewSummaryScale,
-  SystemOverviewSummaryStatus,
   SystemPurpose,
   SystemQualityGoals,
   SystemReplacementStrategy,
   SystemReplacementStrategyCutover,
   SystemReplacementStrategyTimeline,
-  SystemRolloutConcept,
+  SystemRollout,
+  SystemScale,
   SystemStagePlan,
-  SystemStagePlanCoordination,
-  SystemStagePlanReadiness,
-  SystemStagePlanTimeline,
+  SystemSummary,
   SystemTaskEntry,
   SystemTaskEntryContext,
   SystemTaskEntryData,
@@ -166639,13 +166641,12 @@ module.exports = {
   TabBarDefinitionEntryLoading,
   TabItemEntry,
   TargetBusinessProcessModel,
-  TargetOperatingModelConcept,
+  TargetOperatingModel,
   TargetPlatformEntry,
   TargetPlatformEntryArchitecture,
   TargetPlatformEntryLifecycle,
   TargetPlatformEntryRequirements,
   TargetPlatformEntryVersion,
-  TaskArea,
   TeamMemberAvailability,
   TeamMemberEntry,
   TeamMemberEntryAllocation,
@@ -166658,12 +166659,12 @@ module.exports = {
   TechnicalCharacteristicEntry,
   TechnicalConstraintEntry,
   TechnicalDependencyEntry,
+  TechnicalEnvironment,
+  TechnicalEnvironmentGovernance,
+  TechnicalEnvironmentNetwork,
+  TechnicalEnvironmentSecurity,
+  TechnicalEnvironmentStandards,
   TechnicalFrameworkConcept,
-  TechnicalFrameworkConditions,
-  TechnicalFrameworkConditionsGovernance,
-  TechnicalFrameworkConditionsNetwork,
-  TechnicalFrameworkConditionsSecurity,
-  TechnicalFrameworkConditionsStandards,
   TechnicalGoalConstraints,
   TechnicalGoalDependencies,
   TechnicalGoalEntry,
@@ -166813,17 +166814,17 @@ module.exports = {
   TransitionSupportOverview,
   TransitionSupportResourceEntry,
   TransitionSupportStructure,
+  TranslationOngoing,
   TranslationProcess,
-  TranslationProcessOngoing,
-  TranslationProcessQuality,
-  TranslationProcessTerminology,
-  TranslationProcessWorkflow,
+  TranslationQuality,
   TranslationRequirements,
   TranslationRequirementsFormatting,
   TranslationRequirementsRtl,
   TranslationRequirementsTechnical,
   TranslationRequirementsVariants,
+  TranslationTerminology,
   TranslationVendorEntry,
+  TranslationWorkflow,
   TransportSecurityPolicy,
   TriggerOverview,
   TroubleshootingCapabilities,
@@ -166859,10 +166860,6 @@ module.exports = {
   UiComponentEntrySpacing,
   UiComponentEntrySurface,
   UiComponents,
-  UiComponentsComponentApproach,
-  UiComponentsCustomization,
-  UiComponentsVisualLanguage,
-  UiDesignPrincipleEntry,
   UpgradeCycleFramework,
   Usability,
   UsabilityClarity,
@@ -166879,6 +166876,9 @@ module.exports = {
   UserAccessPermissionsRestrictions,
   UserAccessibilityNeeds,
   UserAccountStatesDefinition,
+  UserAssistance,
+  UserAssistanceDelivery,
+  UserAssistanceInsights,
   UserAttributeEntry,
   UserAttributes,
   UserAuthorization,
@@ -166897,14 +166897,14 @@ module.exports = {
   UserInteractionModelSummary,
   UserJourney,
   UserJourneyPainPointEntry,
-  UserLifecycleSection,
+  UserLifecycle,
   UserLifecycleTransitionEntry,
   UserLifecycleTransitionEntryApproval,
   UserLifecycleTransitionEntryAutomation,
   UserLifecycleTransitionEntryEffects,
   UserLifecycleTransitions,
   UserManagement,
-  UserManuals,
+  UserManual,
   UserNotificationPreferences,
   UserPersonaDetails,
   UserPersonaDetailsBehavior,
@@ -167395,8 +167395,10 @@ module.exports = {
   ComponentActionEntryContentForm,
   ComponentActionEntryExecutionContentForm,
   ComponentActionEntryGovernanceContentForm,
+  ComponentApproachContentForm,
   ComponentComplianceContentForm,
   ComponentCostContentForm,
+  ComponentCustomizationContentForm,
   ComponentDeploymentContentForm,
   ComponentDocsContentForm,
   ComponentEntryContentForm,
@@ -167464,6 +167466,7 @@ module.exports = {
   ComponentVariantEntryContentForm,
   ComponentVariantEntryVisualContentForm,
   ComponentVendorContentForm,
+  ComponentVisualLanguageContentForm,
   ComputeResourceRequirementsContentForm,
   ComputeResourceRequirementsGpuContentForm,
   ComputeResourceRequirementsMemoryContentForm,
@@ -167729,6 +167732,7 @@ module.exports = {
   DesignPatternEntryEnforcementContentForm,
   DesignPatternEntryImplementationContentForm,
   DesignPatternEntryStructureContentForm,
+  DesignPrincipleEntryContentForm,
   DesignPrinciplesOverviewContentForm,
   DesktopOsRequirementEntryContentForm,
   DesktopOsRequirementEntryRequirementsContentForm,
@@ -167871,10 +167875,10 @@ module.exports = {
   ErrorBudgetTrackingContentForm,
   ErrorBudgetTrackingGovernanceContentForm,
   ErrorBudgetTrackingMonitoringContentForm,
-  ErrorHandlingConceptAccessibilityContentForm,
-  ErrorHandlingConceptClassificationContentForm,
-  ErrorHandlingConceptErrorPhilosophyContentForm,
-  ErrorHandlingConceptOperationsContentForm,
+  ErrorHandlingAccessibilityContentForm,
+  ErrorHandlingClassificationContentForm,
+  ErrorHandlingErrorPhilosophyContentForm,
+  ErrorHandlingOperationsContentForm,
   ErrorHandlingStandardsContentForm,
   ErrorHandlingStandardsExceptionsContentForm,
   ErrorHandlingStandardsPatternsContentForm,
@@ -168041,9 +168045,6 @@ module.exports = {
   HealthCheckEndpointsContentContentForm,
   HealthCheckEndpointsContentForm,
   HealthCheckEndpointsTimingContentForm,
-  HelpConceptDeliveryContentForm,
-  HelpConceptHelpOverviewContentForm,
-  HelpConceptInsightsContentForm,
   HighAvailabilityRequirementsContentForm,
   HighAvailabilityRequirementsDisasterRecoveryContentForm,
   HighAvailabilityRequirementsFailoverContentForm,
@@ -168258,10 +168259,12 @@ module.exports = {
   LocalDevelopmentSetupTestingContentForm,
   LocalDevelopmentSetupTroubleshootingContentForm,
   LocalDevelopmentSetupWorkflowContentForm,
-  LocalizationProcessDeploymentContentForm,
-  LocalizationProcessFormattingContentForm,
+  LocaleHandlingRequirementsContentForm,
+  LocaleRolloutPlanContentForm,
+  LocalizationDeploymentContentForm,
+  LocalizationFormattingContentForm,
   LocalizationProcessLocalizationProcessContentForm,
-  LocalizationProcessReviewContentForm,
+  LocalizationReviewContentForm,
   LogAggregationRequirementsAnalysisContentForm,
   LogAggregationRequirementsCollectionContentForm,
   LogAggregationRequirementsContentForm,
@@ -168413,9 +168416,7 @@ module.exports = {
   MoscowEntryTraceabilityContentForm,
   MoscowEntryValueContentForm,
   MultiChannelExperienceMultiChannelConfigurationForm,
-  MultiLanguageAndRolloutLocaleHandlingContentForm,
-  MultiLanguageAndRolloutMultiLanguageOverviewForm,
-  MultiLanguageAndRolloutPlanContentForm,
+  MultiLanguageSupportMultiLanguageOverviewForm,
   MustPassCriteriaMustPassOverviewContentForm,
   MustPassCriterionEntryContentForm,
   MustPassCriterionEntryDefinitionContentForm,
@@ -168601,9 +168602,9 @@ module.exports = {
   PrimaryNavigationContentForm,
   PrimaryNavigationDrawerContentForm,
   PrimaryNavigationSidebarContentForm,
+  PrintAndExportLayoutContentForm,
   PrintLayoutArchiveContentForm,
   PrintLayoutBrandingContentForm,
-  PrintLayoutContentForm,
   PrintLayoutHeaderFooterContentForm,
   PrintLayoutPageSetupContentForm,
   PrintLayoutWatermarkContentForm,
@@ -168699,7 +168700,7 @@ module.exports = {
   PrototypePrototypeOverviewForm,
   PrototypeResourcesContentForm,
   PrototypeTimelineContentForm,
-  PrototypeTypeSectionPrototypeTypeOverviewForm,
+  PrototypeTypePrototypeTypeOverviewForm,
   PwaRequirementsContentForm,
   PwaRequirementsIconsContentForm,
   PwaRequirementsInstallationContentForm,
@@ -169158,6 +169159,7 @@ module.exports = {
   SpecializedEquipmentEntryContentForm,
   SpecializedEquipmentEntryPlanningContentForm,
   SpecializedEquipmentEntryTechnicalContentForm,
+  SpecificationStatusContentForm,
   StaffingBudgetAllocationsContentForm,
   StaffingBudgetContentForm,
   StaffingBudgetGovernanceContentForm,
@@ -169203,6 +169205,9 @@ module.exports = {
   StageOverviewRiskContentForm,
   StageOverviewScheduleContentForm,
   StageOverviewStatusContentForm,
+  StagePlanCoordinationContentForm,
+  StagePlanReadinessContentForm,
+  StagePlanTimelineContentForm,
   StageQualityContentForm,
   StageResourcesContentForm,
   StageRiskContentForm,
@@ -169266,6 +169271,8 @@ module.exports = {
   SystemBusinessCriticalityOperationsContentForm,
   SystemBusinessProcessEntryContentForm,
   SystemBusinessUnitEntryContentForm,
+  SystemClassificationContentForm,
+  SystemComplexityContentForm,
   SystemConfigurationManagementContentForm,
   SystemConfigurationManagementDynamicContentForm,
   SystemConfigurationManagementEnvironmentContentForm,
@@ -169306,19 +169313,13 @@ module.exports = {
   SystemMigrationPlanCutoverContentForm,
   SystemMigrationPlanExecutionContentForm,
   SystemMigrationRiskEntryContentForm,
-  SystemOverviewSummaryClassificationContentForm,
-  SystemOverviewSummaryComplexityContentForm,
-  SystemOverviewSummaryContentForm,
-  SystemOverviewSummaryScaleContentForm,
-  SystemOverviewSummaryStatusContentForm,
   SystemQualityGoalsGovernanceContentForm,
   SystemReplacementStrategyContentForm,
   SystemReplacementStrategyCutoverContentForm,
   SystemReplacementStrategyTimelineContentForm,
+  SystemScaleContentForm,
   SystemStagePlanContentForm,
-  SystemStagePlanCoordinationContentForm,
-  SystemStagePlanReadinessContentForm,
-  SystemStagePlanTimelineContentForm,
+  SystemSummaryContentForm,
   SystemTaskEntryContentForm,
   SystemTaskEntryContextContentForm,
   SystemTaskEntryDataContentForm,
@@ -169359,11 +169360,11 @@ module.exports = {
   TechnicalCharacteristicEntryContentForm,
   TechnicalConstraintEntryContentForm,
   TechnicalDependencyEntryContentForm,
-  TechnicalFrameworkConditionsGovernanceContentForm,
-  TechnicalFrameworkConditionsNetworkContentForm,
-  TechnicalFrameworkConditionsSecurityContentForm,
-  TechnicalFrameworkConditionsStandardsContentForm,
-  TechnicalFrameworkConditionsTechnicalOverviewContentForm,
+  TechnicalEnvironmentGovernanceContentForm,
+  TechnicalEnvironmentNetworkContentForm,
+  TechnicalEnvironmentSecurityContentForm,
+  TechnicalEnvironmentStandardsContentForm,
+  TechnicalEnvironmentTechnicalOverviewContentForm,
   TechnicalGoalEntryContentForm,
   TechnicalGoalEntryGovernanceContentForm,
   TechnicalGoalEntryMeasurementContentForm,
@@ -169492,17 +169493,17 @@ module.exports = {
   TransitionRiskEntryResponseContentForm,
   TransitionSupportOverviewContentForm,
   TransitionSupportResourceEntryContentForm,
-  TranslationProcessOngoingContentForm,
-  TranslationProcessQualityContentForm,
-  TranslationProcessTerminologyContentForm,
+  TranslationOngoingContentForm,
   TranslationProcessTranslationProcessContentForm,
-  TranslationProcessWorkflowContentForm,
+  TranslationQualityContentForm,
   TranslationRequirementsFormattingContentForm,
   TranslationRequirementsRtlContentForm,
   TranslationRequirementsTechnicalContentForm,
   TranslationRequirementsTranslationRequirementsContentForm,
   TranslationRequirementsVariantsContentForm,
+  TranslationTerminologyContentForm,
   TranslationVendorEntryContentForm,
+  TranslationWorkflowContentForm,
   TriggerOverviewContentForm,
   TroubleshootingCapabilitiesAccessContentForm,
   TroubleshootingCapabilitiesCommunicationContentForm,
@@ -169542,11 +169543,7 @@ module.exports = {
   UiComponentEntrySpacingContentForm,
   UiComponentEntrySurfaceContentForm,
   UiComponentEntryVisualDesignForm,
-  UiComponentsComponentApproachContentForm,
   UiComponentsComponentLibraryOverviewForm,
-  UiComponentsCustomizationContentForm,
-  UiComponentsVisualLanguageContentForm,
-  UiDesignPrincipleEntryContentForm,
   UsabilityClarityContentForm,
   UsabilityContentForm,
   UsabilityInteractionContentForm,
@@ -169560,6 +169557,9 @@ module.exports = {
   UserAccessPermissionsPermissionsFormForm,
   UserAccessPermissionsRestrictionsContentForm,
   UserAccessibilityNeedsAccessibilityFormForm,
+  UserAssistanceDeliveryContentForm,
+  UserAssistanceHelpOverviewContentForm,
+  UserAssistanceInsightsContentForm,
   UserAttributeEntryContentForm,
   UserCategoryDefinitionContentForm,
   UserCategoryEntryContentForm,

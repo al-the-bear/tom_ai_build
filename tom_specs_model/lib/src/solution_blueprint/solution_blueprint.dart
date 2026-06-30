@@ -25,10 +25,10 @@ export 'security_and_access_model.dart';
 export 'solution_architecture_and_technology.dart';
 export 'stakeholders_and_governance.dart';
 export 'system_quality_goals.dart';
-export 'system_rollout_concept.dart';
+export 'system_rollout.dart';
 export 'system_stage_plan.dart';
 export 'target_business_process.dart';
-export 'target_operating_model_concept.dart';
+export 'target_operating_model.dart';
 export 'technical_framework.dart';
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -46,7 +46,7 @@ import 'requirements.dart';
 import 'security_and_access_model.dart';
 import 'solution_architecture_and_technology.dart';
 import 'stakeholders_and_governance.dart';
-import 'target_operating_model_concept.dart';
+import 'target_operating_model.dart';
 
 /// The complete Solution Blueprint (SBP) document.
 ///
@@ -86,8 +86,8 @@ class D00SolutionBlueprint {
       AssumptionsConstraintsDependencies();
 
   /// SBP.7 Target Operating Model concept. Seeds → TOM.
-  TargetOperatingModelConcept targetOperatingModelConcept =
-      TargetOperatingModelConcept();
+  TargetOperatingModel targetOperatingModelConcept =
+      TargetOperatingModel();
 
   /// SBP.8 Information & Data Model. Seeds → IFM.
   InformationAndDataModel informationAndDataModel = InformationAndDataModel();

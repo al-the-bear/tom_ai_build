@@ -50,7 +50,7 @@ class D02TargetOperatingModel {
   /// Detailed process workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
-  List<DetailedProcessWorkflows> detailedWorkflows = [];
+  List<DetailedProcessWorkflow> detailedWorkflows = [];
 
   /// Cross-process analysis.
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
@@ -61,5 +61,5 @@ class D02TargetOperatingModel {
   /// Process metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
-  List<ProcessMetricsAndKpis> processMetricsAndKpis = [];
+  List<ProcessMetric> processMetricsAndKpis = [];
 }

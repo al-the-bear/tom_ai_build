@@ -1697,8 +1697,8 @@ class ArchitectureStyle extends SomNode {
 }
 
 /// A consolidated register of assumptions and constraints.
-class AssumptionConstraintRegister extends SomNode {
-  AssumptionConstraintRegister(super.doc, super.path);
+class AssumptionConstraintDependencyRegister extends SomNode {
+  AssumptionConstraintDependencyRegister(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1732,7 +1732,7 @@ class AssumptionsConstraintsDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// The consolidated assumption / constraint register.
-  AssumptionConstraintRegister get register => AssumptionConstraintRegister(doc, '$path/register');
+  AssumptionConstraintDependencyRegister get register => AssumptionConstraintDependencyRegister(doc, '$path/register');
 }
 
 /// A single attribute interdependency entry.
@@ -3004,6 +3004,40 @@ class BusinessComponentEntryTesting extends SomNode {
   BusinessComponentEntryTestingContentForm get content => BusinessComponentEntryTestingContentForm(doc, '$path/content');
 }
 
+/// 4.1.3. Description of Business Domain.
+/// 
+/// Describes the business domain and task area the system addresses.
+/// Defines the domain vocabulary and key concepts (ubiquitous language)
+/// that will be used throughout the project. Based on Domain-Driven Design
+/// principles for establishing a shared understanding.
+class BusinessDomain extends SomNode {
+  BusinessDomain(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 4.1.3.1. Domain Overview.
+  DomainOverview get domainOverview => DomainOverview(doc, '$path/domainOverview');
+
+  /// 4.1.3.2. Domain Vocabulary.
+  DomainVocabulary get domainVocabulary => DomainVocabulary(doc, '$path/domainVocabulary');
+
+  /// 4.1.3.3. Key Concepts.
+  KeyConcepts get keyConcepts => KeyConcepts(doc, '$path/keyConcepts');
+
+  /// 4.1.3.4. Domain Boundaries.
+  DomainBoundaries get domainBoundaries => DomainBoundaries(doc, '$path/domainBoundaries');
+
+  /// 4.1.3.5. Business Rules.
+  DomainBusinessRules get businessRules => DomainBusinessRules(doc, '$path/businessRules');
+
+  /// 4.1.3.6. Domain Processes.
+  DomainProcesses get domainProcesses => DomainProcesses(doc, '$path/domainProcesses');
+
+  /// 4.1.3.7. Domain Events.
+  DomainEvents get domainEvents => DomainEvents(doc, '$path/domainEvents');
+}
+
 /// A business goal entry.
 /// 
 /// Comprehensive business goal definition following SMART criteria with
@@ -3277,7 +3311,7 @@ class BusinessProcessDescriptions extends SomNode {
   ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
 
   /// 6.1.7. Detailed Process Workflows.
-  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
+  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p));
 
   /// 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
@@ -3286,7 +3320,7 @@ class BusinessProcessDescriptions extends SomNode {
   ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
 
   /// 6.1.10. Process Metrics and KPIs.
-  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
+  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p));
 }
 
 /// A business process entry.
@@ -5169,6 +5203,13 @@ class ComponentActionEntryGovernance extends SomNode {
   ComponentActionEntryGovernanceContentForm get content => ComponentActionEntryGovernanceContentForm(doc, '$path/content');
 }
 
+/// Component naming and documentation approach.
+class ComponentApproach extends SomNode {
+  ComponentApproach(super.doc, super.path);
+
+  ComponentApproachContentForm get content => ComponentApproachContentForm(doc, '$path/content');
+}
+
 /// Compliance for component.
 class ComponentCompliance extends SomNode {
   ComponentCompliance(super.doc, super.path);
@@ -5181,6 +5222,13 @@ class ComponentCost extends SomNode {
   ComponentCost(super.doc, super.path);
 
   ComponentCostContentForm get content => ComponentCostContentForm(doc, '$path/content');
+}
+
+/// Extension and theming boundaries.
+class ComponentCustomization extends SomNode {
+  ComponentCustomization(super.doc, super.path);
+
+  ComponentCustomizationContentForm get content => ComponentCustomizationContentForm(doc, '$path/content');
 }
 
 /// Deployment for component.
@@ -5915,14 +5963,21 @@ class ComponentVendor extends SomNode {
   ComponentVendorContentForm get content => ComponentVendorContentForm(doc, '$path/content');
 }
 
-/// 12. Components to Use. Seeds → ATS.
+/// Visual language and brand alignment.
+class ComponentVisualLanguage extends SomNode {
+  ComponentVisualLanguage(super.doc, super.path);
+
+  ComponentVisualLanguageContentForm get content => ComponentVisualLanguageContentForm(doc, '$path/content');
+}
+
+/// 12. Components and Dependencies. Seeds → ATS.
 /// 
 /// External and standard components planned for use in the system. All
 /// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
-class ComponentsToUse extends SomNode {
-  ComponentsToUse(super.doc, super.path);
+class ComponentsAndDependencies extends SomNode {
+  ComponentsAndDependencies(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6765,7 +6820,7 @@ class CurrentLandscape extends SomNode {
   CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
 
   /// 1.5. Operational Metrics.
-  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
+  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p));
 
   /// 1.6. Current State Risks.
   CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
@@ -6776,8 +6831,8 @@ class CurrentLandscape extends SomNode {
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
 /// derive non-functional requirements.
-class CurrentOperationalMetrics extends SomNode {
-  CurrentOperationalMetrics(super.doc, super.path);
+class CurrentOperationalMetric extends SomNode {
+  CurrentOperationalMetric(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6869,8 +6924,8 @@ class CustomMetricEntry extends SomNode {
 /// 
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
-class CutoverProcedures extends SomNode {
-  CutoverProcedures(super.doc, super.path);
+class CutoverProcedure extends SomNode {
+  CutoverProcedure(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6916,7 +6971,7 @@ class D00SolutionBlueprint extends SomNode {
   AssumptionsConstraintsDependencies get assumptionsConstraintsDependencies => AssumptionsConstraintsDependencies(doc, '$path/assumptionsConstraintsDependencies');
 
   /// SBP.7 Target Operating Model concept. Seeds → TOM.
-  TargetOperatingModelConcept get targetOperatingModelConcept => TargetOperatingModelConcept(doc, '$path/targetOperatingModelConcept');
+  TargetOperatingModel get targetOperatingModelConcept => TargetOperatingModel(doc, '$path/targetOperatingModelConcept');
 
   /// SBP.8 Information & Data Model. Seeds → IFM.
   InformationAndDataModel get informationAndDataModel => InformationAndDataModel(doc, '$path/informationAndDataModel');
@@ -6978,7 +7033,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
   CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
 
   /// Current operational metrics.
-  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
+  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p));
 
   /// Current-state risk assessment.
   CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
@@ -7034,7 +7089,7 @@ class D02TargetOperatingModel extends SomNode {
   ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
 
   /// Detailed process workflows.
-  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
+  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p));
 
   /// Cross-process analysis.
   CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
@@ -7043,7 +7098,7 @@ class D02TargetOperatingModel extends SomNode {
   ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
 
   /// Process metrics and KPIs.
-  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
+  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p));
 }
 
 /// IFM00 Information Model.
@@ -7202,7 +7257,7 @@ class D05InteractionScenarios extends SomNode {
   ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
 
   /// End-to-end test scenarios.
-  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
+  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p));
 
   /// Use case traceability.
   UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
@@ -7262,10 +7317,10 @@ class D06ArchitectureTechnologySpecification extends SomNode {
   SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
 
   /// Components to use (whole).
-  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
+  ComponentsAndDependencies get componentsToUse => ComponentsAndDependencies(doc, '$path/componentsToUse');
 
   /// Technical framework conditions (whole).
-  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
+  TechnicalEnvironment get technicalEnvironment => TechnicalEnvironment(doc, '$path/technicalEnvironment');
 
   /// Translation handling requirements (whole).
   TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
@@ -7414,13 +7469,13 @@ class D09ExperienceDesignSpecification extends SomNode {
   ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
 
   /// Print layout.
-  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
+  PrintAndExportLayout get printLayout => PrintAndExportLayout(doc, '$path/printLayout');
 
   /// Error handling concept.
-  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
+  ErrorHandling get errorHandling => ErrorHandling(doc, '$path/errorHandling');
 
   /// Help concept.
-  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
+  UserAssistance get userAssistance => UserAssistance(doc, '$path/userAssistance');
 
   /// Accessibility.
   Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
@@ -7623,16 +7678,16 @@ class D12TransitionRolloutPlan extends SomNode {
   MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
 
   /// User manuals.
-  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
+  SomList<UserManual> get userManuals => SomList<UserManual>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManual(d, p));
 
   /// Training materials.
-  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
+  SomList<RolloutTrainingMaterial> get trainingMaterials => SomList<RolloutTrainingMaterial>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterial(d, p));
 
   /// Pilot plan.
   PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
 
   /// Cutover procedures.
-  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
+  SomList<CutoverProcedure> get cutoverProcedures => SomList<CutoverProcedure>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedure(d, p));
 
   /// Knowledge transfer.
   KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
@@ -9528,7 +9583,7 @@ class DeliveryTransitionAndRollout extends SomNode {
   SystemStagePlan get systemStagePlan => SystemStagePlan(doc, '$path/systemStagePlan');
 
   /// Rollout and transition concept.
-  SystemRolloutConcept get systemRolloutConcept => SystemRolloutConcept(doc, '$path/systemRolloutConcept');
+  SystemRollout get systemRollout => SystemRollout(doc, '$path/systemRollout');
 
   /// Localization & translation *execution* processes (re-homed from MLAR in
   /// IP-6: the execution side of i18n, as opposed to the requirements that
@@ -9536,7 +9591,7 @@ class DeliveryTransitionAndRollout extends SomNode {
   LocalizationTranslationProcess get localizationTranslationProcess => LocalizationTranslationProcess(doc, '$path/localizationTranslationProcess');
 
   /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
-  MultiLanguageAndRolloutPlan get multiLanguageRolloutPlan => MultiLanguageAndRolloutPlan(doc, '$path/multiLanguageRolloutPlan');
+  LocaleRolloutPlan get localeRolloutPlan => LocaleRolloutPlan(doc, '$path/localeRolloutPlan');
 }
 
 /// 1.1.3. Dependencies and Integrations.
@@ -10204,6 +10259,15 @@ class DesignPatternsAndStandards extends SomNode {
   TestingStandards get testingStandards => TestingStandards(doc, '$path/testingStandards');
 }
 
+/// A design principle entry (form).
+/// 
+/// Each principle guides UI decisions with rationale and examples.
+class DesignPrincipleEntry extends SomNode {
+  DesignPrincipleEntry(super.doc, super.path);
+
+  DesignPrincipleEntryContentForm get content => DesignPrincipleEntryContentForm(doc, '$path/content');
+}
+
 /// 10.1.2. Design Principles.
 /// 
 /// Guiding principles for all UI decisions: progressive disclosure, direct
@@ -10218,7 +10282,7 @@ class DesignPrinciples extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× UiDesignPrinciple.
-  SomList<UiDesignPrincipleEntry> get items => SomList<UiDesignPrincipleEntry>(doc, '$path/UDPEN-ITEM-LST', (d, p) => UiDesignPrincipleEntry(d, p));
+  SomList<DesignPrincipleEntry> get items => SomList<DesignPrincipleEntry>(doc, '$path/UDPEN-ITEM-LST', (d, p) => DesignPrincipleEntry(d, p));
 }
 
 /// Design principles overview.
@@ -10299,8 +10363,8 @@ class DesktopOsRequirementEntryTesting extends SomNode {
 /// 
 /// Per-process workflow detail beyond the catalog overview.
 /// .
-class DetailedProcessWorkflows extends SomNode {
-  DetailedProcessWorkflows(super.doc, super.path);
+class DetailedProcessWorkflow extends SomNode {
+  DetailedProcessWorkflow(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11497,8 +11561,8 @@ class EncryptionInTransit extends SomNode {
 /// 
 /// Test scenarios that exercise complete user journeys across processes
 /// and use cases..
-class EndToEndTestScenarios extends SomNode {
-  EndToEndTestScenarios(super.doc, super.path);
+class EndToEndTestScenario extends SomNode {
+  EndToEndTestScenario(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11943,24 +12007,24 @@ class ErrorBudgetTrackingMonitoring extends SomNode {
   ErrorBudgetTrackingMonitoringContentForm get content => ErrorBudgetTrackingMonitoringContentForm(doc, '$path/content');
 }
 
-/// 10.7. Error Handling Concept.
+/// 10.7. Error Handling.
 /// 
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
-class ErrorHandlingConcept extends SomNode {
-  ErrorHandlingConcept(super.doc, super.path);
+class ErrorHandling extends SomNode {
+  ErrorHandling(super.doc, super.path);
 
-  ErrorHandlingConceptErrorPhilosophyContentForm get errorPhilosophyContent => ErrorHandlingConceptErrorPhilosophyContentForm(doc, '$path/errorPhilosophyContent');
+  ErrorHandlingErrorPhilosophyContentForm get errorPhilosophyContent => ErrorHandlingErrorPhilosophyContentForm(doc, '$path/errorPhilosophyContent');
 
   /// Error categorization and display priority.
-  ErrorHandlingConceptClassification get classification => ErrorHandlingConceptClassification(doc, '$path/classification');
+  ErrorHandlingClassification get classification => ErrorHandlingClassification(doc, '$path/classification');
 
   /// Accessibility and inclusive error cues.
-  ErrorHandlingConceptAccessibility get accessibility => ErrorHandlingConceptAccessibility(doc, '$path/accessibility');
+  ErrorHandlingAccessibility get accessibility => ErrorHandlingAccessibility(doc, '$path/accessibility');
 
   /// Localization and analytics behavior.
-  ErrorHandlingConceptOperations get operations => ErrorHandlingConceptOperations(doc, '$path/operations');
+  ErrorHandlingOperations get operations => ErrorHandlingOperations(doc, '$path/operations');
 
   /// Error handling overview and strategy.
   // (skipped: errorHandlingOverview has no target type)
@@ -11982,24 +12046,24 @@ class ErrorHandlingConcept extends SomNode {
 }
 
 /// Accessibility and inclusive error cues.
-class ErrorHandlingConceptAccessibility extends SomNode {
-  ErrorHandlingConceptAccessibility(super.doc, super.path);
+class ErrorHandlingAccessibility extends SomNode {
+  ErrorHandlingAccessibility(super.doc, super.path);
 
-  ErrorHandlingConceptAccessibilityContentForm get content => ErrorHandlingConceptAccessibilityContentForm(doc, '$path/content');
+  ErrorHandlingAccessibilityContentForm get content => ErrorHandlingAccessibilityContentForm(doc, '$path/content');
 }
 
 /// Error categorization and display priority.
-class ErrorHandlingConceptClassification extends SomNode {
-  ErrorHandlingConceptClassification(super.doc, super.path);
+class ErrorHandlingClassification extends SomNode {
+  ErrorHandlingClassification(super.doc, super.path);
 
-  ErrorHandlingConceptClassificationContentForm get content => ErrorHandlingConceptClassificationContentForm(doc, '$path/content');
+  ErrorHandlingClassificationContentForm get content => ErrorHandlingClassificationContentForm(doc, '$path/content');
 }
 
 /// Localization and analytics behavior.
-class ErrorHandlingConceptOperations extends SomNode {
-  ErrorHandlingConceptOperations(super.doc, super.path);
+class ErrorHandlingOperations extends SomNode {
+  ErrorHandlingOperations(super.doc, super.path);
 
-  ErrorHandlingConceptOperationsContentForm get content => ErrorHandlingConceptOperationsContentForm(doc, '$path/content');
+  ErrorHandlingOperationsContentForm get content => ErrorHandlingOperationsContentForm(doc, '$path/content');
 }
 
 /// Error handling and exception patterns.
@@ -12362,7 +12426,7 @@ class ExperienceAndInterfaceDesign extends SomNode {
   ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
 
   /// 10.4. Print Layout. Seeds → XDS.
-  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
+  PrintAndExportLayout get printLayout => PrintAndExportLayout(doc, '$path/printLayout');
 
   /// Data Structure Alignment.
   // (skipped: dataStructureAlignment has no target type)
@@ -12370,11 +12434,11 @@ class ExperienceAndInterfaceDesign extends SomNode {
   /// Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
 
-  /// 10.7. Error Handling Concept. Seeds → XDS.
-  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
+  /// 10.7. Error Handling. Seeds → XDS.
+  ErrorHandling get errorHandling => ErrorHandling(doc, '$path/errorHandling');
 
-  /// 10.8. Help Concept. Seeds → XDS.
-  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
+  /// 10.8. User Assistance. Seeds → XDS.
+  UserAssistance get userAssistance => UserAssistance(doc, '$path/userAssistance');
 
   /// 10.9. Accessibility. Seeds → XDS.
   Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
@@ -12385,8 +12449,8 @@ class ExperienceAndInterfaceDesign extends SomNode {
   /// 10.11. UI Components. Seeds → XDS.
   UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
 
-  /// 10.12. Multi-language and Rollout Support.
-  MultiLanguageAndRollout get multiLanguage => MultiLanguageAndRollout(doc, '$path/multiLanguage');
+  /// 10.12. Multi-language Support.
+  MultiLanguageSupport get multiLanguageSupport => MultiLanguageSupport(doc, '$path/multiLanguageSupport');
 
   /// 10.13. Prototype. Seeds → XDS.
   Prototype get prototype => Prototype(doc, '$path/prototype');
@@ -13562,31 +13626,6 @@ class FrameworkCompatibility extends SomNode {
   FrameworkCompatibilityContentForm get content => FrameworkCompatibilityContentForm(doc, '$path/content');
 }
 
-/// 4.6. Framework Conditions.
-/// 
-/// Documents the organizational and technical environment in which the system
-/// will operate. Covers organizational structure, functional responsibilities,
-/// technical constraints, and external dependencies. Follows TOGAF enterprise
-/// context patterns and PMBOK environmental factors analysis.
-class FrameworkConditions extends SomNode {
-  FrameworkConditions(super.doc, super.path);
-
-  /// Framework conditions overview.
-  // (skipped: overview has no target type)
-
-  /// 4.6.1. Organizational Environment.
-  OrganizationalEnvironment get organizationalEnvironment => OrganizationalEnvironment(doc, '$path/organizationalEnvironment');
-
-  /// 4.6.2. Functional Responsibilities — contains 0+×.
-  FunctionalResponsibilities get functionalResponsibilities => FunctionalResponsibilities(doc, '$path/functionalResponsibilities');
-
-  /// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
-
-  /// 4.6.4. Constraints and Dependencies — contains 0+×.
-  ConstraintsAndDependencies get constraintsAndDependencies => ConstraintsAndDependencies(doc, '$path/constraintsAndDependencies');
-}
-
 /// Identity details.
 class FrameworkIdentity extends SomNode {
   FrameworkIdentity(super.doc, super.path);
@@ -14286,51 +14325,6 @@ class HealthChecksAndDiagnosticsSection extends SomNode {
 
   /// Dependency health monitoring.
   DependencyHealthMonitoring get dependencyHealth => DependencyHealthMonitoring(doc, '$path/dependencyHealth');
-}
-
-/// 10.8. Help Concept.
-/// 
-/// Comprehensive in-app help system including contextual help, onboarding,
-/// and support access mechanisms.
-class HelpConcept extends SomNode {
-  HelpConcept(super.doc, super.path);
-
-  HelpConceptHelpOverviewContentForm get helpOverviewContent => HelpConceptHelpOverviewContentForm(doc, '$path/helpOverviewContent');
-
-  /// Content stewardship and help affordances.
-  HelpConceptDelivery get delivery => HelpConceptDelivery(doc, '$path/delivery');
-
-  /// Analytics and improvement feedback.
-  HelpConceptInsights get insights => HelpConceptInsights(doc, '$path/insights');
-
-  /// Help system overview narrative.
-  // (skipped: helpOverview has no target type)
-
-  /// 10.8.1. Contextual Help.
-  ContextualHelp get contextualHelp => ContextualHelp(doc, '$path/contextualHelp');
-
-  /// 10.8.2. Onboarding.
-  OnboardingHelp get onboarding => OnboardingHelp(doc, '$path/onboarding');
-
-  /// 10.8.3. Support Access.
-  SupportAccess get supportAccess => SupportAccess(doc, '$path/supportAccess');
-
-  /// Help content inventory.
-  // (skipped: helpContentInventory has no target type)
-}
-
-/// Content stewardship and help affordances.
-class HelpConceptDelivery extends SomNode {
-  HelpConceptDelivery(super.doc, super.path);
-
-  HelpConceptDeliveryContentForm get content => HelpConceptDeliveryContentForm(doc, '$path/content');
-}
-
-/// Analytics and improvement feedback.
-class HelpConceptInsights extends SomNode {
-  HelpConceptInsights(super.doc, super.path);
-
-  HelpConceptInsightsContentForm get content => HelpConceptInsightsContentForm(doc, '$path/content');
 }
 
 /// High availability requirements.
@@ -16112,7 +16106,7 @@ class InteroperabilityRequirementsTesting extends SomNode {
   InteroperabilityRequirementsTestingContentForm get content => InteroperabilityRequirementsTestingContentForm(doc, '$path/content');
 }
 
-/// 4. System Overview.
+/// 4. Introduction & Scope.
 /// 
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
@@ -16124,7 +16118,7 @@ class IntroductionAndScope extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// System overview summary statistics.
-  SystemOverviewSummary get summary => SystemOverviewSummary(doc, '$path/summary');
+  SystemSummary get summary => SystemSummary(doc, '$path/summary');
 
   /// System context diagram showing major system boundaries.
   String get systemContextDiagram => doc.content('$path/systemContextDiagram') ?? '';
@@ -16145,8 +16139,8 @@ class IntroductionAndScope extends SomNode {
   /// 4.5. System Boundaries. Seeds → IIS.
   SystemBoundaries get systemBoundaries => SystemBoundaries(doc, '$path/systemBoundaries');
 
-  /// 4.6. Framework Conditions.
-  FrameworkConditions get frameworkConditions => FrameworkConditions(doc, '$path/frameworkConditions');
+  /// 4.6. Operating Environment.
+  OperatingEnvironment get operatingEnvironment => OperatingEnvironment(doc, '$path/operatingEnvironment');
 
   /// 4.7. Risks and Assumptions.
   RisksAndAssumptions get risksAndAssumptions => RisksAndAssumptions(doc, '$path/risksAndAssumptions');
@@ -16808,6 +16802,36 @@ class LegacyCompatibilityEntryRisk extends SomNode {
   LegacyCompatibilityEntryRiskContentForm get content => LegacyCompatibilityEntryRiskContentForm(doc, '$path/content');
 }
 
+/// 3.6. Other Administrative Requirements.
+/// 
+/// Additional administrative agreements, constraints, or requirements not
+/// covered by other sections: IP ownership, NDAs, regulatory compliance,
+/// audit requirements, and other legal or organizational agreements.
+class LegalAndContractualRequirements extends SomNode {
+  LegalAndContractualRequirements(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 3.6.1. Intellectual Property.
+  IntellectualPropertyRequirements get intellectualProperty => IntellectualPropertyRequirements(doc, '$path/intellectualProperty');
+
+  /// 3.6.2. Confidentiality and NDAs.
+  ConfidentialityRequirements get confidentiality => ConfidentialityRequirements(doc, '$path/confidentiality');
+
+  /// 3.6.3. Regulatory Compliance.
+  RegulatoryComplianceRequirements get regulatoryCompliance => RegulatoryComplianceRequirements(doc, '$path/regulatoryCompliance');
+
+  /// 3.6.4. Audit Requirements.
+  AuditRequirements get auditRequirements => AuditRequirements(doc, '$path/auditRequirements');
+
+  /// 3.6.5. Insurance and Liability.
+  InsuranceLiabilityRequirements get insuranceLiability => InsuranceLiabilityRequirements(doc, '$path/insuranceLiability');
+
+  /// 3.6.6. Other Agreements — contains 0+× Agreement.
+  SomList<OtherAgreementEntry> get otherAgreements => SomList<OtherAgreementEntry>(doc, '$path/OTAGR-OTHE-LST', (d, p) => OtherAgreementEntry(d, p));
+}
+
 /// Liability limitations.
 class LiabilityLimitations extends SomNode {
   LiabilityLimitations(super.doc, super.path);
@@ -16955,6 +16979,34 @@ class LocalDevelopmentSetupWorkflow extends SomNode {
   LocalDevelopmentSetupWorkflowContentForm get content => LocalDevelopmentSetupWorkflowContentForm(doc, '$path/content');
 }
 
+/// Locale modeling and fallback behavior.
+class LocaleHandlingRequirements extends SomNode {
+  LocaleHandlingRequirements(super.doc, super.path);
+
+  LocaleHandlingRequirementsContentForm get content => LocaleHandlingRequirementsContentForm(doc, '$path/content');
+}
+
+/// Rollout sequencing by region and time.
+class LocaleRolloutPlan extends SomNode {
+  LocaleRolloutPlan(super.doc, super.path);
+
+  LocaleRolloutPlanContentForm get content => LocaleRolloutPlanContentForm(doc, '$path/content');
+}
+
+/// Deployment settings.
+class LocalizationDeployment extends SomNode {
+  LocalizationDeployment(super.doc, super.path);
+
+  LocalizationDeploymentContentForm get content => LocalizationDeploymentContentForm(doc, '$path/content');
+}
+
+/// Formatting rules.
+class LocalizationFormatting extends SomNode {
+  LocalizationFormatting(super.doc, super.path);
+
+  LocalizationFormattingContentForm get content => LocalizationFormattingContentForm(doc, '$path/content');
+}
+
 /// 10.12.1. Localization Process.
 /// 
 /// Workflow for identifying and preparing content for localization.
@@ -16964,13 +17016,13 @@ class LocalizationProcess extends SomNode {
   LocalizationProcessLocalizationProcessContentForm get localizationProcessContent => LocalizationProcessLocalizationProcessContentForm(doc, '$path/localizationProcessContent');
 
   /// Review process.
-  LocalizationProcessReview get review => LocalizationProcessReview(doc, '$path/review');
+  LocalizationReview get review => LocalizationReview(doc, '$path/review');
 
   /// Formatting rules.
-  LocalizationProcessFormatting get formatting => LocalizationProcessFormatting(doc, '$path/formatting');
+  LocalizationFormatting get formatting => LocalizationFormatting(doc, '$path/formatting');
 
   /// Deployment settings.
-  LocalizationProcessDeployment get deployment => LocalizationProcessDeployment(doc, '$path/deployment');
+  LocalizationDeployment get deployment => LocalizationDeployment(doc, '$path/deployment');
 
   /// Localization process narrative.
   // (skipped: localizationNarrative has no target type)
@@ -16979,32 +17031,18 @@ class LocalizationProcess extends SomNode {
   // (skipped: workflowDiagram has no target type)
 }
 
-/// Deployment settings.
-class LocalizationProcessDeployment extends SomNode {
-  LocalizationProcessDeployment(super.doc, super.path);
-
-  LocalizationProcessDeploymentContentForm get content => LocalizationProcessDeploymentContentForm(doc, '$path/content');
-}
-
-/// Formatting rules.
-class LocalizationProcessFormatting extends SomNode {
-  LocalizationProcessFormatting(super.doc, super.path);
-
-  LocalizationProcessFormattingContentForm get content => LocalizationProcessFormattingContentForm(doc, '$path/content');
-}
-
 /// Review process.
-class LocalizationProcessReview extends SomNode {
-  LocalizationProcessReview(super.doc, super.path);
+class LocalizationReview extends SomNode {
+  LocalizationReview(super.doc, super.path);
 
-  LocalizationProcessReviewContentForm get content => LocalizationProcessReviewContentForm(doc, '$path/content');
+  LocalizationReviewContentForm get content => LocalizationReviewContentForm(doc, '$path/content');
 }
 
 /// Localization & Translation execution processes.
 /// 
 /// Public anchor: ISO 29148 transition requirements. Bundles the localization
 /// and translation *workflow* concerns re-homed from the former
-/// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+/// `MultiLanguageSupport` cluster (their requirement counterparts live in
 /// SBP.9 [LocalizationTranslationRequirements]).
 class LocalizationTranslationProcess extends SomNode {
   LocalizationTranslationProcess(super.doc, super.path);
@@ -17033,7 +17071,7 @@ class LocalizationTranslationRequirements extends SomNode {
   TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
 
   /// Locale modeling and fallback requirements (re-homed from MLAR).
-  MultiLanguageAndRolloutLocaleHandling get localeHandling => MultiLanguageAndRolloutLocaleHandling(doc, '$path/localeHandling');
+  LocaleHandlingRequirements get localeHandling => LocaleHandlingRequirements(doc, '$path/localeHandling');
 }
 
 /// Log aggregation and analysis requirements.
@@ -18792,17 +18830,17 @@ class MultiChannelExperience extends SomNode {
   MultiChannelExperienceMultiChannelConfigurationForm get multiChannelConfiguration => MultiChannelExperienceMultiChannelConfigurationForm(doc, '$path/multiChannelConfiguration');
 }
 
-/// 10.12. Multi-language and Rollout Support.
+/// 10.12. Multi-language Support.
 /// 
 /// Locale-picker / UX-side multi-language concerns that stay on the
 /// Experience & Interface Design side. IP-6 re-homed the requirement-side
 /// concerns (i18n requirements, documentation, training) to SBP.9 and the
 /// execution-side concerns (localization/translation processes, rollout
 /// sequencing) to SBP.15; only the stay-put UX members remain here.
-class MultiLanguageAndRollout extends SomNode {
-  MultiLanguageAndRollout(super.doc, super.path);
+class MultiLanguageSupport extends SomNode {
+  MultiLanguageSupport(super.doc, super.path);
 
-  MultiLanguageAndRolloutMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageAndRolloutMultiLanguageOverviewForm(doc, '$path/multiLanguageOverview');
+  MultiLanguageSupportMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageSupportMultiLanguageOverviewForm(doc, '$path/multiLanguageOverview');
 
   /// Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -18812,20 +18850,6 @@ class MultiLanguageAndRollout extends SomNode {
 
   /// Supported locale entries.
   SomList<SupportedLocaleEntry> get supportedLocales => SomList<SupportedLocaleEntry>(doc, '$path/SULOEN-SUPP-LST', (d, p) => SupportedLocaleEntry(d, p));
-}
-
-/// Locale modeling and fallback behavior.
-class MultiLanguageAndRolloutLocaleHandling extends SomNode {
-  MultiLanguageAndRolloutLocaleHandling(super.doc, super.path);
-
-  MultiLanguageAndRolloutLocaleHandlingContentForm get content => MultiLanguageAndRolloutLocaleHandlingContentForm(doc, '$path/content');
-}
-
-/// Rollout sequencing by region and time.
-class MultiLanguageAndRolloutPlan extends SomNode {
-  MultiLanguageAndRolloutPlan(super.doc, super.path);
-
-  MultiLanguageAndRolloutPlanContentForm get content => MultiLanguageAndRolloutPlanContentForm(doc, '$path/content');
 }
 
 /// 11.7.1. Must-Pass Criteria.
@@ -19869,6 +19893,31 @@ class OngoingTrainingEntrySchedule extends SomNode {
   OngoingTrainingEntryScheduleContentForm get content => OngoingTrainingEntryScheduleContentForm(doc, '$path/content');
 }
 
+/// 4.6. Operating Environment.
+/// 
+/// Documents the organizational and technical environment in which the system
+/// will operate. Covers organizational structure, functional responsibilities,
+/// technical constraints, and external dependencies. Follows TOGAF enterprise
+/// context patterns and PMBOK environmental factors analysis.
+class OperatingEnvironment extends SomNode {
+  OperatingEnvironment(super.doc, super.path);
+
+  /// Framework conditions overview.
+  // (skipped: overview has no target type)
+
+  /// 4.6.1. Organizational Environment.
+  OrganizationalEnvironment get organizationalEnvironment => OrganizationalEnvironment(doc, '$path/organizationalEnvironment');
+
+  /// 4.6.2. Functional Responsibilities — contains 0+×.
+  FunctionalResponsibilities get functionalResponsibilities => FunctionalResponsibilities(doc, '$path/functionalResponsibilities');
+
+  /// 4.6.3. Technical Environment. Seeds → ATS.
+  TechnicalEnvironment get technicalEnvironment => TechnicalEnvironment(doc, '$path/technicalEnvironment');
+
+  /// 4.6.4. Constraints and Dependencies — contains 0+×.
+  ConstraintsAndDependencies get constraintsAndDependencies => ConstraintsAndDependencies(doc, '$path/constraintsAndDependencies');
+}
+
 /// 11.4.3. Monitoring quality.
 class OperationalMonitoring extends SomNode {
   OperationalMonitoring(super.doc, super.path);
@@ -20316,36 +20365,6 @@ class OsCompatibilityEntryTesting extends SomNode {
   OsCompatibilityEntryTesting(super.doc, super.path);
 
   OsCompatibilityEntryTestingContentForm get content => OsCompatibilityEntryTestingContentForm(doc, '$path/content');
-}
-
-/// 3.6. Other Administrative Requirements.
-/// 
-/// Additional administrative agreements, constraints, or requirements not
-/// covered by other sections: IP ownership, NDAs, regulatory compliance,
-/// audit requirements, and other legal or organizational agreements.
-class OtherAdministrativeRequirements extends SomNode {
-  OtherAdministrativeRequirements(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 3.6.1. Intellectual Property.
-  IntellectualPropertyRequirements get intellectualProperty => IntellectualPropertyRequirements(doc, '$path/intellectualProperty');
-
-  /// 3.6.2. Confidentiality and NDAs.
-  ConfidentialityRequirements get confidentiality => ConfidentialityRequirements(doc, '$path/confidentiality');
-
-  /// 3.6.3. Regulatory Compliance.
-  RegulatoryComplianceRequirements get regulatoryCompliance => RegulatoryComplianceRequirements(doc, '$path/regulatoryCompliance');
-
-  /// 3.6.4. Audit Requirements.
-  AuditRequirements get auditRequirements => AuditRequirements(doc, '$path/auditRequirements');
-
-  /// 3.6.5. Insurance and Liability.
-  InsuranceLiabilityRequirements get insuranceLiability => InsuranceLiabilityRequirements(doc, '$path/insuranceLiability');
-
-  /// 3.6.6. Other Agreements — contains 0+× Agreement.
-  SomList<OtherAgreementEntry> get otherAgreements => SomList<OtherAgreementEntry>(doc, '$path/OTAGR-OTHE-LST', (d, p) => OtherAgreementEntry(d, p));
 }
 
 /// An other agreement entry.
@@ -21337,10 +21356,10 @@ class PrimaryNavigationSidebar extends SomNode {
 }
 
 /// 10.4. Print Layout.
-class PrintLayout extends SomNode {
-  PrintLayout(super.doc, super.path);
+class PrintAndExportLayout extends SomNode {
+  PrintAndExportLayout(super.doc, super.path);
 
-  PrintLayoutContentForm get content => PrintLayoutContentForm(doc, '$path/content');
+  PrintAndExportLayoutContentForm get content => PrintAndExportLayoutContentForm(doc, '$path/content');
 
   /// Page margins and setup.
   PrintLayoutPageSetup get pageSetup => PrintLayoutPageSetup(doc, '$path/pageSetup');
@@ -21964,6 +21983,16 @@ class ProcessKpiEntryOperations extends SomNode {
   ProcessKpiEntryOperationsContentForm get content => ProcessKpiEntryOperationsContentForm(doc, '$path/content');
 }
 
+/// 6.1.10. Process Metrics and KPIs.
+/// 
+/// Process-level KPIs, SLAs, and measurement strategy.
+class ProcessMetric extends SomNode {
+  ProcessMetric(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+}
+
 /// A category of process metrics.
 class ProcessMetricCategory extends SomNode {
   ProcessMetricCategory(super.doc, super.path);
@@ -22039,16 +22068,6 @@ class ProcessMetrics extends SomNode {
 
   /// Baseline comparison table.
   MetricsBaselineTable get baselineTable => MetricsBaselineTable(doc, '$path/baselineTable');
-}
-
-/// 6.1.10. Process Metrics and KPIs.
-/// 
-/// Process-level KPIs, SLAs, and measurement strategy.
-class ProcessMetricsAndKpis extends SomNode {
-  ProcessMetricsAndKpis(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A process output entry.
@@ -22236,7 +22255,7 @@ class ProcessStepsAndActorInteractions extends SomNode {
   ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
 
   /// 6.2.4. End-to-End Test Scenarios..
-  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
+  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p));
 
   /// 6.2.5. Use Case Traceability.
   UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
@@ -22556,7 +22575,7 @@ class Prototype extends SomNode {
   PrototypeFeatureSubset get featureSubset => PrototypeFeatureSubset(doc, '$path/featureSubset');
 
   /// 10.13.3. Prototype Type.
-  PrototypeTypeSection get prototypeType => PrototypeTypeSection(doc, '$path/prototypeType');
+  PrototypeType get prototypeType => PrototypeType(doc, '$path/prototypeType');
 
   /// Prototype schedule.
   // (skipped: prototypeSchedule has no target type)
@@ -22670,10 +22689,10 @@ class PrototypeTimeline extends SomNode {
 /// 10.13.3. Prototype Type.
 /// 
 /// Classification and implications of the prototype type.
-class PrototypeTypeSection extends SomNode {
-  PrototypeTypeSection(super.doc, super.path);
+class PrototypeType extends SomNode {
+  PrototypeType(super.doc, super.path);
 
-  PrototypeTypeSectionPrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypeSectionPrototypeTypeOverviewForm(doc, '$path/prototypeTypeOverview');
+  PrototypeTypePrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypePrototypeTypeOverviewForm(doc, '$path/prototypeTypeOverview');
 
   /// 10.13.3.1. Reusable Prototype.
   ReusablePrototype get reusablePrototype => ReusablePrototype(doc, '$path/reusablePrototype');
@@ -25551,8 +25570,8 @@ class RolloutPlan extends SomNode {
 /// 15.4. Training Materials.
 /// 
 /// Training deliverables covering training-material content.
-class RolloutTrainingMaterials extends SomNode {
-  RolloutTrainingMaterials(super.doc, super.path);
+class RolloutTrainingMaterial extends SomNode {
+  RolloutTrainingMaterial(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28313,7 +28332,7 @@ class SolutionArchitectureAndTechnology extends SomNode {
   TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
 
   /// Components, libraries, and services to reuse.
-  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
+  ComponentsAndDependencies get componentsToUse => ComponentsAndDependencies(doc, '$path/componentsToUse');
 }
 
 /// Specialized equipment entry (form).
@@ -28341,6 +28360,13 @@ class SpecializedEquipmentEntryTechnical extends SomNode {
   SpecializedEquipmentEntryTechnical(super.doc, super.path);
 
   SpecializedEquipmentEntryTechnicalContentForm get content => SpecializedEquipmentEntryTechnicalContentForm(doc, '$path/content');
+}
+
+/// Specification status.
+class SpecificationStatus extends SomNode {
+  SpecificationStatus(super.doc, super.path);
+
+  SpecificationStatusContentForm get content => SpecificationStatusContentForm(doc, '$path/content');
 }
 
 /// Single Sign-On (SSO) policy (form).
@@ -28898,6 +28924,27 @@ class StageOverviewStatus extends SomNode {
   StageOverviewStatusContentForm get content => StageOverviewStatusContentForm(doc, '$path/content');
 }
 
+/// Dependencies, risks, and compliance constraints across stages.
+class StagePlanCoordination extends SomNode {
+  StagePlanCoordination(super.doc, super.path);
+
+  StagePlanCoordinationContentForm get content => StagePlanCoordinationContentForm(doc, '$path/content');
+}
+
+/// Organizational capacity and plan confidence.
+class StagePlanReadiness extends SomNode {
+  StagePlanReadiness(super.doc, super.path);
+
+  StagePlanReadinessContentForm get content => StagePlanReadinessContentForm(doc, '$path/content');
+}
+
+/// Overall schedule and buffer model.
+class StagePlanTimeline extends SomNode {
+  StagePlanTimeline(super.doc, super.path);
+
+  StagePlanTimelineContentForm get content => StagePlanTimelineContentForm(doc, '$path/content');
+}
+
 /// Quality and governance for a stage entry.
 class StageQuality extends SomNode {
   StageQuality(super.doc, super.path);
@@ -29308,7 +29355,7 @@ class StakeholdersAndGovernance extends SomNode {
 
   /// Legal and contractual requirements (IP, NDAs, compliance, audit).
   /// Renamed to `LegalAndContractualRequirements` in L34C-9.
-  OtherAdministrativeRequirements get legalAndContractual => OtherAdministrativeRequirements(doc, '$path/legalAndContractual');
+  LegalAndContractualRequirements get legalAndContractual => LegalAndContractualRequirements(doc, '$path/legalAndContractual');
 
   /// Stakeholder register (§5 completeness addition).
   StakeholderRegister get stakeholderRegister => StakeholderRegister(doc, '$path/stakeholderRegister');
@@ -29881,6 +29928,20 @@ class SystemBusinessUnitEntry extends SomNode {
   SystemBusinessUnitEntryContentForm get content => SystemBusinessUnitEntryContentForm(doc, '$path/content');
 }
 
+/// System classification.
+class SystemClassification extends SomNode {
+  SystemClassification(super.doc, super.path);
+
+  SystemClassificationContentForm get content => SystemClassificationContentForm(doc, '$path/content');
+}
+
+/// Complexity indicators.
+class SystemComplexity extends SomNode {
+  SystemComplexity(super.doc, super.path);
+
+  SystemComplexityContentForm get content => SystemComplexityContentForm(doc, '$path/content');
+}
+
 /// System configuration management.
 class SystemConfigurationManagement extends SomNode {
   SystemConfigurationManagement(super.doc, super.path);
@@ -30105,8 +30166,8 @@ class SystemDescription extends SomNode {
   /// 4.1.2. System Context.
   SystemContext get systemContext => SystemContext(doc, '$path/systemContext');
 
-  /// 4.1.3. Description of Task Area.
-  TaskArea get taskArea => TaskArea(doc, '$path/taskArea');
+  /// 4.1.3. Description of Business Domain.
+  BusinessDomain get businessDomain => BusinessDomain(doc, '$path/businessDomain');
 
   /// 4.1.4. User Categories — contains 1+× User Category.
   SomList<UserCategoryEntry> get userCategories => SomList<UserCategoryEntry>(doc, '$path/USCA-USER-LST', (d, p) => UserCategoryEntry(d, p));
@@ -30436,53 +30497,6 @@ class SystemOperationAndMonitoring extends SomNode {
   CapacityPlanningSection get capacityPlanning => CapacityPlanningSection(doc, '$path/capacityPlanning');
 }
 
-/// System overview summary for quick reference.
-class SystemOverviewSummary extends SomNode {
-  SystemOverviewSummary(super.doc, super.path);
-
-  SystemOverviewSummaryContentForm get content => SystemOverviewSummaryContentForm(doc, '$path/content');
-
-  /// System classification.
-  SystemOverviewSummaryClassification get classification => SystemOverviewSummaryClassification(doc, '$path/classification');
-
-  /// Scale indicators.
-  SystemOverviewSummaryScale get scale => SystemOverviewSummaryScale(doc, '$path/scale');
-
-  /// Specification status.
-  SystemOverviewSummaryStatus get status => SystemOverviewSummaryStatus(doc, '$path/status');
-
-  /// Complexity indicators.
-  SystemOverviewSummaryComplexity get complexity => SystemOverviewSummaryComplexity(doc, '$path/complexity');
-}
-
-/// System classification.
-class SystemOverviewSummaryClassification extends SomNode {
-  SystemOverviewSummaryClassification(super.doc, super.path);
-
-  SystemOverviewSummaryClassificationContentForm get content => SystemOverviewSummaryClassificationContentForm(doc, '$path/content');
-}
-
-/// Complexity indicators.
-class SystemOverviewSummaryComplexity extends SomNode {
-  SystemOverviewSummaryComplexity(super.doc, super.path);
-
-  SystemOverviewSummaryComplexityContentForm get content => SystemOverviewSummaryComplexityContentForm(doc, '$path/content');
-}
-
-/// Scale indicators.
-class SystemOverviewSummaryScale extends SomNode {
-  SystemOverviewSummaryScale(super.doc, super.path);
-
-  SystemOverviewSummaryScaleContentForm get content => SystemOverviewSummaryScaleContentForm(doc, '$path/content');
-}
-
-/// Specification status.
-class SystemOverviewSummaryStatus extends SomNode {
-  SystemOverviewSummaryStatus(super.doc, super.path);
-
-  SystemOverviewSummaryStatusContentForm get content => SystemOverviewSummaryStatusContentForm(doc, '$path/content');
-}
-
 /// 4.1.1. System Purpose.
 /// 
 /// Describes the overarching purpose of the system including the problem it
@@ -30635,8 +30649,8 @@ class SystemReplacementStrategyTimeline extends SomNode {
 }
 
 /// 15. System Rollout Concept. Seeds → TRP.
-class SystemRolloutConcept extends SomNode {
-  SystemRolloutConcept(super.doc, super.path);
+class SystemRollout extends SomNode {
+  SystemRollout(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30648,22 +30662,29 @@ class SystemRolloutConcept extends SomNode {
   MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
 
   /// 15.3. User Manuals.
-  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
+  SomList<UserManual> get userManuals => SomList<UserManual>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManual(d, p));
 
   /// 15.4. Training Materials.
-  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
+  SomList<RolloutTrainingMaterial> get trainingMaterials => SomList<RolloutTrainingMaterial>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterial(d, p));
 
   /// 15.5. Pilot Plan.
   PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
 
   /// 15.6. Cutover Procedures.
-  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
+  SomList<CutoverProcedure> get cutoverProcedures => SomList<CutoverProcedure>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedure(d, p));
 
   /// 15.7. Knowledge Transfer.
   KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
 
   /// 15.8. Warranty and Support.
   WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
+}
+
+/// Scale indicators.
+class SystemScale extends SomNode {
+  SystemScale(super.doc, super.path);
+
+  SystemScaleContentForm get content => SystemScaleContentForm(doc, '$path/content');
 }
 
 /// 13. System Stage Plan. Seeds → DRM.
@@ -30680,13 +30701,13 @@ class SystemStagePlan extends SomNode {
   SystemStagePlanContentForm get content => SystemStagePlanContentForm(doc, '$path/content');
 
   /// Overall schedule and buffer model.
-  SystemStagePlanTimeline get timeline => SystemStagePlanTimeline(doc, '$path/timeline');
+  StagePlanTimeline get timeline => StagePlanTimeline(doc, '$path/timeline');
 
   /// Dependencies, risks, and compliance constraints across stages.
-  SystemStagePlanCoordination get coordination => SystemStagePlanCoordination(doc, '$path/coordination');
+  StagePlanCoordination get coordination => StagePlanCoordination(doc, '$path/coordination');
 
   /// Organizational capacity and plan confidence.
-  SystemStagePlanReadiness get readiness => SystemStagePlanReadiness(doc, '$path/readiness');
+  StagePlanReadiness get readiness => StagePlanReadiness(doc, '$path/readiness');
 
   /// 13.1. Staging Strategy.
   StagingStrategy get strategy => StagingStrategy(doc, '$path/strategy');
@@ -30713,25 +30734,23 @@ class SystemStagePlan extends SomNode {
   UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
 }
 
-/// Dependencies, risks, and compliance constraints across stages.
-class SystemStagePlanCoordination extends SomNode {
-  SystemStagePlanCoordination(super.doc, super.path);
+/// System overview summary for quick reference.
+class SystemSummary extends SomNode {
+  SystemSummary(super.doc, super.path);
 
-  SystemStagePlanCoordinationContentForm get content => SystemStagePlanCoordinationContentForm(doc, '$path/content');
-}
+  SystemSummaryContentForm get content => SystemSummaryContentForm(doc, '$path/content');
 
-/// Organizational capacity and plan confidence.
-class SystemStagePlanReadiness extends SomNode {
-  SystemStagePlanReadiness(super.doc, super.path);
+  /// System classification.
+  SystemClassification get classification => SystemClassification(doc, '$path/classification');
 
-  SystemStagePlanReadinessContentForm get content => SystemStagePlanReadinessContentForm(doc, '$path/content');
-}
+  /// Scale indicators.
+  SystemScale get scale => SystemScale(doc, '$path/scale');
 
-/// Overall schedule and buffer model.
-class SystemStagePlanTimeline extends SomNode {
-  SystemStagePlanTimeline(super.doc, super.path);
+  /// Specification status.
+  SpecificationStatus get status => SpecificationStatus(doc, '$path/status');
 
-  SystemStagePlanTimelineContentForm get content => SystemStagePlanTimelineContentForm(doc, '$path/content');
+  /// Complexity indicators.
+  SystemComplexity get complexity => SystemComplexity(doc, '$path/complexity');
 }
 
 /// A system task entry.
@@ -31045,8 +31064,8 @@ class TargetBusinessProcessModel extends SomNode {
 /// SBP.7 Target Operating Model concept.
 /// 
 /// Public anchor: BABOK future-state analysis.
-class TargetOperatingModelConcept extends SomNode {
-  TargetOperatingModelConcept(super.doc, super.path);
+class TargetOperatingModel extends SomNode {
+  TargetOperatingModel(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31103,40 +31122,6 @@ class TargetPlatformEntryVersion extends SomNode {
   TargetPlatformEntryVersion(super.doc, super.path);
 
   TargetPlatformEntryVersionContentForm get content => TargetPlatformEntryVersionContentForm(doc, '$path/content');
-}
-
-/// 4.1.3. Description of Task Area.
-/// 
-/// Describes the business domain and task area the system addresses.
-/// Defines the domain vocabulary and key concepts (ubiquitous language)
-/// that will be used throughout the project. Based on Domain-Driven Design
-/// principles for establishing a shared understanding.
-class TaskArea extends SomNode {
-  TaskArea(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 4.1.3.1. Domain Overview.
-  DomainOverview get domainOverview => DomainOverview(doc, '$path/domainOverview');
-
-  /// 4.1.3.2. Domain Vocabulary.
-  DomainVocabulary get domainVocabulary => DomainVocabulary(doc, '$path/domainVocabulary');
-
-  /// 4.1.3.3. Key Concepts.
-  KeyConcepts get keyConcepts => KeyConcepts(doc, '$path/keyConcepts');
-
-  /// 4.1.3.4. Domain Boundaries.
-  DomainBoundaries get domainBoundaries => DomainBoundaries(doc, '$path/domainBoundaries');
-
-  /// 4.1.3.5. Business Rules.
-  DomainBusinessRules get businessRules => DomainBusinessRules(doc, '$path/businessRules');
-
-  /// 4.1.3.6. Domain Processes.
-  DomainProcesses get domainProcesses => DomainProcesses(doc, '$path/domainProcesses');
-
-  /// 4.1.3.7. Domain Events.
-  DomainEvents get domainEvents => DomainEvents(doc, '$path/domainEvents');
 }
 
 /// Team member availability constraints.
@@ -31250,6 +31235,89 @@ class TechnicalDependencyEntry extends SomNode {
   TechnicalDependencyEntryContentForm get content => TechnicalDependencyEntryContentForm(doc, '$path/content');
 }
 
+/// 4.6.3. Technical Environment. Seeds → ATS.
+/// 
+/// Documents pre-existing technical constraints including mandated platforms,
+/// network restrictions, compliance requirements, existing infrastructure
+/// that must be reused, and technology standards to follow. Provides the
+/// technical landscape in which the solution must operate. Seeds the detailed
+/// Architecture & Technology Specification (ATS) document.
+class TechnicalEnvironment extends SomNode {
+  TechnicalEnvironment(super.doc, super.path);
+
+  TechnicalEnvironmentTechnicalOverviewContentForm get technicalOverviewContent => TechnicalEnvironmentTechnicalOverviewContentForm(doc, '$path/technicalOverviewContent');
+
+  /// Architecture governance context.
+  TechnicalEnvironmentGovernance get governance => TechnicalEnvironmentGovernance(doc, '$path/governance');
+
+  /// Platform standards and preferred technologies.
+  TechnicalEnvironmentStandards get standards => TechnicalEnvironmentStandards(doc, '$path/standards');
+
+  /// Security and compliance requirements.
+  TechnicalEnvironmentSecurity get security => TechnicalEnvironmentSecurity(doc, '$path/security');
+
+  /// Network and infrastructure standards.
+  TechnicalEnvironmentNetwork get network => TechnicalEnvironmentNetwork(doc, '$path/network');
+
+  /// Existing infrastructure that must be reused or integrated with.
+  // (skipped: existingInfrastructure has no target type)
+
+  /// Data center and hosting environment details.
+  SomList<DatacenterEntry> get datacenters => SomList<DatacenterEntry>(doc, '$path/DATAC-DATA-LST', (d, p) => DatacenterEntry(d, p));
+
+  /// Network topology and connectivity constraints.
+  // (skipped: networkTopology has no target type)
+
+  /// Technology standards that must be followed.
+  // (skipped: standardsOverview has no target type)
+
+  /// Technology standards — contains 0+× TechnologyStandard.
+  SomList<TechnologyStandardEntry> get technologyStandards => SomList<TechnologyStandardEntry>(doc, '$path/TESTEN-TECH-LST', (d, p) => TechnologyStandardEntry(d, p));
+
+  /// Integration constraints overview.
+  // (skipped: integrationOverview has no target type)
+
+  /// Integration constraints — contains 0+× IntegrationConstraint.
+  SomList<IntegrationConstraintEntry> get integrationConstraints => SomList<IntegrationConstraintEntry>(doc, '$path/INCOE1-INTE-LST', (d, p) => IntegrationConstraintEntry(d, p));
+}
+
+/// Architecture governance context.
+class TechnicalEnvironmentGovernance extends SomNode {
+  TechnicalEnvironmentGovernance(super.doc, super.path);
+
+  TechnicalEnvironmentGovernanceContentForm get content => TechnicalEnvironmentGovernanceContentForm(doc, '$path/content');
+}
+
+/// Network and infrastructure standards.
+class TechnicalEnvironmentNetwork extends SomNode {
+  TechnicalEnvironmentNetwork(super.doc, super.path);
+
+  TechnicalEnvironmentNetworkContentForm get content => TechnicalEnvironmentNetworkContentForm(doc, '$path/content');
+
+  /// DevOps and deployment standards.
+  SomList<DevopsStandardEntry> get devopsStandards => SomList<DevopsStandardEntry>(doc, '$path/DEVOP-DEVO-LST', (d, p) => DevopsStandardEntry(d, p));
+
+  /// Monitoring and observability requirements.
+  SomList<ObservabilityRequirementEntry> get observabilityRequirements => SomList<ObservabilityRequirementEntry>(doc, '$path/OBSER-OBSE-LST', (d, p) => ObservabilityRequirementEntry(d, p));
+
+  /// Disaster recovery and business continuity requirements.
+  // (skipped: disasterRecovery has no target type)
+}
+
+/// Security and compliance requirements.
+class TechnicalEnvironmentSecurity extends SomNode {
+  TechnicalEnvironmentSecurity(super.doc, super.path);
+
+  TechnicalEnvironmentSecurityContentForm get content => TechnicalEnvironmentSecurityContentForm(doc, '$path/content');
+}
+
+/// Platform standards and preferred technologies.
+class TechnicalEnvironmentStandards extends SomNode {
+  TechnicalEnvironmentStandards(super.doc, super.path);
+
+  TechnicalEnvironmentStandardsContentForm get content => TechnicalEnvironmentStandardsContentForm(doc, '$path/content');
+}
+
 /// 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept extends SomNode {
   TechnicalFrameworkConcept(super.doc, super.path);
@@ -31283,89 +31351,6 @@ class TechnicalFrameworkConcept extends SomNode {
 
   /// 8.9. System Architecture..
   SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
-}
-
-/// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-/// 
-/// Documents pre-existing technical constraints including mandated platforms,
-/// network restrictions, compliance requirements, existing infrastructure
-/// that must be reused, and technology standards to follow. Provides the
-/// technical landscape in which the solution must operate. Seeds the detailed
-/// Architecture & Technology Specification (ATS) document.
-class TechnicalFrameworkConditions extends SomNode {
-  TechnicalFrameworkConditions(super.doc, super.path);
-
-  TechnicalFrameworkConditionsTechnicalOverviewContentForm get technicalOverviewContent => TechnicalFrameworkConditionsTechnicalOverviewContentForm(doc, '$path/technicalOverviewContent');
-
-  /// Architecture governance context.
-  TechnicalFrameworkConditionsGovernance get governance => TechnicalFrameworkConditionsGovernance(doc, '$path/governance');
-
-  /// Platform standards and preferred technologies.
-  TechnicalFrameworkConditionsStandards get standards => TechnicalFrameworkConditionsStandards(doc, '$path/standards');
-
-  /// Security and compliance requirements.
-  TechnicalFrameworkConditionsSecurity get security => TechnicalFrameworkConditionsSecurity(doc, '$path/security');
-
-  /// Network and infrastructure standards.
-  TechnicalFrameworkConditionsNetwork get network => TechnicalFrameworkConditionsNetwork(doc, '$path/network');
-
-  /// Existing infrastructure that must be reused or integrated with.
-  // (skipped: existingInfrastructure has no target type)
-
-  /// Data center and hosting environment details.
-  SomList<DatacenterEntry> get datacenters => SomList<DatacenterEntry>(doc, '$path/DATAC-DATA-LST', (d, p) => DatacenterEntry(d, p));
-
-  /// Network topology and connectivity constraints.
-  // (skipped: networkTopology has no target type)
-
-  /// Technology standards that must be followed.
-  // (skipped: standardsOverview has no target type)
-
-  /// Technology standards — contains 0+× TechnologyStandard.
-  SomList<TechnologyStandardEntry> get technologyStandards => SomList<TechnologyStandardEntry>(doc, '$path/TESTEN-TECH-LST', (d, p) => TechnologyStandardEntry(d, p));
-
-  /// Integration constraints overview.
-  // (skipped: integrationOverview has no target type)
-
-  /// Integration constraints — contains 0+× IntegrationConstraint.
-  SomList<IntegrationConstraintEntry> get integrationConstraints => SomList<IntegrationConstraintEntry>(doc, '$path/INCOE1-INTE-LST', (d, p) => IntegrationConstraintEntry(d, p));
-}
-
-/// Architecture governance context.
-class TechnicalFrameworkConditionsGovernance extends SomNode {
-  TechnicalFrameworkConditionsGovernance(super.doc, super.path);
-
-  TechnicalFrameworkConditionsGovernanceContentForm get content => TechnicalFrameworkConditionsGovernanceContentForm(doc, '$path/content');
-}
-
-/// Network and infrastructure standards.
-class TechnicalFrameworkConditionsNetwork extends SomNode {
-  TechnicalFrameworkConditionsNetwork(super.doc, super.path);
-
-  TechnicalFrameworkConditionsNetworkContentForm get content => TechnicalFrameworkConditionsNetworkContentForm(doc, '$path/content');
-
-  /// DevOps and deployment standards.
-  SomList<DevopsStandardEntry> get devopsStandards => SomList<DevopsStandardEntry>(doc, '$path/DEVOP-DEVO-LST', (d, p) => DevopsStandardEntry(d, p));
-
-  /// Monitoring and observability requirements.
-  SomList<ObservabilityRequirementEntry> get observabilityRequirements => SomList<ObservabilityRequirementEntry>(doc, '$path/OBSER-OBSE-LST', (d, p) => ObservabilityRequirementEntry(d, p));
-
-  /// Disaster recovery and business continuity requirements.
-  // (skipped: disasterRecovery has no target type)
-}
-
-/// Security and compliance requirements.
-class TechnicalFrameworkConditionsSecurity extends SomNode {
-  TechnicalFrameworkConditionsSecurity(super.doc, super.path);
-
-  TechnicalFrameworkConditionsSecurityContentForm get content => TechnicalFrameworkConditionsSecurityContentForm(doc, '$path/content');
-}
-
-/// Platform standards and preferred technologies.
-class TechnicalFrameworkConditionsStandards extends SomNode {
-  TechnicalFrameworkConditionsStandards(super.doc, super.path);
-
-  TechnicalFrameworkConditionsStandardsContentForm get content => TechnicalFrameworkConditionsStandardsContentForm(doc, '$path/content');
 }
 
 /// 4.2.2.n.4. Constraints.
@@ -32561,7 +32546,7 @@ class TrainingAssessmentReporting extends SomNode {
 /// half in L34C-7 (SR-29). Logically re-homed under SBP.9
 /// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 /// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 /// content in one D12 subsection rather than fragmenting it across a new id.
 class TrainingDeliverableRequirements extends SomNode {
   TrainingDeliverableRequirements(super.doc, super.path);
@@ -32988,6 +32973,13 @@ class TransitionSupportStructure extends SomNode {
   SomList<TransitionEscalationPaths> get escalationPaths => SomList<TransitionEscalationPaths>(doc, '$path/TRESPA-ESCA-LST', (d, p) => TransitionEscalationPaths(d, p));
 }
 
+/// Ongoing localization operations.
+class TranslationOngoing extends SomNode {
+  TranslationOngoing(super.doc, super.path);
+
+  TranslationOngoingContentForm get content => TranslationOngoingContentForm(doc, '$path/content');
+}
+
 /// 10.12.2. Translation Process.
 /// 
 /// Workflow for translating content.
@@ -32997,16 +32989,16 @@ class TranslationProcess extends SomNode {
   TranslationProcessTranslationProcessContentForm get translationProcessContent => TranslationProcessTranslationProcessContentForm(doc, '$path/translationProcessContent');
 
   /// Translation workflow.
-  TranslationProcessWorkflow get workflow => TranslationProcessWorkflow(doc, '$path/workflow');
+  TranslationWorkflow get workflow => TranslationWorkflow(doc, '$path/workflow');
 
   /// Quality assurance.
-  TranslationProcessQuality get quality => TranslationProcessQuality(doc, '$path/quality');
+  TranslationQuality get quality => TranslationQuality(doc, '$path/quality');
 
   /// Terminology and voice management.
-  TranslationProcessTerminology get terminology => TranslationProcessTerminology(doc, '$path/terminology');
+  TranslationTerminology get terminology => TranslationTerminology(doc, '$path/terminology');
 
   /// Ongoing localization operations.
-  TranslationProcessOngoing get ongoing => TranslationProcessOngoing(doc, '$path/ongoing');
+  TranslationOngoing get ongoing => TranslationOngoing(doc, '$path/ongoing');
 
   /// Translation process narrative.
   // (skipped: translationNarrative has no target type)
@@ -33015,32 +33007,11 @@ class TranslationProcess extends SomNode {
   SomList<TranslationVendorEntry> get vendors => SomList<TranslationVendorEntry>(doc, '$path/TRVEEN-VEND-LST', (d, p) => TranslationVendorEntry(d, p));
 }
 
-/// Ongoing localization operations.
-class TranslationProcessOngoing extends SomNode {
-  TranslationProcessOngoing(super.doc, super.path);
-
-  TranslationProcessOngoingContentForm get content => TranslationProcessOngoingContentForm(doc, '$path/content');
-}
-
 /// Quality assurance.
-class TranslationProcessQuality extends SomNode {
-  TranslationProcessQuality(super.doc, super.path);
+class TranslationQuality extends SomNode {
+  TranslationQuality(super.doc, super.path);
 
-  TranslationProcessQualityContentForm get content => TranslationProcessQualityContentForm(doc, '$path/content');
-}
-
-/// Terminology and voice management.
-class TranslationProcessTerminology extends SomNode {
-  TranslationProcessTerminology(super.doc, super.path);
-
-  TranslationProcessTerminologyContentForm get content => TranslationProcessTerminologyContentForm(doc, '$path/content');
-}
-
-/// Translation workflow.
-class TranslationProcessWorkflow extends SomNode {
-  TranslationProcessWorkflow(super.doc, super.path);
-
-  TranslationProcessWorkflowContentForm get content => TranslationProcessWorkflowContentForm(doc, '$path/content');
+  TranslationQualityContentForm get content => TranslationQualityContentForm(doc, '$path/content');
 }
 
 /// 10.12.5. Translation Handling Requirements.
@@ -33095,11 +33066,25 @@ class TranslationRequirementsVariants extends SomNode {
   TranslationRequirementsVariantsContentForm get content => TranslationRequirementsVariantsContentForm(doc, '$path/content');
 }
 
+/// Terminology and voice management.
+class TranslationTerminology extends SomNode {
+  TranslationTerminology(super.doc, super.path);
+
+  TranslationTerminologyContentForm get content => TranslationTerminologyContentForm(doc, '$path/content');
+}
+
 /// A translation vendor entry.
 class TranslationVendorEntry extends SomNode {
   TranslationVendorEntry(super.doc, super.path);
 
   TranslationVendorEntryContentForm get content => TranslationVendorEntryContentForm(doc, '$path/content');
+}
+
+/// Translation workflow.
+class TranslationWorkflow extends SomNode {
+  TranslationWorkflow(super.doc, super.path);
+
+  TranslationWorkflowContentForm get content => TranslationWorkflowContentForm(doc, '$path/content');
 }
 
 /// HSTS and Transport Security Policy (form).
@@ -33455,13 +33440,13 @@ class UiComponents extends SomNode {
   UiComponentsComponentLibraryOverviewForm get componentLibraryOverview => UiComponentsComponentLibraryOverviewForm(doc, '$path/componentLibraryOverview');
 
   /// Visual language and brand alignment.
-  UiComponentsVisualLanguage get visualLanguage => UiComponentsVisualLanguage(doc, '$path/visualLanguage');
+  ComponentVisualLanguage get visualLanguage => ComponentVisualLanguage(doc, '$path/visualLanguage');
 
   /// Component naming and documentation approach.
-  UiComponentsComponentApproach get componentApproach => UiComponentsComponentApproach(doc, '$path/componentApproach');
+  ComponentApproach get componentApproach => ComponentApproach(doc, '$path/componentApproach');
 
   /// Extension and theming boundaries.
-  UiComponentsCustomization get customization => UiComponentsCustomization(doc, '$path/customization');
+  ComponentCustomization get customization => ComponentCustomization(doc, '$path/customization');
 
   /// 10.11.1. Component Library.
   ComponentLibrary get componentLibrary => ComponentLibrary(doc, '$path/componentLibrary');
@@ -33471,36 +33456,6 @@ class UiComponents extends SomNode {
 
   /// 10.11.3. Component Families — contains 0+×.
   SomList<ComponentFamilyEntry> get componentFamilies => SomList<ComponentFamilyEntry>(doc, '$path/CMFA-COMP-LST', (d, p) => ComponentFamilyEntry(d, p));
-}
-
-/// Component naming and documentation approach.
-class UiComponentsComponentApproach extends SomNode {
-  UiComponentsComponentApproach(super.doc, super.path);
-
-  UiComponentsComponentApproachContentForm get content => UiComponentsComponentApproachContentForm(doc, '$path/content');
-}
-
-/// Extension and theming boundaries.
-class UiComponentsCustomization extends SomNode {
-  UiComponentsCustomization(super.doc, super.path);
-
-  UiComponentsCustomizationContentForm get content => UiComponentsCustomizationContentForm(doc, '$path/content');
-}
-
-/// Visual language and brand alignment.
-class UiComponentsVisualLanguage extends SomNode {
-  UiComponentsVisualLanguage(super.doc, super.path);
-
-  UiComponentsVisualLanguageContentForm get content => UiComponentsVisualLanguageContentForm(doc, '$path/content');
-}
-
-/// A design principle entry (form).
-/// 
-/// Each principle guides UI decisions with rationale and examples.
-class UiDesignPrincipleEntry extends SomNode {
-  UiDesignPrincipleEntry(super.doc, super.path);
-
-  UiDesignPrincipleEntryContentForm get content => UiDesignPrincipleEntryContentForm(doc, '$path/content');
 }
 
 /// 13.8. Upgrade Cycle Framework.
@@ -33716,6 +33671,51 @@ class UserAccountStatesDefinition extends SomNode {
 
   /// State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
+}
+
+/// 10.8. User Assistance.
+/// 
+/// Comprehensive in-app help system including contextual help, onboarding,
+/// and support access mechanisms.
+class UserAssistance extends SomNode {
+  UserAssistance(super.doc, super.path);
+
+  UserAssistanceHelpOverviewContentForm get helpOverviewContent => UserAssistanceHelpOverviewContentForm(doc, '$path/helpOverviewContent');
+
+  /// Content stewardship and help affordances.
+  UserAssistanceDelivery get delivery => UserAssistanceDelivery(doc, '$path/delivery');
+
+  /// Analytics and improvement feedback.
+  UserAssistanceInsights get insights => UserAssistanceInsights(doc, '$path/insights');
+
+  /// Help system overview narrative.
+  // (skipped: helpOverview has no target type)
+
+  /// 10.8.1. Contextual Help.
+  ContextualHelp get contextualHelp => ContextualHelp(doc, '$path/contextualHelp');
+
+  /// 10.8.2. Onboarding.
+  OnboardingHelp get onboarding => OnboardingHelp(doc, '$path/onboarding');
+
+  /// 10.8.3. Support Access.
+  SupportAccess get supportAccess => SupportAccess(doc, '$path/supportAccess');
+
+  /// Help content inventory.
+  // (skipped: helpContentInventory has no target type)
+}
+
+/// Content stewardship and help affordances.
+class UserAssistanceDelivery extends SomNode {
+  UserAssistanceDelivery(super.doc, super.path);
+
+  UserAssistanceDeliveryContentForm get content => UserAssistanceDeliveryContentForm(doc, '$path/content');
+}
+
+/// Analytics and improvement feedback.
+class UserAssistanceInsights extends SomNode {
+  UserAssistanceInsights(super.doc, super.path);
+
+  UserAssistanceInsightsContentForm get content => UserAssistanceInsightsContentForm(doc, '$path/content');
 }
 
 /// A user attribute entry (form).
@@ -33983,8 +33983,8 @@ class UserJourneyPainPointEntry extends SomNode {
 /// Defines the complete user account lifecycle: states, transitions between
 /// states, approval requirements for each transition, and operational policies
 /// for registration, activation, modification, deactivation, and deletion.
-class UserLifecycleSection extends SomNode {
-  UserLifecycleSection(super.doc, super.path);
+class UserLifecycle extends SomNode {
+  UserLifecycle(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34091,7 +34091,7 @@ class UserManagement extends SomNode {
   AccessUserCategories get userCategories => AccessUserCategories(doc, '$path/userCategories');
 
   /// 9.1.2. User Lifecycle.
-  UserLifecycleSection get userLifecycle => UserLifecycleSection(doc, '$path/userLifecycle');
+  UserLifecycle get userLifecycle => UserLifecycle(doc, '$path/userLifecycle');
 
   /// 9.1.3. User Attributes.
   UserAttributes get userAttributes => UserAttributes(doc, '$path/userAttributes');
@@ -34100,8 +34100,8 @@ class UserManagement extends SomNode {
 /// 15.3. User Manuals.
 /// 
 /// End-user documentation deliverables covering user-manual content.
-class UserManuals extends SomNode {
-  UserManuals(super.doc, super.path);
+class UserManual extends SomNode {
+  UserManual(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -41916,6 +41916,20 @@ class ComponentActionEntryGovernanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class ComponentApproachContentForm extends SomNode {
+  ComponentApproachContentForm(super.doc, super.path);
+
+  String get componentGranularity => doc.formField(path, 'componentGranularity') ?? '';
+  set componentGranularity(String value) => doc.setFormField(path, 'componentGranularity', value);
+
+  String get componentNaming => doc.formField(path, 'componentNaming') ?? '';
+  set componentNaming(String value) => doc.setFormField(path, 'componentNaming', value);
+
+  String get componentDocumentation => doc.formField(path, 'componentDocumentation') ?? '';
+  set componentDocumentation(String value) => doc.setFormField(path, 'componentDocumentation', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class ComponentComplianceContentForm extends SomNode {
   ComponentComplianceContentForm(super.doc, super.path);
 
@@ -41935,6 +41949,20 @@ class ComponentCostContentForm extends SomNode {
 
   String get totalCostOngoing => doc.formField(path, 'totalCostOngoing') ?? '';
   set totalCostOngoing(String value) => doc.setFormField(path, 'totalCostOngoing', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class ComponentCustomizationContentForm extends SomNode {
+  ComponentCustomizationContentForm(super.doc, super.path);
+
+  String get extensionModel => doc.formField(path, 'extensionModel') ?? '';
+  set extensionModel(String value) => doc.setFormField(path, 'extensionModel', value);
+
+  String get themingApproach => doc.formField(path, 'themingApproach') ?? '';
+  set themingApproach(String value) => doc.setFormField(path, 'themingApproach', value);
+
+  String get customizationBoundaries => doc.formField(path, 'customizationBoundaries') ?? '';
+  set customizationBoundaries(String value) => doc.setFormField(path, 'customizationBoundaries', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -42984,6 +43012,20 @@ class ComponentVendorContentForm extends SomNode {
 
   String get vendorStability => doc.formField(path, 'vendorStability') ?? '';
   set vendorStability(String value) => doc.setFormField(path, 'vendorStability', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class ComponentVisualLanguageContentForm extends SomNode {
+  ComponentVisualLanguageContentForm(super.doc, super.path);
+
+  String get visualLanguage => doc.formField(path, 'visualLanguage') ?? '';
+  set visualLanguage(String value) => doc.setFormField(path, 'visualLanguage', value);
+
+  String get brandAlignment => doc.formField(path, 'brandAlignment') ?? '';
+  set brandAlignment(String value) => doc.setFormField(path, 'brandAlignment', value);
+
+  String get motionPrinciples => doc.formField(path, 'motionPrinciples') ?? '';
+  set motionPrinciples(String value) => doc.setFormField(path, 'motionPrinciples', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -47447,6 +47489,35 @@ class DesignPatternEntryStructureContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class DesignPrincipleEntryContentForm extends SomNode {
+  DesignPrincipleEntryContentForm(super.doc, super.path);
+
+  String get principleName => doc.formField(path, 'principleName') ?? '';
+  set principleName(String value) => doc.setFormField(path, 'principleName', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get rationale => doc.formField(path, 'rationale') ?? '';
+  set rationale(String value) => doc.setFormField(path, 'rationale', value);
+
+  String get category => doc.formField(path, 'category') ?? '';
+  set category(String value) => doc.setFormField(path, 'category', value);
+
+  String get examples => doc.formField(path, 'examples') ?? '';
+  set examples(String value) => doc.setFormField(path, 'examples', value);
+
+  String get exceptions => doc.formField(path, 'exceptions') ?? '';
+  set exceptions(String value) => doc.setFormField(path, 'exceptions', value);
+
+  String get sourceReference => doc.formField(path, 'sourceReference') ?? '';
+  set sourceReference(String value) => doc.setFormField(path, 'sourceReference', value);
+
+  String get relatedGoals => doc.formField(path, 'relatedGoals') ?? '';
+  set relatedGoals(String value) => doc.setFormField(path, 'relatedGoals', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class DesignPrinciplesOverviewContentForm extends SomNode {
   DesignPrinciplesOverviewContentForm(super.doc, super.path);
 
@@ -49879,8 +49950,8 @@ class ErrorBudgetTrackingMonitoringContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ErrorHandlingConceptAccessibilityContentForm extends SomNode {
-  ErrorHandlingConceptAccessibilityContentForm(super.doc, super.path);
+class ErrorHandlingAccessibilityContentForm extends SomNode {
+  ErrorHandlingAccessibilityContentForm(super.doc, super.path);
 
   String get errorAccessibility => doc.formField(path, 'errorAccessibility') ?? '';
   set errorAccessibility(String value) => doc.setFormField(path, 'errorAccessibility', value);
@@ -49893,8 +49964,8 @@ class ErrorHandlingConceptAccessibilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ErrorHandlingConceptClassificationContentForm extends SomNode {
-  ErrorHandlingConceptClassificationContentForm(super.doc, super.path);
+class ErrorHandlingClassificationContentForm extends SomNode {
+  ErrorHandlingClassificationContentForm(super.doc, super.path);
 
   String get errorCategories => doc.formField(path, 'errorCategories') ?? '';
   set errorCategories(String value) => doc.setFormField(path, 'errorCategories', value);
@@ -49907,8 +49978,8 @@ class ErrorHandlingConceptClassificationContentForm extends SomNode {
 }
 
 /// Generated form facade for the `errorPhilosophyContent` `@Form` section.
-class ErrorHandlingConceptErrorPhilosophyContentForm extends SomNode {
-  ErrorHandlingConceptErrorPhilosophyContentForm(super.doc, super.path);
+class ErrorHandlingErrorPhilosophyContentForm extends SomNode {
+  ErrorHandlingErrorPhilosophyContentForm(super.doc, super.path);
 
   String get errorPhilosophy => doc.formField(path, 'errorPhilosophy') ?? '';
   set errorPhilosophy(String value) => doc.setFormField(path, 'errorPhilosophy', value);
@@ -49924,8 +49995,8 @@ class ErrorHandlingConceptErrorPhilosophyContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ErrorHandlingConceptOperationsContentForm extends SomNode {
-  ErrorHandlingConceptOperationsContentForm(super.doc, super.path);
+class ErrorHandlingOperationsContentForm extends SomNode {
+  ErrorHandlingOperationsContentForm(super.doc, super.path);
 
   String get errorLocalization => doc.formField(path, 'errorLocalization') ?? '';
   set errorLocalization(String value) => doc.setFormField(path, 'errorLocalization', value);
@@ -52916,54 +52987,6 @@ class HealthCheckEndpointsTimingContentForm extends SomNode {
 
   String get successThreshold => doc.formField(path, 'successThreshold') ?? '';
   set successThreshold(String value) => doc.setFormField(path, 'successThreshold', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class HelpConceptDeliveryContentForm extends SomNode {
-  HelpConceptDeliveryContentForm(super.doc, super.path);
-
-  String get helpContentOwnership => doc.formField(path, 'helpContentOwnership') ?? '';
-  set helpContentOwnership(String value) => doc.setFormField(path, 'helpContentOwnership', value);
-
-  String get helpUpdateProcess => doc.formField(path, 'helpUpdateProcess') ?? '';
-  set helpUpdateProcess(String value) => doc.setFormField(path, 'helpUpdateProcess', value);
-
-  String get helpIconStandard => doc.formField(path, 'helpIconStandard') ?? '';
-  set helpIconStandard(String value) => doc.setFormField(path, 'helpIconStandard', value);
-
-  String get helpIconPlacement => doc.formField(path, 'helpIconPlacement') ?? '';
-  set helpIconPlacement(String value) => doc.setFormField(path, 'helpIconPlacement', value);
-
-  String get helpTooltipStyle => doc.formField(path, 'helpTooltipStyle') ?? '';
-  set helpTooltipStyle(String value) => doc.setFormField(path, 'helpTooltipStyle', value);
-}
-
-/// Generated form facade for the `helpOverviewContent` `@Form` section.
-class HelpConceptHelpOverviewContentForm extends SomNode {
-  HelpConceptHelpOverviewContentForm(super.doc, super.path);
-
-  String get helpPhilosophy => doc.formField(path, 'helpPhilosophy') ?? '';
-  set helpPhilosophy(String value) => doc.setFormField(path, 'helpPhilosophy', value);
-
-  String get helpAccessibility => doc.formField(path, 'helpAccessibility') ?? '';
-  set helpAccessibility(String value) => doc.setFormField(path, 'helpAccessibility', value);
-
-  String get helpPersonalization => doc.formField(path, 'helpPersonalization') ?? '';
-  set helpPersonalization(String value) => doc.setFormField(path, 'helpPersonalization', value);
-
-  String get helpContentStrategy => doc.formField(path, 'helpContentStrategy') ?? '';
-  set helpContentStrategy(String value) => doc.setFormField(path, 'helpContentStrategy', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class HelpConceptInsightsContentForm extends SomNode {
-  HelpConceptInsightsContentForm(super.doc, super.path);
-
-  String get helpAnalytics => doc.formField(path, 'helpAnalytics') ?? '';
-  set helpAnalytics(String value) => doc.setFormField(path, 'helpAnalytics', value);
-
-  String get helpFeedback => doc.formField(path, 'helpFeedback') ?? '';
-  set helpFeedback(String value) => doc.setFormField(path, 'helpFeedback', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -56623,8 +56646,39 @@ class LocalDevelopmentSetupWorkflowContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class LocalizationProcessDeploymentContentForm extends SomNode {
-  LocalizationProcessDeploymentContentForm(super.doc, super.path);
+class LocaleHandlingRequirementsContentForm extends SomNode {
+  LocaleHandlingRequirementsContentForm(super.doc, super.path);
+
+  String get localeFormat => doc.formField(path, 'localeFormat') ?? '';
+  set localeFormat(String value) => doc.setFormField(path, 'localeFormat', value);
+
+  String get countryVariants => doc.formField(path, 'countryVariants') ?? '';
+  set countryVariants(String value) => doc.setFormField(path, 'countryVariants', value);
+
+  String get localeDetection => doc.formField(path, 'localeDetection') ?? '';
+  set localeDetection(String value) => doc.setFormField(path, 'localeDetection', value);
+
+  String get localeFallbackChain => doc.formField(path, 'localeFallbackChain') ?? '';
+  set localeFallbackChain(String value) => doc.setFormField(path, 'localeFallbackChain', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class LocaleRolloutPlanContentForm extends SomNode {
+  LocaleRolloutPlanContentForm(super.doc, super.path);
+
+  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
+  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
+
+  String get rolloutTimeline => doc.formField(path, 'rolloutTimeline') ?? '';
+  set rolloutTimeline(String value) => doc.setFormField(path, 'rolloutTimeline', value);
+
+  String get rolloutRegions => doc.formField(path, 'rolloutRegions') ?? '';
+  set rolloutRegions(String value) => doc.setFormField(path, 'rolloutRegions', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class LocalizationDeploymentContentForm extends SomNode {
+  LocalizationDeploymentContentForm(super.doc, super.path);
 
   String get localeDeployment => doc.formField(path, 'localeDeployment') ?? '';
   set localeDeployment(String value) => doc.setFormField(path, 'localeDeployment', value);
@@ -56637,8 +56691,8 @@ class LocalizationProcessDeploymentContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class LocalizationProcessFormattingContentForm extends SomNode {
-  LocalizationProcessFormattingContentForm(super.doc, super.path);
+class LocalizationFormattingContentForm extends SomNode {
+  LocalizationFormattingContentForm(super.doc, super.path);
 
   String get dateFormatRules => doc.formField(path, 'dateFormatRules') ?? '';
   set dateFormatRules(String value) => doc.setFormField(path, 'dateFormatRules', value);
@@ -56674,8 +56728,8 @@ class LocalizationProcessLocalizationProcessContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class LocalizationProcessReviewContentForm extends SomNode {
-  LocalizationProcessReviewContentForm(super.doc, super.path);
+class LocalizationReviewContentForm extends SomNode {
+  LocalizationReviewContentForm(super.doc, super.path);
 
   String get reviewWorkflow => doc.formField(path, 'reviewWorkflow') ?? '';
   set reviewWorkflow(String value) => doc.setFormField(path, 'reviewWorkflow', value);
@@ -59491,26 +59545,9 @@ class MultiChannelExperienceMultiChannelConfigurationForm extends SomNode {
   set offlineFirst(String value) => doc.setFormField(path, 'offlineFirst', value);
 }
 
-/// Generated form facade for the `content` `@Form` section.
-class MultiLanguageAndRolloutLocaleHandlingContentForm extends SomNode {
-  MultiLanguageAndRolloutLocaleHandlingContentForm(super.doc, super.path);
-
-  String get localeFormat => doc.formField(path, 'localeFormat') ?? '';
-  set localeFormat(String value) => doc.setFormField(path, 'localeFormat', value);
-
-  String get countryVariants => doc.formField(path, 'countryVariants') ?? '';
-  set countryVariants(String value) => doc.setFormField(path, 'countryVariants', value);
-
-  String get localeDetection => doc.formField(path, 'localeDetection') ?? '';
-  set localeDetection(String value) => doc.setFormField(path, 'localeDetection', value);
-
-  String get localeFallbackChain => doc.formField(path, 'localeFallbackChain') ?? '';
-  set localeFallbackChain(String value) => doc.setFormField(path, 'localeFallbackChain', value);
-}
-
 /// Generated form facade for the `multiLanguageOverview` `@Form` section.
-class MultiLanguageAndRolloutMultiLanguageOverviewForm extends SomNode {
-  MultiLanguageAndRolloutMultiLanguageOverviewForm(super.doc, super.path);
+class MultiLanguageSupportMultiLanguageOverviewForm extends SomNode {
+  MultiLanguageSupportMultiLanguageOverviewForm(super.doc, super.path);
 
   String get supportedLanguages => doc.formField(path, 'supportedLanguages') ?? '';
   set supportedLanguages(String value) => doc.setFormField(path, 'supportedLanguages', value);
@@ -59523,20 +59560,6 @@ class MultiLanguageAndRolloutMultiLanguageOverviewForm extends SomNode {
 
   String get rtlLanguages => doc.formField(path, 'rtlLanguages') ?? '';
   set rtlLanguages(String value) => doc.setFormField(path, 'rtlLanguages', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class MultiLanguageAndRolloutPlanContentForm extends SomNode {
-  MultiLanguageAndRolloutPlanContentForm(super.doc, super.path);
-
-  String get rolloutStrategy => doc.formField(path, 'rolloutStrategy') ?? '';
-  set rolloutStrategy(String value) => doc.setFormField(path, 'rolloutStrategy', value);
-
-  String get rolloutTimeline => doc.formField(path, 'rolloutTimeline') ?? '';
-  set rolloutTimeline(String value) => doc.setFormField(path, 'rolloutTimeline', value);
-
-  String get rolloutRegions => doc.formField(path, 'rolloutRegions') ?? '';
-  set rolloutRegions(String value) => doc.setFormField(path, 'rolloutRegions', value);
 }
 
 /// Generated form facade for the `mustPassOverviewContent` `@Form` section.
@@ -62886,6 +62909,20 @@ class PrimaryNavigationSidebarContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class PrintAndExportLayoutContentForm extends SomNode {
+  PrintAndExportLayoutContentForm(super.doc, super.path);
+
+  String get printStrategy => doc.formField(path, 'printStrategy') ?? '';
+  set printStrategy(String value) => doc.setFormField(path, 'printStrategy', value);
+
+  String get defaultPaperSize => doc.formField(path, 'defaultPaperSize') ?? '';
+  set defaultPaperSize(String value) => doc.setFormField(path, 'defaultPaperSize', value);
+
+  String get defaultOrientation => doc.formField(path, 'defaultOrientation') ?? '';
+  set defaultOrientation(String value) => doc.setFormField(path, 'defaultOrientation', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class PrintLayoutArchiveContentForm extends SomNode {
   PrintLayoutArchiveContentForm(super.doc, super.path);
 
@@ -62920,20 +62957,6 @@ class PrintLayoutBrandingContentForm extends SomNode {
 
   String get brandingFontSizeBase => doc.formField(path, 'brandingFontSizeBase') ?? '';
   set brandingFontSizeBase(String value) => doc.setFormField(path, 'brandingFontSizeBase', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class PrintLayoutContentForm extends SomNode {
-  PrintLayoutContentForm(super.doc, super.path);
-
-  String get printStrategy => doc.formField(path, 'printStrategy') ?? '';
-  set printStrategy(String value) => doc.setFormField(path, 'printStrategy', value);
-
-  String get defaultPaperSize => doc.formField(path, 'defaultPaperSize') ?? '';
-  set defaultPaperSize(String value) => doc.setFormField(path, 'defaultPaperSize', value);
-
-  String get defaultOrientation => doc.formField(path, 'defaultOrientation') ?? '';
-  set defaultOrientation(String value) => doc.setFormField(path, 'defaultOrientation', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -64831,8 +64854,8 @@ class PrototypeTimelineContentForm extends SomNode {
 }
 
 /// Generated form facade for the `prototypeTypeOverview` `@Form` section.
-class PrototypeTypeSectionPrototypeTypeOverviewForm extends SomNode {
-  PrototypeTypeSectionPrototypeTypeOverviewForm(super.doc, super.path);
+class PrototypeTypePrototypeTypeOverviewForm extends SomNode {
+  PrototypeTypePrototypeTypeOverviewForm(super.doc, super.path);
 
   String get prototypeType => doc.formField(path, 'prototypeType') ?? '';
   set prototypeType(String value) => doc.setFormField(path, 'prototypeType', value);
@@ -72754,6 +72777,23 @@ class SpecializedEquipmentEntryTechnicalContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class SpecificationStatusContentForm extends SomNode {
+  SpecificationStatusContentForm(super.doc, super.path);
+
+  String get specificationVersion => doc.formField(path, 'specificationVersion') ?? '';
+  set specificationVersion(String value) => doc.setFormField(path, 'specificationVersion', value);
+
+  String get specificationDate => doc.formField(path, 'specificationDate') ?? '';
+  set specificationDate(String value) => doc.setFormField(path, 'specificationDate', value);
+
+  String get specificationStatus => doc.formField(path, 'specificationStatus') ?? '';
+  set specificationStatus(String value) => doc.setFormField(path, 'specificationStatus', value);
+
+  String get targetGoLiveDate => doc.formField(path, 'targetGoLiveDate') ?? '';
+  set targetGoLiveDate(String value) => doc.setFormField(path, 'targetGoLiveDate', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class StaffingBudgetAllocationsContentForm extends SomNode {
   StaffingBudgetAllocationsContentForm(super.doc, super.path);
 
@@ -73594,6 +73634,54 @@ class StageOverviewStatusContentForm extends SomNode {
 
   String get confidenceBasis => doc.formField(path, 'confidenceBasis') ?? '';
   set confidenceBasis(String value) => doc.setFormField(path, 'confidenceBasis', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class StagePlanCoordinationContentForm extends SomNode {
+  StagePlanCoordinationContentForm(super.doc, super.path);
+
+  String get crossStageDependencySummary => doc.formField(path, 'crossStageDependencySummary') ?? '';
+  set crossStageDependencySummary(String value) => doc.setFormField(path, 'crossStageDependencySummary', value);
+
+  String get crossStageRiskSummary => doc.formField(path, 'crossStageRiskSummary') ?? '';
+  set crossStageRiskSummary(String value) => doc.setFormField(path, 'crossStageRiskSummary', value);
+
+  String get regulatoryComplianceConsiderations => doc.formField(path, 'regulatoryComplianceConsiderations') ?? '';
+  set regulatoryComplianceConsiderations(String value) => doc.setFormField(path, 'regulatoryComplianceConsiderations', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class StagePlanReadinessContentForm extends SomNode {
+  StagePlanReadinessContentForm(super.doc, super.path);
+
+  String get organizationalReadinessLevel => doc.formField(path, 'organizationalReadinessLevel') ?? '';
+  set organizationalReadinessLevel(String value) => doc.setFormField(path, 'organizationalReadinessLevel', value);
+
+  String get changeAbsorptionCapacity => doc.formField(path, 'changeAbsorptionCapacity') ?? '';
+  set changeAbsorptionCapacity(String value) => doc.setFormField(path, 'changeAbsorptionCapacity', value);
+
+  String get confidenceLevel => doc.formField(path, 'confidenceLevel') ?? '';
+  set confidenceLevel(String value) => doc.setFormField(path, 'confidenceLevel', value);
+
+  String get lastPlanReviewDate => doc.formField(path, 'lastPlanReviewDate') ?? '';
+  set lastPlanReviewDate(String value) => doc.setFormField(path, 'lastPlanReviewDate', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class StagePlanTimelineContentForm extends SomNode {
+  StagePlanTimelineContentForm(super.doc, super.path);
+
+  String get overallPlannedStart => doc.formField(path, 'overallPlannedStart') ?? '';
+  set overallPlannedStart(String value) => doc.setFormField(path, 'overallPlannedStart', value);
+
+  String get overallTargetCompletion => doc.formField(path, 'overallTargetCompletion') ?? '';
+  set overallTargetCompletion(String value) => doc.setFormField(path, 'overallTargetCompletion', value);
+
+  String get totalDuration => doc.formField(path, 'totalDuration') ?? '';
+  set totalDuration(String value) => doc.setFormField(path, 'totalDuration', value);
+
+  String get bufferStrategy => doc.formField(path, 'bufferStrategy') ?? '';
+  set bufferStrategy(String value) => doc.setFormField(path, 'bufferStrategy', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -74767,6 +74855,34 @@ class SystemBusinessUnitEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class SystemClassificationContentForm extends SomNode {
+  SystemClassificationContentForm(super.doc, super.path);
+
+  String get systemType => doc.formField(path, 'systemType') ?? '';
+  set systemType(String value) => doc.setFormField(path, 'systemType', value);
+
+  String get businessDomain => doc.formField(path, 'businessDomain') ?? '';
+  set businessDomain(String value) => doc.setFormField(path, 'businessDomain', value);
+
+  String get deploymentModel => doc.formField(path, 'deploymentModel') ?? '';
+  set deploymentModel(String value) => doc.setFormField(path, 'deploymentModel', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class SystemComplexityContentForm extends SomNode {
+  SystemComplexityContentForm(super.doc, super.path);
+
+  String get overallComplexity => doc.formField(path, 'overallComplexity') ?? '';
+  set overallComplexity(String value) => doc.setFormField(path, 'overallComplexity', value);
+
+  String get keyRisks => doc.formField(path, 'keyRisks') ?? '';
+  set keyRisks(String value) => doc.setFormField(path, 'keyRisks', value);
+
+  String get keyAssumptions => doc.formField(path, 'keyAssumptions') ?? '';
+  set keyAssumptions(String value) => doc.setFormField(path, 'keyAssumptions', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class SystemConfigurationManagementContentForm extends SomNode {
   SystemConfigurationManagementContentForm(super.doc, super.path);
 
@@ -75452,88 +75568,6 @@ class SystemMigrationRiskEntryContentForm extends SomNode {
   set owner(String value) => doc.setFormField(path, 'owner', value);
 }
 
-/// Generated form facade for the `content` `@Form` section.
-class SystemOverviewSummaryClassificationContentForm extends SomNode {
-  SystemOverviewSummaryClassificationContentForm(super.doc, super.path);
-
-  String get systemType => doc.formField(path, 'systemType') ?? '';
-  set systemType(String value) => doc.setFormField(path, 'systemType', value);
-
-  String get businessDomain => doc.formField(path, 'businessDomain') ?? '';
-  set businessDomain(String value) => doc.setFormField(path, 'businessDomain', value);
-
-  String get deploymentModel => doc.formField(path, 'deploymentModel') ?? '';
-  set deploymentModel(String value) => doc.setFormField(path, 'deploymentModel', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemOverviewSummaryComplexityContentForm extends SomNode {
-  SystemOverviewSummaryComplexityContentForm(super.doc, super.path);
-
-  String get overallComplexity => doc.formField(path, 'overallComplexity') ?? '';
-  set overallComplexity(String value) => doc.setFormField(path, 'overallComplexity', value);
-
-  String get keyRisks => doc.formField(path, 'keyRisks') ?? '';
-  set keyRisks(String value) => doc.setFormField(path, 'keyRisks', value);
-
-  String get keyAssumptions => doc.formField(path, 'keyAssumptions') ?? '';
-  set keyAssumptions(String value) => doc.setFormField(path, 'keyAssumptions', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemOverviewSummaryContentForm extends SomNode {
-  SystemOverviewSummaryContentForm(super.doc, super.path);
-
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
-
-  String get systemAcronym => doc.formField(path, 'systemAcronym') ?? '';
-  set systemAcronym(String value) => doc.setFormField(path, 'systemAcronym', value);
-
-  String get systemVersion => doc.formField(path, 'systemVersion') ?? '';
-  set systemVersion(String value) => doc.setFormField(path, 'systemVersion', value);
-
-  String get projectCodeName => doc.formField(path, 'projectCodeName') ?? '';
-  set projectCodeName(String value) => doc.setFormField(path, 'projectCodeName', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemOverviewSummaryScaleContentForm extends SomNode {
-  SystemOverviewSummaryScaleContentForm(super.doc, super.path);
-
-  String get estimatedUserCount => doc.formField(path, 'estimatedUserCount') ?? '';
-  set estimatedUserCount(String value) => doc.setFormField(path, 'estimatedUserCount', value);
-
-  String get userCategoryCount => doc.formField(path, 'userCategoryCount') ?? '';
-  set userCategoryCount(String value) => doc.setFormField(path, 'userCategoryCount', value);
-
-  String get externalInterfaceCount => doc.formField(path, 'externalInterfaceCount') ?? '';
-  set externalInterfaceCount(String value) => doc.setFormField(path, 'externalInterfaceCount', value);
-
-  String get functionalRequirementCount => doc.formField(path, 'functionalRequirementCount') ?? '';
-  set functionalRequirementCount(String value) => doc.setFormField(path, 'functionalRequirementCount', value);
-
-  String get nonFunctionalRequirementCount => doc.formField(path, 'nonFunctionalRequirementCount') ?? '';
-  set nonFunctionalRequirementCount(String value) => doc.setFormField(path, 'nonFunctionalRequirementCount', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemOverviewSummaryStatusContentForm extends SomNode {
-  SystemOverviewSummaryStatusContentForm(super.doc, super.path);
-
-  String get specificationVersion => doc.formField(path, 'specificationVersion') ?? '';
-  set specificationVersion(String value) => doc.setFormField(path, 'specificationVersion', value);
-
-  String get specificationDate => doc.formField(path, 'specificationDate') ?? '';
-  set specificationDate(String value) => doc.setFormField(path, 'specificationDate', value);
-
-  String get specificationStatus => doc.formField(path, 'specificationStatus') ?? '';
-  set specificationStatus(String value) => doc.setFormField(path, 'specificationStatus', value);
-
-  String get targetGoLiveDate => doc.formField(path, 'targetGoLiveDate') ?? '';
-  set targetGoLiveDate(String value) => doc.setFormField(path, 'targetGoLiveDate', value);
-}
-
 /// Generated form facade for the `governanceContent` `@Form` section.
 class SystemQualityGoalsGovernanceContentForm extends SomNode {
   SystemQualityGoalsGovernanceContentForm(super.doc, super.path);
@@ -75597,6 +75631,26 @@ class SystemReplacementStrategyTimelineContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class SystemScaleContentForm extends SomNode {
+  SystemScaleContentForm(super.doc, super.path);
+
+  String get estimatedUserCount => doc.formField(path, 'estimatedUserCount') ?? '';
+  set estimatedUserCount(String value) => doc.setFormField(path, 'estimatedUserCount', value);
+
+  String get userCategoryCount => doc.formField(path, 'userCategoryCount') ?? '';
+  set userCategoryCount(String value) => doc.setFormField(path, 'userCategoryCount', value);
+
+  String get externalInterfaceCount => doc.formField(path, 'externalInterfaceCount') ?? '';
+  set externalInterfaceCount(String value) => doc.setFormField(path, 'externalInterfaceCount', value);
+
+  String get functionalRequirementCount => doc.formField(path, 'functionalRequirementCount') ?? '';
+  set functionalRequirementCount(String value) => doc.setFormField(path, 'functionalRequirementCount', value);
+
+  String get nonFunctionalRequirementCount => doc.formField(path, 'nonFunctionalRequirementCount') ?? '';
+  set nonFunctionalRequirementCount(String value) => doc.setFormField(path, 'nonFunctionalRequirementCount', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class SystemStagePlanContentForm extends SomNode {
   SystemStagePlanContentForm(super.doc, super.path);
 
@@ -75611,51 +75665,20 @@ class SystemStagePlanContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class SystemStagePlanCoordinationContentForm extends SomNode {
-  SystemStagePlanCoordinationContentForm(super.doc, super.path);
+class SystemSummaryContentForm extends SomNode {
+  SystemSummaryContentForm(super.doc, super.path);
 
-  String get crossStageDependencySummary => doc.formField(path, 'crossStageDependencySummary') ?? '';
-  set crossStageDependencySummary(String value) => doc.setFormField(path, 'crossStageDependencySummary', value);
+  String get systemName => doc.formField(path, 'systemName') ?? '';
+  set systemName(String value) => doc.setFormField(path, 'systemName', value);
 
-  String get crossStageRiskSummary => doc.formField(path, 'crossStageRiskSummary') ?? '';
-  set crossStageRiskSummary(String value) => doc.setFormField(path, 'crossStageRiskSummary', value);
+  String get systemAcronym => doc.formField(path, 'systemAcronym') ?? '';
+  set systemAcronym(String value) => doc.setFormField(path, 'systemAcronym', value);
 
-  String get regulatoryComplianceConsiderations => doc.formField(path, 'regulatoryComplianceConsiderations') ?? '';
-  set regulatoryComplianceConsiderations(String value) => doc.setFormField(path, 'regulatoryComplianceConsiderations', value);
-}
+  String get systemVersion => doc.formField(path, 'systemVersion') ?? '';
+  set systemVersion(String value) => doc.setFormField(path, 'systemVersion', value);
 
-/// Generated form facade for the `content` `@Form` section.
-class SystemStagePlanReadinessContentForm extends SomNode {
-  SystemStagePlanReadinessContentForm(super.doc, super.path);
-
-  String get organizationalReadinessLevel => doc.formField(path, 'organizationalReadinessLevel') ?? '';
-  set organizationalReadinessLevel(String value) => doc.setFormField(path, 'organizationalReadinessLevel', value);
-
-  String get changeAbsorptionCapacity => doc.formField(path, 'changeAbsorptionCapacity') ?? '';
-  set changeAbsorptionCapacity(String value) => doc.setFormField(path, 'changeAbsorptionCapacity', value);
-
-  String get confidenceLevel => doc.formField(path, 'confidenceLevel') ?? '';
-  set confidenceLevel(String value) => doc.setFormField(path, 'confidenceLevel', value);
-
-  String get lastPlanReviewDate => doc.formField(path, 'lastPlanReviewDate') ?? '';
-  set lastPlanReviewDate(String value) => doc.setFormField(path, 'lastPlanReviewDate', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemStagePlanTimelineContentForm extends SomNode {
-  SystemStagePlanTimelineContentForm(super.doc, super.path);
-
-  String get overallPlannedStart => doc.formField(path, 'overallPlannedStart') ?? '';
-  set overallPlannedStart(String value) => doc.setFormField(path, 'overallPlannedStart', value);
-
-  String get overallTargetCompletion => doc.formField(path, 'overallTargetCompletion') ?? '';
-  set overallTargetCompletion(String value) => doc.setFormField(path, 'overallTargetCompletion', value);
-
-  String get totalDuration => doc.formField(path, 'totalDuration') ?? '';
-  set totalDuration(String value) => doc.setFormField(path, 'totalDuration', value);
-
-  String get bufferStrategy => doc.formField(path, 'bufferStrategy') ?? '';
-  set bufferStrategy(String value) => doc.setFormField(path, 'bufferStrategy', value);
+  String get projectCodeName => doc.formField(path, 'projectCodeName') ?? '';
+  set projectCodeName(String value) => doc.setFormField(path, 'projectCodeName', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -76357,8 +76380,8 @@ class TechnicalDependencyEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TechnicalFrameworkConditionsGovernanceContentForm extends SomNode {
-  TechnicalFrameworkConditionsGovernanceContentForm(super.doc, super.path);
+class TechnicalEnvironmentGovernanceContentForm extends SomNode {
+  TechnicalEnvironmentGovernanceContentForm(super.doc, super.path);
 
   String get secondaryCloudProviders => doc.formField(path, 'secondaryCloudProviders') ?? '';
   set secondaryCloudProviders(String value) => doc.setFormField(path, 'secondaryCloudProviders', value);
@@ -76368,8 +76391,8 @@ class TechnicalFrameworkConditionsGovernanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TechnicalFrameworkConditionsNetworkContentForm extends SomNode {
-  TechnicalFrameworkConditionsNetworkContentForm(super.doc, super.path);
+class TechnicalEnvironmentNetworkContentForm extends SomNode {
+  TechnicalEnvironmentNetworkContentForm(super.doc, super.path);
 
   String get networkArchitecture => doc.formField(path, 'networkArchitecture') ?? '';
   set networkArchitecture(String value) => doc.setFormField(path, 'networkArchitecture', value);
@@ -76388,8 +76411,8 @@ class TechnicalFrameworkConditionsNetworkContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TechnicalFrameworkConditionsSecurityContentForm extends SomNode {
-  TechnicalFrameworkConditionsSecurityContentForm(super.doc, super.path);
+class TechnicalEnvironmentSecurityContentForm extends SomNode {
+  TechnicalEnvironmentSecurityContentForm(super.doc, super.path);
 
   String get securityFramework => doc.formField(path, 'securityFramework') ?? '';
   set securityFramework(String value) => doc.setFormField(path, 'securityFramework', value);
@@ -76408,8 +76431,8 @@ class TechnicalFrameworkConditionsSecurityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TechnicalFrameworkConditionsStandardsContentForm extends SomNode {
-  TechnicalFrameworkConditionsStandardsContentForm(super.doc, super.path);
+class TechnicalEnvironmentStandardsContentForm extends SomNode {
+  TechnicalEnvironmentStandardsContentForm(super.doc, super.path);
 
   String get preferredLanguages => doc.formField(path, 'preferredLanguages') ?? '';
   set preferredLanguages(String value) => doc.setFormField(path, 'preferredLanguages', value);
@@ -76428,8 +76451,8 @@ class TechnicalFrameworkConditionsStandardsContentForm extends SomNode {
 }
 
 /// Generated form facade for the `technicalOverviewContent` `@Form` section.
-class TechnicalFrameworkConditionsTechnicalOverviewContentForm extends SomNode {
-  TechnicalFrameworkConditionsTechnicalOverviewContentForm(super.doc, super.path);
+class TechnicalEnvironmentTechnicalOverviewContentForm extends SomNode {
+  TechnicalEnvironmentTechnicalOverviewContentForm(super.doc, super.path);
 
   String get architectureMaturity => doc.formField(path, 'architectureMaturity') ?? '';
   set architectureMaturity(String value) => doc.setFormField(path, 'architectureMaturity', value);
@@ -78921,42 +78944,14 @@ class TransitionSupportResourceEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TranslationProcessOngoingContentForm extends SomNode {
-  TranslationProcessOngoingContentForm(super.doc, super.path);
+class TranslationOngoingContentForm extends SomNode {
+  TranslationOngoingContentForm(super.doc, super.path);
 
   String get continuousLocalization => doc.formField(path, 'continuousLocalization') ?? '';
   set continuousLocalization(String value) => doc.setFormField(path, 'continuousLocalization', value);
 
   String get translationMemoryMaintenance => doc.formField(path, 'translationMemoryMaintenance') ?? '';
   set translationMemoryMaintenance(String value) => doc.setFormField(path, 'translationMemoryMaintenance', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class TranslationProcessQualityContentForm extends SomNode {
-  TranslationProcessQualityContentForm(super.doc, super.path);
-
-  String get qualityChecks => doc.formField(path, 'qualityChecks') ?? '';
-  set qualityChecks(String value) => doc.setFormField(path, 'qualityChecks', value);
-
-  String get linguisticQA => doc.formField(path, 'linguisticQA') ?? '';
-  set linguisticQA(String value) => doc.setFormField(path, 'linguisticQA', value);
-
-  String get functionalQA => doc.formField(path, 'functionalQA') ?? '';
-  set functionalQA(String value) => doc.setFormField(path, 'functionalQA', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class TranslationProcessTerminologyContentForm extends SomNode {
-  TranslationProcessTerminologyContentForm(super.doc, super.path);
-
-  String get glossaryManagement => doc.formField(path, 'glossaryManagement') ?? '';
-  set glossaryManagement(String value) => doc.setFormField(path, 'glossaryManagement', value);
-
-  String get styleGuide => doc.formField(path, 'styleGuide') ?? '';
-  set styleGuide(String value) => doc.setFormField(path, 'styleGuide', value);
-
-  String get brandVoice => doc.formField(path, 'brandVoice') ?? '';
-  set brandVoice(String value) => doc.setFormField(path, 'brandVoice', value);
 }
 
 /// Generated form facade for the `translationProcessContent` `@Form` section.
@@ -78977,20 +78972,17 @@ class TranslationProcessTranslationProcessContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class TranslationProcessWorkflowContentForm extends SomNode {
-  TranslationProcessWorkflowContentForm(super.doc, super.path);
+class TranslationQualityContentForm extends SomNode {
+  TranslationQualityContentForm(super.doc, super.path);
 
-  String get translationWorkflow => doc.formField(path, 'translationWorkflow') ?? '';
-  set translationWorkflow(String value) => doc.setFormField(path, 'translationWorkflow', value);
+  String get qualityChecks => doc.formField(path, 'qualityChecks') ?? '';
+  set qualityChecks(String value) => doc.setFormField(path, 'qualityChecks', value);
 
-  String get reviewCycles => doc.formField(path, 'reviewCycles') ?? '';
-  set reviewCycles(String value) => doc.setFormField(path, 'reviewCycles', value);
+  String get linguisticQA => doc.formField(path, 'linguisticQA') ?? '';
+  set linguisticQA(String value) => doc.setFormField(path, 'linguisticQA', value);
 
-  String get inCountryReview => doc.formField(path, 'inCountryReview') ?? '';
-  set inCountryReview(String value) => doc.setFormField(path, 'inCountryReview', value);
-
-  String get contextualReview => doc.formField(path, 'contextualReview') ?? '';
-  set contextualReview(String value) => doc.setFormField(path, 'contextualReview', value);
+  String get functionalQA => doc.formField(path, 'functionalQA') ?? '';
+  set functionalQA(String value) => doc.setFormField(path, 'functionalQA', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -79073,6 +79065,20 @@ class TranslationRequirementsVariantsContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class TranslationTerminologyContentForm extends SomNode {
+  TranslationTerminologyContentForm(super.doc, super.path);
+
+  String get glossaryManagement => doc.formField(path, 'glossaryManagement') ?? '';
+  set glossaryManagement(String value) => doc.setFormField(path, 'glossaryManagement', value);
+
+  String get styleGuide => doc.formField(path, 'styleGuide') ?? '';
+  set styleGuide(String value) => doc.setFormField(path, 'styleGuide', value);
+
+  String get brandVoice => doc.formField(path, 'brandVoice') ?? '';
+  set brandVoice(String value) => doc.setFormField(path, 'brandVoice', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class TranslationVendorEntryContentForm extends SomNode {
   TranslationVendorEntryContentForm(super.doc, super.path);
 
@@ -79096,6 +79102,23 @@ class TranslationVendorEntryContentForm extends SomNode {
 
   String get contactInfo => doc.formField(path, 'contactInfo') ?? '';
   set contactInfo(String value) => doc.setFormField(path, 'contactInfo', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class TranslationWorkflowContentForm extends SomNode {
+  TranslationWorkflowContentForm(super.doc, super.path);
+
+  String get translationWorkflow => doc.formField(path, 'translationWorkflow') ?? '';
+  set translationWorkflow(String value) => doc.setFormField(path, 'translationWorkflow', value);
+
+  String get reviewCycles => doc.formField(path, 'reviewCycles') ?? '';
+  set reviewCycles(String value) => doc.setFormField(path, 'reviewCycles', value);
+
+  String get inCountryReview => doc.formField(path, 'inCountryReview') ?? '';
+  set inCountryReview(String value) => doc.setFormField(path, 'inCountryReview', value);
+
+  String get contextualReview => doc.formField(path, 'contextualReview') ?? '';
+  set contextualReview(String value) => doc.setFormField(path, 'contextualReview', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -79845,20 +79868,6 @@ class UiComponentEntryVisualDesignForm extends SomNode {
   set iconography(String value) => doc.setFormField(path, 'iconography', value);
 }
 
-/// Generated form facade for the `content` `@Form` section.
-class UiComponentsComponentApproachContentForm extends SomNode {
-  UiComponentsComponentApproachContentForm(super.doc, super.path);
-
-  String get componentGranularity => doc.formField(path, 'componentGranularity') ?? '';
-  set componentGranularity(String value) => doc.setFormField(path, 'componentGranularity', value);
-
-  String get componentNaming => doc.formField(path, 'componentNaming') ?? '';
-  set componentNaming(String value) => doc.setFormField(path, 'componentNaming', value);
-
-  String get componentDocumentation => doc.formField(path, 'componentDocumentation') ?? '';
-  set componentDocumentation(String value) => doc.setFormField(path, 'componentDocumentation', value);
-}
-
 /// Generated form facade for the `componentLibraryOverview` `@Form` section.
 class UiComponentsComponentLibraryOverviewForm extends SomNode {
   UiComponentsComponentLibraryOverviewForm(super.doc, super.path);
@@ -79874,63 +79883,6 @@ class UiComponentsComponentLibraryOverviewForm extends SomNode {
 
   String get tomFlutterUiIntegration => doc.formField(path, 'tomFlutterUiIntegration') ?? '';
   set tomFlutterUiIntegration(String value) => doc.setFormField(path, 'tomFlutterUiIntegration', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class UiComponentsCustomizationContentForm extends SomNode {
-  UiComponentsCustomizationContentForm(super.doc, super.path);
-
-  String get extensionModel => doc.formField(path, 'extensionModel') ?? '';
-  set extensionModel(String value) => doc.setFormField(path, 'extensionModel', value);
-
-  String get themingApproach => doc.formField(path, 'themingApproach') ?? '';
-  set themingApproach(String value) => doc.setFormField(path, 'themingApproach', value);
-
-  String get customizationBoundaries => doc.formField(path, 'customizationBoundaries') ?? '';
-  set customizationBoundaries(String value) => doc.setFormField(path, 'customizationBoundaries', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class UiComponentsVisualLanguageContentForm extends SomNode {
-  UiComponentsVisualLanguageContentForm(super.doc, super.path);
-
-  String get visualLanguage => doc.formField(path, 'visualLanguage') ?? '';
-  set visualLanguage(String value) => doc.setFormField(path, 'visualLanguage', value);
-
-  String get brandAlignment => doc.formField(path, 'brandAlignment') ?? '';
-  set brandAlignment(String value) => doc.setFormField(path, 'brandAlignment', value);
-
-  String get motionPrinciples => doc.formField(path, 'motionPrinciples') ?? '';
-  set motionPrinciples(String value) => doc.setFormField(path, 'motionPrinciples', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class UiDesignPrincipleEntryContentForm extends SomNode {
-  UiDesignPrincipleEntryContentForm(super.doc, super.path);
-
-  String get principleName => doc.formField(path, 'principleName') ?? '';
-  set principleName(String value) => doc.setFormField(path, 'principleName', value);
-
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
-  String get rationale => doc.formField(path, 'rationale') ?? '';
-  set rationale(String value) => doc.setFormField(path, 'rationale', value);
-
-  String get category => doc.formField(path, 'category') ?? '';
-  set category(String value) => doc.setFormField(path, 'category', value);
-
-  String get examples => doc.formField(path, 'examples') ?? '';
-  set examples(String value) => doc.setFormField(path, 'examples', value);
-
-  String get exceptions => doc.formField(path, 'exceptions') ?? '';
-  set exceptions(String value) => doc.setFormField(path, 'exceptions', value);
-
-  String get sourceReference => doc.formField(path, 'sourceReference') ?? '';
-  set sourceReference(String value) => doc.setFormField(path, 'sourceReference', value);
-
-  String get relatedGoals => doc.formField(path, 'relatedGoals') ?? '';
-  set relatedGoals(String value) => doc.setFormField(path, 'relatedGoals', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -80146,6 +80098,54 @@ class UserAccessibilityNeedsAccessibilityFormForm extends SomNode {
 
   String get additionalStandards => doc.formField(path, 'additionalStandards') ?? '';
   set additionalStandards(String value) => doc.setFormField(path, 'additionalStandards', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class UserAssistanceDeliveryContentForm extends SomNode {
+  UserAssistanceDeliveryContentForm(super.doc, super.path);
+
+  String get helpContentOwnership => doc.formField(path, 'helpContentOwnership') ?? '';
+  set helpContentOwnership(String value) => doc.setFormField(path, 'helpContentOwnership', value);
+
+  String get helpUpdateProcess => doc.formField(path, 'helpUpdateProcess') ?? '';
+  set helpUpdateProcess(String value) => doc.setFormField(path, 'helpUpdateProcess', value);
+
+  String get helpIconStandard => doc.formField(path, 'helpIconStandard') ?? '';
+  set helpIconStandard(String value) => doc.setFormField(path, 'helpIconStandard', value);
+
+  String get helpIconPlacement => doc.formField(path, 'helpIconPlacement') ?? '';
+  set helpIconPlacement(String value) => doc.setFormField(path, 'helpIconPlacement', value);
+
+  String get helpTooltipStyle => doc.formField(path, 'helpTooltipStyle') ?? '';
+  set helpTooltipStyle(String value) => doc.setFormField(path, 'helpTooltipStyle', value);
+}
+
+/// Generated form facade for the `helpOverviewContent` `@Form` section.
+class UserAssistanceHelpOverviewContentForm extends SomNode {
+  UserAssistanceHelpOverviewContentForm(super.doc, super.path);
+
+  String get helpPhilosophy => doc.formField(path, 'helpPhilosophy') ?? '';
+  set helpPhilosophy(String value) => doc.setFormField(path, 'helpPhilosophy', value);
+
+  String get helpAccessibility => doc.formField(path, 'helpAccessibility') ?? '';
+  set helpAccessibility(String value) => doc.setFormField(path, 'helpAccessibility', value);
+
+  String get helpPersonalization => doc.formField(path, 'helpPersonalization') ?? '';
+  set helpPersonalization(String value) => doc.setFormField(path, 'helpPersonalization', value);
+
+  String get helpContentStrategy => doc.formField(path, 'helpContentStrategy') ?? '';
+  set helpContentStrategy(String value) => doc.setFormField(path, 'helpContentStrategy', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class UserAssistanceInsightsContentForm extends SomNode {
+  UserAssistanceInsightsContentForm(super.doc, super.path);
+
+  String get helpAnalytics => doc.formField(path, 'helpAnalytics') ?? '';
+  set helpAnalytics(String value) => doc.setFormField(path, 'helpAnalytics', value);
+
+  String get helpFeedback => doc.formField(path, 'helpFeedback') ?? '';
+  set helpFeedback(String value) => doc.setFormField(path, 'helpFeedback', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

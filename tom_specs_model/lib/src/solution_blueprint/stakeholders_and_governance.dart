@@ -49,8 +49,8 @@ from standard organizational project governance procedures.
 
   /// Legal and contractual requirements (IP, NDAs, compliance, audit).
   /// Renamed to `LegalAndContractualRequirements` in L34C-9.
-  OtherAdministrativeRequirements legalAndContractual =
-      OtherAdministrativeRequirements();
+  LegalAndContractualRequirements legalAndContractual =
+      LegalAndContractualRequirements();
 
   /// Stakeholder register (§5 completeness addition).
   StakeholderRegister stakeholderRegister = StakeholderRegister();

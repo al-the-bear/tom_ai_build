@@ -1,7 +1,7 @@
 /// SBP.9 — Requirements.
 ///
 /// Home for the framework-uncovered non-functional requirement sub-areas that
-/// were previously conflated inside the mis-homed `MultiLanguageAndRollout`
+/// were previously conflated inside the mis-homed `MultiLanguageSupport`
 /// cluster under UI design. IP-6 splits that cluster **by
 /// concern** and re-homes each requirement-side concern here (§4.1):
 ///
@@ -22,7 +22,7 @@ import 'experience_and_interface_design.dart'
     show
         UserDocumentationRequirements,
         TrainingDeliverableRequirements,
-        MultiLanguageAndRolloutLocaleHandling,
+        LocaleHandlingRequirements,
         TranslationRequirements;
 
 /// SBP.9 Requirements.
@@ -63,8 +63,8 @@ class LocalizationTranslationRequirements {
   TranslationRequirements translationRequirements = TranslationRequirements();
 
   /// Locale modeling and fallback requirements (re-homed from MLAR).
-  MultiLanguageAndRolloutLocaleHandling localeHandling =
-      MultiLanguageAndRolloutLocaleHandling();
+  LocaleHandlingRequirements localeHandling =
+      LocaleHandlingRequirements();
 }
 
 /// Information-for-Use (user documentation) requirements.

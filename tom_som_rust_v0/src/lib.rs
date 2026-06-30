@@ -3510,14 +3510,14 @@ impl ArchitectureStyle {
 }
 
 /// A consolidated register of assumptions and constraints.
-pub struct AssumptionConstraintRegister {
+pub struct AssumptionConstraintDependencyRegister {
     pub node: som::SomNode,
 }
 
-impl AssumptionConstraintRegister {
-    /// Binds a AssumptionConstraintRegister facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AssumptionConstraintRegister {
-        AssumptionConstraintRegister { node: som::SomNode::new(doc, path) }
+impl AssumptionConstraintDependencyRegister {
+    /// Binds a AssumptionConstraintDependencyRegister facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AssumptionConstraintDependencyRegister {
+        AssumptionConstraintDependencyRegister { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -3598,8 +3598,8 @@ impl AssumptionsConstraintsDependencies {
     }
 
     /// The consolidated assumption / constraint register.
-    pub fn register(&self) -> AssumptionConstraintRegister {
-        AssumptionConstraintRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "register"))
+    pub fn register(&self) -> AssumptionConstraintDependencyRegister {
+        AssumptionConstraintDependencyRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "register"))
     }
 }
 
@@ -6243,6 +6243,67 @@ impl BusinessComponentEntryTesting {
     }
 }
 
+/// 4.1.3. Description of Business Domain.
+///
+/// Describes the business domain and task area the system addresses.
+/// Defines the domain vocabulary and key concepts (ubiquitous language)
+/// that will be used throughout the project. Based on Domain-Driven Design
+/// principles for establishing a shared understanding.
+pub struct BusinessDomain {
+    pub node: som::SomNode,
+}
+
+impl BusinessDomain {
+    /// Binds a BusinessDomain facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BusinessDomain {
+        BusinessDomain { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 4.1.3.1. Domain Overview.
+    pub fn domain_overview(&self) -> DomainOverview {
+        DomainOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainOverview"))
+    }
+
+    /// 4.1.3.2. Domain Vocabulary.
+    pub fn domain_vocabulary(&self) -> DomainVocabulary {
+        DomainVocabulary::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainVocabulary"))
+    }
+
+    /// 4.1.3.3. Key Concepts.
+    pub fn key_concepts(&self) -> KeyConcepts {
+        KeyConcepts::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyConcepts"))
+    }
+
+    /// 4.1.3.4. Domain Boundaries.
+    pub fn domain_boundaries(&self) -> DomainBoundaries {
+        DomainBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainBoundaries"))
+    }
+
+    /// 4.1.3.5. Business Rules.
+    pub fn business_rules(&self) -> DomainBusinessRules {
+        DomainBusinessRules::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessRules"))
+    }
+
+    /// 4.1.3.6. Domain Processes.
+    pub fn domain_processes(&self) -> DomainProcesses {
+        DomainProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainProcesses"))
+    }
+
+    /// 4.1.3.7. Domain Events.
+    pub fn domain_events(&self) -> DomainEvents {
+        DomainEvents::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEvents"))
+    }
+}
+
 /// A business goal entry.
 ///
 /// Comprehensive business goal definition following SMART criteria with
@@ -6830,11 +6891,11 @@ impl BusinessProcessDescriptions {
     }
 
     /// 6.1.7. Detailed Process Workflows.
-    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
+    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflow> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
-            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
+            Box::new(|d, p| DetailedProcessWorkflow::new(d, p)),
         )
     }
 
@@ -6849,11 +6910,11 @@ impl BusinessProcessDescriptions {
     }
 
     /// 6.1.10. Process Metrics and KPIs.
-    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
+    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetric> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
-            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
+            Box::new(|d, p| ProcessMetric::new(d, p)),
         )
     }
 }
@@ -10879,6 +10940,22 @@ impl ComponentActionEntryGovernance {
     }
 }
 
+/// Component naming and documentation approach.
+pub struct ComponentApproach {
+    pub node: som::SomNode,
+}
+
+impl ComponentApproach {
+    /// Binds a ComponentApproach facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentApproach {
+        ComponentApproach { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ComponentApproachContentForm {
+        ComponentApproachContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Compliance for component.
 pub struct ComponentCompliance {
     pub node: som::SomNode,
@@ -10908,6 +10985,22 @@ impl ComponentCost {
 
     pub fn content(&self) -> ComponentCostContentForm {
         ComponentCostContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Extension and theming boundaries.
+pub struct ComponentCustomization {
+    pub node: som::SomNode,
+}
+
+impl ComponentCustomization {
+    /// Binds a ComponentCustomization facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentCustomization {
+        ComponentCustomization { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ComponentCustomizationContentForm {
+        ComponentCustomizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -12434,20 +12527,36 @@ impl ComponentVendor {
     }
 }
 
-/// 12. Components to Use. Seeds → ATS.
+/// Visual language and brand alignment.
+pub struct ComponentVisualLanguage {
+    pub node: som::SomNode,
+}
+
+impl ComponentVisualLanguage {
+    /// Binds a ComponentVisualLanguage facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentVisualLanguage {
+        ComponentVisualLanguage { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ComponentVisualLanguageContentForm {
+        ComponentVisualLanguageContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 12. Components and Dependencies. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system. All
 /// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
-pub struct ComponentsToUse {
+pub struct ComponentsAndDependencies {
     pub node: som::SomNode,
 }
 
-impl ComponentsToUse {
-    /// Binds a ComponentsToUse facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ComponentsToUse {
-        ComponentsToUse { node: som::SomNode::new(doc, path) }
+impl ComponentsAndDependencies {
+    /// Binds a ComponentsAndDependencies facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentsAndDependencies {
+        ComponentsAndDependencies { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -14200,11 +14309,11 @@ impl CurrentLandscape {
     }
 
     /// 1.5. Operational Metrics.
-    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
+    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetric> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
-            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
+            Box::new(|d, p| CurrentOperationalMetric::new(d, p)),
         )
     }
 
@@ -14219,14 +14328,14 @@ impl CurrentLandscape {
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
 /// derive non-functional requirements.
-pub struct CurrentOperationalMetrics {
+pub struct CurrentOperationalMetric {
     pub node: som::SomNode,
 }
 
-impl CurrentOperationalMetrics {
-    /// Binds a CurrentOperationalMetrics facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CurrentOperationalMetrics {
-        CurrentOperationalMetrics { node: som::SomNode::new(doc, path) }
+impl CurrentOperationalMetric {
+    /// Binds a CurrentOperationalMetric facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CurrentOperationalMetric {
+        CurrentOperationalMetric { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -14440,14 +14549,14 @@ impl CustomMetricEntry {
 ///
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
-pub struct CutoverProcedures {
+pub struct CutoverProcedure {
     pub node: som::SomNode,
 }
 
-impl CutoverProcedures {
-    /// Binds a CutoverProcedures facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CutoverProcedures {
-        CutoverProcedures { node: som::SomNode::new(doc, path) }
+impl CutoverProcedure {
+    /// Binds a CutoverProcedure facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CutoverProcedure {
+        CutoverProcedure { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -14525,8 +14634,8 @@ impl D00SolutionBlueprint {
     }
 
     /// SBP.7 Target Operating Model concept. Seeds → TOM.
-    pub fn target_operating_model_concept(&self) -> TargetOperatingModelConcept {
-        TargetOperatingModelConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetOperatingModelConcept"))
+    pub fn target_operating_model_concept(&self) -> TargetOperatingModel {
+        TargetOperatingModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetOperatingModelConcept"))
     }
 
     /// SBP.8 Information & Data Model. Seeds → IFM.
@@ -14626,11 +14735,11 @@ impl D01CurrentLandscapeAssessment {
     }
 
     /// Current operational metrics.
-    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
+    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetric> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
-            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
+            Box::new(|d, p| CurrentOperationalMetric::new(d, p)),
         )
     }
 
@@ -14721,11 +14830,11 @@ impl D02TargetOperatingModel {
     }
 
     /// Detailed process workflows.
-    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
+    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflow> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
-            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
+            Box::new(|d, p| DetailedProcessWorkflow::new(d, p)),
         )
     }
 
@@ -14740,11 +14849,11 @@ impl D02TargetOperatingModel {
     }
 
     /// Process metrics and KPIs.
-    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
+    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetric> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
-            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
+            Box::new(|d, p| ProcessMetric::new(d, p)),
         )
     }
 }
@@ -15030,11 +15139,11 @@ impl D05InteractionScenarios {
     }
 
     /// End-to-end test scenarios.
-    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
+    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenario> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
-            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
+            Box::new(|d, p| EndToEndTestScenario::new(d, p)),
         )
     }
 
@@ -15131,13 +15240,13 @@ impl D06ArchitectureTechnologySpecification {
     }
 
     /// Components to use (whole).
-    pub fn components_to_use(&self) -> ComponentsToUse {
-        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
+    pub fn components_to_use(&self) -> ComponentsAndDependencies {
+        ComponentsAndDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
     }
 
     /// Technical framework conditions (whole).
-    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
-        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
+    pub fn technical_environment(&self) -> TechnicalEnvironment {
+        TechnicalEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalEnvironment"))
     }
 
     /// Translation handling requirements (whole).
@@ -15388,18 +15497,18 @@ impl D09ExperienceDesignSpecification {
     }
 
     /// Print layout.
-    pub fn print_layout(&self) -> PrintLayout {
-        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    pub fn print_layout(&self) -> PrintAndExportLayout {
+        PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
     }
 
     /// Error handling concept.
-    pub fn error_handling(&self) -> ErrorHandlingConcept {
-        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
+    pub fn error_handling(&self) -> ErrorHandling {
+        ErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
     }
 
     /// Help concept.
-    pub fn help_concept(&self) -> HelpConcept {
-        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
+    pub fn user_assistance(&self) -> UserAssistance {
+        UserAssistance::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAssistance"))
     }
 
     /// Accessibility.
@@ -15736,20 +15845,20 @@ impl D12TransitionRolloutPlan {
     }
 
     /// User manuals.
-    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
+    pub fn user_manuals(&self) -> som::SomList<UserManual> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManuals::new(d, p)),
+            Box::new(|d, p| UserManual::new(d, p)),
         )
     }
 
     /// Training materials.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
+    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterial> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
+            Box::new(|d, p| RolloutTrainingMaterial::new(d, p)),
         )
     }
 
@@ -15759,11 +15868,11 @@ impl D12TransitionRolloutPlan {
     }
 
     /// Cutover procedures.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
+    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedure> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedures::new(d, p)),
+            Box::new(|d, p| CutoverProcedure::new(d, p)),
         )
     }
 
@@ -19796,8 +19905,8 @@ impl DeliveryTransitionAndRollout {
     }
 
     /// Rollout and transition concept.
-    pub fn system_rollout_concept(&self) -> SystemRolloutConcept {
-        SystemRolloutConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemRolloutConcept"))
+    pub fn system_rollout(&self) -> SystemRollout {
+        SystemRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemRollout"))
     }
 
     /// Localization & translation *execution* processes (re-homed from MLAR in
@@ -19808,8 +19917,8 @@ impl DeliveryTransitionAndRollout {
     }
 
     /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
-    pub fn multi_language_rollout_plan(&self) -> MultiLanguageAndRolloutPlan {
-        MultiLanguageAndRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageRolloutPlan"))
+    pub fn locale_rollout_plan(&self) -> LocaleRolloutPlan {
+        LocaleRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeRolloutPlan"))
     }
 }
 
@@ -21207,6 +21316,24 @@ impl DesignPatternsAndStandards {
     }
 }
 
+/// A design principle entry (form).
+///
+/// Each principle guides UI decisions with rationale and examples.
+pub struct DesignPrincipleEntry {
+    pub node: som::SomNode,
+}
+
+impl DesignPrincipleEntry {
+    /// Binds a DesignPrincipleEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DesignPrincipleEntry {
+        DesignPrincipleEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> DesignPrincipleEntryContentForm {
+        DesignPrincipleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 10.1.2. Design Principles.
 ///
 /// Guiding principles for all UI decisions: progressive disclosure, direct
@@ -21234,11 +21361,11 @@ impl DesignPrinciples {
     // (skipped: overview has no target type)
 
     /// Contains 0+× UiDesignPrinciple.
-    pub fn items(&self) -> som::SomList<UiDesignPrincipleEntry> {
+    pub fn items(&self) -> som::SomList<DesignPrincipleEntry> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UDPEN-ITEM-LST"),
-            Box::new(|d, p| UiDesignPrincipleEntry::new(d, p)),
+            Box::new(|d, p| DesignPrincipleEntry::new(d, p)),
         )
     }
 }
@@ -21402,14 +21529,14 @@ impl DesktopOsRequirementEntryTesting {
 ///
 /// Per-process workflow detail beyond the catalog overview.
 /// .
-pub struct DetailedProcessWorkflows {
+pub struct DetailedProcessWorkflow {
     pub node: som::SomNode,
 }
 
-impl DetailedProcessWorkflows {
-    /// Binds a DetailedProcessWorkflows facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DetailedProcessWorkflows {
-        DetailedProcessWorkflows { node: som::SomNode::new(doc, path) }
+impl DetailedProcessWorkflow {
+    /// Binds a DetailedProcessWorkflow facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DetailedProcessWorkflow {
+        DetailedProcessWorkflow { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -23922,14 +24049,14 @@ impl EncryptionInTransit {
 ///
 /// Test scenarios that exercise complete user journeys across processes
 /// and use cases..
-pub struct EndToEndTestScenarios {
+pub struct EndToEndTestScenario {
     pub node: som::SomNode,
 }
 
-impl EndToEndTestScenarios {
-    /// Binds a EndToEndTestScenarios facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EndToEndTestScenarios {
-        EndToEndTestScenarios { node: som::SomNode::new(doc, path) }
+impl EndToEndTestScenario {
+    /// Binds a EndToEndTestScenario facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EndToEndTestScenario {
+        EndToEndTestScenario { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -24901,38 +25028,38 @@ impl ErrorBudgetTrackingMonitoring {
     }
 }
 
-/// 10.7. Error Handling Concept.
+/// 10.7. Error Handling.
 ///
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
-pub struct ErrorHandlingConcept {
+pub struct ErrorHandling {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConcept {
-    /// Binds a ErrorHandlingConcept facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConcept {
-        ErrorHandlingConcept { node: som::SomNode::new(doc, path) }
+impl ErrorHandling {
+    /// Binds a ErrorHandling facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandling {
+        ErrorHandling { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn error_philosophy_content(&self) -> ErrorHandlingConceptErrorPhilosophyContentForm {
-        ErrorHandlingConceptErrorPhilosophyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorPhilosophyContent"))
+    pub fn error_philosophy_content(&self) -> ErrorHandlingErrorPhilosophyContentForm {
+        ErrorHandlingErrorPhilosophyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorPhilosophyContent"))
     }
 
     /// Error categorization and display priority.
-    pub fn classification(&self) -> ErrorHandlingConceptClassification {
-        ErrorHandlingConceptClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
+    pub fn classification(&self) -> ErrorHandlingClassification {
+        ErrorHandlingClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
     }
 
     /// Accessibility and inclusive error cues.
-    pub fn accessibility(&self) -> ErrorHandlingConceptAccessibility {
-        ErrorHandlingConceptAccessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+    pub fn accessibility(&self) -> ErrorHandlingAccessibility {
+        ErrorHandlingAccessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
     }
 
     /// Localization and analytics behavior.
-    pub fn operations(&self) -> ErrorHandlingConceptOperations {
-        ErrorHandlingConceptOperations::new(self.node.doc(), format!("{}/{}", self.node.path(), "operations"))
+    pub fn operations(&self) -> ErrorHandlingOperations {
+        ErrorHandlingOperations::new(self.node.doc(), format!("{}/{}", self.node.path(), "operations"))
     }
 
     // Error handling overview and strategy.
@@ -24961,50 +25088,50 @@ impl ErrorHandlingConcept {
 }
 
 /// Accessibility and inclusive error cues.
-pub struct ErrorHandlingConceptAccessibility {
+pub struct ErrorHandlingAccessibility {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptAccessibility {
-    /// Binds a ErrorHandlingConceptAccessibility facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptAccessibility {
-        ErrorHandlingConceptAccessibility { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingAccessibility {
+    /// Binds a ErrorHandlingAccessibility facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingAccessibility {
+        ErrorHandlingAccessibility { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ErrorHandlingConceptAccessibilityContentForm {
-        ErrorHandlingConceptAccessibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ErrorHandlingAccessibilityContentForm {
+        ErrorHandlingAccessibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Error categorization and display priority.
-pub struct ErrorHandlingConceptClassification {
+pub struct ErrorHandlingClassification {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptClassification {
-    /// Binds a ErrorHandlingConceptClassification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptClassification {
-        ErrorHandlingConceptClassification { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingClassification {
+    /// Binds a ErrorHandlingClassification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingClassification {
+        ErrorHandlingClassification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ErrorHandlingConceptClassificationContentForm {
-        ErrorHandlingConceptClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ErrorHandlingClassificationContentForm {
+        ErrorHandlingClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Localization and analytics behavior.
-pub struct ErrorHandlingConceptOperations {
+pub struct ErrorHandlingOperations {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptOperations {
-    /// Binds a ErrorHandlingConceptOperations facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptOperations {
-        ErrorHandlingConceptOperations { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingOperations {
+    /// Binds a ErrorHandlingOperations facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingOperations {
+        ErrorHandlingOperations { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ErrorHandlingConceptOperationsContentForm {
-        ErrorHandlingConceptOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ErrorHandlingOperationsContentForm {
+        ErrorHandlingOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -25777,8 +25904,8 @@ impl ExperienceAndInterfaceDesign {
     }
 
     /// 10.4. Print Layout. Seeds → XDS.
-    pub fn print_layout(&self) -> PrintLayout {
-        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    pub fn print_layout(&self) -> PrintAndExportLayout {
+        PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
     }
 
     // Data Structure Alignment.
@@ -25787,14 +25914,14 @@ impl ExperienceAndInterfaceDesign {
     // Authorization Compliance.
     // (skipped: authorizationCompliance has no target type)
 
-    /// 10.7. Error Handling Concept. Seeds → XDS.
-    pub fn error_handling(&self) -> ErrorHandlingConcept {
-        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
+    /// 10.7. Error Handling. Seeds → XDS.
+    pub fn error_handling(&self) -> ErrorHandling {
+        ErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
     }
 
-    /// 10.8. Help Concept. Seeds → XDS.
-    pub fn help_concept(&self) -> HelpConcept {
-        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
+    /// 10.8. User Assistance. Seeds → XDS.
+    pub fn user_assistance(&self) -> UserAssistance {
+        UserAssistance::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAssistance"))
     }
 
     /// 10.9. Accessibility. Seeds → XDS.
@@ -25812,9 +25939,9 @@ impl ExperienceAndInterfaceDesign {
         UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
     }
 
-    /// 10.12. Multi-language and Rollout Support.
-    pub fn multi_language(&self) -> MultiLanguageAndRollout {
-        MultiLanguageAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguage"))
+    /// 10.12. Multi-language Support.
+    pub fn multi_language_support(&self) -> MultiLanguageSupport {
+        MultiLanguageSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageSupport"))
     }
 
     /// 10.13. Prototype. Seeds → XDS.
@@ -28249,46 +28376,6 @@ impl FrameworkCompatibility {
     }
 }
 
-/// 4.6. Framework Conditions.
-///
-/// Documents the organizational and technical environment in which the system
-/// will operate. Covers organizational structure, functional responsibilities,
-/// technical constraints, and external dependencies. Follows TOGAF enterprise
-/// context patterns and PMBOK environmental factors analysis.
-pub struct FrameworkConditions {
-    pub node: som::SomNode,
-}
-
-impl FrameworkConditions {
-    /// Binds a FrameworkConditions facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FrameworkConditions {
-        FrameworkConditions { node: som::SomNode::new(doc, path) }
-    }
-
-    // Framework conditions overview.
-    // (skipped: overview has no target type)
-
-    /// 4.6.1. Organizational Environment.
-    pub fn organizational_environment(&self) -> OrganizationalEnvironment {
-        OrganizationalEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalEnvironment"))
-    }
-
-    /// 4.6.2. Functional Responsibilities — contains 0+×.
-    pub fn functional_responsibilities(&self) -> FunctionalResponsibilities {
-        FunctionalResponsibilities::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalResponsibilities"))
-    }
-
-    /// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
-        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
-    }
-
-    /// 4.6.4. Constraints and Dependencies — contains 0+×.
-    pub fn constraints_and_dependencies(&self) -> ConstraintsAndDependencies {
-        ConstraintsAndDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraintsAndDependencies"))
-    }
-}
-
 /// Identity details.
 pub struct FrameworkIdentity {
     pub node: som::SomNode,
@@ -29782,88 +29869,6 @@ impl HealthChecksAndDiagnosticsSection {
     /// Dependency health monitoring.
     pub fn dependency_health(&self) -> DependencyHealthMonitoring {
         DependencyHealthMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencyHealth"))
-    }
-}
-
-/// 10.8. Help Concept.
-///
-/// Comprehensive in-app help system including contextual help, onboarding,
-/// and support access mechanisms.
-pub struct HelpConcept {
-    pub node: som::SomNode,
-}
-
-impl HelpConcept {
-    /// Binds a HelpConcept facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConcept {
-        HelpConcept { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn help_overview_content(&self) -> HelpConceptHelpOverviewContentForm {
-        HelpConceptHelpOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpOverviewContent"))
-    }
-
-    /// Content stewardship and help affordances.
-    pub fn delivery(&self) -> HelpConceptDelivery {
-        HelpConceptDelivery::new(self.node.doc(), format!("{}/{}", self.node.path(), "delivery"))
-    }
-
-    /// Analytics and improvement feedback.
-    pub fn insights(&self) -> HelpConceptInsights {
-        HelpConceptInsights::new(self.node.doc(), format!("{}/{}", self.node.path(), "insights"))
-    }
-
-    // Help system overview narrative.
-    // (skipped: helpOverview has no target type)
-
-    /// 10.8.1. Contextual Help.
-    pub fn contextual_help(&self) -> ContextualHelp {
-        ContextualHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextualHelp"))
-    }
-
-    /// 10.8.2. Onboarding.
-    pub fn onboarding(&self) -> OnboardingHelp {
-        OnboardingHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "onboarding"))
-    }
-
-    /// 10.8.3. Support Access.
-    pub fn support_access(&self) -> SupportAccess {
-        SupportAccess::new(self.node.doc(), format!("{}/{}", self.node.path(), "supportAccess"))
-    }
-
-    // Help content inventory.
-    // (skipped: helpContentInventory has no target type)
-}
-
-/// Content stewardship and help affordances.
-pub struct HelpConceptDelivery {
-    pub node: som::SomNode,
-}
-
-impl HelpConceptDelivery {
-    /// Binds a HelpConceptDelivery facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConceptDelivery {
-        HelpConceptDelivery { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> HelpConceptDeliveryContentForm {
-        HelpConceptDeliveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Analytics and improvement feedback.
-pub struct HelpConceptInsights {
-    pub node: som::SomNode,
-}
-
-impl HelpConceptInsights {
-    /// Binds a HelpConceptInsights facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConceptInsights {
-        HelpConceptInsights { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> HelpConceptInsightsContentForm {
-        HelpConceptInsightsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -33677,7 +33682,7 @@ impl InteroperabilityRequirementsTesting {
     }
 }
 
-/// 4. System Overview.
+/// 4. Introduction & Scope.
 ///
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
@@ -33702,8 +33707,8 @@ impl IntroductionAndScope {
     }
 
     /// System overview summary statistics.
-    pub fn summary(&self) -> SystemOverviewSummary {
-        SystemOverviewSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
+    pub fn summary(&self) -> SystemSummary {
+        SystemSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
     }
 
     /// System context diagram showing major system boundaries.
@@ -33741,9 +33746,9 @@ impl IntroductionAndScope {
         SystemBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemBoundaries"))
     }
 
-    /// 4.6. Framework Conditions.
-    pub fn framework_conditions(&self) -> FrameworkConditions {
-        FrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "frameworkConditions"))
+    /// 4.6. Operating Environment.
+    pub fn operating_environment(&self) -> OperatingEnvironment {
+        OperatingEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "operatingEnvironment"))
     }
 
     /// 4.7. Risks and Assumptions.
@@ -35114,6 +35119,65 @@ impl LegacyCompatibilityEntryRisk {
     }
 }
 
+/// 3.6. Other Administrative Requirements.
+///
+/// Additional administrative agreements, constraints, or requirements not
+/// covered by other sections: IP ownership, NDAs, regulatory compliance,
+/// audit requirements, and other legal or organizational agreements.
+pub struct LegalAndContractualRequirements {
+    pub node: som::SomNode,
+}
+
+impl LegalAndContractualRequirements {
+    /// Binds a LegalAndContractualRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LegalAndContractualRequirements {
+        LegalAndContractualRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 3.6.1. Intellectual Property.
+    pub fn intellectual_property(&self) -> IntellectualPropertyRequirements {
+        IntellectualPropertyRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "intellectualProperty"))
+    }
+
+    /// 3.6.2. Confidentiality and NDAs.
+    pub fn confidentiality(&self) -> ConfidentialityRequirements {
+        ConfidentialityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "confidentiality"))
+    }
+
+    /// 3.6.3. Regulatory Compliance.
+    pub fn regulatory_compliance(&self) -> RegulatoryComplianceRequirements {
+        RegulatoryComplianceRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "regulatoryCompliance"))
+    }
+
+    /// 3.6.4. Audit Requirements.
+    pub fn audit_requirements(&self) -> AuditRequirements {
+        AuditRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditRequirements"))
+    }
+
+    /// 3.6.5. Insurance and Liability.
+    pub fn insurance_liability(&self) -> InsuranceLiabilityRequirements {
+        InsuranceLiabilityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "insuranceLiability"))
+    }
+
+    /// 3.6.6. Other Agreements — contains 0+× Agreement.
+    pub fn other_agreements(&self) -> som::SomList<OtherAgreementEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "OTAGR-OTHE-LST"),
+            Box::new(|d, p| OtherAgreementEntry::new(d, p)),
+        )
+    }
+}
+
 /// Liability limitations.
 pub struct LiabilityLimitations {
     pub node: som::SomNode,
@@ -35427,6 +35491,70 @@ impl LocalDevelopmentSetupWorkflow {
     }
 }
 
+/// Locale modeling and fallback behavior.
+pub struct LocaleHandlingRequirements {
+    pub node: som::SomNode,
+}
+
+impl LocaleHandlingRequirements {
+    /// Binds a LocaleHandlingRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleHandlingRequirements {
+        LocaleHandlingRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> LocaleHandlingRequirementsContentForm {
+        LocaleHandlingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Rollout sequencing by region and time.
+pub struct LocaleRolloutPlan {
+    pub node: som::SomNode,
+}
+
+impl LocaleRolloutPlan {
+    /// Binds a LocaleRolloutPlan facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleRolloutPlan {
+        LocaleRolloutPlan { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> LocaleRolloutPlanContentForm {
+        LocaleRolloutPlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Deployment settings.
+pub struct LocalizationDeployment {
+    pub node: som::SomNode,
+}
+
+impl LocalizationDeployment {
+    /// Binds a LocalizationDeployment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationDeployment {
+        LocalizationDeployment { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> LocalizationDeploymentContentForm {
+        LocalizationDeploymentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Formatting rules.
+pub struct LocalizationFormatting {
+    pub node: som::SomNode,
+}
+
+impl LocalizationFormatting {
+    /// Binds a LocalizationFormatting facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationFormatting {
+        LocalizationFormatting { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> LocalizationFormattingContentForm {
+        LocalizationFormattingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 10.12.1. Localization Process.
 ///
 /// Workflow for identifying and preparing content for localization.
@@ -35445,18 +35573,18 @@ impl LocalizationProcess {
     }
 
     /// Review process.
-    pub fn review(&self) -> LocalizationProcessReview {
-        LocalizationProcessReview::new(self.node.doc(), format!("{}/{}", self.node.path(), "review"))
+    pub fn review(&self) -> LocalizationReview {
+        LocalizationReview::new(self.node.doc(), format!("{}/{}", self.node.path(), "review"))
     }
 
     /// Formatting rules.
-    pub fn formatting(&self) -> LocalizationProcessFormatting {
-        LocalizationProcessFormatting::new(self.node.doc(), format!("{}/{}", self.node.path(), "formatting"))
+    pub fn formatting(&self) -> LocalizationFormatting {
+        LocalizationFormatting::new(self.node.doc(), format!("{}/{}", self.node.path(), "formatting"))
     }
 
     /// Deployment settings.
-    pub fn deployment(&self) -> LocalizationProcessDeployment {
-        LocalizationProcessDeployment::new(self.node.doc(), format!("{}/{}", self.node.path(), "deployment"))
+    pub fn deployment(&self) -> LocalizationDeployment {
+        LocalizationDeployment::new(self.node.doc(), format!("{}/{}", self.node.path(), "deployment"))
     }
 
     // Localization process narrative.
@@ -35466,51 +35594,19 @@ impl LocalizationProcess {
     // (skipped: workflowDiagram has no target type)
 }
 
-/// Deployment settings.
-pub struct LocalizationProcessDeployment {
-    pub node: som::SomNode,
-}
-
-impl LocalizationProcessDeployment {
-    /// Binds a LocalizationProcessDeployment facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessDeployment {
-        LocalizationProcessDeployment { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> LocalizationProcessDeploymentContentForm {
-        LocalizationProcessDeploymentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Formatting rules.
-pub struct LocalizationProcessFormatting {
-    pub node: som::SomNode,
-}
-
-impl LocalizationProcessFormatting {
-    /// Binds a LocalizationProcessFormatting facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessFormatting {
-        LocalizationProcessFormatting { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> LocalizationProcessFormattingContentForm {
-        LocalizationProcessFormattingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
 /// Review process.
-pub struct LocalizationProcessReview {
+pub struct LocalizationReview {
     pub node: som::SomNode,
 }
 
-impl LocalizationProcessReview {
-    /// Binds a LocalizationProcessReview facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessReview {
-        LocalizationProcessReview { node: som::SomNode::new(doc, path) }
+impl LocalizationReview {
+    /// Binds a LocalizationReview facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationReview {
+        LocalizationReview { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> LocalizationProcessReviewContentForm {
-        LocalizationProcessReviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> LocalizationReviewContentForm {
+        LocalizationReviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -35518,7 +35614,7 @@ impl LocalizationProcessReview {
 ///
 /// Public anchor: ISO 29148 transition requirements. Bundles the localization
 /// and translation *workflow* concerns re-homed from the former
-/// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+/// `MultiLanguageSupport` cluster (their requirement counterparts live in
 /// SBP.9 [LocalizationTranslationRequirements]).
 pub struct LocalizationTranslationProcess {
     pub node: som::SomNode,
@@ -35579,8 +35675,8 @@ impl LocalizationTranslationRequirements {
     }
 
     /// Locale modeling and fallback requirements (re-homed from MLAR).
-    pub fn locale_handling(&self) -> MultiLanguageAndRolloutLocaleHandling {
-        MultiLanguageAndRolloutLocaleHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeHandling"))
+    pub fn locale_handling(&self) -> LocaleHandlingRequirements {
+        LocaleHandlingRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeHandling"))
     }
 }
 
@@ -39240,25 +39336,25 @@ impl MultiChannelExperience {
     }
 }
 
-/// 10.12. Multi-language and Rollout Support.
+/// 10.12. Multi-language Support.
 ///
 /// Locale-picker / UX-side multi-language concerns that stay on the
 /// Experience & Interface Design side. IP-6 re-homed the requirement-side
 /// concerns (i18n requirements, documentation, training) to SBP.9 and the
 /// execution-side concerns (localization/translation processes, rollout
 /// sequencing) to SBP.15; only the stay-put UX members remain here.
-pub struct MultiLanguageAndRollout {
+pub struct MultiLanguageSupport {
     pub node: som::SomNode,
 }
 
-impl MultiLanguageAndRollout {
-    /// Binds a MultiLanguageAndRollout facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRollout {
-        MultiLanguageAndRollout { node: som::SomNode::new(doc, path) }
+impl MultiLanguageSupport {
+    /// Binds a MultiLanguageSupport facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageSupport {
+        MultiLanguageSupport { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn multi_language_overview(&self) -> MultiLanguageAndRolloutMultiLanguageOverviewForm {
-        MultiLanguageAndRolloutMultiLanguageOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageOverview"))
+    pub fn multi_language_overview(&self) -> MultiLanguageSupportMultiLanguageOverviewForm {
+        MultiLanguageSupportMultiLanguageOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageOverview"))
     }
 
     // Multi-language overview narrative.
@@ -39276,38 +39372,6 @@ impl MultiLanguageAndRollout {
             format!("{}/{}", self.node.path(), "SULOEN-SUPP-LST"),
             Box::new(|d, p| SupportedLocaleEntry::new(d, p)),
         )
-    }
-}
-
-/// Locale modeling and fallback behavior.
-pub struct MultiLanguageAndRolloutLocaleHandling {
-    pub node: som::SomNode,
-}
-
-impl MultiLanguageAndRolloutLocaleHandling {
-    /// Binds a MultiLanguageAndRolloutLocaleHandling facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRolloutLocaleHandling {
-        MultiLanguageAndRolloutLocaleHandling { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MultiLanguageAndRolloutLocaleHandlingContentForm {
-        MultiLanguageAndRolloutLocaleHandlingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Rollout sequencing by region and time.
-pub struct MultiLanguageAndRolloutPlan {
-    pub node: som::SomNode,
-}
-
-impl MultiLanguageAndRolloutPlan {
-    /// Binds a MultiLanguageAndRolloutPlan facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRolloutPlan {
-        MultiLanguageAndRolloutPlan { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MultiLanguageAndRolloutPlanContentForm {
-        MultiLanguageAndRolloutPlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -41495,6 +41559,46 @@ impl OngoingTrainingEntrySchedule {
     }
 }
 
+/// 4.6. Operating Environment.
+///
+/// Documents the organizational and technical environment in which the system
+/// will operate. Covers organizational structure, functional responsibilities,
+/// technical constraints, and external dependencies. Follows TOGAF enterprise
+/// context patterns and PMBOK environmental factors analysis.
+pub struct OperatingEnvironment {
+    pub node: som::SomNode,
+}
+
+impl OperatingEnvironment {
+    /// Binds a OperatingEnvironment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OperatingEnvironment {
+        OperatingEnvironment { node: som::SomNode::new(doc, path) }
+    }
+
+    // Framework conditions overview.
+    // (skipped: overview has no target type)
+
+    /// 4.6.1. Organizational Environment.
+    pub fn organizational_environment(&self) -> OrganizationalEnvironment {
+        OrganizationalEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalEnvironment"))
+    }
+
+    /// 4.6.2. Functional Responsibilities — contains 0+×.
+    pub fn functional_responsibilities(&self) -> FunctionalResponsibilities {
+        FunctionalResponsibilities::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalResponsibilities"))
+    }
+
+    /// 4.6.3. Technical Environment. Seeds → ATS.
+    pub fn technical_environment(&self) -> TechnicalEnvironment {
+        TechnicalEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalEnvironment"))
+    }
+
+    /// 4.6.4. Constraints and Dependencies — contains 0+×.
+    pub fn constraints_and_dependencies(&self) -> ConstraintsAndDependencies {
+        ConstraintsAndDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraintsAndDependencies"))
+    }
+}
+
 /// 11.4.3. Monitoring quality.
 pub struct OperationalMonitoring {
     pub node: som::SomNode,
@@ -42432,65 +42536,6 @@ impl OsCompatibilityEntryTesting {
 
     pub fn content(&self) -> OsCompatibilityEntryTestingContentForm {
         OsCompatibilityEntryTestingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// 3.6. Other Administrative Requirements.
-///
-/// Additional administrative agreements, constraints, or requirements not
-/// covered by other sections: IP ownership, NDAs, regulatory compliance,
-/// audit requirements, and other legal or organizational agreements.
-pub struct OtherAdministrativeRequirements {
-    pub node: som::SomNode,
-}
-
-impl OtherAdministrativeRequirements {
-    /// Binds a OtherAdministrativeRequirements facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> OtherAdministrativeRequirements {
-        OtherAdministrativeRequirements { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 3.6.1. Intellectual Property.
-    pub fn intellectual_property(&self) -> IntellectualPropertyRequirements {
-        IntellectualPropertyRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "intellectualProperty"))
-    }
-
-    /// 3.6.2. Confidentiality and NDAs.
-    pub fn confidentiality(&self) -> ConfidentialityRequirements {
-        ConfidentialityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "confidentiality"))
-    }
-
-    /// 3.6.3. Regulatory Compliance.
-    pub fn regulatory_compliance(&self) -> RegulatoryComplianceRequirements {
-        RegulatoryComplianceRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "regulatoryCompliance"))
-    }
-
-    /// 3.6.4. Audit Requirements.
-    pub fn audit_requirements(&self) -> AuditRequirements {
-        AuditRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditRequirements"))
-    }
-
-    /// 3.6.5. Insurance and Liability.
-    pub fn insurance_liability(&self) -> InsuranceLiabilityRequirements {
-        InsuranceLiabilityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "insuranceLiability"))
-    }
-
-    /// 3.6.6. Other Agreements — contains 0+× Agreement.
-    pub fn other_agreements(&self) -> som::SomList<OtherAgreementEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "OTAGR-OTHE-LST"),
-            Box::new(|d, p| OtherAgreementEntry::new(d, p)),
-        )
     }
 }
 
@@ -44574,18 +44619,18 @@ impl PrimaryNavigationSidebar {
 }
 
 /// 10.4. Print Layout.
-pub struct PrintLayout {
+pub struct PrintAndExportLayout {
     pub node: som::SomNode,
 }
 
-impl PrintLayout {
-    /// Binds a PrintLayout facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PrintLayout {
-        PrintLayout { node: som::SomNode::new(doc, path) }
+impl PrintAndExportLayout {
+    /// Binds a PrintAndExportLayout facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PrintAndExportLayout {
+        PrintAndExportLayout { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> PrintLayoutContentForm {
-        PrintLayoutContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> PrintAndExportLayoutContentForm {
+        PrintAndExportLayoutContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Page margins and setup.
@@ -45948,6 +45993,29 @@ impl ProcessKpiEntryOperations {
     }
 }
 
+/// 6.1.10. Process Metrics and KPIs.
+///
+/// Process-level KPIs, SLAs, and measurement strategy.
+pub struct ProcessMetric {
+    pub node: som::SomNode,
+}
+
+impl ProcessMetric {
+    /// Binds a ProcessMetric facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ProcessMetric {
+        ProcessMetric { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+}
+
 /// A category of process metrics.
 pub struct ProcessMetricCategory {
     pub node: som::SomNode,
@@ -46127,29 +46195,6 @@ impl ProcessMetrics {
     /// Baseline comparison table.
     pub fn baseline_table(&self) -> MetricsBaselineTable {
         MetricsBaselineTable::new(self.node.doc(), format!("{}/{}", self.node.path(), "baselineTable"))
-    }
-}
-
-/// 6.1.10. Process Metrics and KPIs.
-///
-/// Process-level KPIs, SLAs, and measurement strategy.
-pub struct ProcessMetricsAndKpis {
-    pub node: som::SomNode,
-}
-
-impl ProcessMetricsAndKpis {
-    /// Binds a ProcessMetricsAndKpis facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ProcessMetricsAndKpis {
-        ProcessMetricsAndKpis { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -46565,11 +46610,11 @@ impl ProcessStepsAndActorInteractions {
     }
 
     /// 6.2.4. End-to-End Test Scenarios..
-    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
+    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenario> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
-            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
+            Box::new(|d, p| EndToEndTestScenario::new(d, p)),
         )
     }
 
@@ -47236,8 +47281,8 @@ impl Prototype {
     }
 
     /// 10.13.3. Prototype Type.
-    pub fn prototype_type(&self) -> PrototypeTypeSection {
-        PrototypeTypeSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeType"))
+    pub fn prototype_type(&self) -> PrototypeType {
+        PrototypeType::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeType"))
     }
 
     // Prototype schedule.
@@ -47471,18 +47516,18 @@ impl PrototypeTimeline {
 /// 10.13.3. Prototype Type.
 ///
 /// Classification and implications of the prototype type.
-pub struct PrototypeTypeSection {
+pub struct PrototypeType {
     pub node: som::SomNode,
 }
 
-impl PrototypeTypeSection {
-    /// Binds a PrototypeTypeSection facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PrototypeTypeSection {
-        PrototypeTypeSection { node: som::SomNode::new(doc, path) }
+impl PrototypeType {
+    /// Binds a PrototypeType facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PrototypeType {
+        PrototypeType { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn prototype_type_overview(&self) -> PrototypeTypeSectionPrototypeTypeOverviewForm {
-        PrototypeTypeSectionPrototypeTypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeTypeOverview"))
+    pub fn prototype_type_overview(&self) -> PrototypeTypePrototypeTypeOverviewForm {
+        PrototypeTypePrototypeTypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeTypeOverview"))
     }
 
     /// 10.13.3.1. Reusable Prototype.
@@ -53612,14 +53657,14 @@ impl RolloutPlan {
 /// 15.4. Training Materials.
 ///
 /// Training deliverables covering training-material content.
-pub struct RolloutTrainingMaterials {
+pub struct RolloutTrainingMaterial {
     pub node: som::SomNode,
 }
 
-impl RolloutTrainingMaterials {
-    /// Binds a RolloutTrainingMaterials facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RolloutTrainingMaterials {
-        RolloutTrainingMaterials { node: som::SomNode::new(doc, path) }
+impl RolloutTrainingMaterial {
+    /// Binds a RolloutTrainingMaterial facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RolloutTrainingMaterial {
+        RolloutTrainingMaterial { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -59390,8 +59435,8 @@ impl SolutionArchitectureAndTechnology {
     }
 
     /// Components, libraries, and services to reuse.
-    pub fn components_to_use(&self) -> ComponentsToUse {
-        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
+    pub fn components_to_use(&self) -> ComponentsAndDependencies {
+        ComponentsAndDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
     }
 }
 
@@ -59450,6 +59495,22 @@ impl SpecializedEquipmentEntryTechnical {
 
     pub fn content(&self) -> SpecializedEquipmentEntryTechnicalContentForm {
         SpecializedEquipmentEntryTechnicalContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Specification status.
+pub struct SpecificationStatus {
+    pub node: som::SomNode,
+}
+
+impl SpecificationStatus {
+    /// Binds a SpecificationStatus facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SpecificationStatus {
+        SpecificationStatus { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SpecificationStatusContentForm {
+        SpecificationStatusContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -60569,6 +60630,54 @@ impl StageOverviewStatus {
     }
 }
 
+/// Dependencies, risks, and compliance constraints across stages.
+pub struct StagePlanCoordination {
+    pub node: som::SomNode,
+}
+
+impl StagePlanCoordination {
+    /// Binds a StagePlanCoordination facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanCoordination {
+        StagePlanCoordination { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> StagePlanCoordinationContentForm {
+        StagePlanCoordinationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Organizational capacity and plan confidence.
+pub struct StagePlanReadiness {
+    pub node: som::SomNode,
+}
+
+impl StagePlanReadiness {
+    /// Binds a StagePlanReadiness facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanReadiness {
+        StagePlanReadiness { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> StagePlanReadinessContentForm {
+        StagePlanReadinessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Overall schedule and buffer model.
+pub struct StagePlanTimeline {
+    pub node: som::SomNode,
+}
+
+impl StagePlanTimeline {
+    /// Binds a StagePlanTimeline facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanTimeline {
+        StagePlanTimeline { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> StagePlanTimelineContentForm {
+        StagePlanTimelineContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Quality and governance for a stage entry.
 pub struct StageQuality {
     pub node: som::SomNode,
@@ -61430,8 +61539,8 @@ impl StakeholdersAndGovernance {
 
     /// Legal and contractual requirements (IP, NDAs, compliance, audit).
     /// Renamed to `LegalAndContractualRequirements` in L34C-9.
-    pub fn legal_and_contractual(&self) -> OtherAdministrativeRequirements {
-        OtherAdministrativeRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "legalAndContractual"))
+    pub fn legal_and_contractual(&self) -> LegalAndContractualRequirements {
+        LegalAndContractualRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "legalAndContractual"))
     }
 
     /// Stakeholder register (§5 completeness addition).
@@ -62665,6 +62774,38 @@ impl SystemBusinessUnitEntry {
     }
 }
 
+/// System classification.
+pub struct SystemClassification {
+    pub node: som::SomNode,
+}
+
+impl SystemClassification {
+    /// Binds a SystemClassification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemClassification {
+        SystemClassification { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SystemClassificationContentForm {
+        SystemClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Complexity indicators.
+pub struct SystemComplexity {
+    pub node: som::SomNode,
+}
+
+impl SystemComplexity {
+    /// Binds a SystemComplexity facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemComplexity {
+        SystemComplexity { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SystemComplexityContentForm {
+        SystemComplexityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// System configuration management.
 pub struct SystemConfigurationManagement {
     pub node: som::SomNode,
@@ -63127,9 +63268,9 @@ impl SystemDescription {
         SystemContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemContext"))
     }
 
-    /// 4.1.3. Description of Task Area.
-    pub fn task_area(&self) -> TaskArea {
-        TaskArea::new(self.node.doc(), format!("{}/{}", self.node.path(), "taskArea"))
+    /// 4.1.3. Description of Business Domain.
+    pub fn business_domain(&self) -> BusinessDomain {
+        BusinessDomain::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessDomain"))
     }
 
     /// 4.1.4. User Categories — contains 1+× User Category.
@@ -63831,106 +63972,6 @@ impl SystemOperationAndMonitoring {
     }
 }
 
-/// System overview summary for quick reference.
-pub struct SystemOverviewSummary {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummary {
-    /// Binds a SystemOverviewSummary facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummary {
-        SystemOverviewSummary { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemOverviewSummaryContentForm {
-        SystemOverviewSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-
-    /// System classification.
-    pub fn classification(&self) -> SystemOverviewSummaryClassification {
-        SystemOverviewSummaryClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
-    }
-
-    /// Scale indicators.
-    pub fn scale(&self) -> SystemOverviewSummaryScale {
-        SystemOverviewSummaryScale::new(self.node.doc(), format!("{}/{}", self.node.path(), "scale"))
-    }
-
-    /// Specification status.
-    pub fn status(&self) -> SystemOverviewSummaryStatus {
-        SystemOverviewSummaryStatus::new(self.node.doc(), format!("{}/{}", self.node.path(), "status"))
-    }
-
-    /// Complexity indicators.
-    pub fn complexity(&self) -> SystemOverviewSummaryComplexity {
-        SystemOverviewSummaryComplexity::new(self.node.doc(), format!("{}/{}", self.node.path(), "complexity"))
-    }
-}
-
-/// System classification.
-pub struct SystemOverviewSummaryClassification {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryClassification {
-    /// Binds a SystemOverviewSummaryClassification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryClassification {
-        SystemOverviewSummaryClassification { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemOverviewSummaryClassificationContentForm {
-        SystemOverviewSummaryClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Complexity indicators.
-pub struct SystemOverviewSummaryComplexity {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryComplexity {
-    /// Binds a SystemOverviewSummaryComplexity facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryComplexity {
-        SystemOverviewSummaryComplexity { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemOverviewSummaryComplexityContentForm {
-        SystemOverviewSummaryComplexityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Scale indicators.
-pub struct SystemOverviewSummaryScale {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryScale {
-    /// Binds a SystemOverviewSummaryScale facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryScale {
-        SystemOverviewSummaryScale { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemOverviewSummaryScaleContentForm {
-        SystemOverviewSummaryScaleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Specification status.
-pub struct SystemOverviewSummaryStatus {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryStatus {
-    /// Binds a SystemOverviewSummaryStatus facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryStatus {
-        SystemOverviewSummaryStatus { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemOverviewSummaryStatusContentForm {
-        SystemOverviewSummaryStatusContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
 /// 4.1.1. System Purpose.
 ///
 /// Describes the overarching purpose of the system including the problem it
@@ -64206,14 +64247,14 @@ impl SystemReplacementStrategyTimeline {
 }
 
 /// 15. System Rollout Concept. Seeds → TRP.
-pub struct SystemRolloutConcept {
+pub struct SystemRollout {
     pub node: som::SomNode,
 }
 
-impl SystemRolloutConcept {
-    /// Binds a SystemRolloutConcept facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemRolloutConcept {
-        SystemRolloutConcept { node: som::SomNode::new(doc, path) }
+impl SystemRollout {
+    /// Binds a SystemRollout facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemRollout {
+        SystemRollout { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -64236,20 +64277,20 @@ impl SystemRolloutConcept {
     }
 
     /// 15.3. User Manuals.
-    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
+    pub fn user_manuals(&self) -> som::SomList<UserManual> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManuals::new(d, p)),
+            Box::new(|d, p| UserManual::new(d, p)),
         )
     }
 
     /// 15.4. Training Materials.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
+    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterial> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
+            Box::new(|d, p| RolloutTrainingMaterial::new(d, p)),
         )
     }
 
@@ -64259,11 +64300,11 @@ impl SystemRolloutConcept {
     }
 
     /// 15.6. Cutover Procedures.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
+    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedure> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedures::new(d, p)),
+            Box::new(|d, p| CutoverProcedure::new(d, p)),
         )
     }
 
@@ -64275,6 +64316,22 @@ impl SystemRolloutConcept {
     /// 15.8. Warranty and Support.
     pub fn warranty_and_support(&self) -> WarrantyAndSupport {
         WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
+    }
+}
+
+/// Scale indicators.
+pub struct SystemScale {
+    pub node: som::SomNode,
+}
+
+impl SystemScale {
+    /// Binds a SystemScale facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemScale {
+        SystemScale { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SystemScaleContentForm {
+        SystemScaleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -64301,18 +64358,18 @@ impl SystemStagePlan {
     }
 
     /// Overall schedule and buffer model.
-    pub fn timeline(&self) -> SystemStagePlanTimeline {
-        SystemStagePlanTimeline::new(self.node.doc(), format!("{}/{}", self.node.path(), "timeline"))
+    pub fn timeline(&self) -> StagePlanTimeline {
+        StagePlanTimeline::new(self.node.doc(), format!("{}/{}", self.node.path(), "timeline"))
     }
 
     /// Dependencies, risks, and compliance constraints across stages.
-    pub fn coordination(&self) -> SystemStagePlanCoordination {
-        SystemStagePlanCoordination::new(self.node.doc(), format!("{}/{}", self.node.path(), "coordination"))
+    pub fn coordination(&self) -> StagePlanCoordination {
+        StagePlanCoordination::new(self.node.doc(), format!("{}/{}", self.node.path(), "coordination"))
     }
 
     /// Organizational capacity and plan confidence.
-    pub fn readiness(&self) -> SystemStagePlanReadiness {
-        SystemStagePlanReadiness::new(self.node.doc(), format!("{}/{}", self.node.path(), "readiness"))
+    pub fn readiness(&self) -> StagePlanReadiness {
+        StagePlanReadiness::new(self.node.doc(), format!("{}/{}", self.node.path(), "readiness"))
     }
 
     /// 13.1. Staging Strategy.
@@ -64360,51 +64417,39 @@ impl SystemStagePlan {
     }
 }
 
-/// Dependencies, risks, and compliance constraints across stages.
-pub struct SystemStagePlanCoordination {
+/// System overview summary for quick reference.
+pub struct SystemSummary {
     pub node: som::SomNode,
 }
 
-impl SystemStagePlanCoordination {
-    /// Binds a SystemStagePlanCoordination facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanCoordination {
-        SystemStagePlanCoordination { node: som::SomNode::new(doc, path) }
+impl SystemSummary {
+    /// Binds a SystemSummary facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemSummary {
+        SystemSummary { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> SystemStagePlanCoordinationContentForm {
-        SystemStagePlanCoordinationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Organizational capacity and plan confidence.
-pub struct SystemStagePlanReadiness {
-    pub node: som::SomNode,
-}
-
-impl SystemStagePlanReadiness {
-    /// Binds a SystemStagePlanReadiness facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanReadiness {
-        SystemStagePlanReadiness { node: som::SomNode::new(doc, path) }
+    pub fn content(&self) -> SystemSummaryContentForm {
+        SystemSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    pub fn content(&self) -> SystemStagePlanReadinessContentForm {
-        SystemStagePlanReadinessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Overall schedule and buffer model.
-pub struct SystemStagePlanTimeline {
-    pub node: som::SomNode,
-}
-
-impl SystemStagePlanTimeline {
-    /// Binds a SystemStagePlanTimeline facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanTimeline {
-        SystemStagePlanTimeline { node: som::SomNode::new(doc, path) }
+    /// System classification.
+    pub fn classification(&self) -> SystemClassification {
+        SystemClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
     }
 
-    pub fn content(&self) -> SystemStagePlanTimelineContentForm {
-        SystemStagePlanTimelineContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    /// Scale indicators.
+    pub fn scale(&self) -> SystemScale {
+        SystemScale::new(self.node.doc(), format!("{}/{}", self.node.path(), "scale"))
+    }
+
+    /// Specification status.
+    pub fn status(&self) -> SpecificationStatus {
+        SpecificationStatus::new(self.node.doc(), format!("{}/{}", self.node.path(), "status"))
+    }
+
+    /// Complexity indicators.
+    pub fn complexity(&self) -> SystemComplexity {
+        SystemComplexity::new(self.node.doc(), format!("{}/{}", self.node.path(), "complexity"))
     }
 }
 
@@ -65063,14 +65108,14 @@ impl TargetBusinessProcessModel {
 /// SBP.7 Target Operating Model concept.
 ///
 /// Public anchor: BABOK future-state analysis.
-pub struct TargetOperatingModelConcept {
+pub struct TargetOperatingModel {
     pub node: som::SomNode,
 }
 
-impl TargetOperatingModelConcept {
-    /// Binds a TargetOperatingModelConcept facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TargetOperatingModelConcept {
-        TargetOperatingModelConcept { node: som::SomNode::new(doc, path) }
+impl TargetOperatingModel {
+    /// Binds a TargetOperatingModel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TargetOperatingModel {
+        TargetOperatingModel { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -65190,67 +65235,6 @@ impl TargetPlatformEntryVersion {
 
     pub fn content(&self) -> TargetPlatformEntryVersionContentForm {
         TargetPlatformEntryVersionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// 4.1.3. Description of Task Area.
-///
-/// Describes the business domain and task area the system addresses.
-/// Defines the domain vocabulary and key concepts (ubiquitous language)
-/// that will be used throughout the project. Based on Domain-Driven Design
-/// principles for establishing a shared understanding.
-pub struct TaskArea {
-    pub node: som::SomNode,
-}
-
-impl TaskArea {
-    /// Binds a TaskArea facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TaskArea {
-        TaskArea { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 4.1.3.1. Domain Overview.
-    pub fn domain_overview(&self) -> DomainOverview {
-        DomainOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainOverview"))
-    }
-
-    /// 4.1.3.2. Domain Vocabulary.
-    pub fn domain_vocabulary(&self) -> DomainVocabulary {
-        DomainVocabulary::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainVocabulary"))
-    }
-
-    /// 4.1.3.3. Key Concepts.
-    pub fn key_concepts(&self) -> KeyConcepts {
-        KeyConcepts::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyConcepts"))
-    }
-
-    /// 4.1.3.4. Domain Boundaries.
-    pub fn domain_boundaries(&self) -> DomainBoundaries {
-        DomainBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainBoundaries"))
-    }
-
-    /// 4.1.3.5. Business Rules.
-    pub fn business_rules(&self) -> DomainBusinessRules {
-        DomainBusinessRules::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessRules"))
-    }
-
-    /// 4.1.3.6. Domain Processes.
-    pub fn domain_processes(&self) -> DomainProcesses {
-        DomainProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainProcesses"))
-    }
-
-    /// 4.1.3.7. Domain Events.
-    pub fn domain_events(&self) -> DomainEvents {
-        DomainEvents::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEvents"))
     }
 }
 
@@ -65495,6 +65479,172 @@ impl TechnicalDependencyEntry {
     }
 }
 
+/// 4.6.3. Technical Environment. Seeds → ATS.
+///
+/// Documents pre-existing technical constraints including mandated platforms,
+/// network restrictions, compliance requirements, existing infrastructure
+/// that must be reused, and technology standards to follow. Provides the
+/// technical landscape in which the solution must operate. Seeds the detailed
+/// Architecture & Technology Specification (ATS) document.
+pub struct TechnicalEnvironment {
+    pub node: som::SomNode,
+}
+
+impl TechnicalEnvironment {
+    /// Binds a TechnicalEnvironment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironment {
+        TechnicalEnvironment { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn technical_overview_content(&self) -> TechnicalEnvironmentTechnicalOverviewContentForm {
+        TechnicalEnvironmentTechnicalOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalOverviewContent"))
+    }
+
+    /// Architecture governance context.
+    pub fn governance(&self) -> TechnicalEnvironmentGovernance {
+        TechnicalEnvironmentGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
+    }
+
+    /// Platform standards and preferred technologies.
+    pub fn standards(&self) -> TechnicalEnvironmentStandards {
+        TechnicalEnvironmentStandards::new(self.node.doc(), format!("{}/{}", self.node.path(), "standards"))
+    }
+
+    /// Security and compliance requirements.
+    pub fn security(&self) -> TechnicalEnvironmentSecurity {
+        TechnicalEnvironmentSecurity::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
+    }
+
+    /// Network and infrastructure standards.
+    pub fn network(&self) -> TechnicalEnvironmentNetwork {
+        TechnicalEnvironmentNetwork::new(self.node.doc(), format!("{}/{}", self.node.path(), "network"))
+    }
+
+    // Existing infrastructure that must be reused or integrated with.
+    // (skipped: existingInfrastructure has no target type)
+
+    /// Data center and hosting environment details.
+    pub fn datacenters(&self) -> som::SomList<DatacenterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DATAC-DATA-LST"),
+            Box::new(|d, p| DatacenterEntry::new(d, p)),
+        )
+    }
+
+    // Network topology and connectivity constraints.
+    // (skipped: networkTopology has no target type)
+
+    // Technology standards that must be followed.
+    // (skipped: standardsOverview has no target type)
+
+    /// Technology standards — contains 0+× TechnologyStandard.
+    pub fn technology_standards(&self) -> som::SomList<TechnologyStandardEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "TESTEN-TECH-LST"),
+            Box::new(|d, p| TechnologyStandardEntry::new(d, p)),
+        )
+    }
+
+    // Integration constraints overview.
+    // (skipped: integrationOverview has no target type)
+
+    /// Integration constraints — contains 0+× IntegrationConstraint.
+    pub fn integration_constraints(&self) -> som::SomList<IntegrationConstraintEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "INCOE1-INTE-LST"),
+            Box::new(|d, p| IntegrationConstraintEntry::new(d, p)),
+        )
+    }
+}
+
+/// Architecture governance context.
+pub struct TechnicalEnvironmentGovernance {
+    pub node: som::SomNode,
+}
+
+impl TechnicalEnvironmentGovernance {
+    /// Binds a TechnicalEnvironmentGovernance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentGovernance {
+        TechnicalEnvironmentGovernance { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TechnicalEnvironmentGovernanceContentForm {
+        TechnicalEnvironmentGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Network and infrastructure standards.
+pub struct TechnicalEnvironmentNetwork {
+    pub node: som::SomNode,
+}
+
+impl TechnicalEnvironmentNetwork {
+    /// Binds a TechnicalEnvironmentNetwork facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentNetwork {
+        TechnicalEnvironmentNetwork { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TechnicalEnvironmentNetworkContentForm {
+        TechnicalEnvironmentNetworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// DevOps and deployment standards.
+    pub fn devops_standards(&self) -> som::SomList<DevopsStandardEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DEVOP-DEVO-LST"),
+            Box::new(|d, p| DevopsStandardEntry::new(d, p)),
+        )
+    }
+
+    /// Monitoring and observability requirements.
+    pub fn observability_requirements(&self) -> som::SomList<ObservabilityRequirementEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "OBSER-OBSE-LST"),
+            Box::new(|d, p| ObservabilityRequirementEntry::new(d, p)),
+        )
+    }
+
+    // Disaster recovery and business continuity requirements.
+    // (skipped: disasterRecovery has no target type)
+}
+
+/// Security and compliance requirements.
+pub struct TechnicalEnvironmentSecurity {
+    pub node: som::SomNode,
+}
+
+impl TechnicalEnvironmentSecurity {
+    /// Binds a TechnicalEnvironmentSecurity facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentSecurity {
+        TechnicalEnvironmentSecurity { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TechnicalEnvironmentSecurityContentForm {
+        TechnicalEnvironmentSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Platform standards and preferred technologies.
+pub struct TechnicalEnvironmentStandards {
+    pub node: som::SomNode,
+}
+
+impl TechnicalEnvironmentStandards {
+    /// Binds a TechnicalEnvironmentStandards facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentStandards {
+        TechnicalEnvironmentStandards { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TechnicalEnvironmentStandardsContentForm {
+        TechnicalEnvironmentStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 8. Technical Framework Concept. Seeds → ATS.
 pub struct TechnicalFrameworkConcept {
     pub node: som::SomNode,
@@ -65558,172 +65708,6 @@ impl TechnicalFrameworkConcept {
     /// 8.9. System Architecture..
     pub fn system_architecture(&self) -> SystemArchitectureSpec {
         SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
-    }
-}
-
-/// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-///
-/// Documents pre-existing technical constraints including mandated platforms,
-/// network restrictions, compliance requirements, existing infrastructure
-/// that must be reused, and technology standards to follow. Provides the
-/// technical landscape in which the solution must operate. Seeds the detailed
-/// Architecture & Technology Specification (ATS) document.
-pub struct TechnicalFrameworkConditions {
-    pub node: som::SomNode,
-}
-
-impl TechnicalFrameworkConditions {
-    /// Binds a TechnicalFrameworkConditions facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditions {
-        TechnicalFrameworkConditions { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn technical_overview_content(&self) -> TechnicalFrameworkConditionsTechnicalOverviewContentForm {
-        TechnicalFrameworkConditionsTechnicalOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalOverviewContent"))
-    }
-
-    /// Architecture governance context.
-    pub fn governance(&self) -> TechnicalFrameworkConditionsGovernance {
-        TechnicalFrameworkConditionsGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
-    }
-
-    /// Platform standards and preferred technologies.
-    pub fn standards(&self) -> TechnicalFrameworkConditionsStandards {
-        TechnicalFrameworkConditionsStandards::new(self.node.doc(), format!("{}/{}", self.node.path(), "standards"))
-    }
-
-    /// Security and compliance requirements.
-    pub fn security(&self) -> TechnicalFrameworkConditionsSecurity {
-        TechnicalFrameworkConditionsSecurity::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
-    }
-
-    /// Network and infrastructure standards.
-    pub fn network(&self) -> TechnicalFrameworkConditionsNetwork {
-        TechnicalFrameworkConditionsNetwork::new(self.node.doc(), format!("{}/{}", self.node.path(), "network"))
-    }
-
-    // Existing infrastructure that must be reused or integrated with.
-    // (skipped: existingInfrastructure has no target type)
-
-    /// Data center and hosting environment details.
-    pub fn datacenters(&self) -> som::SomList<DatacenterEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DATAC-DATA-LST"),
-            Box::new(|d, p| DatacenterEntry::new(d, p)),
-        )
-    }
-
-    // Network topology and connectivity constraints.
-    // (skipped: networkTopology has no target type)
-
-    // Technology standards that must be followed.
-    // (skipped: standardsOverview has no target type)
-
-    /// Technology standards — contains 0+× TechnologyStandard.
-    pub fn technology_standards(&self) -> som::SomList<TechnologyStandardEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "TESTEN-TECH-LST"),
-            Box::new(|d, p| TechnologyStandardEntry::new(d, p)),
-        )
-    }
-
-    // Integration constraints overview.
-    // (skipped: integrationOverview has no target type)
-
-    /// Integration constraints — contains 0+× IntegrationConstraint.
-    pub fn integration_constraints(&self) -> som::SomList<IntegrationConstraintEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "INCOE1-INTE-LST"),
-            Box::new(|d, p| IntegrationConstraintEntry::new(d, p)),
-        )
-    }
-}
-
-/// Architecture governance context.
-pub struct TechnicalFrameworkConditionsGovernance {
-    pub node: som::SomNode,
-}
-
-impl TechnicalFrameworkConditionsGovernance {
-    /// Binds a TechnicalFrameworkConditionsGovernance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsGovernance {
-        TechnicalFrameworkConditionsGovernance { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TechnicalFrameworkConditionsGovernanceContentForm {
-        TechnicalFrameworkConditionsGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Network and infrastructure standards.
-pub struct TechnicalFrameworkConditionsNetwork {
-    pub node: som::SomNode,
-}
-
-impl TechnicalFrameworkConditionsNetwork {
-    /// Binds a TechnicalFrameworkConditionsNetwork facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsNetwork {
-        TechnicalFrameworkConditionsNetwork { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TechnicalFrameworkConditionsNetworkContentForm {
-        TechnicalFrameworkConditionsNetworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-
-    /// DevOps and deployment standards.
-    pub fn devops_standards(&self) -> som::SomList<DevopsStandardEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DEVOP-DEVO-LST"),
-            Box::new(|d, p| DevopsStandardEntry::new(d, p)),
-        )
-    }
-
-    /// Monitoring and observability requirements.
-    pub fn observability_requirements(&self) -> som::SomList<ObservabilityRequirementEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "OBSER-OBSE-LST"),
-            Box::new(|d, p| ObservabilityRequirementEntry::new(d, p)),
-        )
-    }
-
-    // Disaster recovery and business continuity requirements.
-    // (skipped: disasterRecovery has no target type)
-}
-
-/// Security and compliance requirements.
-pub struct TechnicalFrameworkConditionsSecurity {
-    pub node: som::SomNode,
-}
-
-impl TechnicalFrameworkConditionsSecurity {
-    /// Binds a TechnicalFrameworkConditionsSecurity facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsSecurity {
-        TechnicalFrameworkConditionsSecurity { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TechnicalFrameworkConditionsSecurityContentForm {
-        TechnicalFrameworkConditionsSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Platform standards and preferred technologies.
-pub struct TechnicalFrameworkConditionsStandards {
-    pub node: som::SomNode,
-}
-
-impl TechnicalFrameworkConditionsStandards {
-    /// Binds a TechnicalFrameworkConditionsStandards facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsStandards {
-        TechnicalFrameworkConditionsStandards { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TechnicalFrameworkConditionsStandardsContentForm {
-        TechnicalFrameworkConditionsStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -68188,7 +68172,7 @@ impl TrainingAssessmentReporting {
 /// half in L34C-7 (SR-29). Logically re-homed under SBP.9
 /// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 /// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 /// content in one D12 subsection rather than fragmenting it across a new id.
 pub struct TrainingDeliverableRequirements {
     pub node: som::SomNode,
@@ -69124,6 +69108,22 @@ impl TransitionSupportStructure {
     }
 }
 
+/// Ongoing localization operations.
+pub struct TranslationOngoing {
+    pub node: som::SomNode,
+}
+
+impl TranslationOngoing {
+    /// Binds a TranslationOngoing facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationOngoing {
+        TranslationOngoing { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TranslationOngoingContentForm {
+        TranslationOngoingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 10.12.2. Translation Process.
 ///
 /// Workflow for translating content.
@@ -69142,23 +69142,23 @@ impl TranslationProcess {
     }
 
     /// Translation workflow.
-    pub fn workflow(&self) -> TranslationProcessWorkflow {
-        TranslationProcessWorkflow::new(self.node.doc(), format!("{}/{}", self.node.path(), "workflow"))
+    pub fn workflow(&self) -> TranslationWorkflow {
+        TranslationWorkflow::new(self.node.doc(), format!("{}/{}", self.node.path(), "workflow"))
     }
 
     /// Quality assurance.
-    pub fn quality(&self) -> TranslationProcessQuality {
-        TranslationProcessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "quality"))
+    pub fn quality(&self) -> TranslationQuality {
+        TranslationQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "quality"))
     }
 
     /// Terminology and voice management.
-    pub fn terminology(&self) -> TranslationProcessTerminology {
-        TranslationProcessTerminology::new(self.node.doc(), format!("{}/{}", self.node.path(), "terminology"))
+    pub fn terminology(&self) -> TranslationTerminology {
+        TranslationTerminology::new(self.node.doc(), format!("{}/{}", self.node.path(), "terminology"))
     }
 
     /// Ongoing localization operations.
-    pub fn ongoing(&self) -> TranslationProcessOngoing {
-        TranslationProcessOngoing::new(self.node.doc(), format!("{}/{}", self.node.path(), "ongoing"))
+    pub fn ongoing(&self) -> TranslationOngoing {
+        TranslationOngoing::new(self.node.doc(), format!("{}/{}", self.node.path(), "ongoing"))
     }
 
     // Translation process narrative.
@@ -69174,67 +69174,19 @@ impl TranslationProcess {
     }
 }
 
-/// Ongoing localization operations.
-pub struct TranslationProcessOngoing {
-    pub node: som::SomNode,
-}
-
-impl TranslationProcessOngoing {
-    /// Binds a TranslationProcessOngoing facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessOngoing {
-        TranslationProcessOngoing { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TranslationProcessOngoingContentForm {
-        TranslationProcessOngoingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
 /// Quality assurance.
-pub struct TranslationProcessQuality {
+pub struct TranslationQuality {
     pub node: som::SomNode,
 }
 
-impl TranslationProcessQuality {
-    /// Binds a TranslationProcessQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessQuality {
-        TranslationProcessQuality { node: som::SomNode::new(doc, path) }
+impl TranslationQuality {
+    /// Binds a TranslationQuality facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationQuality {
+        TranslationQuality { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> TranslationProcessQualityContentForm {
-        TranslationProcessQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Terminology and voice management.
-pub struct TranslationProcessTerminology {
-    pub node: som::SomNode,
-}
-
-impl TranslationProcessTerminology {
-    /// Binds a TranslationProcessTerminology facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessTerminology {
-        TranslationProcessTerminology { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TranslationProcessTerminologyContentForm {
-        TranslationProcessTerminologyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Translation workflow.
-pub struct TranslationProcessWorkflow {
-    pub node: som::SomNode,
-}
-
-impl TranslationProcessWorkflow {
-    /// Binds a TranslationProcessWorkflow facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessWorkflow {
-        TranslationProcessWorkflow { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> TranslationProcessWorkflowContentForm {
-        TranslationProcessWorkflowContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> TranslationQualityContentForm {
+        TranslationQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -69343,6 +69295,22 @@ impl TranslationRequirementsVariants {
     }
 }
 
+/// Terminology and voice management.
+pub struct TranslationTerminology {
+    pub node: som::SomNode,
+}
+
+impl TranslationTerminology {
+    /// Binds a TranslationTerminology facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationTerminology {
+        TranslationTerminology { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TranslationTerminologyContentForm {
+        TranslationTerminologyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A translation vendor entry.
 pub struct TranslationVendorEntry {
     pub node: som::SomNode,
@@ -69356,6 +69324,22 @@ impl TranslationVendorEntry {
 
     pub fn content(&self) -> TranslationVendorEntryContentForm {
         TranslationVendorEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Translation workflow.
+pub struct TranslationWorkflow {
+    pub node: som::SomNode,
+}
+
+impl TranslationWorkflow {
+    /// Binds a TranslationWorkflow facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationWorkflow {
+        TranslationWorkflow { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> TranslationWorkflowContentForm {
+        TranslationWorkflowContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -70111,18 +70095,18 @@ impl UiComponents {
     }
 
     /// Visual language and brand alignment.
-    pub fn visual_language(&self) -> UiComponentsVisualLanguage {
-        UiComponentsVisualLanguage::new(self.node.doc(), format!("{}/{}", self.node.path(), "visualLanguage"))
+    pub fn visual_language(&self) -> ComponentVisualLanguage {
+        ComponentVisualLanguage::new(self.node.doc(), format!("{}/{}", self.node.path(), "visualLanguage"))
     }
 
     /// Component naming and documentation approach.
-    pub fn component_approach(&self) -> UiComponentsComponentApproach {
-        UiComponentsComponentApproach::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentApproach"))
+    pub fn component_approach(&self) -> ComponentApproach {
+        ComponentApproach::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentApproach"))
     }
 
     /// Extension and theming boundaries.
-    pub fn customization(&self) -> UiComponentsCustomization {
-        UiComponentsCustomization::new(self.node.doc(), format!("{}/{}", self.node.path(), "customization"))
+    pub fn customization(&self) -> ComponentCustomization {
+        ComponentCustomization::new(self.node.doc(), format!("{}/{}", self.node.path(), "customization"))
     }
 
     /// 10.11.1. Component Library.
@@ -70146,72 +70130,6 @@ impl UiComponents {
             format!("{}/{}", self.node.path(), "CMFA-COMP-LST"),
             Box::new(|d, p| ComponentFamilyEntry::new(d, p)),
         )
-    }
-}
-
-/// Component naming and documentation approach.
-pub struct UiComponentsComponentApproach {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsComponentApproach {
-    /// Binds a UiComponentsComponentApproach facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsComponentApproach {
-        UiComponentsComponentApproach { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> UiComponentsComponentApproachContentForm {
-        UiComponentsComponentApproachContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Extension and theming boundaries.
-pub struct UiComponentsCustomization {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsCustomization {
-    /// Binds a UiComponentsCustomization facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsCustomization {
-        UiComponentsCustomization { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> UiComponentsCustomizationContentForm {
-        UiComponentsCustomizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Visual language and brand alignment.
-pub struct UiComponentsVisualLanguage {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsVisualLanguage {
-    /// Binds a UiComponentsVisualLanguage facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsVisualLanguage {
-        UiComponentsVisualLanguage { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> UiComponentsVisualLanguageContentForm {
-        UiComponentsVisualLanguageContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// A design principle entry (form).
-///
-/// Each principle guides UI decisions with rationale and examples.
-pub struct UiDesignPrincipleEntry {
-    pub node: som::SomNode,
-}
-
-impl UiDesignPrincipleEntry {
-    /// Binds a UiDesignPrincipleEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiDesignPrincipleEntry {
-        UiDesignPrincipleEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> UiDesignPrincipleEntryContentForm {
-        UiDesignPrincipleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -70656,6 +70574,88 @@ impl UserAccountStatesDefinition {
 
     // State Transition Diagram (mermaid).
     // (skipped: stateTransitionDiagram has no target type)
+}
+
+/// 10.8. User Assistance.
+///
+/// Comprehensive in-app help system including contextual help, onboarding,
+/// and support access mechanisms.
+pub struct UserAssistance {
+    pub node: som::SomNode,
+}
+
+impl UserAssistance {
+    /// Binds a UserAssistance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistance {
+        UserAssistance { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn help_overview_content(&self) -> UserAssistanceHelpOverviewContentForm {
+        UserAssistanceHelpOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpOverviewContent"))
+    }
+
+    /// Content stewardship and help affordances.
+    pub fn delivery(&self) -> UserAssistanceDelivery {
+        UserAssistanceDelivery::new(self.node.doc(), format!("{}/{}", self.node.path(), "delivery"))
+    }
+
+    /// Analytics and improvement feedback.
+    pub fn insights(&self) -> UserAssistanceInsights {
+        UserAssistanceInsights::new(self.node.doc(), format!("{}/{}", self.node.path(), "insights"))
+    }
+
+    // Help system overview narrative.
+    // (skipped: helpOverview has no target type)
+
+    /// 10.8.1. Contextual Help.
+    pub fn contextual_help(&self) -> ContextualHelp {
+        ContextualHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextualHelp"))
+    }
+
+    /// 10.8.2. Onboarding.
+    pub fn onboarding(&self) -> OnboardingHelp {
+        OnboardingHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "onboarding"))
+    }
+
+    /// 10.8.3. Support Access.
+    pub fn support_access(&self) -> SupportAccess {
+        SupportAccess::new(self.node.doc(), format!("{}/{}", self.node.path(), "supportAccess"))
+    }
+
+    // Help content inventory.
+    // (skipped: helpContentInventory has no target type)
+}
+
+/// Content stewardship and help affordances.
+pub struct UserAssistanceDelivery {
+    pub node: som::SomNode,
+}
+
+impl UserAssistanceDelivery {
+    /// Binds a UserAssistanceDelivery facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistanceDelivery {
+        UserAssistanceDelivery { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> UserAssistanceDeliveryContentForm {
+        UserAssistanceDeliveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Analytics and improvement feedback.
+pub struct UserAssistanceInsights {
+    pub node: som::SomNode,
+}
+
+impl UserAssistanceInsights {
+    /// Binds a UserAssistanceInsights facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistanceInsights {
+        UserAssistanceInsights { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> UserAssistanceInsightsContentForm {
+        UserAssistanceInsightsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
 }
 
 /// A user attribute entry (form).
@@ -71221,14 +71221,14 @@ impl UserJourneyPainPointEntry {
 /// Defines the complete user account lifecycle: states, transitions between
 /// states, approval requirements for each transition, and operational policies
 /// for registration, activation, modification, deactivation, and deletion.
-pub struct UserLifecycleSection {
+pub struct UserLifecycle {
     pub node: som::SomNode,
 }
 
-impl UserLifecycleSection {
-    /// Binds a UserLifecycleSection facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserLifecycleSection {
-        UserLifecycleSection { node: som::SomNode::new(doc, path) }
+impl UserLifecycle {
+    /// Binds a UserLifecycle facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserLifecycle {
+        UserLifecycle { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -71440,8 +71440,8 @@ impl UserManagement {
     }
 
     /// 9.1.2. User Lifecycle.
-    pub fn user_lifecycle(&self) -> UserLifecycleSection {
-        UserLifecycleSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "userLifecycle"))
+    pub fn user_lifecycle(&self) -> UserLifecycle {
+        UserLifecycle::new(self.node.doc(), format!("{}/{}", self.node.path(), "userLifecycle"))
     }
 
     /// 9.1.3. User Attributes.
@@ -71453,14 +71453,14 @@ impl UserManagement {
 /// 15.3. User Manuals.
 ///
 /// End-user documentation deliverables covering user-manual content.
-pub struct UserManuals {
+pub struct UserManual {
     pub node: som::SomNode,
 }
 
-impl UserManuals {
-    /// Binds a UserManuals facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserManuals {
-        UserManuals { node: som::SomNode::new(doc, path) }
+impl UserManual {
+    /// Binds a UserManual facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserManual {
+        UserManual { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -92909,6 +92909,45 @@ impl ComponentActionEntryGovernanceContentForm {
     }
 }
 
+/// ComponentApproachContentForm is the generated form facade for the `content` @Form section.
+pub struct ComponentApproachContentForm {
+    pub node: som::SomNode,
+}
+
+impl ComponentApproachContentForm {
+    /// Binds a ComponentApproachContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentApproachContentForm {
+        ComponentApproachContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn component_granularity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "componentGranularity")
+    }
+
+    pub fn set_component_granularity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "componentGranularity", value);
+    }
+
+    pub fn component_naming(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "componentNaming")
+    }
+
+    pub fn set_component_naming(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "componentNaming", value);
+    }
+
+    pub fn component_documentation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "componentDocumentation")
+    }
+
+    pub fn set_component_documentation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "componentDocumentation", value);
+    }
+}
+
 /// ComponentComplianceContentForm is the generated form facade for the `content` @Form section.
 pub struct ComponentComplianceContentForm {
     pub node: som::SomNode,
@@ -92966,6 +93005,45 @@ impl ComponentCostContentForm {
     pub fn set_total_cost_ongoing(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "totalCostOngoing", value);
+    }
+}
+
+/// ComponentCustomizationContentForm is the generated form facade for the `content` @Form section.
+pub struct ComponentCustomizationContentForm {
+    pub node: som::SomNode,
+}
+
+impl ComponentCustomizationContentForm {
+    /// Binds a ComponentCustomizationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentCustomizationContentForm {
+        ComponentCustomizationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn extension_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "extensionModel")
+    }
+
+    pub fn set_extension_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "extensionModel", value);
+    }
+
+    pub fn theming_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "themingApproach")
+    }
+
+    pub fn set_theming_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "themingApproach", value);
+    }
+
+    pub fn customization_boundaries(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "customizationBoundaries")
+    }
+
+    pub fn set_customization_boundaries(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "customizationBoundaries", value);
     }
 }
 
@@ -95912,6 +95990,45 @@ impl ComponentVendorContentForm {
     pub fn set_vendor_stability(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "vendorStability", value);
+    }
+}
+
+/// ComponentVisualLanguageContentForm is the generated form facade for the `content` @Form section.
+pub struct ComponentVisualLanguageContentForm {
+    pub node: som::SomNode,
+}
+
+impl ComponentVisualLanguageContentForm {
+    /// Binds a ComponentVisualLanguageContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ComponentVisualLanguageContentForm {
+        ComponentVisualLanguageContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn visual_language(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "visualLanguage")
+    }
+
+    pub fn set_visual_language(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "visualLanguage", value);
+    }
+
+    pub fn brand_alignment(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "brandAlignment")
+    }
+
+    pub fn set_brand_alignment(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "brandAlignment", value);
+    }
+
+    pub fn motion_principles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "motionPrinciples")
+    }
+
+    pub fn set_motion_principles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "motionPrinciples", value);
     }
 }
 
@@ -108500,6 +108617,90 @@ impl DesignPatternEntryStructureContentForm {
     }
 }
 
+/// DesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct DesignPrincipleEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl DesignPrincipleEntryContentForm {
+    /// Binds a DesignPrincipleEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DesignPrincipleEntryContentForm {
+        DesignPrincipleEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn principle_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "principleName")
+    }
+
+    pub fn set_principle_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "principleName", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn rationale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rationale")
+    }
+
+    pub fn set_rationale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rationale", value);
+    }
+
+    pub fn category(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "category")
+    }
+
+    pub fn set_category(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "category", value);
+    }
+
+    pub fn examples(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "examples")
+    }
+
+    pub fn set_examples(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "examples", value);
+    }
+
+    pub fn exceptions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "exceptions")
+    }
+
+    pub fn set_exceptions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "exceptions", value);
+    }
+
+    pub fn source_reference(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sourceReference")
+    }
+
+    pub fn set_source_reference(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sourceReference", value);
+    }
+
+    pub fn related_goals(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "relatedGoals")
+    }
+
+    pub fn set_related_goals(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "relatedGoals", value);
+    }
+}
+
 /// DesignPrinciplesOverviewContentForm is the generated form facade for the `content` @Form section.
 pub struct DesignPrinciplesOverviewContentForm {
     pub node: som::SomNode,
@@ -115370,15 +115571,15 @@ impl ErrorBudgetTrackingMonitoringContentForm {
     }
 }
 
-/// ErrorHandlingConceptAccessibilityContentForm is the generated form facade for the `content` @Form section.
-pub struct ErrorHandlingConceptAccessibilityContentForm {
+/// ErrorHandlingAccessibilityContentForm is the generated form facade for the `content` @Form section.
+pub struct ErrorHandlingAccessibilityContentForm {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptAccessibilityContentForm {
-    /// Binds a ErrorHandlingConceptAccessibilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptAccessibilityContentForm {
-        ErrorHandlingConceptAccessibilityContentForm { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingAccessibilityContentForm {
+    /// Binds a ErrorHandlingAccessibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingAccessibilityContentForm {
+        ErrorHandlingAccessibilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn error_accessibility(&self) -> String {
@@ -115409,15 +115610,15 @@ impl ErrorHandlingConceptAccessibilityContentForm {
     }
 }
 
-/// ErrorHandlingConceptClassificationContentForm is the generated form facade for the `content` @Form section.
-pub struct ErrorHandlingConceptClassificationContentForm {
+/// ErrorHandlingClassificationContentForm is the generated form facade for the `content` @Form section.
+pub struct ErrorHandlingClassificationContentForm {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptClassificationContentForm {
-    /// Binds a ErrorHandlingConceptClassificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptClassificationContentForm {
-        ErrorHandlingConceptClassificationContentForm { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingClassificationContentForm {
+    /// Binds a ErrorHandlingClassificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingClassificationContentForm {
+        ErrorHandlingClassificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn error_categories(&self) -> String {
@@ -115448,15 +115649,15 @@ impl ErrorHandlingConceptClassificationContentForm {
     }
 }
 
-/// ErrorHandlingConceptErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
-pub struct ErrorHandlingConceptErrorPhilosophyContentForm {
+/// ErrorHandlingErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
+pub struct ErrorHandlingErrorPhilosophyContentForm {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptErrorPhilosophyContentForm {
-    /// Binds a ErrorHandlingConceptErrorPhilosophyContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptErrorPhilosophyContentForm {
-        ErrorHandlingConceptErrorPhilosophyContentForm { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingErrorPhilosophyContentForm {
+    /// Binds a ErrorHandlingErrorPhilosophyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingErrorPhilosophyContentForm {
+        ErrorHandlingErrorPhilosophyContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn error_philosophy(&self) -> String {
@@ -115496,15 +115697,15 @@ impl ErrorHandlingConceptErrorPhilosophyContentForm {
     }
 }
 
-/// ErrorHandlingConceptOperationsContentForm is the generated form facade for the `content` @Form section.
-pub struct ErrorHandlingConceptOperationsContentForm {
+/// ErrorHandlingOperationsContentForm is the generated form facade for the `content` @Form section.
+pub struct ErrorHandlingOperationsContentForm {
     pub node: som::SomNode,
 }
 
-impl ErrorHandlingConceptOperationsContentForm {
-    /// Binds a ErrorHandlingConceptOperationsContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingConceptOperationsContentForm {
-        ErrorHandlingConceptOperationsContentForm { node: som::SomNode::new(doc, path) }
+impl ErrorHandlingOperationsContentForm {
+    /// Binds a ErrorHandlingOperationsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ErrorHandlingOperationsContentForm {
+        ErrorHandlingOperationsContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn error_localization(&self) -> String {
@@ -123977,141 +124178,6 @@ impl HealthCheckEndpointsTimingContentForm {
     pub fn set_success_threshold(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "successThreshold", value);
-    }
-}
-
-/// HelpConceptDeliveryContentForm is the generated form facade for the `content` @Form section.
-pub struct HelpConceptDeliveryContentForm {
-    pub node: som::SomNode,
-}
-
-impl HelpConceptDeliveryContentForm {
-    /// Binds a HelpConceptDeliveryContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConceptDeliveryContentForm {
-        HelpConceptDeliveryContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn help_content_ownership(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpContentOwnership")
-    }
-
-    pub fn set_help_content_ownership(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpContentOwnership", value);
-    }
-
-    pub fn help_update_process(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpUpdateProcess")
-    }
-
-    pub fn set_help_update_process(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpUpdateProcess", value);
-    }
-
-    pub fn help_icon_standard(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpIconStandard")
-    }
-
-    pub fn set_help_icon_standard(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpIconStandard", value);
-    }
-
-    pub fn help_icon_placement(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpIconPlacement")
-    }
-
-    pub fn set_help_icon_placement(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpIconPlacement", value);
-    }
-
-    pub fn help_tooltip_style(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpTooltipStyle")
-    }
-
-    pub fn set_help_tooltip_style(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpTooltipStyle", value);
-    }
-}
-
-/// HelpConceptHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
-pub struct HelpConceptHelpOverviewContentForm {
-    pub node: som::SomNode,
-}
-
-impl HelpConceptHelpOverviewContentForm {
-    /// Binds a HelpConceptHelpOverviewContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConceptHelpOverviewContentForm {
-        HelpConceptHelpOverviewContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn help_philosophy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpPhilosophy")
-    }
-
-    pub fn set_help_philosophy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpPhilosophy", value);
-    }
-
-    pub fn help_accessibility(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpAccessibility")
-    }
-
-    pub fn set_help_accessibility(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpAccessibility", value);
-    }
-
-    pub fn help_personalization(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpPersonalization")
-    }
-
-    pub fn set_help_personalization(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpPersonalization", value);
-    }
-
-    pub fn help_content_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpContentStrategy")
-    }
-
-    pub fn set_help_content_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpContentStrategy", value);
-    }
-}
-
-/// HelpConceptInsightsContentForm is the generated form facade for the `content` @Form section.
-pub struct HelpConceptInsightsContentForm {
-    pub node: som::SomNode,
-}
-
-impl HelpConceptInsightsContentForm {
-    /// Binds a HelpConceptInsightsContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> HelpConceptInsightsContentForm {
-        HelpConceptInsightsContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn help_analytics(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpAnalytics")
-    }
-
-    pub fn set_help_analytics(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpAnalytics", value);
-    }
-
-    pub fn help_feedback(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "helpFeedback")
-    }
-
-    pub fn set_help_feedback(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "helpFeedback", value);
     }
 }
 
@@ -134441,15 +134507,102 @@ impl LocalDevelopmentSetupWorkflowContentForm {
     }
 }
 
-/// LocalizationProcessDeploymentContentForm is the generated form facade for the `content` @Form section.
-pub struct LocalizationProcessDeploymentContentForm {
+/// LocaleHandlingRequirementsContentForm is the generated form facade for the `content` @Form section.
+pub struct LocaleHandlingRequirementsContentForm {
     pub node: som::SomNode,
 }
 
-impl LocalizationProcessDeploymentContentForm {
-    /// Binds a LocalizationProcessDeploymentContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessDeploymentContentForm {
-        LocalizationProcessDeploymentContentForm { node: som::SomNode::new(doc, path) }
+impl LocaleHandlingRequirementsContentForm {
+    /// Binds a LocaleHandlingRequirementsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleHandlingRequirementsContentForm {
+        LocaleHandlingRequirementsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn locale_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "localeFormat")
+    }
+
+    pub fn set_locale_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "localeFormat", value);
+    }
+
+    pub fn country_variants(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "countryVariants")
+    }
+
+    pub fn set_country_variants(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "countryVariants", value);
+    }
+
+    pub fn locale_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "localeDetection")
+    }
+
+    pub fn set_locale_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "localeDetection", value);
+    }
+
+    pub fn locale_fallback_chain(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "localeFallbackChain")
+    }
+
+    pub fn set_locale_fallback_chain(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "localeFallbackChain", value);
+    }
+}
+
+/// LocaleRolloutPlanContentForm is the generated form facade for the `content` @Form section.
+pub struct LocaleRolloutPlanContentForm {
+    pub node: som::SomNode,
+}
+
+impl LocaleRolloutPlanContentForm {
+    /// Binds a LocaleRolloutPlanContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocaleRolloutPlanContentForm {
+        LocaleRolloutPlanContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn rollout_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutStrategy")
+    }
+
+    pub fn set_rollout_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutStrategy", value);
+    }
+
+    pub fn rollout_timeline(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutTimeline")
+    }
+
+    pub fn set_rollout_timeline(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutTimeline", value);
+    }
+
+    pub fn rollout_regions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutRegions")
+    }
+
+    pub fn set_rollout_regions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolloutRegions", value);
+    }
+}
+
+/// LocalizationDeploymentContentForm is the generated form facade for the `content` @Form section.
+pub struct LocalizationDeploymentContentForm {
+    pub node: som::SomNode,
+}
+
+impl LocalizationDeploymentContentForm {
+    /// Binds a LocalizationDeploymentContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationDeploymentContentForm {
+        LocalizationDeploymentContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn locale_deployment(&self) -> String {
@@ -134480,15 +134633,15 @@ impl LocalizationProcessDeploymentContentForm {
     }
 }
 
-/// LocalizationProcessFormattingContentForm is the generated form facade for the `content` @Form section.
-pub struct LocalizationProcessFormattingContentForm {
+/// LocalizationFormattingContentForm is the generated form facade for the `content` @Form section.
+pub struct LocalizationFormattingContentForm {
     pub node: som::SomNode,
 }
 
-impl LocalizationProcessFormattingContentForm {
-    /// Binds a LocalizationProcessFormattingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessFormattingContentForm {
-        LocalizationProcessFormattingContentForm { node: som::SomNode::new(doc, path) }
+impl LocalizationFormattingContentForm {
+    /// Binds a LocalizationFormattingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationFormattingContentForm {
+        LocalizationFormattingContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn date_format_rules(&self) -> String {
@@ -134585,15 +134738,15 @@ impl LocalizationProcessLocalizationProcessContentForm {
     }
 }
 
-/// LocalizationProcessReviewContentForm is the generated form facade for the `content` @Form section.
-pub struct LocalizationProcessReviewContentForm {
+/// LocalizationReviewContentForm is the generated form facade for the `content` @Form section.
+pub struct LocalizationReviewContentForm {
     pub node: som::SomNode,
 }
 
-impl LocalizationProcessReviewContentForm {
-    /// Binds a LocalizationProcessReviewContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> LocalizationProcessReviewContentForm {
-        LocalizationProcessReviewContentForm { node: som::SomNode::new(doc, path) }
+impl LocalizationReviewContentForm {
+    /// Binds a LocalizationReviewContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationReviewContentForm {
+        LocalizationReviewContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn review_workflow(&self) -> String {
@@ -142583,63 +142736,15 @@ impl MultiChannelExperienceMultiChannelConfigurationForm {
     }
 }
 
-/// MultiLanguageAndRolloutLocaleHandlingContentForm is the generated form facade for the `content` @Form section.
-pub struct MultiLanguageAndRolloutLocaleHandlingContentForm {
+/// MultiLanguageSupportMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
+pub struct MultiLanguageSupportMultiLanguageOverviewForm {
     pub node: som::SomNode,
 }
 
-impl MultiLanguageAndRolloutLocaleHandlingContentForm {
-    /// Binds a MultiLanguageAndRolloutLocaleHandlingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRolloutLocaleHandlingContentForm {
-        MultiLanguageAndRolloutLocaleHandlingContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn locale_format(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "localeFormat")
-    }
-
-    pub fn set_locale_format(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "localeFormat", value);
-    }
-
-    pub fn country_variants(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "countryVariants")
-    }
-
-    pub fn set_country_variants(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "countryVariants", value);
-    }
-
-    pub fn locale_detection(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "localeDetection")
-    }
-
-    pub fn set_locale_detection(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "localeDetection", value);
-    }
-
-    pub fn locale_fallback_chain(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "localeFallbackChain")
-    }
-
-    pub fn set_locale_fallback_chain(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "localeFallbackChain", value);
-    }
-}
-
-/// MultiLanguageAndRolloutMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
-pub struct MultiLanguageAndRolloutMultiLanguageOverviewForm {
-    pub node: som::SomNode,
-}
-
-impl MultiLanguageAndRolloutMultiLanguageOverviewForm {
-    /// Binds a MultiLanguageAndRolloutMultiLanguageOverviewForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRolloutMultiLanguageOverviewForm {
-        MultiLanguageAndRolloutMultiLanguageOverviewForm { node: som::SomNode::new(doc, path) }
+impl MultiLanguageSupportMultiLanguageOverviewForm {
+    /// Binds a MultiLanguageSupportMultiLanguageOverviewForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageSupportMultiLanguageOverviewForm {
+        MultiLanguageSupportMultiLanguageOverviewForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn supported_languages(&self) -> String {
@@ -142676,45 +142781,6 @@ impl MultiLanguageAndRolloutMultiLanguageOverviewForm {
     pub fn set_rtl_languages(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "rtlLanguages", value);
-    }
-}
-
-/// MultiLanguageAndRolloutPlanContentForm is the generated form facade for the `content` @Form section.
-pub struct MultiLanguageAndRolloutPlanContentForm {
-    pub node: som::SomNode,
-}
-
-impl MultiLanguageAndRolloutPlanContentForm {
-    /// Binds a MultiLanguageAndRolloutPlanContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MultiLanguageAndRolloutPlanContentForm {
-        MultiLanguageAndRolloutPlanContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn rollout_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutStrategy")
-    }
-
-    pub fn set_rollout_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutStrategy", value);
-    }
-
-    pub fn rollout_timeline(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutTimeline")
-    }
-
-    pub fn set_rollout_timeline(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutTimeline", value);
-    }
-
-    pub fn rollout_regions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rolloutRegions")
-    }
-
-    pub fn set_rollout_regions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rolloutRegions", value);
     }
 }
 
@@ -152201,6 +152267,45 @@ impl PrimaryNavigationSidebarContentForm {
     }
 }
 
+/// PrintAndExportLayoutContentForm is the generated form facade for the `content` @Form section.
+pub struct PrintAndExportLayoutContentForm {
+    pub node: som::SomNode,
+}
+
+impl PrintAndExportLayoutContentForm {
+    /// Binds a PrintAndExportLayoutContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PrintAndExportLayoutContentForm {
+        PrintAndExportLayoutContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn print_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "printStrategy")
+    }
+
+    pub fn set_print_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "printStrategy", value);
+    }
+
+    pub fn default_paper_size(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultPaperSize")
+    }
+
+    pub fn set_default_paper_size(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultPaperSize", value);
+    }
+
+    pub fn default_orientation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultOrientation")
+    }
+
+    pub fn set_default_orientation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultOrientation", value);
+    }
+}
+
 /// PrintLayoutArchiveContentForm is the generated form facade for the `content` @Form section.
 pub struct PrintLayoutArchiveContentForm {
     pub node: som::SomNode,
@@ -152303,45 +152408,6 @@ impl PrintLayoutBrandingContentForm {
     pub fn set_branding_font_size_base(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "brandingFontSizeBase", value);
-    }
-}
-
-/// PrintLayoutContentForm is the generated form facade for the `content` @Form section.
-pub struct PrintLayoutContentForm {
-    pub node: som::SomNode,
-}
-
-impl PrintLayoutContentForm {
-    /// Binds a PrintLayoutContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PrintLayoutContentForm {
-        PrintLayoutContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn print_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "printStrategy")
-    }
-
-    pub fn set_print_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "printStrategy", value);
-    }
-
-    pub fn default_paper_size(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "defaultPaperSize")
-    }
-
-    pub fn set_default_paper_size(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "defaultPaperSize", value);
-    }
-
-    pub fn default_orientation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "defaultOrientation")
-    }
-
-    pub fn set_default_orientation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "defaultOrientation", value);
     }
 }
 
@@ -157742,15 +157808,15 @@ impl PrototypeTimelineContentForm {
     }
 }
 
-/// PrototypeTypeSectionPrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
-pub struct PrototypeTypeSectionPrototypeTypeOverviewForm {
+/// PrototypeTypePrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
+pub struct PrototypeTypePrototypeTypeOverviewForm {
     pub node: som::SomNode,
 }
 
-impl PrototypeTypeSectionPrototypeTypeOverviewForm {
-    /// Binds a PrototypeTypeSectionPrototypeTypeOverviewForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PrototypeTypeSectionPrototypeTypeOverviewForm {
-        PrototypeTypeSectionPrototypeTypeOverviewForm { node: som::SomNode::new(doc, path) }
+impl PrototypeTypePrototypeTypeOverviewForm {
+    /// Binds a PrototypeTypePrototypeTypeOverviewForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PrototypeTypePrototypeTypeOverviewForm {
+        PrototypeTypePrototypeTypeOverviewForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn prototype_type(&self) -> String {
@@ -180134,6 +180200,54 @@ impl SpecializedEquipmentEntryTechnicalContentForm {
     }
 }
 
+/// SpecificationStatusContentForm is the generated form facade for the `content` @Form section.
+pub struct SpecificationStatusContentForm {
+    pub node: som::SomNode,
+}
+
+impl SpecificationStatusContentForm {
+    /// Binds a SpecificationStatusContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SpecificationStatusContentForm {
+        SpecificationStatusContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn specification_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "specificationVersion")
+    }
+
+    pub fn set_specification_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "specificationVersion", value);
+    }
+
+    pub fn specification_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "specificationDate")
+    }
+
+    pub fn set_specification_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "specificationDate", value);
+    }
+
+    pub fn specification_status(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "specificationStatus")
+    }
+
+    pub fn set_specification_status(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "specificationStatus", value);
+    }
+
+    pub fn target_go_live_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetGoLiveDate")
+    }
+
+    pub fn set_target_go_live_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetGoLiveDate", value);
+    }
+}
+
 /// StaffingBudgetAllocationsContentForm is the generated form facade for the `content` @Form section.
 pub struct StaffingBudgetAllocationsContentForm {
     pub node: som::SomNode,
@@ -182525,6 +182639,141 @@ impl StageOverviewStatusContentForm {
     pub fn set_confidence_basis(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "confidenceBasis", value);
+    }
+}
+
+/// StagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
+pub struct StagePlanCoordinationContentForm {
+    pub node: som::SomNode,
+}
+
+impl StagePlanCoordinationContentForm {
+    /// Binds a StagePlanCoordinationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanCoordinationContentForm {
+        StagePlanCoordinationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn cross_stage_dependency_summary(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageDependencySummary")
+    }
+
+    pub fn set_cross_stage_dependency_summary(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossStageDependencySummary", value);
+    }
+
+    pub fn cross_stage_risk_summary(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageRiskSummary")
+    }
+
+    pub fn set_cross_stage_risk_summary(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossStageRiskSummary", value);
+    }
+
+    pub fn regulatory_compliance_considerations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "regulatoryComplianceConsiderations")
+    }
+
+    pub fn set_regulatory_compliance_considerations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "regulatoryComplianceConsiderations", value);
+    }
+}
+
+/// StagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
+pub struct StagePlanReadinessContentForm {
+    pub node: som::SomNode,
+}
+
+impl StagePlanReadinessContentForm {
+    /// Binds a StagePlanReadinessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanReadinessContentForm {
+        StagePlanReadinessContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn organizational_readiness_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel")
+    }
+
+    pub fn set_organizational_readiness_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", value);
+    }
+
+    pub fn change_absorption_capacity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "changeAbsorptionCapacity")
+    }
+
+    pub fn set_change_absorption_capacity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "changeAbsorptionCapacity", value);
+    }
+
+    pub fn confidence_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel")
+    }
+
+    pub fn set_confidence_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", value);
+    }
+
+    pub fn last_plan_review_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lastPlanReviewDate")
+    }
+
+    pub fn set_last_plan_review_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lastPlanReviewDate", value);
+    }
+}
+
+/// StagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
+pub struct StagePlanTimelineContentForm {
+    pub node: som::SomNode,
+}
+
+impl StagePlanTimelineContentForm {
+    /// Binds a StagePlanTimelineContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StagePlanTimelineContentForm {
+        StagePlanTimelineContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn overall_planned_start(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overallPlannedStart")
+    }
+
+    pub fn set_overall_planned_start(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overallPlannedStart", value);
+    }
+
+    pub fn overall_target_completion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overallTargetCompletion")
+    }
+
+    pub fn set_overall_target_completion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overallTargetCompletion", value);
+    }
+
+    pub fn total_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "totalDuration")
+    }
+
+    pub fn set_total_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "totalDuration", value);
+    }
+
+    pub fn buffer_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bufferStrategy")
+    }
+
+    pub fn set_buffer_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bufferStrategy", value);
     }
 }
 
@@ -185849,6 +186098,84 @@ impl SystemBusinessUnitEntryContentForm {
     }
 }
 
+/// SystemClassificationContentForm is the generated form facade for the `content` @Form section.
+pub struct SystemClassificationContentForm {
+    pub node: som::SomNode,
+}
+
+impl SystemClassificationContentForm {
+    /// Binds a SystemClassificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemClassificationContentForm {
+        SystemClassificationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn system_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemType")
+    }
+
+    pub fn set_system_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "systemType", value);
+    }
+
+    pub fn business_domain(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "businessDomain")
+    }
+
+    pub fn set_business_domain(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "businessDomain", value);
+    }
+
+    pub fn deployment_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deploymentModel")
+    }
+
+    pub fn set_deployment_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deploymentModel", value);
+    }
+}
+
+/// SystemComplexityContentForm is the generated form facade for the `content` @Form section.
+pub struct SystemComplexityContentForm {
+    pub node: som::SomNode,
+}
+
+impl SystemComplexityContentForm {
+    /// Binds a SystemComplexityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemComplexityContentForm {
+        SystemComplexityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn overall_complexity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overallComplexity")
+    }
+
+    pub fn set_overall_complexity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overallComplexity", value);
+    }
+
+    pub fn key_risks(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRisks")
+    }
+
+    pub fn set_key_risks(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRisks", value);
+    }
+
+    pub fn key_assumptions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyAssumptions")
+    }
+
+    pub fn set_key_assumptions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyAssumptions", value);
+    }
+}
+
 /// SystemConfigurationManagementContentForm is the generated form facade for the `content` @Form section.
 pub struct SystemConfigurationManagementContentForm {
     pub node: som::SomNode,
@@ -187787,237 +188114,6 @@ impl SystemMigrationRiskEntryContentForm {
     }
 }
 
-/// SystemOverviewSummaryClassificationContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemOverviewSummaryClassificationContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryClassificationContentForm {
-    /// Binds a SystemOverviewSummaryClassificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryClassificationContentForm {
-        SystemOverviewSummaryClassificationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn system_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "systemType")
-    }
-
-    pub fn set_system_type(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "systemType", value);
-    }
-
-    pub fn business_domain(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "businessDomain")
-    }
-
-    pub fn set_business_domain(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "businessDomain", value);
-    }
-
-    pub fn deployment_model(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deploymentModel")
-    }
-
-    pub fn set_deployment_model(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deploymentModel", value);
-    }
-}
-
-/// SystemOverviewSummaryComplexityContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemOverviewSummaryComplexityContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryComplexityContentForm {
-    /// Binds a SystemOverviewSummaryComplexityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryComplexityContentForm {
-        SystemOverviewSummaryComplexityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn overall_complexity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallComplexity")
-    }
-
-    pub fn set_overall_complexity(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallComplexity", value);
-    }
-
-    pub fn key_risks(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "keyRisks")
-    }
-
-    pub fn set_key_risks(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "keyRisks", value);
-    }
-
-    pub fn key_assumptions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "keyAssumptions")
-    }
-
-    pub fn set_key_assumptions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "keyAssumptions", value);
-    }
-}
-
-/// SystemOverviewSummaryContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemOverviewSummaryContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryContentForm {
-    /// Binds a SystemOverviewSummaryContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryContentForm {
-        SystemOverviewSummaryContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn system_name(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "systemName")
-    }
-
-    pub fn set_system_name(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "systemName", value);
-    }
-
-    pub fn system_acronym(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "systemAcronym")
-    }
-
-    pub fn set_system_acronym(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "systemAcronym", value);
-    }
-
-    pub fn system_version(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "systemVersion")
-    }
-
-    pub fn set_system_version(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "systemVersion", value);
-    }
-
-    pub fn project_code_name(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "projectCodeName")
-    }
-
-    pub fn set_project_code_name(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "projectCodeName", value);
-    }
-}
-
-/// SystemOverviewSummaryScaleContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemOverviewSummaryScaleContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryScaleContentForm {
-    /// Binds a SystemOverviewSummaryScaleContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryScaleContentForm {
-        SystemOverviewSummaryScaleContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn estimated_user_count(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "estimatedUserCount")
-    }
-
-    pub fn set_estimated_user_count(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "estimatedUserCount", value);
-    }
-
-    pub fn user_category_count(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "userCategoryCount")
-    }
-
-    pub fn set_user_category_count(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "userCategoryCount", value);
-    }
-
-    pub fn external_interface_count(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "externalInterfaceCount")
-    }
-
-    pub fn set_external_interface_count(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "externalInterfaceCount", value);
-    }
-
-    pub fn functional_requirement_count(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "functionalRequirementCount")
-    }
-
-    pub fn set_functional_requirement_count(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "functionalRequirementCount", value);
-    }
-
-    pub fn non_functional_requirement_count(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "nonFunctionalRequirementCount")
-    }
-
-    pub fn set_non_functional_requirement_count(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "nonFunctionalRequirementCount", value);
-    }
-}
-
-/// SystemOverviewSummaryStatusContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemOverviewSummaryStatusContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemOverviewSummaryStatusContentForm {
-    /// Binds a SystemOverviewSummaryStatusContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverviewSummaryStatusContentForm {
-        SystemOverviewSummaryStatusContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn specification_version(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "specificationVersion")
-    }
-
-    pub fn set_specification_version(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "specificationVersion", value);
-    }
-
-    pub fn specification_date(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "specificationDate")
-    }
-
-    pub fn set_specification_date(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "specificationDate", value);
-    }
-
-    pub fn specification_status(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "specificationStatus")
-    }
-
-    pub fn set_specification_status(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "specificationStatus", value);
-    }
-
-    pub fn target_go_live_date(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "targetGoLiveDate")
-    }
-
-    pub fn set_target_go_live_date(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "targetGoLiveDate", value);
-    }
-}
-
 /// SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 pub struct SystemQualityGoalsGovernanceContentForm {
     pub node: som::SomNode,
@@ -188192,6 +188288,63 @@ impl SystemReplacementStrategyTimelineContentForm {
     }
 }
 
+/// SystemScaleContentForm is the generated form facade for the `content` @Form section.
+pub struct SystemScaleContentForm {
+    pub node: som::SomNode,
+}
+
+impl SystemScaleContentForm {
+    /// Binds a SystemScaleContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemScaleContentForm {
+        SystemScaleContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn estimated_user_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "estimatedUserCount")
+    }
+
+    pub fn set_estimated_user_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "estimatedUserCount", value);
+    }
+
+    pub fn user_category_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userCategoryCount")
+    }
+
+    pub fn set_user_category_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userCategoryCount", value);
+    }
+
+    pub fn external_interface_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "externalInterfaceCount")
+    }
+
+    pub fn set_external_interface_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "externalInterfaceCount", value);
+    }
+
+    pub fn functional_requirement_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionalRequirementCount")
+    }
+
+    pub fn set_functional_requirement_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "functionalRequirementCount", value);
+    }
+
+    pub fn non_functional_requirement_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "nonFunctionalRequirementCount")
+    }
+
+    pub fn set_non_functional_requirement_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "nonFunctionalRequirementCount", value);
+    }
+}
+
 /// SystemStagePlanContentForm is the generated form facade for the `content` @Form section.
 pub struct SystemStagePlanContentForm {
     pub node: som::SomNode,
@@ -188231,138 +188384,51 @@ impl SystemStagePlanContentForm {
     }
 }
 
-/// SystemStagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemStagePlanCoordinationContentForm {
+/// SystemSummaryContentForm is the generated form facade for the `content` @Form section.
+pub struct SystemSummaryContentForm {
     pub node: som::SomNode,
 }
 
-impl SystemStagePlanCoordinationContentForm {
-    /// Binds a SystemStagePlanCoordinationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanCoordinationContentForm {
-        SystemStagePlanCoordinationContentForm { node: som::SomNode::new(doc, path) }
+impl SystemSummaryContentForm {
+    /// Binds a SystemSummaryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemSummaryContentForm {
+        SystemSummaryContentForm { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn cross_stage_dependency_summary(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageDependencySummary")
+    pub fn system_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemName")
     }
 
-    pub fn set_cross_stage_dependency_summary(&self, value: &str) {
+    pub fn set_system_name(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "crossStageDependencySummary", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "systemName", value);
     }
 
-    pub fn cross_stage_risk_summary(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageRiskSummary")
+    pub fn system_acronym(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemAcronym")
     }
 
-    pub fn set_cross_stage_risk_summary(&self, value: &str) {
+    pub fn set_system_acronym(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "crossStageRiskSummary", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "systemAcronym", value);
     }
 
-    pub fn regulatory_compliance_considerations(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "regulatoryComplianceConsiderations")
+    pub fn system_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemVersion")
     }
 
-    pub fn set_regulatory_compliance_considerations(&self, value: &str) {
+    pub fn set_system_version(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "regulatoryComplianceConsiderations", value);
-    }
-}
-
-/// SystemStagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemStagePlanReadinessContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemStagePlanReadinessContentForm {
-    /// Binds a SystemStagePlanReadinessContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanReadinessContentForm {
-        SystemStagePlanReadinessContentForm { node: som::SomNode::new(doc, path) }
+        self.node.doc().borrow_mut().set_form_field(&path, "systemVersion", value);
     }
 
-    pub fn organizational_readiness_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "organizationalReadinessLevel")
+    pub fn project_code_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "projectCodeName")
     }
 
-    pub fn set_organizational_readiness_level(&self, value: &str) {
+    pub fn set_project_code_name(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "organizationalReadinessLevel", value);
-    }
-
-    pub fn change_absorption_capacity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeAbsorptionCapacity")
-    }
-
-    pub fn set_change_absorption_capacity(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeAbsorptionCapacity", value);
-    }
-
-    pub fn confidence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "confidenceLevel")
-    }
-
-    pub fn set_confidence_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "confidenceLevel", value);
-    }
-
-    pub fn last_plan_review_date(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "lastPlanReviewDate")
-    }
-
-    pub fn set_last_plan_review_date(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "lastPlanReviewDate", value);
-    }
-}
-
-/// SystemStagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemStagePlanTimelineContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemStagePlanTimelineContentForm {
-    /// Binds a SystemStagePlanTimelineContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemStagePlanTimelineContentForm {
-        SystemStagePlanTimelineContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn overall_planned_start(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallPlannedStart")
-    }
-
-    pub fn set_overall_planned_start(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallPlannedStart", value);
-    }
-
-    pub fn overall_target_completion(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallTargetCompletion")
-    }
-
-    pub fn set_overall_target_completion(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallTargetCompletion", value);
-    }
-
-    pub fn total_duration(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "totalDuration")
-    }
-
-    pub fn set_total_duration(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "totalDuration", value);
-    }
-
-    pub fn buffer_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "bufferStrategy")
-    }
-
-    pub fn set_buffer_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "bufferStrategy", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "projectCodeName", value);
     }
 }
 
@@ -190340,15 +190406,15 @@ impl TechnicalDependencyEntryContentForm {
     }
 }
 
-/// TechnicalFrameworkConditionsGovernanceContentForm is the generated form facade for the `content` @Form section.
-pub struct TechnicalFrameworkConditionsGovernanceContentForm {
+/// TechnicalEnvironmentGovernanceContentForm is the generated form facade for the `content` @Form section.
+pub struct TechnicalEnvironmentGovernanceContentForm {
     pub node: som::SomNode,
 }
 
-impl TechnicalFrameworkConditionsGovernanceContentForm {
-    /// Binds a TechnicalFrameworkConditionsGovernanceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsGovernanceContentForm {
-        TechnicalFrameworkConditionsGovernanceContentForm { node: som::SomNode::new(doc, path) }
+impl TechnicalEnvironmentGovernanceContentForm {
+    /// Binds a TechnicalEnvironmentGovernanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentGovernanceContentForm {
+        TechnicalEnvironmentGovernanceContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn secondary_cloud_providers(&self) -> String {
@@ -190370,15 +190436,15 @@ impl TechnicalFrameworkConditionsGovernanceContentForm {
     }
 }
 
-/// TechnicalFrameworkConditionsNetworkContentForm is the generated form facade for the `content` @Form section.
-pub struct TechnicalFrameworkConditionsNetworkContentForm {
+/// TechnicalEnvironmentNetworkContentForm is the generated form facade for the `content` @Form section.
+pub struct TechnicalEnvironmentNetworkContentForm {
     pub node: som::SomNode,
 }
 
-impl TechnicalFrameworkConditionsNetworkContentForm {
-    /// Binds a TechnicalFrameworkConditionsNetworkContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsNetworkContentForm {
-        TechnicalFrameworkConditionsNetworkContentForm { node: som::SomNode::new(doc, path) }
+impl TechnicalEnvironmentNetworkContentForm {
+    /// Binds a TechnicalEnvironmentNetworkContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentNetworkContentForm {
+        TechnicalEnvironmentNetworkContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn network_architecture(&self) -> String {
@@ -190427,15 +190493,15 @@ impl TechnicalFrameworkConditionsNetworkContentForm {
     }
 }
 
-/// TechnicalFrameworkConditionsSecurityContentForm is the generated form facade for the `content` @Form section.
-pub struct TechnicalFrameworkConditionsSecurityContentForm {
+/// TechnicalEnvironmentSecurityContentForm is the generated form facade for the `content` @Form section.
+pub struct TechnicalEnvironmentSecurityContentForm {
     pub node: som::SomNode,
 }
 
-impl TechnicalFrameworkConditionsSecurityContentForm {
-    /// Binds a TechnicalFrameworkConditionsSecurityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsSecurityContentForm {
-        TechnicalFrameworkConditionsSecurityContentForm { node: som::SomNode::new(doc, path) }
+impl TechnicalEnvironmentSecurityContentForm {
+    /// Binds a TechnicalEnvironmentSecurityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentSecurityContentForm {
+        TechnicalEnvironmentSecurityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn security_framework(&self) -> String {
@@ -190484,15 +190550,15 @@ impl TechnicalFrameworkConditionsSecurityContentForm {
     }
 }
 
-/// TechnicalFrameworkConditionsStandardsContentForm is the generated form facade for the `content` @Form section.
-pub struct TechnicalFrameworkConditionsStandardsContentForm {
+/// TechnicalEnvironmentStandardsContentForm is the generated form facade for the `content` @Form section.
+pub struct TechnicalEnvironmentStandardsContentForm {
     pub node: som::SomNode,
 }
 
-impl TechnicalFrameworkConditionsStandardsContentForm {
-    /// Binds a TechnicalFrameworkConditionsStandardsContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsStandardsContentForm {
-        TechnicalFrameworkConditionsStandardsContentForm { node: som::SomNode::new(doc, path) }
+impl TechnicalEnvironmentStandardsContentForm {
+    /// Binds a TechnicalEnvironmentStandardsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentStandardsContentForm {
+        TechnicalEnvironmentStandardsContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn preferred_languages(&self) -> String {
@@ -190541,15 +190607,15 @@ impl TechnicalFrameworkConditionsStandardsContentForm {
     }
 }
 
-/// TechnicalFrameworkConditionsTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
-pub struct TechnicalFrameworkConditionsTechnicalOverviewContentForm {
+/// TechnicalEnvironmentTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
+pub struct TechnicalEnvironmentTechnicalOverviewContentForm {
     pub node: som::SomNode,
 }
 
-impl TechnicalFrameworkConditionsTechnicalOverviewContentForm {
-    /// Binds a TechnicalFrameworkConditionsTechnicalOverviewContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalFrameworkConditionsTechnicalOverviewContentForm {
-        TechnicalFrameworkConditionsTechnicalOverviewContentForm { node: som::SomNode::new(doc, path) }
+impl TechnicalEnvironmentTechnicalOverviewContentForm {
+    /// Binds a TechnicalEnvironmentTechnicalOverviewContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TechnicalEnvironmentTechnicalOverviewContentForm {
+        TechnicalEnvironmentTechnicalOverviewContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn architecture_maturity(&self) -> String {
@@ -197633,15 +197699,15 @@ impl TransitionSupportResourceEntryContentForm {
     }
 }
 
-/// TranslationProcessOngoingContentForm is the generated form facade for the `content` @Form section.
-pub struct TranslationProcessOngoingContentForm {
+/// TranslationOngoingContentForm is the generated form facade for the `content` @Form section.
+pub struct TranslationOngoingContentForm {
     pub node: som::SomNode,
 }
 
-impl TranslationProcessOngoingContentForm {
-    /// Binds a TranslationProcessOngoingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessOngoingContentForm {
-        TranslationProcessOngoingContentForm { node: som::SomNode::new(doc, path) }
+impl TranslationOngoingContentForm {
+    /// Binds a TranslationOngoingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationOngoingContentForm {
+        TranslationOngoingContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn continuous_localization(&self) -> String {
@@ -197660,84 +197726,6 @@ impl TranslationProcessOngoingContentForm {
     pub fn set_translation_memory_maintenance(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "translationMemoryMaintenance", value);
-    }
-}
-
-/// TranslationProcessQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct TranslationProcessQualityContentForm {
-    pub node: som::SomNode,
-}
-
-impl TranslationProcessQualityContentForm {
-    /// Binds a TranslationProcessQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessQualityContentForm {
-        TranslationProcessQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn quality_checks(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityChecks")
-    }
-
-    pub fn set_quality_checks(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityChecks", value);
-    }
-
-    pub fn linguistic_qa(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "linguisticQA")
-    }
-
-    pub fn set_linguistic_qa(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "linguisticQA", value);
-    }
-
-    pub fn functional_qa(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "functionalQA")
-    }
-
-    pub fn set_functional_qa(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "functionalQA", value);
-    }
-}
-
-/// TranslationProcessTerminologyContentForm is the generated form facade for the `content` @Form section.
-pub struct TranslationProcessTerminologyContentForm {
-    pub node: som::SomNode,
-}
-
-impl TranslationProcessTerminologyContentForm {
-    /// Binds a TranslationProcessTerminologyContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessTerminologyContentForm {
-        TranslationProcessTerminologyContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn glossary_management(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "glossaryManagement")
-    }
-
-    pub fn set_glossary_management(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "glossaryManagement", value);
-    }
-
-    pub fn style_guide(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "styleGuide")
-    }
-
-    pub fn set_style_guide(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "styleGuide", value);
-    }
-
-    pub fn brand_voice(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "brandVoice")
-    }
-
-    pub fn set_brand_voice(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "brandVoice", value);
     }
 }
 
@@ -197789,51 +197777,42 @@ impl TranslationProcessTranslationProcessContentForm {
     }
 }
 
-/// TranslationProcessWorkflowContentForm is the generated form facade for the `content` @Form section.
-pub struct TranslationProcessWorkflowContentForm {
+/// TranslationQualityContentForm is the generated form facade for the `content` @Form section.
+pub struct TranslationQualityContentForm {
     pub node: som::SomNode,
 }
 
-impl TranslationProcessWorkflowContentForm {
-    /// Binds a TranslationProcessWorkflowContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TranslationProcessWorkflowContentForm {
-        TranslationProcessWorkflowContentForm { node: som::SomNode::new(doc, path) }
+impl TranslationQualityContentForm {
+    /// Binds a TranslationQualityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationQualityContentForm {
+        TranslationQualityContentForm { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn translation_workflow(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "translationWorkflow")
+    pub fn quality_checks(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityChecks")
     }
 
-    pub fn set_translation_workflow(&self, value: &str) {
+    pub fn set_quality_checks(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "translationWorkflow", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityChecks", value);
     }
 
-    pub fn review_cycles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "reviewCycles")
+    pub fn linguistic_qa(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "linguisticQA")
     }
 
-    pub fn set_review_cycles(&self, value: &str) {
+    pub fn set_linguistic_qa(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "reviewCycles", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "linguisticQA", value);
     }
 
-    pub fn in_country_review(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "inCountryReview")
+    pub fn functional_qa(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionalQA")
     }
 
-    pub fn set_in_country_review(&self, value: &str) {
+    pub fn set_functional_qa(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "inCountryReview", value);
-    }
-
-    pub fn contextual_review(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "contextualReview")
-    }
-
-    pub fn set_contextual_review(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "contextualReview", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "functionalQA", value);
     }
 }
 
@@ -198059,6 +198038,45 @@ impl TranslationRequirementsVariantsContentForm {
     }
 }
 
+/// TranslationTerminologyContentForm is the generated form facade for the `content` @Form section.
+pub struct TranslationTerminologyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TranslationTerminologyContentForm {
+    /// Binds a TranslationTerminologyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationTerminologyContentForm {
+        TranslationTerminologyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn glossary_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "glossaryManagement")
+    }
+
+    pub fn set_glossary_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "glossaryManagement", value);
+    }
+
+    pub fn style_guide(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "styleGuide")
+    }
+
+    pub fn set_style_guide(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "styleGuide", value);
+    }
+
+    pub fn brand_voice(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "brandVoice")
+    }
+
+    pub fn set_brand_voice(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "brandVoice", value);
+    }
+}
+
 /// TranslationVendorEntryContentForm is the generated form facade for the `content` @Form section.
 pub struct TranslationVendorEntryContentForm {
     pub node: som::SomNode,
@@ -198131,6 +198149,54 @@ impl TranslationVendorEntryContentForm {
     pub fn set_contact_info(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "contactInfo", value);
+    }
+}
+
+/// TranslationWorkflowContentForm is the generated form facade for the `content` @Form section.
+pub struct TranslationWorkflowContentForm {
+    pub node: som::SomNode,
+}
+
+impl TranslationWorkflowContentForm {
+    /// Binds a TranslationWorkflowContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TranslationWorkflowContentForm {
+        TranslationWorkflowContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn translation_workflow(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "translationWorkflow")
+    }
+
+    pub fn set_translation_workflow(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "translationWorkflow", value);
+    }
+
+    pub fn review_cycles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reviewCycles")
+    }
+
+    pub fn set_review_cycles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reviewCycles", value);
+    }
+
+    pub fn in_country_review(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inCountryReview")
+    }
+
+    pub fn set_in_country_review(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inCountryReview", value);
+    }
+
+    pub fn contextual_review(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextualReview")
+    }
+
+    pub fn set_contextual_review(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextualReview", value);
     }
 }
 
@@ -200258,45 +200324,6 @@ impl UiComponentEntryVisualDesignForm {
     }
 }
 
-/// UiComponentsComponentApproachContentForm is the generated form facade for the `content` @Form section.
-pub struct UiComponentsComponentApproachContentForm {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsComponentApproachContentForm {
-    /// Binds a UiComponentsComponentApproachContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsComponentApproachContentForm {
-        UiComponentsComponentApproachContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn component_granularity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "componentGranularity")
-    }
-
-    pub fn set_component_granularity(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "componentGranularity", value);
-    }
-
-    pub fn component_naming(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "componentNaming")
-    }
-
-    pub fn set_component_naming(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "componentNaming", value);
-    }
-
-    pub fn component_documentation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "componentDocumentation")
-    }
-
-    pub fn set_component_documentation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "componentDocumentation", value);
-    }
-}
-
 /// UiComponentsComponentLibraryOverviewForm is the generated form facade for the `componentLibraryOverview` @Form section.
 pub struct UiComponentsComponentLibraryOverviewForm {
     pub node: som::SomNode,
@@ -200342,168 +200369,6 @@ impl UiComponentsComponentLibraryOverviewForm {
     pub fn set_tom_flutter_ui_integration(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "tomFlutterUiIntegration", value);
-    }
-}
-
-/// UiComponentsCustomizationContentForm is the generated form facade for the `content` @Form section.
-pub struct UiComponentsCustomizationContentForm {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsCustomizationContentForm {
-    /// Binds a UiComponentsCustomizationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsCustomizationContentForm {
-        UiComponentsCustomizationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn extension_model(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "extensionModel")
-    }
-
-    pub fn set_extension_model(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "extensionModel", value);
-    }
-
-    pub fn theming_approach(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "themingApproach")
-    }
-
-    pub fn set_theming_approach(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "themingApproach", value);
-    }
-
-    pub fn customization_boundaries(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "customizationBoundaries")
-    }
-
-    pub fn set_customization_boundaries(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "customizationBoundaries", value);
-    }
-}
-
-/// UiComponentsVisualLanguageContentForm is the generated form facade for the `content` @Form section.
-pub struct UiComponentsVisualLanguageContentForm {
-    pub node: som::SomNode,
-}
-
-impl UiComponentsVisualLanguageContentForm {
-    /// Binds a UiComponentsVisualLanguageContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiComponentsVisualLanguageContentForm {
-        UiComponentsVisualLanguageContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn visual_language(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "visualLanguage")
-    }
-
-    pub fn set_visual_language(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "visualLanguage", value);
-    }
-
-    pub fn brand_alignment(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "brandAlignment")
-    }
-
-    pub fn set_brand_alignment(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "brandAlignment", value);
-    }
-
-    pub fn motion_principles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "motionPrinciples")
-    }
-
-    pub fn set_motion_principles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "motionPrinciples", value);
-    }
-}
-
-/// UiDesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
-pub struct UiDesignPrincipleEntryContentForm {
-    pub node: som::SomNode,
-}
-
-impl UiDesignPrincipleEntryContentForm {
-    /// Binds a UiDesignPrincipleEntryContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UiDesignPrincipleEntryContentForm {
-        UiDesignPrincipleEntryContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn principle_name(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "principleName")
-    }
-
-    pub fn set_principle_name(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "principleName", value);
-    }
-
-    pub fn description(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "description")
-    }
-
-    pub fn set_description(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
-    }
-
-    pub fn rationale(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "rationale")
-    }
-
-    pub fn set_rationale(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "rationale", value);
-    }
-
-    pub fn category(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "category")
-    }
-
-    pub fn set_category(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "category", value);
-    }
-
-    pub fn examples(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "examples")
-    }
-
-    pub fn set_examples(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "examples", value);
-    }
-
-    pub fn exceptions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "exceptions")
-    }
-
-    pub fn set_exceptions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "exceptions", value);
-    }
-
-    pub fn source_reference(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "sourceReference")
-    }
-
-    pub fn set_source_reference(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "sourceReference", value);
-    }
-
-    pub fn related_goals(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "relatedGoals")
-    }
-
-    pub fn set_related_goals(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "relatedGoals", value);
     }
 }
 
@@ -201110,6 +200975,141 @@ impl UserAccessibilityNeedsAccessibilityFormForm {
     pub fn set_additional_standards(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "additionalStandards", value);
+    }
+}
+
+/// UserAssistanceDeliveryContentForm is the generated form facade for the `content` @Form section.
+pub struct UserAssistanceDeliveryContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserAssistanceDeliveryContentForm {
+    /// Binds a UserAssistanceDeliveryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistanceDeliveryContentForm {
+        UserAssistanceDeliveryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn help_content_ownership(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpContentOwnership")
+    }
+
+    pub fn set_help_content_ownership(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpContentOwnership", value);
+    }
+
+    pub fn help_update_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpUpdateProcess")
+    }
+
+    pub fn set_help_update_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpUpdateProcess", value);
+    }
+
+    pub fn help_icon_standard(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpIconStandard")
+    }
+
+    pub fn set_help_icon_standard(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpIconStandard", value);
+    }
+
+    pub fn help_icon_placement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpIconPlacement")
+    }
+
+    pub fn set_help_icon_placement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpIconPlacement", value);
+    }
+
+    pub fn help_tooltip_style(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpTooltipStyle")
+    }
+
+    pub fn set_help_tooltip_style(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpTooltipStyle", value);
+    }
+}
+
+/// UserAssistanceHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
+pub struct UserAssistanceHelpOverviewContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserAssistanceHelpOverviewContentForm {
+    /// Binds a UserAssistanceHelpOverviewContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistanceHelpOverviewContentForm {
+        UserAssistanceHelpOverviewContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn help_philosophy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpPhilosophy")
+    }
+
+    pub fn set_help_philosophy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpPhilosophy", value);
+    }
+
+    pub fn help_accessibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpAccessibility")
+    }
+
+    pub fn set_help_accessibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpAccessibility", value);
+    }
+
+    pub fn help_personalization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpPersonalization")
+    }
+
+    pub fn set_help_personalization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpPersonalization", value);
+    }
+
+    pub fn help_content_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpContentStrategy")
+    }
+
+    pub fn set_help_content_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpContentStrategy", value);
+    }
+}
+
+/// UserAssistanceInsightsContentForm is the generated form facade for the `content` @Form section.
+pub struct UserAssistanceInsightsContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserAssistanceInsightsContentForm {
+    /// Binds a UserAssistanceInsightsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAssistanceInsightsContentForm {
+        UserAssistanceInsightsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn help_analytics(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpAnalytics")
+    }
+
+    pub fn set_help_analytics(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpAnalytics", value);
+    }
+
+    pub fn help_feedback(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "helpFeedback")
+    }
+
+    pub fn set_help_feedback(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "helpFeedback", value);
     }
 }
 

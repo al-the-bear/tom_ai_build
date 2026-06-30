@@ -2693,8 +2693,8 @@ public final class TomSomV0 {
   }
 
   // A consolidated register of assumptions and constraints.
-  public static final class AssumptionConstraintRegister extends SomNode {
-    public AssumptionConstraintRegister(SpecDocument doc, String path) {
+  public static final class AssumptionConstraintDependencyRegister extends SomNode {
+    public AssumptionConstraintDependencyRegister(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -2754,8 +2754,8 @@ public final class TomSomV0 {
     }
 
     // The consolidated assumption / constraint register.
-    public AssumptionConstraintRegister register() {
-      return new AssumptionConstraintRegister(doc, path + "/register");
+    public AssumptionConstraintDependencyRegister register() {
+      return new AssumptionConstraintDependencyRegister(doc, path + "/register");
     }
   }
 
@@ -4778,6 +4778,62 @@ public final class TomSomV0 {
     }
   }
 
+  // 4.1.3. Description of Business Domain.
+  //
+  // Describes the business domain and task area the system addresses.
+  // Defines the domain vocabulary and key concepts (ubiquitous language)
+  // that will be used throughout the project. Based on Domain-Driven Design
+  // principles for establishing a shared understanding.
+  public static final class BusinessDomain extends SomNode {
+    public BusinessDomain(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 4.1.3.1. Domain Overview.
+    public DomainOverview domainOverview() {
+      return new DomainOverview(doc, path + "/domainOverview");
+    }
+
+    // 4.1.3.2. Domain Vocabulary.
+    public DomainVocabulary domainVocabulary() {
+      return new DomainVocabulary(doc, path + "/domainVocabulary");
+    }
+
+    // 4.1.3.3. Key Concepts.
+    public KeyConcepts keyConcepts() {
+      return new KeyConcepts(doc, path + "/keyConcepts");
+    }
+
+    // 4.1.3.4. Domain Boundaries.
+    public DomainBoundaries domainBoundaries() {
+      return new DomainBoundaries(doc, path + "/domainBoundaries");
+    }
+
+    // 4.1.3.5. Business Rules.
+    public DomainBusinessRules businessRules() {
+      return new DomainBusinessRules(doc, path + "/businessRules");
+    }
+
+    // 4.1.3.6. Domain Processes.
+    public DomainProcesses domainProcesses() {
+      return new DomainProcesses(doc, path + "/domainProcesses");
+    }
+
+    // 4.1.3.7. Domain Events.
+    public DomainEvents domainEvents() {
+      return new DomainEvents(doc, path + "/domainEvents");
+    }
+  }
+
   // A business goal entry.
   //
   // Comprehensive business goal definition following SMART criteria with
@@ -5221,8 +5277,8 @@ public final class TomSomV0 {
     }
 
     // 6.1.7. Detailed Process Workflows.
-    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
-      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
+    public SomList<DetailedProcessWorkflow> detailedWorkflows() {
+      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflow(d, p));
     }
 
     // 6.1.8. Cross-Process Analysis.
@@ -5236,8 +5292,8 @@ public final class TomSomV0 {
     }
 
     // 6.1.10. Process Metrics and KPIs.
-    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
-      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
+    public SomList<ProcessMetric> processMetricsAndKpis() {
+      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetric(d, p));
     }
   }
 
@@ -8249,6 +8305,17 @@ public final class TomSomV0 {
     }
   }
 
+  // Component naming and documentation approach.
+  public static final class ComponentApproach extends SomNode {
+    public ComponentApproach(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ComponentApproachContentForm content() {
+      return new ComponentApproachContentForm(doc, path + "/content");
+    }
+  }
+
   // Compliance for component.
   public static final class ComponentCompliance extends SomNode {
     public ComponentCompliance(SpecDocument doc, String path) {
@@ -8268,6 +8335,17 @@ public final class TomSomV0 {
 
     public ComponentCostContentForm content() {
       return new ComponentCostContentForm(doc, path + "/content");
+    }
+  }
+
+  // Extension and theming boundaries.
+  public static final class ComponentCustomization extends SomNode {
+    public ComponentCustomization(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ComponentCustomizationContentForm content() {
+      return new ComponentCustomizationContentForm(doc, path + "/content");
     }
   }
 
@@ -9413,14 +9491,25 @@ public final class TomSomV0 {
     }
   }
 
-  // 12. Components to Use. Seeds → ATS.
+  // Visual language and brand alignment.
+  public static final class ComponentVisualLanguage extends SomNode {
+    public ComponentVisualLanguage(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ComponentVisualLanguageContentForm content() {
+      return new ComponentVisualLanguageContentForm(doc, path + "/content");
+    }
+  }
+
+  // 12. Components and Dependencies. Seeds → ATS.
   //
   // External and standard components planned for use in the system. All
   // subsections seed the ATS document, where component choices are expanded
   // into detailed dependency analysis, version requirements, licensing,
   // and integration patterns.
-  public static final class ComponentsToUse extends SomNode {
-    public ComponentsToUse(SpecDocument doc, String path) {
+  public static final class ComponentsAndDependencies extends SomNode {
+    public ComponentsAndDependencies(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -10803,8 +10892,8 @@ public final class TomSomV0 {
     }
 
     // 1.5. Operational Metrics.
-    public SomList<CurrentOperationalMetrics> operationalMetrics() {
-      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
+    public SomList<CurrentOperationalMetric> operationalMetrics() {
+      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetric(d, p));
     }
 
     // 1.6. Current State Risks.
@@ -10818,8 +10907,8 @@ public final class TomSomV0 {
   // Baseline metrics of the current systems: throughput, volume, uptime,
   // response times, user counts. Used to size the target system and to
   // derive non-functional requirements.
-  public static final class CurrentOperationalMetrics extends SomNode {
-    public CurrentOperationalMetrics(SpecDocument doc, String path) {
+  public static final class CurrentOperationalMetric extends SomNode {
+    public CurrentOperationalMetric(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -10973,8 +11062,8 @@ public final class TomSomV0 {
   //
   // Detailed cutover runbook for go-live. Minute-by-minute procedure
   // covering the transition from current operation to the target system.
-  public static final class CutoverProcedures extends SomNode {
-    public CutoverProcedures(SpecDocument doc, String path) {
+  public static final class CutoverProcedure extends SomNode {
+    public CutoverProcedure(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -11052,8 +11141,8 @@ public final class TomSomV0 {
     }
 
     // SBP.7 Target Operating Model concept. Seeds → TOM.
-    public TargetOperatingModelConcept targetOperatingModelConcept() {
-      return new TargetOperatingModelConcept(doc, path + "/targetOperatingModelConcept");
+    public TargetOperatingModel targetOperatingModelConcept() {
+      return new TargetOperatingModel(doc, path + "/targetOperatingModelConcept");
     }
 
     // SBP.8 Information & Data Model. Seeds → IFM.
@@ -11152,8 +11241,8 @@ public final class TomSomV0 {
     }
 
     // Current operational metrics.
-    public SomList<CurrentOperationalMetrics> operationalMetrics() {
-      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
+    public SomList<CurrentOperationalMetric> operationalMetrics() {
+      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetric(d, p));
     }
 
     // Current-state risk assessment.
@@ -11242,8 +11331,8 @@ public final class TomSomV0 {
     }
 
     // Detailed process workflows.
-    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
-      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
+    public SomList<DetailedProcessWorkflow> detailedWorkflows() {
+      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflow(d, p));
     }
 
     // Cross-process analysis.
@@ -11257,8 +11346,8 @@ public final class TomSomV0 {
     }
 
     // Process metrics and KPIs.
-    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
-      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
+    public SomList<ProcessMetric> processMetricsAndKpis() {
+      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetric(d, p));
     }
   }
 
@@ -11508,8 +11597,8 @@ public final class TomSomV0 {
     }
 
     // End-to-end test scenarios.
-    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
-      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
+    public SomList<EndToEndTestScenario> endToEndTestScenarios() {
+      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenario(d, p));
     }
 
     // Use case traceability.
@@ -11604,13 +11693,13 @@ public final class TomSomV0 {
     }
 
     // Components to use (whole).
-    public ComponentsToUse componentsToUse() {
-      return new ComponentsToUse(doc, path + "/componentsToUse");
+    public ComponentsAndDependencies componentsToUse() {
+      return new ComponentsAndDependencies(doc, path + "/componentsToUse");
     }
 
     // Technical framework conditions (whole).
-    public TechnicalFrameworkConditions technicalFrameworkConditions() {
-      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
+    public TechnicalEnvironment technicalEnvironment() {
+      return new TechnicalEnvironment(doc, path + "/technicalEnvironment");
     }
 
     // Translation handling requirements (whole).
@@ -11846,18 +11935,18 @@ public final class TomSomV0 {
     }
 
     // Print layout.
-    public PrintLayout printLayout() {
-      return new PrintLayout(doc, path + "/printLayout");
+    public PrintAndExportLayout printLayout() {
+      return new PrintAndExportLayout(doc, path + "/printLayout");
     }
 
     // Error handling concept.
-    public ErrorHandlingConcept errorHandling() {
-      return new ErrorHandlingConcept(doc, path + "/errorHandling");
+    public ErrorHandling errorHandling() {
+      return new ErrorHandling(doc, path + "/errorHandling");
     }
 
     // Help concept.
-    public HelpConcept helpConcept() {
-      return new HelpConcept(doc, path + "/helpConcept");
+    public UserAssistance userAssistance() {
+      return new UserAssistance(doc, path + "/userAssistance");
     }
 
     // Accessibility.
@@ -12183,13 +12272,13 @@ public final class TomSomV0 {
     }
 
     // User manuals.
-    public SomList<UserManuals> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
+    public SomList<UserManual> userManuals() {
+      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManual(d, p));
     }
 
     // Training materials.
-    public SomList<RolloutTrainingMaterials> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
+    public SomList<RolloutTrainingMaterial> trainingMaterials() {
+      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterial(d, p));
     }
 
     // Pilot plan.
@@ -12198,8 +12287,8 @@ public final class TomSomV0 {
     }
 
     // Cutover procedures.
-    public SomList<CutoverProcedures> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
+    public SomList<CutoverProcedure> cutoverProcedures() {
+      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedure(d, p));
     }
 
     // Knowledge transfer.
@@ -15260,8 +15349,8 @@ public final class TomSomV0 {
     }
 
     // Rollout and transition concept.
-    public SystemRolloutConcept systemRolloutConcept() {
-      return new SystemRolloutConcept(doc, path + "/systemRolloutConcept");
+    public SystemRollout systemRollout() {
+      return new SystemRollout(doc, path + "/systemRollout");
     }
 
     // Localization & translation *execution* processes (re-homed from MLAR in
@@ -15272,8 +15361,8 @@ public final class TomSomV0 {
     }
 
     // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-    public MultiLanguageAndRolloutPlan multiLanguageRolloutPlan() {
-      return new MultiLanguageAndRolloutPlan(doc, path + "/multiLanguageRolloutPlan");
+    public LocaleRolloutPlan localeRolloutPlan() {
+      return new LocaleRolloutPlan(doc, path + "/localeRolloutPlan");
     }
   }
 
@@ -16346,6 +16435,19 @@ public final class TomSomV0 {
     }
   }
 
+  // A design principle entry (form).
+  //
+  // Each principle guides UI decisions with rationale and examples.
+  public static final class DesignPrincipleEntry extends SomNode {
+    public DesignPrincipleEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DesignPrincipleEntryContentForm content() {
+      return new DesignPrincipleEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // 10.1.2. Design Principles.
   //
   // Guiding principles for all UI decisions: progressive disclosure, direct
@@ -16368,8 +16470,8 @@ public final class TomSomV0 {
     // (skipped: overview has no target type)
 
     // Contains 0+× UiDesignPrinciple.
-    public SomList<UiDesignPrincipleEntry> items() {
-      return new SomList<>(doc, path + "/UDPEN-ITEM-LST", (d, p) -> new UiDesignPrincipleEntry(d, p));
+    public SomList<DesignPrincipleEntry> items() {
+      return new SomList<>(doc, path + "/UDPEN-ITEM-LST", (d, p) -> new DesignPrincipleEntry(d, p));
     }
   }
 
@@ -16497,8 +16599,8 @@ public final class TomSomV0 {
   //
   // Per-process workflow detail beyond the catalog overview.
   // .
-  public static final class DetailedProcessWorkflows extends SomNode {
-    public DetailedProcessWorkflows(SpecDocument doc, String path) {
+  public static final class DetailedProcessWorkflow extends SomNode {
+    public DetailedProcessWorkflow(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -18421,8 +18523,8 @@ public final class TomSomV0 {
   //
   // Test scenarios that exercise complete user journeys across processes
   // and use cases..
-  public static final class EndToEndTestScenarios extends SomNode {
-    public EndToEndTestScenarios(SpecDocument doc, String path) {
+  public static final class EndToEndTestScenario extends SomNode {
+    public EndToEndTestScenario(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -19141,33 +19243,33 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.7. Error Handling Concept.
+  // 10.7. Error Handling.
   //
   // Comprehensive error handling user experience framework covering validation
   // feedback, system error presentation, and error recovery flows. Follows
   // UX best practices for error prevention, detection, and graceful recovery.
-  public static final class ErrorHandlingConcept extends SomNode {
-    public ErrorHandlingConcept(SpecDocument doc, String path) {
+  public static final class ErrorHandling extends SomNode {
+    public ErrorHandling(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ErrorHandlingConceptErrorPhilosophyContentForm errorPhilosophyContent() {
-      return new ErrorHandlingConceptErrorPhilosophyContentForm(doc, path + "/errorPhilosophyContent");
+    public ErrorHandlingErrorPhilosophyContentForm errorPhilosophyContent() {
+      return new ErrorHandlingErrorPhilosophyContentForm(doc, path + "/errorPhilosophyContent");
     }
 
     // Error categorization and display priority.
-    public ErrorHandlingConceptClassification classification() {
-      return new ErrorHandlingConceptClassification(doc, path + "/classification");
+    public ErrorHandlingClassification classification() {
+      return new ErrorHandlingClassification(doc, path + "/classification");
     }
 
     // Accessibility and inclusive error cues.
-    public ErrorHandlingConceptAccessibility accessibility() {
-      return new ErrorHandlingConceptAccessibility(doc, path + "/accessibility");
+    public ErrorHandlingAccessibility accessibility() {
+      return new ErrorHandlingAccessibility(doc, path + "/accessibility");
     }
 
     // Localization and analytics behavior.
-    public ErrorHandlingConceptOperations operations() {
-      return new ErrorHandlingConceptOperations(doc, path + "/operations");
+    public ErrorHandlingOperations operations() {
+      return new ErrorHandlingOperations(doc, path + "/operations");
     }
 
     // Error handling overview and strategy.
@@ -19196,35 +19298,35 @@ public final class TomSomV0 {
   }
 
   // Accessibility and inclusive error cues.
-  public static final class ErrorHandlingConceptAccessibility extends SomNode {
-    public ErrorHandlingConceptAccessibility(SpecDocument doc, String path) {
+  public static final class ErrorHandlingAccessibility extends SomNode {
+    public ErrorHandlingAccessibility(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ErrorHandlingConceptAccessibilityContentForm content() {
-      return new ErrorHandlingConceptAccessibilityContentForm(doc, path + "/content");
+    public ErrorHandlingAccessibilityContentForm content() {
+      return new ErrorHandlingAccessibilityContentForm(doc, path + "/content");
     }
   }
 
   // Error categorization and display priority.
-  public static final class ErrorHandlingConceptClassification extends SomNode {
-    public ErrorHandlingConceptClassification(SpecDocument doc, String path) {
+  public static final class ErrorHandlingClassification extends SomNode {
+    public ErrorHandlingClassification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ErrorHandlingConceptClassificationContentForm content() {
-      return new ErrorHandlingConceptClassificationContentForm(doc, path + "/content");
+    public ErrorHandlingClassificationContentForm content() {
+      return new ErrorHandlingClassificationContentForm(doc, path + "/content");
     }
   }
 
   // Localization and analytics behavior.
-  public static final class ErrorHandlingConceptOperations extends SomNode {
-    public ErrorHandlingConceptOperations(SpecDocument doc, String path) {
+  public static final class ErrorHandlingOperations extends SomNode {
+    public ErrorHandlingOperations(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ErrorHandlingConceptOperationsContentForm content() {
-      return new ErrorHandlingConceptOperationsContentForm(doc, path + "/content");
+    public ErrorHandlingOperationsContentForm content() {
+      return new ErrorHandlingOperationsContentForm(doc, path + "/content");
     }
   }
 
@@ -19812,8 +19914,8 @@ public final class TomSomV0 {
     }
 
     // 10.4. Print Layout. Seeds → XDS.
-    public PrintLayout printLayout() {
-      return new PrintLayout(doc, path + "/printLayout");
+    public PrintAndExportLayout printLayout() {
+      return new PrintAndExportLayout(doc, path + "/printLayout");
     }
 
     // Data Structure Alignment.
@@ -19822,14 +19924,14 @@ public final class TomSomV0 {
     // Authorization Compliance.
     // (skipped: authorizationCompliance has no target type)
 
-    // 10.7. Error Handling Concept. Seeds → XDS.
-    public ErrorHandlingConcept errorHandling() {
-      return new ErrorHandlingConcept(doc, path + "/errorHandling");
+    // 10.7. Error Handling. Seeds → XDS.
+    public ErrorHandling errorHandling() {
+      return new ErrorHandling(doc, path + "/errorHandling");
     }
 
-    // 10.8. Help Concept. Seeds → XDS.
-    public HelpConcept helpConcept() {
-      return new HelpConcept(doc, path + "/helpConcept");
+    // 10.8. User Assistance. Seeds → XDS.
+    public UserAssistance userAssistance() {
+      return new UserAssistance(doc, path + "/userAssistance");
     }
 
     // 10.9. Accessibility. Seeds → XDS.
@@ -19847,9 +19949,9 @@ public final class TomSomV0 {
       return new UiComponents(doc, path + "/uiComponents");
     }
 
-    // 10.12. Multi-language and Rollout Support.
-    public MultiLanguageAndRollout multiLanguage() {
-      return new MultiLanguageAndRollout(doc, path + "/multiLanguage");
+    // 10.12. Multi-language Support.
+    public MultiLanguageSupport multiLanguageSupport() {
+      return new MultiLanguageSupport(doc, path + "/multiLanguageSupport");
     }
 
     // 10.13. Prototype. Seeds → XDS.
@@ -21700,41 +21802,6 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6. Framework Conditions.
-  //
-  // Documents the organizational and technical environment in which the system
-  // will operate. Covers organizational structure, functional responsibilities,
-  // technical constraints, and external dependencies. Follows TOGAF enterprise
-  // context patterns and PMBOK environmental factors analysis.
-  public static final class FrameworkConditions extends SomNode {
-    public FrameworkConditions(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    // Framework conditions overview.
-    // (skipped: overview has no target type)
-
-    // 4.6.1. Organizational Environment.
-    public OrganizationalEnvironment organizationalEnvironment() {
-      return new OrganizationalEnvironment(doc, path + "/organizationalEnvironment");
-    }
-
-    // 4.6.2. Functional Responsibilities — contains 0+×.
-    public FunctionalResponsibilities functionalResponsibilities() {
-      return new FunctionalResponsibilities(doc, path + "/functionalResponsibilities");
-    }
-
-    // 4.6.3. Technical Framework Conditions. Seeds → ATS.
-    public TechnicalFrameworkConditions technicalFrameworkConditions() {
-      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
-    }
-
-    // 4.6.4. Constraints and Dependencies — contains 0+×.
-    public ConstraintsAndDependencies constraintsAndDependencies() {
-      return new ConstraintsAndDependencies(doc, path + "/constraintsAndDependencies");
-    }
-  }
-
   // Identity details.
   public static final class FrameworkIdentity extends SomNode {
     public FrameworkIdentity(SpecDocument doc, String path) {
@@ -22873,73 +22940,6 @@ public final class TomSomV0 {
     // Dependency health monitoring.
     public DependencyHealthMonitoring dependencyHealth() {
       return new DependencyHealthMonitoring(doc, path + "/dependencyHealth");
-    }
-  }
-
-  // 10.8. Help Concept.
-  //
-  // Comprehensive in-app help system including contextual help, onboarding,
-  // and support access mechanisms.
-  public static final class HelpConcept extends SomNode {
-    public HelpConcept(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public HelpConceptHelpOverviewContentForm helpOverviewContent() {
-      return new HelpConceptHelpOverviewContentForm(doc, path + "/helpOverviewContent");
-    }
-
-    // Content stewardship and help affordances.
-    public HelpConceptDelivery delivery() {
-      return new HelpConceptDelivery(doc, path + "/delivery");
-    }
-
-    // Analytics and improvement feedback.
-    public HelpConceptInsights insights() {
-      return new HelpConceptInsights(doc, path + "/insights");
-    }
-
-    // Help system overview narrative.
-    // (skipped: helpOverview has no target type)
-
-    // 10.8.1. Contextual Help.
-    public ContextualHelp contextualHelp() {
-      return new ContextualHelp(doc, path + "/contextualHelp");
-    }
-
-    // 10.8.2. Onboarding.
-    public OnboardingHelp onboarding() {
-      return new OnboardingHelp(doc, path + "/onboarding");
-    }
-
-    // 10.8.3. Support Access.
-    public SupportAccess supportAccess() {
-      return new SupportAccess(doc, path + "/supportAccess");
-    }
-
-    // Help content inventory.
-    // (skipped: helpContentInventory has no target type)
-  }
-
-  // Content stewardship and help affordances.
-  public static final class HelpConceptDelivery extends SomNode {
-    public HelpConceptDelivery(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public HelpConceptDeliveryContentForm content() {
-      return new HelpConceptDeliveryContentForm(doc, path + "/content");
-    }
-  }
-
-  // Analytics and improvement feedback.
-  public static final class HelpConceptInsights extends SomNode {
-    public HelpConceptInsights(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public HelpConceptInsightsContentForm content() {
-      return new HelpConceptInsightsContentForm(doc, path + "/content");
     }
   }
 
@@ -25776,7 +25776,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4. System Overview.
+  // 4. Introduction & Scope.
   //
   // High-level overview of the system to be built: its purpose, goals,
   // scope boundaries, and the environment it operates in. This section
@@ -25796,8 +25796,8 @@ public final class TomSomV0 {
     }
 
     // System overview summary statistics.
-    public SystemOverviewSummary summary() {
-      return new SystemOverviewSummary(doc, path + "/summary");
+    public SystemSummary summary() {
+      return new SystemSummary(doc, path + "/summary");
     }
 
     // System context diagram showing major system boundaries.
@@ -25835,9 +25835,9 @@ public final class TomSomV0 {
       return new SystemBoundaries(doc, path + "/systemBoundaries");
     }
 
-    // 4.6. Framework Conditions.
-    public FrameworkConditions frameworkConditions() {
-      return new FrameworkConditions(doc, path + "/frameworkConditions");
+    // 4.6. Operating Environment.
+    public OperatingEnvironment operatingEnvironment() {
+      return new OperatingEnvironment(doc, path + "/operatingEnvironment");
     }
 
     // 4.7. Risks and Assumptions.
@@ -26890,6 +26890,56 @@ public final class TomSomV0 {
     }
   }
 
+  // 3.6. Other Administrative Requirements.
+  //
+  // Additional administrative agreements, constraints, or requirements not
+  // covered by other sections: IP ownership, NDAs, regulatory compliance,
+  // audit requirements, and other legal or organizational agreements.
+  public static final class LegalAndContractualRequirements extends SomNode {
+    public LegalAndContractualRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 3.6.1. Intellectual Property.
+    public IntellectualPropertyRequirements intellectualProperty() {
+      return new IntellectualPropertyRequirements(doc, path + "/intellectualProperty");
+    }
+
+    // 3.6.2. Confidentiality and NDAs.
+    public ConfidentialityRequirements confidentiality() {
+      return new ConfidentialityRequirements(doc, path + "/confidentiality");
+    }
+
+    // 3.6.3. Regulatory Compliance.
+    public RegulatoryComplianceRequirements regulatoryCompliance() {
+      return new RegulatoryComplianceRequirements(doc, path + "/regulatoryCompliance");
+    }
+
+    // 3.6.4. Audit Requirements.
+    public AuditRequirements auditRequirements() {
+      return new AuditRequirements(doc, path + "/auditRequirements");
+    }
+
+    // 3.6.5. Insurance and Liability.
+    public InsuranceLiabilityRequirements insuranceLiability() {
+      return new InsuranceLiabilityRequirements(doc, path + "/insuranceLiability");
+    }
+
+    // 3.6.6. Other Agreements — contains 0+× Agreement.
+    public SomList<OtherAgreementEntry> otherAgreements() {
+      return new SomList<>(doc, path + "/OTAGR-OTHE-LST", (d, p) -> new OtherAgreementEntry(d, p));
+    }
+  }
+
   // Liability limitations.
   public static final class LiabilityLimitations extends SomNode {
     public LiabilityLimitations(SpecDocument doc, String path) {
@@ -27123,6 +27173,50 @@ public final class TomSomV0 {
     }
   }
 
+  // Locale modeling and fallback behavior.
+  public static final class LocaleHandlingRequirements extends SomNode {
+    public LocaleHandlingRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public LocaleHandlingRequirementsContentForm content() {
+      return new LocaleHandlingRequirementsContentForm(doc, path + "/content");
+    }
+  }
+
+  // Rollout sequencing by region and time.
+  public static final class LocaleRolloutPlan extends SomNode {
+    public LocaleRolloutPlan(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public LocaleRolloutPlanContentForm content() {
+      return new LocaleRolloutPlanContentForm(doc, path + "/content");
+    }
+  }
+
+  // Deployment settings.
+  public static final class LocalizationDeployment extends SomNode {
+    public LocalizationDeployment(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public LocalizationDeploymentContentForm content() {
+      return new LocalizationDeploymentContentForm(doc, path + "/content");
+    }
+  }
+
+  // Formatting rules.
+  public static final class LocalizationFormatting extends SomNode {
+    public LocalizationFormatting(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public LocalizationFormattingContentForm content() {
+      return new LocalizationFormattingContentForm(doc, path + "/content");
+    }
+  }
+
   // 10.12.1. Localization Process.
   //
   // Workflow for identifying and preparing content for localization.
@@ -27136,18 +27230,18 @@ public final class TomSomV0 {
     }
 
     // Review process.
-    public LocalizationProcessReview review() {
-      return new LocalizationProcessReview(doc, path + "/review");
+    public LocalizationReview review() {
+      return new LocalizationReview(doc, path + "/review");
     }
 
     // Formatting rules.
-    public LocalizationProcessFormatting formatting() {
-      return new LocalizationProcessFormatting(doc, path + "/formatting");
+    public LocalizationFormatting formatting() {
+      return new LocalizationFormatting(doc, path + "/formatting");
     }
 
     // Deployment settings.
-    public LocalizationProcessDeployment deployment() {
-      return new LocalizationProcessDeployment(doc, path + "/deployment");
+    public LocalizationDeployment deployment() {
+      return new LocalizationDeployment(doc, path + "/deployment");
     }
 
     // Localization process narrative.
@@ -27157,36 +27251,14 @@ public final class TomSomV0 {
     // (skipped: workflowDiagram has no target type)
   }
 
-  // Deployment settings.
-  public static final class LocalizationProcessDeployment extends SomNode {
-    public LocalizationProcessDeployment(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public LocalizationProcessDeploymentContentForm content() {
-      return new LocalizationProcessDeploymentContentForm(doc, path + "/content");
-    }
-  }
-
-  // Formatting rules.
-  public static final class LocalizationProcessFormatting extends SomNode {
-    public LocalizationProcessFormatting(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public LocalizationProcessFormattingContentForm content() {
-      return new LocalizationProcessFormattingContentForm(doc, path + "/content");
-    }
-  }
-
   // Review process.
-  public static final class LocalizationProcessReview extends SomNode {
-    public LocalizationProcessReview(SpecDocument doc, String path) {
+  public static final class LocalizationReview extends SomNode {
+    public LocalizationReview(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public LocalizationProcessReviewContentForm content() {
-      return new LocalizationProcessReviewContentForm(doc, path + "/content");
+    public LocalizationReviewContentForm content() {
+      return new LocalizationReviewContentForm(doc, path + "/content");
     }
   }
 
@@ -27194,7 +27266,7 @@ public final class TomSomV0 {
   //
   // Public anchor: ISO 29148 transition requirements. Bundles the localization
   // and translation *workflow* concerns re-homed from the former
-  // `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+  // `MultiLanguageSupport` cluster (their requirement counterparts live in
   // SBP.9 [LocalizationTranslationRequirements]).
   public static final class LocalizationTranslationProcess extends SomNode {
     public LocalizationTranslationProcess(SpecDocument doc, String path) {
@@ -27245,8 +27317,8 @@ public final class TomSomV0 {
     }
 
     // Locale modeling and fallback requirements (re-homed from MLAR).
-    public MultiLanguageAndRolloutLocaleHandling localeHandling() {
-      return new MultiLanguageAndRolloutLocaleHandling(doc, path + "/localeHandling");
+    public LocaleHandlingRequirements localeHandling() {
+      return new LocaleHandlingRequirements(doc, path + "/localeHandling");
     }
   }
 
@@ -29998,20 +30070,20 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12. Multi-language and Rollout Support.
+  // 10.12. Multi-language Support.
   //
   // Locale-picker / UX-side multi-language concerns that stay on the
   // Experience & Interface Design side. IP-6 re-homed the requirement-side
   // concerns (i18n requirements, documentation, training) to SBP.9 and the
   // execution-side concerns (localization/translation processes, rollout
   // sequencing) to SBP.15; only the stay-put UX members remain here.
-  public static final class MultiLanguageAndRollout extends SomNode {
-    public MultiLanguageAndRollout(SpecDocument doc, String path) {
+  public static final class MultiLanguageSupport extends SomNode {
+    public MultiLanguageSupport(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MultiLanguageAndRolloutMultiLanguageOverviewForm multiLanguageOverview() {
-      return new MultiLanguageAndRolloutMultiLanguageOverviewForm(doc, path + "/multiLanguageOverview");
+    public MultiLanguageSupportMultiLanguageOverviewForm multiLanguageOverview() {
+      return new MultiLanguageSupportMultiLanguageOverviewForm(doc, path + "/multiLanguageOverview");
     }
 
     // Multi-language overview narrative.
@@ -30025,28 +30097,6 @@ public final class TomSomV0 {
     // Supported locale entries.
     public SomList<SupportedLocaleEntry> supportedLocales() {
       return new SomList<>(doc, path + "/SULOEN-SUPP-LST", (d, p) -> new SupportedLocaleEntry(d, p));
-    }
-  }
-
-  // Locale modeling and fallback behavior.
-  public static final class MultiLanguageAndRolloutLocaleHandling extends SomNode {
-    public MultiLanguageAndRolloutLocaleHandling(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MultiLanguageAndRolloutLocaleHandlingContentForm content() {
-      return new MultiLanguageAndRolloutLocaleHandlingContentForm(doc, path + "/content");
-    }
-  }
-
-  // Rollout sequencing by region and time.
-  public static final class MultiLanguageAndRolloutPlan extends SomNode {
-    public MultiLanguageAndRolloutPlan(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MultiLanguageAndRolloutPlanContentForm content() {
-      return new MultiLanguageAndRolloutPlanContentForm(doc, path + "/content");
     }
   }
 
@@ -31701,6 +31751,41 @@ public final class TomSomV0 {
     }
   }
 
+  // 4.6. Operating Environment.
+  //
+  // Documents the organizational and technical environment in which the system
+  // will operate. Covers organizational structure, functional responsibilities,
+  // technical constraints, and external dependencies. Follows TOGAF enterprise
+  // context patterns and PMBOK environmental factors analysis.
+  public static final class OperatingEnvironment extends SomNode {
+    public OperatingEnvironment(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // Framework conditions overview.
+    // (skipped: overview has no target type)
+
+    // 4.6.1. Organizational Environment.
+    public OrganizationalEnvironment organizationalEnvironment() {
+      return new OrganizationalEnvironment(doc, path + "/organizationalEnvironment");
+    }
+
+    // 4.6.2. Functional Responsibilities — contains 0+×.
+    public FunctionalResponsibilities functionalResponsibilities() {
+      return new FunctionalResponsibilities(doc, path + "/functionalResponsibilities");
+    }
+
+    // 4.6.3. Technical Environment. Seeds → ATS.
+    public TechnicalEnvironment technicalEnvironment() {
+      return new TechnicalEnvironment(doc, path + "/technicalEnvironment");
+    }
+
+    // 4.6.4. Constraints and Dependencies — contains 0+×.
+    public ConstraintsAndDependencies constraintsAndDependencies() {
+      return new ConstraintsAndDependencies(doc, path + "/constraintsAndDependencies");
+    }
+  }
+
   // 11.4.3. Monitoring quality.
   public static final class OperationalMonitoring extends SomNode {
     public OperationalMonitoring(SpecDocument doc, String path) {
@@ -32413,56 +32498,6 @@ public final class TomSomV0 {
 
     public OsCompatibilityEntryTestingContentForm content() {
       return new OsCompatibilityEntryTestingContentForm(doc, path + "/content");
-    }
-  }
-
-  // 3.6. Other Administrative Requirements.
-  //
-  // Additional administrative agreements, constraints, or requirements not
-  // covered by other sections: IP ownership, NDAs, regulatory compliance,
-  // audit requirements, and other legal or organizational agreements.
-  public static final class OtherAdministrativeRequirements extends SomNode {
-    public OtherAdministrativeRequirements(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 3.6.1. Intellectual Property.
-    public IntellectualPropertyRequirements intellectualProperty() {
-      return new IntellectualPropertyRequirements(doc, path + "/intellectualProperty");
-    }
-
-    // 3.6.2. Confidentiality and NDAs.
-    public ConfidentialityRequirements confidentiality() {
-      return new ConfidentialityRequirements(doc, path + "/confidentiality");
-    }
-
-    // 3.6.3. Regulatory Compliance.
-    public RegulatoryComplianceRequirements regulatoryCompliance() {
-      return new RegulatoryComplianceRequirements(doc, path + "/regulatoryCompliance");
-    }
-
-    // 3.6.4. Audit Requirements.
-    public AuditRequirements auditRequirements() {
-      return new AuditRequirements(doc, path + "/auditRequirements");
-    }
-
-    // 3.6.5. Insurance and Liability.
-    public InsuranceLiabilityRequirements insuranceLiability() {
-      return new InsuranceLiabilityRequirements(doc, path + "/insuranceLiability");
-    }
-
-    // 3.6.6. Other Agreements — contains 0+× Agreement.
-    public SomList<OtherAgreementEntry> otherAgreements() {
-      return new SomList<>(doc, path + "/OTAGR-OTHE-LST", (d, p) -> new OtherAgreementEntry(d, p));
     }
   }
 
@@ -34045,13 +34080,13 @@ public final class TomSomV0 {
   }
 
   // 10.4. Print Layout.
-  public static final class PrintLayout extends SomNode {
-    public PrintLayout(SpecDocument doc, String path) {
+  public static final class PrintAndExportLayout extends SomNode {
+    public PrintAndExportLayout(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public PrintLayoutContentForm content() {
-      return new PrintLayoutContentForm(doc, path + "/content");
+    public PrintAndExportLayoutContentForm content() {
+      return new PrintAndExportLayoutContentForm(doc, path + "/content");
     }
 
     // Page margins and setup.
@@ -35048,6 +35083,24 @@ public final class TomSomV0 {
     }
   }
 
+  // 6.1.10. Process Metrics and KPIs.
+  //
+  // Process-level KPIs, SLAs, and measurement strategy.
+  public static final class ProcessMetric extends SomNode {
+    public ProcessMetric(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+  }
+
   // A category of process metrics.
   public static final class ProcessMetricCategory extends SomNode {
     public ProcessMetricCategory(SpecDocument doc, String path) {
@@ -35174,24 +35227,6 @@ public final class TomSomV0 {
     // Baseline comparison table.
     public MetricsBaselineTable baselineTable() {
       return new MetricsBaselineTable(doc, path + "/baselineTable");
-    }
-  }
-
-  // 6.1.10. Process Metrics and KPIs.
-  //
-  // Process-level KPIs, SLAs, and measurement strategy.
-  public static final class ProcessMetricsAndKpis extends SomNode {
-    public ProcessMetricsAndKpis(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -35490,8 +35525,8 @@ public final class TomSomV0 {
     }
 
     // 6.2.4. End-to-End Test Scenarios..
-    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
-      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
+    public SomList<EndToEndTestScenario> endToEndTestScenarios() {
+      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenario(d, p));
     }
 
     // 6.2.5. Use Case Traceability.
@@ -36008,8 +36043,8 @@ public final class TomSomV0 {
     }
 
     // 10.13.3. Prototype Type.
-    public PrototypeTypeSection prototypeType() {
-      return new PrototypeTypeSection(doc, path + "/prototypeType");
+    public PrototypeType prototypeType() {
+      return new PrototypeType(doc, path + "/prototypeType");
     }
 
     // Prototype schedule.
@@ -36180,13 +36215,13 @@ public final class TomSomV0 {
   // 10.13.3. Prototype Type.
   //
   // Classification and implications of the prototype type.
-  public static final class PrototypeTypeSection extends SomNode {
-    public PrototypeTypeSection(SpecDocument doc, String path) {
+  public static final class PrototypeType extends SomNode {
+    public PrototypeType(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public PrototypeTypeSectionPrototypeTypeOverviewForm prototypeTypeOverview() {
-      return new PrototypeTypeSectionPrototypeTypeOverviewForm(doc, path + "/prototypeTypeOverview");
+    public PrototypeTypePrototypeTypeOverviewForm prototypeTypeOverview() {
+      return new PrototypeTypePrototypeTypeOverviewForm(doc, path + "/prototypeTypeOverview");
     }
 
     // 10.13.3.1. Reusable Prototype.
@@ -40781,8 +40816,8 @@ public final class TomSomV0 {
   // 15.4. Training Materials.
   //
   // Training deliverables covering training-material content.
-  public static final class RolloutTrainingMaterials extends SomNode {
-    public RolloutTrainingMaterials(SpecDocument doc, String path) {
+  public static final class RolloutTrainingMaterial extends SomNode {
+    public RolloutTrainingMaterial(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -45187,8 +45222,8 @@ public final class TomSomV0 {
     }
 
     // Components, libraries, and services to reuse.
-    public ComponentsToUse componentsToUse() {
-      return new ComponentsToUse(doc, path + "/componentsToUse");
+    public ComponentsAndDependencies componentsToUse() {
+      return new ComponentsAndDependencies(doc, path + "/componentsToUse");
     }
   }
 
@@ -45232,6 +45267,17 @@ public final class TomSomV0 {
 
     public SpecializedEquipmentEntryTechnicalContentForm content() {
       return new SpecializedEquipmentEntryTechnicalContentForm(doc, path + "/content");
+    }
+  }
+
+  // Specification status.
+  public static final class SpecificationStatus extends SomNode {
+    public SpecificationStatus(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SpecificationStatusContentForm content() {
+      return new SpecificationStatusContentForm(doc, path + "/content");
     }
   }
 
@@ -46084,6 +46130,39 @@ public final class TomSomV0 {
     }
   }
 
+  // Dependencies, risks, and compliance constraints across stages.
+  public static final class StagePlanCoordination extends SomNode {
+    public StagePlanCoordination(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public StagePlanCoordinationContentForm content() {
+      return new StagePlanCoordinationContentForm(doc, path + "/content");
+    }
+  }
+
+  // Organizational capacity and plan confidence.
+  public static final class StagePlanReadiness extends SomNode {
+    public StagePlanReadiness(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public StagePlanReadinessContentForm content() {
+      return new StagePlanReadinessContentForm(doc, path + "/content");
+    }
+  }
+
+  // Overall schedule and buffer model.
+  public static final class StagePlanTimeline extends SomNode {
+    public StagePlanTimeline(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public StagePlanTimelineContentForm content() {
+      return new StagePlanTimelineContentForm(doc, path + "/content");
+    }
+  }
+
   // Quality and governance for a stage entry.
   public static final class StageQuality extends SomNode {
     public StageQuality(SpecDocument doc, String path) {
@@ -46724,8 +46803,8 @@ public final class TomSomV0 {
 
     // Legal and contractual requirements (IP, NDAs, compliance, audit).
     // Renamed to `LegalAndContractualRequirements` in L34C-9.
-    public OtherAdministrativeRequirements legalAndContractual() {
-      return new OtherAdministrativeRequirements(doc, path + "/legalAndContractual");
+    public LegalAndContractualRequirements legalAndContractual() {
+      return new LegalAndContractualRequirements(doc, path + "/legalAndContractual");
     }
 
     // Stakeholder register (§5 completeness addition).
@@ -47671,6 +47750,28 @@ public final class TomSomV0 {
     }
   }
 
+  // System classification.
+  public static final class SystemClassification extends SomNode {
+    public SystemClassification(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SystemClassificationContentForm content() {
+      return new SystemClassificationContentForm(doc, path + "/content");
+    }
+  }
+
+  // Complexity indicators.
+  public static final class SystemComplexity extends SomNode {
+    public SystemComplexity(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SystemComplexityContentForm content() {
+      return new SystemComplexityContentForm(doc, path + "/content");
+    }
+  }
+
   // System configuration management.
   public static final class SystemConfigurationManagement extends SomNode {
     public SystemConfigurationManagement(SpecDocument doc, String path) {
@@ -48031,9 +48132,9 @@ public final class TomSomV0 {
       return new SystemContext(doc, path + "/systemContext");
     }
 
-    // 4.1.3. Description of Task Area.
-    public TaskArea taskArea() {
-      return new TaskArea(doc, path + "/taskArea");
+    // 4.1.3. Description of Business Domain.
+    public BusinessDomain businessDomain() {
+      return new BusinessDomain(doc, path + "/businessDomain");
     }
 
     // 4.1.4. User Categories — contains 1+× User Category.
@@ -48562,81 +48663,6 @@ public final class TomSomV0 {
     }
   }
 
-  // System overview summary for quick reference.
-  public static final class SystemOverviewSummary extends SomNode {
-    public SystemOverviewSummary(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemOverviewSummaryContentForm content() {
-      return new SystemOverviewSummaryContentForm(doc, path + "/content");
-    }
-
-    // System classification.
-    public SystemOverviewSummaryClassification classification() {
-      return new SystemOverviewSummaryClassification(doc, path + "/classification");
-    }
-
-    // Scale indicators.
-    public SystemOverviewSummaryScale scale() {
-      return new SystemOverviewSummaryScale(doc, path + "/scale");
-    }
-
-    // Specification status.
-    public SystemOverviewSummaryStatus status() {
-      return new SystemOverviewSummaryStatus(doc, path + "/status");
-    }
-
-    // Complexity indicators.
-    public SystemOverviewSummaryComplexity complexity() {
-      return new SystemOverviewSummaryComplexity(doc, path + "/complexity");
-    }
-  }
-
-  // System classification.
-  public static final class SystemOverviewSummaryClassification extends SomNode {
-    public SystemOverviewSummaryClassification(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemOverviewSummaryClassificationContentForm content() {
-      return new SystemOverviewSummaryClassificationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Complexity indicators.
-  public static final class SystemOverviewSummaryComplexity extends SomNode {
-    public SystemOverviewSummaryComplexity(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemOverviewSummaryComplexityContentForm content() {
-      return new SystemOverviewSummaryComplexityContentForm(doc, path + "/content");
-    }
-  }
-
-  // Scale indicators.
-  public static final class SystemOverviewSummaryScale extends SomNode {
-    public SystemOverviewSummaryScale(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemOverviewSummaryScaleContentForm content() {
-      return new SystemOverviewSummaryScaleContentForm(doc, path + "/content");
-    }
-  }
-
-  // Specification status.
-  public static final class SystemOverviewSummaryStatus extends SomNode {
-    public SystemOverviewSummaryStatus(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemOverviewSummaryStatusContentForm content() {
-      return new SystemOverviewSummaryStatusContentForm(doc, path + "/content");
-    }
-  }
-
   // 4.1.1. System Purpose.
   //
   // Describes the overarching purpose of the system including the problem it
@@ -48875,8 +48901,8 @@ public final class TomSomV0 {
   }
 
   // 15. System Rollout Concept. Seeds → TRP.
-  public static final class SystemRolloutConcept extends SomNode {
-    public SystemRolloutConcept(SpecDocument doc, String path) {
+  public static final class SystemRollout extends SomNode {
+    public SystemRollout(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -48900,13 +48926,13 @@ public final class TomSomV0 {
     }
 
     // 15.3. User Manuals.
-    public SomList<UserManuals> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
+    public SomList<UserManual> userManuals() {
+      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManual(d, p));
     }
 
     // 15.4. Training Materials.
-    public SomList<RolloutTrainingMaterials> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
+    public SomList<RolloutTrainingMaterial> trainingMaterials() {
+      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterial(d, p));
     }
 
     // 15.5. Pilot Plan.
@@ -48915,8 +48941,8 @@ public final class TomSomV0 {
     }
 
     // 15.6. Cutover Procedures.
-    public SomList<CutoverProcedures> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
+    public SomList<CutoverProcedure> cutoverProcedures() {
+      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedure(d, p));
     }
 
     // 15.7. Knowledge Transfer.
@@ -48927,6 +48953,17 @@ public final class TomSomV0 {
     // 15.8. Warranty and Support.
     public WarrantyAndSupport warrantyAndSupport() {
       return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
+    }
+  }
+
+  // Scale indicators.
+  public static final class SystemScale extends SomNode {
+    public SystemScale(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SystemScaleContentForm content() {
+      return new SystemScaleContentForm(doc, path + "/content");
     }
   }
 
@@ -48948,18 +48985,18 @@ public final class TomSomV0 {
     }
 
     // Overall schedule and buffer model.
-    public SystemStagePlanTimeline timeline() {
-      return new SystemStagePlanTimeline(doc, path + "/timeline");
+    public StagePlanTimeline timeline() {
+      return new StagePlanTimeline(doc, path + "/timeline");
     }
 
     // Dependencies, risks, and compliance constraints across stages.
-    public SystemStagePlanCoordination coordination() {
-      return new SystemStagePlanCoordination(doc, path + "/coordination");
+    public StagePlanCoordination coordination() {
+      return new StagePlanCoordination(doc, path + "/coordination");
     }
 
     // Organizational capacity and plan confidence.
-    public SystemStagePlanReadiness readiness() {
-      return new SystemStagePlanReadiness(doc, path + "/readiness");
+    public StagePlanReadiness readiness() {
+      return new StagePlanReadiness(doc, path + "/readiness");
     }
 
     // 13.1. Staging Strategy.
@@ -49003,36 +49040,34 @@ public final class TomSomV0 {
     }
   }
 
-  // Dependencies, risks, and compliance constraints across stages.
-  public static final class SystemStagePlanCoordination extends SomNode {
-    public SystemStagePlanCoordination(SpecDocument doc, String path) {
+  // System overview summary for quick reference.
+  public static final class SystemSummary extends SomNode {
+    public SystemSummary(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public SystemStagePlanCoordinationContentForm content() {
-      return new SystemStagePlanCoordinationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Organizational capacity and plan confidence.
-  public static final class SystemStagePlanReadiness extends SomNode {
-    public SystemStagePlanReadiness(SpecDocument doc, String path) {
-      super(doc, path);
+    public SystemSummaryContentForm content() {
+      return new SystemSummaryContentForm(doc, path + "/content");
     }
 
-    public SystemStagePlanReadinessContentForm content() {
-      return new SystemStagePlanReadinessContentForm(doc, path + "/content");
-    }
-  }
-
-  // Overall schedule and buffer model.
-  public static final class SystemStagePlanTimeline extends SomNode {
-    public SystemStagePlanTimeline(SpecDocument doc, String path) {
-      super(doc, path);
+    // System classification.
+    public SystemClassification classification() {
+      return new SystemClassification(doc, path + "/classification");
     }
 
-    public SystemStagePlanTimelineContentForm content() {
-      return new SystemStagePlanTimelineContentForm(doc, path + "/content");
+    // Scale indicators.
+    public SystemScale scale() {
+      return new SystemScale(doc, path + "/scale");
+    }
+
+    // Specification status.
+    public SpecificationStatus status() {
+      return new SpecificationStatus(doc, path + "/status");
+    }
+
+    // Complexity indicators.
+    public SystemComplexity complexity() {
+      return new SystemComplexity(doc, path + "/complexity");
     }
   }
 
@@ -49533,8 +49568,8 @@ public final class TomSomV0 {
   // SBP.7 Target Operating Model concept.
   //
   // Public anchor: BABOK future-state analysis.
-  public static final class TargetOperatingModelConcept extends SomNode {
-    public TargetOperatingModelConcept(SpecDocument doc, String path) {
+  public static final class TargetOperatingModel extends SomNode {
+    public TargetOperatingModel(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -49630,62 +49665,6 @@ public final class TomSomV0 {
 
     public TargetPlatformEntryVersionContentForm content() {
       return new TargetPlatformEntryVersionContentForm(doc, path + "/content");
-    }
-  }
-
-  // 4.1.3. Description of Task Area.
-  //
-  // Describes the business domain and task area the system addresses.
-  // Defines the domain vocabulary and key concepts (ubiquitous language)
-  // that will be used throughout the project. Based on Domain-Driven Design
-  // principles for establishing a shared understanding.
-  public static final class TaskArea extends SomNode {
-    public TaskArea(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 4.1.3.1. Domain Overview.
-    public DomainOverview domainOverview() {
-      return new DomainOverview(doc, path + "/domainOverview");
-    }
-
-    // 4.1.3.2. Domain Vocabulary.
-    public DomainVocabulary domainVocabulary() {
-      return new DomainVocabulary(doc, path + "/domainVocabulary");
-    }
-
-    // 4.1.3.3. Key Concepts.
-    public KeyConcepts keyConcepts() {
-      return new KeyConcepts(doc, path + "/keyConcepts");
-    }
-
-    // 4.1.3.4. Domain Boundaries.
-    public DomainBoundaries domainBoundaries() {
-      return new DomainBoundaries(doc, path + "/domainBoundaries");
-    }
-
-    // 4.1.3.5. Business Rules.
-    public DomainBusinessRules businessRules() {
-      return new DomainBusinessRules(doc, path + "/businessRules");
-    }
-
-    // 4.1.3.6. Domain Processes.
-    public DomainProcesses domainProcesses() {
-      return new DomainProcesses(doc, path + "/domainProcesses");
-    }
-
-    // 4.1.3.7. Domain Events.
-    public DomainEvents domainEvents() {
-      return new DomainEvents(doc, path + "/domainEvents");
     }
   }
 
@@ -49862,6 +49841,127 @@ public final class TomSomV0 {
     }
   }
 
+  // 4.6.3. Technical Environment. Seeds → ATS.
+  //
+  // Documents pre-existing technical constraints including mandated platforms,
+  // network restrictions, compliance requirements, existing infrastructure
+  // that must be reused, and technology standards to follow. Provides the
+  // technical landscape in which the solution must operate. Seeds the detailed
+  // Architecture & Technology Specification (ATS) document.
+  public static final class TechnicalEnvironment extends SomNode {
+    public TechnicalEnvironment(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TechnicalEnvironmentTechnicalOverviewContentForm technicalOverviewContent() {
+      return new TechnicalEnvironmentTechnicalOverviewContentForm(doc, path + "/technicalOverviewContent");
+    }
+
+    // Architecture governance context.
+    public TechnicalEnvironmentGovernance governance() {
+      return new TechnicalEnvironmentGovernance(doc, path + "/governance");
+    }
+
+    // Platform standards and preferred technologies.
+    public TechnicalEnvironmentStandards standards() {
+      return new TechnicalEnvironmentStandards(doc, path + "/standards");
+    }
+
+    // Security and compliance requirements.
+    public TechnicalEnvironmentSecurity security() {
+      return new TechnicalEnvironmentSecurity(doc, path + "/security");
+    }
+
+    // Network and infrastructure standards.
+    public TechnicalEnvironmentNetwork network() {
+      return new TechnicalEnvironmentNetwork(doc, path + "/network");
+    }
+
+    // Existing infrastructure that must be reused or integrated with.
+    // (skipped: existingInfrastructure has no target type)
+
+    // Data center and hosting environment details.
+    public SomList<DatacenterEntry> datacenters() {
+      return new SomList<>(doc, path + "/DATAC-DATA-LST", (d, p) -> new DatacenterEntry(d, p));
+    }
+
+    // Network topology and connectivity constraints.
+    // (skipped: networkTopology has no target type)
+
+    // Technology standards that must be followed.
+    // (skipped: standardsOverview has no target type)
+
+    // Technology standards — contains 0+× TechnologyStandard.
+    public SomList<TechnologyStandardEntry> technologyStandards() {
+      return new SomList<>(doc, path + "/TESTEN-TECH-LST", (d, p) -> new TechnologyStandardEntry(d, p));
+    }
+
+    // Integration constraints overview.
+    // (skipped: integrationOverview has no target type)
+
+    // Integration constraints — contains 0+× IntegrationConstraint.
+    public SomList<IntegrationConstraintEntry> integrationConstraints() {
+      return new SomList<>(doc, path + "/INCOE1-INTE-LST", (d, p) -> new IntegrationConstraintEntry(d, p));
+    }
+  }
+
+  // Architecture governance context.
+  public static final class TechnicalEnvironmentGovernance extends SomNode {
+    public TechnicalEnvironmentGovernance(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TechnicalEnvironmentGovernanceContentForm content() {
+      return new TechnicalEnvironmentGovernanceContentForm(doc, path + "/content");
+    }
+  }
+
+  // Network and infrastructure standards.
+  public static final class TechnicalEnvironmentNetwork extends SomNode {
+    public TechnicalEnvironmentNetwork(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TechnicalEnvironmentNetworkContentForm content() {
+      return new TechnicalEnvironmentNetworkContentForm(doc, path + "/content");
+    }
+
+    // DevOps and deployment standards.
+    public SomList<DevopsStandardEntry> devopsStandards() {
+      return new SomList<>(doc, path + "/DEVOP-DEVO-LST", (d, p) -> new DevopsStandardEntry(d, p));
+    }
+
+    // Monitoring and observability requirements.
+    public SomList<ObservabilityRequirementEntry> observabilityRequirements() {
+      return new SomList<>(doc, path + "/OBSER-OBSE-LST", (d, p) -> new ObservabilityRequirementEntry(d, p));
+    }
+
+    // Disaster recovery and business continuity requirements.
+    // (skipped: disasterRecovery has no target type)
+  }
+
+  // Security and compliance requirements.
+  public static final class TechnicalEnvironmentSecurity extends SomNode {
+    public TechnicalEnvironmentSecurity(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TechnicalEnvironmentSecurityContentForm content() {
+      return new TechnicalEnvironmentSecurityContentForm(doc, path + "/content");
+    }
+  }
+
+  // Platform standards and preferred technologies.
+  public static final class TechnicalEnvironmentStandards extends SomNode {
+    public TechnicalEnvironmentStandards(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TechnicalEnvironmentStandardsContentForm content() {
+      return new TechnicalEnvironmentStandardsContentForm(doc, path + "/content");
+    }
+  }
+
   // 8. Technical Framework Concept. Seeds → ATS.
   public static final class TechnicalFrameworkConcept extends SomNode {
     public TechnicalFrameworkConcept(SpecDocument doc, String path) {
@@ -49920,127 +50020,6 @@ public final class TomSomV0 {
     // 8.9. System Architecture..
     public SystemArchitectureSpec systemArchitecture() {
       return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
-    }
-  }
-
-  // 4.6.3. Technical Framework Conditions. Seeds → ATS.
-  //
-  // Documents pre-existing technical constraints including mandated platforms,
-  // network restrictions, compliance requirements, existing infrastructure
-  // that must be reused, and technology standards to follow. Provides the
-  // technical landscape in which the solution must operate. Seeds the detailed
-  // Architecture & Technology Specification (ATS) document.
-  public static final class TechnicalFrameworkConditions extends SomNode {
-    public TechnicalFrameworkConditions(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalFrameworkConditionsTechnicalOverviewContentForm technicalOverviewContent() {
-      return new TechnicalFrameworkConditionsTechnicalOverviewContentForm(doc, path + "/technicalOverviewContent");
-    }
-
-    // Architecture governance context.
-    public TechnicalFrameworkConditionsGovernance governance() {
-      return new TechnicalFrameworkConditionsGovernance(doc, path + "/governance");
-    }
-
-    // Platform standards and preferred technologies.
-    public TechnicalFrameworkConditionsStandards standards() {
-      return new TechnicalFrameworkConditionsStandards(doc, path + "/standards");
-    }
-
-    // Security and compliance requirements.
-    public TechnicalFrameworkConditionsSecurity security() {
-      return new TechnicalFrameworkConditionsSecurity(doc, path + "/security");
-    }
-
-    // Network and infrastructure standards.
-    public TechnicalFrameworkConditionsNetwork network() {
-      return new TechnicalFrameworkConditionsNetwork(doc, path + "/network");
-    }
-
-    // Existing infrastructure that must be reused or integrated with.
-    // (skipped: existingInfrastructure has no target type)
-
-    // Data center and hosting environment details.
-    public SomList<DatacenterEntry> datacenters() {
-      return new SomList<>(doc, path + "/DATAC-DATA-LST", (d, p) -> new DatacenterEntry(d, p));
-    }
-
-    // Network topology and connectivity constraints.
-    // (skipped: networkTopology has no target type)
-
-    // Technology standards that must be followed.
-    // (skipped: standardsOverview has no target type)
-
-    // Technology standards — contains 0+× TechnologyStandard.
-    public SomList<TechnologyStandardEntry> technologyStandards() {
-      return new SomList<>(doc, path + "/TESTEN-TECH-LST", (d, p) -> new TechnologyStandardEntry(d, p));
-    }
-
-    // Integration constraints overview.
-    // (skipped: integrationOverview has no target type)
-
-    // Integration constraints — contains 0+× IntegrationConstraint.
-    public SomList<IntegrationConstraintEntry> integrationConstraints() {
-      return new SomList<>(doc, path + "/INCOE1-INTE-LST", (d, p) -> new IntegrationConstraintEntry(d, p));
-    }
-  }
-
-  // Architecture governance context.
-  public static final class TechnicalFrameworkConditionsGovernance extends SomNode {
-    public TechnicalFrameworkConditionsGovernance(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalFrameworkConditionsGovernanceContentForm content() {
-      return new TechnicalFrameworkConditionsGovernanceContentForm(doc, path + "/content");
-    }
-  }
-
-  // Network and infrastructure standards.
-  public static final class TechnicalFrameworkConditionsNetwork extends SomNode {
-    public TechnicalFrameworkConditionsNetwork(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalFrameworkConditionsNetworkContentForm content() {
-      return new TechnicalFrameworkConditionsNetworkContentForm(doc, path + "/content");
-    }
-
-    // DevOps and deployment standards.
-    public SomList<DevopsStandardEntry> devopsStandards() {
-      return new SomList<>(doc, path + "/DEVOP-DEVO-LST", (d, p) -> new DevopsStandardEntry(d, p));
-    }
-
-    // Monitoring and observability requirements.
-    public SomList<ObservabilityRequirementEntry> observabilityRequirements() {
-      return new SomList<>(doc, path + "/OBSER-OBSE-LST", (d, p) -> new ObservabilityRequirementEntry(d, p));
-    }
-
-    // Disaster recovery and business continuity requirements.
-    // (skipped: disasterRecovery has no target type)
-  }
-
-  // Security and compliance requirements.
-  public static final class TechnicalFrameworkConditionsSecurity extends SomNode {
-    public TechnicalFrameworkConditionsSecurity(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalFrameworkConditionsSecurityContentForm content() {
-      return new TechnicalFrameworkConditionsSecurityContentForm(doc, path + "/content");
-    }
-  }
-
-  // Platform standards and preferred technologies.
-  public static final class TechnicalFrameworkConditionsStandards extends SomNode {
-    public TechnicalFrameworkConditionsStandards(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalFrameworkConditionsStandardsContentForm content() {
-      return new TechnicalFrameworkConditionsStandardsContentForm(doc, path + "/content");
     }
   }
 
@@ -51927,7 +51906,7 @@ public final class TomSomV0 {
   // half in L34C-7 (SR-29). Logically re-homed under SBP.9
   // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
   // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-  // (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+  // (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
   // content in one D12 subsection rather than fragmenting it across a new id.
   public static final class TrainingDeliverableRequirements extends SomNode {
     public TrainingDeliverableRequirements(SpecDocument doc, String path) {
@@ -52596,6 +52575,17 @@ public final class TomSomV0 {
     }
   }
 
+  // Ongoing localization operations.
+  public static final class TranslationOngoing extends SomNode {
+    public TranslationOngoing(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TranslationOngoingContentForm content() {
+      return new TranslationOngoingContentForm(doc, path + "/content");
+    }
+  }
+
   // 10.12.2. Translation Process.
   //
   // Workflow for translating content.
@@ -52609,23 +52599,23 @@ public final class TomSomV0 {
     }
 
     // Translation workflow.
-    public TranslationProcessWorkflow workflow() {
-      return new TranslationProcessWorkflow(doc, path + "/workflow");
+    public TranslationWorkflow workflow() {
+      return new TranslationWorkflow(doc, path + "/workflow");
     }
 
     // Quality assurance.
-    public TranslationProcessQuality quality() {
-      return new TranslationProcessQuality(doc, path + "/quality");
+    public TranslationQuality quality() {
+      return new TranslationQuality(doc, path + "/quality");
     }
 
     // Terminology and voice management.
-    public TranslationProcessTerminology terminology() {
-      return new TranslationProcessTerminology(doc, path + "/terminology");
+    public TranslationTerminology terminology() {
+      return new TranslationTerminology(doc, path + "/terminology");
     }
 
     // Ongoing localization operations.
-    public TranslationProcessOngoing ongoing() {
-      return new TranslationProcessOngoing(doc, path + "/ongoing");
+    public TranslationOngoing ongoing() {
+      return new TranslationOngoing(doc, path + "/ongoing");
     }
 
     // Translation process narrative.
@@ -52637,47 +52627,14 @@ public final class TomSomV0 {
     }
   }
 
-  // Ongoing localization operations.
-  public static final class TranslationProcessOngoing extends SomNode {
-    public TranslationProcessOngoing(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TranslationProcessOngoingContentForm content() {
-      return new TranslationProcessOngoingContentForm(doc, path + "/content");
-    }
-  }
-
   // Quality assurance.
-  public static final class TranslationProcessQuality extends SomNode {
-    public TranslationProcessQuality(SpecDocument doc, String path) {
+  public static final class TranslationQuality extends SomNode {
+    public TranslationQuality(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public TranslationProcessQualityContentForm content() {
-      return new TranslationProcessQualityContentForm(doc, path + "/content");
-    }
-  }
-
-  // Terminology and voice management.
-  public static final class TranslationProcessTerminology extends SomNode {
-    public TranslationProcessTerminology(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TranslationProcessTerminologyContentForm content() {
-      return new TranslationProcessTerminologyContentForm(doc, path + "/content");
-    }
-  }
-
-  // Translation workflow.
-  public static final class TranslationProcessWorkflow extends SomNode {
-    public TranslationProcessWorkflow(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TranslationProcessWorkflowContentForm content() {
-      return new TranslationProcessWorkflowContentForm(doc, path + "/content");
+    public TranslationQualityContentForm content() {
+      return new TranslationQualityContentForm(doc, path + "/content");
     }
   }
 
@@ -52761,6 +52718,17 @@ public final class TomSomV0 {
     }
   }
 
+  // Terminology and voice management.
+  public static final class TranslationTerminology extends SomNode {
+    public TranslationTerminology(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TranslationTerminologyContentForm content() {
+      return new TranslationTerminologyContentForm(doc, path + "/content");
+    }
+  }
+
   // A translation vendor entry.
   public static final class TranslationVendorEntry extends SomNode {
     public TranslationVendorEntry(SpecDocument doc, String path) {
@@ -52769,6 +52737,17 @@ public final class TomSomV0 {
 
     public TranslationVendorEntryContentForm content() {
       return new TranslationVendorEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // Translation workflow.
+  public static final class TranslationWorkflow extends SomNode {
+    public TranslationWorkflow(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TranslationWorkflowContentForm content() {
+      return new TranslationWorkflowContentForm(doc, path + "/content");
     }
   }
 
@@ -53325,18 +53304,18 @@ public final class TomSomV0 {
     }
 
     // Visual language and brand alignment.
-    public UiComponentsVisualLanguage visualLanguage() {
-      return new UiComponentsVisualLanguage(doc, path + "/visualLanguage");
+    public ComponentVisualLanguage visualLanguage() {
+      return new ComponentVisualLanguage(doc, path + "/visualLanguage");
     }
 
     // Component naming and documentation approach.
-    public UiComponentsComponentApproach componentApproach() {
-      return new UiComponentsComponentApproach(doc, path + "/componentApproach");
+    public ComponentApproach componentApproach() {
+      return new ComponentApproach(doc, path + "/componentApproach");
     }
 
     // Extension and theming boundaries.
-    public UiComponentsCustomization customization() {
-      return new UiComponentsCustomization(doc, path + "/customization");
+    public ComponentCustomization customization() {
+      return new ComponentCustomization(doc, path + "/customization");
     }
 
     // 10.11.1. Component Library.
@@ -53352,52 +53331,6 @@ public final class TomSomV0 {
     // 10.11.3. Component Families — contains 0+×.
     public SomList<ComponentFamilyEntry> componentFamilies() {
       return new SomList<>(doc, path + "/CMFA-COMP-LST", (d, p) -> new ComponentFamilyEntry(d, p));
-    }
-  }
-
-  // Component naming and documentation approach.
-  public static final class UiComponentsComponentApproach extends SomNode {
-    public UiComponentsComponentApproach(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public UiComponentsComponentApproachContentForm content() {
-      return new UiComponentsComponentApproachContentForm(doc, path + "/content");
-    }
-  }
-
-  // Extension and theming boundaries.
-  public static final class UiComponentsCustomization extends SomNode {
-    public UiComponentsCustomization(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public UiComponentsCustomizationContentForm content() {
-      return new UiComponentsCustomizationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Visual language and brand alignment.
-  public static final class UiComponentsVisualLanguage extends SomNode {
-    public UiComponentsVisualLanguage(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public UiComponentsVisualLanguageContentForm content() {
-      return new UiComponentsVisualLanguageContentForm(doc, path + "/content");
-    }
-  }
-
-  // A design principle entry (form).
-  //
-  // Each principle guides UI decisions with rationale and examples.
-  public static final class UiDesignPrincipleEntry extends SomNode {
-    public UiDesignPrincipleEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public UiDesignPrincipleEntryContentForm content() {
-      return new UiDesignPrincipleEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -53746,6 +53679,73 @@ public final class TomSomV0 {
 
     // State Transition Diagram (mermaid).
     // (skipped: stateTransitionDiagram has no target type)
+  }
+
+  // 10.8. User Assistance.
+  //
+  // Comprehensive in-app help system including contextual help, onboarding,
+  // and support access mechanisms.
+  public static final class UserAssistance extends SomNode {
+    public UserAssistance(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public UserAssistanceHelpOverviewContentForm helpOverviewContent() {
+      return new UserAssistanceHelpOverviewContentForm(doc, path + "/helpOverviewContent");
+    }
+
+    // Content stewardship and help affordances.
+    public UserAssistanceDelivery delivery() {
+      return new UserAssistanceDelivery(doc, path + "/delivery");
+    }
+
+    // Analytics and improvement feedback.
+    public UserAssistanceInsights insights() {
+      return new UserAssistanceInsights(doc, path + "/insights");
+    }
+
+    // Help system overview narrative.
+    // (skipped: helpOverview has no target type)
+
+    // 10.8.1. Contextual Help.
+    public ContextualHelp contextualHelp() {
+      return new ContextualHelp(doc, path + "/contextualHelp");
+    }
+
+    // 10.8.2. Onboarding.
+    public OnboardingHelp onboarding() {
+      return new OnboardingHelp(doc, path + "/onboarding");
+    }
+
+    // 10.8.3. Support Access.
+    public SupportAccess supportAccess() {
+      return new SupportAccess(doc, path + "/supportAccess");
+    }
+
+    // Help content inventory.
+    // (skipped: helpContentInventory has no target type)
+  }
+
+  // Content stewardship and help affordances.
+  public static final class UserAssistanceDelivery extends SomNode {
+    public UserAssistanceDelivery(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public UserAssistanceDeliveryContentForm content() {
+      return new UserAssistanceDeliveryContentForm(doc, path + "/content");
+    }
+  }
+
+  // Analytics and improvement feedback.
+  public static final class UserAssistanceInsights extends SomNode {
+    public UserAssistanceInsights(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public UserAssistanceInsightsContentForm content() {
+      return new UserAssistanceInsightsContentForm(doc, path + "/content");
+    }
   }
 
   // A user attribute entry (form).
@@ -54185,8 +54185,8 @@ public final class TomSomV0 {
   // Defines the complete user account lifecycle: states, transitions between
   // states, approval requirements for each transition, and operational policies
   // for registration, activation, modification, deactivation, and deletion.
-  public static final class UserLifecycleSection extends SomNode {
-    public UserLifecycleSection(SpecDocument doc, String path) {
+  public static final class UserLifecycle extends SomNode {
+    public UserLifecycle(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -54361,8 +54361,8 @@ public final class TomSomV0 {
     }
 
     // 9.1.2. User Lifecycle.
-    public UserLifecycleSection userLifecycle() {
-      return new UserLifecycleSection(doc, path + "/userLifecycle");
+    public UserLifecycle userLifecycle() {
+      return new UserLifecycle(doc, path + "/userLifecycle");
     }
 
     // 9.1.3. User Attributes.
@@ -54374,8 +54374,8 @@ public final class TomSomV0 {
   // 15.3. User Manuals.
   //
   // End-user documentation deliverables covering user-manual content.
-  public static final class UserManuals extends SomNode {
-    public UserManuals(SpecDocument doc, String path) {
+  public static final class UserManual extends SomNode {
+    public UserManual(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -73292,6 +73292,40 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class ComponentApproachContentForm extends SomNode {
+    public ComponentApproachContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String componentGranularity() {
+      String v = doc.formField(path, "componentGranularity");
+      return v == null ? "" : v;
+    }
+
+    public void componentGranularity(String value) {
+      doc.setFormField(path, "componentGranularity", value);
+    }
+
+    public String componentNaming() {
+      String v = doc.formField(path, "componentNaming");
+      return v == null ? "" : v;
+    }
+
+    public void componentNaming(String value) {
+      doc.setFormField(path, "componentNaming", value);
+    }
+
+    public String componentDocumentation() {
+      String v = doc.formField(path, "componentDocumentation");
+      return v == null ? "" : v;
+    }
+
+    public void componentDocumentation(String value) {
+      doc.setFormField(path, "componentDocumentation", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class ComponentComplianceContentForm extends SomNode {
     public ComponentComplianceContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -73338,6 +73372,40 @@ public final class TomSomV0 {
 
     public void totalCostOngoing(String value) {
       doc.setFormField(path, "totalCostOngoing", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class ComponentCustomizationContentForm extends SomNode {
+    public ComponentCustomizationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String extensionModel() {
+      String v = doc.formField(path, "extensionModel");
+      return v == null ? "" : v;
+    }
+
+    public void extensionModel(String value) {
+      doc.setFormField(path, "extensionModel", value);
+    }
+
+    public String themingApproach() {
+      String v = doc.formField(path, "themingApproach");
+      return v == null ? "" : v;
+    }
+
+    public void themingApproach(String value) {
+      doc.setFormField(path, "themingApproach", value);
+    }
+
+    public String customizationBoundaries() {
+      String v = doc.formField(path, "customizationBoundaries");
+      return v == null ? "" : v;
+    }
+
+    public void customizationBoundaries(String value) {
+      doc.setFormField(path, "customizationBoundaries", value);
     }
   }
 
@@ -75949,6 +76017,40 @@ public final class TomSomV0 {
 
     public void vendorStability(String value) {
       doc.setFormField(path, "vendorStability", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class ComponentVisualLanguageContentForm extends SomNode {
+    public ComponentVisualLanguageContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String visualLanguage() {
+      String v = doc.formField(path, "visualLanguage");
+      return v == null ? "" : v;
+    }
+
+    public void visualLanguage(String value) {
+      doc.setFormField(path, "visualLanguage", value);
+    }
+
+    public String brandAlignment() {
+      String v = doc.formField(path, "brandAlignment");
+      return v == null ? "" : v;
+    }
+
+    public void brandAlignment(String value) {
+      doc.setFormField(path, "brandAlignment", value);
+    }
+
+    public String motionPrinciples() {
+      String v = doc.formField(path, "motionPrinciples");
+      return v == null ? "" : v;
+    }
+
+    public void motionPrinciples(String value) {
+      doc.setFormField(path, "motionPrinciples", value);
     }
   }
 
@@ -87213,6 +87315,85 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class DesignPrincipleEntryContentForm extends SomNode {
+    public DesignPrincipleEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String principleName() {
+      String v = doc.formField(path, "principleName");
+      return v == null ? "" : v;
+    }
+
+    public void principleName(String value) {
+      doc.setFormField(path, "principleName", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String rationale() {
+      String v = doc.formField(path, "rationale");
+      return v == null ? "" : v;
+    }
+
+    public void rationale(String value) {
+      doc.setFormField(path, "rationale", value);
+    }
+
+    public String category() {
+      String v = doc.formField(path, "category");
+      return v == null ? "" : v;
+    }
+
+    public void category(String value) {
+      doc.setFormField(path, "category", value);
+    }
+
+    public String examples() {
+      String v = doc.formField(path, "examples");
+      return v == null ? "" : v;
+    }
+
+    public void examples(String value) {
+      doc.setFormField(path, "examples", value);
+    }
+
+    public String exceptions() {
+      String v = doc.formField(path, "exceptions");
+      return v == null ? "" : v;
+    }
+
+    public void exceptions(String value) {
+      doc.setFormField(path, "exceptions", value);
+    }
+
+    public String sourceReference() {
+      String v = doc.formField(path, "sourceReference");
+      return v == null ? "" : v;
+    }
+
+    public void sourceReference(String value) {
+      doc.setFormField(path, "sourceReference", value);
+    }
+
+    public String relatedGoals() {
+      String v = doc.formField(path, "relatedGoals");
+      return v == null ? "" : v;
+    }
+
+    public void relatedGoals(String value) {
+      doc.setFormField(path, "relatedGoals", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class DesignPrinciplesOverviewContentForm extends SomNode {
     public DesignPrinciplesOverviewContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -93373,8 +93554,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ErrorHandlingConceptAccessibilityContentForm extends SomNode {
-    public ErrorHandlingConceptAccessibilityContentForm(SpecDocument doc, String path) {
+  public static final class ErrorHandlingAccessibilityContentForm extends SomNode {
+    public ErrorHandlingAccessibilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -93407,8 +93588,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ErrorHandlingConceptClassificationContentForm extends SomNode {
-    public ErrorHandlingConceptClassificationContentForm(SpecDocument doc, String path) {
+  public static final class ErrorHandlingClassificationContentForm extends SomNode {
+    public ErrorHandlingClassificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -93441,8 +93622,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `errorPhilosophyContent` @Form section.
-  public static final class ErrorHandlingConceptErrorPhilosophyContentForm extends SomNode {
-    public ErrorHandlingConceptErrorPhilosophyContentForm(SpecDocument doc, String path) {
+  public static final class ErrorHandlingErrorPhilosophyContentForm extends SomNode {
+    public ErrorHandlingErrorPhilosophyContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -93484,8 +93665,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ErrorHandlingConceptOperationsContentForm extends SomNode {
-    public ErrorHandlingConceptOperationsContentForm(SpecDocument doc, String path) {
+  public static final class ErrorHandlingOperationsContentForm extends SomNode {
+    public ErrorHandlingOperationsContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -101129,126 +101310,6 @@ public final class TomSomV0 {
 
     public void successThreshold(String value) {
       doc.setFormField(path, "successThreshold", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class HelpConceptDeliveryContentForm extends SomNode {
-    public HelpConceptDeliveryContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String helpContentOwnership() {
-      String v = doc.formField(path, "helpContentOwnership");
-      return v == null ? "" : v;
-    }
-
-    public void helpContentOwnership(String value) {
-      doc.setFormField(path, "helpContentOwnership", value);
-    }
-
-    public String helpUpdateProcess() {
-      String v = doc.formField(path, "helpUpdateProcess");
-      return v == null ? "" : v;
-    }
-
-    public void helpUpdateProcess(String value) {
-      doc.setFormField(path, "helpUpdateProcess", value);
-    }
-
-    public String helpIconStandard() {
-      String v = doc.formField(path, "helpIconStandard");
-      return v == null ? "" : v;
-    }
-
-    public void helpIconStandard(String value) {
-      doc.setFormField(path, "helpIconStandard", value);
-    }
-
-    public String helpIconPlacement() {
-      String v = doc.formField(path, "helpIconPlacement");
-      return v == null ? "" : v;
-    }
-
-    public void helpIconPlacement(String value) {
-      doc.setFormField(path, "helpIconPlacement", value);
-    }
-
-    public String helpTooltipStyle() {
-      String v = doc.formField(path, "helpTooltipStyle");
-      return v == null ? "" : v;
-    }
-
-    public void helpTooltipStyle(String value) {
-      doc.setFormField(path, "helpTooltipStyle", value);
-    }
-  }
-
-  // Generated form facade for the `helpOverviewContent` @Form section.
-  public static final class HelpConceptHelpOverviewContentForm extends SomNode {
-    public HelpConceptHelpOverviewContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String helpPhilosophy() {
-      String v = doc.formField(path, "helpPhilosophy");
-      return v == null ? "" : v;
-    }
-
-    public void helpPhilosophy(String value) {
-      doc.setFormField(path, "helpPhilosophy", value);
-    }
-
-    public String helpAccessibility() {
-      String v = doc.formField(path, "helpAccessibility");
-      return v == null ? "" : v;
-    }
-
-    public void helpAccessibility(String value) {
-      doc.setFormField(path, "helpAccessibility", value);
-    }
-
-    public String helpPersonalization() {
-      String v = doc.formField(path, "helpPersonalization");
-      return v == null ? "" : v;
-    }
-
-    public void helpPersonalization(String value) {
-      doc.setFormField(path, "helpPersonalization", value);
-    }
-
-    public String helpContentStrategy() {
-      String v = doc.formField(path, "helpContentStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void helpContentStrategy(String value) {
-      doc.setFormField(path, "helpContentStrategy", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class HelpConceptInsightsContentForm extends SomNode {
-    public HelpConceptInsightsContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String helpAnalytics() {
-      String v = doc.formField(path, "helpAnalytics");
-      return v == null ? "" : v;
-    }
-
-    public void helpAnalytics(String value) {
-      doc.setFormField(path, "helpAnalytics", value);
-    }
-
-    public String helpFeedback() {
-      String v = doc.formField(path, "helpFeedback");
-      return v == null ? "" : v;
-    }
-
-    public void helpFeedback(String value) {
-      doc.setFormField(path, "helpFeedback", value);
     }
   }
 
@@ -110509,8 +110570,85 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class LocalizationProcessDeploymentContentForm extends SomNode {
-    public LocalizationProcessDeploymentContentForm(SpecDocument doc, String path) {
+  public static final class LocaleHandlingRequirementsContentForm extends SomNode {
+    public LocaleHandlingRequirementsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String localeFormat() {
+      String v = doc.formField(path, "localeFormat");
+      return v == null ? "" : v;
+    }
+
+    public void localeFormat(String value) {
+      doc.setFormField(path, "localeFormat", value);
+    }
+
+    public String countryVariants() {
+      String v = doc.formField(path, "countryVariants");
+      return v == null ? "" : v;
+    }
+
+    public void countryVariants(String value) {
+      doc.setFormField(path, "countryVariants", value);
+    }
+
+    public String localeDetection() {
+      String v = doc.formField(path, "localeDetection");
+      return v == null ? "" : v;
+    }
+
+    public void localeDetection(String value) {
+      doc.setFormField(path, "localeDetection", value);
+    }
+
+    public String localeFallbackChain() {
+      String v = doc.formField(path, "localeFallbackChain");
+      return v == null ? "" : v;
+    }
+
+    public void localeFallbackChain(String value) {
+      doc.setFormField(path, "localeFallbackChain", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class LocaleRolloutPlanContentForm extends SomNode {
+    public LocaleRolloutPlanContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String rolloutStrategy() {
+      String v = doc.formField(path, "rolloutStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutStrategy(String value) {
+      doc.setFormField(path, "rolloutStrategy", value);
+    }
+
+    public String rolloutTimeline() {
+      String v = doc.formField(path, "rolloutTimeline");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutTimeline(String value) {
+      doc.setFormField(path, "rolloutTimeline", value);
+    }
+
+    public String rolloutRegions() {
+      String v = doc.formField(path, "rolloutRegions");
+      return v == null ? "" : v;
+    }
+
+    public void rolloutRegions(String value) {
+      doc.setFormField(path, "rolloutRegions", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class LocalizationDeploymentContentForm extends SomNode {
+    public LocalizationDeploymentContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -110543,8 +110681,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class LocalizationProcessFormattingContentForm extends SomNode {
-    public LocalizationProcessFormattingContentForm(SpecDocument doc, String path) {
+  public static final class LocalizationFormattingContentForm extends SomNode {
+    public LocalizationFormattingContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -110638,8 +110776,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class LocalizationProcessReviewContentForm extends SomNode {
-    public LocalizationProcessReviewContentForm(SpecDocument doc, String path) {
+  public static final class LocalizationReviewContentForm extends SomNode {
+    public LocalizationReviewContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -117875,52 +118013,9 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `content` @Form section.
-  public static final class MultiLanguageAndRolloutLocaleHandlingContentForm extends SomNode {
-    public MultiLanguageAndRolloutLocaleHandlingContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String localeFormat() {
-      String v = doc.formField(path, "localeFormat");
-      return v == null ? "" : v;
-    }
-
-    public void localeFormat(String value) {
-      doc.setFormField(path, "localeFormat", value);
-    }
-
-    public String countryVariants() {
-      String v = doc.formField(path, "countryVariants");
-      return v == null ? "" : v;
-    }
-
-    public void countryVariants(String value) {
-      doc.setFormField(path, "countryVariants", value);
-    }
-
-    public String localeDetection() {
-      String v = doc.formField(path, "localeDetection");
-      return v == null ? "" : v;
-    }
-
-    public void localeDetection(String value) {
-      doc.setFormField(path, "localeDetection", value);
-    }
-
-    public String localeFallbackChain() {
-      String v = doc.formField(path, "localeFallbackChain");
-      return v == null ? "" : v;
-    }
-
-    public void localeFallbackChain(String value) {
-      doc.setFormField(path, "localeFallbackChain", value);
-    }
-  }
-
   // Generated form facade for the `multiLanguageOverview` @Form section.
-  public static final class MultiLanguageAndRolloutMultiLanguageOverviewForm extends SomNode {
-    public MultiLanguageAndRolloutMultiLanguageOverviewForm(SpecDocument doc, String path) {
+  public static final class MultiLanguageSupportMultiLanguageOverviewForm extends SomNode {
+    public MultiLanguageSupportMultiLanguageOverviewForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -117958,40 +118053,6 @@ public final class TomSomV0 {
 
     public void rtlLanguages(String value) {
       doc.setFormField(path, "rtlLanguages", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class MultiLanguageAndRolloutPlanContentForm extends SomNode {
-    public MultiLanguageAndRolloutPlanContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String rolloutStrategy() {
-      String v = doc.formField(path, "rolloutStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutStrategy(String value) {
-      doc.setFormField(path, "rolloutStrategy", value);
-    }
-
-    public String rolloutTimeline() {
-      String v = doc.formField(path, "rolloutTimeline");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutTimeline(String value) {
-      doc.setFormField(path, "rolloutTimeline", value);
-    }
-
-    public String rolloutRegions() {
-      String v = doc.formField(path, "rolloutRegions");
-      return v == null ? "" : v;
-    }
-
-    public void rolloutRegions(String value) {
-      doc.setFormField(path, "rolloutRegions", value);
     }
   }
 
@@ -126554,6 +126615,40 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class PrintAndExportLayoutContentForm extends SomNode {
+    public PrintAndExportLayoutContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String printStrategy() {
+      String v = doc.formField(path, "printStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void printStrategy(String value) {
+      doc.setFormField(path, "printStrategy", value);
+    }
+
+    public String defaultPaperSize() {
+      String v = doc.formField(path, "defaultPaperSize");
+      return v == null ? "" : v;
+    }
+
+    public void defaultPaperSize(String value) {
+      doc.setFormField(path, "defaultPaperSize", value);
+    }
+
+    public String defaultOrientation() {
+      String v = doc.formField(path, "defaultOrientation");
+      return v == null ? "" : v;
+    }
+
+    public void defaultOrientation(String value) {
+      doc.setFormField(path, "defaultOrientation", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class PrintLayoutArchiveContentForm extends SomNode {
     public PrintLayoutArchiveContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -126645,40 +126740,6 @@ public final class TomSomV0 {
 
     public void brandingFontSizeBase(String value) {
       doc.setFormField(path, "brandingFontSizeBase", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class PrintLayoutContentForm extends SomNode {
-    public PrintLayoutContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String printStrategy() {
-      String v = doc.formField(path, "printStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void printStrategy(String value) {
-      doc.setFormField(path, "printStrategy", value);
-    }
-
-    public String defaultPaperSize() {
-      String v = doc.formField(path, "defaultPaperSize");
-      return v == null ? "" : v;
-    }
-
-    public void defaultPaperSize(String value) {
-      doc.setFormField(path, "defaultPaperSize", value);
-    }
-
-    public String defaultOrientation() {
-      String v = doc.formField(path, "defaultOrientation");
-      return v == null ? "" : v;
-    }
-
-    public void defaultOrientation(String value) {
-      doc.setFormField(path, "defaultOrientation", value);
     }
   }
 
@@ -131605,8 +131666,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `prototypeTypeOverview` @Form section.
-  public static final class PrototypeTypeSectionPrototypeTypeOverviewForm extends SomNode {
-    public PrototypeTypeSectionPrototypeTypeOverviewForm(SpecDocument doc, String path) {
+  public static final class PrototypeTypePrototypeTypeOverviewForm extends SomNode {
+    public PrototypeTypePrototypeTypeOverviewForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -151702,6 +151763,49 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class SpecificationStatusContentForm extends SomNode {
+    public SpecificationStatusContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String specificationVersion() {
+      String v = doc.formField(path, "specificationVersion");
+      return v == null ? "" : v;
+    }
+
+    public void specificationVersion(String value) {
+      doc.setFormField(path, "specificationVersion", value);
+    }
+
+    public String specificationDate() {
+      String v = doc.formField(path, "specificationDate");
+      return v == null ? "" : v;
+    }
+
+    public void specificationDate(String value) {
+      doc.setFormField(path, "specificationDate", value);
+    }
+
+    public String specificationStatus() {
+      String v = doc.formField(path, "specificationStatus");
+      return v == null ? "" : v;
+    }
+
+    public void specificationStatus(String value) {
+      doc.setFormField(path, "specificationStatus", value);
+    }
+
+    public String targetGoLiveDate() {
+      String v = doc.formField(path, "targetGoLiveDate");
+      return v == null ? "" : v;
+    }
+
+    public void targetGoLiveDate(String value) {
+      doc.setFormField(path, "targetGoLiveDate", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class StaffingBudgetAllocationsContentForm extends SomNode {
     public StaffingBudgetAllocationsContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -153867,6 +153971,126 @@ public final class TomSomV0 {
 
     public void confidenceBasis(String value) {
       doc.setFormField(path, "confidenceBasis", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class StagePlanCoordinationContentForm extends SomNode {
+    public StagePlanCoordinationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String crossStageDependencySummary() {
+      String v = doc.formField(path, "crossStageDependencySummary");
+      return v == null ? "" : v;
+    }
+
+    public void crossStageDependencySummary(String value) {
+      doc.setFormField(path, "crossStageDependencySummary", value);
+    }
+
+    public String crossStageRiskSummary() {
+      String v = doc.formField(path, "crossStageRiskSummary");
+      return v == null ? "" : v;
+    }
+
+    public void crossStageRiskSummary(String value) {
+      doc.setFormField(path, "crossStageRiskSummary", value);
+    }
+
+    public String regulatoryComplianceConsiderations() {
+      String v = doc.formField(path, "regulatoryComplianceConsiderations");
+      return v == null ? "" : v;
+    }
+
+    public void regulatoryComplianceConsiderations(String value) {
+      doc.setFormField(path, "regulatoryComplianceConsiderations", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class StagePlanReadinessContentForm extends SomNode {
+    public StagePlanReadinessContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String organizationalReadinessLevel() {
+      String v = doc.formField(path, "organizationalReadinessLevel");
+      return v == null ? "" : v;
+    }
+
+    public void organizationalReadinessLevel(String value) {
+      doc.setFormField(path, "organizationalReadinessLevel", value);
+    }
+
+    public String changeAbsorptionCapacity() {
+      String v = doc.formField(path, "changeAbsorptionCapacity");
+      return v == null ? "" : v;
+    }
+
+    public void changeAbsorptionCapacity(String value) {
+      doc.setFormField(path, "changeAbsorptionCapacity", value);
+    }
+
+    public String confidenceLevel() {
+      String v = doc.formField(path, "confidenceLevel");
+      return v == null ? "" : v;
+    }
+
+    public void confidenceLevel(String value) {
+      doc.setFormField(path, "confidenceLevel", value);
+    }
+
+    public String lastPlanReviewDate() {
+      String v = doc.formField(path, "lastPlanReviewDate");
+      return v == null ? "" : v;
+    }
+
+    public void lastPlanReviewDate(String value) {
+      doc.setFormField(path, "lastPlanReviewDate", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class StagePlanTimelineContentForm extends SomNode {
+    public StagePlanTimelineContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String overallPlannedStart() {
+      String v = doc.formField(path, "overallPlannedStart");
+      return v == null ? "" : v;
+    }
+
+    public void overallPlannedStart(String value) {
+      doc.setFormField(path, "overallPlannedStart", value);
+    }
+
+    public String overallTargetCompletion() {
+      String v = doc.formField(path, "overallTargetCompletion");
+      return v == null ? "" : v;
+    }
+
+    public void overallTargetCompletion(String value) {
+      doc.setFormField(path, "overallTargetCompletion", value);
+    }
+
+    public String totalDuration() {
+      String v = doc.formField(path, "totalDuration");
+      return v == null ? "" : v;
+    }
+
+    public void totalDuration(String value) {
+      doc.setFormField(path, "totalDuration", value);
+    }
+
+    public String bufferStrategy() {
+      String v = doc.formField(path, "bufferStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void bufferStrategy(String value) {
+      doc.setFormField(path, "bufferStrategy", value);
     }
   }
 
@@ -156877,6 +157101,74 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class SystemClassificationContentForm extends SomNode {
+    public SystemClassificationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String systemType() {
+      String v = doc.formField(path, "systemType");
+      return v == null ? "" : v;
+    }
+
+    public void systemType(String value) {
+      doc.setFormField(path, "systemType", value);
+    }
+
+    public String businessDomain() {
+      String v = doc.formField(path, "businessDomain");
+      return v == null ? "" : v;
+    }
+
+    public void businessDomain(String value) {
+      doc.setFormField(path, "businessDomain", value);
+    }
+
+    public String deploymentModel() {
+      String v = doc.formField(path, "deploymentModel");
+      return v == null ? "" : v;
+    }
+
+    public void deploymentModel(String value) {
+      doc.setFormField(path, "deploymentModel", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class SystemComplexityContentForm extends SomNode {
+    public SystemComplexityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String overallComplexity() {
+      String v = doc.formField(path, "overallComplexity");
+      return v == null ? "" : v;
+    }
+
+    public void overallComplexity(String value) {
+      doc.setFormField(path, "overallComplexity", value);
+    }
+
+    public String keyRisks() {
+      String v = doc.formField(path, "keyRisks");
+      return v == null ? "" : v;
+    }
+
+    public void keyRisks(String value) {
+      doc.setFormField(path, "keyRisks", value);
+    }
+
+    public String keyAssumptions() {
+      String v = doc.formField(path, "keyAssumptions");
+      return v == null ? "" : v;
+    }
+
+    public void keyAssumptions(String value) {
+      doc.setFormField(path, "keyAssumptions", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class SystemConfigurationManagementContentForm extends SomNode {
     public SystemConfigurationManagementContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -158614,212 +158906,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemOverviewSummaryClassificationContentForm extends SomNode {
-    public SystemOverviewSummaryClassificationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String systemType() {
-      String v = doc.formField(path, "systemType");
-      return v == null ? "" : v;
-    }
-
-    public void systemType(String value) {
-      doc.setFormField(path, "systemType", value);
-    }
-
-    public String businessDomain() {
-      String v = doc.formField(path, "businessDomain");
-      return v == null ? "" : v;
-    }
-
-    public void businessDomain(String value) {
-      doc.setFormField(path, "businessDomain", value);
-    }
-
-    public String deploymentModel() {
-      String v = doc.formField(path, "deploymentModel");
-      return v == null ? "" : v;
-    }
-
-    public void deploymentModel(String value) {
-      doc.setFormField(path, "deploymentModel", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemOverviewSummaryComplexityContentForm extends SomNode {
-    public SystemOverviewSummaryComplexityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String overallComplexity() {
-      String v = doc.formField(path, "overallComplexity");
-      return v == null ? "" : v;
-    }
-
-    public void overallComplexity(String value) {
-      doc.setFormField(path, "overallComplexity", value);
-    }
-
-    public String keyRisks() {
-      String v = doc.formField(path, "keyRisks");
-      return v == null ? "" : v;
-    }
-
-    public void keyRisks(String value) {
-      doc.setFormField(path, "keyRisks", value);
-    }
-
-    public String keyAssumptions() {
-      String v = doc.formField(path, "keyAssumptions");
-      return v == null ? "" : v;
-    }
-
-    public void keyAssumptions(String value) {
-      doc.setFormField(path, "keyAssumptions", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemOverviewSummaryContentForm extends SomNode {
-    public SystemOverviewSummaryContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String systemName() {
-      String v = doc.formField(path, "systemName");
-      return v == null ? "" : v;
-    }
-
-    public void systemName(String value) {
-      doc.setFormField(path, "systemName", value);
-    }
-
-    public String systemAcronym() {
-      String v = doc.formField(path, "systemAcronym");
-      return v == null ? "" : v;
-    }
-
-    public void systemAcronym(String value) {
-      doc.setFormField(path, "systemAcronym", value);
-    }
-
-    public String systemVersion() {
-      String v = doc.formField(path, "systemVersion");
-      return v == null ? "" : v;
-    }
-
-    public void systemVersion(String value) {
-      doc.setFormField(path, "systemVersion", value);
-    }
-
-    public String projectCodeName() {
-      String v = doc.formField(path, "projectCodeName");
-      return v == null ? "" : v;
-    }
-
-    public void projectCodeName(String value) {
-      doc.setFormField(path, "projectCodeName", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemOverviewSummaryScaleContentForm extends SomNode {
-    public SystemOverviewSummaryScaleContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String estimatedUserCount() {
-      String v = doc.formField(path, "estimatedUserCount");
-      return v == null ? "" : v;
-    }
-
-    public void estimatedUserCount(String value) {
-      doc.setFormField(path, "estimatedUserCount", value);
-    }
-
-    public String userCategoryCount() {
-      String v = doc.formField(path, "userCategoryCount");
-      return v == null ? "" : v;
-    }
-
-    public void userCategoryCount(String value) {
-      doc.setFormField(path, "userCategoryCount", value);
-    }
-
-    public String externalInterfaceCount() {
-      String v = doc.formField(path, "externalInterfaceCount");
-      return v == null ? "" : v;
-    }
-
-    public void externalInterfaceCount(String value) {
-      doc.setFormField(path, "externalInterfaceCount", value);
-    }
-
-    public String functionalRequirementCount() {
-      String v = doc.formField(path, "functionalRequirementCount");
-      return v == null ? "" : v;
-    }
-
-    public void functionalRequirementCount(String value) {
-      doc.setFormField(path, "functionalRequirementCount", value);
-    }
-
-    public String nonFunctionalRequirementCount() {
-      String v = doc.formField(path, "nonFunctionalRequirementCount");
-      return v == null ? "" : v;
-    }
-
-    public void nonFunctionalRequirementCount(String value) {
-      doc.setFormField(path, "nonFunctionalRequirementCount", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemOverviewSummaryStatusContentForm extends SomNode {
-    public SystemOverviewSummaryStatusContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String specificationVersion() {
-      String v = doc.formField(path, "specificationVersion");
-      return v == null ? "" : v;
-    }
-
-    public void specificationVersion(String value) {
-      doc.setFormField(path, "specificationVersion", value);
-    }
-
-    public String specificationDate() {
-      String v = doc.formField(path, "specificationDate");
-      return v == null ? "" : v;
-    }
-
-    public void specificationDate(String value) {
-      doc.setFormField(path, "specificationDate", value);
-    }
-
-    public String specificationStatus() {
-      String v = doc.formField(path, "specificationStatus");
-      return v == null ? "" : v;
-    }
-
-    public void specificationStatus(String value) {
-      doc.setFormField(path, "specificationStatus", value);
-    }
-
-    public String targetGoLiveDate() {
-      String v = doc.formField(path, "targetGoLiveDate");
-      return v == null ? "" : v;
-    }
-
-    public void targetGoLiveDate(String value) {
-      doc.setFormField(path, "targetGoLiveDate", value);
-    }
-  }
-
   // Generated form facade for the `governanceContent` @Form section.
   public static final class SystemQualityGoalsGovernanceContentForm extends SomNode {
     public SystemQualityGoalsGovernanceContentForm(SpecDocument doc, String path) {
@@ -158975,6 +159061,58 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class SystemScaleContentForm extends SomNode {
+    public SystemScaleContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String estimatedUserCount() {
+      String v = doc.formField(path, "estimatedUserCount");
+      return v == null ? "" : v;
+    }
+
+    public void estimatedUserCount(String value) {
+      doc.setFormField(path, "estimatedUserCount", value);
+    }
+
+    public String userCategoryCount() {
+      String v = doc.formField(path, "userCategoryCount");
+      return v == null ? "" : v;
+    }
+
+    public void userCategoryCount(String value) {
+      doc.setFormField(path, "userCategoryCount", value);
+    }
+
+    public String externalInterfaceCount() {
+      String v = doc.formField(path, "externalInterfaceCount");
+      return v == null ? "" : v;
+    }
+
+    public void externalInterfaceCount(String value) {
+      doc.setFormField(path, "externalInterfaceCount", value);
+    }
+
+    public String functionalRequirementCount() {
+      String v = doc.formField(path, "functionalRequirementCount");
+      return v == null ? "" : v;
+    }
+
+    public void functionalRequirementCount(String value) {
+      doc.setFormField(path, "functionalRequirementCount", value);
+    }
+
+    public String nonFunctionalRequirementCount() {
+      String v = doc.formField(path, "nonFunctionalRequirementCount");
+      return v == null ? "" : v;
+    }
+
+    public void nonFunctionalRequirementCount(String value) {
+      doc.setFormField(path, "nonFunctionalRequirementCount", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class SystemStagePlanContentForm extends SomNode {
     public SystemStagePlanContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -159009,122 +159147,45 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class SystemStagePlanCoordinationContentForm extends SomNode {
-    public SystemStagePlanCoordinationContentForm(SpecDocument doc, String path) {
+  public static final class SystemSummaryContentForm extends SomNode {
+    public SystemSummaryContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public String crossStageDependencySummary() {
-      String v = doc.formField(path, "crossStageDependencySummary");
+    public String systemName() {
+      String v = doc.formField(path, "systemName");
       return v == null ? "" : v;
     }
 
-    public void crossStageDependencySummary(String value) {
-      doc.setFormField(path, "crossStageDependencySummary", value);
+    public void systemName(String value) {
+      doc.setFormField(path, "systemName", value);
     }
 
-    public String crossStageRiskSummary() {
-      String v = doc.formField(path, "crossStageRiskSummary");
+    public String systemAcronym() {
+      String v = doc.formField(path, "systemAcronym");
       return v == null ? "" : v;
     }
 
-    public void crossStageRiskSummary(String value) {
-      doc.setFormField(path, "crossStageRiskSummary", value);
+    public void systemAcronym(String value) {
+      doc.setFormField(path, "systemAcronym", value);
     }
 
-    public String regulatoryComplianceConsiderations() {
-      String v = doc.formField(path, "regulatoryComplianceConsiderations");
+    public String systemVersion() {
+      String v = doc.formField(path, "systemVersion");
       return v == null ? "" : v;
     }
 
-    public void regulatoryComplianceConsiderations(String value) {
-      doc.setFormField(path, "regulatoryComplianceConsiderations", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemStagePlanReadinessContentForm extends SomNode {
-    public SystemStagePlanReadinessContentForm(SpecDocument doc, String path) {
-      super(doc, path);
+    public void systemVersion(String value) {
+      doc.setFormField(path, "systemVersion", value);
     }
 
-    public String organizationalReadinessLevel() {
-      String v = doc.formField(path, "organizationalReadinessLevel");
+    public String projectCodeName() {
+      String v = doc.formField(path, "projectCodeName");
       return v == null ? "" : v;
     }
 
-    public void organizationalReadinessLevel(String value) {
-      doc.setFormField(path, "organizationalReadinessLevel", value);
-    }
-
-    public String changeAbsorptionCapacity() {
-      String v = doc.formField(path, "changeAbsorptionCapacity");
-      return v == null ? "" : v;
-    }
-
-    public void changeAbsorptionCapacity(String value) {
-      doc.setFormField(path, "changeAbsorptionCapacity", value);
-    }
-
-    public String confidenceLevel() {
-      String v = doc.formField(path, "confidenceLevel");
-      return v == null ? "" : v;
-    }
-
-    public void confidenceLevel(String value) {
-      doc.setFormField(path, "confidenceLevel", value);
-    }
-
-    public String lastPlanReviewDate() {
-      String v = doc.formField(path, "lastPlanReviewDate");
-      return v == null ? "" : v;
-    }
-
-    public void lastPlanReviewDate(String value) {
-      doc.setFormField(path, "lastPlanReviewDate", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemStagePlanTimelineContentForm extends SomNode {
-    public SystemStagePlanTimelineContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String overallPlannedStart() {
-      String v = doc.formField(path, "overallPlannedStart");
-      return v == null ? "" : v;
-    }
-
-    public void overallPlannedStart(String value) {
-      doc.setFormField(path, "overallPlannedStart", value);
-    }
-
-    public String overallTargetCompletion() {
-      String v = doc.formField(path, "overallTargetCompletion");
-      return v == null ? "" : v;
-    }
-
-    public void overallTargetCompletion(String value) {
-      doc.setFormField(path, "overallTargetCompletion", value);
-    }
-
-    public String totalDuration() {
-      String v = doc.formField(path, "totalDuration");
-      return v == null ? "" : v;
-    }
-
-    public void totalDuration(String value) {
-      doc.setFormField(path, "totalDuration", value);
-    }
-
-    public String bufferStrategy() {
-      String v = doc.formField(path, "bufferStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void bufferStrategy(String value) {
-      doc.setFormField(path, "bufferStrategy", value);
+    public void projectCodeName(String value) {
+      doc.setFormField(path, "projectCodeName", value);
     }
   }
 
@@ -160903,8 +160964,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TechnicalFrameworkConditionsGovernanceContentForm extends SomNode {
-    public TechnicalFrameworkConditionsGovernanceContentForm(SpecDocument doc, String path) {
+  public static final class TechnicalEnvironmentGovernanceContentForm extends SomNode {
+    public TechnicalEnvironmentGovernanceContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -160928,8 +160989,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TechnicalFrameworkConditionsNetworkContentForm extends SomNode {
-    public TechnicalFrameworkConditionsNetworkContentForm(SpecDocument doc, String path) {
+  public static final class TechnicalEnvironmentNetworkContentForm extends SomNode {
+    public TechnicalEnvironmentNetworkContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -160980,8 +161041,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TechnicalFrameworkConditionsSecurityContentForm extends SomNode {
-    public TechnicalFrameworkConditionsSecurityContentForm(SpecDocument doc, String path) {
+  public static final class TechnicalEnvironmentSecurityContentForm extends SomNode {
+    public TechnicalEnvironmentSecurityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -161032,8 +161093,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TechnicalFrameworkConditionsStandardsContentForm extends SomNode {
-    public TechnicalFrameworkConditionsStandardsContentForm(SpecDocument doc, String path) {
+  public static final class TechnicalEnvironmentStandardsContentForm extends SomNode {
+    public TechnicalEnvironmentStandardsContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -161084,8 +161145,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `technicalOverviewContent` @Form section.
-  public static final class TechnicalFrameworkConditionsTechnicalOverviewContentForm extends SomNode {
-    public TechnicalFrameworkConditionsTechnicalOverviewContentForm(SpecDocument doc, String path) {
+  public static final class TechnicalEnvironmentTechnicalOverviewContentForm extends SomNode {
+    public TechnicalEnvironmentTechnicalOverviewContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -167531,8 +167592,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TranslationProcessOngoingContentForm extends SomNode {
-    public TranslationProcessOngoingContentForm(SpecDocument doc, String path) {
+  public static final class TranslationOngoingContentForm extends SomNode {
+    public TranslationOngoingContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -167552,74 +167613,6 @@ public final class TomSomV0 {
 
     public void translationMemoryMaintenance(String value) {
       doc.setFormField(path, "translationMemoryMaintenance", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class TranslationProcessQualityContentForm extends SomNode {
-    public TranslationProcessQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String qualityChecks() {
-      String v = doc.formField(path, "qualityChecks");
-      return v == null ? "" : v;
-    }
-
-    public void qualityChecks(String value) {
-      doc.setFormField(path, "qualityChecks", value);
-    }
-
-    public String linguisticQA() {
-      String v = doc.formField(path, "linguisticQA");
-      return v == null ? "" : v;
-    }
-
-    public void linguisticQA(String value) {
-      doc.setFormField(path, "linguisticQA", value);
-    }
-
-    public String functionalQA() {
-      String v = doc.formField(path, "functionalQA");
-      return v == null ? "" : v;
-    }
-
-    public void functionalQA(String value) {
-      doc.setFormField(path, "functionalQA", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class TranslationProcessTerminologyContentForm extends SomNode {
-    public TranslationProcessTerminologyContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String glossaryManagement() {
-      String v = doc.formField(path, "glossaryManagement");
-      return v == null ? "" : v;
-    }
-
-    public void glossaryManagement(String value) {
-      doc.setFormField(path, "glossaryManagement", value);
-    }
-
-    public String styleGuide() {
-      String v = doc.formField(path, "styleGuide");
-      return v == null ? "" : v;
-    }
-
-    public void styleGuide(String value) {
-      doc.setFormField(path, "styleGuide", value);
-    }
-
-    public String brandVoice() {
-      String v = doc.formField(path, "brandVoice");
-      return v == null ? "" : v;
-    }
-
-    public void brandVoice(String value) {
-      doc.setFormField(path, "brandVoice", value);
     }
   }
 
@@ -167667,45 +167660,36 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class TranslationProcessWorkflowContentForm extends SomNode {
-    public TranslationProcessWorkflowContentForm(SpecDocument doc, String path) {
+  public static final class TranslationQualityContentForm extends SomNode {
+    public TranslationQualityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public String translationWorkflow() {
-      String v = doc.formField(path, "translationWorkflow");
+    public String qualityChecks() {
+      String v = doc.formField(path, "qualityChecks");
       return v == null ? "" : v;
     }
 
-    public void translationWorkflow(String value) {
-      doc.setFormField(path, "translationWorkflow", value);
+    public void qualityChecks(String value) {
+      doc.setFormField(path, "qualityChecks", value);
     }
 
-    public String reviewCycles() {
-      String v = doc.formField(path, "reviewCycles");
+    public String linguisticQA() {
+      String v = doc.formField(path, "linguisticQA");
       return v == null ? "" : v;
     }
 
-    public void reviewCycles(String value) {
-      doc.setFormField(path, "reviewCycles", value);
+    public void linguisticQA(String value) {
+      doc.setFormField(path, "linguisticQA", value);
     }
 
-    public String inCountryReview() {
-      String v = doc.formField(path, "inCountryReview");
+    public String functionalQA() {
+      String v = doc.formField(path, "functionalQA");
       return v == null ? "" : v;
     }
 
-    public void inCountryReview(String value) {
-      doc.setFormField(path, "inCountryReview", value);
-    }
-
-    public String contextualReview() {
-      String v = doc.formField(path, "contextualReview");
-      return v == null ? "" : v;
-    }
-
-    public void contextualReview(String value) {
-      doc.setFormField(path, "contextualReview", value);
+    public void functionalQA(String value) {
+      doc.setFormField(path, "functionalQA", value);
     }
   }
 
@@ -167907,6 +167891,40 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class TranslationTerminologyContentForm extends SomNode {
+    public TranslationTerminologyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String glossaryManagement() {
+      String v = doc.formField(path, "glossaryManagement");
+      return v == null ? "" : v;
+    }
+
+    public void glossaryManagement(String value) {
+      doc.setFormField(path, "glossaryManagement", value);
+    }
+
+    public String styleGuide() {
+      String v = doc.formField(path, "styleGuide");
+      return v == null ? "" : v;
+    }
+
+    public void styleGuide(String value) {
+      doc.setFormField(path, "styleGuide", value);
+    }
+
+    public String brandVoice() {
+      String v = doc.formField(path, "brandVoice");
+      return v == null ? "" : v;
+    }
+
+    public void brandVoice(String value) {
+      doc.setFormField(path, "brandVoice", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class TranslationVendorEntryContentForm extends SomNode {
     public TranslationVendorEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -167973,6 +167991,49 @@ public final class TomSomV0 {
 
     public void contactInfo(String value) {
       doc.setFormField(path, "contactInfo", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class TranslationWorkflowContentForm extends SomNode {
+    public TranslationWorkflowContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String translationWorkflow() {
+      String v = doc.formField(path, "translationWorkflow");
+      return v == null ? "" : v;
+    }
+
+    public void translationWorkflow(String value) {
+      doc.setFormField(path, "translationWorkflow", value);
+    }
+
+    public String reviewCycles() {
+      String v = doc.formField(path, "reviewCycles");
+      return v == null ? "" : v;
+    }
+
+    public void reviewCycles(String value) {
+      doc.setFormField(path, "reviewCycles", value);
+    }
+
+    public String inCountryReview() {
+      String v = doc.formField(path, "inCountryReview");
+      return v == null ? "" : v;
+    }
+
+    public void inCountryReview(String value) {
+      doc.setFormField(path, "inCountryReview", value);
+    }
+
+    public String contextualReview() {
+      String v = doc.formField(path, "contextualReview");
+      return v == null ? "" : v;
+    }
+
+    public void contextualReview(String value) {
+      doc.setFormField(path, "contextualReview", value);
     }
   }
 
@@ -169905,40 +169966,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `content` @Form section.
-  public static final class UiComponentsComponentApproachContentForm extends SomNode {
-    public UiComponentsComponentApproachContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String componentGranularity() {
-      String v = doc.formField(path, "componentGranularity");
-      return v == null ? "" : v;
-    }
-
-    public void componentGranularity(String value) {
-      doc.setFormField(path, "componentGranularity", value);
-    }
-
-    public String componentNaming() {
-      String v = doc.formField(path, "componentNaming");
-      return v == null ? "" : v;
-    }
-
-    public void componentNaming(String value) {
-      doc.setFormField(path, "componentNaming", value);
-    }
-
-    public String componentDocumentation() {
-      String v = doc.formField(path, "componentDocumentation");
-      return v == null ? "" : v;
-    }
-
-    public void componentDocumentation(String value) {
-      doc.setFormField(path, "componentDocumentation", value);
-    }
-  }
-
   // Generated form facade for the `componentLibraryOverview` @Form section.
   public static final class UiComponentsComponentLibraryOverviewForm extends SomNode {
     public UiComponentsComponentLibraryOverviewForm(SpecDocument doc, String path) {
@@ -169979,153 +170006,6 @@ public final class TomSomV0 {
 
     public void tomFlutterUiIntegration(String value) {
       doc.setFormField(path, "tomFlutterUiIntegration", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class UiComponentsCustomizationContentForm extends SomNode {
-    public UiComponentsCustomizationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String extensionModel() {
-      String v = doc.formField(path, "extensionModel");
-      return v == null ? "" : v;
-    }
-
-    public void extensionModel(String value) {
-      doc.setFormField(path, "extensionModel", value);
-    }
-
-    public String themingApproach() {
-      String v = doc.formField(path, "themingApproach");
-      return v == null ? "" : v;
-    }
-
-    public void themingApproach(String value) {
-      doc.setFormField(path, "themingApproach", value);
-    }
-
-    public String customizationBoundaries() {
-      String v = doc.formField(path, "customizationBoundaries");
-      return v == null ? "" : v;
-    }
-
-    public void customizationBoundaries(String value) {
-      doc.setFormField(path, "customizationBoundaries", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class UiComponentsVisualLanguageContentForm extends SomNode {
-    public UiComponentsVisualLanguageContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String visualLanguage() {
-      String v = doc.formField(path, "visualLanguage");
-      return v == null ? "" : v;
-    }
-
-    public void visualLanguage(String value) {
-      doc.setFormField(path, "visualLanguage", value);
-    }
-
-    public String brandAlignment() {
-      String v = doc.formField(path, "brandAlignment");
-      return v == null ? "" : v;
-    }
-
-    public void brandAlignment(String value) {
-      doc.setFormField(path, "brandAlignment", value);
-    }
-
-    public String motionPrinciples() {
-      String v = doc.formField(path, "motionPrinciples");
-      return v == null ? "" : v;
-    }
-
-    public void motionPrinciples(String value) {
-      doc.setFormField(path, "motionPrinciples", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class UiDesignPrincipleEntryContentForm extends SomNode {
-    public UiDesignPrincipleEntryContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String principleName() {
-      String v = doc.formField(path, "principleName");
-      return v == null ? "" : v;
-    }
-
-    public void principleName(String value) {
-      doc.setFormField(path, "principleName", value);
-    }
-
-    public String description() {
-      String v = doc.formField(path, "description");
-      return v == null ? "" : v;
-    }
-
-    public void description(String value) {
-      doc.setFormField(path, "description", value);
-    }
-
-    public String rationale() {
-      String v = doc.formField(path, "rationale");
-      return v == null ? "" : v;
-    }
-
-    public void rationale(String value) {
-      doc.setFormField(path, "rationale", value);
-    }
-
-    public String category() {
-      String v = doc.formField(path, "category");
-      return v == null ? "" : v;
-    }
-
-    public void category(String value) {
-      doc.setFormField(path, "category", value);
-    }
-
-    public String examples() {
-      String v = doc.formField(path, "examples");
-      return v == null ? "" : v;
-    }
-
-    public void examples(String value) {
-      doc.setFormField(path, "examples", value);
-    }
-
-    public String exceptions() {
-      String v = doc.formField(path, "exceptions");
-      return v == null ? "" : v;
-    }
-
-    public void exceptions(String value) {
-      doc.setFormField(path, "exceptions", value);
-    }
-
-    public String sourceReference() {
-      String v = doc.formField(path, "sourceReference");
-      return v == null ? "" : v;
-    }
-
-    public void sourceReference(String value) {
-      doc.setFormField(path, "sourceReference", value);
-    }
-
-    public String relatedGoals() {
-      String v = doc.formField(path, "relatedGoals");
-      return v == null ? "" : v;
-    }
-
-    public void relatedGoals(String value) {
-      doc.setFormField(path, "relatedGoals", value);
     }
   }
 
@@ -170667,6 +170547,126 @@ public final class TomSomV0 {
 
     public void additionalStandards(String value) {
       doc.setFormField(path, "additionalStandards", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class UserAssistanceDeliveryContentForm extends SomNode {
+    public UserAssistanceDeliveryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String helpContentOwnership() {
+      String v = doc.formField(path, "helpContentOwnership");
+      return v == null ? "" : v;
+    }
+
+    public void helpContentOwnership(String value) {
+      doc.setFormField(path, "helpContentOwnership", value);
+    }
+
+    public String helpUpdateProcess() {
+      String v = doc.formField(path, "helpUpdateProcess");
+      return v == null ? "" : v;
+    }
+
+    public void helpUpdateProcess(String value) {
+      doc.setFormField(path, "helpUpdateProcess", value);
+    }
+
+    public String helpIconStandard() {
+      String v = doc.formField(path, "helpIconStandard");
+      return v == null ? "" : v;
+    }
+
+    public void helpIconStandard(String value) {
+      doc.setFormField(path, "helpIconStandard", value);
+    }
+
+    public String helpIconPlacement() {
+      String v = doc.formField(path, "helpIconPlacement");
+      return v == null ? "" : v;
+    }
+
+    public void helpIconPlacement(String value) {
+      doc.setFormField(path, "helpIconPlacement", value);
+    }
+
+    public String helpTooltipStyle() {
+      String v = doc.formField(path, "helpTooltipStyle");
+      return v == null ? "" : v;
+    }
+
+    public void helpTooltipStyle(String value) {
+      doc.setFormField(path, "helpTooltipStyle", value);
+    }
+  }
+
+  // Generated form facade for the `helpOverviewContent` @Form section.
+  public static final class UserAssistanceHelpOverviewContentForm extends SomNode {
+    public UserAssistanceHelpOverviewContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String helpPhilosophy() {
+      String v = doc.formField(path, "helpPhilosophy");
+      return v == null ? "" : v;
+    }
+
+    public void helpPhilosophy(String value) {
+      doc.setFormField(path, "helpPhilosophy", value);
+    }
+
+    public String helpAccessibility() {
+      String v = doc.formField(path, "helpAccessibility");
+      return v == null ? "" : v;
+    }
+
+    public void helpAccessibility(String value) {
+      doc.setFormField(path, "helpAccessibility", value);
+    }
+
+    public String helpPersonalization() {
+      String v = doc.formField(path, "helpPersonalization");
+      return v == null ? "" : v;
+    }
+
+    public void helpPersonalization(String value) {
+      doc.setFormField(path, "helpPersonalization", value);
+    }
+
+    public String helpContentStrategy() {
+      String v = doc.formField(path, "helpContentStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void helpContentStrategy(String value) {
+      doc.setFormField(path, "helpContentStrategy", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class UserAssistanceInsightsContentForm extends SomNode {
+    public UserAssistanceInsightsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String helpAnalytics() {
+      String v = doc.formField(path, "helpAnalytics");
+      return v == null ? "" : v;
+    }
+
+    public void helpAnalytics(String value) {
+      doc.setFormField(path, "helpAnalytics", value);
+    }
+
+    public String helpFeedback() {
+      String v = doc.formField(path, "helpFeedback");
+      return v == null ? "" : v;
+    }
+
+    public void helpFeedback(String value) {
+      doc.setFormField(path, "helpFeedback", value);
     }
   }
 

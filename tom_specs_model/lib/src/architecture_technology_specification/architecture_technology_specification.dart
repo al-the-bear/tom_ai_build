@@ -70,11 +70,11 @@ class D06ArchitectureTechnologySpecification {
   // ─── Whole seeds from other SBP branches ────────────────────────────────
 
   /// Components to use (whole).
-  ComponentsToUse componentsToUse = ComponentsToUse();
+  ComponentsAndDependencies componentsToUse = ComponentsAndDependencies();
 
   /// Technical framework conditions (whole).
-  TechnicalFrameworkConditions technicalFrameworkConditions =
-      TechnicalFrameworkConditions();
+  TechnicalEnvironment technicalEnvironment =
+      TechnicalEnvironment();
 
   /// Translation handling requirements (whole).
   TranslationRequirements translationRequirements = TranslationRequirements();

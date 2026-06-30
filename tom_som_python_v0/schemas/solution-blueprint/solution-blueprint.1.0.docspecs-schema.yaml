@@ -4275,7 +4275,7 @@ section-types:
     description: Error budget tracking.
   ERHACO:
     prefix: erhaco
-    description: 10.7. Error Handling Concept.
+    description: 10.7. Error Handling.
   ERHAST:
     prefix: erhast
     description: Error handling and exception patterns.
@@ -5718,7 +5718,7 @@ section-types:
     description: Technology and data variations.
   TEFRCO:
     prefix: tefrco
-    description: 4.6.3. Technical Framework Conditions. Seeds → ATS.
+    description: 4.6.3. Technical Environment. Seeds → ATS.
   TEGOTS:
     prefix: tegots
     description: A test case entry for technical goal verification (form).
@@ -9222,7 +9222,7 @@ section-types:
     description: Communication matrix defining stakeholder communication patterns.
   COMP:
     prefix: comp
-    description: 12. Components to Use. Seeds → ATS.
+    description: 12. Components and Dependencies. Seeds → ATS.
   CONA:
     prefix: cona
     description: 10.3.1.6. Contextual Navigation.
@@ -10085,7 +10085,7 @@ section-types:
     description: 11.2. Functional Suitability (ISO/IEC 25010:2023).
   FRCO:
     prefix: frco
-    description: 4.6. Framework Conditions.
+    description: 4.6. Operating Environment.
   FRE1:
     prefix: fre1
     description: Framework or library requirement entry.
@@ -10184,7 +10184,7 @@ section-types:
     description: Timing thresholds.
   HECO:
     prefix: heco
-    description: 10.8. Help Concept.
+    description: 10.8. User Assistance.
   IACD:
     prefix: iacd
     description: Drift detection settings.
@@ -10711,7 +10711,7 @@ section-types:
     description: Tooling and technology for migration.
   MLAR:
     prefix: mlar
-    description: 10.12. Multi-language and Rollout Support.
+    description: 10.12. Multi-language Support.
   MNTC:
     prefix: mntc
     description: 11.8. Maintainability (ISO/IEC 25010:2023).
@@ -12037,7 +12037,7 @@ section-types:
     description: A system integration entry (form).
   SYOV:
     prefix: syov
-    description: 4. System Overview.
+    description: "4. Introduction & Scope."
   SYQG:
     prefix: syqg
     description: 11. System Quality Goals. Seeds → QAP.

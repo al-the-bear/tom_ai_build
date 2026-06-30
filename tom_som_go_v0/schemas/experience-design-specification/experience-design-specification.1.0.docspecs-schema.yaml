@@ -432,7 +432,7 @@ section-types:
     description: A deep link pattern entry (form).
   ERHACO:
     prefix: erhaco
-    description: 10.7. Error Handling Concept.
+    description: 10.7. Error Handling.
   ERROR1:
     prefix: error1
     description: A single error page design entry.
@@ -1002,7 +1002,7 @@ section-types:
     description: Export security settings.
   HECO:
     prefix: heco
-    description: 10.8. Help Concept.
+    description: 10.8. User Assistance.
   LCSD:
     prefix: lcsd
     description: Default locale behavior.
@@ -1332,7 +1332,7 @@ document:
     errorhandling:
       section-type: ERHACO
       optional: true
-    helpconcept:
+    userassistance:
       section-type: HECO
       optional: true
     accessibility:

@@ -185,7 +185,7 @@ typedef struct { SomNode node; } ArchitecturePrincipleEntry;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernance;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidance;
 typedef struct { SomNode node; } ArchitectureStyle;
-typedef struct { SomNode node; } AssumptionConstraintRegister;
+typedef struct { SomNode node; } AssumptionConstraintDependencyRegister;
 typedef struct { SomNode node; } AssumptionRegisterEntry;
 typedef struct { SomNode node; } AssumptionsConstraintsDependencies;
 typedef struct { SomNode node; } AttributeInterdependencyEntry;
@@ -301,6 +301,7 @@ typedef struct { SomNode node; } BusinessComponentEntryDescription;
 typedef struct { SomNode node; } BusinessComponentEntryInterface;
 typedef struct { SomNode node; } BusinessComponentEntryReuse;
 typedef struct { SomNode node; } BusinessComponentEntryTesting;
+typedef struct { SomNode node; } BusinessDomain;
 typedef struct { SomNode node; } BusinessGoalEntry;
 typedef struct { SomNode node; } BusinessGoalEntryDefinition;
 typedef struct { SomNode node; } BusinessGoalEntryGovernance;
@@ -494,8 +495,10 @@ typedef struct { SomNode node; } ComplianceVerificationSectionTools;
 typedef struct { SomNode node; } ComponentActionEntry;
 typedef struct { SomNode node; } ComponentActionEntryExecution;
 typedef struct { SomNode node; } ComponentActionEntryGovernance;
+typedef struct { SomNode node; } ComponentApproach;
 typedef struct { SomNode node; } ComponentCompliance;
 typedef struct { SomNode node; } ComponentCost;
+typedef struct { SomNode node; } ComponentCustomization;
 typedef struct { SomNode node; } ComponentDeployment;
 typedef struct { SomNode node; } ComponentDocs;
 typedef struct { SomNode node; } ComponentEntry;
@@ -565,7 +568,8 @@ typedef struct { SomNode node; } ComponentVariantEntry;
 typedef struct { SomNode node; } ComponentVariantEntryBehavior;
 typedef struct { SomNode node; } ComponentVariantEntryVisual;
 typedef struct { SomNode node; } ComponentVendor;
-typedef struct { SomNode node; } ComponentsToUse;
+typedef struct { SomNode node; } ComponentVisualLanguage;
+typedef struct { SomNode node; } ComponentsAndDependencies;
 typedef struct { SomNode node; } ComputeResourceRequirements;
 typedef struct { SomNode node; } ComputeResourceRequirementsGpu;
 typedef struct { SomNode node; } ComputeResourceRequirementsMemory;
@@ -633,13 +637,13 @@ typedef struct { SomNode node; } CurrentBusinessProcesses;
 typedef struct { SomNode node; } CurrentDataClassification;
 typedef struct { SomNode node; } CurrentDataLandscape;
 typedef struct { SomNode node; } CurrentLandscape;
-typedef struct { SomNode node; } CurrentOperationalMetrics;
+typedef struct { SomNode node; } CurrentOperationalMetric;
 typedef struct { SomNode node; } CurrentProcessImprovementEntry;
 typedef struct { SomNode node; } CurrentStateRiskAssessment;
 typedef struct { SomNode node; } CurrentWorkflowEntry;
 typedef struct { SomNode node; } CustomDistributionGroup;
 typedef struct { SomNode node; } CustomMetricEntry;
-typedef struct { SomNode node; } CutoverProcedures;
+typedef struct { SomNode node; } CutoverProcedure;
 typedef struct { SomNode node; } D00SolutionBlueprint;
 typedef struct { SomNode node; } D01CurrentLandscapeAssessment;
 typedef struct { SomNode node; } D02TargetOperatingModel;
@@ -881,6 +885,7 @@ typedef struct { SomNode node; } DesignPatternEntryEnforcement;
 typedef struct { SomNode node; } DesignPatternEntryImplementation;
 typedef struct { SomNode node; } DesignPatternEntryStructure;
 typedef struct { SomNode node; } DesignPatternsAndStandards;
+typedef struct { SomNode node; } DesignPrincipleEntry;
 typedef struct { SomNode node; } DesignPrinciples;
 typedef struct { SomNode node; } DesignPrinciplesOverview;
 typedef struct { SomNode node; } DesignVision;
@@ -889,7 +894,7 @@ typedef struct { SomNode node; } DesktopOsRequirementEntryRequirements;
 typedef struct { SomNode node; } DesktopOsRequirementEntrySoftware;
 typedef struct { SomNode node; } DesktopOsRequirementEntrySupport;
 typedef struct { SomNode node; } DesktopOsRequirementEntryTesting;
-typedef struct { SomNode node; } DetailedProcessWorkflows;
+typedef struct { SomNode node; } DetailedProcessWorkflow;
 typedef struct { SomNode node; } DeveloperOnboarding;
 typedef struct { SomNode node; } DeveloperOnboardingAccess;
 typedef struct { SomNode node; } DeveloperOnboardingFirstTasks;
@@ -997,7 +1002,7 @@ typedef struct { SomNode node; } EncryptedDataCategoryEntry;
 typedef struct { SomNode node; } EncryptionAtRest;
 typedef struct { SomNode node; } EncryptionAtRestPolicy;
 typedef struct { SomNode node; } EncryptionInTransit;
-typedef struct { SomNode node; } EndToEndTestScenarios;
+typedef struct { SomNode node; } EndToEndTestScenario;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntry;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryIntegration;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryRequirements;
@@ -1040,10 +1045,10 @@ typedef struct { SomNode node; } EquipmentRequirements;
 typedef struct { SomNode node; } ErrorBudgetTracking;
 typedef struct { SomNode node; } ErrorBudgetTrackingGovernance;
 typedef struct { SomNode node; } ErrorBudgetTrackingMonitoring;
-typedef struct { SomNode node; } ErrorHandlingConcept;
-typedef struct { SomNode node; } ErrorHandlingConceptAccessibility;
-typedef struct { SomNode node; } ErrorHandlingConceptClassification;
-typedef struct { SomNode node; } ErrorHandlingConceptOperations;
+typedef struct { SomNode node; } ErrorHandling;
+typedef struct { SomNode node; } ErrorHandlingAccessibility;
+typedef struct { SomNode node; } ErrorHandlingClassification;
+typedef struct { SomNode node; } ErrorHandlingOperations;
 typedef struct { SomNode node; } ErrorHandlingStandards;
 typedef struct { SomNode node; } ErrorHandlingStandardsExceptions;
 typedef struct { SomNode node; } ErrorHandlingStandardsPatterns;
@@ -1181,7 +1186,6 @@ typedef struct { SomNode node; } FlexibilityExtensibility;
 typedef struct { SomNode node; } FlexibilityModularity;
 typedef struct { SomNode node; } FragilePointEntry;
 typedef struct { SomNode node; } FrameworkCompatibility;
-typedef struct { SomNode node; } FrameworkConditions;
 typedef struct { SomNode node; } FrameworkIdentity;
 typedef struct { SomNode node; } FrameworkJustification;
 typedef struct { SomNode node; } FrameworkRequirementEntry;
@@ -1241,9 +1245,6 @@ typedef struct { SomNode node; } HealthCheckEndpointsConfiguration;
 typedef struct { SomNode node; } HealthCheckEndpointsContent;
 typedef struct { SomNode node; } HealthCheckEndpointsTiming;
 typedef struct { SomNode node; } HealthChecksAndDiagnosticsSection;
-typedef struct { SomNode node; } HelpConcept;
-typedef struct { SomNode node; } HelpConceptDelivery;
-typedef struct { SomNode node; } HelpConceptInsights;
 typedef struct { SomNode node; } HighAvailabilityRequirements;
 typedef struct { SomNode node; } HighAvailabilityRequirementsDisasterRecovery;
 typedef struct { SomNode node; } HighAvailabilityRequirementsFailover;
@@ -1472,6 +1473,7 @@ typedef struct { SomNode node; } LegacyCompatibilityEntryConstraints;
 typedef struct { SomNode node; } LegacyCompatibilityEntryIntegration;
 typedef struct { SomNode node; } LegacyCompatibilityEntryMigration;
 typedef struct { SomNode node; } LegacyCompatibilityEntryRisk;
+typedef struct { SomNode node; } LegalAndContractualRequirements;
 typedef struct { SomNode node; } LiabilityLimitations;
 typedef struct { SomNode node; } LifecycleTransitionEntry;
 typedef struct { SomNode node; } LifecycleTransitionEntryConditions;
@@ -1488,10 +1490,12 @@ typedef struct { SomNode node; } LocalDevelopmentSetupRunning;
 typedef struct { SomNode node; } LocalDevelopmentSetupTesting;
 typedef struct { SomNode node; } LocalDevelopmentSetupTroubleshooting;
 typedef struct { SomNode node; } LocalDevelopmentSetupWorkflow;
+typedef struct { SomNode node; } LocaleHandlingRequirements;
+typedef struct { SomNode node; } LocaleRolloutPlan;
+typedef struct { SomNode node; } LocalizationDeployment;
+typedef struct { SomNode node; } LocalizationFormatting;
 typedef struct { SomNode node; } LocalizationProcess;
-typedef struct { SomNode node; } LocalizationProcessDeployment;
-typedef struct { SomNode node; } LocalizationProcessFormatting;
-typedef struct { SomNode node; } LocalizationProcessReview;
+typedef struct { SomNode node; } LocalizationReview;
 typedef struct { SomNode node; } LocalizationTranslationProcess;
 typedef struct { SomNode node; } LocalizationTranslationRequirements;
 typedef struct { SomNode node; } LogAggregationRequirements;
@@ -1658,9 +1662,7 @@ typedef struct { SomNode node; } MoscowEntryStageAssignment;
 typedef struct { SomNode node; } MoscowEntryTraceability;
 typedef struct { SomNode node; } MoscowEntryValue;
 typedef struct { SomNode node; } MultiChannelExperience;
-typedef struct { SomNode node; } MultiLanguageAndRollout;
-typedef struct { SomNode node; } MultiLanguageAndRolloutLocaleHandling;
-typedef struct { SomNode node; } MultiLanguageAndRolloutPlan;
+typedef struct { SomNode node; } MultiLanguageSupport;
 typedef struct { SomNode node; } MustPassCriteria;
 typedef struct { SomNode node; } MustPassCriterionEntry;
 typedef struct { SomNode node; } MustPassCriterionEntryDefinition;
@@ -1758,6 +1760,7 @@ typedef struct { SomNode node; } OngoingTrainingEntry;
 typedef struct { SomNode node; } OngoingTrainingEntryCompliance;
 typedef struct { SomNode node; } OngoingTrainingEntryContent;
 typedef struct { SomNode node; } OngoingTrainingEntrySchedule;
+typedef struct { SomNode node; } OperatingEnvironment;
 typedef struct { SomNode node; } OperationalMonitoring;
 typedef struct { SomNode node; } OperationalPainPoints;
 typedef struct { SomNode node; } OperationalPainPointsSummary;
@@ -1791,7 +1794,6 @@ typedef struct { SomNode node; } OsCompatibilityEntryLifecycle;
 typedef struct { SomNode node; } OsCompatibilityEntryRequirements;
 typedef struct { SomNode node; } OsCompatibilityEntrySupport;
 typedef struct { SomNode node; } OsCompatibilityEntryTesting;
-typedef struct { SomNode node; } OtherAdministrativeRequirements;
 typedef struct { SomNode node; } OtherAgreementEntry;
 typedef struct { SomNode node; } OutOfScope;
 typedef struct { SomNode node; } OutOfScopeEntry;
@@ -1881,7 +1883,7 @@ typedef struct { SomNode node; } PrimaryNavigation;
 typedef struct { SomNode node; } PrimaryNavigationBottomNav;
 typedef struct { SomNode node; } PrimaryNavigationDrawer;
 typedef struct { SomNode node; } PrimaryNavigationSidebar;
-typedef struct { SomNode node; } PrintLayout;
+typedef struct { SomNode node; } PrintAndExportLayout;
 typedef struct { SomNode node; } PrintLayoutArchive;
 typedef struct { SomNode node; } PrintLayoutBranding;
 typedef struct { SomNode node; } PrintLayoutHeaderFooter;
@@ -1944,12 +1946,12 @@ typedef struct { SomNode node; } ProcessInterdependencyMatrix;
 typedef struct { SomNode node; } ProcessKpiEntry;
 typedef struct { SomNode node; } ProcessKpiEntryMeasurement;
 typedef struct { SomNode node; } ProcessKpiEntryOperations;
+typedef struct { SomNode node; } ProcessMetric;
 typedef struct { SomNode node; } ProcessMetricCategory;
 typedef struct { SomNode node; } ProcessMetricEntry;
 typedef struct { SomNode node; } ProcessMetricEntryMeasurement;
 typedef struct { SomNode node; } ProcessMetricEntryTargets;
 typedef struct { SomNode node; } ProcessMetrics;
-typedef struct { SomNode node; } ProcessMetricsAndKpis;
 typedef struct { SomNode node; } ProcessOutputEntry;
 typedef struct { SomNode node; } ProcessOverviewDiagram;
 typedef struct { SomNode node; } ProcessPainPoints;
@@ -2003,7 +2005,7 @@ typedef struct { SomNode node; } PrototypeGoalsRisk;
 typedef struct { SomNode node; } PrototypeGovernance;
 typedef struct { SomNode node; } PrototypeResources;
 typedef struct { SomNode node; } PrototypeTimeline;
-typedef struct { SomNode node; } PrototypeTypeSection;
+typedef struct { SomNode node; } PrototypeType;
 typedef struct { SomNode node; } PwaRequirements;
 typedef struct { SomNode node; } PwaRequirementsIcons;
 typedef struct { SomNode node; } PwaRequirementsInstallation;
@@ -2275,7 +2277,7 @@ typedef struct { SomNode node; } RollbackStrategyOperations;
 typedef struct { SomNode node; } RollbackStrategyTargets;
 typedef struct { SomNode node; } RollbackStrategyTriggers;
 typedef struct { SomNode node; } RolloutPlan;
-typedef struct { SomNode node; } RolloutTrainingMaterials;
+typedef struct { SomNode node; } RolloutTrainingMaterial;
 typedef struct { SomNode node; } RowLevelSecurityPolicy;
 typedef struct { SomNode node; } RpoRtoRequirements;
 typedef struct { SomNode node; } RpoRtoRequirementsByTier;
@@ -2530,6 +2532,7 @@ typedef struct { SomNode node; } SolutionArchitectureAndTechnology;
 typedef struct { SomNode node; } SpecializedEquipmentEntry;
 typedef struct { SomNode node; } SpecializedEquipmentEntryPlanning;
 typedef struct { SomNode node; } SpecializedEquipmentEntryTechnical;
+typedef struct { SomNode node; } SpecificationStatus;
 typedef struct { SomNode node; } SsoPolicy;
 typedef struct { SomNode node; } StaffingBudget;
 typedef struct { SomNode node; } StaffingBudgetAllocations;
@@ -2577,6 +2580,9 @@ typedef struct { SomNode node; } StageOverviewResources;
 typedef struct { SomNode node; } StageOverviewRisk;
 typedef struct { SomNode node; } StageOverviewSchedule;
 typedef struct { SomNode node; } StageOverviewStatus;
+typedef struct { SomNode node; } StagePlanCoordination;
+typedef struct { SomNode node; } StagePlanReadiness;
+typedef struct { SomNode node; } StagePlanTimeline;
 typedef struct { SomNode node; } StageQuality;
 typedef struct { SomNode node; } StageResources;
 typedef struct { SomNode node; } StageRisk;
@@ -2658,6 +2664,8 @@ typedef struct { SomNode node; } SystemBusinessCriticalityGovernance;
 typedef struct { SomNode node; } SystemBusinessCriticalityOperations;
 typedef struct { SomNode node; } SystemBusinessProcessEntry;
 typedef struct { SomNode node; } SystemBusinessUnitEntry;
+typedef struct { SomNode node; } SystemClassification;
+typedef struct { SomNode node; } SystemComplexity;
 typedef struct { SomNode node; } SystemConfigurationManagement;
 typedef struct { SomNode node; } SystemConfigurationManagementDynamic;
 typedef struct { SomNode node; } SystemConfigurationManagementEnvironment;
@@ -2705,21 +2713,15 @@ typedef struct { SomNode node; } SystemMigrationPlanExecution;
 typedef struct { SomNode node; } SystemMigrationRiskEntry;
 typedef struct { SomNode node; } SystemOperation;
 typedef struct { SomNode node; } SystemOperationAndMonitoring;
-typedef struct { SomNode node; } SystemOverviewSummary;
-typedef struct { SomNode node; } SystemOverviewSummaryClassification;
-typedef struct { SomNode node; } SystemOverviewSummaryComplexity;
-typedef struct { SomNode node; } SystemOverviewSummaryScale;
-typedef struct { SomNode node; } SystemOverviewSummaryStatus;
 typedef struct { SomNode node; } SystemPurpose;
 typedef struct { SomNode node; } SystemQualityGoals;
 typedef struct { SomNode node; } SystemReplacementStrategy;
 typedef struct { SomNode node; } SystemReplacementStrategyCutover;
 typedef struct { SomNode node; } SystemReplacementStrategyTimeline;
-typedef struct { SomNode node; } SystemRolloutConcept;
+typedef struct { SomNode node; } SystemRollout;
+typedef struct { SomNode node; } SystemScale;
 typedef struct { SomNode node; } SystemStagePlan;
-typedef struct { SomNode node; } SystemStagePlanCoordination;
-typedef struct { SomNode node; } SystemStagePlanReadiness;
-typedef struct { SomNode node; } SystemStagePlanTimeline;
+typedef struct { SomNode node; } SystemSummary;
 typedef struct { SomNode node; } SystemTaskEntry;
 typedef struct { SomNode node; } SystemTaskEntryContext;
 typedef struct { SomNode node; } SystemTaskEntryData;
@@ -2746,13 +2748,12 @@ typedef struct { SomNode node; } TabBarDefinitionEntryBehavior;
 typedef struct { SomNode node; } TabBarDefinitionEntryLoading;
 typedef struct { SomNode node; } TabItemEntry;
 typedef struct { SomNode node; } TargetBusinessProcessModel;
-typedef struct { SomNode node; } TargetOperatingModelConcept;
+typedef struct { SomNode node; } TargetOperatingModel;
 typedef struct { SomNode node; } TargetPlatformEntry;
 typedef struct { SomNode node; } TargetPlatformEntryArchitecture;
 typedef struct { SomNode node; } TargetPlatformEntryLifecycle;
 typedef struct { SomNode node; } TargetPlatformEntryRequirements;
 typedef struct { SomNode node; } TargetPlatformEntryVersion;
-typedef struct { SomNode node; } TaskArea;
 typedef struct { SomNode node; } TeamMemberAvailability;
 typedef struct { SomNode node; } TeamMemberEntry;
 typedef struct { SomNode node; } TeamMemberEntryAllocation;
@@ -2765,12 +2766,12 @@ typedef struct { SomNode node; } TeamStructureOverview;
 typedef struct { SomNode node; } TechnicalCharacteristicEntry;
 typedef struct { SomNode node; } TechnicalConstraintEntry;
 typedef struct { SomNode node; } TechnicalDependencyEntry;
+typedef struct { SomNode node; } TechnicalEnvironment;
+typedef struct { SomNode node; } TechnicalEnvironmentGovernance;
+typedef struct { SomNode node; } TechnicalEnvironmentNetwork;
+typedef struct { SomNode node; } TechnicalEnvironmentSecurity;
+typedef struct { SomNode node; } TechnicalEnvironmentStandards;
 typedef struct { SomNode node; } TechnicalFrameworkConcept;
-typedef struct { SomNode node; } TechnicalFrameworkConditions;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsGovernance;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsNetwork;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsSecurity;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsStandards;
 typedef struct { SomNode node; } TechnicalGoalConstraints;
 typedef struct { SomNode node; } TechnicalGoalDependencies;
 typedef struct { SomNode node; } TechnicalGoalEntry;
@@ -2920,17 +2921,17 @@ typedef struct { SomNode node; } TransitionSuccessMetrics;
 typedef struct { SomNode node; } TransitionSupportOverview;
 typedef struct { SomNode node; } TransitionSupportResourceEntry;
 typedef struct { SomNode node; } TransitionSupportStructure;
+typedef struct { SomNode node; } TranslationOngoing;
 typedef struct { SomNode node; } TranslationProcess;
-typedef struct { SomNode node; } TranslationProcessOngoing;
-typedef struct { SomNode node; } TranslationProcessQuality;
-typedef struct { SomNode node; } TranslationProcessTerminology;
-typedef struct { SomNode node; } TranslationProcessWorkflow;
+typedef struct { SomNode node; } TranslationQuality;
 typedef struct { SomNode node; } TranslationRequirements;
 typedef struct { SomNode node; } TranslationRequirementsFormatting;
 typedef struct { SomNode node; } TranslationRequirementsRtl;
 typedef struct { SomNode node; } TranslationRequirementsTechnical;
 typedef struct { SomNode node; } TranslationRequirementsVariants;
+typedef struct { SomNode node; } TranslationTerminology;
 typedef struct { SomNode node; } TranslationVendorEntry;
+typedef struct { SomNode node; } TranslationWorkflow;
 typedef struct { SomNode node; } TransportSecurityPolicy;
 typedef struct { SomNode node; } TriggerOverview;
 typedef struct { SomNode node; } TroubleshootingCapabilities;
@@ -2966,10 +2967,6 @@ typedef struct { SomNode node; } UiComponentEntryScroll;
 typedef struct { SomNode node; } UiComponentEntrySpacing;
 typedef struct { SomNode node; } UiComponentEntrySurface;
 typedef struct { SomNode node; } UiComponents;
-typedef struct { SomNode node; } UiComponentsComponentApproach;
-typedef struct { SomNode node; } UiComponentsCustomization;
-typedef struct { SomNode node; } UiComponentsVisualLanguage;
-typedef struct { SomNode node; } UiDesignPrincipleEntry;
 typedef struct { SomNode node; } UpgradeCycleFramework;
 typedef struct { SomNode node; } Usability;
 typedef struct { SomNode node; } UsabilityClarity;
@@ -2986,6 +2983,9 @@ typedef struct { SomNode node; } UserAccessPermissionsGovernance;
 typedef struct { SomNode node; } UserAccessPermissionsRestrictions;
 typedef struct { SomNode node; } UserAccessibilityNeeds;
 typedef struct { SomNode node; } UserAccountStatesDefinition;
+typedef struct { SomNode node; } UserAssistance;
+typedef struct { SomNode node; } UserAssistanceDelivery;
+typedef struct { SomNode node; } UserAssistanceInsights;
 typedef struct { SomNode node; } UserAttributeEntry;
 typedef struct { SomNode node; } UserAttributes;
 typedef struct { SomNode node; } UserAuthorization;
@@ -3004,14 +3004,14 @@ typedef struct { SomNode node; } UserInteractionModel;
 typedef struct { SomNode node; } UserInteractionModelSummary;
 typedef struct { SomNode node; } UserJourney;
 typedef struct { SomNode node; } UserJourneyPainPointEntry;
-typedef struct { SomNode node; } UserLifecycleSection;
+typedef struct { SomNode node; } UserLifecycle;
 typedef struct { SomNode node; } UserLifecycleTransitionEntry;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryApproval;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryAutomation;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryEffects;
 typedef struct { SomNode node; } UserLifecycleTransitions;
 typedef struct { SomNode node; } UserManagement;
-typedef struct { SomNode node; } UserManuals;
+typedef struct { SomNode node; } UserManual;
 typedef struct { SomNode node; } UserNotificationPreferences;
 typedef struct { SomNode node; } UserPersonaDetails;
 typedef struct { SomNode node; } UserPersonaDetailsBehavior;
@@ -3502,8 +3502,10 @@ typedef struct { SomNode node; } ComplianceVerificationSectionToolsContentForm;
 typedef struct { SomNode node; } ComponentActionEntryContentForm;
 typedef struct { SomNode node; } ComponentActionEntryExecutionContentForm;
 typedef struct { SomNode node; } ComponentActionEntryGovernanceContentForm;
+typedef struct { SomNode node; } ComponentApproachContentForm;
 typedef struct { SomNode node; } ComponentComplianceContentForm;
 typedef struct { SomNode node; } ComponentCostContentForm;
+typedef struct { SomNode node; } ComponentCustomizationContentForm;
 typedef struct { SomNode node; } ComponentDeploymentContentForm;
 typedef struct { SomNode node; } ComponentDocsContentForm;
 typedef struct { SomNode node; } ComponentEntryContentForm;
@@ -3571,6 +3573,7 @@ typedef struct { SomNode node; } ComponentVariantEntryBehaviorContentForm;
 typedef struct { SomNode node; } ComponentVariantEntryContentForm;
 typedef struct { SomNode node; } ComponentVariantEntryVisualContentForm;
 typedef struct { SomNode node; } ComponentVendorContentForm;
+typedef struct { SomNode node; } ComponentVisualLanguageContentForm;
 typedef struct { SomNode node; } ComputeResourceRequirementsContentForm;
 typedef struct { SomNode node; } ComputeResourceRequirementsGpuContentForm;
 typedef struct { SomNode node; } ComputeResourceRequirementsMemoryContentForm;
@@ -3836,6 +3839,7 @@ typedef struct { SomNode node; } DesignPatternEntryContextContentForm;
 typedef struct { SomNode node; } DesignPatternEntryEnforcementContentForm;
 typedef struct { SomNode node; } DesignPatternEntryImplementationContentForm;
 typedef struct { SomNode node; } DesignPatternEntryStructureContentForm;
+typedef struct { SomNode node; } DesignPrincipleEntryContentForm;
 typedef struct { SomNode node; } DesignPrinciplesOverviewContentForm;
 typedef struct { SomNode node; } DesktopOsRequirementEntryContentForm;
 typedef struct { SomNode node; } DesktopOsRequirementEntryRequirementsContentForm;
@@ -3978,10 +3982,10 @@ typedef struct { SomNode node; } EquipmentOverviewContentForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingContentForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingGovernanceContentForm;
 typedef struct { SomNode node; } ErrorBudgetTrackingMonitoringContentForm;
-typedef struct { SomNode node; } ErrorHandlingConceptAccessibilityContentForm;
-typedef struct { SomNode node; } ErrorHandlingConceptClassificationContentForm;
-typedef struct { SomNode node; } ErrorHandlingConceptErrorPhilosophyContentForm;
-typedef struct { SomNode node; } ErrorHandlingConceptOperationsContentForm;
+typedef struct { SomNode node; } ErrorHandlingAccessibilityContentForm;
+typedef struct { SomNode node; } ErrorHandlingClassificationContentForm;
+typedef struct { SomNode node; } ErrorHandlingErrorPhilosophyContentForm;
+typedef struct { SomNode node; } ErrorHandlingOperationsContentForm;
 typedef struct { SomNode node; } ErrorHandlingStandardsContentForm;
 typedef struct { SomNode node; } ErrorHandlingStandardsExceptionsContentForm;
 typedef struct { SomNode node; } ErrorHandlingStandardsPatternsContentForm;
@@ -4148,9 +4152,6 @@ typedef struct { SomNode node; } HealthCheckEndpointsConfigurationContentForm;
 typedef struct { SomNode node; } HealthCheckEndpointsContentContentForm;
 typedef struct { SomNode node; } HealthCheckEndpointsContentForm;
 typedef struct { SomNode node; } HealthCheckEndpointsTimingContentForm;
-typedef struct { SomNode node; } HelpConceptDeliveryContentForm;
-typedef struct { SomNode node; } HelpConceptHelpOverviewContentForm;
-typedef struct { SomNode node; } HelpConceptInsightsContentForm;
 typedef struct { SomNode node; } HighAvailabilityRequirementsContentForm;
 typedef struct { SomNode node; } HighAvailabilityRequirementsDisasterRecoveryContentForm;
 typedef struct { SomNode node; } HighAvailabilityRequirementsFailoverContentForm;
@@ -4365,10 +4366,12 @@ typedef struct { SomNode node; } LocalDevelopmentSetupRunningContentForm;
 typedef struct { SomNode node; } LocalDevelopmentSetupTestingContentForm;
 typedef struct { SomNode node; } LocalDevelopmentSetupTroubleshootingContentForm;
 typedef struct { SomNode node; } LocalDevelopmentSetupWorkflowContentForm;
-typedef struct { SomNode node; } LocalizationProcessDeploymentContentForm;
-typedef struct { SomNode node; } LocalizationProcessFormattingContentForm;
+typedef struct { SomNode node; } LocaleHandlingRequirementsContentForm;
+typedef struct { SomNode node; } LocaleRolloutPlanContentForm;
+typedef struct { SomNode node; } LocalizationDeploymentContentForm;
+typedef struct { SomNode node; } LocalizationFormattingContentForm;
 typedef struct { SomNode node; } LocalizationProcessLocalizationProcessContentForm;
-typedef struct { SomNode node; } LocalizationProcessReviewContentForm;
+typedef struct { SomNode node; } LocalizationReviewContentForm;
 typedef struct { SomNode node; } LogAggregationRequirementsAnalysisContentForm;
 typedef struct { SomNode node; } LogAggregationRequirementsCollectionContentForm;
 typedef struct { SomNode node; } LogAggregationRequirementsContentForm;
@@ -4520,9 +4523,7 @@ typedef struct { SomNode node; } MoscowEntryStageAssignmentContentForm;
 typedef struct { SomNode node; } MoscowEntryTraceabilityContentForm;
 typedef struct { SomNode node; } MoscowEntryValueContentForm;
 typedef struct { SomNode node; } MultiChannelExperienceMultiChannelConfigurationForm;
-typedef struct { SomNode node; } MultiLanguageAndRolloutLocaleHandlingContentForm;
-typedef struct { SomNode node; } MultiLanguageAndRolloutMultiLanguageOverviewForm;
-typedef struct { SomNode node; } MultiLanguageAndRolloutPlanContentForm;
+typedef struct { SomNode node; } MultiLanguageSupportMultiLanguageOverviewForm;
 typedef struct { SomNode node; } MustPassCriteriaMustPassOverviewContentForm;
 typedef struct { SomNode node; } MustPassCriterionEntryContentForm;
 typedef struct { SomNode node; } MustPassCriterionEntryDefinitionContentForm;
@@ -4708,9 +4709,9 @@ typedef struct { SomNode node; } PrimaryNavigationBottomNavContentForm;
 typedef struct { SomNode node; } PrimaryNavigationContentForm;
 typedef struct { SomNode node; } PrimaryNavigationDrawerContentForm;
 typedef struct { SomNode node; } PrimaryNavigationSidebarContentForm;
+typedef struct { SomNode node; } PrintAndExportLayoutContentForm;
 typedef struct { SomNode node; } PrintLayoutArchiveContentForm;
 typedef struct { SomNode node; } PrintLayoutBrandingContentForm;
-typedef struct { SomNode node; } PrintLayoutContentForm;
 typedef struct { SomNode node; } PrintLayoutHeaderFooterContentForm;
 typedef struct { SomNode node; } PrintLayoutPageSetupContentForm;
 typedef struct { SomNode node; } PrintLayoutWatermarkContentForm;
@@ -4806,7 +4807,7 @@ typedef struct { SomNode node; } PrototypeGovernanceContentForm;
 typedef struct { SomNode node; } PrototypePrototypeOverviewForm;
 typedef struct { SomNode node; } PrototypeResourcesContentForm;
 typedef struct { SomNode node; } PrototypeTimelineContentForm;
-typedef struct { SomNode node; } PrototypeTypeSectionPrototypeTypeOverviewForm;
+typedef struct { SomNode node; } PrototypeTypePrototypeTypeOverviewForm;
 typedef struct { SomNode node; } PwaRequirementsContentForm;
 typedef struct { SomNode node; } PwaRequirementsIconsContentForm;
 typedef struct { SomNode node; } PwaRequirementsInstallationContentForm;
@@ -5265,6 +5266,7 @@ typedef struct { SomNode node; } SoftwareLayerEntryTechnologyContentForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryContentForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryPlanningContentForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryTechnicalContentForm;
+typedef struct { SomNode node; } SpecificationStatusContentForm;
 typedef struct { SomNode node; } StaffingBudgetAllocationsContentForm;
 typedef struct { SomNode node; } StaffingBudgetContentForm;
 typedef struct { SomNode node; } StaffingBudgetGovernanceContentForm;
@@ -5310,6 +5312,9 @@ typedef struct { SomNode node; } StageOverviewResourcesContentForm;
 typedef struct { SomNode node; } StageOverviewRiskContentForm;
 typedef struct { SomNode node; } StageOverviewScheduleContentForm;
 typedef struct { SomNode node; } StageOverviewStatusContentForm;
+typedef struct { SomNode node; } StagePlanCoordinationContentForm;
+typedef struct { SomNode node; } StagePlanReadinessContentForm;
+typedef struct { SomNode node; } StagePlanTimelineContentForm;
 typedef struct { SomNode node; } StageQualityContentForm;
 typedef struct { SomNode node; } StageResourcesContentForm;
 typedef struct { SomNode node; } StageRiskContentForm;
@@ -5373,6 +5378,8 @@ typedef struct { SomNode node; } SystemBusinessCriticalityGovernanceContentForm;
 typedef struct { SomNode node; } SystemBusinessCriticalityOperationsContentForm;
 typedef struct { SomNode node; } SystemBusinessProcessEntryContentForm;
 typedef struct { SomNode node; } SystemBusinessUnitEntryContentForm;
+typedef struct { SomNode node; } SystemClassificationContentForm;
+typedef struct { SomNode node; } SystemComplexityContentForm;
 typedef struct { SomNode node; } SystemConfigurationManagementContentForm;
 typedef struct { SomNode node; } SystemConfigurationManagementDynamicContentForm;
 typedef struct { SomNode node; } SystemConfigurationManagementEnvironmentContentForm;
@@ -5413,19 +5420,13 @@ typedef struct { SomNode node; } SystemMigrationPlanContentForm;
 typedef struct { SomNode node; } SystemMigrationPlanCutoverContentForm;
 typedef struct { SomNode node; } SystemMigrationPlanExecutionContentForm;
 typedef struct { SomNode node; } SystemMigrationRiskEntryContentForm;
-typedef struct { SomNode node; } SystemOverviewSummaryClassificationContentForm;
-typedef struct { SomNode node; } SystemOverviewSummaryComplexityContentForm;
-typedef struct { SomNode node; } SystemOverviewSummaryContentForm;
-typedef struct { SomNode node; } SystemOverviewSummaryScaleContentForm;
-typedef struct { SomNode node; } SystemOverviewSummaryStatusContentForm;
 typedef struct { SomNode node; } SystemQualityGoalsGovernanceContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyCutoverContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyTimelineContentForm;
+typedef struct { SomNode node; } SystemScaleContentForm;
 typedef struct { SomNode node; } SystemStagePlanContentForm;
-typedef struct { SomNode node; } SystemStagePlanCoordinationContentForm;
-typedef struct { SomNode node; } SystemStagePlanReadinessContentForm;
-typedef struct { SomNode node; } SystemStagePlanTimelineContentForm;
+typedef struct { SomNode node; } SystemSummaryContentForm;
 typedef struct { SomNode node; } SystemTaskEntryContentForm;
 typedef struct { SomNode node; } SystemTaskEntryContextContentForm;
 typedef struct { SomNode node; } SystemTaskEntryDataContentForm;
@@ -5466,11 +5467,11 @@ typedef struct { SomNode node; } TeamStructureOverviewContentForm;
 typedef struct { SomNode node; } TechnicalCharacteristicEntryContentForm;
 typedef struct { SomNode node; } TechnicalConstraintEntryContentForm;
 typedef struct { SomNode node; } TechnicalDependencyEntryContentForm;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsGovernanceContentForm;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsNetworkContentForm;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsSecurityContentForm;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsStandardsContentForm;
-typedef struct { SomNode node; } TechnicalFrameworkConditionsTechnicalOverviewContentForm;
+typedef struct { SomNode node; } TechnicalEnvironmentGovernanceContentForm;
+typedef struct { SomNode node; } TechnicalEnvironmentNetworkContentForm;
+typedef struct { SomNode node; } TechnicalEnvironmentSecurityContentForm;
+typedef struct { SomNode node; } TechnicalEnvironmentStandardsContentForm;
+typedef struct { SomNode node; } TechnicalEnvironmentTechnicalOverviewContentForm;
 typedef struct { SomNode node; } TechnicalGoalEntryContentForm;
 typedef struct { SomNode node; } TechnicalGoalEntryGovernanceContentForm;
 typedef struct { SomNode node; } TechnicalGoalEntryMeasurementContentForm;
@@ -5599,17 +5600,17 @@ typedef struct { SomNode node; } TransitionRiskEntryContentForm;
 typedef struct { SomNode node; } TransitionRiskEntryResponseContentForm;
 typedef struct { SomNode node; } TransitionSupportOverviewContentForm;
 typedef struct { SomNode node; } TransitionSupportResourceEntryContentForm;
-typedef struct { SomNode node; } TranslationProcessOngoingContentForm;
-typedef struct { SomNode node; } TranslationProcessQualityContentForm;
-typedef struct { SomNode node; } TranslationProcessTerminologyContentForm;
+typedef struct { SomNode node; } TranslationOngoingContentForm;
 typedef struct { SomNode node; } TranslationProcessTranslationProcessContentForm;
-typedef struct { SomNode node; } TranslationProcessWorkflowContentForm;
+typedef struct { SomNode node; } TranslationQualityContentForm;
 typedef struct { SomNode node; } TranslationRequirementsFormattingContentForm;
 typedef struct { SomNode node; } TranslationRequirementsRtlContentForm;
 typedef struct { SomNode node; } TranslationRequirementsTechnicalContentForm;
 typedef struct { SomNode node; } TranslationRequirementsTranslationRequirementsContentForm;
 typedef struct { SomNode node; } TranslationRequirementsVariantsContentForm;
+typedef struct { SomNode node; } TranslationTerminologyContentForm;
 typedef struct { SomNode node; } TranslationVendorEntryContentForm;
+typedef struct { SomNode node; } TranslationWorkflowContentForm;
 typedef struct { SomNode node; } TriggerOverviewContentForm;
 typedef struct { SomNode node; } TroubleshootingCapabilitiesAccessContentForm;
 typedef struct { SomNode node; } TroubleshootingCapabilitiesCommunicationContentForm;
@@ -5649,11 +5650,7 @@ typedef struct { SomNode node; } UiComponentEntryScrollContentForm;
 typedef struct { SomNode node; } UiComponentEntrySpacingContentForm;
 typedef struct { SomNode node; } UiComponentEntrySurfaceContentForm;
 typedef struct { SomNode node; } UiComponentEntryVisualDesignForm;
-typedef struct { SomNode node; } UiComponentsComponentApproachContentForm;
 typedef struct { SomNode node; } UiComponentsComponentLibraryOverviewForm;
-typedef struct { SomNode node; } UiComponentsCustomizationContentForm;
-typedef struct { SomNode node; } UiComponentsVisualLanguageContentForm;
-typedef struct { SomNode node; } UiDesignPrincipleEntryContentForm;
 typedef struct { SomNode node; } UsabilityClarityContentForm;
 typedef struct { SomNode node; } UsabilityContentForm;
 typedef struct { SomNode node; } UsabilityInteractionContentForm;
@@ -5667,6 +5664,9 @@ typedef struct { SomNode node; } UserAccessPermissionsGovernanceContentForm;
 typedef struct { SomNode node; } UserAccessPermissionsPermissionsFormForm;
 typedef struct { SomNode node; } UserAccessPermissionsRestrictionsContentForm;
 typedef struct { SomNode node; } UserAccessibilityNeedsAccessibilityFormForm;
+typedef struct { SomNode node; } UserAssistanceDeliveryContentForm;
+typedef struct { SomNode node; } UserAssistanceHelpOverviewContentForm;
+typedef struct { SomNode node; } UserAssistanceInsightsContentForm;
 typedef struct { SomNode node; } UserAttributeEntryContentForm;
 typedef struct { SomNode node; } UserCategoryDefinitionContentForm;
 typedef struct { SomNode node; } UserCategoryEntryContentForm;
@@ -7155,21 +7155,21 @@ DeploymentTopology architecture_style_deployment_topology(const ArchitectureStyl
 SomList architecture_style_decision_records(const ArchitectureStyle *self);
 
 // A consolidated register of assumptions and constraints.
-// Binds a AssumptionConstraintRegister facade to a document and a path (path copied).
-void assumption_constraint_register_init(AssumptionConstraintRegister *self, SpecDocument *doc, const char *path);
-void assumption_constraint_register_free(AssumptionConstraintRegister *self);
-char *assumption_constraint_register_content(const AssumptionConstraintRegister *self);
-void assumption_constraint_register_set_content(AssumptionConstraintRegister *self, const char *value);
+// Binds a AssumptionConstraintDependencyRegister facade to a document and a path (path copied).
+void assumption_constraint_dependency_register_init(AssumptionConstraintDependencyRegister *self, SpecDocument *doc, const char *path);
+void assumption_constraint_dependency_register_free(AssumptionConstraintDependencyRegister *self);
+char *assumption_constraint_dependency_register_content(const AssumptionConstraintDependencyRegister *self);
+void assumption_constraint_dependency_register_set_content(AssumptionConstraintDependencyRegister *self, const char *value);
 // Assumptions the solution depends on being true.
 // Returns the list view; element type: AssumptionRegisterEntry (construct from item paths).
-SomList assumption_constraint_register_assumptions(const AssumptionConstraintRegister *self);
+SomList assumption_constraint_dependency_register_assumptions(const AssumptionConstraintDependencyRegister *self);
 // Constraints the solution must operate within.
 // Returns the list view; element type: ConstraintRegisterEntry (construct from item paths).
-SomList assumption_constraint_register_constraints(const AssumptionConstraintRegister *self);
+SomList assumption_constraint_dependency_register_constraints(const AssumptionConstraintDependencyRegister *self);
 // Dependencies the solution relies on (external systems, teams, vendors,
 // prerequisite deliverables, framework conditions).
 // Returns the list view; element type: DependencyRegisterEntry (construct from item paths).
-SomList assumption_constraint_register_dependencies(const AssumptionConstraintRegister *self);
+SomList assumption_constraint_dependency_register_dependencies(const AssumptionConstraintDependencyRegister *self);
 
 // A single assumption register entry (form).
 //
@@ -7187,7 +7187,7 @@ void assumptions_constraints_dependencies_free(AssumptionsConstraintsDependencie
 char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsDependencies *self);
 void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
 // The consolidated assumption / constraint register.
-AssumptionConstraintRegister assumptions_constraints_dependencies_register_(const AssumptionsConstraintsDependencies *self);
+AssumptionConstraintDependencyRegister assumptions_constraints_dependencies_register_(const AssumptionsConstraintsDependencies *self);
 
 // A single attribute interdependency entry.
 // Binds a AttributeInterdependencyEntry facade to a document and a path (path copied).
@@ -8225,6 +8225,32 @@ void business_component_entry_testing_init(BusinessComponentEntryTesting *self, 
 void business_component_entry_testing_free(BusinessComponentEntryTesting *self);
 BusinessComponentEntryTestingContentForm business_component_entry_testing_content(const BusinessComponentEntryTesting *self);
 
+// 4.1.3. Description of Business Domain.
+//
+// Describes the business domain and task area the system addresses.
+// Defines the domain vocabulary and key concepts (ubiquitous language)
+// that will be used throughout the project. Based on Domain-Driven Design
+// principles for establishing a shared understanding.
+// Binds a BusinessDomain facade to a document and a path (path copied).
+void business_domain_init(BusinessDomain *self, SpecDocument *doc, const char *path);
+void business_domain_free(BusinessDomain *self);
+char *business_domain_content(const BusinessDomain *self);
+void business_domain_set_content(BusinessDomain *self, const char *value);
+// 4.1.3.1. Domain Overview.
+DomainOverview business_domain_domain_overview(const BusinessDomain *self);
+// 4.1.3.2. Domain Vocabulary.
+DomainVocabulary business_domain_domain_vocabulary(const BusinessDomain *self);
+// 4.1.3.3. Key Concepts.
+KeyConcepts business_domain_key_concepts(const BusinessDomain *self);
+// 4.1.3.4. Domain Boundaries.
+DomainBoundaries business_domain_domain_boundaries(const BusinessDomain *self);
+// 4.1.3.5. Business Rules.
+DomainBusinessRules business_domain_business_rules(const BusinessDomain *self);
+// 4.1.3.6. Domain Processes.
+DomainProcesses business_domain_domain_processes(const BusinessDomain *self);
+// 4.1.3.7. Domain Events.
+DomainEvents business_domain_domain_events(const BusinessDomain *self);
+
 // A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
@@ -8451,14 +8477,14 @@ ProcessImprovementSummary business_process_descriptions_improvement_summary(cons
 // 6.1.6. Process Relationships.
 ProcessRelationships business_process_descriptions_process_relationships(const BusinessProcessDescriptions *self);
 // 6.1.7. Detailed Process Workflows.
-// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+// Returns the list view; element type: DetailedProcessWorkflow (construct from item paths).
 SomList business_process_descriptions_detailed_workflows(const BusinessProcessDescriptions *self);
 // 6.1.8. Cross-Process Analysis.
 CrossProcessAnalysis business_process_descriptions_cross_process_analysis(const BusinessProcessDescriptions *self);
 // 6.1.9. Process Exception Handling.
 ProcessExceptionHandling business_process_descriptions_exception_handling(const BusinessProcessDescriptions *self);
 // 6.1.10. Process Metrics and KPIs.
-// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+// Returns the list view; element type: ProcessMetric (construct from item paths).
 SomList business_process_descriptions_process_metrics_and_kpis(const BusinessProcessDescriptions *self);
 
 // A business process entry.
@@ -10012,6 +10038,12 @@ void component_action_entry_governance_init(ComponentActionEntryGovernance *self
 void component_action_entry_governance_free(ComponentActionEntryGovernance *self);
 ComponentActionEntryGovernanceContentForm component_action_entry_governance_content(const ComponentActionEntryGovernance *self);
 
+// Component naming and documentation approach.
+// Binds a ComponentApproach facade to a document and a path (path copied).
+void component_approach_init(ComponentApproach *self, SpecDocument *doc, const char *path);
+void component_approach_free(ComponentApproach *self);
+ComponentApproachContentForm component_approach_content(const ComponentApproach *self);
+
 // Compliance for component.
 // Binds a ComponentCompliance facade to a document and a path (path copied).
 void component_compliance_init(ComponentCompliance *self, SpecDocument *doc, const char *path);
@@ -10023,6 +10055,12 @@ ComponentComplianceContentForm component_compliance_content(const ComponentCompl
 void component_cost_init(ComponentCost *self, SpecDocument *doc, const char *path);
 void component_cost_free(ComponentCost *self);
 ComponentCostContentForm component_cost_content(const ComponentCost *self);
+
+// Extension and theming boundaries.
+// Binds a ComponentCustomization facade to a document and a path (path copied).
+void component_customization_init(ComponentCustomization *self, SpecDocument *doc, const char *path);
+void component_customization_free(ComponentCustomization *self);
+ComponentCustomizationContentForm component_customization_content(const ComponentCustomization *self);
 
 // Deployment for component.
 // Binds a ComponentDeployment facade to a document and a path (path copied).
@@ -10625,30 +10663,36 @@ void component_vendor_init(ComponentVendor *self, SpecDocument *doc, const char 
 void component_vendor_free(ComponentVendor *self);
 ComponentVendorContentForm component_vendor_content(const ComponentVendor *self);
 
-// 12. Components to Use. Seeds → ATS.
+// Visual language and brand alignment.
+// Binds a ComponentVisualLanguage facade to a document and a path (path copied).
+void component_visual_language_init(ComponentVisualLanguage *self, SpecDocument *doc, const char *path);
+void component_visual_language_free(ComponentVisualLanguage *self);
+ComponentVisualLanguageContentForm component_visual_language_content(const ComponentVisualLanguage *self);
+
+// 12. Components and Dependencies. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
-// Binds a ComponentsToUse facade to a document and a path (path copied).
-void components_to_use_init(ComponentsToUse *self, SpecDocument *doc, const char *path);
-void components_to_use_free(ComponentsToUse *self);
-char *components_to_use_content(const ComponentsToUse *self);
-void components_to_use_set_content(ComponentsToUse *self, const char *value);
+// Binds a ComponentsAndDependencies facade to a document and a path (path copied).
+void components_and_dependencies_init(ComponentsAndDependencies *self, SpecDocument *doc, const char *path);
+void components_and_dependencies_free(ComponentsAndDependencies *self);
+char *components_and_dependencies_content(const ComponentsAndDependencies *self);
+void components_and_dependencies_set_content(ComponentsAndDependencies *self, const char *value);
 // 12.1. Component Strategy.
-ComponentStrategy components_to_use_strategy(const ComponentsToUse *self);
+ComponentStrategy components_and_dependencies_strategy(const ComponentsAndDependencies *self);
 // 12.2. Component Catalog — contains 0+× Component.
 // Returns the list view; element type: ComponentEntry (construct from item paths).
-SomList components_to_use_component_catalog(const ComponentsToUse *self);
+SomList components_and_dependencies_component_catalog(const ComponentsAndDependencies *self);
 // 12.3. Component Role In System.
 // (skipped: componentRoleInSystem has no target type)
 // 12.4. Runtime Dependencies.
-RuntimeDependencies components_to_use_runtime_dependencies(const ComponentsToUse *self);
+RuntimeDependencies components_and_dependencies_runtime_dependencies(const ComponentsAndDependencies *self);
 // 12.5. Maintenance Dependencies.
-MaintenanceDependencies components_to_use_maintenance_dependencies(const ComponentsToUse *self);
+MaintenanceDependencies components_and_dependencies_maintenance_dependencies(const ComponentsAndDependencies *self);
 // 12.6. Risk Assessment.
-ComponentRiskAssessment components_to_use_risk_assessment(const ComponentsToUse *self);
+ComponentRiskAssessment components_and_dependencies_risk_assessment(const ComponentsAndDependencies *self);
 
 // Compute resource requirements.
 // Binds a ComputeResourceRequirements facade to a document and a path (path copied).
@@ -11326,7 +11370,7 @@ PainPointsAndGaps current_landscape_pain_points_and_gaps(const CurrentLandscape 
 // 1.4. Current Data Landscape.
 CurrentDataLandscape current_landscape_current_data_landscape(const CurrentLandscape *self);
 // 1.5. Operational Metrics.
-// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+// Returns the list view; element type: CurrentOperationalMetric (construct from item paths).
 SomList current_landscape_operational_metrics(const CurrentLandscape *self);
 // 1.6. Current State Risks.
 CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLandscape *self);
@@ -11336,11 +11380,11 @@ CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLa
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
 // derive non-functional requirements.
-// Binds a CurrentOperationalMetrics facade to a document and a path (path copied).
-void current_operational_metrics_init(CurrentOperationalMetrics *self, SpecDocument *doc, const char *path);
-void current_operational_metrics_free(CurrentOperationalMetrics *self);
-char *current_operational_metrics_content(const CurrentOperationalMetrics *self);
-void current_operational_metrics_set_content(CurrentOperationalMetrics *self, const char *value);
+// Binds a CurrentOperationalMetric facade to a document and a path (path copied).
+void current_operational_metric_init(CurrentOperationalMetric *self, SpecDocument *doc, const char *path);
+void current_operational_metric_free(CurrentOperationalMetric *self);
+char *current_operational_metric_content(const CurrentOperationalMetric *self);
+void current_operational_metric_set_content(CurrentOperationalMetric *self, const char *value);
 
 // A process improvement opportunity.
 // Binds a CurrentProcessImprovementEntry facade to a document and a path (path copied).
@@ -11419,11 +11463,11 @@ CustomMetricEntryContentForm custom_metric_entry_content(const CustomMetricEntry
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
-// Binds a CutoverProcedures facade to a document and a path (path copied).
-void cutover_procedures_init(CutoverProcedures *self, SpecDocument *doc, const char *path);
-void cutover_procedures_free(CutoverProcedures *self);
-char *cutover_procedures_content(const CutoverProcedures *self);
-void cutover_procedures_set_content(CutoverProcedures *self, const char *value);
+// Binds a CutoverProcedure facade to a document and a path (path copied).
+void cutover_procedure_init(CutoverProcedure *self, SpecDocument *doc, const char *path);
+void cutover_procedure_free(CutoverProcedure *self);
+char *cutover_procedure_content(const CutoverProcedure *self);
+void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
 
 // The complete Solution Blueprint (SBP) document.
 //
@@ -11451,7 +11495,7 @@ CurrentLandscape d00_solution_blueprint_current_landscape(const D00SolutionBluep
 // SBP.6 Assumptions, Constraints & Dependencies.
 AssumptionsConstraintsDependencies d00_solution_blueprint_assumptions_constraints_dependencies(const D00SolutionBlueprint *self);
 // SBP.7 Target Operating Model concept. Seeds → TOM.
-TargetOperatingModelConcept d00_solution_blueprint_target_operating_model_concept(const D00SolutionBlueprint *self);
+TargetOperatingModel d00_solution_blueprint_target_operating_model_concept(const D00SolutionBlueprint *self);
 // SBP.8 Information & Data Model. Seeds → IFM.
 InformationAndDataModel d00_solution_blueprint_information_and_data_model(const D00SolutionBlueprint *self);
 // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
@@ -11492,7 +11536,7 @@ PainPointsAndGaps d01_current_landscape_assessment_pain_points_and_gaps(const D0
 // Current data landscape.
 CurrentDataLandscape d01_current_landscape_assessment_current_data_landscape(const D01CurrentLandscapeAssessment *self);
 // Current operational metrics.
-// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+// Returns the list view; element type: CurrentOperationalMetric (construct from item paths).
 SomList d01_current_landscape_assessment_operational_metrics(const D01CurrentLandscapeAssessment *self);
 // Current-state risk assessment.
 CurrentStateRiskAssessment d01_current_landscape_assessment_current_state_risks(const D01CurrentLandscapeAssessment *self);
@@ -11530,14 +11574,14 @@ ProcessImprovementSummary d02_target_operating_model_improvement_summary(const D
 // Process relationships.
 ProcessRelationships d02_target_operating_model_process_relationships(const D02TargetOperatingModel *self);
 // Detailed process workflows.
-// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+// Returns the list view; element type: DetailedProcessWorkflow (construct from item paths).
 SomList d02_target_operating_model_detailed_workflows(const D02TargetOperatingModel *self);
 // Cross-process analysis.
 CrossProcessAnalysis d02_target_operating_model_cross_process_analysis(const D02TargetOperatingModel *self);
 // Process exception handling.
 ProcessExceptionHandling d02_target_operating_model_exception_handling(const D02TargetOperatingModel *self);
 // Process metrics and KPIs.
-// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+// Returns the list view; element type: ProcessMetric (construct from item paths).
 SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOperatingModel *self);
 
 // IFM00 Information Model.
@@ -11653,7 +11697,7 @@ KeyScenarios d05_interaction_scenarios_key_scenarios(const D05InteractionScenari
 // Actor relationship diagram.
 ActorRelationshipDiagram d05_interaction_scenarios_actor_relationship_diagram(const D05InteractionScenarios *self);
 // End-to-end test scenarios.
-// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+// Returns the list view; element type: EndToEndTestScenario (construct from item paths).
 SomList d05_interaction_scenarios_end_to_end_test_scenarios(const D05InteractionScenarios *self);
 // Use case traceability.
 UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05InteractionScenarios *self);
@@ -11694,9 +11738,9 @@ TechnicalSecurityRequirements d06_architecture_technology_specification_technica
 // System architecture (new in Phase A).
 SystemArchitectureSpec d06_architecture_technology_specification_system_architecture(const D06ArchitectureTechnologySpecification *self);
 // Components to use (whole).
-ComponentsToUse d06_architecture_technology_specification_components_to_use(const D06ArchitectureTechnologySpecification *self);
+ComponentsAndDependencies d06_architecture_technology_specification_components_to_use(const D06ArchitectureTechnologySpecification *self);
 // Technical framework conditions (whole).
-TechnicalFrameworkConditions d06_architecture_technology_specification_technical_framework_conditions(const D06ArchitectureTechnologySpecification *self);
+TechnicalEnvironment d06_architecture_technology_specification_technical_environment(const D06ArchitectureTechnologySpecification *self);
 // Translation handling requirements (whole).
 TranslationRequirements d06_architecture_technology_specification_translation_requirements(const D06ArchitectureTechnologySpecification *self);
 
@@ -11798,11 +11842,11 @@ ScreenDescriptions d09_experience_design_specification_screens(const D09Experien
 // Screen flow structure.
 ScreenFlowStructure d09_experience_design_specification_screen_flow(const D09ExperienceDesignSpecification *self);
 // Print layout.
-PrintLayout d09_experience_design_specification_print_layout(const D09ExperienceDesignSpecification *self);
+PrintAndExportLayout d09_experience_design_specification_print_layout(const D09ExperienceDesignSpecification *self);
 // Error handling concept.
-ErrorHandlingConcept d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self);
+ErrorHandling d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self);
 // Help concept.
-HelpConcept d09_experience_design_specification_help_concept(const D09ExperienceDesignSpecification *self);
+UserAssistance d09_experience_design_specification_user_assistance(const D09ExperienceDesignSpecification *self);
 // Accessibility.
 Accessibility d09_experience_design_specification_accessibility(const D09ExperienceDesignSpecification *self);
 // Responsive design.
@@ -11939,15 +11983,15 @@ RolloutPlan d12_transition_rollout_plan_rollout_plan(const D12TransitionRolloutP
 // Migration plan.
 MigrationPlan d12_transition_rollout_plan_migration_plan(const D12TransitionRolloutPlan *self);
 // User manuals.
-// Returns the list view; element type: UserManuals (construct from item paths).
+// Returns the list view; element type: UserManual (construct from item paths).
 SomList d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self);
 // Training materials.
-// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+// Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
 SomList d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self);
 // Pilot plan.
 PilotPlan d12_transition_rollout_plan_pilot_plan(const D12TransitionRolloutPlan *self);
 // Cutover procedures.
-// Returns the list view; element type: CutoverProcedures (construct from item paths).
+// Returns the list view; element type: CutoverProcedure (construct from item paths).
 SomList d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self);
 // Knowledge transfer.
 KnowledgeTransfer d12_transition_rollout_plan_knowledge_transfer(const D12TransitionRolloutPlan *self);
@@ -13507,13 +13551,13 @@ void delivery_transition_and_rollout_set_content(DeliveryTransitionAndRollout *s
 // Staged delivery / phase plan.
 SystemStagePlan delivery_transition_and_rollout_system_stage_plan(const DeliveryTransitionAndRollout *self);
 // Rollout and transition concept.
-SystemRolloutConcept delivery_transition_and_rollout_system_rollout_concept(const DeliveryTransitionAndRollout *self);
+SystemRollout delivery_transition_and_rollout_system_rollout(const DeliveryTransitionAndRollout *self);
 // Localization & translation *execution* processes (re-homed from MLAR in
 // IP-6: the execution side of i18n, as opposed to the requirements that
 // live in SBP.9).
 LocalizationTranslationProcess delivery_transition_and_rollout_localization_translation_process(const DeliveryTransitionAndRollout *self);
 // Multi-language rollout sequencing by region and time (re-homed from MLAR).
-MultiLanguageAndRolloutPlan delivery_transition_and_rollout_multi_language_rollout_plan(const DeliveryTransitionAndRollout *self);
+LocaleRolloutPlan delivery_transition_and_rollout_locale_rollout_plan(const DeliveryTransitionAndRollout *self);
 
 // 1.1.3. Dependencies and Integrations.
 //
@@ -14055,6 +14099,14 @@ ErrorHandlingStandards design_patterns_and_standards_error_handling_standards(co
 // Testing standards and requirements.
 TestingStandards design_patterns_and_standards_testing_standards(const DesignPatternsAndStandards *self);
 
+// A design principle entry (form).
+//
+// Each principle guides UI decisions with rationale and examples.
+// Binds a DesignPrincipleEntry facade to a document and a path (path copied).
+void design_principle_entry_init(DesignPrincipleEntry *self, SpecDocument *doc, const char *path);
+void design_principle_entry_free(DesignPrincipleEntry *self);
+DesignPrincipleEntryContentForm design_principle_entry_content(const DesignPrincipleEntry *self);
+
 // 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
@@ -14067,7 +14119,7 @@ void design_principles_set_content(DesignPrinciples *self, const char *value);
 // Overview of the design principle framework.
 // (skipped: overview has no target type)
 // Contains 0+× UiDesignPrinciple.
-// Returns the list view; element type: UiDesignPrincipleEntry (construct from item paths).
+// Returns the list view; element type: DesignPrincipleEntry (construct from item paths).
 SomList design_principles_items(const DesignPrinciples *self);
 
 // Design principles overview.
@@ -14134,11 +14186,11 @@ DesktopOsRequirementEntryTestingContentForm desktop_os_requirement_entry_testing
 //
 // Per-process workflow detail beyond the catalog overview.
 // .
-// Binds a DetailedProcessWorkflows facade to a document and a path (path copied).
-void detailed_process_workflows_init(DetailedProcessWorkflows *self, SpecDocument *doc, const char *path);
-void detailed_process_workflows_free(DetailedProcessWorkflows *self);
-char *detailed_process_workflows_content(const DetailedProcessWorkflows *self);
-void detailed_process_workflows_set_content(DetailedProcessWorkflows *self, const char *value);
+// Binds a DetailedProcessWorkflow facade to a document and a path (path copied).
+void detailed_process_workflow_init(DetailedProcessWorkflow *self, SpecDocument *doc, const char *path);
+void detailed_process_workflow_free(DetailedProcessWorkflow *self);
+char *detailed_process_workflow_content(const DetailedProcessWorkflow *self);
+void detailed_process_workflow_set_content(DetailedProcessWorkflow *self, const char *value);
 
 // Developer onboarding requirements.
 // Binds a DeveloperOnboarding facade to a document and a path (path copied).
@@ -15121,11 +15173,11 @@ TransportSecurityPolicy encryption_in_transit_transport_security_policy(const En
 //
 // Test scenarios that exercise complete user journeys across processes
 // and use cases..
-// Binds a EndToEndTestScenarios facade to a document and a path (path copied).
-void end_to_end_test_scenarios_init(EndToEndTestScenarios *self, SpecDocument *doc, const char *path);
-void end_to_end_test_scenarios_free(EndToEndTestScenarios *self);
-char *end_to_end_test_scenarios_content(const EndToEndTestScenarios *self);
-void end_to_end_test_scenarios_set_content(EndToEndTestScenarios *self, const char *value);
+// Binds a EndToEndTestScenario facade to a document and a path (path copied).
+void end_to_end_test_scenario_init(EndToEndTestScenario *self, SpecDocument *doc, const char *path);
+void end_to_end_test_scenario_free(EndToEndTestScenario *self);
+char *end_to_end_test_scenario_content(const EndToEndTestScenario *self);
+void end_to_end_test_scenario_set_content(EndToEndTestScenario *self, const char *value);
 
 // Enterprise system compatibility entry.
 // Binds a EnterpriseSystemCompatibilityEntry facade to a document and a path (path copied).
@@ -15492,51 +15544,51 @@ void error_budget_tracking_monitoring_init(ErrorBudgetTrackingMonitoring *self, 
 void error_budget_tracking_monitoring_free(ErrorBudgetTrackingMonitoring *self);
 ErrorBudgetTrackingMonitoringContentForm error_budget_tracking_monitoring_content(const ErrorBudgetTrackingMonitoring *self);
 
-// 10.7. Error Handling Concept.
+// 10.7. Error Handling.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
 // UX best practices for error prevention, detection, and graceful recovery.
-// Binds a ErrorHandlingConcept facade to a document and a path (path copied).
-void error_handling_concept_init(ErrorHandlingConcept *self, SpecDocument *doc, const char *path);
-void error_handling_concept_free(ErrorHandlingConcept *self);
-ErrorHandlingConceptErrorPhilosophyContentForm error_handling_concept_error_philosophy_content(const ErrorHandlingConcept *self);
+// Binds a ErrorHandling facade to a document and a path (path copied).
+void error_handling_init(ErrorHandling *self, SpecDocument *doc, const char *path);
+void error_handling_free(ErrorHandling *self);
+ErrorHandlingErrorPhilosophyContentForm error_handling_error_philosophy_content(const ErrorHandling *self);
 // Error categorization and display priority.
-ErrorHandlingConceptClassification error_handling_concept_classification(const ErrorHandlingConcept *self);
+ErrorHandlingClassification error_handling_classification(const ErrorHandling *self);
 // Accessibility and inclusive error cues.
-ErrorHandlingConceptAccessibility error_handling_concept_accessibility(const ErrorHandlingConcept *self);
+ErrorHandlingAccessibility error_handling_accessibility(const ErrorHandling *self);
 // Localization and analytics behavior.
-ErrorHandlingConceptOperations error_handling_concept_operations(const ErrorHandlingConcept *self);
+ErrorHandlingOperations error_handling_operations(const ErrorHandling *self);
 // Error handling overview and strategy.
 // (skipped: errorHandlingOverview has no target type)
 // 10.7.1. Validation Feedback.
-ValidationFeedback error_handling_concept_validation_feedback(const ErrorHandlingConcept *self);
+ValidationFeedback error_handling_validation_feedback(const ErrorHandling *self);
 // 10.7.2. System Error Display.
-SystemErrorDisplay error_handling_concept_system_error_display(const ErrorHandlingConcept *self);
+SystemErrorDisplay error_handling_system_error_display(const ErrorHandling *self);
 // 10.7.3. Error Recovery.
-ErrorRecovery error_handling_concept_error_recovery(const ErrorHandlingConcept *self);
+ErrorRecovery error_handling_error_recovery(const ErrorHandling *self);
 // Error message catalog.
 // (skipped: errorMessageCatalog has no target type)
 // Error state visual design.
 // (skipped: errorVisualDesign has no target type)
 
 // Accessibility and inclusive error cues.
-// Binds a ErrorHandlingConceptAccessibility facade to a document and a path (path copied).
-void error_handling_concept_accessibility_init(ErrorHandlingConceptAccessibility *self, SpecDocument *doc, const char *path);
-void error_handling_concept_accessibility_free(ErrorHandlingConceptAccessibility *self);
-ErrorHandlingConceptAccessibilityContentForm error_handling_concept_accessibility_content(const ErrorHandlingConceptAccessibility *self);
+// Binds a ErrorHandlingAccessibility facade to a document and a path (path copied).
+void error_handling_accessibility_init(ErrorHandlingAccessibility *self, SpecDocument *doc, const char *path);
+void error_handling_accessibility_free(ErrorHandlingAccessibility *self);
+ErrorHandlingAccessibilityContentForm error_handling_accessibility_content(const ErrorHandlingAccessibility *self);
 
 // Error categorization and display priority.
-// Binds a ErrorHandlingConceptClassification facade to a document and a path (path copied).
-void error_handling_concept_classification_init(ErrorHandlingConceptClassification *self, SpecDocument *doc, const char *path);
-void error_handling_concept_classification_free(ErrorHandlingConceptClassification *self);
-ErrorHandlingConceptClassificationContentForm error_handling_concept_classification_content(const ErrorHandlingConceptClassification *self);
+// Binds a ErrorHandlingClassification facade to a document and a path (path copied).
+void error_handling_classification_init(ErrorHandlingClassification *self, SpecDocument *doc, const char *path);
+void error_handling_classification_free(ErrorHandlingClassification *self);
+ErrorHandlingClassificationContentForm error_handling_classification_content(const ErrorHandlingClassification *self);
 
 // Localization and analytics behavior.
-// Binds a ErrorHandlingConceptOperations facade to a document and a path (path copied).
-void error_handling_concept_operations_init(ErrorHandlingConceptOperations *self, SpecDocument *doc, const char *path);
-void error_handling_concept_operations_free(ErrorHandlingConceptOperations *self);
-ErrorHandlingConceptOperationsContentForm error_handling_concept_operations_content(const ErrorHandlingConceptOperations *self);
+// Binds a ErrorHandlingOperations facade to a document and a path (path copied).
+void error_handling_operations_init(ErrorHandlingOperations *self, SpecDocument *doc, const char *path);
+void error_handling_operations_free(ErrorHandlingOperations *self);
+ErrorHandlingOperationsContentForm error_handling_operations_content(const ErrorHandlingOperations *self);
 
 // Error handling and exception patterns.
 // Binds a ErrorHandlingStandards facade to a document and a path (path copied).
@@ -15836,23 +15888,23 @@ ScreenDescriptions experience_and_interface_design_screens(const ExperienceAndIn
 // 10.3. Screen Flow Structure. Seeds → XDS.
 ScreenFlowStructure experience_and_interface_design_screen_flow(const ExperienceAndInterfaceDesign *self);
 // 10.4. Print Layout. Seeds → XDS.
-PrintLayout experience_and_interface_design_print_layout(const ExperienceAndInterfaceDesign *self);
+PrintAndExportLayout experience_and_interface_design_print_layout(const ExperienceAndInterfaceDesign *self);
 // Data Structure Alignment.
 // (skipped: dataStructureAlignment has no target type)
 // Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
-// 10.7. Error Handling Concept. Seeds → XDS.
-ErrorHandlingConcept experience_and_interface_design_error_handling(const ExperienceAndInterfaceDesign *self);
-// 10.8. Help Concept. Seeds → XDS.
-HelpConcept experience_and_interface_design_help_concept(const ExperienceAndInterfaceDesign *self);
+// 10.7. Error Handling. Seeds → XDS.
+ErrorHandling experience_and_interface_design_error_handling(const ExperienceAndInterfaceDesign *self);
+// 10.8. User Assistance. Seeds → XDS.
+UserAssistance experience_and_interface_design_user_assistance(const ExperienceAndInterfaceDesign *self);
 // 10.9. Accessibility. Seeds → XDS.
 Accessibility experience_and_interface_design_accessibility(const ExperienceAndInterfaceDesign *self);
 // 10.10. Responsive Design. Seeds → XDS.
 ResponsiveDesign experience_and_interface_design_responsive_design(const ExperienceAndInterfaceDesign *self);
 // 10.11. UI Components. Seeds → XDS.
 UiComponents experience_and_interface_design_ui_components(const ExperienceAndInterfaceDesign *self);
-// 10.12. Multi-language and Rollout Support.
-MultiLanguageAndRollout experience_and_interface_design_multi_language(const ExperienceAndInterfaceDesign *self);
+// 10.12. Multi-language Support.
+MultiLanguageSupport experience_and_interface_design_multi_language_support(const ExperienceAndInterfaceDesign *self);
 // 10.13. Prototype. Seeds → XDS.
 Prototype experience_and_interface_design_prototype(const ExperienceAndInterfaceDesign *self);
 // 10.14. Wireframes and Mockups..
@@ -16820,26 +16872,6 @@ void framework_compatibility_init(FrameworkCompatibility *self, SpecDocument *do
 void framework_compatibility_free(FrameworkCompatibility *self);
 FrameworkCompatibilityContentForm framework_compatibility_content(const FrameworkCompatibility *self);
 
-// 4.6. Framework Conditions.
-//
-// Documents the organizational and technical environment in which the system
-// will operate. Covers organizational structure, functional responsibilities,
-// technical constraints, and external dependencies. Follows TOGAF enterprise
-// context patterns and PMBOK environmental factors analysis.
-// Binds a FrameworkConditions facade to a document and a path (path copied).
-void framework_conditions_init(FrameworkConditions *self, SpecDocument *doc, const char *path);
-void framework_conditions_free(FrameworkConditions *self);
-// Framework conditions overview.
-// (skipped: overview has no target type)
-// 4.6.1. Organizational Environment.
-OrganizationalEnvironment framework_conditions_organizational_environment(const FrameworkConditions *self);
-// 4.6.2. Functional Responsibilities — contains 0+×.
-FunctionalResponsibilities framework_conditions_functional_responsibilities(const FrameworkConditions *self);
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-TechnicalFrameworkConditions framework_conditions_technical_framework_conditions(const FrameworkConditions *self);
-// 4.6.4. Constraints and Dependencies — contains 0+×.
-ConstraintsAndDependencies framework_conditions_constraints_and_dependencies(const FrameworkConditions *self);
-
 // Identity details.
 // Binds a FrameworkIdentity facade to a document and a path (path copied).
 void framework_identity_init(FrameworkIdentity *self, SpecDocument *doc, const char *path);
@@ -17422,41 +17454,6 @@ LogAggregationRequirements health_checks_and_diagnostics_section_log_aggregation
 TroubleshootingCapabilities health_checks_and_diagnostics_section_troubleshooting(const HealthChecksAndDiagnosticsSection *self);
 // Dependency health monitoring.
 DependencyHealthMonitoring health_checks_and_diagnostics_section_dependency_health(const HealthChecksAndDiagnosticsSection *self);
-
-// 10.8. Help Concept.
-//
-// Comprehensive in-app help system including contextual help, onboarding,
-// and support access mechanisms.
-// Binds a HelpConcept facade to a document and a path (path copied).
-void help_concept_init(HelpConcept *self, SpecDocument *doc, const char *path);
-void help_concept_free(HelpConcept *self);
-HelpConceptHelpOverviewContentForm help_concept_help_overview_content(const HelpConcept *self);
-// Content stewardship and help affordances.
-HelpConceptDelivery help_concept_delivery(const HelpConcept *self);
-// Analytics and improvement feedback.
-HelpConceptInsights help_concept_insights(const HelpConcept *self);
-// Help system overview narrative.
-// (skipped: helpOverview has no target type)
-// 10.8.1. Contextual Help.
-ContextualHelp help_concept_contextual_help(const HelpConcept *self);
-// 10.8.2. Onboarding.
-OnboardingHelp help_concept_onboarding(const HelpConcept *self);
-// 10.8.3. Support Access.
-SupportAccess help_concept_support_access(const HelpConcept *self);
-// Help content inventory.
-// (skipped: helpContentInventory has no target type)
-
-// Content stewardship and help affordances.
-// Binds a HelpConceptDelivery facade to a document and a path (path copied).
-void help_concept_delivery_init(HelpConceptDelivery *self, SpecDocument *doc, const char *path);
-void help_concept_delivery_free(HelpConceptDelivery *self);
-HelpConceptDeliveryContentForm help_concept_delivery_content(const HelpConceptDelivery *self);
-
-// Analytics and improvement feedback.
-// Binds a HelpConceptInsights facade to a document and a path (path copied).
-void help_concept_insights_init(HelpConceptInsights *self, SpecDocument *doc, const char *path);
-void help_concept_insights_free(HelpConceptInsights *self);
-HelpConceptInsightsContentForm help_concept_insights_content(const HelpConceptInsights *self);
 
 // High availability requirements.
 // Binds a HighAvailabilityRequirements facade to a document and a path (path copied).
@@ -18933,7 +18930,7 @@ void interoperability_requirements_testing_init(InteroperabilityRequirementsTest
 void interoperability_requirements_testing_free(InteroperabilityRequirementsTesting *self);
 InteroperabilityRequirementsTestingContentForm interoperability_requirements_testing_content(const InteroperabilityRequirementsTesting *self);
 
-// 4. System Overview.
+// 4. Introduction & Scope.
 //
 // High-level overview of the system to be built: its purpose, goals,
 // scope boundaries, and the environment it operates in. This section
@@ -18944,7 +18941,7 @@ void introduction_and_scope_free(IntroductionAndScope *self);
 char *introduction_and_scope_content(const IntroductionAndScope *self);
 void introduction_and_scope_set_content(IntroductionAndScope *self, const char *value);
 // System overview summary statistics.
-SystemOverviewSummary introduction_and_scope_summary(const IntroductionAndScope *self);
+SystemSummary introduction_and_scope_summary(const IntroductionAndScope *self);
 // System context diagram showing major system boundaries.
 char *introduction_and_scope_system_context_diagram(const IntroductionAndScope *self);
 void introduction_and_scope_set_system_context_diagram(IntroductionAndScope *self, const char *value);
@@ -18958,8 +18955,8 @@ RequirementsOverview introduction_and_scope_requirements(const IntroductionAndSc
 SystemsToReplace introduction_and_scope_systems_to_replace(const IntroductionAndScope *self);
 // 4.5. System Boundaries. Seeds → IIS.
 SystemBoundaries introduction_and_scope_system_boundaries(const IntroductionAndScope *self);
-// 4.6. Framework Conditions.
-FrameworkConditions introduction_and_scope_framework_conditions(const IntroductionAndScope *self);
+// 4.6. Operating Environment.
+OperatingEnvironment introduction_and_scope_operating_environment(const IntroductionAndScope *self);
 // 4.7. Risks and Assumptions.
 RisksAndAssumptions introduction_and_scope_risks_and_assumptions(const IntroductionAndScope *self);
 
@@ -19508,6 +19505,30 @@ void legacy_compatibility_entry_risk_init(LegacyCompatibilityEntryRisk *self, Sp
 void legacy_compatibility_entry_risk_free(LegacyCompatibilityEntryRisk *self);
 LegacyCompatibilityEntryRiskContentForm legacy_compatibility_entry_risk_content(const LegacyCompatibilityEntryRisk *self);
 
+// 3.6. Other Administrative Requirements.
+//
+// Additional administrative agreements, constraints, or requirements not
+// covered by other sections: IP ownership, NDAs, regulatory compliance,
+// audit requirements, and other legal or organizational agreements.
+// Binds a LegalAndContractualRequirements facade to a document and a path (path copied).
+void legal_and_contractual_requirements_init(LegalAndContractualRequirements *self, SpecDocument *doc, const char *path);
+void legal_and_contractual_requirements_free(LegalAndContractualRequirements *self);
+char *legal_and_contractual_requirements_content(const LegalAndContractualRequirements *self);
+void legal_and_contractual_requirements_set_content(LegalAndContractualRequirements *self, const char *value);
+// 3.6.1. Intellectual Property.
+IntellectualPropertyRequirements legal_and_contractual_requirements_intellectual_property(const LegalAndContractualRequirements *self);
+// 3.6.2. Confidentiality and NDAs.
+ConfidentialityRequirements legal_and_contractual_requirements_confidentiality(const LegalAndContractualRequirements *self);
+// 3.6.3. Regulatory Compliance.
+RegulatoryComplianceRequirements legal_and_contractual_requirements_regulatory_compliance(const LegalAndContractualRequirements *self);
+// 3.6.4. Audit Requirements.
+AuditRequirements legal_and_contractual_requirements_audit_requirements(const LegalAndContractualRequirements *self);
+// 3.6.5. Insurance and Liability.
+InsuranceLiabilityRequirements legal_and_contractual_requirements_insurance_liability(const LegalAndContractualRequirements *self);
+// 3.6.6. Other Agreements — contains 0+× Agreement.
+// Returns the list view; element type: OtherAgreementEntry (construct from item paths).
+SomList legal_and_contractual_requirements_other_agreements(const LegalAndContractualRequirements *self);
+
 // Liability limitations.
 // Binds a LiabilityLimitations facade to a document and a path (path copied).
 void liability_limitations_init(LiabilityLimitations *self, SpecDocument *doc, const char *path);
@@ -19628,6 +19649,30 @@ void local_development_setup_workflow_init(LocalDevelopmentSetupWorkflow *self, 
 void local_development_setup_workflow_free(LocalDevelopmentSetupWorkflow *self);
 LocalDevelopmentSetupWorkflowContentForm local_development_setup_workflow_content(const LocalDevelopmentSetupWorkflow *self);
 
+// Locale modeling and fallback behavior.
+// Binds a LocaleHandlingRequirements facade to a document and a path (path copied).
+void locale_handling_requirements_init(LocaleHandlingRequirements *self, SpecDocument *doc, const char *path);
+void locale_handling_requirements_free(LocaleHandlingRequirements *self);
+LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const LocaleHandlingRequirements *self);
+
+// Rollout sequencing by region and time.
+// Binds a LocaleRolloutPlan facade to a document and a path (path copied).
+void locale_rollout_plan_init(LocaleRolloutPlan *self, SpecDocument *doc, const char *path);
+void locale_rollout_plan_free(LocaleRolloutPlan *self);
+LocaleRolloutPlanContentForm locale_rollout_plan_content(const LocaleRolloutPlan *self);
+
+// Deployment settings.
+// Binds a LocalizationDeployment facade to a document and a path (path copied).
+void localization_deployment_init(LocalizationDeployment *self, SpecDocument *doc, const char *path);
+void localization_deployment_free(LocalizationDeployment *self);
+LocalizationDeploymentContentForm localization_deployment_content(const LocalizationDeployment *self);
+
+// Formatting rules.
+// Binds a LocalizationFormatting facade to a document and a path (path copied).
+void localization_formatting_init(LocalizationFormatting *self, SpecDocument *doc, const char *path);
+void localization_formatting_free(LocalizationFormatting *self);
+LocalizationFormattingContentForm localization_formatting_content(const LocalizationFormatting *self);
+
 // 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
@@ -19636,39 +19681,27 @@ void localization_process_init(LocalizationProcess *self, SpecDocument *doc, con
 void localization_process_free(LocalizationProcess *self);
 LocalizationProcessLocalizationProcessContentForm localization_process_localization_process_content(const LocalizationProcess *self);
 // Review process.
-LocalizationProcessReview localization_process_review(const LocalizationProcess *self);
+LocalizationReview localization_process_review(const LocalizationProcess *self);
 // Formatting rules.
-LocalizationProcessFormatting localization_process_formatting(const LocalizationProcess *self);
+LocalizationFormatting localization_process_formatting(const LocalizationProcess *self);
 // Deployment settings.
-LocalizationProcessDeployment localization_process_deployment(const LocalizationProcess *self);
+LocalizationDeployment localization_process_deployment(const LocalizationProcess *self);
 // Localization process narrative.
 // (skipped: localizationNarrative has no target type)
 // Localization workflow diagram.
 // (skipped: workflowDiagram has no target type)
 
-// Deployment settings.
-// Binds a LocalizationProcessDeployment facade to a document and a path (path copied).
-void localization_process_deployment_init(LocalizationProcessDeployment *self, SpecDocument *doc, const char *path);
-void localization_process_deployment_free(LocalizationProcessDeployment *self);
-LocalizationProcessDeploymentContentForm localization_process_deployment_content(const LocalizationProcessDeployment *self);
-
-// Formatting rules.
-// Binds a LocalizationProcessFormatting facade to a document and a path (path copied).
-void localization_process_formatting_init(LocalizationProcessFormatting *self, SpecDocument *doc, const char *path);
-void localization_process_formatting_free(LocalizationProcessFormatting *self);
-LocalizationProcessFormattingContentForm localization_process_formatting_content(const LocalizationProcessFormatting *self);
-
 // Review process.
-// Binds a LocalizationProcessReview facade to a document and a path (path copied).
-void localization_process_review_init(LocalizationProcessReview *self, SpecDocument *doc, const char *path);
-void localization_process_review_free(LocalizationProcessReview *self);
-LocalizationProcessReviewContentForm localization_process_review_content(const LocalizationProcessReview *self);
+// Binds a LocalizationReview facade to a document and a path (path copied).
+void localization_review_init(LocalizationReview *self, SpecDocument *doc, const char *path);
+void localization_review_free(LocalizationReview *self);
+LocalizationReviewContentForm localization_review_content(const LocalizationReview *self);
 
 // Localization & Translation execution processes.
 //
 // Public anchor: ISO 29148 transition requirements. Bundles the localization
 // and translation *workflow* concerns re-homed from the former
-// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// `MultiLanguageSupport` cluster (their requirement counterparts live in
 // SBP.9 [LocalizationTranslationRequirements]).
 // Binds a LocalizationTranslationProcess facade to a document and a path (path copied).
 void localization_translation_process_init(LocalizationTranslationProcess *self, SpecDocument *doc, const char *path);
@@ -19692,7 +19725,7 @@ void localization_translation_requirements_set_content(LocalizationTranslationRe
 // Technical internationalization requirements (re-homed from MLAR).
 TranslationRequirements localization_translation_requirements_translation_requirements(const LocalizationTranslationRequirements *self);
 // Locale modeling and fallback requirements (re-homed from MLAR).
-MultiLanguageAndRolloutLocaleHandling localization_translation_requirements_locale_handling(const LocalizationTranslationRequirements *self);
+LocaleHandlingRequirements localization_translation_requirements_locale_handling(const LocalizationTranslationRequirements *self);
 
 // Log aggregation and analysis requirements.
 // Binds a LogAggregationRequirements facade to a document and a path (path copied).
@@ -21140,36 +21173,24 @@ void multi_channel_experience_set_content(MultiChannelExperience *self, const ch
 // Multi-channel configuration.
 MultiChannelExperienceMultiChannelConfigurationForm multi_channel_experience_multi_channel_configuration(const MultiChannelExperience *self);
 
-// 10.12. Multi-language and Rollout Support.
+// 10.12. Multi-language Support.
 //
 // Locale-picker / UX-side multi-language concerns that stay on the
 // Experience & Interface Design side. IP-6 re-homed the requirement-side
 // concerns (i18n requirements, documentation, training) to SBP.9 and the
 // execution-side concerns (localization/translation processes, rollout
 // sequencing) to SBP.15; only the stay-put UX members remain here.
-// Binds a MultiLanguageAndRollout facade to a document and a path (path copied).
-void multi_language_and_rollout_init(MultiLanguageAndRollout *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_free(MultiLanguageAndRollout *self);
-MultiLanguageAndRolloutMultiLanguageOverviewForm multi_language_and_rollout_multi_language_overview(const MultiLanguageAndRollout *self);
+// Binds a MultiLanguageSupport facade to a document and a path (path copied).
+void multi_language_support_init(MultiLanguageSupport *self, SpecDocument *doc, const char *path);
+void multi_language_support_free(MultiLanguageSupport *self);
+MultiLanguageSupportMultiLanguageOverviewForm multi_language_support_multi_language_overview(const MultiLanguageSupport *self);
 // Multi-language overview narrative.
 // (skipped: overviewNarrative has no target type)
 // 10.12.4. Language and Country Selection.
-LanguageCountrySelection multi_language_and_rollout_language_country_selection(const MultiLanguageAndRollout *self);
+LanguageCountrySelection multi_language_support_language_country_selection(const MultiLanguageSupport *self);
 // Supported locale entries.
 // Returns the list view; element type: SupportedLocaleEntry (construct from item paths).
-SomList multi_language_and_rollout_supported_locales(const MultiLanguageAndRollout *self);
-
-// Locale modeling and fallback behavior.
-// Binds a MultiLanguageAndRolloutLocaleHandling facade to a document and a path (path copied).
-void multi_language_and_rollout_locale_handling_init(MultiLanguageAndRolloutLocaleHandling *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_locale_handling_free(MultiLanguageAndRolloutLocaleHandling *self);
-MultiLanguageAndRolloutLocaleHandlingContentForm multi_language_and_rollout_locale_handling_content(const MultiLanguageAndRolloutLocaleHandling *self);
-
-// Rollout sequencing by region and time.
-// Binds a MultiLanguageAndRolloutPlan facade to a document and a path (path copied).
-void multi_language_and_rollout_plan_init(MultiLanguageAndRolloutPlan *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_plan_free(MultiLanguageAndRolloutPlan *self);
-MultiLanguageAndRolloutPlanContentForm multi_language_and_rollout_plan_content(const MultiLanguageAndRolloutPlan *self);
+SomList multi_language_support_supported_locales(const MultiLanguageSupport *self);
 
 // 11.7.1. Must-Pass Criteria.
 //
@@ -22023,6 +22044,26 @@ void ongoing_training_entry_schedule_init(OngoingTrainingEntrySchedule *self, Sp
 void ongoing_training_entry_schedule_free(OngoingTrainingEntrySchedule *self);
 OngoingTrainingEntryScheduleContentForm ongoing_training_entry_schedule_content(const OngoingTrainingEntrySchedule *self);
 
+// 4.6. Operating Environment.
+//
+// Documents the organizational and technical environment in which the system
+// will operate. Covers organizational structure, functional responsibilities,
+// technical constraints, and external dependencies. Follows TOGAF enterprise
+// context patterns and PMBOK environmental factors analysis.
+// Binds a OperatingEnvironment facade to a document and a path (path copied).
+void operating_environment_init(OperatingEnvironment *self, SpecDocument *doc, const char *path);
+void operating_environment_free(OperatingEnvironment *self);
+// Framework conditions overview.
+// (skipped: overview has no target type)
+// 4.6.1. Organizational Environment.
+OrganizationalEnvironment operating_environment_organizational_environment(const OperatingEnvironment *self);
+// 4.6.2. Functional Responsibilities — contains 0+×.
+FunctionalResponsibilities operating_environment_functional_responsibilities(const OperatingEnvironment *self);
+// 4.6.3. Technical Environment. Seeds → ATS.
+TechnicalEnvironment operating_environment_technical_environment(const OperatingEnvironment *self);
+// 4.6.4. Constraints and Dependencies — contains 0+×.
+ConstraintsAndDependencies operating_environment_constraints_and_dependencies(const OperatingEnvironment *self);
+
 // 11.4.3. Monitoring quality.
 // Binds a OperationalMonitoring facade to a document and a path (path copied).
 void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path);
@@ -22396,30 +22437,6 @@ OsCompatibilityEntrySupportContentForm os_compatibility_entry_support_content(co
 void os_compatibility_entry_testing_init(OsCompatibilityEntryTesting *self, SpecDocument *doc, const char *path);
 void os_compatibility_entry_testing_free(OsCompatibilityEntryTesting *self);
 OsCompatibilityEntryTestingContentForm os_compatibility_entry_testing_content(const OsCompatibilityEntryTesting *self);
-
-// 3.6. Other Administrative Requirements.
-//
-// Additional administrative agreements, constraints, or requirements not
-// covered by other sections: IP ownership, NDAs, regulatory compliance,
-// audit requirements, and other legal or organizational agreements.
-// Binds a OtherAdministrativeRequirements facade to a document and a path (path copied).
-void other_administrative_requirements_init(OtherAdministrativeRequirements *self, SpecDocument *doc, const char *path);
-void other_administrative_requirements_free(OtherAdministrativeRequirements *self);
-char *other_administrative_requirements_content(const OtherAdministrativeRequirements *self);
-void other_administrative_requirements_set_content(OtherAdministrativeRequirements *self, const char *value);
-// 3.6.1. Intellectual Property.
-IntellectualPropertyRequirements other_administrative_requirements_intellectual_property(const OtherAdministrativeRequirements *self);
-// 3.6.2. Confidentiality and NDAs.
-ConfidentialityRequirements other_administrative_requirements_confidentiality(const OtherAdministrativeRequirements *self);
-// 3.6.3. Regulatory Compliance.
-RegulatoryComplianceRequirements other_administrative_requirements_regulatory_compliance(const OtherAdministrativeRequirements *self);
-// 3.6.4. Audit Requirements.
-AuditRequirements other_administrative_requirements_audit_requirements(const OtherAdministrativeRequirements *self);
-// 3.6.5. Insurance and Liability.
-InsuranceLiabilityRequirements other_administrative_requirements_insurance_liability(const OtherAdministrativeRequirements *self);
-// 3.6.6. Other Agreements — contains 0+× Agreement.
-// Returns the list view; element type: OtherAgreementEntry (construct from item paths).
-SomList other_administrative_requirements_other_agreements(const OtherAdministrativeRequirements *self);
 
 // An other agreement entry.
 // Binds a OtherAgreementEntry facade to a document and a path (path copied).
@@ -23241,30 +23258,30 @@ void primary_navigation_sidebar_free(PrimaryNavigationSidebar *self);
 PrimaryNavigationSidebarContentForm primary_navigation_sidebar_content(const PrimaryNavigationSidebar *self);
 
 // 10.4. Print Layout.
-// Binds a PrintLayout facade to a document and a path (path copied).
-void print_layout_init(PrintLayout *self, SpecDocument *doc, const char *path);
-void print_layout_free(PrintLayout *self);
-PrintLayoutContentForm print_layout_content(const PrintLayout *self);
+// Binds a PrintAndExportLayout facade to a document and a path (path copied).
+void print_and_export_layout_init(PrintAndExportLayout *self, SpecDocument *doc, const char *path);
+void print_and_export_layout_free(PrintAndExportLayout *self);
+PrintAndExportLayoutContentForm print_and_export_layout_content(const PrintAndExportLayout *self);
 // Page margins and setup.
-PrintLayoutPageSetup print_layout_page_setup(const PrintLayout *self);
+PrintLayoutPageSetup print_and_export_layout_page_setup(const PrintAndExportLayout *self);
 // Branding configuration.
-PrintLayoutBranding print_layout_branding(const PrintLayout *self);
+PrintLayoutBranding print_and_export_layout_branding(const PrintAndExportLayout *self);
 // Watermark and confidentiality.
-PrintLayoutWatermark print_layout_watermark(const PrintLayout *self);
+PrintLayoutWatermark print_and_export_layout_watermark(const PrintAndExportLayout *self);
 // Header and footer settings.
-PrintLayoutHeaderFooter print_layout_header_footer(const PrintLayout *self);
+PrintLayoutHeaderFooter print_and_export_layout_header_footer(const PrintAndExportLayout *self);
 // Archive and batch settings.
-PrintLayoutArchive print_layout_archive(const PrintLayout *self);
+PrintLayoutArchive print_and_export_layout_archive(const PrintAndExportLayout *self);
 // 10.4.1. Reports — contains 0+× Report.
 // Returns the list view; element type: ReportEntry (construct from item paths).
-SomList print_layout_reports(const PrintLayout *self);
+SomList print_and_export_layout_reports(const PrintAndExportLayout *self);
 // 10.4.2. Export Formats — contains 0+× Export Format.
 // Returns the list view; element type: ExportFormatEntry (construct from item paths).
-SomList print_layout_export_formats(const PrintLayout *self);
+SomList print_and_export_layout_export_formats(const PrintAndExportLayout *self);
 // 10.4.3. Export Templates — contains 0+× Export
 // Template.
 // Returns the list view; element type: ExportTemplateEntry (construct from item paths).
-SomList print_layout_export_templates(const PrintLayout *self);
+SomList print_and_export_layout_export_templates(const PrintAndExportLayout *self);
 
 // Archive and batch settings.
 // Binds a PrintLayoutArchive facade to a document and a path (path copied).
@@ -23768,6 +23785,15 @@ void process_kpi_entry_operations_init(ProcessKpiEntryOperations *self, SpecDocu
 void process_kpi_entry_operations_free(ProcessKpiEntryOperations *self);
 ProcessKpiEntryOperationsContentForm process_kpi_entry_operations_content(const ProcessKpiEntryOperations *self);
 
+// 6.1.10. Process Metrics and KPIs.
+//
+// Process-level KPIs, SLAs, and measurement strategy.
+// Binds a ProcessMetric facade to a document and a path (path copied).
+void process_metric_init(ProcessMetric *self, SpecDocument *doc, const char *path);
+void process_metric_free(ProcessMetric *self);
+char *process_metric_content(const ProcessMetric *self);
+void process_metric_set_content(ProcessMetric *self, const char *value);
+
 // A category of process metrics.
 // Binds a ProcessMetricCategory facade to a document and a path (path copied).
 void process_metric_category_init(ProcessMetricCategory *self, SpecDocument *doc, const char *path);
@@ -23834,15 +23860,6 @@ SomList process_metrics_manual_intervention_metrics(const ProcessMetrics *self);
 SomList process_metrics_items(const ProcessMetrics *self);
 // Baseline comparison table.
 MetricsBaselineTable process_metrics_baseline_table(const ProcessMetrics *self);
-
-// 6.1.10. Process Metrics and KPIs.
-//
-// Process-level KPIs, SLAs, and measurement strategy.
-// Binds a ProcessMetricsAndKpis facade to a document and a path (path copied).
-void process_metrics_and_kpis_init(ProcessMetricsAndKpis *self, SpecDocument *doc, const char *path);
-void process_metrics_and_kpis_free(ProcessMetricsAndKpis *self);
-char *process_metrics_and_kpis_content(const ProcessMetricsAndKpis *self);
-void process_metrics_and_kpis_set_content(ProcessMetricsAndKpis *self, const char *value);
 
 // A process output entry.
 // Binds a ProcessOutputEntry facade to a document and a path (path copied).
@@ -24002,7 +24019,7 @@ KeyScenarios process_steps_and_actor_interactions_key_scenarios(const ProcessSte
 // Actor relationship diagram.
 ActorRelationshipDiagram process_steps_and_actor_interactions_actor_relationship_diagram(const ProcessStepsAndActorInteractions *self);
 // 6.2.4. End-to-End Test Scenarios..
-// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+// Returns the list view; element type: EndToEndTestScenario (construct from item paths).
 SomList process_steps_and_actor_interactions_end_to_end_test_scenarios(const ProcessStepsAndActorInteractions *self);
 // 6.2.5. Use Case Traceability.
 UseCaseTraceability process_steps_and_actor_interactions_use_case_traceability(const ProcessStepsAndActorInteractions *self);
@@ -24262,7 +24279,7 @@ PrototypeGoals prototype_prototype_goals(const Prototype *self);
 // 10.13.2. Selected Feature Subset.
 PrototypeFeatureSubset prototype_feature_subset(const Prototype *self);
 // 10.13.3. Prototype Type.
-PrototypeTypeSection prototype_prototype_type(const Prototype *self);
+PrototypeType prototype_prototype_type(const Prototype *self);
 // Prototype schedule.
 // (skipped: prototypeSchedule has no target type)
 
@@ -24357,16 +24374,16 @@ PrototypeTimelineContentForm prototype_timeline_content(const PrototypeTimeline 
 // 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
-// Binds a PrototypeTypeSection facade to a document and a path (path copied).
-void prototype_type_section_init(PrototypeTypeSection *self, SpecDocument *doc, const char *path);
-void prototype_type_section_free(PrototypeTypeSection *self);
-PrototypeTypeSectionPrototypeTypeOverviewForm prototype_type_section_prototype_type_overview(const PrototypeTypeSection *self);
+// Binds a PrototypeType facade to a document and a path (path copied).
+void prototype_type_init(PrototypeType *self, SpecDocument *doc, const char *path);
+void prototype_type_free(PrototypeType *self);
+PrototypeTypePrototypeTypeOverviewForm prototype_type_prototype_type_overview(const PrototypeType *self);
 // 10.13.3.1. Reusable Prototype.
-ReusablePrototype prototype_type_section_reusable_prototype(const PrototypeTypeSection *self);
+ReusablePrototype prototype_type_reusable_prototype(const PrototypeType *self);
 // 10.13.3.2. Training Prototype.
-TrainingPrototype prototype_type_section_training_prototype(const PrototypeTypeSection *self);
+TrainingPrototype prototype_type_training_prototype(const PrototypeType *self);
 // 10.13.3.3. Throwaway Prototype.
-ThrowawayPrototype prototype_type_section_throwaway_prototype(const PrototypeTypeSection *self);
+ThrowawayPrototype prototype_type_throwaway_prototype(const PrototypeType *self);
 
 // Progressive Web App (PWA) requirements.
 // Binds a PwaRequirements facade to a document and a path (path copied).
@@ -26756,11 +26773,11 @@ void rollout_plan_set_content(RolloutPlan *self, const char *value);
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
-// Binds a RolloutTrainingMaterials facade to a document and a path (path copied).
-void rollout_training_materials_init(RolloutTrainingMaterials *self, SpecDocument *doc, const char *path);
-void rollout_training_materials_free(RolloutTrainingMaterials *self);
-char *rollout_training_materials_content(const RolloutTrainingMaterials *self);
-void rollout_training_materials_set_content(RolloutTrainingMaterials *self, const char *value);
+// Binds a RolloutTrainingMaterial facade to a document and a path (path copied).
+void rollout_training_material_init(RolloutTrainingMaterial *self, SpecDocument *doc, const char *path);
+void rollout_training_material_free(RolloutTrainingMaterial *self);
+char *rollout_training_material_content(const RolloutTrainingMaterial *self);
+void rollout_training_material_set_content(RolloutTrainingMaterial *self, const char *value);
 
 // Row-level security policy (form).
 //
@@ -29022,7 +29039,7 @@ void solution_architecture_and_technology_set_content(SolutionArchitectureAndTec
 // Technical framework and platform concept.
 TechnicalFrameworkConcept solution_architecture_and_technology_technical_framework(const SolutionArchitectureAndTechnology *self);
 // Components, libraries, and services to reuse.
-ComponentsToUse solution_architecture_and_technology_components_to_use(const SolutionArchitectureAndTechnology *self);
+ComponentsAndDependencies solution_architecture_and_technology_components_to_use(const SolutionArchitectureAndTechnology *self);
 
 // Specialized equipment entry (form).
 // Binds a SpecializedEquipmentEntry facade to a document and a path (path copied).
@@ -29045,6 +29062,12 @@ SpecializedEquipmentEntryPlanningContentForm specialized_equipment_entry_plannin
 void specialized_equipment_entry_technical_init(SpecializedEquipmentEntryTechnical *self, SpecDocument *doc, const char *path);
 void specialized_equipment_entry_technical_free(SpecializedEquipmentEntryTechnical *self);
 SpecializedEquipmentEntryTechnicalContentForm specialized_equipment_entry_technical_content(const SpecializedEquipmentEntryTechnical *self);
+
+// Specification status.
+// Binds a SpecificationStatus facade to a document and a path (path copied).
+void specification_status_init(SpecificationStatus *self, SpecDocument *doc, const char *path);
+void specification_status_free(SpecificationStatus *self);
+SpecificationStatusContentForm specification_status_content(const SpecificationStatus *self);
 
 // Single Sign-On (SSO) policy (form).
 //
@@ -29500,6 +29523,24 @@ void stage_overview_status_init(StageOverviewStatus *self, SpecDocument *doc, co
 void stage_overview_status_free(StageOverviewStatus *self);
 StageOverviewStatusContentForm stage_overview_status_content(const StageOverviewStatus *self);
 
+// Dependencies, risks, and compliance constraints across stages.
+// Binds a StagePlanCoordination facade to a document and a path (path copied).
+void stage_plan_coordination_init(StagePlanCoordination *self, SpecDocument *doc, const char *path);
+void stage_plan_coordination_free(StagePlanCoordination *self);
+StagePlanCoordinationContentForm stage_plan_coordination_content(const StagePlanCoordination *self);
+
+// Organizational capacity and plan confidence.
+// Binds a StagePlanReadiness facade to a document and a path (path copied).
+void stage_plan_readiness_init(StagePlanReadiness *self, SpecDocument *doc, const char *path);
+void stage_plan_readiness_free(StagePlanReadiness *self);
+StagePlanReadinessContentForm stage_plan_readiness_content(const StagePlanReadiness *self);
+
+// Overall schedule and buffer model.
+// Binds a StagePlanTimeline facade to a document and a path (path copied).
+void stage_plan_timeline_init(StagePlanTimeline *self, SpecDocument *doc, const char *path);
+void stage_plan_timeline_free(StagePlanTimeline *self);
+StagePlanTimelineContentForm stage_plan_timeline_content(const StagePlanTimeline *self);
+
 // Quality and governance for a stage entry.
 // Binds a StageQuality facade to a document and a path (path copied).
 void stage_quality_init(StageQuality *self, SpecDocument *doc, const char *path);
@@ -29847,7 +29888,7 @@ DistributionList stakeholders_and_governance_distribution_list(const Stakeholder
 ChangeProcedure stakeholders_and_governance_change_procedure(const StakeholdersAndGovernance *self);
 // Legal and contractual requirements (IP, NDAs, compliance, audit).
 // Renamed to `LegalAndContractualRequirements` in L34C-9.
-OtherAdministrativeRequirements stakeholders_and_governance_legal_and_contractual(const StakeholdersAndGovernance *self);
+LegalAndContractualRequirements stakeholders_and_governance_legal_and_contractual(const StakeholdersAndGovernance *self);
 // Stakeholder register (§5 completeness addition).
 StakeholderRegister stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
 
@@ -30327,6 +30368,18 @@ void system_business_unit_entry_init(SystemBusinessUnitEntry *self, SpecDocument
 void system_business_unit_entry_free(SystemBusinessUnitEntry *self);
 SystemBusinessUnitEntryContentForm system_business_unit_entry_content(const SystemBusinessUnitEntry *self);
 
+// System classification.
+// Binds a SystemClassification facade to a document and a path (path copied).
+void system_classification_init(SystemClassification *self, SpecDocument *doc, const char *path);
+void system_classification_free(SystemClassification *self);
+SystemClassificationContentForm system_classification_content(const SystemClassification *self);
+
+// Complexity indicators.
+// Binds a SystemComplexity facade to a document and a path (path copied).
+void system_complexity_init(SystemComplexity *self, SpecDocument *doc, const char *path);
+void system_complexity_free(SystemComplexity *self);
+SystemComplexityContentForm system_complexity_content(const SystemComplexity *self);
+
 // System configuration management.
 // Binds a SystemConfigurationManagement facade to a document and a path (path copied).
 void system_configuration_management_init(SystemConfigurationManagement *self, SpecDocument *doc, const char *path);
@@ -30507,8 +30560,8 @@ SystemDescriptionSummary system_description_description_summary(const SystemDesc
 SystemPurpose system_description_system_purpose(const SystemDescription *self);
 // 4.1.2. System Context.
 SystemContext system_description_system_context(const SystemDescription *self);
-// 4.1.3. Description of Task Area.
-TaskArea system_description_task_area(const SystemDescription *self);
+// 4.1.3. Description of Business Domain.
+BusinessDomain system_description_business_domain(const SystemDescription *self);
 // 4.1.4. User Categories — contains 1+× User Category.
 // Returns the list view; element type: UserCategoryEntry (construct from item paths).
 SomList system_description_user_categories(const SystemDescription *self);
@@ -30780,44 +30833,6 @@ Monitoring system_operation_and_monitoring_monitoring(const SystemOperationAndMo
 // 8.7.3. Capacity Planning.
 CapacityPlanningSection system_operation_and_monitoring_capacity_planning(const SystemOperationAndMonitoring *self);
 
-// System overview summary for quick reference.
-// Binds a SystemOverviewSummary facade to a document and a path (path copied).
-void system_overview_summary_init(SystemOverviewSummary *self, SpecDocument *doc, const char *path);
-void system_overview_summary_free(SystemOverviewSummary *self);
-SystemOverviewSummaryContentForm system_overview_summary_content(const SystemOverviewSummary *self);
-// System classification.
-SystemOverviewSummaryClassification system_overview_summary_classification(const SystemOverviewSummary *self);
-// Scale indicators.
-SystemOverviewSummaryScale system_overview_summary_scale(const SystemOverviewSummary *self);
-// Specification status.
-SystemOverviewSummaryStatus system_overview_summary_status(const SystemOverviewSummary *self);
-// Complexity indicators.
-SystemOverviewSummaryComplexity system_overview_summary_complexity(const SystemOverviewSummary *self);
-
-// System classification.
-// Binds a SystemOverviewSummaryClassification facade to a document and a path (path copied).
-void system_overview_summary_classification_init(SystemOverviewSummaryClassification *self, SpecDocument *doc, const char *path);
-void system_overview_summary_classification_free(SystemOverviewSummaryClassification *self);
-SystemOverviewSummaryClassificationContentForm system_overview_summary_classification_content(const SystemOverviewSummaryClassification *self);
-
-// Complexity indicators.
-// Binds a SystemOverviewSummaryComplexity facade to a document and a path (path copied).
-void system_overview_summary_complexity_init(SystemOverviewSummaryComplexity *self, SpecDocument *doc, const char *path);
-void system_overview_summary_complexity_free(SystemOverviewSummaryComplexity *self);
-SystemOverviewSummaryComplexityContentForm system_overview_summary_complexity_content(const SystemOverviewSummaryComplexity *self);
-
-// Scale indicators.
-// Binds a SystemOverviewSummaryScale facade to a document and a path (path copied).
-void system_overview_summary_scale_init(SystemOverviewSummaryScale *self, SpecDocument *doc, const char *path);
-void system_overview_summary_scale_free(SystemOverviewSummaryScale *self);
-SystemOverviewSummaryScaleContentForm system_overview_summary_scale_content(const SystemOverviewSummaryScale *self);
-
-// Specification status.
-// Binds a SystemOverviewSummaryStatus facade to a document and a path (path copied).
-void system_overview_summary_status_init(SystemOverviewSummaryStatus *self, SpecDocument *doc, const char *path);
-void system_overview_summary_status_free(SystemOverviewSummaryStatus *self);
-SystemOverviewSummaryStatusContentForm system_overview_summary_status_content(const SystemOverviewSummaryStatus *self);
-
 // 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
@@ -30934,30 +30949,36 @@ void system_replacement_strategy_timeline_free(SystemReplacementStrategyTimeline
 SystemReplacementStrategyTimelineContentForm system_replacement_strategy_timeline_content(const SystemReplacementStrategyTimeline *self);
 
 // 15. System Rollout Concept. Seeds → TRP.
-// Binds a SystemRolloutConcept facade to a document and a path (path copied).
-void system_rollout_concept_init(SystemRolloutConcept *self, SpecDocument *doc, const char *path);
-void system_rollout_concept_free(SystemRolloutConcept *self);
-char *system_rollout_concept_content(const SystemRolloutConcept *self);
-void system_rollout_concept_set_content(SystemRolloutConcept *self, const char *value);
+// Binds a SystemRollout facade to a document and a path (path copied).
+void system_rollout_init(SystemRollout *self, SpecDocument *doc, const char *path);
+void system_rollout_free(SystemRollout *self);
+char *system_rollout_content(const SystemRollout *self);
+void system_rollout_set_content(SystemRollout *self, const char *value);
 // 15.1. Rollout Plan.
-RolloutPlan system_rollout_concept_rollout_plan(const SystemRolloutConcept *self);
+RolloutPlan system_rollout_rollout_plan(const SystemRollout *self);
 // 15.2. Migration Plan.
-MigrationPlan system_rollout_concept_migration_plan(const SystemRolloutConcept *self);
+MigrationPlan system_rollout_migration_plan(const SystemRollout *self);
 // 15.3. User Manuals.
-// Returns the list view; element type: UserManuals (construct from item paths).
-SomList system_rollout_concept_user_manuals(const SystemRolloutConcept *self);
+// Returns the list view; element type: UserManual (construct from item paths).
+SomList system_rollout_user_manuals(const SystemRollout *self);
 // 15.4. Training Materials.
-// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
-SomList system_rollout_concept_training_materials(const SystemRolloutConcept *self);
+// Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
+SomList system_rollout_training_materials(const SystemRollout *self);
 // 15.5. Pilot Plan.
-PilotPlan system_rollout_concept_pilot_plan(const SystemRolloutConcept *self);
+PilotPlan system_rollout_pilot_plan(const SystemRollout *self);
 // 15.6. Cutover Procedures.
-// Returns the list view; element type: CutoverProcedures (construct from item paths).
-SomList system_rollout_concept_cutover_procedures(const SystemRolloutConcept *self);
+// Returns the list view; element type: CutoverProcedure (construct from item paths).
+SomList system_rollout_cutover_procedures(const SystemRollout *self);
 // 15.7. Knowledge Transfer.
-KnowledgeTransfer system_rollout_concept_knowledge_transfer(const SystemRolloutConcept *self);
+KnowledgeTransfer system_rollout_knowledge_transfer(const SystemRollout *self);
 // 15.8. Warranty and Support.
-WarrantyAndSupport system_rollout_concept_warranty_and_support(const SystemRolloutConcept *self);
+WarrantyAndSupport system_rollout_warranty_and_support(const SystemRollout *self);
+
+// Scale indicators.
+// Binds a SystemScale facade to a document and a path (path copied).
+void system_scale_init(SystemScale *self, SpecDocument *doc, const char *path);
+void system_scale_free(SystemScale *self);
+SystemScaleContentForm system_scale_content(const SystemScale *self);
 
 // 13. System Stage Plan. Seeds → DRM.
 //
@@ -30972,11 +30993,11 @@ void system_stage_plan_init(SystemStagePlan *self, SpecDocument *doc, const char
 void system_stage_plan_free(SystemStagePlan *self);
 SystemStagePlanContentForm system_stage_plan_content(const SystemStagePlan *self);
 // Overall schedule and buffer model.
-SystemStagePlanTimeline system_stage_plan_timeline(const SystemStagePlan *self);
+StagePlanTimeline system_stage_plan_timeline(const SystemStagePlan *self);
 // Dependencies, risks, and compliance constraints across stages.
-SystemStagePlanCoordination system_stage_plan_coordination(const SystemStagePlan *self);
+StagePlanCoordination system_stage_plan_coordination(const SystemStagePlan *self);
 // Organizational capacity and plan confidence.
-SystemStagePlanReadiness system_stage_plan_readiness(const SystemStagePlan *self);
+StagePlanReadiness system_stage_plan_readiness(const SystemStagePlan *self);
 // 13.1. Staging Strategy.
 StagingStrategy system_stage_plan_strategy(const SystemStagePlan *self);
 // 13.2. Stage Overview.
@@ -30995,23 +31016,19 @@ InitialDevelopmentFlow system_stage_plan_initial_development_flow(const SystemSt
 // 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
 UpgradeCycleFramework system_stage_plan_upgrade_cycle_framework(const SystemStagePlan *self);
 
-// Dependencies, risks, and compliance constraints across stages.
-// Binds a SystemStagePlanCoordination facade to a document and a path (path copied).
-void system_stage_plan_coordination_init(SystemStagePlanCoordination *self, SpecDocument *doc, const char *path);
-void system_stage_plan_coordination_free(SystemStagePlanCoordination *self);
-SystemStagePlanCoordinationContentForm system_stage_plan_coordination_content(const SystemStagePlanCoordination *self);
-
-// Organizational capacity and plan confidence.
-// Binds a SystemStagePlanReadiness facade to a document and a path (path copied).
-void system_stage_plan_readiness_init(SystemStagePlanReadiness *self, SpecDocument *doc, const char *path);
-void system_stage_plan_readiness_free(SystemStagePlanReadiness *self);
-SystemStagePlanReadinessContentForm system_stage_plan_readiness_content(const SystemStagePlanReadiness *self);
-
-// Overall schedule and buffer model.
-// Binds a SystemStagePlanTimeline facade to a document and a path (path copied).
-void system_stage_plan_timeline_init(SystemStagePlanTimeline *self, SpecDocument *doc, const char *path);
-void system_stage_plan_timeline_free(SystemStagePlanTimeline *self);
-SystemStagePlanTimelineContentForm system_stage_plan_timeline_content(const SystemStagePlanTimeline *self);
+// System overview summary for quick reference.
+// Binds a SystemSummary facade to a document and a path (path copied).
+void system_summary_init(SystemSummary *self, SpecDocument *doc, const char *path);
+void system_summary_free(SystemSummary *self);
+SystemSummaryContentForm system_summary_content(const SystemSummary *self);
+// System classification.
+SystemClassification system_summary_classification(const SystemSummary *self);
+// Scale indicators.
+SystemScale system_summary_scale(const SystemSummary *self);
+// Specification status.
+SpecificationStatus system_summary_status(const SystemSummary *self);
+// Complexity indicators.
+SystemComplexity system_summary_complexity(const SystemSummary *self);
 
 // A system task entry.
 //
@@ -31269,15 +31286,15 @@ ProcessStepsAndActorInteractions target_business_process_model_process_steps_and
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
-// Binds a TargetOperatingModelConcept facade to a document and a path (path copied).
-void target_operating_model_concept_init(TargetOperatingModelConcept *self, SpecDocument *doc, const char *path);
-void target_operating_model_concept_free(TargetOperatingModelConcept *self);
-char *target_operating_model_concept_content(const TargetOperatingModelConcept *self);
-void target_operating_model_concept_set_content(TargetOperatingModelConcept *self, const char *value);
+// Binds a TargetOperatingModel facade to a document and a path (path copied).
+void target_operating_model_init(TargetOperatingModel *self, SpecDocument *doc, const char *path);
+void target_operating_model_free(TargetOperatingModel *self);
+char *target_operating_model_content(const TargetOperatingModel *self);
+void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
 // Target organizational structure and roles.
-OrganizationalFramework target_operating_model_concept_organizational_framework(const TargetOperatingModelConcept *self);
+OrganizationalFramework target_operating_model_organizational_framework(const TargetOperatingModel *self);
 // Target business process model.
-TargetBusinessProcessModel target_operating_model_concept_target_business_process(const TargetOperatingModelConcept *self);
+TargetBusinessProcessModel target_operating_model_target_business_process(const TargetOperatingModel *self);
 
 // Target platform entry (operating system, runtime, container).
 // Binds a TargetPlatformEntry facade to a document and a path (path copied).
@@ -31316,32 +31333,6 @@ TargetPlatformEntryRequirementsContentForm target_platform_entry_requirements_co
 void target_platform_entry_version_init(TargetPlatformEntryVersion *self, SpecDocument *doc, const char *path);
 void target_platform_entry_version_free(TargetPlatformEntryVersion *self);
 TargetPlatformEntryVersionContentForm target_platform_entry_version_content(const TargetPlatformEntryVersion *self);
-
-// 4.1.3. Description of Task Area.
-//
-// Describes the business domain and task area the system addresses.
-// Defines the domain vocabulary and key concepts (ubiquitous language)
-// that will be used throughout the project. Based on Domain-Driven Design
-// principles for establishing a shared understanding.
-// Binds a TaskArea facade to a document and a path (path copied).
-void task_area_init(TaskArea *self, SpecDocument *doc, const char *path);
-void task_area_free(TaskArea *self);
-char *task_area_content(const TaskArea *self);
-void task_area_set_content(TaskArea *self, const char *value);
-// 4.1.3.1. Domain Overview.
-DomainOverview task_area_domain_overview(const TaskArea *self);
-// 4.1.3.2. Domain Vocabulary.
-DomainVocabulary task_area_domain_vocabulary(const TaskArea *self);
-// 4.1.3.3. Key Concepts.
-KeyConcepts task_area_key_concepts(const TaskArea *self);
-// 4.1.3.4. Domain Boundaries.
-DomainBoundaries task_area_domain_boundaries(const TaskArea *self);
-// 4.1.3.5. Business Rules.
-DomainBusinessRules task_area_business_rules(const TaskArea *self);
-// 4.1.3.6. Domain Processes.
-DomainProcesses task_area_domain_processes(const TaskArea *self);
-// 4.1.3.7. Domain Events.
-DomainEvents task_area_domain_events(const TaskArea *self);
 
 // Team member availability constraints.
 // Binds a TeamMemberAvailability facade to a document and a path (path copied).
@@ -31436,6 +31427,75 @@ void technical_dependency_entry_init(TechnicalDependencyEntry *self, SpecDocumen
 void technical_dependency_entry_free(TechnicalDependencyEntry *self);
 TechnicalDependencyEntryContentForm technical_dependency_entry_content(const TechnicalDependencyEntry *self);
 
+// 4.6.3. Technical Environment. Seeds → ATS.
+//
+// Documents pre-existing technical constraints including mandated platforms,
+// network restrictions, compliance requirements, existing infrastructure
+// that must be reused, and technology standards to follow. Provides the
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
+// Binds a TechnicalEnvironment facade to a document and a path (path copied).
+void technical_environment_init(TechnicalEnvironment *self, SpecDocument *doc, const char *path);
+void technical_environment_free(TechnicalEnvironment *self);
+TechnicalEnvironmentTechnicalOverviewContentForm technical_environment_technical_overview_content(const TechnicalEnvironment *self);
+// Architecture governance context.
+TechnicalEnvironmentGovernance technical_environment_governance(const TechnicalEnvironment *self);
+// Platform standards and preferred technologies.
+TechnicalEnvironmentStandards technical_environment_standards(const TechnicalEnvironment *self);
+// Security and compliance requirements.
+TechnicalEnvironmentSecurity technical_environment_security(const TechnicalEnvironment *self);
+// Network and infrastructure standards.
+TechnicalEnvironmentNetwork technical_environment_network(const TechnicalEnvironment *self);
+// Existing infrastructure that must be reused or integrated with.
+// (skipped: existingInfrastructure has no target type)
+// Data center and hosting environment details.
+// Returns the list view; element type: DatacenterEntry (construct from item paths).
+SomList technical_environment_datacenters(const TechnicalEnvironment *self);
+// Network topology and connectivity constraints.
+// (skipped: networkTopology has no target type)
+// Technology standards that must be followed.
+// (skipped: standardsOverview has no target type)
+// Technology standards — contains 0+× TechnologyStandard.
+// Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
+SomList technical_environment_technology_standards(const TechnicalEnvironment *self);
+// Integration constraints overview.
+// (skipped: integrationOverview has no target type)
+// Integration constraints — contains 0+× IntegrationConstraint.
+// Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
+SomList technical_environment_integration_constraints(const TechnicalEnvironment *self);
+
+// Architecture governance context.
+// Binds a TechnicalEnvironmentGovernance facade to a document and a path (path copied).
+void technical_environment_governance_init(TechnicalEnvironmentGovernance *self, SpecDocument *doc, const char *path);
+void technical_environment_governance_free(TechnicalEnvironmentGovernance *self);
+TechnicalEnvironmentGovernanceContentForm technical_environment_governance_content(const TechnicalEnvironmentGovernance *self);
+
+// Network and infrastructure standards.
+// Binds a TechnicalEnvironmentNetwork facade to a document and a path (path copied).
+void technical_environment_network_init(TechnicalEnvironmentNetwork *self, SpecDocument *doc, const char *path);
+void technical_environment_network_free(TechnicalEnvironmentNetwork *self);
+TechnicalEnvironmentNetworkContentForm technical_environment_network_content(const TechnicalEnvironmentNetwork *self);
+// DevOps and deployment standards.
+// Returns the list view; element type: DevopsStandardEntry (construct from item paths).
+SomList technical_environment_network_devops_standards(const TechnicalEnvironmentNetwork *self);
+// Monitoring and observability requirements.
+// Returns the list view; element type: ObservabilityRequirementEntry (construct from item paths).
+SomList technical_environment_network_observability_requirements(const TechnicalEnvironmentNetwork *self);
+// Disaster recovery and business continuity requirements.
+// (skipped: disasterRecovery has no target type)
+
+// Security and compliance requirements.
+// Binds a TechnicalEnvironmentSecurity facade to a document and a path (path copied).
+void technical_environment_security_init(TechnicalEnvironmentSecurity *self, SpecDocument *doc, const char *path);
+void technical_environment_security_free(TechnicalEnvironmentSecurity *self);
+TechnicalEnvironmentSecurityContentForm technical_environment_security_content(const TechnicalEnvironmentSecurity *self);
+
+// Platform standards and preferred technologies.
+// Binds a TechnicalEnvironmentStandards facade to a document and a path (path copied).
+void technical_environment_standards_init(TechnicalEnvironmentStandards *self, SpecDocument *doc, const char *path);
+void technical_environment_standards_free(TechnicalEnvironmentStandards *self);
+TechnicalEnvironmentStandardsContentForm technical_environment_standards_content(const TechnicalEnvironmentStandards *self);
+
 // 8. Technical Framework Concept. Seeds → ATS.
 // Binds a TechnicalFrameworkConcept facade to a document and a path (path copied).
 void technical_framework_concept_init(TechnicalFrameworkConcept *self, SpecDocument *doc, const char *path);
@@ -31460,75 +31520,6 @@ SystemOperationAndMonitoring technical_framework_concept_system_operation(const 
 TechnicalSecurityRequirements technical_framework_concept_security(const TechnicalFrameworkConcept *self);
 // 8.9. System Architecture..
 SystemArchitectureSpec technical_framework_concept_system_architecture(const TechnicalFrameworkConcept *self);
-
-// 4.6.3. Technical Framework Conditions. Seeds → ATS.
-//
-// Documents pre-existing technical constraints including mandated platforms,
-// network restrictions, compliance requirements, existing infrastructure
-// that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds the detailed
-// Architecture & Technology Specification (ATS) document.
-// Binds a TechnicalFrameworkConditions facade to a document and a path (path copied).
-void technical_framework_conditions_init(TechnicalFrameworkConditions *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_free(TechnicalFrameworkConditions *self);
-TechnicalFrameworkConditionsTechnicalOverviewContentForm technical_framework_conditions_technical_overview_content(const TechnicalFrameworkConditions *self);
-// Architecture governance context.
-TechnicalFrameworkConditionsGovernance technical_framework_conditions_governance(const TechnicalFrameworkConditions *self);
-// Platform standards and preferred technologies.
-TechnicalFrameworkConditionsStandards technical_framework_conditions_standards(const TechnicalFrameworkConditions *self);
-// Security and compliance requirements.
-TechnicalFrameworkConditionsSecurity technical_framework_conditions_security(const TechnicalFrameworkConditions *self);
-// Network and infrastructure standards.
-TechnicalFrameworkConditionsNetwork technical_framework_conditions_network(const TechnicalFrameworkConditions *self);
-// Existing infrastructure that must be reused or integrated with.
-// (skipped: existingInfrastructure has no target type)
-// Data center and hosting environment details.
-// Returns the list view; element type: DatacenterEntry (construct from item paths).
-SomList technical_framework_conditions_datacenters(const TechnicalFrameworkConditions *self);
-// Network topology and connectivity constraints.
-// (skipped: networkTopology has no target type)
-// Technology standards that must be followed.
-// (skipped: standardsOverview has no target type)
-// Technology standards — contains 0+× TechnologyStandard.
-// Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
-SomList technical_framework_conditions_technology_standards(const TechnicalFrameworkConditions *self);
-// Integration constraints overview.
-// (skipped: integrationOverview has no target type)
-// Integration constraints — contains 0+× IntegrationConstraint.
-// Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
-SomList technical_framework_conditions_integration_constraints(const TechnicalFrameworkConditions *self);
-
-// Architecture governance context.
-// Binds a TechnicalFrameworkConditionsGovernance facade to a document and a path (path copied).
-void technical_framework_conditions_governance_init(TechnicalFrameworkConditionsGovernance *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_governance_free(TechnicalFrameworkConditionsGovernance *self);
-TechnicalFrameworkConditionsGovernanceContentForm technical_framework_conditions_governance_content(const TechnicalFrameworkConditionsGovernance *self);
-
-// Network and infrastructure standards.
-// Binds a TechnicalFrameworkConditionsNetwork facade to a document and a path (path copied).
-void technical_framework_conditions_network_init(TechnicalFrameworkConditionsNetwork *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_network_free(TechnicalFrameworkConditionsNetwork *self);
-TechnicalFrameworkConditionsNetworkContentForm technical_framework_conditions_network_content(const TechnicalFrameworkConditionsNetwork *self);
-// DevOps and deployment standards.
-// Returns the list view; element type: DevopsStandardEntry (construct from item paths).
-SomList technical_framework_conditions_network_devops_standards(const TechnicalFrameworkConditionsNetwork *self);
-// Monitoring and observability requirements.
-// Returns the list view; element type: ObservabilityRequirementEntry (construct from item paths).
-SomList technical_framework_conditions_network_observability_requirements(const TechnicalFrameworkConditionsNetwork *self);
-// Disaster recovery and business continuity requirements.
-// (skipped: disasterRecovery has no target type)
-
-// Security and compliance requirements.
-// Binds a TechnicalFrameworkConditionsSecurity facade to a document and a path (path copied).
-void technical_framework_conditions_security_init(TechnicalFrameworkConditionsSecurity *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_security_free(TechnicalFrameworkConditionsSecurity *self);
-TechnicalFrameworkConditionsSecurityContentForm technical_framework_conditions_security_content(const TechnicalFrameworkConditionsSecurity *self);
-
-// Platform standards and preferred technologies.
-// Binds a TechnicalFrameworkConditionsStandards facade to a document and a path (path copied).
-void technical_framework_conditions_standards_init(TechnicalFrameworkConditionsStandards *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_standards_free(TechnicalFrameworkConditionsStandards *self);
-TechnicalFrameworkConditionsStandardsContentForm technical_framework_conditions_standards_content(const TechnicalFrameworkConditionsStandards *self);
 
 // 4.2.2.n.4. Constraints.
 //
@@ -32516,7 +32507,7 @@ TrainingAssessmentReportingContentForm training_assessment_reporting_content(con
 // half in L34C-7 (SR-29). Logically re-homed under SBP.9
 // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
 // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
-// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 // content in one D12 subsection rather than fragmenting it across a new id.
 // Binds a TrainingDeliverableRequirements facade to a document and a path (path copied).
 void training_deliverable_requirements_init(TrainingDeliverableRequirements *self, SpecDocument *doc, const char *path);
@@ -32878,6 +32869,12 @@ SomList transition_support_structure_support_resources(const TransitionSupportSt
 // Returns the list view; element type: TransitionEscalationPaths (construct from item paths).
 SomList transition_support_structure_escalation_paths(const TransitionSupportStructure *self);
 
+// Ongoing localization operations.
+// Binds a TranslationOngoing facade to a document and a path (path copied).
+void translation_ongoing_init(TranslationOngoing *self, SpecDocument *doc, const char *path);
+void translation_ongoing_free(TranslationOngoing *self);
+TranslationOngoingContentForm translation_ongoing_content(const TranslationOngoing *self);
+
 // 10.12.2. Translation Process.
 //
 // Workflow for translating content.
@@ -32886,42 +32883,24 @@ void translation_process_init(TranslationProcess *self, SpecDocument *doc, const
 void translation_process_free(TranslationProcess *self);
 TranslationProcessTranslationProcessContentForm translation_process_translation_process_content(const TranslationProcess *self);
 // Translation workflow.
-TranslationProcessWorkflow translation_process_workflow(const TranslationProcess *self);
+TranslationWorkflow translation_process_workflow(const TranslationProcess *self);
 // Quality assurance.
-TranslationProcessQuality translation_process_quality(const TranslationProcess *self);
+TranslationQuality translation_process_quality(const TranslationProcess *self);
 // Terminology and voice management.
-TranslationProcessTerminology translation_process_terminology(const TranslationProcess *self);
+TranslationTerminology translation_process_terminology(const TranslationProcess *self);
 // Ongoing localization operations.
-TranslationProcessOngoing translation_process_ongoing(const TranslationProcess *self);
+TranslationOngoing translation_process_ongoing(const TranslationProcess *self);
 // Translation process narrative.
 // (skipped: translationNarrative has no target type)
 // Translation vendor entries.
 // Returns the list view; element type: TranslationVendorEntry (construct from item paths).
 SomList translation_process_vendors(const TranslationProcess *self);
 
-// Ongoing localization operations.
-// Binds a TranslationProcessOngoing facade to a document and a path (path copied).
-void translation_process_ongoing_init(TranslationProcessOngoing *self, SpecDocument *doc, const char *path);
-void translation_process_ongoing_free(TranslationProcessOngoing *self);
-TranslationProcessOngoingContentForm translation_process_ongoing_content(const TranslationProcessOngoing *self);
-
 // Quality assurance.
-// Binds a TranslationProcessQuality facade to a document and a path (path copied).
-void translation_process_quality_init(TranslationProcessQuality *self, SpecDocument *doc, const char *path);
-void translation_process_quality_free(TranslationProcessQuality *self);
-TranslationProcessQualityContentForm translation_process_quality_content(const TranslationProcessQuality *self);
-
-// Terminology and voice management.
-// Binds a TranslationProcessTerminology facade to a document and a path (path copied).
-void translation_process_terminology_init(TranslationProcessTerminology *self, SpecDocument *doc, const char *path);
-void translation_process_terminology_free(TranslationProcessTerminology *self);
-TranslationProcessTerminologyContentForm translation_process_terminology_content(const TranslationProcessTerminology *self);
-
-// Translation workflow.
-// Binds a TranslationProcessWorkflow facade to a document and a path (path copied).
-void translation_process_workflow_init(TranslationProcessWorkflow *self, SpecDocument *doc, const char *path);
-void translation_process_workflow_free(TranslationProcessWorkflow *self);
-TranslationProcessWorkflowContentForm translation_process_workflow_content(const TranslationProcessWorkflow *self);
+// Binds a TranslationQuality facade to a document and a path (path copied).
+void translation_quality_init(TranslationQuality *self, SpecDocument *doc, const char *path);
+void translation_quality_free(TranslationQuality *self);
+TranslationQualityContentForm translation_quality_content(const TranslationQuality *self);
 
 // 10.12.5. Translation Handling Requirements.
 //
@@ -32965,11 +32944,23 @@ void translation_requirements_variants_init(TranslationRequirementsVariants *sel
 void translation_requirements_variants_free(TranslationRequirementsVariants *self);
 TranslationRequirementsVariantsContentForm translation_requirements_variants_content(const TranslationRequirementsVariants *self);
 
+// Terminology and voice management.
+// Binds a TranslationTerminology facade to a document and a path (path copied).
+void translation_terminology_init(TranslationTerminology *self, SpecDocument *doc, const char *path);
+void translation_terminology_free(TranslationTerminology *self);
+TranslationTerminologyContentForm translation_terminology_content(const TranslationTerminology *self);
+
 // A translation vendor entry.
 // Binds a TranslationVendorEntry facade to a document and a path (path copied).
 void translation_vendor_entry_init(TranslationVendorEntry *self, SpecDocument *doc, const char *path);
 void translation_vendor_entry_free(TranslationVendorEntry *self);
 TranslationVendorEntryContentForm translation_vendor_entry_content(const TranslationVendorEntry *self);
+
+// Translation workflow.
+// Binds a TranslationWorkflow facade to a document and a path (path copied).
+void translation_workflow_init(TranslationWorkflow *self, SpecDocument *doc, const char *path);
+void translation_workflow_free(TranslationWorkflow *self);
+TranslationWorkflowContentForm translation_workflow_content(const TranslationWorkflow *self);
 
 // HSTS and Transport Security Policy (form).
 //
@@ -33265,11 +33256,11 @@ void ui_components_init(UiComponents *self, SpecDocument *doc, const char *path)
 void ui_components_free(UiComponents *self);
 UiComponentsComponentLibraryOverviewForm ui_components_component_library_overview(const UiComponents *self);
 // Visual language and brand alignment.
-UiComponentsVisualLanguage ui_components_visual_language(const UiComponents *self);
+ComponentVisualLanguage ui_components_visual_language(const UiComponents *self);
 // Component naming and documentation approach.
-UiComponentsComponentApproach ui_components_component_approach(const UiComponents *self);
+ComponentApproach ui_components_component_approach(const UiComponents *self);
 // Extension and theming boundaries.
-UiComponentsCustomization ui_components_customization(const UiComponents *self);
+ComponentCustomization ui_components_customization(const UiComponents *self);
 // 10.11.1. Component Library.
 ComponentLibrary ui_components_component_library(const UiComponents *self);
 // 10.11.2. Component Specifications — contains 0+×.
@@ -33278,32 +33269,6 @@ SomList ui_components_component_specs(const UiComponents *self);
 // 10.11.3. Component Families — contains 0+×.
 // Returns the list view; element type: ComponentFamilyEntry (construct from item paths).
 SomList ui_components_component_families(const UiComponents *self);
-
-// Component naming and documentation approach.
-// Binds a UiComponentsComponentApproach facade to a document and a path (path copied).
-void ui_components_component_approach_init(UiComponentsComponentApproach *self, SpecDocument *doc, const char *path);
-void ui_components_component_approach_free(UiComponentsComponentApproach *self);
-UiComponentsComponentApproachContentForm ui_components_component_approach_content(const UiComponentsComponentApproach *self);
-
-// Extension and theming boundaries.
-// Binds a UiComponentsCustomization facade to a document and a path (path copied).
-void ui_components_customization_init(UiComponentsCustomization *self, SpecDocument *doc, const char *path);
-void ui_components_customization_free(UiComponentsCustomization *self);
-UiComponentsCustomizationContentForm ui_components_customization_content(const UiComponentsCustomization *self);
-
-// Visual language and brand alignment.
-// Binds a UiComponentsVisualLanguage facade to a document and a path (path copied).
-void ui_components_visual_language_init(UiComponentsVisualLanguage *self, SpecDocument *doc, const char *path);
-void ui_components_visual_language_free(UiComponentsVisualLanguage *self);
-UiComponentsVisualLanguageContentForm ui_components_visual_language_content(const UiComponentsVisualLanguage *self);
-
-// A design principle entry (form).
-//
-// Each principle guides UI decisions with rationale and examples.
-// Binds a UiDesignPrincipleEntry facade to a document and a path (path copied).
-void ui_design_principle_entry_init(UiDesignPrincipleEntry *self, SpecDocument *doc, const char *path);
-void ui_design_principle_entry_free(UiDesignPrincipleEntry *self);
-UiDesignPrincipleEntryContentForm ui_design_principle_entry_content(const UiDesignPrincipleEntry *self);
 
 // 13.8. Upgrade Cycle Framework.
 //
@@ -33480,6 +33445,41 @@ char *user_account_states_definition_content(const UserAccountStatesDefinition *
 void user_account_states_definition_set_content(UserAccountStatesDefinition *self, const char *value);
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
+
+// 10.8. User Assistance.
+//
+// Comprehensive in-app help system including contextual help, onboarding,
+// and support access mechanisms.
+// Binds a UserAssistance facade to a document and a path (path copied).
+void user_assistance_init(UserAssistance *self, SpecDocument *doc, const char *path);
+void user_assistance_free(UserAssistance *self);
+UserAssistanceHelpOverviewContentForm user_assistance_help_overview_content(const UserAssistance *self);
+// Content stewardship and help affordances.
+UserAssistanceDelivery user_assistance_delivery(const UserAssistance *self);
+// Analytics and improvement feedback.
+UserAssistanceInsights user_assistance_insights(const UserAssistance *self);
+// Help system overview narrative.
+// (skipped: helpOverview has no target type)
+// 10.8.1. Contextual Help.
+ContextualHelp user_assistance_contextual_help(const UserAssistance *self);
+// 10.8.2. Onboarding.
+OnboardingHelp user_assistance_onboarding(const UserAssistance *self);
+// 10.8.3. Support Access.
+SupportAccess user_assistance_support_access(const UserAssistance *self);
+// Help content inventory.
+// (skipped: helpContentInventory has no target type)
+
+// Content stewardship and help affordances.
+// Binds a UserAssistanceDelivery facade to a document and a path (path copied).
+void user_assistance_delivery_init(UserAssistanceDelivery *self, SpecDocument *doc, const char *path);
+void user_assistance_delivery_free(UserAssistanceDelivery *self);
+UserAssistanceDeliveryContentForm user_assistance_delivery_content(const UserAssistanceDelivery *self);
+
+// Analytics and improvement feedback.
+// Binds a UserAssistanceInsights facade to a document and a path (path copied).
+void user_assistance_insights_init(UserAssistanceInsights *self, SpecDocument *doc, const char *path);
+void user_assistance_insights_free(UserAssistanceInsights *self);
+UserAssistanceInsightsContentForm user_assistance_insights_content(const UserAssistanceInsights *self);
 
 // A user attribute entry (form).
 // Binds a UserAttributeEntry facade to a document and a path (path copied).
@@ -33702,32 +33702,32 @@ void user_journey_pain_point_entry_set_content(UserJourneyPainPointEntry *self, 
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
 // for registration, activation, modification, deactivation, and deletion.
-// Binds a UserLifecycleSection facade to a document and a path (path copied).
-void user_lifecycle_section_init(UserLifecycleSection *self, SpecDocument *doc, const char *path);
-void user_lifecycle_section_free(UserLifecycleSection *self);
-char *user_lifecycle_section_content(const UserLifecycleSection *self);
-void user_lifecycle_section_set_content(UserLifecycleSection *self, const char *value);
+// Binds a UserLifecycle facade to a document and a path (path copied).
+void user_lifecycle_init(UserLifecycle *self, SpecDocument *doc, const char *path);
+void user_lifecycle_free(UserLifecycle *self);
+char *user_lifecycle_content(const UserLifecycle *self);
+void user_lifecycle_set_content(UserLifecycle *self, const char *value);
 // Overview (text).
 // (skipped: overview has no target type)
 // 9.1.2.1. Account States.
-UserAccountStatesDefinition user_lifecycle_section_account_states(const UserLifecycleSection *self);
+UserAccountStatesDefinition user_lifecycle_account_states(const UserLifecycle *self);
 // 9.1.2.2. Registration Process.
-UserRegistrationProcess user_lifecycle_section_registration(const UserLifecycleSection *self);
+UserRegistrationProcess user_lifecycle_registration(const UserLifecycle *self);
 // 9.1.2.3. Account Activation.
-AccountActivationPolicy user_lifecycle_section_activation(const UserLifecycleSection *self);
+AccountActivationPolicy user_lifecycle_activation(const UserLifecycle *self);
 // 9.1.2.4. Account Modification.
-AccountModificationPolicy user_lifecycle_section_modification(const UserLifecycleSection *self);
+AccountModificationPolicy user_lifecycle_modification(const UserLifecycle *self);
 // 9.1.2.5. Account Deactivation.
-AccountDeactivationPolicy user_lifecycle_section_deactivation(const UserLifecycleSection *self);
+AccountDeactivationPolicy user_lifecycle_deactivation(const UserLifecycle *self);
 // 9.1.2.6. Account Deletion and Data Retention.
-AccountDeletionPolicy user_lifecycle_section_deletion(const UserLifecycleSection *self);
+AccountDeletionPolicy user_lifecycle_deletion(const UserLifecycle *self);
 // 9.1.2.7. Lifecycle Transitions and Approvals.
-UserLifecycleTransitions user_lifecycle_section_transitions(const UserLifecycleSection *self);
+UserLifecycleTransitions user_lifecycle_transitions(const UserLifecycle *self);
 // 9.1.2.8. Self-Service Account Management.
-SelfServiceAccountManagement user_lifecycle_section_self_service(const UserLifecycleSection *self);
+SelfServiceAccountManagement user_lifecycle_self_service(const UserLifecycle *self);
 // 9.1.2.9. Service Account Lifecycle.
 // Returns the list view; element type: ServiceAccountLifecycle (construct from item paths).
-SomList user_lifecycle_section_service_accounts(const UserLifecycleSection *self);
+SomList user_lifecycle_service_accounts(const UserLifecycle *self);
 
 // A lifecycle transition entry (form).
 //
@@ -33788,18 +33788,18 @@ void user_management_set_content(UserManagement *self, const char *value);
 // 9.1.1. User Categories.
 AccessUserCategories user_management_user_categories(const UserManagement *self);
 // 9.1.2. User Lifecycle.
-UserLifecycleSection user_management_user_lifecycle(const UserManagement *self);
+UserLifecycle user_management_user_lifecycle(const UserManagement *self);
 // 9.1.3. User Attributes.
 UserAttributes user_management_user_attributes(const UserManagement *self);
 
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
-// Binds a UserManuals facade to a document and a path (path copied).
-void user_manuals_init(UserManuals *self, SpecDocument *doc, const char *path);
-void user_manuals_free(UserManuals *self);
-char *user_manuals_content(const UserManuals *self);
-void user_manuals_set_content(UserManuals *self, const char *value);
+// Binds a UserManual facade to a document and a path (path copied).
+void user_manual_init(UserManual *self, SpecDocument *doc, const char *path);
+void user_manual_free(UserManual *self);
+char *user_manual_content(const UserManual *self);
+void user_manual_set_content(UserManual *self, const char *value);
 
 // User notification preferences.
 // Binds a UserNotificationPreferences facade to a document and a path (path copied).
@@ -39438,6 +39438,16 @@ void component_action_entry_governance_content_form_set_confirmation_required(Co
 char *component_action_entry_governance_content_form_confirmation_message(const ComponentActionEntryGovernanceContentForm *self);
 void component_action_entry_governance_content_form_set_confirmation_message(ComponentActionEntryGovernanceContentForm *self, const char *value);
 
+// ComponentApproachContentForm is the generated form facade for the `content` @Form section.
+void component_approach_content_form_init(ComponentApproachContentForm *self, SpecDocument *doc, const char *path);
+void component_approach_content_form_free(ComponentApproachContentForm *self);
+char *component_approach_content_form_component_granularity(const ComponentApproachContentForm *self);
+void component_approach_content_form_set_component_granularity(ComponentApproachContentForm *self, const char *value);
+char *component_approach_content_form_component_naming(const ComponentApproachContentForm *self);
+void component_approach_content_form_set_component_naming(ComponentApproachContentForm *self, const char *value);
+char *component_approach_content_form_component_documentation(const ComponentApproachContentForm *self);
+void component_approach_content_form_set_component_documentation(ComponentApproachContentForm *self, const char *value);
+
 // ComponentComplianceContentForm is the generated form facade for the `content` @Form section.
 void component_compliance_content_form_init(ComponentComplianceContentForm *self, SpecDocument *doc, const char *path);
 void component_compliance_content_form_free(ComponentComplianceContentForm *self);
@@ -39453,6 +39463,16 @@ char *component_cost_content_form_total_cost_first_year(const ComponentCostConte
 void component_cost_content_form_set_total_cost_first_year(ComponentCostContentForm *self, const char *value);
 char *component_cost_content_form_total_cost_ongoing(const ComponentCostContentForm *self);
 void component_cost_content_form_set_total_cost_ongoing(ComponentCostContentForm *self, const char *value);
+
+// ComponentCustomizationContentForm is the generated form facade for the `content` @Form section.
+void component_customization_content_form_init(ComponentCustomizationContentForm *self, SpecDocument *doc, const char *path);
+void component_customization_content_form_free(ComponentCustomizationContentForm *self);
+char *component_customization_content_form_extension_model(const ComponentCustomizationContentForm *self);
+void component_customization_content_form_set_extension_model(ComponentCustomizationContentForm *self, const char *value);
+char *component_customization_content_form_theming_approach(const ComponentCustomizationContentForm *self);
+void component_customization_content_form_set_theming_approach(ComponentCustomizationContentForm *self, const char *value);
+char *component_customization_content_form_customization_boundaries(const ComponentCustomizationContentForm *self);
+void component_customization_content_form_set_customization_boundaries(ComponentCustomizationContentForm *self, const char *value);
 
 // ComponentDeploymentContentForm is the generated form facade for the `content` @Form section.
 void component_deployment_content_form_init(ComponentDeploymentContentForm *self, SpecDocument *doc, const char *path);
@@ -40197,6 +40217,16 @@ char *component_vendor_content_form_vendor_name(const ComponentVendorContentForm
 void component_vendor_content_form_set_vendor_name(ComponentVendorContentForm *self, const char *value);
 char *component_vendor_content_form_vendor_stability(const ComponentVendorContentForm *self);
 void component_vendor_content_form_set_vendor_stability(ComponentVendorContentForm *self, const char *value);
+
+// ComponentVisualLanguageContentForm is the generated form facade for the `content` @Form section.
+void component_visual_language_content_form_init(ComponentVisualLanguageContentForm *self, SpecDocument *doc, const char *path);
+void component_visual_language_content_form_free(ComponentVisualLanguageContentForm *self);
+char *component_visual_language_content_form_visual_language(const ComponentVisualLanguageContentForm *self);
+void component_visual_language_content_form_set_visual_language(ComponentVisualLanguageContentForm *self, const char *value);
+char *component_visual_language_content_form_brand_alignment(const ComponentVisualLanguageContentForm *self);
+void component_visual_language_content_form_set_brand_alignment(ComponentVisualLanguageContentForm *self, const char *value);
+char *component_visual_language_content_form_motion_principles(const ComponentVisualLanguageContentForm *self);
+void component_visual_language_content_form_set_motion_principles(ComponentVisualLanguageContentForm *self, const char *value);
 
 // ComputeResourceRequirementsContentForm is the generated form facade for the `content` @Form section.
 void compute_resource_requirements_content_form_init(ComputeResourceRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -43348,6 +43378,26 @@ void design_pattern_entry_structure_content_form_set_collaborations(DesignPatter
 char *design_pattern_entry_structure_content_form_variations(const DesignPatternEntryStructureContentForm *self);
 void design_pattern_entry_structure_content_form_set_variations(DesignPatternEntryStructureContentForm *self, const char *value);
 
+// DesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
+void design_principle_entry_content_form_init(DesignPrincipleEntryContentForm *self, SpecDocument *doc, const char *path);
+void design_principle_entry_content_form_free(DesignPrincipleEntryContentForm *self);
+char *design_principle_entry_content_form_principle_name(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_principle_name(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_description(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_description(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_rationale(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_rationale(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_category(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_category(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_examples(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_examples(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_exceptions(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_exceptions(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_source_reference(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_source_reference(DesignPrincipleEntryContentForm *self, const char *value);
+char *design_principle_entry_content_form_related_goals(const DesignPrincipleEntryContentForm *self);
+void design_principle_entry_content_form_set_related_goals(DesignPrincipleEntryContentForm *self, const char *value);
+
 // DesignPrinciplesOverviewContentForm is the generated form facade for the `content` @Form section.
 void design_principles_overview_content_form_init(DesignPrinciplesOverviewContentForm *self, SpecDocument *doc, const char *path);
 void design_principles_overview_content_form_free(DesignPrinciplesOverviewContentForm *self);
@@ -45064,49 +45114,49 @@ void error_budget_tracking_monitoring_content_form_set_budget_alert_thresholds(E
 char *error_budget_tracking_monitoring_content_form_burn_rate_time_periods(const ErrorBudgetTrackingMonitoringContentForm *self);
 void error_budget_tracking_monitoring_content_form_set_burn_rate_time_periods(ErrorBudgetTrackingMonitoringContentForm *self, const char *value);
 
-// ErrorHandlingConceptAccessibilityContentForm is the generated form facade for the `content` @Form section.
-void error_handling_concept_accessibility_content_form_init(ErrorHandlingConceptAccessibilityContentForm *self, SpecDocument *doc, const char *path);
-void error_handling_concept_accessibility_content_form_free(ErrorHandlingConceptAccessibilityContentForm *self);
-char *error_handling_concept_accessibility_content_form_error_accessibility(const ErrorHandlingConceptAccessibilityContentForm *self);
-void error_handling_concept_accessibility_content_form_set_error_accessibility(ErrorHandlingConceptAccessibilityContentForm *self, const char *value);
-char *error_handling_concept_accessibility_content_form_color_contrast_compliance(const ErrorHandlingConceptAccessibilityContentForm *self);
-void error_handling_concept_accessibility_content_form_set_color_contrast_compliance(ErrorHandlingConceptAccessibilityContentForm *self, const char *value);
-char *error_handling_concept_accessibility_content_form_non_color_indicators(const ErrorHandlingConceptAccessibilityContentForm *self);
-void error_handling_concept_accessibility_content_form_set_non_color_indicators(ErrorHandlingConceptAccessibilityContentForm *self, const char *value);
+// ErrorHandlingAccessibilityContentForm is the generated form facade for the `content` @Form section.
+void error_handling_accessibility_content_form_init(ErrorHandlingAccessibilityContentForm *self, SpecDocument *doc, const char *path);
+void error_handling_accessibility_content_form_free(ErrorHandlingAccessibilityContentForm *self);
+char *error_handling_accessibility_content_form_error_accessibility(const ErrorHandlingAccessibilityContentForm *self);
+void error_handling_accessibility_content_form_set_error_accessibility(ErrorHandlingAccessibilityContentForm *self, const char *value);
+char *error_handling_accessibility_content_form_color_contrast_compliance(const ErrorHandlingAccessibilityContentForm *self);
+void error_handling_accessibility_content_form_set_color_contrast_compliance(ErrorHandlingAccessibilityContentForm *self, const char *value);
+char *error_handling_accessibility_content_form_non_color_indicators(const ErrorHandlingAccessibilityContentForm *self);
+void error_handling_accessibility_content_form_set_non_color_indicators(ErrorHandlingAccessibilityContentForm *self, const char *value);
 
-// ErrorHandlingConceptClassificationContentForm is the generated form facade for the `content` @Form section.
-void error_handling_concept_classification_content_form_init(ErrorHandlingConceptClassificationContentForm *self, SpecDocument *doc, const char *path);
-void error_handling_concept_classification_content_form_free(ErrorHandlingConceptClassificationContentForm *self);
-char *error_handling_concept_classification_content_form_error_categories(const ErrorHandlingConceptClassificationContentForm *self);
-void error_handling_concept_classification_content_form_set_error_categories(ErrorHandlingConceptClassificationContentForm *self, const char *value);
-char *error_handling_concept_classification_content_form_error_severity_levels(const ErrorHandlingConceptClassificationContentForm *self);
-void error_handling_concept_classification_content_form_set_error_severity_levels(ErrorHandlingConceptClassificationContentForm *self, const char *value);
-char *error_handling_concept_classification_content_form_error_priority_display(const ErrorHandlingConceptClassificationContentForm *self);
-void error_handling_concept_classification_content_form_set_error_priority_display(ErrorHandlingConceptClassificationContentForm *self, const char *value);
+// ErrorHandlingClassificationContentForm is the generated form facade for the `content` @Form section.
+void error_handling_classification_content_form_init(ErrorHandlingClassificationContentForm *self, SpecDocument *doc, const char *path);
+void error_handling_classification_content_form_free(ErrorHandlingClassificationContentForm *self);
+char *error_handling_classification_content_form_error_categories(const ErrorHandlingClassificationContentForm *self);
+void error_handling_classification_content_form_set_error_categories(ErrorHandlingClassificationContentForm *self, const char *value);
+char *error_handling_classification_content_form_error_severity_levels(const ErrorHandlingClassificationContentForm *self);
+void error_handling_classification_content_form_set_error_severity_levels(ErrorHandlingClassificationContentForm *self, const char *value);
+char *error_handling_classification_content_form_error_priority_display(const ErrorHandlingClassificationContentForm *self);
+void error_handling_classification_content_form_set_error_priority_display(ErrorHandlingClassificationContentForm *self, const char *value);
 
-// ErrorHandlingConceptErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
-void error_handling_concept_error_philosophy_content_form_init(ErrorHandlingConceptErrorPhilosophyContentForm *self, SpecDocument *doc, const char *path);
-void error_handling_concept_error_philosophy_content_form_free(ErrorHandlingConceptErrorPhilosophyContentForm *self);
-char *error_handling_concept_error_philosophy_content_form_error_philosophy(const ErrorHandlingConceptErrorPhilosophyContentForm *self);
-void error_handling_concept_error_philosophy_content_form_set_error_philosophy(ErrorHandlingConceptErrorPhilosophyContentForm *self, const char *value);
-char *error_handling_concept_error_philosophy_content_form_error_tone_of_voice(const ErrorHandlingConceptErrorPhilosophyContentForm *self);
-void error_handling_concept_error_philosophy_content_form_set_error_tone_of_voice(ErrorHandlingConceptErrorPhilosophyContentForm *self, const char *value);
-char *error_handling_concept_error_philosophy_content_form_error_language_style(const ErrorHandlingConceptErrorPhilosophyContentForm *self);
-void error_handling_concept_error_philosophy_content_form_set_error_language_style(ErrorHandlingConceptErrorPhilosophyContentForm *self, const char *value);
-char *error_handling_concept_error_philosophy_content_form_blame_avoidance(const ErrorHandlingConceptErrorPhilosophyContentForm *self);
-void error_handling_concept_error_philosophy_content_form_set_blame_avoidance(ErrorHandlingConceptErrorPhilosophyContentForm *self, const char *value);
+// ErrorHandlingErrorPhilosophyContentForm is the generated form facade for the `errorPhilosophyContent` @Form section.
+void error_handling_error_philosophy_content_form_init(ErrorHandlingErrorPhilosophyContentForm *self, SpecDocument *doc, const char *path);
+void error_handling_error_philosophy_content_form_free(ErrorHandlingErrorPhilosophyContentForm *self);
+char *error_handling_error_philosophy_content_form_error_philosophy(const ErrorHandlingErrorPhilosophyContentForm *self);
+void error_handling_error_philosophy_content_form_set_error_philosophy(ErrorHandlingErrorPhilosophyContentForm *self, const char *value);
+char *error_handling_error_philosophy_content_form_error_tone_of_voice(const ErrorHandlingErrorPhilosophyContentForm *self);
+void error_handling_error_philosophy_content_form_set_error_tone_of_voice(ErrorHandlingErrorPhilosophyContentForm *self, const char *value);
+char *error_handling_error_philosophy_content_form_error_language_style(const ErrorHandlingErrorPhilosophyContentForm *self);
+void error_handling_error_philosophy_content_form_set_error_language_style(ErrorHandlingErrorPhilosophyContentForm *self, const char *value);
+char *error_handling_error_philosophy_content_form_blame_avoidance(const ErrorHandlingErrorPhilosophyContentForm *self);
+void error_handling_error_philosophy_content_form_set_blame_avoidance(ErrorHandlingErrorPhilosophyContentForm *self, const char *value);
 
-// ErrorHandlingConceptOperationsContentForm is the generated form facade for the `content` @Form section.
-void error_handling_concept_operations_content_form_init(ErrorHandlingConceptOperationsContentForm *self, SpecDocument *doc, const char *path);
-void error_handling_concept_operations_content_form_free(ErrorHandlingConceptOperationsContentForm *self);
-char *error_handling_concept_operations_content_form_error_localization(const ErrorHandlingConceptOperationsContentForm *self);
-void error_handling_concept_operations_content_form_set_error_localization(ErrorHandlingConceptOperationsContentForm *self, const char *value);
-char *error_handling_concept_operations_content_form_dynamic_content_handling(const ErrorHandlingConceptOperationsContentForm *self);
-void error_handling_concept_operations_content_form_set_dynamic_content_handling(ErrorHandlingConceptOperationsContentForm *self, const char *value);
-char *error_handling_concept_operations_content_form_error_tracking_approach(const ErrorHandlingConceptOperationsContentForm *self);
-void error_handling_concept_operations_content_form_set_error_tracking_approach(ErrorHandlingConceptOperationsContentForm *self, const char *value);
-char *error_handling_concept_operations_content_form_user_frustration_detection(const ErrorHandlingConceptOperationsContentForm *self);
-void error_handling_concept_operations_content_form_set_user_frustration_detection(ErrorHandlingConceptOperationsContentForm *self, const char *value);
+// ErrorHandlingOperationsContentForm is the generated form facade for the `content` @Form section.
+void error_handling_operations_content_form_init(ErrorHandlingOperationsContentForm *self, SpecDocument *doc, const char *path);
+void error_handling_operations_content_form_free(ErrorHandlingOperationsContentForm *self);
+char *error_handling_operations_content_form_error_localization(const ErrorHandlingOperationsContentForm *self);
+void error_handling_operations_content_form_set_error_localization(ErrorHandlingOperationsContentForm *self, const char *value);
+char *error_handling_operations_content_form_dynamic_content_handling(const ErrorHandlingOperationsContentForm *self);
+void error_handling_operations_content_form_set_dynamic_content_handling(ErrorHandlingOperationsContentForm *self, const char *value);
+char *error_handling_operations_content_form_error_tracking_approach(const ErrorHandlingOperationsContentForm *self);
+void error_handling_operations_content_form_set_error_tracking_approach(ErrorHandlingOperationsContentForm *self, const char *value);
+char *error_handling_operations_content_form_user_frustration_detection(const ErrorHandlingOperationsContentForm *self);
+void error_handling_operations_content_form_set_user_frustration_detection(ErrorHandlingOperationsContentForm *self, const char *value);
 
 // ErrorHandlingStandardsContentForm is the generated form facade for the `content` @Form section.
 void error_handling_standards_content_form_init(ErrorHandlingStandardsContentForm *self, SpecDocument *doc, const char *path);
@@ -47203,40 +47253,6 @@ char *health_check_endpoints_timing_content_form_failure_threshold(const HealthC
 void health_check_endpoints_timing_content_form_set_failure_threshold(HealthCheckEndpointsTimingContentForm *self, const char *value);
 char *health_check_endpoints_timing_content_form_success_threshold(const HealthCheckEndpointsTimingContentForm *self);
 void health_check_endpoints_timing_content_form_set_success_threshold(HealthCheckEndpointsTimingContentForm *self, const char *value);
-
-// HelpConceptDeliveryContentForm is the generated form facade for the `content` @Form section.
-void help_concept_delivery_content_form_init(HelpConceptDeliveryContentForm *self, SpecDocument *doc, const char *path);
-void help_concept_delivery_content_form_free(HelpConceptDeliveryContentForm *self);
-char *help_concept_delivery_content_form_help_content_ownership(const HelpConceptDeliveryContentForm *self);
-void help_concept_delivery_content_form_set_help_content_ownership(HelpConceptDeliveryContentForm *self, const char *value);
-char *help_concept_delivery_content_form_help_update_process(const HelpConceptDeliveryContentForm *self);
-void help_concept_delivery_content_form_set_help_update_process(HelpConceptDeliveryContentForm *self, const char *value);
-char *help_concept_delivery_content_form_help_icon_standard(const HelpConceptDeliveryContentForm *self);
-void help_concept_delivery_content_form_set_help_icon_standard(HelpConceptDeliveryContentForm *self, const char *value);
-char *help_concept_delivery_content_form_help_icon_placement(const HelpConceptDeliveryContentForm *self);
-void help_concept_delivery_content_form_set_help_icon_placement(HelpConceptDeliveryContentForm *self, const char *value);
-char *help_concept_delivery_content_form_help_tooltip_style(const HelpConceptDeliveryContentForm *self);
-void help_concept_delivery_content_form_set_help_tooltip_style(HelpConceptDeliveryContentForm *self, const char *value);
-
-// HelpConceptHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
-void help_concept_help_overview_content_form_init(HelpConceptHelpOverviewContentForm *self, SpecDocument *doc, const char *path);
-void help_concept_help_overview_content_form_free(HelpConceptHelpOverviewContentForm *self);
-char *help_concept_help_overview_content_form_help_philosophy(const HelpConceptHelpOverviewContentForm *self);
-void help_concept_help_overview_content_form_set_help_philosophy(HelpConceptHelpOverviewContentForm *self, const char *value);
-char *help_concept_help_overview_content_form_help_accessibility(const HelpConceptHelpOverviewContentForm *self);
-void help_concept_help_overview_content_form_set_help_accessibility(HelpConceptHelpOverviewContentForm *self, const char *value);
-char *help_concept_help_overview_content_form_help_personalization(const HelpConceptHelpOverviewContentForm *self);
-void help_concept_help_overview_content_form_set_help_personalization(HelpConceptHelpOverviewContentForm *self, const char *value);
-char *help_concept_help_overview_content_form_help_content_strategy(const HelpConceptHelpOverviewContentForm *self);
-void help_concept_help_overview_content_form_set_help_content_strategy(HelpConceptHelpOverviewContentForm *self, const char *value);
-
-// HelpConceptInsightsContentForm is the generated form facade for the `content` @Form section.
-void help_concept_insights_content_form_init(HelpConceptInsightsContentForm *self, SpecDocument *doc, const char *path);
-void help_concept_insights_content_form_free(HelpConceptInsightsContentForm *self);
-char *help_concept_insights_content_form_help_analytics(const HelpConceptInsightsContentForm *self);
-void help_concept_insights_content_form_set_help_analytics(HelpConceptInsightsContentForm *self, const char *value);
-char *help_concept_insights_content_form_help_feedback(const HelpConceptInsightsContentForm *self);
-void help_concept_insights_content_form_set_help_feedback(HelpConceptInsightsContentForm *self, const char *value);
 
 // HighAvailabilityRequirementsContentForm is the generated form facade for the `content` @Form section.
 void high_availability_requirements_content_form_init(HighAvailabilityRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -49818,29 +49834,51 @@ void local_development_setup_workflow_content_form_set_manual_setup_steps(LocalD
 char *local_development_setup_workflow_content_form_configuration_files(const LocalDevelopmentSetupWorkflowContentForm *self);
 void local_development_setup_workflow_content_form_set_configuration_files(LocalDevelopmentSetupWorkflowContentForm *self, const char *value);
 
-// LocalizationProcessDeploymentContentForm is the generated form facade for the `content` @Form section.
-void localization_process_deployment_content_form_init(LocalizationProcessDeploymentContentForm *self, SpecDocument *doc, const char *path);
-void localization_process_deployment_content_form_free(LocalizationProcessDeploymentContentForm *self);
-char *localization_process_deployment_content_form_locale_deployment(const LocalizationProcessDeploymentContentForm *self);
-void localization_process_deployment_content_form_set_locale_deployment(LocalizationProcessDeploymentContentForm *self, const char *value);
-char *localization_process_deployment_content_form_locale_toggling(const LocalizationProcessDeploymentContentForm *self);
-void localization_process_deployment_content_form_set_locale_toggling(LocalizationProcessDeploymentContentForm *self, const char *value);
-char *localization_process_deployment_content_form_per_locale_customization(const LocalizationProcessDeploymentContentForm *self);
-void localization_process_deployment_content_form_set_per_locale_customization(LocalizationProcessDeploymentContentForm *self, const char *value);
+// LocaleHandlingRequirementsContentForm is the generated form facade for the `content` @Form section.
+void locale_handling_requirements_content_form_init(LocaleHandlingRequirementsContentForm *self, SpecDocument *doc, const char *path);
+void locale_handling_requirements_content_form_free(LocaleHandlingRequirementsContentForm *self);
+char *locale_handling_requirements_content_form_locale_format(const LocaleHandlingRequirementsContentForm *self);
+void locale_handling_requirements_content_form_set_locale_format(LocaleHandlingRequirementsContentForm *self, const char *value);
+char *locale_handling_requirements_content_form_country_variants(const LocaleHandlingRequirementsContentForm *self);
+void locale_handling_requirements_content_form_set_country_variants(LocaleHandlingRequirementsContentForm *self, const char *value);
+char *locale_handling_requirements_content_form_locale_detection(const LocaleHandlingRequirementsContentForm *self);
+void locale_handling_requirements_content_form_set_locale_detection(LocaleHandlingRequirementsContentForm *self, const char *value);
+char *locale_handling_requirements_content_form_locale_fallback_chain(const LocaleHandlingRequirementsContentForm *self);
+void locale_handling_requirements_content_form_set_locale_fallback_chain(LocaleHandlingRequirementsContentForm *self, const char *value);
 
-// LocalizationProcessFormattingContentForm is the generated form facade for the `content` @Form section.
-void localization_process_formatting_content_form_init(LocalizationProcessFormattingContentForm *self, SpecDocument *doc, const char *path);
-void localization_process_formatting_content_form_free(LocalizationProcessFormattingContentForm *self);
-char *localization_process_formatting_content_form_date_format_rules(const LocalizationProcessFormattingContentForm *self);
-void localization_process_formatting_content_form_set_date_format_rules(LocalizationProcessFormattingContentForm *self, const char *value);
-char *localization_process_formatting_content_form_number_format_rules(const LocalizationProcessFormattingContentForm *self);
-void localization_process_formatting_content_form_set_number_format_rules(LocalizationProcessFormattingContentForm *self, const char *value);
-char *localization_process_formatting_content_form_currency_format_rules(const LocalizationProcessFormattingContentForm *self);
-void localization_process_formatting_content_form_set_currency_format_rules(LocalizationProcessFormattingContentForm *self, const char *value);
-char *localization_process_formatting_content_form_address_format_rules(const LocalizationProcessFormattingContentForm *self);
-void localization_process_formatting_content_form_set_address_format_rules(LocalizationProcessFormattingContentForm *self, const char *value);
-char *localization_process_formatting_content_form_phone_format_rules(const LocalizationProcessFormattingContentForm *self);
-void localization_process_formatting_content_form_set_phone_format_rules(LocalizationProcessFormattingContentForm *self, const char *value);
+// LocaleRolloutPlanContentForm is the generated form facade for the `content` @Form section.
+void locale_rollout_plan_content_form_init(LocaleRolloutPlanContentForm *self, SpecDocument *doc, const char *path);
+void locale_rollout_plan_content_form_free(LocaleRolloutPlanContentForm *self);
+char *locale_rollout_plan_content_form_rollout_strategy(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_strategy(LocaleRolloutPlanContentForm *self, const char *value);
+char *locale_rollout_plan_content_form_rollout_timeline(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_timeline(LocaleRolloutPlanContentForm *self, const char *value);
+char *locale_rollout_plan_content_form_rollout_regions(const LocaleRolloutPlanContentForm *self);
+void locale_rollout_plan_content_form_set_rollout_regions(LocaleRolloutPlanContentForm *self, const char *value);
+
+// LocalizationDeploymentContentForm is the generated form facade for the `content` @Form section.
+void localization_deployment_content_form_init(LocalizationDeploymentContentForm *self, SpecDocument *doc, const char *path);
+void localization_deployment_content_form_free(LocalizationDeploymentContentForm *self);
+char *localization_deployment_content_form_locale_deployment(const LocalizationDeploymentContentForm *self);
+void localization_deployment_content_form_set_locale_deployment(LocalizationDeploymentContentForm *self, const char *value);
+char *localization_deployment_content_form_locale_toggling(const LocalizationDeploymentContentForm *self);
+void localization_deployment_content_form_set_locale_toggling(LocalizationDeploymentContentForm *self, const char *value);
+char *localization_deployment_content_form_per_locale_customization(const LocalizationDeploymentContentForm *self);
+void localization_deployment_content_form_set_per_locale_customization(LocalizationDeploymentContentForm *self, const char *value);
+
+// LocalizationFormattingContentForm is the generated form facade for the `content` @Form section.
+void localization_formatting_content_form_init(LocalizationFormattingContentForm *self, SpecDocument *doc, const char *path);
+void localization_formatting_content_form_free(LocalizationFormattingContentForm *self);
+char *localization_formatting_content_form_date_format_rules(const LocalizationFormattingContentForm *self);
+void localization_formatting_content_form_set_date_format_rules(LocalizationFormattingContentForm *self, const char *value);
+char *localization_formatting_content_form_number_format_rules(const LocalizationFormattingContentForm *self);
+void localization_formatting_content_form_set_number_format_rules(LocalizationFormattingContentForm *self, const char *value);
+char *localization_formatting_content_form_currency_format_rules(const LocalizationFormattingContentForm *self);
+void localization_formatting_content_form_set_currency_format_rules(LocalizationFormattingContentForm *self, const char *value);
+char *localization_formatting_content_form_address_format_rules(const LocalizationFormattingContentForm *self);
+void localization_formatting_content_form_set_address_format_rules(LocalizationFormattingContentForm *self, const char *value);
+char *localization_formatting_content_form_phone_format_rules(const LocalizationFormattingContentForm *self);
+void localization_formatting_content_form_set_phone_format_rules(LocalizationFormattingContentForm *self, const char *value);
 
 // LocalizationProcessLocalizationProcessContentForm is the generated form facade for the `localizationProcessContent` @Form section.
 void localization_process_localization_process_content_form_init(LocalizationProcessLocalizationProcessContentForm *self, SpecDocument *doc, const char *path);
@@ -49854,15 +49892,15 @@ void localization_process_localization_process_content_form_set_content_tagging(
 char *localization_process_localization_process_content_form_localization_scope(const LocalizationProcessLocalizationProcessContentForm *self);
 void localization_process_localization_process_content_form_set_localization_scope(LocalizationProcessLocalizationProcessContentForm *self, const char *value);
 
-// LocalizationProcessReviewContentForm is the generated form facade for the `content` @Form section.
-void localization_process_review_content_form_init(LocalizationProcessReviewContentForm *self, SpecDocument *doc, const char *path);
-void localization_process_review_content_form_free(LocalizationProcessReviewContentForm *self);
-char *localization_process_review_content_form_review_workflow(const LocalizationProcessReviewContentForm *self);
-void localization_process_review_content_form_set_review_workflow(LocalizationProcessReviewContentForm *self, const char *value);
-char *localization_process_review_content_form_stakeholder_approval(const LocalizationProcessReviewContentForm *self);
-void localization_process_review_content_form_set_stakeholder_approval(LocalizationProcessReviewContentForm *self, const char *value);
-char *localization_process_review_content_form_quality_assurance(const LocalizationProcessReviewContentForm *self);
-void localization_process_review_content_form_set_quality_assurance(LocalizationProcessReviewContentForm *self, const char *value);
+// LocalizationReviewContentForm is the generated form facade for the `content` @Form section.
+void localization_review_content_form_init(LocalizationReviewContentForm *self, SpecDocument *doc, const char *path);
+void localization_review_content_form_free(LocalizationReviewContentForm *self);
+char *localization_review_content_form_review_workflow(const LocalizationReviewContentForm *self);
+void localization_review_content_form_set_review_workflow(LocalizationReviewContentForm *self, const char *value);
+char *localization_review_content_form_stakeholder_approval(const LocalizationReviewContentForm *self);
+void localization_review_content_form_set_stakeholder_approval(LocalizationReviewContentForm *self, const char *value);
+char *localization_review_content_form_quality_assurance(const LocalizationReviewContentForm *self);
+void localization_review_content_form_set_quality_assurance(LocalizationReviewContentForm *self, const char *value);
 
 // LogAggregationRequirementsAnalysisContentForm is the generated form facade for the `content` @Form section.
 void log_aggregation_requirements_analysis_content_form_init(LogAggregationRequirementsAnalysisContentForm *self, SpecDocument *doc, const char *path);
@@ -51834,39 +51872,17 @@ void multi_channel_experience_multi_channel_configuration_form_set_progressive_e
 char *multi_channel_experience_multi_channel_configuration_form_offline_first(const MultiChannelExperienceMultiChannelConfigurationForm *self);
 void multi_channel_experience_multi_channel_configuration_form_set_offline_first(MultiChannelExperienceMultiChannelConfigurationForm *self, const char *value);
 
-// MultiLanguageAndRolloutLocaleHandlingContentForm is the generated form facade for the `content` @Form section.
-void multi_language_and_rollout_locale_handling_content_form_init(MultiLanguageAndRolloutLocaleHandlingContentForm *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_locale_handling_content_form_free(MultiLanguageAndRolloutLocaleHandlingContentForm *self);
-char *multi_language_and_rollout_locale_handling_content_form_locale_format(const MultiLanguageAndRolloutLocaleHandlingContentForm *self);
-void multi_language_and_rollout_locale_handling_content_form_set_locale_format(MultiLanguageAndRolloutLocaleHandlingContentForm *self, const char *value);
-char *multi_language_and_rollout_locale_handling_content_form_country_variants(const MultiLanguageAndRolloutLocaleHandlingContentForm *self);
-void multi_language_and_rollout_locale_handling_content_form_set_country_variants(MultiLanguageAndRolloutLocaleHandlingContentForm *self, const char *value);
-char *multi_language_and_rollout_locale_handling_content_form_locale_detection(const MultiLanguageAndRolloutLocaleHandlingContentForm *self);
-void multi_language_and_rollout_locale_handling_content_form_set_locale_detection(MultiLanguageAndRolloutLocaleHandlingContentForm *self, const char *value);
-char *multi_language_and_rollout_locale_handling_content_form_locale_fallback_chain(const MultiLanguageAndRolloutLocaleHandlingContentForm *self);
-void multi_language_and_rollout_locale_handling_content_form_set_locale_fallback_chain(MultiLanguageAndRolloutLocaleHandlingContentForm *self, const char *value);
-
-// MultiLanguageAndRolloutMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
-void multi_language_and_rollout_multi_language_overview_form_init(MultiLanguageAndRolloutMultiLanguageOverviewForm *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_multi_language_overview_form_free(MultiLanguageAndRolloutMultiLanguageOverviewForm *self);
-char *multi_language_and_rollout_multi_language_overview_form_supported_languages(const MultiLanguageAndRolloutMultiLanguageOverviewForm *self);
-void multi_language_and_rollout_multi_language_overview_form_set_supported_languages(MultiLanguageAndRolloutMultiLanguageOverviewForm *self, const char *value);
-char *multi_language_and_rollout_multi_language_overview_form_primary_language(const MultiLanguageAndRolloutMultiLanguageOverviewForm *self);
-void multi_language_and_rollout_multi_language_overview_form_set_primary_language(MultiLanguageAndRolloutMultiLanguageOverviewForm *self, const char *value);
-char *multi_language_and_rollout_multi_language_overview_form_future_languages(const MultiLanguageAndRolloutMultiLanguageOverviewForm *self);
-void multi_language_and_rollout_multi_language_overview_form_set_future_languages(MultiLanguageAndRolloutMultiLanguageOverviewForm *self, const char *value);
-char *multi_language_and_rollout_multi_language_overview_form_rtl_languages(const MultiLanguageAndRolloutMultiLanguageOverviewForm *self);
-void multi_language_and_rollout_multi_language_overview_form_set_rtl_languages(MultiLanguageAndRolloutMultiLanguageOverviewForm *self, const char *value);
-
-// MultiLanguageAndRolloutPlanContentForm is the generated form facade for the `content` @Form section.
-void multi_language_and_rollout_plan_content_form_init(MultiLanguageAndRolloutPlanContentForm *self, SpecDocument *doc, const char *path);
-void multi_language_and_rollout_plan_content_form_free(MultiLanguageAndRolloutPlanContentForm *self);
-char *multi_language_and_rollout_plan_content_form_rollout_strategy(const MultiLanguageAndRolloutPlanContentForm *self);
-void multi_language_and_rollout_plan_content_form_set_rollout_strategy(MultiLanguageAndRolloutPlanContentForm *self, const char *value);
-char *multi_language_and_rollout_plan_content_form_rollout_timeline(const MultiLanguageAndRolloutPlanContentForm *self);
-void multi_language_and_rollout_plan_content_form_set_rollout_timeline(MultiLanguageAndRolloutPlanContentForm *self, const char *value);
-char *multi_language_and_rollout_plan_content_form_rollout_regions(const MultiLanguageAndRolloutPlanContentForm *self);
-void multi_language_and_rollout_plan_content_form_set_rollout_regions(MultiLanguageAndRolloutPlanContentForm *self, const char *value);
+// MultiLanguageSupportMultiLanguageOverviewForm is the generated form facade for the `multiLanguageOverview` @Form section.
+void multi_language_support_multi_language_overview_form_init(MultiLanguageSupportMultiLanguageOverviewForm *self, SpecDocument *doc, const char *path);
+void multi_language_support_multi_language_overview_form_free(MultiLanguageSupportMultiLanguageOverviewForm *self);
+char *multi_language_support_multi_language_overview_form_supported_languages(const MultiLanguageSupportMultiLanguageOverviewForm *self);
+void multi_language_support_multi_language_overview_form_set_supported_languages(MultiLanguageSupportMultiLanguageOverviewForm *self, const char *value);
+char *multi_language_support_multi_language_overview_form_primary_language(const MultiLanguageSupportMultiLanguageOverviewForm *self);
+void multi_language_support_multi_language_overview_form_set_primary_language(MultiLanguageSupportMultiLanguageOverviewForm *self, const char *value);
+char *multi_language_support_multi_language_overview_form_future_languages(const MultiLanguageSupportMultiLanguageOverviewForm *self);
+void multi_language_support_multi_language_overview_form_set_future_languages(MultiLanguageSupportMultiLanguageOverviewForm *self, const char *value);
+char *multi_language_support_multi_language_overview_form_rtl_languages(const MultiLanguageSupportMultiLanguageOverviewForm *self);
+void multi_language_support_multi_language_overview_form_set_rtl_languages(MultiLanguageSupportMultiLanguageOverviewForm *self, const char *value);
 
 // MustPassCriteriaMustPassOverviewContentForm is the generated form facade for the `mustPassOverviewContent` @Form section.
 void must_pass_criteria_must_pass_overview_content_form_init(MustPassCriteriaMustPassOverviewContentForm *self, SpecDocument *doc, const char *path);
@@ -54222,6 +54238,16 @@ void primary_navigation_sidebar_content_form_set_selected_item_style(PrimaryNavi
 char *primary_navigation_sidebar_content_form_overflow_behavior(const PrimaryNavigationSidebarContentForm *self);
 void primary_navigation_sidebar_content_form_set_overflow_behavior(PrimaryNavigationSidebarContentForm *self, const char *value);
 
+// PrintAndExportLayoutContentForm is the generated form facade for the `content` @Form section.
+void print_and_export_layout_content_form_init(PrintAndExportLayoutContentForm *self, SpecDocument *doc, const char *path);
+void print_and_export_layout_content_form_free(PrintAndExportLayoutContentForm *self);
+char *print_and_export_layout_content_form_print_strategy(const PrintAndExportLayoutContentForm *self);
+void print_and_export_layout_content_form_set_print_strategy(PrintAndExportLayoutContentForm *self, const char *value);
+char *print_and_export_layout_content_form_default_paper_size(const PrintAndExportLayoutContentForm *self);
+void print_and_export_layout_content_form_set_default_paper_size(PrintAndExportLayoutContentForm *self, const char *value);
+char *print_and_export_layout_content_form_default_orientation(const PrintAndExportLayoutContentForm *self);
+void print_and_export_layout_content_form_set_default_orientation(PrintAndExportLayoutContentForm *self, const char *value);
+
 // PrintLayoutArchiveContentForm is the generated form facade for the `content` @Form section.
 void print_layout_archive_content_form_init(PrintLayoutArchiveContentForm *self, SpecDocument *doc, const char *path);
 void print_layout_archive_content_form_free(PrintLayoutArchiveContentForm *self);
@@ -54247,16 +54273,6 @@ char *print_layout_branding_content_form_branding_font_family(const PrintLayoutB
 void print_layout_branding_content_form_set_branding_font_family(PrintLayoutBrandingContentForm *self, const char *value);
 char *print_layout_branding_content_form_branding_font_size_base(const PrintLayoutBrandingContentForm *self);
 void print_layout_branding_content_form_set_branding_font_size_base(PrintLayoutBrandingContentForm *self, const char *value);
-
-// PrintLayoutContentForm is the generated form facade for the `content` @Form section.
-void print_layout_content_form_init(PrintLayoutContentForm *self, SpecDocument *doc, const char *path);
-void print_layout_content_form_free(PrintLayoutContentForm *self);
-char *print_layout_content_form_print_strategy(const PrintLayoutContentForm *self);
-void print_layout_content_form_set_print_strategy(PrintLayoutContentForm *self, const char *value);
-char *print_layout_content_form_default_paper_size(const PrintLayoutContentForm *self);
-void print_layout_content_form_set_default_paper_size(PrintLayoutContentForm *self, const char *value);
-char *print_layout_content_form_default_orientation(const PrintLayoutContentForm *self);
-void print_layout_content_form_set_default_orientation(PrintLayoutContentForm *self, const char *value);
 
 // PrintLayoutHeaderFooterContentForm is the generated form facade for the `content` @Form section.
 void print_layout_header_footer_content_form_init(PrintLayoutHeaderFooterContentForm *self, SpecDocument *doc, const char *path);
@@ -55584,21 +55600,21 @@ void prototype_timeline_content_form_set_prototype_deadline(PrototypeTimelineCon
 char *prototype_timeline_content_form_evaluation_period(const PrototypeTimelineContentForm *self);
 void prototype_timeline_content_form_set_evaluation_period(PrototypeTimelineContentForm *self, const char *value);
 
-// PrototypeTypeSectionPrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
-void prototype_type_section_prototype_type_overview_form_init(PrototypeTypeSectionPrototypeTypeOverviewForm *self, SpecDocument *doc, const char *path);
-void prototype_type_section_prototype_type_overview_form_free(PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-char *prototype_type_section_prototype_type_overview_form_prototype_type(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_prototype_type(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
-char *prototype_type_section_prototype_type_overview_form_type_rationale(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_type_rationale(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
-char *prototype_type_section_prototype_type_overview_form_type_implications(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_type_implications(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
-char *prototype_type_section_prototype_type_overview_form_code_quality_expectation(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_code_quality_expectation(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
-char *prototype_type_section_prototype_type_overview_form_documentation_requirement(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_documentation_requirement(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
-char *prototype_type_section_prototype_type_overview_form_transition_plan(const PrototypeTypeSectionPrototypeTypeOverviewForm *self);
-void prototype_type_section_prototype_type_overview_form_set_transition_plan(PrototypeTypeSectionPrototypeTypeOverviewForm *self, const char *value);
+// PrototypeTypePrototypeTypeOverviewForm is the generated form facade for the `prototypeTypeOverview` @Form section.
+void prototype_type_prototype_type_overview_form_init(PrototypeTypePrototypeTypeOverviewForm *self, SpecDocument *doc, const char *path);
+void prototype_type_prototype_type_overview_form_free(PrototypeTypePrototypeTypeOverviewForm *self);
+char *prototype_type_prototype_type_overview_form_prototype_type(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_prototype_type(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
+char *prototype_type_prototype_type_overview_form_type_rationale(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_type_rationale(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
+char *prototype_type_prototype_type_overview_form_type_implications(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_type_implications(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
+char *prototype_type_prototype_type_overview_form_code_quality_expectation(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_code_quality_expectation(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
+char *prototype_type_prototype_type_overview_form_documentation_requirement(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_documentation_requirement(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
+char *prototype_type_prototype_type_overview_form_transition_plan(const PrototypeTypePrototypeTypeOverviewForm *self);
+void prototype_type_prototype_type_overview_form_set_transition_plan(PrototypeTypePrototypeTypeOverviewForm *self, const char *value);
 
 // PwaRequirementsContentForm is the generated form facade for the `content` @Form section.
 void pwa_requirements_content_form_init(PwaRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -61172,6 +61188,18 @@ void specialized_equipment_entry_technical_content_form_set_driver_software(Spec
 char *specialized_equipment_entry_technical_content_form_certifications(const SpecializedEquipmentEntryTechnicalContentForm *self);
 void specialized_equipment_entry_technical_content_form_set_certifications(SpecializedEquipmentEntryTechnicalContentForm *self, const char *value);
 
+// SpecificationStatusContentForm is the generated form facade for the `content` @Form section.
+void specification_status_content_form_init(SpecificationStatusContentForm *self, SpecDocument *doc, const char *path);
+void specification_status_content_form_free(SpecificationStatusContentForm *self);
+char *specification_status_content_form_specification_version(const SpecificationStatusContentForm *self);
+void specification_status_content_form_set_specification_version(SpecificationStatusContentForm *self, const char *value);
+char *specification_status_content_form_specification_date(const SpecificationStatusContentForm *self);
+void specification_status_content_form_set_specification_date(SpecificationStatusContentForm *self, const char *value);
+char *specification_status_content_form_specification_status(const SpecificationStatusContentForm *self);
+void specification_status_content_form_set_specification_status(SpecificationStatusContentForm *self, const char *value);
+char *specification_status_content_form_target_go_live_date(const SpecificationStatusContentForm *self);
+void specification_status_content_form_set_target_go_live_date(SpecificationStatusContentForm *self, const char *value);
+
 // StaffingBudgetAllocationsContentForm is the generated form facade for the `content` @Form section.
 void staffing_budget_allocations_content_form_init(StaffingBudgetAllocationsContentForm *self, SpecDocument *doc, const char *path);
 void staffing_budget_allocations_content_form_free(StaffingBudgetAllocationsContentForm *self);
@@ -61763,6 +61791,40 @@ char *stage_overview_status_content_form_plan_confidence_level(const StageOvervi
 void stage_overview_status_content_form_set_plan_confidence_level(StageOverviewStatusContentForm *self, const char *value);
 char *stage_overview_status_content_form_confidence_basis(const StageOverviewStatusContentForm *self);
 void stage_overview_status_content_form_set_confidence_basis(StageOverviewStatusContentForm *self, const char *value);
+
+// StagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
+void stage_plan_coordination_content_form_init(StagePlanCoordinationContentForm *self, SpecDocument *doc, const char *path);
+void stage_plan_coordination_content_form_free(StagePlanCoordinationContentForm *self);
+char *stage_plan_coordination_content_form_cross_stage_dependency_summary(const StagePlanCoordinationContentForm *self);
+void stage_plan_coordination_content_form_set_cross_stage_dependency_summary(StagePlanCoordinationContentForm *self, const char *value);
+char *stage_plan_coordination_content_form_cross_stage_risk_summary(const StagePlanCoordinationContentForm *self);
+void stage_plan_coordination_content_form_set_cross_stage_risk_summary(StagePlanCoordinationContentForm *self, const char *value);
+char *stage_plan_coordination_content_form_regulatory_compliance_considerations(const StagePlanCoordinationContentForm *self);
+void stage_plan_coordination_content_form_set_regulatory_compliance_considerations(StagePlanCoordinationContentForm *self, const char *value);
+
+// StagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
+void stage_plan_readiness_content_form_init(StagePlanReadinessContentForm *self, SpecDocument *doc, const char *path);
+void stage_plan_readiness_content_form_free(StagePlanReadinessContentForm *self);
+char *stage_plan_readiness_content_form_organizational_readiness_level(const StagePlanReadinessContentForm *self);
+void stage_plan_readiness_content_form_set_organizational_readiness_level(StagePlanReadinessContentForm *self, const char *value);
+char *stage_plan_readiness_content_form_change_absorption_capacity(const StagePlanReadinessContentForm *self);
+void stage_plan_readiness_content_form_set_change_absorption_capacity(StagePlanReadinessContentForm *self, const char *value);
+char *stage_plan_readiness_content_form_confidence_level(const StagePlanReadinessContentForm *self);
+void stage_plan_readiness_content_form_set_confidence_level(StagePlanReadinessContentForm *self, const char *value);
+char *stage_plan_readiness_content_form_last_plan_review_date(const StagePlanReadinessContentForm *self);
+void stage_plan_readiness_content_form_set_last_plan_review_date(StagePlanReadinessContentForm *self, const char *value);
+
+// StagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
+void stage_plan_timeline_content_form_init(StagePlanTimelineContentForm *self, SpecDocument *doc, const char *path);
+void stage_plan_timeline_content_form_free(StagePlanTimelineContentForm *self);
+char *stage_plan_timeline_content_form_overall_planned_start(const StagePlanTimelineContentForm *self);
+void stage_plan_timeline_content_form_set_overall_planned_start(StagePlanTimelineContentForm *self, const char *value);
+char *stage_plan_timeline_content_form_overall_target_completion(const StagePlanTimelineContentForm *self);
+void stage_plan_timeline_content_form_set_overall_target_completion(StagePlanTimelineContentForm *self, const char *value);
+char *stage_plan_timeline_content_form_total_duration(const StagePlanTimelineContentForm *self);
+void stage_plan_timeline_content_form_set_total_duration(StagePlanTimelineContentForm *self, const char *value);
+char *stage_plan_timeline_content_form_buffer_strategy(const StagePlanTimelineContentForm *self);
+void stage_plan_timeline_content_form_set_buffer_strategy(StagePlanTimelineContentForm *self, const char *value);
 
 // StageQualityContentForm is the generated form facade for the `content` @Form section.
 void stage_quality_content_form_init(StageQualityContentForm *self, SpecDocument *doc, const char *path);
@@ -62586,6 +62648,26 @@ void system_business_unit_entry_content_form_set_dependency_level(SystemBusiness
 char *system_business_unit_entry_content_form_impact_if_removed(const SystemBusinessUnitEntryContentForm *self);
 void system_business_unit_entry_content_form_set_impact_if_removed(SystemBusinessUnitEntryContentForm *self, const char *value);
 
+// SystemClassificationContentForm is the generated form facade for the `content` @Form section.
+void system_classification_content_form_init(SystemClassificationContentForm *self, SpecDocument *doc, const char *path);
+void system_classification_content_form_free(SystemClassificationContentForm *self);
+char *system_classification_content_form_system_type(const SystemClassificationContentForm *self);
+void system_classification_content_form_set_system_type(SystemClassificationContentForm *self, const char *value);
+char *system_classification_content_form_business_domain(const SystemClassificationContentForm *self);
+void system_classification_content_form_set_business_domain(SystemClassificationContentForm *self, const char *value);
+char *system_classification_content_form_deployment_model(const SystemClassificationContentForm *self);
+void system_classification_content_form_set_deployment_model(SystemClassificationContentForm *self, const char *value);
+
+// SystemComplexityContentForm is the generated form facade for the `content` @Form section.
+void system_complexity_content_form_init(SystemComplexityContentForm *self, SpecDocument *doc, const char *path);
+void system_complexity_content_form_free(SystemComplexityContentForm *self);
+char *system_complexity_content_form_overall_complexity(const SystemComplexityContentForm *self);
+void system_complexity_content_form_set_overall_complexity(SystemComplexityContentForm *self, const char *value);
+char *system_complexity_content_form_key_risks(const SystemComplexityContentForm *self);
+void system_complexity_content_form_set_key_risks(SystemComplexityContentForm *self, const char *value);
+char *system_complexity_content_form_key_assumptions(const SystemComplexityContentForm *self);
+void system_complexity_content_form_set_key_assumptions(SystemComplexityContentForm *self, const char *value);
+
 // SystemConfigurationManagementContentForm is the generated form facade for the `content` @Form section.
 void system_configuration_management_content_form_init(SystemConfigurationManagementContentForm *self, SpecDocument *doc, const char *path);
 void system_configuration_management_content_form_free(SystemConfigurationManagementContentForm *self);
@@ -63070,64 +63152,6 @@ void system_migration_risk_entry_content_form_set_contingency(SystemMigrationRis
 char *system_migration_risk_entry_content_form_owner(const SystemMigrationRiskEntryContentForm *self);
 void system_migration_risk_entry_content_form_set_owner(SystemMigrationRiskEntryContentForm *self, const char *value);
 
-// SystemOverviewSummaryClassificationContentForm is the generated form facade for the `content` @Form section.
-void system_overview_summary_classification_content_form_init(SystemOverviewSummaryClassificationContentForm *self, SpecDocument *doc, const char *path);
-void system_overview_summary_classification_content_form_free(SystemOverviewSummaryClassificationContentForm *self);
-char *system_overview_summary_classification_content_form_system_type(const SystemOverviewSummaryClassificationContentForm *self);
-void system_overview_summary_classification_content_form_set_system_type(SystemOverviewSummaryClassificationContentForm *self, const char *value);
-char *system_overview_summary_classification_content_form_business_domain(const SystemOverviewSummaryClassificationContentForm *self);
-void system_overview_summary_classification_content_form_set_business_domain(SystemOverviewSummaryClassificationContentForm *self, const char *value);
-char *system_overview_summary_classification_content_form_deployment_model(const SystemOverviewSummaryClassificationContentForm *self);
-void system_overview_summary_classification_content_form_set_deployment_model(SystemOverviewSummaryClassificationContentForm *self, const char *value);
-
-// SystemOverviewSummaryComplexityContentForm is the generated form facade for the `content` @Form section.
-void system_overview_summary_complexity_content_form_init(SystemOverviewSummaryComplexityContentForm *self, SpecDocument *doc, const char *path);
-void system_overview_summary_complexity_content_form_free(SystemOverviewSummaryComplexityContentForm *self);
-char *system_overview_summary_complexity_content_form_overall_complexity(const SystemOverviewSummaryComplexityContentForm *self);
-void system_overview_summary_complexity_content_form_set_overall_complexity(SystemOverviewSummaryComplexityContentForm *self, const char *value);
-char *system_overview_summary_complexity_content_form_key_risks(const SystemOverviewSummaryComplexityContentForm *self);
-void system_overview_summary_complexity_content_form_set_key_risks(SystemOverviewSummaryComplexityContentForm *self, const char *value);
-char *system_overview_summary_complexity_content_form_key_assumptions(const SystemOverviewSummaryComplexityContentForm *self);
-void system_overview_summary_complexity_content_form_set_key_assumptions(SystemOverviewSummaryComplexityContentForm *self, const char *value);
-
-// SystemOverviewSummaryContentForm is the generated form facade for the `content` @Form section.
-void system_overview_summary_content_form_init(SystemOverviewSummaryContentForm *self, SpecDocument *doc, const char *path);
-void system_overview_summary_content_form_free(SystemOverviewSummaryContentForm *self);
-char *system_overview_summary_content_form_system_name(const SystemOverviewSummaryContentForm *self);
-void system_overview_summary_content_form_set_system_name(SystemOverviewSummaryContentForm *self, const char *value);
-char *system_overview_summary_content_form_system_acronym(const SystemOverviewSummaryContentForm *self);
-void system_overview_summary_content_form_set_system_acronym(SystemOverviewSummaryContentForm *self, const char *value);
-char *system_overview_summary_content_form_system_version(const SystemOverviewSummaryContentForm *self);
-void system_overview_summary_content_form_set_system_version(SystemOverviewSummaryContentForm *self, const char *value);
-char *system_overview_summary_content_form_project_code_name(const SystemOverviewSummaryContentForm *self);
-void system_overview_summary_content_form_set_project_code_name(SystemOverviewSummaryContentForm *self, const char *value);
-
-// SystemOverviewSummaryScaleContentForm is the generated form facade for the `content` @Form section.
-void system_overview_summary_scale_content_form_init(SystemOverviewSummaryScaleContentForm *self, SpecDocument *doc, const char *path);
-void system_overview_summary_scale_content_form_free(SystemOverviewSummaryScaleContentForm *self);
-char *system_overview_summary_scale_content_form_estimated_user_count(const SystemOverviewSummaryScaleContentForm *self);
-void system_overview_summary_scale_content_form_set_estimated_user_count(SystemOverviewSummaryScaleContentForm *self, const char *value);
-char *system_overview_summary_scale_content_form_user_category_count(const SystemOverviewSummaryScaleContentForm *self);
-void system_overview_summary_scale_content_form_set_user_category_count(SystemOverviewSummaryScaleContentForm *self, const char *value);
-char *system_overview_summary_scale_content_form_external_interface_count(const SystemOverviewSummaryScaleContentForm *self);
-void system_overview_summary_scale_content_form_set_external_interface_count(SystemOverviewSummaryScaleContentForm *self, const char *value);
-char *system_overview_summary_scale_content_form_functional_requirement_count(const SystemOverviewSummaryScaleContentForm *self);
-void system_overview_summary_scale_content_form_set_functional_requirement_count(SystemOverviewSummaryScaleContentForm *self, const char *value);
-char *system_overview_summary_scale_content_form_non_functional_requirement_count(const SystemOverviewSummaryScaleContentForm *self);
-void system_overview_summary_scale_content_form_set_non_functional_requirement_count(SystemOverviewSummaryScaleContentForm *self, const char *value);
-
-// SystemOverviewSummaryStatusContentForm is the generated form facade for the `content` @Form section.
-void system_overview_summary_status_content_form_init(SystemOverviewSummaryStatusContentForm *self, SpecDocument *doc, const char *path);
-void system_overview_summary_status_content_form_free(SystemOverviewSummaryStatusContentForm *self);
-char *system_overview_summary_status_content_form_specification_version(const SystemOverviewSummaryStatusContentForm *self);
-void system_overview_summary_status_content_form_set_specification_version(SystemOverviewSummaryStatusContentForm *self, const char *value);
-char *system_overview_summary_status_content_form_specification_date(const SystemOverviewSummaryStatusContentForm *self);
-void system_overview_summary_status_content_form_set_specification_date(SystemOverviewSummaryStatusContentForm *self, const char *value);
-char *system_overview_summary_status_content_form_specification_status(const SystemOverviewSummaryStatusContentForm *self);
-void system_overview_summary_status_content_form_set_specification_status(SystemOverviewSummaryStatusContentForm *self, const char *value);
-char *system_overview_summary_status_content_form_target_go_live_date(const SystemOverviewSummaryStatusContentForm *self);
-void system_overview_summary_status_content_form_set_target_go_live_date(SystemOverviewSummaryStatusContentForm *self, const char *value);
-
 // SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 void system_quality_goals_governance_content_form_init(SystemQualityGoalsGovernanceContentForm *self, SpecDocument *doc, const char *path);
 void system_quality_goals_governance_content_form_free(SystemQualityGoalsGovernanceContentForm *self);
@@ -63172,6 +63196,20 @@ void system_replacement_strategy_timeline_content_form_set_decommission_date(Sys
 char *system_replacement_strategy_timeline_content_form_parallel_run_period(const SystemReplacementStrategyTimelineContentForm *self);
 void system_replacement_strategy_timeline_content_form_set_parallel_run_period(SystemReplacementStrategyTimelineContentForm *self, const char *value);
 
+// SystemScaleContentForm is the generated form facade for the `content` @Form section.
+void system_scale_content_form_init(SystemScaleContentForm *self, SpecDocument *doc, const char *path);
+void system_scale_content_form_free(SystemScaleContentForm *self);
+char *system_scale_content_form_estimated_user_count(const SystemScaleContentForm *self);
+void system_scale_content_form_set_estimated_user_count(SystemScaleContentForm *self, const char *value);
+char *system_scale_content_form_user_category_count(const SystemScaleContentForm *self);
+void system_scale_content_form_set_user_category_count(SystemScaleContentForm *self, const char *value);
+char *system_scale_content_form_external_interface_count(const SystemScaleContentForm *self);
+void system_scale_content_form_set_external_interface_count(SystemScaleContentForm *self, const char *value);
+char *system_scale_content_form_functional_requirement_count(const SystemScaleContentForm *self);
+void system_scale_content_form_set_functional_requirement_count(SystemScaleContentForm *self, const char *value);
+char *system_scale_content_form_non_functional_requirement_count(const SystemScaleContentForm *self);
+void system_scale_content_form_set_non_functional_requirement_count(SystemScaleContentForm *self, const char *value);
+
 // SystemStagePlanContentForm is the generated form facade for the `content` @Form section.
 void system_stage_plan_content_form_init(SystemStagePlanContentForm *self, SpecDocument *doc, const char *path);
 void system_stage_plan_content_form_free(SystemStagePlanContentForm *self);
@@ -63182,39 +63220,17 @@ void system_stage_plan_content_form_set_staging_philosophy(SystemStagePlanConten
 char *system_stage_plan_content_form_parallelism_approach(const SystemStagePlanContentForm *self);
 void system_stage_plan_content_form_set_parallelism_approach(SystemStagePlanContentForm *self, const char *value);
 
-// SystemStagePlanCoordinationContentForm is the generated form facade for the `content` @Form section.
-void system_stage_plan_coordination_content_form_init(SystemStagePlanCoordinationContentForm *self, SpecDocument *doc, const char *path);
-void system_stage_plan_coordination_content_form_free(SystemStagePlanCoordinationContentForm *self);
-char *system_stage_plan_coordination_content_form_cross_stage_dependency_summary(const SystemStagePlanCoordinationContentForm *self);
-void system_stage_plan_coordination_content_form_set_cross_stage_dependency_summary(SystemStagePlanCoordinationContentForm *self, const char *value);
-char *system_stage_plan_coordination_content_form_cross_stage_risk_summary(const SystemStagePlanCoordinationContentForm *self);
-void system_stage_plan_coordination_content_form_set_cross_stage_risk_summary(SystemStagePlanCoordinationContentForm *self, const char *value);
-char *system_stage_plan_coordination_content_form_regulatory_compliance_considerations(const SystemStagePlanCoordinationContentForm *self);
-void system_stage_plan_coordination_content_form_set_regulatory_compliance_considerations(SystemStagePlanCoordinationContentForm *self, const char *value);
-
-// SystemStagePlanReadinessContentForm is the generated form facade for the `content` @Form section.
-void system_stage_plan_readiness_content_form_init(SystemStagePlanReadinessContentForm *self, SpecDocument *doc, const char *path);
-void system_stage_plan_readiness_content_form_free(SystemStagePlanReadinessContentForm *self);
-char *system_stage_plan_readiness_content_form_organizational_readiness_level(const SystemStagePlanReadinessContentForm *self);
-void system_stage_plan_readiness_content_form_set_organizational_readiness_level(SystemStagePlanReadinessContentForm *self, const char *value);
-char *system_stage_plan_readiness_content_form_change_absorption_capacity(const SystemStagePlanReadinessContentForm *self);
-void system_stage_plan_readiness_content_form_set_change_absorption_capacity(SystemStagePlanReadinessContentForm *self, const char *value);
-char *system_stage_plan_readiness_content_form_confidence_level(const SystemStagePlanReadinessContentForm *self);
-void system_stage_plan_readiness_content_form_set_confidence_level(SystemStagePlanReadinessContentForm *self, const char *value);
-char *system_stage_plan_readiness_content_form_last_plan_review_date(const SystemStagePlanReadinessContentForm *self);
-void system_stage_plan_readiness_content_form_set_last_plan_review_date(SystemStagePlanReadinessContentForm *self, const char *value);
-
-// SystemStagePlanTimelineContentForm is the generated form facade for the `content` @Form section.
-void system_stage_plan_timeline_content_form_init(SystemStagePlanTimelineContentForm *self, SpecDocument *doc, const char *path);
-void system_stage_plan_timeline_content_form_free(SystemStagePlanTimelineContentForm *self);
-char *system_stage_plan_timeline_content_form_overall_planned_start(const SystemStagePlanTimelineContentForm *self);
-void system_stage_plan_timeline_content_form_set_overall_planned_start(SystemStagePlanTimelineContentForm *self, const char *value);
-char *system_stage_plan_timeline_content_form_overall_target_completion(const SystemStagePlanTimelineContentForm *self);
-void system_stage_plan_timeline_content_form_set_overall_target_completion(SystemStagePlanTimelineContentForm *self, const char *value);
-char *system_stage_plan_timeline_content_form_total_duration(const SystemStagePlanTimelineContentForm *self);
-void system_stage_plan_timeline_content_form_set_total_duration(SystemStagePlanTimelineContentForm *self, const char *value);
-char *system_stage_plan_timeline_content_form_buffer_strategy(const SystemStagePlanTimelineContentForm *self);
-void system_stage_plan_timeline_content_form_set_buffer_strategy(SystemStagePlanTimelineContentForm *self, const char *value);
+// SystemSummaryContentForm is the generated form facade for the `content` @Form section.
+void system_summary_content_form_init(SystemSummaryContentForm *self, SpecDocument *doc, const char *path);
+void system_summary_content_form_free(SystemSummaryContentForm *self);
+char *system_summary_content_form_system_name(const SystemSummaryContentForm *self);
+void system_summary_content_form_set_system_name(SystemSummaryContentForm *self, const char *value);
+char *system_summary_content_form_system_acronym(const SystemSummaryContentForm *self);
+void system_summary_content_form_set_system_acronym(SystemSummaryContentForm *self, const char *value);
+char *system_summary_content_form_system_version(const SystemSummaryContentForm *self);
+void system_summary_content_form_set_system_version(SystemSummaryContentForm *self, const char *value);
+char *system_summary_content_form_project_code_name(const SystemSummaryContentForm *self);
+void system_summary_content_form_set_project_code_name(SystemSummaryContentForm *self, const char *value);
 
 // SystemTaskEntryContentForm is the generated form facade for the `content` @Form section.
 void system_task_entry_content_form_init(SystemTaskEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -63708,65 +63724,65 @@ void technical_dependency_entry_content_form_set_fallback(TechnicalDependencyEnt
 char *technical_dependency_entry_content_form_status(const TechnicalDependencyEntryContentForm *self);
 void technical_dependency_entry_content_form_set_status(TechnicalDependencyEntryContentForm *self, const char *value);
 
-// TechnicalFrameworkConditionsGovernanceContentForm is the generated form facade for the `content` @Form section.
-void technical_framework_conditions_governance_content_form_init(TechnicalFrameworkConditionsGovernanceContentForm *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_governance_content_form_free(TechnicalFrameworkConditionsGovernanceContentForm *self);
-char *technical_framework_conditions_governance_content_form_secondary_cloud_providers(const TechnicalFrameworkConditionsGovernanceContentForm *self);
-void technical_framework_conditions_governance_content_form_set_secondary_cloud_providers(TechnicalFrameworkConditionsGovernanceContentForm *self, const char *value);
-char *technical_framework_conditions_governance_content_form_technology_governance(const TechnicalFrameworkConditionsGovernanceContentForm *self);
-void technical_framework_conditions_governance_content_form_set_technology_governance(TechnicalFrameworkConditionsGovernanceContentForm *self, const char *value);
+// TechnicalEnvironmentGovernanceContentForm is the generated form facade for the `content` @Form section.
+void technical_environment_governance_content_form_init(TechnicalEnvironmentGovernanceContentForm *self, SpecDocument *doc, const char *path);
+void technical_environment_governance_content_form_free(TechnicalEnvironmentGovernanceContentForm *self);
+char *technical_environment_governance_content_form_secondary_cloud_providers(const TechnicalEnvironmentGovernanceContentForm *self);
+void technical_environment_governance_content_form_set_secondary_cloud_providers(TechnicalEnvironmentGovernanceContentForm *self, const char *value);
+char *technical_environment_governance_content_form_technology_governance(const TechnicalEnvironmentGovernanceContentForm *self);
+void technical_environment_governance_content_form_set_technology_governance(TechnicalEnvironmentGovernanceContentForm *self, const char *value);
 
-// TechnicalFrameworkConditionsNetworkContentForm is the generated form facade for the `content` @Form section.
-void technical_framework_conditions_network_content_form_init(TechnicalFrameworkConditionsNetworkContentForm *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_network_content_form_free(TechnicalFrameworkConditionsNetworkContentForm *self);
-char *technical_framework_conditions_network_content_form_network_architecture(const TechnicalFrameworkConditionsNetworkContentForm *self);
-void technical_framework_conditions_network_content_form_set_network_architecture(TechnicalFrameworkConditionsNetworkContentForm *self, const char *value);
-char *technical_framework_conditions_network_content_form_firewall_policies(const TechnicalFrameworkConditionsNetworkContentForm *self);
-void technical_framework_conditions_network_content_form_set_firewall_policies(TechnicalFrameworkConditionsNetworkContentForm *self, const char *value);
-char *technical_framework_conditions_network_content_form_vpn_requirements(const TechnicalFrameworkConditionsNetworkContentForm *self);
-void technical_framework_conditions_network_content_form_set_vpn_requirements(TechnicalFrameworkConditionsNetworkContentForm *self, const char *value);
-char *technical_framework_conditions_network_content_form_load_balancing_standards(const TechnicalFrameworkConditionsNetworkContentForm *self);
-void technical_framework_conditions_network_content_form_set_load_balancing_standards(TechnicalFrameworkConditionsNetworkContentForm *self, const char *value);
-char *technical_framework_conditions_network_content_form_cdn_strategy(const TechnicalFrameworkConditionsNetworkContentForm *self);
-void technical_framework_conditions_network_content_form_set_cdn_strategy(TechnicalFrameworkConditionsNetworkContentForm *self, const char *value);
+// TechnicalEnvironmentNetworkContentForm is the generated form facade for the `content` @Form section.
+void technical_environment_network_content_form_init(TechnicalEnvironmentNetworkContentForm *self, SpecDocument *doc, const char *path);
+void technical_environment_network_content_form_free(TechnicalEnvironmentNetworkContentForm *self);
+char *technical_environment_network_content_form_network_architecture(const TechnicalEnvironmentNetworkContentForm *self);
+void technical_environment_network_content_form_set_network_architecture(TechnicalEnvironmentNetworkContentForm *self, const char *value);
+char *technical_environment_network_content_form_firewall_policies(const TechnicalEnvironmentNetworkContentForm *self);
+void technical_environment_network_content_form_set_firewall_policies(TechnicalEnvironmentNetworkContentForm *self, const char *value);
+char *technical_environment_network_content_form_vpn_requirements(const TechnicalEnvironmentNetworkContentForm *self);
+void technical_environment_network_content_form_set_vpn_requirements(TechnicalEnvironmentNetworkContentForm *self, const char *value);
+char *technical_environment_network_content_form_load_balancing_standards(const TechnicalEnvironmentNetworkContentForm *self);
+void technical_environment_network_content_form_set_load_balancing_standards(TechnicalEnvironmentNetworkContentForm *self, const char *value);
+char *technical_environment_network_content_form_cdn_strategy(const TechnicalEnvironmentNetworkContentForm *self);
+void technical_environment_network_content_form_set_cdn_strategy(TechnicalEnvironmentNetworkContentForm *self, const char *value);
 
-// TechnicalFrameworkConditionsSecurityContentForm is the generated form facade for the `content` @Form section.
-void technical_framework_conditions_security_content_form_init(TechnicalFrameworkConditionsSecurityContentForm *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_security_content_form_free(TechnicalFrameworkConditionsSecurityContentForm *self);
-char *technical_framework_conditions_security_content_form_security_framework(const TechnicalFrameworkConditionsSecurityContentForm *self);
-void technical_framework_conditions_security_content_form_set_security_framework(TechnicalFrameworkConditionsSecurityContentForm *self, const char *value);
-char *technical_framework_conditions_security_content_form_compliance_requirements(const TechnicalFrameworkConditionsSecurityContentForm *self);
-void technical_framework_conditions_security_content_form_set_compliance_requirements(TechnicalFrameworkConditionsSecurityContentForm *self, const char *value);
-char *technical_framework_conditions_security_content_form_data_classification_scheme(const TechnicalFrameworkConditionsSecurityContentForm *self);
-void technical_framework_conditions_security_content_form_set_data_classification_scheme(TechnicalFrameworkConditionsSecurityContentForm *self, const char *value);
-char *technical_framework_conditions_security_content_form_encryption_standards(const TechnicalFrameworkConditionsSecurityContentForm *self);
-void technical_framework_conditions_security_content_form_set_encryption_standards(TechnicalFrameworkConditionsSecurityContentForm *self, const char *value);
-char *technical_framework_conditions_security_content_form_identity_provider(const TechnicalFrameworkConditionsSecurityContentForm *self);
-void technical_framework_conditions_security_content_form_set_identity_provider(TechnicalFrameworkConditionsSecurityContentForm *self, const char *value);
+// TechnicalEnvironmentSecurityContentForm is the generated form facade for the `content` @Form section.
+void technical_environment_security_content_form_init(TechnicalEnvironmentSecurityContentForm *self, SpecDocument *doc, const char *path);
+void technical_environment_security_content_form_free(TechnicalEnvironmentSecurityContentForm *self);
+char *technical_environment_security_content_form_security_framework(const TechnicalEnvironmentSecurityContentForm *self);
+void technical_environment_security_content_form_set_security_framework(TechnicalEnvironmentSecurityContentForm *self, const char *value);
+char *technical_environment_security_content_form_compliance_requirements(const TechnicalEnvironmentSecurityContentForm *self);
+void technical_environment_security_content_form_set_compliance_requirements(TechnicalEnvironmentSecurityContentForm *self, const char *value);
+char *technical_environment_security_content_form_data_classification_scheme(const TechnicalEnvironmentSecurityContentForm *self);
+void technical_environment_security_content_form_set_data_classification_scheme(TechnicalEnvironmentSecurityContentForm *self, const char *value);
+char *technical_environment_security_content_form_encryption_standards(const TechnicalEnvironmentSecurityContentForm *self);
+void technical_environment_security_content_form_set_encryption_standards(TechnicalEnvironmentSecurityContentForm *self, const char *value);
+char *technical_environment_security_content_form_identity_provider(const TechnicalEnvironmentSecurityContentForm *self);
+void technical_environment_security_content_form_set_identity_provider(TechnicalEnvironmentSecurityContentForm *self, const char *value);
 
-// TechnicalFrameworkConditionsStandardsContentForm is the generated form facade for the `content` @Form section.
-void technical_framework_conditions_standards_content_form_init(TechnicalFrameworkConditionsStandardsContentForm *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_standards_content_form_free(TechnicalFrameworkConditionsStandardsContentForm *self);
-char *technical_framework_conditions_standards_content_form_preferred_languages(const TechnicalFrameworkConditionsStandardsContentForm *self);
-void technical_framework_conditions_standards_content_form_set_preferred_languages(TechnicalFrameworkConditionsStandardsContentForm *self, const char *value);
-char *technical_framework_conditions_standards_content_form_preferred_frameworks(const TechnicalFrameworkConditionsStandardsContentForm *self);
-void technical_framework_conditions_standards_content_form_set_preferred_frameworks(TechnicalFrameworkConditionsStandardsContentForm *self, const char *value);
-char *technical_framework_conditions_standards_content_form_preferred_databases(const TechnicalFrameworkConditionsStandardsContentForm *self);
-void technical_framework_conditions_standards_content_form_set_preferred_databases(TechnicalFrameworkConditionsStandardsContentForm *self, const char *value);
-char *technical_framework_conditions_standards_content_form_messaging_platforms(const TechnicalFrameworkConditionsStandardsContentForm *self);
-void technical_framework_conditions_standards_content_form_set_messaging_platforms(TechnicalFrameworkConditionsStandardsContentForm *self, const char *value);
-char *technical_framework_conditions_standards_content_form_integration_platforms(const TechnicalFrameworkConditionsStandardsContentForm *self);
-void technical_framework_conditions_standards_content_form_set_integration_platforms(TechnicalFrameworkConditionsStandardsContentForm *self, const char *value);
+// TechnicalEnvironmentStandardsContentForm is the generated form facade for the `content` @Form section.
+void technical_environment_standards_content_form_init(TechnicalEnvironmentStandardsContentForm *self, SpecDocument *doc, const char *path);
+void technical_environment_standards_content_form_free(TechnicalEnvironmentStandardsContentForm *self);
+char *technical_environment_standards_content_form_preferred_languages(const TechnicalEnvironmentStandardsContentForm *self);
+void technical_environment_standards_content_form_set_preferred_languages(TechnicalEnvironmentStandardsContentForm *self, const char *value);
+char *technical_environment_standards_content_form_preferred_frameworks(const TechnicalEnvironmentStandardsContentForm *self);
+void technical_environment_standards_content_form_set_preferred_frameworks(TechnicalEnvironmentStandardsContentForm *self, const char *value);
+char *technical_environment_standards_content_form_preferred_databases(const TechnicalEnvironmentStandardsContentForm *self);
+void technical_environment_standards_content_form_set_preferred_databases(TechnicalEnvironmentStandardsContentForm *self, const char *value);
+char *technical_environment_standards_content_form_messaging_platforms(const TechnicalEnvironmentStandardsContentForm *self);
+void technical_environment_standards_content_form_set_messaging_platforms(TechnicalEnvironmentStandardsContentForm *self, const char *value);
+char *technical_environment_standards_content_form_integration_platforms(const TechnicalEnvironmentStandardsContentForm *self);
+void technical_environment_standards_content_form_set_integration_platforms(TechnicalEnvironmentStandardsContentForm *self, const char *value);
 
-// TechnicalFrameworkConditionsTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
-void technical_framework_conditions_technical_overview_content_form_init(TechnicalFrameworkConditionsTechnicalOverviewContentForm *self, SpecDocument *doc, const char *path);
-void technical_framework_conditions_technical_overview_content_form_free(TechnicalFrameworkConditionsTechnicalOverviewContentForm *self);
-char *technical_framework_conditions_technical_overview_content_form_architecture_maturity(const TechnicalFrameworkConditionsTechnicalOverviewContentForm *self);
-void technical_framework_conditions_technical_overview_content_form_set_architecture_maturity(TechnicalFrameworkConditionsTechnicalOverviewContentForm *self, const char *value);
-char *technical_framework_conditions_technical_overview_content_form_cloud_strategy(const TechnicalFrameworkConditionsTechnicalOverviewContentForm *self);
-void technical_framework_conditions_technical_overview_content_form_set_cloud_strategy(TechnicalFrameworkConditionsTechnicalOverviewContentForm *self, const char *value);
-char *technical_framework_conditions_technical_overview_content_form_primary_cloud_provider(const TechnicalFrameworkConditionsTechnicalOverviewContentForm *self);
-void technical_framework_conditions_technical_overview_content_form_set_primary_cloud_provider(TechnicalFrameworkConditionsTechnicalOverviewContentForm *self, const char *value);
+// TechnicalEnvironmentTechnicalOverviewContentForm is the generated form facade for the `technicalOverviewContent` @Form section.
+void technical_environment_technical_overview_content_form_init(TechnicalEnvironmentTechnicalOverviewContentForm *self, SpecDocument *doc, const char *path);
+void technical_environment_technical_overview_content_form_free(TechnicalEnvironmentTechnicalOverviewContentForm *self);
+char *technical_environment_technical_overview_content_form_architecture_maturity(const TechnicalEnvironmentTechnicalOverviewContentForm *self);
+void technical_environment_technical_overview_content_form_set_architecture_maturity(TechnicalEnvironmentTechnicalOverviewContentForm *self, const char *value);
+char *technical_environment_technical_overview_content_form_cloud_strategy(const TechnicalEnvironmentTechnicalOverviewContentForm *self);
+void technical_environment_technical_overview_content_form_set_cloud_strategy(TechnicalEnvironmentTechnicalOverviewContentForm *self, const char *value);
+char *technical_environment_technical_overview_content_form_primary_cloud_provider(const TechnicalEnvironmentTechnicalOverviewContentForm *self);
+void technical_environment_technical_overview_content_form_set_primary_cloud_provider(TechnicalEnvironmentTechnicalOverviewContentForm *self, const char *value);
 
 // TechnicalGoalEntryContentForm is the generated form facade for the `content` @Form section.
 void technical_goal_entry_content_form_init(TechnicalGoalEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -65506,33 +65522,13 @@ void transition_support_resource_entry_content_form_set_owner(TransitionSupportR
 char *transition_support_resource_entry_content_form_cost_center(const TransitionSupportResourceEntryContentForm *self);
 void transition_support_resource_entry_content_form_set_cost_center(TransitionSupportResourceEntryContentForm *self, const char *value);
 
-// TranslationProcessOngoingContentForm is the generated form facade for the `content` @Form section.
-void translation_process_ongoing_content_form_init(TranslationProcessOngoingContentForm *self, SpecDocument *doc, const char *path);
-void translation_process_ongoing_content_form_free(TranslationProcessOngoingContentForm *self);
-char *translation_process_ongoing_content_form_continuous_localization(const TranslationProcessOngoingContentForm *self);
-void translation_process_ongoing_content_form_set_continuous_localization(TranslationProcessOngoingContentForm *self, const char *value);
-char *translation_process_ongoing_content_form_translation_memory_maintenance(const TranslationProcessOngoingContentForm *self);
-void translation_process_ongoing_content_form_set_translation_memory_maintenance(TranslationProcessOngoingContentForm *self, const char *value);
-
-// TranslationProcessQualityContentForm is the generated form facade for the `content` @Form section.
-void translation_process_quality_content_form_init(TranslationProcessQualityContentForm *self, SpecDocument *doc, const char *path);
-void translation_process_quality_content_form_free(TranslationProcessQualityContentForm *self);
-char *translation_process_quality_content_form_quality_checks(const TranslationProcessQualityContentForm *self);
-void translation_process_quality_content_form_set_quality_checks(TranslationProcessQualityContentForm *self, const char *value);
-char *translation_process_quality_content_form_linguistic_qa(const TranslationProcessQualityContentForm *self);
-void translation_process_quality_content_form_set_linguistic_qa(TranslationProcessQualityContentForm *self, const char *value);
-char *translation_process_quality_content_form_functional_qa(const TranslationProcessQualityContentForm *self);
-void translation_process_quality_content_form_set_functional_qa(TranslationProcessQualityContentForm *self, const char *value);
-
-// TranslationProcessTerminologyContentForm is the generated form facade for the `content` @Form section.
-void translation_process_terminology_content_form_init(TranslationProcessTerminologyContentForm *self, SpecDocument *doc, const char *path);
-void translation_process_terminology_content_form_free(TranslationProcessTerminologyContentForm *self);
-char *translation_process_terminology_content_form_glossary_management(const TranslationProcessTerminologyContentForm *self);
-void translation_process_terminology_content_form_set_glossary_management(TranslationProcessTerminologyContentForm *self, const char *value);
-char *translation_process_terminology_content_form_style_guide(const TranslationProcessTerminologyContentForm *self);
-void translation_process_terminology_content_form_set_style_guide(TranslationProcessTerminologyContentForm *self, const char *value);
-char *translation_process_terminology_content_form_brand_voice(const TranslationProcessTerminologyContentForm *self);
-void translation_process_terminology_content_form_set_brand_voice(TranslationProcessTerminologyContentForm *self, const char *value);
+// TranslationOngoingContentForm is the generated form facade for the `content` @Form section.
+void translation_ongoing_content_form_init(TranslationOngoingContentForm *self, SpecDocument *doc, const char *path);
+void translation_ongoing_content_form_free(TranslationOngoingContentForm *self);
+char *translation_ongoing_content_form_continuous_localization(const TranslationOngoingContentForm *self);
+void translation_ongoing_content_form_set_continuous_localization(TranslationOngoingContentForm *self, const char *value);
+char *translation_ongoing_content_form_translation_memory_maintenance(const TranslationOngoingContentForm *self);
+void translation_ongoing_content_form_set_translation_memory_maintenance(TranslationOngoingContentForm *self, const char *value);
 
 // TranslationProcessTranslationProcessContentForm is the generated form facade for the `translationProcessContent` @Form section.
 void translation_process_translation_process_content_form_init(TranslationProcessTranslationProcessContentForm *self, SpecDocument *doc, const char *path);
@@ -65546,17 +65542,15 @@ void translation_process_translation_process_content_form_set_machine_translatio
 char *translation_process_translation_process_content_form_cat_tools(const TranslationProcessTranslationProcessContentForm *self);
 void translation_process_translation_process_content_form_set_cat_tools(TranslationProcessTranslationProcessContentForm *self, const char *value);
 
-// TranslationProcessWorkflowContentForm is the generated form facade for the `content` @Form section.
-void translation_process_workflow_content_form_init(TranslationProcessWorkflowContentForm *self, SpecDocument *doc, const char *path);
-void translation_process_workflow_content_form_free(TranslationProcessWorkflowContentForm *self);
-char *translation_process_workflow_content_form_translation_workflow(const TranslationProcessWorkflowContentForm *self);
-void translation_process_workflow_content_form_set_translation_workflow(TranslationProcessWorkflowContentForm *self, const char *value);
-char *translation_process_workflow_content_form_review_cycles(const TranslationProcessWorkflowContentForm *self);
-void translation_process_workflow_content_form_set_review_cycles(TranslationProcessWorkflowContentForm *self, const char *value);
-char *translation_process_workflow_content_form_in_country_review(const TranslationProcessWorkflowContentForm *self);
-void translation_process_workflow_content_form_set_in_country_review(TranslationProcessWorkflowContentForm *self, const char *value);
-char *translation_process_workflow_content_form_contextual_review(const TranslationProcessWorkflowContentForm *self);
-void translation_process_workflow_content_form_set_contextual_review(TranslationProcessWorkflowContentForm *self, const char *value);
+// TranslationQualityContentForm is the generated form facade for the `content` @Form section.
+void translation_quality_content_form_init(TranslationQualityContentForm *self, SpecDocument *doc, const char *path);
+void translation_quality_content_form_free(TranslationQualityContentForm *self);
+char *translation_quality_content_form_quality_checks(const TranslationQualityContentForm *self);
+void translation_quality_content_form_set_quality_checks(TranslationQualityContentForm *self, const char *value);
+char *translation_quality_content_form_linguistic_qa(const TranslationQualityContentForm *self);
+void translation_quality_content_form_set_linguistic_qa(TranslationQualityContentForm *self, const char *value);
+char *translation_quality_content_form_functional_qa(const TranslationQualityContentForm *self);
+void translation_quality_content_form_set_functional_qa(TranslationQualityContentForm *self, const char *value);
 
 // TranslationRequirementsFormattingContentForm is the generated form facade for the `content` @Form section.
 void translation_requirements_formatting_content_form_init(TranslationRequirementsFormattingContentForm *self, SpecDocument *doc, const char *path);
@@ -65614,6 +65608,16 @@ void translation_requirements_variants_content_form_set_gender_support(Translati
 char *translation_requirements_variants_content_form_contextual_variants(const TranslationRequirementsVariantsContentForm *self);
 void translation_requirements_variants_content_form_set_contextual_variants(TranslationRequirementsVariantsContentForm *self, const char *value);
 
+// TranslationTerminologyContentForm is the generated form facade for the `content` @Form section.
+void translation_terminology_content_form_init(TranslationTerminologyContentForm *self, SpecDocument *doc, const char *path);
+void translation_terminology_content_form_free(TranslationTerminologyContentForm *self);
+char *translation_terminology_content_form_glossary_management(const TranslationTerminologyContentForm *self);
+void translation_terminology_content_form_set_glossary_management(TranslationTerminologyContentForm *self, const char *value);
+char *translation_terminology_content_form_style_guide(const TranslationTerminologyContentForm *self);
+void translation_terminology_content_form_set_style_guide(TranslationTerminologyContentForm *self, const char *value);
+char *translation_terminology_content_form_brand_voice(const TranslationTerminologyContentForm *self);
+void translation_terminology_content_form_set_brand_voice(TranslationTerminologyContentForm *self, const char *value);
+
 // TranslationVendorEntryContentForm is the generated form facade for the `content` @Form section.
 void translation_vendor_entry_content_form_init(TranslationVendorEntryContentForm *self, SpecDocument *doc, const char *path);
 void translation_vendor_entry_content_form_free(TranslationVendorEntryContentForm *self);
@@ -65631,6 +65635,18 @@ char *translation_vendor_entry_content_form_quality_rating(const TranslationVend
 void translation_vendor_entry_content_form_set_quality_rating(TranslationVendorEntryContentForm *self, const char *value);
 char *translation_vendor_entry_content_form_contact_info(const TranslationVendorEntryContentForm *self);
 void translation_vendor_entry_content_form_set_contact_info(TranslationVendorEntryContentForm *self, const char *value);
+
+// TranslationWorkflowContentForm is the generated form facade for the `content` @Form section.
+void translation_workflow_content_form_init(TranslationWorkflowContentForm *self, SpecDocument *doc, const char *path);
+void translation_workflow_content_form_free(TranslationWorkflowContentForm *self);
+char *translation_workflow_content_form_translation_workflow(const TranslationWorkflowContentForm *self);
+void translation_workflow_content_form_set_translation_workflow(TranslationWorkflowContentForm *self, const char *value);
+char *translation_workflow_content_form_review_cycles(const TranslationWorkflowContentForm *self);
+void translation_workflow_content_form_set_review_cycles(TranslationWorkflowContentForm *self, const char *value);
+char *translation_workflow_content_form_in_country_review(const TranslationWorkflowContentForm *self);
+void translation_workflow_content_form_set_in_country_review(TranslationWorkflowContentForm *self, const char *value);
+char *translation_workflow_content_form_contextual_review(const TranslationWorkflowContentForm *self);
+void translation_workflow_content_form_set_contextual_review(TranslationWorkflowContentForm *self, const char *value);
 
 // TriggerOverviewContentForm is the generated form facade for the `content` @Form section.
 void trigger_overview_content_form_init(TriggerOverviewContentForm *self, SpecDocument *doc, const char *path);
@@ -66156,16 +66172,6 @@ void ui_component_entry_visual_design_form_set_typography(UiComponentEntryVisual
 char *ui_component_entry_visual_design_form_iconography(const UiComponentEntryVisualDesignForm *self);
 void ui_component_entry_visual_design_form_set_iconography(UiComponentEntryVisualDesignForm *self, const char *value);
 
-// UiComponentsComponentApproachContentForm is the generated form facade for the `content` @Form section.
-void ui_components_component_approach_content_form_init(UiComponentsComponentApproachContentForm *self, SpecDocument *doc, const char *path);
-void ui_components_component_approach_content_form_free(UiComponentsComponentApproachContentForm *self);
-char *ui_components_component_approach_content_form_component_granularity(const UiComponentsComponentApproachContentForm *self);
-void ui_components_component_approach_content_form_set_component_granularity(UiComponentsComponentApproachContentForm *self, const char *value);
-char *ui_components_component_approach_content_form_component_naming(const UiComponentsComponentApproachContentForm *self);
-void ui_components_component_approach_content_form_set_component_naming(UiComponentsComponentApproachContentForm *self, const char *value);
-char *ui_components_component_approach_content_form_component_documentation(const UiComponentsComponentApproachContentForm *self);
-void ui_components_component_approach_content_form_set_component_documentation(UiComponentsComponentApproachContentForm *self, const char *value);
-
 // UiComponentsComponentLibraryOverviewForm is the generated form facade for the `componentLibraryOverview` @Form section.
 void ui_components_component_library_overview_form_init(UiComponentsComponentLibraryOverviewForm *self, SpecDocument *doc, const char *path);
 void ui_components_component_library_overview_form_free(UiComponentsComponentLibraryOverviewForm *self);
@@ -66177,46 +66183,6 @@ char *ui_components_component_library_overview_form_based_on_framework(const UiC
 void ui_components_component_library_overview_form_set_based_on_framework(UiComponentsComponentLibraryOverviewForm *self, const char *value);
 char *ui_components_component_library_overview_form_tom_flutter_ui_integration(const UiComponentsComponentLibraryOverviewForm *self);
 void ui_components_component_library_overview_form_set_tom_flutter_ui_integration(UiComponentsComponentLibraryOverviewForm *self, const char *value);
-
-// UiComponentsCustomizationContentForm is the generated form facade for the `content` @Form section.
-void ui_components_customization_content_form_init(UiComponentsCustomizationContentForm *self, SpecDocument *doc, const char *path);
-void ui_components_customization_content_form_free(UiComponentsCustomizationContentForm *self);
-char *ui_components_customization_content_form_extension_model(const UiComponentsCustomizationContentForm *self);
-void ui_components_customization_content_form_set_extension_model(UiComponentsCustomizationContentForm *self, const char *value);
-char *ui_components_customization_content_form_theming_approach(const UiComponentsCustomizationContentForm *self);
-void ui_components_customization_content_form_set_theming_approach(UiComponentsCustomizationContentForm *self, const char *value);
-char *ui_components_customization_content_form_customization_boundaries(const UiComponentsCustomizationContentForm *self);
-void ui_components_customization_content_form_set_customization_boundaries(UiComponentsCustomizationContentForm *self, const char *value);
-
-// UiComponentsVisualLanguageContentForm is the generated form facade for the `content` @Form section.
-void ui_components_visual_language_content_form_init(UiComponentsVisualLanguageContentForm *self, SpecDocument *doc, const char *path);
-void ui_components_visual_language_content_form_free(UiComponentsVisualLanguageContentForm *self);
-char *ui_components_visual_language_content_form_visual_language(const UiComponentsVisualLanguageContentForm *self);
-void ui_components_visual_language_content_form_set_visual_language(UiComponentsVisualLanguageContentForm *self, const char *value);
-char *ui_components_visual_language_content_form_brand_alignment(const UiComponentsVisualLanguageContentForm *self);
-void ui_components_visual_language_content_form_set_brand_alignment(UiComponentsVisualLanguageContentForm *self, const char *value);
-char *ui_components_visual_language_content_form_motion_principles(const UiComponentsVisualLanguageContentForm *self);
-void ui_components_visual_language_content_form_set_motion_principles(UiComponentsVisualLanguageContentForm *self, const char *value);
-
-// UiDesignPrincipleEntryContentForm is the generated form facade for the `content` @Form section.
-void ui_design_principle_entry_content_form_init(UiDesignPrincipleEntryContentForm *self, SpecDocument *doc, const char *path);
-void ui_design_principle_entry_content_form_free(UiDesignPrincipleEntryContentForm *self);
-char *ui_design_principle_entry_content_form_principle_name(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_principle_name(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_description(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_description(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_rationale(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_rationale(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_category(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_category(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_examples(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_examples(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_exceptions(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_exceptions(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_source_reference(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_source_reference(UiDesignPrincipleEntryContentForm *self, const char *value);
-char *ui_design_principle_entry_content_form_related_goals(const UiDesignPrincipleEntryContentForm *self);
-void ui_design_principle_entry_content_form_set_related_goals(UiDesignPrincipleEntryContentForm *self, const char *value);
 
 // UsabilityClarityContentForm is the generated form facade for the `content` @Form section.
 void usability_clarity_content_form_init(UsabilityClarityContentForm *self, SpecDocument *doc, const char *path);
@@ -66369,6 +66335,40 @@ char *user_accessibility_needs_accessibility_form_form_wcag_level(const UserAcce
 void user_accessibility_needs_accessibility_form_form_set_wcag_level(UserAccessibilityNeedsAccessibilityFormForm *self, const char *value);
 char *user_accessibility_needs_accessibility_form_form_additional_standards(const UserAccessibilityNeedsAccessibilityFormForm *self);
 void user_accessibility_needs_accessibility_form_form_set_additional_standards(UserAccessibilityNeedsAccessibilityFormForm *self, const char *value);
+
+// UserAssistanceDeliveryContentForm is the generated form facade for the `content` @Form section.
+void user_assistance_delivery_content_form_init(UserAssistanceDeliveryContentForm *self, SpecDocument *doc, const char *path);
+void user_assistance_delivery_content_form_free(UserAssistanceDeliveryContentForm *self);
+char *user_assistance_delivery_content_form_help_content_ownership(const UserAssistanceDeliveryContentForm *self);
+void user_assistance_delivery_content_form_set_help_content_ownership(UserAssistanceDeliveryContentForm *self, const char *value);
+char *user_assistance_delivery_content_form_help_update_process(const UserAssistanceDeliveryContentForm *self);
+void user_assistance_delivery_content_form_set_help_update_process(UserAssistanceDeliveryContentForm *self, const char *value);
+char *user_assistance_delivery_content_form_help_icon_standard(const UserAssistanceDeliveryContentForm *self);
+void user_assistance_delivery_content_form_set_help_icon_standard(UserAssistanceDeliveryContentForm *self, const char *value);
+char *user_assistance_delivery_content_form_help_icon_placement(const UserAssistanceDeliveryContentForm *self);
+void user_assistance_delivery_content_form_set_help_icon_placement(UserAssistanceDeliveryContentForm *self, const char *value);
+char *user_assistance_delivery_content_form_help_tooltip_style(const UserAssistanceDeliveryContentForm *self);
+void user_assistance_delivery_content_form_set_help_tooltip_style(UserAssistanceDeliveryContentForm *self, const char *value);
+
+// UserAssistanceHelpOverviewContentForm is the generated form facade for the `helpOverviewContent` @Form section.
+void user_assistance_help_overview_content_form_init(UserAssistanceHelpOverviewContentForm *self, SpecDocument *doc, const char *path);
+void user_assistance_help_overview_content_form_free(UserAssistanceHelpOverviewContentForm *self);
+char *user_assistance_help_overview_content_form_help_philosophy(const UserAssistanceHelpOverviewContentForm *self);
+void user_assistance_help_overview_content_form_set_help_philosophy(UserAssistanceHelpOverviewContentForm *self, const char *value);
+char *user_assistance_help_overview_content_form_help_accessibility(const UserAssistanceHelpOverviewContentForm *self);
+void user_assistance_help_overview_content_form_set_help_accessibility(UserAssistanceHelpOverviewContentForm *self, const char *value);
+char *user_assistance_help_overview_content_form_help_personalization(const UserAssistanceHelpOverviewContentForm *self);
+void user_assistance_help_overview_content_form_set_help_personalization(UserAssistanceHelpOverviewContentForm *self, const char *value);
+char *user_assistance_help_overview_content_form_help_content_strategy(const UserAssistanceHelpOverviewContentForm *self);
+void user_assistance_help_overview_content_form_set_help_content_strategy(UserAssistanceHelpOverviewContentForm *self, const char *value);
+
+// UserAssistanceInsightsContentForm is the generated form facade for the `content` @Form section.
+void user_assistance_insights_content_form_init(UserAssistanceInsightsContentForm *self, SpecDocument *doc, const char *path);
+void user_assistance_insights_content_form_free(UserAssistanceInsightsContentForm *self);
+char *user_assistance_insights_content_form_help_analytics(const UserAssistanceInsightsContentForm *self);
+void user_assistance_insights_content_form_set_help_analytics(UserAssistanceInsightsContentForm *self, const char *value);
+char *user_assistance_insights_content_form_help_feedback(const UserAssistanceInsightsContentForm *self);
+void user_assistance_insights_content_form_set_help_feedback(UserAssistanceInsightsContentForm *self, const char *value);
 
 // UserAttributeEntryContentForm is the generated form facade for the `content` @Form section.
 void user_attribute_entry_content_form_init(UserAttributeEntryContentForm *self, SpecDocument *doc, const char *path);
