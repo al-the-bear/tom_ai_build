@@ -370,80 +370,52 @@ class OpportunityStatement {
 
 /// 4.1.1.3. Stakeholders and Beneficiaries.
 ///
-/// Lists all stakeholders and beneficiaries of the system with their
-/// interests, influence level, and expected benefits.
-@ContentHelp('Identify all stakeholders and beneficiaries. Include their '
-    'role, interests, level of influence, and expected benefits. '
-    'Distinguish between direct users, sponsors, and indirect beneficiaries.')
+/// A scope-framing *benefits lens* over the stakeholder landscape: who
+/// benefits from the system and what they gain. The canonical stakeholder
+/// register — with role, interest, influence, concerns and engagement
+/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// recorded there once and are not restated here (L34C-6 / SR-15).
+@ContentHelp('Identify the stakeholders and beneficiaries from a benefits '
+    'perspective: who they are and the value they gain from the system. '
+    'Record the canonical register (role, interest, influence, engagement) '
+    'once, in SBP.4 StakeholderRegister — reference it here, do not restate it.')
 @SectionId('SAB')
 class StakeholdersAndBeneficiaries {
-  @ContentType('description', 'Overview of stakeholder landscape and '
-      'how different groups will benefit from the system.')
+  @ContentType('description', 'Overview of the stakeholder landscape framed by '
+      'benefit; reference the canonical SBP.4 StakeholderRegister for the full '
+      'role/interest/influence/engagement attributes.')
   String? content;
 
-  /// Primary stakeholders — contains 1+× StakeholderEntry.
+  /// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
   @SectionId('STKNT-PRIM-LST')
   @SectionIdPattern('STKNT-PRIM-xxx')
   @Min(1)
-  @ContentHelp('Add one entry per primary stakeholder or stakeholder group. '
-      'Primary stakeholders are those directly affected by the system.')
+  @ContentHelp('Add one entry per primary stakeholder or group, framed by the '
+      'benefit they gain. Primary stakeholders are those directly affected.')
   List<StakeholderEntry> primaryStakeholders = [];
 
-  /// Secondary stakeholders — contains 0+× StakeholderEntry.
+  /// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   @SectionId('STKNT-SECO-LST')
   @SectionIdPattern('STKNT-SECO-xxx')
   @ContentHelp('Secondary stakeholders are indirectly affected by the system.')
   List<StakeholderEntry> secondaryStakeholders = [];
 }
 
-/// A stakeholder or beneficiary entry (form).
+/// A stakeholder or beneficiary entry — benefits lens (form).
+///
+/// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+/// concerns and engagement strategy are owned by the canonical SBP.4
+/// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 @SectionId('STKNT')
 class StakeholderEntry {
   @Form([
     Field('stakeholderName', String, 'Stakeholder Name or Group',
         required: true),
     Field('stakeholderType', String,
-        'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)',
-        required: true),
-    Field('role', String, 'Role (organizational role or relationship)'),
-    Field('interests', String,
-        'Interests (what they care about regarding this system)'),
-  ])
-  String? content;
-
-  /// Stakeholder influence, impact, and value.
-  StakeholderEntryImpact impact = StakeholderEntryImpact();
-
-  /// Engagement and communication expectations.
-  StakeholderEntryEngagement engagement = StakeholderEntryEngagement();
-}
-
-/// Stakeholder influence, impact, and value.
-@SectionId('STKIM')
-class StakeholderEntryImpact {
-  @Form([
-    Field('influenceLevel', String,
-        'Influence Level (High, Medium, Low - decision-making power)'),
-    Field('impactLevel', String,
-        'Impact Level (High, Medium, Low - how much system affects them)'),
+        'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)'),
     Field('expectedBenefits', String,
-        'Expected Benefits (what they will gain from the system)'),
-    Field('potentialConcerns', String,
-        'Potential Concerns (risks or issues from their perspective)'),
-  ])
-  String? content;
-}
-
-/// Engagement and communication expectations.
-@SectionId('STKEG')
-class StakeholderEntryEngagement {
-  @Form([
-    Field('engagementStrategy', String,
-        'Engagement Strategy (how to keep them informed and involved)'),
-    Field('communicationChannel', String,
-        'Communication Channel (preferred way to communicate with them)'),
-    Field('successCriteriaFromPerspective', String,
-        'Success Criteria (what makes this project successful from their view)'),
+        'Expected Benefits (the scope-framing value this group gains from the '
+            'system)'),
   ])
   String? content;
 }

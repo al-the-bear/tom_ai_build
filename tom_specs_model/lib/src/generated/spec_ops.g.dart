@@ -32215,39 +32215,13 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as StagingSuccessCriteria).content,
   ));
   SpecRegistry.register(StakeholderEntry, SpecClassOps(
-    slots: (o) {
-      final n = o as StakeholderEntry;
-      return [
-        SpecSlot.node(() => n.impact, (v) => n.impact = v as StakeholderEntryImpact, label: 'impact'),
-        SpecSlot.node(() => n.engagement, (v) => n.engagement = v as StakeholderEntryEngagement, label: 'engagement'),
-      ];
-    },
+    slots: (o) => const [],
     cloneShallow: (o) {
       final n = o as StakeholderEntry;
       return StakeholderEntry()
-        ..content = n.content
-        ..impact = n.impact
-        ..engagement = n.engagement;
+        ..content = n.content;
     },
     yamlScalar: (o) => (o as StakeholderEntry).content,
-  ));
-  SpecRegistry.register(StakeholderEntryEngagement, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as StakeholderEntryEngagement;
-      return StakeholderEntryEngagement()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as StakeholderEntryEngagement).content,
-  ));
-  SpecRegistry.register(StakeholderEntryImpact, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as StakeholderEntryImpact;
-      return StakeholderEntryImpact()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as StakeholderEntryImpact).content,
   ));
   SpecRegistry.register(StakeholderRegister, SpecClassOps(
     slots: (o) {

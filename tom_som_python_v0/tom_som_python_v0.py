@@ -41779,7 +41779,12 @@ class StagingSuccessCriteria(SomNode):
         return StagingSuccessCriteriaContentForm(self.doc, f"{self.path}/content")
 
 class StakeholderEntry(SomNode):
-    """A stakeholder or beneficiary entry (form)."""
+    """A stakeholder or beneficiary entry — benefits lens (form).
+    
+    Keeps only the scope-framing identity + benefit. Role, interest, influence,
+    concerns and engagement strategy are owned by the canonical SBP.4
+    [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -41787,36 +41792,13 @@ class StakeholderEntry(SomNode):
     def content(self):
         return StakeholderEntryContentForm(self.doc, f"{self.path}/content")
 
-    # Stakeholder influence, impact, and value.
-    @property
-    def impact(self):
-        return StakeholderEntryImpact(self.doc, f"{self.path}/impact")
-
-    # Engagement and communication expectations.
-    @property
-    def engagement(self):
-        return StakeholderEntryEngagement(self.doc, f"{self.path}/engagement")
-
-class StakeholderEntryEngagement(SomNode):
-    """Engagement and communication expectations."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return StakeholderEntryEngagementContentForm(self.doc, f"{self.path}/content")
-
-class StakeholderEntryImpact(SomNode):
-    """Stakeholder influence, impact, and value."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return StakeholderEntryImpactContentForm(self.doc, f"{self.path}/content")
-
 class StakeholderRegister(SomNode):
-    """A register of the project's stakeholders.
+    """The canonical register of the project's stakeholders (L34C-6 / SR-15).
+    
+    This is the single source of truth for stakeholder role, interest,
+    influence, concerns and engagement strategy. SBP.2
+    `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+    references this register rather than restating its attributes.
     
     Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
     """
@@ -41852,8 +41834,11 @@ class StakeholderRegisterEntry(SomNode):
 class StakeholdersAndBeneficiaries(SomNode):
     """4.1.1.3. Stakeholders and Beneficiaries.
     
-    Lists all stakeholders and beneficiaries of the system with their
-    interests, influence level, and expected benefits.
+    A scope-framing *benefits lens* over the stakeholder landscape: who
+    benefits from the system and what they gain. The canonical stakeholder
+    register — with role, interest, influence, concerns and engagement
+    strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+    recorded there once and are not restated here (L34C-6 / SR-15).
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -41866,12 +41851,12 @@ class StakeholdersAndBeneficiaries(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Primary stakeholders — contains 1+× StakeholderEntry.
+    # Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
     @property
     def primaryStakeholders(self):
         return SomList(self.doc, f"{self.path}/STKNT-PRIM-LST", lambda d, p: StakeholderEntry(d, p))
 
-    # Secondary stakeholders — contains 0+× StakeholderEntry.
+    # Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
     @property
     def secondaryStakeholders(self):
         return SomList(self.doc, f"{self.path}/STKNT-SECO-LST", lambda d, p: StakeholderEntry(d, p))
@@ -138034,88 +138019,12 @@ class StakeholderEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "stakeholderType", value)
 
     @property
-    def role(self):
-        return self.doc.form_field(self.path, "role") or ""
-
-    @role.setter
-    def role(self, value):
-        self.doc.set_form_field(self.path, "role", value)
-
-    @property
-    def interests(self):
-        return self.doc.form_field(self.path, "interests") or ""
-
-    @interests.setter
-    def interests(self, value):
-        self.doc.set_form_field(self.path, "interests", value)
-
-class StakeholderEntryEngagementContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def engagementStrategy(self):
-        return self.doc.form_field(self.path, "engagementStrategy") or ""
-
-    @engagementStrategy.setter
-    def engagementStrategy(self, value):
-        self.doc.set_form_field(self.path, "engagementStrategy", value)
-
-    @property
-    def communicationChannel(self):
-        return self.doc.form_field(self.path, "communicationChannel") or ""
-
-    @communicationChannel.setter
-    def communicationChannel(self, value):
-        self.doc.set_form_field(self.path, "communicationChannel", value)
-
-    @property
-    def successCriteriaFromPerspective(self):
-        return self.doc.form_field(self.path, "successCriteriaFromPerspective") or ""
-
-    @successCriteriaFromPerspective.setter
-    def successCriteriaFromPerspective(self, value):
-        self.doc.set_form_field(self.path, "successCriteriaFromPerspective", value)
-
-class StakeholderEntryImpactContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def influenceLevel(self):
-        return self.doc.form_field(self.path, "influenceLevel") or ""
-
-    @influenceLevel.setter
-    def influenceLevel(self, value):
-        self.doc.set_form_field(self.path, "influenceLevel", value)
-
-    @property
-    def impactLevel(self):
-        return self.doc.form_field(self.path, "impactLevel") or ""
-
-    @impactLevel.setter
-    def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
-
-    @property
     def expectedBenefits(self):
         return self.doc.form_field(self.path, "expectedBenefits") or ""
 
     @expectedBenefits.setter
     def expectedBenefits(self, value):
         self.doc.set_form_field(self.path, "expectedBenefits", value)
-
-    @property
-    def potentialConcerns(self):
-        return self.doc.form_field(self.path, "potentialConcerns") or ""
-
-    @potentialConcerns.setter
-    def potentialConcerns(self, value):
-        self.doc.set_form_field(self.path, "potentialConcerns", value)
 
 class StakeholderRegisterEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

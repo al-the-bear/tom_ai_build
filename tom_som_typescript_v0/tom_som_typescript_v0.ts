@@ -45904,7 +45904,11 @@ export class StagingSuccessCriteria extends SomNode {
   }
 }
 
-// A stakeholder or beneficiary entry (form).
+// A stakeholder or beneficiary entry — benefits lens (form).
+//
+// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+// concerns and engagement strategy are owned by the canonical SBP.4
+// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 export class StakeholderEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -45913,41 +45917,14 @@ export class StakeholderEntry extends SomNode {
   get content(): StakeholderEntryContentForm {
     return new StakeholderEntryContentForm(this.doc, this.path + "/content");
   }
-
-  // Stakeholder influence, impact, and value.
-  get impact(): StakeholderEntryImpact {
-    return new StakeholderEntryImpact(this.doc, this.path + "/impact");
-  }
-
-  // Engagement and communication expectations.
-  get engagement(): StakeholderEntryEngagement {
-    return new StakeholderEntryEngagement(this.doc, this.path + "/engagement");
-  }
 }
 
-// Engagement and communication expectations.
-export class StakeholderEntryEngagement extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): StakeholderEntryEngagementContentForm {
-    return new StakeholderEntryEngagementContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Stakeholder influence, impact, and value.
-export class StakeholderEntryImpact extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): StakeholderEntryImpactContentForm {
-    return new StakeholderEntryImpactContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A register of the project's stakeholders.
+// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+//
+// This is the single source of truth for stakeholder role, interest,
+// influence, concerns and engagement strategy. SBP.2
+// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+// references this register rather than restating its attributes.
 //
 // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 export class StakeholderRegister extends SomNode {
@@ -45985,8 +45962,11 @@ export class StakeholderRegisterEntry extends SomNode {
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
 //
-// Lists all stakeholders and beneficiaries of the system with their
-// interests, influence level, and expected benefits.
+// A scope-framing *benefits lens* over the stakeholder landscape: who
+// benefits from the system and what they gain. The canonical stakeholder
+// register — with role, interest, influence, concerns and engagement
+// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// recorded there once and are not restated here (L34C-6 / SR-15).
 export class StakeholdersAndBeneficiaries extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46000,12 +45980,12 @@ export class StakeholdersAndBeneficiaries extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Primary stakeholders — contains 1+× StakeholderEntry.
+  // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
   get primaryStakeholders(): SomList<StakeholderEntry> {
     return new SomList(this.doc, this.path + "/STKNT-PRIM-LST", (d: SpecDocument, p: string) => new StakeholderEntry(d, p));
   }
 
-  // Secondary stakeholders — contains 0+× StakeholderEntry.
+  // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   get secondaryStakeholders(): SomList<StakeholderEntry> {
     return new SomList(this.doc, this.path + "/STKNT-SECO-LST", (d: SpecDocument, p: string) => new StakeholderEntry(d, p));
   }
@@ -145169,90 +145149,12 @@ export class StakeholderEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "stakeholderType", value);
   }
 
-  get role(): string {
-    return this.doc.formField(this.path, "role") || '';
-  }
-
-  set role(value: string) {
-    this.doc.setFormField(this.path, "role", value);
-  }
-
-  get interests(): string {
-    return this.doc.formField(this.path, "interests") || '';
-  }
-
-  set interests(value: string) {
-    this.doc.setFormField(this.path, "interests", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class StakeholderEntryEngagementContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get engagementStrategy(): string {
-    return this.doc.formField(this.path, "engagementStrategy") || '';
-  }
-
-  set engagementStrategy(value: string) {
-    this.doc.setFormField(this.path, "engagementStrategy", value);
-  }
-
-  get communicationChannel(): string {
-    return this.doc.formField(this.path, "communicationChannel") || '';
-  }
-
-  set communicationChannel(value: string) {
-    this.doc.setFormField(this.path, "communicationChannel", value);
-  }
-
-  get successCriteriaFromPerspective(): string {
-    return this.doc.formField(this.path, "successCriteriaFromPerspective") || '';
-  }
-
-  set successCriteriaFromPerspective(value: string) {
-    this.doc.setFormField(this.path, "successCriteriaFromPerspective", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class StakeholderEntryImpactContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get influenceLevel(): string {
-    return this.doc.formField(this.path, "influenceLevel") || '';
-  }
-
-  set influenceLevel(value: string) {
-    this.doc.setFormField(this.path, "influenceLevel", value);
-  }
-
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
-  }
-
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
-  }
-
   get expectedBenefits(): string {
     return this.doc.formField(this.path, "expectedBenefits") || '';
   }
 
   set expectedBenefits(value: string) {
     this.doc.setFormField(this.path, "expectedBenefits", value);
-  }
-
-  get potentialConcerns(): string {
-    return this.doc.formField(this.path, "potentialConcerns") || '';
-  }
-
-  set potentialConcerns(value: string) {
-    this.doc.setFormField(this.path, "potentialConcerns", value);
   }
 }
 

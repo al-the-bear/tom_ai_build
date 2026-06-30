@@ -2259,7 +2259,7 @@ section-types:
     pattern-check-id:
       pattern: ^stknt_prim_lst-\d+$
       error-message: ID must match stknt_prim_lst-NNN
-    description: Add one entry per primary stakeholder or stakeholder group. Primary stakeholders are those directly affected by the system.
+    description: "Add one entry per primary stakeholder or group, framed by the benefit they gain. Primary stakeholders are those directly affected."
   STKNT-SECO-LST:
     prefix: stknt_seco_lst
     pattern-check-id:
@@ -8125,21 +8125,15 @@ section-types:
   STEPU:
     prefix: stepu
     description: A single step up detail entry.
-  STKEG:
-    prefix: stkeg
-    description: Engagement and communication expectations.
-  STKIM:
-    prefix: stkim
-    description: "Stakeholder influence, impact, and value."
   STKNT:
     prefix: stknt
-    description: A stakeholder or beneficiary entry (form).
+    description: A stakeholder or beneficiary entry — benefits lens (form).
   STKRE:
     prefix: stkre
     description: A single stakeholder register entry (form).
   STKRG:
     prefix: stkrg
-    description: A register of the project's stakeholders.
+    description: The canonical register of the project's stakeholders (L34C-6 / SR-15).
   STRAL:
     prefix: stral
     description: "Show how this project aligns with organizational strategy. Reference corporate goals, IT roadmap, and strategic initiatives."
@@ -12999,7 +12993,7 @@ section-types:
     description: "Define the UI elements needed to support this requirement. Specify screens, forms, fields, actions, and behaviors."
   SAB:
     prefix: sab
-    description: "Identify all stakeholders and beneficiaries. Include their role, interests, level of influence, and expected benefits. Distinguish between direct users, sponsors, and indirect beneficiaries."
+    description: "Identify the stakeholders and beneficiaries from a benefits perspective: who they are and the value they gain from the system. Record the canonical register (role, interest, influence, engagement) once, in SBP.4 StakeholderRegister — reference it here, do not restate it."
   SAE:
     prefix: sae
     description: A security audit requirement entry (form).

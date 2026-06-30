@@ -56,7 +56,12 @@ from standard organizational project governance procedures.
   StakeholderRegister stakeholderRegister = StakeholderRegister();
 }
 
-/// A register of the project's stakeholders.
+/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+///
+/// This is the single source of truth for stakeholder role, interest,
+/// influence, concerns and engagement strategy. SBP.2
+/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+/// references this register rather than restating its attributes.
 ///
 /// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 @SectionId('STKRG')

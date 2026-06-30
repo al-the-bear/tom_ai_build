@@ -13,12 +13,13 @@ void main() {
     test('registerSpecOps registers ops for the whole model + section leaves',
         () {
       DocSpecsProject(); // idempotent registration
-      // 3076 reflected model classes (after L34C-5 dissolved the `Administrative`
-      // wrapper class — its children were lifted to SBP.4 and `ReferenceDocuments`
-      // re-homed to SBP.1, a net −1 class), minus the two hand-written `SpecNode`
-      // leaves (DocumentHeader, SectionMeta) that adopt the contract via the mixin
+      // 3074 reflected model classes (after L34C-6 canonicalized the stakeholder
+      // register: the SBP.2 benefits-lens entry dropped its `StakeholderEntryImpact`
+      // / `StakeholderEntryEngagement` sub-forms — now owned by the canonical SBP.4
+      // register — a net −2 classes), minus the two hand-written `SpecNode` leaves
+      // (DocumentHeader, SectionMeta) that adopt the contract via the mixin
       // fast-path, plus the 10 tom_specs_core section content leaves.
-      expect(SpecRegistry.length, greaterThanOrEqualTo(3076 - 2 + 10));
+      expect(SpecRegistry.length, greaterThanOrEqualTo(3074 - 2 + 10));
       // A representative deep model class resolves to real ops.
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });

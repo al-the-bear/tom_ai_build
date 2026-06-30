@@ -54573,7 +54573,11 @@ func (x *StagingSuccessCriteria) Content() *StagingSuccessCriteriaContentForm {
 	return NewStagingSuccessCriteriaContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A stakeholder or beneficiary entry (form).
+// A stakeholder or beneficiary entry — benefits lens (form).
+//
+// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+// concerns and engagement strategy are owned by the canonical SBP.4
+// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 type StakeholderEntry struct {
 	som.SomNode
 }
@@ -54587,45 +54591,12 @@ func (x *StakeholderEntry) Content() *StakeholderEntryContentForm {
 	return NewStakeholderEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Stakeholder influence, impact, and value.
-func (x *StakeholderEntry) Impact() *StakeholderEntryImpact {
-	return NewStakeholderEntryImpact(x.Doc(), x.Path() + "/impact")
-}
-
-// Engagement and communication expectations.
-func (x *StakeholderEntry) Engagement() *StakeholderEntryEngagement {
-	return NewStakeholderEntryEngagement(x.Doc(), x.Path() + "/engagement")
-}
-
-// Engagement and communication expectations.
-type StakeholderEntryEngagement struct {
-	som.SomNode
-}
-
-// NewStakeholderEntryEngagement binds a StakeholderEntryEngagement facade to a document and a path.
-func NewStakeholderEntryEngagement(doc *som.SpecDocument, path string) *StakeholderEntryEngagement {
-	return &StakeholderEntryEngagement{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *StakeholderEntryEngagement) Content() *StakeholderEntryEngagementContentForm {
-	return NewStakeholderEntryEngagementContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Stakeholder influence, impact, and value.
-type StakeholderEntryImpact struct {
-	som.SomNode
-}
-
-// NewStakeholderEntryImpact binds a StakeholderEntryImpact facade to a document and a path.
-func NewStakeholderEntryImpact(doc *som.SpecDocument, path string) *StakeholderEntryImpact {
-	return &StakeholderEntryImpact{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *StakeholderEntryImpact) Content() *StakeholderEntryImpactContentForm {
-	return NewStakeholderEntryImpactContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// A register of the project's stakeholders.
+// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+//
+// This is the single source of truth for stakeholder role, interest,
+// influence, concerns and engagement strategy. SBP.2
+// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+// references this register rather than restating its attributes.
 //
 // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 type StakeholderRegister struct {
@@ -54671,8 +54642,11 @@ func (x *StakeholderRegisterEntry) Content() *StakeholderRegisterEntryContentFor
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
 //
-// Lists all stakeholders and beneficiaries of the system with their
-// interests, influence level, and expected benefits.
+// A scope-framing *benefits lens* over the stakeholder landscape: who
+// benefits from the system and what they gain. The canonical stakeholder
+// register — with role, interest, influence, concerns and engagement
+// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// recorded there once and are not restated here (L34C-6 / SR-15).
 type StakeholdersAndBeneficiaries struct {
 	som.SomNode
 }
@@ -54690,14 +54664,14 @@ func (x *StakeholdersAndBeneficiaries) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Primary stakeholders — contains 1+× StakeholderEntry.
+// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
 func (x *StakeholdersAndBeneficiaries) PrimaryStakeholders() *som.SomList[*StakeholderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STKNT-PRIM-LST", func(d *som.SpecDocument, p string) *StakeholderEntry {
 		return NewStakeholderEntry(d, p)
 	})
 }
 
-// Secondary stakeholders — contains 0+× StakeholderEntry.
+// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
 func (x *StakeholdersAndBeneficiaries) SecondaryStakeholders() *som.SomList[*StakeholderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STKNT-SECO-LST", func(d *som.SpecDocument, p string) *StakeholderEntry {
 		return NewStakeholderEntry(d, p)
@@ -162269,96 +162243,12 @@ func (x *StakeholderEntryContentForm) SetStakeholderType(value string) {
 	x.Doc().SetFormField(x.Path(), "stakeholderType", value)
 }
 
-func (x *StakeholderEntryContentForm) Role() string {
-	return x.Doc().FormFieldOr(x.Path(), "role")
-}
-
-func (x *StakeholderEntryContentForm) SetRole(value string) {
-	x.Doc().SetFormField(x.Path(), "role", value)
-}
-
-func (x *StakeholderEntryContentForm) Interests() string {
-	return x.Doc().FormFieldOr(x.Path(), "interests")
-}
-
-func (x *StakeholderEntryContentForm) SetInterests(value string) {
-	x.Doc().SetFormField(x.Path(), "interests", value)
-}
-
-// StakeholderEntryEngagementContentForm is the generated form facade for the `content` @Form section.
-type StakeholderEntryEngagementContentForm struct {
-	som.SomNode
-}
-
-// NewStakeholderEntryEngagementContentForm binds a StakeholderEntryEngagementContentForm facade to a document and a path.
-func NewStakeholderEntryEngagementContentForm(doc *som.SpecDocument, path string) *StakeholderEntryEngagementContentForm {
-	return &StakeholderEntryEngagementContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *StakeholderEntryEngagementContentForm) EngagementStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "engagementStrategy")
-}
-
-func (x *StakeholderEntryEngagementContentForm) SetEngagementStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "engagementStrategy", value)
-}
-
-func (x *StakeholderEntryEngagementContentForm) CommunicationChannel() string {
-	return x.Doc().FormFieldOr(x.Path(), "communicationChannel")
-}
-
-func (x *StakeholderEntryEngagementContentForm) SetCommunicationChannel(value string) {
-	x.Doc().SetFormField(x.Path(), "communicationChannel", value)
-}
-
-func (x *StakeholderEntryEngagementContentForm) SuccessCriteriaFromPerspective() string {
-	return x.Doc().FormFieldOr(x.Path(), "successCriteriaFromPerspective")
-}
-
-func (x *StakeholderEntryEngagementContentForm) SetSuccessCriteriaFromPerspective(value string) {
-	x.Doc().SetFormField(x.Path(), "successCriteriaFromPerspective", value)
-}
-
-// StakeholderEntryImpactContentForm is the generated form facade for the `content` @Form section.
-type StakeholderEntryImpactContentForm struct {
-	som.SomNode
-}
-
-// NewStakeholderEntryImpactContentForm binds a StakeholderEntryImpactContentForm facade to a document and a path.
-func NewStakeholderEntryImpactContentForm(doc *som.SpecDocument, path string) *StakeholderEntryImpactContentForm {
-	return &StakeholderEntryImpactContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *StakeholderEntryImpactContentForm) InfluenceLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "influenceLevel")
-}
-
-func (x *StakeholderEntryImpactContentForm) SetInfluenceLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "influenceLevel", value)
-}
-
-func (x *StakeholderEntryImpactContentForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
-}
-
-func (x *StakeholderEntryImpactContentForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
-}
-
-func (x *StakeholderEntryImpactContentForm) ExpectedBenefits() string {
+func (x *StakeholderEntryContentForm) ExpectedBenefits() string {
 	return x.Doc().FormFieldOr(x.Path(), "expectedBenefits")
 }
 
-func (x *StakeholderEntryImpactContentForm) SetExpectedBenefits(value string) {
+func (x *StakeholderEntryContentForm) SetExpectedBenefits(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedBenefits", value)
-}
-
-func (x *StakeholderEntryImpactContentForm) PotentialConcerns() string {
-	return x.Doc().FormFieldOr(x.Path(), "potentialConcerns")
-}
-
-func (x *StakeholderEntryImpactContentForm) SetPotentialConcerns(value string) {
-	x.Doc().SetFormField(x.Path(), "potentialConcerns", value)
 }
 
 // StakeholderRegisterEntryContentForm is the generated form facade for the `content` @Form section.

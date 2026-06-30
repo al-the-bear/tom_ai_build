@@ -56969,48 +56969,6 @@ StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *se
   free(path);
   return out;
 }
-StakeholderEntryImpact stakeholder_entry_impact(const StakeholderEntry *self) {
-  char *path = spec_path_join(self->node.path, "impact");
-  StakeholderEntryImpact out;
-  stakeholder_entry_impact_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-StakeholderEntryEngagement stakeholder_entry_engagement(const StakeholderEntry *self) {
-  char *path = spec_path_join(self->node.path, "engagement");
-  StakeholderEntryEngagement out;
-  stakeholder_entry_engagement_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void stakeholder_entry_engagement_init(StakeholderEntryEngagement *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void stakeholder_entry_engagement_free(StakeholderEntryEngagement *self) {
-  som_node_free(&self->node);
-}
-StakeholderEntryEngagementContentForm stakeholder_entry_engagement_content(const StakeholderEntryEngagement *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  StakeholderEntryEngagementContentForm out;
-  stakeholder_entry_engagement_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void stakeholder_entry_impact_init(StakeholderEntryImpact *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void stakeholder_entry_impact_free(StakeholderEntryImpact *self) {
-  som_node_free(&self->node);
-}
-StakeholderEntryImpactContentForm stakeholder_entry_impact_content(const StakeholderEntryImpact *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  StakeholderEntryImpactContentForm out;
-  stakeholder_entry_impact_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
 
 void stakeholder_register_init(StakeholderRegister *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -149150,82 +149108,12 @@ char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryCont
 void stakeholder_entry_content_form_set_stakeholder_type(StakeholderEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderType", value);
 }
-char *stakeholder_entry_content_form_role(const StakeholderEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_content_form_set_role(StakeholderEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
-}
-char *stakeholder_entry_content_form_interests(const StakeholderEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "interests");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_content_form_set_interests(StakeholderEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "interests", value);
-}
-
-void stakeholder_entry_engagement_content_form_init(StakeholderEntryEngagementContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void stakeholder_entry_engagement_content_form_free(StakeholderEntryEngagementContentForm *self) {
-  som_node_free(&self->node);
-}
-char *stakeholder_entry_engagement_content_form_engagement_strategy(const StakeholderEntryEngagementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "engagementStrategy");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_engagement_content_form_set_engagement_strategy(StakeholderEntryEngagementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "engagementStrategy", value);
-}
-char *stakeholder_entry_engagement_content_form_communication_channel(const StakeholderEntryEngagementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "communicationChannel");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_engagement_content_form_set_communication_channel(StakeholderEntryEngagementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "communicationChannel", value);
-}
-char *stakeholder_entry_engagement_content_form_success_criteria_from_perspective(const StakeholderEntryEngagementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "successCriteriaFromPerspective");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_engagement_content_form_set_success_criteria_from_perspective(StakeholderEntryEngagementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "successCriteriaFromPerspective", value);
-}
-
-void stakeholder_entry_impact_content_form_init(StakeholderEntryImpactContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void stakeholder_entry_impact_content_form_free(StakeholderEntryImpactContentForm *self) {
-  som_node_free(&self->node);
-}
-char *stakeholder_entry_impact_content_form_influence_level(const StakeholderEntryImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "influenceLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_impact_content_form_set_influence_level(StakeholderEntryImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "influenceLevel", value);
-}
-char *stakeholder_entry_impact_content_form_impact_level(const StakeholderEntryImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_impact_content_form_set_impact_level(StakeholderEntryImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactLevel", value);
-}
-char *stakeholder_entry_impact_content_form_expected_benefits(const StakeholderEntryImpactContentForm *self) {
+char *stakeholder_entry_content_form_expected_benefits(const StakeholderEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "expectedBenefits");
   return som_strdup(v != NULL ? v : "");
 }
-void stakeholder_entry_impact_content_form_set_expected_benefits(StakeholderEntryImpactContentForm *self, const char *value) {
+void stakeholder_entry_content_form_set_expected_benefits(StakeholderEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "expectedBenefits", value);
-}
-char *stakeholder_entry_impact_content_form_potential_concerns(const StakeholderEntryImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "potentialConcerns");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_impact_content_form_set_potential_concerns(StakeholderEntryImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "potentialConcerns", value);
 }
 
 void stakeholder_register_entry_content_form_init(StakeholderRegisterEntryContentForm *self, SpecDocument *doc, const char *path) {

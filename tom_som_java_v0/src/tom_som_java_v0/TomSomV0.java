@@ -46343,7 +46343,11 @@ public final class TomSomV0 {
     }
   }
 
-  // A stakeholder or beneficiary entry (form).
+  // A stakeholder or beneficiary entry — benefits lens (form).
+  //
+  // Keeps only the scope-framing identity + benefit. Role, interest, influence,
+  // concerns and engagement strategy are owned by the canonical SBP.4
+  // [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
   public static final class StakeholderEntry extends SomNode {
     public StakeholderEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -46352,41 +46356,14 @@ public final class TomSomV0 {
     public StakeholderEntryContentForm content() {
       return new StakeholderEntryContentForm(doc, path + "/content");
     }
-
-    // Stakeholder influence, impact, and value.
-    public StakeholderEntryImpact impact() {
-      return new StakeholderEntryImpact(doc, path + "/impact");
-    }
-
-    // Engagement and communication expectations.
-    public StakeholderEntryEngagement engagement() {
-      return new StakeholderEntryEngagement(doc, path + "/engagement");
-    }
   }
 
-  // Engagement and communication expectations.
-  public static final class StakeholderEntryEngagement extends SomNode {
-    public StakeholderEntryEngagement(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public StakeholderEntryEngagementContentForm content() {
-      return new StakeholderEntryEngagementContentForm(doc, path + "/content");
-    }
-  }
-
-  // Stakeholder influence, impact, and value.
-  public static final class StakeholderEntryImpact extends SomNode {
-    public StakeholderEntryImpact(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public StakeholderEntryImpactContentForm content() {
-      return new StakeholderEntryImpactContentForm(doc, path + "/content");
-    }
-  }
-
-  // A register of the project's stakeholders.
+  // The canonical register of the project's stakeholders (L34C-6 / SR-15).
+  //
+  // This is the single source of truth for stakeholder role, interest,
+  // influence, concerns and engagement strategy. SBP.2
+  // `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+  // references this register rather than restating its attributes.
   //
   // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
   public static final class StakeholderRegister extends SomNode {
@@ -46425,8 +46402,11 @@ public final class TomSomV0 {
 
   // 4.1.1.3. Stakeholders and Beneficiaries.
   //
-  // Lists all stakeholders and beneficiaries of the system with their
-  // interests, influence level, and expected benefits.
+  // A scope-framing *benefits lens* over the stakeholder landscape: who
+  // benefits from the system and what they gain. The canonical stakeholder
+  // register — with role, interest, influence, concerns and engagement
+  // strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+  // recorded there once and are not restated here (L34C-6 / SR-15).
   public static final class StakeholdersAndBeneficiaries extends SomNode {
     public StakeholdersAndBeneficiaries(SpecDocument doc, String path) {
       super(doc, path);
@@ -46441,12 +46421,12 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Primary stakeholders — contains 1+× StakeholderEntry.
+    // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
     public SomList<StakeholderEntry> primaryStakeholders() {
       return new SomList<>(doc, path + "/STKNT-PRIM-LST", (d, p) -> new StakeholderEntry(d, p));
     }
 
-    // Secondary stakeholders — contains 0+× StakeholderEntry.
+    // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
     public SomList<StakeholderEntry> secondaryStakeholders() {
       return new SomList<>(doc, path + "/STKNT-SECO-LST", (d, p) -> new StakeholderEntry(d, p));
     }
@@ -154993,83 +154973,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "stakeholderType", value);
     }
 
-    public String role() {
-      String v = doc.formField(path, "role");
-      return v == null ? "" : v;
-    }
-
-    public void role(String value) {
-      doc.setFormField(path, "role", value);
-    }
-
-    public String interests() {
-      String v = doc.formField(path, "interests");
-      return v == null ? "" : v;
-    }
-
-    public void interests(String value) {
-      doc.setFormField(path, "interests", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class StakeholderEntryEngagementContentForm extends SomNode {
-    public StakeholderEntryEngagementContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String engagementStrategy() {
-      String v = doc.formField(path, "engagementStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void engagementStrategy(String value) {
-      doc.setFormField(path, "engagementStrategy", value);
-    }
-
-    public String communicationChannel() {
-      String v = doc.formField(path, "communicationChannel");
-      return v == null ? "" : v;
-    }
-
-    public void communicationChannel(String value) {
-      doc.setFormField(path, "communicationChannel", value);
-    }
-
-    public String successCriteriaFromPerspective() {
-      String v = doc.formField(path, "successCriteriaFromPerspective");
-      return v == null ? "" : v;
-    }
-
-    public void successCriteriaFromPerspective(String value) {
-      doc.setFormField(path, "successCriteriaFromPerspective", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class StakeholderEntryImpactContentForm extends SomNode {
-    public StakeholderEntryImpactContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String influenceLevel() {
-      String v = doc.formField(path, "influenceLevel");
-      return v == null ? "" : v;
-    }
-
-    public void influenceLevel(String value) {
-      doc.setFormField(path, "influenceLevel", value);
-    }
-
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
-    }
-
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
-    }
-
     public String expectedBenefits() {
       String v = doc.formField(path, "expectedBenefits");
       return v == null ? "" : v;
@@ -155077,15 +154980,6 @@ public final class TomSomV0 {
 
     public void expectedBenefits(String value) {
       doc.setFormField(path, "expectedBenefits", value);
-    }
-
-    public String potentialConcerns() {
-      String v = doc.formField(path, "potentialConcerns");
-      return v == null ? "" : v;
-    }
-
-    public void potentialConcerns(String value) {
-      doc.setFormField(path, "potentialConcerns", value);
     }
   }
 

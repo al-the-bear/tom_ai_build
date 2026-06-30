@@ -29041,34 +29041,23 @@ class StagingSuccessCriteria extends SomNode {
   StagingSuccessCriteriaContentForm get content => StagingSuccessCriteriaContentForm(doc, '$path/content');
 }
 
-/// A stakeholder or beneficiary entry (form).
+/// A stakeholder or beneficiary entry — benefits lens (form).
+/// 
+/// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+/// concerns and engagement strategy are owned by the canonical SBP.4
+/// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 class StakeholderEntry extends SomNode {
   StakeholderEntry(super.doc, super.path);
 
   StakeholderEntryContentForm get content => StakeholderEntryContentForm(doc, '$path/content');
-
-  /// Stakeholder influence, impact, and value.
-  StakeholderEntryImpact get impact => StakeholderEntryImpact(doc, '$path/impact');
-
-  /// Engagement and communication expectations.
-  StakeholderEntryEngagement get engagement => StakeholderEntryEngagement(doc, '$path/engagement');
 }
 
-/// Engagement and communication expectations.
-class StakeholderEntryEngagement extends SomNode {
-  StakeholderEntryEngagement(super.doc, super.path);
-
-  StakeholderEntryEngagementContentForm get content => StakeholderEntryEngagementContentForm(doc, '$path/content');
-}
-
-/// Stakeholder influence, impact, and value.
-class StakeholderEntryImpact extends SomNode {
-  StakeholderEntryImpact(super.doc, super.path);
-
-  StakeholderEntryImpactContentForm get content => StakeholderEntryImpactContentForm(doc, '$path/content');
-}
-
-/// A register of the project's stakeholders.
+/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+/// 
+/// This is the single source of truth for stakeholder role, interest,
+/// influence, concerns and engagement strategy. SBP.2
+/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+/// references this register rather than restating its attributes.
 /// 
 /// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 class StakeholderRegister extends SomNode {
@@ -29093,18 +29082,21 @@ class StakeholderRegisterEntry extends SomNode {
 
 /// 4.1.1.3. Stakeholders and Beneficiaries.
 /// 
-/// Lists all stakeholders and beneficiaries of the system with their
-/// interests, influence level, and expected benefits.
+/// A scope-framing *benefits lens* over the stakeholder landscape: who
+/// benefits from the system and what they gain. The canonical stakeholder
+/// register — with role, interest, influence, concerns and engagement
+/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries extends SomNode {
   StakeholdersAndBeneficiaries(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Primary stakeholders — contains 1+× StakeholderEntry.
+  /// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
   SomList<StakeholderEntry> get primaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-PRIM-LST', (d, p) => StakeholderEntry(d, p));
 
-  /// Secondary stakeholders — contains 0+× StakeholderEntry.
+  /// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   SomList<StakeholderEntry> get secondaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-SECO-LST', (d, p) => StakeholderEntry(d, p));
 }
 
@@ -73941,42 +73933,8 @@ class StakeholderEntryContentForm extends SomNode {
   String get stakeholderType => doc.formField(path, 'stakeholderType') ?? '';
   set stakeholderType(String value) => doc.setFormField(path, 'stakeholderType', value);
 
-  String get role => doc.formField(path, 'role') ?? '';
-  set role(String value) => doc.setFormField(path, 'role', value);
-
-  String get interests => doc.formField(path, 'interests') ?? '';
-  set interests(String value) => doc.setFormField(path, 'interests', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class StakeholderEntryEngagementContentForm extends SomNode {
-  StakeholderEntryEngagementContentForm(super.doc, super.path);
-
-  String get engagementStrategy => doc.formField(path, 'engagementStrategy') ?? '';
-  set engagementStrategy(String value) => doc.setFormField(path, 'engagementStrategy', value);
-
-  String get communicationChannel => doc.formField(path, 'communicationChannel') ?? '';
-  set communicationChannel(String value) => doc.setFormField(path, 'communicationChannel', value);
-
-  String get successCriteriaFromPerspective => doc.formField(path, 'successCriteriaFromPerspective') ?? '';
-  set successCriteriaFromPerspective(String value) => doc.setFormField(path, 'successCriteriaFromPerspective', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class StakeholderEntryImpactContentForm extends SomNode {
-  StakeholderEntryImpactContentForm(super.doc, super.path);
-
-  String get influenceLevel => doc.formField(path, 'influenceLevel') ?? '';
-  set influenceLevel(String value) => doc.setFormField(path, 'influenceLevel', value);
-
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
-
   String get expectedBenefits => doc.formField(path, 'expectedBenefits') ?? '';
   set expectedBenefits(String value) => doc.setFormField(path, 'expectedBenefits', value);
-
-  String get potentialConcerns => doc.formField(path, 'potentialConcerns') ?? '';
-  set potentialConcerns(String value) => doc.setFormField(path, 'potentialConcerns', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

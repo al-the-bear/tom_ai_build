@@ -2600,8 +2600,6 @@ typedef struct { SomNode node; } StagingStrategy;
 typedef struct { SomNode node; } StagingStrategyConstraintEntry;
 typedef struct { SomNode node; } StagingSuccessCriteria;
 typedef struct { SomNode node; } StakeholderEntry;
-typedef struct { SomNode node; } StakeholderEntryEngagement;
-typedef struct { SomNode node; } StakeholderEntryImpact;
 typedef struct { SomNode node; } StakeholderRegister;
 typedef struct { SomNode node; } StakeholderRegisterEntry;
 typedef struct { SomNode node; } StakeholdersAndBeneficiaries;
@@ -5329,8 +5327,6 @@ typedef struct { SomNode node; } StagingRiskAssessmentContentForm;
 typedef struct { SomNode node; } StagingStrategyContentForm;
 typedef struct { SomNode node; } StagingSuccessCriteriaContentForm;
 typedef struct { SomNode node; } StakeholderEntryContentForm;
-typedef struct { SomNode node; } StakeholderEntryEngagementContentForm;
-typedef struct { SomNode node; } StakeholderEntryImpactContentForm;
 typedef struct { SomNode node; } StakeholderRegisterEntryContentForm;
 typedef struct { SomNode node; } StakeholdersAndInterestsContentForm;
 typedef struct { SomNode node; } StrategicAlignmentAlignmentDetailsForm;
@@ -29613,29 +29609,22 @@ void staging_success_criteria_init(StagingSuccessCriteria *self, SpecDocument *d
 void staging_success_criteria_free(StagingSuccessCriteria *self);
 StagingSuccessCriteriaContentForm staging_success_criteria_content(const StagingSuccessCriteria *self);
 
-// A stakeholder or beneficiary entry (form).
+// A stakeholder or beneficiary entry — benefits lens (form).
+//
+// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+// concerns and engagement strategy are owned by the canonical SBP.4
+// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 // Binds a StakeholderEntry facade to a document and a path (path copied).
 void stakeholder_entry_init(StakeholderEntry *self, SpecDocument *doc, const char *path);
 void stakeholder_entry_free(StakeholderEntry *self);
 StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *self);
-// Stakeholder influence, impact, and value.
-StakeholderEntryImpact stakeholder_entry_impact(const StakeholderEntry *self);
-// Engagement and communication expectations.
-StakeholderEntryEngagement stakeholder_entry_engagement(const StakeholderEntry *self);
 
-// Engagement and communication expectations.
-// Binds a StakeholderEntryEngagement facade to a document and a path (path copied).
-void stakeholder_entry_engagement_init(StakeholderEntryEngagement *self, SpecDocument *doc, const char *path);
-void stakeholder_entry_engagement_free(StakeholderEntryEngagement *self);
-StakeholderEntryEngagementContentForm stakeholder_entry_engagement_content(const StakeholderEntryEngagement *self);
-
-// Stakeholder influence, impact, and value.
-// Binds a StakeholderEntryImpact facade to a document and a path (path copied).
-void stakeholder_entry_impact_init(StakeholderEntryImpact *self, SpecDocument *doc, const char *path);
-void stakeholder_entry_impact_free(StakeholderEntryImpact *self);
-StakeholderEntryImpactContentForm stakeholder_entry_impact_content(const StakeholderEntryImpact *self);
-
-// A register of the project's stakeholders.
+// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+//
+// This is the single source of truth for stakeholder role, interest,
+// influence, concerns and engagement strategy. SBP.2
+// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+// references this register rather than restating its attributes.
 //
 // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 // Binds a StakeholderRegister facade to a document and a path (path copied).
@@ -29658,17 +29647,20 @@ StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const Sta
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
 //
-// Lists all stakeholders and beneficiaries of the system with their
-// interests, influence level, and expected benefits.
+// A scope-framing *benefits lens* over the stakeholder landscape: who
+// benefits from the system and what they gain. The canonical stakeholder
+// register — with role, interest, influence, concerns and engagement
+// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// recorded there once and are not restated here (L34C-6 / SR-15).
 // Binds a StakeholdersAndBeneficiaries facade to a document and a path (path copied).
 void stakeholders_and_beneficiaries_init(StakeholdersAndBeneficiaries *self, SpecDocument *doc, const char *path);
 void stakeholders_and_beneficiaries_free(StakeholdersAndBeneficiaries *self);
 char *stakeholders_and_beneficiaries_content(const StakeholdersAndBeneficiaries *self);
 void stakeholders_and_beneficiaries_set_content(StakeholdersAndBeneficiaries *self, const char *value);
-// Primary stakeholders — contains 1+× StakeholderEntry.
+// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
 // Returns the list view; element type: StakeholderEntry (construct from item paths).
 SomList stakeholders_and_beneficiaries_primary_stakeholders(const StakeholdersAndBeneficiaries *self);
-// Secondary stakeholders — contains 0+× StakeholderEntry.
+// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
 // Returns the list view; element type: StakeholderEntry (construct from item paths).
 SomList stakeholders_and_beneficiaries_secondary_stakeholders(const StakeholdersAndBeneficiaries *self);
 
@@ -61971,32 +61963,8 @@ char *stakeholder_entry_content_form_stakeholder_name(const StakeholderEntryCont
 void stakeholder_entry_content_form_set_stakeholder_name(StakeholderEntryContentForm *self, const char *value);
 char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryContentForm *self);
 void stakeholder_entry_content_form_set_stakeholder_type(StakeholderEntryContentForm *self, const char *value);
-char *stakeholder_entry_content_form_role(const StakeholderEntryContentForm *self);
-void stakeholder_entry_content_form_set_role(StakeholderEntryContentForm *self, const char *value);
-char *stakeholder_entry_content_form_interests(const StakeholderEntryContentForm *self);
-void stakeholder_entry_content_form_set_interests(StakeholderEntryContentForm *self, const char *value);
-
-// StakeholderEntryEngagementContentForm is the generated form facade for the `content` @Form section.
-void stakeholder_entry_engagement_content_form_init(StakeholderEntryEngagementContentForm *self, SpecDocument *doc, const char *path);
-void stakeholder_entry_engagement_content_form_free(StakeholderEntryEngagementContentForm *self);
-char *stakeholder_entry_engagement_content_form_engagement_strategy(const StakeholderEntryEngagementContentForm *self);
-void stakeholder_entry_engagement_content_form_set_engagement_strategy(StakeholderEntryEngagementContentForm *self, const char *value);
-char *stakeholder_entry_engagement_content_form_communication_channel(const StakeholderEntryEngagementContentForm *self);
-void stakeholder_entry_engagement_content_form_set_communication_channel(StakeholderEntryEngagementContentForm *self, const char *value);
-char *stakeholder_entry_engagement_content_form_success_criteria_from_perspective(const StakeholderEntryEngagementContentForm *self);
-void stakeholder_entry_engagement_content_form_set_success_criteria_from_perspective(StakeholderEntryEngagementContentForm *self, const char *value);
-
-// StakeholderEntryImpactContentForm is the generated form facade for the `content` @Form section.
-void stakeholder_entry_impact_content_form_init(StakeholderEntryImpactContentForm *self, SpecDocument *doc, const char *path);
-void stakeholder_entry_impact_content_form_free(StakeholderEntryImpactContentForm *self);
-char *stakeholder_entry_impact_content_form_influence_level(const StakeholderEntryImpactContentForm *self);
-void stakeholder_entry_impact_content_form_set_influence_level(StakeholderEntryImpactContentForm *self, const char *value);
-char *stakeholder_entry_impact_content_form_impact_level(const StakeholderEntryImpactContentForm *self);
-void stakeholder_entry_impact_content_form_set_impact_level(StakeholderEntryImpactContentForm *self, const char *value);
-char *stakeholder_entry_impact_content_form_expected_benefits(const StakeholderEntryImpactContentForm *self);
-void stakeholder_entry_impact_content_form_set_expected_benefits(StakeholderEntryImpactContentForm *self, const char *value);
-char *stakeholder_entry_impact_content_form_potential_concerns(const StakeholderEntryImpactContentForm *self);
-void stakeholder_entry_impact_content_form_set_potential_concerns(StakeholderEntryImpactContentForm *self, const char *value);
+char *stakeholder_entry_content_form_expected_benefits(const StakeholderEntryContentForm *self);
+void stakeholder_entry_content_form_set_expected_benefits(StakeholderEntryContentForm *self, const char *value);
 
 // StakeholderRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 void stakeholder_register_entry_content_form_init(StakeholderRegisterEntryContentForm *self, SpecDocument *doc, const char *path);

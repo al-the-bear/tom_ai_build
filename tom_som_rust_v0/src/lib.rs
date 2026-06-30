@@ -60966,7 +60966,11 @@ impl StagingSuccessCriteria {
     }
 }
 
-/// A stakeholder or beneficiary entry (form).
+/// A stakeholder or beneficiary entry — benefits lens (form).
+///
+/// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+/// concerns and engagement strategy are owned by the canonical SBP.4
+/// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 pub struct StakeholderEntry {
     pub node: som::SomNode,
 }
@@ -60980,51 +60984,14 @@ impl StakeholderEntry {
     pub fn content(&self) -> StakeholderEntryContentForm {
         StakeholderEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
-
-    /// Stakeholder influence, impact, and value.
-    pub fn impact(&self) -> StakeholderEntryImpact {
-        StakeholderEntryImpact::new(self.node.doc(), format!("{}/{}", self.node.path(), "impact"))
-    }
-
-    /// Engagement and communication expectations.
-    pub fn engagement(&self) -> StakeholderEntryEngagement {
-        StakeholderEntryEngagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "engagement"))
-    }
 }
 
-/// Engagement and communication expectations.
-pub struct StakeholderEntryEngagement {
-    pub node: som::SomNode,
-}
-
-impl StakeholderEntryEngagement {
-    /// Binds a StakeholderEntryEngagement facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StakeholderEntryEngagement {
-        StakeholderEntryEngagement { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> StakeholderEntryEngagementContentForm {
-        StakeholderEntryEngagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Stakeholder influence, impact, and value.
-pub struct StakeholderEntryImpact {
-    pub node: som::SomNode,
-}
-
-impl StakeholderEntryImpact {
-    /// Binds a StakeholderEntryImpact facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StakeholderEntryImpact {
-        StakeholderEntryImpact { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> StakeholderEntryImpactContentForm {
-        StakeholderEntryImpactContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// A register of the project's stakeholders.
+/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+///
+/// This is the single source of truth for stakeholder role, interest,
+/// influence, concerns and engagement strategy. SBP.2
+/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+/// references this register rather than restating its attributes.
 ///
 /// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 pub struct StakeholderRegister {
@@ -61077,8 +61044,11 @@ impl StakeholderRegisterEntry {
 
 /// 4.1.1.3. Stakeholders and Beneficiaries.
 ///
-/// Lists all stakeholders and beneficiaries of the system with their
-/// interests, influence level, and expected benefits.
+/// A scope-framing *benefits lens* over the stakeholder landscape: who
+/// benefits from the system and what they gain. The canonical stakeholder
+/// register — with role, interest, influence, concerns and engagement
+/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// recorded there once and are not restated here (L34C-6 / SR-15).
 pub struct StakeholdersAndBeneficiaries {
     pub node: som::SomNode,
 }
@@ -61098,7 +61068,7 @@ impl StakeholdersAndBeneficiaries {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Primary stakeholders — contains 1+× StakeholderEntry.
+    /// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
     pub fn primary_stakeholders(&self) -> som::SomList<StakeholderEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -61107,7 +61077,7 @@ impl StakeholdersAndBeneficiaries {
         )
     }
 
-    /// Secondary stakeholders — contains 0+× StakeholderEntry.
+    /// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
     pub fn secondary_stakeholders(&self) -> som::SomList<StakeholderEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -183746,93 +183716,6 @@ impl StakeholderEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "stakeholderType", value);
     }
 
-    pub fn role(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "role")
-    }
-
-    pub fn set_role(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
-    }
-
-    pub fn interests(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "interests")
-    }
-
-    pub fn set_interests(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "interests", value);
-    }
-}
-
-/// StakeholderEntryEngagementContentForm is the generated form facade for the `content` @Form section.
-pub struct StakeholderEntryEngagementContentForm {
-    pub node: som::SomNode,
-}
-
-impl StakeholderEntryEngagementContentForm {
-    /// Binds a StakeholderEntryEngagementContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StakeholderEntryEngagementContentForm {
-        StakeholderEntryEngagementContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn engagement_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "engagementStrategy")
-    }
-
-    pub fn set_engagement_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "engagementStrategy", value);
-    }
-
-    pub fn communication_channel(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "communicationChannel")
-    }
-
-    pub fn set_communication_channel(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "communicationChannel", value);
-    }
-
-    pub fn success_criteria_from_perspective(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "successCriteriaFromPerspective")
-    }
-
-    pub fn set_success_criteria_from_perspective(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "successCriteriaFromPerspective", value);
-    }
-}
-
-/// StakeholderEntryImpactContentForm is the generated form facade for the `content` @Form section.
-pub struct StakeholderEntryImpactContentForm {
-    pub node: som::SomNode,
-}
-
-impl StakeholderEntryImpactContentForm {
-    /// Binds a StakeholderEntryImpactContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StakeholderEntryImpactContentForm {
-        StakeholderEntryImpactContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn influence_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "influenceLevel")
-    }
-
-    pub fn set_influence_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "influenceLevel", value);
-    }
-
-    pub fn impact_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel")
-    }
-
-    pub fn set_impact_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", value);
-    }
-
     pub fn expected_benefits(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "expectedBenefits")
     }
@@ -183840,15 +183723,6 @@ impl StakeholderEntryImpactContentForm {
     pub fn set_expected_benefits(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expectedBenefits", value);
-    }
-
-    pub fn potential_concerns(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "potentialConcerns")
-    }
-
-    pub fn set_potential_concerns(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "potentialConcerns", value);
     }
 }
 

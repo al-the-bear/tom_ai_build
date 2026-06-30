@@ -24773,24 +24773,6 @@ StakeholderEntry::StakeholderEntry(som::SpecDocument& doc, std::string path)
 StakeholderEntryContentForm StakeholderEntry::content() const {
   return StakeholderEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-StakeholderEntryImpact StakeholderEntry::impact() const {
-  return StakeholderEntryImpact(doc(), som::joinPath(path(), "impact"));
-}
-StakeholderEntryEngagement StakeholderEntry::engagement() const {
-  return StakeholderEntryEngagement(doc(), som::joinPath(path(), "engagement"));
-}
-
-StakeholderEntryEngagement::StakeholderEntryEngagement(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-StakeholderEntryEngagementContentForm StakeholderEntryEngagement::content() const {
-  return StakeholderEntryEngagementContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-StakeholderEntryImpact::StakeholderEntryImpact(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-StakeholderEntryImpactContentForm StakeholderEntryImpact::content() const {
-  return StakeholderEntryImpactContentForm(doc(), som::joinPath(path(), "content"));
-}
 
 StakeholderRegister::StakeholderRegister(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -92237,65 +92219,11 @@ std::string StakeholderEntryContentForm::stakeholderType() const {
 void StakeholderEntryContentForm::setStakeholderType(const std::string& value) {
   doc().setFormField(path(), "stakeholderType", value);
 }
-std::string StakeholderEntryContentForm::role() const {
-  return doc().formField(path(), "role");
-}
-void StakeholderEntryContentForm::setRole(const std::string& value) {
-  doc().setFormField(path(), "role", value);
-}
-std::string StakeholderEntryContentForm::interests() const {
-  return doc().formField(path(), "interests");
-}
-void StakeholderEntryContentForm::setInterests(const std::string& value) {
-  doc().setFormField(path(), "interests", value);
-}
-
-StakeholderEntryEngagementContentForm::StakeholderEntryEngagementContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string StakeholderEntryEngagementContentForm::engagementStrategy() const {
-  return doc().formField(path(), "engagementStrategy");
-}
-void StakeholderEntryEngagementContentForm::setEngagementStrategy(const std::string& value) {
-  doc().setFormField(path(), "engagementStrategy", value);
-}
-std::string StakeholderEntryEngagementContentForm::communicationChannel() const {
-  return doc().formField(path(), "communicationChannel");
-}
-void StakeholderEntryEngagementContentForm::setCommunicationChannel(const std::string& value) {
-  doc().setFormField(path(), "communicationChannel", value);
-}
-std::string StakeholderEntryEngagementContentForm::successCriteriaFromPerspective() const {
-  return doc().formField(path(), "successCriteriaFromPerspective");
-}
-void StakeholderEntryEngagementContentForm::setSuccessCriteriaFromPerspective(const std::string& value) {
-  doc().setFormField(path(), "successCriteriaFromPerspective", value);
-}
-
-StakeholderEntryImpactContentForm::StakeholderEntryImpactContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string StakeholderEntryImpactContentForm::influenceLevel() const {
-  return doc().formField(path(), "influenceLevel");
-}
-void StakeholderEntryImpactContentForm::setInfluenceLevel(const std::string& value) {
-  doc().setFormField(path(), "influenceLevel", value);
-}
-std::string StakeholderEntryImpactContentForm::impactLevel() const {
-  return doc().formField(path(), "impactLevel");
-}
-void StakeholderEntryImpactContentForm::setImpactLevel(const std::string& value) {
-  doc().setFormField(path(), "impactLevel", value);
-}
-std::string StakeholderEntryImpactContentForm::expectedBenefits() const {
+std::string StakeholderEntryContentForm::expectedBenefits() const {
   return doc().formField(path(), "expectedBenefits");
 }
-void StakeholderEntryImpactContentForm::setExpectedBenefits(const std::string& value) {
+void StakeholderEntryContentForm::setExpectedBenefits(const std::string& value) {
   doc().setFormField(path(), "expectedBenefits", value);
-}
-std::string StakeholderEntryImpactContentForm::potentialConcerns() const {
-  return doc().formField(path(), "potentialConcerns");
-}
-void StakeholderEntryImpactContentForm::setPotentialConcerns(const std::string& value) {
-  doc().setFormField(path(), "potentialConcerns", value);
 }
 
 StakeholderRegisterEntryContentForm::StakeholderRegisterEntryContentForm(som::SpecDocument& doc, std::string path)

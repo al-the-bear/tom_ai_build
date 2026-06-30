@@ -2578,8 +2578,6 @@ class StagingStrategy;
 class StagingStrategyConstraintEntry;
 class StagingSuccessCriteria;
 class StakeholderEntry;
-class StakeholderEntryEngagement;
-class StakeholderEntryImpact;
 class StakeholderRegister;
 class StakeholderRegisterEntry;
 class StakeholdersAndBeneficiaries;
@@ -5307,8 +5305,6 @@ class StagingRiskAssessmentContentForm;
 class StagingStrategyContentForm;
 class StagingSuccessCriteriaContentForm;
 class StakeholderEntryContentForm;
-class StakeholderEntryEngagementContentForm;
-class StakeholderEntryImpactContentForm;
 class StakeholderRegisterEntryContentForm;
 class StakeholdersAndInterestsContentForm;
 class StrategicAlignmentAlignmentDetailsForm;
@@ -32195,32 +32191,23 @@ class StagingSuccessCriteria : public som::SomNode {
   StagingSuccessCriteriaContentForm content() const;
 };
 
-// A stakeholder or beneficiary entry (form).
+// A stakeholder or beneficiary entry — benefits lens (form).
+//
+// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+// concerns and engagement strategy are owned by the canonical SBP.4
+// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 class StakeholderEntry : public som::SomNode {
  public:
   StakeholderEntry(som::SpecDocument& doc, std::string path);
   StakeholderEntryContentForm content() const;
-  // Stakeholder influence, impact, and value.
-  StakeholderEntryImpact impact() const;
-  // Engagement and communication expectations.
-  StakeholderEntryEngagement engagement() const;
 };
 
-// Engagement and communication expectations.
-class StakeholderEntryEngagement : public som::SomNode {
- public:
-  StakeholderEntryEngagement(som::SpecDocument& doc, std::string path);
-  StakeholderEntryEngagementContentForm content() const;
-};
-
-// Stakeholder influence, impact, and value.
-class StakeholderEntryImpact : public som::SomNode {
- public:
-  StakeholderEntryImpact(som::SpecDocument& doc, std::string path);
-  StakeholderEntryImpactContentForm content() const;
-};
-
-// A register of the project's stakeholders.
+// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+//
+// This is the single source of truth for stakeholder role, interest,
+// influence, concerns and engagement strategy. SBP.2
+// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+// references this register rather than restating its attributes.
 //
 // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 class StakeholderRegister : public som::SomNode {
@@ -32245,17 +32232,20 @@ class StakeholderRegisterEntry : public som::SomNode {
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
 //
-// Lists all stakeholders and beneficiaries of the system with their
-// interests, influence level, and expected benefits.
+// A scope-framing *benefits lens* over the stakeholder landscape: who
+// benefits from the system and what they gain. The canonical stakeholder
+// register — with role, interest, influence, concerns and engagement
+// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries : public som::SomNode {
  public:
   StakeholdersAndBeneficiaries(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Primary stakeholders — contains 1+× StakeholderEntry.
+  // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
   // Returns the list view; element type: StakeholderEntry (construct from item paths).
   som::SomList primaryStakeholders() const;
-  // Secondary stakeholders — contains 0+× StakeholderEntry.
+  // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   // Returns the list view; element type: StakeholderEntry (construct from item paths).
   som::SomList secondaryStakeholders() const;
 };
@@ -69512,36 +69502,8 @@ class StakeholderEntryContentForm : public som::SomNode {
   void setStakeholderName(const std::string& value);
   std::string stakeholderType() const;
   void setStakeholderType(const std::string& value);
-  std::string role() const;
-  void setRole(const std::string& value);
-  std::string interests() const;
-  void setInterests(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class StakeholderEntryEngagementContentForm : public som::SomNode {
- public:
-  StakeholderEntryEngagementContentForm(som::SpecDocument& doc, std::string path);
-  std::string engagementStrategy() const;
-  void setEngagementStrategy(const std::string& value);
-  std::string communicationChannel() const;
-  void setCommunicationChannel(const std::string& value);
-  std::string successCriteriaFromPerspective() const;
-  void setSuccessCriteriaFromPerspective(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class StakeholderEntryImpactContentForm : public som::SomNode {
- public:
-  StakeholderEntryImpactContentForm(som::SpecDocument& doc, std::string path);
-  std::string influenceLevel() const;
-  void setInfluenceLevel(const std::string& value);
-  std::string impactLevel() const;
-  void setImpactLevel(const std::string& value);
   std::string expectedBenefits() const;
   void setExpectedBenefits(const std::string& value);
-  std::string potentialConcerns() const;
-  void setPotentialConcerns(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

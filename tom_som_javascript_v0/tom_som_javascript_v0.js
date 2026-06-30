@@ -46452,7 +46452,11 @@ class StagingSuccessCriteria extends SomNode {
   }
 }
 
-// A stakeholder or beneficiary entry (form).
+// A stakeholder or beneficiary entry — benefits lens (form).
+//
+// Keeps only the scope-framing identity + benefit. Role, interest, influence,
+// concerns and engagement strategy are owned by the canonical SBP.4
+// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
 class StakeholderEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -46461,41 +46465,14 @@ class StakeholderEntry extends SomNode {
   get content() {
     return new StakeholderEntryContentForm(this.doc, this.path + "/content");
   }
-
-  // Stakeholder influence, impact, and value.
-  get impact() {
-    return new StakeholderEntryImpact(this.doc, this.path + "/impact");
-  }
-
-  // Engagement and communication expectations.
-  get engagement() {
-    return new StakeholderEntryEngagement(this.doc, this.path + "/engagement");
-  }
 }
 
-// Engagement and communication expectations.
-class StakeholderEntryEngagement extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new StakeholderEntryEngagementContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Stakeholder influence, impact, and value.
-class StakeholderEntryImpact extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new StakeholderEntryImpactContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A register of the project's stakeholders.
+// The canonical register of the project's stakeholders (L34C-6 / SR-15).
+//
+// This is the single source of truth for stakeholder role, interest,
+// influence, concerns and engagement strategy. SBP.2
+// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
+// references this register rather than restating its attributes.
 //
 // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 class StakeholderRegister extends SomNode {
@@ -46533,8 +46510,11 @@ class StakeholderRegisterEntry extends SomNode {
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
 //
-// Lists all stakeholders and beneficiaries of the system with their
-// interests, influence level, and expected benefits.
+// A scope-framing *benefits lens* over the stakeholder landscape: who
+// benefits from the system and what they gain. The canonical stakeholder
+// register — with role, interest, influence, concerns and engagement
+// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -46548,12 +46528,12 @@ class StakeholdersAndBeneficiaries extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Primary stakeholders — contains 1+× StakeholderEntry.
+  // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
   get primaryStakeholders() {
     return new SomList(this.doc, this.path + "/STKNT-PRIM-LST", (d, p) => new StakeholderEntry(d, p));
   }
 
-  // Secondary stakeholders — contains 0+× StakeholderEntry.
+  // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   get secondaryStakeholders() {
     return new SomList(this.doc, this.path + "/STKNT-SECO-LST", (d, p) => new StakeholderEntry(d, p));
   }
@@ -145831,90 +145811,12 @@ class StakeholderEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "stakeholderType", value);
   }
 
-  get role() {
-    return this.doc.formField(this.path, "role") || '';
-  }
-
-  set role(value) {
-    this.doc.setFormField(this.path, "role", value);
-  }
-
-  get interests() {
-    return this.doc.formField(this.path, "interests") || '';
-  }
-
-  set interests(value) {
-    this.doc.setFormField(this.path, "interests", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class StakeholderEntryEngagementContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get engagementStrategy() {
-    return this.doc.formField(this.path, "engagementStrategy") || '';
-  }
-
-  set engagementStrategy(value) {
-    this.doc.setFormField(this.path, "engagementStrategy", value);
-  }
-
-  get communicationChannel() {
-    return this.doc.formField(this.path, "communicationChannel") || '';
-  }
-
-  set communicationChannel(value) {
-    this.doc.setFormField(this.path, "communicationChannel", value);
-  }
-
-  get successCriteriaFromPerspective() {
-    return this.doc.formField(this.path, "successCriteriaFromPerspective") || '';
-  }
-
-  set successCriteriaFromPerspective(value) {
-    this.doc.setFormField(this.path, "successCriteriaFromPerspective", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class StakeholderEntryImpactContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get influenceLevel() {
-    return this.doc.formField(this.path, "influenceLevel") || '';
-  }
-
-  set influenceLevel(value) {
-    this.doc.setFormField(this.path, "influenceLevel", value);
-  }
-
-  get impactLevel() {
-    return this.doc.formField(this.path, "impactLevel") || '';
-  }
-
-  set impactLevel(value) {
-    this.doc.setFormField(this.path, "impactLevel", value);
-  }
-
   get expectedBenefits() {
     return this.doc.formField(this.path, "expectedBenefits") || '';
   }
 
   set expectedBenefits(value) {
     this.doc.setFormField(this.path, "expectedBenefits", value);
-  }
-
-  get potentialConcerns() {
-    return this.doc.formField(this.path, "potentialConcerns") || '';
-  }
-
-  set potentialConcerns(value) {
-    this.doc.setFormField(this.path, "potentialConcerns", value);
   }
 }
 
@@ -166247,8 +166149,6 @@ module.exports = {
   StagingStrategyConstraintEntry,
   StagingSuccessCriteria,
   StakeholderEntry,
-  StakeholderEntryEngagement,
-  StakeholderEntryImpact,
   StakeholderRegister,
   StakeholderRegisterEntry,
   StakeholdersAndBeneficiaries,
@@ -168976,8 +168876,6 @@ module.exports = {
   StagingStrategyContentForm,
   StagingSuccessCriteriaContentForm,
   StakeholderEntryContentForm,
-  StakeholderEntryEngagementContentForm,
-  StakeholderEntryImpactContentForm,
   StakeholderRegisterEntryContentForm,
   StakeholdersAndInterestsContentForm,
   StrategicAlignmentAlignmentDetailsForm,
