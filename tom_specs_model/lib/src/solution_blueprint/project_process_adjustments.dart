@@ -12,6 +12,15 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// Project-specific deviations from the standard TomSpecs methodology.
 /// This section documents any customizations to standard roles, quality gates,
 /// and the creation or upgrade process for this particular project.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (process tailoring)',
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (process adaptation)',
+  ],
+  'The root of §2: captures every project-specific deviation from the standard '
+  'TomSpecs methodology — roles, quality gates, process steps, and tooling — so '
+  'governance can see and approve how this project tailors the standard.',
+)
 @SectionId('PRPO')
 class ProjectOrganizationAndProcess {
   @ContentHelp('''
@@ -50,6 +59,12 @@ the overall impact on governance, and how deviations are tracked and approved.
 }
 
 /// Summary of all methodology deviations for quick reference.
+@StandardReferences(
+  ['ISO 21500 — project management (process tailoring & governance)'],
+  'A roll-up of all methodology deviations across roles, quality gates, and '
+  'process — the at-a-glance count, aggregate risk, and approval record for '
+  'this project\'s departures from the standard.',
+)
 @SectionId('MEDSM')
 class MethodologyDeviationSummary {
   @Form([
@@ -87,6 +102,14 @@ class MethodologyDeviationSummary {
 /// Documents any deviations from the standard TomSpecs roles defined in
 /// tom_roles.md. Includes merged, split, omitted, or modified roles
 /// and the rationale for each deviation.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (organizational roles & responsibilities)',
+    'PMBOK — resource management',
+  ],
+  'Captures how this project departs from the standard TomSpecs roles — roles '
+  'merged, split, omitted, modified, or added — and why.',
+)
 @SectionId('RLADJ')
 class RoleAdjustments {
   @ContentHelp('''
@@ -108,13 +131,23 @@ the changes, and how role clarity is maintained despite deviations.
   String? roleComparisonDiagram;
 
   /// Contains 0+× RoleAdjustment.
+  @StandardReferences(
+    ['ISO 21500 — project management (organizational roles & responsibilities)'],
+    'The set of individual role-deviation entries for this project.',
+  )
   @SectionId('RLAJE-ITEM-LST')
   @SectionIdPattern('RLAJE-ITEM-xxx')
+  @ContentHelp('Add one entry per role that deviates from the standard, '
+      'capturing the adjustment type, rationale, coverage, risk, and approval.')
   @SerializationOrder(3)
   List<RoleAdjustmentEntry> items = [];
 }
 
 /// Summary of role adjustments.
+@StandardReferences(
+  ['ISO 21500 — project management (organizational roles & responsibilities)'],
+  'Aggregate counts and governance impact of this project\'s role deviations.',
+)
 @SectionId('RLASM')
 class RoleAdjustmentSummary {
   @Form([
@@ -144,6 +177,14 @@ class RoleAdjustmentSummary {
 /// Documents a specific deviation from standard TomSpecs role definitions,
 /// including the type of adjustment, affected responsibilities, risk
 /// assessment, and mitigation measures.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (organizational roles & responsibilities)',
+    'PMBOK — resource management',
+  ],
+  'A single role deviation: what role changed, how, why, who covers it, the '
+  'risk it introduces, and its approval status.',
+)
 @SectionId('RLAJE')
 class RoleAdjustmentEntry {
   @Form([
@@ -179,6 +220,11 @@ class RoleAdjustmentEntry {
 }
 
 /// Adjustment details for role.
+@StandardReferences(
+  ['ISO 21500 — project management (organizational roles & responsibilities)'],
+  'The concrete details of a role change: new name, what changed, and which '
+  'responsibilities, merges, or splits are affected.',
+)
 @SectionId('RLAED')
 class RoleAdjustmentEntryDetails {
   @Form([
@@ -198,6 +244,11 @@ class RoleAdjustmentEntryDetails {
 }
 
 /// Rationale for role adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (organizational roles & responsibilities)'],
+  'Why this role deviation was made — the driving factors and stakeholder '
+  'agreement behind it.',
+)
 @SectionId('RLAER')
 class RoleAdjustmentEntryRationale {
   @Form([
@@ -213,6 +264,14 @@ class RoleAdjustmentEntryRationale {
 }
 
 /// Coverage: assignments and RACI impact.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (organizational roles & responsibilities)',
+    'PMBOK — resource management (RACI)',
+  ],
+  'Who fills the adjusted role and how the change affects RACI coverage for '
+  'related activities.',
+)
 @SectionId('RLAEC')
 class RoleAdjustmentEntryCoverage {
   @Form([
@@ -228,6 +287,10 @@ class RoleAdjustmentEntryCoverage {
 }
 
 /// Risk assessment for role adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (risk & governance of role deviations)'],
+  'The risk introduced by this role deviation and how it is mitigated.',
+)
 @SectionId('RLAEK')
 class RoleAdjustmentEntryRisk {
   @Form([
@@ -243,6 +306,10 @@ class RoleAdjustmentEntryRisk {
 }
 
 /// Governance: approval and review.
+@StandardReferences(
+  ['ISO 21500 — project management (governance & approval of deviations)'],
+  'The approval and review record gating this role deviation.',
+)
 @SectionId('RLAEG')
 class RoleAdjustmentEntryGovernance {
   @Form([
@@ -270,6 +337,14 @@ class RoleAdjustmentEntryGovernance {
 /// Documents any deviations from the standard quality gates defined in
 /// tom_quality_gates.md. Includes skipped, added, or modified gates
 /// and the rationale for each deviation.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (quality & control processes)',
+    'ISO/IEC/IEEE 29148 §6 — requirements process (verification & acceptance)',
+  ],
+  'Captures how this project departs from the standard TomSpecs quality gates — '
+  'gates skipped, added, deferred, relaxed, or with modified criteria — and why.',
+)
 @SectionId('QGADJ')
 class QualityGateAdjustments {
   @ContentHelp('''
@@ -292,13 +367,24 @@ how quality assurance is maintained despite deviations.
   String? gateFlowDiagram;
 
   /// Contains 0+× QualityGateAdjustment.
+  @StandardReferences(
+    ['ISO 21500 — project management (quality & control processes)'],
+    'The set of individual quality-gate-deviation entries for this project.',
+  )
   @SectionId('QGAJE-ITEM-LST')
   @SectionIdPattern('QGAJE-ITEM-xxx')
+  @ContentHelp('Add one entry per quality gate that deviates from the standard, '
+      'capturing the adjustment type, rationale, impact, and approval.')
   @SerializationOrder(3)
   List<QualityGateAdjustmentEntry> items = [];
 }
 
 /// Summary of quality gate adjustments.
+@StandardReferences(
+  ['ISO 21500 — project management (quality & control processes)'],
+  'Aggregate counts, quality risk, and compensating controls for this '
+  'project\'s quality-gate deviations.',
+)
 @SectionId('QGASM')
 class QualityGateAdjustmentSummary {
   @Form([
@@ -328,6 +414,14 @@ class QualityGateAdjustmentSummary {
 /// Documents a specific deviation from standard quality gate definitions,
 /// including the type of change, impact on quality assurance, risk
 /// assessment, and compensating controls.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (quality & control processes)',
+    'ISO/IEC/IEEE 29148 §6 — requirements process (verification & acceptance)',
+  ],
+  'A single quality-gate deviation: which gate changed, how, why, its impact on '
+  'assurance, and its approval status.',
+)
 @SectionId('QGAJE')
 class QualityGateAdjustmentEntry {
   @Form([
@@ -342,8 +436,15 @@ class QualityGateAdjustmentEntry {
   String? content;
 
   /// Gate details.
+  @StandardReferences(
+    ['ISO 21500 — project management (quality & control processes)'],
+    'The set of detail records describing how this quality gate\'s criteria '
+    'were changed.',
+  )
   @SectionId('QGAED-DETA-LST')
   @SectionIdPattern('QGAED-DETA-xxx')
+  @ContentHelp('Add one entry per gate-detail change, capturing the phase, the '
+      'original criteria, and the adjusted criteria with any threshold shift.')
   @SerializationOrder(1)
   List<QualityGateAdjustmentDetails> details = [];
 
@@ -363,6 +464,11 @@ class QualityGateAdjustmentEntry {
 }
 
 /// Gate details.
+@StandardReferences(
+  ['ISO 21500 — project management (quality & control processes)'],
+  'The concrete change to a quality gate: phase, original vs adjusted criteria, '
+  'and threshold shift.',
+)
 @SectionId('QGAED')
 class QualityGateAdjustmentDetails {
   @Form([
@@ -382,6 +488,11 @@ class QualityGateAdjustmentDetails {
 }
 
 /// Rationale.
+@StandardReferences(
+  ['ISO 21500 — project management (quality & control processes)'],
+  'Why this quality-gate deviation was made, its driving factors, and whether '
+  'it is temporary or permanent.',
+)
 @SectionId('QGAER')
 class QualityGateAdjustmentRationale {
   @Form([
@@ -399,6 +510,14 @@ class QualityGateAdjustmentRationale {
 }
 
 /// Impact assessment.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (quality & control processes)',
+    'ISO/IEC/IEEE 29148 §6 — requirements process (verification)',
+  ],
+  'How this gate deviation affects delivered quality, its risk, and the '
+  'compensating controls and monitoring that offset it.',
+)
 @SectionId('QGAEI')
 class QualityGateAdjustmentImpact {
   @Form([
@@ -418,6 +537,11 @@ class QualityGateAdjustmentImpact {
 }
 
 /// Governance.
+@StandardReferences(
+  ['ISO 21500 — project management (governance & approval of deviations)'],
+  'The approval, review, and audit-trail record gating this quality-gate '
+  'deviation.',
+)
 @SectionId('QGAEG')
 class QualityGateAdjustmentGovernance {
   @Form([
@@ -447,6 +571,15 @@ class QualityGateAdjustmentGovernance {
 /// Documents any deviations from the standard tom_system_creation.md or
 /// tom_system_upgrade.md process. Includes skipped, reordered, or modified
 /// steps and the rationale for each deviation.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (process tailoring)',
+    'ISO/IEC/IEEE 29148 §6 — requirements engineering process',
+  ],
+  'Captures how this project departs from the standard system-creation / '
+  'system-upgrade process — steps skipped, reordered, parallelized, merged, '
+  'split, or added — and why.',
+)
 @SectionId('PCADJ')
 class ProcessAdjustments {
   @ContentHelp('''
@@ -469,13 +602,25 @@ and how process integrity is maintained despite deviations.
   String? processFlowDiagram;
 
   /// Contains 0+× ProcessAdjustment.
+  @StandardReferences(
+    ['ISO 21500 — project management (process tailoring)'],
+    'The set of individual process-step-deviation entries for this project.',
+  )
   @SectionId('PCAJE-ITEM-LST')
   @SectionIdPattern('PCAJE-ITEM-xxx')
+  @ContentHelp('Add one entry per process step that deviates from the '
+      'standard, capturing the adjustment type, rationale, implementation, '
+      'risk, and approval.')
   @SerializationOrder(3)
   List<ProcessAdjustmentEntry> items = [];
 }
 
 /// Summary of process adjustments.
+@StandardReferences(
+  ['ISO 21500 — project management (process tailoring)'],
+  'Aggregate counts, process risk, and efficiency impact for this project\'s '
+  'process-step deviations against the base process.',
+)
 @SectionId('PCASM')
 class ProcessAdjustmentSummary {
   @Form([
@@ -509,6 +654,14 @@ class ProcessAdjustmentSummary {
 /// Documents a specific deviation from standard process steps, including
 /// the type of modification, dependencies affected, risk assessment,
 /// and implementation details.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (process tailoring)',
+    'ISO/IEC/IEEE 29148 §6 — requirements engineering process',
+  ],
+  'A single process-step deviation: which step changed, how, why, how it is '
+  'implemented, the risk it carries, and its approval status.',
+)
 @SectionId('PCAJE')
 class ProcessAdjustmentEntry {
   @Form([
@@ -527,8 +680,14 @@ class ProcessAdjustmentEntry {
   ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
 
   /// Adjustment details.
+  @StandardReferences(
+    ['ISO 21500 — project management (process tailoring)'],
+    'The set of detail records describing how this process step was changed.',
+  )
   @SectionId('PCAED-DETA-LST')
   @SectionIdPattern('PCAED-DETA-xxx')
+  @ContentHelp('Add one entry per detail of the step change — its description '
+      'and any new position, parallelization, merge, or split.')
   @SerializationOrder(2)
   List<ProcessAdjustmentDetails> details = [];
 
@@ -551,6 +710,11 @@ class ProcessAdjustmentEntry {
 }
 
 /// Identity for process adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (process tailoring)'],
+  'Identifies which standard step is being adjusted — its phase and original '
+  'position in the process.',
+)
 @SectionId('PCAID')
 class ProcessAdjustmentIdentity {
   @Form([
@@ -564,6 +728,11 @@ class ProcessAdjustmentIdentity {
 }
 
 /// Details for process adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (process tailoring)'],
+  'The concrete change to a process step: description plus any reorder, '
+  'parallelization, merge, or split.',
+)
 @SectionId('PCAED')
 class ProcessAdjustmentDetails {
   @Form([
@@ -583,6 +752,11 @@ class ProcessAdjustmentDetails {
 }
 
 /// Rationale for process adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (process tailoring)'],
+  'Why this process-step deviation was made and how it affects step '
+  'dependencies, predecessors, and successors.',
+)
 @SectionId('PCAER')
 class ProcessAdjustmentRationale {
   @Form([
@@ -602,6 +776,14 @@ class ProcessAdjustmentRationale {
 }
 
 /// Implementation for process adjustment.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (process tailoring)',
+    'ISO/IEC/IEEE 29148 §6 — requirements engineering process',
+  ],
+  'How the adjusted step is actually executed — approach, deliverable, tooling, '
+  'and resource changes it entails.',
+)
 @SectionId('PCAEI')
 class ProcessAdjustmentImplementation {
   @Form([
@@ -619,6 +801,11 @@ class ProcessAdjustmentImplementation {
 }
 
 /// Risk for process adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (risk, schedule & cost of deviations)'],
+  'The risk introduced by this process-step deviation and its mitigation, '
+  'timeline, and budget impact.',
+)
 @SectionId('PCAEK')
 class ProcessAdjustmentRisk {
   @Form([
@@ -640,6 +827,10 @@ class ProcessAdjustmentRisk {
 }
 
 /// Governance for process adjustment.
+@StandardReferences(
+  ['ISO 21500 — project management (governance & approval of deviations)'],
+  'The approval and review record gating this process-step deviation.',
+)
 @SectionId('PCAEG')
 class ProcessAdjustmentGovernance {
   @Form([
@@ -661,6 +852,17 @@ class ProcessAdjustmentGovernance {
 // ---------------------------------------------------------------------------
 
 /// 2.4. Tooling and Environments.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)',
+    'ISO 21500 — project management (resource & tool planning)',
+  ],
+  'Container for this project\'s tooling decisions and runtime environments — '
+  'the infrastructure and tools that support the tailored process.',
+)
+@ContentHelp('Use the Tooling and Environments subsections to record the '
+    'project\'s tool inventory and governance, and its environment inventory. '
+    'This wrapper itself carries no content.')
 @SectionId('TOENV')
 class ToolingAndEnvironments {
   @Unused()
@@ -682,6 +884,14 @@ class ToolingAndEnvironments {
 /// Covers all tool categories: development, CI/CD, communication,
 /// documentation, project management, testing, monitoring, security,
 /// infrastructure, and operational tooling.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)',
+    'ISO 21500 — project management (resource & tool planning)',
+  ],
+  'The project\'s tool strategy, stack, lifecycle, governance, and the '
+  'inventory of individual tools it relies on.',
+)
 @SectionId('TOOLI')
 class Tooling {
   @Form([
@@ -725,13 +935,24 @@ class Tooling {
   TextSection strategyNarrative = TextSection();
 
   /// Contains 0+× Tool.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+    'The inventory of individual tools adopted by this project.',
+  )
   @SectionId('TOLEN-ITEM-LST')
   @SectionIdPattern('TOLEN-ITEM-xxx')
+  @ContentHelp('Add one entry per tool in the project toolchain, capturing its '
+      'identity, licensing, access, integration, security, cost, and lifecycle.')
   @SerializationOrder(5)
   List<ToolEntry> items = [];
 }
 
 /// Stack composition and selection policies.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'The composition of the tool stack — mandatory, recommended, and optional '
+  'tools, rationalization goals, and budget.',
+)
 @SectionId('TOLSK')
 class ToolingStack {
     @Form([
@@ -756,6 +977,11 @@ class ToolingStack {
 }
 
 /// Lifecycle and governance processes.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'The onboarding and offboarding processes that govern tool access as people '
+  'join and leave the project.',
+)
 @SectionId('TOLLC')
 class ToolingLifecycle {
     @Form([
@@ -771,6 +997,11 @@ class ToolingLifecycle {
 }
 
 /// Review, catalog, and notes.
+@StandardReferences(
+  ['ISO 21500 — project management (resource & tool planning)'],
+  'Tool governance — review cadence, shadow-IT policy, and the authoritative '
+  'tool catalogue.',
+)
 @SectionId('TOLGV')
 class ToolingGovernance {
     @Form([
@@ -796,6 +1027,15 @@ class ToolingGovernance {
 /// usage, infrastructure, lifecycle, cost, configuration, and
 /// documentation. Aligns with ITIL service catalog, PMBOK resource
 /// planning, and enterprise architecture concerns.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)',
+    'ISO 21500 — project management (resource & tool planning)',
+  ],
+  'A single tool in the project toolchain, fully specified across identity, '
+  'licensing, versioning, access, integration, support, security, usage, '
+  'infrastructure, lifecycle, cost, configuration, documentation, and approval.',
+)
 @SectionId('TOLEN')
 class ToolEntry {
   @Form([
@@ -872,6 +1112,11 @@ class ToolEntry {
 }
 
 /// Identity and classification for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Identifying and classifying facts for a tool: vendor, category, type, '
+  'purpose, justification, and alternatives considered.',
+)
 @SectionId('TOLID')
 class ToolIdentity {
   @Form([
@@ -917,6 +1162,11 @@ class ToolIdentity {
 }
 
 /// Licensing terms and compliance for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Licensing terms for a tool: type, model, counts, costs, renewals, '
+  'open-source obligations, and compliance status.',
+)
 @SectionId('TOLLN')
 class ToolLicensing {
   @Form([
@@ -954,6 +1204,11 @@ class ToolLicensing {
 }
 
 /// Version management and upgrade policies for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Version management for a tool: current/target versions, upgrade cadence, '
+  'pinning, and breaking-change policy.',
+)
 @SectionId('TOLVS')
 class ToolVersioning {
   @Form([
@@ -991,6 +1246,11 @@ class ToolVersioning {
 }
 
 /// Access control and provisioning for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Access and provisioning for a tool: URLs, SSO/MFA, provisioning method, '
+  'request and approval process, and admin contacts.',
+)
 @SectionId('TOLAC')
 class ToolAccess {
   @Form([
@@ -1036,6 +1296,11 @@ class ToolAccess {
 }
 
 /// Integration capabilities for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Integration capabilities of a tool: what it connects to, its APIs, '
+  'webhooks, plugins, and data import/export.',
+)
 @SectionId('TOLIG')
 class ToolIntegration {
   @Form([
@@ -1071,6 +1336,11 @@ class ToolIntegration {
 }
 
 /// Vendor and internal support for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Support arrangements for a tool: vendor tier and SLA, internal support team '
+  'and channel, escalation path, and known issues.',
+)
 @SectionId('TOLSP')
 class ToolSupport {
   @Form([
@@ -1101,6 +1371,11 @@ class ToolSupport {
 }
 
 /// Security and compliance for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Security and compliance facts for a tool: classification, data residency, '
+  'audit logging, certifications, encryption, and access restrictions.',
+)
 @SectionId('TOLSC')
 class ToolSecurity {
   @Form([
@@ -1146,6 +1421,11 @@ class ToolSecurity {
 }
 
 /// Usage patterns and adoption metrics for a tool.
+@StandardReferences(
+  ['ISO 21500 — project management (resource & tool planning)'],
+  'Usage and adoption facts for a tool: user groups, active counts, frequency, '
+  'training, proficiency, adoption status, and satisfaction.',
+)
 @SectionId('TOLUS')
 class ToolUsage {
   @Form([
@@ -1186,6 +1466,11 @@ class ToolUsage {
 }
 
 /// Infrastructure and hosting for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Infrastructure and hosting for a tool: hosting model, instances, resources, '
+  'backups, disaster recovery, and uptime SLA.',
+)
 @SectionId('TOLINF')
 class ToolInfrastructure {
   @Form([
@@ -1225,6 +1510,11 @@ class ToolInfrastructure {
 }
 
 /// Lifecycle management for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Lifecycle management for a tool: introduction, evaluations, retirement, '
+  'replacement, migration, and end-of-life risk.',
+)
 @SectionId('TOLLYC')
 class ToolLifecycle {
   @Form([
@@ -1258,6 +1548,11 @@ class ToolLifecycle {
 }
 
 /// Cost structure and budget for a tool.
+@StandardReferences(
+  ['ISO 21500 — project management (resource & tool planning, cost)'],
+  'Cost structure for a tool: initial and recurring cost, cost model, cost '
+  'center, budget owner, and optimization notes.',
+)
 @SectionId('TOLCST')
 class ToolCost {
   @Form([
@@ -1285,6 +1580,11 @@ class ToolCost {
 }
 
 /// Configuration standards for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Configuration standards for a tool: baseline settings, mandatory and '
+  'recommended plugins, prohibited features, and config-as-code policy.',
+)
 @SectionId('TOLCFG')
 class ToolConfiguration {
   @Form([
@@ -1316,6 +1616,11 @@ class ToolConfiguration {
 }
 
 /// Documentation resources for a tool.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & tools)'],
+  'Documentation resources for a tool: vendor docs, internal wiki, quick-start, '
+  'troubleshooting, and architecture diagrams.',
+)
 @SectionId('TOLDOC')
 class ToolDocumentation {
   @Form([
@@ -1337,6 +1642,11 @@ class ToolDocumentation {
 }
 
 /// Approval status and ownership for a tool.
+@StandardReferences(
+  ['ISO 21500 — project management (governance & approval of resources)'],
+  'Approval and ownership for a tool: its approval status, who approved it, '
+  'and the owner and champion accountable for it.',
+)
 @SectionId('TOLAPR')
 class ToolApproval {
   @Form([
@@ -1362,6 +1672,14 @@ class ToolApproval {
 /// individual environment instances. Strategy-level decisions (tier
 /// definitions, parity goals, ephemeral environments) live in the
 /// companion EnvironmentStrategy class under the Technical Framework.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)',
+    'ISO 21500 — project management (resource planning)',
+  ],
+  'The operational overview of the project\'s environments — promotion path, '
+  'topology, naming, and the inventory of individual environment instances.',
+)
 @SectionId('ENVRS')
 class Environments {
   @Form([
@@ -1388,8 +1706,15 @@ class Environments {
   String? content;
 
   /// Contains 0+× Environment.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+    'The inventory of individual environment instances for this project.',
+  )
   @SectionId('ENVEN-ITEM-LST')
   @SectionIdPattern('ENVEN-ITEM-xxx')
+  @ContentHelp('Add one entry per environment (e.g. Dev, QA, Staging, Prod, '
+      'DR), capturing its identity, infrastructure, access, data, '
+      'availability, monitoring, lifecycle, cost, and compliance.')
   @SerializationOrder(1)
   List<EnvironmentEntry> items = [];
 }
@@ -1401,6 +1726,15 @@ class Environments {
 /// availability, connectivity, monitoring, lifecycle, ownership, cost,
 /// and compliance. Aligns with PMBOK resource planning, ITIL service
 /// design, and PRINCE2 technical stage planning concerns.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)',
+    'ISO 21500 — project management (resource planning)',
+  ],
+  'A single project environment, fully specified across identity, '
+  'infrastructure, security, data management, configuration, availability, '
+  'connectivity, monitoring, lifecycle, ownership, cost, and compliance.',
+)
 @SectionId('ENVEN')
 class EnvironmentEntry {
   @Form([
@@ -1465,6 +1799,11 @@ class EnvironmentEntry {
 }
 
 /// Identity and classification for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Identity and classification for an environment: its purpose, tier, and '
+  'position in the promotion path.',
+)
 @SectionId('ENVID')
 class EnvironmentIdentity {
   @Form([
@@ -1480,6 +1819,11 @@ class EnvironmentIdentity {
 }
 
 /// Infrastructure configuration for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Infrastructure configuration for an environment: hosting model, cloud '
+  'provider, region, compute, storage, network, and container platform.',
+)
 @SectionId('ENVIN')
 class EnvironmentInfrastructure {
   @Form([
@@ -1505,6 +1849,11 @@ class EnvironmentInfrastructure {
 }
 
 /// Access and security for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Access and security for an environment: access-control model, '
+  'authentication, authorized roles, VPN, classification, and encryption.',
+)
 @SectionId('ENVSC')
 class EnvironmentSecurity {
   @Form([
@@ -1530,6 +1879,11 @@ class EnvironmentSecurity {
 }
 
 /// Data management for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Data management for an environment: data classification, refresh strategy '
+  'and frequency, retention, backups, and residency.',
+)
 @SectionId('ENVDM')
 class EnvironmentDataManagement {
   @Form([
@@ -1551,6 +1905,11 @@ class EnvironmentDataManagement {
 }
 
 /// Configuration and versions for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Configuration and versions for an environment: OS, runtime and database '
+  'versions, middleware, feature flags, and configuration method.',
+)
 @SectionId('ENVCF')
 class EnvironmentConfiguration {
   @Form([
@@ -1572,6 +1931,11 @@ class EnvironmentConfiguration {
 }
 
 /// Availability and SLA for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Availability targets for an environment: uptime requirement, maintenance '
+  'window, SLA, RPO/RTO, and disaster-recovery plan.',
+)
 @SectionId('ENVAV')
 class EnvironmentAvailability {
   @Form([
@@ -1593,6 +1957,11 @@ class EnvironmentAvailability {
 }
 
 /// Connectivity and network for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Connectivity and network for an environment: network zone, firewall rules, '
+  'integration endpoints, DNS, load balancer, and service discovery.',
+)
 @SectionId('ENVCO')
 class EnvironmentConnectivity {
   @Form([
@@ -1614,6 +1983,11 @@ class EnvironmentConnectivity {
 }
 
 /// Monitoring and observability for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Monitoring and observability for an environment: monitoring and logging '
+  'tools, alerting, dashboards, and health-check endpoints.',
+)
 @SectionId('ENVMN')
 class EnvironmentMonitoring {
   @Form([
@@ -1633,6 +2007,11 @@ class EnvironmentMonitoring {
 }
 
 /// Lifecycle and provisioning for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Lifecycle and provisioning for an environment: provisioning method, IaC '
+  'repo, refresh cadence, decommission plan, and key dates.',
+)
 @SectionId('ENVLC')
 class EnvironmentLifecycle {
   @Form([
@@ -1654,6 +2033,11 @@ class EnvironmentLifecycle {
 }
 
 /// Ownership and support for environment entry.
+@StandardReferences(
+  ['ISO 21500 — project management (resource planning & responsibilities)'],
+  'Ownership and support for an environment: its owner, support contact, '
+  'escalation path, and change-approval process.',
+)
 @SectionId('ENVOW')
 class EnvironmentOwnership {
   @Form([
@@ -1671,6 +2055,11 @@ class EnvironmentOwnership {
 }
 
 /// Cost and billing for environment entry.
+@StandardReferences(
+  ['ISO 21500 — project management (resource planning, cost)'],
+  'Cost and billing for an environment: monthly estimate, billing model, cost '
+  'center, and budget alert threshold.',
+)
 @SectionId('ENVCS')
 class EnvironmentCost {
   @Form([
@@ -1688,6 +2077,11 @@ class EnvironmentCost {
 }
 
 /// Compliance and audit for environment entry.
+@StandardReferences(
+  ['ISO/IEC/IEEE 12207 — software life-cycle processes (infrastructure & environments)'],
+  'Compliance and audit for an environment: applicable frameworks, audit '
+  'logging, and penetration-test schedule.',
+)
 @SectionId('ENVCP')
 class EnvironmentCompliance {
   @Form([

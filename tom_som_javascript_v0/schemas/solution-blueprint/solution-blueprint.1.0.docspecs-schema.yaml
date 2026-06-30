@@ -1263,7 +1263,7 @@ section-types:
     pattern-check-id:
       pattern: ^enven_item_lst-\d+$
       error-message: ID must match enven_item_lst-NNN
-    description: Contains 0+× Environment.
+    description: "Add one entry per environment (e.g. Dev, QA, Staging, Prod, DR), capturing its identity, infrastructure, access, data, availability, monitoring, lifecycle, cost, and compliance."
   ERROR-ERRO-LST:
     prefix: error_erro_lst
     pattern-check-id:
@@ -1688,13 +1688,13 @@ section-types:
     pattern-check-id:
       pattern: ^pcaed_deta_lst-\d+$
       error-message: ID must match pcaed_deta_lst-NNN
-    description: Adjustment details.
+    description: "Add one entry per detail of the step change — its description and any new position, parallelization, merge, or split."
   PCAJE-ITEM-LST:
     prefix: pcaje_item_lst
     pattern-check-id:
       pattern: ^pcaje_item_lst-\d+$
       error-message: ID must match pcaje_item_lst-NNN
-    description: Contains 0+× ProcessAdjustment.
+    description: "Add one entry per process step that deviates from the standard, capturing the adjustment type, rationale, implementation, risk, and approval."
   PCCTL-CONT-LST:
     prefix: pcctl_cont_lst
     pattern-check-id:
@@ -1834,13 +1834,13 @@ section-types:
     pattern-check-id:
       pattern: ^qgaed_deta_lst-\d+$
       error-message: ID must match qgaed_deta_lst-NNN
-    description: Gate details.
+    description: "Add one entry per gate-detail change, capturing the phase, the original criteria, and the adjusted criteria with any threshold shift."
   QGAJE-ITEM-LST:
     prefix: qgaje_item_lst
     pattern-check-id:
       pattern: ^qgaje_item_lst-\d+$
       error-message: ID must match qgaje_item_lst-NNN
-    description: Contains 0+× QualityGateAdjustment.
+    description: "Add one entry per quality gate that deviates from the standard, capturing the adjustment type, rationale, impact, and approval."
   QGCHK-ITEM-LST:
     prefix: qgchk_item_lst
     pattern-check-id:
@@ -1948,7 +1948,7 @@ section-types:
     pattern-check-id:
       pattern: ^rlaje_item_lst-\d+$
       error-message: ID must match rlaje_item_lst-NNN
-    description: Contains 0+× RoleAdjustment.
+    description: "Add one entry per role that deviates from the standard, capturing the adjustment type, rationale, coverage, risk, and approval."
   RLCMB-COMB-LST:
     prefix: rlcmb_comb_lst
     pattern-check-id:
@@ -2266,7 +2266,7 @@ section-types:
     pattern-check-id:
       pattern: ^tolen_item_lst-\d+$
       error-message: ID must match tolen_item_lst-NNN
-    description: Contains 0+× Tool.
+    description: "Add one entry per tool in the project toolchain, capturing its identity, licensing, access, integration, security, cost, and lifecycle."
   TPACT-ACTI-LST:
     prefix: tpact_acti_lst
     pattern-check-id:
@@ -8326,7 +8326,7 @@ section-types:
     description: Rationale for trade-off decision.
   TOENV:
     prefix: toenv
-    description: 2.4. Tooling and Environments.
+    description: "Use the Tooling and Environments subsections to record the project's tool inventory and governance, and its environment inventory. This wrapper itself carries no content."
   TOLAC:
     prefix: tolac
     description: Access control and provisioning for a tool.
