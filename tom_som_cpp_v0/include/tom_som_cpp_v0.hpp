@@ -16619,6 +16619,12 @@ class ErrorHandling : public som::SomNode {
 };
 
 // Accessibility and inclusive error cues.
+//
+// The authoritative WCAG conformance targets (AA/AAA levels, success
+// criteria) are defined in §10.9 `Accessibility`. This section *applies*
+// those targets to error states (screen-reader announcements, contrast,
+// non-color indicators) — reference §10.9, do not restate the conformance
+// levels here.
 class ErrorHandlingAccessibility : public som::SomNode {
  public:
   ErrorHandlingAccessibility(som::SpecDocument& doc, std::string path);
@@ -22177,6 +22183,11 @@ class MigrationPhases : public som::SomNode {
 // End-to-end system migration plan covering migration-plan content:
 // data, configuration, integration, and user migration from the current
 // landscape to the target.
+//
+// This is the rollout/cutover *runbook* (execution). The staged-migration
+// *strategy* (phasing, sequencing, data-migration approach) is owned by
+// `DataMigrationStrategy` (`DRM`); reference it rather than restating the
+// strategy here.
 class MigrationPlan : public som::SomNode {
  public:
   MigrationPlan(som::SpecDocument& doc, std::string path);
@@ -29055,6 +29066,12 @@ class RolloutPlan : public som::SomNode {
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
+//
+// This is the *execution* side of training. The training *requirements*
+// (audiences, competency outcomes, certification, ongoing enablement) are
+// owned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them
+// via the shared `TRP-TRN` detail link rather than restating the
+// requirements here.
 class RolloutTrainingMaterial : public som::SomNode {
  public:
   RolloutTrainingMaterial(som::SpecDocument& doc, std::string path);
@@ -36818,6 +36835,12 @@ class UserManagement : public som::SomNode {
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
+//
+// This is the *execution* side of user documentation. The documentation
+// *requirements* (deliverables, formats, platforms, versioning,
+// localization) are owned by SBP.9 `InformationForUseRequirements`
+// (`IFUR`); reference them via the shared `TRP-DOC` detail link rather
+// than restating the requirements here.
 class UserManual : public som::SomNode {
  public:
   UserManual(som::SpecDocument& doc, std::string path);

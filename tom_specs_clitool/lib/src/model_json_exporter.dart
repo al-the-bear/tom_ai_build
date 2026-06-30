@@ -99,6 +99,9 @@ class ModelJsonExporter {
         'mapsTo': cls.getAnnotation('MapsTo')!.arguments['documentClass'],
       if (cls.getAnnotation('DetailedIn') != null)
         'detailedIn': cls.getAnnotation('DetailedIn')!.arguments['documentClass'],
+      if (_standardRefs(cls.getAnnotation('StandardReferences')) != null)
+        'standardReferences':
+            _standardRefs(cls.getAnnotation('StandardReferences')),
       if (cls.annotations.isNotEmpty)
         'annotations': _exportAnnotations(cls.annotations),
       'fields': cls.fields.map(_exportField).toList(),
@@ -120,6 +123,9 @@ class ModelJsonExporter {
     final pattern =
         f.getAnnotation('SectionIdPattern')?.arguments['pattern'] as String?;
     if (pattern != null) out['sectionIdPattern'] = pattern;
+
+    final standardRefs = _standardRefs(f.getAnnotation('StandardReferences'));
+    if (standardRefs != null) out['standardReferences'] = standardRefs;
 
     if (f.annotations.isNotEmpty) {
       out['annotations'] = _exportAnnotations(f.annotations);
@@ -226,6 +232,24 @@ class ModelJsonExporter {
     if (anno == null) return null;
     final g = anno.arguments['guidance'] as String?;
     return (g != null && g.isNotEmpty) ? g : null;
+  }
+
+  /// Projects a `@StandardReferences` annotation into a curated
+  /// `{standards, connotation}` map for first-class consumer access (mirroring
+  /// the `mapsTo` / `detailedIn` projection). The lossless `annotations` block
+  /// still carries the same data; this is the convenient view. Returns null
+  /// when the annotation is absent or carries no usable values.
+  Map<String, Object?>? _standardRefs(AnnotationData? anno) {
+    if (anno == null) return null;
+    final standards = anno.arguments['standards'];
+    final connotation = anno.arguments['connotation'] as String?;
+    final hasStandards = standards is List && standards.isNotEmpty;
+    final hasConnotation = connotation != null && connotation.isNotEmpty;
+    if (!hasStandards && !hasConnotation) return null;
+    return {
+      if (hasStandards) 'standards': standards,
+      if (hasConnotation) 'connotation': connotation,
+    };
   }
 
   String _splitPascal(String name) => name

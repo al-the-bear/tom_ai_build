@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T16:50:40.309881Z",
+  "generatedAt": "2026-06-30T18:12:33.220772Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -66336,7 +66336,7 @@
     "ErrorHandlingAccessibility": {
       "name": "ErrorHandlingAccessibility",
       "sectionId": "EHCA",
-      "doc": "Accessibility and inclusive error cues.",
+      "doc": "Accessibility and inclusive error cues.\n\nThe authoritative WCAG conformance targets (AA/AAA levels, success\ncriteria) are defined in §10.9 `Accessibility`. This section *applies*\nthose targets to error states (screen-reader announcements, contrast,\nnon-color indicators) — reference §10.9, do not restate the conformance\nlevels here.",
       "annotations": [
         {
           "name": "SectionId",
@@ -101686,7 +101686,7 @@
     "MigrationPlan": {
       "name": "MigrationPlan",
       "sectionId": "MIGPLN",
-      "doc": "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.",
+      "doc": "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -147263,7 +147263,7 @@
     "RolloutTrainingMaterial": {
       "name": "RolloutTrainingMaterial",
       "sectionId": "RLTTM",
-      "doc": "15.4. Training Materials.\n\nTraining deliverables covering training-material content.",
+      "doc": "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -196047,7 +196047,7 @@
     "UserManual": {
       "name": "UserManual",
       "sectionId": "USRMAN",
-      "doc": "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.",
+      "doc": "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {

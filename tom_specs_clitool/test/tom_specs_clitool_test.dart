@@ -1015,6 +1015,89 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
+  // SD-1: @StandardReferences provenance flows into spec_model.json. The reader
+  // captures it generically (arguments: standards[] + connotation), and the
+  // exporter surfaces a curated `standardReferences` key beside the lossless
+  // annotations block — mirroring the mapsTo / detailedIn projection.
+  // ---------------------------------------------------------------------------
+  group('unit: ModelJsonExporter @StandardReferences (SD-1)', () {
+    test('curated standardReferences surfaces on a class', () {
+      final classes = <String, ModelClass>{
+        'QualityModel': _cls('QualityModel', [
+          AnnotationData('SectionId', {'id': 'QM00'}),
+          AnnotationData('StandardReferences', {
+            'standards': ['ISO/IEC 25010:2023 §4.2 — Functional suitability'],
+            'connotation': 'The quality characteristics the system is measured '
+                'against.',
+          }),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final cls = (json['classes'] as Map)['QualityModel'] as Map;
+
+      final refs = cls['standardReferences'] as Map;
+      expect((refs['standards'] as List).single,
+          'ISO/IEC 25010:2023 §4.2 — Functional suitability');
+      expect(refs['connotation'],
+          'The quality characteristics the system is measured against.');
+
+      // Still present (losslessly) in the generic annotations block.
+      final annoNames =
+          (cls['annotations'] as List).cast<Map>().map((a) => a['name']);
+      expect(annoNames, contains('StandardReferences'));
+
+      expect(() => jsonEncode(json), returnsNormally);
+    });
+
+    test('curated standardReferences surfaces on a field', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
+          ModelField(
+            name: 'objective',
+            typeName: 'String',
+            annotations: [
+              AnnotationData('StandardReferences', {
+                'standards': ['IEEE 830-1998 §5.3 — Specific requirements'],
+                'connotation': 'A single measurable objective.',
+              }),
+            ],
+          ),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+      final field = (doc['fields'] as List).cast<Map>().single;
+
+      final refs = field['standardReferences'] as Map;
+      expect((refs['standards'] as List).single,
+          'IEEE 830-1998 §5.3 — Specific requirements');
+      expect(refs['connotation'], 'A single measurable objective.');
+    });
+
+    test('omits standardReferences when the annotation is absent or empty', () {
+      final classes = <String, ModelClass>{
+        'Bare': _cls('Bare', [AnnotationData('SectionId', {'id': 'BR00'})], [
+          ModelField(name: 'f', typeName: 'String'),
+        ]),
+        // Present but carrying no usable values → still omitted.
+        'Empty': _cls('Empty', [
+          AnnotationData('StandardReferences', {
+            'standards': <Object?>[],
+            'connotation': '',
+          }),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final bare = (json['classes'] as Map)['Bare'] as Map;
+      expect(bare.containsKey('standardReferences'), isFalse);
+      final field = (bare['fields'] as List).cast<Map>().single;
+      expect(field.containsKey('standardReferences'), isFalse);
+      final empty = (json['classes'] as Map)['Empty'] as Map;
+      expect(empty.containsKey('standardReferences'), isFalse);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
   // Step 2 (multiplatform_spec_model_plan §A.2): meta-data schema + version
   // stamp. The exporter stamps the meta-data file with `metaSchemaVersion`
   // (the file's own on-disk schema version) beside `modelVersion` /

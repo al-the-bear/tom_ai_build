@@ -17451,7 +17451,14 @@ class ErrorHandling(SomNode):
         return None  # (skipped: no target type)
 
 class ErrorHandlingAccessibility(SomNode):
-    """Accessibility and inclusive error cues."""
+    """Accessibility and inclusive error cues.
+    
+    The authoritative WCAG conformance targets (AA/AAA levels, success
+    criteria) are defined in §10.9 `Accessibility`. This section *applies*
+    those targets to error states (screen-reader announcements, contrast,
+    non-color indicators) — reference §10.9, do not restate the conformance
+    levels here.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -26138,6 +26145,11 @@ class MigrationPlan(SomNode):
     End-to-end system migration plan covering migration-plan content:
     data, configuration, integration, and user migration from the current
     landscape to the target.
+    
+    This is the rollout/cutover *runbook* (execution). The staged-migration
+    *strategy* (phasing, sequencing, data-migration approach) is owned by
+    `DataMigrationStrategy` (`DRM`); reference it rather than restating the
+    strategy here.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -36844,6 +36856,12 @@ class RolloutTrainingMaterial(SomNode):
     """15.4. Training Materials.
     
     Training deliverables covering training-material content.
+    
+    This is the *execution* side of training. The training *requirements*
+    (audiences, competency outcomes, certification, ongoing enablement) are
+    owned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them
+    via the shared `TRP-TRN` detail link rather than restating the
+    requirements here.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -49159,6 +49177,12 @@ class UserManual(SomNode):
     """15.3. User Manuals.
     
     End-user documentation deliverables covering user-manual content.
+    
+    This is the *execution* side of user documentation. The documentation
+    *requirements* (deliverables, formats, platforms, versioning,
+    localization) are owned by SBP.9 `InformationForUseRequirements`
+    (`IFUR`); reference them via the shared `TRP-DOC` detail link rather
+    than restating the requirements here.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)

@@ -15590,6 +15590,12 @@ ErrorRecovery error_handling_error_recovery(const ErrorHandling *self);
 // (skipped: errorVisualDesign has no target type)
 
 // Accessibility and inclusive error cues.
+//
+// The authoritative WCAG conformance targets (AA/AAA levels, success
+// criteria) are defined in §10.9 `Accessibility`. This section *applies*
+// those targets to error states (screen-reader announcements, contrast,
+// non-color indicators) — reference §10.9, do not restate the conformance
+// levels here.
 // Binds a ErrorHandlingAccessibility facade to a document and a path (path copied).
 void error_handling_accessibility_init(ErrorHandlingAccessibility *self, SpecDocument *doc, const char *path);
 void error_handling_accessibility_free(ErrorHandlingAccessibility *self);
@@ -20599,6 +20605,11 @@ SomList migration_phases_items(const MigrationPhases *self);
 // End-to-end system migration plan covering migration-plan content:
 // data, configuration, integration, and user migration from the current
 // landscape to the target.
+//
+// This is the rollout/cutover *runbook* (execution). The staged-migration
+// *strategy* (phasing, sequencing, data-migration approach) is owned by
+// `DataMigrationStrategy` (`DRM`); reference it rather than restating the
+// strategy here.
 // Binds a MigrationPlan facade to a document and a path (path copied).
 void migration_plan_init(MigrationPlan *self, SpecDocument *doc, const char *path);
 void migration_plan_free(MigrationPlan *self);
@@ -26795,6 +26806,12 @@ void rollout_plan_set_content(RolloutPlan *self, const char *value);
 // 15.4. Training Materials.
 //
 // Training deliverables covering training-material content.
+//
+// This is the *execution* side of training. The training *requirements*
+// (audiences, competency outcomes, certification, ongoing enablement) are
+// owned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them
+// via the shared `TRP-TRN` detail link rather than restating the
+// requirements here.
 // Binds a RolloutTrainingMaterial facade to a document and a path (path copied).
 void rollout_training_material_init(RolloutTrainingMaterial *self, SpecDocument *doc, const char *path);
 void rollout_training_material_free(RolloutTrainingMaterial *self);
@@ -33824,6 +33841,12 @@ UserAttributes user_management_user_attributes(const UserManagement *self);
 // 15.3. User Manuals.
 //
 // End-user documentation deliverables covering user-manual content.
+//
+// This is the *execution* side of user documentation. The documentation
+// *requirements* (deliverables, formats, platforms, versioning,
+// localization) are owned by SBP.9 `InformationForUseRequirements`
+// (`IFUR`); reference them via the shared `TRP-DOC` detail link rather
+// than restating the requirements here.
 // Binds a UserManual facade to a document and a path (path copied).
 void user_manual_init(UserManual *self, SpecDocument *doc, const char *path);
 void user_manual_free(UserManual *self);
