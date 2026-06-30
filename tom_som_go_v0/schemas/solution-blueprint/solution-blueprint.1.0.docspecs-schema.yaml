@@ -67,7 +67,7 @@ section-types:
     pattern-check-id:
       pattern: ^auevty_evid_lst-\d+$
       error-message: ID must match auevty_evid_lst-NNN
-    description: Evidence types required.
+    description: "Add one entry per type of audit evidence, capturing its description, required format, and responsible role."
   BAPOEN-BACK-LST:
     prefix: bapoen_back_lst
     pattern-check-id:
@@ -139,13 +139,13 @@ section-types:
     pattern-check-id:
       pattern: ^chimcr_item_lst-\d+$
       error-message: ID must match chimcr_item_lst-NNN
-    description: Contains 0+× ChangeImpactCriterion.
+    description: "Add one entry per impact criterion, capturing its thresholds, measurement method, approval rules, and weighting."
   CHNORU-NOTI-LST:
     prefix: chnoru_noti_lst
     pattern-check-id:
       pattern: ^chnoru_noti_lst-\d+$
       error-message: ID must match chnoru_noti_lst-NNN
-    description: Notification rules during change process.
+    description: "Add one entry per notification rule, capturing who is notified at each stage of the change process."
   COCHEN-COMM-LST:
     prefix: cochen_comm_lst
     pattern-check-id:
@@ -157,7 +157,7 @@ section-types:
     pattern-check-id:
       pattern: ^coinca_cate_lst-\d+$
       error-message: ID must match coinca_cate_lst-NNN
-    description: Confidential information categories.
+    description: "Add one entry per category of confidential information, capturing its name, classification level, handling instructions, and authorized personnel."
   COLVCH-CHAN-LST:
     prefix: colvch_chan_lst
     pattern-check-id:
@@ -187,7 +187,7 @@ section-types:
     pattern-check-id:
       pattern: ^csdsgr_cust_lst-\d+$
       error-message: ID must match csdsgr_cust_lst-NNN
-    description: 3.3.3. Custom Distribution Groups — contains 0+× Group.
+    description: "Add one entry per custom distribution group, capturing its purpose, information scope, frequency, channel, and members."
   CUBIPR-PROC-LST:
     prefix: cubipr_proc_lst
     min-count-in-document: 1
@@ -293,7 +293,7 @@ section-types:
     pattern-check-id:
       pattern: ^direpr_pref_lst-\d+$
       error-message: ID must match direpr_pref_lst-NNN
-    description: Distribution preferences.
+    description: "Add one entry per preference set, capturing the distribution method, format, language, digest, and notification preferences."
   DOBIRU-RULE-LST:
     prefix: dobiru_rule_lst
     pattern-check-id:
@@ -402,7 +402,7 @@ section-types:
     pattern-check-id:
       pattern: ^imlede_impa_lst-\d+$
       error-message: ID must match imlede_impa_lst-NNN
-    description: Impact level definitions.
+    description: "Add one entry per impact-level definition set, mapping each level to its threshold meaning and approval authority."
   INBURU-BUSI-LST:
     prefix: inburu_busi_lst
     pattern-check-id:
@@ -444,7 +444,7 @@ section-types:
     pattern-check-id:
       pattern: ^insure_insu_lst-\d+$
       error-message: ID must match insure_insu_lst-NNN
-    description: Insurance requirements — contains 0+× Insurance Entry.
+    description: "Add one entry per insurance coverage, capturing its type, minimum coverage, insured party, policy holder, validity period, and whether a certificate is required."
   LECOEN-LEGA-LST:
     prefix: lecoen_lega_lst
     pattern-check-id:
@@ -1091,7 +1091,7 @@ section-types:
     pattern-check-id:
       pattern: ^commb_memb_lst-\d+$
       error-message: ID must match commb_memb_lst-NNN
-    description: Steering committee members — contains 1+× Committee Member.
+    description: "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact."
   COMMU-COMM-LST:
     prefix: commu_comm_lst
     pattern-check-id:
@@ -1127,7 +1127,7 @@ section-types:
     pattern-check-id:
       pattern: ^comrs_resp_lst-\d+$
       error-message: ID must match comrs_resp_lst-NNN
-    description: Specific responsibilities of this member.
+    description: "Add one entry per responsibility area this member owns, with its scope and escalation target."
   CRITI-CRIT-LST:
     prefix: criti_crit_lst
     pattern-check-id:
@@ -1175,7 +1175,7 @@ section-types:
     pattern-check-id:
       pattern: ^dcaut_deci_lst-\d+$
       error-message: ID must match dcaut_deci_lst-NNN
-    description: Decision authority matrix.
+    description: "Add one entry per decision area, naming its authority level, decision maker, escalation target, and expected response time."
   DCDLV-ITEM-LST:
     prefix: dcdlv_item_lst
     pattern-check-id:
@@ -1462,7 +1462,7 @@ section-types:
     pattern-check-id:
       pattern: ^ipown_owne_lst-\d+$
       error-message: ID must match ipown_owne_lst-NNN
-    description: IP ownership details — contains 0+× IP Ownership Entry.
+    description: "Add one entry per IP asset, capturing its type, description, owner, usage rights, and restrictions."
   ITSE1-TEST-LST:
     prefix: itse1_test_lst
     pattern-check-id:
@@ -1677,7 +1677,7 @@ section-types:
     pattern-check-id:
       pattern: ^otagr_othe_lst-\d+$
       error-message: ID must match otagr_othe_lst-NNN
-    description: 3.6.6. Other Agreements — contains 0+× Agreement.
+    description: "Add one entry per additional agreement, capturing its title, type, parties, validity dates, key terms, obligations, and location."
   PARTI-PART-LST:
     prefix: parti_part_lst
     pattern-check-id:
@@ -1894,7 +1894,7 @@ section-types:
     pattern-check-id:
       pattern: ^regrq_requ_lst-\d+$
       error-message: ID must match regrq_requ_lst-NNN
-    description: Regulatory requirements — contains 0+× Regulatory Requirement.
+    description: "Add one entry per regulation the project must comply with, capturing its regulatory body, jurisdiction, applicability, deadline, evidence required, responsible party, and penalties."
   RELAT-RELA-LST:
     prefix: relat_rela_lst
     pattern-check-id:
@@ -2002,7 +2002,7 @@ section-types:
     pattern-check-id:
       pattern: ^rreqe_open_lst-\d+$
       error-message: ID must match rreqe_open_lst-NNN
-    description: Resource requirements not yet filled.
+    description: "Add one entry per unfilled position, with its required skills, experience, allocation, target date, priority, and recruitment status."
   RSPCH-ADDE-LST:
     prefix: rspch_adde_lst
     pattern-check-id:
@@ -2248,19 +2248,19 @@ section-types:
     pattern-check-id:
       pattern: ^tmmbe_memb_lst-\d+$
       error-message: ID must match tmmbe_memb_lst-NNN
-    description: Team members — contains 1+× Team Member.
+    description: "Add one entry per assigned team member, with their role, allocation, contact, skills, availability, and responsibilities."
   TMMRP-RESP-LST:
     prefix: tmmrp_resp_lst
     pattern-check-id:
       pattern: ^tmmrp_resp_lst-\d+$
       error-message: ID must match tmmrp_resp_lst-NNN
-    description: Role-specific responsibilities.
+    description: "Add one entry per responsibility area this member owns, with its description, key deliverables, and decision authority."
   TMSKE-SKIL-LST:
     prefix: tmske_skil_lst
     pattern-check-id:
       pattern: ^tmske_skil_lst-\d+$
       error-message: ID must match tmske_skil_lst-NNN
-    description: Individual skill entries.
+    description: "Add one entry per individual skill, with its proficiency level, years using it, and when it was last used."
   TOLEN-ITEM-LST:
     prefix: tolen_item_lst
     pattern-check-id:
@@ -2510,25 +2510,25 @@ section-types:
     pattern-check-id:
       pattern: ^ccme_memb_lst-\d+$
       error-message: ID must match ccme_memb_lst-NNN
-    description: CCB members — contains 1+× CCB Member.
+    description: "Add one entry per Change Control Board member, capturing their CCB role, voting rights, represented area, and substitute."
   CHCA-CHAN-LST:
     prefix: chca_chan_lst
     pattern-check-id:
       pattern: ^chca_chan_lst-\d+$
       error-message: ID must match chca_chan_lst-NNN
-    description: 3.4.4. Change Categories — contains 0+× Category.
+    description: "Add one entry per change category, capturing its scope, default handling, approval path, and documentation requirements."
   CHRO-ROLE-LST:
     prefix: chro_role_lst
     pattern-check-id:
       pattern: ^chro_role_lst-\d+$
       error-message: ID must match chro_role_lst-NNN
-    description: Roles involved in the change process — contains 0+× ChangeRole.
+    description: "Add one entry per role involved in the change process, capturing its responsibility, authority, and assignment."
   CHST-STEP-LST:
     prefix: chst_step_lst
     pattern-check-id:
       pattern: ^chst_step_lst-\d+$
       error-message: ID must match chst_step_lst-NNN
-    description: Process steps — ordered list of change process steps — contains 0+× ChangeStep.
+    description: "Add one entry per step in the change process, in execution order, capturing its responsibilities, artifacts, criteria, and decision paths."
   CMAC-ACTI-LST:
     prefix: cmac_acti_lst
     pattern-check-id:
@@ -2612,7 +2612,7 @@ section-types:
     pattern-check-id:
       pattern: ^coty_comm_lst-\d+$
       error-message: ID must match coty_comm_lst-NNN
-    description: Communication types and their distribution rules.
+    description: "Add one entry per communication type, capturing its frequency, format, distribution scope, responsible role, and approval requirements."
   CPIE-IMPR-LST:
     prefix: cpie_impr_lst
     pattern-check-id:
@@ -2624,7 +2624,7 @@ section-types:
     pattern-check-id:
       pattern: ^cpml_mile_lst-\d+$
       error-message: ID must match cpml_mile_lst-NNN
-    description: Compliance milestones.
+    description: "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status."
   CUWF-WORK-LST:
     prefix: cuwf_work_lst
     min-count-in-document: 1
@@ -2731,13 +2731,13 @@ section-types:
     pattern-check-id:
       pattern: ^dsrc_item_lst-\d+$
       error-message: ID must match dsrc_item_lst-NNN
-    description: Contains 0+× DistributionRecipient.
+    description: "Add one entry per executive-summary recipient, capturing their role, contact information, preferences, and access levels."
   DSRC-MEMB-LST:
     prefix: dsrc_memb_lst
     pattern-check-id:
       pattern: ^dsrc_memb_lst-\d+$
       error-message: ID must match dsrc_memb_lst-NNN
-    description: Group members.
+    description: "Add one entry per recipient in this group, capturing their role, contact information, preferences, and access levels."
   EFME-FIEL-LST:
     prefix: efme_fiel_lst
     pattern-check-id:
@@ -2822,7 +2822,7 @@ section-types:
     pattern-check-id:
       pattern: ^lili_liab_lst-\d+$
       error-message: ID must match lili_liab_lst-NNN
-    description: Liability limitations.
+    description: "Add one entry per liability limitation, capturing its maximum liability, exclusions, indemnification clauses, and limitation of damages."
   MDRE-MOBI-LST:
     prefix: mdre_mobi_lst
     pattern-check-id:
@@ -3197,7 +3197,7 @@ section-types:
     pattern-check-id:
       pattern: ^aud_audi_lst-\d+$
       error-message: ID must match aud_audi_lst-NNN
-    description: Planned audits — contains 0+× Audit Entry.
+    description: "Add one entry per planned audit, capturing its type, auditor, scope, planned date, frequency, and applicable standards."
   BGE-GOAL-LST:
     prefix: bge_goal_lst
     min-count-in-document: 1

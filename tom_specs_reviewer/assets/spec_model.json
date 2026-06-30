@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T20:35:01.095099Z",
+  "generatedAt": "2026-06-30T21:06:49.981069Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -5525,7 +5525,24 @@
       "name": "AdministrativeSummary",
       "sectionId": "ADMSM",
       "doc": "Administrative overview summary statistics.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "An at-a-glance roll-up of the project administration: team size, governance model, key decision-maker, and meeting cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "An at-a-glance roll-up of the project administration: team size, governance model, key decision-maker, and meeting cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12612,7 +12629,22 @@
       "name": "AuditEntry",
       "sectionId": "AUD",
       "doc": "An audit entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011:2018 — guidelines for auditing management systems"
+        ],
+        "connotation": "A single planned audit: its type, auditor, scope, schedule, frequency, and the standards it audits against."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "A single planned audit: its type, auditor, scope, schedule, frequency, and the standards it audits against."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12643,42 +12675,49 @@
             {
               "name": "auditName",
               "label": "Audit Name",
+              "hint": "Name of the audit",
               "type": "String",
               "required": true
             },
             {
               "name": "auditType",
               "label": "Type (Internal/External)",
+              "hint": "Whether the audit is internal or external",
               "type": "String",
               "required": false
             },
             {
               "name": "auditor",
               "label": "Auditor",
+              "hint": "Person or body conducting the audit",
               "type": "String",
               "required": false
             },
             {
               "name": "scope",
               "label": "Scope",
+              "hint": "What the audit covers",
               "type": "String",
               "required": false
             },
             {
               "name": "plannedDate",
               "label": "Planned Date",
+              "hint": "When the audit is scheduled",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency",
+              "hint": "How often the audit recurs",
               "type": "String",
               "required": false
             },
             {
               "name": "standards",
               "label": "Applicable Standards",
+              "hint": "Standards the audit assesses compliance against",
               "type": "String",
               "required": false
             }
@@ -12690,7 +12729,22 @@
       "name": "AuditEvidenceRequirements",
       "sectionId": "AUEVRE",
       "doc": "Audit evidence requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011:2018 — guidelines for auditing management systems"
+        ],
+        "connotation": "Defines what evidence audits require — documentation standards, retention periods, traceability, sign-off, and the types of evidence to be produced."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "Defines what evidence audits require — documentation standards, retention periods, traceability, sign-off, and the types of evidence to be produced."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12721,24 +12775,28 @@
             {
               "name": "documentationStandards",
               "label": "Documentation Standards",
+              "hint": "Standards audit evidence documentation must follow",
               "type": "String",
               "required": false
             },
             {
               "name": "retentionPeriod",
               "label": "Retention Period",
+              "hint": "How long audit evidence must be retained",
               "type": "String",
               "required": false
             },
             {
               "name": "traceabilityRequirements",
               "label": "Traceability Requirements",
+              "hint": "How evidence must trace back to requirements or activities",
               "type": "String",
               "required": false
             },
             {
               "name": "signoffRequirements",
               "label": "Sign-off Requirements",
+              "hint": "Who must sign off on audit evidence",
               "type": "String",
               "required": false
             }
@@ -12748,10 +12806,26 @@
           "name": "evidenceTypes",
           "kind": "list",
           "doc": "Evidence types required.",
+          "help": "Add one entry per type of audit evidence, capturing its description, required format, and responsible role.",
           "sectionId": "AUEVTY-EVID-LST",
           "sectionIdPattern": "AUEVTY-EVID-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "The set of evidence types that audits require, each with its format and the role responsible for producing it."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 19011:2018 — guidelines for auditing management systems"
+                ],
+                "connotation": "The set of evidence types that audits require, each with its format and the role responsible for producing it."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -12762,6 +12836,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AUEVTY-EVID-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per type of audit evidence, capturing its description, required format, and responsible role."
               }
             },
             {
@@ -12780,7 +12860,22 @@
       "name": "AuditEvidenceTypeEntry",
       "sectionId": "AUEVTY",
       "doc": "An audit evidence type entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011:2018 — guidelines for auditing management systems"
+        ],
+        "connotation": "A single type of audit evidence: what it is, the format it must take, and the role responsible for producing it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "A single type of audit evidence: what it is, the format it must take, and the role responsible for producing it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12811,24 +12906,28 @@
             {
               "name": "evidenceType",
               "label": "Evidence Type",
+              "hint": "Kind of audit evidence, e.g. logs, reports, sign-offs",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Description",
+              "hint": "What this evidence demonstrates",
               "type": "String",
               "required": false
             },
             {
               "name": "format",
               "label": "Required Format",
+              "hint": "Format the evidence must be provided in",
               "type": "String",
               "required": false
             },
             {
               "name": "responsibleRole",
               "label": "Responsible Role",
+              "hint": "Role accountable for producing this evidence",
               "type": "String",
               "required": false
             }
@@ -12953,7 +13052,22 @@
       "sectionId": "AR",
       "doc": "3.6.4. Audit Requirements.\n\nInternal and external audit obligations.",
       "help": "Document audit requirements including scope, frequency, auditor selection, and deliverable requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011:2018 — guidelines for auditing management systems"
+        ],
+        "connotation": "Captures the internal and external audit obligations for the project — their scope, frequency, auditors, and evidence requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "Captures the internal and external audit obligations for the project — their scope, frequency, auditors, and evidence requirements."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -12993,10 +13107,26 @@
           "name": "audits",
           "kind": "list",
           "doc": "Planned audits — contains 0+× Audit Entry.",
+          "help": "Add one entry per planned audit, capturing its type, auditor, scope, planned date, frequency, and applicable standards.",
           "sectionId": "AUD-AUDI-LST",
           "sectionIdPattern": "AUD-AUDI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 19011:2018 — guidelines for auditing management systems"
+            ],
+            "connotation": "The set of planned audits for the project, each with its type, auditor, scope, schedule, and applicable standards."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 19011:2018 — guidelines for auditing management systems"
+                ],
+                "connotation": "The set of planned audits for the project, each with its type, auditor, scope, schedule, and applicable standards."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -13007,6 +13137,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AUD-AUDI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per planned audit, capturing its type, auditor, scope, planned date, frequency, and applicable standards."
               }
             },
             {
@@ -24910,7 +25046,22 @@
       "name": "CcbMemberEntry",
       "sectionId": "CCME",
       "doc": "A CCB member entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "A single Change Control Board member: their role, voting rights, represented area, substitute, and quorum requirement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "A single Change Control Board member: their role, voting rights, represented area, substitute, and quorum requirement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26236,7 +26387,22 @@
       "name": "ChangeCategoryEntry",
       "sectionId": "CHCA",
       "doc": "A change category entry.\n\nDefines a category of changes with specific handling rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "A single change category: the changes it covers, its scope, default handling and approval path, and documentation requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "A single change category: the changes it covers, its scope, default handling and approval path, and documentation requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26338,7 +26504,22 @@
       "name": "ChangeCategoryEntryGovernance",
       "sectionId": "CCEG",
       "doc": "Documentation and special considerations.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "The documentation, assessment depth, and special handling required for a change category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The documentation, assessment depth, and special handling required for a change category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26395,7 +26576,24 @@
       "name": "ChangeCategoryEntryHandling",
       "sectionId": "CCEH",
       "doc": "Default handling and approval path.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes",
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The default handling for a change category — its typical impact level, approval path, expedited eligibility, and lead/processing times."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes",
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The default handling for a change category — its typical impact level, approval path, expedited eligibility, and lead/processing times."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26466,7 +26664,22 @@
       "name": "ChangeCategoryEntryScope",
       "sectionId": "CCES",
       "doc": "Scope and example changes.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "What a change category affects and representative examples of changes that fall into it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "What a change category affects and representative examples of changes that fall into it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26516,7 +26729,24 @@
       "name": "ChangeControlBoard",
       "sectionId": "CHCOBO",
       "doc": "3.4.3. Change Control Board.\n\nGovernance body responsible for major change decisions.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control",
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "The governance body that decides on major changes — its composition, meeting cadence, voting rules, records, and membership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control",
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The governance body that decides on major changes — its composition, meeting cadence, voting rules, records, and membership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26623,10 +26853,26 @@
           "name": "members",
           "kind": "list",
           "doc": "CCB members — contains 1+× CCB Member.",
+          "help": "Add one entry per Change Control Board member, capturing their CCB role, voting rights, represented area, and substitute.",
           "sectionId": "CCME-MEMB-LST",
           "sectionIdPattern": "CCME-MEMB-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The roster of Change Control Board members and their voting rights."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — perform integrated change control"
+                ],
+                "connotation": "The roster of Change Control Board members and their voting rights."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -26637,6 +26883,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CCME-MEMB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per Change Control Board member, capturing their CCB role, voting rights, represented area, and substitute."
               }
             },
             {
@@ -26662,7 +26914,22 @@
       "name": "ChangeControlBoardGovernance",
       "sectionId": "CCBG",
       "doc": "Decision-making and emergency governance.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The decision-making rules of the Change Control Board — quorum, voting, and emergency procedure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The decision-making rules of the Change Control Board — quorum, voting, and emergency procedure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26719,7 +26986,22 @@
       "name": "ChangeControlBoardMeetings",
       "sectionId": "CCBM",
       "doc": "Regular meeting cadence details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The regular meeting cadence of the Change Control Board — day, time, and duration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The regular meeting cadence of the Change Control Board — day, time, and duration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26776,7 +27058,22 @@
       "name": "ChangeControlBoardRecords",
       "sectionId": "CCBR",
       "doc": "Decision record distribution.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "How Change Control Board decisions are recorded and distributed — minutes and decision log."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "How Change Control Board decisions are recorded and distributed — minutes and decision log."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26826,7 +27123,24 @@
       "name": "ChangeDecisionCriteria",
       "sectionId": "CHDECR",
       "doc": "Decision criteria for evaluating change requests.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — perform integrated change control",
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "The weighted criteria used to score a change request and decide whether it requires steering-committee approval."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — perform integrated change control",
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The weighted criteria used to score a change request and decide whether it requires steering-committee approval."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26911,7 +27225,24 @@
       "name": "ChangeImpactCriteria",
       "sectionId": "CHIMC1",
       "doc": "3.4.2. Change Impact Criteria.\n\nCriteria for determining the impact level of change requests,\nwhich drives the approval path and stakeholder involvement.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis",
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "The criteria and thresholds that classify a change as minor, moderate, major, or critical, driving its approval path and stakeholder involvement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis",
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The criteria and thresholds that classify a change as minor, moderate, major, or critical, driving its approval path and stakeholder involvement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -26945,10 +27276,26 @@
           "name": "impactLevels",
           "kind": "list",
           "doc": "Impact level definitions.",
+          "help": "Add one entry per impact-level definition set, mapping each level to its threshold meaning and approval authority.",
           "sectionId": "IMLEDE-IMPA-LST",
           "sectionIdPattern": "IMLEDE-IMPA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "The definitions of each impact level (minor/moderate/major/critical) and the approval each requires."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 12207 — change impact analysis"
+                ],
+                "connotation": "The definitions of each impact level (minor/moderate/major/critical) and the approval each requires."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -26959,6 +27306,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IMLEDE-IMPA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per impact-level definition set, mapping each level to its threshold meaning and approval authority."
               }
             },
             {
@@ -26975,10 +27328,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× ChangeImpactCriterion.",
+          "help": "Add one entry per impact criterion, capturing its thresholds, measurement method, approval rules, and weighting.",
           "sectionId": "CHIMCR-ITEM-LST",
           "sectionIdPattern": "CHIMCR-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "The set of individual impact-assessment criteria, one per impact dimension."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 12207 — change impact analysis"
+                ],
+                "connotation": "The set of individual impact-assessment criteria, one per impact dimension."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -26989,6 +27358,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHIMCR-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per impact criterion, capturing its thresholds, measurement method, approval rules, and weighting."
               }
             },
             {
@@ -27007,7 +27382,22 @@
       "name": "ChangeImpactCriterionEntry",
       "sectionId": "CHIMCR",
       "doc": "A change impact criterion entry (form).\n\nDetailed criterion for assessing change impact in a specific dimension.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis"
+        ],
+        "connotation": "A single impact-assessment criterion for one dimension — its thresholds, measurement, approval rules, and weighting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "A single impact-assessment criterion for one dimension — its thresholds, measurement, approval rules, and weighting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27124,7 +27514,24 @@
       "name": "ChangeImpactCriterionEntryApproval",
       "sectionId": "CICEA",
       "doc": "Approval path rules for change impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis",
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The approval and escalation rules triggered when one impact criterion exceeds a threshold."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis",
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The approval and escalation rules triggered when one impact criterion exceeds a threshold."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27181,7 +27588,22 @@
       "name": "ChangeImpactCriterionEntryGovernance",
       "sectionId": "CICEG",
       "doc": "Weighting and supporting notes for change impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis"
+        ],
+        "connotation": "The weighting, mandatory flag, examples, and notes that govern how one impact criterion contributes to the overall assessment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "The weighting, mandatory flag, examples, and notes that govern how one impact criterion contributes to the overall assessment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27245,7 +27667,22 @@
       "name": "ChangeImpactCriterionEntryMeasurement",
       "sectionId": "CICEM",
       "doc": "Measurement configuration for change impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis"
+        ],
+        "connotation": "How one impact criterion is measured — method, unit, and baseline reference."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "How one impact criterion is measured — method, unit, and baseline reference."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27302,7 +27739,22 @@
       "name": "ChangeImpactCriterionEntryThresholds",
       "sectionId": "CICET",
       "doc": "Threshold levels for change impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis"
+        ],
+        "connotation": "The minor/moderate/major/critical threshold values for one impact criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis"
+            ],
+            "connotation": "The minor/moderate/major/critical threshold values for one impact criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27373,7 +27825,22 @@
       "name": "ChangeNotificationRules",
       "sectionId": "CHNORU",
       "doc": "Notification rules for change process events.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "A single notification rule: who is informed at each event in the change process — submission, assessment, approval, implementation, closure, and escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "A single notification rule: who is informed at each event in the change process — submission, assessment, approval, implementation, closure, and escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27451,7 +27918,26 @@
       "name": "ChangeProcedure",
       "sectionId": "CHPR",
       "doc": "3.4. Change Procedure.\n\nProcedure for requesting, evaluating, and approving changes to this\nProject Definition and other project documents. Defines the change\ncontrol workflow, impact assessment criteria, and approval authorities.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes",
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)",
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The root of §3.4: the end-to-end change-control procedure for project documents — how changes are requested, impact-assessed, decided by the control board, and categorised."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes",
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)",
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The root of §3.4: the end-to-end change-control procedure for project documents — how changes are requested, impact-assessed, decided by the control board, and categorised."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27545,10 +28031,26 @@
           "name": "changeCategories",
           "kind": "list",
           "doc": "3.4.4. Change Categories — contains 0+× Category.",
+          "help": "Add one entry per change category, capturing its scope, default handling, approval path, and documentation requirements.",
           "sectionId": "CHCA-CHAN-LST",
           "sectionIdPattern": "CHCA-CHAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The set of change categories, each with its own handling and approval rules."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9001:2015 §8.5.6 — control of changes"
+                ],
+                "connotation": "The set of change categories, each with its own handling and approval rules."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -27559,6 +28061,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHCA-CHAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per change category, capturing its scope, default handling, approval path, and documentation requirements."
               }
             },
             {
@@ -27577,7 +28085,22 @@
       "name": "ChangeProcedureSummary",
       "sectionId": "CHPRSU",
       "doc": "Change procedure summary and metrics.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "At-a-glance facts about the change procedure — request format, submission channel, processing time, emergency path, freeze periods, and retroactive policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "At-a-glance facts about the change procedure — request format, submission channel, processing time, emergency path, freeze periods, and retroactive policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27655,7 +28178,24 @@
       "name": "ChangeProcess",
       "sectionId": "CP",
       "doc": "3.4.1. Change Process.\n\nDetailed workflow for change request processing from submission\nthrough evaluation, approval, implementation, and closure.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes",
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+        ],
+        "connotation": "The step-by-step change-request workflow — its steps, roles, decision criteria, and notification rules from submission through closure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes",
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "The step-by-step change-request workflow — its steps, roles, decision criteria, and notification rules from submission through closure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -27761,10 +28301,26 @@
           "name": "steps",
           "kind": "list",
           "doc": "Process steps — ordered list of change process steps — contains 0+× ChangeStep.",
+          "help": "Add one entry per step in the change process, in execution order, capturing its responsibilities, artifacts, criteria, and decision paths.",
           "sectionId": "CHST-STEP-LST",
           "sectionIdPattern": "CHST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "The ordered sequence of steps that make up the change-process workflow."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+                ],
+                "connotation": "The ordered sequence of steps that make up the change-process workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -27775,6 +28331,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per step in the change process, in execution order, capturing its responsibilities, artifacts, criteria, and decision paths."
               }
             },
             {
@@ -27791,10 +28353,26 @@
           "name": "roles",
           "kind": "list",
           "doc": "Roles involved in the change process — contains 0+× ChangeRole.",
+          "help": "Add one entry per role involved in the change process, capturing its responsibility, authority, and assignment.",
           "sectionId": "CHRO-ROLE-LST",
           "sectionIdPattern": "CHRO-ROLE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The set of roles that participate in the change process and their authority."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9001:2015 §8.5.6 — control of changes"
+                ],
+                "connotation": "The set of roles that participate in the change process and their authority."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -27805,6 +28383,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHRO-ROLE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per role involved in the change process, capturing its responsibility, authority, and assignment."
               }
             },
             {
@@ -27836,10 +28420,26 @@
           "name": "notificationRules",
           "kind": "list",
           "doc": "Notification rules during change process.",
+          "help": "Add one entry per notification rule, capturing who is notified at each stage of the change process.",
           "sectionId": "CHNORU-NOTI-LST",
           "sectionIdPattern": "CHNORU-NOTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "The rules for who is notified at each event in the change process."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9001:2015 §8.5.6 — control of changes"
+                ],
+                "connotation": "The rules for who is notified at each event in the change process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -27850,6 +28450,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHNORU-NOTI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per notification rule, capturing who is notified at each stage of the change process."
               }
             },
             {
@@ -28006,7 +28612,22 @@
       "name": "ChangeRoleEntry",
       "sectionId": "CHRO",
       "doc": "A role involved in the change process (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "A single change-process role: its responsibility, decision authority, required competencies, assignment, and backup."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "A single change-process role: its responsibility, decision authority, required competencies, assignment, and backup."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28091,7 +28712,22 @@
       "name": "ChangeStepEntry",
       "sectionId": "CHST",
       "doc": "A change process step entry (form).\n\nDetailed description of a single step in the change process workflow.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+        ],
+        "connotation": "A single step in the change-process workflow: its responsibilities, input and output artifacts, entry/exit criteria, and decision paths."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "A single step in the change-process workflow: its responsibilities, input and output artifacts, entry/exit criteria, and decision paths."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28224,7 +28860,22 @@
       "name": "ChangeStepEntryArtifacts",
       "sectionId": "CSEA",
       "doc": "Inputs and outputs for change step.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+        ],
+        "connotation": "The artifacts a change step consumes and produces, plus the tools it uses."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "The artifacts a change step consumes and produces, plus the tools it uses."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28281,7 +28932,22 @@
       "name": "ChangeStepEntryCriteria",
       "sectionId": "CSEC",
       "doc": "Criteria and timing for change step.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+        ],
+        "connotation": "The entry/exit conditions, approval criteria, and timing bounds that gate a change step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "The entry/exit conditions, approval criteria, and timing bounds that gate a change step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28352,7 +29018,24 @@
       "name": "ChangeStepEntryDecision",
       "sectionId": "CSED",
       "doc": "Decision paths for change step.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)",
+          "PMBOK — perform integrated change control"
+        ],
+        "connotation": "The decision logic for a change step — whether a decision is required, its options, the next step per outcome, and escalation triggers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)",
+              "PMBOK — perform integrated change control"
+            ],
+            "connotation": "The decision logic for a change step — whether a decision is required, its options, the next step per outcome, and escalation triggers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28423,7 +29106,22 @@
       "name": "ChangeStepEntryResponsibility",
       "sectionId": "CSER",
       "doc": "Responsibility assignments for change step.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+        ],
+        "connotation": "The RACI assignment for a change step — who is responsible, accountable, consulted, and informed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — software life cycle (change management)"
+            ],
+            "connotation": "The RACI assignment for a change step — who is responsible, accountable, consulted, and informed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34231,7 +34929,24 @@
       "name": "CommitteeCharter",
       "sectionId": "COMCH",
       "doc": "Committee charter defining rules and procedures.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "The steering committee charter: its purpose, meeting frequency, quorum, voting rules, and how minutes are distributed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The steering committee charter: its purpose, meeting frequency, quorum, voting rules, and how minutes are distributed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34262,30 +34977,35 @@
             {
               "name": "purpose",
               "label": "Purpose",
+              "hint": "Why the committee exists and what it governs",
               "type": "String",
               "required": false
             },
             {
               "name": "meetingFrequency",
               "label": "Meeting Frequency",
+              "hint": "How often the committee convenes",
               "type": "String",
               "required": false
             },
             {
               "name": "quorumRequirements",
               "label": "Quorum Requirements",
+              "hint": "Minimum attendance needed for valid decisions",
               "type": "String",
               "required": false
             },
             {
               "name": "votingRules",
               "label": "Voting Rules",
+              "hint": "How decisions are voted on and carried",
               "type": "String",
               "required": false
             },
             {
               "name": "minutesDistribution",
               "label": "Minutes Distribution",
+              "hint": "Who receives the meeting minutes and how",
               "type": "String",
               "required": false
             }
@@ -34298,7 +35018,24 @@
       "sectionId": "CME",
       "doc": "A steering committee member entry (form).\n\nDetailed information about a steering committee member.",
       "help": "Document each committee member with their organizational role, committee responsibilities, and decision authority.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "A single steering committee member: their organizational and committee role, decision authority, delegation rules, attendance, and contact."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "A single steering committee member: their organizational and committee role, decision authority, delegation rules, attendance, and contact."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -34335,54 +35072,63 @@
             {
               "name": "name",
               "label": "Name",
+              "hint": "Full name of the committee member",
               "type": "String",
               "required": true
             },
             {
               "name": "organizationRole",
               "label": "Organization Role",
+              "hint": "Their role within their home organization",
               "type": "String",
               "required": false
             },
             {
               "name": "department",
               "label": "Department",
+              "hint": "Department or business unit they represent",
               "type": "String",
               "required": false
             },
             {
               "name": "committeeRole",
               "label": "Committee Role",
+              "hint": "Their role on the steering committee",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionAuthority",
               "label": "Decision Authority",
+              "hint": "What decisions this member is empowered to make",
               "type": "String",
               "required": false
             },
             {
               "name": "delegationRules",
               "label": "Delegation Rules",
+              "hint": "When and to whom they may delegate authority",
               "type": "String",
               "required": false
             },
             {
               "name": "meetingAttendance",
               "label": "Meeting Attendance (Mandatory/Optional)",
+              "hint": "Whether attendance is mandatory or optional",
               "type": "String",
               "required": false
             },
             {
               "name": "contactInfo",
               "label": "Contact Information",
+              "hint": "How to reach this committee member",
               "type": "String",
               "required": false
             },
             {
               "name": "substitute",
               "label": "Substitute/Deputy",
+              "hint": "Designated stand-in when unavailable",
               "type": "String",
               "required": false
             }
@@ -34392,10 +35138,28 @@
           "name": "responsibilities",
           "kind": "list",
           "doc": "Specific responsibilities of this member.",
+          "help": "Add one entry per responsibility area this member owns, with its scope and escalation target.",
           "sectionId": "COMRS-RESP-LST",
           "sectionIdPattern": "COMRS-RESP-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — RACI / responsibility assignment",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The specific governance responsibilities assigned to this committee member."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — RACI / responsibility assignment",
+                  "ISO 21500 — project management (governance, roles & responsibilities)"
+                ],
+                "connotation": "The specific governance responsibilities assigned to this committee member."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -34406,6 +35170,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COMRS-RESP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility area this member owns, with its scope and escalation target."
               }
             },
             {
@@ -34424,7 +35194,24 @@
       "name": "CommitteeResponsibilityEntry",
       "sectionId": "COMRS",
       "doc": "A committee member responsibility entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — RACI / responsibility assignment",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "A single committee responsibility: its area, scope, and escalation target."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — RACI / responsibility assignment",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "A single committee responsibility: its area, scope, and escalation target."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34455,18 +35242,21 @@
             {
               "name": "area",
               "label": "Responsibility Area",
+              "hint": "Area of responsibility assigned to the committee",
               "type": "String",
               "required": true
             },
             {
               "name": "scope",
               "label": "Scope",
+              "hint": "Boundaries of this responsibility",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationTo",
               "label": "Escalation To",
+              "hint": "Who issues in this area escalate to",
               "type": "String",
               "required": false
             }
@@ -34792,7 +35582,24 @@
       "name": "CommunicationMatrix",
       "sectionId": "COMA",
       "doc": "Communication matrix defining stakeholder communication patterns.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — plan communications management (communication methods)",
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "The communication matrix specifying channels, tools, and information flow patterns between stakeholder groups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — plan communications management (communication methods)",
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The communication matrix specifying channels, tools, and information flow patterns between stakeholder groups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34897,10 +35704,26 @@
           "name": "communicationTypes",
           "kind": "list",
           "doc": "Communication types and their distribution rules.",
+          "help": "Add one entry per communication type, capturing its frequency, format, distribution scope, responsible role, and approval requirements.",
           "sectionId": "COTY-COMM-LST",
           "sectionIdPattern": "COTY-COMM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — plan communications management (communication methods)"
+            ],
+            "connotation": "The set of communication types defined for the project, each with its own distribution rules."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — plan communications management (communication methods)"
+                ],
+                "connotation": "The set of communication types defined for the project, each with its own distribution rules."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -34911,6 +35734,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COTY-COMM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per communication type, capturing its frequency, format, distribution scope, responsible role, and approval requirements."
               }
             },
             {
@@ -35572,7 +36401,22 @@
       "name": "CommunicationTypeEntry",
       "sectionId": "COTY",
       "doc": "A communication type with distribution rules.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — plan communications management (communication methods)"
+        ],
+        "connotation": "A single communication type with its frequency, format, distribution scope, and approval rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — plan communications management (communication methods)"
+            ],
+            "connotation": "A single communication type with its frequency, format, distribution scope, and approval rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36895,7 +37739,24 @@
       "name": "ComplianceMilestoneEntry",
       "sectionId": "CPML",
       "doc": "A compliance milestone entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — compliance with legal & contractual requirements",
+          "ISO 37301 — compliance management systems"
+        ],
+        "connotation": "A single compliance milestone: the regulation it relates to, its due date, deliverables, verification method, and current status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — compliance with legal & contractual requirements",
+              "ISO 37301 — compliance management systems"
+            ],
+            "connotation": "A single compliance milestone: the regulation it relates to, its due date, deliverables, verification method, and current status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36926,36 +37787,42 @@
             {
               "name": "milestoneName",
               "label": "Milestone Name",
+              "hint": "Name of the compliance milestone",
               "type": "String",
               "required": true
             },
             {
               "name": "regulation",
               "label": "Related Regulation",
+              "hint": "Regulation this milestone supports",
               "type": "String",
               "required": false
             },
             {
               "name": "dueDate",
               "label": "Due Date",
+              "hint": "When the milestone must be completed",
               "type": "String",
               "required": false
             },
             {
               "name": "deliverables",
               "label": "Deliverables",
+              "hint": "Outputs produced to meet the milestone",
               "type": "String",
               "required": false
             },
             {
               "name": "verificationMethod",
               "label": "Verification Method",
+              "hint": "How milestone completion is verified",
               "type": "String",
               "required": false
             },
             {
               "name": "status",
               "label": "Status",
+              "hint": "Current state of the milestone",
               "type": "String",
               "required": false
             }
@@ -44187,7 +45054,24 @@
       "name": "ConfidentialInfoCategoryEntry",
       "sectionId": "COINCA",
       "doc": "A confidential information category.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management (confidentiality)",
+          "ISO/IEC 27002 — information security controls (data handling)"
+        ],
+        "connotation": "A single category of confidential information: its classification level, handling instructions, and who is authorized to access it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management (confidentiality)",
+              "ISO/IEC 27002 — information security controls (data handling)"
+            ],
+            "connotation": "A single category of confidential information: its classification level, handling instructions, and who is authorized to access it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44218,30 +45102,35 @@
             {
               "name": "categoryName",
               "label": "Category Name",
+              "hint": "Name of the confidential information category",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Description",
+              "hint": "What information falls into this category",
               "type": "String",
               "required": false
             },
             {
               "name": "classificationLevel",
               "label": "Classification Level",
+              "hint": "Sensitivity level, e.g. Public, Internal, Confidential",
               "type": "String",
               "required": false
             },
             {
               "name": "handlingInstructions",
               "label": "Handling Instructions",
+              "hint": "How this category must be stored, shared, and disposed of",
               "type": "String",
               "required": false
             },
             {
               "name": "authorizedPersonnel",
               "label": "Authorized Personnel",
+              "hint": "Who may access this category of information",
               "type": "String",
               "required": false
             }
@@ -44254,7 +45143,24 @@
       "sectionId": "CR",
       "doc": "3.6.2. Confidentiality and NDA Requirements.\n\nNon-disclosure agreements and confidentiality constraints.",
       "help": "Document all NDA and confidentiality requirements, including what information is confidential, duration, and handling procedures.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management (confidentiality)",
+          "ISO/IEC 27002 — information security controls (data handling)"
+        ],
+        "connotation": "Captures all non-disclosure agreements and confidentiality constraints — what information is confidential, for how long, and how it is handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management (confidentiality)",
+              "ISO/IEC 27002 — information security controls (data handling)"
+            ],
+            "connotation": "Captures all non-disclosure agreements and confidentiality constraints — what information is confidential, for how long, and how it is handled."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -44291,24 +45197,28 @@
             {
               "name": "ndaType",
               "label": "NDA Type (Mutual/One-way)",
+              "hint": "Whether the NDA is mutual or one-way",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date",
+              "hint": "When the confidentiality obligation begins",
               "type": "String",
               "required": false
             },
             {
               "name": "expirationDate",
               "label": "Expiration Date",
+              "hint": "When the confidentiality obligation ends",
               "type": "String",
               "required": false
             },
             {
               "name": "governingLaw",
               "label": "Governing Law",
+              "hint": "Jurisdiction governing the agreement",
               "type": "String",
               "required": false
             }
@@ -44318,10 +45228,28 @@
           "name": "categories",
           "kind": "list",
           "doc": "Confidential information categories.",
+          "help": "Add one entry per category of confidential information, capturing its name, classification level, handling instructions, and authorized personnel.",
           "sectionId": "COINCA-CATE-LST",
           "sectionIdPattern": "COINCA-CATE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — information security management (confidentiality)",
+              "ISO/IEC 27002 — information security controls (data handling)"
+            ],
+            "connotation": "The set of categories of confidential information, each with its classification level and handling rules."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — information security management (confidentiality)",
+                  "ISO/IEC 27002 — information security controls (data handling)"
+                ],
+                "connotation": "The set of categories of confidential information, each with its classification level and handling rules."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -44332,6 +45260,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COINCA-CATE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per category of confidential information, capturing its name, classification level, handling instructions, and authorized personnel."
               }
             },
             {
@@ -49729,7 +50663,22 @@
       "name": "CustomDistributionGroup",
       "sectionId": "CSDSGR",
       "doc": "Custom distribution group for specific stakeholder needs.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A custom distribution group with its own purpose, information scope, channel, and member list."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A custom distribution group with its own purpose, information scope, channel, and member list."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -49798,10 +50747,26 @@
           "name": "members",
           "kind": "list",
           "doc": "Group members.",
+          "help": "Add one entry per recipient in this group, capturing their role, contact information, preferences, and access levels.",
           "sectionId": "DSRC-MEMB-LST",
           "sectionIdPattern": "DSRC-MEMB-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The set of recipients belonging to this custom distribution group."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — communications management (stakeholder communication & distribution)"
+                ],
+                "connotation": "The set of recipients belonging to this custom distribution group."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -49812,6 +50777,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DSRC-MEMB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per recipient in this group, capturing their role, contact information, preferences, and access levels."
               }
             },
             {
@@ -58113,7 +59084,24 @@
       "name": "DataHandlingProcedures",
       "sectionId": "DAHAPR",
       "doc": "Data handling procedures for confidential information.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management (confidentiality)",
+          "ISO/IEC 27002 — information security controls (data handling)"
+        ],
+        "connotation": "Defines how confidential data must be stored, transmitted, destroyed, and how breaches are notified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management (confidentiality)",
+              "ISO/IEC 27002 — information security controls (data handling)"
+            ],
+            "connotation": "Defines how confidential data must be stored, transmitted, destroyed, and how breaches are notified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58144,24 +59132,28 @@
             {
               "name": "storageRequirements",
               "label": "Storage Requirements",
+              "hint": "How confidential data must be stored",
               "type": "String",
               "required": false
             },
             {
               "name": "transmissionRequirements",
               "label": "Transmission Requirements",
+              "hint": "How confidential data must be transmitted",
               "type": "String",
               "required": false
             },
             {
               "name": "destructionProcedure",
               "label": "Destruction Procedure",
+              "hint": "How confidential data must be destroyed when no longer needed",
               "type": "String",
               "required": false
             },
             {
               "name": "breachNotificationProcess",
               "label": "Breach Notification Process",
+              "hint": "Steps to follow if confidential data is breached",
               "type": "String",
               "required": false
             }
@@ -65474,7 +66466,24 @@
       "name": "DecisionAuthorityEntry",
       "sectionId": "DCAUT",
       "doc": "A decision authority entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — RACI / responsibility assignment",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "A single decision area: its authority level, who decides, who it escalates to, and the expected response time."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — RACI / responsibility assignment",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "A single decision area: its authority level, who decides, who it escalates to, and the expected response time."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -65505,30 +66514,35 @@
             {
               "name": "decisionArea",
               "label": "Decision Area",
+              "hint": "Area or category of decisions this authority covers",
               "type": "String",
               "required": true
             },
             {
               "name": "authorityLevel",
               "label": "Authority Level",
+              "hint": "Level at which this decision can be made",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionMaker",
               "label": "Decision Maker",
+              "hint": "Role or person who makes this decision",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationTo",
               "label": "Escalation To",
+              "hint": "Who the decision escalates to if unresolved",
               "type": "String",
               "required": false
             },
             {
               "name": "responseTime",
               "label": "Expected Response Time",
+              "hint": "Target turnaround for reaching this decision",
               "type": "String",
               "required": false
             }
@@ -76910,7 +77924,22 @@
       "name": "DistributionGroupSummary",
       "sectionId": "DIGRSU",
       "doc": "Summary statistics for a distribution group.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "Summary statistics for a distribution group, such as recipient counts, language, and default frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "Summary statistics for a distribution group, such as recipient counts, language, and default frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76981,7 +78010,24 @@
       "name": "DistributionList",
       "sectionId": "DSTLS",
       "doc": "3.3. Distribution List.\n\nDefines who receives which project documents and communications.\nIncludes the communication matrix specifying information flow patterns,\nnotification preferences, and access levels for different stakeholder groups.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)",
+          "ISO/IEC/IEEE 29148 — front matter (distribution list)"
+        ],
+        "connotation": "Defines who receives which project documents and communications, including the communication matrix and stakeholder distribution groups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)",
+              "ISO/IEC/IEEE 29148 — front matter (distribution list)"
+            ],
+            "connotation": "Defines who receives which project documents and communications, including the communication matrix and stakeholder distribution groups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77060,10 +78106,26 @@
           "name": "customGroups",
           "kind": "list",
           "doc": "3.3.3. Custom Distribution Groups — contains 0+× Group.",
+          "help": "Add one entry per custom distribution group, capturing its purpose, information scope, frequency, channel, and members.",
           "sectionId": "CSDSGR-CUST-LST",
           "sectionIdPattern": "CSDSGR-CUST-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The set of custom distribution groups defined for specific stakeholder needs."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — communications management (stakeholder communication & distribution)"
+                ],
+                "connotation": "The set of custom distribution groups defined for specific stakeholder needs."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77074,6 +78136,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CSDSGR-CUST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per custom distribution group, capturing its purpose, information scope, frequency, channel, and members."
               }
             },
             {
@@ -77092,7 +78160,22 @@
       "name": "DistributionRecipientAccess",
       "sectionId": "DIREAC",
       "doc": "Access and information scope.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A recipient's access level and information scope, including which categories and document sections they receive."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A recipient's access level and information scope, including which categories and document sections they receive."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77163,7 +78246,22 @@
       "name": "DistributionRecipientBackup",
       "sectionId": "DIREBA",
       "doc": "Backup and delegation.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A recipient's backup and delegation arrangements, including deputy and out-of-office handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A recipient's backup and delegation arrangements, including deputy and out-of-office handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77227,7 +78325,22 @@
       "name": "DistributionRecipientContact",
       "sectionId": "DIRECO",
       "doc": "Contact information.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "Contact information for a distribution recipient, including email, phone, and preferred contact method."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "Contact information for a distribution recipient, including email, phone, and preferred contact method."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77298,7 +78411,22 @@
       "name": "DistributionRecipientEntry",
       "sectionId": "DSRC",
       "doc": "A distribution recipient entry (form).\n\nDetailed information about a distribution list recipient including\ntheir role, contact information, preferences, and access levels.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A single distribution recipient with their contact details, preferences, access scope, subscription period, and backup arrangements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A single distribution recipient with their contact details, preferences, access scope, subscription period, and backup arrangements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77368,10 +78496,26 @@
           "name": "preferences",
           "kind": "list",
           "doc": "Distribution preferences.",
+          "help": "Add one entry per preference set, capturing the distribution method, format, language, digest, and notification preferences.",
           "sectionId": "DIREPR-PREF-LST",
           "sectionIdPattern": "DIREPR-PREF-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The set of distribution preferences recorded for this recipient."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — communications management (stakeholder communication & distribution)"
+                ],
+                "connotation": "The set of distribution preferences recorded for this recipient."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77382,6 +78526,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DIREPR-PREF-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per preference set, capturing the distribution method, format, language, digest, and notification preferences."
               }
             },
             {
@@ -77445,7 +78595,22 @@
       "name": "DistributionRecipientPreferences",
       "sectionId": "DIREPR",
       "doc": "Distribution preferences.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A recipient's distribution preferences: method, format, language, digest, and notification settings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A recipient's distribution preferences: method, format, language, digest, and notification settings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77516,7 +78681,22 @@
       "name": "DistributionRecipientSubscription",
       "sectionId": "DIRESU",
       "doc": "Subscription period.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "A recipient's subscription period to the distribution list, including start/end dates and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "A recipient's subscription period to the distribution list, including start/end dates and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -88720,7 +89900,22 @@
       "name": "ExecutiveSummaryDistribution",
       "sectionId": "EXSUDI",
       "doc": "3.3.2. Executive Summary Distribution.\n\nRecipients who receive only executive summaries and milestone reports.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "The executive-summary distribution group: recipients who receive only high-level summaries and milestone reports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The executive-summary distribution group: recipients who receive only high-level summaries and milestone reports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -88769,10 +89964,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DistributionRecipient.",
+          "help": "Add one entry per executive-summary recipient, capturing their role, contact information, preferences, and access levels.",
           "sectionId": "DSRC-ITEM-LST",
           "sectionIdPattern": "DSRC-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The set of recipients in the executive-summary distribution group."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — communications management (stakeholder communication & distribution)"
+                ],
+                "connotation": "The set of recipients in the executive-summary distribution group."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -88783,6 +89994,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DSRC-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per executive-summary recipient, capturing their role, contact information, preferences, and access levels."
               }
             },
             {
@@ -99315,7 +100532,22 @@
       "name": "FullDistribution",
       "sectionId": "FUDI",
       "doc": "3.3.1. Full Distribution.\n\nRecipients who receive all project documents and communications.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — communications management (stakeholder communication & distribution)"
+        ],
+        "connotation": "The full-distribution group: recipients who receive complete project documentation and all communications."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The full-distribution group: recipients who receive complete project documentation and all communications."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99364,10 +100596,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DistributionRecipient.",
+          "help": "Add one entry per full-distribution recipient, capturing their role, contact information, preferences, and access levels.",
           "sectionId": "DSRC-ITEM-LST",
           "sectionIdPattern": "DSRC-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — communications management (stakeholder communication & distribution)"
+            ],
+            "connotation": "The set of recipients in the full-distribution group."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — communications management (stakeholder communication & distribution)"
+                ],
+                "connotation": "The set of recipients in the full-distribution group."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -99378,6 +100626,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DSRC-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per full-distribution recipient, capturing their role, contact information, preferences, and access levels."
               }
             },
             {
@@ -103253,7 +104507,24 @@
       "name": "GovernanceModel",
       "sectionId": "GOVMD",
       "doc": "Governance model details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "The decision-making framework for the project: how decisions are made and escalated, meeting cadence, and reporting frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The decision-making framework for the project: how decisions are made and escalated, meeting cadence, and reporting frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103284,24 +104555,28 @@
             {
               "name": "decisionFramework",
               "label": "Decision-Making Framework",
+              "hint": "How project decisions are made — consensus, authority, RACI",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationPaths",
               "label": "Escalation Paths",
+              "hint": "How and to whom unresolved issues are escalated",
               "type": "String",
               "required": false
             },
             {
               "name": "meetingCadence",
               "label": "Meeting Cadence",
+              "hint": "Frequency and type of governance meetings",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingFrequency",
               "label": "Reporting Frequency",
+              "hint": "How often status is reported to governance",
               "type": "String",
               "required": false
             }
@@ -103311,10 +104586,28 @@
           "name": "decisionAuthorities",
           "kind": "list",
           "doc": "Decision authority matrix.",
+          "help": "Add one entry per decision area, naming its authority level, decision maker, escalation target, and expected response time.",
           "sectionId": "DCAUT-DECI-LST",
           "sectionIdPattern": "DCAUT-DECI-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — RACI / responsibility assignment",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The decision-authority matrix mapping decision areas to who decides and where each escalates."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — RACI / responsibility assignment",
+                  "ISO 21500 — project management (governance, roles & responsibilities)"
+                ],
+                "connotation": "The decision-authority matrix mapping decision areas to who decides and where each escalates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103325,6 +104618,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DCAUT-DECI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per decision area, naming its authority level, decision maker, escalation target, and expected response time."
               }
             },
             {
@@ -106507,7 +107806,24 @@
       "name": "ImpactLevelDefinitions",
       "sectionId": "IMLEDE",
       "doc": "Impact level definitions.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207 — change impact analysis",
+          "ISO 9001:2015 §8.5.6 — control of changes"
+        ],
+        "connotation": "A single set of impact-level definitions mapping minor, moderate, major, and critical changes to their meaning and approval authority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207 — change impact analysis",
+              "ISO 9001:2015 §8.5.6 — control of changes"
+            ],
+            "connotation": "A single set of impact-level definitions mapping minor, moderate, major, and critical changes to their meaning and approval authority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -110452,7 +111768,22 @@
       "name": "InsuranceEntry",
       "sectionId": "INSURE",
       "doc": "An insurance requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management (liability & risk transfer)"
+        ],
+        "connotation": "A single insurance coverage: its type, minimum coverage, insured party, policy holder, validity, and whether a certificate is required."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management (liability & risk transfer)"
+            ],
+            "connotation": "A single insurance coverage: its type, minimum coverage, insured party, policy holder, validity, and whether a certificate is required."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -110483,36 +111814,42 @@
             {
               "name": "insuranceType",
               "label": "Insurance Type",
+              "hint": "Kind of insurance, e.g. liability, professional indemnity",
               "type": "String",
               "required": true
             },
             {
               "name": "minimumCoverage",
               "label": "Minimum Coverage",
+              "hint": "Minimum coverage amount required",
               "type": "String",
               "required": false
             },
             {
               "name": "insuredParty",
               "label": "Insured Party",
+              "hint": "Party covered by the insurance",
               "type": "String",
               "required": false
             },
             {
               "name": "policyHolder",
               "label": "Policy Holder",
+              "hint": "Party that holds the policy",
               "type": "String",
               "required": false
             },
             {
               "name": "validityPeriod",
               "label": "Validity Period",
+              "hint": "Period during which the coverage is valid",
               "type": "String",
               "required": false
             },
             {
               "name": "certificateRequired",
               "label": "Certificate Required",
+              "hint": "Whether a certificate of insurance must be provided",
               "type": "bool",
               "required": false
             }
@@ -110525,7 +111862,22 @@
       "sectionId": "ILR",
       "doc": "3.6.5. Insurance and Liability Requirements.\n\nInsurance coverage and liability agreements.",
       "help": "Document insurance requirements and liability limitations applicable to the project.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management (liability & risk transfer)"
+        ],
+        "connotation": "Captures the insurance coverage the project requires and the liability limitations agreed between parties as a form of risk transfer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management (liability & risk transfer)"
+            ],
+            "connotation": "Captures the insurance coverage the project requires and the liability limitations agreed between parties as a form of risk transfer."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -110565,10 +111917,26 @@
           "name": "insuranceRequirements",
           "kind": "list",
           "doc": "Insurance requirements — contains 0+× Insurance Entry.",
+          "help": "Add one entry per insurance coverage, capturing its type, minimum coverage, insured party, policy holder, validity period, and whether a certificate is required.",
           "sectionId": "INSURE-INSU-LST",
           "sectionIdPattern": "INSURE-INSU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 31000:2018 — risk management (liability & risk transfer)"
+            ],
+            "connotation": "The set of insurance coverages the project requires, each with its type, minimum coverage, insured party, and validity."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 31000:2018 — risk management (liability & risk transfer)"
+                ],
+                "connotation": "The set of insurance coverages the project requires, each with its type, minimum coverage, insured party, and validity."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -110579,6 +111947,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INSURE-INSU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per insurance coverage, capturing its type, minimum coverage, insured party, policy holder, validity period, and whether a certificate is required."
               }
             },
             {
@@ -110595,10 +111969,26 @@
           "name": "liabilityLimitations",
           "kind": "list",
           "doc": "Liability limitations.",
+          "help": "Add one entry per liability limitation, capturing its maximum liability, exclusions, indemnification clauses, and limitation of damages.",
           "sectionId": "LILI-LIAB-LST",
           "sectionIdPattern": "LILI-LIAB-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 31000:2018 — risk management (liability & risk transfer)"
+            ],
+            "connotation": "The set of liability limitations agreed for the project — caps, exclusions, indemnification, and damage limits."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 31000:2018 — risk management (liability & risk transfer)"
+                ],
+                "connotation": "The set of liability limitations agreed for the project — caps, exclusions, indemnification, and damage limits."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -110609,6 +111999,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "LILI-LIAB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per liability limitation, capturing its maximum liability, exclusions, indemnification clauses, and limitation of damages."
               }
             },
             {
@@ -111826,7 +113222,24 @@
       "sectionId": "IPR",
       "doc": "3.6.1. Intellectual Property Requirements.\n\nDefines ownership and usage rights for project deliverables and IP.",
       "help": "Specify who owns intellectual property created during the project, licensing terms, and any pre-existing IP that will be incorporated.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security (intellectual-property protection)",
+          "WIPO — intellectual-property rights (ownership & licensing)"
+        ],
+        "connotation": "Defines who owns the intellectual property created during the project, the licensing terms, and how pre-existing IP is incorporated and protected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security (intellectual-property protection)",
+              "WIPO — intellectual-property rights (ownership & licensing)"
+            ],
+            "connotation": "Defines who owns the intellectual property created during the project, the licensing terms, and how pre-existing IP is incorporated and protected."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -111863,24 +113276,28 @@
             {
               "name": "ownershipModel",
               "label": "Ownership Model",
+              "hint": "How IP ownership is allocated between parties",
               "type": "String",
               "required": true
             },
             {
               "name": "preExistingIp",
               "label": "Pre-existing IP",
+              "hint": "IP brought into the project by either party",
               "type": "String",
               "required": false
             },
             {
               "name": "licensingTerms",
               "label": "Licensing Terms",
+              "hint": "Terms under which IP may be used or licensed",
               "type": "String",
               "required": false
             },
             {
               "name": "transferConditions",
               "label": "Transfer Conditions",
+              "hint": "Conditions under which IP ownership transfers",
               "type": "String",
               "required": false
             }
@@ -111890,10 +113307,28 @@
           "name": "ownershipDetails",
           "kind": "list",
           "doc": "IP ownership details — contains 0+× IP Ownership Entry.",
+          "help": "Add one entry per IP asset, capturing its type, description, owner, usage rights, and restrictions.",
           "sectionId": "IPOWN-OWNE-LST",
           "sectionIdPattern": "IPOWN-OWNE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — information security (intellectual-property protection)",
+              "WIPO — intellectual-property rights (ownership & licensing)"
+            ],
+            "connotation": "The set of individual IP-ownership records detailing each asset, its owner, and the associated usage rights and restrictions."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — information security (intellectual-property protection)",
+                  "WIPO — intellectual-property rights (ownership & licensing)"
+                ],
+                "connotation": "The set of individual IP-ownership records detailing each asset, its owner, and the associated usage rights and restrictions."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -111904,6 +113339,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IPOWN-OWNE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per IP asset, capturing its type, description, owner, usage rights, and restrictions."
               }
             },
             {
@@ -117680,7 +119121,24 @@
       "name": "IpOwnershipEntry",
       "sectionId": "IPOWN",
       "doc": "An IP ownership entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security (intellectual-property protection)",
+          "WIPO — intellectual-property rights (ownership & licensing)"
+        ],
+        "connotation": "A single IP-ownership record: the asset, its owner, and the usage rights and restrictions that apply to it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security (intellectual-property protection)",
+              "WIPO — intellectual-property rights (ownership & licensing)"
+            ],
+            "connotation": "A single IP-ownership record: the asset, its owner, and the usage rights and restrictions that apply to it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117711,30 +119169,35 @@
             {
               "name": "assetType",
               "label": "Asset Type",
+              "hint": "Kind of IP asset, e.g. source code, design, trademark",
               "type": "String",
               "required": true
             },
             {
               "name": "assetDescription",
               "label": "Description",
+              "hint": "What the asset is",
               "type": "String",
               "required": false
             },
             {
               "name": "owner",
               "label": "Owner",
+              "hint": "Party that owns the asset",
               "type": "String",
               "required": false
             },
             {
               "name": "usageRights",
               "label": "Usage Rights",
+              "hint": "How the asset may be used",
               "type": "String",
               "required": false
             },
             {
               "name": "restrictions",
               "label": "Restrictions",
+              "hint": "Limits on use of the asset",
               "type": "String",
               "required": false
             }
@@ -122174,7 +123637,24 @@
       "sectionId": "OAR",
       "doc": "3.6. Other Administrative Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
       "help": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+          "ISO 9001:2015 — documented information (contractual requirements)"
+        ],
+        "connotation": "The root of §3.6: gathers all administrative agreements and constraints — IP, confidentiality, regulatory compliance, audit, insurance, and other legal agreements — not covered by earlier sections."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+              "ISO 9001:2015 — documented information (contractual requirements)"
+            ],
+            "connotation": "The root of §3.6: gathers all administrative agreements and constraints — IP, confidentiality, regulatory compliance, audit, insurance, and other legal agreements — not covered by earlier sections."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -122289,10 +123769,28 @@
           "name": "otherAgreements",
           "kind": "list",
           "doc": "3.6.6. Other Agreements — contains 0+× Agreement.",
+          "help": "Add one entry per additional agreement, capturing its title, type, parties, validity dates, key terms, obligations, and location.",
           "sectionId": "OTAGR-OTHE-LST",
           "sectionIdPattern": "OTAGR-OTHE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+              "ISO 9001:2015 — documented information (contractual requirements)"
+            ],
+            "connotation": "The set of miscellaneous legal or organizational agreements binding the project that are not captured by the dedicated sections above."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+                  "ISO 9001:2015 — documented information (contractual requirements)"
+                ],
+                "connotation": "The set of miscellaneous legal or organizational agreements binding the project that are not captured by the dedicated sections above."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -122303,6 +123801,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OTAGR-OTHE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per additional agreement, capturing its title, type, parties, validity dates, key terms, obligations, and location."
               }
             },
             {
@@ -122321,7 +123825,22 @@
       "name": "LiabilityLimitations",
       "sectionId": "LILI",
       "doc": "Liability limitations.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management (liability & risk transfer)"
+        ],
+        "connotation": "A single liability limitation: the liability cap, exclusions, indemnification clauses, and limitation of damages agreed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management (liability & risk transfer)"
+            ],
+            "connotation": "A single liability limitation: the liability cap, exclusions, indemnification clauses, and limitation of damages agreed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122352,24 +123871,28 @@
             {
               "name": "maxLiability",
               "label": "Maximum Liability",
+              "hint": "Cap on total liability",
               "type": "String",
               "required": false
             },
             {
               "name": "exclusions",
               "label": "Exclusions",
+              "hint": "Categories of loss excluded from liability",
               "type": "String",
               "required": false
             },
             {
               "name": "indemnificationClauses",
               "label": "Indemnification Clauses",
+              "hint": "Terms under which one party indemnifies another",
               "type": "String",
               "required": false
             },
             {
               "name": "limitationOfDamages",
               "label": "Limitation of Damages",
+              "hint": "Limits on the types or amounts of recoverable damages",
               "type": "String",
               "required": false
             }
@@ -147222,7 +148745,24 @@
       "name": "OrganizationStructure",
       "sectionId": "ORGST",
       "doc": "3.1.1. Organization Structure.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "The project organization chart: reporting lines, governance model, decision rights, and escalation paths."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The project organization chart: reporting lines, governance model, decision rights, and escalation paths."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149254,7 +150794,24 @@
       "name": "OtherAgreementEntry",
       "sectionId": "OTAGR",
       "doc": "An other agreement entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+          "ISO 9001:2015 — documented information (contractual requirements)"
+        ],
+        "connotation": "A single miscellaneous agreement: its title, type, parties, validity dates, key terms, obligations, and where the document is stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 — front matter (legal & contractual constraints)",
+              "ISO 9001:2015 — documented information (contractual requirements)"
+            ],
+            "connotation": "A single miscellaneous agreement: its title, type, parties, validity dates, key terms, obligations, and where the document is stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149285,48 +150842,56 @@
             {
               "name": "agreementTitle",
               "label": "Agreement Title",
+              "hint": "Title of the agreement",
               "type": "String",
               "required": true
             },
             {
               "name": "agreementType",
               "label": "Type",
+              "hint": "Kind of agreement, e.g. MOU, SLA, partnership",
               "type": "String",
               "required": false
             },
             {
               "name": "parties",
               "label": "Parties",
+              "hint": "Parties bound by the agreement",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date",
+              "hint": "When the agreement takes effect",
               "type": "String",
               "required": false
             },
             {
               "name": "expirationDate",
               "label": "Expiration Date",
+              "hint": "When the agreement expires",
               "type": "String",
               "required": false
             },
             {
               "name": "keyTerms",
               "label": "Key Terms",
+              "hint": "Principal terms of the agreement",
               "type": "String",
               "required": false
             },
             {
               "name": "obligations",
               "label": "Obligations",
+              "hint": "Obligations the agreement imposes",
               "type": "String",
               "required": false
             },
             {
               "name": "location",
               "label": "Document Location",
+              "hint": "Where the signed agreement is stored",
               "type": "String",
               "required": false
             }
@@ -165617,7 +167182,24 @@
       "name": "ProjectOrganization",
       "sectionId": "PRJOG",
       "doc": "3.1. Project Organization.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "The root of §3.1: how the project is organized — reporting lines, governance arrangements, and the steering committee that oversees it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The root of §3.1: how the project is organized — reporting lines, governance arrangements, and the steering committee that oversees it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165834,7 +167416,24 @@
       "sectionId": "PRJTS",
       "doc": "3.2. Project Team Staffing.\n\nContainer for individual staff assignments including roles, responsibilities,\navailability, and required competencies.",
       "help": "Document all team members assigned to the project with their roles, allocation percentages, and reporting relationships.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "The root of §3.2: who staffs the project — the team structure, each assigned member, and any unfilled resource requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "The root of §3.2: who staffs the project — the team structure, each assigned member, and any unfilled resource requirements."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -165889,10 +167488,28 @@
           "name": "members",
           "kind": "list",
           "doc": "Team members — contains 1+× Team Member.",
+          "help": "Add one entry per assigned team member, with their role, allocation, contact, skills, availability, and responsibilities.",
           "sectionId": "TMMBE-MEMB-LST",
           "sectionIdPattern": "TMMBE-MEMB-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "The roster of team members assigned to the project."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — resource management (project team & staffing)",
+                  "ISO 21500 — project management (resources)"
+                ],
+                "connotation": "The roster of team members assigned to the project."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165912,6 +167529,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per assigned team member, with their role, allocation, contact, skills, availability, and responsibilities."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -165926,10 +167549,28 @@
           "name": "openRequirements",
           "kind": "list",
           "doc": "Resource requirements not yet filled.",
+          "help": "Add one entry per unfilled position, with its required skills, experience, allocation, target date, priority, and recruitment status.",
           "sectionId": "RREQE-OPEN-LST",
           "sectionIdPattern": "RREQE-OPEN-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "The open positions still to be filled to fully staff the project."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — resource management (project team & staffing)",
+                  "ISO 21500 — project management (resources)"
+                ],
+                "connotation": "The open positions still to be filled to fully staff the project."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165940,6 +167581,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RREQE-OPEN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per unfilled position, with its required skills, experience, allocation, target date, priority, and recruitment status."
               }
             },
             {
@@ -173893,7 +175540,24 @@
       "sectionId": "RCR",
       "doc": "3.6.3. Regulatory Compliance Requirements.\n\nRegulatory and compliance obligations affecting the project.",
       "help": "List all regulatory requirements the project must comply with, including deadlines, evidence requirements, and responsible parties.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — compliance with legal & contractual requirements",
+          "ISO 37301 — compliance management systems"
+        ],
+        "connotation": "Captures the regulatory and compliance obligations the project must meet, with their deadlines, evidence requirements, and compliance milestones."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — compliance with legal & contractual requirements",
+              "ISO 37301 — compliance management systems"
+            ],
+            "connotation": "Captures the regulatory and compliance obligations the project must meet, with their deadlines, evidence requirements, and compliance milestones."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -173933,10 +175597,28 @@
           "name": "requirements",
           "kind": "list",
           "doc": "Regulatory requirements — contains 0+× Regulatory Requirement.",
+          "help": "Add one entry per regulation the project must comply with, capturing its regulatory body, jurisdiction, applicability, deadline, evidence required, responsible party, and penalties.",
           "sectionId": "REGRQ-REQU-LST",
           "sectionIdPattern": "REGRQ-REQU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — compliance with legal & contractual requirements",
+              "ISO 37301 — compliance management systems"
+            ],
+            "connotation": "The set of individual regulatory requirements the project must satisfy, each with its regulatory body, jurisdiction, deadline, and evidence."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — compliance with legal & contractual requirements",
+                  "ISO 37301 — compliance management systems"
+                ],
+                "connotation": "The set of individual regulatory requirements the project must satisfy, each with its regulatory body, jurisdiction, deadline, and evidence."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -173947,6 +175629,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REGRQ-REQU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per regulation the project must comply with, capturing its regulatory body, jurisdiction, applicability, deadline, evidence required, responsible party, and penalties."
               }
             },
             {
@@ -173963,10 +175651,28 @@
           "name": "milestones",
           "kind": "list",
           "doc": "Compliance milestones.",
+          "help": "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status.",
           "sectionId": "CPML-MILE-LST",
           "sectionIdPattern": "CPML-MILE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — compliance with legal & contractual requirements",
+              "ISO 37301 — compliance management systems"
+            ],
+            "connotation": "The set of dated compliance milestones tracking progress toward meeting the regulatory requirements."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — compliance with legal & contractual requirements",
+                  "ISO 37301 — compliance management systems"
+                ],
+                "connotation": "The set of dated compliance milestones tracking progress toward meeting the regulatory requirements."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -173977,6 +175683,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CPML-MILE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status."
               }
             },
             {
@@ -174075,7 +175787,24 @@
       "name": "RegulatoryRequirementEntry",
       "sectionId": "REGRQ",
       "doc": "A regulatory requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — compliance with legal & contractual requirements",
+          "ISO 37301 — compliance management systems"
+        ],
+        "connotation": "A single regulatory requirement: the regulation, its governing body and jurisdiction, applicability, deadline, required evidence, and penalties."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — compliance with legal & contractual requirements",
+              "ISO 37301 — compliance management systems"
+            ],
+            "connotation": "A single regulatory requirement: the regulation, its governing body and jurisdiction, applicability, deadline, required evidence, and penalties."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174106,48 +175835,56 @@
             {
               "name": "regulationName",
               "label": "Regulation Name",
+              "hint": "Name of the regulation that applies",
               "type": "String",
               "required": true
             },
             {
               "name": "regulatoryBody",
               "label": "Regulatory Body",
+              "hint": "Authority that issues and enforces the regulation",
               "type": "String",
               "required": false
             },
             {
               "name": "jurisdiction",
               "label": "Jurisdiction",
+              "hint": "Geographic or legal scope where the regulation applies",
               "type": "String",
               "required": false
             },
             {
               "name": "applicability",
               "label": "Applicability",
+              "hint": "Why and how the regulation applies to this project",
               "type": "String",
               "required": false
             },
             {
               "name": "complianceDeadline",
               "label": "Compliance Deadline",
+              "hint": "When compliance must be achieved",
               "type": "String",
               "required": false
             },
             {
               "name": "evidenceRequired",
               "label": "Evidence Required",
+              "hint": "Proof needed to demonstrate compliance",
               "type": "String",
               "required": false
             },
             {
               "name": "responsibleParty",
               "label": "Responsible Party",
+              "hint": "Who is accountable for compliance",
               "type": "String",
               "required": false
             },
             {
               "name": "penaltyForNonCompliance",
               "label": "Penalty for Non-compliance",
+              "hint": "Consequences of failing to comply",
               "type": "String",
               "required": false
             }
@@ -182556,7 +184293,24 @@
       "name": "ResourceRequirementEntry",
       "sectionId": "RREQE",
       "doc": "A resource requirement entry for unfilled positions.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "A single unfilled position: the role needed, its required skills and experience, allocation, target date, priority, and recruitment status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "A single unfilled position: the role needed, its required skills and experience, allocation, target date, priority, and recruitment status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182587,42 +184341,49 @@
             {
               "name": "roleName",
               "label": "Role Name",
+              "hint": "Name of the role to be staffed",
               "type": "String",
               "required": true
             },
             {
               "name": "skillsRequired",
               "label": "Required Skills",
+              "hint": "Skills the position requires",
               "type": "String",
               "required": false
             },
             {
               "name": "experience",
               "label": "Experience Level",
+              "hint": "Seniority or years of experience needed",
               "type": "String",
               "required": false
             },
             {
               "name": "allocation",
               "label": "Allocation",
+              "hint": "Expected allocation for the role",
               "type": "String",
               "required": false
             },
             {
               "name": "requiredBy",
               "label": "Required By Date",
+              "hint": "When the position must be filled",
               "type": "String",
               "required": false
             },
             {
               "name": "priority",
               "label": "Priority (Critical/High/Medium/Low)",
+              "hint": "Critical / High / Medium / Low",
               "type": "String",
               "required": false
             },
             {
               "name": "status",
               "label": "Recruitment Status",
+              "hint": "Current recruitment progress for this position",
               "type": "String",
               "required": false
             }
@@ -218511,7 +220272,24 @@
       "sectionId": "STCOM",
       "doc": "3.1.2. Steering Committee.\n\nContainer for steering committee member descriptions.",
       "help": "List all steering committee members with their roles, responsibilities, and decision authorities.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — project governance & organizational structure",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "The steering committee that governs the project: its charter and its members with their roles and decision authorities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The steering committee that governs the project: its charter and its members with their roles and decision authorities."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -218566,10 +220344,28 @@
           "name": "members",
           "kind": "list",
           "doc": "Steering committee members — contains 1+× Committee Member.",
+          "help": "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.",
           "sectionId": "COMMB-MEMB-LST",
           "sectionIdPattern": "COMMB-MEMB-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — project governance & organizational structure",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "The roster of steering committee members and their governance roles."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — project governance & organizational structure",
+                  "ISO 21500 — project management (governance, roles & responsibilities)"
+                ],
+                "connotation": "The roster of steering committee members and their governance roles."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -218586,6 +220382,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact."
               }
             },
             {
@@ -230266,7 +232068,24 @@
       "name": "TeamMemberAvailability",
       "sectionId": "TMMAV",
       "doc": "Team member availability constraints.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "This team member's availability: the window they are available, planned absences, working hours, constraints, and on-call requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "This team member's availability: the window they are available, planned absences, working hours, constraints, and on-call requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230297,36 +232116,42 @@
             {
               "name": "availableFrom",
               "label": "Available From",
+              "hint": "Date they become available",
               "type": "String",
               "required": false
             },
             {
               "name": "availableUntil",
               "label": "Available Until",
+              "hint": "Date their availability ends",
               "type": "String",
               "required": false
             },
             {
               "name": "plannedAbsences",
               "label": "Planned Absences",
+              "hint": "Known leave or absences during the project",
               "type": "String",
               "required": false
             },
             {
               "name": "workingHours",
               "label": "Working Hours",
+              "hint": "Their normal working hours",
               "type": "String",
               "required": false
             },
             {
               "name": "constraints",
               "label": "Availability Constraints",
+              "hint": "Any limits on when they can work",
               "type": "String",
               "required": false
             },
             {
               "name": "onCallRequirements",
               "label": "On-Call Requirements",
+              "hint": "Any on-call duties expected of them",
               "type": "String",
               "required": false
             }
@@ -230339,7 +232164,24 @@
       "sectionId": "TMMBE",
       "doc": "A team member entry (form).\n\nDetailed information about a project team member including their role,\nresponsibilities, availability, and competencies.",
       "help": "Document each team member with their role, allocation, skills, and availability. Include contact information and backup arrangements.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "A single team member: their role, allocation, contact, reporting and backup structure, skills, availability, and responsibilities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "A single team member: their role, allocation, contact, reporting and backup structure, skills, availability, and responsibilities."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -230376,24 +232218,28 @@
             {
               "name": "name",
               "label": "Name",
+              "hint": "Full name of the team member",
               "type": "String",
               "required": true
             },
             {
               "name": "projectRole",
               "label": "Project Role",
+              "hint": "Role this person plays on the project",
               "type": "String",
               "required": true
             },
             {
               "name": "organization",
               "label": "Organization/Department",
+              "hint": "Their home organization or department",
               "type": "String",
               "required": false
             },
             {
               "name": "jobTitle",
               "label": "Job Title",
+              "hint": "Their substantive job title",
               "type": "String",
               "required": false
             }
@@ -230478,10 +232324,28 @@
           "name": "responsibilities",
           "kind": "list",
           "doc": "Role-specific responsibilities.",
+          "help": "Add one entry per responsibility area this member owns, with its description, key deliverables, and decision authority.",
           "sectionId": "TMMRP-RESP-LST",
           "sectionIdPattern": "TMMRP-RESP-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "The specific responsibilities assigned to this team member."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — resource management (project team & staffing)",
+                  "ISO 21500 — project management (resources)"
+                ],
+                "connotation": "The specific responsibilities assigned to this team member."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -230492,6 +232356,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TMMRP-RESP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility area this member owns, with its description, key deliverables, and decision authority."
               }
             },
             {
@@ -230510,7 +232380,24 @@
       "name": "TeamMemberEntryAllocation",
       "sectionId": "TMMAL",
       "doc": "Allocation and scheduling details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "This team member's allocation to the project: percentage and start/end dates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "This team member's allocation to the project: percentage and start/end dates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230541,18 +232428,21 @@
             {
               "name": "allocation",
               "label": "Allocation Percentage",
+              "hint": "Percentage of time allocated to the project",
               "type": "String",
               "required": false
             },
             {
               "name": "startDate",
               "label": "Start Date",
+              "hint": "When they join the project",
               "type": "String",
               "required": false
             },
             {
               "name": "endDate",
               "label": "End Date",
+              "hint": "When their assignment ends",
               "type": "String",
               "required": false
             }
@@ -230564,7 +232454,24 @@
       "name": "TeamMemberEntryContact",
       "sectionId": "TMMCO",
       "doc": "Work location and contact details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "This team member's work location, time zone, and contact details."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "This team member's work location, time zone, and contact details."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230595,24 +232502,28 @@
             {
               "name": "workLocation",
               "label": "Work Location",
+              "hint": "Where they primarily work from",
               "type": "String",
               "required": false
             },
             {
               "name": "timeZone",
               "label": "Time Zone",
+              "hint": "Their working time zone",
               "type": "String",
               "required": false
             },
             {
               "name": "contactEmail",
               "label": "Contact Email",
+              "hint": "Email address to reach them",
               "type": "String",
               "required": false
             },
             {
               "name": "contactPhone",
               "label": "Contact Phone",
+              "hint": "Phone number to reach them",
               "type": "String",
               "required": false
             }
@@ -230624,7 +232535,24 @@
       "name": "TeamMemberEntryGovernance",
       "sectionId": "TMMGV",
       "doc": "Reporting and backup structure.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (governance, roles & responsibilities)"
+        ],
+        "connotation": "This team member's reporting line and designated backup/deputy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (governance, roles & responsibilities)"
+            ],
+            "connotation": "This team member's reporting line and designated backup/deputy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230655,12 +232583,14 @@
             {
               "name": "reportingTo",
               "label": "Reporting To",
+              "hint": "Who this member reports to on the project",
               "type": "String",
               "required": false
             },
             {
               "name": "backup",
               "label": "Backup/Deputy",
+              "hint": "Designated backup or deputy for this member",
               "type": "String",
               "required": false
             }
@@ -230672,7 +232602,24 @@
       "name": "TeamMemberResponsibilityEntry",
       "sectionId": "TMMRP",
       "doc": "A team member responsibility entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — RACI / responsibility assignment",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "A single team member responsibility: its area, description, key deliverables, and decision authority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — RACI / responsibility assignment",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "A single team member responsibility: its area, description, key deliverables, and decision authority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230703,24 +232650,28 @@
             {
               "name": "area",
               "label": "Responsibility Area",
+              "hint": "Area of responsibility for this team member",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Description",
+              "hint": "What this responsibility entails",
               "type": "String",
               "required": false
             },
             {
               "name": "deliverables",
               "label": "Key Deliverables",
+              "hint": "Outputs this member is accountable for",
               "type": "String",
               "required": false
             },
             {
               "name": "authority",
               "label": "Decision Authority",
+              "hint": "Decisions this member can make in this area",
               "type": "String",
               "required": false
             }
@@ -230732,7 +232683,24 @@
       "name": "TeamMemberSkillEntry",
       "sectionId": "TMSKE",
       "doc": "A skill entry with proficiency level.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — develop team / skills management",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "A single skill: its name, proficiency level, years used, and last-used date."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — develop team / skills management",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "A single skill: its name, proficiency level, years used, and last-used date."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230763,24 +232731,28 @@
             {
               "name": "skillName",
               "label": "Skill Name",
+              "hint": "Name of the skill or competency",
               "type": "String",
               "required": true
             },
             {
               "name": "proficiencyLevel",
               "label": "Proficiency (Expert/Advanced/Intermediate/Beginner)",
+              "hint": "Expert / Advanced / Intermediate / Beginner",
               "type": "String",
               "required": false
             },
             {
               "name": "yearsUsing",
               "label": "Years Using",
+              "hint": "How many years they have used this skill",
               "type": "int",
               "required": false
             },
             {
               "name": "lastUsed",
               "label": "Last Used",
+              "hint": "When the skill was most recently applied",
               "type": "String",
               "required": false
             }
@@ -230792,7 +232764,26 @@
       "name": "TeamMemberSkills",
       "sectionId": "TMMSK",
       "doc": "Team member skills and certifications.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "PMBOK — develop team / skills management",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "This team member's competencies: primary and secondary skills, certifications, domain expertise, and years of experience."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "PMBOK — develop team / skills management",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "This team member's competencies: primary and secondary skills, certifications, domain expertise, and years of experience."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230823,30 +232814,35 @@
             {
               "name": "primarySkills",
               "label": "Primary Skills",
+              "hint": "Their core, most-relied-on skills",
               "type": "String",
               "required": false
             },
             {
               "name": "secondarySkills",
               "label": "Secondary Skills",
+              "hint": "Supporting or supplementary skills",
               "type": "String",
               "required": false
             },
             {
               "name": "certifications",
               "label": "Certifications",
+              "hint": "Relevant professional certifications held",
               "type": "String",
               "required": false
             },
             {
               "name": "domainExpertise",
               "label": "Domain Expertise",
+              "hint": "Business or technical domains they know well",
               "type": "String",
               "required": false
             },
             {
               "name": "yearsExperience",
               "label": "Years of Experience",
+              "hint": "Total years of professional experience",
               "type": "int",
               "required": false
             }
@@ -230856,10 +232852,28 @@
           "name": "skillDetails",
           "kind": "list",
           "doc": "Individual skill entries.",
+          "help": "Add one entry per individual skill, with its proficiency level, years using it, and when it was last used.",
           "sectionId": "TMSKE-SKIL-LST",
           "sectionIdPattern": "TMSKE-SKIL-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — develop team / skills management",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "The itemized skills of this team member, each with a proficiency level."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — develop team / skills management",
+                  "ISO 21500 — project management (resources)"
+                ],
+                "connotation": "The itemized skills of this team member, each with a proficiency level."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -230870,6 +232884,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TMSKE-SKIL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per individual skill, with its proficiency level, years using it, and when it was last used."
               }
             },
             {
@@ -230888,7 +232908,24 @@
       "name": "TeamStructureOverview",
       "sectionId": "TMSOV",
       "doc": "Team structure overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (project team & staffing)",
+          "ISO 21500 — project management (resources)"
+        ],
+        "connotation": "A high-level view of the team: its size, internal/external split, location model, working hours, and reporting structure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (project team & staffing)",
+              "ISO 21500 — project management (resources)"
+            ],
+            "connotation": "A high-level view of the team: its size, internal/external split, location model, working hours, and reporting structure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230919,36 +232956,42 @@
             {
               "name": "teamSize",
               "label": "Total Team Size",
+              "hint": "Total number of people on the team",
               "type": "int",
               "required": false
             },
             {
               "name": "internalResources",
               "label": "Internal Resources",
+              "hint": "Number of internal staff members",
               "type": "int",
               "required": false
             },
             {
               "name": "externalResources",
               "label": "External Resources",
+              "hint": "Number of contractors, consultants, or vendors",
               "type": "int",
               "required": false
             },
             {
               "name": "teamLocationModel",
               "label": "Location Model (Co-located/Distributed/Hybrid)",
+              "hint": "Co-located, distributed, or hybrid working model",
               "type": "String",
               "required": false
             },
             {
               "name": "coreHours",
               "label": "Core Working Hours",
+              "hint": "Hours when the team is expected to overlap",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingStructure",
               "label": "Reporting Structure",
+              "hint": "How team members report within the project",
               "type": "String",
               "required": false
             }
