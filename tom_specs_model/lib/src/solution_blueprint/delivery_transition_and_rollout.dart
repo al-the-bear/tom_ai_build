@@ -7,10 +7,10 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import 'delivery_roadmap.dart';
 import 'experience_and_interface_design.dart'
     show LocalizationProcess, LocaleRolloutPlan, TranslationProcess;
-import 'system_rollout.dart';
-import 'system_stage_plan.dart';
+import 'transition_and_rollout_plan.dart';
 
 /// SBP.15 Delivery, Transition & Rollout.
 @StandardReferences(

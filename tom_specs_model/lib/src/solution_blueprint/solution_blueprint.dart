@@ -11,6 +11,7 @@ export 'assumptions_constraints_dependencies.dart';
 export 'business_process_model.dart';
 export 'components_and_dependencies.dart';
 export 'current_landscape.dart';
+export 'delivery_roadmap.dart';
 export 'delivery_scope_and_acceptance.dart';
 export 'delivery_transition_and_rollout.dart';
 export 'document_control.dart';
@@ -26,10 +27,9 @@ export 'requirements.dart';
 export 'security_and_access_model.dart';
 export 'solution_architecture_and_technology.dart';
 export 'stakeholders_and_governance.dart';
-export 'system_rollout.dart';
-export 'system_stage_plan.dart';
 export 'target_operating_model.dart';
 export 'target_organization.dart';
+export 'transition_and_rollout_plan.dart';
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
