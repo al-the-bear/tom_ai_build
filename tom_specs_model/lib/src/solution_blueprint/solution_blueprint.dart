@@ -8,6 +8,7 @@ library;
 
 export 'administrative.dart';
 export 'assumptions_constraints_dependencies.dart';
+export 'business_process_model.dart';
 export 'components.dart';
 export 'current_landscape.dart';
 export 'delivery_acceptance.dart';
@@ -17,7 +18,6 @@ export 'experience_and_interface_design.dart';
 export 'glossary_and_abbreviations.dart';
 export 'information_and_data_model.dart';
 export 'introduction_and_scope.dart';
-export 'organizational_framework.dart';
 export 'project_organization_process.dart';
 export 'quality_and_acceptance_model.dart';
 export 'requirements.dart';
@@ -27,8 +27,8 @@ export 'stakeholders_and_governance.dart';
 export 'system_quality_goals.dart';
 export 'system_rollout.dart';
 export 'system_stage_plan.dart';
-export 'target_business_process.dart';
 export 'target_operating_model.dart';
+export 'target_organization.dart';
 export 'technical_framework.dart';
 
 import 'package:tom_specs_core/tom_specs_core.dart';

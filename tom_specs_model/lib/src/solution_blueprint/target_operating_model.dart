@@ -8,8 +8,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-import 'organizational_framework.dart';
-import 'target_business_process.dart';
+import 'target_organization.dart';
+import 'business_process_model.dart';
 
 /// SBP.7 Target Operating Model concept.
 @StandardReferences(
