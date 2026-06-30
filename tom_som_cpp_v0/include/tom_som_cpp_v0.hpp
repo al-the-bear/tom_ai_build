@@ -191,11 +191,11 @@ class AuthorizationRoleEntryGovernance;
 class AuthorizationRoleEntryLifecycle;
 class AuthorizationRoleEntryStatus;
 class AuthorizationRoleEntryStructure;
-class AvailabilityQuality;
-class AvailabilityQualityDegradedMode;
-class AvailabilityQualityMaintenance;
-class AvailabilityQualityOperatingHours;
-class AvailabilityQualityVerification;
+class Availability;
+class AvailabilityDegradedMode;
+class AvailabilityMaintenance;
+class AvailabilityOperatingHours;
+class AvailabilityVerification;
 class BackupAndRecoverySection;
 class BackupCompliance;
 class BackupComplianceAudit;
@@ -447,6 +447,7 @@ class CommunicationPreferenceEntry;
 class CommunicationRequirements;
 class CommunicationToolsRequirements;
 class CommunicationTypeEntry;
+class CompatibilityCharacteristic;
 class CompatibilityRequirementsSection;
 class CompetencyEntry;
 class CompetencyFramework;
@@ -586,10 +587,10 @@ class ContingencyPlanEntryReferences;
 class ContingencyPlanEntryResponsibility;
 class ContingencyPlanEntryTesting;
 class ContingencyPlans;
-class CorrectnessQuality;
-class CorrectnessQualityAccuracy;
-class CorrectnessQualityIntegrity;
-class CorrectnessQualityVerification;
+class Correctness;
+class CorrectnessAccuracy;
+class CorrectnessIntegrity;
+class CorrectnessVerification;
 class CredentialCompromiseDetectionPolicy;
 class CredentialRecoveryPolicy;
 class CriticalKnowledgeAreaEntry;
@@ -919,14 +920,14 @@ class DnsRequirementsAvailability;
 class DnsRequirementsHealthChecks;
 class DnsRequirementsRecords;
 class DnsRequirementsZones;
-class DocChangeabilityQuality;
-class DocChangeabilityQualityExtensibility;
-class DocChangeabilityQualityMaintenance;
-class DocChangeabilityQualityStructure;
-class DocCompletenessQuality;
-class DocCorrectnessQuality;
-class DocCorrectnessQualityAlignment;
-class DocCorrectnessQualityVerification;
+class DocChangeability;
+class DocChangeabilityExtensibility;
+class DocChangeabilityMaintenance;
+class DocChangeabilityStructure;
+class DocCompleteness;
+class DocCorrectness;
+class DocCorrectnessAlignment;
+class DocCorrectnessVerification;
 class DocumentControl;
 class DocumentHeader;
 class DocumentRelationships;
@@ -961,10 +962,10 @@ class DomainProcessEntryOperations;
 class DomainProcesses;
 class DomainTermEntry;
 class DomainVocabulary;
-class EfficiencyQuality;
-class EfficiencyQualityResources;
-class EfficiencyQualityThroughput;
-class EfficiencyQualityVerification;
+class Efficiency;
+class EfficiencyResources;
+class EfficiencyThroughput;
+class EfficiencyVerification;
 class ElementValidationRuleEntry;
 class EmergencyMaintenanceProcedures;
 class EmergencyMaintenanceProceduresCommunication;
@@ -1151,10 +1152,11 @@ class FirewallRequirementsAdvanced;
 class FirewallRequirementsLogging;
 class FirewallRequirementsPorts;
 class FirewallRequirementsRules;
-class FlexibilityQuality;
-class FlexibilityQualityDeployment;
-class FlexibilityQualityExtensibility;
-class FlexibilityQualityModularity;
+class Flexibility;
+class FlexibilityCharacteristic;
+class FlexibilityDeployment;
+class FlexibilityExtensibility;
+class FlexibilityModularity;
 class FragilePointEntry;
 class FrameworkCompatibility;
 class FrameworkConditions;
@@ -1171,7 +1173,7 @@ class FunctionEntryClassification;
 class FunctionEntryImplementation;
 class FunctionEntryOperations;
 class FunctionModel;
-class FunctionalCompletenessQuality;
+class FunctionalCompleteness;
 class FunctionalRequirementEntry;
 class FunctionalRequirementEntryConstraints;
 class FunctionalRequirementEntryDetails;
@@ -1181,6 +1183,7 @@ class FunctionalRequirementEntrySource;
 class FunctionalRequirementEntryVerification;
 class FunctionalRequirements;
 class FunctionalResponsibilities;
+class FunctionalSuitabilityCharacteristic;
 class GapEntry;
 class GapEntryDescription;
 class GapEntryDiscovery;
@@ -1325,6 +1328,7 @@ class Integrations;
 class IntegrityConstraints;
 class IntellectualPropertyRequirements;
 class InteractionBusinessRules;
+class InteractionCapabilityCharacteristic;
 class InteractionCatalog;
 class InteractionCatalogOverview;
 class InteractionChannelEntry;
@@ -1396,11 +1400,11 @@ class IpOwnershipEntry;
 class Iso25010Coverage;
 class Iso25010CoverageEntry;
 class ItLandscapePosition;
-class ItSecurityOperationsQuality;
-class ItSecurityOperationsQualityAccess;
-class ItSecurityOperationsQualityIncident;
-class ItSecurityOperationsQualityRecovery;
-class ItSecurityOperationsQualityTesting;
+class ItSecurityOperations;
+class ItSecurityOperationsAccess;
+class ItSecurityOperationsIncident;
+class ItSecurityOperationsRecovery;
+class ItSecurityOperationsTesting;
 class ItSecurityStandardsSection;
 class ItStandardComplianceEntry;
 class ItStandardComplianceEntryEvidence;
@@ -1487,11 +1491,12 @@ class LoginFlowStepEntryProtocol;
 class LoginFlowStepEntryValidation;
 class MainScenarioStepEntry;
 class MainSuccessScenario;
-class MaintainabilityQuality;
-class MaintainabilityQualityAnalyzability;
-class MaintainabilityQualityChangeability;
-class MaintainabilityQualityGovernance;
-class MaintainabilityQualityTestability;
+class Maintainability;
+class MaintainabilityAnalyzability;
+class MaintainabilityChangeability;
+class MaintainabilityCharacteristic;
+class MaintainabilityGovernance;
+class MaintainabilityTestability;
 class MaintenanceChangeManagement;
 class MaintenanceChangeManagementAudit;
 class MaintenanceChangeManagementDocumentation;
@@ -1613,18 +1618,17 @@ class ModuleVersioningStrategyCoordination;
 class ModuleVersioningStrategyDependencies;
 class ModuleVersioningStrategyReleaseManagement;
 class Monitoring;
+class MonitoringAlerting;
 class MonitoringAndAlertingSection;
+class MonitoringAutomation;
+class MonitoringCoverage;
 class MonitoringDashboards;
 class MonitoringInfrastructure;
 class MonitoringInfrastructureAccess;
 class MonitoringInfrastructureCollection;
 class MonitoringInfrastructureDeployment;
+class MonitoringOperations;
 class MonitoringProcedureEntry;
-class MonitoringQuality;
-class MonitoringQualityAlerting;
-class MonitoringQualityAutomation;
-class MonitoringQualityCoverage;
-class MonitoringQualityOperations;
 class MoscowAnalysis;
 class MoscowEntry;
 class MoscowEntryClassification;
@@ -1732,9 +1736,9 @@ class OngoingTrainingEntry;
 class OngoingTrainingEntryCompliance;
 class OngoingTrainingEntryContent;
 class OngoingTrainingEntrySchedule;
+class OperationalMonitoring;
 class OperationalPainPoints;
 class OperationalPainPointsSummary;
-class OperationsQualityCriteria;
 class OperationsRequirements;
 class OpportunityStatement;
 class OrgChangeIdentification;
@@ -1801,6 +1805,7 @@ class PenetrationTestingRequirements;
 class PenetrationTestingRequirementsExecution;
 class PenetrationTestingRequirementsReporting;
 class PenetrationTestingRequirementsScheduling;
+class PerformanceEfficiencyCharacteristic;
 class PeriodicReviewPolicy;
 class PeripheralEquipmentEntry;
 class PermissionCompositionStrategy;
@@ -1842,7 +1847,7 @@ class PipelineStageEntryExecution;
 class PipelineStageEntryFailure;
 class PipelineStageEntryTrigger;
 class PlatformAndLanguage;
-class PortabilityQuality;
+class Portability;
 class PostImplementationReview;
 class PostMaintenanceValidation;
 class PostMaintenanceValidationClosure;
@@ -2006,6 +2011,10 @@ class QualityGateCheckEntryExecution;
 class QualityGateCheckEntryStatus;
 class QualityGateCheckEntryVerification;
 class QualityGateChecklist;
+class QualityGoalsBaseline;
+class QualityGoalsGovernance;
+class QualityGoalsMeasurement;
+class QualityGoalsResources;
 class QualityPrioritization;
 class QualityScenarioEntry;
 class QualityScenarios;
@@ -2019,11 +2028,11 @@ class RateLimitingPolicy;
 class RateLimitingPolicyBehavior;
 class RateLimitingPolicyLimits;
 class RateLimitingPolicyQuotas;
-class ReadabilityQuality;
-class ReadabilityQualityComprehensibility;
-class ReadabilityQualityNavigation;
-class ReadabilityQualityStructure;
-class ReadabilityQualityStyle;
+class Readability;
+class ReadabilityComprehensibility;
+class ReadabilityNavigation;
+class ReadabilityStructure;
+class ReadabilityStyle;
 class ReadinessCriteriaEntry;
 class RecoveryFlowEntry;
 class RecoveryProcedures;
@@ -2057,11 +2066,12 @@ class ReleaseStrategyCanary;
 class ReleaseStrategyFeatureFlags;
 class ReleaseStrategyManagement;
 class RelevantSectionEntry;
-class ReliabilityQuality;
-class ReliabilityQualityDurability;
-class ReliabilityQualityFailover;
-class ReliabilityQualityRecovery;
-class ReliabilityQualityVerification;
+class Reliability;
+class ReliabilityCharacteristic;
+class ReliabilityDurability;
+class ReliabilityFailover;
+class ReliabilityRecovery;
+class ReliabilityVerification;
 class RememberMePolicy;
 class RemoteAccessRequirements;
 class RemovedRoleEntry;
@@ -2344,21 +2354,26 @@ class ScreenStateEntry;
 class ScreenStates;
 class ScreenUserCategoryEntry;
 class SecondaryNavigation;
+class Security;
 class SecurityAndAccessModel;
 class SecurityAuditEntry;
 class SecurityAuditEntryExecution;
 class SecurityAuditEntryFollowUp;
 class SecurityAuditEntryScheduling;
 class SecurityAuditRequirementsSection;
+class SecurityAuthentication;
+class SecurityAuthorization;
 class SecurityCertificationRequirements;
 class SecurityCertificationRequirementsIndustry;
 class SecurityCertificationRequirementsIso27001;
 class SecurityCertificationRequirementsMaintenance;
 class SecurityCertificationRequirementsSoc2;
+class SecurityCharacteristic;
 class SecurityCodeReviewPolicy;
 class SecurityCodeReviewPolicyFindings;
 class SecurityCodeReviewPolicyProcess;
 class SecurityCodeReviewPolicyReviewers;
+class SecurityCompliance;
 class SecurityConcernEntry;
 class SecurityControlEntry;
 class SecurityControlEntryImplementation;
@@ -2371,11 +2386,6 @@ class SecurityDevelopmentLifecycleTesting;
 class SecurityEventEntry;
 class SecurityEventLoggingPolicy;
 class SecurityEventsDefinition;
-class SecurityQuality;
-class SecurityQualityAuthentication;
-class SecurityQualityAuthorization;
-class SecurityQualityCompliance;
-class SecurityQualityVulnerability;
 class SecurityRequirementEntry;
 class SecurityRequirementEntryClassification;
 class SecurityRequirementEntryCompliance;
@@ -2397,6 +2407,7 @@ class SecurityTestingAutomationFuzzing;
 class SecurityTestingAutomationGovernance;
 class SecurityTestingAutomationIast;
 class SecurityTestingAutomationScanning;
+class SecurityVulnerability;
 class SelfRegistrationPolicy;
 class SelfRegistrationPolicyApproval;
 class SelfRegistrationPolicyBotProtection;
@@ -2428,17 +2439,17 @@ class ServerStorageRequirementsFileStorage;
 class ServerStorageRequirementsPerformance;
 class ServiceAccountCredentialPolicy;
 class ServiceAccountLifecycle;
+class ServiceLevel;
 class ServiceLevelAgreementEntry;
+class ServiceLevelEscalation;
 class ServiceLevelIndicators;
 class ServiceLevelIndicatorsMeasurement;
 class ServiceLevelIndicatorsPerformance;
 class ServiceLevelIndicatorsQuality;
-class ServiceLevelQuality;
-class ServiceLevelQualityEscalation;
-class ServiceLevelQualityOnCall;
-class ServiceLevelQualityResolution;
-class ServiceLevelQualityResponse;
-class ServiceLevelQualityRestoration;
+class ServiceLevelOnCall;
+class ServiceLevelResolution;
+class ServiceLevelResponse;
+class ServiceLevelRestoration;
 class ServiceMeshAndGateway;
 class ServiceMeshAndGatewayLoadBalancing;
 class ServiceMeshAndGatewayMesh;
@@ -2679,10 +2690,6 @@ class SystemOverviewSummaryScale;
 class SystemOverviewSummaryStatus;
 class SystemPurpose;
 class SystemQualityGoals;
-class SystemQualityGoalsBaseline;
-class SystemQualityGoalsGovernance;
-class SystemQualityGoalsMeasurement;
-class SystemQualityGoalsResources;
 class SystemReplacementStrategy;
 class SystemReplacementStrategyCutover;
 class SystemReplacementStrategyTimeline;
@@ -2753,7 +2760,6 @@ class TechnicalGoals;
 class TechnicalInfrastructure;
 class TechnicalPainPoints;
 class TechnicalPainPointsSummary;
-class TechnicalQualityCriteria;
 class TechnicalRequirementEntry;
 class TechnicalRequirementEntryConstraints;
 class TechnicalRequirementEntryDetails;
@@ -2943,12 +2949,12 @@ class UiComponentsCustomization;
 class UiComponentsVisualLanguage;
 class UiDesignPrincipleEntry;
 class UpgradeCycleFramework;
-class UsabilityQuality;
-class UsabilityQualityClarity;
-class UsabilityQualityInteraction;
-class UsabilityQualityLearnability;
-class UsabilityQualityOperability;
-class UsabilityQualityPerformance;
+class Usability;
+class UsabilityClarity;
+class UsabilityInteraction;
+class UsabilityLearnability;
+class UsabilityOperability;
+class UsabilityPerformance;
 class UseCaseExtensions;
 class UseCaseScopeContext;
 class UseCaseTraceability;
@@ -2994,7 +3000,6 @@ class UserProvisioningTools;
 class UserProvisioningToolsDirectoryIntegration;
 class UserProvisioningToolsLifecycle;
 class UserProvisioningToolsRoleManagement;
-class UserQualityCriteria;
 class UserRegistrationProcess;
 class UserTrainingRequirements;
 class UtilityMenuItemEntry;
@@ -3219,11 +3224,11 @@ class AuthorizationRoleEntryGovernanceContentForm;
 class AuthorizationRoleEntryLifecycleContentForm;
 class AuthorizationRoleEntryStatusContentForm;
 class AuthorizationRoleEntryStructureContentForm;
-class AvailabilityQualityContentForm;
-class AvailabilityQualityDegradedModeContentForm;
-class AvailabilityQualityMaintenanceContentForm;
-class AvailabilityQualityOperatingHoursContentForm;
-class AvailabilityQualityVerificationContentForm;
+class AvailabilityContentForm;
+class AvailabilityDegradedModeContentForm;
+class AvailabilityMaintenanceContentForm;
+class AvailabilityOperatingHoursContentForm;
+class AvailabilityVerificationContentForm;
 class BackupComplianceAuditContentForm;
 class BackupComplianceContentForm;
 class BackupComplianceLegalHoldContentForm;
@@ -3455,6 +3460,7 @@ class CommunicationPatternsReliabilityContentForm;
 class CommunicationPatternsSynchronousContentForm;
 class CommunicationToolsRequirementsContentForm;
 class CommunicationTypeEntryContentForm;
+class CompatibilityCharacteristicCompatibilityContentForm;
 class CompetencyEntryContentForm;
 class CompetencyFrameworkOverviewContentForm;
 class CompetencyGapAssessmentContentForm;
@@ -3580,10 +3586,10 @@ class ContingencyPlanEntryContentForm;
 class ContingencyPlanEntryReferencesContentForm;
 class ContingencyPlanEntryResponsibilityContentForm;
 class ContingencyPlanEntryTestingContentForm;
-class CorrectnessQualityAccuracyContentForm;
-class CorrectnessQualityContentForm;
-class CorrectnessQualityIntegrityContentForm;
-class CorrectnessQualityVerificationContentForm;
+class CorrectnessAccuracyContentForm;
+class CorrectnessContentForm;
+class CorrectnessIntegrityContentForm;
+class CorrectnessVerificationContentForm;
 class CrossCuttingConcernsCachingContentForm;
 class CrossCuttingConcernsContentForm;
 class CrossCuttingConcernsErrorsContentForm;
@@ -3863,14 +3869,14 @@ class DnsRequirementsContentForm;
 class DnsRequirementsHealthChecksContentForm;
 class DnsRequirementsRecordsContentForm;
 class DnsRequirementsZonesContentForm;
-class DocChangeabilityQualityContentForm;
-class DocChangeabilityQualityExtensibilityContentForm;
-class DocChangeabilityQualityMaintenanceContentForm;
-class DocChangeabilityQualityStructureContentForm;
-class DocCompletenessQualityContentForm;
-class DocCorrectnessQualityAlignmentContentForm;
-class DocCorrectnessQualityContentForm;
-class DocCorrectnessQualityVerificationContentForm;
+class DocChangeabilityContentForm;
+class DocChangeabilityExtensibilityContentForm;
+class DocChangeabilityMaintenanceContentForm;
+class DocChangeabilityStructureContentForm;
+class DocCompletenessContentForm;
+class DocCorrectnessAlignmentContentForm;
+class DocCorrectnessContentForm;
+class DocCorrectnessVerificationContentForm;
 class DocumentHeaderContentForm;
 class DocumentRelevantSectionsContentForm;
 class DocumentationAndTrainingDeliverablesContentForm;
@@ -3897,10 +3903,10 @@ class DomainProcessEntryContentForm;
 class DomainProcessEntryFlowContentForm;
 class DomainProcessEntryOperationsContentForm;
 class DomainTermEntryContentForm;
-class EfficiencyQualityContentForm;
-class EfficiencyQualityResourcesContentForm;
-class EfficiencyQualityThroughputContentForm;
-class EfficiencyQualityVerificationContentForm;
+class EfficiencyContentForm;
+class EfficiencyResourcesContentForm;
+class EfficiencyThroughputContentForm;
+class EfficiencyVerificationContentForm;
 class ElementValidationRuleEntryContentForm;
 class EmergencyMaintenanceProceduresCommunicationContentForm;
 class EmergencyMaintenanceProceduresContentForm;
@@ -4066,10 +4072,11 @@ class FirewallRequirementsContentForm;
 class FirewallRequirementsLoggingContentForm;
 class FirewallRequirementsPortsContentForm;
 class FirewallRequirementsRulesContentForm;
-class FlexibilityQualityContentForm;
-class FlexibilityQualityDeploymentContentForm;
-class FlexibilityQualityExtensibilityContentForm;
-class FlexibilityQualityModularityContentForm;
+class FlexibilityCharacteristicFlexibilityContentForm;
+class FlexibilityContentForm;
+class FlexibilityDeploymentContentForm;
+class FlexibilityExtensibilityContentForm;
+class FlexibilityModularityContentForm;
 class FrameworkCompatibilityContentForm;
 class FrameworkIdentityContentForm;
 class FrameworkJustificationContentForm;
@@ -4084,7 +4091,7 @@ class FunctionEntryImplementationContentForm;
 class FunctionEntryOperationsContentForm;
 class FunctionModelDecompositionOverviewForm;
 class FunctionModelMatrixOverviewForm;
-class FunctionalCompletenessQualityContentForm;
+class FunctionalCompletenessContentForm;
 class FunctionalRequirementEntryConstraintsContentForm;
 class FunctionalRequirementEntryContentForm;
 class FunctionalRequirementEntryDetailsContentForm;
@@ -4094,6 +4101,7 @@ class FunctionalRequirementEntrySourceContentForm;
 class FunctionalRequirementEntryVerificationContentForm;
 class FunctionalRequirementsSummaryFormForm;
 class FunctionalResponsibilitiesContentForm;
+class FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm;
 class GapEntryContentForm;
 class GapEntryDescriptionContentForm;
 class GapEntryDiscoveryContentForm;
@@ -4218,6 +4226,7 @@ class IntegrationHealthSummaryContentForm;
 class IntegrationPointEntryContentForm;
 class IntellectualPropertyRequirementsContentForm;
 class InteractionBusinessRulesContentForm;
+class InteractionCapabilityCharacteristicInteractionCapabilityContentForm;
 class InteractionCatalogOverviewContentForm;
 class InteractionChannelEntryAccessContentForm;
 class InteractionChannelEntryComplianceContentForm;
@@ -4280,11 +4289,11 @@ class InteroperabilityRequirementsTestingContentForm;
 class IpOwnershipEntryContentForm;
 class Iso25010CoverageEntryContentForm;
 class ItLandscapePositionPositionDetailsForm;
-class ItSecurityOperationsQualityAccessContentForm;
-class ItSecurityOperationsQualityContentForm;
-class ItSecurityOperationsQualityIncidentContentForm;
-class ItSecurityOperationsQualityRecoveryContentForm;
-class ItSecurityOperationsQualityTestingContentForm;
+class ItSecurityOperationsAccessContentForm;
+class ItSecurityOperationsContentForm;
+class ItSecurityOperationsIncidentContentForm;
+class ItSecurityOperationsRecoveryContentForm;
+class ItSecurityOperationsTestingContentForm;
 class ItStandardComplianceEntryContentForm;
 class ItStandardComplianceEntryEvidenceContentForm;
 class ItStandardComplianceEntryOwnershipContentForm;
@@ -4356,11 +4365,12 @@ class LoginFlowStepEntryProtocolContentForm;
 class LoginFlowStepEntryValidationContentForm;
 class MainScenarioStepEntryContentForm;
 class MainSuccessScenarioContentForm;
-class MaintainabilityQualityAnalyzabilityContentForm;
-class MaintainabilityQualityChangeabilityContentForm;
-class MaintainabilityQualityContentForm;
-class MaintainabilityQualityGovernanceContentForm;
-class MaintainabilityQualityTestabilityContentForm;
+class MaintainabilityAnalyzabilityContentForm;
+class MaintainabilityChangeabilityContentForm;
+class MaintainabilityCharacteristicMaintainabilityContentForm;
+class MaintainabilityContentForm;
+class MaintainabilityGovernanceContentForm;
+class MaintainabilityTestabilityContentForm;
 class MaintenanceChangeManagementAuditContentForm;
 class MaintenanceChangeManagementContentForm;
 class MaintenanceChangeManagementDocumentationContentForm;
@@ -4471,17 +4481,16 @@ class ModuleVersioningStrategyContentForm;
 class ModuleVersioningStrategyCoordinationContentForm;
 class ModuleVersioningStrategyDependenciesContentForm;
 class ModuleVersioningStrategyReleaseManagementContentForm;
+class MonitoringAlertingContentForm;
+class MonitoringAutomationContentForm;
+class MonitoringCoverageContentForm;
 class MonitoringDashboardsDashboardOverviewForm;
 class MonitoringInfrastructureAccessContentForm;
 class MonitoringInfrastructureCollectionContentForm;
 class MonitoringInfrastructureContentForm;
 class MonitoringInfrastructureDeploymentContentForm;
 class MonitoringMonitoringOverviewForm;
-class MonitoringQualityAlertingContentForm;
-class MonitoringQualityAutomationContentForm;
-class MonitoringQualityContentForm;
-class MonitoringQualityCoverageContentForm;
-class MonitoringQualityOperationsContentForm;
+class MonitoringOperationsContentForm;
 class MoscowAnalysisContentForm;
 class MoscowEntryClassificationContentForm;
 class MoscowEntryContentForm;
@@ -4578,8 +4587,8 @@ class OngoingTrainingEntryComplianceContentForm;
 class OngoingTrainingEntryContentContentForm;
 class OngoingTrainingEntryContentForm;
 class OngoingTrainingEntryScheduleContentForm;
+class OperationalMonitoringContentForm;
 class OperationalPainPointsSummaryContentForm;
-class OperationsQualityCriteriaOperationsOverviewContentForm;
 class OpportunityStatementOpportunityDetailsForm;
 class OrgChangeIdentificationContentForm;
 class OrgChangeImpactContentForm;
@@ -4633,6 +4642,7 @@ class PenetrationTestingRequirementsContentForm;
 class PenetrationTestingRequirementsExecutionContentForm;
 class PenetrationTestingRequirementsReportingContentForm;
 class PenetrationTestingRequirementsSchedulingContentForm;
+class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm;
 class PeriodicReviewPolicyContentForm;
 class PeripheralEquipmentEntryContentForm;
 class PermissionMatrixEntryContentForm;
@@ -4666,7 +4676,7 @@ class PipelineStageEntryContentForm;
 class PipelineStageEntryExecutionContentForm;
 class PipelineStageEntryFailureContentForm;
 class PipelineStageEntryTriggerContentForm;
-class PortabilityQualityContentForm;
+class PortabilityContentForm;
 class PostMaintenanceValidationClosureContentForm;
 class PostMaintenanceValidationContentForm;
 class PostMaintenanceValidationMonitoringContentForm;
@@ -4802,6 +4812,10 @@ class QualityGateCheckEntryExecutionContentForm;
 class QualityGateCheckEntryStatusContentForm;
 class QualityGateCheckEntryVerificationContentForm;
 class QualityGateChecklistChecklistOverviewContentForm;
+class QualityGoalsBaselineContentForm;
+class QualityGoalsGovernanceContentForm;
+class QualityGoalsMeasurementContentForm;
+class QualityGoalsResourcesContentForm;
 class QualityPrioritizationPrioritizationFrameworkContentForm;
 class QualityScenarioEntryContentForm;
 class QualityStandardEntryCertificationContentForm;
@@ -4814,11 +4828,11 @@ class RateLimitingPolicyBehaviorContentForm;
 class RateLimitingPolicyContentForm;
 class RateLimitingPolicyLimitsContentForm;
 class RateLimitingPolicyQuotasContentForm;
-class ReadabilityQualityComprehensibilityContentForm;
-class ReadabilityQualityContentForm;
-class ReadabilityQualityNavigationContentForm;
-class ReadabilityQualityStructureContentForm;
-class ReadabilityQualityStyleContentForm;
+class ReadabilityComprehensibilityContentForm;
+class ReadabilityContentForm;
+class ReadabilityNavigationContentForm;
+class ReadabilityStructureContentForm;
+class ReadabilityStyleContentForm;
 class ReadinessCriteriaEntryContentForm;
 class RecoveryProceduresApplicationContentForm;
 class RecoveryProceduresAutomationContentForm;
@@ -4846,11 +4860,12 @@ class ReleaseStrategyContentForm;
 class ReleaseStrategyFeatureFlagsContentForm;
 class ReleaseStrategyManagementContentForm;
 class RelevantSectionEntryContentForm;
-class ReliabilityQualityContentForm;
-class ReliabilityQualityDurabilityContentForm;
-class ReliabilityQualityFailoverContentForm;
-class ReliabilityQualityRecoveryContentForm;
-class ReliabilityQualityVerificationContentForm;
+class ReliabilityCharacteristicReliabilityContentForm;
+class ReliabilityContentForm;
+class ReliabilityDurabilityContentForm;
+class ReliabilityFailoverContentForm;
+class ReliabilityRecoveryContentForm;
+class ReliabilityVerificationContentForm;
 class RemoteAccessRequirementsContentForm;
 class RemovedRoleEntryContentForm;
 class RemovedRoleEntryContinuityContentForm;
@@ -5099,15 +5114,20 @@ class SecurityAuditEntryContentForm;
 class SecurityAuditEntryExecutionContentForm;
 class SecurityAuditEntryFollowUpContentForm;
 class SecurityAuditEntrySchedulingContentForm;
+class SecurityAuthenticationContentForm;
+class SecurityAuthorizationContentForm;
 class SecurityCertificationRequirementsContentForm;
 class SecurityCertificationRequirementsIndustryContentForm;
 class SecurityCertificationRequirementsIso27001ContentForm;
 class SecurityCertificationRequirementsMaintenanceContentForm;
 class SecurityCertificationRequirementsSoc2ContentForm;
+class SecurityCharacteristicSecurityContentForm;
 class SecurityCodeReviewPolicyContentForm;
 class SecurityCodeReviewPolicyFindingsContentForm;
 class SecurityCodeReviewPolicyProcessContentForm;
 class SecurityCodeReviewPolicyReviewersContentForm;
+class SecurityComplianceContentForm;
+class SecurityContentForm;
 class SecurityControlEntryContentForm;
 class SecurityControlEntryImplementationContentForm;
 class SecurityControlEntryVerificationContentForm;
@@ -5117,11 +5137,6 @@ class SecurityDevelopmentLifecycleReleaseContentForm;
 class SecurityDevelopmentLifecycleTestingContentForm;
 class SecurityEventEntryContentForm;
 class SecurityEventLoggingPolicyContentForm;
-class SecurityQualityAuthenticationContentForm;
-class SecurityQualityAuthorizationContentForm;
-class SecurityQualityComplianceContentForm;
-class SecurityQualityContentForm;
-class SecurityQualityVulnerabilityContentForm;
 class SecurityRequirementEntryClassificationContentForm;
 class SecurityRequirementEntryComplianceContentForm;
 class SecurityRequirementEntryContentForm;
@@ -5143,6 +5158,7 @@ class SecurityTestingAutomationFuzzingContentForm;
 class SecurityTestingAutomationGovernanceContentForm;
 class SecurityTestingAutomationIastContentForm;
 class SecurityTestingAutomationScanningContentForm;
+class SecurityVulnerabilityContentForm;
 class SelfRegistrationPolicyApprovalContentForm;
 class SelfRegistrationPolicyBotProtectionContentForm;
 class SelfRegistrationPolicyContentForm;
@@ -5170,16 +5186,16 @@ class ServerStorageRequirementsDatabaseContentForm;
 class ServerStorageRequirementsFileStorageContentForm;
 class ServerStorageRequirementsPerformanceContentForm;
 class ServiceLevelAgreementEntryContentForm;
+class ServiceLevelContentForm;
+class ServiceLevelEscalationContentForm;
 class ServiceLevelIndicatorsContentForm;
 class ServiceLevelIndicatorsMeasurementContentForm;
 class ServiceLevelIndicatorsPerformanceContentForm;
 class ServiceLevelIndicatorsQualityContentForm;
-class ServiceLevelQualityContentForm;
-class ServiceLevelQualityEscalationContentForm;
-class ServiceLevelQualityOnCallContentForm;
-class ServiceLevelQualityResolutionContentForm;
-class ServiceLevelQualityResponseContentForm;
-class ServiceLevelQualityRestorationContentForm;
+class ServiceLevelOnCallContentForm;
+class ServiceLevelResolutionContentForm;
+class ServiceLevelResponseContentForm;
+class ServiceLevelRestorationContentForm;
 class ServiceMeshAndGatewayContentForm;
 class ServiceMeshAndGatewayLoadBalancingContentForm;
 class ServiceMeshAndGatewayMeshContentForm;
@@ -5380,11 +5396,7 @@ class SystemOverviewSummaryComplexityContentForm;
 class SystemOverviewSummaryContentForm;
 class SystemOverviewSummaryScaleContentForm;
 class SystemOverviewSummaryStatusContentForm;
-class SystemQualityGoalsBaselineContentForm;
 class SystemQualityGoalsGovernanceContentForm;
-class SystemQualityGoalsGovernanceContentForm2;
-class SystemQualityGoalsMeasurementContentForm;
-class SystemQualityGoalsResourcesContentForm;
 class SystemReplacementStrategyContentForm;
 class SystemReplacementStrategyCutoverContentForm;
 class SystemReplacementStrategyTimelineContentForm;
@@ -5443,7 +5455,6 @@ class TechnicalGoalEntryMeasurementContentForm;
 class TechnicalGoalTestCaseEntryContentForm;
 class TechnicalGoalTestCriteriaTestCriteriaFormForm;
 class TechnicalPainPointsSummaryContentForm;
-class TechnicalQualityCriteriaTechnicalQualityContentForm;
 class TechnicalRequirementEntryConstraintsContentForm;
 class TechnicalRequirementEntryContentForm;
 class TechnicalRequirementEntryDetailsContentForm;
@@ -5621,12 +5632,12 @@ class UiComponentsComponentLibraryOverviewForm;
 class UiComponentsCustomizationContentForm;
 class UiComponentsVisualLanguageContentForm;
 class UiDesignPrincipleEntryContentForm;
-class UsabilityQualityClarityContentForm;
-class UsabilityQualityContentForm;
-class UsabilityQualityInteractionContentForm;
-class UsabilityQualityLearnabilityContentForm;
-class UsabilityQualityOperabilityContentForm;
-class UsabilityQualityPerformanceContentForm;
+class UsabilityClarityContentForm;
+class UsabilityContentForm;
+class UsabilityInteractionContentForm;
+class UsabilityLearnabilityContentForm;
+class UsabilityOperabilityContentForm;
+class UsabilityPerformanceContentForm;
 class UseCaseExtensionsContentForm;
 class UseCaseScopeContextContentForm;
 class UserAcceptanceTestingContentForm;
@@ -5658,7 +5669,6 @@ class UserProvisioningToolsContentForm;
 class UserProvisioningToolsDirectoryIntegrationContentForm;
 class UserProvisioningToolsLifecycleContentForm;
 class UserProvisioningToolsRoleManagementContentForm;
-class UserQualityCriteriaUserQualityContentForm;
 class UserTrainingRequirementsTrainingFormForm;
 class UtilityMenuItemEntryActionContentForm;
 class UtilityMenuItemEntryBehaviorContentForm;
@@ -5742,8 +5752,13 @@ class AcceptanceCriteriaList : public som::SomNode {
 
 // 11.7. Acceptance Criteria Summary.
 //
-// Quality acceptance criteria for the project including must-pass criteria
-// and quality gate checklists.
+// The acceptance *framework* and summary for the project: the acceptance
+// process/authority/scope, the must-pass criteria, and the quality-gate
+// checklist. The full enumerated, traceable acceptance criteria are NOT
+// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+// referencing list).
 class AcceptanceCriteriaSummary : public som::SomNode {
  public:
   AcceptanceCriteriaSummary(som::SpecDocument& doc, std::string path);
@@ -5754,6 +5769,12 @@ class AcceptanceCriteriaSummary : public som::SomNode {
   MustPassCriteria mustPassCriteria() const;
   // 11.7.2. Quality Gate Checklist.
   QualityGateChecklist qualityGateChecklist() const;
+  // Canonical, enumerated acceptance criteria (SR-54 explicit link).
+  //
+  // The single source of truth for the full set of traceable acceptance
+  // criteria; this summary references — rather than duplicates — it. The same
+  // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  AcceptanceCriteriaList detailedCriteria() const;
   // Acceptance test summary.
   // (skipped: acceptanceTestSummary has no target type)
 };
@@ -7645,48 +7666,48 @@ class AuthorizationRoleEntryStructure : public som::SomNode {
 };
 
 // 11.4.1. Availability quality.
-class AvailabilityQuality : public som::SomNode {
+class Availability : public som::SomNode {
  public:
-  AvailabilityQuality(som::SpecDocument& doc, std::string path);
-  AvailabilityQualityContentForm content() const;
+  Availability(som::SpecDocument& doc, std::string path);
+  AvailabilityContentForm content() const;
   // Operating-hour expectations.
-  AvailabilityQualityOperatingHours operatingHoursDetails() const;
+  AvailabilityOperatingHours operatingHoursDetails() const;
   // Maintenance window policy.
-  AvailabilityQualityMaintenance maintenance() const;
+  AvailabilityMaintenance maintenance() const;
   // Degraded-mode behavior.
-  AvailabilityQualityDegradedMode degradedMode() const;
+  AvailabilityDegradedMode degradedMode() const;
   // Monitoring and reporting.
-  AvailabilityQualityVerification verification() const;
+  AvailabilityVerification verification() const;
   // Detailed availability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Degraded-mode behavior.
-class AvailabilityQualityDegradedMode : public som::SomNode {
+class AvailabilityDegradedMode : public som::SomNode {
  public:
-  AvailabilityQualityDegradedMode(som::SpecDocument& doc, std::string path);
-  AvailabilityQualityDegradedModeContentForm content() const;
+  AvailabilityDegradedMode(som::SpecDocument& doc, std::string path);
+  AvailabilityDegradedModeContentForm content() const;
 };
 
 // Maintenance window policy.
-class AvailabilityQualityMaintenance : public som::SomNode {
+class AvailabilityMaintenance : public som::SomNode {
  public:
-  AvailabilityQualityMaintenance(som::SpecDocument& doc, std::string path);
-  AvailabilityQualityMaintenanceContentForm content() const;
+  AvailabilityMaintenance(som::SpecDocument& doc, std::string path);
+  AvailabilityMaintenanceContentForm content() const;
 };
 
 // Operating-hour expectations.
-class AvailabilityQualityOperatingHours : public som::SomNode {
+class AvailabilityOperatingHours : public som::SomNode {
  public:
-  AvailabilityQualityOperatingHours(som::SpecDocument& doc, std::string path);
-  AvailabilityQualityOperatingHoursContentForm content() const;
+  AvailabilityOperatingHours(som::SpecDocument& doc, std::string path);
+  AvailabilityOperatingHoursContentForm content() const;
 };
 
 // Monitoring and reporting.
-class AvailabilityQualityVerification : public som::SomNode {
+class AvailabilityVerification : public som::SomNode {
  public:
-  AvailabilityQualityVerification(som::SpecDocument& doc, std::string path);
-  AvailabilityQualityVerificationContentForm content() const;
+  AvailabilityVerification(som::SpecDocument& doc, std::string path);
+  AvailabilityVerificationContentForm content() const;
 };
 
 // 8.5.1. Backup and Recovery.
@@ -10159,6 +10180,20 @@ class CommunicationTypeEntry : public som::SomNode {
   CommunicationTypeEntryContentForm content() const;
 };
 
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+//
+// Degree to which the product can exchange information with other products and
+// share the same environment and resources (co-existence + interoperability).
+// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+// pending project-specific compatibility leaves.
+class CompatibilityCharacteristic : public som::SomNode {
+ public:
+  CompatibilityCharacteristic(som::SpecDocument& doc, std::string path);
+  CompatibilityCharacteristicCompatibilityContentForm compatibilityContent() const;
+  // Compatibility overview.
+  // (skipped: overview has no target type)
+};
+
 // 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
@@ -11546,39 +11581,39 @@ class ContingencyPlans : public som::SomNode {
 };
 
 // 11.2.3. Correctness quality.
-class CorrectnessQuality : public som::SomNode {
+class Correctness : public som::SomNode {
  public:
-  CorrectnessQuality(som::SpecDocument& doc, std::string path);
-  CorrectnessQualityContentForm content() const;
+  Correctness(som::SpecDocument& doc, std::string path);
+  CorrectnessContentForm content() const;
   // Data integrity expectations.
-  CorrectnessQualityIntegrity integrity() const;
+  CorrectnessIntegrity integrity() const;
   // Accuracy and auditability requirements.
-  CorrectnessQualityAccuracy accuracy() const;
+  CorrectnessAccuracy accuracy() const;
   // Verification and regression approach.
-  CorrectnessQualityVerification verification() const;
+  CorrectnessVerification verification() const;
   // Detailed correctness requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Accuracy and auditability requirements.
-class CorrectnessQualityAccuracy : public som::SomNode {
+class CorrectnessAccuracy : public som::SomNode {
  public:
-  CorrectnessQualityAccuracy(som::SpecDocument& doc, std::string path);
-  CorrectnessQualityAccuracyContentForm content() const;
+  CorrectnessAccuracy(som::SpecDocument& doc, std::string path);
+  CorrectnessAccuracyContentForm content() const;
 };
 
 // Data integrity expectations.
-class CorrectnessQualityIntegrity : public som::SomNode {
+class CorrectnessIntegrity : public som::SomNode {
  public:
-  CorrectnessQualityIntegrity(som::SpecDocument& doc, std::string path);
-  CorrectnessQualityIntegrityContentForm content() const;
+  CorrectnessIntegrity(som::SpecDocument& doc, std::string path);
+  CorrectnessIntegrityContentForm content() const;
 };
 
 // Verification and regression approach.
-class CorrectnessQualityVerification : public som::SomNode {
+class CorrectnessVerification : public som::SomNode {
  public:
-  CorrectnessQualityVerification(som::SpecDocument& doc, std::string path);
-  CorrectnessQualityVerificationContentForm content() const;
+  CorrectnessVerification(som::SpecDocument& doc, std::string path);
+  CorrectnessVerificationContentForm content() const;
 };
 
 // Credential compromise detection policy (form).
@@ -12425,13 +12460,23 @@ class D10QualityAcceptancePlan : public som::SomNode {
   DocumentHeader header() const;
   // Quality framework.
   QualityFramework qualityFramework() const;
-  // User-related quality criteria.
-  UserQualityCriteria userQualityCriteria() const;
-  // Technical quality criteria.
-  TechnicalQualityCriteria technicalQualityCriteria() const;
-  // Operations quality criteria.
-  OperationsQualityCriteria operationsQualityCriteria() const;
-  // Documentation quality criteria.
+  // Functional suitability (ISO/IEC 25010:2023).
+  FunctionalSuitabilityCharacteristic functionalSuitability() const;
+  // Performance efficiency (ISO/IEC 25010:2023).
+  PerformanceEfficiencyCharacteristic performanceEfficiency() const;
+  // Compatibility (ISO/IEC 25010:2023).
+  CompatibilityCharacteristic compatibility() const;
+  // Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+  InteractionCapabilityCharacteristic interactionCapability() const;
+  // Reliability (ISO/IEC 25010:2023).
+  ReliabilityCharacteristic reliability() const;
+  // Security (ISO/IEC 25010:2023).
+  SecurityCharacteristic security() const;
+  // Maintainability (ISO/IEC 25010:2023).
+  MaintainabilityCharacteristic maintainability() const;
+  // Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FlexibilityCharacteristic flexibility() const;
+  // Documentation quality (ISO/IEC 26514 annex).
   DocumentationQualityCriteria documentationQualityCriteria() const;
   // Quality prioritization.
   QualityPrioritization qualityPrioritization() const;
@@ -15455,75 +15500,75 @@ class DnsRequirementsZones : public som::SomNode {
 };
 
 // 11.5.4. Documentation changeability quality.
-class DocChangeabilityQuality : public som::SomNode {
+class DocChangeability : public som::SomNode {
  public:
-  DocChangeabilityQuality(som::SpecDocument& doc, std::string path);
-  DocChangeabilityQualityContentForm content() const;
+  DocChangeability(som::SpecDocument& doc, std::string path);
+  DocChangeabilityContentForm content() const;
   // Extensibility and localization readiness.
-  DocChangeabilityQualityExtensibility extensibility() const;
+  DocChangeabilityExtensibility extensibility() const;
   // Sizing and structural consistency rules.
-  DocChangeabilityQualityStructure structure() const;
+  DocChangeabilityStructure structure() const;
   // Review and retirement maintenance process.
-  DocChangeabilityQualityMaintenance maintenance() const;
+  DocChangeabilityMaintenance maintenance() const;
   // Detailed changeability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Extensibility and localization readiness.
-class DocChangeabilityQualityExtensibility : public som::SomNode {
+class DocChangeabilityExtensibility : public som::SomNode {
  public:
-  DocChangeabilityQualityExtensibility(som::SpecDocument& doc, std::string path);
-  DocChangeabilityQualityExtensibilityContentForm content() const;
+  DocChangeabilityExtensibility(som::SpecDocument& doc, std::string path);
+  DocChangeabilityExtensibilityContentForm content() const;
 };
 
 // Review and retirement maintenance process.
-class DocChangeabilityQualityMaintenance : public som::SomNode {
+class DocChangeabilityMaintenance : public som::SomNode {
  public:
-  DocChangeabilityQualityMaintenance(som::SpecDocument& doc, std::string path);
-  DocChangeabilityQualityMaintenanceContentForm content() const;
+  DocChangeabilityMaintenance(som::SpecDocument& doc, std::string path);
+  DocChangeabilityMaintenanceContentForm content() const;
 };
 
 // Sizing and structural consistency rules.
-class DocChangeabilityQualityStructure : public som::SomNode {
+class DocChangeabilityStructure : public som::SomNode {
  public:
-  DocChangeabilityQualityStructure(som::SpecDocument& doc, std::string path);
-  DocChangeabilityQualityStructureContentForm content() const;
+  DocChangeabilityStructure(som::SpecDocument& doc, std::string path);
+  DocChangeabilityStructureContentForm content() const;
 };
 
 // 11.5.2. Documentation completeness quality.
-class DocCompletenessQuality : public som::SomNode {
+class DocCompleteness : public som::SomNode {
  public:
-  DocCompletenessQuality(som::SpecDocument& doc, std::string path);
-  DocCompletenessQualityContentForm content() const;
+  DocCompleteness(som::SpecDocument& doc, std::string path);
+  DocCompletenessContentForm content() const;
   // Detailed completeness requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // 11.5.3. Documentation correctness quality.
-class DocCorrectnessQuality : public som::SomNode {
+class DocCorrectness : public som::SomNode {
  public:
-  DocCorrectnessQuality(som::SpecDocument& doc, std::string path);
-  DocCorrectnessQualityContentForm content() const;
+  DocCorrectness(som::SpecDocument& doc, std::string path);
+  DocCorrectnessContentForm content() const;
   // Formatting and implementation alignment.
-  DocCorrectnessQualityAlignment alignment() const;
+  DocCorrectnessAlignment alignment() const;
   // Verification and feedback handling.
-  DocCorrectnessQualityVerification verification() const;
+  DocCorrectnessVerification verification() const;
   // Detailed correctness requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Formatting and implementation alignment.
-class DocCorrectnessQualityAlignment : public som::SomNode {
+class DocCorrectnessAlignment : public som::SomNode {
  public:
-  DocCorrectnessQualityAlignment(som::SpecDocument& doc, std::string path);
-  DocCorrectnessQualityAlignmentContentForm content() const;
+  DocCorrectnessAlignment(som::SpecDocument& doc, std::string path);
+  DocCorrectnessAlignmentContentForm content() const;
 };
 
 // Verification and feedback handling.
-class DocCorrectnessQualityVerification : public som::SomNode {
+class DocCorrectnessVerification : public som::SomNode {
  public:
-  DocCorrectnessQualityVerification(som::SpecDocument& doc, std::string path);
-  DocCorrectnessQualityVerificationContentForm content() const;
+  DocCorrectnessVerification(som::SpecDocument& doc, std::string path);
+  DocCorrectnessVerificationContentForm content() const;
 };
 
 // SBP.1 Document Control.
@@ -15608,10 +15653,15 @@ class DocumentationDeliverables : public som::SomNode {
   som::SomList items() const;
 };
 
-// 11.5. Documentation Quality Criteria.
+// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 //
-// Quality criteria for project documentation including readability,
-// completeness, correctness, and changeability.
+// Documentation-deliverable quality criteria — readability, completeness,
+// correctness, and changeability of the user/technical documentation. This
+// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+// (which scopes the *product*, not its documentation), so per L34C-8 it is
+// retained as a documentation-quality annex aligned to ISO/IEC 26514
+// (systems & software engineering — design and development of information for
+// users) rather than re-homed under a 25010:2023 characteristic.
 class DocumentationQualityCriteria : public som::SomNode {
  public:
   DocumentationQualityCriteria(som::SpecDocument& doc, std::string path);
@@ -15619,13 +15669,13 @@ class DocumentationQualityCriteria : public som::SomNode {
   // Documentation quality overview narrative.
   // (skipped: overview has no target type)
   // 11.5.1. Readability.
-  ReadabilityQuality readability() const;
+  Readability readability() const;
   // 11.5.2. Completeness.
-  DocCompletenessQuality completeness() const;
+  DocCompleteness completeness() const;
   // 11.5.3. Correctness.
-  DocCorrectnessQuality correctness() const;
+  DocCorrectness correctness() const;
   // 11.5.4. Changeability.
-  DocChangeabilityQuality changeability() const;
+  DocChangeability changeability() const;
 };
 
 // Documentation standards and requirements.
@@ -15892,39 +15942,39 @@ class DomainVocabulary : public som::SomNode {
 };
 
 // 11.3.1. Efficiency quality.
-class EfficiencyQuality : public som::SomNode {
+class Efficiency : public som::SomNode {
  public:
-  EfficiencyQuality(som::SpecDocument& doc, std::string path);
-  EfficiencyQualityContentForm content() const;
+  Efficiency(som::SpecDocument& doc, std::string path);
+  EfficiencyContentForm content() const;
   // Throughput and scale targets.
-  EfficiencyQualityThroughput throughput() const;
+  EfficiencyThroughput throughput() const;
   // Resource utilization constraints.
-  EfficiencyQualityResources resources() const;
+  EfficiencyResources resources() const;
   // Performance validation and SLA commitments.
-  EfficiencyQualityVerification verification() const;
+  EfficiencyVerification verification() const;
   // Detailed efficiency requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Resource utilization constraints.
-class EfficiencyQualityResources : public som::SomNode {
+class EfficiencyResources : public som::SomNode {
  public:
-  EfficiencyQualityResources(som::SpecDocument& doc, std::string path);
-  EfficiencyQualityResourcesContentForm content() const;
+  EfficiencyResources(som::SpecDocument& doc, std::string path);
+  EfficiencyResourcesContentForm content() const;
 };
 
 // Throughput and scale targets.
-class EfficiencyQualityThroughput : public som::SomNode {
+class EfficiencyThroughput : public som::SomNode {
  public:
-  EfficiencyQualityThroughput(som::SpecDocument& doc, std::string path);
-  EfficiencyQualityThroughputContentForm content() const;
+  EfficiencyThroughput(som::SpecDocument& doc, std::string path);
+  EfficiencyThroughputContentForm content() const;
 };
 
 // Performance validation and SLA commitments.
-class EfficiencyQualityVerification : public som::SomNode {
+class EfficiencyVerification : public som::SomNode {
  public:
-  EfficiencyQualityVerification(som::SpecDocument& doc, std::string path);
-  EfficiencyQualityVerificationContentForm content() const;
+  EfficiencyVerification(som::SpecDocument& doc, std::string path);
+  EfficiencyVerificationContentForm content() const;
 };
 
 // A validation rule entry (form).
@@ -17866,39 +17916,57 @@ class FirewallRequirementsRules : public som::SomNode {
 };
 
 // 11.3.3. Flexibility quality.
-class FlexibilityQuality : public som::SomNode {
+class Flexibility : public som::SomNode {
  public:
-  FlexibilityQuality(som::SpecDocument& doc, std::string path);
-  FlexibilityQualityContentForm content() const;
+  Flexibility(som::SpecDocument& doc, std::string path);
+  FlexibilityContentForm content() const;
   // Modularity and reuse goals.
-  FlexibilityQualityModularity modularity() const;
+  FlexibilityModularity modularity() const;
   // Distribution and configurability model.
-  FlexibilityQualityDeployment deployment() const;
+  FlexibilityDeployment deployment() const;
   // Extensibility and verification expectations.
-  FlexibilityQualityExtensibility extensibility() const;
+  FlexibilityExtensibility extensibility() const;
   // Detailed flexibility requirements narrative.
   // (skipped: narrative has no target type)
 };
 
-// Distribution and configurability model.
-class FlexibilityQualityDeployment : public som::SomNode {
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+//
+// Degree to which the product can be adapted to changes in requirements,
+// contexts of use, or system environment (adaptability, scalability,
+// installability, replaceability). Re-homes the former technical-bucket
+// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+class FlexibilityCharacteristic : public som::SomNode {
  public:
-  FlexibilityQualityDeployment(som::SpecDocument& doc, std::string path);
-  FlexibilityQualityDeploymentContentForm content() const;
+  FlexibilityCharacteristic(som::SpecDocument& doc, std::string path);
+  FlexibilityCharacteristicFlexibilityContentForm flexibilityContent() const;
+  // Flexibility overview.
+  // (skipped: overview has no target type)
+  // 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  Flexibility flexibility() const;
+  // 11.9.2. Portability.
+  Portability portability() const;
+};
+
+// Distribution and configurability model.
+class FlexibilityDeployment : public som::SomNode {
+ public:
+  FlexibilityDeployment(som::SpecDocument& doc, std::string path);
+  FlexibilityDeploymentContentForm content() const;
 };
 
 // Extensibility and verification expectations.
-class FlexibilityQualityExtensibility : public som::SomNode {
+class FlexibilityExtensibility : public som::SomNode {
  public:
-  FlexibilityQualityExtensibility(som::SpecDocument& doc, std::string path);
-  FlexibilityQualityExtensibilityContentForm content() const;
+  FlexibilityExtensibility(som::SpecDocument& doc, std::string path);
+  FlexibilityExtensibilityContentForm content() const;
 };
 
 // Modularity and reuse goals.
-class FlexibilityQualityModularity : public som::SomNode {
+class FlexibilityModularity : public som::SomNode {
  public:
-  FlexibilityQualityModularity(som::SpecDocument& doc, std::string path);
-  FlexibilityQualityModularityContentForm content() const;
+  FlexibilityModularity(som::SpecDocument& doc, std::string path);
+  FlexibilityModularityContentForm content() const;
 };
 
 // A single fragile point entry.
@@ -18074,10 +18142,10 @@ class FunctionModel : public som::SomNode {
 };
 
 // 11.2.2. Functional completeness quality.
-class FunctionalCompletenessQuality : public som::SomNode {
+class FunctionalCompleteness : public som::SomNode {
  public:
-  FunctionalCompletenessQuality(som::SpecDocument& doc, std::string path);
-  FunctionalCompletenessQualityContentForm content() const;
+  FunctionalCompleteness(som::SpecDocument& doc, std::string path);
+  FunctionalCompletenessContentForm content() const;
   // Detailed functional completeness narrative.
   // (skipped: narrative has no target type)
 };
@@ -18194,6 +18262,23 @@ class FunctionalResponsibilities : public som::SomNode {
   // Contains 0+× Responsibility.
   // Returns the list view; element type: ResponsibilityEntry (construct from item paths).
   som::SomList items() const;
+};
+
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+//
+// Degree to which the product provides functions that meet stated and implied
+// needs — functional completeness and correctness. Re-homes the former
+// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+class FunctionalSuitabilityCharacteristic : public som::SomNode {
+ public:
+  FunctionalSuitabilityCharacteristic(som::SpecDocument& doc, std::string path);
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functionalSuitabilityContent() const;
+  // Functional suitability overview.
+  // (skipped: overview has no target type)
+  // 11.2.1. Functional Completeness.
+  FunctionalCompleteness functionalCompleteness() const;
+  // 11.2.2. Correctness.
+  Correctness correctness() const;
 };
 
 // A gap entry (form) — a missing capability or feature.
@@ -19593,6 +19678,22 @@ class InteractionBusinessRules : public som::SomNode {
   InteractionBusinessRulesContentForm content() const;
 };
 
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+//
+// Degree to which the product can be interacted with effectively, efficiently
+// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+// form is preserved here so no authored content is lost.
+class InteractionCapabilityCharacteristic : public som::SomNode {
+ public:
+  InteractionCapabilityCharacteristic(som::SpecDocument& doc, std::string path);
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm interactionCapabilityContent() const;
+  // Interaction capability overview.
+  // (skipped: overview has no target type)
+  // 11.5.1. Usability.
+  Usability usability() const;
+};
+
 // 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
@@ -20270,22 +20371,26 @@ class IpOwnershipEntry : public som::SomNode {
   IpOwnershipEntryContentForm content() const;
 };
 
-// ISO/IEC 25010 product-quality cross-map.
+// ISO/IEC 25010:2023 product-quality cross-map (derived).
 //
-// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-// quality characteristics so that compatibility and portability cannot be
-// silently missed.
+// A *derived* view over the canonical quality spine: the eight
+// `*Characteristic` classes under [SystemQualityGoals] are the single source
+// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+// Each entry references one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+// address it and the target metric — so coverage of any 25010:2023
+// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 class Iso25010Coverage : public som::SomNode {
  public:
   Iso25010Coverage(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // One entry per ISO/IEC 25010 characteristic addressed.
+  // One entry per ISO/IEC 25010:2023 characteristic addressed.
   // Returns the list view; element type: Iso25010CoverageEntry (construct from item paths).
   som::SomList characteristics() const;
 };
 
-// A single ISO/IEC 25010 coverage entry (form).
+// A single ISO/IEC 25010:2023 coverage entry (form).
 class Iso25010CoverageEntry : public som::SomNode {
  public:
   Iso25010CoverageEntry(som::SpecDocument& doc, std::string path);
@@ -20306,48 +20411,48 @@ class ItLandscapePosition : public som::SomNode {
 };
 
 // 11.4.4. IT Security Operations quality.
-class ItSecurityOperationsQuality : public som::SomNode {
+class ItSecurityOperations : public som::SomNode {
  public:
-  ItSecurityOperationsQuality(som::SpecDocument& doc, std::string path);
-  ItSecurityOperationsQualityContentForm content() const;
+  ItSecurityOperations(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsContentForm content() const;
   // Access protection controls.
-  ItSecurityOperationsQualityAccess access() const;
+  ItSecurityOperationsAccess access() const;
   // Disaster recovery planning details.
-  ItSecurityOperationsQualityRecovery recovery() const;
+  ItSecurityOperationsRecovery recovery() const;
   // Penetration testing and remediation.
-  ItSecurityOperationsQualityTesting testing() const;
+  ItSecurityOperationsTesting testing() const;
   // Incident handling and reporting.
-  ItSecurityOperationsQualityIncident incident() const;
+  ItSecurityOperationsIncident incident() const;
   // Detailed IT security operations narrative.
   // (skipped: narrative has no target type)
 };
 
 // Access protection controls.
-class ItSecurityOperationsQualityAccess : public som::SomNode {
+class ItSecurityOperationsAccess : public som::SomNode {
  public:
-  ItSecurityOperationsQualityAccess(som::SpecDocument& doc, std::string path);
-  ItSecurityOperationsQualityAccessContentForm content() const;
+  ItSecurityOperationsAccess(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsAccessContentForm content() const;
 };
 
 // Incident handling and reporting.
-class ItSecurityOperationsQualityIncident : public som::SomNode {
+class ItSecurityOperationsIncident : public som::SomNode {
  public:
-  ItSecurityOperationsQualityIncident(som::SpecDocument& doc, std::string path);
-  ItSecurityOperationsQualityIncidentContentForm content() const;
+  ItSecurityOperationsIncident(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsIncidentContentForm content() const;
 };
 
 // Disaster recovery planning details.
-class ItSecurityOperationsQualityRecovery : public som::SomNode {
+class ItSecurityOperationsRecovery : public som::SomNode {
  public:
-  ItSecurityOperationsQualityRecovery(som::SpecDocument& doc, std::string path);
-  ItSecurityOperationsQualityRecoveryContentForm content() const;
+  ItSecurityOperationsRecovery(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsRecoveryContentForm content() const;
 };
 
 // Penetration testing and remediation.
-class ItSecurityOperationsQualityTesting : public som::SomNode {
+class ItSecurityOperationsTesting : public som::SomNode {
  public:
-  ItSecurityOperationsQualityTesting(som::SpecDocument& doc, std::string path);
-  ItSecurityOperationsQualityTestingContentForm content() const;
+  ItSecurityOperationsTesting(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsTestingContentForm content() const;
 };
 
 // 8.8.1. IT Security Standards.
@@ -21246,48 +21351,63 @@ class MainSuccessScenario : public som::SomNode {
 };
 
 // 11.3.5. Maintainability quality.
-class MaintainabilityQuality : public som::SomNode {
+class Maintainability : public som::SomNode {
  public:
-  MaintainabilityQuality(som::SpecDocument& doc, std::string path);
-  MaintainabilityQualityContentForm content() const;
+  Maintainability(som::SpecDocument& doc, std::string path);
+  MaintainabilityContentForm content() const;
   // Analyzability requirements.
-  MaintainabilityQualityAnalyzability analyzability() const;
+  MaintainabilityAnalyzability analyzability() const;
   // Changeability requirements.
-  MaintainabilityQualityChangeability changeability() const;
+  MaintainabilityChangeability changeability() const;
   // Testability requirements.
-  MaintainabilityQualityTestability testability() const;
+  MaintainabilityTestability testability() const;
   // Extensibility and verification requirements.
-  MaintainabilityQualityGovernance governance() const;
+  MaintainabilityGovernance governance() const;
   // Detailed maintainability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Analyzability requirements.
-class MaintainabilityQualityAnalyzability : public som::SomNode {
+class MaintainabilityAnalyzability : public som::SomNode {
  public:
-  MaintainabilityQualityAnalyzability(som::SpecDocument& doc, std::string path);
-  MaintainabilityQualityAnalyzabilityContentForm content() const;
+  MaintainabilityAnalyzability(som::SpecDocument& doc, std::string path);
+  MaintainabilityAnalyzabilityContentForm content() const;
 };
 
 // Changeability requirements.
-class MaintainabilityQualityChangeability : public som::SomNode {
+class MaintainabilityChangeability : public som::SomNode {
  public:
-  MaintainabilityQualityChangeability(som::SpecDocument& doc, std::string path);
-  MaintainabilityQualityChangeabilityContentForm content() const;
+  MaintainabilityChangeability(som::SpecDocument& doc, std::string path);
+  MaintainabilityChangeabilityContentForm content() const;
+};
+
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+//
+// Degree of effectiveness and efficiency with which the product can be
+// modified. Re-homes the former technical-bucket maintainability leaf under
+// the 25010:2023 spine (L34C-8).
+class MaintainabilityCharacteristic : public som::SomNode {
+ public:
+  MaintainabilityCharacteristic(som::SpecDocument& doc, std::string path);
+  MaintainabilityCharacteristicMaintainabilityContentForm maintainabilityContent() const;
+  // Maintainability overview.
+  // (skipped: overview has no target type)
+  // 11.8.1. Maintainability (product maintainability attributes).
+  Maintainability maintainability() const;
 };
 
 // Extensibility and verification requirements.
-class MaintainabilityQualityGovernance : public som::SomNode {
+class MaintainabilityGovernance : public som::SomNode {
  public:
-  MaintainabilityQualityGovernance(som::SpecDocument& doc, std::string path);
-  MaintainabilityQualityGovernanceContentForm content() const;
+  MaintainabilityGovernance(som::SpecDocument& doc, std::string path);
+  MaintainabilityGovernanceContentForm content() const;
 };
 
 // Testability requirements.
-class MaintainabilityQualityTestability : public som::SomNode {
+class MaintainabilityTestability : public som::SomNode {
  public:
-  MaintainabilityQualityTestability(som::SpecDocument& doc, std::string path);
-  MaintainabilityQualityTestabilityContentForm content() const;
+  MaintainabilityTestability(som::SpecDocument& doc, std::string path);
+  MaintainabilityTestabilityContentForm content() const;
 };
 
 // Change management for maintenance.
@@ -22466,6 +22586,13 @@ class Monitoring : public som::SomNode {
   SlaAndSloMonitoring slaAndSloMonitoring() const;
 };
 
+// Alerting strategy and channels.
+class MonitoringAlerting : public som::SomNode {
+ public:
+  MonitoringAlerting(som::SpecDocument& doc, std::string path);
+  MonitoringAlertingContentForm content() const;
+};
+
 // 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -22498,6 +22625,20 @@ class MonitoringAndAlertingSection : public som::SomNode {
   IncidentManagementRequirements incidentManagement() const;
   // SLA monitoring.
   SlaMonitoringRequirements slaMonitoring() const;
+};
+
+// Alert automation capabilities.
+class MonitoringAutomation : public som::SomNode {
+ public:
+  MonitoringAutomation(som::SpecDocument& doc, std::string path);
+  MonitoringAutomationContentForm content() const;
+};
+
+// Component monitoring coverage.
+class MonitoringCoverage : public som::SomNode {
+ public:
+  MonitoringCoverage(som::SpecDocument& doc, std::string path);
+  MonitoringCoverageContentForm content() const;
 };
 
 // 8.7.2.4. Monitoring Dashboards.
@@ -22551,57 +22692,19 @@ class MonitoringInfrastructureDeployment : public som::SomNode {
   MonitoringInfrastructureDeploymentContentForm content() const;
 };
 
+// Planning and observability settings.
+class MonitoringOperations : public som::SomNode {
+ public:
+  MonitoringOperations(som::SpecDocument& doc, std::string path);
+  MonitoringOperationsContentForm content() const;
+};
+
 // A single monitoring procedure entry.
 class MonitoringProcedureEntry : public som::SomNode {
  public:
   MonitoringProcedureEntry(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-};
-
-// 11.4.3. Monitoring quality.
-class MonitoringQuality : public som::SomNode {
- public:
-  MonitoringQuality(som::SpecDocument& doc, std::string path);
-  MonitoringQualityContentForm content() const;
-  // Component monitoring coverage.
-  MonitoringQualityCoverage coverage() const;
-  // Alert automation capabilities.
-  MonitoringQualityAutomation automation() const;
-  // Alerting strategy and channels.
-  MonitoringQualityAlerting alerting() const;
-  // Planning and observability settings.
-  MonitoringQualityOperations operations() const;
-  // Detailed monitoring requirements narrative.
-  // (skipped: narrative has no target type)
-};
-
-// Alerting strategy and channels.
-class MonitoringQualityAlerting : public som::SomNode {
- public:
-  MonitoringQualityAlerting(som::SpecDocument& doc, std::string path);
-  MonitoringQualityAlertingContentForm content() const;
-};
-
-// Alert automation capabilities.
-class MonitoringQualityAutomation : public som::SomNode {
- public:
-  MonitoringQualityAutomation(som::SpecDocument& doc, std::string path);
-  MonitoringQualityAutomationContentForm content() const;
-};
-
-// Component monitoring coverage.
-class MonitoringQualityCoverage : public som::SomNode {
- public:
-  MonitoringQualityCoverage(som::SpecDocument& doc, std::string path);
-  MonitoringQualityCoverageContentForm content() const;
-};
-
-// Planning and observability settings.
-class MonitoringQualityOperations : public som::SomNode {
- public:
-  MonitoringQualityOperations(som::SpecDocument& doc, std::string path);
-  MonitoringQualityOperationsContentForm content() const;
 };
 
 // 13.4.1. MoSCoW Analysis.
@@ -23661,6 +23764,23 @@ class OngoingTrainingEntrySchedule : public som::SomNode {
   OngoingTrainingEntryScheduleContentForm content() const;
 };
 
+// 11.4.3. Monitoring quality.
+class OperationalMonitoring : public som::SomNode {
+ public:
+  OperationalMonitoring(som::SpecDocument& doc, std::string path);
+  OperationalMonitoringContentForm content() const;
+  // Component monitoring coverage.
+  MonitoringCoverage coverage() const;
+  // Alert automation capabilities.
+  MonitoringAutomation automation() const;
+  // Alerting strategy and channels.
+  MonitoringAlerting alerting() const;
+  // Planning and observability settings.
+  MonitoringOperations operations() const;
+  // Detailed monitoring requirements narrative.
+  // (skipped: narrative has no target type)
+};
+
 // 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
@@ -23682,26 +23802,6 @@ class OperationalPainPointsSummary : public som::SomNode {
  public:
   OperationalPainPointsSummary(som::SpecDocument& doc, std::string path);
   OperationalPainPointsSummaryContentForm content() const;
-};
-
-// 11.4. Operations Quality Criteria.
-//
-// Quality criteria for system operations including availability, service
-// levels, monitoring, and IT security operations.
-class OperationsQualityCriteria : public som::SomNode {
- public:
-  OperationsQualityCriteria(som::SpecDocument& doc, std::string path);
-  OperationsQualityCriteriaOperationsOverviewContentForm operationsOverviewContent() const;
-  // Operations quality overview narrative.
-  // (skipped: overview has no target type)
-  // 11.4.1. Availability.
-  AvailabilityQuality availability() const;
-  // 11.4.2. Service Level Requirements.
-  ServiceLevelQuality serviceLevelRequirements() const;
-  // 11.4.3. Monitoring and Prevention.
-  MonitoringQuality monitoringAndPrevention() const;
-  // 11.4.4. IT Security Operations.
-  ItSecurityOperationsQuality itSecurityOperations() const;
 };
 
 // 8.5. Operations Requirements.
@@ -24467,6 +24567,22 @@ class PenetrationTestingRequirementsScheduling : public som::SomNode {
   PenetrationTestingRequirementsSchedulingContentForm content() const;
 };
 
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+//
+// Performance relative to the amount of resources used under stated
+// conditions. Re-homes the former technical-bucket efficiency leaf under the
+// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+// preserved here so no authored content is lost.
+class PerformanceEfficiencyCharacteristic : public som::SomNode {
+ public:
+  PerformanceEfficiencyCharacteristic(som::SpecDocument& doc, std::string path);
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performanceEfficiencyContent() const;
+  // Performance efficiency overview.
+  // (skipped: overview has no target type)
+  // 11.3.1. Efficiency.
+  Efficiency efficiency() const;
+};
+
 // Periodic review policy (form).
 //
 // Defines periodic reviews of access rights and security posture.
@@ -24886,10 +25002,10 @@ class PlatformAndLanguage : public som::SomNode {
 };
 
 // 11.3.2. Portability quality.
-class PortabilityQuality : public som::SomNode {
+class Portability : public som::SomNode {
  public:
-  PortabilityQuality(som::SpecDocument& doc, std::string path);
-  PortabilityQualityContentForm content() const;
+  Portability(som::SpecDocument& doc, std::string path);
+  PortabilityContentForm content() const;
   // Detailed portability requirements narrative.
   // (skipped: narrative has no target type)
 };
@@ -26284,7 +26400,7 @@ class PwaRequirementsUpdates : public som::SomNode {
 
 // SBP.14 Quality & Acceptance Model.
 //
-// Public anchor: ISO/IEC 25010 product quality.
+// Public anchor: ISO/IEC 25010:2023 product quality.
 class QualityAndAcceptanceModel : public som::SomNode {
  public:
   QualityAndAcceptanceModel(som::SpecDocument& doc, std::string path);
@@ -26294,7 +26410,7 @@ class QualityAndAcceptanceModel : public som::SomNode {
   SystemQualityGoals systemQualityGoals() const;
   // Delivery scope and acceptance criteria.
   DeliveryScopeAndAcceptance deliveryAcceptance() const;
-  // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  // ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
   Iso25010Coverage iso25010Coverage() const;
 };
 
@@ -26534,6 +26650,34 @@ class QualityGateChecklist : public som::SomNode {
   som::SomList items() const;
 };
 
+// Baseline and target settings.
+class QualityGoalsBaseline : public som::SomNode {
+ public:
+  QualityGoalsBaseline(som::SpecDocument& doc, std::string path);
+  QualityGoalsBaselineContentForm content() const;
+};
+
+// Governance board and escalation details.
+class QualityGoalsGovernance : public som::SomNode {
+ public:
+  QualityGoalsGovernance(som::SpecDocument& doc, std::string path);
+  QualityGoalsGovernanceContentForm content() const;
+};
+
+// Measurement and reporting approach.
+class QualityGoalsMeasurement : public som::SomNode {
+ public:
+  QualityGoalsMeasurement(som::SpecDocument& doc, std::string path);
+  QualityGoalsMeasurementContentForm content() const;
+};
+
+// Quality resources and enablement.
+class QualityGoalsResources : public som::SomNode {
+ public:
+  QualityGoalsResources(som::SpecDocument& doc, std::string path);
+  QualityGoalsResourcesContentForm content() const;
+};
+
 // 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
@@ -26656,48 +26800,48 @@ class RateLimitingPolicyQuotas : public som::SomNode {
 };
 
 // 11.5.1. Readability quality.
-class ReadabilityQuality : public som::SomNode {
+class Readability : public som::SomNode {
  public:
-  ReadabilityQuality(som::SpecDocument& doc, std::string path);
-  ReadabilityQualityContentForm content() const;
+  Readability(som::SpecDocument& doc, std::string path);
+  ReadabilityContentForm content() const;
   // Identifiability and navigation.
-  ReadabilityQualityNavigation navigation() const;
+  ReadabilityNavigation navigation() const;
   // Comprehensibility requirements.
-  ReadabilityQualityComprehensibility comprehensibility() const;
+  ReadabilityComprehensibility comprehensibility() const;
   // Document structure rules.
-  ReadabilityQualityStructure structure() const;
+  ReadabilityStructure structure() const;
   // Style guide alignment.
-  ReadabilityQualityStyle style() const;
+  ReadabilityStyle style() const;
   // Detailed readability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Comprehensibility requirements.
-class ReadabilityQualityComprehensibility : public som::SomNode {
+class ReadabilityComprehensibility : public som::SomNode {
  public:
-  ReadabilityQualityComprehensibility(som::SpecDocument& doc, std::string path);
-  ReadabilityQualityComprehensibilityContentForm content() const;
+  ReadabilityComprehensibility(som::SpecDocument& doc, std::string path);
+  ReadabilityComprehensibilityContentForm content() const;
 };
 
 // Identifiability and navigation.
-class ReadabilityQualityNavigation : public som::SomNode {
+class ReadabilityNavigation : public som::SomNode {
  public:
-  ReadabilityQualityNavigation(som::SpecDocument& doc, std::string path);
-  ReadabilityQualityNavigationContentForm content() const;
+  ReadabilityNavigation(som::SpecDocument& doc, std::string path);
+  ReadabilityNavigationContentForm content() const;
 };
 
 // Document structure rules.
-class ReadabilityQualityStructure : public som::SomNode {
+class ReadabilityStructure : public som::SomNode {
  public:
-  ReadabilityQualityStructure(som::SpecDocument& doc, std::string path);
-  ReadabilityQualityStructureContentForm content() const;
+  ReadabilityStructure(som::SpecDocument& doc, std::string path);
+  ReadabilityStructureContentForm content() const;
 };
 
 // Style guide alignment.
-class ReadabilityQualityStyle : public som::SomNode {
+class ReadabilityStyle : public som::SomNode {
  public:
-  ReadabilityQualityStyle(som::SpecDocument& doc, std::string path);
-  ReadabilityQualityStyleContentForm content() const;
+  ReadabilityStyle(som::SpecDocument& doc, std::string path);
+  ReadabilityStyleContentForm content() const;
 };
 
 // Readiness criteria entry (form).
@@ -27007,48 +27151,72 @@ class RelevantSectionEntry : public som::SomNode {
 };
 
 // 11.3.6. Reliability quality.
-class ReliabilityQuality : public som::SomNode {
+class Reliability : public som::SomNode {
  public:
-  ReliabilityQuality(som::SpecDocument& doc, std::string path);
-  ReliabilityQualityContentForm content() const;
+  Reliability(som::SpecDocument& doc, std::string path);
+  ReliabilityContentForm content() const;
   // Recovery objectives.
-  ReliabilityQualityRecovery recovery() const;
+  ReliabilityRecovery recovery() const;
   // Failover requirements.
-  ReliabilityQualityFailover failover() const;
+  ReliabilityFailover failover() const;
   // Data durability requirements.
-  ReliabilityQualityDurability durability() const;
+  ReliabilityDurability durability() const;
   // Verification and learning.
-  ReliabilityQualityVerification verification() const;
+  ReliabilityVerification verification() const;
   // Detailed reliability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
-// Data durability requirements.
-class ReliabilityQualityDurability : public som::SomNode {
+// 11.6. Reliability (ISO/IEC 25010:2023).
+//
+// Degree to which the product performs specified functions under specified
+// conditions for a specified period (availability, fault tolerance,
+// recoverability, maturity). Re-homes the former technical-bucket reliability
+// leaf and the operations-bucket availability, service-level and monitoring
+// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+// overview form is preserved here so no authored content is lost.
+class ReliabilityCharacteristic : public som::SomNode {
  public:
-  ReliabilityQualityDurability(som::SpecDocument& doc, std::string path);
-  ReliabilityQualityDurabilityContentForm content() const;
+  ReliabilityCharacteristic(som::SpecDocument& doc, std::string path);
+  ReliabilityCharacteristicReliabilityContentForm reliabilityContent() const;
+  // Reliability overview narrative.
+  // (skipped: overview has no target type)
+  // 11.6.1. Reliability (product reliability attributes).
+  Reliability reliability() const;
+  // 11.6.2. Availability.
+  Availability availability() const;
+  // 11.6.3. Service Level Requirements.
+  ServiceLevel serviceLevelRequirements() const;
+  // 11.6.4. Monitoring and Prevention.
+  OperationalMonitoring monitoringAndPrevention() const;
+};
+
+// Data durability requirements.
+class ReliabilityDurability : public som::SomNode {
+ public:
+  ReliabilityDurability(som::SpecDocument& doc, std::string path);
+  ReliabilityDurabilityContentForm content() const;
 };
 
 // Failover requirements.
-class ReliabilityQualityFailover : public som::SomNode {
+class ReliabilityFailover : public som::SomNode {
  public:
-  ReliabilityQualityFailover(som::SpecDocument& doc, std::string path);
-  ReliabilityQualityFailoverContentForm content() const;
+  ReliabilityFailover(som::SpecDocument& doc, std::string path);
+  ReliabilityFailoverContentForm content() const;
 };
 
 // Recovery objectives.
-class ReliabilityQualityRecovery : public som::SomNode {
+class ReliabilityRecovery : public som::SomNode {
  public:
-  ReliabilityQualityRecovery(som::SpecDocument& doc, std::string path);
-  ReliabilityQualityRecoveryContentForm content() const;
+  ReliabilityRecovery(som::SpecDocument& doc, std::string path);
+  ReliabilityRecoveryContentForm content() const;
 };
 
 // Verification and learning.
-class ReliabilityQualityVerification : public som::SomNode {
+class ReliabilityVerification : public som::SomNode {
  public:
-  ReliabilityQualityVerification(som::SpecDocument& doc, std::string path);
-  ReliabilityQualityVerificationContentForm content() const;
+  ReliabilityVerification(som::SpecDocument& doc, std::string path);
+  ReliabilityVerificationContentForm content() const;
 };
 
 // Remember-me and persistent session policy (form).
@@ -29828,6 +29996,23 @@ class SecondaryNavigation : public som::SomNode {
   som::SomList tabBars() const;
 };
 
+// 11.3.4. Security quality.
+class Security : public som::SomNode {
+ public:
+  Security(som::SpecDocument& doc, std::string path);
+  SecurityContentForm content() const;
+  // Authentication controls.
+  SecurityAuthentication authentication() const;
+  // Authorization controls.
+  SecurityAuthorization authorization() const;
+  // Vulnerability management expectations.
+  SecurityVulnerability vulnerability() const;
+  // Compliance and verification settings.
+  SecurityCompliance compliance() const;
+  // Detailed security requirements narrative.
+  // (skipped: narrative has no target type)
+};
+
 // 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel : public som::SomNode {
  public:
@@ -29915,6 +30100,20 @@ class SecurityAuditRequirementsSection : public som::SomNode {
   som::SomList auditEntries() const;
 };
 
+// Authentication controls.
+class SecurityAuthentication : public som::SomNode {
+ public:
+  SecurityAuthentication(som::SpecDocument& doc, std::string path);
+  SecurityAuthenticationContentForm content() const;
+};
+
+// Authorization controls.
+class SecurityAuthorization : public som::SomNode {
+ public:
+  SecurityAuthorization(som::SpecDocument& doc, std::string path);
+  SecurityAuthorizationContentForm content() const;
+};
+
 // Security certification and compliance requirements.
 class SecurityCertificationRequirements : public som::SomNode {
  public:
@@ -29958,6 +30157,23 @@ class SecurityCertificationRequirementsSoc2 : public som::SomNode {
   SecurityCertificationRequirementsSoc2ContentForm content() const;
 };
 
+// 11.7. Security (ISO/IEC 25010:2023).
+//
+// Degree to which the product protects information and data. Re-homes the
+// former technical-bucket security leaf and the operations-bucket IT-security
+// operations leaf under the 25010:2023 spine (L34C-8).
+class SecurityCharacteristic : public som::SomNode {
+ public:
+  SecurityCharacteristic(som::SpecDocument& doc, std::string path);
+  SecurityCharacteristicSecurityContentForm securityContent() const;
+  // Security overview.
+  // (skipped: overview has no target type)
+  // 11.7.1. Security (product security attributes).
+  Security security() const;
+  // 11.7.2. IT Security Operations.
+  ItSecurityOperations itSecurityOperations() const;
+};
+
 // Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -29994,6 +30210,13 @@ class SecurityCodeReviewPolicyReviewers : public som::SomNode {
  public:
   SecurityCodeReviewPolicyReviewers(som::SpecDocument& doc, std::string path);
   SecurityCodeReviewPolicyReviewersContentForm content() const;
+};
+
+// Compliance and verification settings.
+class SecurityCompliance : public som::SomNode {
+ public:
+  SecurityCompliance(som::SpecDocument& doc, std::string path);
+  SecurityComplianceContentForm content() const;
 };
 
 // A single security concern entry.
@@ -30121,51 +30344,6 @@ class SecurityEventsDefinition : public som::SomNode {
   // Custom Security Events — contains 0+× Security Event Entry.
   // Returns the list view; element type: SecurityEventEntry (construct from item paths).
   som::SomList customEvents() const;
-};
-
-// 11.3.4. Security quality.
-class SecurityQuality : public som::SomNode {
- public:
-  SecurityQuality(som::SpecDocument& doc, std::string path);
-  SecurityQualityContentForm content() const;
-  // Authentication controls.
-  SecurityQualityAuthentication authentication() const;
-  // Authorization controls.
-  SecurityQualityAuthorization authorization() const;
-  // Vulnerability management expectations.
-  SecurityQualityVulnerability vulnerability() const;
-  // Compliance and verification settings.
-  SecurityQualityCompliance compliance() const;
-  // Detailed security requirements narrative.
-  // (skipped: narrative has no target type)
-};
-
-// Authentication controls.
-class SecurityQualityAuthentication : public som::SomNode {
- public:
-  SecurityQualityAuthentication(som::SpecDocument& doc, std::string path);
-  SecurityQualityAuthenticationContentForm content() const;
-};
-
-// Authorization controls.
-class SecurityQualityAuthorization : public som::SomNode {
- public:
-  SecurityQualityAuthorization(som::SpecDocument& doc, std::string path);
-  SecurityQualityAuthorizationContentForm content() const;
-};
-
-// Compliance and verification settings.
-class SecurityQualityCompliance : public som::SomNode {
- public:
-  SecurityQualityCompliance(som::SpecDocument& doc, std::string path);
-  SecurityQualityComplianceContentForm content() const;
-};
-
-// Vulnerability management expectations.
-class SecurityQualityVulnerability : public som::SomNode {
- public:
-  SecurityQualityVulnerability(som::SpecDocument& doc, std::string path);
-  SecurityQualityVulnerabilityContentForm content() const;
 };
 
 // A security requirement entry.
@@ -30370,6 +30548,13 @@ class SecurityTestingAutomationScanning : public som::SomNode {
  public:
   SecurityTestingAutomationScanning(som::SpecDocument& doc, std::string path);
   SecurityTestingAutomationScanningContentForm content() const;
+};
+
+// Vulnerability management expectations.
+class SecurityVulnerability : public som::SomNode {
+ public:
+  SecurityVulnerability(som::SpecDocument& doc, std::string path);
+  SecurityVulnerabilityContentForm content() const;
 };
 
 // Self-registration policy (form).
@@ -30689,11 +30874,40 @@ class ServiceAccountLifecycle : public som::SomNode {
   // (skipped: serviceAccountDescription has no target type)
 };
 
+// 11.4.2. Service level quality.
+class ServiceLevel : public som::SomNode {
+ public:
+  ServiceLevel(som::SpecDocument& doc, std::string path);
+  ServiceLevelContentForm content() const;
+  // Remaining response targets.
+  ServiceLevelResponse response() const;
+  // Resolution targets.
+  ServiceLevelResolution resolution() const;
+  // Escalation rules.
+  ServiceLevelEscalation escalation() const;
+  // On-call support expectations.
+  ServiceLevelOnCall onCall() const;
+  // Restoration and communication priorities.
+  ServiceLevelRestoration restoration() const;
+  // Detailed service level requirements narrative.
+  // (skipped: narrative has no target type)
+  // Service Level Agreement entries.
+  // Returns the list view; element type: ServiceLevelAgreementEntry (construct from item paths).
+  som::SomList slaEntries() const;
+};
+
 // A service level agreement entry.
 class ServiceLevelAgreementEntry : public som::SomNode {
  public:
   ServiceLevelAgreementEntry(som::SpecDocument& doc, std::string path);
   ServiceLevelAgreementEntryContentForm content() const;
+};
+
+// Escalation rules.
+class ServiceLevelEscalation : public som::SomNode {
+ public:
+  ServiceLevelEscalation(som::SpecDocument& doc, std::string path);
+  ServiceLevelEscalationContentForm content() const;
 };
 
 // Service Level Indicators.
@@ -30730,61 +30944,32 @@ class ServiceLevelIndicatorsQuality : public som::SomNode {
   ServiceLevelIndicatorsQualityContentForm content() const;
 };
 
-// 11.4.2. Service level quality.
-class ServiceLevelQuality : public som::SomNode {
- public:
-  ServiceLevelQuality(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityContentForm content() const;
-  // Remaining response targets.
-  ServiceLevelQualityResponse response() const;
-  // Resolution targets.
-  ServiceLevelQualityResolution resolution() const;
-  // Escalation rules.
-  ServiceLevelQualityEscalation escalation() const;
-  // On-call support expectations.
-  ServiceLevelQualityOnCall onCall() const;
-  // Restoration and communication priorities.
-  ServiceLevelQualityRestoration restoration() const;
-  // Detailed service level requirements narrative.
-  // (skipped: narrative has no target type)
-  // Service Level Agreement entries.
-  // Returns the list view; element type: ServiceLevelAgreementEntry (construct from item paths).
-  som::SomList slaEntries() const;
-};
-
-// Escalation rules.
-class ServiceLevelQualityEscalation : public som::SomNode {
- public:
-  ServiceLevelQualityEscalation(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityEscalationContentForm content() const;
-};
-
 // On-call support expectations.
-class ServiceLevelQualityOnCall : public som::SomNode {
+class ServiceLevelOnCall : public som::SomNode {
  public:
-  ServiceLevelQualityOnCall(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityOnCallContentForm content() const;
+  ServiceLevelOnCall(som::SpecDocument& doc, std::string path);
+  ServiceLevelOnCallContentForm content() const;
 };
 
 // Resolution targets.
-class ServiceLevelQualityResolution : public som::SomNode {
+class ServiceLevelResolution : public som::SomNode {
  public:
-  ServiceLevelQualityResolution(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityResolutionContentForm content() const;
+  ServiceLevelResolution(som::SpecDocument& doc, std::string path);
+  ServiceLevelResolutionContentForm content() const;
 };
 
 // Remaining response targets.
-class ServiceLevelQualityResponse : public som::SomNode {
+class ServiceLevelResponse : public som::SomNode {
  public:
-  ServiceLevelQualityResponse(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityResponseContentForm content() const;
+  ServiceLevelResponse(som::SpecDocument& doc, std::string path);
+  ServiceLevelResponseContentForm content() const;
 };
 
 // Restoration and communication priorities.
-class ServiceLevelQualityRestoration : public som::SomNode {
+class ServiceLevelRestoration : public som::SomNode {
  public:
-  ServiceLevelQualityRestoration(som::SpecDocument& doc, std::string path);
-  ServiceLevelQualityRestorationContentForm content() const;
+  ServiceLevelRestoration(som::SpecDocument& doc, std::string path);
+  ServiceLevelRestorationContentForm content() const;
 };
 
 // Service mesh and API gateway.
@@ -33365,13 +33550,13 @@ class SystemQualityGoals : public som::SomNode {
   SystemQualityGoals(som::SpecDocument& doc, std::string path);
   SystemQualityGoalsGovernanceContentForm governanceContent() const;
   // Governance board and escalation details.
-  SystemQualityGoalsGovernance governance() const;
+  QualityGoalsGovernance governance() const;
   // Baseline and target settings.
-  SystemQualityGoalsBaseline baseline() const;
+  QualityGoalsBaseline baseline() const;
   // Measurement and reporting approach.
-  SystemQualityGoalsMeasurement measurement() const;
+  QualityGoalsMeasurement measurement() const;
   // Quality resources and enablement.
-  SystemQualityGoalsResources resources() const;
+  QualityGoalsResources resources() const;
   // Executive summary of quality goals and approach.
   // (skipped: executiveSummary has no target type)
   // Quality vision and principles.
@@ -33385,13 +33570,25 @@ class SystemQualityGoals : public som::SomNode {
   // (skipped: qualityRadar has no target type)
   // 11.1. Quality Framework.
   QualityFramework framework() const;
-  // 11.2. User-Related Quality Criteria.
-  UserQualityCriteria userQuality() const;
-  // 11.3. Technical Quality Criteria.
-  TechnicalQualityCriteria technicalQuality() const;
-  // 11.4. Operations Quality Criteria.
-  OperationsQualityCriteria operationsQuality() const;
-  // 11.5. Documentation Quality Criteria.
+  // 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  FunctionalSuitabilityCharacteristic functionalSuitability() const;
+  // 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  PerformanceEfficiencyCharacteristic performanceEfficiency() const;
+  // 11.4. Compatibility (ISO/IEC 25010:2023).
+  CompatibilityCharacteristic compatibility() const;
+  // 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  InteractionCapabilityCharacteristic interactionCapability() const;
+  // 11.6. Reliability (ISO/IEC 25010:2023).
+  ReliabilityCharacteristic reliability() const;
+  // 11.7. Security (ISO/IEC 25010:2023).
+  SecurityCharacteristic security() const;
+  // 11.8. Maintainability (ISO/IEC 25010:2023).
+  MaintainabilityCharacteristic maintainability() const;
+  // 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FlexibilityCharacteristic flexibility() const;
+  // 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+  // annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+  // documentation-quality annex per L34C-8).
   DocumentationQualityCriteria documentationQuality() const;
   // 11.6. Quality Prioritization.
   QualityPrioritization prioritization() const;
@@ -33399,34 +33596,6 @@ class SystemQualityGoals : public som::SomNode {
   AcceptanceCriteriaSummary acceptanceCriteria() const;
   // 11.8. Test Strategy..
   TestStrategy testStrategy() const;
-};
-
-// Baseline and target settings.
-class SystemQualityGoalsBaseline : public som::SomNode {
- public:
-  SystemQualityGoalsBaseline(som::SpecDocument& doc, std::string path);
-  SystemQualityGoalsBaselineContentForm content() const;
-};
-
-// Governance board and escalation details.
-class SystemQualityGoalsGovernance : public som::SomNode {
- public:
-  SystemQualityGoalsGovernance(som::SpecDocument& doc, std::string path);
-  SystemQualityGoalsGovernanceContentForm2 content() const;
-};
-
-// Measurement and reporting approach.
-class SystemQualityGoalsMeasurement : public som::SomNode {
- public:
-  SystemQualityGoalsMeasurement(som::SpecDocument& doc, std::string path);
-  SystemQualityGoalsMeasurementContentForm content() const;
-};
-
-// Quality resources and enablement.
-class SystemQualityGoalsResources : public som::SomNode {
- public:
-  SystemQualityGoalsResources(som::SpecDocument& doc, std::string path);
-  SystemQualityGoalsResourcesContentForm content() const;
 };
 
 // Replacement strategy details.
@@ -34251,30 +34420,6 @@ class TechnicalPainPointsSummary : public som::SomNode {
  public:
   TechnicalPainPointsSummary(som::SpecDocument& doc, std::string path);
   TechnicalPainPointsSummaryContentForm content() const;
-};
-
-// 11.3. Technical Quality Criteria.
-//
-// Quality criteria for the technical implementation including efficiency,
-// portability, flexibility, security, maintainability, and reliability.
-class TechnicalQualityCriteria : public som::SomNode {
- public:
-  TechnicalQualityCriteria(som::SpecDocument& doc, std::string path);
-  TechnicalQualityCriteriaTechnicalQualityContentForm technicalQualityContent() const;
-  // Technical quality overview.
-  // (skipped: overview has no target type)
-  // 11.3.1. Efficiency.
-  EfficiencyQuality efficiency() const;
-  // 11.3.2. Portability.
-  PortabilityQuality portability() const;
-  // 11.3.3. Flexibility.
-  FlexibilityQuality flexibility() const;
-  // 11.3.4. Security.
-  SecurityQuality security() const;
-  // 11.3.5. Maintainability.
-  MaintainabilityQuality maintainability() const;
-  // 11.3.6. Reliability.
-  ReliabilityQuality reliability() const;
 };
 
 // A technical requirement entry.
@@ -36125,57 +36270,57 @@ class UpgradeCycleFramework : public som::SomNode {
 };
 
 // 11.2.1. Usability quality.
-class UsabilityQuality : public som::SomNode {
+class Usability : public som::SomNode {
  public:
-  UsabilityQuality(som::SpecDocument& doc, std::string path);
-  UsabilityQualityContentForm content() const;
+  Usability(som::SpecDocument& doc, std::string path);
+  UsabilityContentForm content() const;
   // Operability verification and ergonomics goals.
-  UsabilityQualityOperability operability() const;
+  UsabilityOperability operability() const;
   // Learnability and onboarding expectations.
-  UsabilityQualityLearnability learnability() const;
+  UsabilityLearnability learnability() const;
   // Clarity and complexity constraints.
-  UsabilityQualityClarity clarity() const;
+  UsabilityClarity clarity() const;
   // Interaction control settings.
-  UsabilityQualityInteraction interaction() const;
+  UsabilityInteraction interaction() const;
   // Perceived and measured responsiveness targets.
-  UsabilityQualityPerformance performance() const;
+  UsabilityPerformance performance() const;
   // Detailed usability requirements narrative.
   // (skipped: narrative has no target type)
 };
 
 // Clarity and complexity constraints.
-class UsabilityQualityClarity : public som::SomNode {
+class UsabilityClarity : public som::SomNode {
  public:
-  UsabilityQualityClarity(som::SpecDocument& doc, std::string path);
-  UsabilityQualityClarityContentForm content() const;
+  UsabilityClarity(som::SpecDocument& doc, std::string path);
+  UsabilityClarityContentForm content() const;
 };
 
 // Interaction control settings.
-class UsabilityQualityInteraction : public som::SomNode {
+class UsabilityInteraction : public som::SomNode {
  public:
-  UsabilityQualityInteraction(som::SpecDocument& doc, std::string path);
-  UsabilityQualityInteractionContentForm content() const;
+  UsabilityInteraction(som::SpecDocument& doc, std::string path);
+  UsabilityInteractionContentForm content() const;
 };
 
 // Learnability and onboarding expectations.
-class UsabilityQualityLearnability : public som::SomNode {
+class UsabilityLearnability : public som::SomNode {
  public:
-  UsabilityQualityLearnability(som::SpecDocument& doc, std::string path);
-  UsabilityQualityLearnabilityContentForm content() const;
+  UsabilityLearnability(som::SpecDocument& doc, std::string path);
+  UsabilityLearnabilityContentForm content() const;
 };
 
 // Operability verification and ergonomics goals.
-class UsabilityQualityOperability : public som::SomNode {
+class UsabilityOperability : public som::SomNode {
  public:
-  UsabilityQualityOperability(som::SpecDocument& doc, std::string path);
-  UsabilityQualityOperabilityContentForm content() const;
+  UsabilityOperability(som::SpecDocument& doc, std::string path);
+  UsabilityOperabilityContentForm content() const;
 };
 
 // Perceived and measured responsiveness targets.
-class UsabilityQualityPerformance : public som::SomNode {
+class UsabilityPerformance : public som::SomNode {
  public:
-  UsabilityQualityPerformance(som::SpecDocument& doc, std::string path);
-  UsabilityQualityPerformanceContentForm content() const;
+  UsabilityPerformance(som::SpecDocument& doc, std::string path);
+  UsabilityPerformanceContentForm content() const;
 };
 
 // Use case extensions (alternative and exception flows).
@@ -36754,24 +36899,6 @@ class UserProvisioningToolsRoleManagement : public som::SomNode {
  public:
   UserProvisioningToolsRoleManagement(som::SpecDocument& doc, std::string path);
   UserProvisioningToolsRoleManagementContentForm content() const;
-};
-
-// 11.2. User-Related Quality Criteria.
-//
-// Quality criteria that directly affect user experience, including usability,
-// functional completeness, and correctness from the end-user perspective.
-class UserQualityCriteria : public som::SomNode {
- public:
-  UserQualityCriteria(som::SpecDocument& doc, std::string path);
-  UserQualityCriteriaUserQualityContentForm userQualityContent() const;
-  // User quality criteria overview.
-  // (skipped: overview has no target type)
-  // 11.2.1. Usability.
-  UsabilityQuality usability() const;
-  // 11.2.2. Functional Completeness.
-  FunctionalCompletenessQuality functionalCompleteness() const;
-  // 11.2.3. Correctness.
-  CorrectnessQuality correctness() const;
 };
 
 // 9.1.2.2. Registration Process (form).
@@ -39658,9 +39785,9 @@ class AuthorizationRoleEntryStructureContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityContentForm : public som::SomNode {
+class AvailabilityContentForm : public som::SomNode {
  public:
-  AvailabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  AvailabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string uptimeTargetPercentage() const;
   void setUptimeTargetPercentage(const std::string& value);
   std::string uptimeCalculationMethod() const;
@@ -39670,9 +39797,9 @@ class AvailabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityDegradedModeContentForm : public som::SomNode {
+class AvailabilityDegradedModeContentForm : public som::SomNode {
  public:
-  AvailabilityQualityDegradedModeContentForm(som::SpecDocument& doc, std::string path);
+  AvailabilityDegradedModeContentForm(som::SpecDocument& doc, std::string path);
   std::string degradedModeDefinition() const;
   void setDegradedModeDefinition(const std::string& value);
   std::string degradedModeCapabilities() const;
@@ -39682,9 +39809,9 @@ class AvailabilityQualityDegradedModeContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityMaintenanceContentForm : public som::SomNode {
+class AvailabilityMaintenanceContentForm : public som::SomNode {
  public:
-  AvailabilityQualityMaintenanceContentForm(som::SpecDocument& doc, std::string path);
+  AvailabilityMaintenanceContentForm(som::SpecDocument& doc, std::string path);
   std::string scheduledMaintenanceWindow() const;
   void setScheduledMaintenanceWindow(const std::string& value);
   std::string maintenanceNotification() const;
@@ -39696,9 +39823,9 @@ class AvailabilityQualityMaintenanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityOperatingHoursContentForm : public som::SomNode {
+class AvailabilityOperatingHoursContentForm : public som::SomNode {
  public:
-  AvailabilityQualityOperatingHoursContentForm(som::SpecDocument& doc, std::string path);
+  AvailabilityOperatingHoursContentForm(som::SpecDocument& doc, std::string path);
   std::string operatingHours() const;
   void setOperatingHours(const std::string& value);
   std::string peakHoursDefinition() const;
@@ -39708,9 +39835,9 @@ class AvailabilityQualityOperatingHoursContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityVerificationContentForm : public som::SomNode {
+class AvailabilityVerificationContentForm : public som::SomNode {
  public:
-  AvailabilityQualityVerificationContentForm(som::SpecDocument& doc, std::string path);
+  AvailabilityVerificationContentForm(som::SpecDocument& doc, std::string path);
   std::string availabilityMonitoring() const;
   void setAvailabilityMonitoring(const std::string& value);
   std::string availabilityReporting() const;
@@ -42909,6 +43036,16 @@ class CommunicationTypeEntryContentForm : public som::SomNode {
   void setConfidentialityLevel(const std::string& value);
 };
 
+// Generated form facade for the `compatibilityContent` @Form section.
+class CompatibilityCharacteristicCompatibilityContentForm : public som::SomNode {
+ public:
+  CompatibilityCharacteristicCompatibilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string coExistenceRequirements() const;
+  void setCoExistenceRequirements(const std::string& value);
+  std::string interoperabilityStandards() const;
+  void setInteroperabilityStandards(const std::string& value);
+};
+
 // Generated form facade for the `content` @Form section.
 class CompetencyEntryContentForm : public som::SomNode {
  public:
@@ -44564,9 +44701,9 @@ class ContingencyPlanEntryTestingContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityAccuracyContentForm : public som::SomNode {
+class CorrectnessAccuracyContentForm : public som::SomNode {
  public:
-  CorrectnessQualityAccuracyContentForm(som::SpecDocument& doc, std::string path);
+  CorrectnessAccuracyContentForm(som::SpecDocument& doc, std::string path);
   std::string calculationAccuracyTarget() const;
   void setCalculationAccuracyTarget(const std::string& value);
   std::string financialAccuracyRequirement() const;
@@ -44576,9 +44713,9 @@ class CorrectnessQualityAccuracyContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityContentForm : public som::SomNode {
+class CorrectnessContentForm : public som::SomNode {
  public:
-  CorrectnessQualityContentForm(som::SpecDocument& doc, std::string path);
+  CorrectnessContentForm(som::SpecDocument& doc, std::string path);
   std::string defectDensityTarget() const;
   void setDefectDensityTarget(const std::string& value);
   std::string criticalDefectTarget() const;
@@ -44588,9 +44725,9 @@ class CorrectnessQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityIntegrityContentForm : public som::SomNode {
+class CorrectnessIntegrityContentForm : public som::SomNode {
  public:
-  CorrectnessQualityIntegrityContentForm(som::SpecDocument& doc, std::string path);
+  CorrectnessIntegrityContentForm(som::SpecDocument& doc, std::string path);
   std::string dataIntegrityRequirement() const;
   void setDataIntegrityRequirement(const std::string& value);
   std::string dataValidationCoverage() const;
@@ -44600,9 +44737,9 @@ class CorrectnessQualityIntegrityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityVerificationContentForm : public som::SomNode {
+class CorrectnessVerificationContentForm : public som::SomNode {
  public:
-  CorrectnessQualityVerificationContentForm(som::SpecDocument& doc, std::string path);
+  CorrectnessVerificationContentForm(som::SpecDocument& doc, std::string path);
   std::string correctnessVerification() const;
   void setCorrectnessVerification(const std::string& value);
   std::string testCoverageTarget() const;
@@ -48468,9 +48605,9 @@ class DnsRequirementsZonesContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityContentForm : public som::SomNode {
+class DocChangeabilityContentForm : public som::SomNode {
  public:
-  DocChangeabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  DocChangeabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string versioningStrategy() const;
   void setVersioningStrategy(const std::string& value);
   std::string versionHistoryTracking() const;
@@ -48480,9 +48617,9 @@ class DocChangeabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityExtensibilityContentForm : public som::SomNode {
+class DocChangeabilityExtensibilityContentForm : public som::SomNode {
  public:
-  DocChangeabilityQualityExtensibilityContentForm(som::SpecDocument& doc, std::string path);
+  DocChangeabilityExtensibilityContentForm(som::SpecDocument& doc, std::string path);
   std::string extensibilityApproach() const;
   void setExtensibilityApproach(const std::string& value);
   std::string newSectionGuidelines() const;
@@ -48492,9 +48629,9 @@ class DocChangeabilityQualityExtensibilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityMaintenanceContentForm : public som::SomNode {
+class DocChangeabilityMaintenanceContentForm : public som::SomNode {
  public:
-  DocChangeabilityQualityMaintenanceContentForm(som::SpecDocument& doc, std::string path);
+  DocChangeabilityMaintenanceContentForm(som::SpecDocument& doc, std::string path);
   std::string reviewCycle() const;
   void setReviewCycle(const std::string& value);
   std::string retirementProcess() const;
@@ -48502,9 +48639,9 @@ class DocChangeabilityQualityMaintenanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityStructureContentForm : public som::SomNode {
+class DocChangeabilityStructureContentForm : public som::SomNode {
  public:
-  DocChangeabilityQualityStructureContentForm(som::SpecDocument& doc, std::string path);
+  DocChangeabilityStructureContentForm(som::SpecDocument& doc, std::string path);
   std::string documentSizingGuideline() const;
   void setDocumentSizingGuideline(const std::string& value);
   std::string topicGranularity() const;
@@ -48516,9 +48653,9 @@ class DocChangeabilityQualityStructureContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocCompletenessQualityContentForm : public som::SomNode {
+class DocCompletenessContentForm : public som::SomNode {
  public:
-  DocCompletenessQualityContentForm(som::SpecDocument& doc, std::string path);
+  DocCompletenessContentForm(som::SpecDocument& doc, std::string path);
   std::string requiredTopics() const;
   void setRequiredTopics(const std::string& value);
   std::string topicCoverageTarget() const;
@@ -48542,9 +48679,9 @@ class DocCompletenessQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityAlignmentContentForm : public som::SomNode {
+class DocCorrectnessAlignmentContentForm : public som::SomNode {
  public:
-  DocCorrectnessQualityAlignmentContentForm(som::SpecDocument& doc, std::string path);
+  DocCorrectnessAlignmentContentForm(som::SpecDocument& doc, std::string path);
   std::string formatConsistency() const;
   void setFormatConsistency(const std::string& value);
   std::string crossDocumentConsistency() const;
@@ -48558,9 +48695,9 @@ class DocCorrectnessQualityAlignmentContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityContentForm : public som::SomNode {
+class DocCorrectnessContentForm : public som::SomNode {
  public:
-  DocCorrectnessQualityContentForm(som::SpecDocument& doc, std::string path);
+  DocCorrectnessContentForm(som::SpecDocument& doc, std::string path);
   std::string spellingGrammarCheck() const;
   void setSpellingGrammarCheck(const std::string& value);
   std::string technicalAccuracyReview() const;
@@ -48572,9 +48709,9 @@ class DocCorrectnessQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityVerificationContentForm : public som::SomNode {
+class DocCorrectnessVerificationContentForm : public som::SomNode {
  public:
-  DocCorrectnessQualityVerificationContentForm(som::SpecDocument& doc, std::string path);
+  DocCorrectnessVerificationContentForm(som::SpecDocument& doc, std::string path);
   std::string correctnessVerification() const;
   void setCorrectnessVerification(const std::string& value);
   std::string userFeedbackIntegration() const;
@@ -48978,9 +49115,9 @@ class DomainTermEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityContentForm : public som::SomNode {
+class EfficiencyContentForm : public som::SomNode {
  public:
-  EfficiencyQualityContentForm(som::SpecDocument& doc, std::string path);
+  EfficiencyContentForm(som::SpecDocument& doc, std::string path);
   std::string responseTimeP50Target() const;
   void setResponseTimeP50Target(const std::string& value);
   std::string responseTimeP95Target() const;
@@ -48990,9 +49127,9 @@ class EfficiencyQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityResourcesContentForm : public som::SomNode {
+class EfficiencyResourcesContentForm : public som::SomNode {
  public:
-  EfficiencyQualityResourcesContentForm(som::SpecDocument& doc, std::string path);
+  EfficiencyResourcesContentForm(som::SpecDocument& doc, std::string path);
   std::string cpuUtilizationLimit() const;
   void setCpuUtilizationLimit(const std::string& value);
   std::string memoryUtilizationLimit() const;
@@ -49004,9 +49141,9 @@ class EfficiencyQualityResourcesContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityThroughputContentForm : public som::SomNode {
+class EfficiencyThroughputContentForm : public som::SomNode {
  public:
-  EfficiencyQualityThroughputContentForm(som::SpecDocument& doc, std::string path);
+  EfficiencyThroughputContentForm(som::SpecDocument& doc, std::string path);
   std::string throughputTarget() const;
   void setThroughputTarget(const std::string& value);
   std::string concurrentUsersTarget() const;
@@ -49016,9 +49153,9 @@ class EfficiencyQualityThroughputContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityVerificationContentForm : public som::SomNode {
+class EfficiencyVerificationContentForm : public som::SomNode {
  public:
-  EfficiencyQualityVerificationContentForm(som::SpecDocument& doc, std::string path);
+  EfficiencyVerificationContentForm(som::SpecDocument& doc, std::string path);
   std::string loadTestingRequirement() const;
   void setLoadTestingRequirement(const std::string& value);
   std::string performanceProfilingApproach() const;
@@ -51475,10 +51612,20 @@ class FirewallRequirementsRulesContentForm : public som::SomNode {
   void setInternalRules(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class FlexibilityQualityContentForm : public som::SomNode {
+// Generated form facade for the `flexibilityContent` @Form section.
+class FlexibilityCharacteristicFlexibilityContentForm : public som::SomNode {
  public:
-  FlexibilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  FlexibilityCharacteristicFlexibilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string flexibilityApproach() const;
+  void setFlexibilityApproach(const std::string& value);
+  std::string portabilityTarget() const;
+  void setPortabilityTarget(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class FlexibilityContentForm : public som::SomNode {
+ public:
+  FlexibilityContentForm(som::SpecDocument& doc, std::string path);
   std::string componentArchitecture() const;
   void setComponentArchitecture(const std::string& value);
   std::string componentGranularity() const;
@@ -51488,9 +51635,9 @@ class FlexibilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityDeploymentContentForm : public som::SomNode {
+class FlexibilityDeploymentContentForm : public som::SomNode {
  public:
-  FlexibilityQualityDeploymentContentForm(som::SpecDocument& doc, std::string path);
+  FlexibilityDeploymentContentForm(som::SpecDocument& doc, std::string path);
   std::string distributionCapability() const;
   void setDistributionCapability(const std::string& value);
   std::string multiTenancy() const;
@@ -51500,9 +51647,9 @@ class FlexibilityQualityDeploymentContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityExtensibilityContentForm : public som::SomNode {
+class FlexibilityExtensibilityContentForm : public som::SomNode {
  public:
-  FlexibilityQualityExtensibilityContentForm(som::SpecDocument& doc, std::string path);
+  FlexibilityExtensibilityContentForm(som::SpecDocument& doc, std::string path);
   std::string extensibilityModel() const;
   void setExtensibilityModel(const std::string& value);
   std::string customizationScope() const;
@@ -51512,9 +51659,9 @@ class FlexibilityQualityExtensibilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityModularityContentForm : public som::SomNode {
+class FlexibilityModularityContentForm : public som::SomNode {
  public:
-  FlexibilityQualityModularityContentForm(som::SpecDocument& doc, std::string path);
+  FlexibilityModularityContentForm(som::SpecDocument& doc, std::string path);
   std::string modularityLevel() const;
   void setModularityLevel(const std::string& value);
   std::string moduleIndependence() const;
@@ -51708,9 +51855,9 @@ class FunctionModelMatrixOverviewForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class FunctionalCompletenessQualityContentForm : public som::SomNode {
+class FunctionalCompletenessContentForm : public som::SomNode {
  public:
-  FunctionalCompletenessQualityContentForm(som::SpecDocument& doc, std::string path);
+  FunctionalCompletenessContentForm(som::SpecDocument& doc, std::string path);
   std::string featureCoverageTarget() const;
   void setFeatureCoverageTarget(const std::string& value);
   std::string coreWorkflowCoverage() const;
@@ -51851,6 +51998,18 @@ class FunctionalResponsibilitiesContentForm : public som::SomNode {
   void setTotalFunctionCount(const std::string& value);
   std::string unassignedAreas() const;
   void setUnassignedAreas(const std::string& value);
+};
+
+// Generated form facade for the `functionalSuitabilityContent` @Form section.
+class FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm : public som::SomNode {
+ public:
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string functionalSuitabilityApproach() const;
+  void setFunctionalSuitabilityApproach(const std::string& value);
+  std::string functionalCoverageTarget() const;
+  void setFunctionalCoverageTarget(const std::string& value);
+  std::string correctnessStandard() const;
+  void setCorrectnessStandard(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -53565,6 +53724,24 @@ class InteractionBusinessRulesContentForm : public som::SomNode {
   void setIntegrationRules(const std::string& value);
 };
 
+// Generated form facade for the `interactionCapabilityContent` @Form section.
+class InteractionCapabilityCharacteristicInteractionCapabilityContentForm : public som::SomNode {
+ public:
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string userQualityPhilosophy() const;
+  void setUserQualityPhilosophy(const std::string& value);
+  std::string targetUserExperience() const;
+  void setTargetUserExperience(const std::string& value);
+  std::string userResearchBasis() const;
+  void setUserResearchBasis(const std::string& value);
+  std::string userFeedbackChannel() const;
+  void setUserFeedbackChannel(const std::string& value);
+  std::string userSatisfactionTarget() const;
+  void setUserSatisfactionTarget(const std::string& value);
+  std::string accessibilityLevel() const;
+  void setAccessibilityLevel(const std::string& value);
+};
+
 // Generated form facade for the `content` @Form section.
 class InteractionCatalogOverviewContentForm : public som::SomNode {
  public:
@@ -54492,9 +54669,9 @@ class ItLandscapePositionPositionDetailsForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityAccessContentForm : public som::SomNode {
+class ItSecurityOperationsAccessContentForm : public som::SomNode {
  public:
-  ItSecurityOperationsQualityAccessContentForm(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsAccessContentForm(som::SpecDocument& doc, std::string path);
   std::string privilegedAccessManagement() const;
   void setPrivilegedAccessManagement(const std::string& value);
   std::string accessReviewFrequency() const;
@@ -54504,9 +54681,9 @@ class ItSecurityOperationsQualityAccessContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityContentForm : public som::SomNode {
+class ItSecurityOperationsContentForm : public som::SomNode {
  public:
-  ItSecurityOperationsQualityContentForm(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsContentForm(som::SpecDocument& doc, std::string path);
   std::string accessControlModel() const;
   void setAccessControlModel(const std::string& value);
   std::string drPlanRequired() const;
@@ -54516,9 +54693,9 @@ class ItSecurityOperationsQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityIncidentContentForm : public som::SomNode {
+class ItSecurityOperationsIncidentContentForm : public som::SomNode {
  public:
-  ItSecurityOperationsQualityIncidentContentForm(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsIncidentContentForm(som::SpecDocument& doc, std::string path);
   std::string securityIncidentClassification() const;
   void setSecurityIncidentClassification(const std::string& value);
   std::string securityIncidentNotification() const;
@@ -54530,9 +54707,9 @@ class ItSecurityOperationsQualityIncidentContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityRecoveryContentForm : public som::SomNode {
+class ItSecurityOperationsRecoveryContentForm : public som::SomNode {
  public:
-  ItSecurityOperationsQualityRecoveryContentForm(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsRecoveryContentForm(som::SpecDocument& doc, std::string path);
   std::string drTestingFrequency() const;
   void setDrTestingFrequency(const std::string& value);
   std::string drRecoveryTargets() const;
@@ -54544,9 +54721,9 @@ class ItSecurityOperationsQualityRecoveryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityTestingContentForm : public som::SomNode {
+class ItSecurityOperationsTestingContentForm : public som::SomNode {
  public:
-  ItSecurityOperationsQualityTestingContentForm(som::SpecDocument& doc, std::string path);
+  ItSecurityOperationsTestingContentForm(som::SpecDocument& doc, std::string path);
   std::string penetrationTestScope() const;
   void setPenetrationTestScope(const std::string& value);
   std::string penetrationTestFrequency() const;
@@ -55568,9 +55745,9 @@ class MainSuccessScenarioContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityAnalyzabilityContentForm : public som::SomNode {
+class MaintainabilityAnalyzabilityContentForm : public som::SomNode {
  public:
-  MaintainabilityQualityAnalyzabilityContentForm(som::SpecDocument& doc, std::string path);
+  MaintainabilityAnalyzabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string codeReadabilityStandard() const;
   void setCodeReadabilityStandard(const std::string& value);
   std::string documentationRequirement() const;
@@ -55580,9 +55757,9 @@ class MaintainabilityQualityAnalyzabilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityChangeabilityContentForm : public som::SomNode {
+class MaintainabilityChangeabilityContentForm : public som::SomNode {
  public:
-  MaintainabilityQualityChangeabilityContentForm(som::SpecDocument& doc, std::string path);
+  MaintainabilityChangeabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string codeCoverageMinimum() const;
   void setCodeCoverageMinimum(const std::string& value);
   std::string cyclomaticComplexityLimit() const;
@@ -55593,10 +55770,20 @@ class MaintainabilityQualityChangeabilityContentForm : public som::SomNode {
   void setClassLengthLimit(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class MaintainabilityQualityContentForm : public som::SomNode {
+// Generated form facade for the `maintainabilityContent` @Form section.
+class MaintainabilityCharacteristicMaintainabilityContentForm : public som::SomNode {
  public:
-  MaintainabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  MaintainabilityCharacteristicMaintainabilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string maintainabilityApproach() const;
+  void setMaintainabilityApproach(const std::string& value);
+  std::string maintainabilityStandard() const;
+  void setMaintainabilityStandard(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class MaintainabilityContentForm : public som::SomNode {
+ public:
+  MaintainabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string adaptabilityTarget() const;
   void setAdaptabilityTarget(const std::string& value);
   std::string changeImpactLimit() const;
@@ -55604,9 +55791,9 @@ class MaintainabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityGovernanceContentForm : public som::SomNode {
+class MaintainabilityGovernanceContentForm : public som::SomNode {
  public:
-  MaintainabilityQualityGovernanceContentForm(som::SpecDocument& doc, std::string path);
+  MaintainabilityGovernanceContentForm(som::SpecDocument& doc, std::string path);
   std::string extensibilityPattern() const;
   void setExtensibilityPattern(const std::string& value);
   std::string apiVersioningStrategy() const;
@@ -55618,9 +55805,9 @@ class MaintainabilityQualityGovernanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityTestabilityContentForm : public som::SomNode {
+class MaintainabilityTestabilityContentForm : public som::SomNode {
  public:
-  MaintainabilityQualityTestabilityContentForm(som::SpecDocument& doc, std::string path);
+  MaintainabilityTestabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string testabilityDesign() const;
   void setTestabilityDesign(const std::string& value);
   std::string testPyramidRatio() const;
@@ -57297,6 +57484,46 @@ class ModuleVersioningStrategyReleaseManagementContentForm : public som::SomNode
   void setReleaseNotes(const std::string& value);
 };
 
+// Generated form facade for the `content` @Form section.
+class MonitoringAlertingContentForm : public som::SomNode {
+ public:
+  MonitoringAlertingContentForm(som::SpecDocument& doc, std::string path);
+  std::string alertingStrategy() const;
+  void setAlertingStrategy(const std::string& value);
+  std::string alertPrioritization() const;
+  void setAlertPrioritization(const std::string& value);
+  std::string alertNotificationChannels() const;
+  void setAlertNotificationChannels(const std::string& value);
+  std::string alertFatiguePrevention() const;
+  void setAlertFatiguePrevention(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class MonitoringAutomationContentForm : public som::SomNode {
+ public:
+  MonitoringAutomationContentForm(som::SpecDocument& doc, std::string path);
+  std::string alertAutomation() const;
+  void setAlertAutomation(const std::string& value);
+  std::string selfHealingCapability() const;
+  void setSelfHealingCapability(const std::string& value);
+  std::string runbookAutomation() const;
+  void setRunbookAutomation(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class MonitoringCoverageContentForm : public som::SomNode {
+ public:
+  MonitoringCoverageContentForm(som::SpecDocument& doc, std::string path);
+  std::string infrastructureMonitoring() const;
+  void setInfrastructureMonitoring(const std::string& value);
+  std::string applicationMonitoring() const;
+  void setApplicationMonitoring(const std::string& value);
+  std::string databaseMonitoring() const;
+  void setDatabaseMonitoring(const std::string& value);
+  std::string thirdPartyMonitoring() const;
+  void setThirdPartyMonitoring(const std::string& value);
+};
+
 // Generated form facade for the `dashboardOverview` @Form section.
 class MonitoringDashboardsDashboardOverviewForm : public som::SomNode {
  public:
@@ -57404,61 +57631,9 @@ class MonitoringMonitoringOverviewForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class MonitoringQualityAlertingContentForm : public som::SomNode {
+class MonitoringOperationsContentForm : public som::SomNode {
  public:
-  MonitoringQualityAlertingContentForm(som::SpecDocument& doc, std::string path);
-  std::string alertingStrategy() const;
-  void setAlertingStrategy(const std::string& value);
-  std::string alertPrioritization() const;
-  void setAlertPrioritization(const std::string& value);
-  std::string alertNotificationChannels() const;
-  void setAlertNotificationChannels(const std::string& value);
-  std::string alertFatiguePrevention() const;
-  void setAlertFatiguePrevention(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityAutomationContentForm : public som::SomNode {
- public:
-  MonitoringQualityAutomationContentForm(som::SpecDocument& doc, std::string path);
-  std::string alertAutomation() const;
-  void setAlertAutomation(const std::string& value);
-  std::string selfHealingCapability() const;
-  void setSelfHealingCapability(const std::string& value);
-  std::string runbookAutomation() const;
-  void setRunbookAutomation(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityContentForm : public som::SomNode {
- public:
-  MonitoringQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string scalabilityMonitoringApproach() const;
-  void setScalabilityMonitoringApproach(const std::string& value);
-  std::string capacityPlanningProcess() const;
-  void setCapacityPlanningProcess(const std::string& value);
-  std::string growthProjections() const;
-  void setGrowthProjections(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityCoverageContentForm : public som::SomNode {
- public:
-  MonitoringQualityCoverageContentForm(som::SpecDocument& doc, std::string path);
-  std::string infrastructureMonitoring() const;
-  void setInfrastructureMonitoring(const std::string& value);
-  std::string applicationMonitoring() const;
-  void setApplicationMonitoring(const std::string& value);
-  std::string databaseMonitoring() const;
-  void setDatabaseMonitoring(const std::string& value);
-  std::string thirdPartyMonitoring() const;
-  void setThirdPartyMonitoring(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityOperationsContentForm : public som::SomNode {
- public:
-  MonitoringQualityOperationsContentForm(som::SpecDocument& doc, std::string path);
+  MonitoringOperationsContentForm(som::SpecDocument& doc, std::string path);
   std::string resourcePlanningFrequency() const;
   void setResourcePlanningFrequency(const std::string& value);
   std::string proactiveMaintenanceSchedule() const;
@@ -58858,6 +59033,18 @@ class OngoingTrainingEntryScheduleContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class OperationalMonitoringContentForm : public som::SomNode {
+ public:
+  OperationalMonitoringContentForm(som::SpecDocument& doc, std::string path);
+  std::string scalabilityMonitoringApproach() const;
+  void setScalabilityMonitoringApproach(const std::string& value);
+  std::string capacityPlanningProcess() const;
+  void setCapacityPlanningProcess(const std::string& value);
+  std::string growthProjections() const;
+  void setGrowthProjections(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class OperationalPainPointsSummaryContentForm : public som::SomNode {
  public:
   OperationalPainPointsSummaryContentForm(som::SpecDocument& doc, std::string path);
@@ -58871,24 +59058,6 @@ class OperationalPainPointsSummaryContentForm : public som::SomNode {
   void setCriticalProcessesAffected(const std::string& value);
   std::string staffOverhead() const;
   void setStaffOverhead(const std::string& value);
-};
-
-// Generated form facade for the `operationsOverviewContent` @Form section.
-class OperationsQualityCriteriaOperationsOverviewContentForm : public som::SomNode {
- public:
-  OperationsQualityCriteriaOperationsOverviewContentForm(som::SpecDocument& doc, std::string path);
-  std::string operationsMaturityModel() const;
-  void setOperationsMaturityModel(const std::string& value);
-  std::string operationsPhilosophy() const;
-  void setOperationsPhilosophy(const std::string& value);
-  std::string operationsResponsibility() const;
-  void setOperationsResponsibility(const std::string& value);
-  std::string incidentManagementProcess() const;
-  void setIncidentManagementProcess(const std::string& value);
-  std::string changeManagementProcess() const;
-  void setChangeManagementProcess(const std::string& value);
-  std::string operationsToolchain() const;
-  void setOperationsToolchain(const std::string& value);
 };
 
 // Generated form facade for the `opportunityDetails` @Form section.
@@ -59713,6 +59882,22 @@ class PenetrationTestingRequirementsSchedulingContentForm : public som::SomNode 
   void setTriggerBasedTesting(const std::string& value);
 };
 
+// Generated form facade for the `performanceEfficiencyContent` @Form section.
+class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm : public som::SomNode {
+ public:
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(som::SpecDocument& doc, std::string path);
+  std::string technicalQualityPhilosophy() const;
+  void setTechnicalQualityPhilosophy(const std::string& value);
+  std::string architecturalQualityGoals() const;
+  void setArchitecturalQualityGoals(const std::string& value);
+  std::string technicalDebtTolerance() const;
+  void setTechnicalDebtTolerance(const std::string& value);
+  std::string codeQualityStandard() const;
+  void setCodeQualityStandard(const std::string& value);
+  std::string designPrinciplesAdherence() const;
+  void setDesignPrinciplesAdherence(const std::string& value);
+};
+
 // Generated form facade for the `content` @Form section.
 class PeriodicReviewPolicyContentForm : public som::SomNode {
  public:
@@ -60174,9 +60359,9 @@ class PipelineStageEntryTriggerContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class PortabilityQualityContentForm : public som::SomNode {
+class PortabilityContentForm : public som::SomNode {
  public:
-  PortabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  PortabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string targetPlatforms() const;
   void setTargetPlatforms(const std::string& value);
   std::string browserSupport() const;
@@ -62279,6 +62464,62 @@ class QualityGateChecklistChecklistOverviewContentForm : public som::SomNode {
   void setChecklistFrequency(const std::string& value);
 };
 
+// Generated form facade for the `content` @Form section.
+class QualityGoalsBaselineContentForm : public som::SomNode {
+ public:
+  QualityGoalsBaselineContentForm(som::SpecDocument& doc, std::string path);
+  std::string qualityBaselineDate() const;
+  void setQualityBaselineDate(const std::string& value);
+  std::string qualityBaselineVersion() const;
+  void setQualityBaselineVersion(const std::string& value);
+  std::string overallQualityTargetLevel() const;
+  void setOverallQualityTargetLevel(const std::string& value);
+  std::string qualityRiskTolerance() const;
+  void setQualityRiskTolerance(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsGovernanceContentForm : public som::SomNode {
+ public:
+  QualityGoalsGovernanceContentForm(som::SpecDocument& doc, std::string path);
+  std::string qualityReviewBoard() const;
+  void setQualityReviewBoard(const std::string& value);
+  std::string qualityMeetingCadence() const;
+  void setQualityMeetingCadence(const std::string& value);
+  std::string qualityEscalationPath() const;
+  void setQualityEscalationPath(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsMeasurementContentForm : public som::SomNode {
+ public:
+  QualityGoalsMeasurementContentForm(som::SpecDocument& doc, std::string path);
+  std::string qualityMetricsFramework() const;
+  void setQualityMetricsFramework(const std::string& value);
+  std::string qualityReportingFrequency() const;
+  void setQualityReportingFrequency(const std::string& value);
+  std::string qualityDashboardTool() const;
+  void setQualityDashboardTool(const std::string& value);
+  std::string defectTrackingSystem() const;
+  void setDefectTrackingSystem(const std::string& value);
+  std::string qualityTrendAnalysis() const;
+  void setQualityTrendAnalysis(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsResourcesContentForm : public som::SomNode {
+ public:
+  QualityGoalsResourcesContentForm(som::SpecDocument& doc, std::string path);
+  std::string qualityBudget() const;
+  void setQualityBudget(const std::string& value);
+  std::string qaTeamSize() const;
+  void setQaTeamSize(const std::string& value);
+  std::string testAutomationTarget() const;
+  void setTestAutomationTarget(const std::string& value);
+  std::string qualityTrainingPlan() const;
+  void setQualityTrainingPlan(const std::string& value);
+};
+
 // Generated form facade for the `prioritizationFrameworkContent` @Form section.
 class QualityPrioritizationPrioritizationFrameworkContentForm : public som::SomNode {
  public:
@@ -62458,9 +62699,9 @@ class RateLimitingPolicyQuotasContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityComprehensibilityContentForm : public som::SomNode {
+class ReadabilityComprehensibilityContentForm : public som::SomNode {
  public:
-  ReadabilityQualityComprehensibilityContentForm(som::SpecDocument& doc, std::string path);
+  ReadabilityComprehensibilityContentForm(som::SpecDocument& doc, std::string path);
   std::string readingLevelTarget() const;
   void setReadingLevelTarget(const std::string& value);
   std::string formatStandards() const;
@@ -62470,9 +62711,9 @@ class ReadabilityQualityComprehensibilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityContentForm : public som::SomNode {
+class ReadabilityContentForm : public som::SomNode {
  public:
-  ReadabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  ReadabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string terminologyStandard() const;
   void setTerminologyStandard(const std::string& value);
   std::string ambiguityPrevention() const;
@@ -62482,9 +62723,9 @@ class ReadabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityNavigationContentForm : public som::SomNode {
+class ReadabilityNavigationContentForm : public som::SomNode {
  public:
-  ReadabilityQualityNavigationContentForm(som::SpecDocument& doc, std::string path);
+  ReadabilityNavigationContentForm(som::SpecDocument& doc, std::string path);
   std::string sectionNumbering() const;
   void setSectionNumbering(const std::string& value);
   std::string crossReferenceStandard() const;
@@ -62494,9 +62735,9 @@ class ReadabilityQualityNavigationContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityStructureContentForm : public som::SomNode {
+class ReadabilityStructureContentForm : public som::SomNode {
  public:
-  ReadabilityQualityStructureContentForm(som::SpecDocument& doc, std::string path);
+  ReadabilityStructureContentForm(som::SpecDocument& doc, std::string path);
   std::string documentStructureTemplate() const;
   void setDocumentStructureTemplate(const std::string& value);
   std::string informationHierarchy() const;
@@ -62506,9 +62747,9 @@ class ReadabilityQualityStructureContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityStyleContentForm : public som::SomNode {
+class ReadabilityStyleContentForm : public som::SomNode {
  public:
-  ReadabilityQualityStyleContentForm(som::SpecDocument& doc, std::string path);
+  ReadabilityStyleContentForm(som::SpecDocument& doc, std::string path);
   std::string styleGuideReference() const;
   void setStyleGuideReference(const std::string& value);
   std::string writingVoice() const;
@@ -62931,10 +63172,28 @@ class RelevantSectionEntryContentForm : public som::SomNode {
   void setComplianceRequired(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class ReliabilityQualityContentForm : public som::SomNode {
+// Generated form facade for the `reliabilityContent` @Form section.
+class ReliabilityCharacteristicReliabilityContentForm : public som::SomNode {
  public:
-  ReliabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  ReliabilityCharacteristicReliabilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string operationsMaturityModel() const;
+  void setOperationsMaturityModel(const std::string& value);
+  std::string operationsPhilosophy() const;
+  void setOperationsPhilosophy(const std::string& value);
+  std::string operationsResponsibility() const;
+  void setOperationsResponsibility(const std::string& value);
+  std::string incidentManagementProcess() const;
+  void setIncidentManagementProcess(const std::string& value);
+  std::string changeManagementProcess() const;
+  void setChangeManagementProcess(const std::string& value);
+  std::string operationsToolchain() const;
+  void setOperationsToolchain(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class ReliabilityContentForm : public som::SomNode {
+ public:
+  ReliabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string uptimeTarget() const;
   void setUptimeTarget(const std::string& value);
   std::string plannedDowntimeWindow() const;
@@ -62944,9 +63203,9 @@ class ReliabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityDurabilityContentForm : public som::SomNode {
+class ReliabilityDurabilityContentForm : public som::SomNode {
  public:
-  ReliabilityQualityDurabilityContentForm(som::SpecDocument& doc, std::string path);
+  ReliabilityDurabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string dataDurability() const;
   void setDataDurability(const std::string& value);
   std::string backupFrequency() const;
@@ -62958,9 +63217,9 @@ class ReliabilityQualityDurabilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityFailoverContentForm : public som::SomNode {
+class ReliabilityFailoverContentForm : public som::SomNode {
  public:
-  ReliabilityQualityFailoverContentForm(som::SpecDocument& doc, std::string path);
+  ReliabilityFailoverContentForm(som::SpecDocument& doc, std::string path);
   std::string failoverStrategy() const;
   void setFailoverStrategy(const std::string& value);
   std::string failoverTime() const;
@@ -62970,9 +63229,9 @@ class ReliabilityQualityFailoverContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityRecoveryContentForm : public som::SomNode {
+class ReliabilityRecoveryContentForm : public som::SomNode {
  public:
-  ReliabilityQualityRecoveryContentForm(som::SpecDocument& doc, std::string path);
+  ReliabilityRecoveryContentForm(som::SpecDocument& doc, std::string path);
   std::string mtbfTarget() const;
   void setMtbfTarget(const std::string& value);
   std::string mttrTarget() const;
@@ -62984,9 +63243,9 @@ class ReliabilityQualityRecoveryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityVerificationContentForm : public som::SomNode {
+class ReliabilityVerificationContentForm : public som::SomNode {
  public:
-  ReliabilityQualityVerificationContentForm(som::SpecDocument& doc, std::string path);
+  ReliabilityVerificationContentForm(som::SpecDocument& doc, std::string path);
   std::string reliabilityVerification() const;
   void setReliabilityVerification(const std::string& value);
   std::string incidentPostmortem() const;
@@ -66618,6 +66877,32 @@ class SecurityAuditEntrySchedulingContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class SecurityAuthenticationContentForm : public som::SomNode {
+ public:
+  SecurityAuthenticationContentForm(som::SpecDocument& doc, std::string path);
+  std::string authenticationMethod() const;
+  void setAuthenticationMethod(const std::string& value);
+  std::string mfaRequirement() const;
+  void setMfaRequirement(const std::string& value);
+  std::string passwordPolicy() const;
+  void setPasswordPolicy(const std::string& value);
+  std::string sessionManagement() const;
+  void setSessionManagement(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class SecurityAuthorizationContentForm : public som::SomNode {
+ public:
+  SecurityAuthorizationContentForm(som::SpecDocument& doc, std::string path);
+  std::string authorizationModel() const;
+  void setAuthorizationModel(const std::string& value);
+  std::string authorizationCoverage() const;
+  void setAuthorizationCoverage(const std::string& value);
+  std::string privilegeEscalationPrevention() const;
+  void setPrivilegeEscalationPrevention(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class SecurityCertificationRequirementsContentForm : public som::SomNode {
  public:
   SecurityCertificationRequirementsContentForm(som::SpecDocument& doc, std::string path);
@@ -66679,6 +66964,16 @@ class SecurityCertificationRequirementsSoc2ContentForm : public som::SomNode {
   void setSoc2AuditPeriod(const std::string& value);
 };
 
+// Generated form facade for the `securityContent` @Form section.
+class SecurityCharacteristicSecurityContentForm : public som::SomNode {
+ public:
+  SecurityCharacteristicSecurityContentForm(som::SpecDocument& doc, std::string path);
+  std::string securityApproach() const;
+  void setSecurityApproach(const std::string& value);
+  std::string securityComplianceTarget() const;
+  void setSecurityComplianceTarget(const std::string& value);
+};
+
 // Generated form facade for the `content` @Form section.
 class SecurityCodeReviewPolicyContentForm : public som::SomNode {
  public:
@@ -66727,6 +67022,32 @@ class SecurityCodeReviewPolicyReviewersContentForm : public som::SomNode {
   void setExternalReviewCriteria(const std::string& value);
   std::string reviewerRotation() const;
   void setReviewerRotation(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class SecurityComplianceContentForm : public som::SomNode {
+ public:
+  SecurityComplianceContentForm(som::SpecDocument& doc, std::string path);
+  std::string securityCompliance() const;
+  void setSecurityCompliance(const std::string& value);
+  std::string securityCertifications() const;
+  void setSecurityCertifications(const std::string& value);
+  std::string securityAuditFrequency() const;
+  void setSecurityAuditFrequency(const std::string& value);
+  std::string securityVerification() const;
+  void setSecurityVerification(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class SecurityContentForm : public som::SomNode {
+ public:
+  SecurityContentForm(som::SpecDocument& doc, std::string path);
+  std::string encryptionAtRest() const;
+  void setEncryptionAtRest(const std::string& value);
+  std::string encryptionInTransit() const;
+  void setEncryptionInTransit(const std::string& value);
+  std::string keyManagement() const;
+  void setKeyManagement(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -66861,70 +67182,6 @@ class SecurityEventLoggingPolicyContentForm : public som::SomNode {
   void setTimeSynchronization(const std::string& value);
   std::string correlationIdentifiers() const;
   void setCorrelationIdentifiers(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityAuthenticationContentForm : public som::SomNode {
- public:
-  SecurityQualityAuthenticationContentForm(som::SpecDocument& doc, std::string path);
-  std::string authenticationMethod() const;
-  void setAuthenticationMethod(const std::string& value);
-  std::string mfaRequirement() const;
-  void setMfaRequirement(const std::string& value);
-  std::string passwordPolicy() const;
-  void setPasswordPolicy(const std::string& value);
-  std::string sessionManagement() const;
-  void setSessionManagement(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityAuthorizationContentForm : public som::SomNode {
- public:
-  SecurityQualityAuthorizationContentForm(som::SpecDocument& doc, std::string path);
-  std::string authorizationModel() const;
-  void setAuthorizationModel(const std::string& value);
-  std::string authorizationCoverage() const;
-  void setAuthorizationCoverage(const std::string& value);
-  std::string privilegeEscalationPrevention() const;
-  void setPrivilegeEscalationPrevention(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityComplianceContentForm : public som::SomNode {
- public:
-  SecurityQualityComplianceContentForm(som::SpecDocument& doc, std::string path);
-  std::string securityCompliance() const;
-  void setSecurityCompliance(const std::string& value);
-  std::string securityCertifications() const;
-  void setSecurityCertifications(const std::string& value);
-  std::string securityAuditFrequency() const;
-  void setSecurityAuditFrequency(const std::string& value);
-  std::string securityVerification() const;
-  void setSecurityVerification(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityContentForm : public som::SomNode {
- public:
-  SecurityQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string encryptionAtRest() const;
-  void setEncryptionAtRest(const std::string& value);
-  std::string encryptionInTransit() const;
-  void setEncryptionInTransit(const std::string& value);
-  std::string keyManagement() const;
-  void setKeyManagement(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityVulnerabilityContentForm : public som::SomNode {
- public:
-  SecurityQualityVulnerabilityContentForm(som::SpecDocument& doc, std::string path);
-  std::string vulnerabilityScanFrequency() const;
-  void setVulnerabilityScanFrequency(const std::string& value);
-  std::string penetrationTestFrequency() const;
-  void setPenetrationTestFrequency(const std::string& value);
-  std::string cveResponseTime() const;
-  void setCveResponseTime(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -67207,6 +67464,18 @@ class SecurityTestingAutomationScanningContentForm : public som::SomNode {
   void setInfrastructureAsCodeScanning(const std::string& value);
   std::string secretsDetection() const;
   void setSecretsDetection(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class SecurityVulnerabilityContentForm : public som::SomNode {
+ public:
+  SecurityVulnerabilityContentForm(som::SpecDocument& doc, std::string path);
+  std::string vulnerabilityScanFrequency() const;
+  void setVulnerabilityScanFrequency(const std::string& value);
+  std::string penetrationTestFrequency() const;
+  void setPenetrationTestFrequency(const std::string& value);
+  std::string cveResponseTime() const;
+  void setCveResponseTime(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -67562,6 +67831,30 @@ class ServiceLevelAgreementEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class ServiceLevelContentForm : public som::SomNode {
+ public:
+  ServiceLevelContentForm(som::SpecDocument& doc, std::string path);
+  std::string supportTierStructure() const;
+  void setSupportTierStructure(const std::string& value);
+  std::string criticalResponseTime() const;
+  void setCriticalResponseTime(const std::string& value);
+  std::string highResponseTime() const;
+  void setHighResponseTime(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class ServiceLevelEscalationContentForm : public som::SomNode {
+ public:
+  ServiceLevelEscalationContentForm(som::SpecDocument& doc, std::string path);
+  std::string escalationTimeframes() const;
+  void setEscalationTimeframes(const std::string& value);
+  std::string escalationContacts() const;
+  void setEscalationContacts(const std::string& value);
+  std::string executiveEscalation() const;
+  void setExecutiveEscalation(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class ServiceLevelIndicatorsContentForm : public som::SomNode {
  public:
   ServiceLevelIndicatorsContentForm(som::SpecDocument& doc, std::string path);
@@ -67610,33 +67903,9 @@ class ServiceLevelIndicatorsQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityContentForm : public som::SomNode {
+class ServiceLevelOnCallContentForm : public som::SomNode {
  public:
-  ServiceLevelQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string supportTierStructure() const;
-  void setSupportTierStructure(const std::string& value);
-  std::string criticalResponseTime() const;
-  void setCriticalResponseTime(const std::string& value);
-  std::string highResponseTime() const;
-  void setHighResponseTime(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ServiceLevelQualityEscalationContentForm : public som::SomNode {
- public:
-  ServiceLevelQualityEscalationContentForm(som::SpecDocument& doc, std::string path);
-  std::string escalationTimeframes() const;
-  void setEscalationTimeframes(const std::string& value);
-  std::string escalationContacts() const;
-  void setEscalationContacts(const std::string& value);
-  std::string executiveEscalation() const;
-  void setExecutiveEscalation(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ServiceLevelQualityOnCallContentForm : public som::SomNode {
- public:
-  ServiceLevelQualityOnCallContentForm(som::SpecDocument& doc, std::string path);
+  ServiceLevelOnCallContentForm(som::SpecDocument& doc, std::string path);
   std::string onCallCoverage() const;
   void setOnCallCoverage(const std::string& value);
   std::string onCallRotation() const;
@@ -67646,9 +67915,9 @@ class ServiceLevelQualityOnCallContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityResolutionContentForm : public som::SomNode {
+class ServiceLevelResolutionContentForm : public som::SomNode {
  public:
-  ServiceLevelQualityResolutionContentForm(som::SpecDocument& doc, std::string path);
+  ServiceLevelResolutionContentForm(som::SpecDocument& doc, std::string path);
   std::string criticalResolutionTime() const;
   void setCriticalResolutionTime(const std::string& value);
   std::string highResolutionTime() const;
@@ -67660,9 +67929,9 @@ class ServiceLevelQualityResolutionContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityResponseContentForm : public som::SomNode {
+class ServiceLevelResponseContentForm : public som::SomNode {
  public:
-  ServiceLevelQualityResponseContentForm(som::SpecDocument& doc, std::string path);
+  ServiceLevelResponseContentForm(som::SpecDocument& doc, std::string path);
   std::string mediumResponseTime() const;
   void setMediumResponseTime(const std::string& value);
   std::string lowResponseTime() const;
@@ -67670,9 +67939,9 @@ class ServiceLevelQualityResponseContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityRestorationContentForm : public som::SomNode {
+class ServiceLevelRestorationContentForm : public som::SomNode {
  public:
-  ServiceLevelQualityRestorationContentForm(som::SpecDocument& doc, std::string path);
+  ServiceLevelRestorationContentForm(som::SpecDocument& doc, std::string path);
   std::string serviceRestorationPriority() const;
   void setServiceRestorationPriority(const std::string& value);
   std::string communicationDuringOutage() const;
@@ -70575,20 +70844,6 @@ class SystemOverviewSummaryStatusContentForm : public som::SomNode {
   void setTargetGoLiveDate(const std::string& value);
 };
 
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsBaselineContentForm : public som::SomNode {
- public:
-  SystemQualityGoalsBaselineContentForm(som::SpecDocument& doc, std::string path);
-  std::string qualityBaselineDate() const;
-  void setQualityBaselineDate(const std::string& value);
-  std::string qualityBaselineVersion() const;
-  void setQualityBaselineVersion(const std::string& value);
-  std::string overallQualityTargetLevel() const;
-  void setOverallQualityTargetLevel(const std::string& value);
-  std::string qualityRiskTolerance() const;
-  void setQualityRiskTolerance(const std::string& value);
-};
-
 // Generated form facade for the `governanceContent` @Form section.
 class SystemQualityGoalsGovernanceContentForm : public som::SomNode {
  public:
@@ -70599,48 +70854,6 @@ class SystemQualityGoalsGovernanceContentForm : public som::SomNode {
   void setQualityStandards(const std::string& value);
   std::string qualityOwner() const;
   void setQualityOwner(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsGovernanceContentForm2 : public som::SomNode {
- public:
-  SystemQualityGoalsGovernanceContentForm2(som::SpecDocument& doc, std::string path);
-  std::string qualityReviewBoard() const;
-  void setQualityReviewBoard(const std::string& value);
-  std::string qualityMeetingCadence() const;
-  void setQualityMeetingCadence(const std::string& value);
-  std::string qualityEscalationPath() const;
-  void setQualityEscalationPath(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsMeasurementContentForm : public som::SomNode {
- public:
-  SystemQualityGoalsMeasurementContentForm(som::SpecDocument& doc, std::string path);
-  std::string qualityMetricsFramework() const;
-  void setQualityMetricsFramework(const std::string& value);
-  std::string qualityReportingFrequency() const;
-  void setQualityReportingFrequency(const std::string& value);
-  std::string qualityDashboardTool() const;
-  void setQualityDashboardTool(const std::string& value);
-  std::string defectTrackingSystem() const;
-  void setDefectTrackingSystem(const std::string& value);
-  std::string qualityTrendAnalysis() const;
-  void setQualityTrendAnalysis(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsResourcesContentForm : public som::SomNode {
- public:
-  SystemQualityGoalsResourcesContentForm(som::SpecDocument& doc, std::string path);
-  std::string qualityBudget() const;
-  void setQualityBudget(const std::string& value);
-  std::string qaTeamSize() const;
-  void setQaTeamSize(const std::string& value);
-  std::string testAutomationTarget() const;
-  void setTestAutomationTarget(const std::string& value);
-  std::string qualityTrainingPlan() const;
-  void setQualityTrainingPlan(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -71487,22 +71700,6 @@ class TechnicalPainPointsSummaryContentForm : public som::SomNode {
   void setVendorLockInRisk(const std::string& value);
   std::string integrationComplexityScore() const;
   void setIntegrationComplexityScore(const std::string& value);
-};
-
-// Generated form facade for the `technicalQualityContent` @Form section.
-class TechnicalQualityCriteriaTechnicalQualityContentForm : public som::SomNode {
- public:
-  TechnicalQualityCriteriaTechnicalQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string technicalQualityPhilosophy() const;
-  void setTechnicalQualityPhilosophy(const std::string& value);
-  std::string architecturalQualityGoals() const;
-  void setArchitecturalQualityGoals(const std::string& value);
-  std::string technicalDebtTolerance() const;
-  void setTechnicalDebtTolerance(const std::string& value);
-  std::string codeQualityStandard() const;
-  void setCodeQualityStandard(const std::string& value);
-  std::string designPrinciplesAdherence() const;
-  void setDesignPrinciplesAdherence(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -74210,9 +74407,9 @@ class UiDesignPrincipleEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityClarityContentForm : public som::SomNode {
+class UsabilityClarityContentForm : public som::SomNode {
  public:
-  UsabilityQualityClarityContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityClarityContentForm(som::SpecDocument& doc, std::string path);
   std::string functionalClarityTarget() const;
   void setFunctionalClarityTarget(const std::string& value);
   std::string helpSystemRequirement() const;
@@ -74224,9 +74421,9 @@ class UsabilityQualityClarityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityContentForm : public som::SomNode {
+class UsabilityContentForm : public som::SomNode {
  public:
-  UsabilityQualityContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string operabilityTarget() const;
   void setOperabilityTarget(const std::string& value);
   std::string ergonomicsStandard() const;
@@ -74236,9 +74433,9 @@ class UsabilityQualityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityInteractionContentForm : public som::SomNode {
+class UsabilityInteractionContentForm : public som::SomNode {
  public:
-  UsabilityQualityInteractionContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityInteractionContentForm(som::SpecDocument& doc, std::string path);
   std::string undoRequirement() const;
   void setUndoRequirement(const std::string& value);
   std::string customizationLevel() const;
@@ -74246,9 +74443,9 @@ class UsabilityQualityInteractionContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityLearnabilityContentForm : public som::SomNode {
+class UsabilityLearnabilityContentForm : public som::SomNode {
  public:
-  UsabilityQualityLearnabilityContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityLearnabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string learnabilityVerification() const;
   void setLearnabilityVerification(const std::string& value);
   std::string onboardingRequirement() const;
@@ -74256,9 +74453,9 @@ class UsabilityQualityLearnabilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityOperabilityContentForm : public som::SomNode {
+class UsabilityOperabilityContentForm : public som::SomNode {
  public:
-  UsabilityQualityOperabilityContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityOperabilityContentForm(som::SpecDocument& doc, std::string path);
   std::string operabilityMetric() const;
   void setOperabilityMetric(const std::string& value);
   std::string operabilityVerification() const;
@@ -74268,9 +74465,9 @@ class UsabilityQualityOperabilityContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityPerformanceContentForm : public som::SomNode {
+class UsabilityPerformanceContentForm : public som::SomNode {
  public:
-  UsabilityQualityPerformanceContentForm(som::SpecDocument& doc, std::string path);
+  UsabilityPerformanceContentForm(som::SpecDocument& doc, std::string path);
   std::string responseTimeP50() const;
   void setResponseTimeP50(const std::string& value);
   std::string responseTimeP95() const;
@@ -74721,24 +74918,6 @@ class UserProvisioningToolsRoleManagementContentForm : public som::SomNode {
   void setDelegatedAdministration(const std::string& value);
   std::string accessReviewProcess() const;
   void setAccessReviewProcess(const std::string& value);
-};
-
-// Generated form facade for the `userQualityContent` @Form section.
-class UserQualityCriteriaUserQualityContentForm : public som::SomNode {
- public:
-  UserQualityCriteriaUserQualityContentForm(som::SpecDocument& doc, std::string path);
-  std::string userQualityPhilosophy() const;
-  void setUserQualityPhilosophy(const std::string& value);
-  std::string targetUserExperience() const;
-  void setTargetUserExperience(const std::string& value);
-  std::string userResearchBasis() const;
-  void setUserResearchBasis(const std::string& value);
-  std::string userFeedbackChannel() const;
-  void setUserFeedbackChannel(const std::string& value);
-  std::string userSatisfactionTarget() const;
-  void setUserSatisfactionTarget(const std::string& value);
-  std::string accessibilityLevel() const;
-  void setAccessibilityLevel(const std::string& value);
 };
 
 // Generated form facade for the `trainingForm` @Form section.

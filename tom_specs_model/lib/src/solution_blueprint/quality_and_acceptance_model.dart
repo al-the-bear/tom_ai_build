@@ -2,18 +2,19 @@
 ///
 /// Consolidates quality goals (from [SystemQualityGoals]) with delivery scope
 /// and acceptance criteria (from [DeliveryScopeAndAcceptance]). An ISO/IEC
-/// 25010 product-quality cross-map is added in IP-6. Seeds the Quality &
+/// 25010:2023 product-quality cross-map is added in IP-6. Seeds the Quality &
 /// Acceptance Plan (QAP) document.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/enums.dart';
 import 'delivery_acceptance.dart';
 import 'system_quality_goals.dart';
 
 /// SBP.14 Quality & Acceptance Model.
 ///
-/// Public anchor: ISO/IEC 25010 product quality.
+/// Public anchor: ISO/IEC 25010:2023 product quality.
 @SectionId('QACM')
 class QualityAndAcceptanceModel {
   @Unused()
@@ -25,35 +26,43 @@ class QualityAndAcceptanceModel {
   /// Delivery scope and acceptance criteria.
   DeliveryScopeAndAcceptance deliveryAcceptance = DeliveryScopeAndAcceptance();
 
-  /// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  /// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
   Iso25010Coverage iso25010Coverage = Iso25010Coverage();
 }
 
-/// ISO/IEC 25010 product-quality cross-map.
+/// ISO/IEC 25010:2023 product-quality cross-map (derived).
 ///
-/// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-/// quality characteristics so that compatibility and portability cannot be
-/// silently missed.
+/// A *derived* view over the canonical quality spine: the eight
+/// `*Characteristic` classes under [SystemQualityGoals] are the single source
+/// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+/// Each entry references one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+/// address it and the target metric — so coverage of any 25010:2023
+/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 @SectionId('I25CV')
 class Iso25010Coverage {
   @ContentType('description', 'Summarize how the quality goals cover the '
-      'eight ISO/IEC 25010 characteristics.')
+      'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
+      'by the SystemQualityGoals characteristic spine; this is a derived '
+      'coverage view, not a second copy of the taxonomy.')
   String? content;
 
-  /// One entry per ISO/IEC 25010 characteristic addressed.
+  /// One entry per ISO/IEC 25010:2023 characteristic addressed.
   @SectionId('I25CV-CHAR-LST')
   @SectionIdPattern('I25CV-CHAR-xxx')
-  @ContentHelp('Add one entry per ISO/IEC 25010 characteristic (functional '
-      'suitability, performance efficiency, compatibility, usability, '
-      'reliability, security, maintainability, portability).')
+  @ContentHelp('Add one entry per ISO/IEC 25010:2023 characteristic '
+      '(functional suitability, performance efficiency, compatibility, '
+      'interaction capability, reliability, security, maintainability, '
+      'flexibility).')
   List<Iso25010CoverageEntry> characteristics = [];
 }
 
-/// A single ISO/IEC 25010 coverage entry (form).
+/// A single ISO/IEC 25010:2023 coverage entry (form).
 @SectionId('I25CE')
 class Iso25010CoverageEntry {
   @Form([
-    Field('characteristic', String, 'ISO/IEC 25010 Characteristic',
+    Field('characteristic', Iso25010Characteristic,
+        'ISO/IEC 25010:2023 Characteristic',
         required: true),
     Field('addressedBy', String, 'Addressed By (which quality goals / NFRs)'),
     Field('targetMetric', String, 'Target Metric'),

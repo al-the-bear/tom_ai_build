@@ -36,8 +36,13 @@ func (x *AcceptanceCriteriaList) Items() *som.SomList[*DeliveryAcceptanceCriteri
 
 // 11.7. Acceptance Criteria Summary.
 //
-// Quality acceptance criteria for the project including must-pass criteria
-// and quality gate checklists.
+// The acceptance *framework* and summary for the project: the acceptance
+// process/authority/scope, the must-pass criteria, and the quality-gate
+// checklist. The full enumerated, traceable acceptance criteria are NOT
+// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+// referencing list).
 type AcceptanceCriteriaSummary struct {
 	som.SomNode
 }
@@ -62,6 +67,15 @@ func (x *AcceptanceCriteriaSummary) MustPassCriteria() *MustPassCriteria {
 // 11.7.2. Quality Gate Checklist.
 func (x *AcceptanceCriteriaSummary) QualityGateChecklist() *QualityGateChecklist {
 	return NewQualityGateChecklist(x.Doc(), x.Path() + "/qualityGateChecklist")
+}
+
+// Canonical, enumerated acceptance criteria (SR-54 explicit link).
+//
+// The single source of truth for the full set of traceable acceptance
+// criteria; this summary references — rather than duplicates — it. The same
+// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+func (x *AcceptanceCriteriaSummary) DetailedCriteria() *AcceptanceCriteriaList {
+	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/detailedCriteria")
 }
 
 // Acceptance test summary.
@@ -3920,96 +3934,96 @@ func (x *AuthorizationRoleEntryStructure) Content() *AuthorizationRoleEntryStruc
 }
 
 // 11.4.1. Availability quality.
-type AvailabilityQuality struct {
+type Availability struct {
 	som.SomNode
 }
 
-// NewAvailabilityQuality binds a AvailabilityQuality facade to a document and a path.
-func NewAvailabilityQuality(doc *som.SpecDocument, path string) *AvailabilityQuality {
-	return &AvailabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewAvailability binds a Availability facade to a document and a path.
+func NewAvailability(doc *som.SpecDocument, path string) *Availability {
+	return &Availability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQuality) Content() *AvailabilityQualityContentForm {
-	return NewAvailabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Availability) Content() *AvailabilityContentForm {
+	return NewAvailabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Operating-hour expectations.
-func (x *AvailabilityQuality) OperatingHoursDetails() *AvailabilityQualityOperatingHours {
-	return NewAvailabilityQualityOperatingHours(x.Doc(), x.Path() + "/operatingHoursDetails")
+func (x *Availability) OperatingHoursDetails() *AvailabilityOperatingHours {
+	return NewAvailabilityOperatingHours(x.Doc(), x.Path() + "/operatingHoursDetails")
 }
 
 // Maintenance window policy.
-func (x *AvailabilityQuality) Maintenance() *AvailabilityQualityMaintenance {
-	return NewAvailabilityQualityMaintenance(x.Doc(), x.Path() + "/maintenance")
+func (x *Availability) Maintenance() *AvailabilityMaintenance {
+	return NewAvailabilityMaintenance(x.Doc(), x.Path() + "/maintenance")
 }
 
 // Degraded-mode behavior.
-func (x *AvailabilityQuality) DegradedMode() *AvailabilityQualityDegradedMode {
-	return NewAvailabilityQualityDegradedMode(x.Doc(), x.Path() + "/degradedMode")
+func (x *Availability) DegradedMode() *AvailabilityDegradedMode {
+	return NewAvailabilityDegradedMode(x.Doc(), x.Path() + "/degradedMode")
 }
 
 // Monitoring and reporting.
-func (x *AvailabilityQuality) Verification() *AvailabilityQualityVerification {
-	return NewAvailabilityQualityVerification(x.Doc(), x.Path() + "/verification")
+func (x *Availability) Verification() *AvailabilityVerification {
+	return NewAvailabilityVerification(x.Doc(), x.Path() + "/verification")
 }
 
 // Detailed availability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Degraded-mode behavior.
-type AvailabilityQualityDegradedMode struct {
+type AvailabilityDegradedMode struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityDegradedMode binds a AvailabilityQualityDegradedMode facade to a document and a path.
-func NewAvailabilityQualityDegradedMode(doc *som.SpecDocument, path string) *AvailabilityQualityDegradedMode {
-	return &AvailabilityQualityDegradedMode{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityDegradedMode binds a AvailabilityDegradedMode facade to a document and a path.
+func NewAvailabilityDegradedMode(doc *som.SpecDocument, path string) *AvailabilityDegradedMode {
+	return &AvailabilityDegradedMode{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityDegradedMode) Content() *AvailabilityQualityDegradedModeContentForm {
-	return NewAvailabilityQualityDegradedModeContentForm(x.Doc(), x.Path() + "/content")
+func (x *AvailabilityDegradedMode) Content() *AvailabilityDegradedModeContentForm {
+	return NewAvailabilityDegradedModeContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Maintenance window policy.
-type AvailabilityQualityMaintenance struct {
+type AvailabilityMaintenance struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityMaintenance binds a AvailabilityQualityMaintenance facade to a document and a path.
-func NewAvailabilityQualityMaintenance(doc *som.SpecDocument, path string) *AvailabilityQualityMaintenance {
-	return &AvailabilityQualityMaintenance{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityMaintenance binds a AvailabilityMaintenance facade to a document and a path.
+func NewAvailabilityMaintenance(doc *som.SpecDocument, path string) *AvailabilityMaintenance {
+	return &AvailabilityMaintenance{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityMaintenance) Content() *AvailabilityQualityMaintenanceContentForm {
-	return NewAvailabilityQualityMaintenanceContentForm(x.Doc(), x.Path() + "/content")
+func (x *AvailabilityMaintenance) Content() *AvailabilityMaintenanceContentForm {
+	return NewAvailabilityMaintenanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Operating-hour expectations.
-type AvailabilityQualityOperatingHours struct {
+type AvailabilityOperatingHours struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityOperatingHours binds a AvailabilityQualityOperatingHours facade to a document and a path.
-func NewAvailabilityQualityOperatingHours(doc *som.SpecDocument, path string) *AvailabilityQualityOperatingHours {
-	return &AvailabilityQualityOperatingHours{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityOperatingHours binds a AvailabilityOperatingHours facade to a document and a path.
+func NewAvailabilityOperatingHours(doc *som.SpecDocument, path string) *AvailabilityOperatingHours {
+	return &AvailabilityOperatingHours{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityOperatingHours) Content() *AvailabilityQualityOperatingHoursContentForm {
-	return NewAvailabilityQualityOperatingHoursContentForm(x.Doc(), x.Path() + "/content")
+func (x *AvailabilityOperatingHours) Content() *AvailabilityOperatingHoursContentForm {
+	return NewAvailabilityOperatingHoursContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Monitoring and reporting.
-type AvailabilityQualityVerification struct {
+type AvailabilityVerification struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityVerification binds a AvailabilityQualityVerification facade to a document and a path.
-func NewAvailabilityQualityVerification(doc *som.SpecDocument, path string) *AvailabilityQualityVerification {
-	return &AvailabilityQualityVerification{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityVerification binds a AvailabilityVerification facade to a document and a path.
+func NewAvailabilityVerification(doc *som.SpecDocument, path string) *AvailabilityVerification {
+	return &AvailabilityVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityVerification) Content() *AvailabilityQualityVerificationContentForm {
-	return NewAvailabilityQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *AvailabilityVerification) Content() *AvailabilityVerificationContentForm {
+	return NewAvailabilityVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 8.5.1. Backup and Recovery.
@@ -9157,6 +9171,28 @@ func (x *CommunicationTypeEntry) Content() *CommunicationTypeEntryContentForm {
 	return NewCommunicationTypeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+//
+// Degree to which the product can exchange information with other products and
+// share the same environment and resources (co-existence + interoperability).
+// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+// pending project-specific compatibility leaves.
+type CompatibilityCharacteristic struct {
+	som.SomNode
+}
+
+// NewCompatibilityCharacteristic binds a CompatibilityCharacteristic facade to a document and a path.
+func NewCompatibilityCharacteristic(doc *som.SpecDocument, path string) *CompatibilityCharacteristic {
+	return &CompatibilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *CompatibilityCharacteristic) CompatibilityContent() *CompatibilityCharacteristicCompatibilityContentForm {
+	return NewCompatibilityCharacteristicCompatibilityContentForm(x.Doc(), x.Path() + "/compatibilityContent")
+}
+
+// Compatibility overview.
+// (skipped: overview has no target type)
+
 // 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
@@ -11993,77 +12029,77 @@ func (x *ContingencyPlans) Items() *som.SomList[*ContingencyPlanEntry] {
 }
 
 // 11.2.3. Correctness quality.
-type CorrectnessQuality struct {
+type Correctness struct {
 	som.SomNode
 }
 
-// NewCorrectnessQuality binds a CorrectnessQuality facade to a document and a path.
-func NewCorrectnessQuality(doc *som.SpecDocument, path string) *CorrectnessQuality {
-	return &CorrectnessQuality{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectness binds a Correctness facade to a document and a path.
+func NewCorrectness(doc *som.SpecDocument, path string) *Correctness {
+	return &Correctness{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQuality) Content() *CorrectnessQualityContentForm {
-	return NewCorrectnessQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Correctness) Content() *CorrectnessContentForm {
+	return NewCorrectnessContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Data integrity expectations.
-func (x *CorrectnessQuality) Integrity() *CorrectnessQualityIntegrity {
-	return NewCorrectnessQualityIntegrity(x.Doc(), x.Path() + "/integrity")
+func (x *Correctness) Integrity() *CorrectnessIntegrity {
+	return NewCorrectnessIntegrity(x.Doc(), x.Path() + "/integrity")
 }
 
 // Accuracy and auditability requirements.
-func (x *CorrectnessQuality) Accuracy() *CorrectnessQualityAccuracy {
-	return NewCorrectnessQualityAccuracy(x.Doc(), x.Path() + "/accuracy")
+func (x *Correctness) Accuracy() *CorrectnessAccuracy {
+	return NewCorrectnessAccuracy(x.Doc(), x.Path() + "/accuracy")
 }
 
 // Verification and regression approach.
-func (x *CorrectnessQuality) Verification() *CorrectnessQualityVerification {
-	return NewCorrectnessQualityVerification(x.Doc(), x.Path() + "/verification")
+func (x *Correctness) Verification() *CorrectnessVerification {
+	return NewCorrectnessVerification(x.Doc(), x.Path() + "/verification")
 }
 
 // Detailed correctness requirements narrative.
 // (skipped: narrative has no target type)
 
 // Accuracy and auditability requirements.
-type CorrectnessQualityAccuracy struct {
+type CorrectnessAccuracy struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityAccuracy binds a CorrectnessQualityAccuracy facade to a document and a path.
-func NewCorrectnessQualityAccuracy(doc *som.SpecDocument, path string) *CorrectnessQualityAccuracy {
-	return &CorrectnessQualityAccuracy{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessAccuracy binds a CorrectnessAccuracy facade to a document and a path.
+func NewCorrectnessAccuracy(doc *som.SpecDocument, path string) *CorrectnessAccuracy {
+	return &CorrectnessAccuracy{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityAccuracy) Content() *CorrectnessQualityAccuracyContentForm {
-	return NewCorrectnessQualityAccuracyContentForm(x.Doc(), x.Path() + "/content")
+func (x *CorrectnessAccuracy) Content() *CorrectnessAccuracyContentForm {
+	return NewCorrectnessAccuracyContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Data integrity expectations.
-type CorrectnessQualityIntegrity struct {
+type CorrectnessIntegrity struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityIntegrity binds a CorrectnessQualityIntegrity facade to a document and a path.
-func NewCorrectnessQualityIntegrity(doc *som.SpecDocument, path string) *CorrectnessQualityIntegrity {
-	return &CorrectnessQualityIntegrity{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessIntegrity binds a CorrectnessIntegrity facade to a document and a path.
+func NewCorrectnessIntegrity(doc *som.SpecDocument, path string) *CorrectnessIntegrity {
+	return &CorrectnessIntegrity{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityIntegrity) Content() *CorrectnessQualityIntegrityContentForm {
-	return NewCorrectnessQualityIntegrityContentForm(x.Doc(), x.Path() + "/content")
+func (x *CorrectnessIntegrity) Content() *CorrectnessIntegrityContentForm {
+	return NewCorrectnessIntegrityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Verification and regression approach.
-type CorrectnessQualityVerification struct {
+type CorrectnessVerification struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityVerification binds a CorrectnessQualityVerification facade to a document and a path.
-func NewCorrectnessQualityVerification(doc *som.SpecDocument, path string) *CorrectnessQualityVerification {
-	return &CorrectnessQualityVerification{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessVerification binds a CorrectnessVerification facade to a document and a path.
+func NewCorrectnessVerification(doc *som.SpecDocument, path string) *CorrectnessVerification {
+	return &CorrectnessVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityVerification) Content() *CorrectnessQualityVerificationContentForm {
-	return NewCorrectnessQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *CorrectnessVerification) Content() *CorrectnessVerificationContentForm {
+	return NewCorrectnessVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Credential compromise detection policy (form).
@@ -13890,22 +13926,47 @@ func (x *D10QualityAcceptancePlan) QualityFramework() *QualityFramework {
 	return NewQualityFramework(x.Doc(), x.Path() + "/qualityFramework")
 }
 
-// User-related quality criteria.
-func (x *D10QualityAcceptancePlan) UserQualityCriteria() *UserQualityCriteria {
-	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQualityCriteria")
+// Functional suitability (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) FunctionalSuitability() *FunctionalSuitabilityCharacteristic {
+	return NewFunctionalSuitabilityCharacteristic(x.Doc(), x.Path() + "/functionalSuitability")
 }
 
-// Technical quality criteria.
-func (x *D10QualityAcceptancePlan) TechnicalQualityCriteria() *TechnicalQualityCriteria {
-	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQualityCriteria")
+// Performance efficiency (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) PerformanceEfficiency() *PerformanceEfficiencyCharacteristic {
+	return NewPerformanceEfficiencyCharacteristic(x.Doc(), x.Path() + "/performanceEfficiency")
 }
 
-// Operations quality criteria.
-func (x *D10QualityAcceptancePlan) OperationsQualityCriteria() *OperationsQualityCriteria {
-	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQualityCriteria")
+// Compatibility (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) Compatibility() *CompatibilityCharacteristic {
+	return NewCompatibilityCharacteristic(x.Doc(), x.Path() + "/compatibility")
 }
 
-// Documentation quality criteria.
+// Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+func (x *D10QualityAcceptancePlan) InteractionCapability() *InteractionCapabilityCharacteristic {
+	return NewInteractionCapabilityCharacteristic(x.Doc(), x.Path() + "/interactionCapability")
+}
+
+// Reliability (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) Reliability() *ReliabilityCharacteristic {
+	return NewReliabilityCharacteristic(x.Doc(), x.Path() + "/reliability")
+}
+
+// Security (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) Security() *SecurityCharacteristic {
+	return NewSecurityCharacteristic(x.Doc(), x.Path() + "/security")
+}
+
+// Maintainability (ISO/IEC 25010:2023).
+func (x *D10QualityAcceptancePlan) Maintainability() *MaintainabilityCharacteristic {
+	return NewMaintainabilityCharacteristic(x.Doc(), x.Path() + "/maintainability")
+}
+
+// Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+func (x *D10QualityAcceptancePlan) Flexibility() *FlexibilityCharacteristic {
+	return NewFlexibilityCharacteristic(x.Doc(), x.Path() + "/flexibility")
+}
+
+// Documentation quality (ISO/IEC 26514 annex).
 func (x *D10QualityAcceptancePlan) DocumentationQualityCriteria() *DocumentationQualityCriteria {
 	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQualityCriteria")
 }
@@ -20227,149 +20288,149 @@ func (x *DnsRequirementsZones) Content() *DnsRequirementsZonesContentForm {
 }
 
 // 11.5.4. Documentation changeability quality.
-type DocChangeabilityQuality struct {
+type DocChangeability struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQuality binds a DocChangeabilityQuality facade to a document and a path.
-func NewDocChangeabilityQuality(doc *som.SpecDocument, path string) *DocChangeabilityQuality {
-	return &DocChangeabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeability binds a DocChangeability facade to a document and a path.
+func NewDocChangeability(doc *som.SpecDocument, path string) *DocChangeability {
+	return &DocChangeability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQuality) Content() *DocChangeabilityQualityContentForm {
-	return NewDocChangeabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocChangeability) Content() *DocChangeabilityContentForm {
+	return NewDocChangeabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Extensibility and localization readiness.
-func (x *DocChangeabilityQuality) Extensibility() *DocChangeabilityQualityExtensibility {
-	return NewDocChangeabilityQualityExtensibility(x.Doc(), x.Path() + "/extensibility")
+func (x *DocChangeability) Extensibility() *DocChangeabilityExtensibility {
+	return NewDocChangeabilityExtensibility(x.Doc(), x.Path() + "/extensibility")
 }
 
 // Sizing and structural consistency rules.
-func (x *DocChangeabilityQuality) Structure() *DocChangeabilityQualityStructure {
-	return NewDocChangeabilityQualityStructure(x.Doc(), x.Path() + "/structure")
+func (x *DocChangeability) Structure() *DocChangeabilityStructure {
+	return NewDocChangeabilityStructure(x.Doc(), x.Path() + "/structure")
 }
 
 // Review and retirement maintenance process.
-func (x *DocChangeabilityQuality) Maintenance() *DocChangeabilityQualityMaintenance {
-	return NewDocChangeabilityQualityMaintenance(x.Doc(), x.Path() + "/maintenance")
+func (x *DocChangeability) Maintenance() *DocChangeabilityMaintenance {
+	return NewDocChangeabilityMaintenance(x.Doc(), x.Path() + "/maintenance")
 }
 
 // Detailed changeability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Extensibility and localization readiness.
-type DocChangeabilityQualityExtensibility struct {
+type DocChangeabilityExtensibility struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityExtensibility binds a DocChangeabilityQualityExtensibility facade to a document and a path.
-func NewDocChangeabilityQualityExtensibility(doc *som.SpecDocument, path string) *DocChangeabilityQualityExtensibility {
-	return &DocChangeabilityQualityExtensibility{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityExtensibility binds a DocChangeabilityExtensibility facade to a document and a path.
+func NewDocChangeabilityExtensibility(doc *som.SpecDocument, path string) *DocChangeabilityExtensibility {
+	return &DocChangeabilityExtensibility{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityExtensibility) Content() *DocChangeabilityQualityExtensibilityContentForm {
-	return NewDocChangeabilityQualityExtensibilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocChangeabilityExtensibility) Content() *DocChangeabilityExtensibilityContentForm {
+	return NewDocChangeabilityExtensibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Review and retirement maintenance process.
-type DocChangeabilityQualityMaintenance struct {
+type DocChangeabilityMaintenance struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityMaintenance binds a DocChangeabilityQualityMaintenance facade to a document and a path.
-func NewDocChangeabilityQualityMaintenance(doc *som.SpecDocument, path string) *DocChangeabilityQualityMaintenance {
-	return &DocChangeabilityQualityMaintenance{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityMaintenance binds a DocChangeabilityMaintenance facade to a document and a path.
+func NewDocChangeabilityMaintenance(doc *som.SpecDocument, path string) *DocChangeabilityMaintenance {
+	return &DocChangeabilityMaintenance{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityMaintenance) Content() *DocChangeabilityQualityMaintenanceContentForm {
-	return NewDocChangeabilityQualityMaintenanceContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocChangeabilityMaintenance) Content() *DocChangeabilityMaintenanceContentForm {
+	return NewDocChangeabilityMaintenanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Sizing and structural consistency rules.
-type DocChangeabilityQualityStructure struct {
+type DocChangeabilityStructure struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityStructure binds a DocChangeabilityQualityStructure facade to a document and a path.
-func NewDocChangeabilityQualityStructure(doc *som.SpecDocument, path string) *DocChangeabilityQualityStructure {
-	return &DocChangeabilityQualityStructure{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityStructure binds a DocChangeabilityStructure facade to a document and a path.
+func NewDocChangeabilityStructure(doc *som.SpecDocument, path string) *DocChangeabilityStructure {
+	return &DocChangeabilityStructure{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityStructure) Content() *DocChangeabilityQualityStructureContentForm {
-	return NewDocChangeabilityQualityStructureContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocChangeabilityStructure) Content() *DocChangeabilityStructureContentForm {
+	return NewDocChangeabilityStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 11.5.2. Documentation completeness quality.
-type DocCompletenessQuality struct {
+type DocCompleteness struct {
 	som.SomNode
 }
 
-// NewDocCompletenessQuality binds a DocCompletenessQuality facade to a document and a path.
-func NewDocCompletenessQuality(doc *som.SpecDocument, path string) *DocCompletenessQuality {
-	return &DocCompletenessQuality{SomNode: som.NewSomNode(doc, path)}
+// NewDocCompleteness binds a DocCompleteness facade to a document and a path.
+func NewDocCompleteness(doc *som.SpecDocument, path string) *DocCompleteness {
+	return &DocCompleteness{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCompletenessQuality) Content() *DocCompletenessQualityContentForm {
-	return NewDocCompletenessQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocCompleteness) Content() *DocCompletenessContentForm {
+	return NewDocCompletenessContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Detailed completeness requirements narrative.
 // (skipped: narrative has no target type)
 
 // 11.5.3. Documentation correctness quality.
-type DocCorrectnessQuality struct {
+type DocCorrectness struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQuality binds a DocCorrectnessQuality facade to a document and a path.
-func NewDocCorrectnessQuality(doc *som.SpecDocument, path string) *DocCorrectnessQuality {
-	return &DocCorrectnessQuality{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectness binds a DocCorrectness facade to a document and a path.
+func NewDocCorrectness(doc *som.SpecDocument, path string) *DocCorrectness {
+	return &DocCorrectness{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQuality) Content() *DocCorrectnessQualityContentForm {
-	return NewDocCorrectnessQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocCorrectness) Content() *DocCorrectnessContentForm {
+	return NewDocCorrectnessContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Formatting and implementation alignment.
-func (x *DocCorrectnessQuality) Alignment() *DocCorrectnessQualityAlignment {
-	return NewDocCorrectnessQualityAlignment(x.Doc(), x.Path() + "/alignment")
+func (x *DocCorrectness) Alignment() *DocCorrectnessAlignment {
+	return NewDocCorrectnessAlignment(x.Doc(), x.Path() + "/alignment")
 }
 
 // Verification and feedback handling.
-func (x *DocCorrectnessQuality) Verification() *DocCorrectnessQualityVerification {
-	return NewDocCorrectnessQualityVerification(x.Doc(), x.Path() + "/verification")
+func (x *DocCorrectness) Verification() *DocCorrectnessVerification {
+	return NewDocCorrectnessVerification(x.Doc(), x.Path() + "/verification")
 }
 
 // Detailed correctness requirements narrative.
 // (skipped: narrative has no target type)
 
 // Formatting and implementation alignment.
-type DocCorrectnessQualityAlignment struct {
+type DocCorrectnessAlignment struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQualityAlignment binds a DocCorrectnessQualityAlignment facade to a document and a path.
-func NewDocCorrectnessQualityAlignment(doc *som.SpecDocument, path string) *DocCorrectnessQualityAlignment {
-	return &DocCorrectnessQualityAlignment{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectnessAlignment binds a DocCorrectnessAlignment facade to a document and a path.
+func NewDocCorrectnessAlignment(doc *som.SpecDocument, path string) *DocCorrectnessAlignment {
+	return &DocCorrectnessAlignment{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQualityAlignment) Content() *DocCorrectnessQualityAlignmentContentForm {
-	return NewDocCorrectnessQualityAlignmentContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocCorrectnessAlignment) Content() *DocCorrectnessAlignmentContentForm {
+	return NewDocCorrectnessAlignmentContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Verification and feedback handling.
-type DocCorrectnessQualityVerification struct {
+type DocCorrectnessVerification struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQualityVerification binds a DocCorrectnessQualityVerification facade to a document and a path.
-func NewDocCorrectnessQualityVerification(doc *som.SpecDocument, path string) *DocCorrectnessQualityVerification {
-	return &DocCorrectnessQualityVerification{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectnessVerification binds a DocCorrectnessVerification facade to a document and a path.
+func NewDocCorrectnessVerification(doc *som.SpecDocument, path string) *DocCorrectnessVerification {
+	return &DocCorrectnessVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQualityVerification) Content() *DocCorrectnessQualityVerificationContentForm {
-	return NewDocCorrectnessQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *DocCorrectnessVerification) Content() *DocCorrectnessVerificationContentForm {
+	return NewDocCorrectnessVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // SBP.1 Document Control.
@@ -20537,10 +20598,15 @@ func (x *DocumentationDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	})
 }
 
-// 11.5. Documentation Quality Criteria.
+// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 //
-// Quality criteria for project documentation including readability,
-// completeness, correctness, and changeability.
+// Documentation-deliverable quality criteria — readability, completeness,
+// correctness, and changeability of the user/technical documentation. This
+// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+// (which scopes the *product*, not its documentation), so per L34C-8 it is
+// retained as a documentation-quality annex aligned to ISO/IEC 26514
+// (systems & software engineering — design and development of information for
+// users) rather than re-homed under a 25010:2023 characteristic.
 type DocumentationQualityCriteria struct {
 	som.SomNode
 }
@@ -20558,23 +20624,23 @@ func (x *DocumentationQualityCriteria) DocumentationOverviewContent() *Documenta
 // (skipped: overview has no target type)
 
 // 11.5.1. Readability.
-func (x *DocumentationQualityCriteria) Readability() *ReadabilityQuality {
-	return NewReadabilityQuality(x.Doc(), x.Path() + "/readability")
+func (x *DocumentationQualityCriteria) Readability() *Readability {
+	return NewReadability(x.Doc(), x.Path() + "/readability")
 }
 
 // 11.5.2. Completeness.
-func (x *DocumentationQualityCriteria) Completeness() *DocCompletenessQuality {
-	return NewDocCompletenessQuality(x.Doc(), x.Path() + "/completeness")
+func (x *DocumentationQualityCriteria) Completeness() *DocCompleteness {
+	return NewDocCompleteness(x.Doc(), x.Path() + "/completeness")
 }
 
 // 11.5.3. Correctness.
-func (x *DocumentationQualityCriteria) Correctness() *DocCorrectnessQuality {
-	return NewDocCorrectnessQuality(x.Doc(), x.Path() + "/correctness")
+func (x *DocumentationQualityCriteria) Correctness() *DocCorrectness {
+	return NewDocCorrectness(x.Doc(), x.Path() + "/correctness")
 }
 
 // 11.5.4. Changeability.
-func (x *DocumentationQualityCriteria) Changeability() *DocChangeabilityQuality {
-	return NewDocChangeabilityQuality(x.Doc(), x.Path() + "/changeability")
+func (x *DocumentationQualityCriteria) Changeability() *DocChangeability {
+	return NewDocChangeability(x.Doc(), x.Path() + "/changeability")
 }
 
 // Documentation standards and requirements.
@@ -21128,77 +21194,77 @@ func (x *DomainVocabulary) Terms() *som.SomList[*DomainTermEntry] {
 }
 
 // 11.3.1. Efficiency quality.
-type EfficiencyQuality struct {
+type Efficiency struct {
 	som.SomNode
 }
 
-// NewEfficiencyQuality binds a EfficiencyQuality facade to a document and a path.
-func NewEfficiencyQuality(doc *som.SpecDocument, path string) *EfficiencyQuality {
-	return &EfficiencyQuality{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiency binds a Efficiency facade to a document and a path.
+func NewEfficiency(doc *som.SpecDocument, path string) *Efficiency {
+	return &Efficiency{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQuality) Content() *EfficiencyQualityContentForm {
-	return NewEfficiencyQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Efficiency) Content() *EfficiencyContentForm {
+	return NewEfficiencyContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Throughput and scale targets.
-func (x *EfficiencyQuality) Throughput() *EfficiencyQualityThroughput {
-	return NewEfficiencyQualityThroughput(x.Doc(), x.Path() + "/throughput")
+func (x *Efficiency) Throughput() *EfficiencyThroughput {
+	return NewEfficiencyThroughput(x.Doc(), x.Path() + "/throughput")
 }
 
 // Resource utilization constraints.
-func (x *EfficiencyQuality) Resources() *EfficiencyQualityResources {
-	return NewEfficiencyQualityResources(x.Doc(), x.Path() + "/resources")
+func (x *Efficiency) Resources() *EfficiencyResources {
+	return NewEfficiencyResources(x.Doc(), x.Path() + "/resources")
 }
 
 // Performance validation and SLA commitments.
-func (x *EfficiencyQuality) Verification() *EfficiencyQualityVerification {
-	return NewEfficiencyQualityVerification(x.Doc(), x.Path() + "/verification")
+func (x *Efficiency) Verification() *EfficiencyVerification {
+	return NewEfficiencyVerification(x.Doc(), x.Path() + "/verification")
 }
 
 // Detailed efficiency requirements narrative.
 // (skipped: narrative has no target type)
 
 // Resource utilization constraints.
-type EfficiencyQualityResources struct {
+type EfficiencyResources struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityResources binds a EfficiencyQualityResources facade to a document and a path.
-func NewEfficiencyQualityResources(doc *som.SpecDocument, path string) *EfficiencyQualityResources {
-	return &EfficiencyQualityResources{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyResources binds a EfficiencyResources facade to a document and a path.
+func NewEfficiencyResources(doc *som.SpecDocument, path string) *EfficiencyResources {
+	return &EfficiencyResources{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityResources) Content() *EfficiencyQualityResourcesContentForm {
-	return NewEfficiencyQualityResourcesContentForm(x.Doc(), x.Path() + "/content")
+func (x *EfficiencyResources) Content() *EfficiencyResourcesContentForm {
+	return NewEfficiencyResourcesContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Throughput and scale targets.
-type EfficiencyQualityThroughput struct {
+type EfficiencyThroughput struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityThroughput binds a EfficiencyQualityThroughput facade to a document and a path.
-func NewEfficiencyQualityThroughput(doc *som.SpecDocument, path string) *EfficiencyQualityThroughput {
-	return &EfficiencyQualityThroughput{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyThroughput binds a EfficiencyThroughput facade to a document and a path.
+func NewEfficiencyThroughput(doc *som.SpecDocument, path string) *EfficiencyThroughput {
+	return &EfficiencyThroughput{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityThroughput) Content() *EfficiencyQualityThroughputContentForm {
-	return NewEfficiencyQualityThroughputContentForm(x.Doc(), x.Path() + "/content")
+func (x *EfficiencyThroughput) Content() *EfficiencyThroughputContentForm {
+	return NewEfficiencyThroughputContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Performance validation and SLA commitments.
-type EfficiencyQualityVerification struct {
+type EfficiencyVerification struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityVerification binds a EfficiencyQualityVerification facade to a document and a path.
-func NewEfficiencyQualityVerification(doc *som.SpecDocument, path string) *EfficiencyQualityVerification {
-	return &EfficiencyQualityVerification{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyVerification binds a EfficiencyVerification facade to a document and a path.
+func NewEfficiencyVerification(doc *som.SpecDocument, path string) *EfficiencyVerification {
+	return &EfficiencyVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityVerification) Content() *EfficiencyQualityVerificationContentForm {
-	return NewEfficiencyQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *EfficiencyVerification) Content() *EfficiencyVerificationContentForm {
+	return NewEfficiencyVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // A validation rule entry (form).
@@ -25176,77 +25242,109 @@ func (x *FirewallRequirementsRules) Content() *FirewallRequirementsRulesContentF
 }
 
 // 11.3.3. Flexibility quality.
-type FlexibilityQuality struct {
+type Flexibility struct {
 	som.SomNode
 }
 
-// NewFlexibilityQuality binds a FlexibilityQuality facade to a document and a path.
-func NewFlexibilityQuality(doc *som.SpecDocument, path string) *FlexibilityQuality {
-	return &FlexibilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibility binds a Flexibility facade to a document and a path.
+func NewFlexibility(doc *som.SpecDocument, path string) *Flexibility {
+	return &Flexibility{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQuality) Content() *FlexibilityQualityContentForm {
-	return NewFlexibilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Flexibility) Content() *FlexibilityContentForm {
+	return NewFlexibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Modularity and reuse goals.
-func (x *FlexibilityQuality) Modularity() *FlexibilityQualityModularity {
-	return NewFlexibilityQualityModularity(x.Doc(), x.Path() + "/modularity")
+func (x *Flexibility) Modularity() *FlexibilityModularity {
+	return NewFlexibilityModularity(x.Doc(), x.Path() + "/modularity")
 }
 
 // Distribution and configurability model.
-func (x *FlexibilityQuality) Deployment() *FlexibilityQualityDeployment {
-	return NewFlexibilityQualityDeployment(x.Doc(), x.Path() + "/deployment")
+func (x *Flexibility) Deployment() *FlexibilityDeployment {
+	return NewFlexibilityDeployment(x.Doc(), x.Path() + "/deployment")
 }
 
 // Extensibility and verification expectations.
-func (x *FlexibilityQuality) Extensibility() *FlexibilityQualityExtensibility {
-	return NewFlexibilityQualityExtensibility(x.Doc(), x.Path() + "/extensibility")
+func (x *Flexibility) Extensibility() *FlexibilityExtensibility {
+	return NewFlexibilityExtensibility(x.Doc(), x.Path() + "/extensibility")
 }
 
 // Detailed flexibility requirements narrative.
 // (skipped: narrative has no target type)
 
-// Distribution and configurability model.
-type FlexibilityQualityDeployment struct {
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+//
+// Degree to which the product can be adapted to changes in requirements,
+// contexts of use, or system environment (adaptability, scalability,
+// installability, replaceability). Re-homes the former technical-bucket
+// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+type FlexibilityCharacteristic struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityDeployment binds a FlexibilityQualityDeployment facade to a document and a path.
-func NewFlexibilityQualityDeployment(doc *som.SpecDocument, path string) *FlexibilityQualityDeployment {
-	return &FlexibilityQualityDeployment{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityCharacteristic binds a FlexibilityCharacteristic facade to a document and a path.
+func NewFlexibilityCharacteristic(doc *som.SpecDocument, path string) *FlexibilityCharacteristic {
+	return &FlexibilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityDeployment) Content() *FlexibilityQualityDeploymentContentForm {
-	return NewFlexibilityQualityDeploymentContentForm(x.Doc(), x.Path() + "/content")
+func (x *FlexibilityCharacteristic) FlexibilityContent() *FlexibilityCharacteristicFlexibilityContentForm {
+	return NewFlexibilityCharacteristicFlexibilityContentForm(x.Doc(), x.Path() + "/flexibilityContent")
+}
+
+// Flexibility overview.
+// (skipped: overview has no target type)
+
+// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+func (x *FlexibilityCharacteristic) Flexibility() *Flexibility {
+	return NewFlexibility(x.Doc(), x.Path() + "/flexibility")
+}
+
+// 11.9.2. Portability.
+func (x *FlexibilityCharacteristic) Portability() *Portability {
+	return NewPortability(x.Doc(), x.Path() + "/portability")
+}
+
+// Distribution and configurability model.
+type FlexibilityDeployment struct {
+	som.SomNode
+}
+
+// NewFlexibilityDeployment binds a FlexibilityDeployment facade to a document and a path.
+func NewFlexibilityDeployment(doc *som.SpecDocument, path string) *FlexibilityDeployment {
+	return &FlexibilityDeployment{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *FlexibilityDeployment) Content() *FlexibilityDeploymentContentForm {
+	return NewFlexibilityDeploymentContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Extensibility and verification expectations.
-type FlexibilityQualityExtensibility struct {
+type FlexibilityExtensibility struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityExtensibility binds a FlexibilityQualityExtensibility facade to a document and a path.
-func NewFlexibilityQualityExtensibility(doc *som.SpecDocument, path string) *FlexibilityQualityExtensibility {
-	return &FlexibilityQualityExtensibility{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityExtensibility binds a FlexibilityExtensibility facade to a document and a path.
+func NewFlexibilityExtensibility(doc *som.SpecDocument, path string) *FlexibilityExtensibility {
+	return &FlexibilityExtensibility{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityExtensibility) Content() *FlexibilityQualityExtensibilityContentForm {
-	return NewFlexibilityQualityExtensibilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *FlexibilityExtensibility) Content() *FlexibilityExtensibilityContentForm {
+	return NewFlexibilityExtensibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Modularity and reuse goals.
-type FlexibilityQualityModularity struct {
+type FlexibilityModularity struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityModularity binds a FlexibilityQualityModularity facade to a document and a path.
-func NewFlexibilityQualityModularity(doc *som.SpecDocument, path string) *FlexibilityQualityModularity {
-	return &FlexibilityQualityModularity{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityModularity binds a FlexibilityModularity facade to a document and a path.
+func NewFlexibilityModularity(doc *som.SpecDocument, path string) *FlexibilityModularity {
+	return &FlexibilityModularity{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityModularity) Content() *FlexibilityQualityModularityContentForm {
-	return NewFlexibilityQualityModularityContentForm(x.Doc(), x.Path() + "/content")
+func (x *FlexibilityModularity) Content() *FlexibilityModularityContentForm {
+	return NewFlexibilityModularityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // A single fragile point entry.
@@ -25603,17 +25701,17 @@ func (x *FunctionModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
 }
 
 // 11.2.2. Functional completeness quality.
-type FunctionalCompletenessQuality struct {
+type FunctionalCompleteness struct {
 	som.SomNode
 }
 
-// NewFunctionalCompletenessQuality binds a FunctionalCompletenessQuality facade to a document and a path.
-func NewFunctionalCompletenessQuality(doc *som.SpecDocument, path string) *FunctionalCompletenessQuality {
-	return &FunctionalCompletenessQuality{SomNode: som.NewSomNode(doc, path)}
+// NewFunctionalCompleteness binds a FunctionalCompleteness facade to a document and a path.
+func NewFunctionalCompleteness(doc *som.SpecDocument, path string) *FunctionalCompleteness {
+	return &FunctionalCompleteness{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FunctionalCompletenessQuality) Content() *FunctionalCompletenessQualityContentForm {
-	return NewFunctionalCompletenessQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *FunctionalCompleteness) Content() *FunctionalCompletenessContentForm {
+	return NewFunctionalCompletenessContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Detailed functional completeness narrative.
@@ -25848,6 +25946,37 @@ func (x *FunctionalResponsibilities) Items() *som.SomList[*ResponsibilityEntry] 
 	return som.NewSomList(x.Doc(), x.Path() + "/REEN1-ITEM-LST", func(d *som.SpecDocument, p string) *ResponsibilityEntry {
 		return NewResponsibilityEntry(d, p)
 	})
+}
+
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+//
+// Degree to which the product provides functions that meet stated and implied
+// needs — functional completeness and correctness. Re-homes the former
+// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+type FunctionalSuitabilityCharacteristic struct {
+	som.SomNode
+}
+
+// NewFunctionalSuitabilityCharacteristic binds a FunctionalSuitabilityCharacteristic facade to a document and a path.
+func NewFunctionalSuitabilityCharacteristic(doc *som.SpecDocument, path string) *FunctionalSuitabilityCharacteristic {
+	return &FunctionalSuitabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *FunctionalSuitabilityCharacteristic) FunctionalSuitabilityContent() *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+	return NewFunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(x.Doc(), x.Path() + "/functionalSuitabilityContent")
+}
+
+// Functional suitability overview.
+// (skipped: overview has no target type)
+
+// 11.2.1. Functional Completeness.
+func (x *FunctionalSuitabilityCharacteristic) FunctionalCompleteness() *FunctionalCompleteness {
+	return NewFunctionalCompleteness(x.Doc(), x.Path() + "/functionalCompleteness")
+}
+
+// 11.2.2. Correctness.
+func (x *FunctionalSuitabilityCharacteristic) Correctness() *Correctness {
+	return NewCorrectness(x.Doc(), x.Path() + "/correctness")
 }
 
 // A gap entry (form) — a missing capability or feature.
@@ -28735,6 +28864,33 @@ func (x *InteractionBusinessRules) Content() *InteractionBusinessRulesContentFor
 	return NewInteractionBusinessRulesContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+//
+// Degree to which the product can be interacted with effectively, efficiently
+// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+// form is preserved here so no authored content is lost.
+type InteractionCapabilityCharacteristic struct {
+	som.SomNode
+}
+
+// NewInteractionCapabilityCharacteristic binds a InteractionCapabilityCharacteristic facade to a document and a path.
+func NewInteractionCapabilityCharacteristic(doc *som.SpecDocument, path string) *InteractionCapabilityCharacteristic {
+	return &InteractionCapabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *InteractionCapabilityCharacteristic) InteractionCapabilityContent() *InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+	return NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm(x.Doc(), x.Path() + "/interactionCapabilityContent")
+}
+
+// Interaction capability overview.
+// (skipped: overview has no target type)
+
+// 11.5.1. Usability.
+func (x *InteractionCapabilityCharacteristic) Usability() *Usability {
+	return NewUsability(x.Doc(), x.Path() + "/usability")
+}
+
 // 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
@@ -30147,11 +30303,15 @@ func (x *IpOwnershipEntry) Content() *IpOwnershipEntryContentForm {
 	return NewIpOwnershipEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// ISO/IEC 25010 product-quality cross-map.
+// ISO/IEC 25010:2023 product-quality cross-map (derived).
 //
-// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-// quality characteristics so that compatibility and portability cannot be
-// silently missed.
+// A *derived* view over the canonical quality spine: the eight
+// `*Characteristic` classes under [SystemQualityGoals] are the single source
+// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+// Each entry references one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+// address it and the target metric — so coverage of any 25010:2023
+// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 type Iso25010Coverage struct {
 	som.SomNode
 }
@@ -30169,14 +30329,14 @@ func (x *Iso25010Coverage) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// One entry per ISO/IEC 25010 characteristic addressed.
+// One entry per ISO/IEC 25010:2023 characteristic addressed.
 func (x *Iso25010Coverage) Characteristics() *som.SomList[*Iso25010CoverageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/I25CV-CHAR-LST", func(d *som.SpecDocument, p string) *Iso25010CoverageEntry {
 		return NewIso25010CoverageEntry(d, p)
 	})
 }
 
-// A single ISO/IEC 25010 coverage entry (form).
+// A single ISO/IEC 25010:2023 coverage entry (form).
 type Iso25010CoverageEntry struct {
 	som.SomNode
 }
@@ -30217,96 +30377,96 @@ func (x *ItLandscapePosition) PositionDetails() *ItLandscapePositionPositionDeta
 }
 
 // 11.4.4. IT Security Operations quality.
-type ItSecurityOperationsQuality struct {
+type ItSecurityOperations struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQuality binds a ItSecurityOperationsQuality facade to a document and a path.
-func NewItSecurityOperationsQuality(doc *som.SpecDocument, path string) *ItSecurityOperationsQuality {
-	return &ItSecurityOperationsQuality{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperations binds a ItSecurityOperations facade to a document and a path.
+func NewItSecurityOperations(doc *som.SpecDocument, path string) *ItSecurityOperations {
+	return &ItSecurityOperations{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQuality) Content() *ItSecurityOperationsQualityContentForm {
-	return NewItSecurityOperationsQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *ItSecurityOperations) Content() *ItSecurityOperationsContentForm {
+	return NewItSecurityOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Access protection controls.
-func (x *ItSecurityOperationsQuality) Access() *ItSecurityOperationsQualityAccess {
-	return NewItSecurityOperationsQualityAccess(x.Doc(), x.Path() + "/access")
+func (x *ItSecurityOperations) Access() *ItSecurityOperationsAccess {
+	return NewItSecurityOperationsAccess(x.Doc(), x.Path() + "/access")
 }
 
 // Disaster recovery planning details.
-func (x *ItSecurityOperationsQuality) Recovery() *ItSecurityOperationsQualityRecovery {
-	return NewItSecurityOperationsQualityRecovery(x.Doc(), x.Path() + "/recovery")
+func (x *ItSecurityOperations) Recovery() *ItSecurityOperationsRecovery {
+	return NewItSecurityOperationsRecovery(x.Doc(), x.Path() + "/recovery")
 }
 
 // Penetration testing and remediation.
-func (x *ItSecurityOperationsQuality) Testing() *ItSecurityOperationsQualityTesting {
-	return NewItSecurityOperationsQualityTesting(x.Doc(), x.Path() + "/testing")
+func (x *ItSecurityOperations) Testing() *ItSecurityOperationsTesting {
+	return NewItSecurityOperationsTesting(x.Doc(), x.Path() + "/testing")
 }
 
 // Incident handling and reporting.
-func (x *ItSecurityOperationsQuality) Incident() *ItSecurityOperationsQualityIncident {
-	return NewItSecurityOperationsQualityIncident(x.Doc(), x.Path() + "/incident")
+func (x *ItSecurityOperations) Incident() *ItSecurityOperationsIncident {
+	return NewItSecurityOperationsIncident(x.Doc(), x.Path() + "/incident")
 }
 
 // Detailed IT security operations narrative.
 // (skipped: narrative has no target type)
 
 // Access protection controls.
-type ItSecurityOperationsQualityAccess struct {
+type ItSecurityOperationsAccess struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityAccess binds a ItSecurityOperationsQualityAccess facade to a document and a path.
-func NewItSecurityOperationsQualityAccess(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityAccess {
-	return &ItSecurityOperationsQualityAccess{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsAccess binds a ItSecurityOperationsAccess facade to a document and a path.
+func NewItSecurityOperationsAccess(doc *som.SpecDocument, path string) *ItSecurityOperationsAccess {
+	return &ItSecurityOperationsAccess{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityAccess) Content() *ItSecurityOperationsQualityAccessContentForm {
-	return NewItSecurityOperationsQualityAccessContentForm(x.Doc(), x.Path() + "/content")
+func (x *ItSecurityOperationsAccess) Content() *ItSecurityOperationsAccessContentForm {
+	return NewItSecurityOperationsAccessContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Incident handling and reporting.
-type ItSecurityOperationsQualityIncident struct {
+type ItSecurityOperationsIncident struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityIncident binds a ItSecurityOperationsQualityIncident facade to a document and a path.
-func NewItSecurityOperationsQualityIncident(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityIncident {
-	return &ItSecurityOperationsQualityIncident{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsIncident binds a ItSecurityOperationsIncident facade to a document and a path.
+func NewItSecurityOperationsIncident(doc *som.SpecDocument, path string) *ItSecurityOperationsIncident {
+	return &ItSecurityOperationsIncident{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityIncident) Content() *ItSecurityOperationsQualityIncidentContentForm {
-	return NewItSecurityOperationsQualityIncidentContentForm(x.Doc(), x.Path() + "/content")
+func (x *ItSecurityOperationsIncident) Content() *ItSecurityOperationsIncidentContentForm {
+	return NewItSecurityOperationsIncidentContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Disaster recovery planning details.
-type ItSecurityOperationsQualityRecovery struct {
+type ItSecurityOperationsRecovery struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityRecovery binds a ItSecurityOperationsQualityRecovery facade to a document and a path.
-func NewItSecurityOperationsQualityRecovery(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityRecovery {
-	return &ItSecurityOperationsQualityRecovery{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsRecovery binds a ItSecurityOperationsRecovery facade to a document and a path.
+func NewItSecurityOperationsRecovery(doc *som.SpecDocument, path string) *ItSecurityOperationsRecovery {
+	return &ItSecurityOperationsRecovery{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityRecovery) Content() *ItSecurityOperationsQualityRecoveryContentForm {
-	return NewItSecurityOperationsQualityRecoveryContentForm(x.Doc(), x.Path() + "/content")
+func (x *ItSecurityOperationsRecovery) Content() *ItSecurityOperationsRecoveryContentForm {
+	return NewItSecurityOperationsRecoveryContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Penetration testing and remediation.
-type ItSecurityOperationsQualityTesting struct {
+type ItSecurityOperationsTesting struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityTesting binds a ItSecurityOperationsQualityTesting facade to a document and a path.
-func NewItSecurityOperationsQualityTesting(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityTesting {
-	return &ItSecurityOperationsQualityTesting{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsTesting binds a ItSecurityOperationsTesting facade to a document and a path.
+func NewItSecurityOperationsTesting(doc *som.SpecDocument, path string) *ItSecurityOperationsTesting {
+	return &ItSecurityOperationsTesting{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityTesting) Content() *ItSecurityOperationsQualityTestingContentForm {
-	return NewItSecurityOperationsQualityTestingContentForm(x.Doc(), x.Path() + "/content")
+func (x *ItSecurityOperationsTesting) Content() *ItSecurityOperationsTestingContentForm {
+	return NewItSecurityOperationsTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 8.8.1. IT Security Standards.
@@ -32122,96 +32282,122 @@ func (x *MainSuccessScenario) Steps() *som.SomList[*MainScenarioStepEntry] {
 }
 
 // 11.3.5. Maintainability quality.
-type MaintainabilityQuality struct {
+type Maintainability struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQuality binds a MaintainabilityQuality facade to a document and a path.
-func NewMaintainabilityQuality(doc *som.SpecDocument, path string) *MaintainabilityQuality {
-	return &MaintainabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainability binds a Maintainability facade to a document and a path.
+func NewMaintainability(doc *som.SpecDocument, path string) *Maintainability {
+	return &Maintainability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQuality) Content() *MaintainabilityQualityContentForm {
-	return NewMaintainabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Maintainability) Content() *MaintainabilityContentForm {
+	return NewMaintainabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Analyzability requirements.
-func (x *MaintainabilityQuality) Analyzability() *MaintainabilityQualityAnalyzability {
-	return NewMaintainabilityQualityAnalyzability(x.Doc(), x.Path() + "/analyzability")
+func (x *Maintainability) Analyzability() *MaintainabilityAnalyzability {
+	return NewMaintainabilityAnalyzability(x.Doc(), x.Path() + "/analyzability")
 }
 
 // Changeability requirements.
-func (x *MaintainabilityQuality) Changeability() *MaintainabilityQualityChangeability {
-	return NewMaintainabilityQualityChangeability(x.Doc(), x.Path() + "/changeability")
+func (x *Maintainability) Changeability() *MaintainabilityChangeability {
+	return NewMaintainabilityChangeability(x.Doc(), x.Path() + "/changeability")
 }
 
 // Testability requirements.
-func (x *MaintainabilityQuality) Testability() *MaintainabilityQualityTestability {
-	return NewMaintainabilityQualityTestability(x.Doc(), x.Path() + "/testability")
+func (x *Maintainability) Testability() *MaintainabilityTestability {
+	return NewMaintainabilityTestability(x.Doc(), x.Path() + "/testability")
 }
 
 // Extensibility and verification requirements.
-func (x *MaintainabilityQuality) Governance() *MaintainabilityQualityGovernance {
-	return NewMaintainabilityQualityGovernance(x.Doc(), x.Path() + "/governance")
+func (x *Maintainability) Governance() *MaintainabilityGovernance {
+	return NewMaintainabilityGovernance(x.Doc(), x.Path() + "/governance")
 }
 
 // Detailed maintainability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Analyzability requirements.
-type MaintainabilityQualityAnalyzability struct {
+type MaintainabilityAnalyzability struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityAnalyzability binds a MaintainabilityQualityAnalyzability facade to a document and a path.
-func NewMaintainabilityQualityAnalyzability(doc *som.SpecDocument, path string) *MaintainabilityQualityAnalyzability {
-	return &MaintainabilityQualityAnalyzability{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityAnalyzability binds a MaintainabilityAnalyzability facade to a document and a path.
+func NewMaintainabilityAnalyzability(doc *som.SpecDocument, path string) *MaintainabilityAnalyzability {
+	return &MaintainabilityAnalyzability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityAnalyzability) Content() *MaintainabilityQualityAnalyzabilityContentForm {
-	return NewMaintainabilityQualityAnalyzabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *MaintainabilityAnalyzability) Content() *MaintainabilityAnalyzabilityContentForm {
+	return NewMaintainabilityAnalyzabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Changeability requirements.
-type MaintainabilityQualityChangeability struct {
+type MaintainabilityChangeability struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityChangeability binds a MaintainabilityQualityChangeability facade to a document and a path.
-func NewMaintainabilityQualityChangeability(doc *som.SpecDocument, path string) *MaintainabilityQualityChangeability {
-	return &MaintainabilityQualityChangeability{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityChangeability binds a MaintainabilityChangeability facade to a document and a path.
+func NewMaintainabilityChangeability(doc *som.SpecDocument, path string) *MaintainabilityChangeability {
+	return &MaintainabilityChangeability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityChangeability) Content() *MaintainabilityQualityChangeabilityContentForm {
-	return NewMaintainabilityQualityChangeabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *MaintainabilityChangeability) Content() *MaintainabilityChangeabilityContentForm {
+	return NewMaintainabilityChangeabilityContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+//
+// Degree of effectiveness and efficiency with which the product can be
+// modified. Re-homes the former technical-bucket maintainability leaf under
+// the 25010:2023 spine (L34C-8).
+type MaintainabilityCharacteristic struct {
+	som.SomNode
+}
+
+// NewMaintainabilityCharacteristic binds a MaintainabilityCharacteristic facade to a document and a path.
+func NewMaintainabilityCharacteristic(doc *som.SpecDocument, path string) *MaintainabilityCharacteristic {
+	return &MaintainabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MaintainabilityCharacteristic) MaintainabilityContent() *MaintainabilityCharacteristicMaintainabilityContentForm {
+	return NewMaintainabilityCharacteristicMaintainabilityContentForm(x.Doc(), x.Path() + "/maintainabilityContent")
+}
+
+// Maintainability overview.
+// (skipped: overview has no target type)
+
+// 11.8.1. Maintainability (product maintainability attributes).
+func (x *MaintainabilityCharacteristic) Maintainability() *Maintainability {
+	return NewMaintainability(x.Doc(), x.Path() + "/maintainability")
 }
 
 // Extensibility and verification requirements.
-type MaintainabilityQualityGovernance struct {
+type MaintainabilityGovernance struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityGovernance binds a MaintainabilityQualityGovernance facade to a document and a path.
-func NewMaintainabilityQualityGovernance(doc *som.SpecDocument, path string) *MaintainabilityQualityGovernance {
-	return &MaintainabilityQualityGovernance{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityGovernance binds a MaintainabilityGovernance facade to a document and a path.
+func NewMaintainabilityGovernance(doc *som.SpecDocument, path string) *MaintainabilityGovernance {
+	return &MaintainabilityGovernance{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityGovernance) Content() *MaintainabilityQualityGovernanceContentForm {
-	return NewMaintainabilityQualityGovernanceContentForm(x.Doc(), x.Path() + "/content")
+func (x *MaintainabilityGovernance) Content() *MaintainabilityGovernanceContentForm {
+	return NewMaintainabilityGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Testability requirements.
-type MaintainabilityQualityTestability struct {
+type MaintainabilityTestability struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityTestability binds a MaintainabilityQualityTestability facade to a document and a path.
-func NewMaintainabilityQualityTestability(doc *som.SpecDocument, path string) *MaintainabilityQualityTestability {
-	return &MaintainabilityQualityTestability{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityTestability binds a MaintainabilityTestability facade to a document and a path.
+func NewMaintainabilityTestability(doc *som.SpecDocument, path string) *MaintainabilityTestability {
+	return &MaintainabilityTestability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityTestability) Content() *MaintainabilityQualityTestabilityContentForm {
-	return NewMaintainabilityQualityTestabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *MaintainabilityTestability) Content() *MaintainabilityTestabilityContentForm {
+	return NewMaintainabilityTestabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Change management for maintenance.
@@ -34612,6 +34798,20 @@ func (x *Monitoring) SlaAndSloMonitoring() *SlaAndSloMonitoring {
 	return NewSlaAndSloMonitoring(x.Doc(), x.Path() + "/slaAndSloMonitoring")
 }
 
+// Alerting strategy and channels.
+type MonitoringAlerting struct {
+	som.SomNode
+}
+
+// NewMonitoringAlerting binds a MonitoringAlerting facade to a document and a path.
+func NewMonitoringAlerting(doc *som.SpecDocument, path string) *MonitoringAlerting {
+	return &MonitoringAlerting{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringAlerting) Content() *MonitoringAlertingContentForm {
+	return NewMonitoringAlertingContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -34686,6 +34886,34 @@ func (x *MonitoringAndAlertingSection) IncidentManagement() *IncidentManagementR
 // SLA monitoring.
 func (x *MonitoringAndAlertingSection) SlaMonitoring() *SlaMonitoringRequirements {
 	return NewSlaMonitoringRequirements(x.Doc(), x.Path() + "/slaMonitoring")
+}
+
+// Alert automation capabilities.
+type MonitoringAutomation struct {
+	som.SomNode
+}
+
+// NewMonitoringAutomation binds a MonitoringAutomation facade to a document and a path.
+func NewMonitoringAutomation(doc *som.SpecDocument, path string) *MonitoringAutomation {
+	return &MonitoringAutomation{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringAutomation) Content() *MonitoringAutomationContentForm {
+	return NewMonitoringAutomationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Component monitoring coverage.
+type MonitoringCoverage struct {
+	som.SomNode
+}
+
+// NewMonitoringCoverage binds a MonitoringCoverage facade to a document and a path.
+func NewMonitoringCoverage(doc *som.SpecDocument, path string) *MonitoringCoverage {
+	return &MonitoringCoverage{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringCoverage) Content() *MonitoringCoverageContentForm {
+	return NewMonitoringCoverageContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 8.7.2.4. Monitoring Dashboards.
@@ -34792,6 +35020,20 @@ func (x *MonitoringInfrastructureDeployment) Content() *MonitoringInfrastructure
 	return NewMonitoringInfrastructureDeploymentContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// Planning and observability settings.
+type MonitoringOperations struct {
+	som.SomNode
+}
+
+// NewMonitoringOperations binds a MonitoringOperations facade to a document and a path.
+func NewMonitoringOperations(doc *som.SpecDocument, path string) *MonitoringOperations {
+	return &MonitoringOperations{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringOperations) Content() *MonitoringOperationsContentForm {
+	return NewMonitoringOperationsContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // A single monitoring procedure entry.
 type MonitoringProcedureEntry struct {
 	som.SomNode
@@ -34808,99 +35050,6 @@ func (x *MonitoringProcedureEntry) Content() string {
 
 func (x *MonitoringProcedureEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 11.4.3. Monitoring quality.
-type MonitoringQuality struct {
-	som.SomNode
-}
-
-// NewMonitoringQuality binds a MonitoringQuality facade to a document and a path.
-func NewMonitoringQuality(doc *som.SpecDocument, path string) *MonitoringQuality {
-	return &MonitoringQuality{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQuality) Content() *MonitoringQualityContentForm {
-	return NewMonitoringQualityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Component monitoring coverage.
-func (x *MonitoringQuality) Coverage() *MonitoringQualityCoverage {
-	return NewMonitoringQualityCoverage(x.Doc(), x.Path() + "/coverage")
-}
-
-// Alert automation capabilities.
-func (x *MonitoringQuality) Automation() *MonitoringQualityAutomation {
-	return NewMonitoringQualityAutomation(x.Doc(), x.Path() + "/automation")
-}
-
-// Alerting strategy and channels.
-func (x *MonitoringQuality) Alerting() *MonitoringQualityAlerting {
-	return NewMonitoringQualityAlerting(x.Doc(), x.Path() + "/alerting")
-}
-
-// Planning and observability settings.
-func (x *MonitoringQuality) Operations() *MonitoringQualityOperations {
-	return NewMonitoringQualityOperations(x.Doc(), x.Path() + "/operations")
-}
-
-// Detailed monitoring requirements narrative.
-// (skipped: narrative has no target type)
-
-// Alerting strategy and channels.
-type MonitoringQualityAlerting struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityAlerting binds a MonitoringQualityAlerting facade to a document and a path.
-func NewMonitoringQualityAlerting(doc *som.SpecDocument, path string) *MonitoringQualityAlerting {
-	return &MonitoringQualityAlerting{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityAlerting) Content() *MonitoringQualityAlertingContentForm {
-	return NewMonitoringQualityAlertingContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Alert automation capabilities.
-type MonitoringQualityAutomation struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityAutomation binds a MonitoringQualityAutomation facade to a document and a path.
-func NewMonitoringQualityAutomation(doc *som.SpecDocument, path string) *MonitoringQualityAutomation {
-	return &MonitoringQualityAutomation{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityAutomation) Content() *MonitoringQualityAutomationContentForm {
-	return NewMonitoringQualityAutomationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Component monitoring coverage.
-type MonitoringQualityCoverage struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityCoverage binds a MonitoringQualityCoverage facade to a document and a path.
-func NewMonitoringQualityCoverage(doc *som.SpecDocument, path string) *MonitoringQualityCoverage {
-	return &MonitoringQualityCoverage{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityCoverage) Content() *MonitoringQualityCoverageContentForm {
-	return NewMonitoringQualityCoverageContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Planning and observability settings.
-type MonitoringQualityOperations struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityOperations binds a MonitoringQualityOperations facade to a document and a path.
-func NewMonitoringQualityOperations(doc *som.SpecDocument, path string) *MonitoringQualityOperations {
-	return &MonitoringQualityOperations{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityOperations) Content() *MonitoringQualityOperationsContentForm {
-	return NewMonitoringQualityOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 13.4.1. MoSCoW Analysis.
@@ -37070,6 +37219,43 @@ func (x *OngoingTrainingEntrySchedule) Content() *OngoingTrainingEntryScheduleCo
 	return NewOngoingTrainingEntryScheduleContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 11.4.3. Monitoring quality.
+type OperationalMonitoring struct {
+	som.SomNode
+}
+
+// NewOperationalMonitoring binds a OperationalMonitoring facade to a document and a path.
+func NewOperationalMonitoring(doc *som.SpecDocument, path string) *OperationalMonitoring {
+	return &OperationalMonitoring{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *OperationalMonitoring) Content() *OperationalMonitoringContentForm {
+	return NewOperationalMonitoringContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Component monitoring coverage.
+func (x *OperationalMonitoring) Coverage() *MonitoringCoverage {
+	return NewMonitoringCoverage(x.Doc(), x.Path() + "/coverage")
+}
+
+// Alert automation capabilities.
+func (x *OperationalMonitoring) Automation() *MonitoringAutomation {
+	return NewMonitoringAutomation(x.Doc(), x.Path() + "/automation")
+}
+
+// Alerting strategy and channels.
+func (x *OperationalMonitoring) Alerting() *MonitoringAlerting {
+	return NewMonitoringAlerting(x.Doc(), x.Path() + "/alerting")
+}
+
+// Planning and observability settings.
+func (x *OperationalMonitoring) Operations() *MonitoringOperations {
+	return NewMonitoringOperations(x.Doc(), x.Path() + "/operations")
+}
+
+// Detailed monitoring requirements narrative.
+// (skipped: narrative has no target type)
+
 // 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
@@ -37115,46 +37301,6 @@ func NewOperationalPainPointsSummary(doc *som.SpecDocument, path string) *Operat
 
 func (x *OperationalPainPointsSummary) Content() *OperationalPainPointsSummaryContentForm {
 	return NewOperationalPainPointsSummaryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 11.4. Operations Quality Criteria.
-//
-// Quality criteria for system operations including availability, service
-// levels, monitoring, and IT security operations.
-type OperationsQualityCriteria struct {
-	som.SomNode
-}
-
-// NewOperationsQualityCriteria binds a OperationsQualityCriteria facade to a document and a path.
-func NewOperationsQualityCriteria(doc *som.SpecDocument, path string) *OperationsQualityCriteria {
-	return &OperationsQualityCriteria{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *OperationsQualityCriteria) OperationsOverviewContent() *OperationsQualityCriteriaOperationsOverviewContentForm {
-	return NewOperationsQualityCriteriaOperationsOverviewContentForm(x.Doc(), x.Path() + "/operationsOverviewContent")
-}
-
-// Operations quality overview narrative.
-// (skipped: overview has no target type)
-
-// 11.4.1. Availability.
-func (x *OperationsQualityCriteria) Availability() *AvailabilityQuality {
-	return NewAvailabilityQuality(x.Doc(), x.Path() + "/availability")
-}
-
-// 11.4.2. Service Level Requirements.
-func (x *OperationsQualityCriteria) ServiceLevelRequirements() *ServiceLevelQuality {
-	return NewServiceLevelQuality(x.Doc(), x.Path() + "/serviceLevelRequirements")
-}
-
-// 11.4.3. Monitoring and Prevention.
-func (x *OperationsQualityCriteria) MonitoringAndPrevention() *MonitoringQuality {
-	return NewMonitoringQuality(x.Doc(), x.Path() + "/monitoringAndPrevention")
-}
-
-// 11.4.4. IT Security Operations.
-func (x *OperationsQualityCriteria) ItSecurityOperations() *ItSecurityOperationsQuality {
-	return NewItSecurityOperationsQuality(x.Doc(), x.Path() + "/itSecurityOperations")
 }
 
 // 8.5. Operations Requirements.
@@ -38726,6 +38872,33 @@ func (x *PenetrationTestingRequirementsScheduling) Content() *PenetrationTesting
 	return NewPenetrationTestingRequirementsSchedulingContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+//
+// Performance relative to the amount of resources used under stated
+// conditions. Re-homes the former technical-bucket efficiency leaf under the
+// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+// preserved here so no authored content is lost.
+type PerformanceEfficiencyCharacteristic struct {
+	som.SomNode
+}
+
+// NewPerformanceEfficiencyCharacteristic binds a PerformanceEfficiencyCharacteristic facade to a document and a path.
+func NewPerformanceEfficiencyCharacteristic(doc *som.SpecDocument, path string) *PerformanceEfficiencyCharacteristic {
+	return &PerformanceEfficiencyCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *PerformanceEfficiencyCharacteristic) PerformanceEfficiencyContent() *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+	return NewPerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(x.Doc(), x.Path() + "/performanceEfficiencyContent")
+}
+
+// Performance efficiency overview.
+// (skipped: overview has no target type)
+
+// 11.3.1. Efficiency.
+func (x *PerformanceEfficiencyCharacteristic) Efficiency() *Efficiency {
+	return NewEfficiency(x.Doc(), x.Path() + "/efficiency")
+}
+
 // Periodic review policy (form).
 //
 // Defines periodic reviews of access rights and security posture.
@@ -39581,17 +39754,17 @@ func (x *PlatformAndLanguage) RuntimeEnvironment() *RuntimeEnvironment {
 }
 
 // 11.3.2. Portability quality.
-type PortabilityQuality struct {
+type Portability struct {
 	som.SomNode
 }
 
-// NewPortabilityQuality binds a PortabilityQuality facade to a document and a path.
-func NewPortabilityQuality(doc *som.SpecDocument, path string) *PortabilityQuality {
-	return &PortabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewPortability binds a Portability facade to a document and a path.
+func NewPortability(doc *som.SpecDocument, path string) *Portability {
+	return &Portability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *PortabilityQuality) Content() *PortabilityQualityContentForm {
-	return NewPortabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Portability) Content() *PortabilityContentForm {
+	return NewPortabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Detailed portability requirements narrative.
@@ -42471,7 +42644,7 @@ func (x *PwaRequirementsUpdates) Content() *PwaRequirementsUpdatesContentForm {
 
 // SBP.14 Quality & Acceptance Model.
 //
-// Public anchor: ISO/IEC 25010 product quality.
+// Public anchor: ISO/IEC 25010:2023 product quality.
 type QualityAndAcceptanceModel struct {
 	som.SomNode
 }
@@ -42499,7 +42672,7 @@ func (x *QualityAndAcceptanceModel) DeliveryAcceptance() *DeliveryScopeAndAccept
 	return NewDeliveryScopeAndAcceptance(x.Doc(), x.Path() + "/deliveryAcceptance")
 }
 
-// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
 func (x *QualityAndAcceptanceModel) Iso25010Coverage() *Iso25010Coverage {
 	return NewIso25010Coverage(x.Doc(), x.Path() + "/iso25010Coverage")
 }
@@ -42982,6 +43155,62 @@ func (x *QualityGateChecklist) Items() *som.SomList[*QualityGateCheckEntry] {
 	})
 }
 
+// Baseline and target settings.
+type QualityGoalsBaseline struct {
+	som.SomNode
+}
+
+// NewQualityGoalsBaseline binds a QualityGoalsBaseline facade to a document and a path.
+func NewQualityGoalsBaseline(doc *som.SpecDocument, path string) *QualityGoalsBaseline {
+	return &QualityGoalsBaseline{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsBaseline) Content() *QualityGoalsBaselineContentForm {
+	return NewQualityGoalsBaselineContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Governance board and escalation details.
+type QualityGoalsGovernance struct {
+	som.SomNode
+}
+
+// NewQualityGoalsGovernance binds a QualityGoalsGovernance facade to a document and a path.
+func NewQualityGoalsGovernance(doc *som.SpecDocument, path string) *QualityGoalsGovernance {
+	return &QualityGoalsGovernance{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsGovernance) Content() *QualityGoalsGovernanceContentForm {
+	return NewQualityGoalsGovernanceContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Measurement and reporting approach.
+type QualityGoalsMeasurement struct {
+	som.SomNode
+}
+
+// NewQualityGoalsMeasurement binds a QualityGoalsMeasurement facade to a document and a path.
+func NewQualityGoalsMeasurement(doc *som.SpecDocument, path string) *QualityGoalsMeasurement {
+	return &QualityGoalsMeasurement{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsMeasurement) Content() *QualityGoalsMeasurementContentForm {
+	return NewQualityGoalsMeasurementContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Quality resources and enablement.
+type QualityGoalsResources struct {
+	som.SomNode
+}
+
+// NewQualityGoalsResources binds a QualityGoalsResources facade to a document and a path.
+func NewQualityGoalsResources(doc *som.SpecDocument, path string) *QualityGoalsResources {
+	return &QualityGoalsResources{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsResources) Content() *QualityGoalsResourcesContentForm {
+	return NewQualityGoalsResourcesContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
@@ -43230,96 +43459,96 @@ func (x *RateLimitingPolicyQuotas) Content() *RateLimitingPolicyQuotasContentFor
 }
 
 // 11.5.1. Readability quality.
-type ReadabilityQuality struct {
+type Readability struct {
 	som.SomNode
 }
 
-// NewReadabilityQuality binds a ReadabilityQuality facade to a document and a path.
-func NewReadabilityQuality(doc *som.SpecDocument, path string) *ReadabilityQuality {
-	return &ReadabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewReadability binds a Readability facade to a document and a path.
+func NewReadability(doc *som.SpecDocument, path string) *Readability {
+	return &Readability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQuality) Content() *ReadabilityQualityContentForm {
-	return NewReadabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Readability) Content() *ReadabilityContentForm {
+	return NewReadabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Identifiability and navigation.
-func (x *ReadabilityQuality) Navigation() *ReadabilityQualityNavigation {
-	return NewReadabilityQualityNavigation(x.Doc(), x.Path() + "/navigation")
+func (x *Readability) Navigation() *ReadabilityNavigation {
+	return NewReadabilityNavigation(x.Doc(), x.Path() + "/navigation")
 }
 
 // Comprehensibility requirements.
-func (x *ReadabilityQuality) Comprehensibility() *ReadabilityQualityComprehensibility {
-	return NewReadabilityQualityComprehensibility(x.Doc(), x.Path() + "/comprehensibility")
+func (x *Readability) Comprehensibility() *ReadabilityComprehensibility {
+	return NewReadabilityComprehensibility(x.Doc(), x.Path() + "/comprehensibility")
 }
 
 // Document structure rules.
-func (x *ReadabilityQuality) Structure() *ReadabilityQualityStructure {
-	return NewReadabilityQualityStructure(x.Doc(), x.Path() + "/structure")
+func (x *Readability) Structure() *ReadabilityStructure {
+	return NewReadabilityStructure(x.Doc(), x.Path() + "/structure")
 }
 
 // Style guide alignment.
-func (x *ReadabilityQuality) Style() *ReadabilityQualityStyle {
-	return NewReadabilityQualityStyle(x.Doc(), x.Path() + "/style")
+func (x *Readability) Style() *ReadabilityStyle {
+	return NewReadabilityStyle(x.Doc(), x.Path() + "/style")
 }
 
 // Detailed readability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Comprehensibility requirements.
-type ReadabilityQualityComprehensibility struct {
+type ReadabilityComprehensibility struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityComprehensibility binds a ReadabilityQualityComprehensibility facade to a document and a path.
-func NewReadabilityQualityComprehensibility(doc *som.SpecDocument, path string) *ReadabilityQualityComprehensibility {
-	return &ReadabilityQualityComprehensibility{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityComprehensibility binds a ReadabilityComprehensibility facade to a document and a path.
+func NewReadabilityComprehensibility(doc *som.SpecDocument, path string) *ReadabilityComprehensibility {
+	return &ReadabilityComprehensibility{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityComprehensibility) Content() *ReadabilityQualityComprehensibilityContentForm {
-	return NewReadabilityQualityComprehensibilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReadabilityComprehensibility) Content() *ReadabilityComprehensibilityContentForm {
+	return NewReadabilityComprehensibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Identifiability and navigation.
-type ReadabilityQualityNavigation struct {
+type ReadabilityNavigation struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityNavigation binds a ReadabilityQualityNavigation facade to a document and a path.
-func NewReadabilityQualityNavigation(doc *som.SpecDocument, path string) *ReadabilityQualityNavigation {
-	return &ReadabilityQualityNavigation{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityNavigation binds a ReadabilityNavigation facade to a document and a path.
+func NewReadabilityNavigation(doc *som.SpecDocument, path string) *ReadabilityNavigation {
+	return &ReadabilityNavigation{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityNavigation) Content() *ReadabilityQualityNavigationContentForm {
-	return NewReadabilityQualityNavigationContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReadabilityNavigation) Content() *ReadabilityNavigationContentForm {
+	return NewReadabilityNavigationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Document structure rules.
-type ReadabilityQualityStructure struct {
+type ReadabilityStructure struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityStructure binds a ReadabilityQualityStructure facade to a document and a path.
-func NewReadabilityQualityStructure(doc *som.SpecDocument, path string) *ReadabilityQualityStructure {
-	return &ReadabilityQualityStructure{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityStructure binds a ReadabilityStructure facade to a document and a path.
+func NewReadabilityStructure(doc *som.SpecDocument, path string) *ReadabilityStructure {
+	return &ReadabilityStructure{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityStructure) Content() *ReadabilityQualityStructureContentForm {
-	return NewReadabilityQualityStructureContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReadabilityStructure) Content() *ReadabilityStructureContentForm {
+	return NewReadabilityStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Style guide alignment.
-type ReadabilityQualityStyle struct {
+type ReadabilityStyle struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityStyle binds a ReadabilityQualityStyle facade to a document and a path.
-func NewReadabilityQualityStyle(doc *som.SpecDocument, path string) *ReadabilityQualityStyle {
-	return &ReadabilityQualityStyle{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityStyle binds a ReadabilityStyle facade to a document and a path.
+func NewReadabilityStyle(doc *som.SpecDocument, path string) *ReadabilityStyle {
+	return &ReadabilityStyle{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityStyle) Content() *ReadabilityQualityStyleContentForm {
-	return NewReadabilityQualityStyleContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReadabilityStyle) Content() *ReadabilityStyleContentForm {
+	return NewReadabilityStyleContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Readiness criteria entry (form).
@@ -43948,96 +44177,140 @@ func (x *RelevantSectionEntry) Content() *RelevantSectionEntryContentForm {
 }
 
 // 11.3.6. Reliability quality.
-type ReliabilityQuality struct {
+type Reliability struct {
 	som.SomNode
 }
 
-// NewReliabilityQuality binds a ReliabilityQuality facade to a document and a path.
-func NewReliabilityQuality(doc *som.SpecDocument, path string) *ReliabilityQuality {
-	return &ReliabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewReliability binds a Reliability facade to a document and a path.
+func NewReliability(doc *som.SpecDocument, path string) *Reliability {
+	return &Reliability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQuality) Content() *ReliabilityQualityContentForm {
-	return NewReliabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Reliability) Content() *ReliabilityContentForm {
+	return NewReliabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Recovery objectives.
-func (x *ReliabilityQuality) Recovery() *ReliabilityQualityRecovery {
-	return NewReliabilityQualityRecovery(x.Doc(), x.Path() + "/recovery")
+func (x *Reliability) Recovery() *ReliabilityRecovery {
+	return NewReliabilityRecovery(x.Doc(), x.Path() + "/recovery")
 }
 
 // Failover requirements.
-func (x *ReliabilityQuality) Failover() *ReliabilityQualityFailover {
-	return NewReliabilityQualityFailover(x.Doc(), x.Path() + "/failover")
+func (x *Reliability) Failover() *ReliabilityFailover {
+	return NewReliabilityFailover(x.Doc(), x.Path() + "/failover")
 }
 
 // Data durability requirements.
-func (x *ReliabilityQuality) Durability() *ReliabilityQualityDurability {
-	return NewReliabilityQualityDurability(x.Doc(), x.Path() + "/durability")
+func (x *Reliability) Durability() *ReliabilityDurability {
+	return NewReliabilityDurability(x.Doc(), x.Path() + "/durability")
 }
 
 // Verification and learning.
-func (x *ReliabilityQuality) Verification() *ReliabilityQualityVerification {
-	return NewReliabilityQualityVerification(x.Doc(), x.Path() + "/verification")
+func (x *Reliability) Verification() *ReliabilityVerification {
+	return NewReliabilityVerification(x.Doc(), x.Path() + "/verification")
 }
 
 // Detailed reliability requirements narrative.
 // (skipped: narrative has no target type)
 
-// Data durability requirements.
-type ReliabilityQualityDurability struct {
+// 11.6. Reliability (ISO/IEC 25010:2023).
+//
+// Degree to which the product performs specified functions under specified
+// conditions for a specified period (availability, fault tolerance,
+// recoverability, maturity). Re-homes the former technical-bucket reliability
+// leaf and the operations-bucket availability, service-level and monitoring
+// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+// overview form is preserved here so no authored content is lost.
+type ReliabilityCharacteristic struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityDurability binds a ReliabilityQualityDurability facade to a document and a path.
-func NewReliabilityQualityDurability(doc *som.SpecDocument, path string) *ReliabilityQualityDurability {
-	return &ReliabilityQualityDurability{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityCharacteristic binds a ReliabilityCharacteristic facade to a document and a path.
+func NewReliabilityCharacteristic(doc *som.SpecDocument, path string) *ReliabilityCharacteristic {
+	return &ReliabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityDurability) Content() *ReliabilityQualityDurabilityContentForm {
-	return NewReliabilityQualityDurabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReliabilityCharacteristic) ReliabilityContent() *ReliabilityCharacteristicReliabilityContentForm {
+	return NewReliabilityCharacteristicReliabilityContentForm(x.Doc(), x.Path() + "/reliabilityContent")
+}
+
+// Reliability overview narrative.
+// (skipped: overview has no target type)
+
+// 11.6.1. Reliability (product reliability attributes).
+func (x *ReliabilityCharacteristic) Reliability() *Reliability {
+	return NewReliability(x.Doc(), x.Path() + "/reliability")
+}
+
+// 11.6.2. Availability.
+func (x *ReliabilityCharacteristic) Availability() *Availability {
+	return NewAvailability(x.Doc(), x.Path() + "/availability")
+}
+
+// 11.6.3. Service Level Requirements.
+func (x *ReliabilityCharacteristic) ServiceLevelRequirements() *ServiceLevel {
+	return NewServiceLevel(x.Doc(), x.Path() + "/serviceLevelRequirements")
+}
+
+// 11.6.4. Monitoring and Prevention.
+func (x *ReliabilityCharacteristic) MonitoringAndPrevention() *OperationalMonitoring {
+	return NewOperationalMonitoring(x.Doc(), x.Path() + "/monitoringAndPrevention")
+}
+
+// Data durability requirements.
+type ReliabilityDurability struct {
+	som.SomNode
+}
+
+// NewReliabilityDurability binds a ReliabilityDurability facade to a document and a path.
+func NewReliabilityDurability(doc *som.SpecDocument, path string) *ReliabilityDurability {
+	return &ReliabilityDurability{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ReliabilityDurability) Content() *ReliabilityDurabilityContentForm {
+	return NewReliabilityDurabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Failover requirements.
-type ReliabilityQualityFailover struct {
+type ReliabilityFailover struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityFailover binds a ReliabilityQualityFailover facade to a document and a path.
-func NewReliabilityQualityFailover(doc *som.SpecDocument, path string) *ReliabilityQualityFailover {
-	return &ReliabilityQualityFailover{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityFailover binds a ReliabilityFailover facade to a document and a path.
+func NewReliabilityFailover(doc *som.SpecDocument, path string) *ReliabilityFailover {
+	return &ReliabilityFailover{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityFailover) Content() *ReliabilityQualityFailoverContentForm {
-	return NewReliabilityQualityFailoverContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReliabilityFailover) Content() *ReliabilityFailoverContentForm {
+	return NewReliabilityFailoverContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Recovery objectives.
-type ReliabilityQualityRecovery struct {
+type ReliabilityRecovery struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityRecovery binds a ReliabilityQualityRecovery facade to a document and a path.
-func NewReliabilityQualityRecovery(doc *som.SpecDocument, path string) *ReliabilityQualityRecovery {
-	return &ReliabilityQualityRecovery{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityRecovery binds a ReliabilityRecovery facade to a document and a path.
+func NewReliabilityRecovery(doc *som.SpecDocument, path string) *ReliabilityRecovery {
+	return &ReliabilityRecovery{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityRecovery) Content() *ReliabilityQualityRecoveryContentForm {
-	return NewReliabilityQualityRecoveryContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReliabilityRecovery) Content() *ReliabilityRecoveryContentForm {
+	return NewReliabilityRecoveryContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Verification and learning.
-type ReliabilityQualityVerification struct {
+type ReliabilityVerification struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityVerification binds a ReliabilityQualityVerification facade to a document and a path.
-func NewReliabilityQualityVerification(doc *som.SpecDocument, path string) *ReliabilityQualityVerification {
-	return &ReliabilityQualityVerification{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityVerification binds a ReliabilityVerification facade to a document and a path.
+func NewReliabilityVerification(doc *som.SpecDocument, path string) *ReliabilityVerification {
+	return &ReliabilityVerification{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityVerification) Content() *ReliabilityQualityVerificationContentForm {
-	return NewReliabilityQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+func (x *ReliabilityVerification) Content() *ReliabilityVerificationContentForm {
+	return NewReliabilityVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Remember-me and persistent session policy (form).
@@ -49738,6 +50011,43 @@ func (x *SecondaryNavigation) TabBars() *som.SomList[*TabBarDefinitionEntry] {
 	})
 }
 
+// 11.3.4. Security quality.
+type Security struct {
+	som.SomNode
+}
+
+// NewSecurity binds a Security facade to a document and a path.
+func NewSecurity(doc *som.SpecDocument, path string) *Security {
+	return &Security{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *Security) Content() *SecurityContentForm {
+	return NewSecurityContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Authentication controls.
+func (x *Security) Authentication() *SecurityAuthentication {
+	return NewSecurityAuthentication(x.Doc(), x.Path() + "/authentication")
+}
+
+// Authorization controls.
+func (x *Security) Authorization() *SecurityAuthorization {
+	return NewSecurityAuthorization(x.Doc(), x.Path() + "/authorization")
+}
+
+// Vulnerability management expectations.
+func (x *Security) Vulnerability() *SecurityVulnerability {
+	return NewSecurityVulnerability(x.Doc(), x.Path() + "/vulnerability")
+}
+
+// Compliance and verification settings.
+func (x *Security) Compliance() *SecurityCompliance {
+	return NewSecurityCompliance(x.Doc(), x.Path() + "/compliance")
+}
+
+// Detailed security requirements narrative.
+// (skipped: narrative has no target type)
+
 // 9. Security & Access Model. Seeds → SAS.
 type SecurityAndAccessModel struct {
 	som.SomNode
@@ -49929,6 +50239,34 @@ func (x *SecurityAuditRequirementsSection) AuditEntries() *som.SomList[*Security
 	})
 }
 
+// Authentication controls.
+type SecurityAuthentication struct {
+	som.SomNode
+}
+
+// NewSecurityAuthentication binds a SecurityAuthentication facade to a document and a path.
+func NewSecurityAuthentication(doc *som.SpecDocument, path string) *SecurityAuthentication {
+	return &SecurityAuthentication{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityAuthentication) Content() *SecurityAuthenticationContentForm {
+	return NewSecurityAuthenticationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Authorization controls.
+type SecurityAuthorization struct {
+	som.SomNode
+}
+
+// NewSecurityAuthorization binds a SecurityAuthorization facade to a document and a path.
+func NewSecurityAuthorization(doc *som.SpecDocument, path string) *SecurityAuthorization {
+	return &SecurityAuthorization{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityAuthorization) Content() *SecurityAuthorizationContentForm {
+	return NewSecurityAuthorizationContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Security certification and compliance requirements.
 type SecurityCertificationRequirements struct {
 	som.SomNode
@@ -50019,6 +50357,37 @@ func (x *SecurityCertificationRequirementsSoc2) Content() *SecurityCertification
 	return NewSecurityCertificationRequirementsSoc2ContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 11.7. Security (ISO/IEC 25010:2023).
+//
+// Degree to which the product protects information and data. Re-homes the
+// former technical-bucket security leaf and the operations-bucket IT-security
+// operations leaf under the 25010:2023 spine (L34C-8).
+type SecurityCharacteristic struct {
+	som.SomNode
+}
+
+// NewSecurityCharacteristic binds a SecurityCharacteristic facade to a document and a path.
+func NewSecurityCharacteristic(doc *som.SpecDocument, path string) *SecurityCharacteristic {
+	return &SecurityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityCharacteristic) SecurityContent() *SecurityCharacteristicSecurityContentForm {
+	return NewSecurityCharacteristicSecurityContentForm(x.Doc(), x.Path() + "/securityContent")
+}
+
+// Security overview.
+// (skipped: overview has no target type)
+
+// 11.7.1. Security (product security attributes).
+func (x *SecurityCharacteristic) Security() *Security {
+	return NewSecurity(x.Doc(), x.Path() + "/security")
+}
+
+// 11.7.2. IT Security Operations.
+func (x *SecurityCharacteristic) ItSecurityOperations() *ItSecurityOperations {
+	return NewItSecurityOperations(x.Doc(), x.Path() + "/itSecurityOperations")
+}
+
 // Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -50092,6 +50461,20 @@ func NewSecurityCodeReviewPolicyReviewers(doc *som.SpecDocument, path string) *S
 
 func (x *SecurityCodeReviewPolicyReviewers) Content() *SecurityCodeReviewPolicyReviewersContentForm {
 	return NewSecurityCodeReviewPolicyReviewersContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Compliance and verification settings.
+type SecurityCompliance struct {
+	som.SomNode
+}
+
+// NewSecurityCompliance binds a SecurityCompliance facade to a document and a path.
+func NewSecurityCompliance(doc *som.SpecDocument, path string) *SecurityCompliance {
+	return &SecurityCompliance{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityCompliance) Content() *SecurityComplianceContentForm {
+	return NewSecurityComplianceContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // A single security concern entry.
@@ -50351,99 +50734,6 @@ func (x *SecurityEventsDefinition) CustomEvents() *som.SomList[*SecurityEventEnt
 	return som.NewSomList(x.Doc(), x.Path() + "/SEVT-CUST-LST", func(d *som.SpecDocument, p string) *SecurityEventEntry {
 		return NewSecurityEventEntry(d, p)
 	})
-}
-
-// 11.3.4. Security quality.
-type SecurityQuality struct {
-	som.SomNode
-}
-
-// NewSecurityQuality binds a SecurityQuality facade to a document and a path.
-func NewSecurityQuality(doc *som.SpecDocument, path string) *SecurityQuality {
-	return &SecurityQuality{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQuality) Content() *SecurityQualityContentForm {
-	return NewSecurityQualityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Authentication controls.
-func (x *SecurityQuality) Authentication() *SecurityQualityAuthentication {
-	return NewSecurityQualityAuthentication(x.Doc(), x.Path() + "/authentication")
-}
-
-// Authorization controls.
-func (x *SecurityQuality) Authorization() *SecurityQualityAuthorization {
-	return NewSecurityQualityAuthorization(x.Doc(), x.Path() + "/authorization")
-}
-
-// Vulnerability management expectations.
-func (x *SecurityQuality) Vulnerability() *SecurityQualityVulnerability {
-	return NewSecurityQualityVulnerability(x.Doc(), x.Path() + "/vulnerability")
-}
-
-// Compliance and verification settings.
-func (x *SecurityQuality) Compliance() *SecurityQualityCompliance {
-	return NewSecurityQualityCompliance(x.Doc(), x.Path() + "/compliance")
-}
-
-// Detailed security requirements narrative.
-// (skipped: narrative has no target type)
-
-// Authentication controls.
-type SecurityQualityAuthentication struct {
-	som.SomNode
-}
-
-// NewSecurityQualityAuthentication binds a SecurityQualityAuthentication facade to a document and a path.
-func NewSecurityQualityAuthentication(doc *som.SpecDocument, path string) *SecurityQualityAuthentication {
-	return &SecurityQualityAuthentication{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityAuthentication) Content() *SecurityQualityAuthenticationContentForm {
-	return NewSecurityQualityAuthenticationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Authorization controls.
-type SecurityQualityAuthorization struct {
-	som.SomNode
-}
-
-// NewSecurityQualityAuthorization binds a SecurityQualityAuthorization facade to a document and a path.
-func NewSecurityQualityAuthorization(doc *som.SpecDocument, path string) *SecurityQualityAuthorization {
-	return &SecurityQualityAuthorization{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityAuthorization) Content() *SecurityQualityAuthorizationContentForm {
-	return NewSecurityQualityAuthorizationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Compliance and verification settings.
-type SecurityQualityCompliance struct {
-	som.SomNode
-}
-
-// NewSecurityQualityCompliance binds a SecurityQualityCompliance facade to a document and a path.
-func NewSecurityQualityCompliance(doc *som.SpecDocument, path string) *SecurityQualityCompliance {
-	return &SecurityQualityCompliance{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityCompliance) Content() *SecurityQualityComplianceContentForm {
-	return NewSecurityQualityComplianceContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Vulnerability management expectations.
-type SecurityQualityVulnerability struct {
-	som.SomNode
-}
-
-// NewSecurityQualityVulnerability binds a SecurityQualityVulnerability facade to a document and a path.
-func NewSecurityQualityVulnerability(doc *som.SpecDocument, path string) *SecurityQualityVulnerability {
-	return &SecurityQualityVulnerability{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityVulnerability) Content() *SecurityQualityVulnerabilityContentForm {
-	return NewSecurityQualityVulnerabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // A security requirement entry.
@@ -50865,6 +51155,20 @@ func NewSecurityTestingAutomationScanning(doc *som.SpecDocument, path string) *S
 
 func (x *SecurityTestingAutomationScanning) Content() *SecurityTestingAutomationScanningContentForm {
 	return NewSecurityTestingAutomationScanningContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Vulnerability management expectations.
+type SecurityVulnerability struct {
+	som.SomNode
+}
+
+// NewSecurityVulnerability binds a SecurityVulnerability facade to a document and a path.
+func NewSecurityVulnerability(doc *som.SpecDocument, path string) *SecurityVulnerability {
+	return &SecurityVulnerability{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityVulnerability) Content() *SecurityVulnerabilityContentForm {
+	return NewSecurityVulnerabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Self-registration policy (form).
@@ -51525,6 +51829,55 @@ func (x *ServiceAccountLifecycle) SetContent(value string) {
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
 
+// 11.4.2. Service level quality.
+type ServiceLevel struct {
+	som.SomNode
+}
+
+// NewServiceLevel binds a ServiceLevel facade to a document and a path.
+func NewServiceLevel(doc *som.SpecDocument, path string) *ServiceLevel {
+	return &ServiceLevel{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServiceLevel) Content() *ServiceLevelContentForm {
+	return NewServiceLevelContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Remaining response targets.
+func (x *ServiceLevel) Response() *ServiceLevelResponse {
+	return NewServiceLevelResponse(x.Doc(), x.Path() + "/response")
+}
+
+// Resolution targets.
+func (x *ServiceLevel) Resolution() *ServiceLevelResolution {
+	return NewServiceLevelResolution(x.Doc(), x.Path() + "/resolution")
+}
+
+// Escalation rules.
+func (x *ServiceLevel) Escalation() *ServiceLevelEscalation {
+	return NewServiceLevelEscalation(x.Doc(), x.Path() + "/escalation")
+}
+
+// On-call support expectations.
+func (x *ServiceLevel) OnCall() *ServiceLevelOnCall {
+	return NewServiceLevelOnCall(x.Doc(), x.Path() + "/onCall")
+}
+
+// Restoration and communication priorities.
+func (x *ServiceLevel) Restoration() *ServiceLevelRestoration {
+	return NewServiceLevelRestoration(x.Doc(), x.Path() + "/restoration")
+}
+
+// Detailed service level requirements narrative.
+// (skipped: narrative has no target type)
+
+// Service Level Agreement entries.
+func (x *ServiceLevel) SlaEntries() *som.SomList[*ServiceLevelAgreementEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/SLAE-SLAE-LST", func(d *som.SpecDocument, p string) *ServiceLevelAgreementEntry {
+		return NewServiceLevelAgreementEntry(d, p)
+	})
+}
+
 // A service level agreement entry.
 type ServiceLevelAgreementEntry struct {
 	som.SomNode
@@ -51537,6 +51890,20 @@ func NewServiceLevelAgreementEntry(doc *som.SpecDocument, path string) *ServiceL
 
 func (x *ServiceLevelAgreementEntry) Content() *ServiceLevelAgreementEntryContentForm {
 	return NewServiceLevelAgreementEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Escalation rules.
+type ServiceLevelEscalation struct {
+	som.SomNode
+}
+
+// NewServiceLevelEscalation binds a ServiceLevelEscalation facade to a document and a path.
+func NewServiceLevelEscalation(doc *som.SpecDocument, path string) *ServiceLevelEscalation {
+	return &ServiceLevelEscalation{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServiceLevelEscalation) Content() *ServiceLevelEscalationContentForm {
+	return NewServiceLevelEscalationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Service Level Indicators.
@@ -51610,123 +51977,60 @@ func (x *ServiceLevelIndicatorsQuality) Content() *ServiceLevelIndicatorsQuality
 	return NewServiceLevelIndicatorsQualityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.4.2. Service level quality.
-type ServiceLevelQuality struct {
+// On-call support expectations.
+type ServiceLevelOnCall struct {
 	som.SomNode
 }
 
-// NewServiceLevelQuality binds a ServiceLevelQuality facade to a document and a path.
-func NewServiceLevelQuality(doc *som.SpecDocument, path string) *ServiceLevelQuality {
-	return &ServiceLevelQuality{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelOnCall binds a ServiceLevelOnCall facade to a document and a path.
+func NewServiceLevelOnCall(doc *som.SpecDocument, path string) *ServiceLevelOnCall {
+	return &ServiceLevelOnCall{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQuality) Content() *ServiceLevelQualityContentForm {
-	return NewServiceLevelQualityContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Remaining response targets.
-func (x *ServiceLevelQuality) Response() *ServiceLevelQualityResponse {
-	return NewServiceLevelQualityResponse(x.Doc(), x.Path() + "/response")
+func (x *ServiceLevelOnCall) Content() *ServiceLevelOnCallContentForm {
+	return NewServiceLevelOnCallContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Resolution targets.
-func (x *ServiceLevelQuality) Resolution() *ServiceLevelQualityResolution {
-	return NewServiceLevelQualityResolution(x.Doc(), x.Path() + "/resolution")
-}
-
-// Escalation rules.
-func (x *ServiceLevelQuality) Escalation() *ServiceLevelQualityEscalation {
-	return NewServiceLevelQualityEscalation(x.Doc(), x.Path() + "/escalation")
-}
-
-// On-call support expectations.
-func (x *ServiceLevelQuality) OnCall() *ServiceLevelQualityOnCall {
-	return NewServiceLevelQualityOnCall(x.Doc(), x.Path() + "/onCall")
-}
-
-// Restoration and communication priorities.
-func (x *ServiceLevelQuality) Restoration() *ServiceLevelQualityRestoration {
-	return NewServiceLevelQualityRestoration(x.Doc(), x.Path() + "/restoration")
-}
-
-// Detailed service level requirements narrative.
-// (skipped: narrative has no target type)
-
-// Service Level Agreement entries.
-func (x *ServiceLevelQuality) SlaEntries() *som.SomList[*ServiceLevelAgreementEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/SLAE-SLAE-LST", func(d *som.SpecDocument, p string) *ServiceLevelAgreementEntry {
-		return NewServiceLevelAgreementEntry(d, p)
-	})
-}
-
-// Escalation rules.
-type ServiceLevelQualityEscalation struct {
+type ServiceLevelResolution struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityEscalation binds a ServiceLevelQualityEscalation facade to a document and a path.
-func NewServiceLevelQualityEscalation(doc *som.SpecDocument, path string) *ServiceLevelQualityEscalation {
-	return &ServiceLevelQualityEscalation{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelResolution binds a ServiceLevelResolution facade to a document and a path.
+func NewServiceLevelResolution(doc *som.SpecDocument, path string) *ServiceLevelResolution {
+	return &ServiceLevelResolution{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityEscalation) Content() *ServiceLevelQualityEscalationContentForm {
-	return NewServiceLevelQualityEscalationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// On-call support expectations.
-type ServiceLevelQualityOnCall struct {
-	som.SomNode
-}
-
-// NewServiceLevelQualityOnCall binds a ServiceLevelQualityOnCall facade to a document and a path.
-func NewServiceLevelQualityOnCall(doc *som.SpecDocument, path string) *ServiceLevelQualityOnCall {
-	return &ServiceLevelQualityOnCall{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ServiceLevelQualityOnCall) Content() *ServiceLevelQualityOnCallContentForm {
-	return NewServiceLevelQualityOnCallContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Resolution targets.
-type ServiceLevelQualityResolution struct {
-	som.SomNode
-}
-
-// NewServiceLevelQualityResolution binds a ServiceLevelQualityResolution facade to a document and a path.
-func NewServiceLevelQualityResolution(doc *som.SpecDocument, path string) *ServiceLevelQualityResolution {
-	return &ServiceLevelQualityResolution{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ServiceLevelQualityResolution) Content() *ServiceLevelQualityResolutionContentForm {
-	return NewServiceLevelQualityResolutionContentForm(x.Doc(), x.Path() + "/content")
+func (x *ServiceLevelResolution) Content() *ServiceLevelResolutionContentForm {
+	return NewServiceLevelResolutionContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Remaining response targets.
-type ServiceLevelQualityResponse struct {
+type ServiceLevelResponse struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityResponse binds a ServiceLevelQualityResponse facade to a document and a path.
-func NewServiceLevelQualityResponse(doc *som.SpecDocument, path string) *ServiceLevelQualityResponse {
-	return &ServiceLevelQualityResponse{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelResponse binds a ServiceLevelResponse facade to a document and a path.
+func NewServiceLevelResponse(doc *som.SpecDocument, path string) *ServiceLevelResponse {
+	return &ServiceLevelResponse{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityResponse) Content() *ServiceLevelQualityResponseContentForm {
-	return NewServiceLevelQualityResponseContentForm(x.Doc(), x.Path() + "/content")
+func (x *ServiceLevelResponse) Content() *ServiceLevelResponseContentForm {
+	return NewServiceLevelResponseContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Restoration and communication priorities.
-type ServiceLevelQualityRestoration struct {
+type ServiceLevelRestoration struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityRestoration binds a ServiceLevelQualityRestoration facade to a document and a path.
-func NewServiceLevelQualityRestoration(doc *som.SpecDocument, path string) *ServiceLevelQualityRestoration {
-	return &ServiceLevelQualityRestoration{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelRestoration binds a ServiceLevelRestoration facade to a document and a path.
+func NewServiceLevelRestoration(doc *som.SpecDocument, path string) *ServiceLevelRestoration {
+	return &ServiceLevelRestoration{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityRestoration) Content() *ServiceLevelQualityRestorationContentForm {
-	return NewServiceLevelQualityRestorationContentForm(x.Doc(), x.Path() + "/content")
+func (x *ServiceLevelRestoration) Content() *ServiceLevelRestorationContentForm {
+	return NewServiceLevelRestorationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Service mesh and API gateway.
@@ -57007,23 +57311,23 @@ func (x *SystemQualityGoals) GovernanceContent() *SystemQualityGoalsGovernanceCo
 }
 
 // Governance board and escalation details.
-func (x *SystemQualityGoals) Governance() *SystemQualityGoalsGovernance {
-	return NewSystemQualityGoalsGovernance(x.Doc(), x.Path() + "/governance")
+func (x *SystemQualityGoals) Governance() *QualityGoalsGovernance {
+	return NewQualityGoalsGovernance(x.Doc(), x.Path() + "/governance")
 }
 
 // Baseline and target settings.
-func (x *SystemQualityGoals) Baseline() *SystemQualityGoalsBaseline {
-	return NewSystemQualityGoalsBaseline(x.Doc(), x.Path() + "/baseline")
+func (x *SystemQualityGoals) Baseline() *QualityGoalsBaseline {
+	return NewQualityGoalsBaseline(x.Doc(), x.Path() + "/baseline")
 }
 
 // Measurement and reporting approach.
-func (x *SystemQualityGoals) Measurement() *SystemQualityGoalsMeasurement {
-	return NewSystemQualityGoalsMeasurement(x.Doc(), x.Path() + "/measurement")
+func (x *SystemQualityGoals) Measurement() *QualityGoalsMeasurement {
+	return NewQualityGoalsMeasurement(x.Doc(), x.Path() + "/measurement")
 }
 
 // Quality resources and enablement.
-func (x *SystemQualityGoals) Resources() *SystemQualityGoalsResources {
-	return NewSystemQualityGoalsResources(x.Doc(), x.Path() + "/resources")
+func (x *SystemQualityGoals) Resources() *QualityGoalsResources {
+	return NewQualityGoalsResources(x.Doc(), x.Path() + "/resources")
 }
 
 // Executive summary of quality goals and approach.
@@ -57050,22 +57354,49 @@ func (x *SystemQualityGoals) Framework() *QualityFramework {
 	return NewQualityFramework(x.Doc(), x.Path() + "/framework")
 }
 
-// 11.2. User-Related Quality Criteria.
-func (x *SystemQualityGoals) UserQuality() *UserQualityCriteria {
-	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQuality")
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) FunctionalSuitability() *FunctionalSuitabilityCharacteristic {
+	return NewFunctionalSuitabilityCharacteristic(x.Doc(), x.Path() + "/functionalSuitability")
 }
 
-// 11.3. Technical Quality Criteria.
-func (x *SystemQualityGoals) TechnicalQuality() *TechnicalQualityCriteria {
-	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQuality")
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) PerformanceEfficiency() *PerformanceEfficiencyCharacteristic {
+	return NewPerformanceEfficiencyCharacteristic(x.Doc(), x.Path() + "/performanceEfficiency")
 }
 
-// 11.4. Operations Quality Criteria.
-func (x *SystemQualityGoals) OperationsQuality() *OperationsQualityCriteria {
-	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQuality")
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) Compatibility() *CompatibilityCharacteristic {
+	return NewCompatibilityCharacteristic(x.Doc(), x.Path() + "/compatibility")
 }
 
-// 11.5. Documentation Quality Criteria.
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+func (x *SystemQualityGoals) InteractionCapability() *InteractionCapabilityCharacteristic {
+	return NewInteractionCapabilityCharacteristic(x.Doc(), x.Path() + "/interactionCapability")
+}
+
+// 11.6. Reliability (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) Reliability() *ReliabilityCharacteristic {
+	return NewReliabilityCharacteristic(x.Doc(), x.Path() + "/reliability")
+}
+
+// 11.7. Security (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) Security() *SecurityCharacteristic {
+	return NewSecurityCharacteristic(x.Doc(), x.Path() + "/security")
+}
+
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+func (x *SystemQualityGoals) Maintainability() *MaintainabilityCharacteristic {
+	return NewMaintainabilityCharacteristic(x.Doc(), x.Path() + "/maintainability")
+}
+
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+func (x *SystemQualityGoals) Flexibility() *FlexibilityCharacteristic {
+	return NewFlexibilityCharacteristic(x.Doc(), x.Path() + "/flexibility")
+}
+
+// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+// documentation-quality annex per L34C-8).
 func (x *SystemQualityGoals) DocumentationQuality() *DocumentationQualityCriteria {
 	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQuality")
 }
@@ -57083,62 +57414,6 @@ func (x *SystemQualityGoals) AcceptanceCriteria() *AcceptanceCriteriaSummary {
 // 11.8. Test Strategy..
 func (x *SystemQualityGoals) TestStrategy() *TestStrategy {
 	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
-}
-
-// Baseline and target settings.
-type SystemQualityGoalsBaseline struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsBaseline binds a SystemQualityGoalsBaseline facade to a document and a path.
-func NewSystemQualityGoalsBaseline(doc *som.SpecDocument, path string) *SystemQualityGoalsBaseline {
-	return &SystemQualityGoalsBaseline{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsBaseline) Content() *SystemQualityGoalsBaselineContentForm {
-	return NewSystemQualityGoalsBaselineContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Governance board and escalation details.
-type SystemQualityGoalsGovernance struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsGovernance binds a SystemQualityGoalsGovernance facade to a document and a path.
-func NewSystemQualityGoalsGovernance(doc *som.SpecDocument, path string) *SystemQualityGoalsGovernance {
-	return &SystemQualityGoalsGovernance{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsGovernance) Content() *SystemQualityGoalsGovernanceContentForm2 {
-	return NewSystemQualityGoalsGovernanceContentForm2(x.Doc(), x.Path() + "/content")
-}
-
-// Measurement and reporting approach.
-type SystemQualityGoalsMeasurement struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsMeasurement binds a SystemQualityGoalsMeasurement facade to a document and a path.
-func NewSystemQualityGoalsMeasurement(doc *som.SpecDocument, path string) *SystemQualityGoalsMeasurement {
-	return &SystemQualityGoalsMeasurement{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsMeasurement) Content() *SystemQualityGoalsMeasurementContentForm {
-	return NewSystemQualityGoalsMeasurementContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Quality resources and enablement.
-type SystemQualityGoalsResources struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsResources binds a SystemQualityGoalsResources facade to a document and a path.
-func NewSystemQualityGoalsResources(doc *som.SpecDocument, path string) *SystemQualityGoalsResources {
-	return &SystemQualityGoalsResources{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsResources) Content() *SystemQualityGoalsResourcesContentForm {
-	return NewSystemQualityGoalsResourcesContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Replacement strategy details.
@@ -58859,56 +59134,6 @@ func NewTechnicalPainPointsSummary(doc *som.SpecDocument, path string) *Technica
 
 func (x *TechnicalPainPointsSummary) Content() *TechnicalPainPointsSummaryContentForm {
 	return NewTechnicalPainPointsSummaryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 11.3. Technical Quality Criteria.
-//
-// Quality criteria for the technical implementation including efficiency,
-// portability, flexibility, security, maintainability, and reliability.
-type TechnicalQualityCriteria struct {
-	som.SomNode
-}
-
-// NewTechnicalQualityCriteria binds a TechnicalQualityCriteria facade to a document and a path.
-func NewTechnicalQualityCriteria(doc *som.SpecDocument, path string) *TechnicalQualityCriteria {
-	return &TechnicalQualityCriteria{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalQualityCriteria) TechnicalQualityContent() *TechnicalQualityCriteriaTechnicalQualityContentForm {
-	return NewTechnicalQualityCriteriaTechnicalQualityContentForm(x.Doc(), x.Path() + "/technicalQualityContent")
-}
-
-// Technical quality overview.
-// (skipped: overview has no target type)
-
-// 11.3.1. Efficiency.
-func (x *TechnicalQualityCriteria) Efficiency() *EfficiencyQuality {
-	return NewEfficiencyQuality(x.Doc(), x.Path() + "/efficiency")
-}
-
-// 11.3.2. Portability.
-func (x *TechnicalQualityCriteria) Portability() *PortabilityQuality {
-	return NewPortabilityQuality(x.Doc(), x.Path() + "/portability")
-}
-
-// 11.3.3. Flexibility.
-func (x *TechnicalQualityCriteria) Flexibility() *FlexibilityQuality {
-	return NewFlexibilityQuality(x.Doc(), x.Path() + "/flexibility")
-}
-
-// 11.3.4. Security.
-func (x *TechnicalQualityCriteria) Security() *SecurityQuality {
-	return NewSecurityQuality(x.Doc(), x.Path() + "/security")
-}
-
-// 11.3.5. Maintainability.
-func (x *TechnicalQualityCriteria) Maintainability() *MaintainabilityQuality {
-	return NewMaintainabilityQuality(x.Doc(), x.Path() + "/maintainability")
-}
-
-// 11.3.6. Reliability.
-func (x *TechnicalQualityCriteria) Reliability() *ReliabilityQuality {
-	return NewReliabilityQuality(x.Doc(), x.Path() + "/reliability")
 }
 
 // A technical requirement entry.
@@ -62652,115 +62877,115 @@ func (x *UpgradeCycleFramework) SetContent(value string) {
 }
 
 // 11.2.1. Usability quality.
-type UsabilityQuality struct {
+type Usability struct {
 	som.SomNode
 }
 
-// NewUsabilityQuality binds a UsabilityQuality facade to a document and a path.
-func NewUsabilityQuality(doc *som.SpecDocument, path string) *UsabilityQuality {
-	return &UsabilityQuality{SomNode: som.NewSomNode(doc, path)}
+// NewUsability binds a Usability facade to a document and a path.
+func NewUsability(doc *som.SpecDocument, path string) *Usability {
+	return &Usability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQuality) Content() *UsabilityQualityContentForm {
-	return NewUsabilityQualityContentForm(x.Doc(), x.Path() + "/content")
+func (x *Usability) Content() *UsabilityContentForm {
+	return NewUsabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Operability verification and ergonomics goals.
-func (x *UsabilityQuality) Operability() *UsabilityQualityOperability {
-	return NewUsabilityQualityOperability(x.Doc(), x.Path() + "/operability")
+func (x *Usability) Operability() *UsabilityOperability {
+	return NewUsabilityOperability(x.Doc(), x.Path() + "/operability")
 }
 
 // Learnability and onboarding expectations.
-func (x *UsabilityQuality) Learnability() *UsabilityQualityLearnability {
-	return NewUsabilityQualityLearnability(x.Doc(), x.Path() + "/learnability")
+func (x *Usability) Learnability() *UsabilityLearnability {
+	return NewUsabilityLearnability(x.Doc(), x.Path() + "/learnability")
 }
 
 // Clarity and complexity constraints.
-func (x *UsabilityQuality) Clarity() *UsabilityQualityClarity {
-	return NewUsabilityQualityClarity(x.Doc(), x.Path() + "/clarity")
+func (x *Usability) Clarity() *UsabilityClarity {
+	return NewUsabilityClarity(x.Doc(), x.Path() + "/clarity")
 }
 
 // Interaction control settings.
-func (x *UsabilityQuality) Interaction() *UsabilityQualityInteraction {
-	return NewUsabilityQualityInteraction(x.Doc(), x.Path() + "/interaction")
+func (x *Usability) Interaction() *UsabilityInteraction {
+	return NewUsabilityInteraction(x.Doc(), x.Path() + "/interaction")
 }
 
 // Perceived and measured responsiveness targets.
-func (x *UsabilityQuality) Performance() *UsabilityQualityPerformance {
-	return NewUsabilityQualityPerformance(x.Doc(), x.Path() + "/performance")
+func (x *Usability) Performance() *UsabilityPerformance {
+	return NewUsabilityPerformance(x.Doc(), x.Path() + "/performance")
 }
 
 // Detailed usability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Clarity and complexity constraints.
-type UsabilityQualityClarity struct {
+type UsabilityClarity struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityClarity binds a UsabilityQualityClarity facade to a document and a path.
-func NewUsabilityQualityClarity(doc *som.SpecDocument, path string) *UsabilityQualityClarity {
-	return &UsabilityQualityClarity{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityClarity binds a UsabilityClarity facade to a document and a path.
+func NewUsabilityClarity(doc *som.SpecDocument, path string) *UsabilityClarity {
+	return &UsabilityClarity{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityClarity) Content() *UsabilityQualityClarityContentForm {
-	return NewUsabilityQualityClarityContentForm(x.Doc(), x.Path() + "/content")
+func (x *UsabilityClarity) Content() *UsabilityClarityContentForm {
+	return NewUsabilityClarityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Interaction control settings.
-type UsabilityQualityInteraction struct {
+type UsabilityInteraction struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityInteraction binds a UsabilityQualityInteraction facade to a document and a path.
-func NewUsabilityQualityInteraction(doc *som.SpecDocument, path string) *UsabilityQualityInteraction {
-	return &UsabilityQualityInteraction{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityInteraction binds a UsabilityInteraction facade to a document and a path.
+func NewUsabilityInteraction(doc *som.SpecDocument, path string) *UsabilityInteraction {
+	return &UsabilityInteraction{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityInteraction) Content() *UsabilityQualityInteractionContentForm {
-	return NewUsabilityQualityInteractionContentForm(x.Doc(), x.Path() + "/content")
+func (x *UsabilityInteraction) Content() *UsabilityInteractionContentForm {
+	return NewUsabilityInteractionContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Learnability and onboarding expectations.
-type UsabilityQualityLearnability struct {
+type UsabilityLearnability struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityLearnability binds a UsabilityQualityLearnability facade to a document and a path.
-func NewUsabilityQualityLearnability(doc *som.SpecDocument, path string) *UsabilityQualityLearnability {
-	return &UsabilityQualityLearnability{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityLearnability binds a UsabilityLearnability facade to a document and a path.
+func NewUsabilityLearnability(doc *som.SpecDocument, path string) *UsabilityLearnability {
+	return &UsabilityLearnability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityLearnability) Content() *UsabilityQualityLearnabilityContentForm {
-	return NewUsabilityQualityLearnabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *UsabilityLearnability) Content() *UsabilityLearnabilityContentForm {
+	return NewUsabilityLearnabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Operability verification and ergonomics goals.
-type UsabilityQualityOperability struct {
+type UsabilityOperability struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityOperability binds a UsabilityQualityOperability facade to a document and a path.
-func NewUsabilityQualityOperability(doc *som.SpecDocument, path string) *UsabilityQualityOperability {
-	return &UsabilityQualityOperability{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityOperability binds a UsabilityOperability facade to a document and a path.
+func NewUsabilityOperability(doc *som.SpecDocument, path string) *UsabilityOperability {
+	return &UsabilityOperability{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityOperability) Content() *UsabilityQualityOperabilityContentForm {
-	return NewUsabilityQualityOperabilityContentForm(x.Doc(), x.Path() + "/content")
+func (x *UsabilityOperability) Content() *UsabilityOperabilityContentForm {
+	return NewUsabilityOperabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Perceived and measured responsiveness targets.
-type UsabilityQualityPerformance struct {
+type UsabilityPerformance struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityPerformance binds a UsabilityQualityPerformance facade to a document and a path.
-func NewUsabilityQualityPerformance(doc *som.SpecDocument, path string) *UsabilityQualityPerformance {
-	return &UsabilityQualityPerformance{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityPerformance binds a UsabilityPerformance facade to a document and a path.
+func NewUsabilityPerformance(doc *som.SpecDocument, path string) *UsabilityPerformance {
+	return &UsabilityPerformance{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityPerformance) Content() *UsabilityQualityPerformanceContentForm {
-	return NewUsabilityQualityPerformanceContentForm(x.Doc(), x.Path() + "/content")
+func (x *UsabilityPerformance) Content() *UsabilityPerformanceContentForm {
+	return NewUsabilityPerformanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Use case extensions (alternative and exception flows).
@@ -63975,41 +64200,6 @@ func NewUserProvisioningToolsRoleManagement(doc *som.SpecDocument, path string) 
 
 func (x *UserProvisioningToolsRoleManagement) Content() *UserProvisioningToolsRoleManagementContentForm {
 	return NewUserProvisioningToolsRoleManagementContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 11.2. User-Related Quality Criteria.
-//
-// Quality criteria that directly affect user experience, including usability,
-// functional completeness, and correctness from the end-user perspective.
-type UserQualityCriteria struct {
-	som.SomNode
-}
-
-// NewUserQualityCriteria binds a UserQualityCriteria facade to a document and a path.
-func NewUserQualityCriteria(doc *som.SpecDocument, path string) *UserQualityCriteria {
-	return &UserQualityCriteria{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UserQualityCriteria) UserQualityContent() *UserQualityCriteriaUserQualityContentForm {
-	return NewUserQualityCriteriaUserQualityContentForm(x.Doc(), x.Path() + "/userQualityContent")
-}
-
-// User quality criteria overview.
-// (skipped: overview has no target type)
-
-// 11.2.1. Usability.
-func (x *UserQualityCriteria) Usability() *UsabilityQuality {
-	return NewUsabilityQuality(x.Doc(), x.Path() + "/usability")
-}
-
-// 11.2.2. Functional Completeness.
-func (x *UserQualityCriteria) FunctionalCompleteness() *FunctionalCompletenessQuality {
-	return NewFunctionalCompletenessQuality(x.Doc(), x.Path() + "/functionalCompleteness")
-}
-
-// 11.2.3. Correctness.
-func (x *UserQualityCriteria) Correctness() *CorrectnessQuality {
-	return NewCorrectnessQuality(x.Doc(), x.Path() + "/correctness")
 }
 
 // 9.1.2.2. Registration Process (form).
@@ -72002,173 +72192,173 @@ func (x *AuthorizationRoleEntryStructureContentForm) SetPermissionSet(value stri
 	x.Doc().SetFormField(x.Path(), "permissionSet", value)
 }
 
-// AvailabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type AvailabilityQualityContentForm struct {
+// AvailabilityContentForm is the generated form facade for the `content` @Form section.
+type AvailabilityContentForm struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityContentForm binds a AvailabilityQualityContentForm facade to a document and a path.
-func NewAvailabilityQualityContentForm(doc *som.SpecDocument, path string) *AvailabilityQualityContentForm {
-	return &AvailabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityContentForm binds a AvailabilityContentForm facade to a document and a path.
+func NewAvailabilityContentForm(doc *som.SpecDocument, path string) *AvailabilityContentForm {
+	return &AvailabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityContentForm) UptimeTargetPercentage() string {
+func (x *AvailabilityContentForm) UptimeTargetPercentage() string {
 	return x.Doc().FormFieldOr(x.Path(), "uptimeTargetPercentage")
 }
 
-func (x *AvailabilityQualityContentForm) SetUptimeTargetPercentage(value string) {
+func (x *AvailabilityContentForm) SetUptimeTargetPercentage(value string) {
 	x.Doc().SetFormField(x.Path(), "uptimeTargetPercentage", value)
 }
 
-func (x *AvailabilityQualityContentForm) UptimeCalculationMethod() string {
+func (x *AvailabilityContentForm) UptimeCalculationMethod() string {
 	return x.Doc().FormFieldOr(x.Path(), "uptimeCalculationMethod")
 }
 
-func (x *AvailabilityQualityContentForm) SetUptimeCalculationMethod(value string) {
+func (x *AvailabilityContentForm) SetUptimeCalculationMethod(value string) {
 	x.Doc().SetFormField(x.Path(), "uptimeCalculationMethod", value)
 }
 
-func (x *AvailabilityQualityContentForm) UptimeMeasurementPeriod() string {
+func (x *AvailabilityContentForm) UptimeMeasurementPeriod() string {
 	return x.Doc().FormFieldOr(x.Path(), "uptimeMeasurementPeriod")
 }
 
-func (x *AvailabilityQualityContentForm) SetUptimeMeasurementPeriod(value string) {
+func (x *AvailabilityContentForm) SetUptimeMeasurementPeriod(value string) {
 	x.Doc().SetFormField(x.Path(), "uptimeMeasurementPeriod", value)
 }
 
-// AvailabilityQualityDegradedModeContentForm is the generated form facade for the `content` @Form section.
-type AvailabilityQualityDegradedModeContentForm struct {
+// AvailabilityDegradedModeContentForm is the generated form facade for the `content` @Form section.
+type AvailabilityDegradedModeContentForm struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityDegradedModeContentForm binds a AvailabilityQualityDegradedModeContentForm facade to a document and a path.
-func NewAvailabilityQualityDegradedModeContentForm(doc *som.SpecDocument, path string) *AvailabilityQualityDegradedModeContentForm {
-	return &AvailabilityQualityDegradedModeContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityDegradedModeContentForm binds a AvailabilityDegradedModeContentForm facade to a document and a path.
+func NewAvailabilityDegradedModeContentForm(doc *som.SpecDocument, path string) *AvailabilityDegradedModeContentForm {
+	return &AvailabilityDegradedModeContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) DegradedModeDefinition() string {
+func (x *AvailabilityDegradedModeContentForm) DegradedModeDefinition() string {
 	return x.Doc().FormFieldOr(x.Path(), "degradedModeDefinition")
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) SetDegradedModeDefinition(value string) {
+func (x *AvailabilityDegradedModeContentForm) SetDegradedModeDefinition(value string) {
 	x.Doc().SetFormField(x.Path(), "degradedModeDefinition", value)
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) DegradedModeCapabilities() string {
+func (x *AvailabilityDegradedModeContentForm) DegradedModeCapabilities() string {
 	return x.Doc().FormFieldOr(x.Path(), "degradedModeCapabilities")
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) SetDegradedModeCapabilities(value string) {
+func (x *AvailabilityDegradedModeContentForm) SetDegradedModeCapabilities(value string) {
 	x.Doc().SetFormField(x.Path(), "degradedModeCapabilities", value)
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) DegradedModeCommunication() string {
+func (x *AvailabilityDegradedModeContentForm) DegradedModeCommunication() string {
 	return x.Doc().FormFieldOr(x.Path(), "degradedModeCommunication")
 }
 
-func (x *AvailabilityQualityDegradedModeContentForm) SetDegradedModeCommunication(value string) {
+func (x *AvailabilityDegradedModeContentForm) SetDegradedModeCommunication(value string) {
 	x.Doc().SetFormField(x.Path(), "degradedModeCommunication", value)
 }
 
-// AvailabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-type AvailabilityQualityMaintenanceContentForm struct {
+// AvailabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+type AvailabilityMaintenanceContentForm struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityMaintenanceContentForm binds a AvailabilityQualityMaintenanceContentForm facade to a document and a path.
-func NewAvailabilityQualityMaintenanceContentForm(doc *som.SpecDocument, path string) *AvailabilityQualityMaintenanceContentForm {
-	return &AvailabilityQualityMaintenanceContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityMaintenanceContentForm binds a AvailabilityMaintenanceContentForm facade to a document and a path.
+func NewAvailabilityMaintenanceContentForm(doc *som.SpecDocument, path string) *AvailabilityMaintenanceContentForm {
+	return &AvailabilityMaintenanceContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) ScheduledMaintenanceWindow() string {
+func (x *AvailabilityMaintenanceContentForm) ScheduledMaintenanceWindow() string {
 	return x.Doc().FormFieldOr(x.Path(), "scheduledMaintenanceWindow")
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) SetScheduledMaintenanceWindow(value string) {
+func (x *AvailabilityMaintenanceContentForm) SetScheduledMaintenanceWindow(value string) {
 	x.Doc().SetFormField(x.Path(), "scheduledMaintenanceWindow", value)
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) MaintenanceNotification() string {
+func (x *AvailabilityMaintenanceContentForm) MaintenanceNotification() string {
 	return x.Doc().FormFieldOr(x.Path(), "maintenanceNotification")
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) SetMaintenanceNotification(value string) {
+func (x *AvailabilityMaintenanceContentForm) SetMaintenanceNotification(value string) {
 	x.Doc().SetFormField(x.Path(), "maintenanceNotification", value)
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) MaintenanceFrequency() string {
+func (x *AvailabilityMaintenanceContentForm) MaintenanceFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "maintenanceFrequency")
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) SetMaintenanceFrequency(value string) {
+func (x *AvailabilityMaintenanceContentForm) SetMaintenanceFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "maintenanceFrequency", value)
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) MaintenanceDurationLimit() string {
+func (x *AvailabilityMaintenanceContentForm) MaintenanceDurationLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "maintenanceDurationLimit")
 }
 
-func (x *AvailabilityQualityMaintenanceContentForm) SetMaintenanceDurationLimit(value string) {
+func (x *AvailabilityMaintenanceContentForm) SetMaintenanceDurationLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "maintenanceDurationLimit", value)
 }
 
-// AvailabilityQualityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
-type AvailabilityQualityOperatingHoursContentForm struct {
+// AvailabilityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
+type AvailabilityOperatingHoursContentForm struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityOperatingHoursContentForm binds a AvailabilityQualityOperatingHoursContentForm facade to a document and a path.
-func NewAvailabilityQualityOperatingHoursContentForm(doc *som.SpecDocument, path string) *AvailabilityQualityOperatingHoursContentForm {
-	return &AvailabilityQualityOperatingHoursContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityOperatingHoursContentForm binds a AvailabilityOperatingHoursContentForm facade to a document and a path.
+func NewAvailabilityOperatingHoursContentForm(doc *som.SpecDocument, path string) *AvailabilityOperatingHoursContentForm {
+	return &AvailabilityOperatingHoursContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) OperatingHours() string {
+func (x *AvailabilityOperatingHoursContentForm) OperatingHours() string {
 	return x.Doc().FormFieldOr(x.Path(), "operatingHours")
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) SetOperatingHours(value string) {
+func (x *AvailabilityOperatingHoursContentForm) SetOperatingHours(value string) {
 	x.Doc().SetFormField(x.Path(), "operatingHours", value)
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) PeakHoursDefinition() string {
+func (x *AvailabilityOperatingHoursContentForm) PeakHoursDefinition() string {
 	return x.Doc().FormFieldOr(x.Path(), "peakHoursDefinition")
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) SetPeakHoursDefinition(value string) {
+func (x *AvailabilityOperatingHoursContentForm) SetPeakHoursDefinition(value string) {
 	x.Doc().SetFormField(x.Path(), "peakHoursDefinition", value)
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) PeakHoursAvailability() string {
+func (x *AvailabilityOperatingHoursContentForm) PeakHoursAvailability() string {
 	return x.Doc().FormFieldOr(x.Path(), "peakHoursAvailability")
 }
 
-func (x *AvailabilityQualityOperatingHoursContentForm) SetPeakHoursAvailability(value string) {
+func (x *AvailabilityOperatingHoursContentForm) SetPeakHoursAvailability(value string) {
 	x.Doc().SetFormField(x.Path(), "peakHoursAvailability", value)
 }
 
-// AvailabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-type AvailabilityQualityVerificationContentForm struct {
+// AvailabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+type AvailabilityVerificationContentForm struct {
 	som.SomNode
 }
 
-// NewAvailabilityQualityVerificationContentForm binds a AvailabilityQualityVerificationContentForm facade to a document and a path.
-func NewAvailabilityQualityVerificationContentForm(doc *som.SpecDocument, path string) *AvailabilityQualityVerificationContentForm {
-	return &AvailabilityQualityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewAvailabilityVerificationContentForm binds a AvailabilityVerificationContentForm facade to a document and a path.
+func NewAvailabilityVerificationContentForm(doc *som.SpecDocument, path string) *AvailabilityVerificationContentForm {
+	return &AvailabilityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *AvailabilityQualityVerificationContentForm) AvailabilityMonitoring() string {
+func (x *AvailabilityVerificationContentForm) AvailabilityMonitoring() string {
 	return x.Doc().FormFieldOr(x.Path(), "availabilityMonitoring")
 }
 
-func (x *AvailabilityQualityVerificationContentForm) SetAvailabilityMonitoring(value string) {
+func (x *AvailabilityVerificationContentForm) SetAvailabilityMonitoring(value string) {
 	x.Doc().SetFormField(x.Path(), "availabilityMonitoring", value)
 }
 
-func (x *AvailabilityQualityVerificationContentForm) AvailabilityReporting() string {
+func (x *AvailabilityVerificationContentForm) AvailabilityReporting() string {
 	return x.Doc().FormFieldOr(x.Path(), "availabilityReporting")
 }
 
-func (x *AvailabilityQualityVerificationContentForm) SetAvailabilityReporting(value string) {
+func (x *AvailabilityVerificationContentForm) SetAvailabilityReporting(value string) {
 	x.Doc().SetFormField(x.Path(), "availabilityReporting", value)
 }
 
@@ -81706,6 +81896,32 @@ func (x *CommunicationTypeEntryContentForm) SetConfidentialityLevel(value string
 	x.Doc().SetFormField(x.Path(), "confidentialityLevel", value)
 }
 
+// CompatibilityCharacteristicCompatibilityContentForm is the generated form facade for the `compatibilityContent` @Form section.
+type CompatibilityCharacteristicCompatibilityContentForm struct {
+	som.SomNode
+}
+
+// NewCompatibilityCharacteristicCompatibilityContentForm binds a CompatibilityCharacteristicCompatibilityContentForm facade to a document and a path.
+func NewCompatibilityCharacteristicCompatibilityContentForm(doc *som.SpecDocument, path string) *CompatibilityCharacteristicCompatibilityContentForm {
+	return &CompatibilityCharacteristicCompatibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *CompatibilityCharacteristicCompatibilityContentForm) CoExistenceRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "coExistenceRequirements")
+}
+
+func (x *CompatibilityCharacteristicCompatibilityContentForm) SetCoExistenceRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "coExistenceRequirements", value)
+}
+
+func (x *CompatibilityCharacteristicCompatibilityContentForm) InteroperabilityStandards() string {
+	return x.Doc().FormFieldOr(x.Path(), "interoperabilityStandards")
+}
+
+func (x *CompatibilityCharacteristicCompatibilityContentForm) SetInteroperabilityStandards(value string) {
+	x.Doc().SetFormField(x.Path(), "interoperabilityStandards", value)
+}
+
 // CompetencyEntryContentForm is the generated form facade for the `content` @Form section.
 type CompetencyEntryContentForm struct {
 	som.SomNode
@@ -86572,139 +86788,139 @@ func (x *ContingencyPlanEntryTestingContentForm) SetDocumentLocation(value strin
 	x.Doc().SetFormField(x.Path(), "documentLocation", value)
 }
 
-// CorrectnessQualityAccuracyContentForm is the generated form facade for the `content` @Form section.
-type CorrectnessQualityAccuracyContentForm struct {
+// CorrectnessAccuracyContentForm is the generated form facade for the `content` @Form section.
+type CorrectnessAccuracyContentForm struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityAccuracyContentForm binds a CorrectnessQualityAccuracyContentForm facade to a document and a path.
-func NewCorrectnessQualityAccuracyContentForm(doc *som.SpecDocument, path string) *CorrectnessQualityAccuracyContentForm {
-	return &CorrectnessQualityAccuracyContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessAccuracyContentForm binds a CorrectnessAccuracyContentForm facade to a document and a path.
+func NewCorrectnessAccuracyContentForm(doc *som.SpecDocument, path string) *CorrectnessAccuracyContentForm {
+	return &CorrectnessAccuracyContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) CalculationAccuracyTarget() string {
+func (x *CorrectnessAccuracyContentForm) CalculationAccuracyTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "calculationAccuracyTarget")
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) SetCalculationAccuracyTarget(value string) {
+func (x *CorrectnessAccuracyContentForm) SetCalculationAccuracyTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "calculationAccuracyTarget", value)
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) FinancialAccuracyRequirement() string {
+func (x *CorrectnessAccuracyContentForm) FinancialAccuracyRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "financialAccuracyRequirement")
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) SetFinancialAccuracyRequirement(value string) {
+func (x *CorrectnessAccuracyContentForm) SetFinancialAccuracyRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "financialAccuracyRequirement", value)
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) AuditTrailRequirement() string {
+func (x *CorrectnessAccuracyContentForm) AuditTrailRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "auditTrailRequirement")
 }
 
-func (x *CorrectnessQualityAccuracyContentForm) SetAuditTrailRequirement(value string) {
+func (x *CorrectnessAccuracyContentForm) SetAuditTrailRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "auditTrailRequirement", value)
 }
 
-// CorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-type CorrectnessQualityContentForm struct {
+// CorrectnessContentForm is the generated form facade for the `content` @Form section.
+type CorrectnessContentForm struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityContentForm binds a CorrectnessQualityContentForm facade to a document and a path.
-func NewCorrectnessQualityContentForm(doc *som.SpecDocument, path string) *CorrectnessQualityContentForm {
-	return &CorrectnessQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessContentForm binds a CorrectnessContentForm facade to a document and a path.
+func NewCorrectnessContentForm(doc *som.SpecDocument, path string) *CorrectnessContentForm {
+	return &CorrectnessContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityContentForm) DefectDensityTarget() string {
+func (x *CorrectnessContentForm) DefectDensityTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "defectDensityTarget")
 }
 
-func (x *CorrectnessQualityContentForm) SetDefectDensityTarget(value string) {
+func (x *CorrectnessContentForm) SetDefectDensityTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "defectDensityTarget", value)
 }
 
-func (x *CorrectnessQualityContentForm) CriticalDefectTarget() string {
+func (x *CorrectnessContentForm) CriticalDefectTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "criticalDefectTarget")
 }
 
-func (x *CorrectnessQualityContentForm) SetCriticalDefectTarget(value string) {
+func (x *CorrectnessContentForm) SetCriticalDefectTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "criticalDefectTarget", value)
 }
 
-func (x *CorrectnessQualityContentForm) DefectEscapeRate() string {
+func (x *CorrectnessContentForm) DefectEscapeRate() string {
 	return x.Doc().FormFieldOr(x.Path(), "defectEscapeRate")
 }
 
-func (x *CorrectnessQualityContentForm) SetDefectEscapeRate(value string) {
+func (x *CorrectnessContentForm) SetDefectEscapeRate(value string) {
 	x.Doc().SetFormField(x.Path(), "defectEscapeRate", value)
 }
 
-// CorrectnessQualityIntegrityContentForm is the generated form facade for the `content` @Form section.
-type CorrectnessQualityIntegrityContentForm struct {
+// CorrectnessIntegrityContentForm is the generated form facade for the `content` @Form section.
+type CorrectnessIntegrityContentForm struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityIntegrityContentForm binds a CorrectnessQualityIntegrityContentForm facade to a document and a path.
-func NewCorrectnessQualityIntegrityContentForm(doc *som.SpecDocument, path string) *CorrectnessQualityIntegrityContentForm {
-	return &CorrectnessQualityIntegrityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessIntegrityContentForm binds a CorrectnessIntegrityContentForm facade to a document and a path.
+func NewCorrectnessIntegrityContentForm(doc *som.SpecDocument, path string) *CorrectnessIntegrityContentForm {
+	return &CorrectnessIntegrityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) DataIntegrityRequirement() string {
+func (x *CorrectnessIntegrityContentForm) DataIntegrityRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataIntegrityRequirement")
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) SetDataIntegrityRequirement(value string) {
+func (x *CorrectnessIntegrityContentForm) SetDataIntegrityRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "dataIntegrityRequirement", value)
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) DataValidationCoverage() string {
+func (x *CorrectnessIntegrityContentForm) DataValidationCoverage() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataValidationCoverage")
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) SetDataValidationCoverage(value string) {
+func (x *CorrectnessIntegrityContentForm) SetDataValidationCoverage(value string) {
 	x.Doc().SetFormField(x.Path(), "dataValidationCoverage", value)
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) DataCorruptionHandling() string {
+func (x *CorrectnessIntegrityContentForm) DataCorruptionHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataCorruptionHandling")
 }
 
-func (x *CorrectnessQualityIntegrityContentForm) SetDataCorruptionHandling(value string) {
+func (x *CorrectnessIntegrityContentForm) SetDataCorruptionHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "dataCorruptionHandling", value)
 }
 
-// CorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-type CorrectnessQualityVerificationContentForm struct {
+// CorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+type CorrectnessVerificationContentForm struct {
 	som.SomNode
 }
 
-// NewCorrectnessQualityVerificationContentForm binds a CorrectnessQualityVerificationContentForm facade to a document and a path.
-func NewCorrectnessQualityVerificationContentForm(doc *som.SpecDocument, path string) *CorrectnessQualityVerificationContentForm {
-	return &CorrectnessQualityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewCorrectnessVerificationContentForm binds a CorrectnessVerificationContentForm facade to a document and a path.
+func NewCorrectnessVerificationContentForm(doc *som.SpecDocument, path string) *CorrectnessVerificationContentForm {
+	return &CorrectnessVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CorrectnessQualityVerificationContentForm) CorrectnessVerification() string {
+func (x *CorrectnessVerificationContentForm) CorrectnessVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "correctnessVerification")
 }
 
-func (x *CorrectnessQualityVerificationContentForm) SetCorrectnessVerification(value string) {
+func (x *CorrectnessVerificationContentForm) SetCorrectnessVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "correctnessVerification", value)
 }
 
-func (x *CorrectnessQualityVerificationContentForm) TestCoverageTarget() string {
+func (x *CorrectnessVerificationContentForm) TestCoverageTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "testCoverageTarget")
 }
 
-func (x *CorrectnessQualityVerificationContentForm) SetTestCoverageTarget(value string) {
+func (x *CorrectnessVerificationContentForm) SetTestCoverageTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "testCoverageTarget", value)
 }
 
-func (x *CorrectnessQualityVerificationContentForm) RegressionTestingApproach() string {
+func (x *CorrectnessVerificationContentForm) RegressionTestingApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "regressionTestingApproach")
 }
 
-func (x *CorrectnessQualityVerificationContentForm) SetRegressionTestingApproach(value string) {
+func (x *CorrectnessVerificationContentForm) SetRegressionTestingApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "regressionTestingApproach", value)
 }
 
@@ -98226,347 +98442,347 @@ func (x *DnsRequirementsZonesContentForm) SetSplitHorizon(value string) {
 	x.Doc().SetFormField(x.Path(), "splitHorizon", value)
 }
 
-// DocChangeabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type DocChangeabilityQualityContentForm struct {
+// DocChangeabilityContentForm is the generated form facade for the `content` @Form section.
+type DocChangeabilityContentForm struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityContentForm binds a DocChangeabilityQualityContentForm facade to a document and a path.
-func NewDocChangeabilityQualityContentForm(doc *som.SpecDocument, path string) *DocChangeabilityQualityContentForm {
-	return &DocChangeabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityContentForm binds a DocChangeabilityContentForm facade to a document and a path.
+func NewDocChangeabilityContentForm(doc *som.SpecDocument, path string) *DocChangeabilityContentForm {
+	return &DocChangeabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityContentForm) VersioningStrategy() string {
+func (x *DocChangeabilityContentForm) VersioningStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "versioningStrategy")
 }
 
-func (x *DocChangeabilityQualityContentForm) SetVersioningStrategy(value string) {
+func (x *DocChangeabilityContentForm) SetVersioningStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "versioningStrategy", value)
 }
 
-func (x *DocChangeabilityQualityContentForm) VersionHistoryTracking() string {
+func (x *DocChangeabilityContentForm) VersionHistoryTracking() string {
 	return x.Doc().FormFieldOr(x.Path(), "versionHistoryTracking")
 }
 
-func (x *DocChangeabilityQualityContentForm) SetVersionHistoryTracking(value string) {
+func (x *DocChangeabilityContentForm) SetVersionHistoryTracking(value string) {
 	x.Doc().SetFormField(x.Path(), "versionHistoryTracking", value)
 }
 
-func (x *DocChangeabilityQualityContentForm) MultiVersionSupport() string {
+func (x *DocChangeabilityContentForm) MultiVersionSupport() string {
 	return x.Doc().FormFieldOr(x.Path(), "multiVersionSupport")
 }
 
-func (x *DocChangeabilityQualityContentForm) SetMultiVersionSupport(value string) {
+func (x *DocChangeabilityContentForm) SetMultiVersionSupport(value string) {
 	x.Doc().SetFormField(x.Path(), "multiVersionSupport", value)
 }
 
-// DocChangeabilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-type DocChangeabilityQualityExtensibilityContentForm struct {
+// DocChangeabilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+type DocChangeabilityExtensibilityContentForm struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityExtensibilityContentForm binds a DocChangeabilityQualityExtensibilityContentForm facade to a document and a path.
-func NewDocChangeabilityQualityExtensibilityContentForm(doc *som.SpecDocument, path string) *DocChangeabilityQualityExtensibilityContentForm {
-	return &DocChangeabilityQualityExtensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityExtensibilityContentForm binds a DocChangeabilityExtensibilityContentForm facade to a document and a path.
+func NewDocChangeabilityExtensibilityContentForm(doc *som.SpecDocument, path string) *DocChangeabilityExtensibilityContentForm {
+	return &DocChangeabilityExtensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) ExtensibilityApproach() string {
+func (x *DocChangeabilityExtensibilityContentForm) ExtensibilityApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "extensibilityApproach")
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) SetExtensibilityApproach(value string) {
+func (x *DocChangeabilityExtensibilityContentForm) SetExtensibilityApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "extensibilityApproach", value)
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) NewSectionGuidelines() string {
+func (x *DocChangeabilityExtensibilityContentForm) NewSectionGuidelines() string {
 	return x.Doc().FormFieldOr(x.Path(), "newSectionGuidelines")
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) SetNewSectionGuidelines(value string) {
+func (x *DocChangeabilityExtensibilityContentForm) SetNewSectionGuidelines(value string) {
 	x.Doc().SetFormField(x.Path(), "newSectionGuidelines", value)
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) LocalizationReadiness() string {
+func (x *DocChangeabilityExtensibilityContentForm) LocalizationReadiness() string {
 	return x.Doc().FormFieldOr(x.Path(), "localizationReadiness")
 }
 
-func (x *DocChangeabilityQualityExtensibilityContentForm) SetLocalizationReadiness(value string) {
+func (x *DocChangeabilityExtensibilityContentForm) SetLocalizationReadiness(value string) {
 	x.Doc().SetFormField(x.Path(), "localizationReadiness", value)
 }
 
-// DocChangeabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-type DocChangeabilityQualityMaintenanceContentForm struct {
+// DocChangeabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+type DocChangeabilityMaintenanceContentForm struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityMaintenanceContentForm binds a DocChangeabilityQualityMaintenanceContentForm facade to a document and a path.
-func NewDocChangeabilityQualityMaintenanceContentForm(doc *som.SpecDocument, path string) *DocChangeabilityQualityMaintenanceContentForm {
-	return &DocChangeabilityQualityMaintenanceContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityMaintenanceContentForm binds a DocChangeabilityMaintenanceContentForm facade to a document and a path.
+func NewDocChangeabilityMaintenanceContentForm(doc *som.SpecDocument, path string) *DocChangeabilityMaintenanceContentForm {
+	return &DocChangeabilityMaintenanceContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityMaintenanceContentForm) ReviewCycle() string {
+func (x *DocChangeabilityMaintenanceContentForm) ReviewCycle() string {
 	return x.Doc().FormFieldOr(x.Path(), "reviewCycle")
 }
 
-func (x *DocChangeabilityQualityMaintenanceContentForm) SetReviewCycle(value string) {
+func (x *DocChangeabilityMaintenanceContentForm) SetReviewCycle(value string) {
 	x.Doc().SetFormField(x.Path(), "reviewCycle", value)
 }
 
-func (x *DocChangeabilityQualityMaintenanceContentForm) RetirementProcess() string {
+func (x *DocChangeabilityMaintenanceContentForm) RetirementProcess() string {
 	return x.Doc().FormFieldOr(x.Path(), "retirementProcess")
 }
 
-func (x *DocChangeabilityQualityMaintenanceContentForm) SetRetirementProcess(value string) {
+func (x *DocChangeabilityMaintenanceContentForm) SetRetirementProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "retirementProcess", value)
 }
 
-// DocChangeabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-type DocChangeabilityQualityStructureContentForm struct {
+// DocChangeabilityStructureContentForm is the generated form facade for the `content` @Form section.
+type DocChangeabilityStructureContentForm struct {
 	som.SomNode
 }
 
-// NewDocChangeabilityQualityStructureContentForm binds a DocChangeabilityQualityStructureContentForm facade to a document and a path.
-func NewDocChangeabilityQualityStructureContentForm(doc *som.SpecDocument, path string) *DocChangeabilityQualityStructureContentForm {
-	return &DocChangeabilityQualityStructureContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocChangeabilityStructureContentForm binds a DocChangeabilityStructureContentForm facade to a document and a path.
+func NewDocChangeabilityStructureContentForm(doc *som.SpecDocument, path string) *DocChangeabilityStructureContentForm {
+	return &DocChangeabilityStructureContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) DocumentSizingGuideline() string {
+func (x *DocChangeabilityStructureContentForm) DocumentSizingGuideline() string {
 	return x.Doc().FormFieldOr(x.Path(), "documentSizingGuideline")
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) SetDocumentSizingGuideline(value string) {
+func (x *DocChangeabilityStructureContentForm) SetDocumentSizingGuideline(value string) {
 	x.Doc().SetFormField(x.Path(), "documentSizingGuideline", value)
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) TopicGranularity() string {
+func (x *DocChangeabilityStructureContentForm) TopicGranularity() string {
 	return x.Doc().FormFieldOr(x.Path(), "topicGranularity")
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) SetTopicGranularity(value string) {
+func (x *DocChangeabilityStructureContentForm) SetTopicGranularity(value string) {
 	x.Doc().SetFormField(x.Path(), "topicGranularity", value)
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) TemplateAdherence() string {
+func (x *DocChangeabilityStructureContentForm) TemplateAdherence() string {
 	return x.Doc().FormFieldOr(x.Path(), "templateAdherence")
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) SetTemplateAdherence(value string) {
+func (x *DocChangeabilityStructureContentForm) SetTemplateAdherence(value string) {
 	x.Doc().SetFormField(x.Path(), "templateAdherence", value)
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) StructuralChangeProcess() string {
+func (x *DocChangeabilityStructureContentForm) StructuralChangeProcess() string {
 	return x.Doc().FormFieldOr(x.Path(), "structuralChangeProcess")
 }
 
-func (x *DocChangeabilityQualityStructureContentForm) SetStructuralChangeProcess(value string) {
+func (x *DocChangeabilityStructureContentForm) SetStructuralChangeProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "structuralChangeProcess", value)
 }
 
-// DocCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-type DocCompletenessQualityContentForm struct {
+// DocCompletenessContentForm is the generated form facade for the `content` @Form section.
+type DocCompletenessContentForm struct {
 	som.SomNode
 }
 
-// NewDocCompletenessQualityContentForm binds a DocCompletenessQualityContentForm facade to a document and a path.
-func NewDocCompletenessQualityContentForm(doc *som.SpecDocument, path string) *DocCompletenessQualityContentForm {
-	return &DocCompletenessQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocCompletenessContentForm binds a DocCompletenessContentForm facade to a document and a path.
+func NewDocCompletenessContentForm(doc *som.SpecDocument, path string) *DocCompletenessContentForm {
+	return &DocCompletenessContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCompletenessQualityContentForm) RequiredTopics() string {
+func (x *DocCompletenessContentForm) RequiredTopics() string {
 	return x.Doc().FormFieldOr(x.Path(), "requiredTopics")
 }
 
-func (x *DocCompletenessQualityContentForm) SetRequiredTopics(value string) {
+func (x *DocCompletenessContentForm) SetRequiredTopics(value string) {
 	x.Doc().SetFormField(x.Path(), "requiredTopics", value)
 }
 
-func (x *DocCompletenessQualityContentForm) TopicCoverageTarget() string {
+func (x *DocCompletenessContentForm) TopicCoverageTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "topicCoverageTarget")
 }
 
-func (x *DocCompletenessQualityContentForm) SetTopicCoverageTarget(value string) {
+func (x *DocCompletenessContentForm) SetTopicCoverageTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "topicCoverageTarget", value)
 }
 
-func (x *DocCompletenessQualityContentForm) AudienceCoverage() string {
+func (x *DocCompletenessContentForm) AudienceCoverage() string {
 	return x.Doc().FormFieldOr(x.Path(), "audienceCoverage")
 }
 
-func (x *DocCompletenessQualityContentForm) SetAudienceCoverage(value string) {
+func (x *DocCompletenessContentForm) SetAudienceCoverage(value string) {
 	x.Doc().SetFormField(x.Path(), "audienceCoverage", value)
 }
 
-func (x *DocCompletenessQualityContentForm) DetailLevelExpectation() string {
+func (x *DocCompletenessContentForm) DetailLevelExpectation() string {
 	return x.Doc().FormFieldOr(x.Path(), "detailLevelExpectation")
 }
 
-func (x *DocCompletenessQualityContentForm) SetDetailLevelExpectation(value string) {
+func (x *DocCompletenessContentForm) SetDetailLevelExpectation(value string) {
 	x.Doc().SetFormField(x.Path(), "detailLevelExpectation", value)
 }
 
-func (x *DocCompletenessQualityContentForm) ExampleRequirements() string {
+func (x *DocCompletenessContentForm) ExampleRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "exampleRequirements")
 }
 
-func (x *DocCompletenessQualityContentForm) SetExampleRequirements(value string) {
+func (x *DocCompletenessContentForm) SetExampleRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "exampleRequirements", value)
 }
 
-func (x *DocCompletenessQualityContentForm) ScreenshotRequirements() string {
+func (x *DocCompletenessContentForm) ScreenshotRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "screenshotRequirements")
 }
 
-func (x *DocCompletenessQualityContentForm) SetScreenshotRequirements(value string) {
+func (x *DocCompletenessContentForm) SetScreenshotRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "screenshotRequirements", value)
 }
 
-func (x *DocCompletenessQualityContentForm) CrossReferenceIntegrity() string {
+func (x *DocCompletenessContentForm) CrossReferenceIntegrity() string {
 	return x.Doc().FormFieldOr(x.Path(), "crossReferenceIntegrity")
 }
 
-func (x *DocCompletenessQualityContentForm) SetCrossReferenceIntegrity(value string) {
+func (x *DocCompletenessContentForm) SetCrossReferenceIntegrity(value string) {
 	x.Doc().SetFormField(x.Path(), "crossReferenceIntegrity", value)
 }
 
-func (x *DocCompletenessQualityContentForm) RelatedTopicsLinking() string {
+func (x *DocCompletenessContentForm) RelatedTopicsLinking() string {
 	return x.Doc().FormFieldOr(x.Path(), "relatedTopicsLinking")
 }
 
-func (x *DocCompletenessQualityContentForm) SetRelatedTopicsLinking(value string) {
+func (x *DocCompletenessContentForm) SetRelatedTopicsLinking(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedTopicsLinking", value)
 }
 
-func (x *DocCompletenessQualityContentForm) CompletenessReview() string {
+func (x *DocCompletenessContentForm) CompletenessReview() string {
 	return x.Doc().FormFieldOr(x.Path(), "completenessReview")
 }
 
-func (x *DocCompletenessQualityContentForm) SetCompletenessReview(value string) {
+func (x *DocCompletenessContentForm) SetCompletenessReview(value string) {
 	x.Doc().SetFormField(x.Path(), "completenessReview", value)
 }
 
-func (x *DocCompletenessQualityContentForm) GapIdentificationProcess() string {
+func (x *DocCompletenessContentForm) GapIdentificationProcess() string {
 	return x.Doc().FormFieldOr(x.Path(), "gapIdentificationProcess")
 }
 
-func (x *DocCompletenessQualityContentForm) SetGapIdentificationProcess(value string) {
+func (x *DocCompletenessContentForm) SetGapIdentificationProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "gapIdentificationProcess", value)
 }
 
-// DocCorrectnessQualityAlignmentContentForm is the generated form facade for the `content` @Form section.
-type DocCorrectnessQualityAlignmentContentForm struct {
+// DocCorrectnessAlignmentContentForm is the generated form facade for the `content` @Form section.
+type DocCorrectnessAlignmentContentForm struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQualityAlignmentContentForm binds a DocCorrectnessQualityAlignmentContentForm facade to a document and a path.
-func NewDocCorrectnessQualityAlignmentContentForm(doc *som.SpecDocument, path string) *DocCorrectnessQualityAlignmentContentForm {
-	return &DocCorrectnessQualityAlignmentContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectnessAlignmentContentForm binds a DocCorrectnessAlignmentContentForm facade to a document and a path.
+func NewDocCorrectnessAlignmentContentForm(doc *som.SpecDocument, path string) *DocCorrectnessAlignmentContentForm {
+	return &DocCorrectnessAlignmentContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) FormatConsistency() string {
+func (x *DocCorrectnessAlignmentContentForm) FormatConsistency() string {
 	return x.Doc().FormFieldOr(x.Path(), "formatConsistency")
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) SetFormatConsistency(value string) {
+func (x *DocCorrectnessAlignmentContentForm) SetFormatConsistency(value string) {
 	x.Doc().SetFormField(x.Path(), "formatConsistency", value)
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) CrossDocumentConsistency() string {
+func (x *DocCorrectnessAlignmentContentForm) CrossDocumentConsistency() string {
 	return x.Doc().FormFieldOr(x.Path(), "crossDocumentConsistency")
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) SetCrossDocumentConsistency(value string) {
+func (x *DocCorrectnessAlignmentContentForm) SetCrossDocumentConsistency(value string) {
 	x.Doc().SetFormField(x.Path(), "crossDocumentConsistency", value)
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) DocumentationSyncProcess() string {
+func (x *DocCorrectnessAlignmentContentForm) DocumentationSyncProcess() string {
 	return x.Doc().FormFieldOr(x.Path(), "documentationSyncProcess")
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) SetDocumentationSyncProcess(value string) {
+func (x *DocCorrectnessAlignmentContentForm) SetDocumentationSyncProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "documentationSyncProcess", value)
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) VersionAlignment() string {
+func (x *DocCorrectnessAlignmentContentForm) VersionAlignment() string {
 	return x.Doc().FormFieldOr(x.Path(), "versionAlignment")
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) SetVersionAlignment(value string) {
+func (x *DocCorrectnessAlignmentContentForm) SetVersionAlignment(value string) {
 	x.Doc().SetFormField(x.Path(), "versionAlignment", value)
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) DeprecationHandling() string {
+func (x *DocCorrectnessAlignmentContentForm) DeprecationHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "deprecationHandling")
 }
 
-func (x *DocCorrectnessQualityAlignmentContentForm) SetDeprecationHandling(value string) {
+func (x *DocCorrectnessAlignmentContentForm) SetDeprecationHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "deprecationHandling", value)
 }
 
-// DocCorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-type DocCorrectnessQualityContentForm struct {
+// DocCorrectnessContentForm is the generated form facade for the `content` @Form section.
+type DocCorrectnessContentForm struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQualityContentForm binds a DocCorrectnessQualityContentForm facade to a document and a path.
-func NewDocCorrectnessQualityContentForm(doc *som.SpecDocument, path string) *DocCorrectnessQualityContentForm {
-	return &DocCorrectnessQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectnessContentForm binds a DocCorrectnessContentForm facade to a document and a path.
+func NewDocCorrectnessContentForm(doc *som.SpecDocument, path string) *DocCorrectnessContentForm {
+	return &DocCorrectnessContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQualityContentForm) SpellingGrammarCheck() string {
+func (x *DocCorrectnessContentForm) SpellingGrammarCheck() string {
 	return x.Doc().FormFieldOr(x.Path(), "spellingGrammarCheck")
 }
 
-func (x *DocCorrectnessQualityContentForm) SetSpellingGrammarCheck(value string) {
+func (x *DocCorrectnessContentForm) SetSpellingGrammarCheck(value string) {
 	x.Doc().SetFormField(x.Path(), "spellingGrammarCheck", value)
 }
 
-func (x *DocCorrectnessQualityContentForm) TechnicalAccuracyReview() string {
+func (x *DocCorrectnessContentForm) TechnicalAccuracyReview() string {
 	return x.Doc().FormFieldOr(x.Path(), "technicalAccuracyReview")
 }
 
-func (x *DocCorrectnessQualityContentForm) SetTechnicalAccuracyReview(value string) {
+func (x *DocCorrectnessContentForm) SetTechnicalAccuracyReview(value string) {
 	x.Doc().SetFormField(x.Path(), "technicalAccuracyReview", value)
 }
 
-func (x *DocCorrectnessQualityContentForm) ErrorToleranceLevel() string {
+func (x *DocCorrectnessContentForm) ErrorToleranceLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "errorToleranceLevel")
 }
 
-func (x *DocCorrectnessQualityContentForm) SetErrorToleranceLevel(value string) {
+func (x *DocCorrectnessContentForm) SetErrorToleranceLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "errorToleranceLevel", value)
 }
 
-func (x *DocCorrectnessQualityContentForm) TerminologyConsistency() string {
+func (x *DocCorrectnessContentForm) TerminologyConsistency() string {
 	return x.Doc().FormFieldOr(x.Path(), "terminologyConsistency")
 }
 
-func (x *DocCorrectnessQualityContentForm) SetTerminologyConsistency(value string) {
+func (x *DocCorrectnessContentForm) SetTerminologyConsistency(value string) {
 	x.Doc().SetFormField(x.Path(), "terminologyConsistency", value)
 }
 
-// DocCorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-type DocCorrectnessQualityVerificationContentForm struct {
+// DocCorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+type DocCorrectnessVerificationContentForm struct {
 	som.SomNode
 }
 
-// NewDocCorrectnessQualityVerificationContentForm binds a DocCorrectnessQualityVerificationContentForm facade to a document and a path.
-func NewDocCorrectnessQualityVerificationContentForm(doc *som.SpecDocument, path string) *DocCorrectnessQualityVerificationContentForm {
-	return &DocCorrectnessQualityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDocCorrectnessVerificationContentForm binds a DocCorrectnessVerificationContentForm facade to a document and a path.
+func NewDocCorrectnessVerificationContentForm(doc *som.SpecDocument, path string) *DocCorrectnessVerificationContentForm {
+	return &DocCorrectnessVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DocCorrectnessQualityVerificationContentForm) CorrectnessVerification() string {
+func (x *DocCorrectnessVerificationContentForm) CorrectnessVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "correctnessVerification")
 }
 
-func (x *DocCorrectnessQualityVerificationContentForm) SetCorrectnessVerification(value string) {
+func (x *DocCorrectnessVerificationContentForm) SetCorrectnessVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "correctnessVerification", value)
 }
 
-func (x *DocCorrectnessQualityVerificationContentForm) UserFeedbackIntegration() string {
+func (x *DocCorrectnessVerificationContentForm) UserFeedbackIntegration() string {
 	return x.Doc().FormFieldOr(x.Path(), "userFeedbackIntegration")
 }
 
-func (x *DocCorrectnessQualityVerificationContentForm) SetUserFeedbackIntegration(value string) {
+func (x *DocCorrectnessVerificationContentForm) SetUserFeedbackIntegration(value string) {
 	x.Doc().SetFormField(x.Path(), "userFeedbackIntegration", value)
 }
 
@@ -99790,155 +100006,155 @@ func (x *DomainTermEntryContentForm) SetAbbreviation(value string) {
 	x.Doc().SetFormField(x.Path(), "abbreviation", value)
 }
 
-// EfficiencyQualityContentForm is the generated form facade for the `content` @Form section.
-type EfficiencyQualityContentForm struct {
+// EfficiencyContentForm is the generated form facade for the `content` @Form section.
+type EfficiencyContentForm struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityContentForm binds a EfficiencyQualityContentForm facade to a document and a path.
-func NewEfficiencyQualityContentForm(doc *som.SpecDocument, path string) *EfficiencyQualityContentForm {
-	return &EfficiencyQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyContentForm binds a EfficiencyContentForm facade to a document and a path.
+func NewEfficiencyContentForm(doc *som.SpecDocument, path string) *EfficiencyContentForm {
+	return &EfficiencyContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityContentForm) ResponseTimeP50Target() string {
+func (x *EfficiencyContentForm) ResponseTimeP50Target() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP50Target")
 }
 
-func (x *EfficiencyQualityContentForm) SetResponseTimeP50Target(value string) {
+func (x *EfficiencyContentForm) SetResponseTimeP50Target(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP50Target", value)
 }
 
-func (x *EfficiencyQualityContentForm) ResponseTimeP95Target() string {
+func (x *EfficiencyContentForm) ResponseTimeP95Target() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP95Target")
 }
 
-func (x *EfficiencyQualityContentForm) SetResponseTimeP95Target(value string) {
+func (x *EfficiencyContentForm) SetResponseTimeP95Target(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP95Target", value)
 }
 
-func (x *EfficiencyQualityContentForm) ResponseTimeP99Target() string {
+func (x *EfficiencyContentForm) ResponseTimeP99Target() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP99Target")
 }
 
-func (x *EfficiencyQualityContentForm) SetResponseTimeP99Target(value string) {
+func (x *EfficiencyContentForm) SetResponseTimeP99Target(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP99Target", value)
 }
 
-// EfficiencyQualityResourcesContentForm is the generated form facade for the `content` @Form section.
-type EfficiencyQualityResourcesContentForm struct {
+// EfficiencyResourcesContentForm is the generated form facade for the `content` @Form section.
+type EfficiencyResourcesContentForm struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityResourcesContentForm binds a EfficiencyQualityResourcesContentForm facade to a document and a path.
-func NewEfficiencyQualityResourcesContentForm(doc *som.SpecDocument, path string) *EfficiencyQualityResourcesContentForm {
-	return &EfficiencyQualityResourcesContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyResourcesContentForm binds a EfficiencyResourcesContentForm facade to a document and a path.
+func NewEfficiencyResourcesContentForm(doc *som.SpecDocument, path string) *EfficiencyResourcesContentForm {
+	return &EfficiencyResourcesContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityResourcesContentForm) CpuUtilizationLimit() string {
+func (x *EfficiencyResourcesContentForm) CpuUtilizationLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "cpuUtilizationLimit")
 }
 
-func (x *EfficiencyQualityResourcesContentForm) SetCpuUtilizationLimit(value string) {
+func (x *EfficiencyResourcesContentForm) SetCpuUtilizationLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "cpuUtilizationLimit", value)
 }
 
-func (x *EfficiencyQualityResourcesContentForm) MemoryUtilizationLimit() string {
+func (x *EfficiencyResourcesContentForm) MemoryUtilizationLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "memoryUtilizationLimit")
 }
 
-func (x *EfficiencyQualityResourcesContentForm) SetMemoryUtilizationLimit(value string) {
+func (x *EfficiencyResourcesContentForm) SetMemoryUtilizationLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "memoryUtilizationLimit", value)
 }
 
-func (x *EfficiencyQualityResourcesContentForm) StorageEfficiencyTarget() string {
+func (x *EfficiencyResourcesContentForm) StorageEfficiencyTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "storageEfficiencyTarget")
 }
 
-func (x *EfficiencyQualityResourcesContentForm) SetStorageEfficiencyTarget(value string) {
+func (x *EfficiencyResourcesContentForm) SetStorageEfficiencyTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "storageEfficiencyTarget", value)
 }
 
-func (x *EfficiencyQualityResourcesContentForm) NetworkBandwidthLimit() string {
+func (x *EfficiencyResourcesContentForm) NetworkBandwidthLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "networkBandwidthLimit")
 }
 
-func (x *EfficiencyQualityResourcesContentForm) SetNetworkBandwidthLimit(value string) {
+func (x *EfficiencyResourcesContentForm) SetNetworkBandwidthLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "networkBandwidthLimit", value)
 }
 
-// EfficiencyQualityThroughputContentForm is the generated form facade for the `content` @Form section.
-type EfficiencyQualityThroughputContentForm struct {
+// EfficiencyThroughputContentForm is the generated form facade for the `content` @Form section.
+type EfficiencyThroughputContentForm struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityThroughputContentForm binds a EfficiencyQualityThroughputContentForm facade to a document and a path.
-func NewEfficiencyQualityThroughputContentForm(doc *som.SpecDocument, path string) *EfficiencyQualityThroughputContentForm {
-	return &EfficiencyQualityThroughputContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyThroughputContentForm binds a EfficiencyThroughputContentForm facade to a document and a path.
+func NewEfficiencyThroughputContentForm(doc *som.SpecDocument, path string) *EfficiencyThroughputContentForm {
+	return &EfficiencyThroughputContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityThroughputContentForm) ThroughputTarget() string {
+func (x *EfficiencyThroughputContentForm) ThroughputTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "throughputTarget")
 }
 
-func (x *EfficiencyQualityThroughputContentForm) SetThroughputTarget(value string) {
+func (x *EfficiencyThroughputContentForm) SetThroughputTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "throughputTarget", value)
 }
 
-func (x *EfficiencyQualityThroughputContentForm) ConcurrentUsersTarget() string {
+func (x *EfficiencyThroughputContentForm) ConcurrentUsersTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "concurrentUsersTarget")
 }
 
-func (x *EfficiencyQualityThroughputContentForm) SetConcurrentUsersTarget(value string) {
+func (x *EfficiencyThroughputContentForm) SetConcurrentUsersTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "concurrentUsersTarget", value)
 }
 
-func (x *EfficiencyQualityThroughputContentForm) ScalabilityModel() string {
+func (x *EfficiencyThroughputContentForm) ScalabilityModel() string {
 	return x.Doc().FormFieldOr(x.Path(), "scalabilityModel")
 }
 
-func (x *EfficiencyQualityThroughputContentForm) SetScalabilityModel(value string) {
+func (x *EfficiencyThroughputContentForm) SetScalabilityModel(value string) {
 	x.Doc().SetFormField(x.Path(), "scalabilityModel", value)
 }
 
-// EfficiencyQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-type EfficiencyQualityVerificationContentForm struct {
+// EfficiencyVerificationContentForm is the generated form facade for the `content` @Form section.
+type EfficiencyVerificationContentForm struct {
 	som.SomNode
 }
 
-// NewEfficiencyQualityVerificationContentForm binds a EfficiencyQualityVerificationContentForm facade to a document and a path.
-func NewEfficiencyQualityVerificationContentForm(doc *som.SpecDocument, path string) *EfficiencyQualityVerificationContentForm {
-	return &EfficiencyQualityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewEfficiencyVerificationContentForm binds a EfficiencyVerificationContentForm facade to a document and a path.
+func NewEfficiencyVerificationContentForm(doc *som.SpecDocument, path string) *EfficiencyVerificationContentForm {
+	return &EfficiencyVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *EfficiencyQualityVerificationContentForm) LoadTestingRequirement() string {
+func (x *EfficiencyVerificationContentForm) LoadTestingRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "loadTestingRequirement")
 }
 
-func (x *EfficiencyQualityVerificationContentForm) SetLoadTestingRequirement(value string) {
+func (x *EfficiencyVerificationContentForm) SetLoadTestingRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "loadTestingRequirement", value)
 }
 
-func (x *EfficiencyQualityVerificationContentForm) PerformanceProfilingApproach() string {
+func (x *EfficiencyVerificationContentForm) PerformanceProfilingApproach() string {
 	return x.Doc().FormFieldOr(x.Path(), "performanceProfilingApproach")
 }
 
-func (x *EfficiencyQualityVerificationContentForm) SetPerformanceProfilingApproach(value string) {
+func (x *EfficiencyVerificationContentForm) SetPerformanceProfilingApproach(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceProfilingApproach", value)
 }
 
-func (x *EfficiencyQualityVerificationContentForm) PerformanceBaselineDate() string {
+func (x *EfficiencyVerificationContentForm) PerformanceBaselineDate() string {
 	return x.Doc().FormFieldOr(x.Path(), "performanceBaselineDate")
 }
 
-func (x *EfficiencyQualityVerificationContentForm) SetPerformanceBaselineDate(value string) {
+func (x *EfficiencyVerificationContentForm) SetPerformanceBaselineDate(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceBaselineDate", value)
 }
 
-func (x *EfficiencyQualityVerificationContentForm) PerformanceSlaDefinition() string {
+func (x *EfficiencyVerificationContentForm) PerformanceSlaDefinition() string {
 	return x.Doc().FormFieldOr(x.Path(), "performanceSlaDefinition")
 }
 
-func (x *EfficiencyQualityVerificationContentForm) SetPerformanceSlaDefinition(value string) {
+func (x *EfficiencyVerificationContentForm) SetPerformanceSlaDefinition(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceSlaDefinition", value)
 }
 
@@ -107416,139 +107632,165 @@ func (x *FirewallRequirementsRulesContentForm) SetInternalRules(value string) {
 	x.Doc().SetFormField(x.Path(), "internalRules", value)
 }
 
-// FlexibilityQualityContentForm is the generated form facade for the `content` @Form section.
-type FlexibilityQualityContentForm struct {
+// FlexibilityCharacteristicFlexibilityContentForm is the generated form facade for the `flexibilityContent` @Form section.
+type FlexibilityCharacteristicFlexibilityContentForm struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityContentForm binds a FlexibilityQualityContentForm facade to a document and a path.
-func NewFlexibilityQualityContentForm(doc *som.SpecDocument, path string) *FlexibilityQualityContentForm {
-	return &FlexibilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityCharacteristicFlexibilityContentForm binds a FlexibilityCharacteristicFlexibilityContentForm facade to a document and a path.
+func NewFlexibilityCharacteristicFlexibilityContentForm(doc *som.SpecDocument, path string) *FlexibilityCharacteristicFlexibilityContentForm {
+	return &FlexibilityCharacteristicFlexibilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityContentForm) ComponentArchitecture() string {
+func (x *FlexibilityCharacteristicFlexibilityContentForm) FlexibilityApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "flexibilityApproach")
+}
+
+func (x *FlexibilityCharacteristicFlexibilityContentForm) SetFlexibilityApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "flexibilityApproach", value)
+}
+
+func (x *FlexibilityCharacteristicFlexibilityContentForm) PortabilityTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "portabilityTarget")
+}
+
+func (x *FlexibilityCharacteristicFlexibilityContentForm) SetPortabilityTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "portabilityTarget", value)
+}
+
+// FlexibilityContentForm is the generated form facade for the `content` @Form section.
+type FlexibilityContentForm struct {
+	som.SomNode
+}
+
+// NewFlexibilityContentForm binds a FlexibilityContentForm facade to a document and a path.
+func NewFlexibilityContentForm(doc *som.SpecDocument, path string) *FlexibilityContentForm {
+	return &FlexibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *FlexibilityContentForm) ComponentArchitecture() string {
 	return x.Doc().FormFieldOr(x.Path(), "componentArchitecture")
 }
 
-func (x *FlexibilityQualityContentForm) SetComponentArchitecture(value string) {
+func (x *FlexibilityContentForm) SetComponentArchitecture(value string) {
 	x.Doc().SetFormField(x.Path(), "componentArchitecture", value)
 }
 
-func (x *FlexibilityQualityContentForm) ComponentGranularity() string {
+func (x *FlexibilityContentForm) ComponentGranularity() string {
 	return x.Doc().FormFieldOr(x.Path(), "componentGranularity")
 }
 
-func (x *FlexibilityQualityContentForm) SetComponentGranularity(value string) {
+func (x *FlexibilityContentForm) SetComponentGranularity(value string) {
 	x.Doc().SetFormField(x.Path(), "componentGranularity", value)
 }
 
-func (x *FlexibilityQualityContentForm) ComponentReplaceability() string {
+func (x *FlexibilityContentForm) ComponentReplaceability() string {
 	return x.Doc().FormFieldOr(x.Path(), "componentReplaceability")
 }
 
-func (x *FlexibilityQualityContentForm) SetComponentReplaceability(value string) {
+func (x *FlexibilityContentForm) SetComponentReplaceability(value string) {
 	x.Doc().SetFormField(x.Path(), "componentReplaceability", value)
 }
 
-// FlexibilityQualityDeploymentContentForm is the generated form facade for the `content` @Form section.
-type FlexibilityQualityDeploymentContentForm struct {
+// FlexibilityDeploymentContentForm is the generated form facade for the `content` @Form section.
+type FlexibilityDeploymentContentForm struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityDeploymentContentForm binds a FlexibilityQualityDeploymentContentForm facade to a document and a path.
-func NewFlexibilityQualityDeploymentContentForm(doc *som.SpecDocument, path string) *FlexibilityQualityDeploymentContentForm {
-	return &FlexibilityQualityDeploymentContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityDeploymentContentForm binds a FlexibilityDeploymentContentForm facade to a document and a path.
+func NewFlexibilityDeploymentContentForm(doc *som.SpecDocument, path string) *FlexibilityDeploymentContentForm {
+	return &FlexibilityDeploymentContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) DistributionCapability() string {
+func (x *FlexibilityDeploymentContentForm) DistributionCapability() string {
 	return x.Doc().FormFieldOr(x.Path(), "distributionCapability")
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) SetDistributionCapability(value string) {
+func (x *FlexibilityDeploymentContentForm) SetDistributionCapability(value string) {
 	x.Doc().SetFormField(x.Path(), "distributionCapability", value)
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) MultiTenancy() string {
+func (x *FlexibilityDeploymentContentForm) MultiTenancy() string {
 	return x.Doc().FormFieldOr(x.Path(), "multiTenancy")
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) SetMultiTenancy(value string) {
+func (x *FlexibilityDeploymentContentForm) SetMultiTenancy(value string) {
 	x.Doc().SetFormField(x.Path(), "multiTenancy", value)
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) ConfigurabilityLevel() string {
+func (x *FlexibilityDeploymentContentForm) ConfigurabilityLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "configurabilityLevel")
 }
 
-func (x *FlexibilityQualityDeploymentContentForm) SetConfigurabilityLevel(value string) {
+func (x *FlexibilityDeploymentContentForm) SetConfigurabilityLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "configurabilityLevel", value)
 }
 
-// FlexibilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-type FlexibilityQualityExtensibilityContentForm struct {
+// FlexibilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+type FlexibilityExtensibilityContentForm struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityExtensibilityContentForm binds a FlexibilityQualityExtensibilityContentForm facade to a document and a path.
-func NewFlexibilityQualityExtensibilityContentForm(doc *som.SpecDocument, path string) *FlexibilityQualityExtensibilityContentForm {
-	return &FlexibilityQualityExtensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityExtensibilityContentForm binds a FlexibilityExtensibilityContentForm facade to a document and a path.
+func NewFlexibilityExtensibilityContentForm(doc *som.SpecDocument, path string) *FlexibilityExtensibilityContentForm {
+	return &FlexibilityExtensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) ExtensibilityModel() string {
+func (x *FlexibilityExtensibilityContentForm) ExtensibilityModel() string {
 	return x.Doc().FormFieldOr(x.Path(), "extensibilityModel")
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) SetExtensibilityModel(value string) {
+func (x *FlexibilityExtensibilityContentForm) SetExtensibilityModel(value string) {
 	x.Doc().SetFormField(x.Path(), "extensibilityModel", value)
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) CustomizationScope() string {
+func (x *FlexibilityExtensibilityContentForm) CustomizationScope() string {
 	return x.Doc().FormFieldOr(x.Path(), "customizationScope")
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) SetCustomizationScope(value string) {
+func (x *FlexibilityExtensibilityContentForm) SetCustomizationScope(value string) {
 	x.Doc().SetFormField(x.Path(), "customizationScope", value)
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) FlexibilityVerification() string {
+func (x *FlexibilityExtensibilityContentForm) FlexibilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "flexibilityVerification")
 }
 
-func (x *FlexibilityQualityExtensibilityContentForm) SetFlexibilityVerification(value string) {
+func (x *FlexibilityExtensibilityContentForm) SetFlexibilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "flexibilityVerification", value)
 }
 
-// FlexibilityQualityModularityContentForm is the generated form facade for the `content` @Form section.
-type FlexibilityQualityModularityContentForm struct {
+// FlexibilityModularityContentForm is the generated form facade for the `content` @Form section.
+type FlexibilityModularityContentForm struct {
 	som.SomNode
 }
 
-// NewFlexibilityQualityModularityContentForm binds a FlexibilityQualityModularityContentForm facade to a document and a path.
-func NewFlexibilityQualityModularityContentForm(doc *som.SpecDocument, path string) *FlexibilityQualityModularityContentForm {
-	return &FlexibilityQualityModularityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewFlexibilityModularityContentForm binds a FlexibilityModularityContentForm facade to a document and a path.
+func NewFlexibilityModularityContentForm(doc *som.SpecDocument, path string) *FlexibilityModularityContentForm {
+	return &FlexibilityModularityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FlexibilityQualityModularityContentForm) ModularityLevel() string {
+func (x *FlexibilityModularityContentForm) ModularityLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "modularityLevel")
 }
 
-func (x *FlexibilityQualityModularityContentForm) SetModularityLevel(value string) {
+func (x *FlexibilityModularityContentForm) SetModularityLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "modularityLevel", value)
 }
 
-func (x *FlexibilityQualityModularityContentForm) ModuleIndependence() string {
+func (x *FlexibilityModularityContentForm) ModuleIndependence() string {
 	return x.Doc().FormFieldOr(x.Path(), "moduleIndependence")
 }
 
-func (x *FlexibilityQualityModularityContentForm) SetModuleIndependence(value string) {
+func (x *FlexibilityModularityContentForm) SetModuleIndependence(value string) {
 	x.Doc().SetFormField(x.Path(), "moduleIndependence", value)
 }
 
-func (x *FlexibilityQualityModularityContentForm) ModuleReusability() string {
+func (x *FlexibilityModularityContentForm) ModuleReusability() string {
 	return x.Doc().FormFieldOr(x.Path(), "moduleReusability")
 }
 
-func (x *FlexibilityQualityModularityContentForm) SetModuleReusability(value string) {
+func (x *FlexibilityModularityContentForm) SetModuleReusability(value string) {
 	x.Doc().SetFormField(x.Path(), "moduleReusability", value)
 }
 
@@ -108092,85 +108334,85 @@ func (x *FunctionModelMatrixOverviewForm) SetDataOwnership(value string) {
 	x.Doc().SetFormField(x.Path(), "dataOwnership", value)
 }
 
-// FunctionalCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-type FunctionalCompletenessQualityContentForm struct {
+// FunctionalCompletenessContentForm is the generated form facade for the `content` @Form section.
+type FunctionalCompletenessContentForm struct {
 	som.SomNode
 }
 
-// NewFunctionalCompletenessQualityContentForm binds a FunctionalCompletenessQualityContentForm facade to a document and a path.
-func NewFunctionalCompletenessQualityContentForm(doc *som.SpecDocument, path string) *FunctionalCompletenessQualityContentForm {
-	return &FunctionalCompletenessQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewFunctionalCompletenessContentForm binds a FunctionalCompletenessContentForm facade to a document and a path.
+func NewFunctionalCompletenessContentForm(doc *som.SpecDocument, path string) *FunctionalCompletenessContentForm {
+	return &FunctionalCompletenessContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *FunctionalCompletenessQualityContentForm) FeatureCoverageTarget() string {
+func (x *FunctionalCompletenessContentForm) FeatureCoverageTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "featureCoverageTarget")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetFeatureCoverageTarget(value string) {
+func (x *FunctionalCompletenessContentForm) SetFeatureCoverageTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "featureCoverageTarget", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) CoreWorkflowCoverage() string {
+func (x *FunctionalCompletenessContentForm) CoreWorkflowCoverage() string {
 	return x.Doc().FormFieldOr(x.Path(), "coreWorkflowCoverage")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetCoreWorkflowCoverage(value string) {
+func (x *FunctionalCompletenessContentForm) SetCoreWorkflowCoverage(value string) {
 	x.Doc().SetFormField(x.Path(), "coreWorkflowCoverage", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) EdgeCaseHandling() string {
+func (x *FunctionalCompletenessContentForm) EdgeCaseHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "edgeCaseHandling")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetEdgeCaseHandling(value string) {
+func (x *FunctionalCompletenessContentForm) SetEdgeCaseHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "edgeCaseHandling", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) ScopePrioritization() string {
+func (x *FunctionalCompletenessContentForm) ScopePrioritization() string {
 	return x.Doc().FormFieldOr(x.Path(), "scopePrioritization")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetScopePrioritization(value string) {
+func (x *FunctionalCompletenessContentForm) SetScopePrioritization(value string) {
 	x.Doc().SetFormField(x.Path(), "scopePrioritization", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) MvpDefinition() string {
+func (x *FunctionalCompletenessContentForm) MvpDefinition() string {
 	return x.Doc().FormFieldOr(x.Path(), "mvpDefinition")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetMvpDefinition(value string) {
+func (x *FunctionalCompletenessContentForm) SetMvpDefinition(value string) {
 	x.Doc().SetFormField(x.Path(), "mvpDefinition", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) DeferredFeatureHandling() string {
+func (x *FunctionalCompletenessContentForm) DeferredFeatureHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "deferredFeatureHandling")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetDeferredFeatureHandling(value string) {
+func (x *FunctionalCompletenessContentForm) SetDeferredFeatureHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "deferredFeatureHandling", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) CompletenessVerification() string {
+func (x *FunctionalCompletenessContentForm) CompletenessVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "completenessVerification")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetCompletenessVerification(value string) {
+func (x *FunctionalCompletenessContentForm) SetCompletenessVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "completenessVerification", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) UserStoryTracking() string {
+func (x *FunctionalCompletenessContentForm) UserStoryTracking() string {
 	return x.Doc().FormFieldOr(x.Path(), "userStoryTracking")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetUserStoryTracking(value string) {
+func (x *FunctionalCompletenessContentForm) SetUserStoryTracking(value string) {
 	x.Doc().SetFormField(x.Path(), "userStoryTracking", value)
 }
 
-func (x *FunctionalCompletenessQualityContentForm) GapAnalysisFrequency() string {
+func (x *FunctionalCompletenessContentForm) GapAnalysisFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "gapAnalysisFrequency")
 }
 
-func (x *FunctionalCompletenessQualityContentForm) SetGapAnalysisFrequency(value string) {
+func (x *FunctionalCompletenessContentForm) SetGapAnalysisFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "gapAnalysisFrequency", value)
 }
 
@@ -108534,6 +108776,40 @@ func (x *FunctionalResponsibilitiesContentForm) UnassignedAreas() string {
 
 func (x *FunctionalResponsibilitiesContentForm) SetUnassignedAreas(value string) {
 	x.Doc().SetFormField(x.Path(), "unassignedAreas", value)
+}
+
+// FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm is the generated form facade for the `functionalSuitabilityContent` @Form section.
+type FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm struct {
+	som.SomNode
+}
+
+// NewFunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm binds a FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm facade to a document and a path.
+func NewFunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc *som.SpecDocument, path string) *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+	return &FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) FunctionalSuitabilityApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionalSuitabilityApproach")
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) SetFunctionalSuitabilityApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "functionalSuitabilityApproach", value)
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) FunctionalCoverageTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionalCoverageTarget")
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) SetFunctionalCoverageTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "functionalCoverageTarget", value)
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) CorrectnessStandard() string {
+	return x.Doc().FormFieldOr(x.Path(), "correctnessStandard")
+}
+
+func (x *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm) SetCorrectnessStandard(value string) {
+	x.Doc().SetFormField(x.Path(), "correctnessStandard", value)
 }
 
 // GapEntryContentForm is the generated form facade for the `content` @Form section.
@@ -113648,6 +113924,64 @@ func (x *InteractionBusinessRulesContentForm) SetIntegrationRules(value string) 
 	x.Doc().SetFormField(x.Path(), "integrationRules", value)
 }
 
+// InteractionCapabilityCharacteristicInteractionCapabilityContentForm is the generated form facade for the `interactionCapabilityContent` @Form section.
+type InteractionCapabilityCharacteristicInteractionCapabilityContentForm struct {
+	som.SomNode
+}
+
+// NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm binds a InteractionCapabilityCharacteristicInteractionCapabilityContentForm facade to a document and a path.
+func NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc *som.SpecDocument, path string) *InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+	return &InteractionCapabilityCharacteristicInteractionCapabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) UserQualityPhilosophy() string {
+	return x.Doc().FormFieldOr(x.Path(), "userQualityPhilosophy")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetUserQualityPhilosophy(value string) {
+	x.Doc().SetFormField(x.Path(), "userQualityPhilosophy", value)
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) TargetUserExperience() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetUserExperience")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetTargetUserExperience(value string) {
+	x.Doc().SetFormField(x.Path(), "targetUserExperience", value)
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) UserResearchBasis() string {
+	return x.Doc().FormFieldOr(x.Path(), "userResearchBasis")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetUserResearchBasis(value string) {
+	x.Doc().SetFormField(x.Path(), "userResearchBasis", value)
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) UserFeedbackChannel() string {
+	return x.Doc().FormFieldOr(x.Path(), "userFeedbackChannel")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetUserFeedbackChannel(value string) {
+	x.Doc().SetFormField(x.Path(), "userFeedbackChannel", value)
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) UserSatisfactionTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "userSatisfactionTarget")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetUserSatisfactionTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "userSatisfactionTarget", value)
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) AccessibilityLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessibilityLevel")
+}
+
+func (x *InteractionCapabilityCharacteristicInteractionCapabilityContentForm) SetAccessibilityLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "accessibilityLevel", value)
+}
+
 // InteractionCatalogOverviewContentForm is the generated form facade for the `content` @Form section.
 type InteractionCatalogOverviewContentForm struct {
 	som.SomNode
@@ -116484,197 +116818,197 @@ func (x *ItLandscapePositionPositionDetailsForm) SetIntegrationPattern(value str
 	x.Doc().SetFormField(x.Path(), "integrationPattern", value)
 }
 
-// ItSecurityOperationsQualityAccessContentForm is the generated form facade for the `content` @Form section.
-type ItSecurityOperationsQualityAccessContentForm struct {
+// ItSecurityOperationsAccessContentForm is the generated form facade for the `content` @Form section.
+type ItSecurityOperationsAccessContentForm struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityAccessContentForm binds a ItSecurityOperationsQualityAccessContentForm facade to a document and a path.
-func NewItSecurityOperationsQualityAccessContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityAccessContentForm {
-	return &ItSecurityOperationsQualityAccessContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsAccessContentForm binds a ItSecurityOperationsAccessContentForm facade to a document and a path.
+func NewItSecurityOperationsAccessContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsAccessContentForm {
+	return &ItSecurityOperationsAccessContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) PrivilegedAccessManagement() string {
+func (x *ItSecurityOperationsAccessContentForm) PrivilegedAccessManagement() string {
 	return x.Doc().FormFieldOr(x.Path(), "privilegedAccessManagement")
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) SetPrivilegedAccessManagement(value string) {
+func (x *ItSecurityOperationsAccessContentForm) SetPrivilegedAccessManagement(value string) {
 	x.Doc().SetFormField(x.Path(), "privilegedAccessManagement", value)
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) AccessReviewFrequency() string {
+func (x *ItSecurityOperationsAccessContentForm) AccessReviewFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessReviewFrequency")
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) SetAccessReviewFrequency(value string) {
+func (x *ItSecurityOperationsAccessContentForm) SetAccessReviewFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "accessReviewFrequency", value)
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) AccessAuditLogging() string {
+func (x *ItSecurityOperationsAccessContentForm) AccessAuditLogging() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessAuditLogging")
 }
 
-func (x *ItSecurityOperationsQualityAccessContentForm) SetAccessAuditLogging(value string) {
+func (x *ItSecurityOperationsAccessContentForm) SetAccessAuditLogging(value string) {
 	x.Doc().SetFormField(x.Path(), "accessAuditLogging", value)
 }
 
-// ItSecurityOperationsQualityContentForm is the generated form facade for the `content` @Form section.
-type ItSecurityOperationsQualityContentForm struct {
+// ItSecurityOperationsContentForm is the generated form facade for the `content` @Form section.
+type ItSecurityOperationsContentForm struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityContentForm binds a ItSecurityOperationsQualityContentForm facade to a document and a path.
-func NewItSecurityOperationsQualityContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityContentForm {
-	return &ItSecurityOperationsQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsContentForm binds a ItSecurityOperationsContentForm facade to a document and a path.
+func NewItSecurityOperationsContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsContentForm {
+	return &ItSecurityOperationsContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityContentForm) AccessControlModel() string {
+func (x *ItSecurityOperationsContentForm) AccessControlModel() string {
 	return x.Doc().FormFieldOr(x.Path(), "accessControlModel")
 }
 
-func (x *ItSecurityOperationsQualityContentForm) SetAccessControlModel(value string) {
+func (x *ItSecurityOperationsContentForm) SetAccessControlModel(value string) {
 	x.Doc().SetFormField(x.Path(), "accessControlModel", value)
 }
 
-func (x *ItSecurityOperationsQualityContentForm) DrPlanRequired() string {
+func (x *ItSecurityOperationsContentForm) DrPlanRequired() string {
 	return x.Doc().FormFieldOr(x.Path(), "drPlanRequired")
 }
 
-func (x *ItSecurityOperationsQualityContentForm) SetDrPlanRequired(value string) {
+func (x *ItSecurityOperationsContentForm) SetDrPlanRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "drPlanRequired", value)
 }
 
-func (x *ItSecurityOperationsQualityContentForm) IncidentResponsePlan() string {
+func (x *ItSecurityOperationsContentForm) IncidentResponsePlan() string {
 	return x.Doc().FormFieldOr(x.Path(), "incidentResponsePlan")
 }
 
-func (x *ItSecurityOperationsQualityContentForm) SetIncidentResponsePlan(value string) {
+func (x *ItSecurityOperationsContentForm) SetIncidentResponsePlan(value string) {
 	x.Doc().SetFormField(x.Path(), "incidentResponsePlan", value)
 }
 
-// ItSecurityOperationsQualityIncidentContentForm is the generated form facade for the `content` @Form section.
-type ItSecurityOperationsQualityIncidentContentForm struct {
+// ItSecurityOperationsIncidentContentForm is the generated form facade for the `content` @Form section.
+type ItSecurityOperationsIncidentContentForm struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityIncidentContentForm binds a ItSecurityOperationsQualityIncidentContentForm facade to a document and a path.
-func NewItSecurityOperationsQualityIncidentContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityIncidentContentForm {
-	return &ItSecurityOperationsQualityIncidentContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsIncidentContentForm binds a ItSecurityOperationsIncidentContentForm facade to a document and a path.
+func NewItSecurityOperationsIncidentContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsIncidentContentForm {
+	return &ItSecurityOperationsIncidentContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SecurityIncidentClassification() string {
+func (x *ItSecurityOperationsIncidentContentForm) SecurityIncidentClassification() string {
 	return x.Doc().FormFieldOr(x.Path(), "securityIncidentClassification")
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SetSecurityIncidentClassification(value string) {
+func (x *ItSecurityOperationsIncidentContentForm) SetSecurityIncidentClassification(value string) {
 	x.Doc().SetFormField(x.Path(), "securityIncidentClassification", value)
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SecurityIncidentNotification() string {
+func (x *ItSecurityOperationsIncidentContentForm) SecurityIncidentNotification() string {
 	return x.Doc().FormFieldOr(x.Path(), "securityIncidentNotification")
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SetSecurityIncidentNotification(value string) {
+func (x *ItSecurityOperationsIncidentContentForm) SetSecurityIncidentNotification(value string) {
 	x.Doc().SetFormField(x.Path(), "securityIncidentNotification", value)
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) ForensicsCapability() string {
+func (x *ItSecurityOperationsIncidentContentForm) ForensicsCapability() string {
 	return x.Doc().FormFieldOr(x.Path(), "forensicsCapability")
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SetForensicsCapability(value string) {
+func (x *ItSecurityOperationsIncidentContentForm) SetForensicsCapability(value string) {
 	x.Doc().SetFormField(x.Path(), "forensicsCapability", value)
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) RegulatoryReporting() string {
+func (x *ItSecurityOperationsIncidentContentForm) RegulatoryReporting() string {
 	return x.Doc().FormFieldOr(x.Path(), "regulatoryReporting")
 }
 
-func (x *ItSecurityOperationsQualityIncidentContentForm) SetRegulatoryReporting(value string) {
+func (x *ItSecurityOperationsIncidentContentForm) SetRegulatoryReporting(value string) {
 	x.Doc().SetFormField(x.Path(), "regulatoryReporting", value)
 }
 
-// ItSecurityOperationsQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-type ItSecurityOperationsQualityRecoveryContentForm struct {
+// ItSecurityOperationsRecoveryContentForm is the generated form facade for the `content` @Form section.
+type ItSecurityOperationsRecoveryContentForm struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityRecoveryContentForm binds a ItSecurityOperationsQualityRecoveryContentForm facade to a document and a path.
-func NewItSecurityOperationsQualityRecoveryContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityRecoveryContentForm {
-	return &ItSecurityOperationsQualityRecoveryContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsRecoveryContentForm binds a ItSecurityOperationsRecoveryContentForm facade to a document and a path.
+func NewItSecurityOperationsRecoveryContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsRecoveryContentForm {
+	return &ItSecurityOperationsRecoveryContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) DrTestingFrequency() string {
+func (x *ItSecurityOperationsRecoveryContentForm) DrTestingFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "drTestingFrequency")
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) SetDrTestingFrequency(value string) {
+func (x *ItSecurityOperationsRecoveryContentForm) SetDrTestingFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "drTestingFrequency", value)
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) DrRecoveryTargets() string {
+func (x *ItSecurityOperationsRecoveryContentForm) DrRecoveryTargets() string {
 	return x.Doc().FormFieldOr(x.Path(), "drRecoveryTargets")
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) SetDrRecoveryTargets(value string) {
+func (x *ItSecurityOperationsRecoveryContentForm) SetDrRecoveryTargets(value string) {
 	x.Doc().SetFormField(x.Path(), "drRecoveryTargets", value)
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) DrDataCenterStrategy() string {
+func (x *ItSecurityOperationsRecoveryContentForm) DrDataCenterStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "drDataCenterStrategy")
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) SetDrDataCenterStrategy(value string) {
+func (x *ItSecurityOperationsRecoveryContentForm) SetDrDataCenterStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "drDataCenterStrategy", value)
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) DrCommunicationPlan() string {
+func (x *ItSecurityOperationsRecoveryContentForm) DrCommunicationPlan() string {
 	return x.Doc().FormFieldOr(x.Path(), "drCommunicationPlan")
 }
 
-func (x *ItSecurityOperationsQualityRecoveryContentForm) SetDrCommunicationPlan(value string) {
+func (x *ItSecurityOperationsRecoveryContentForm) SetDrCommunicationPlan(value string) {
 	x.Doc().SetFormField(x.Path(), "drCommunicationPlan", value)
 }
 
-// ItSecurityOperationsQualityTestingContentForm is the generated form facade for the `content` @Form section.
-type ItSecurityOperationsQualityTestingContentForm struct {
+// ItSecurityOperationsTestingContentForm is the generated form facade for the `content` @Form section.
+type ItSecurityOperationsTestingContentForm struct {
 	som.SomNode
 }
 
-// NewItSecurityOperationsQualityTestingContentForm binds a ItSecurityOperationsQualityTestingContentForm facade to a document and a path.
-func NewItSecurityOperationsQualityTestingContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsQualityTestingContentForm {
-	return &ItSecurityOperationsQualityTestingContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewItSecurityOperationsTestingContentForm binds a ItSecurityOperationsTestingContentForm facade to a document and a path.
+func NewItSecurityOperationsTestingContentForm(doc *som.SpecDocument, path string) *ItSecurityOperationsTestingContentForm {
+	return &ItSecurityOperationsTestingContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) PenetrationTestScope() string {
+func (x *ItSecurityOperationsTestingContentForm) PenetrationTestScope() string {
 	return x.Doc().FormFieldOr(x.Path(), "penetrationTestScope")
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) SetPenetrationTestScope(value string) {
+func (x *ItSecurityOperationsTestingContentForm) SetPenetrationTestScope(value string) {
 	x.Doc().SetFormField(x.Path(), "penetrationTestScope", value)
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) PenetrationTestFrequency() string {
+func (x *ItSecurityOperationsTestingContentForm) PenetrationTestFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "penetrationTestFrequency")
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) SetPenetrationTestFrequency(value string) {
+func (x *ItSecurityOperationsTestingContentForm) SetPenetrationTestFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "penetrationTestFrequency", value)
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) VulnerabilitySlaResolution() string {
+func (x *ItSecurityOperationsTestingContentForm) VulnerabilitySlaResolution() string {
 	return x.Doc().FormFieldOr(x.Path(), "vulnerabilitySlaResolution")
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) SetVulnerabilitySlaResolution(value string) {
+func (x *ItSecurityOperationsTestingContentForm) SetVulnerabilitySlaResolution(value string) {
 	x.Doc().SetFormField(x.Path(), "vulnerabilitySlaResolution", value)
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) BugBountyProgram() string {
+func (x *ItSecurityOperationsTestingContentForm) BugBountyProgram() string {
 	return x.Doc().FormFieldOr(x.Path(), "bugBountyProgram")
 }
 
-func (x *ItSecurityOperationsQualityTestingContentForm) SetBugBountyProgram(value string) {
+func (x *ItSecurityOperationsTestingContentForm) SetBugBountyProgram(value string) {
 	x.Doc().SetFormField(x.Path(), "bugBountyProgram", value)
 }
 
@@ -119724,181 +120058,207 @@ func (x *MainSuccessScenarioContentForm) SetStepCount(value string) {
 	x.Doc().SetFormField(x.Path(), "stepCount", value)
 }
 
-// MaintainabilityQualityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
-type MaintainabilityQualityAnalyzabilityContentForm struct {
+// MaintainabilityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
+type MaintainabilityAnalyzabilityContentForm struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityAnalyzabilityContentForm binds a MaintainabilityQualityAnalyzabilityContentForm facade to a document and a path.
-func NewMaintainabilityQualityAnalyzabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityQualityAnalyzabilityContentForm {
-	return &MaintainabilityQualityAnalyzabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityAnalyzabilityContentForm binds a MaintainabilityAnalyzabilityContentForm facade to a document and a path.
+func NewMaintainabilityAnalyzabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityAnalyzabilityContentForm {
+	return &MaintainabilityAnalyzabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) CodeReadabilityStandard() string {
+func (x *MaintainabilityAnalyzabilityContentForm) CodeReadabilityStandard() string {
 	return x.Doc().FormFieldOr(x.Path(), "codeReadabilityStandard")
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) SetCodeReadabilityStandard(value string) {
+func (x *MaintainabilityAnalyzabilityContentForm) SetCodeReadabilityStandard(value string) {
 	x.Doc().SetFormField(x.Path(), "codeReadabilityStandard", value)
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) DocumentationRequirement() string {
+func (x *MaintainabilityAnalyzabilityContentForm) DocumentationRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "documentationRequirement")
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) SetDocumentationRequirement(value string) {
+func (x *MaintainabilityAnalyzabilityContentForm) SetDocumentationRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "documentationRequirement", value)
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) LoggingStandard() string {
+func (x *MaintainabilityAnalyzabilityContentForm) LoggingStandard() string {
 	return x.Doc().FormFieldOr(x.Path(), "loggingStandard")
 }
 
-func (x *MaintainabilityQualityAnalyzabilityContentForm) SetLoggingStandard(value string) {
+func (x *MaintainabilityAnalyzabilityContentForm) SetLoggingStandard(value string) {
 	x.Doc().SetFormField(x.Path(), "loggingStandard", value)
 }
 
-// MaintainabilityQualityChangeabilityContentForm is the generated form facade for the `content` @Form section.
-type MaintainabilityQualityChangeabilityContentForm struct {
+// MaintainabilityChangeabilityContentForm is the generated form facade for the `content` @Form section.
+type MaintainabilityChangeabilityContentForm struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityChangeabilityContentForm binds a MaintainabilityQualityChangeabilityContentForm facade to a document and a path.
-func NewMaintainabilityQualityChangeabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityQualityChangeabilityContentForm {
-	return &MaintainabilityQualityChangeabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityChangeabilityContentForm binds a MaintainabilityChangeabilityContentForm facade to a document and a path.
+func NewMaintainabilityChangeabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityChangeabilityContentForm {
+	return &MaintainabilityChangeabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) CodeCoverageMinimum() string {
+func (x *MaintainabilityChangeabilityContentForm) CodeCoverageMinimum() string {
 	return x.Doc().FormFieldOr(x.Path(), "codeCoverageMinimum")
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) SetCodeCoverageMinimum(value string) {
+func (x *MaintainabilityChangeabilityContentForm) SetCodeCoverageMinimum(value string) {
 	x.Doc().SetFormField(x.Path(), "codeCoverageMinimum", value)
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) CyclomaticComplexityLimit() string {
+func (x *MaintainabilityChangeabilityContentForm) CyclomaticComplexityLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "cyclomaticComplexityLimit")
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) SetCyclomaticComplexityLimit(value string) {
+func (x *MaintainabilityChangeabilityContentForm) SetCyclomaticComplexityLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "cyclomaticComplexityLimit", value)
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) MethodLengthLimit() string {
+func (x *MaintainabilityChangeabilityContentForm) MethodLengthLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "methodLengthLimit")
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) SetMethodLengthLimit(value string) {
+func (x *MaintainabilityChangeabilityContentForm) SetMethodLengthLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "methodLengthLimit", value)
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) ClassLengthLimit() string {
+func (x *MaintainabilityChangeabilityContentForm) ClassLengthLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "classLengthLimit")
 }
 
-func (x *MaintainabilityQualityChangeabilityContentForm) SetClassLengthLimit(value string) {
+func (x *MaintainabilityChangeabilityContentForm) SetClassLengthLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "classLengthLimit", value)
 }
 
-// MaintainabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type MaintainabilityQualityContentForm struct {
+// MaintainabilityCharacteristicMaintainabilityContentForm is the generated form facade for the `maintainabilityContent` @Form section.
+type MaintainabilityCharacteristicMaintainabilityContentForm struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityContentForm binds a MaintainabilityQualityContentForm facade to a document and a path.
-func NewMaintainabilityQualityContentForm(doc *som.SpecDocument, path string) *MaintainabilityQualityContentForm {
-	return &MaintainabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityCharacteristicMaintainabilityContentForm binds a MaintainabilityCharacteristicMaintainabilityContentForm facade to a document and a path.
+func NewMaintainabilityCharacteristicMaintainabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityCharacteristicMaintainabilityContentForm {
+	return &MaintainabilityCharacteristicMaintainabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityContentForm) AdaptabilityTarget() string {
+func (x *MaintainabilityCharacteristicMaintainabilityContentForm) MaintainabilityApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "maintainabilityApproach")
+}
+
+func (x *MaintainabilityCharacteristicMaintainabilityContentForm) SetMaintainabilityApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "maintainabilityApproach", value)
+}
+
+func (x *MaintainabilityCharacteristicMaintainabilityContentForm) MaintainabilityStandard() string {
+	return x.Doc().FormFieldOr(x.Path(), "maintainabilityStandard")
+}
+
+func (x *MaintainabilityCharacteristicMaintainabilityContentForm) SetMaintainabilityStandard(value string) {
+	x.Doc().SetFormField(x.Path(), "maintainabilityStandard", value)
+}
+
+// MaintainabilityContentForm is the generated form facade for the `content` @Form section.
+type MaintainabilityContentForm struct {
+	som.SomNode
+}
+
+// NewMaintainabilityContentForm binds a MaintainabilityContentForm facade to a document and a path.
+func NewMaintainabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityContentForm {
+	return &MaintainabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MaintainabilityContentForm) AdaptabilityTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "adaptabilityTarget")
 }
 
-func (x *MaintainabilityQualityContentForm) SetAdaptabilityTarget(value string) {
+func (x *MaintainabilityContentForm) SetAdaptabilityTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "adaptabilityTarget", value)
 }
 
-func (x *MaintainabilityQualityContentForm) ChangeImpactLimit() string {
+func (x *MaintainabilityContentForm) ChangeImpactLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "changeImpactLimit")
 }
 
-func (x *MaintainabilityQualityContentForm) SetChangeImpactLimit(value string) {
+func (x *MaintainabilityContentForm) SetChangeImpactLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "changeImpactLimit", value)
 }
 
-// MaintainabilityQualityGovernanceContentForm is the generated form facade for the `content` @Form section.
-type MaintainabilityQualityGovernanceContentForm struct {
+// MaintainabilityGovernanceContentForm is the generated form facade for the `content` @Form section.
+type MaintainabilityGovernanceContentForm struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityGovernanceContentForm binds a MaintainabilityQualityGovernanceContentForm facade to a document and a path.
-func NewMaintainabilityQualityGovernanceContentForm(doc *som.SpecDocument, path string) *MaintainabilityQualityGovernanceContentForm {
-	return &MaintainabilityQualityGovernanceContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityGovernanceContentForm binds a MaintainabilityGovernanceContentForm facade to a document and a path.
+func NewMaintainabilityGovernanceContentForm(doc *som.SpecDocument, path string) *MaintainabilityGovernanceContentForm {
+	return &MaintainabilityGovernanceContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) ExtensibilityPattern() string {
+func (x *MaintainabilityGovernanceContentForm) ExtensibilityPattern() string {
 	return x.Doc().FormFieldOr(x.Path(), "extensibilityPattern")
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) SetExtensibilityPattern(value string) {
+func (x *MaintainabilityGovernanceContentForm) SetExtensibilityPattern(value string) {
 	x.Doc().SetFormField(x.Path(), "extensibilityPattern", value)
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) ApiVersioningStrategy() string {
+func (x *MaintainabilityGovernanceContentForm) ApiVersioningStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "apiVersioningStrategy")
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) SetApiVersioningStrategy(value string) {
+func (x *MaintainabilityGovernanceContentForm) SetApiVersioningStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "apiVersioningStrategy", value)
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) MaintainabilityVerification() string {
+func (x *MaintainabilityGovernanceContentForm) MaintainabilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "maintainabilityVerification")
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) SetMaintainabilityVerification(value string) {
+func (x *MaintainabilityGovernanceContentForm) SetMaintainabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "maintainabilityVerification", value)
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) TechnicalDebtTracking() string {
+func (x *MaintainabilityGovernanceContentForm) TechnicalDebtTracking() string {
 	return x.Doc().FormFieldOr(x.Path(), "technicalDebtTracking")
 }
 
-func (x *MaintainabilityQualityGovernanceContentForm) SetTechnicalDebtTracking(value string) {
+func (x *MaintainabilityGovernanceContentForm) SetTechnicalDebtTracking(value string) {
 	x.Doc().SetFormField(x.Path(), "technicalDebtTracking", value)
 }
 
-// MaintainabilityQualityTestabilityContentForm is the generated form facade for the `content` @Form section.
-type MaintainabilityQualityTestabilityContentForm struct {
+// MaintainabilityTestabilityContentForm is the generated form facade for the `content` @Form section.
+type MaintainabilityTestabilityContentForm struct {
 	som.SomNode
 }
 
-// NewMaintainabilityQualityTestabilityContentForm binds a MaintainabilityQualityTestabilityContentForm facade to a document and a path.
-func NewMaintainabilityQualityTestabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityQualityTestabilityContentForm {
-	return &MaintainabilityQualityTestabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMaintainabilityTestabilityContentForm binds a MaintainabilityTestabilityContentForm facade to a document and a path.
+func NewMaintainabilityTestabilityContentForm(doc *som.SpecDocument, path string) *MaintainabilityTestabilityContentForm {
+	return &MaintainabilityTestabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) TestabilityDesign() string {
+func (x *MaintainabilityTestabilityContentForm) TestabilityDesign() string {
 	return x.Doc().FormFieldOr(x.Path(), "testabilityDesign")
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) SetTestabilityDesign(value string) {
+func (x *MaintainabilityTestabilityContentForm) SetTestabilityDesign(value string) {
 	x.Doc().SetFormField(x.Path(), "testabilityDesign", value)
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) TestPyramidRatio() string {
+func (x *MaintainabilityTestabilityContentForm) TestPyramidRatio() string {
 	return x.Doc().FormFieldOr(x.Path(), "testPyramidRatio")
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) SetTestPyramidRatio(value string) {
+func (x *MaintainabilityTestabilityContentForm) SetTestPyramidRatio(value string) {
 	x.Doc().SetFormField(x.Path(), "testPyramidRatio", value)
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) TestDataManagement() string {
+func (x *MaintainabilityTestabilityContentForm) TestDataManagement() string {
 	return x.Doc().FormFieldOr(x.Path(), "testDataManagement")
 }
 
-func (x *MaintainabilityQualityTestabilityContentForm) SetTestDataManagement(value string) {
+func (x *MaintainabilityTestabilityContentForm) SetTestDataManagement(value string) {
 	x.Doc().SetFormField(x.Path(), "testDataManagement", value)
 }
 
@@ -125034,6 +125394,124 @@ func (x *ModuleVersioningStrategyReleaseManagementContentForm) SetReleaseNotes(v
 	x.Doc().SetFormField(x.Path(), "releaseNotes", value)
 }
 
+// MonitoringAlertingContentForm is the generated form facade for the `content` @Form section.
+type MonitoringAlertingContentForm struct {
+	som.SomNode
+}
+
+// NewMonitoringAlertingContentForm binds a MonitoringAlertingContentForm facade to a document and a path.
+func NewMonitoringAlertingContentForm(doc *som.SpecDocument, path string) *MonitoringAlertingContentForm {
+	return &MonitoringAlertingContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringAlertingContentForm) AlertingStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertingStrategy")
+}
+
+func (x *MonitoringAlertingContentForm) SetAlertingStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "alertingStrategy", value)
+}
+
+func (x *MonitoringAlertingContentForm) AlertPrioritization() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertPrioritization")
+}
+
+func (x *MonitoringAlertingContentForm) SetAlertPrioritization(value string) {
+	x.Doc().SetFormField(x.Path(), "alertPrioritization", value)
+}
+
+func (x *MonitoringAlertingContentForm) AlertNotificationChannels() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertNotificationChannels")
+}
+
+func (x *MonitoringAlertingContentForm) SetAlertNotificationChannels(value string) {
+	x.Doc().SetFormField(x.Path(), "alertNotificationChannels", value)
+}
+
+func (x *MonitoringAlertingContentForm) AlertFatiguePrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertFatiguePrevention")
+}
+
+func (x *MonitoringAlertingContentForm) SetAlertFatiguePrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "alertFatiguePrevention", value)
+}
+
+// MonitoringAutomationContentForm is the generated form facade for the `content` @Form section.
+type MonitoringAutomationContentForm struct {
+	som.SomNode
+}
+
+// NewMonitoringAutomationContentForm binds a MonitoringAutomationContentForm facade to a document and a path.
+func NewMonitoringAutomationContentForm(doc *som.SpecDocument, path string) *MonitoringAutomationContentForm {
+	return &MonitoringAutomationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringAutomationContentForm) AlertAutomation() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertAutomation")
+}
+
+func (x *MonitoringAutomationContentForm) SetAlertAutomation(value string) {
+	x.Doc().SetFormField(x.Path(), "alertAutomation", value)
+}
+
+func (x *MonitoringAutomationContentForm) SelfHealingCapability() string {
+	return x.Doc().FormFieldOr(x.Path(), "selfHealingCapability")
+}
+
+func (x *MonitoringAutomationContentForm) SetSelfHealingCapability(value string) {
+	x.Doc().SetFormField(x.Path(), "selfHealingCapability", value)
+}
+
+func (x *MonitoringAutomationContentForm) RunbookAutomation() string {
+	return x.Doc().FormFieldOr(x.Path(), "runbookAutomation")
+}
+
+func (x *MonitoringAutomationContentForm) SetRunbookAutomation(value string) {
+	x.Doc().SetFormField(x.Path(), "runbookAutomation", value)
+}
+
+// MonitoringCoverageContentForm is the generated form facade for the `content` @Form section.
+type MonitoringCoverageContentForm struct {
+	som.SomNode
+}
+
+// NewMonitoringCoverageContentForm binds a MonitoringCoverageContentForm facade to a document and a path.
+func NewMonitoringCoverageContentForm(doc *som.SpecDocument, path string) *MonitoringCoverageContentForm {
+	return &MonitoringCoverageContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MonitoringCoverageContentForm) InfrastructureMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "infrastructureMonitoring")
+}
+
+func (x *MonitoringCoverageContentForm) SetInfrastructureMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "infrastructureMonitoring", value)
+}
+
+func (x *MonitoringCoverageContentForm) ApplicationMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "applicationMonitoring")
+}
+
+func (x *MonitoringCoverageContentForm) SetApplicationMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "applicationMonitoring", value)
+}
+
+func (x *MonitoringCoverageContentForm) DatabaseMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseMonitoring")
+}
+
+func (x *MonitoringCoverageContentForm) SetDatabaseMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseMonitoring", value)
+}
+
+func (x *MonitoringCoverageContentForm) ThirdPartyMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "thirdPartyMonitoring")
+}
+
+func (x *MonitoringCoverageContentForm) SetThirdPartyMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "thirdPartyMonitoring", value)
+}
+
 // MonitoringDashboardsDashboardOverviewForm is the generated form facade for the `dashboardOverview` @Form section.
 type MonitoringDashboardsDashboardOverviewForm struct {
 	som.SomNode
@@ -125374,205 +125852,53 @@ func (x *MonitoringMonitoringOverviewForm) SetCostBudget(value string) {
 	x.Doc().SetFormField(x.Path(), "costBudget", value)
 }
 
-// MonitoringQualityAlertingContentForm is the generated form facade for the `content` @Form section.
-type MonitoringQualityAlertingContentForm struct {
+// MonitoringOperationsContentForm is the generated form facade for the `content` @Form section.
+type MonitoringOperationsContentForm struct {
 	som.SomNode
 }
 
-// NewMonitoringQualityAlertingContentForm binds a MonitoringQualityAlertingContentForm facade to a document and a path.
-func NewMonitoringQualityAlertingContentForm(doc *som.SpecDocument, path string) *MonitoringQualityAlertingContentForm {
-	return &MonitoringQualityAlertingContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewMonitoringOperationsContentForm binds a MonitoringOperationsContentForm facade to a document and a path.
+func NewMonitoringOperationsContentForm(doc *som.SpecDocument, path string) *MonitoringOperationsContentForm {
+	return &MonitoringOperationsContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *MonitoringQualityAlertingContentForm) AlertingStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertingStrategy")
-}
-
-func (x *MonitoringQualityAlertingContentForm) SetAlertingStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "alertingStrategy", value)
-}
-
-func (x *MonitoringQualityAlertingContentForm) AlertPrioritization() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertPrioritization")
-}
-
-func (x *MonitoringQualityAlertingContentForm) SetAlertPrioritization(value string) {
-	x.Doc().SetFormField(x.Path(), "alertPrioritization", value)
-}
-
-func (x *MonitoringQualityAlertingContentForm) AlertNotificationChannels() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertNotificationChannels")
-}
-
-func (x *MonitoringQualityAlertingContentForm) SetAlertNotificationChannels(value string) {
-	x.Doc().SetFormField(x.Path(), "alertNotificationChannels", value)
-}
-
-func (x *MonitoringQualityAlertingContentForm) AlertFatiguePrevention() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertFatiguePrevention")
-}
-
-func (x *MonitoringQualityAlertingContentForm) SetAlertFatiguePrevention(value string) {
-	x.Doc().SetFormField(x.Path(), "alertFatiguePrevention", value)
-}
-
-// MonitoringQualityAutomationContentForm is the generated form facade for the `content` @Form section.
-type MonitoringQualityAutomationContentForm struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityAutomationContentForm binds a MonitoringQualityAutomationContentForm facade to a document and a path.
-func NewMonitoringQualityAutomationContentForm(doc *som.SpecDocument, path string) *MonitoringQualityAutomationContentForm {
-	return &MonitoringQualityAutomationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityAutomationContentForm) AlertAutomation() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertAutomation")
-}
-
-func (x *MonitoringQualityAutomationContentForm) SetAlertAutomation(value string) {
-	x.Doc().SetFormField(x.Path(), "alertAutomation", value)
-}
-
-func (x *MonitoringQualityAutomationContentForm) SelfHealingCapability() string {
-	return x.Doc().FormFieldOr(x.Path(), "selfHealingCapability")
-}
-
-func (x *MonitoringQualityAutomationContentForm) SetSelfHealingCapability(value string) {
-	x.Doc().SetFormField(x.Path(), "selfHealingCapability", value)
-}
-
-func (x *MonitoringQualityAutomationContentForm) RunbookAutomation() string {
-	return x.Doc().FormFieldOr(x.Path(), "runbookAutomation")
-}
-
-func (x *MonitoringQualityAutomationContentForm) SetRunbookAutomation(value string) {
-	x.Doc().SetFormField(x.Path(), "runbookAutomation", value)
-}
-
-// MonitoringQualityContentForm is the generated form facade for the `content` @Form section.
-type MonitoringQualityContentForm struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityContentForm binds a MonitoringQualityContentForm facade to a document and a path.
-func NewMonitoringQualityContentForm(doc *som.SpecDocument, path string) *MonitoringQualityContentForm {
-	return &MonitoringQualityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityContentForm) ScalabilityMonitoringApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "scalabilityMonitoringApproach")
-}
-
-func (x *MonitoringQualityContentForm) SetScalabilityMonitoringApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "scalabilityMonitoringApproach", value)
-}
-
-func (x *MonitoringQualityContentForm) CapacityPlanningProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "capacityPlanningProcess")
-}
-
-func (x *MonitoringQualityContentForm) SetCapacityPlanningProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "capacityPlanningProcess", value)
-}
-
-func (x *MonitoringQualityContentForm) GrowthProjections() string {
-	return x.Doc().FormFieldOr(x.Path(), "growthProjections")
-}
-
-func (x *MonitoringQualityContentForm) SetGrowthProjections(value string) {
-	x.Doc().SetFormField(x.Path(), "growthProjections", value)
-}
-
-// MonitoringQualityCoverageContentForm is the generated form facade for the `content` @Form section.
-type MonitoringQualityCoverageContentForm struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityCoverageContentForm binds a MonitoringQualityCoverageContentForm facade to a document and a path.
-func NewMonitoringQualityCoverageContentForm(doc *som.SpecDocument, path string) *MonitoringQualityCoverageContentForm {
-	return &MonitoringQualityCoverageContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityCoverageContentForm) InfrastructureMonitoring() string {
-	return x.Doc().FormFieldOr(x.Path(), "infrastructureMonitoring")
-}
-
-func (x *MonitoringQualityCoverageContentForm) SetInfrastructureMonitoring(value string) {
-	x.Doc().SetFormField(x.Path(), "infrastructureMonitoring", value)
-}
-
-func (x *MonitoringQualityCoverageContentForm) ApplicationMonitoring() string {
-	return x.Doc().FormFieldOr(x.Path(), "applicationMonitoring")
-}
-
-func (x *MonitoringQualityCoverageContentForm) SetApplicationMonitoring(value string) {
-	x.Doc().SetFormField(x.Path(), "applicationMonitoring", value)
-}
-
-func (x *MonitoringQualityCoverageContentForm) DatabaseMonitoring() string {
-	return x.Doc().FormFieldOr(x.Path(), "databaseMonitoring")
-}
-
-func (x *MonitoringQualityCoverageContentForm) SetDatabaseMonitoring(value string) {
-	x.Doc().SetFormField(x.Path(), "databaseMonitoring", value)
-}
-
-func (x *MonitoringQualityCoverageContentForm) ThirdPartyMonitoring() string {
-	return x.Doc().FormFieldOr(x.Path(), "thirdPartyMonitoring")
-}
-
-func (x *MonitoringQualityCoverageContentForm) SetThirdPartyMonitoring(value string) {
-	x.Doc().SetFormField(x.Path(), "thirdPartyMonitoring", value)
-}
-
-// MonitoringQualityOperationsContentForm is the generated form facade for the `content` @Form section.
-type MonitoringQualityOperationsContentForm struct {
-	som.SomNode
-}
-
-// NewMonitoringQualityOperationsContentForm binds a MonitoringQualityOperationsContentForm facade to a document and a path.
-func NewMonitoringQualityOperationsContentForm(doc *som.SpecDocument, path string) *MonitoringQualityOperationsContentForm {
-	return &MonitoringQualityOperationsContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *MonitoringQualityOperationsContentForm) ResourcePlanningFrequency() string {
+func (x *MonitoringOperationsContentForm) ResourcePlanningFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "resourcePlanningFrequency")
 }
 
-func (x *MonitoringQualityOperationsContentForm) SetResourcePlanningFrequency(value string) {
+func (x *MonitoringOperationsContentForm) SetResourcePlanningFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "resourcePlanningFrequency", value)
 }
 
-func (x *MonitoringQualityOperationsContentForm) ProactiveMaintenanceSchedule() string {
+func (x *MonitoringOperationsContentForm) ProactiveMaintenanceSchedule() string {
 	return x.Doc().FormFieldOr(x.Path(), "proactiveMaintenanceSchedule")
 }
 
-func (x *MonitoringQualityOperationsContentForm) SetProactiveMaintenanceSchedule(value string) {
+func (x *MonitoringOperationsContentForm) SetProactiveMaintenanceSchedule(value string) {
 	x.Doc().SetFormField(x.Path(), "proactiveMaintenanceSchedule", value)
 }
 
-func (x *MonitoringQualityOperationsContentForm) ObservabilityPillars() string {
+func (x *MonitoringOperationsContentForm) ObservabilityPillars() string {
 	return x.Doc().FormFieldOr(x.Path(), "observabilityPillars")
 }
 
-func (x *MonitoringQualityOperationsContentForm) SetObservabilityPillars(value string) {
+func (x *MonitoringOperationsContentForm) SetObservabilityPillars(value string) {
 	x.Doc().SetFormField(x.Path(), "observabilityPillars", value)
 }
 
-func (x *MonitoringQualityOperationsContentForm) DistributedTracingRequirement() string {
+func (x *MonitoringOperationsContentForm) DistributedTracingRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "distributedTracingRequirement")
 }
 
-func (x *MonitoringQualityOperationsContentForm) SetDistributedTracingRequirement(value string) {
+func (x *MonitoringOperationsContentForm) SetDistributedTracingRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "distributedTracingRequirement", value)
 }
 
-func (x *MonitoringQualityOperationsContentForm) LogRetentionPeriod() string {
+func (x *MonitoringOperationsContentForm) LogRetentionPeriod() string {
 	return x.Doc().FormFieldOr(x.Path(), "logRetentionPeriod")
 }
 
-func (x *MonitoringQualityOperationsContentForm) SetLogRetentionPeriod(value string) {
+func (x *MonitoringOperationsContentForm) SetLogRetentionPeriod(value string) {
 	x.Doc().SetFormField(x.Path(), "logRetentionPeriod", value)
 }
 
@@ -129776,6 +130102,40 @@ func (x *OngoingTrainingEntryScheduleContentForm) SetDuration(value string) {
 	x.Doc().SetFormField(x.Path(), "duration", value)
 }
 
+// OperationalMonitoringContentForm is the generated form facade for the `content` @Form section.
+type OperationalMonitoringContentForm struct {
+	som.SomNode
+}
+
+// NewOperationalMonitoringContentForm binds a OperationalMonitoringContentForm facade to a document and a path.
+func NewOperationalMonitoringContentForm(doc *som.SpecDocument, path string) *OperationalMonitoringContentForm {
+	return &OperationalMonitoringContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *OperationalMonitoringContentForm) ScalabilityMonitoringApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "scalabilityMonitoringApproach")
+}
+
+func (x *OperationalMonitoringContentForm) SetScalabilityMonitoringApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "scalabilityMonitoringApproach", value)
+}
+
+func (x *OperationalMonitoringContentForm) CapacityPlanningProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "capacityPlanningProcess")
+}
+
+func (x *OperationalMonitoringContentForm) SetCapacityPlanningProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "capacityPlanningProcess", value)
+}
+
+func (x *OperationalMonitoringContentForm) GrowthProjections() string {
+	return x.Doc().FormFieldOr(x.Path(), "growthProjections")
+}
+
+func (x *OperationalMonitoringContentForm) SetGrowthProjections(value string) {
+	x.Doc().SetFormField(x.Path(), "growthProjections", value)
+}
+
 // OperationalPainPointsSummaryContentForm is the generated form facade for the `content` @Form section.
 type OperationalPainPointsSummaryContentForm struct {
 	som.SomNode
@@ -129824,64 +130184,6 @@ func (x *OperationalPainPointsSummaryContentForm) StaffOverhead() string {
 
 func (x *OperationalPainPointsSummaryContentForm) SetStaffOverhead(value string) {
 	x.Doc().SetFormField(x.Path(), "staffOverhead", value)
-}
-
-// OperationsQualityCriteriaOperationsOverviewContentForm is the generated form facade for the `operationsOverviewContent` @Form section.
-type OperationsQualityCriteriaOperationsOverviewContentForm struct {
-	som.SomNode
-}
-
-// NewOperationsQualityCriteriaOperationsOverviewContentForm binds a OperationsQualityCriteriaOperationsOverviewContentForm facade to a document and a path.
-func NewOperationsQualityCriteriaOperationsOverviewContentForm(doc *som.SpecDocument, path string) *OperationsQualityCriteriaOperationsOverviewContentForm {
-	return &OperationsQualityCriteriaOperationsOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) OperationsMaturityModel() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationsMaturityModel")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetOperationsMaturityModel(value string) {
-	x.Doc().SetFormField(x.Path(), "operationsMaturityModel", value)
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) OperationsPhilosophy() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationsPhilosophy")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetOperationsPhilosophy(value string) {
-	x.Doc().SetFormField(x.Path(), "operationsPhilosophy", value)
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) OperationsResponsibility() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationsResponsibility")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetOperationsResponsibility(value string) {
-	x.Doc().SetFormField(x.Path(), "operationsResponsibility", value)
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) IncidentManagementProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "incidentManagementProcess")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetIncidentManagementProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "incidentManagementProcess", value)
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) ChangeManagementProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeManagementProcess")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetChangeManagementProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "changeManagementProcess", value)
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) OperationsToolchain() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationsToolchain")
-}
-
-func (x *OperationsQualityCriteriaOperationsOverviewContentForm) SetOperationsToolchain(value string) {
-	x.Doc().SetFormField(x.Path(), "operationsToolchain", value)
 }
 
 // OpportunityStatementOpportunityDetailsForm is the generated form facade for the `opportunityDetails` @Form section.
@@ -132430,6 +132732,56 @@ func (x *PenetrationTestingRequirementsSchedulingContentForm) SetTriggerBasedTes
 	x.Doc().SetFormField(x.Path(), "triggerBasedTesting", value)
 }
 
+// PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm is the generated form facade for the `performanceEfficiencyContent` @Form section.
+type PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm struct {
+	som.SomNode
+}
+
+// NewPerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm binds a PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm facade to a document and a path.
+func NewPerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc *som.SpecDocument, path string) *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+	return &PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) TechnicalQualityPhilosophy() string {
+	return x.Doc().FormFieldOr(x.Path(), "technicalQualityPhilosophy")
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) SetTechnicalQualityPhilosophy(value string) {
+	x.Doc().SetFormField(x.Path(), "technicalQualityPhilosophy", value)
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) ArchitecturalQualityGoals() string {
+	return x.Doc().FormFieldOr(x.Path(), "architecturalQualityGoals")
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) SetArchitecturalQualityGoals(value string) {
+	x.Doc().SetFormField(x.Path(), "architecturalQualityGoals", value)
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) TechnicalDebtTolerance() string {
+	return x.Doc().FormFieldOr(x.Path(), "technicalDebtTolerance")
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) SetTechnicalDebtTolerance(value string) {
+	x.Doc().SetFormField(x.Path(), "technicalDebtTolerance", value)
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) CodeQualityStandard() string {
+	return x.Doc().FormFieldOr(x.Path(), "codeQualityStandard")
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) SetCodeQualityStandard(value string) {
+	x.Doc().SetFormField(x.Path(), "codeQualityStandard", value)
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) DesignPrinciplesAdherence() string {
+	return x.Doc().FormFieldOr(x.Path(), "designPrinciplesAdherence")
+}
+
+func (x *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm) SetDesignPrinciplesAdherence(value string) {
+	x.Doc().SetFormField(x.Path(), "designPrinciplesAdherence", value)
+}
+
 // PeriodicReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 type PeriodicReviewPolicyContentForm struct {
 	som.SomNode
@@ -133808,93 +134160,93 @@ func (x *PipelineStageEntryTriggerContentForm) SetManualApproval(value string) {
 	x.Doc().SetFormField(x.Path(), "manualApproval", value)
 }
 
-// PortabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type PortabilityQualityContentForm struct {
+// PortabilityContentForm is the generated form facade for the `content` @Form section.
+type PortabilityContentForm struct {
 	som.SomNode
 }
 
-// NewPortabilityQualityContentForm binds a PortabilityQualityContentForm facade to a document and a path.
-func NewPortabilityQualityContentForm(doc *som.SpecDocument, path string) *PortabilityQualityContentForm {
-	return &PortabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewPortabilityContentForm binds a PortabilityContentForm facade to a document and a path.
+func NewPortabilityContentForm(doc *som.SpecDocument, path string) *PortabilityContentForm {
+	return &PortabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *PortabilityQualityContentForm) TargetPlatforms() string {
+func (x *PortabilityContentForm) TargetPlatforms() string {
 	return x.Doc().FormFieldOr(x.Path(), "targetPlatforms")
 }
 
-func (x *PortabilityQualityContentForm) SetTargetPlatforms(value string) {
+func (x *PortabilityContentForm) SetTargetPlatforms(value string) {
 	x.Doc().SetFormField(x.Path(), "targetPlatforms", value)
 }
 
-func (x *PortabilityQualityContentForm) BrowserSupport() string {
+func (x *PortabilityContentForm) BrowserSupport() string {
 	return x.Doc().FormFieldOr(x.Path(), "browserSupport")
 }
 
-func (x *PortabilityQualityContentForm) SetBrowserSupport(value string) {
+func (x *PortabilityContentForm) SetBrowserSupport(value string) {
 	x.Doc().SetFormField(x.Path(), "browserSupport", value)
 }
 
-func (x *PortabilityQualityContentForm) MobileOsVersions() string {
+func (x *PortabilityContentForm) MobileOsVersions() string {
 	return x.Doc().FormFieldOr(x.Path(), "mobileOsVersions")
 }
 
-func (x *PortabilityQualityContentForm) SetMobileOsVersions(value string) {
+func (x *PortabilityContentForm) SetMobileOsVersions(value string) {
 	x.Doc().SetFormField(x.Path(), "mobileOsVersions", value)
 }
 
-func (x *PortabilityQualityContentForm) DesktopOsVersions() string {
+func (x *PortabilityContentForm) DesktopOsVersions() string {
 	return x.Doc().FormFieldOr(x.Path(), "desktopOsVersions")
 }
 
-func (x *PortabilityQualityContentForm) SetDesktopOsVersions(value string) {
+func (x *PortabilityContentForm) SetDesktopOsVersions(value string) {
 	x.Doc().SetFormField(x.Path(), "desktopOsVersions", value)
 }
 
-func (x *PortabilityQualityContentForm) MigrationEffortConstraint() string {
+func (x *PortabilityContentForm) MigrationEffortConstraint() string {
 	return x.Doc().FormFieldOr(x.Path(), "migrationEffortConstraint")
 }
 
-func (x *PortabilityQualityContentForm) SetMigrationEffortConstraint(value string) {
+func (x *PortabilityContentForm) SetMigrationEffortConstraint(value string) {
 	x.Doc().SetFormField(x.Path(), "migrationEffortConstraint", value)
 }
 
-func (x *PortabilityQualityContentForm) DataPortability() string {
+func (x *PortabilityContentForm) DataPortability() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataPortability")
 }
 
-func (x *PortabilityQualityContentForm) SetDataPortability(value string) {
+func (x *PortabilityContentForm) SetDataPortability(value string) {
 	x.Doc().SetFormField(x.Path(), "dataPortability", value)
 }
 
-func (x *PortabilityQualityContentForm) VendorLockInAvoidance() string {
+func (x *PortabilityContentForm) VendorLockInAvoidance() string {
 	return x.Doc().FormFieldOr(x.Path(), "vendorLockInAvoidance")
 }
 
-func (x *PortabilityQualityContentForm) SetVendorLockInAvoidance(value string) {
+func (x *PortabilityContentForm) SetVendorLockInAvoidance(value string) {
 	x.Doc().SetFormField(x.Path(), "vendorLockInAvoidance", value)
 }
 
-func (x *PortabilityQualityContentForm) ContainerizationRequirement() string {
+func (x *PortabilityContentForm) ContainerizationRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "containerizationRequirement")
 }
 
-func (x *PortabilityQualityContentForm) SetContainerizationRequirement(value string) {
+func (x *PortabilityContentForm) SetContainerizationRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "containerizationRequirement", value)
 }
 
-func (x *PortabilityQualityContentForm) InfrastructureAsCode() string {
+func (x *PortabilityContentForm) InfrastructureAsCode() string {
 	return x.Doc().FormFieldOr(x.Path(), "infrastructureAsCode")
 }
 
-func (x *PortabilityQualityContentForm) SetInfrastructureAsCode(value string) {
+func (x *PortabilityContentForm) SetInfrastructureAsCode(value string) {
 	x.Doc().SetFormField(x.Path(), "infrastructureAsCode", value)
 }
 
-func (x *PortabilityQualityContentForm) PortabilityVerification() string {
+func (x *PortabilityContentForm) PortabilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "portabilityVerification")
 }
 
-func (x *PortabilityQualityContentForm) SetPortabilityVerification(value string) {
+func (x *PortabilityContentForm) SetPortabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "portabilityVerification", value)
 }
 
@@ -140328,6 +140680,174 @@ func (x *QualityGateChecklistChecklistOverviewContentForm) SetChecklistFrequency
 	x.Doc().SetFormField(x.Path(), "checklistFrequency", value)
 }
 
+// QualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
+type QualityGoalsBaselineContentForm struct {
+	som.SomNode
+}
+
+// NewQualityGoalsBaselineContentForm binds a QualityGoalsBaselineContentForm facade to a document and a path.
+func NewQualityGoalsBaselineContentForm(doc *som.SpecDocument, path string) *QualityGoalsBaselineContentForm {
+	return &QualityGoalsBaselineContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsBaselineContentForm) QualityBaselineDate() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityBaselineDate")
+}
+
+func (x *QualityGoalsBaselineContentForm) SetQualityBaselineDate(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityBaselineDate", value)
+}
+
+func (x *QualityGoalsBaselineContentForm) QualityBaselineVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityBaselineVersion")
+}
+
+func (x *QualityGoalsBaselineContentForm) SetQualityBaselineVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityBaselineVersion", value)
+}
+
+func (x *QualityGoalsBaselineContentForm) OverallQualityTargetLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "overallQualityTargetLevel")
+}
+
+func (x *QualityGoalsBaselineContentForm) SetOverallQualityTargetLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "overallQualityTargetLevel", value)
+}
+
+func (x *QualityGoalsBaselineContentForm) QualityRiskTolerance() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityRiskTolerance")
+}
+
+func (x *QualityGoalsBaselineContentForm) SetQualityRiskTolerance(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityRiskTolerance", value)
+}
+
+// QualityGoalsGovernanceContentForm is the generated form facade for the `content` @Form section.
+type QualityGoalsGovernanceContentForm struct {
+	som.SomNode
+}
+
+// NewQualityGoalsGovernanceContentForm binds a QualityGoalsGovernanceContentForm facade to a document and a path.
+func NewQualityGoalsGovernanceContentForm(doc *som.SpecDocument, path string) *QualityGoalsGovernanceContentForm {
+	return &QualityGoalsGovernanceContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsGovernanceContentForm) QualityReviewBoard() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityReviewBoard")
+}
+
+func (x *QualityGoalsGovernanceContentForm) SetQualityReviewBoard(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityReviewBoard", value)
+}
+
+func (x *QualityGoalsGovernanceContentForm) QualityMeetingCadence() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityMeetingCadence")
+}
+
+func (x *QualityGoalsGovernanceContentForm) SetQualityMeetingCadence(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityMeetingCadence", value)
+}
+
+func (x *QualityGoalsGovernanceContentForm) QualityEscalationPath() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityEscalationPath")
+}
+
+func (x *QualityGoalsGovernanceContentForm) SetQualityEscalationPath(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityEscalationPath", value)
+}
+
+// QualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
+type QualityGoalsMeasurementContentForm struct {
+	som.SomNode
+}
+
+// NewQualityGoalsMeasurementContentForm binds a QualityGoalsMeasurementContentForm facade to a document and a path.
+func NewQualityGoalsMeasurementContentForm(doc *som.SpecDocument, path string) *QualityGoalsMeasurementContentForm {
+	return &QualityGoalsMeasurementContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsMeasurementContentForm) QualityMetricsFramework() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityMetricsFramework")
+}
+
+func (x *QualityGoalsMeasurementContentForm) SetQualityMetricsFramework(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityMetricsFramework", value)
+}
+
+func (x *QualityGoalsMeasurementContentForm) QualityReportingFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityReportingFrequency")
+}
+
+func (x *QualityGoalsMeasurementContentForm) SetQualityReportingFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityReportingFrequency", value)
+}
+
+func (x *QualityGoalsMeasurementContentForm) QualityDashboardTool() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityDashboardTool")
+}
+
+func (x *QualityGoalsMeasurementContentForm) SetQualityDashboardTool(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityDashboardTool", value)
+}
+
+func (x *QualityGoalsMeasurementContentForm) DefectTrackingSystem() string {
+	return x.Doc().FormFieldOr(x.Path(), "defectTrackingSystem")
+}
+
+func (x *QualityGoalsMeasurementContentForm) SetDefectTrackingSystem(value string) {
+	x.Doc().SetFormField(x.Path(), "defectTrackingSystem", value)
+}
+
+func (x *QualityGoalsMeasurementContentForm) QualityTrendAnalysis() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityTrendAnalysis")
+}
+
+func (x *QualityGoalsMeasurementContentForm) SetQualityTrendAnalysis(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityTrendAnalysis", value)
+}
+
+// QualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
+type QualityGoalsResourcesContentForm struct {
+	som.SomNode
+}
+
+// NewQualityGoalsResourcesContentForm binds a QualityGoalsResourcesContentForm facade to a document and a path.
+func NewQualityGoalsResourcesContentForm(doc *som.SpecDocument, path string) *QualityGoalsResourcesContentForm {
+	return &QualityGoalsResourcesContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityGoalsResourcesContentForm) QualityBudget() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityBudget")
+}
+
+func (x *QualityGoalsResourcesContentForm) SetQualityBudget(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityBudget", value)
+}
+
+func (x *QualityGoalsResourcesContentForm) QaTeamSize() string {
+	return x.Doc().FormFieldOr(x.Path(), "qaTeamSize")
+}
+
+func (x *QualityGoalsResourcesContentForm) SetQaTeamSize(value string) {
+	x.Doc().SetFormField(x.Path(), "qaTeamSize", value)
+}
+
+func (x *QualityGoalsResourcesContentForm) TestAutomationTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "testAutomationTarget")
+}
+
+func (x *QualityGoalsResourcesContentForm) SetTestAutomationTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "testAutomationTarget", value)
+}
+
+func (x *QualityGoalsResourcesContentForm) QualityTrainingPlan() string {
+	return x.Doc().FormFieldOr(x.Path(), "qualityTrainingPlan")
+}
+
+func (x *QualityGoalsResourcesContentForm) SetQualityTrainingPlan(value string) {
+	x.Doc().SetFormField(x.Path(), "qualityTrainingPlan", value)
+}
+
 // QualityPrioritizationPrioritizationFrameworkContentForm is the generated form facade for the `prioritizationFrameworkContent` @Form section.
 type QualityPrioritizationPrioritizationFrameworkContentForm struct {
 	som.SomNode
@@ -140872,173 +141392,173 @@ func (x *RateLimitingPolicyQuotasContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
-// ReadabilityQualityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
-type ReadabilityQualityComprehensibilityContentForm struct {
+// ReadabilityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
+type ReadabilityComprehensibilityContentForm struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityComprehensibilityContentForm binds a ReadabilityQualityComprehensibilityContentForm facade to a document and a path.
-func NewReadabilityQualityComprehensibilityContentForm(doc *som.SpecDocument, path string) *ReadabilityQualityComprehensibilityContentForm {
-	return &ReadabilityQualityComprehensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityComprehensibilityContentForm binds a ReadabilityComprehensibilityContentForm facade to a document and a path.
+func NewReadabilityComprehensibilityContentForm(doc *som.SpecDocument, path string) *ReadabilityComprehensibilityContentForm {
+	return &ReadabilityComprehensibilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) ReadingLevelTarget() string {
+func (x *ReadabilityComprehensibilityContentForm) ReadingLevelTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "readingLevelTarget")
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) SetReadingLevelTarget(value string) {
+func (x *ReadabilityComprehensibilityContentForm) SetReadingLevelTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "readingLevelTarget", value)
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) FormatStandards() string {
+func (x *ReadabilityComprehensibilityContentForm) FormatStandards() string {
 	return x.Doc().FormFieldOr(x.Path(), "formatStandards")
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) SetFormatStandards(value string) {
+func (x *ReadabilityComprehensibilityContentForm) SetFormatStandards(value string) {
 	x.Doc().SetFormField(x.Path(), "formatStandards", value)
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) VisualAidRequirements() string {
+func (x *ReadabilityComprehensibilityContentForm) VisualAidRequirements() string {
 	return x.Doc().FormFieldOr(x.Path(), "visualAidRequirements")
 }
 
-func (x *ReadabilityQualityComprehensibilityContentForm) SetVisualAidRequirements(value string) {
+func (x *ReadabilityComprehensibilityContentForm) SetVisualAidRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "visualAidRequirements", value)
 }
 
-// ReadabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type ReadabilityQualityContentForm struct {
+// ReadabilityContentForm is the generated form facade for the `content` @Form section.
+type ReadabilityContentForm struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityContentForm binds a ReadabilityQualityContentForm facade to a document and a path.
-func NewReadabilityQualityContentForm(doc *som.SpecDocument, path string) *ReadabilityQualityContentForm {
-	return &ReadabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityContentForm binds a ReadabilityContentForm facade to a document and a path.
+func NewReadabilityContentForm(doc *som.SpecDocument, path string) *ReadabilityContentForm {
+	return &ReadabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityContentForm) TerminologyStandard() string {
+func (x *ReadabilityContentForm) TerminologyStandard() string {
 	return x.Doc().FormFieldOr(x.Path(), "terminologyStandard")
 }
 
-func (x *ReadabilityQualityContentForm) SetTerminologyStandard(value string) {
+func (x *ReadabilityContentForm) SetTerminologyStandard(value string) {
 	x.Doc().SetFormField(x.Path(), "terminologyStandard", value)
 }
 
-func (x *ReadabilityQualityContentForm) AmbiguityPrevention() string {
+func (x *ReadabilityContentForm) AmbiguityPrevention() string {
 	return x.Doc().FormFieldOr(x.Path(), "ambiguityPrevention")
 }
 
-func (x *ReadabilityQualityContentForm) SetAmbiguityPrevention(value string) {
+func (x *ReadabilityContentForm) SetAmbiguityPrevention(value string) {
 	x.Doc().SetFormField(x.Path(), "ambiguityPrevention", value)
 }
 
-func (x *ReadabilityQualityContentForm) JargonPolicy() string {
+func (x *ReadabilityContentForm) JargonPolicy() string {
 	return x.Doc().FormFieldOr(x.Path(), "jargonPolicy")
 }
 
-func (x *ReadabilityQualityContentForm) SetJargonPolicy(value string) {
+func (x *ReadabilityContentForm) SetJargonPolicy(value string) {
 	x.Doc().SetFormField(x.Path(), "jargonPolicy", value)
 }
 
-// ReadabilityQualityNavigationContentForm is the generated form facade for the `content` @Form section.
-type ReadabilityQualityNavigationContentForm struct {
+// ReadabilityNavigationContentForm is the generated form facade for the `content` @Form section.
+type ReadabilityNavigationContentForm struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityNavigationContentForm binds a ReadabilityQualityNavigationContentForm facade to a document and a path.
-func NewReadabilityQualityNavigationContentForm(doc *som.SpecDocument, path string) *ReadabilityQualityNavigationContentForm {
-	return &ReadabilityQualityNavigationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityNavigationContentForm binds a ReadabilityNavigationContentForm facade to a document and a path.
+func NewReadabilityNavigationContentForm(doc *som.SpecDocument, path string) *ReadabilityNavigationContentForm {
+	return &ReadabilityNavigationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityNavigationContentForm) SectionNumbering() string {
+func (x *ReadabilityNavigationContentForm) SectionNumbering() string {
 	return x.Doc().FormFieldOr(x.Path(), "sectionNumbering")
 }
 
-func (x *ReadabilityQualityNavigationContentForm) SetSectionNumbering(value string) {
+func (x *ReadabilityNavigationContentForm) SetSectionNumbering(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionNumbering", value)
 }
 
-func (x *ReadabilityQualityNavigationContentForm) CrossReferenceStandard() string {
+func (x *ReadabilityNavigationContentForm) CrossReferenceStandard() string {
 	return x.Doc().FormFieldOr(x.Path(), "crossReferenceStandard")
 }
 
-func (x *ReadabilityQualityNavigationContentForm) SetCrossReferenceStandard(value string) {
+func (x *ReadabilityNavigationContentForm) SetCrossReferenceStandard(value string) {
 	x.Doc().SetFormField(x.Path(), "crossReferenceStandard", value)
 }
 
-func (x *ReadabilityQualityNavigationContentForm) Searchability() string {
+func (x *ReadabilityNavigationContentForm) Searchability() string {
 	return x.Doc().FormFieldOr(x.Path(), "searchability")
 }
 
-func (x *ReadabilityQualityNavigationContentForm) SetSearchability(value string) {
+func (x *ReadabilityNavigationContentForm) SetSearchability(value string) {
 	x.Doc().SetFormField(x.Path(), "searchability", value)
 }
 
-// ReadabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-type ReadabilityQualityStructureContentForm struct {
+// ReadabilityStructureContentForm is the generated form facade for the `content` @Form section.
+type ReadabilityStructureContentForm struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityStructureContentForm binds a ReadabilityQualityStructureContentForm facade to a document and a path.
-func NewReadabilityQualityStructureContentForm(doc *som.SpecDocument, path string) *ReadabilityQualityStructureContentForm {
-	return &ReadabilityQualityStructureContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityStructureContentForm binds a ReadabilityStructureContentForm facade to a document and a path.
+func NewReadabilityStructureContentForm(doc *som.SpecDocument, path string) *ReadabilityStructureContentForm {
+	return &ReadabilityStructureContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityStructureContentForm) DocumentStructureTemplate() string {
+func (x *ReadabilityStructureContentForm) DocumentStructureTemplate() string {
 	return x.Doc().FormFieldOr(x.Path(), "documentStructureTemplate")
 }
 
-func (x *ReadabilityQualityStructureContentForm) SetDocumentStructureTemplate(value string) {
+func (x *ReadabilityStructureContentForm) SetDocumentStructureTemplate(value string) {
 	x.Doc().SetFormField(x.Path(), "documentStructureTemplate", value)
 }
 
-func (x *ReadabilityQualityStructureContentForm) InformationHierarchy() string {
+func (x *ReadabilityStructureContentForm) InformationHierarchy() string {
 	return x.Doc().FormFieldOr(x.Path(), "informationHierarchy")
 }
 
-func (x *ReadabilityQualityStructureContentForm) SetInformationHierarchy(value string) {
+func (x *ReadabilityStructureContentForm) SetInformationHierarchy(value string) {
 	x.Doc().SetFormField(x.Path(), "informationHierarchy", value)
 }
 
-func (x *ReadabilityQualityStructureContentForm) NavigationAids() string {
+func (x *ReadabilityStructureContentForm) NavigationAids() string {
 	return x.Doc().FormFieldOr(x.Path(), "navigationAids")
 }
 
-func (x *ReadabilityQualityStructureContentForm) SetNavigationAids(value string) {
+func (x *ReadabilityStructureContentForm) SetNavigationAids(value string) {
 	x.Doc().SetFormField(x.Path(), "navigationAids", value)
 }
 
-// ReadabilityQualityStyleContentForm is the generated form facade for the `content` @Form section.
-type ReadabilityQualityStyleContentForm struct {
+// ReadabilityStyleContentForm is the generated form facade for the `content` @Form section.
+type ReadabilityStyleContentForm struct {
 	som.SomNode
 }
 
-// NewReadabilityQualityStyleContentForm binds a ReadabilityQualityStyleContentForm facade to a document and a path.
-func NewReadabilityQualityStyleContentForm(doc *som.SpecDocument, path string) *ReadabilityQualityStyleContentForm {
-	return &ReadabilityQualityStyleContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReadabilityStyleContentForm binds a ReadabilityStyleContentForm facade to a document and a path.
+func NewReadabilityStyleContentForm(doc *som.SpecDocument, path string) *ReadabilityStyleContentForm {
+	return &ReadabilityStyleContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReadabilityQualityStyleContentForm) StyleGuideReference() string {
+func (x *ReadabilityStyleContentForm) StyleGuideReference() string {
 	return x.Doc().FormFieldOr(x.Path(), "styleGuideReference")
 }
 
-func (x *ReadabilityQualityStyleContentForm) SetStyleGuideReference(value string) {
+func (x *ReadabilityStyleContentForm) SetStyleGuideReference(value string) {
 	x.Doc().SetFormField(x.Path(), "styleGuideReference", value)
 }
 
-func (x *ReadabilityQualityStyleContentForm) WritingVoice() string {
+func (x *ReadabilityStyleContentForm) WritingVoice() string {
 	return x.Doc().FormFieldOr(x.Path(), "writingVoice")
 }
 
-func (x *ReadabilityQualityStyleContentForm) SetWritingVoice(value string) {
+func (x *ReadabilityStyleContentForm) SetWritingVoice(value string) {
 	x.Doc().SetFormField(x.Path(), "writingVoice", value)
 }
 
-func (x *ReadabilityQualityStyleContentForm) FormattingConventions() string {
+func (x *ReadabilityStyleContentForm) FormattingConventions() string {
 	return x.Doc().FormFieldOr(x.Path(), "formattingConventions")
 }
 
-func (x *ReadabilityQualityStyleContentForm) SetFormattingConventions(value string) {
+func (x *ReadabilityStyleContentForm) SetFormattingConventions(value string) {
 	x.Doc().SetFormField(x.Path(), "formattingConventions", value)
 }
 
@@ -142320,181 +142840,239 @@ func (x *RelevantSectionEntryContentForm) SetComplianceRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "complianceRequired", value)
 }
 
-// ReliabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type ReliabilityQualityContentForm struct {
+// ReliabilityCharacteristicReliabilityContentForm is the generated form facade for the `reliabilityContent` @Form section.
+type ReliabilityCharacteristicReliabilityContentForm struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityContentForm binds a ReliabilityQualityContentForm facade to a document and a path.
-func NewReliabilityQualityContentForm(doc *som.SpecDocument, path string) *ReliabilityQualityContentForm {
-	return &ReliabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityCharacteristicReliabilityContentForm binds a ReliabilityCharacteristicReliabilityContentForm facade to a document and a path.
+func NewReliabilityCharacteristicReliabilityContentForm(doc *som.SpecDocument, path string) *ReliabilityCharacteristicReliabilityContentForm {
+	return &ReliabilityCharacteristicReliabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityContentForm) UptimeTarget() string {
+func (x *ReliabilityCharacteristicReliabilityContentForm) OperationsMaturityModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationsMaturityModel")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetOperationsMaturityModel(value string) {
+	x.Doc().SetFormField(x.Path(), "operationsMaturityModel", value)
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) OperationsPhilosophy() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationsPhilosophy")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetOperationsPhilosophy(value string) {
+	x.Doc().SetFormField(x.Path(), "operationsPhilosophy", value)
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) OperationsResponsibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationsResponsibility")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetOperationsResponsibility(value string) {
+	x.Doc().SetFormField(x.Path(), "operationsResponsibility", value)
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) IncidentManagementProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "incidentManagementProcess")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetIncidentManagementProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "incidentManagementProcess", value)
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) ChangeManagementProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeManagementProcess")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetChangeManagementProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "changeManagementProcess", value)
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) OperationsToolchain() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationsToolchain")
+}
+
+func (x *ReliabilityCharacteristicReliabilityContentForm) SetOperationsToolchain(value string) {
+	x.Doc().SetFormField(x.Path(), "operationsToolchain", value)
+}
+
+// ReliabilityContentForm is the generated form facade for the `content` @Form section.
+type ReliabilityContentForm struct {
+	som.SomNode
+}
+
+// NewReliabilityContentForm binds a ReliabilityContentForm facade to a document and a path.
+func NewReliabilityContentForm(doc *som.SpecDocument, path string) *ReliabilityContentForm {
+	return &ReliabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ReliabilityContentForm) UptimeTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "uptimeTarget")
 }
 
-func (x *ReliabilityQualityContentForm) SetUptimeTarget(value string) {
+func (x *ReliabilityContentForm) SetUptimeTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "uptimeTarget", value)
 }
 
-func (x *ReliabilityQualityContentForm) PlannedDowntimeWindow() string {
+func (x *ReliabilityContentForm) PlannedDowntimeWindow() string {
 	return x.Doc().FormFieldOr(x.Path(), "plannedDowntimeWindow")
 }
 
-func (x *ReliabilityQualityContentForm) SetPlannedDowntimeWindow(value string) {
+func (x *ReliabilityContentForm) SetPlannedDowntimeWindow(value string) {
 	x.Doc().SetFormField(x.Path(), "plannedDowntimeWindow", value)
 }
 
-func (x *ReliabilityQualityContentForm) DegradedModeCapability() string {
+func (x *ReliabilityContentForm) DegradedModeCapability() string {
 	return x.Doc().FormFieldOr(x.Path(), "degradedModeCapability")
 }
 
-func (x *ReliabilityQualityContentForm) SetDegradedModeCapability(value string) {
+func (x *ReliabilityContentForm) SetDegradedModeCapability(value string) {
 	x.Doc().SetFormField(x.Path(), "degradedModeCapability", value)
 }
 
-// ReliabilityQualityDurabilityContentForm is the generated form facade for the `content` @Form section.
-type ReliabilityQualityDurabilityContentForm struct {
+// ReliabilityDurabilityContentForm is the generated form facade for the `content` @Form section.
+type ReliabilityDurabilityContentForm struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityDurabilityContentForm binds a ReliabilityQualityDurabilityContentForm facade to a document and a path.
-func NewReliabilityQualityDurabilityContentForm(doc *som.SpecDocument, path string) *ReliabilityQualityDurabilityContentForm {
-	return &ReliabilityQualityDurabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityDurabilityContentForm binds a ReliabilityDurabilityContentForm facade to a document and a path.
+func NewReliabilityDurabilityContentForm(doc *som.SpecDocument, path string) *ReliabilityDurabilityContentForm {
+	return &ReliabilityDurabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) DataDurability() string {
+func (x *ReliabilityDurabilityContentForm) DataDurability() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataDurability")
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) SetDataDurability(value string) {
+func (x *ReliabilityDurabilityContentForm) SetDataDurability(value string) {
 	x.Doc().SetFormField(x.Path(), "dataDurability", value)
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) BackupFrequency() string {
+func (x *ReliabilityDurabilityContentForm) BackupFrequency() string {
 	return x.Doc().FormFieldOr(x.Path(), "backupFrequency")
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) SetBackupFrequency(value string) {
+func (x *ReliabilityDurabilityContentForm) SetBackupFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "backupFrequency", value)
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) BackupRetention() string {
+func (x *ReliabilityDurabilityContentForm) BackupRetention() string {
 	return x.Doc().FormFieldOr(x.Path(), "backupRetention")
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) SetBackupRetention(value string) {
+func (x *ReliabilityDurabilityContentForm) SetBackupRetention(value string) {
 	x.Doc().SetFormField(x.Path(), "backupRetention", value)
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) BackupVerification() string {
+func (x *ReliabilityDurabilityContentForm) BackupVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "backupVerification")
 }
 
-func (x *ReliabilityQualityDurabilityContentForm) SetBackupVerification(value string) {
+func (x *ReliabilityDurabilityContentForm) SetBackupVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "backupVerification", value)
 }
 
-// ReliabilityQualityFailoverContentForm is the generated form facade for the `content` @Form section.
-type ReliabilityQualityFailoverContentForm struct {
+// ReliabilityFailoverContentForm is the generated form facade for the `content` @Form section.
+type ReliabilityFailoverContentForm struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityFailoverContentForm binds a ReliabilityQualityFailoverContentForm facade to a document and a path.
-func NewReliabilityQualityFailoverContentForm(doc *som.SpecDocument, path string) *ReliabilityQualityFailoverContentForm {
-	return &ReliabilityQualityFailoverContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityFailoverContentForm binds a ReliabilityFailoverContentForm facade to a document and a path.
+func NewReliabilityFailoverContentForm(doc *som.SpecDocument, path string) *ReliabilityFailoverContentForm {
+	return &ReliabilityFailoverContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityFailoverContentForm) FailoverStrategy() string {
+func (x *ReliabilityFailoverContentForm) FailoverStrategy() string {
 	return x.Doc().FormFieldOr(x.Path(), "failoverStrategy")
 }
 
-func (x *ReliabilityQualityFailoverContentForm) SetFailoverStrategy(value string) {
+func (x *ReliabilityFailoverContentForm) SetFailoverStrategy(value string) {
 	x.Doc().SetFormField(x.Path(), "failoverStrategy", value)
 }
 
-func (x *ReliabilityQualityFailoverContentForm) FailoverTime() string {
+func (x *ReliabilityFailoverContentForm) FailoverTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "failoverTime")
 }
 
-func (x *ReliabilityQualityFailoverContentForm) SetFailoverTime(value string) {
+func (x *ReliabilityFailoverContentForm) SetFailoverTime(value string) {
 	x.Doc().SetFormField(x.Path(), "failoverTime", value)
 }
 
-func (x *ReliabilityQualityFailoverContentForm) FailoverTesting() string {
+func (x *ReliabilityFailoverContentForm) FailoverTesting() string {
 	return x.Doc().FormFieldOr(x.Path(), "failoverTesting")
 }
 
-func (x *ReliabilityQualityFailoverContentForm) SetFailoverTesting(value string) {
+func (x *ReliabilityFailoverContentForm) SetFailoverTesting(value string) {
 	x.Doc().SetFormField(x.Path(), "failoverTesting", value)
 }
 
-// ReliabilityQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-type ReliabilityQualityRecoveryContentForm struct {
+// ReliabilityRecoveryContentForm is the generated form facade for the `content` @Form section.
+type ReliabilityRecoveryContentForm struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityRecoveryContentForm binds a ReliabilityQualityRecoveryContentForm facade to a document and a path.
-func NewReliabilityQualityRecoveryContentForm(doc *som.SpecDocument, path string) *ReliabilityQualityRecoveryContentForm {
-	return &ReliabilityQualityRecoveryContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityRecoveryContentForm binds a ReliabilityRecoveryContentForm facade to a document and a path.
+func NewReliabilityRecoveryContentForm(doc *som.SpecDocument, path string) *ReliabilityRecoveryContentForm {
+	return &ReliabilityRecoveryContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) MtbfTarget() string {
+func (x *ReliabilityRecoveryContentForm) MtbfTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "mtbfTarget")
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) SetMtbfTarget(value string) {
+func (x *ReliabilityRecoveryContentForm) SetMtbfTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "mtbfTarget", value)
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) MttrTarget() string {
+func (x *ReliabilityRecoveryContentForm) MttrTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "mttrTarget")
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) SetMttrTarget(value string) {
+func (x *ReliabilityRecoveryContentForm) SetMttrTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "mttrTarget", value)
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) RtoTarget() string {
+func (x *ReliabilityRecoveryContentForm) RtoTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "rtoTarget")
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) SetRtoTarget(value string) {
+func (x *ReliabilityRecoveryContentForm) SetRtoTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "rtoTarget", value)
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) RpoTarget() string {
+func (x *ReliabilityRecoveryContentForm) RpoTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "rpoTarget")
 }
 
-func (x *ReliabilityQualityRecoveryContentForm) SetRpoTarget(value string) {
+func (x *ReliabilityRecoveryContentForm) SetRpoTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "rpoTarget", value)
 }
 
-// ReliabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-type ReliabilityQualityVerificationContentForm struct {
+// ReliabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+type ReliabilityVerificationContentForm struct {
 	som.SomNode
 }
 
-// NewReliabilityQualityVerificationContentForm binds a ReliabilityQualityVerificationContentForm facade to a document and a path.
-func NewReliabilityQualityVerificationContentForm(doc *som.SpecDocument, path string) *ReliabilityQualityVerificationContentForm {
-	return &ReliabilityQualityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewReliabilityVerificationContentForm binds a ReliabilityVerificationContentForm facade to a document and a path.
+func NewReliabilityVerificationContentForm(doc *som.SpecDocument, path string) *ReliabilityVerificationContentForm {
+	return &ReliabilityVerificationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ReliabilityQualityVerificationContentForm) ReliabilityVerification() string {
+func (x *ReliabilityVerificationContentForm) ReliabilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "reliabilityVerification")
 }
 
-func (x *ReliabilityQualityVerificationContentForm) SetReliabilityVerification(value string) {
+func (x *ReliabilityVerificationContentForm) SetReliabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "reliabilityVerification", value)
 }
 
-func (x *ReliabilityQualityVerificationContentForm) IncidentPostmortem() string {
+func (x *ReliabilityVerificationContentForm) IncidentPostmortem() string {
 	return x.Doc().FormFieldOr(x.Path(), "incidentPostmortem")
 }
 
-func (x *ReliabilityQualityVerificationContentForm) SetIncidentPostmortem(value string) {
+func (x *ReliabilityVerificationContentForm) SetIncidentPostmortem(value string) {
 	x.Doc().SetFormField(x.Path(), "incidentPostmortem", value)
 }
 
@@ -153522,6 +154100,82 @@ func (x *SecurityAuditEntrySchedulingContentForm) SetNextAuditDate(value string)
 	x.Doc().SetFormField(x.Path(), "nextAuditDate", value)
 }
 
+// SecurityAuthenticationContentForm is the generated form facade for the `content` @Form section.
+type SecurityAuthenticationContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityAuthenticationContentForm binds a SecurityAuthenticationContentForm facade to a document and a path.
+func NewSecurityAuthenticationContentForm(doc *som.SpecDocument, path string) *SecurityAuthenticationContentForm {
+	return &SecurityAuthenticationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityAuthenticationContentForm) AuthenticationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationMethod")
+}
+
+func (x *SecurityAuthenticationContentForm) SetAuthenticationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
+}
+
+func (x *SecurityAuthenticationContentForm) MfaRequirement() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaRequirement")
+}
+
+func (x *SecurityAuthenticationContentForm) SetMfaRequirement(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaRequirement", value)
+}
+
+func (x *SecurityAuthenticationContentForm) PasswordPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordPolicy")
+}
+
+func (x *SecurityAuthenticationContentForm) SetPasswordPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordPolicy", value)
+}
+
+func (x *SecurityAuthenticationContentForm) SessionManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionManagement")
+}
+
+func (x *SecurityAuthenticationContentForm) SetSessionManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionManagement", value)
+}
+
+// SecurityAuthorizationContentForm is the generated form facade for the `content` @Form section.
+type SecurityAuthorizationContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityAuthorizationContentForm binds a SecurityAuthorizationContentForm facade to a document and a path.
+func NewSecurityAuthorizationContentForm(doc *som.SpecDocument, path string) *SecurityAuthorizationContentForm {
+	return &SecurityAuthorizationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityAuthorizationContentForm) AuthorizationModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationModel")
+}
+
+func (x *SecurityAuthorizationContentForm) SetAuthorizationModel(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationModel", value)
+}
+
+func (x *SecurityAuthorizationContentForm) AuthorizationCoverage() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationCoverage")
+}
+
+func (x *SecurityAuthorizationContentForm) SetAuthorizationCoverage(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationCoverage", value)
+}
+
+func (x *SecurityAuthorizationContentForm) PrivilegeEscalationPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegeEscalationPrevention")
+}
+
+func (x *SecurityAuthorizationContentForm) SetPrivilegeEscalationPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegeEscalationPrevention", value)
+}
+
 // SecurityCertificationRequirementsContentForm is the generated form facade for the `content` @Form section.
 type SecurityCertificationRequirementsContentForm struct {
 	som.SomNode
@@ -153700,6 +154354,32 @@ func (x *SecurityCertificationRequirementsSoc2ContentForm) SetSoc2AuditPeriod(va
 	x.Doc().SetFormField(x.Path(), "soc2AuditPeriod", value)
 }
 
+// SecurityCharacteristicSecurityContentForm is the generated form facade for the `securityContent` @Form section.
+type SecurityCharacteristicSecurityContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityCharacteristicSecurityContentForm binds a SecurityCharacteristicSecurityContentForm facade to a document and a path.
+func NewSecurityCharacteristicSecurityContentForm(doc *som.SpecDocument, path string) *SecurityCharacteristicSecurityContentForm {
+	return &SecurityCharacteristicSecurityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityCharacteristicSecurityContentForm) SecurityApproach() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityApproach")
+}
+
+func (x *SecurityCharacteristicSecurityContentForm) SetSecurityApproach(value string) {
+	x.Doc().SetFormField(x.Path(), "securityApproach", value)
+}
+
+func (x *SecurityCharacteristicSecurityContentForm) SecurityComplianceTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityComplianceTarget")
+}
+
+func (x *SecurityCharacteristicSecurityContentForm) SetSecurityComplianceTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "securityComplianceTarget", value)
+}
+
 // SecurityCodeReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 type SecurityCodeReviewPolicyContentForm struct {
 	som.SomNode
@@ -153842,6 +154522,82 @@ func (x *SecurityCodeReviewPolicyReviewersContentForm) ReviewerRotation() string
 
 func (x *SecurityCodeReviewPolicyReviewersContentForm) SetReviewerRotation(value string) {
 	x.Doc().SetFormField(x.Path(), "reviewerRotation", value)
+}
+
+// SecurityComplianceContentForm is the generated form facade for the `content` @Form section.
+type SecurityComplianceContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityComplianceContentForm binds a SecurityComplianceContentForm facade to a document and a path.
+func NewSecurityComplianceContentForm(doc *som.SpecDocument, path string) *SecurityComplianceContentForm {
+	return &SecurityComplianceContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityComplianceContentForm) SecurityCompliance() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityCompliance")
+}
+
+func (x *SecurityComplianceContentForm) SetSecurityCompliance(value string) {
+	x.Doc().SetFormField(x.Path(), "securityCompliance", value)
+}
+
+func (x *SecurityComplianceContentForm) SecurityCertifications() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityCertifications")
+}
+
+func (x *SecurityComplianceContentForm) SetSecurityCertifications(value string) {
+	x.Doc().SetFormField(x.Path(), "securityCertifications", value)
+}
+
+func (x *SecurityComplianceContentForm) SecurityAuditFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityAuditFrequency")
+}
+
+func (x *SecurityComplianceContentForm) SetSecurityAuditFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "securityAuditFrequency", value)
+}
+
+func (x *SecurityComplianceContentForm) SecurityVerification() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityVerification")
+}
+
+func (x *SecurityComplianceContentForm) SetSecurityVerification(value string) {
+	x.Doc().SetFormField(x.Path(), "securityVerification", value)
+}
+
+// SecurityContentForm is the generated form facade for the `content` @Form section.
+type SecurityContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityContentForm binds a SecurityContentForm facade to a document and a path.
+func NewSecurityContentForm(doc *som.SpecDocument, path string) *SecurityContentForm {
+	return &SecurityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityContentForm) EncryptionAtRest() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptionAtRest")
+}
+
+func (x *SecurityContentForm) SetEncryptionAtRest(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptionAtRest", value)
+}
+
+func (x *SecurityContentForm) EncryptionInTransit() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptionInTransit")
+}
+
+func (x *SecurityContentForm) SetEncryptionInTransit(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptionInTransit", value)
+}
+
+func (x *SecurityContentForm) KeyManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyManagement")
+}
+
+func (x *SecurityContentForm) SetKeyManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "keyManagement", value)
 }
 
 // SecurityControlEntryContentForm is the generated form facade for the `content` @Form section.
@@ -154252,192 +155008,6 @@ func (x *SecurityEventLoggingPolicyContentForm) CorrelationIdentifiers() string 
 
 func (x *SecurityEventLoggingPolicyContentForm) SetCorrelationIdentifiers(value string) {
 	x.Doc().SetFormField(x.Path(), "correlationIdentifiers", value)
-}
-
-// SecurityQualityAuthenticationContentForm is the generated form facade for the `content` @Form section.
-type SecurityQualityAuthenticationContentForm struct {
-	som.SomNode
-}
-
-// NewSecurityQualityAuthenticationContentForm binds a SecurityQualityAuthenticationContentForm facade to a document and a path.
-func NewSecurityQualityAuthenticationContentForm(doc *som.SpecDocument, path string) *SecurityQualityAuthenticationContentForm {
-	return &SecurityQualityAuthenticationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityAuthenticationContentForm) AuthenticationMethod() string {
-	return x.Doc().FormFieldOr(x.Path(), "authenticationMethod")
-}
-
-func (x *SecurityQualityAuthenticationContentForm) SetAuthenticationMethod(value string) {
-	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
-}
-
-func (x *SecurityQualityAuthenticationContentForm) MfaRequirement() string {
-	return x.Doc().FormFieldOr(x.Path(), "mfaRequirement")
-}
-
-func (x *SecurityQualityAuthenticationContentForm) SetMfaRequirement(value string) {
-	x.Doc().SetFormField(x.Path(), "mfaRequirement", value)
-}
-
-func (x *SecurityQualityAuthenticationContentForm) PasswordPolicy() string {
-	return x.Doc().FormFieldOr(x.Path(), "passwordPolicy")
-}
-
-func (x *SecurityQualityAuthenticationContentForm) SetPasswordPolicy(value string) {
-	x.Doc().SetFormField(x.Path(), "passwordPolicy", value)
-}
-
-func (x *SecurityQualityAuthenticationContentForm) SessionManagement() string {
-	return x.Doc().FormFieldOr(x.Path(), "sessionManagement")
-}
-
-func (x *SecurityQualityAuthenticationContentForm) SetSessionManagement(value string) {
-	x.Doc().SetFormField(x.Path(), "sessionManagement", value)
-}
-
-// SecurityQualityAuthorizationContentForm is the generated form facade for the `content` @Form section.
-type SecurityQualityAuthorizationContentForm struct {
-	som.SomNode
-}
-
-// NewSecurityQualityAuthorizationContentForm binds a SecurityQualityAuthorizationContentForm facade to a document and a path.
-func NewSecurityQualityAuthorizationContentForm(doc *som.SpecDocument, path string) *SecurityQualityAuthorizationContentForm {
-	return &SecurityQualityAuthorizationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityAuthorizationContentForm) AuthorizationModel() string {
-	return x.Doc().FormFieldOr(x.Path(), "authorizationModel")
-}
-
-func (x *SecurityQualityAuthorizationContentForm) SetAuthorizationModel(value string) {
-	x.Doc().SetFormField(x.Path(), "authorizationModel", value)
-}
-
-func (x *SecurityQualityAuthorizationContentForm) AuthorizationCoverage() string {
-	return x.Doc().FormFieldOr(x.Path(), "authorizationCoverage")
-}
-
-func (x *SecurityQualityAuthorizationContentForm) SetAuthorizationCoverage(value string) {
-	x.Doc().SetFormField(x.Path(), "authorizationCoverage", value)
-}
-
-func (x *SecurityQualityAuthorizationContentForm) PrivilegeEscalationPrevention() string {
-	return x.Doc().FormFieldOr(x.Path(), "privilegeEscalationPrevention")
-}
-
-func (x *SecurityQualityAuthorizationContentForm) SetPrivilegeEscalationPrevention(value string) {
-	x.Doc().SetFormField(x.Path(), "privilegeEscalationPrevention", value)
-}
-
-// SecurityQualityComplianceContentForm is the generated form facade for the `content` @Form section.
-type SecurityQualityComplianceContentForm struct {
-	som.SomNode
-}
-
-// NewSecurityQualityComplianceContentForm binds a SecurityQualityComplianceContentForm facade to a document and a path.
-func NewSecurityQualityComplianceContentForm(doc *som.SpecDocument, path string) *SecurityQualityComplianceContentForm {
-	return &SecurityQualityComplianceContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityComplianceContentForm) SecurityCompliance() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityCompliance")
-}
-
-func (x *SecurityQualityComplianceContentForm) SetSecurityCompliance(value string) {
-	x.Doc().SetFormField(x.Path(), "securityCompliance", value)
-}
-
-func (x *SecurityQualityComplianceContentForm) SecurityCertifications() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityCertifications")
-}
-
-func (x *SecurityQualityComplianceContentForm) SetSecurityCertifications(value string) {
-	x.Doc().SetFormField(x.Path(), "securityCertifications", value)
-}
-
-func (x *SecurityQualityComplianceContentForm) SecurityAuditFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityAuditFrequency")
-}
-
-func (x *SecurityQualityComplianceContentForm) SetSecurityAuditFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "securityAuditFrequency", value)
-}
-
-func (x *SecurityQualityComplianceContentForm) SecurityVerification() string {
-	return x.Doc().FormFieldOr(x.Path(), "securityVerification")
-}
-
-func (x *SecurityQualityComplianceContentForm) SetSecurityVerification(value string) {
-	x.Doc().SetFormField(x.Path(), "securityVerification", value)
-}
-
-// SecurityQualityContentForm is the generated form facade for the `content` @Form section.
-type SecurityQualityContentForm struct {
-	som.SomNode
-}
-
-// NewSecurityQualityContentForm binds a SecurityQualityContentForm facade to a document and a path.
-func NewSecurityQualityContentForm(doc *som.SpecDocument, path string) *SecurityQualityContentForm {
-	return &SecurityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityContentForm) EncryptionAtRest() string {
-	return x.Doc().FormFieldOr(x.Path(), "encryptionAtRest")
-}
-
-func (x *SecurityQualityContentForm) SetEncryptionAtRest(value string) {
-	x.Doc().SetFormField(x.Path(), "encryptionAtRest", value)
-}
-
-func (x *SecurityQualityContentForm) EncryptionInTransit() string {
-	return x.Doc().FormFieldOr(x.Path(), "encryptionInTransit")
-}
-
-func (x *SecurityQualityContentForm) SetEncryptionInTransit(value string) {
-	x.Doc().SetFormField(x.Path(), "encryptionInTransit", value)
-}
-
-func (x *SecurityQualityContentForm) KeyManagement() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyManagement")
-}
-
-func (x *SecurityQualityContentForm) SetKeyManagement(value string) {
-	x.Doc().SetFormField(x.Path(), "keyManagement", value)
-}
-
-// SecurityQualityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
-type SecurityQualityVulnerabilityContentForm struct {
-	som.SomNode
-}
-
-// NewSecurityQualityVulnerabilityContentForm binds a SecurityQualityVulnerabilityContentForm facade to a document and a path.
-func NewSecurityQualityVulnerabilityContentForm(doc *som.SpecDocument, path string) *SecurityQualityVulnerabilityContentForm {
-	return &SecurityQualityVulnerabilityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) VulnerabilityScanFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "vulnerabilityScanFrequency")
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) SetVulnerabilityScanFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "vulnerabilityScanFrequency", value)
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) PenetrationTestFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "penetrationTestFrequency")
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) SetPenetrationTestFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "penetrationTestFrequency", value)
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) CveResponseTime() string {
-	return x.Doc().FormFieldOr(x.Path(), "cveResponseTime")
-}
-
-func (x *SecurityQualityVulnerabilityContentForm) SetCveResponseTime(value string) {
-	x.Doc().SetFormField(x.Path(), "cveResponseTime", value)
 }
 
 // SecurityRequirementEntryClassificationContentForm is the generated form facade for the `content` @Form section.
@@ -155272,6 +155842,40 @@ func (x *SecurityTestingAutomationScanningContentForm) SecretsDetection() string
 
 func (x *SecurityTestingAutomationScanningContentForm) SetSecretsDetection(value string) {
 	x.Doc().SetFormField(x.Path(), "secretsDetection", value)
+}
+
+// SecurityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
+type SecurityVulnerabilityContentForm struct {
+	som.SomNode
+}
+
+// NewSecurityVulnerabilityContentForm binds a SecurityVulnerabilityContentForm facade to a document and a path.
+func NewSecurityVulnerabilityContentForm(doc *som.SpecDocument, path string) *SecurityVulnerabilityContentForm {
+	return &SecurityVulnerabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityVulnerabilityContentForm) VulnerabilityScanFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "vulnerabilityScanFrequency")
+}
+
+func (x *SecurityVulnerabilityContentForm) SetVulnerabilityScanFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "vulnerabilityScanFrequency", value)
+}
+
+func (x *SecurityVulnerabilityContentForm) PenetrationTestFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "penetrationTestFrequency")
+}
+
+func (x *SecurityVulnerabilityContentForm) SetPenetrationTestFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "penetrationTestFrequency", value)
+}
+
+func (x *SecurityVulnerabilityContentForm) CveResponseTime() string {
+	return x.Doc().FormFieldOr(x.Path(), "cveResponseTime")
+}
+
+func (x *SecurityVulnerabilityContentForm) SetCveResponseTime(value string) {
+	x.Doc().SetFormField(x.Path(), "cveResponseTime", value)
 }
 
 // SelfRegistrationPolicyApprovalContentForm is the generated form facade for the `content` @Form section.
@@ -156304,6 +156908,74 @@ func (x *ServiceLevelAgreementEntryContentForm) SetSlaExclusions(value string) {
 	x.Doc().SetFormField(x.Path(), "slaExclusions", value)
 }
 
+// ServiceLevelContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelContentForm struct {
+	som.SomNode
+}
+
+// NewServiceLevelContentForm binds a ServiceLevelContentForm facade to a document and a path.
+func NewServiceLevelContentForm(doc *som.SpecDocument, path string) *ServiceLevelContentForm {
+	return &ServiceLevelContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServiceLevelContentForm) SupportTierStructure() string {
+	return x.Doc().FormFieldOr(x.Path(), "supportTierStructure")
+}
+
+func (x *ServiceLevelContentForm) SetSupportTierStructure(value string) {
+	x.Doc().SetFormField(x.Path(), "supportTierStructure", value)
+}
+
+func (x *ServiceLevelContentForm) CriticalResponseTime() string {
+	return x.Doc().FormFieldOr(x.Path(), "criticalResponseTime")
+}
+
+func (x *ServiceLevelContentForm) SetCriticalResponseTime(value string) {
+	x.Doc().SetFormField(x.Path(), "criticalResponseTime", value)
+}
+
+func (x *ServiceLevelContentForm) HighResponseTime() string {
+	return x.Doc().FormFieldOr(x.Path(), "highResponseTime")
+}
+
+func (x *ServiceLevelContentForm) SetHighResponseTime(value string) {
+	x.Doc().SetFormField(x.Path(), "highResponseTime", value)
+}
+
+// ServiceLevelEscalationContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelEscalationContentForm struct {
+	som.SomNode
+}
+
+// NewServiceLevelEscalationContentForm binds a ServiceLevelEscalationContentForm facade to a document and a path.
+func NewServiceLevelEscalationContentForm(doc *som.SpecDocument, path string) *ServiceLevelEscalationContentForm {
+	return &ServiceLevelEscalationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServiceLevelEscalationContentForm) EscalationTimeframes() string {
+	return x.Doc().FormFieldOr(x.Path(), "escalationTimeframes")
+}
+
+func (x *ServiceLevelEscalationContentForm) SetEscalationTimeframes(value string) {
+	x.Doc().SetFormField(x.Path(), "escalationTimeframes", value)
+}
+
+func (x *ServiceLevelEscalationContentForm) EscalationContacts() string {
+	return x.Doc().FormFieldOr(x.Path(), "escalationContacts")
+}
+
+func (x *ServiceLevelEscalationContentForm) SetEscalationContacts(value string) {
+	x.Doc().SetFormField(x.Path(), "escalationContacts", value)
+}
+
+func (x *ServiceLevelEscalationContentForm) ExecutiveEscalation() string {
+	return x.Doc().FormFieldOr(x.Path(), "executiveEscalation")
+}
+
+func (x *ServiceLevelEscalationContentForm) SetExecutiveEscalation(value string) {
+	x.Doc().SetFormField(x.Path(), "executiveEscalation", value)
+}
+
 // ServiceLevelIndicatorsContentForm is the generated form facade for the `content` @Form section.
 type ServiceLevelIndicatorsContentForm struct {
 	som.SomNode
@@ -156440,199 +157112,131 @@ func (x *ServiceLevelIndicatorsQualityContentForm) SetFreshnessSli(value string)
 	x.Doc().SetFormField(x.Path(), "freshnessSli", value)
 }
 
-// ServiceLevelQualityContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityContentForm struct {
+// ServiceLevelOnCallContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelOnCallContentForm struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityContentForm binds a ServiceLevelQualityContentForm facade to a document and a path.
-func NewServiceLevelQualityContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityContentForm {
-	return &ServiceLevelQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelOnCallContentForm binds a ServiceLevelOnCallContentForm facade to a document and a path.
+func NewServiceLevelOnCallContentForm(doc *som.SpecDocument, path string) *ServiceLevelOnCallContentForm {
+	return &ServiceLevelOnCallContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityContentForm) SupportTierStructure() string {
-	return x.Doc().FormFieldOr(x.Path(), "supportTierStructure")
-}
-
-func (x *ServiceLevelQualityContentForm) SetSupportTierStructure(value string) {
-	x.Doc().SetFormField(x.Path(), "supportTierStructure", value)
-}
-
-func (x *ServiceLevelQualityContentForm) CriticalResponseTime() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalResponseTime")
-}
-
-func (x *ServiceLevelQualityContentForm) SetCriticalResponseTime(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalResponseTime", value)
-}
-
-func (x *ServiceLevelQualityContentForm) HighResponseTime() string {
-	return x.Doc().FormFieldOr(x.Path(), "highResponseTime")
-}
-
-func (x *ServiceLevelQualityContentForm) SetHighResponseTime(value string) {
-	x.Doc().SetFormField(x.Path(), "highResponseTime", value)
-}
-
-// ServiceLevelQualityEscalationContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityEscalationContentForm struct {
-	som.SomNode
-}
-
-// NewServiceLevelQualityEscalationContentForm binds a ServiceLevelQualityEscalationContentForm facade to a document and a path.
-func NewServiceLevelQualityEscalationContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityEscalationContentForm {
-	return &ServiceLevelQualityEscalationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) EscalationTimeframes() string {
-	return x.Doc().FormFieldOr(x.Path(), "escalationTimeframes")
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) SetEscalationTimeframes(value string) {
-	x.Doc().SetFormField(x.Path(), "escalationTimeframes", value)
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) EscalationContacts() string {
-	return x.Doc().FormFieldOr(x.Path(), "escalationContacts")
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) SetEscalationContacts(value string) {
-	x.Doc().SetFormField(x.Path(), "escalationContacts", value)
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) ExecutiveEscalation() string {
-	return x.Doc().FormFieldOr(x.Path(), "executiveEscalation")
-}
-
-func (x *ServiceLevelQualityEscalationContentForm) SetExecutiveEscalation(value string) {
-	x.Doc().SetFormField(x.Path(), "executiveEscalation", value)
-}
-
-// ServiceLevelQualityOnCallContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityOnCallContentForm struct {
-	som.SomNode
-}
-
-// NewServiceLevelQualityOnCallContentForm binds a ServiceLevelQualityOnCallContentForm facade to a document and a path.
-func NewServiceLevelQualityOnCallContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityOnCallContentForm {
-	return &ServiceLevelQualityOnCallContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ServiceLevelQualityOnCallContentForm) OnCallCoverage() string {
+func (x *ServiceLevelOnCallContentForm) OnCallCoverage() string {
 	return x.Doc().FormFieldOr(x.Path(), "onCallCoverage")
 }
 
-func (x *ServiceLevelQualityOnCallContentForm) SetOnCallCoverage(value string) {
+func (x *ServiceLevelOnCallContentForm) SetOnCallCoverage(value string) {
 	x.Doc().SetFormField(x.Path(), "onCallCoverage", value)
 }
 
-func (x *ServiceLevelQualityOnCallContentForm) OnCallRotation() string {
+func (x *ServiceLevelOnCallContentForm) OnCallRotation() string {
 	return x.Doc().FormFieldOr(x.Path(), "onCallRotation")
 }
 
-func (x *ServiceLevelQualityOnCallContentForm) SetOnCallRotation(value string) {
+func (x *ServiceLevelOnCallContentForm) SetOnCallRotation(value string) {
 	x.Doc().SetFormField(x.Path(), "onCallRotation", value)
 }
 
-func (x *ServiceLevelQualityOnCallContentForm) OnCallCompensation() string {
+func (x *ServiceLevelOnCallContentForm) OnCallCompensation() string {
 	return x.Doc().FormFieldOr(x.Path(), "onCallCompensation")
 }
 
-func (x *ServiceLevelQualityOnCallContentForm) SetOnCallCompensation(value string) {
+func (x *ServiceLevelOnCallContentForm) SetOnCallCompensation(value string) {
 	x.Doc().SetFormField(x.Path(), "onCallCompensation", value)
 }
 
-// ServiceLevelQualityResolutionContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityResolutionContentForm struct {
+// ServiceLevelResolutionContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelResolutionContentForm struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityResolutionContentForm binds a ServiceLevelQualityResolutionContentForm facade to a document and a path.
-func NewServiceLevelQualityResolutionContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityResolutionContentForm {
-	return &ServiceLevelQualityResolutionContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelResolutionContentForm binds a ServiceLevelResolutionContentForm facade to a document and a path.
+func NewServiceLevelResolutionContentForm(doc *som.SpecDocument, path string) *ServiceLevelResolutionContentForm {
+	return &ServiceLevelResolutionContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) CriticalResolutionTime() string {
+func (x *ServiceLevelResolutionContentForm) CriticalResolutionTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "criticalResolutionTime")
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) SetCriticalResolutionTime(value string) {
+func (x *ServiceLevelResolutionContentForm) SetCriticalResolutionTime(value string) {
 	x.Doc().SetFormField(x.Path(), "criticalResolutionTime", value)
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) HighResolutionTime() string {
+func (x *ServiceLevelResolutionContentForm) HighResolutionTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "highResolutionTime")
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) SetHighResolutionTime(value string) {
+func (x *ServiceLevelResolutionContentForm) SetHighResolutionTime(value string) {
 	x.Doc().SetFormField(x.Path(), "highResolutionTime", value)
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) MediumResolutionTime() string {
+func (x *ServiceLevelResolutionContentForm) MediumResolutionTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "mediumResolutionTime")
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) SetMediumResolutionTime(value string) {
+func (x *ServiceLevelResolutionContentForm) SetMediumResolutionTime(value string) {
 	x.Doc().SetFormField(x.Path(), "mediumResolutionTime", value)
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) LowResolutionTime() string {
+func (x *ServiceLevelResolutionContentForm) LowResolutionTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "lowResolutionTime")
 }
 
-func (x *ServiceLevelQualityResolutionContentForm) SetLowResolutionTime(value string) {
+func (x *ServiceLevelResolutionContentForm) SetLowResolutionTime(value string) {
 	x.Doc().SetFormField(x.Path(), "lowResolutionTime", value)
 }
 
-// ServiceLevelQualityResponseContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityResponseContentForm struct {
+// ServiceLevelResponseContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelResponseContentForm struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityResponseContentForm binds a ServiceLevelQualityResponseContentForm facade to a document and a path.
-func NewServiceLevelQualityResponseContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityResponseContentForm {
-	return &ServiceLevelQualityResponseContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelResponseContentForm binds a ServiceLevelResponseContentForm facade to a document and a path.
+func NewServiceLevelResponseContentForm(doc *som.SpecDocument, path string) *ServiceLevelResponseContentForm {
+	return &ServiceLevelResponseContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityResponseContentForm) MediumResponseTime() string {
+func (x *ServiceLevelResponseContentForm) MediumResponseTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "mediumResponseTime")
 }
 
-func (x *ServiceLevelQualityResponseContentForm) SetMediumResponseTime(value string) {
+func (x *ServiceLevelResponseContentForm) SetMediumResponseTime(value string) {
 	x.Doc().SetFormField(x.Path(), "mediumResponseTime", value)
 }
 
-func (x *ServiceLevelQualityResponseContentForm) LowResponseTime() string {
+func (x *ServiceLevelResponseContentForm) LowResponseTime() string {
 	return x.Doc().FormFieldOr(x.Path(), "lowResponseTime")
 }
 
-func (x *ServiceLevelQualityResponseContentForm) SetLowResponseTime(value string) {
+func (x *ServiceLevelResponseContentForm) SetLowResponseTime(value string) {
 	x.Doc().SetFormField(x.Path(), "lowResponseTime", value)
 }
 
-// ServiceLevelQualityRestorationContentForm is the generated form facade for the `content` @Form section.
-type ServiceLevelQualityRestorationContentForm struct {
+// ServiceLevelRestorationContentForm is the generated form facade for the `content` @Form section.
+type ServiceLevelRestorationContentForm struct {
 	som.SomNode
 }
 
-// NewServiceLevelQualityRestorationContentForm binds a ServiceLevelQualityRestorationContentForm facade to a document and a path.
-func NewServiceLevelQualityRestorationContentForm(doc *som.SpecDocument, path string) *ServiceLevelQualityRestorationContentForm {
-	return &ServiceLevelQualityRestorationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewServiceLevelRestorationContentForm binds a ServiceLevelRestorationContentForm facade to a document and a path.
+func NewServiceLevelRestorationContentForm(doc *som.SpecDocument, path string) *ServiceLevelRestorationContentForm {
+	return &ServiceLevelRestorationContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ServiceLevelQualityRestorationContentForm) ServiceRestorationPriority() string {
+func (x *ServiceLevelRestorationContentForm) ServiceRestorationPriority() string {
 	return x.Doc().FormFieldOr(x.Path(), "serviceRestorationPriority")
 }
 
-func (x *ServiceLevelQualityRestorationContentForm) SetServiceRestorationPriority(value string) {
+func (x *ServiceLevelRestorationContentForm) SetServiceRestorationPriority(value string) {
 	x.Doc().SetFormField(x.Path(), "serviceRestorationPriority", value)
 }
 
-func (x *ServiceLevelQualityRestorationContentForm) CommunicationDuringOutage() string {
+func (x *ServiceLevelRestorationContentForm) CommunicationDuringOutage() string {
 	return x.Doc().FormFieldOr(x.Path(), "communicationDuringOutage")
 }
 
-func (x *ServiceLevelQualityRestorationContentForm) SetCommunicationDuringOutage(value string) {
+func (x *ServiceLevelRestorationContentForm) SetCommunicationDuringOutage(value string) {
 	x.Doc().SetFormField(x.Path(), "communicationDuringOutage", value)
 }
 
@@ -165420,48 +166024,6 @@ func (x *SystemOverviewSummaryStatusContentForm) SetTargetGoLiveDate(value strin
 	x.Doc().SetFormField(x.Path(), "targetGoLiveDate", value)
 }
 
-// SystemQualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
-type SystemQualityGoalsBaselineContentForm struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsBaselineContentForm binds a SystemQualityGoalsBaselineContentForm facade to a document and a path.
-func NewSystemQualityGoalsBaselineContentForm(doc *som.SpecDocument, path string) *SystemQualityGoalsBaselineContentForm {
-	return &SystemQualityGoalsBaselineContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) QualityBaselineDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityBaselineDate")
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) SetQualityBaselineDate(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityBaselineDate", value)
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) QualityBaselineVersion() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityBaselineVersion")
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) SetQualityBaselineVersion(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityBaselineVersion", value)
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) OverallQualityTargetLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "overallQualityTargetLevel")
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) SetOverallQualityTargetLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "overallQualityTargetLevel", value)
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) QualityRiskTolerance() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityRiskTolerance")
-}
-
-func (x *SystemQualityGoalsBaselineContentForm) SetQualityRiskTolerance(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityRiskTolerance", value)
-}
-
 // SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 type SystemQualityGoalsGovernanceContentForm struct {
 	som.SomNode
@@ -165494,132 +166056,6 @@ func (x *SystemQualityGoalsGovernanceContentForm) QualityOwner() string {
 
 func (x *SystemQualityGoalsGovernanceContentForm) SetQualityOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "qualityOwner", value)
-}
-
-// SystemQualityGoalsGovernanceContentForm2 is the generated form facade for the `content` @Form section.
-type SystemQualityGoalsGovernanceContentForm2 struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsGovernanceContentForm2 binds a SystemQualityGoalsGovernanceContentForm2 facade to a document and a path.
-func NewSystemQualityGoalsGovernanceContentForm2(doc *som.SpecDocument, path string) *SystemQualityGoalsGovernanceContentForm2 {
-	return &SystemQualityGoalsGovernanceContentForm2{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) QualityReviewBoard() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityReviewBoard")
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) SetQualityReviewBoard(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityReviewBoard", value)
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) QualityMeetingCadence() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityMeetingCadence")
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) SetQualityMeetingCadence(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityMeetingCadence", value)
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) QualityEscalationPath() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityEscalationPath")
-}
-
-func (x *SystemQualityGoalsGovernanceContentForm2) SetQualityEscalationPath(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityEscalationPath", value)
-}
-
-// SystemQualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
-type SystemQualityGoalsMeasurementContentForm struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsMeasurementContentForm binds a SystemQualityGoalsMeasurementContentForm facade to a document and a path.
-func NewSystemQualityGoalsMeasurementContentForm(doc *som.SpecDocument, path string) *SystemQualityGoalsMeasurementContentForm {
-	return &SystemQualityGoalsMeasurementContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) QualityMetricsFramework() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityMetricsFramework")
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) SetQualityMetricsFramework(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityMetricsFramework", value)
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) QualityReportingFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityReportingFrequency")
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) SetQualityReportingFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityReportingFrequency", value)
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) QualityDashboardTool() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityDashboardTool")
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) SetQualityDashboardTool(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityDashboardTool", value)
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) DefectTrackingSystem() string {
-	return x.Doc().FormFieldOr(x.Path(), "defectTrackingSystem")
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) SetDefectTrackingSystem(value string) {
-	x.Doc().SetFormField(x.Path(), "defectTrackingSystem", value)
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) QualityTrendAnalysis() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityTrendAnalysis")
-}
-
-func (x *SystemQualityGoalsMeasurementContentForm) SetQualityTrendAnalysis(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityTrendAnalysis", value)
-}
-
-// SystemQualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
-type SystemQualityGoalsResourcesContentForm struct {
-	som.SomNode
-}
-
-// NewSystemQualityGoalsResourcesContentForm binds a SystemQualityGoalsResourcesContentForm facade to a document and a path.
-func NewSystemQualityGoalsResourcesContentForm(doc *som.SpecDocument, path string) *SystemQualityGoalsResourcesContentForm {
-	return &SystemQualityGoalsResourcesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) QualityBudget() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityBudget")
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) SetQualityBudget(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityBudget", value)
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) QaTeamSize() string {
-	return x.Doc().FormFieldOr(x.Path(), "qaTeamSize")
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) SetQaTeamSize(value string) {
-	x.Doc().SetFormField(x.Path(), "qaTeamSize", value)
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) TestAutomationTarget() string {
-	return x.Doc().FormFieldOr(x.Path(), "testAutomationTarget")
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) SetTestAutomationTarget(value string) {
-	x.Doc().SetFormField(x.Path(), "testAutomationTarget", value)
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) QualityTrainingPlan() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityTrainingPlan")
-}
-
-func (x *SystemQualityGoalsResourcesContentForm) SetQualityTrainingPlan(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityTrainingPlan", value)
 }
 
 // SystemReplacementStrategyContentForm is the generated form facade for the `content` @Form section.
@@ -168192,56 +168628,6 @@ func (x *TechnicalPainPointsSummaryContentForm) IntegrationComplexityScore() str
 
 func (x *TechnicalPainPointsSummaryContentForm) SetIntegrationComplexityScore(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationComplexityScore", value)
-}
-
-// TechnicalQualityCriteriaTechnicalQualityContentForm is the generated form facade for the `technicalQualityContent` @Form section.
-type TechnicalQualityCriteriaTechnicalQualityContentForm struct {
-	som.SomNode
-}
-
-// NewTechnicalQualityCriteriaTechnicalQualityContentForm binds a TechnicalQualityCriteriaTechnicalQualityContentForm facade to a document and a path.
-func NewTechnicalQualityCriteriaTechnicalQualityContentForm(doc *som.SpecDocument, path string) *TechnicalQualityCriteriaTechnicalQualityContentForm {
-	return &TechnicalQualityCriteriaTechnicalQualityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) TechnicalQualityPhilosophy() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalQualityPhilosophy")
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) SetTechnicalQualityPhilosophy(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalQualityPhilosophy", value)
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) ArchitecturalQualityGoals() string {
-	return x.Doc().FormFieldOr(x.Path(), "architecturalQualityGoals")
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) SetArchitecturalQualityGoals(value string) {
-	x.Doc().SetFormField(x.Path(), "architecturalQualityGoals", value)
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) TechnicalDebtTolerance() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalDebtTolerance")
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) SetTechnicalDebtTolerance(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalDebtTolerance", value)
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) CodeQualityStandard() string {
-	return x.Doc().FormFieldOr(x.Path(), "codeQualityStandard")
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) SetCodeQualityStandard(value string) {
-	x.Doc().SetFormField(x.Path(), "codeQualityStandard", value)
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) DesignPrinciplesAdherence() string {
-	return x.Doc().FormFieldOr(x.Path(), "designPrinciplesAdherence")
-}
-
-func (x *TechnicalQualityCriteriaTechnicalQualityContentForm) SetDesignPrinciplesAdherence(value string) {
-	x.Doc().SetFormField(x.Path(), "designPrinciplesAdherence", value)
 }
 
 // TechnicalRequirementEntryConstraintsContentForm is the generated form facade for the `content` @Form section.
@@ -176582,207 +176968,207 @@ func (x *UiDesignPrincipleEntryContentForm) SetRelatedGoals(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedGoals", value)
 }
 
-// UsabilityQualityClarityContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityClarityContentForm struct {
+// UsabilityClarityContentForm is the generated form facade for the `content` @Form section.
+type UsabilityClarityContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityClarityContentForm binds a UsabilityQualityClarityContentForm facade to a document and a path.
-func NewUsabilityQualityClarityContentForm(doc *som.SpecDocument, path string) *UsabilityQualityClarityContentForm {
-	return &UsabilityQualityClarityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityClarityContentForm binds a UsabilityClarityContentForm facade to a document and a path.
+func NewUsabilityClarityContentForm(doc *som.SpecDocument, path string) *UsabilityClarityContentForm {
+	return &UsabilityClarityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityClarityContentForm) FunctionalClarityTarget() string {
+func (x *UsabilityClarityContentForm) FunctionalClarityTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "functionalClarityTarget")
 }
 
-func (x *UsabilityQualityClarityContentForm) SetFunctionalClarityTarget(value string) {
+func (x *UsabilityClarityContentForm) SetFunctionalClarityTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "functionalClarityTarget", value)
 }
 
-func (x *UsabilityQualityClarityContentForm) HelpSystemRequirement() string {
+func (x *UsabilityClarityContentForm) HelpSystemRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "helpSystemRequirement")
 }
 
-func (x *UsabilityQualityClarityContentForm) SetHelpSystemRequirement(value string) {
+func (x *UsabilityClarityContentForm) SetHelpSystemRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "helpSystemRequirement", value)
 }
 
-func (x *UsabilityQualityClarityContentForm) ComplexityLimit() string {
+func (x *UsabilityClarityContentForm) ComplexityLimit() string {
 	return x.Doc().FormFieldOr(x.Path(), "complexityLimit")
 }
 
-func (x *UsabilityQualityClarityContentForm) SetComplexityLimit(value string) {
+func (x *UsabilityClarityContentForm) SetComplexityLimit(value string) {
 	x.Doc().SetFormField(x.Path(), "complexityLimit", value)
 }
 
-func (x *UsabilityQualityClarityContentForm) CognitiveLoadTarget() string {
+func (x *UsabilityClarityContentForm) CognitiveLoadTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "cognitiveLoadTarget")
 }
 
-func (x *UsabilityQualityClarityContentForm) SetCognitiveLoadTarget(value string) {
+func (x *UsabilityClarityContentForm) SetCognitiveLoadTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "cognitiveLoadTarget", value)
 }
 
-// UsabilityQualityContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityContentForm struct {
+// UsabilityContentForm is the generated form facade for the `content` @Form section.
+type UsabilityContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityContentForm binds a UsabilityQualityContentForm facade to a document and a path.
-func NewUsabilityQualityContentForm(doc *som.SpecDocument, path string) *UsabilityQualityContentForm {
-	return &UsabilityQualityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityContentForm binds a UsabilityContentForm facade to a document and a path.
+func NewUsabilityContentForm(doc *som.SpecDocument, path string) *UsabilityContentForm {
+	return &UsabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityContentForm) OperabilityTarget() string {
+func (x *UsabilityContentForm) OperabilityTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "operabilityTarget")
 }
 
-func (x *UsabilityQualityContentForm) SetOperabilityTarget(value string) {
+func (x *UsabilityContentForm) SetOperabilityTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "operabilityTarget", value)
 }
 
-func (x *UsabilityQualityContentForm) ErgonomicsStandard() string {
+func (x *UsabilityContentForm) ErgonomicsStandard() string {
 	return x.Doc().FormFieldOr(x.Path(), "ergonomicsStandard")
 }
 
-func (x *UsabilityQualityContentForm) SetErgonomicsStandard(value string) {
+func (x *UsabilityContentForm) SetErgonomicsStandard(value string) {
 	x.Doc().SetFormField(x.Path(), "ergonomicsStandard", value)
 }
 
-func (x *UsabilityQualityContentForm) LearnabilityTarget() string {
+func (x *UsabilityContentForm) LearnabilityTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "learnabilityTarget")
 }
 
-func (x *UsabilityQualityContentForm) SetLearnabilityTarget(value string) {
+func (x *UsabilityContentForm) SetLearnabilityTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "learnabilityTarget", value)
 }
 
-// UsabilityQualityInteractionContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityInteractionContentForm struct {
+// UsabilityInteractionContentForm is the generated form facade for the `content` @Form section.
+type UsabilityInteractionContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityInteractionContentForm binds a UsabilityQualityInteractionContentForm facade to a document and a path.
-func NewUsabilityQualityInteractionContentForm(doc *som.SpecDocument, path string) *UsabilityQualityInteractionContentForm {
-	return &UsabilityQualityInteractionContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityInteractionContentForm binds a UsabilityInteractionContentForm facade to a document and a path.
+func NewUsabilityInteractionContentForm(doc *som.SpecDocument, path string) *UsabilityInteractionContentForm {
+	return &UsabilityInteractionContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityInteractionContentForm) UndoRequirement() string {
+func (x *UsabilityInteractionContentForm) UndoRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "undoRequirement")
 }
 
-func (x *UsabilityQualityInteractionContentForm) SetUndoRequirement(value string) {
+func (x *UsabilityInteractionContentForm) SetUndoRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "undoRequirement", value)
 }
 
-func (x *UsabilityQualityInteractionContentForm) CustomizationLevel() string {
+func (x *UsabilityInteractionContentForm) CustomizationLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "customizationLevel")
 }
 
-func (x *UsabilityQualityInteractionContentForm) SetCustomizationLevel(value string) {
+func (x *UsabilityInteractionContentForm) SetCustomizationLevel(value string) {
 	x.Doc().SetFormField(x.Path(), "customizationLevel", value)
 }
 
-// UsabilityQualityLearnabilityContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityLearnabilityContentForm struct {
+// UsabilityLearnabilityContentForm is the generated form facade for the `content` @Form section.
+type UsabilityLearnabilityContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityLearnabilityContentForm binds a UsabilityQualityLearnabilityContentForm facade to a document and a path.
-func NewUsabilityQualityLearnabilityContentForm(doc *som.SpecDocument, path string) *UsabilityQualityLearnabilityContentForm {
-	return &UsabilityQualityLearnabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityLearnabilityContentForm binds a UsabilityLearnabilityContentForm facade to a document and a path.
+func NewUsabilityLearnabilityContentForm(doc *som.SpecDocument, path string) *UsabilityLearnabilityContentForm {
+	return &UsabilityLearnabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityLearnabilityContentForm) LearnabilityVerification() string {
+func (x *UsabilityLearnabilityContentForm) LearnabilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "learnabilityVerification")
 }
 
-func (x *UsabilityQualityLearnabilityContentForm) SetLearnabilityVerification(value string) {
+func (x *UsabilityLearnabilityContentForm) SetLearnabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "learnabilityVerification", value)
 }
 
-func (x *UsabilityQualityLearnabilityContentForm) OnboardingRequirement() string {
+func (x *UsabilityLearnabilityContentForm) OnboardingRequirement() string {
 	return x.Doc().FormFieldOr(x.Path(), "onboardingRequirement")
 }
 
-func (x *UsabilityQualityLearnabilityContentForm) SetOnboardingRequirement(value string) {
+func (x *UsabilityLearnabilityContentForm) SetOnboardingRequirement(value string) {
 	x.Doc().SetFormField(x.Path(), "onboardingRequirement", value)
 }
 
-// UsabilityQualityOperabilityContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityOperabilityContentForm struct {
+// UsabilityOperabilityContentForm is the generated form facade for the `content` @Form section.
+type UsabilityOperabilityContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityOperabilityContentForm binds a UsabilityQualityOperabilityContentForm facade to a document and a path.
-func NewUsabilityQualityOperabilityContentForm(doc *som.SpecDocument, path string) *UsabilityQualityOperabilityContentForm {
-	return &UsabilityQualityOperabilityContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityOperabilityContentForm binds a UsabilityOperabilityContentForm facade to a document and a path.
+func NewUsabilityOperabilityContentForm(doc *som.SpecDocument, path string) *UsabilityOperabilityContentForm {
+	return &UsabilityOperabilityContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityOperabilityContentForm) OperabilityMetric() string {
+func (x *UsabilityOperabilityContentForm) OperabilityMetric() string {
 	return x.Doc().FormFieldOr(x.Path(), "operabilityMetric")
 }
 
-func (x *UsabilityQualityOperabilityContentForm) SetOperabilityMetric(value string) {
+func (x *UsabilityOperabilityContentForm) SetOperabilityMetric(value string) {
 	x.Doc().SetFormField(x.Path(), "operabilityMetric", value)
 }
 
-func (x *UsabilityQualityOperabilityContentForm) OperabilityVerification() string {
+func (x *UsabilityOperabilityContentForm) OperabilityVerification() string {
 	return x.Doc().FormFieldOr(x.Path(), "operabilityVerification")
 }
 
-func (x *UsabilityQualityOperabilityContentForm) SetOperabilityVerification(value string) {
+func (x *UsabilityOperabilityContentForm) SetOperabilityVerification(value string) {
 	x.Doc().SetFormField(x.Path(), "operabilityVerification", value)
 }
 
-func (x *UsabilityQualityOperabilityContentForm) ErgonomicsTarget() string {
+func (x *UsabilityOperabilityContentForm) ErgonomicsTarget() string {
 	return x.Doc().FormFieldOr(x.Path(), "ergonomicsTarget")
 }
 
-func (x *UsabilityQualityOperabilityContentForm) SetErgonomicsTarget(value string) {
+func (x *UsabilityOperabilityContentForm) SetErgonomicsTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "ergonomicsTarget", value)
 }
 
-// UsabilityQualityPerformanceContentForm is the generated form facade for the `content` @Form section.
-type UsabilityQualityPerformanceContentForm struct {
+// UsabilityPerformanceContentForm is the generated form facade for the `content` @Form section.
+type UsabilityPerformanceContentForm struct {
 	som.SomNode
 }
 
-// NewUsabilityQualityPerformanceContentForm binds a UsabilityQualityPerformanceContentForm facade to a document and a path.
-func NewUsabilityQualityPerformanceContentForm(doc *som.SpecDocument, path string) *UsabilityQualityPerformanceContentForm {
-	return &UsabilityQualityPerformanceContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewUsabilityPerformanceContentForm binds a UsabilityPerformanceContentForm facade to a document and a path.
+func NewUsabilityPerformanceContentForm(doc *som.SpecDocument, path string) *UsabilityPerformanceContentForm {
+	return &UsabilityPerformanceContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *UsabilityQualityPerformanceContentForm) ResponseTimeP50() string {
+func (x *UsabilityPerformanceContentForm) ResponseTimeP50() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP50")
 }
 
-func (x *UsabilityQualityPerformanceContentForm) SetResponseTimeP50(value string) {
+func (x *UsabilityPerformanceContentForm) SetResponseTimeP50(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP50", value)
 }
 
-func (x *UsabilityQualityPerformanceContentForm) ResponseTimeP95() string {
+func (x *UsabilityPerformanceContentForm) ResponseTimeP95() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP95")
 }
 
-func (x *UsabilityQualityPerformanceContentForm) SetResponseTimeP95(value string) {
+func (x *UsabilityPerformanceContentForm) SetResponseTimeP95(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP95", value)
 }
 
-func (x *UsabilityQualityPerformanceContentForm) ResponseTimeP99() string {
+func (x *UsabilityPerformanceContentForm) ResponseTimeP99() string {
 	return x.Doc().FormFieldOr(x.Path(), "responseTimeP99")
 }
 
-func (x *UsabilityQualityPerformanceContentForm) SetResponseTimeP99(value string) {
+func (x *UsabilityPerformanceContentForm) SetResponseTimeP99(value string) {
 	x.Doc().SetFormField(x.Path(), "responseTimeP99", value)
 }
 
-func (x *UsabilityQualityPerformanceContentForm) PerceivedPerformance() string {
+func (x *UsabilityPerformanceContentForm) PerceivedPerformance() string {
 	return x.Doc().FormFieldOr(x.Path(), "perceivedPerformance")
 }
 
-func (x *UsabilityQualityPerformanceContentForm) SetPerceivedPerformance(value string) {
+func (x *UsabilityPerformanceContentForm) SetPerceivedPerformance(value string) {
 	x.Doc().SetFormField(x.Path(), "perceivedPerformance", value)
 }
 
@@ -178118,64 +178504,6 @@ func (x *UserProvisioningToolsRoleManagementContentForm) AccessReviewProcess() s
 
 func (x *UserProvisioningToolsRoleManagementContentForm) SetAccessReviewProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "accessReviewProcess", value)
-}
-
-// UserQualityCriteriaUserQualityContentForm is the generated form facade for the `userQualityContent` @Form section.
-type UserQualityCriteriaUserQualityContentForm struct {
-	som.SomNode
-}
-
-// NewUserQualityCriteriaUserQualityContentForm binds a UserQualityCriteriaUserQualityContentForm facade to a document and a path.
-func NewUserQualityCriteriaUserQualityContentForm(doc *som.SpecDocument, path string) *UserQualityCriteriaUserQualityContentForm {
-	return &UserQualityCriteriaUserQualityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) UserQualityPhilosophy() string {
-	return x.Doc().FormFieldOr(x.Path(), "userQualityPhilosophy")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetUserQualityPhilosophy(value string) {
-	x.Doc().SetFormField(x.Path(), "userQualityPhilosophy", value)
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) TargetUserExperience() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetUserExperience")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetTargetUserExperience(value string) {
-	x.Doc().SetFormField(x.Path(), "targetUserExperience", value)
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) UserResearchBasis() string {
-	return x.Doc().FormFieldOr(x.Path(), "userResearchBasis")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetUserResearchBasis(value string) {
-	x.Doc().SetFormField(x.Path(), "userResearchBasis", value)
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) UserFeedbackChannel() string {
-	return x.Doc().FormFieldOr(x.Path(), "userFeedbackChannel")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetUserFeedbackChannel(value string) {
-	x.Doc().SetFormField(x.Path(), "userFeedbackChannel", value)
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) UserSatisfactionTarget() string {
-	return x.Doc().FormFieldOr(x.Path(), "userSatisfactionTarget")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetUserSatisfactionTarget(value string) {
-	x.Doc().SetFormField(x.Path(), "userSatisfactionTarget", value)
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) AccessibilityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessibilityLevel")
-}
-
-func (x *UserQualityCriteriaUserQualityContentForm) SetAccessibilityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessibilityLevel", value)
 }
 
 // UserTrainingRequirementsTrainingFormForm is the generated form facade for the `trainingForm` @Form section.

@@ -34,8 +34,13 @@ public final class TomSomV0 {
 
   // 11.7. Acceptance Criteria Summary.
   //
-  // Quality acceptance criteria for the project including must-pass criteria
-  // and quality gate checklists.
+  // The acceptance *framework* and summary for the project: the acceptance
+  // process/authority/scope, the must-pass criteria, and the quality-gate
+  // checklist. The full enumerated, traceable acceptance criteria are NOT
+  // re-declared here — they live in the canonical [AcceptanceCriteriaList]
+  // (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+  // explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+  // referencing list).
   public static final class AcceptanceCriteriaSummary extends SomNode {
     public AcceptanceCriteriaSummary(SpecDocument doc, String path) {
       super(doc, path);
@@ -56,6 +61,15 @@ public final class TomSomV0 {
     // 11.7.2. Quality Gate Checklist.
     public QualityGateChecklist qualityGateChecklist() {
       return new QualityGateChecklist(doc, path + "/qualityGateChecklist");
+    }
+
+    // Canonical, enumerated acceptance criteria (SR-54 explicit link).
+    //
+    // The single source of truth for the full set of traceable acceptance
+    // criteria; this summary references — rather than duplicates — it. The same
+    // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+    public AcceptanceCriteriaList detailedCriteria() {
+      return new AcceptanceCriteriaList(doc, path + "/detailedCriteria");
     }
 
     // Acceptance test summary.
@@ -3364,33 +3378,33 @@ public final class TomSomV0 {
   }
 
   // 11.4.1. Availability quality.
-  public static final class AvailabilityQuality extends SomNode {
-    public AvailabilityQuality(SpecDocument doc, String path) {
+  public static final class Availability extends SomNode {
+    public Availability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public AvailabilityQualityContentForm content() {
-      return new AvailabilityQualityContentForm(doc, path + "/content");
+    public AvailabilityContentForm content() {
+      return new AvailabilityContentForm(doc, path + "/content");
     }
 
     // Operating-hour expectations.
-    public AvailabilityQualityOperatingHours operatingHoursDetails() {
-      return new AvailabilityQualityOperatingHours(doc, path + "/operatingHoursDetails");
+    public AvailabilityOperatingHours operatingHoursDetails() {
+      return new AvailabilityOperatingHours(doc, path + "/operatingHoursDetails");
     }
 
     // Maintenance window policy.
-    public AvailabilityQualityMaintenance maintenance() {
-      return new AvailabilityQualityMaintenance(doc, path + "/maintenance");
+    public AvailabilityMaintenance maintenance() {
+      return new AvailabilityMaintenance(doc, path + "/maintenance");
     }
 
     // Degraded-mode behavior.
-    public AvailabilityQualityDegradedMode degradedMode() {
-      return new AvailabilityQualityDegradedMode(doc, path + "/degradedMode");
+    public AvailabilityDegradedMode degradedMode() {
+      return new AvailabilityDegradedMode(doc, path + "/degradedMode");
     }
 
     // Monitoring and reporting.
-    public AvailabilityQualityVerification verification() {
-      return new AvailabilityQualityVerification(doc, path + "/verification");
+    public AvailabilityVerification verification() {
+      return new AvailabilityVerification(doc, path + "/verification");
     }
 
     // Detailed availability requirements narrative.
@@ -3398,46 +3412,46 @@ public final class TomSomV0 {
   }
 
   // Degraded-mode behavior.
-  public static final class AvailabilityQualityDegradedMode extends SomNode {
-    public AvailabilityQualityDegradedMode(SpecDocument doc, String path) {
+  public static final class AvailabilityDegradedMode extends SomNode {
+    public AvailabilityDegradedMode(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public AvailabilityQualityDegradedModeContentForm content() {
-      return new AvailabilityQualityDegradedModeContentForm(doc, path + "/content");
+    public AvailabilityDegradedModeContentForm content() {
+      return new AvailabilityDegradedModeContentForm(doc, path + "/content");
     }
   }
 
   // Maintenance window policy.
-  public static final class AvailabilityQualityMaintenance extends SomNode {
-    public AvailabilityQualityMaintenance(SpecDocument doc, String path) {
+  public static final class AvailabilityMaintenance extends SomNode {
+    public AvailabilityMaintenance(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public AvailabilityQualityMaintenanceContentForm content() {
-      return new AvailabilityQualityMaintenanceContentForm(doc, path + "/content");
+    public AvailabilityMaintenanceContentForm content() {
+      return new AvailabilityMaintenanceContentForm(doc, path + "/content");
     }
   }
 
   // Operating-hour expectations.
-  public static final class AvailabilityQualityOperatingHours extends SomNode {
-    public AvailabilityQualityOperatingHours(SpecDocument doc, String path) {
+  public static final class AvailabilityOperatingHours extends SomNode {
+    public AvailabilityOperatingHours(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public AvailabilityQualityOperatingHoursContentForm content() {
-      return new AvailabilityQualityOperatingHoursContentForm(doc, path + "/content");
+    public AvailabilityOperatingHoursContentForm content() {
+      return new AvailabilityOperatingHoursContentForm(doc, path + "/content");
     }
   }
 
   // Monitoring and reporting.
-  public static final class AvailabilityQualityVerification extends SomNode {
-    public AvailabilityQualityVerification(SpecDocument doc, String path) {
+  public static final class AvailabilityVerification extends SomNode {
+    public AvailabilityVerification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public AvailabilityQualityVerificationContentForm content() {
-      return new AvailabilityQualityVerificationContentForm(doc, path + "/content");
+    public AvailabilityVerificationContentForm content() {
+      return new AvailabilityVerificationContentForm(doc, path + "/content");
     }
   }
 
@@ -7773,6 +7787,25 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.4. Compatibility (ISO/IEC 25010:2023).
+  //
+  // Degree to which the product can exchange information with other products and
+  // share the same environment and resources (co-existence + interoperability).
+  // Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+  // pending project-specific compatibility leaves.
+  public static final class CompatibilityCharacteristic extends SomNode {
+    public CompatibilityCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public CompatibilityCharacteristicCompatibilityContentForm compatibilityContent() {
+      return new CompatibilityCharacteristicCompatibilityContentForm(doc, path + "/compatibilityContent");
+    }
+
+    // Compatibility overview.
+    // (skipped: overview has no target type)
+  }
+
   // 8.3.1. Compatibility Requirements.
   //
   // Compatibility requirements with existing IT infrastructure, standard software,
@@ -10158,28 +10191,28 @@ public final class TomSomV0 {
   }
 
   // 11.2.3. Correctness quality.
-  public static final class CorrectnessQuality extends SomNode {
-    public CorrectnessQuality(SpecDocument doc, String path) {
+  public static final class Correctness extends SomNode {
+    public Correctness(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public CorrectnessQualityContentForm content() {
-      return new CorrectnessQualityContentForm(doc, path + "/content");
+    public CorrectnessContentForm content() {
+      return new CorrectnessContentForm(doc, path + "/content");
     }
 
     // Data integrity expectations.
-    public CorrectnessQualityIntegrity integrity() {
-      return new CorrectnessQualityIntegrity(doc, path + "/integrity");
+    public CorrectnessIntegrity integrity() {
+      return new CorrectnessIntegrity(doc, path + "/integrity");
     }
 
     // Accuracy and auditability requirements.
-    public CorrectnessQualityAccuracy accuracy() {
-      return new CorrectnessQualityAccuracy(doc, path + "/accuracy");
+    public CorrectnessAccuracy accuracy() {
+      return new CorrectnessAccuracy(doc, path + "/accuracy");
     }
 
     // Verification and regression approach.
-    public CorrectnessQualityVerification verification() {
-      return new CorrectnessQualityVerification(doc, path + "/verification");
+    public CorrectnessVerification verification() {
+      return new CorrectnessVerification(doc, path + "/verification");
     }
 
     // Detailed correctness requirements narrative.
@@ -10187,35 +10220,35 @@ public final class TomSomV0 {
   }
 
   // Accuracy and auditability requirements.
-  public static final class CorrectnessQualityAccuracy extends SomNode {
-    public CorrectnessQualityAccuracy(SpecDocument doc, String path) {
+  public static final class CorrectnessAccuracy extends SomNode {
+    public CorrectnessAccuracy(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public CorrectnessQualityAccuracyContentForm content() {
-      return new CorrectnessQualityAccuracyContentForm(doc, path + "/content");
+    public CorrectnessAccuracyContentForm content() {
+      return new CorrectnessAccuracyContentForm(doc, path + "/content");
     }
   }
 
   // Data integrity expectations.
-  public static final class CorrectnessQualityIntegrity extends SomNode {
-    public CorrectnessQualityIntegrity(SpecDocument doc, String path) {
+  public static final class CorrectnessIntegrity extends SomNode {
+    public CorrectnessIntegrity(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public CorrectnessQualityIntegrityContentForm content() {
-      return new CorrectnessQualityIntegrityContentForm(doc, path + "/content");
+    public CorrectnessIntegrityContentForm content() {
+      return new CorrectnessIntegrityContentForm(doc, path + "/content");
     }
   }
 
   // Verification and regression approach.
-  public static final class CorrectnessQualityVerification extends SomNode {
-    public CorrectnessQualityVerification(SpecDocument doc, String path) {
+  public static final class CorrectnessVerification extends SomNode {
+    public CorrectnessVerification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public CorrectnessQualityVerificationContentForm content() {
-      return new CorrectnessQualityVerificationContentForm(doc, path + "/content");
+    public CorrectnessVerificationContentForm content() {
+      return new CorrectnessVerificationContentForm(doc, path + "/content");
     }
   }
 
@@ -11900,22 +11933,47 @@ public final class TomSomV0 {
       return new QualityFramework(doc, path + "/qualityFramework");
     }
 
-    // User-related quality criteria.
-    public UserQualityCriteria userQualityCriteria() {
-      return new UserQualityCriteria(doc, path + "/userQualityCriteria");
+    // Functional suitability (ISO/IEC 25010:2023).
+    public FunctionalSuitabilityCharacteristic functionalSuitability() {
+      return new FunctionalSuitabilityCharacteristic(doc, path + "/functionalSuitability");
     }
 
-    // Technical quality criteria.
-    public TechnicalQualityCriteria technicalQualityCriteria() {
-      return new TechnicalQualityCriteria(doc, path + "/technicalQualityCriteria");
+    // Performance efficiency (ISO/IEC 25010:2023).
+    public PerformanceEfficiencyCharacteristic performanceEfficiency() {
+      return new PerformanceEfficiencyCharacteristic(doc, path + "/performanceEfficiency");
     }
 
-    // Operations quality criteria.
-    public OperationsQualityCriteria operationsQualityCriteria() {
-      return new OperationsQualityCriteria(doc, path + "/operationsQualityCriteria");
+    // Compatibility (ISO/IEC 25010:2023).
+    public CompatibilityCharacteristic compatibility() {
+      return new CompatibilityCharacteristic(doc, path + "/compatibility");
     }
 
-    // Documentation quality criteria.
+    // Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+    public InteractionCapabilityCharacteristic interactionCapability() {
+      return new InteractionCapabilityCharacteristic(doc, path + "/interactionCapability");
+    }
+
+    // Reliability (ISO/IEC 25010:2023).
+    public ReliabilityCharacteristic reliability() {
+      return new ReliabilityCharacteristic(doc, path + "/reliability");
+    }
+
+    // Security (ISO/IEC 25010:2023).
+    public SecurityCharacteristic security() {
+      return new SecurityCharacteristic(doc, path + "/security");
+    }
+
+    // Maintainability (ISO/IEC 25010:2023).
+    public MaintainabilityCharacteristic maintainability() {
+      return new MaintainabilityCharacteristic(doc, path + "/maintainability");
+    }
+
+    // Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+    public FlexibilityCharacteristic flexibility() {
+      return new FlexibilityCharacteristic(doc, path + "/flexibility");
+    }
+
+    // Documentation quality (ISO/IEC 26514 annex).
     public DocumentationQualityCriteria documentationQualityCriteria() {
       return new DocumentationQualityCriteria(doc, path + "/documentationQualityCriteria");
     }
@@ -17315,28 +17373,28 @@ public final class TomSomV0 {
   }
 
   // 11.5.4. Documentation changeability quality.
-  public static final class DocChangeabilityQuality extends SomNode {
-    public DocChangeabilityQuality(SpecDocument doc, String path) {
+  public static final class DocChangeability extends SomNode {
+    public DocChangeability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocChangeabilityQualityContentForm content() {
-      return new DocChangeabilityQualityContentForm(doc, path + "/content");
+    public DocChangeabilityContentForm content() {
+      return new DocChangeabilityContentForm(doc, path + "/content");
     }
 
     // Extensibility and localization readiness.
-    public DocChangeabilityQualityExtensibility extensibility() {
-      return new DocChangeabilityQualityExtensibility(doc, path + "/extensibility");
+    public DocChangeabilityExtensibility extensibility() {
+      return new DocChangeabilityExtensibility(doc, path + "/extensibility");
     }
 
     // Sizing and structural consistency rules.
-    public DocChangeabilityQualityStructure structure() {
-      return new DocChangeabilityQualityStructure(doc, path + "/structure");
+    public DocChangeabilityStructure structure() {
+      return new DocChangeabilityStructure(doc, path + "/structure");
     }
 
     // Review and retirement maintenance process.
-    public DocChangeabilityQualityMaintenance maintenance() {
-      return new DocChangeabilityQualityMaintenance(doc, path + "/maintenance");
+    public DocChangeabilityMaintenance maintenance() {
+      return new DocChangeabilityMaintenance(doc, path + "/maintenance");
     }
 
     // Detailed changeability requirements narrative.
@@ -17344,46 +17402,46 @@ public final class TomSomV0 {
   }
 
   // Extensibility and localization readiness.
-  public static final class DocChangeabilityQualityExtensibility extends SomNode {
-    public DocChangeabilityQualityExtensibility(SpecDocument doc, String path) {
+  public static final class DocChangeabilityExtensibility extends SomNode {
+    public DocChangeabilityExtensibility(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocChangeabilityQualityExtensibilityContentForm content() {
-      return new DocChangeabilityQualityExtensibilityContentForm(doc, path + "/content");
+    public DocChangeabilityExtensibilityContentForm content() {
+      return new DocChangeabilityExtensibilityContentForm(doc, path + "/content");
     }
   }
 
   // Review and retirement maintenance process.
-  public static final class DocChangeabilityQualityMaintenance extends SomNode {
-    public DocChangeabilityQualityMaintenance(SpecDocument doc, String path) {
+  public static final class DocChangeabilityMaintenance extends SomNode {
+    public DocChangeabilityMaintenance(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocChangeabilityQualityMaintenanceContentForm content() {
-      return new DocChangeabilityQualityMaintenanceContentForm(doc, path + "/content");
+    public DocChangeabilityMaintenanceContentForm content() {
+      return new DocChangeabilityMaintenanceContentForm(doc, path + "/content");
     }
   }
 
   // Sizing and structural consistency rules.
-  public static final class DocChangeabilityQualityStructure extends SomNode {
-    public DocChangeabilityQualityStructure(SpecDocument doc, String path) {
+  public static final class DocChangeabilityStructure extends SomNode {
+    public DocChangeabilityStructure(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocChangeabilityQualityStructureContentForm content() {
-      return new DocChangeabilityQualityStructureContentForm(doc, path + "/content");
+    public DocChangeabilityStructureContentForm content() {
+      return new DocChangeabilityStructureContentForm(doc, path + "/content");
     }
   }
 
   // 11.5.2. Documentation completeness quality.
-  public static final class DocCompletenessQuality extends SomNode {
-    public DocCompletenessQuality(SpecDocument doc, String path) {
+  public static final class DocCompleteness extends SomNode {
+    public DocCompleteness(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocCompletenessQualityContentForm content() {
-      return new DocCompletenessQualityContentForm(doc, path + "/content");
+    public DocCompletenessContentForm content() {
+      return new DocCompletenessContentForm(doc, path + "/content");
     }
 
     // Detailed completeness requirements narrative.
@@ -17391,23 +17449,23 @@ public final class TomSomV0 {
   }
 
   // 11.5.3. Documentation correctness quality.
-  public static final class DocCorrectnessQuality extends SomNode {
-    public DocCorrectnessQuality(SpecDocument doc, String path) {
+  public static final class DocCorrectness extends SomNode {
+    public DocCorrectness(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocCorrectnessQualityContentForm content() {
-      return new DocCorrectnessQualityContentForm(doc, path + "/content");
+    public DocCorrectnessContentForm content() {
+      return new DocCorrectnessContentForm(doc, path + "/content");
     }
 
     // Formatting and implementation alignment.
-    public DocCorrectnessQualityAlignment alignment() {
-      return new DocCorrectnessQualityAlignment(doc, path + "/alignment");
+    public DocCorrectnessAlignment alignment() {
+      return new DocCorrectnessAlignment(doc, path + "/alignment");
     }
 
     // Verification and feedback handling.
-    public DocCorrectnessQualityVerification verification() {
-      return new DocCorrectnessQualityVerification(doc, path + "/verification");
+    public DocCorrectnessVerification verification() {
+      return new DocCorrectnessVerification(doc, path + "/verification");
     }
 
     // Detailed correctness requirements narrative.
@@ -17415,24 +17473,24 @@ public final class TomSomV0 {
   }
 
   // Formatting and implementation alignment.
-  public static final class DocCorrectnessQualityAlignment extends SomNode {
-    public DocCorrectnessQualityAlignment(SpecDocument doc, String path) {
+  public static final class DocCorrectnessAlignment extends SomNode {
+    public DocCorrectnessAlignment(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocCorrectnessQualityAlignmentContentForm content() {
-      return new DocCorrectnessQualityAlignmentContentForm(doc, path + "/content");
+    public DocCorrectnessAlignmentContentForm content() {
+      return new DocCorrectnessAlignmentContentForm(doc, path + "/content");
     }
   }
 
   // Verification and feedback handling.
-  public static final class DocCorrectnessQualityVerification extends SomNode {
-    public DocCorrectnessQualityVerification(SpecDocument doc, String path) {
+  public static final class DocCorrectnessVerification extends SomNode {
+    public DocCorrectnessVerification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public DocCorrectnessQualityVerificationContentForm content() {
-      return new DocCorrectnessQualityVerificationContentForm(doc, path + "/content");
+    public DocCorrectnessVerificationContentForm content() {
+      return new DocCorrectnessVerificationContentForm(doc, path + "/content");
     }
   }
 
@@ -17575,10 +17633,15 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.5. Documentation Quality Criteria.
+  // 11.10. Documentation Quality (ISO/IEC 26514 annex).
   //
-  // Quality criteria for project documentation including readability,
-  // completeness, correctness, and changeability.
+  // Documentation-deliverable quality criteria — readability, completeness,
+  // correctness, and changeability of the user/technical documentation. This
+  // characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+  // (which scopes the *product*, not its documentation), so per L34C-8 it is
+  // retained as a documentation-quality annex aligned to ISO/IEC 26514
+  // (systems & software engineering — design and development of information for
+  // users) rather than re-homed under a 25010:2023 characteristic.
   public static final class DocumentationQualityCriteria extends SomNode {
     public DocumentationQualityCriteria(SpecDocument doc, String path) {
       super(doc, path);
@@ -17592,23 +17655,23 @@ public final class TomSomV0 {
     // (skipped: overview has no target type)
 
     // 11.5.1. Readability.
-    public ReadabilityQuality readability() {
-      return new ReadabilityQuality(doc, path + "/readability");
+    public Readability readability() {
+      return new Readability(doc, path + "/readability");
     }
 
     // 11.5.2. Completeness.
-    public DocCompletenessQuality completeness() {
-      return new DocCompletenessQuality(doc, path + "/completeness");
+    public DocCompleteness completeness() {
+      return new DocCompleteness(doc, path + "/completeness");
     }
 
     // 11.5.3. Correctness.
-    public DocCorrectnessQuality correctness() {
-      return new DocCorrectnessQuality(doc, path + "/correctness");
+    public DocCorrectness correctness() {
+      return new DocCorrectness(doc, path + "/correctness");
     }
 
     // 11.5.4. Changeability.
-    public DocChangeabilityQuality changeability() {
-      return new DocChangeabilityQuality(doc, path + "/changeability");
+    public DocChangeability changeability() {
+      return new DocChangeability(doc, path + "/changeability");
     }
   }
 
@@ -18085,28 +18148,28 @@ public final class TomSomV0 {
   }
 
   // 11.3.1. Efficiency quality.
-  public static final class EfficiencyQuality extends SomNode {
-    public EfficiencyQuality(SpecDocument doc, String path) {
+  public static final class Efficiency extends SomNode {
+    public Efficiency(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public EfficiencyQualityContentForm content() {
-      return new EfficiencyQualityContentForm(doc, path + "/content");
+    public EfficiencyContentForm content() {
+      return new EfficiencyContentForm(doc, path + "/content");
     }
 
     // Throughput and scale targets.
-    public EfficiencyQualityThroughput throughput() {
-      return new EfficiencyQualityThroughput(doc, path + "/throughput");
+    public EfficiencyThroughput throughput() {
+      return new EfficiencyThroughput(doc, path + "/throughput");
     }
 
     // Resource utilization constraints.
-    public EfficiencyQualityResources resources() {
-      return new EfficiencyQualityResources(doc, path + "/resources");
+    public EfficiencyResources resources() {
+      return new EfficiencyResources(doc, path + "/resources");
     }
 
     // Performance validation and SLA commitments.
-    public EfficiencyQualityVerification verification() {
-      return new EfficiencyQualityVerification(doc, path + "/verification");
+    public EfficiencyVerification verification() {
+      return new EfficiencyVerification(doc, path + "/verification");
     }
 
     // Detailed efficiency requirements narrative.
@@ -18114,35 +18177,35 @@ public final class TomSomV0 {
   }
 
   // Resource utilization constraints.
-  public static final class EfficiencyQualityResources extends SomNode {
-    public EfficiencyQualityResources(SpecDocument doc, String path) {
+  public static final class EfficiencyResources extends SomNode {
+    public EfficiencyResources(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public EfficiencyQualityResourcesContentForm content() {
-      return new EfficiencyQualityResourcesContentForm(doc, path + "/content");
+    public EfficiencyResourcesContentForm content() {
+      return new EfficiencyResourcesContentForm(doc, path + "/content");
     }
   }
 
   // Throughput and scale targets.
-  public static final class EfficiencyQualityThroughput extends SomNode {
-    public EfficiencyQualityThroughput(SpecDocument doc, String path) {
+  public static final class EfficiencyThroughput extends SomNode {
+    public EfficiencyThroughput(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public EfficiencyQualityThroughputContentForm content() {
-      return new EfficiencyQualityThroughputContentForm(doc, path + "/content");
+    public EfficiencyThroughputContentForm content() {
+      return new EfficiencyThroughputContentForm(doc, path + "/content");
     }
   }
 
   // Performance validation and SLA commitments.
-  public static final class EfficiencyQualityVerification extends SomNode {
-    public EfficiencyQualityVerification(SpecDocument doc, String path) {
+  public static final class EfficiencyVerification extends SomNode {
+    public EfficiencyVerification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public EfficiencyQualityVerificationContentForm content() {
-      return new EfficiencyQualityVerificationContentForm(doc, path + "/content");
+    public EfficiencyVerificationContentForm content() {
+      return new EfficiencyVerificationContentForm(doc, path + "/content");
     }
   }
 
@@ -21520,64 +21583,93 @@ public final class TomSomV0 {
   }
 
   // 11.3.3. Flexibility quality.
-  public static final class FlexibilityQuality extends SomNode {
-    public FlexibilityQuality(SpecDocument doc, String path) {
+  public static final class Flexibility extends SomNode {
+    public Flexibility(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public FlexibilityQualityContentForm content() {
-      return new FlexibilityQualityContentForm(doc, path + "/content");
+    public FlexibilityContentForm content() {
+      return new FlexibilityContentForm(doc, path + "/content");
     }
 
     // Modularity and reuse goals.
-    public FlexibilityQualityModularity modularity() {
-      return new FlexibilityQualityModularity(doc, path + "/modularity");
+    public FlexibilityModularity modularity() {
+      return new FlexibilityModularity(doc, path + "/modularity");
     }
 
     // Distribution and configurability model.
-    public FlexibilityQualityDeployment deployment() {
-      return new FlexibilityQualityDeployment(doc, path + "/deployment");
+    public FlexibilityDeployment deployment() {
+      return new FlexibilityDeployment(doc, path + "/deployment");
     }
 
     // Extensibility and verification expectations.
-    public FlexibilityQualityExtensibility extensibility() {
-      return new FlexibilityQualityExtensibility(doc, path + "/extensibility");
+    public FlexibilityExtensibility extensibility() {
+      return new FlexibilityExtensibility(doc, path + "/extensibility");
     }
 
     // Detailed flexibility requirements narrative.
     // (skipped: narrative has no target type)
   }
 
-  // Distribution and configurability model.
-  public static final class FlexibilityQualityDeployment extends SomNode {
-    public FlexibilityQualityDeployment(SpecDocument doc, String path) {
+  // 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  //
+  // Degree to which the product can be adapted to changes in requirements,
+  // contexts of use, or system environment (adaptability, scalability,
+  // installability, replaceability). Re-homes the former technical-bucket
+  // flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+  public static final class FlexibilityCharacteristic extends SomNode {
+    public FlexibilityCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public FlexibilityQualityDeploymentContentForm content() {
-      return new FlexibilityQualityDeploymentContentForm(doc, path + "/content");
+    public FlexibilityCharacteristicFlexibilityContentForm flexibilityContent() {
+      return new FlexibilityCharacteristicFlexibilityContentForm(doc, path + "/flexibilityContent");
+    }
+
+    // Flexibility overview.
+    // (skipped: overview has no target type)
+
+    // 11.9.1. Flexibility (adaptability/scalability/extensibility).
+    public Flexibility flexibility() {
+      return new Flexibility(doc, path + "/flexibility");
+    }
+
+    // 11.9.2. Portability.
+    public Portability portability() {
+      return new Portability(doc, path + "/portability");
+    }
+  }
+
+  // Distribution and configurability model.
+  public static final class FlexibilityDeployment extends SomNode {
+    public FlexibilityDeployment(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public FlexibilityDeploymentContentForm content() {
+      return new FlexibilityDeploymentContentForm(doc, path + "/content");
     }
   }
 
   // Extensibility and verification expectations.
-  public static final class FlexibilityQualityExtensibility extends SomNode {
-    public FlexibilityQualityExtensibility(SpecDocument doc, String path) {
+  public static final class FlexibilityExtensibility extends SomNode {
+    public FlexibilityExtensibility(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public FlexibilityQualityExtensibilityContentForm content() {
-      return new FlexibilityQualityExtensibilityContentForm(doc, path + "/content");
+    public FlexibilityExtensibilityContentForm content() {
+      return new FlexibilityExtensibilityContentForm(doc, path + "/content");
     }
   }
 
   // Modularity and reuse goals.
-  public static final class FlexibilityQualityModularity extends SomNode {
-    public FlexibilityQualityModularity(SpecDocument doc, String path) {
+  public static final class FlexibilityModularity extends SomNode {
+    public FlexibilityModularity(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public FlexibilityQualityModularityContentForm content() {
-      return new FlexibilityQualityModularityContentForm(doc, path + "/content");
+    public FlexibilityModularityContentForm content() {
+      return new FlexibilityModularityContentForm(doc, path + "/content");
     }
   }
 
@@ -21879,13 +21971,13 @@ public final class TomSomV0 {
   }
 
   // 11.2.2. Functional completeness quality.
-  public static final class FunctionalCompletenessQuality extends SomNode {
-    public FunctionalCompletenessQuality(SpecDocument doc, String path) {
+  public static final class FunctionalCompleteness extends SomNode {
+    public FunctionalCompleteness(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public FunctionalCompletenessQualityContentForm content() {
-      return new FunctionalCompletenessQualityContentForm(doc, path + "/content");
+    public FunctionalCompletenessContentForm content() {
+      return new FunctionalCompletenessContentForm(doc, path + "/content");
     }
 
     // Detailed functional completeness narrative.
@@ -22090,6 +22182,34 @@ public final class TomSomV0 {
     // Contains 0+× Responsibility.
     public SomList<ResponsibilityEntry> items() {
       return new SomList<>(doc, path + "/REEN1-ITEM-LST", (d, p) -> new ResponsibilityEntry(d, p));
+    }
+  }
+
+  // 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  //
+  // Degree to which the product provides functions that meet stated and implied
+  // needs — functional completeness and correctness. Re-homes the former
+  // user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+  public static final class FunctionalSuitabilityCharacteristic extends SomNode {
+    public FunctionalSuitabilityCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functionalSuitabilityContent() {
+      return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, path + "/functionalSuitabilityContent");
+    }
+
+    // Functional suitability overview.
+    // (skipped: overview has no target type)
+
+    // 11.2.1. Functional Completeness.
+    public FunctionalCompleteness functionalCompleteness() {
+      return new FunctionalCompleteness(doc, path + "/functionalCompleteness");
+    }
+
+    // 11.2.2. Correctness.
+    public Correctness correctness() {
+      return new Correctness(doc, path + "/correctness");
     }
   }
 
@@ -24531,6 +24651,30 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  //
+  // Degree to which the product can be interacted with effectively, efficiently
+  // and satisfactorily by users. Re-homes the former user-bucket usability leaf
+  // under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+  // form is preserved here so no authored content is lost.
+  public static final class InteractionCapabilityCharacteristic extends SomNode {
+    public InteractionCapabilityCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public InteractionCapabilityCharacteristicInteractionCapabilityContentForm interactionCapabilityContent() {
+      return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, path + "/interactionCapabilityContent");
+    }
+
+    // Interaction capability overview.
+    // (skipped: overview has no target type)
+
+    // 11.5.1. Usability.
+    public Usability usability() {
+      return new Usability(doc, path + "/usability");
+    }
+  }
+
   // 6.2.2. Interaction Catalog.
   //
   // Container for key interaction descriptions. Each interaction seeds a use
@@ -25713,11 +25857,15 @@ public final class TomSomV0 {
     }
   }
 
-  // ISO/IEC 25010 product-quality cross-map.
+  // ISO/IEC 25010:2023 product-quality cross-map (derived).
   //
-  // Maps the system's quality goals onto the eight ISO/IEC 25010 product
-  // quality characteristics so that compatibility and portability cannot be
-  // silently missed.
+  // A *derived* view over the canonical quality spine: the eight
+  // `*Characteristic` classes under [SystemQualityGoals] are the single source
+  // of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+  // Each entry references one of those characteristics (via the closed
+  // [Iso25010Characteristic] enum) and records which quality goals / NFRs
+  // address it and the target metric — so coverage of any 25010:2023
+  // characteristic (e.g. compatibility, flexibility) cannot be silently missed.
   public static final class Iso25010Coverage extends SomNode {
     public Iso25010Coverage(SpecDocument doc, String path) {
       super(doc, path);
@@ -25732,13 +25880,13 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // One entry per ISO/IEC 25010 characteristic addressed.
+    // One entry per ISO/IEC 25010:2023 characteristic addressed.
     public SomList<Iso25010CoverageEntry> characteristics() {
       return new SomList<>(doc, path + "/I25CV-CHAR-LST", (d, p) -> new Iso25010CoverageEntry(d, p));
     }
   }
 
-  // A single ISO/IEC 25010 coverage entry (form).
+  // A single ISO/IEC 25010:2023 coverage entry (form).
   public static final class Iso25010CoverageEntry extends SomNode {
     public Iso25010CoverageEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -25774,33 +25922,33 @@ public final class TomSomV0 {
   }
 
   // 11.4.4. IT Security Operations quality.
-  public static final class ItSecurityOperationsQuality extends SomNode {
-    public ItSecurityOperationsQuality(SpecDocument doc, String path) {
+  public static final class ItSecurityOperations extends SomNode {
+    public ItSecurityOperations(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ItSecurityOperationsQualityContentForm content() {
-      return new ItSecurityOperationsQualityContentForm(doc, path + "/content");
+    public ItSecurityOperationsContentForm content() {
+      return new ItSecurityOperationsContentForm(doc, path + "/content");
     }
 
     // Access protection controls.
-    public ItSecurityOperationsQualityAccess access() {
-      return new ItSecurityOperationsQualityAccess(doc, path + "/access");
+    public ItSecurityOperationsAccess access() {
+      return new ItSecurityOperationsAccess(doc, path + "/access");
     }
 
     // Disaster recovery planning details.
-    public ItSecurityOperationsQualityRecovery recovery() {
-      return new ItSecurityOperationsQualityRecovery(doc, path + "/recovery");
+    public ItSecurityOperationsRecovery recovery() {
+      return new ItSecurityOperationsRecovery(doc, path + "/recovery");
     }
 
     // Penetration testing and remediation.
-    public ItSecurityOperationsQualityTesting testing() {
-      return new ItSecurityOperationsQualityTesting(doc, path + "/testing");
+    public ItSecurityOperationsTesting testing() {
+      return new ItSecurityOperationsTesting(doc, path + "/testing");
     }
 
     // Incident handling and reporting.
-    public ItSecurityOperationsQualityIncident incident() {
-      return new ItSecurityOperationsQualityIncident(doc, path + "/incident");
+    public ItSecurityOperationsIncident incident() {
+      return new ItSecurityOperationsIncident(doc, path + "/incident");
     }
 
     // Detailed IT security operations narrative.
@@ -25808,46 +25956,46 @@ public final class TomSomV0 {
   }
 
   // Access protection controls.
-  public static final class ItSecurityOperationsQualityAccess extends SomNode {
-    public ItSecurityOperationsQualityAccess(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsAccess extends SomNode {
+    public ItSecurityOperationsAccess(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ItSecurityOperationsQualityAccessContentForm content() {
-      return new ItSecurityOperationsQualityAccessContentForm(doc, path + "/content");
+    public ItSecurityOperationsAccessContentForm content() {
+      return new ItSecurityOperationsAccessContentForm(doc, path + "/content");
     }
   }
 
   // Incident handling and reporting.
-  public static final class ItSecurityOperationsQualityIncident extends SomNode {
-    public ItSecurityOperationsQualityIncident(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsIncident extends SomNode {
+    public ItSecurityOperationsIncident(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ItSecurityOperationsQualityIncidentContentForm content() {
-      return new ItSecurityOperationsQualityIncidentContentForm(doc, path + "/content");
+    public ItSecurityOperationsIncidentContentForm content() {
+      return new ItSecurityOperationsIncidentContentForm(doc, path + "/content");
     }
   }
 
   // Disaster recovery planning details.
-  public static final class ItSecurityOperationsQualityRecovery extends SomNode {
-    public ItSecurityOperationsQualityRecovery(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsRecovery extends SomNode {
+    public ItSecurityOperationsRecovery(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ItSecurityOperationsQualityRecoveryContentForm content() {
-      return new ItSecurityOperationsQualityRecoveryContentForm(doc, path + "/content");
+    public ItSecurityOperationsRecoveryContentForm content() {
+      return new ItSecurityOperationsRecoveryContentForm(doc, path + "/content");
     }
   }
 
   // Penetration testing and remediation.
-  public static final class ItSecurityOperationsQualityTesting extends SomNode {
-    public ItSecurityOperationsQualityTesting(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsTesting extends SomNode {
+    public ItSecurityOperationsTesting(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ItSecurityOperationsQualityTestingContentForm content() {
-      return new ItSecurityOperationsQualityTestingContentForm(doc, path + "/content");
+    public ItSecurityOperationsTestingContentForm content() {
+      return new ItSecurityOperationsTestingContentForm(doc, path + "/content");
     }
   }
 
@@ -27398,33 +27546,33 @@ public final class TomSomV0 {
   }
 
   // 11.3.5. Maintainability quality.
-  public static final class MaintainabilityQuality extends SomNode {
-    public MaintainabilityQuality(SpecDocument doc, String path) {
+  public static final class Maintainability extends SomNode {
+    public Maintainability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MaintainabilityQualityContentForm content() {
-      return new MaintainabilityQualityContentForm(doc, path + "/content");
+    public MaintainabilityContentForm content() {
+      return new MaintainabilityContentForm(doc, path + "/content");
     }
 
     // Analyzability requirements.
-    public MaintainabilityQualityAnalyzability analyzability() {
-      return new MaintainabilityQualityAnalyzability(doc, path + "/analyzability");
+    public MaintainabilityAnalyzability analyzability() {
+      return new MaintainabilityAnalyzability(doc, path + "/analyzability");
     }
 
     // Changeability requirements.
-    public MaintainabilityQualityChangeability changeability() {
-      return new MaintainabilityQualityChangeability(doc, path + "/changeability");
+    public MaintainabilityChangeability changeability() {
+      return new MaintainabilityChangeability(doc, path + "/changeability");
     }
 
     // Testability requirements.
-    public MaintainabilityQualityTestability testability() {
-      return new MaintainabilityQualityTestability(doc, path + "/testability");
+    public MaintainabilityTestability testability() {
+      return new MaintainabilityTestability(doc, path + "/testability");
     }
 
     // Extensibility and verification requirements.
-    public MaintainabilityQualityGovernance governance() {
-      return new MaintainabilityQualityGovernance(doc, path + "/governance");
+    public MaintainabilityGovernance governance() {
+      return new MaintainabilityGovernance(doc, path + "/governance");
     }
 
     // Detailed maintainability requirements narrative.
@@ -27432,46 +27580,69 @@ public final class TomSomV0 {
   }
 
   // Analyzability requirements.
-  public static final class MaintainabilityQualityAnalyzability extends SomNode {
-    public MaintainabilityQualityAnalyzability(SpecDocument doc, String path) {
+  public static final class MaintainabilityAnalyzability extends SomNode {
+    public MaintainabilityAnalyzability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MaintainabilityQualityAnalyzabilityContentForm content() {
-      return new MaintainabilityQualityAnalyzabilityContentForm(doc, path + "/content");
+    public MaintainabilityAnalyzabilityContentForm content() {
+      return new MaintainabilityAnalyzabilityContentForm(doc, path + "/content");
     }
   }
 
   // Changeability requirements.
-  public static final class MaintainabilityQualityChangeability extends SomNode {
-    public MaintainabilityQualityChangeability(SpecDocument doc, String path) {
+  public static final class MaintainabilityChangeability extends SomNode {
+    public MaintainabilityChangeability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MaintainabilityQualityChangeabilityContentForm content() {
-      return new MaintainabilityQualityChangeabilityContentForm(doc, path + "/content");
+    public MaintainabilityChangeabilityContentForm content() {
+      return new MaintainabilityChangeabilityContentForm(doc, path + "/content");
+    }
+  }
+
+  // 11.8. Maintainability (ISO/IEC 25010:2023).
+  //
+  // Degree of effectiveness and efficiency with which the product can be
+  // modified. Re-homes the former technical-bucket maintainability leaf under
+  // the 25010:2023 spine (L34C-8).
+  public static final class MaintainabilityCharacteristic extends SomNode {
+    public MaintainabilityCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MaintainabilityCharacteristicMaintainabilityContentForm maintainabilityContent() {
+      return new MaintainabilityCharacteristicMaintainabilityContentForm(doc, path + "/maintainabilityContent");
+    }
+
+    // Maintainability overview.
+    // (skipped: overview has no target type)
+
+    // 11.8.1. Maintainability (product maintainability attributes).
+    public Maintainability maintainability() {
+      return new Maintainability(doc, path + "/maintainability");
     }
   }
 
   // Extensibility and verification requirements.
-  public static final class MaintainabilityQualityGovernance extends SomNode {
-    public MaintainabilityQualityGovernance(SpecDocument doc, String path) {
+  public static final class MaintainabilityGovernance extends SomNode {
+    public MaintainabilityGovernance(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MaintainabilityQualityGovernanceContentForm content() {
-      return new MaintainabilityQualityGovernanceContentForm(doc, path + "/content");
+    public MaintainabilityGovernanceContentForm content() {
+      return new MaintainabilityGovernanceContentForm(doc, path + "/content");
     }
   }
 
   // Testability requirements.
-  public static final class MaintainabilityQualityTestability extends SomNode {
-    public MaintainabilityQualityTestability(SpecDocument doc, String path) {
+  public static final class MaintainabilityTestability extends SomNode {
+    public MaintainabilityTestability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public MaintainabilityQualityTestabilityContentForm content() {
-      return new MaintainabilityQualityTestabilityContentForm(doc, path + "/content");
+    public MaintainabilityTestabilityContentForm content() {
+      return new MaintainabilityTestabilityContentForm(doc, path + "/content");
     }
   }
 
@@ -29486,6 +29657,17 @@ public final class TomSomV0 {
     }
   }
 
+  // Alerting strategy and channels.
+  public static final class MonitoringAlerting extends SomNode {
+    public MonitoringAlerting(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MonitoringAlertingContentForm content() {
+      return new MonitoringAlertingContentForm(doc, path + "/content");
+    }
+  }
+
   // 8.5.3. Monitoring and Alerting.
   //
   // Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -29555,6 +29737,28 @@ public final class TomSomV0 {
     // SLA monitoring.
     public SlaMonitoringRequirements slaMonitoring() {
       return new SlaMonitoringRequirements(doc, path + "/slaMonitoring");
+    }
+  }
+
+  // Alert automation capabilities.
+  public static final class MonitoringAutomation extends SomNode {
+    public MonitoringAutomation(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MonitoringAutomationContentForm content() {
+      return new MonitoringAutomationContentForm(doc, path + "/content");
+    }
+  }
+
+  // Component monitoring coverage.
+  public static final class MonitoringCoverage extends SomNode {
+    public MonitoringCoverage(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MonitoringCoverageContentForm content() {
+      return new MonitoringCoverageContentForm(doc, path + "/content");
     }
   }
 
@@ -29643,6 +29847,17 @@ public final class TomSomV0 {
     }
   }
 
+  // Planning and observability settings.
+  public static final class MonitoringOperations extends SomNode {
+    public MonitoringOperations(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MonitoringOperationsContentForm content() {
+      return new MonitoringOperationsContentForm(doc, path + "/content");
+    }
+  }
+
   // A single monitoring procedure entry.
   public static final class MonitoringProcedureEntry extends SomNode {
     public MonitoringProcedureEntry(SpecDocument doc, String path) {
@@ -29656,84 +29871,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
-    }
-  }
-
-  // 11.4.3. Monitoring quality.
-  public static final class MonitoringQuality extends SomNode {
-    public MonitoringQuality(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MonitoringQualityContentForm content() {
-      return new MonitoringQualityContentForm(doc, path + "/content");
-    }
-
-    // Component monitoring coverage.
-    public MonitoringQualityCoverage coverage() {
-      return new MonitoringQualityCoverage(doc, path + "/coverage");
-    }
-
-    // Alert automation capabilities.
-    public MonitoringQualityAutomation automation() {
-      return new MonitoringQualityAutomation(doc, path + "/automation");
-    }
-
-    // Alerting strategy and channels.
-    public MonitoringQualityAlerting alerting() {
-      return new MonitoringQualityAlerting(doc, path + "/alerting");
-    }
-
-    // Planning and observability settings.
-    public MonitoringQualityOperations operations() {
-      return new MonitoringQualityOperations(doc, path + "/operations");
-    }
-
-    // Detailed monitoring requirements narrative.
-    // (skipped: narrative has no target type)
-  }
-
-  // Alerting strategy and channels.
-  public static final class MonitoringQualityAlerting extends SomNode {
-    public MonitoringQualityAlerting(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MonitoringQualityAlertingContentForm content() {
-      return new MonitoringQualityAlertingContentForm(doc, path + "/content");
-    }
-  }
-
-  // Alert automation capabilities.
-  public static final class MonitoringQualityAutomation extends SomNode {
-    public MonitoringQualityAutomation(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MonitoringQualityAutomationContentForm content() {
-      return new MonitoringQualityAutomationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Component monitoring coverage.
-  public static final class MonitoringQualityCoverage extends SomNode {
-    public MonitoringQualityCoverage(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MonitoringQualityCoverageContentForm content() {
-      return new MonitoringQualityCoverageContentForm(doc, path + "/content");
-    }
-  }
-
-  // Planning and observability settings.
-  public static final class MonitoringQualityOperations extends SomNode {
-    public MonitoringQualityOperations(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public MonitoringQualityOperationsContentForm content() {
-      return new MonitoringQualityOperationsContentForm(doc, path + "/content");
     }
   }
 
@@ -31564,6 +31701,40 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.4.3. Monitoring quality.
+  public static final class OperationalMonitoring extends SomNode {
+    public OperationalMonitoring(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public OperationalMonitoringContentForm content() {
+      return new OperationalMonitoringContentForm(doc, path + "/content");
+    }
+
+    // Component monitoring coverage.
+    public MonitoringCoverage coverage() {
+      return new MonitoringCoverage(doc, path + "/coverage");
+    }
+
+    // Alert automation capabilities.
+    public MonitoringAutomation automation() {
+      return new MonitoringAutomation(doc, path + "/automation");
+    }
+
+    // Alerting strategy and channels.
+    public MonitoringAlerting alerting() {
+      return new MonitoringAlerting(doc, path + "/alerting");
+    }
+
+    // Planning and observability settings.
+    public MonitoringOperations operations() {
+      return new MonitoringOperations(doc, path + "/operations");
+    }
+
+    // Detailed monitoring requirements narrative.
+    // (skipped: narrative has no target type)
+  }
+
   // 1.3.1. Operational Pain Points.
   //
   // Problems that affect day-to-day operations: downtime, slow response,
@@ -31601,43 +31772,6 @@ public final class TomSomV0 {
 
     public OperationalPainPointsSummaryContentForm content() {
       return new OperationalPainPointsSummaryContentForm(doc, path + "/content");
-    }
-  }
-
-  // 11.4. Operations Quality Criteria.
-  //
-  // Quality criteria for system operations including availability, service
-  // levels, monitoring, and IT security operations.
-  public static final class OperationsQualityCriteria extends SomNode {
-    public OperationsQualityCriteria(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public OperationsQualityCriteriaOperationsOverviewContentForm operationsOverviewContent() {
-      return new OperationsQualityCriteriaOperationsOverviewContentForm(doc, path + "/operationsOverviewContent");
-    }
-
-    // Operations quality overview narrative.
-    // (skipped: overview has no target type)
-
-    // 11.4.1. Availability.
-    public AvailabilityQuality availability() {
-      return new AvailabilityQuality(doc, path + "/availability");
-    }
-
-    // 11.4.2. Service Level Requirements.
-    public ServiceLevelQuality serviceLevelRequirements() {
-      return new ServiceLevelQuality(doc, path + "/serviceLevelRequirements");
-    }
-
-    // 11.4.3. Monitoring and Prevention.
-    public MonitoringQuality monitoringAndPrevention() {
-      return new MonitoringQuality(doc, path + "/monitoringAndPrevention");
-    }
-
-    // 11.4.4. IT Security Operations.
-    public ItSecurityOperationsQuality itSecurityOperations() {
-      return new ItSecurityOperationsQuality(doc, path + "/itSecurityOperations");
     }
   }
 
@@ -32991,6 +33125,30 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  //
+  // Performance relative to the amount of resources used under stated
+  // conditions. Re-homes the former technical-bucket efficiency leaf under the
+  // 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+  // preserved here so no authored content is lost.
+  public static final class PerformanceEfficiencyCharacteristic extends SomNode {
+    public PerformanceEfficiencyCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performanceEfficiencyContent() {
+      return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, path + "/performanceEfficiencyContent");
+    }
+
+    // Performance efficiency overview.
+    // (skipped: overview has no target type)
+
+    // 11.3.1. Efficiency.
+    public Efficiency efficiency() {
+      return new Efficiency(doc, path + "/efficiency");
+    }
+  }
+
   // Periodic review policy (form).
   //
   // Defines periodic reviews of access rights and security posture.
@@ -33711,13 +33869,13 @@ public final class TomSomV0 {
   }
 
   // 11.3.2. Portability quality.
-  public static final class PortabilityQuality extends SomNode {
-    public PortabilityQuality(SpecDocument doc, String path) {
+  public static final class Portability extends SomNode {
+    public Portability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public PortabilityQualityContentForm content() {
-      return new PortabilityQualityContentForm(doc, path + "/content");
+    public PortabilityContentForm content() {
+      return new PortabilityContentForm(doc, path + "/content");
     }
 
     // Detailed portability requirements narrative.
@@ -36124,7 +36282,7 @@ public final class TomSomV0 {
 
   // SBP.14 Quality & Acceptance Model.
   //
-  // Public anchor: ISO/IEC 25010 product quality.
+  // Public anchor: ISO/IEC 25010:2023 product quality.
   public static final class QualityAndAcceptanceModel extends SomNode {
     public QualityAndAcceptanceModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -36149,7 +36307,7 @@ public final class TomSomV0 {
       return new DeliveryScopeAndAcceptance(doc, path + "/deliveryAcceptance");
     }
 
-    // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+    // ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
     public Iso25010Coverage iso25010Coverage() {
       return new Iso25010Coverage(doc, path + "/iso25010Coverage");
     }
@@ -36556,6 +36714,50 @@ public final class TomSomV0 {
     }
   }
 
+  // Baseline and target settings.
+  public static final class QualityGoalsBaseline extends SomNode {
+    public QualityGoalsBaseline(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public QualityGoalsBaselineContentForm content() {
+      return new QualityGoalsBaselineContentForm(doc, path + "/content");
+    }
+  }
+
+  // Governance board and escalation details.
+  public static final class QualityGoalsGovernance extends SomNode {
+    public QualityGoalsGovernance(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public QualityGoalsGovernanceContentForm content() {
+      return new QualityGoalsGovernanceContentForm(doc, path + "/content");
+    }
+  }
+
+  // Measurement and reporting approach.
+  public static final class QualityGoalsMeasurement extends SomNode {
+    public QualityGoalsMeasurement(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public QualityGoalsMeasurementContentForm content() {
+      return new QualityGoalsMeasurementContentForm(doc, path + "/content");
+    }
+  }
+
+  // Quality resources and enablement.
+  public static final class QualityGoalsResources extends SomNode {
+    public QualityGoalsResources(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public QualityGoalsResourcesContentForm content() {
+      return new QualityGoalsResourcesContentForm(doc, path + "/content");
+    }
+  }
+
   // 11.6. Quality Prioritization.
   //
   // Prioritization and balancing of quality attributes including weighted
@@ -36764,33 +36966,33 @@ public final class TomSomV0 {
   }
 
   // 11.5.1. Readability quality.
-  public static final class ReadabilityQuality extends SomNode {
-    public ReadabilityQuality(SpecDocument doc, String path) {
+  public static final class Readability extends SomNode {
+    public Readability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReadabilityQualityContentForm content() {
-      return new ReadabilityQualityContentForm(doc, path + "/content");
+    public ReadabilityContentForm content() {
+      return new ReadabilityContentForm(doc, path + "/content");
     }
 
     // Identifiability and navigation.
-    public ReadabilityQualityNavigation navigation() {
-      return new ReadabilityQualityNavigation(doc, path + "/navigation");
+    public ReadabilityNavigation navigation() {
+      return new ReadabilityNavigation(doc, path + "/navigation");
     }
 
     // Comprehensibility requirements.
-    public ReadabilityQualityComprehensibility comprehensibility() {
-      return new ReadabilityQualityComprehensibility(doc, path + "/comprehensibility");
+    public ReadabilityComprehensibility comprehensibility() {
+      return new ReadabilityComprehensibility(doc, path + "/comprehensibility");
     }
 
     // Document structure rules.
-    public ReadabilityQualityStructure structure() {
-      return new ReadabilityQualityStructure(doc, path + "/structure");
+    public ReadabilityStructure structure() {
+      return new ReadabilityStructure(doc, path + "/structure");
     }
 
     // Style guide alignment.
-    public ReadabilityQualityStyle style() {
-      return new ReadabilityQualityStyle(doc, path + "/style");
+    public ReadabilityStyle style() {
+      return new ReadabilityStyle(doc, path + "/style");
     }
 
     // Detailed readability requirements narrative.
@@ -36798,46 +37000,46 @@ public final class TomSomV0 {
   }
 
   // Comprehensibility requirements.
-  public static final class ReadabilityQualityComprehensibility extends SomNode {
-    public ReadabilityQualityComprehensibility(SpecDocument doc, String path) {
+  public static final class ReadabilityComprehensibility extends SomNode {
+    public ReadabilityComprehensibility(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReadabilityQualityComprehensibilityContentForm content() {
-      return new ReadabilityQualityComprehensibilityContentForm(doc, path + "/content");
+    public ReadabilityComprehensibilityContentForm content() {
+      return new ReadabilityComprehensibilityContentForm(doc, path + "/content");
     }
   }
 
   // Identifiability and navigation.
-  public static final class ReadabilityQualityNavigation extends SomNode {
-    public ReadabilityQualityNavigation(SpecDocument doc, String path) {
+  public static final class ReadabilityNavigation extends SomNode {
+    public ReadabilityNavigation(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReadabilityQualityNavigationContentForm content() {
-      return new ReadabilityQualityNavigationContentForm(doc, path + "/content");
+    public ReadabilityNavigationContentForm content() {
+      return new ReadabilityNavigationContentForm(doc, path + "/content");
     }
   }
 
   // Document structure rules.
-  public static final class ReadabilityQualityStructure extends SomNode {
-    public ReadabilityQualityStructure(SpecDocument doc, String path) {
+  public static final class ReadabilityStructure extends SomNode {
+    public ReadabilityStructure(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReadabilityQualityStructureContentForm content() {
-      return new ReadabilityQualityStructureContentForm(doc, path + "/content");
+    public ReadabilityStructureContentForm content() {
+      return new ReadabilityStructureContentForm(doc, path + "/content");
     }
   }
 
   // Style guide alignment.
-  public static final class ReadabilityQualityStyle extends SomNode {
-    public ReadabilityQualityStyle(SpecDocument doc, String path) {
+  public static final class ReadabilityStyle extends SomNode {
+    public ReadabilityStyle(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReadabilityQualityStyleContentForm content() {
-      return new ReadabilityQualityStyleContentForm(doc, path + "/content");
+    public ReadabilityStyleContentForm content() {
+      return new ReadabilityStyleContentForm(doc, path + "/content");
     }
   }
 
@@ -37366,80 +37568,121 @@ public final class TomSomV0 {
   }
 
   // 11.3.6. Reliability quality.
-  public static final class ReliabilityQuality extends SomNode {
-    public ReliabilityQuality(SpecDocument doc, String path) {
+  public static final class Reliability extends SomNode {
+    public Reliability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReliabilityQualityContentForm content() {
-      return new ReliabilityQualityContentForm(doc, path + "/content");
+    public ReliabilityContentForm content() {
+      return new ReliabilityContentForm(doc, path + "/content");
     }
 
     // Recovery objectives.
-    public ReliabilityQualityRecovery recovery() {
-      return new ReliabilityQualityRecovery(doc, path + "/recovery");
+    public ReliabilityRecovery recovery() {
+      return new ReliabilityRecovery(doc, path + "/recovery");
     }
 
     // Failover requirements.
-    public ReliabilityQualityFailover failover() {
-      return new ReliabilityQualityFailover(doc, path + "/failover");
+    public ReliabilityFailover failover() {
+      return new ReliabilityFailover(doc, path + "/failover");
     }
 
     // Data durability requirements.
-    public ReliabilityQualityDurability durability() {
-      return new ReliabilityQualityDurability(doc, path + "/durability");
+    public ReliabilityDurability durability() {
+      return new ReliabilityDurability(doc, path + "/durability");
     }
 
     // Verification and learning.
-    public ReliabilityQualityVerification verification() {
-      return new ReliabilityQualityVerification(doc, path + "/verification");
+    public ReliabilityVerification verification() {
+      return new ReliabilityVerification(doc, path + "/verification");
     }
 
     // Detailed reliability requirements narrative.
     // (skipped: narrative has no target type)
   }
 
-  // Data durability requirements.
-  public static final class ReliabilityQualityDurability extends SomNode {
-    public ReliabilityQualityDurability(SpecDocument doc, String path) {
+  // 11.6. Reliability (ISO/IEC 25010:2023).
+  //
+  // Degree to which the product performs specified functions under specified
+  // conditions for a specified period (availability, fault tolerance,
+  // recoverability, maturity). Re-homes the former technical-bucket reliability
+  // leaf and the operations-bucket availability, service-level and monitoring
+  // leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+  // overview form is preserved here so no authored content is lost.
+  public static final class ReliabilityCharacteristic extends SomNode {
+    public ReliabilityCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReliabilityQualityDurabilityContentForm content() {
-      return new ReliabilityQualityDurabilityContentForm(doc, path + "/content");
+    public ReliabilityCharacteristicReliabilityContentForm reliabilityContent() {
+      return new ReliabilityCharacteristicReliabilityContentForm(doc, path + "/reliabilityContent");
+    }
+
+    // Reliability overview narrative.
+    // (skipped: overview has no target type)
+
+    // 11.6.1. Reliability (product reliability attributes).
+    public Reliability reliability() {
+      return new Reliability(doc, path + "/reliability");
+    }
+
+    // 11.6.2. Availability.
+    public Availability availability() {
+      return new Availability(doc, path + "/availability");
+    }
+
+    // 11.6.3. Service Level Requirements.
+    public ServiceLevel serviceLevelRequirements() {
+      return new ServiceLevel(doc, path + "/serviceLevelRequirements");
+    }
+
+    // 11.6.4. Monitoring and Prevention.
+    public OperationalMonitoring monitoringAndPrevention() {
+      return new OperationalMonitoring(doc, path + "/monitoringAndPrevention");
+    }
+  }
+
+  // Data durability requirements.
+  public static final class ReliabilityDurability extends SomNode {
+    public ReliabilityDurability(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ReliabilityDurabilityContentForm content() {
+      return new ReliabilityDurabilityContentForm(doc, path + "/content");
     }
   }
 
   // Failover requirements.
-  public static final class ReliabilityQualityFailover extends SomNode {
-    public ReliabilityQualityFailover(SpecDocument doc, String path) {
+  public static final class ReliabilityFailover extends SomNode {
+    public ReliabilityFailover(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReliabilityQualityFailoverContentForm content() {
-      return new ReliabilityQualityFailoverContentForm(doc, path + "/content");
+    public ReliabilityFailoverContentForm content() {
+      return new ReliabilityFailoverContentForm(doc, path + "/content");
     }
   }
 
   // Recovery objectives.
-  public static final class ReliabilityQualityRecovery extends SomNode {
-    public ReliabilityQualityRecovery(SpecDocument doc, String path) {
+  public static final class ReliabilityRecovery extends SomNode {
+    public ReliabilityRecovery(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReliabilityQualityRecoveryContentForm content() {
-      return new ReliabilityQualityRecoveryContentForm(doc, path + "/content");
+    public ReliabilityRecoveryContentForm content() {
+      return new ReliabilityRecoveryContentForm(doc, path + "/content");
     }
   }
 
   // Verification and learning.
-  public static final class ReliabilityQualityVerification extends SomNode {
-    public ReliabilityQualityVerification(SpecDocument doc, String path) {
+  public static final class ReliabilityVerification extends SomNode {
+    public ReliabilityVerification(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ReliabilityQualityVerificationContentForm content() {
-      return new ReliabilityQualityVerificationContentForm(doc, path + "/content");
+    public ReliabilityVerificationContentForm content() {
+      return new ReliabilityVerificationContentForm(doc, path + "/content");
     }
   }
 
@@ -42232,6 +42475,40 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.3.4. Security quality.
+  public static final class Security extends SomNode {
+    public Security(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityContentForm content() {
+      return new SecurityContentForm(doc, path + "/content");
+    }
+
+    // Authentication controls.
+    public SecurityAuthentication authentication() {
+      return new SecurityAuthentication(doc, path + "/authentication");
+    }
+
+    // Authorization controls.
+    public SecurityAuthorization authorization() {
+      return new SecurityAuthorization(doc, path + "/authorization");
+    }
+
+    // Vulnerability management expectations.
+    public SecurityVulnerability vulnerability() {
+      return new SecurityVulnerability(doc, path + "/vulnerability");
+    }
+
+    // Compliance and verification settings.
+    public SecurityCompliance compliance() {
+      return new SecurityCompliance(doc, path + "/compliance");
+    }
+
+    // Detailed security requirements narrative.
+    // (skipped: narrative has no target type)
+  }
+
   // 9. Security & Access Model. Seeds → SAS.
   public static final class SecurityAndAccessModel extends SomNode {
     public SecurityAndAccessModel(SpecDocument doc, String path) {
@@ -42405,6 +42682,28 @@ public final class TomSomV0 {
     }
   }
 
+  // Authentication controls.
+  public static final class SecurityAuthentication extends SomNode {
+    public SecurityAuthentication(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityAuthenticationContentForm content() {
+      return new SecurityAuthenticationContentForm(doc, path + "/content");
+    }
+  }
+
+  // Authorization controls.
+  public static final class SecurityAuthorization extends SomNode {
+    public SecurityAuthorization(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityAuthorizationContentForm content() {
+      return new SecurityAuthorizationContentForm(doc, path + "/content");
+    }
+  }
+
   // Security certification and compliance requirements.
   public static final class SecurityCertificationRequirements extends SomNode {
     public SecurityCertificationRequirements(SpecDocument doc, String path) {
@@ -42480,6 +42779,34 @@ public final class TomSomV0 {
     }
   }
 
+  // 11.7. Security (ISO/IEC 25010:2023).
+  //
+  // Degree to which the product protects information and data. Re-homes the
+  // former technical-bucket security leaf and the operations-bucket IT-security
+  // operations leaf under the 25010:2023 spine (L34C-8).
+  public static final class SecurityCharacteristic extends SomNode {
+    public SecurityCharacteristic(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityCharacteristicSecurityContentForm securityContent() {
+      return new SecurityCharacteristicSecurityContentForm(doc, path + "/securityContent");
+    }
+
+    // Security overview.
+    // (skipped: overview has no target type)
+
+    // 11.7.1. Security (product security attributes).
+    public Security security() {
+      return new Security(doc, path + "/security");
+    }
+
+    // 11.7.2. IT Security Operations.
+    public ItSecurityOperations itSecurityOperations() {
+      return new ItSecurityOperations(doc, path + "/itSecurityOperations");
+    }
+  }
+
   // Security-focused code review policy.
   //
   // Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -42540,6 +42867,17 @@ public final class TomSomV0 {
 
     public SecurityCodeReviewPolicyReviewersContentForm content() {
       return new SecurityCodeReviewPolicyReviewersContentForm(doc, path + "/content");
+    }
+  }
+
+  // Compliance and verification settings.
+  public static final class SecurityCompliance extends SomNode {
+    public SecurityCompliance(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityComplianceContentForm content() {
+      return new SecurityComplianceContentForm(doc, path + "/content");
     }
   }
 
@@ -42762,84 +43100,6 @@ public final class TomSomV0 {
     // Custom Security Events — contains 0+× Security Event Entry.
     public SomList<SecurityEventEntry> customEvents() {
       return new SomList<>(doc, path + "/SEVT-CUST-LST", (d, p) -> new SecurityEventEntry(d, p));
-    }
-  }
-
-  // 11.3.4. Security quality.
-  public static final class SecurityQuality extends SomNode {
-    public SecurityQuality(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SecurityQualityContentForm content() {
-      return new SecurityQualityContentForm(doc, path + "/content");
-    }
-
-    // Authentication controls.
-    public SecurityQualityAuthentication authentication() {
-      return new SecurityQualityAuthentication(doc, path + "/authentication");
-    }
-
-    // Authorization controls.
-    public SecurityQualityAuthorization authorization() {
-      return new SecurityQualityAuthorization(doc, path + "/authorization");
-    }
-
-    // Vulnerability management expectations.
-    public SecurityQualityVulnerability vulnerability() {
-      return new SecurityQualityVulnerability(doc, path + "/vulnerability");
-    }
-
-    // Compliance and verification settings.
-    public SecurityQualityCompliance compliance() {
-      return new SecurityQualityCompliance(doc, path + "/compliance");
-    }
-
-    // Detailed security requirements narrative.
-    // (skipped: narrative has no target type)
-  }
-
-  // Authentication controls.
-  public static final class SecurityQualityAuthentication extends SomNode {
-    public SecurityQualityAuthentication(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SecurityQualityAuthenticationContentForm content() {
-      return new SecurityQualityAuthenticationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Authorization controls.
-  public static final class SecurityQualityAuthorization extends SomNode {
-    public SecurityQualityAuthorization(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SecurityQualityAuthorizationContentForm content() {
-      return new SecurityQualityAuthorizationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Compliance and verification settings.
-  public static final class SecurityQualityCompliance extends SomNode {
-    public SecurityQualityCompliance(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SecurityQualityComplianceContentForm content() {
-      return new SecurityQualityComplianceContentForm(doc, path + "/content");
-    }
-  }
-
-  // Vulnerability management expectations.
-  public static final class SecurityQualityVulnerability extends SomNode {
-    public SecurityQualityVulnerability(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SecurityQualityVulnerabilityContentForm content() {
-      return new SecurityQualityVulnerabilityContentForm(doc, path + "/content");
     }
   }
 
@@ -43197,6 +43457,17 @@ public final class TomSomV0 {
 
     public SecurityTestingAutomationScanningContentForm content() {
       return new SecurityTestingAutomationScanningContentForm(doc, path + "/content");
+    }
+  }
+
+  // Vulnerability management expectations.
+  public static final class SecurityVulnerability extends SomNode {
+    public SecurityVulnerability(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public SecurityVulnerabilityContentForm content() {
+      return new SecurityVulnerabilityContentForm(doc, path + "/content");
     }
   }
 
@@ -43766,6 +44037,50 @@ public final class TomSomV0 {
     // (skipped: serviceAccountDescription has no target type)
   }
 
+  // 11.4.2. Service level quality.
+  public static final class ServiceLevel extends SomNode {
+    public ServiceLevel(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServiceLevelContentForm content() {
+      return new ServiceLevelContentForm(doc, path + "/content");
+    }
+
+    // Remaining response targets.
+    public ServiceLevelResponse response() {
+      return new ServiceLevelResponse(doc, path + "/response");
+    }
+
+    // Resolution targets.
+    public ServiceLevelResolution resolution() {
+      return new ServiceLevelResolution(doc, path + "/resolution");
+    }
+
+    // Escalation rules.
+    public ServiceLevelEscalation escalation() {
+      return new ServiceLevelEscalation(doc, path + "/escalation");
+    }
+
+    // On-call support expectations.
+    public ServiceLevelOnCall onCall() {
+      return new ServiceLevelOnCall(doc, path + "/onCall");
+    }
+
+    // Restoration and communication priorities.
+    public ServiceLevelRestoration restoration() {
+      return new ServiceLevelRestoration(doc, path + "/restoration");
+    }
+
+    // Detailed service level requirements narrative.
+    // (skipped: narrative has no target type)
+
+    // Service Level Agreement entries.
+    public SomList<ServiceLevelAgreementEntry> slaEntries() {
+      return new SomList<>(doc, path + "/SLAE-SLAE-LST", (d, p) -> new ServiceLevelAgreementEntry(d, p));
+    }
+  }
+
   // A service level agreement entry.
   public static final class ServiceLevelAgreementEntry extends SomNode {
     public ServiceLevelAgreementEntry(SpecDocument doc, String path) {
@@ -43774,6 +44089,17 @@ public final class TomSomV0 {
 
     public ServiceLevelAgreementEntryContentForm content() {
       return new ServiceLevelAgreementEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // Escalation rules.
+  public static final class ServiceLevelEscalation extends SomNode {
+    public ServiceLevelEscalation(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServiceLevelEscalationContentForm content() {
+      return new ServiceLevelEscalationContentForm(doc, path + "/content");
     }
   }
 
@@ -43836,102 +44162,47 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4.2. Service level quality.
-  public static final class ServiceLevelQuality extends SomNode {
-    public ServiceLevelQuality(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ServiceLevelQualityContentForm content() {
-      return new ServiceLevelQualityContentForm(doc, path + "/content");
-    }
-
-    // Remaining response targets.
-    public ServiceLevelQualityResponse response() {
-      return new ServiceLevelQualityResponse(doc, path + "/response");
-    }
-
-    // Resolution targets.
-    public ServiceLevelQualityResolution resolution() {
-      return new ServiceLevelQualityResolution(doc, path + "/resolution");
-    }
-
-    // Escalation rules.
-    public ServiceLevelQualityEscalation escalation() {
-      return new ServiceLevelQualityEscalation(doc, path + "/escalation");
-    }
-
-    // On-call support expectations.
-    public ServiceLevelQualityOnCall onCall() {
-      return new ServiceLevelQualityOnCall(doc, path + "/onCall");
-    }
-
-    // Restoration and communication priorities.
-    public ServiceLevelQualityRestoration restoration() {
-      return new ServiceLevelQualityRestoration(doc, path + "/restoration");
-    }
-
-    // Detailed service level requirements narrative.
-    // (skipped: narrative has no target type)
-
-    // Service Level Agreement entries.
-    public SomList<ServiceLevelAgreementEntry> slaEntries() {
-      return new SomList<>(doc, path + "/SLAE-SLAE-LST", (d, p) -> new ServiceLevelAgreementEntry(d, p));
-    }
-  }
-
-  // Escalation rules.
-  public static final class ServiceLevelQualityEscalation extends SomNode {
-    public ServiceLevelQualityEscalation(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ServiceLevelQualityEscalationContentForm content() {
-      return new ServiceLevelQualityEscalationContentForm(doc, path + "/content");
-    }
-  }
-
   // On-call support expectations.
-  public static final class ServiceLevelQualityOnCall extends SomNode {
-    public ServiceLevelQualityOnCall(SpecDocument doc, String path) {
+  public static final class ServiceLevelOnCall extends SomNode {
+    public ServiceLevelOnCall(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ServiceLevelQualityOnCallContentForm content() {
-      return new ServiceLevelQualityOnCallContentForm(doc, path + "/content");
+    public ServiceLevelOnCallContentForm content() {
+      return new ServiceLevelOnCallContentForm(doc, path + "/content");
     }
   }
 
   // Resolution targets.
-  public static final class ServiceLevelQualityResolution extends SomNode {
-    public ServiceLevelQualityResolution(SpecDocument doc, String path) {
+  public static final class ServiceLevelResolution extends SomNode {
+    public ServiceLevelResolution(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ServiceLevelQualityResolutionContentForm content() {
-      return new ServiceLevelQualityResolutionContentForm(doc, path + "/content");
+    public ServiceLevelResolutionContentForm content() {
+      return new ServiceLevelResolutionContentForm(doc, path + "/content");
     }
   }
 
   // Remaining response targets.
-  public static final class ServiceLevelQualityResponse extends SomNode {
-    public ServiceLevelQualityResponse(SpecDocument doc, String path) {
+  public static final class ServiceLevelResponse extends SomNode {
+    public ServiceLevelResponse(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ServiceLevelQualityResponseContentForm content() {
-      return new ServiceLevelQualityResponseContentForm(doc, path + "/content");
+    public ServiceLevelResponseContentForm content() {
+      return new ServiceLevelResponseContentForm(doc, path + "/content");
     }
   }
 
   // Restoration and communication priorities.
-  public static final class ServiceLevelQualityRestoration extends SomNode {
-    public ServiceLevelQualityRestoration(SpecDocument doc, String path) {
+  public static final class ServiceLevelRestoration extends SomNode {
+    public ServiceLevelRestoration(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ServiceLevelQualityRestorationContentForm content() {
-      return new ServiceLevelQualityRestorationContentForm(doc, path + "/content");
+    public ServiceLevelRestorationContentForm content() {
+      return new ServiceLevelRestorationContentForm(doc, path + "/content");
     }
   }
 
@@ -48443,23 +48714,23 @@ public final class TomSomV0 {
     }
 
     // Governance board and escalation details.
-    public SystemQualityGoalsGovernance governance() {
-      return new SystemQualityGoalsGovernance(doc, path + "/governance");
+    public QualityGoalsGovernance governance() {
+      return new QualityGoalsGovernance(doc, path + "/governance");
     }
 
     // Baseline and target settings.
-    public SystemQualityGoalsBaseline baseline() {
-      return new SystemQualityGoalsBaseline(doc, path + "/baseline");
+    public QualityGoalsBaseline baseline() {
+      return new QualityGoalsBaseline(doc, path + "/baseline");
     }
 
     // Measurement and reporting approach.
-    public SystemQualityGoalsMeasurement measurement() {
-      return new SystemQualityGoalsMeasurement(doc, path + "/measurement");
+    public QualityGoalsMeasurement measurement() {
+      return new QualityGoalsMeasurement(doc, path + "/measurement");
     }
 
     // Quality resources and enablement.
-    public SystemQualityGoalsResources resources() {
-      return new SystemQualityGoalsResources(doc, path + "/resources");
+    public QualityGoalsResources resources() {
+      return new QualityGoalsResources(doc, path + "/resources");
     }
 
     // Executive summary of quality goals and approach.
@@ -48484,22 +48755,49 @@ public final class TomSomV0 {
       return new QualityFramework(doc, path + "/framework");
     }
 
-    // 11.2. User-Related Quality Criteria.
-    public UserQualityCriteria userQuality() {
-      return new UserQualityCriteria(doc, path + "/userQuality");
+    // 11.2. Functional Suitability (ISO/IEC 25010:2023).
+    public FunctionalSuitabilityCharacteristic functionalSuitability() {
+      return new FunctionalSuitabilityCharacteristic(doc, path + "/functionalSuitability");
     }
 
-    // 11.3. Technical Quality Criteria.
-    public TechnicalQualityCriteria technicalQuality() {
-      return new TechnicalQualityCriteria(doc, path + "/technicalQuality");
+    // 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+    public PerformanceEfficiencyCharacteristic performanceEfficiency() {
+      return new PerformanceEfficiencyCharacteristic(doc, path + "/performanceEfficiency");
     }
 
-    // 11.4. Operations Quality Criteria.
-    public OperationsQualityCriteria operationsQuality() {
-      return new OperationsQualityCriteria(doc, path + "/operationsQuality");
+    // 11.4. Compatibility (ISO/IEC 25010:2023).
+    public CompatibilityCharacteristic compatibility() {
+      return new CompatibilityCharacteristic(doc, path + "/compatibility");
     }
 
-    // 11.5. Documentation Quality Criteria.
+    // 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+    public InteractionCapabilityCharacteristic interactionCapability() {
+      return new InteractionCapabilityCharacteristic(doc, path + "/interactionCapability");
+    }
+
+    // 11.6. Reliability (ISO/IEC 25010:2023).
+    public ReliabilityCharacteristic reliability() {
+      return new ReliabilityCharacteristic(doc, path + "/reliability");
+    }
+
+    // 11.7. Security (ISO/IEC 25010:2023).
+    public SecurityCharacteristic security() {
+      return new SecurityCharacteristic(doc, path + "/security");
+    }
+
+    // 11.8. Maintainability (ISO/IEC 25010:2023).
+    public MaintainabilityCharacteristic maintainability() {
+      return new MaintainabilityCharacteristic(doc, path + "/maintainability");
+    }
+
+    // 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+    public FlexibilityCharacteristic flexibility() {
+      return new FlexibilityCharacteristic(doc, path + "/flexibility");
+    }
+
+    // 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+    // annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+    // documentation-quality annex per L34C-8).
     public DocumentationQualityCriteria documentationQuality() {
       return new DocumentationQualityCriteria(doc, path + "/documentationQuality");
     }
@@ -48517,50 +48815,6 @@ public final class TomSomV0 {
     // 11.8. Test Strategy..
     public TestStrategy testStrategy() {
       return new TestStrategy(doc, path + "/testStrategy");
-    }
-  }
-
-  // Baseline and target settings.
-  public static final class SystemQualityGoalsBaseline extends SomNode {
-    public SystemQualityGoalsBaseline(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemQualityGoalsBaselineContentForm content() {
-      return new SystemQualityGoalsBaselineContentForm(doc, path + "/content");
-    }
-  }
-
-  // Governance board and escalation details.
-  public static final class SystemQualityGoalsGovernance extends SomNode {
-    public SystemQualityGoalsGovernance(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemQualityGoalsGovernanceContentForm2 content() {
-      return new SystemQualityGoalsGovernanceContentForm2(doc, path + "/content");
-    }
-  }
-
-  // Measurement and reporting approach.
-  public static final class SystemQualityGoalsMeasurement extends SomNode {
-    public SystemQualityGoalsMeasurement(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemQualityGoalsMeasurementContentForm content() {
-      return new SystemQualityGoalsMeasurementContentForm(doc, path + "/content");
-    }
-  }
-
-  // Quality resources and enablement.
-  public static final class SystemQualityGoalsResources extends SomNode {
-    public SystemQualityGoalsResources(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public SystemQualityGoalsResourcesContentForm content() {
-      return new SystemQualityGoalsResourcesContentForm(doc, path + "/content");
     }
   }
 
@@ -50031,53 +50285,6 @@ public final class TomSomV0 {
 
     public TechnicalPainPointsSummaryContentForm content() {
       return new TechnicalPainPointsSummaryContentForm(doc, path + "/content");
-    }
-  }
-
-  // 11.3. Technical Quality Criteria.
-  //
-  // Quality criteria for the technical implementation including efficiency,
-  // portability, flexibility, security, maintainability, and reliability.
-  public static final class TechnicalQualityCriteria extends SomNode {
-    public TechnicalQualityCriteria(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public TechnicalQualityCriteriaTechnicalQualityContentForm technicalQualityContent() {
-      return new TechnicalQualityCriteriaTechnicalQualityContentForm(doc, path + "/technicalQualityContent");
-    }
-
-    // Technical quality overview.
-    // (skipped: overview has no target type)
-
-    // 11.3.1. Efficiency.
-    public EfficiencyQuality efficiency() {
-      return new EfficiencyQuality(doc, path + "/efficiency");
-    }
-
-    // 11.3.2. Portability.
-    public PortabilityQuality portability() {
-      return new PortabilityQuality(doc, path + "/portability");
-    }
-
-    // 11.3.3. Flexibility.
-    public FlexibilityQuality flexibility() {
-      return new FlexibilityQuality(doc, path + "/flexibility");
-    }
-
-    // 11.3.4. Security.
-    public SecurityQuality security() {
-      return new SecurityQuality(doc, path + "/security");
-    }
-
-    // 11.3.5. Maintainability.
-    public MaintainabilityQuality maintainability() {
-      return new MaintainabilityQuality(doc, path + "/maintainability");
-    }
-
-    // 11.3.6. Reliability.
-    public ReliabilityQuality reliability() {
-      return new ReliabilityQuality(doc, path + "/reliability");
     }
   }
 
@@ -53214,38 +53421,38 @@ public final class TomSomV0 {
   }
 
   // 11.2.1. Usability quality.
-  public static final class UsabilityQuality extends SomNode {
-    public UsabilityQuality(SpecDocument doc, String path) {
+  public static final class Usability extends SomNode {
+    public Usability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityContentForm content() {
-      return new UsabilityQualityContentForm(doc, path + "/content");
+    public UsabilityContentForm content() {
+      return new UsabilityContentForm(doc, path + "/content");
     }
 
     // Operability verification and ergonomics goals.
-    public UsabilityQualityOperability operability() {
-      return new UsabilityQualityOperability(doc, path + "/operability");
+    public UsabilityOperability operability() {
+      return new UsabilityOperability(doc, path + "/operability");
     }
 
     // Learnability and onboarding expectations.
-    public UsabilityQualityLearnability learnability() {
-      return new UsabilityQualityLearnability(doc, path + "/learnability");
+    public UsabilityLearnability learnability() {
+      return new UsabilityLearnability(doc, path + "/learnability");
     }
 
     // Clarity and complexity constraints.
-    public UsabilityQualityClarity clarity() {
-      return new UsabilityQualityClarity(doc, path + "/clarity");
+    public UsabilityClarity clarity() {
+      return new UsabilityClarity(doc, path + "/clarity");
     }
 
     // Interaction control settings.
-    public UsabilityQualityInteraction interaction() {
-      return new UsabilityQualityInteraction(doc, path + "/interaction");
+    public UsabilityInteraction interaction() {
+      return new UsabilityInteraction(doc, path + "/interaction");
     }
 
     // Perceived and measured responsiveness targets.
-    public UsabilityQualityPerformance performance() {
-      return new UsabilityQualityPerformance(doc, path + "/performance");
+    public UsabilityPerformance performance() {
+      return new UsabilityPerformance(doc, path + "/performance");
     }
 
     // Detailed usability requirements narrative.
@@ -53253,57 +53460,57 @@ public final class TomSomV0 {
   }
 
   // Clarity and complexity constraints.
-  public static final class UsabilityQualityClarity extends SomNode {
-    public UsabilityQualityClarity(SpecDocument doc, String path) {
+  public static final class UsabilityClarity extends SomNode {
+    public UsabilityClarity(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityClarityContentForm content() {
-      return new UsabilityQualityClarityContentForm(doc, path + "/content");
+    public UsabilityClarityContentForm content() {
+      return new UsabilityClarityContentForm(doc, path + "/content");
     }
   }
 
   // Interaction control settings.
-  public static final class UsabilityQualityInteraction extends SomNode {
-    public UsabilityQualityInteraction(SpecDocument doc, String path) {
+  public static final class UsabilityInteraction extends SomNode {
+    public UsabilityInteraction(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityInteractionContentForm content() {
-      return new UsabilityQualityInteractionContentForm(doc, path + "/content");
+    public UsabilityInteractionContentForm content() {
+      return new UsabilityInteractionContentForm(doc, path + "/content");
     }
   }
 
   // Learnability and onboarding expectations.
-  public static final class UsabilityQualityLearnability extends SomNode {
-    public UsabilityQualityLearnability(SpecDocument doc, String path) {
+  public static final class UsabilityLearnability extends SomNode {
+    public UsabilityLearnability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityLearnabilityContentForm content() {
-      return new UsabilityQualityLearnabilityContentForm(doc, path + "/content");
+    public UsabilityLearnabilityContentForm content() {
+      return new UsabilityLearnabilityContentForm(doc, path + "/content");
     }
   }
 
   // Operability verification and ergonomics goals.
-  public static final class UsabilityQualityOperability extends SomNode {
-    public UsabilityQualityOperability(SpecDocument doc, String path) {
+  public static final class UsabilityOperability extends SomNode {
+    public UsabilityOperability(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityOperabilityContentForm content() {
-      return new UsabilityQualityOperabilityContentForm(doc, path + "/content");
+    public UsabilityOperabilityContentForm content() {
+      return new UsabilityOperabilityContentForm(doc, path + "/content");
     }
   }
 
   // Perceived and measured responsiveness targets.
-  public static final class UsabilityQualityPerformance extends SomNode {
-    public UsabilityQualityPerformance(SpecDocument doc, String path) {
+  public static final class UsabilityPerformance extends SomNode {
+    public UsabilityPerformance(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public UsabilityQualityPerformanceContentForm content() {
-      return new UsabilityQualityPerformanceContentForm(doc, path + "/content");
+    public UsabilityPerformanceContentForm content() {
+      return new UsabilityPerformanceContentForm(doc, path + "/content");
     }
   }
 
@@ -54369,38 +54576,6 @@ public final class TomSomV0 {
 
     public UserProvisioningToolsRoleManagementContentForm content() {
       return new UserProvisioningToolsRoleManagementContentForm(doc, path + "/content");
-    }
-  }
-
-  // 11.2. User-Related Quality Criteria.
-  //
-  // Quality criteria that directly affect user experience, including usability,
-  // functional completeness, and correctness from the end-user perspective.
-  public static final class UserQualityCriteria extends SomNode {
-    public UserQualityCriteria(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public UserQualityCriteriaUserQualityContentForm userQualityContent() {
-      return new UserQualityCriteriaUserQualityContentForm(doc, path + "/userQualityContent");
-    }
-
-    // User quality criteria overview.
-    // (skipped: overview has no target type)
-
-    // 11.2.1. Usability.
-    public UsabilityQuality usability() {
-      return new UsabilityQuality(doc, path + "/usability");
-    }
-
-    // 11.2.2. Functional Completeness.
-    public FunctionalCompletenessQuality functionalCompleteness() {
-      return new FunctionalCompletenessQuality(doc, path + "/functionalCompleteness");
-    }
-
-    // 11.2.3. Correctness.
-    public CorrectnessQuality correctness() {
-      return new CorrectnessQuality(doc, path + "/correctness");
     }
   }
 
@@ -62316,8 +62491,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AvailabilityQualityContentForm extends SomNode {
-    public AvailabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class AvailabilityContentForm extends SomNode {
+    public AvailabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -62350,8 +62525,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AvailabilityQualityDegradedModeContentForm extends SomNode {
-    public AvailabilityQualityDegradedModeContentForm(SpecDocument doc, String path) {
+  public static final class AvailabilityDegradedModeContentForm extends SomNode {
+    public AvailabilityDegradedModeContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -62384,8 +62559,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AvailabilityQualityMaintenanceContentForm extends SomNode {
-    public AvailabilityQualityMaintenanceContentForm(SpecDocument doc, String path) {
+  public static final class AvailabilityMaintenanceContentForm extends SomNode {
+    public AvailabilityMaintenanceContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -62427,8 +62602,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AvailabilityQualityOperatingHoursContentForm extends SomNode {
-    public AvailabilityQualityOperatingHoursContentForm(SpecDocument doc, String path) {
+  public static final class AvailabilityOperatingHoursContentForm extends SomNode {
+    public AvailabilityOperatingHoursContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -62461,8 +62636,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AvailabilityQualityVerificationContentForm extends SomNode {
-    public AvailabilityQualityVerificationContentForm(SpecDocument doc, String path) {
+  public static final class AvailabilityVerificationContentForm extends SomNode {
+    public AvailabilityVerificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -72229,6 +72404,31 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `compatibilityContent` @Form section.
+  public static final class CompatibilityCharacteristicCompatibilityContentForm extends SomNode {
+    public CompatibilityCharacteristicCompatibilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String coExistenceRequirements() {
+      String v = doc.formField(path, "coExistenceRequirements");
+      return v == null ? "" : v;
+    }
+
+    public void coExistenceRequirements(String value) {
+      doc.setFormField(path, "coExistenceRequirements", value);
+    }
+
+    public String interoperabilityStandards() {
+      String v = doc.formField(path, "interoperabilityStandards");
+      return v == null ? "" : v;
+    }
+
+    public void interoperabilityStandards(String value) {
+      doc.setFormField(path, "interoperabilityStandards", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
   public static final class CompetencyEntryContentForm extends SomNode {
     public CompetencyEntryContentForm(SpecDocument doc, String path) {
@@ -77173,8 +77373,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class CorrectnessQualityAccuracyContentForm extends SomNode {
-    public CorrectnessQualityAccuracyContentForm(SpecDocument doc, String path) {
+  public static final class CorrectnessAccuracyContentForm extends SomNode {
+    public CorrectnessAccuracyContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -77207,8 +77407,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class CorrectnessQualityContentForm extends SomNode {
-    public CorrectnessQualityContentForm(SpecDocument doc, String path) {
+  public static final class CorrectnessContentForm extends SomNode {
+    public CorrectnessContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -77241,8 +77441,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class CorrectnessQualityIntegrityContentForm extends SomNode {
-    public CorrectnessQualityIntegrityContentForm(SpecDocument doc, String path) {
+  public static final class CorrectnessIntegrityContentForm extends SomNode {
+    public CorrectnessIntegrityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -77275,8 +77475,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class CorrectnessQualityVerificationContentForm extends SomNode {
-    public CorrectnessQualityVerificationContentForm(SpecDocument doc, String path) {
+  public static final class CorrectnessVerificationContentForm extends SomNode {
+    public CorrectnessVerificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89081,8 +89281,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocChangeabilityQualityContentForm extends SomNode {
-    public DocChangeabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class DocChangeabilityContentForm extends SomNode {
+    public DocChangeabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89115,8 +89315,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocChangeabilityQualityExtensibilityContentForm extends SomNode {
-    public DocChangeabilityQualityExtensibilityContentForm(SpecDocument doc, String path) {
+  public static final class DocChangeabilityExtensibilityContentForm extends SomNode {
+    public DocChangeabilityExtensibilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89149,8 +89349,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocChangeabilityQualityMaintenanceContentForm extends SomNode {
-    public DocChangeabilityQualityMaintenanceContentForm(SpecDocument doc, String path) {
+  public static final class DocChangeabilityMaintenanceContentForm extends SomNode {
+    public DocChangeabilityMaintenanceContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89174,8 +89374,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocChangeabilityQualityStructureContentForm extends SomNode {
-    public DocChangeabilityQualityStructureContentForm(SpecDocument doc, String path) {
+  public static final class DocChangeabilityStructureContentForm extends SomNode {
+    public DocChangeabilityStructureContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89217,8 +89417,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocCompletenessQualityContentForm extends SomNode {
-    public DocCompletenessQualityContentForm(SpecDocument doc, String path) {
+  public static final class DocCompletenessContentForm extends SomNode {
+    public DocCompletenessContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89314,8 +89514,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocCorrectnessQualityAlignmentContentForm extends SomNode {
-    public DocCorrectnessQualityAlignmentContentForm(SpecDocument doc, String path) {
+  public static final class DocCorrectnessAlignmentContentForm extends SomNode {
+    public DocCorrectnessAlignmentContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89366,8 +89566,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocCorrectnessQualityContentForm extends SomNode {
-    public DocCorrectnessQualityContentForm(SpecDocument doc, String path) {
+  public static final class DocCorrectnessContentForm extends SomNode {
+    public DocCorrectnessContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -89409,8 +89609,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DocCorrectnessQualityVerificationContentForm extends SomNode {
-    public DocCorrectnessQualityVerificationContentForm(SpecDocument doc, String path) {
+  public static final class DocCorrectnessVerificationContentForm extends SomNode {
+    public DocCorrectnessVerificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -90696,8 +90896,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class EfficiencyQualityContentForm extends SomNode {
-    public EfficiencyQualityContentForm(SpecDocument doc, String path) {
+  public static final class EfficiencyContentForm extends SomNode {
+    public EfficiencyContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -90730,8 +90930,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class EfficiencyQualityResourcesContentForm extends SomNode {
-    public EfficiencyQualityResourcesContentForm(SpecDocument doc, String path) {
+  public static final class EfficiencyResourcesContentForm extends SomNode {
+    public EfficiencyResourcesContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -90773,8 +90973,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class EfficiencyQualityThroughputContentForm extends SomNode {
-    public EfficiencyQualityThroughputContentForm(SpecDocument doc, String path) {
+  public static final class EfficiencyThroughputContentForm extends SomNode {
+    public EfficiencyThroughputContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -90807,8 +91007,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class EfficiencyQualityVerificationContentForm extends SomNode {
-    public EfficiencyQualityVerificationContentForm(SpecDocument doc, String path) {
+  public static final class EfficiencyVerificationContentForm extends SomNode {
+    public EfficiencyVerificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -98556,9 +98756,34 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `flexibilityContent` @Form section.
+  public static final class FlexibilityCharacteristicFlexibilityContentForm extends SomNode {
+    public FlexibilityCharacteristicFlexibilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String flexibilityApproach() {
+      String v = doc.formField(path, "flexibilityApproach");
+      return v == null ? "" : v;
+    }
+
+    public void flexibilityApproach(String value) {
+      doc.setFormField(path, "flexibilityApproach", value);
+    }
+
+    public String portabilityTarget() {
+      String v = doc.formField(path, "portabilityTarget");
+      return v == null ? "" : v;
+    }
+
+    public void portabilityTarget(String value) {
+      doc.setFormField(path, "portabilityTarget", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
-  public static final class FlexibilityQualityContentForm extends SomNode {
-    public FlexibilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class FlexibilityContentForm extends SomNode {
+    public FlexibilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -98591,8 +98816,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class FlexibilityQualityDeploymentContentForm extends SomNode {
-    public FlexibilityQualityDeploymentContentForm(SpecDocument doc, String path) {
+  public static final class FlexibilityDeploymentContentForm extends SomNode {
+    public FlexibilityDeploymentContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -98625,8 +98850,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class FlexibilityQualityExtensibilityContentForm extends SomNode {
-    public FlexibilityQualityExtensibilityContentForm(SpecDocument doc, String path) {
+  public static final class FlexibilityExtensibilityContentForm extends SomNode {
+    public FlexibilityExtensibilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -98659,8 +98884,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class FlexibilityQualityModularityContentForm extends SomNode {
-    public FlexibilityQualityModularityContentForm(SpecDocument doc, String path) {
+  public static final class FlexibilityModularityContentForm extends SomNode {
+    public FlexibilityModularityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -99241,8 +99466,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class FunctionalCompletenessQualityContentForm extends SomNode {
-    public FunctionalCompletenessQualityContentForm(SpecDocument doc, String path) {
+  public static final class FunctionalCompletenessContentForm extends SomNode {
+    public FunctionalCompletenessContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -99694,6 +99919,40 @@ public final class TomSomV0 {
 
     public void unassignedAreas(String value) {
       doc.setFormField(path, "unassignedAreas", value);
+    }
+  }
+
+  // Generated form facade for the `functionalSuitabilityContent` @Form section.
+  public static final class FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm extends SomNode {
+    public FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String functionalSuitabilityApproach() {
+      String v = doc.formField(path, "functionalSuitabilityApproach");
+      return v == null ? "" : v;
+    }
+
+    public void functionalSuitabilityApproach(String value) {
+      doc.setFormField(path, "functionalSuitabilityApproach", value);
+    }
+
+    public String functionalCoverageTarget() {
+      String v = doc.formField(path, "functionalCoverageTarget");
+      return v == null ? "" : v;
+    }
+
+    public void functionalCoverageTarget(String value) {
+      doc.setFormField(path, "functionalCoverageTarget", value);
+    }
+
+    public String correctnessStandard() {
+      String v = doc.formField(path, "correctnessStandard");
+      return v == null ? "" : v;
+    }
+
+    public void correctnessStandard(String value) {
+      doc.setFormField(path, "correctnessStandard", value);
     }
   }
 
@@ -104921,6 +105180,67 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `interactionCapabilityContent` @Form section.
+  public static final class InteractionCapabilityCharacteristicInteractionCapabilityContentForm extends SomNode {
+    public InteractionCapabilityCharacteristicInteractionCapabilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String userQualityPhilosophy() {
+      String v = doc.formField(path, "userQualityPhilosophy");
+      return v == null ? "" : v;
+    }
+
+    public void userQualityPhilosophy(String value) {
+      doc.setFormField(path, "userQualityPhilosophy", value);
+    }
+
+    public String targetUserExperience() {
+      String v = doc.formField(path, "targetUserExperience");
+      return v == null ? "" : v;
+    }
+
+    public void targetUserExperience(String value) {
+      doc.setFormField(path, "targetUserExperience", value);
+    }
+
+    public String userResearchBasis() {
+      String v = doc.formField(path, "userResearchBasis");
+      return v == null ? "" : v;
+    }
+
+    public void userResearchBasis(String value) {
+      doc.setFormField(path, "userResearchBasis", value);
+    }
+
+    public String userFeedbackChannel() {
+      String v = doc.formField(path, "userFeedbackChannel");
+      return v == null ? "" : v;
+    }
+
+    public void userFeedbackChannel(String value) {
+      doc.setFormField(path, "userFeedbackChannel", value);
+    }
+
+    public String userSatisfactionTarget() {
+      String v = doc.formField(path, "userSatisfactionTarget");
+      return v == null ? "" : v;
+    }
+
+    public void userSatisfactionTarget(String value) {
+      doc.setFormField(path, "userSatisfactionTarget", value);
+    }
+
+    public String accessibilityLevel() {
+      String v = doc.formField(path, "accessibilityLevel");
+      return v == null ? "" : v;
+    }
+
+    public void accessibilityLevel(String value) {
+      doc.setFormField(path, "accessibilityLevel", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
   public static final class InteractionCatalogOverviewContentForm extends SomNode {
     public InteractionCatalogOverviewContentForm(SpecDocument doc, String path) {
@@ -107849,8 +108169,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ItSecurityOperationsQualityAccessContentForm extends SomNode {
-    public ItSecurityOperationsQualityAccessContentForm(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsAccessContentForm extends SomNode {
+    public ItSecurityOperationsAccessContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -107883,8 +108203,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ItSecurityOperationsQualityContentForm extends SomNode {
-    public ItSecurityOperationsQualityContentForm(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsContentForm extends SomNode {
+    public ItSecurityOperationsContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -107917,8 +108237,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ItSecurityOperationsQualityIncidentContentForm extends SomNode {
-    public ItSecurityOperationsQualityIncidentContentForm(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsIncidentContentForm extends SomNode {
+    public ItSecurityOperationsIncidentContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -107960,8 +108280,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ItSecurityOperationsQualityRecoveryContentForm extends SomNode {
-    public ItSecurityOperationsQualityRecoveryContentForm(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsRecoveryContentForm extends SomNode {
+    public ItSecurityOperationsRecoveryContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -108003,8 +108323,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ItSecurityOperationsQualityTestingContentForm extends SomNode {
-    public ItSecurityOperationsQualityTestingContentForm(SpecDocument doc, String path) {
+  public static final class ItSecurityOperationsTestingContentForm extends SomNode {
+    public ItSecurityOperationsTestingContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -111171,8 +111491,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class MaintainabilityQualityAnalyzabilityContentForm extends SomNode {
-    public MaintainabilityQualityAnalyzabilityContentForm(SpecDocument doc, String path) {
+  public static final class MaintainabilityAnalyzabilityContentForm extends SomNode {
+    public MaintainabilityAnalyzabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -111205,8 +111525,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class MaintainabilityQualityChangeabilityContentForm extends SomNode {
-    public MaintainabilityQualityChangeabilityContentForm(SpecDocument doc, String path) {
+  public static final class MaintainabilityChangeabilityContentForm extends SomNode {
+    public MaintainabilityChangeabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -111247,9 +111567,34 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `maintainabilityContent` @Form section.
+  public static final class MaintainabilityCharacteristicMaintainabilityContentForm extends SomNode {
+    public MaintainabilityCharacteristicMaintainabilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String maintainabilityApproach() {
+      String v = doc.formField(path, "maintainabilityApproach");
+      return v == null ? "" : v;
+    }
+
+    public void maintainabilityApproach(String value) {
+      doc.setFormField(path, "maintainabilityApproach", value);
+    }
+
+    public String maintainabilityStandard() {
+      String v = doc.formField(path, "maintainabilityStandard");
+      return v == null ? "" : v;
+    }
+
+    public void maintainabilityStandard(String value) {
+      doc.setFormField(path, "maintainabilityStandard", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
-  public static final class MaintainabilityQualityContentForm extends SomNode {
-    public MaintainabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class MaintainabilityContentForm extends SomNode {
+    public MaintainabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -111273,8 +111618,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class MaintainabilityQualityGovernanceContentForm extends SomNode {
-    public MaintainabilityQualityGovernanceContentForm(SpecDocument doc, String path) {
+  public static final class MaintainabilityGovernanceContentForm extends SomNode {
+    public MaintainabilityGovernanceContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -111316,8 +111661,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class MaintainabilityQualityTestabilityContentForm extends SomNode {
-    public MaintainabilityQualityTestabilityContentForm(SpecDocument doc, String path) {
+  public static final class MaintainabilityTestabilityContentForm extends SomNode {
+    public MaintainabilityTestabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -116655,6 +117000,126 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `content` @Form section.
+  public static final class MonitoringAlertingContentForm extends SomNode {
+    public MonitoringAlertingContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String alertingStrategy() {
+      String v = doc.formField(path, "alertingStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void alertingStrategy(String value) {
+      doc.setFormField(path, "alertingStrategy", value);
+    }
+
+    public String alertPrioritization() {
+      String v = doc.formField(path, "alertPrioritization");
+      return v == null ? "" : v;
+    }
+
+    public void alertPrioritization(String value) {
+      doc.setFormField(path, "alertPrioritization", value);
+    }
+
+    public String alertNotificationChannels() {
+      String v = doc.formField(path, "alertNotificationChannels");
+      return v == null ? "" : v;
+    }
+
+    public void alertNotificationChannels(String value) {
+      doc.setFormField(path, "alertNotificationChannels", value);
+    }
+
+    public String alertFatiguePrevention() {
+      String v = doc.formField(path, "alertFatiguePrevention");
+      return v == null ? "" : v;
+    }
+
+    public void alertFatiguePrevention(String value) {
+      doc.setFormField(path, "alertFatiguePrevention", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class MonitoringAutomationContentForm extends SomNode {
+    public MonitoringAutomationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String alertAutomation() {
+      String v = doc.formField(path, "alertAutomation");
+      return v == null ? "" : v;
+    }
+
+    public void alertAutomation(String value) {
+      doc.setFormField(path, "alertAutomation", value);
+    }
+
+    public String selfHealingCapability() {
+      String v = doc.formField(path, "selfHealingCapability");
+      return v == null ? "" : v;
+    }
+
+    public void selfHealingCapability(String value) {
+      doc.setFormField(path, "selfHealingCapability", value);
+    }
+
+    public String runbookAutomation() {
+      String v = doc.formField(path, "runbookAutomation");
+      return v == null ? "" : v;
+    }
+
+    public void runbookAutomation(String value) {
+      doc.setFormField(path, "runbookAutomation", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class MonitoringCoverageContentForm extends SomNode {
+    public MonitoringCoverageContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String infrastructureMonitoring() {
+      String v = doc.formField(path, "infrastructureMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void infrastructureMonitoring(String value) {
+      doc.setFormField(path, "infrastructureMonitoring", value);
+    }
+
+    public String applicationMonitoring() {
+      String v = doc.formField(path, "applicationMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void applicationMonitoring(String value) {
+      doc.setFormField(path, "applicationMonitoring", value);
+    }
+
+    public String databaseMonitoring() {
+      String v = doc.formField(path, "databaseMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void databaseMonitoring(String value) {
+      doc.setFormField(path, "databaseMonitoring", value);
+    }
+
+    public String thirdPartyMonitoring() {
+      String v = doc.formField(path, "thirdPartyMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void thirdPartyMonitoring(String value) {
+      doc.setFormField(path, "thirdPartyMonitoring", value);
+    }
+  }
+
   // Generated form facade for the `dashboardOverview` @Form section.
   public static final class MonitoringDashboardsDashboardOverviewForm extends SomNode {
     public MonitoringDashboardsDashboardOverviewForm(SpecDocument doc, String path) {
@@ -117013,162 +117478,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class MonitoringQualityAlertingContentForm extends SomNode {
-    public MonitoringQualityAlertingContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String alertingStrategy() {
-      String v = doc.formField(path, "alertingStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void alertingStrategy(String value) {
-      doc.setFormField(path, "alertingStrategy", value);
-    }
-
-    public String alertPrioritization() {
-      String v = doc.formField(path, "alertPrioritization");
-      return v == null ? "" : v;
-    }
-
-    public void alertPrioritization(String value) {
-      doc.setFormField(path, "alertPrioritization", value);
-    }
-
-    public String alertNotificationChannels() {
-      String v = doc.formField(path, "alertNotificationChannels");
-      return v == null ? "" : v;
-    }
-
-    public void alertNotificationChannels(String value) {
-      doc.setFormField(path, "alertNotificationChannels", value);
-    }
-
-    public String alertFatiguePrevention() {
-      String v = doc.formField(path, "alertFatiguePrevention");
-      return v == null ? "" : v;
-    }
-
-    public void alertFatiguePrevention(String value) {
-      doc.setFormField(path, "alertFatiguePrevention", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class MonitoringQualityAutomationContentForm extends SomNode {
-    public MonitoringQualityAutomationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String alertAutomation() {
-      String v = doc.formField(path, "alertAutomation");
-      return v == null ? "" : v;
-    }
-
-    public void alertAutomation(String value) {
-      doc.setFormField(path, "alertAutomation", value);
-    }
-
-    public String selfHealingCapability() {
-      String v = doc.formField(path, "selfHealingCapability");
-      return v == null ? "" : v;
-    }
-
-    public void selfHealingCapability(String value) {
-      doc.setFormField(path, "selfHealingCapability", value);
-    }
-
-    public String runbookAutomation() {
-      String v = doc.formField(path, "runbookAutomation");
-      return v == null ? "" : v;
-    }
-
-    public void runbookAutomation(String value) {
-      doc.setFormField(path, "runbookAutomation", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class MonitoringQualityContentForm extends SomNode {
-    public MonitoringQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String scalabilityMonitoringApproach() {
-      String v = doc.formField(path, "scalabilityMonitoringApproach");
-      return v == null ? "" : v;
-    }
-
-    public void scalabilityMonitoringApproach(String value) {
-      doc.setFormField(path, "scalabilityMonitoringApproach", value);
-    }
-
-    public String capacityPlanningProcess() {
-      String v = doc.formField(path, "capacityPlanningProcess");
-      return v == null ? "" : v;
-    }
-
-    public void capacityPlanningProcess(String value) {
-      doc.setFormField(path, "capacityPlanningProcess", value);
-    }
-
-    public String growthProjections() {
-      String v = doc.formField(path, "growthProjections");
-      return v == null ? "" : v;
-    }
-
-    public void growthProjections(String value) {
-      doc.setFormField(path, "growthProjections", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class MonitoringQualityCoverageContentForm extends SomNode {
-    public MonitoringQualityCoverageContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String infrastructureMonitoring() {
-      String v = doc.formField(path, "infrastructureMonitoring");
-      return v == null ? "" : v;
-    }
-
-    public void infrastructureMonitoring(String value) {
-      doc.setFormField(path, "infrastructureMonitoring", value);
-    }
-
-    public String applicationMonitoring() {
-      String v = doc.formField(path, "applicationMonitoring");
-      return v == null ? "" : v;
-    }
-
-    public void applicationMonitoring(String value) {
-      doc.setFormField(path, "applicationMonitoring", value);
-    }
-
-    public String databaseMonitoring() {
-      String v = doc.formField(path, "databaseMonitoring");
-      return v == null ? "" : v;
-    }
-
-    public void databaseMonitoring(String value) {
-      doc.setFormField(path, "databaseMonitoring", value);
-    }
-
-    public String thirdPartyMonitoring() {
-      String v = doc.formField(path, "thirdPartyMonitoring");
-      return v == null ? "" : v;
-    }
-
-    public void thirdPartyMonitoring(String value) {
-      doc.setFormField(path, "thirdPartyMonitoring", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class MonitoringQualityOperationsContentForm extends SomNode {
-    public MonitoringQualityOperationsContentForm(SpecDocument doc, String path) {
+  public static final class MonitoringOperationsContentForm extends SomNode {
+    public MonitoringOperationsContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -121536,6 +121847,40 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class OperationalMonitoringContentForm extends SomNode {
+    public OperationalMonitoringContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String scalabilityMonitoringApproach() {
+      String v = doc.formField(path, "scalabilityMonitoringApproach");
+      return v == null ? "" : v;
+    }
+
+    public void scalabilityMonitoringApproach(String value) {
+      doc.setFormField(path, "scalabilityMonitoringApproach", value);
+    }
+
+    public String capacityPlanningProcess() {
+      String v = doc.formField(path, "capacityPlanningProcess");
+      return v == null ? "" : v;
+    }
+
+    public void capacityPlanningProcess(String value) {
+      doc.setFormField(path, "capacityPlanningProcess", value);
+    }
+
+    public String growthProjections() {
+      String v = doc.formField(path, "growthProjections");
+      return v == null ? "" : v;
+    }
+
+    public void growthProjections(String value) {
+      doc.setFormField(path, "growthProjections", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class OperationalPainPointsSummaryContentForm extends SomNode {
     public OperationalPainPointsSummaryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -121584,67 +121929,6 @@ public final class TomSomV0 {
 
     public void staffOverhead(String value) {
       doc.setFormField(path, "staffOverhead", value);
-    }
-  }
-
-  // Generated form facade for the `operationsOverviewContent` @Form section.
-  public static final class OperationsQualityCriteriaOperationsOverviewContentForm extends SomNode {
-    public OperationsQualityCriteriaOperationsOverviewContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String operationsMaturityModel() {
-      String v = doc.formField(path, "operationsMaturityModel");
-      return v == null ? "" : v;
-    }
-
-    public void operationsMaturityModel(String value) {
-      doc.setFormField(path, "operationsMaturityModel", value);
-    }
-
-    public String operationsPhilosophy() {
-      String v = doc.formField(path, "operationsPhilosophy");
-      return v == null ? "" : v;
-    }
-
-    public void operationsPhilosophy(String value) {
-      doc.setFormField(path, "operationsPhilosophy", value);
-    }
-
-    public String operationsResponsibility() {
-      String v = doc.formField(path, "operationsResponsibility");
-      return v == null ? "" : v;
-    }
-
-    public void operationsResponsibility(String value) {
-      doc.setFormField(path, "operationsResponsibility", value);
-    }
-
-    public String incidentManagementProcess() {
-      String v = doc.formField(path, "incidentManagementProcess");
-      return v == null ? "" : v;
-    }
-
-    public void incidentManagementProcess(String value) {
-      doc.setFormField(path, "incidentManagementProcess", value);
-    }
-
-    public String changeManagementProcess() {
-      String v = doc.formField(path, "changeManagementProcess");
-      return v == null ? "" : v;
-    }
-
-    public void changeManagementProcess(String value) {
-      doc.setFormField(path, "changeManagementProcess", value);
-    }
-
-    public String operationsToolchain() {
-      String v = doc.formField(path, "operationsToolchain");
-      return v == null ? "" : v;
-    }
-
-    public void operationsToolchain(String value) {
-      doc.setFormField(path, "operationsToolchain", value);
     }
   }
 
@@ -124287,6 +124571,58 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `performanceEfficiencyContent` @Form section.
+  public static final class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm extends SomNode {
+    public PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String technicalQualityPhilosophy() {
+      String v = doc.formField(path, "technicalQualityPhilosophy");
+      return v == null ? "" : v;
+    }
+
+    public void technicalQualityPhilosophy(String value) {
+      doc.setFormField(path, "technicalQualityPhilosophy", value);
+    }
+
+    public String architecturalQualityGoals() {
+      String v = doc.formField(path, "architecturalQualityGoals");
+      return v == null ? "" : v;
+    }
+
+    public void architecturalQualityGoals(String value) {
+      doc.setFormField(path, "architecturalQualityGoals", value);
+    }
+
+    public String technicalDebtTolerance() {
+      String v = doc.formField(path, "technicalDebtTolerance");
+      return v == null ? "" : v;
+    }
+
+    public void technicalDebtTolerance(String value) {
+      doc.setFormField(path, "technicalDebtTolerance", value);
+    }
+
+    public String codeQualityStandard() {
+      String v = doc.formField(path, "codeQualityStandard");
+      return v == null ? "" : v;
+    }
+
+    public void codeQualityStandard(String value) {
+      doc.setFormField(path, "codeQualityStandard", value);
+    }
+
+    public String designPrinciplesAdherence() {
+      String v = doc.formField(path, "designPrinciplesAdherence");
+      return v == null ? "" : v;
+    }
+
+    public void designPrinciplesAdherence(String value) {
+      doc.setFormField(path, "designPrinciplesAdherence", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
   public static final class PeriodicReviewPolicyContentForm extends SomNode {
     public PeriodicReviewPolicyContentForm(SpecDocument doc, String path) {
@@ -125698,8 +126034,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class PortabilityQualityContentForm extends SomNode {
-    public PortabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class PortabilityContentForm extends SomNode {
+    public PortabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -132454,6 +132790,178 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `content` @Form section.
+  public static final class QualityGoalsBaselineContentForm extends SomNode {
+    public QualityGoalsBaselineContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String qualityBaselineDate() {
+      String v = doc.formField(path, "qualityBaselineDate");
+      return v == null ? "" : v;
+    }
+
+    public void qualityBaselineDate(String value) {
+      doc.setFormField(path, "qualityBaselineDate", value);
+    }
+
+    public String qualityBaselineVersion() {
+      String v = doc.formField(path, "qualityBaselineVersion");
+      return v == null ? "" : v;
+    }
+
+    public void qualityBaselineVersion(String value) {
+      doc.setFormField(path, "qualityBaselineVersion", value);
+    }
+
+    public String overallQualityTargetLevel() {
+      String v = doc.formField(path, "overallQualityTargetLevel");
+      return v == null ? "" : v;
+    }
+
+    public void overallQualityTargetLevel(String value) {
+      doc.setFormField(path, "overallQualityTargetLevel", value);
+    }
+
+    public String qualityRiskTolerance() {
+      String v = doc.formField(path, "qualityRiskTolerance");
+      return v == null ? "" : v;
+    }
+
+    public void qualityRiskTolerance(String value) {
+      doc.setFormField(path, "qualityRiskTolerance", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class QualityGoalsGovernanceContentForm extends SomNode {
+    public QualityGoalsGovernanceContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String qualityReviewBoard() {
+      String v = doc.formField(path, "qualityReviewBoard");
+      return v == null ? "" : v;
+    }
+
+    public void qualityReviewBoard(String value) {
+      doc.setFormField(path, "qualityReviewBoard", value);
+    }
+
+    public String qualityMeetingCadence() {
+      String v = doc.formField(path, "qualityMeetingCadence");
+      return v == null ? "" : v;
+    }
+
+    public void qualityMeetingCadence(String value) {
+      doc.setFormField(path, "qualityMeetingCadence", value);
+    }
+
+    public String qualityEscalationPath() {
+      String v = doc.formField(path, "qualityEscalationPath");
+      return v == null ? "" : v;
+    }
+
+    public void qualityEscalationPath(String value) {
+      doc.setFormField(path, "qualityEscalationPath", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class QualityGoalsMeasurementContentForm extends SomNode {
+    public QualityGoalsMeasurementContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String qualityMetricsFramework() {
+      String v = doc.formField(path, "qualityMetricsFramework");
+      return v == null ? "" : v;
+    }
+
+    public void qualityMetricsFramework(String value) {
+      doc.setFormField(path, "qualityMetricsFramework", value);
+    }
+
+    public String qualityReportingFrequency() {
+      String v = doc.formField(path, "qualityReportingFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void qualityReportingFrequency(String value) {
+      doc.setFormField(path, "qualityReportingFrequency", value);
+    }
+
+    public String qualityDashboardTool() {
+      String v = doc.formField(path, "qualityDashboardTool");
+      return v == null ? "" : v;
+    }
+
+    public void qualityDashboardTool(String value) {
+      doc.setFormField(path, "qualityDashboardTool", value);
+    }
+
+    public String defectTrackingSystem() {
+      String v = doc.formField(path, "defectTrackingSystem");
+      return v == null ? "" : v;
+    }
+
+    public void defectTrackingSystem(String value) {
+      doc.setFormField(path, "defectTrackingSystem", value);
+    }
+
+    public String qualityTrendAnalysis() {
+      String v = doc.formField(path, "qualityTrendAnalysis");
+      return v == null ? "" : v;
+    }
+
+    public void qualityTrendAnalysis(String value) {
+      doc.setFormField(path, "qualityTrendAnalysis", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class QualityGoalsResourcesContentForm extends SomNode {
+    public QualityGoalsResourcesContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String qualityBudget() {
+      String v = doc.formField(path, "qualityBudget");
+      return v == null ? "" : v;
+    }
+
+    public void qualityBudget(String value) {
+      doc.setFormField(path, "qualityBudget", value);
+    }
+
+    public String qaTeamSize() {
+      String v = doc.formField(path, "qaTeamSize");
+      return v == null ? "" : v;
+    }
+
+    public void qaTeamSize(String value) {
+      doc.setFormField(path, "qaTeamSize", value);
+    }
+
+    public String testAutomationTarget() {
+      String v = doc.formField(path, "testAutomationTarget");
+      return v == null ? "" : v;
+    }
+
+    public void testAutomationTarget(String value) {
+      doc.setFormField(path, "testAutomationTarget", value);
+    }
+
+    public String qualityTrainingPlan() {
+      String v = doc.formField(path, "qualityTrainingPlan");
+      return v == null ? "" : v;
+    }
+
+    public void qualityTrainingPlan(String value) {
+      doc.setFormField(path, "qualityTrainingPlan", value);
+    }
+  }
+
   // Generated form facade for the `prioritizationFrameworkContent` @Form section.
   public static final class QualityPrioritizationPrioritizationFrameworkContentForm extends SomNode {
     public QualityPrioritizationPrioritizationFrameworkContentForm(SpecDocument doc, String path) {
@@ -133016,8 +133524,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReadabilityQualityComprehensibilityContentForm extends SomNode {
-    public ReadabilityQualityComprehensibilityContentForm(SpecDocument doc, String path) {
+  public static final class ReadabilityComprehensibilityContentForm extends SomNode {
+    public ReadabilityComprehensibilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -133050,8 +133558,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReadabilityQualityContentForm extends SomNode {
-    public ReadabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class ReadabilityContentForm extends SomNode {
+    public ReadabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -133084,8 +133592,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReadabilityQualityNavigationContentForm extends SomNode {
-    public ReadabilityQualityNavigationContentForm(SpecDocument doc, String path) {
+  public static final class ReadabilityNavigationContentForm extends SomNode {
+    public ReadabilityNavigationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -133118,8 +133626,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReadabilityQualityStructureContentForm extends SomNode {
-    public ReadabilityQualityStructureContentForm(SpecDocument doc, String path) {
+  public static final class ReadabilityStructureContentForm extends SomNode {
+    public ReadabilityStructureContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -133152,8 +133660,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReadabilityQualityStyleContentForm extends SomNode {
-    public ReadabilityQualityStyleContentForm(SpecDocument doc, String path) {
+  public static final class ReadabilityStyleContentForm extends SomNode {
+    public ReadabilityStyleContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -134508,9 +135016,70 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `reliabilityContent` @Form section.
+  public static final class ReliabilityCharacteristicReliabilityContentForm extends SomNode {
+    public ReliabilityCharacteristicReliabilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String operationsMaturityModel() {
+      String v = doc.formField(path, "operationsMaturityModel");
+      return v == null ? "" : v;
+    }
+
+    public void operationsMaturityModel(String value) {
+      doc.setFormField(path, "operationsMaturityModel", value);
+    }
+
+    public String operationsPhilosophy() {
+      String v = doc.formField(path, "operationsPhilosophy");
+      return v == null ? "" : v;
+    }
+
+    public void operationsPhilosophy(String value) {
+      doc.setFormField(path, "operationsPhilosophy", value);
+    }
+
+    public String operationsResponsibility() {
+      String v = doc.formField(path, "operationsResponsibility");
+      return v == null ? "" : v;
+    }
+
+    public void operationsResponsibility(String value) {
+      doc.setFormField(path, "operationsResponsibility", value);
+    }
+
+    public String incidentManagementProcess() {
+      String v = doc.formField(path, "incidentManagementProcess");
+      return v == null ? "" : v;
+    }
+
+    public void incidentManagementProcess(String value) {
+      doc.setFormField(path, "incidentManagementProcess", value);
+    }
+
+    public String changeManagementProcess() {
+      String v = doc.formField(path, "changeManagementProcess");
+      return v == null ? "" : v;
+    }
+
+    public void changeManagementProcess(String value) {
+      doc.setFormField(path, "changeManagementProcess", value);
+    }
+
+    public String operationsToolchain() {
+      String v = doc.formField(path, "operationsToolchain");
+      return v == null ? "" : v;
+    }
+
+    public void operationsToolchain(String value) {
+      doc.setFormField(path, "operationsToolchain", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
-  public static final class ReliabilityQualityContentForm extends SomNode {
-    public ReliabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class ReliabilityContentForm extends SomNode {
+    public ReliabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -134543,8 +135112,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReliabilityQualityDurabilityContentForm extends SomNode {
-    public ReliabilityQualityDurabilityContentForm(SpecDocument doc, String path) {
+  public static final class ReliabilityDurabilityContentForm extends SomNode {
+    public ReliabilityDurabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -134586,8 +135155,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReliabilityQualityFailoverContentForm extends SomNode {
-    public ReliabilityQualityFailoverContentForm(SpecDocument doc, String path) {
+  public static final class ReliabilityFailoverContentForm extends SomNode {
+    public ReliabilityFailoverContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -134620,8 +135189,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReliabilityQualityRecoveryContentForm extends SomNode {
-    public ReliabilityQualityRecoveryContentForm(SpecDocument doc, String path) {
+  public static final class ReliabilityRecoveryContentForm extends SomNode {
+    public ReliabilityRecoveryContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -134663,8 +135232,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ReliabilityQualityVerificationContentForm extends SomNode {
-    public ReliabilityQualityVerificationContentForm(SpecDocument doc, String path) {
+  public static final class ReliabilityVerificationContentForm extends SomNode {
+    public ReliabilityVerificationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -146036,6 +146605,83 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class SecurityAuthenticationContentForm extends SomNode {
+    public SecurityAuthenticationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String authenticationMethod() {
+      String v = doc.formField(path, "authenticationMethod");
+      return v == null ? "" : v;
+    }
+
+    public void authenticationMethod(String value) {
+      doc.setFormField(path, "authenticationMethod", value);
+    }
+
+    public String mfaRequirement() {
+      String v = doc.formField(path, "mfaRequirement");
+      return v == null ? "" : v;
+    }
+
+    public void mfaRequirement(String value) {
+      doc.setFormField(path, "mfaRequirement", value);
+    }
+
+    public String passwordPolicy() {
+      String v = doc.formField(path, "passwordPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void passwordPolicy(String value) {
+      doc.setFormField(path, "passwordPolicy", value);
+    }
+
+    public String sessionManagement() {
+      String v = doc.formField(path, "sessionManagement");
+      return v == null ? "" : v;
+    }
+
+    public void sessionManagement(String value) {
+      doc.setFormField(path, "sessionManagement", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class SecurityAuthorizationContentForm extends SomNode {
+    public SecurityAuthorizationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String authorizationModel() {
+      String v = doc.formField(path, "authorizationModel");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationModel(String value) {
+      doc.setFormField(path, "authorizationModel", value);
+    }
+
+    public String authorizationCoverage() {
+      String v = doc.formField(path, "authorizationCoverage");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationCoverage(String value) {
+      doc.setFormField(path, "authorizationCoverage", value);
+    }
+
+    public String privilegeEscalationPrevention() {
+      String v = doc.formField(path, "privilegeEscalationPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void privilegeEscalationPrevention(String value) {
+      doc.setFormField(path, "privilegeEscalationPrevention", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class SecurityCertificationRequirementsContentForm extends SomNode {
     public SecurityCertificationRequirementsContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -146214,6 +146860,31 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `securityContent` @Form section.
+  public static final class SecurityCharacteristicSecurityContentForm extends SomNode {
+    public SecurityCharacteristicSecurityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String securityApproach() {
+      String v = doc.formField(path, "securityApproach");
+      return v == null ? "" : v;
+    }
+
+    public void securityApproach(String value) {
+      doc.setFormField(path, "securityApproach", value);
+    }
+
+    public String securityComplianceTarget() {
+      String v = doc.formField(path, "securityComplianceTarget");
+      return v == null ? "" : v;
+    }
+
+    public void securityComplianceTarget(String value) {
+      doc.setFormField(path, "securityComplianceTarget", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
   public static final class SecurityCodeReviewPolicyContentForm extends SomNode {
     public SecurityCodeReviewPolicyContentForm(SpecDocument doc, String path) {
@@ -146356,6 +147027,83 @@ public final class TomSomV0 {
 
     public void reviewerRotation(String value) {
       doc.setFormField(path, "reviewerRotation", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class SecurityComplianceContentForm extends SomNode {
+    public SecurityComplianceContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String securityCompliance() {
+      String v = doc.formField(path, "securityCompliance");
+      return v == null ? "" : v;
+    }
+
+    public void securityCompliance(String value) {
+      doc.setFormField(path, "securityCompliance", value);
+    }
+
+    public String securityCertifications() {
+      String v = doc.formField(path, "securityCertifications");
+      return v == null ? "" : v;
+    }
+
+    public void securityCertifications(String value) {
+      doc.setFormField(path, "securityCertifications", value);
+    }
+
+    public String securityAuditFrequency() {
+      String v = doc.formField(path, "securityAuditFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void securityAuditFrequency(String value) {
+      doc.setFormField(path, "securityAuditFrequency", value);
+    }
+
+    public String securityVerification() {
+      String v = doc.formField(path, "securityVerification");
+      return v == null ? "" : v;
+    }
+
+    public void securityVerification(String value) {
+      doc.setFormField(path, "securityVerification", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class SecurityContentForm extends SomNode {
+    public SecurityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String encryptionAtRest() {
+      String v = doc.formField(path, "encryptionAtRest");
+      return v == null ? "" : v;
+    }
+
+    public void encryptionAtRest(String value) {
+      doc.setFormField(path, "encryptionAtRest", value);
+    }
+
+    public String encryptionInTransit() {
+      String v = doc.formField(path, "encryptionInTransit");
+      return v == null ? "" : v;
+    }
+
+    public void encryptionInTransit(String value) {
+      doc.setFormField(path, "encryptionInTransit", value);
+    }
+
+    public String keyManagement() {
+      String v = doc.formField(path, "keyManagement");
+      return v == null ? "" : v;
+    }
+
+    public void keyManagement(String value) {
+      doc.setFormField(path, "keyManagement", value);
     }
   }
 
@@ -146779,194 +147527,6 @@ public final class TomSomV0 {
 
     public void correlationIdentifiers(String value) {
       doc.setFormField(path, "correlationIdentifiers", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SecurityQualityAuthenticationContentForm extends SomNode {
-    public SecurityQualityAuthenticationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String authenticationMethod() {
-      String v = doc.formField(path, "authenticationMethod");
-      return v == null ? "" : v;
-    }
-
-    public void authenticationMethod(String value) {
-      doc.setFormField(path, "authenticationMethod", value);
-    }
-
-    public String mfaRequirement() {
-      String v = doc.formField(path, "mfaRequirement");
-      return v == null ? "" : v;
-    }
-
-    public void mfaRequirement(String value) {
-      doc.setFormField(path, "mfaRequirement", value);
-    }
-
-    public String passwordPolicy() {
-      String v = doc.formField(path, "passwordPolicy");
-      return v == null ? "" : v;
-    }
-
-    public void passwordPolicy(String value) {
-      doc.setFormField(path, "passwordPolicy", value);
-    }
-
-    public String sessionManagement() {
-      String v = doc.formField(path, "sessionManagement");
-      return v == null ? "" : v;
-    }
-
-    public void sessionManagement(String value) {
-      doc.setFormField(path, "sessionManagement", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SecurityQualityAuthorizationContentForm extends SomNode {
-    public SecurityQualityAuthorizationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String authorizationModel() {
-      String v = doc.formField(path, "authorizationModel");
-      return v == null ? "" : v;
-    }
-
-    public void authorizationModel(String value) {
-      doc.setFormField(path, "authorizationModel", value);
-    }
-
-    public String authorizationCoverage() {
-      String v = doc.formField(path, "authorizationCoverage");
-      return v == null ? "" : v;
-    }
-
-    public void authorizationCoverage(String value) {
-      doc.setFormField(path, "authorizationCoverage", value);
-    }
-
-    public String privilegeEscalationPrevention() {
-      String v = doc.formField(path, "privilegeEscalationPrevention");
-      return v == null ? "" : v;
-    }
-
-    public void privilegeEscalationPrevention(String value) {
-      doc.setFormField(path, "privilegeEscalationPrevention", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SecurityQualityComplianceContentForm extends SomNode {
-    public SecurityQualityComplianceContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String securityCompliance() {
-      String v = doc.formField(path, "securityCompliance");
-      return v == null ? "" : v;
-    }
-
-    public void securityCompliance(String value) {
-      doc.setFormField(path, "securityCompliance", value);
-    }
-
-    public String securityCertifications() {
-      String v = doc.formField(path, "securityCertifications");
-      return v == null ? "" : v;
-    }
-
-    public void securityCertifications(String value) {
-      doc.setFormField(path, "securityCertifications", value);
-    }
-
-    public String securityAuditFrequency() {
-      String v = doc.formField(path, "securityAuditFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void securityAuditFrequency(String value) {
-      doc.setFormField(path, "securityAuditFrequency", value);
-    }
-
-    public String securityVerification() {
-      String v = doc.formField(path, "securityVerification");
-      return v == null ? "" : v;
-    }
-
-    public void securityVerification(String value) {
-      doc.setFormField(path, "securityVerification", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SecurityQualityContentForm extends SomNode {
-    public SecurityQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String encryptionAtRest() {
-      String v = doc.formField(path, "encryptionAtRest");
-      return v == null ? "" : v;
-    }
-
-    public void encryptionAtRest(String value) {
-      doc.setFormField(path, "encryptionAtRest", value);
-    }
-
-    public String encryptionInTransit() {
-      String v = doc.formField(path, "encryptionInTransit");
-      return v == null ? "" : v;
-    }
-
-    public void encryptionInTransit(String value) {
-      doc.setFormField(path, "encryptionInTransit", value);
-    }
-
-    public String keyManagement() {
-      String v = doc.formField(path, "keyManagement");
-      return v == null ? "" : v;
-    }
-
-    public void keyManagement(String value) {
-      doc.setFormField(path, "keyManagement", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SecurityQualityVulnerabilityContentForm extends SomNode {
-    public SecurityQualityVulnerabilityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String vulnerabilityScanFrequency() {
-      String v = doc.formField(path, "vulnerabilityScanFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void vulnerabilityScanFrequency(String value) {
-      doc.setFormField(path, "vulnerabilityScanFrequency", value);
-    }
-
-    public String penetrationTestFrequency() {
-      String v = doc.formField(path, "penetrationTestFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void penetrationTestFrequency(String value) {
-      doc.setFormField(path, "penetrationTestFrequency", value);
-    }
-
-    public String cveResponseTime() {
-      String v = doc.formField(path, "cveResponseTime");
-      return v == null ? "" : v;
-    }
-
-    public void cveResponseTime(String value) {
-      doc.setFormField(path, "cveResponseTime", value);
     }
   }
 
@@ -147816,6 +148376,40 @@ public final class TomSomV0 {
 
     public void secretsDetection(String value) {
       doc.setFormField(path, "secretsDetection", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class SecurityVulnerabilityContentForm extends SomNode {
+    public SecurityVulnerabilityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String vulnerabilityScanFrequency() {
+      String v = doc.formField(path, "vulnerabilityScanFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void vulnerabilityScanFrequency(String value) {
+      doc.setFormField(path, "vulnerabilityScanFrequency", value);
+    }
+
+    public String penetrationTestFrequency() {
+      String v = doc.formField(path, "penetrationTestFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void penetrationTestFrequency(String value) {
+      doc.setFormField(path, "penetrationTestFrequency", value);
+    }
+
+    public String cveResponseTime() {
+      String v = doc.formField(path, "cveResponseTime");
+      return v == null ? "" : v;
+    }
+
+    public void cveResponseTime(String value) {
+      doc.setFormField(path, "cveResponseTime", value);
     }
   }
 
@@ -148864,6 +149458,74 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class ServiceLevelContentForm extends SomNode {
+    public ServiceLevelContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String supportTierStructure() {
+      String v = doc.formField(path, "supportTierStructure");
+      return v == null ? "" : v;
+    }
+
+    public void supportTierStructure(String value) {
+      doc.setFormField(path, "supportTierStructure", value);
+    }
+
+    public String criticalResponseTime() {
+      String v = doc.formField(path, "criticalResponseTime");
+      return v == null ? "" : v;
+    }
+
+    public void criticalResponseTime(String value) {
+      doc.setFormField(path, "criticalResponseTime", value);
+    }
+
+    public String highResponseTime() {
+      String v = doc.formField(path, "highResponseTime");
+      return v == null ? "" : v;
+    }
+
+    public void highResponseTime(String value) {
+      doc.setFormField(path, "highResponseTime", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class ServiceLevelEscalationContentForm extends SomNode {
+    public ServiceLevelEscalationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String escalationTimeframes() {
+      String v = doc.formField(path, "escalationTimeframes");
+      return v == null ? "" : v;
+    }
+
+    public void escalationTimeframes(String value) {
+      doc.setFormField(path, "escalationTimeframes", value);
+    }
+
+    public String escalationContacts() {
+      String v = doc.formField(path, "escalationContacts");
+      return v == null ? "" : v;
+    }
+
+    public void escalationContacts(String value) {
+      doc.setFormField(path, "escalationContacts", value);
+    }
+
+    public String executiveEscalation() {
+      String v = doc.formField(path, "executiveEscalation");
+      return v == null ? "" : v;
+    }
+
+    public void executiveEscalation(String value) {
+      doc.setFormField(path, "executiveEscalation", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class ServiceLevelIndicatorsContentForm extends SomNode {
     public ServiceLevelIndicatorsContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -149000,76 +149662,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityContentForm extends SomNode {
-    public ServiceLevelQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String supportTierStructure() {
-      String v = doc.formField(path, "supportTierStructure");
-      return v == null ? "" : v;
-    }
-
-    public void supportTierStructure(String value) {
-      doc.setFormField(path, "supportTierStructure", value);
-    }
-
-    public String criticalResponseTime() {
-      String v = doc.formField(path, "criticalResponseTime");
-      return v == null ? "" : v;
-    }
-
-    public void criticalResponseTime(String value) {
-      doc.setFormField(path, "criticalResponseTime", value);
-    }
-
-    public String highResponseTime() {
-      String v = doc.formField(path, "highResponseTime");
-      return v == null ? "" : v;
-    }
-
-    public void highResponseTime(String value) {
-      doc.setFormField(path, "highResponseTime", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityEscalationContentForm extends SomNode {
-    public ServiceLevelQualityEscalationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String escalationTimeframes() {
-      String v = doc.formField(path, "escalationTimeframes");
-      return v == null ? "" : v;
-    }
-
-    public void escalationTimeframes(String value) {
-      doc.setFormField(path, "escalationTimeframes", value);
-    }
-
-    public String escalationContacts() {
-      String v = doc.formField(path, "escalationContacts");
-      return v == null ? "" : v;
-    }
-
-    public void escalationContacts(String value) {
-      doc.setFormField(path, "escalationContacts", value);
-    }
-
-    public String executiveEscalation() {
-      String v = doc.formField(path, "executiveEscalation");
-      return v == null ? "" : v;
-    }
-
-    public void executiveEscalation(String value) {
-      doc.setFormField(path, "executiveEscalation", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityOnCallContentForm extends SomNode {
-    public ServiceLevelQualityOnCallContentForm(SpecDocument doc, String path) {
+  public static final class ServiceLevelOnCallContentForm extends SomNode {
+    public ServiceLevelOnCallContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -149102,8 +149696,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityResolutionContentForm extends SomNode {
-    public ServiceLevelQualityResolutionContentForm(SpecDocument doc, String path) {
+  public static final class ServiceLevelResolutionContentForm extends SomNode {
+    public ServiceLevelResolutionContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -149145,8 +149739,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityResponseContentForm extends SomNode {
-    public ServiceLevelQualityResponseContentForm(SpecDocument doc, String path) {
+  public static final class ServiceLevelResponseContentForm extends SomNode {
+    public ServiceLevelResponseContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -149170,8 +149764,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ServiceLevelQualityRestorationContentForm extends SomNode {
-    public ServiceLevelQualityRestorationContentForm(SpecDocument doc, String path) {
+  public static final class ServiceLevelRestorationContentForm extends SomNode {
+    public ServiceLevelRestorationContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -158226,49 +158820,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemQualityGoalsBaselineContentForm extends SomNode {
-    public SystemQualityGoalsBaselineContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String qualityBaselineDate() {
-      String v = doc.formField(path, "qualityBaselineDate");
-      return v == null ? "" : v;
-    }
-
-    public void qualityBaselineDate(String value) {
-      doc.setFormField(path, "qualityBaselineDate", value);
-    }
-
-    public String qualityBaselineVersion() {
-      String v = doc.formField(path, "qualityBaselineVersion");
-      return v == null ? "" : v;
-    }
-
-    public void qualityBaselineVersion(String value) {
-      doc.setFormField(path, "qualityBaselineVersion", value);
-    }
-
-    public String overallQualityTargetLevel() {
-      String v = doc.formField(path, "overallQualityTargetLevel");
-      return v == null ? "" : v;
-    }
-
-    public void overallQualityTargetLevel(String value) {
-      doc.setFormField(path, "overallQualityTargetLevel", value);
-    }
-
-    public String qualityRiskTolerance() {
-      String v = doc.formField(path, "qualityRiskTolerance");
-      return v == null ? "" : v;
-    }
-
-    public void qualityRiskTolerance(String value) {
-      doc.setFormField(path, "qualityRiskTolerance", value);
-    }
-  }
-
   // Generated form facade for the `governanceContent` @Form section.
   public static final class SystemQualityGoalsGovernanceContentForm extends SomNode {
     public SystemQualityGoalsGovernanceContentForm(SpecDocument doc, String path) {
@@ -158300,135 +158851,6 @@ public final class TomSomV0 {
 
     public void qualityOwner(String value) {
       doc.setFormField(path, "qualityOwner", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemQualityGoalsGovernanceContentForm2 extends SomNode {
-    public SystemQualityGoalsGovernanceContentForm2(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String qualityReviewBoard() {
-      String v = doc.formField(path, "qualityReviewBoard");
-      return v == null ? "" : v;
-    }
-
-    public void qualityReviewBoard(String value) {
-      doc.setFormField(path, "qualityReviewBoard", value);
-    }
-
-    public String qualityMeetingCadence() {
-      String v = doc.formField(path, "qualityMeetingCadence");
-      return v == null ? "" : v;
-    }
-
-    public void qualityMeetingCadence(String value) {
-      doc.setFormField(path, "qualityMeetingCadence", value);
-    }
-
-    public String qualityEscalationPath() {
-      String v = doc.formField(path, "qualityEscalationPath");
-      return v == null ? "" : v;
-    }
-
-    public void qualityEscalationPath(String value) {
-      doc.setFormField(path, "qualityEscalationPath", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemQualityGoalsMeasurementContentForm extends SomNode {
-    public SystemQualityGoalsMeasurementContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String qualityMetricsFramework() {
-      String v = doc.formField(path, "qualityMetricsFramework");
-      return v == null ? "" : v;
-    }
-
-    public void qualityMetricsFramework(String value) {
-      doc.setFormField(path, "qualityMetricsFramework", value);
-    }
-
-    public String qualityReportingFrequency() {
-      String v = doc.formField(path, "qualityReportingFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void qualityReportingFrequency(String value) {
-      doc.setFormField(path, "qualityReportingFrequency", value);
-    }
-
-    public String qualityDashboardTool() {
-      String v = doc.formField(path, "qualityDashboardTool");
-      return v == null ? "" : v;
-    }
-
-    public void qualityDashboardTool(String value) {
-      doc.setFormField(path, "qualityDashboardTool", value);
-    }
-
-    public String defectTrackingSystem() {
-      String v = doc.formField(path, "defectTrackingSystem");
-      return v == null ? "" : v;
-    }
-
-    public void defectTrackingSystem(String value) {
-      doc.setFormField(path, "defectTrackingSystem", value);
-    }
-
-    public String qualityTrendAnalysis() {
-      String v = doc.formField(path, "qualityTrendAnalysis");
-      return v == null ? "" : v;
-    }
-
-    public void qualityTrendAnalysis(String value) {
-      doc.setFormField(path, "qualityTrendAnalysis", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class SystemQualityGoalsResourcesContentForm extends SomNode {
-    public SystemQualityGoalsResourcesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String qualityBudget() {
-      String v = doc.formField(path, "qualityBudget");
-      return v == null ? "" : v;
-    }
-
-    public void qualityBudget(String value) {
-      doc.setFormField(path, "qualityBudget", value);
-    }
-
-    public String qaTeamSize() {
-      String v = doc.formField(path, "qaTeamSize");
-      return v == null ? "" : v;
-    }
-
-    public void qaTeamSize(String value) {
-      doc.setFormField(path, "qaTeamSize", value);
-    }
-
-    public String testAutomationTarget() {
-      String v = doc.formField(path, "testAutomationTarget");
-      return v == null ? "" : v;
-    }
-
-    public void testAutomationTarget(String value) {
-      doc.setFormField(path, "testAutomationTarget", value);
-    }
-
-    public String qualityTrainingPlan() {
-      String v = doc.formField(path, "qualityTrainingPlan");
-      return v == null ? "" : v;
-    }
-
-    public void qualityTrainingPlan(String value) {
-      doc.setFormField(path, "qualityTrainingPlan", value);
     }
   }
 
@@ -161076,58 +161498,6 @@ public final class TomSomV0 {
 
     public void integrationComplexityScore(String value) {
       doc.setFormField(path, "integrationComplexityScore", value);
-    }
-  }
-
-  // Generated form facade for the `technicalQualityContent` @Form section.
-  public static final class TechnicalQualityCriteriaTechnicalQualityContentForm extends SomNode {
-    public TechnicalQualityCriteriaTechnicalQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String technicalQualityPhilosophy() {
-      String v = doc.formField(path, "technicalQualityPhilosophy");
-      return v == null ? "" : v;
-    }
-
-    public void technicalQualityPhilosophy(String value) {
-      doc.setFormField(path, "technicalQualityPhilosophy", value);
-    }
-
-    public String architecturalQualityGoals() {
-      String v = doc.formField(path, "architecturalQualityGoals");
-      return v == null ? "" : v;
-    }
-
-    public void architecturalQualityGoals(String value) {
-      doc.setFormField(path, "architecturalQualityGoals", value);
-    }
-
-    public String technicalDebtTolerance() {
-      String v = doc.formField(path, "technicalDebtTolerance");
-      return v == null ? "" : v;
-    }
-
-    public void technicalDebtTolerance(String value) {
-      doc.setFormField(path, "technicalDebtTolerance", value);
-    }
-
-    public String codeQualityStandard() {
-      String v = doc.formField(path, "codeQualityStandard");
-      return v == null ? "" : v;
-    }
-
-    public void codeQualityStandard(String value) {
-      doc.setFormField(path, "codeQualityStandard", value);
-    }
-
-    public String designPrinciplesAdherence() {
-      String v = doc.formField(path, "designPrinciplesAdherence");
-      return v == null ? "" : v;
-    }
-
-    public void designPrinciplesAdherence(String value) {
-      doc.setFormField(path, "designPrinciplesAdherence", value);
     }
   }
 
@@ -169760,8 +170130,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityClarityContentForm extends SomNode {
-    public UsabilityQualityClarityContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityClarityContentForm extends SomNode {
+    public UsabilityClarityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -169803,8 +170173,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityContentForm extends SomNode {
-    public UsabilityQualityContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityContentForm extends SomNode {
+    public UsabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -169837,8 +170207,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityInteractionContentForm extends SomNode {
-    public UsabilityQualityInteractionContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityInteractionContentForm extends SomNode {
+    public UsabilityInteractionContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -169862,8 +170232,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityLearnabilityContentForm extends SomNode {
-    public UsabilityQualityLearnabilityContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityLearnabilityContentForm extends SomNode {
+    public UsabilityLearnabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -169887,8 +170257,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityOperabilityContentForm extends SomNode {
-    public UsabilityQualityOperabilityContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityOperabilityContentForm extends SomNode {
+    public UsabilityOperabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -169921,8 +170291,8 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class UsabilityQualityPerformanceContentForm extends SomNode {
-    public UsabilityQualityPerformanceContentForm(SpecDocument doc, String path) {
+  public static final class UsabilityPerformanceContentForm extends SomNode {
+    public UsabilityPerformanceContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -171329,67 +171699,6 @@ public final class TomSomV0 {
 
     public void accessReviewProcess(String value) {
       doc.setFormField(path, "accessReviewProcess", value);
-    }
-  }
-
-  // Generated form facade for the `userQualityContent` @Form section.
-  public static final class UserQualityCriteriaUserQualityContentForm extends SomNode {
-    public UserQualityCriteriaUserQualityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String userQualityPhilosophy() {
-      String v = doc.formField(path, "userQualityPhilosophy");
-      return v == null ? "" : v;
-    }
-
-    public void userQualityPhilosophy(String value) {
-      doc.setFormField(path, "userQualityPhilosophy", value);
-    }
-
-    public String targetUserExperience() {
-      String v = doc.formField(path, "targetUserExperience");
-      return v == null ? "" : v;
-    }
-
-    public void targetUserExperience(String value) {
-      doc.setFormField(path, "targetUserExperience", value);
-    }
-
-    public String userResearchBasis() {
-      String v = doc.formField(path, "userResearchBasis");
-      return v == null ? "" : v;
-    }
-
-    public void userResearchBasis(String value) {
-      doc.setFormField(path, "userResearchBasis", value);
-    }
-
-    public String userFeedbackChannel() {
-      String v = doc.formField(path, "userFeedbackChannel");
-      return v == null ? "" : v;
-    }
-
-    public void userFeedbackChannel(String value) {
-      doc.setFormField(path, "userFeedbackChannel", value);
-    }
-
-    public String userSatisfactionTarget() {
-      String v = doc.formField(path, "userSatisfactionTarget");
-      return v == null ? "" : v;
-    }
-
-    public void userSatisfactionTarget(String value) {
-      doc.setFormField(path, "userSatisfactionTarget", value);
-    }
-
-    public String accessibilityLevel() {
-      String v = doc.formField(path, "accessibilityLevel");
-      return v == null ? "" : v;
-    }
-
-    public void accessibilityLevel(String value) {
-      doc.setFormField(path, "accessibilityLevel", value);
     }
   }
 

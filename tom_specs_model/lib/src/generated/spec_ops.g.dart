@@ -92,6 +92,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.acceptanceOverview, (v) => n.acceptanceOverview = v as TextSection, label: 'acceptanceOverview'),
         SpecSlot.node(() => n.mustPassCriteria, (v) => n.mustPassCriteria = v as MustPassCriteria, label: 'mustPassCriteria'),
         SpecSlot.node(() => n.qualityGateChecklist, (v) => n.qualityGateChecklist = v as QualityGateChecklist, label: 'qualityGateChecklist'),
+        SpecSlot.node(() => n.detailedCriteria, (v) => n.detailedCriteria = v as AcceptanceCriteriaList, label: 'detailedCriteria'),
         SpecSlot.node(() => n.acceptanceTestSummary, (v) => n.acceptanceTestSummary = v as TextSection, label: 'acceptanceTestSummary'),
       ];
     },
@@ -102,6 +103,7 @@ void registerSpecOps() {
         ..acceptanceOverview = n.acceptanceOverview
         ..mustPassCriteria = n.mustPassCriteria
         ..qualityGateChecklist = n.qualityGateChecklist
+        ..detailedCriteria = n.detailedCriteria
         ..acceptanceTestSummary = n.acceptanceTestSummary;
     },
     yamlScalar: (o) => (o as AcceptanceCriteriaSummary).acceptanceFrameworkContent,
@@ -2406,20 +2408,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AuthorizationRoleEntryStructure).content,
   ));
-  SpecRegistry.register(AvailabilityQuality, SpecClassOps(
+  SpecRegistry.register(Availability, SpecClassOps(
     slots: (o) {
-      final n = o as AvailabilityQuality;
+      final n = o as Availability;
       return [
-        SpecSlot.node(() => n.operatingHoursDetails, (v) => n.operatingHoursDetails = v as AvailabilityQualityOperatingHours, label: 'operatingHoursDetails'),
-        SpecSlot.node(() => n.maintenance, (v) => n.maintenance = v as AvailabilityQualityMaintenance, label: 'maintenance'),
-        SpecSlot.node(() => n.degradedMode, (v) => n.degradedMode = v as AvailabilityQualityDegradedMode, label: 'degradedMode'),
-        SpecSlot.node(() => n.verification, (v) => n.verification = v as AvailabilityQualityVerification, label: 'verification'),
+        SpecSlot.node(() => n.operatingHoursDetails, (v) => n.operatingHoursDetails = v as AvailabilityOperatingHours, label: 'operatingHoursDetails'),
+        SpecSlot.node(() => n.maintenance, (v) => n.maintenance = v as AvailabilityMaintenance, label: 'maintenance'),
+        SpecSlot.node(() => n.degradedMode, (v) => n.degradedMode = v as AvailabilityDegradedMode, label: 'degradedMode'),
+        SpecSlot.node(() => n.verification, (v) => n.verification = v as AvailabilityVerification, label: 'verification'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as AvailabilityQuality;
-      return AvailabilityQuality()
+      final n = o as Availability;
+      return Availability()
         ..content = n.content
         ..operatingHoursDetails = n.operatingHoursDetails
         ..maintenance = n.maintenance
@@ -2427,43 +2429,43 @@ void registerSpecOps() {
         ..verification = n.verification
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as AvailabilityQuality).content,
+    yamlScalar: (o) => (o as Availability).content,
   ));
-  SpecRegistry.register(AvailabilityQualityDegradedMode, SpecClassOps(
+  SpecRegistry.register(AvailabilityDegradedMode, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as AvailabilityQualityDegradedMode;
-      return AvailabilityQualityDegradedMode()
+      final n = o as AvailabilityDegradedMode;
+      return AvailabilityDegradedMode()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as AvailabilityQualityDegradedMode).content,
+    yamlScalar: (o) => (o as AvailabilityDegradedMode).content,
   ));
-  SpecRegistry.register(AvailabilityQualityMaintenance, SpecClassOps(
+  SpecRegistry.register(AvailabilityMaintenance, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as AvailabilityQualityMaintenance;
-      return AvailabilityQualityMaintenance()
+      final n = o as AvailabilityMaintenance;
+      return AvailabilityMaintenance()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as AvailabilityQualityMaintenance).content,
+    yamlScalar: (o) => (o as AvailabilityMaintenance).content,
   ));
-  SpecRegistry.register(AvailabilityQualityOperatingHours, SpecClassOps(
+  SpecRegistry.register(AvailabilityOperatingHours, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as AvailabilityQualityOperatingHours;
-      return AvailabilityQualityOperatingHours()
+      final n = o as AvailabilityOperatingHours;
+      return AvailabilityOperatingHours()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as AvailabilityQualityOperatingHours).content,
+    yamlScalar: (o) => (o as AvailabilityOperatingHours).content,
   ));
-  SpecRegistry.register(AvailabilityQualityVerification, SpecClassOps(
+  SpecRegistry.register(AvailabilityVerification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as AvailabilityQualityVerification;
-      return AvailabilityQualityVerification()
+      final n = o as AvailabilityVerification;
+      return AvailabilityVerification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as AvailabilityQualityVerification).content,
+    yamlScalar: (o) => (o as AvailabilityVerification).content,
   ));
   SpecRegistry.register(BackupAndRecoverySection, SpecClassOps(
     slots: (o) {
@@ -5556,6 +5558,21 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as CommunicationTypeEntry).content,
   ));
+  SpecRegistry.register(CompatibilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as CompatibilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as CompatibilityCharacteristic;
+      return CompatibilityCharacteristic()
+        ..compatibilityContent = n.compatibilityContent
+        ..overview = n.overview;
+    },
+    yamlScalar: (o) => (o as CompatibilityCharacteristic).compatibilityContent,
+  ));
   SpecRegistry.register(CompatibilityRequirementsSection, SpecClassOps(
     slots: (o) {
       final n = o as CompatibilityRequirementsSection;
@@ -7229,53 +7246,53 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ContingencyPlans).content,
   ));
-  SpecRegistry.register(CorrectnessQuality, SpecClassOps(
+  SpecRegistry.register(Correctness, SpecClassOps(
     slots: (o) {
-      final n = o as CorrectnessQuality;
+      final n = o as Correctness;
       return [
-        SpecSlot.node(() => n.integrity, (v) => n.integrity = v as CorrectnessQualityIntegrity, label: 'integrity'),
-        SpecSlot.node(() => n.accuracy, (v) => n.accuracy = v as CorrectnessQualityAccuracy, label: 'accuracy'),
-        SpecSlot.node(() => n.verification, (v) => n.verification = v as CorrectnessQualityVerification, label: 'verification'),
+        SpecSlot.node(() => n.integrity, (v) => n.integrity = v as CorrectnessIntegrity, label: 'integrity'),
+        SpecSlot.node(() => n.accuracy, (v) => n.accuracy = v as CorrectnessAccuracy, label: 'accuracy'),
+        SpecSlot.node(() => n.verification, (v) => n.verification = v as CorrectnessVerification, label: 'verification'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as CorrectnessQuality;
-      return CorrectnessQuality()
+      final n = o as Correctness;
+      return Correctness()
         ..content = n.content
         ..integrity = n.integrity
         ..accuracy = n.accuracy
         ..verification = n.verification
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as CorrectnessQuality).content,
+    yamlScalar: (o) => (o as Correctness).content,
   ));
-  SpecRegistry.register(CorrectnessQualityAccuracy, SpecClassOps(
+  SpecRegistry.register(CorrectnessAccuracy, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CorrectnessQualityAccuracy;
-      return CorrectnessQualityAccuracy()
+      final n = o as CorrectnessAccuracy;
+      return CorrectnessAccuracy()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as CorrectnessQualityAccuracy).content,
+    yamlScalar: (o) => (o as CorrectnessAccuracy).content,
   ));
-  SpecRegistry.register(CorrectnessQualityIntegrity, SpecClassOps(
+  SpecRegistry.register(CorrectnessIntegrity, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CorrectnessQualityIntegrity;
-      return CorrectnessQualityIntegrity()
+      final n = o as CorrectnessIntegrity;
+      return CorrectnessIntegrity()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as CorrectnessQualityIntegrity).content,
+    yamlScalar: (o) => (o as CorrectnessIntegrity).content,
   ));
-  SpecRegistry.register(CorrectnessQualityVerification, SpecClassOps(
+  SpecRegistry.register(CorrectnessVerification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CorrectnessQualityVerification;
-      return CorrectnessQualityVerification()
+      final n = o as CorrectnessVerification;
+      return CorrectnessVerification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as CorrectnessQualityVerification).content,
+    yamlScalar: (o) => (o as CorrectnessVerification).content,
   ));
   SpecRegistry.register(CredentialCompromiseDetectionPolicy, SpecClassOps(
     slots: (o) {
@@ -8027,9 +8044,14 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
         SpecSlot.node(() => n.qualityFramework, (v) => n.qualityFramework = v as QualityFramework, label: 'qualityFramework'),
-        SpecSlot.node(() => n.userQualityCriteria, (v) => n.userQualityCriteria = v as UserQualityCriteria, label: 'userQualityCriteria'),
-        SpecSlot.node(() => n.technicalQualityCriteria, (v) => n.technicalQualityCriteria = v as TechnicalQualityCriteria, label: 'technicalQualityCriteria'),
-        SpecSlot.node(() => n.operationsQualityCriteria, (v) => n.operationsQualityCriteria = v as OperationsQualityCriteria, label: 'operationsQualityCriteria'),
+        SpecSlot.node(() => n.functionalSuitability, (v) => n.functionalSuitability = v as FunctionalSuitabilityCharacteristic, label: 'functionalSuitability'),
+        SpecSlot.node(() => n.performanceEfficiency, (v) => n.performanceEfficiency = v as PerformanceEfficiencyCharacteristic, label: 'performanceEfficiency'),
+        SpecSlot.node(() => n.compatibility, (v) => n.compatibility = v as CompatibilityCharacteristic, label: 'compatibility'),
+        SpecSlot.node(() => n.interactionCapability, (v) => n.interactionCapability = v as InteractionCapabilityCharacteristic, label: 'interactionCapability'),
+        SpecSlot.node(() => n.reliability, (v) => n.reliability = v as ReliabilityCharacteristic, label: 'reliability'),
+        SpecSlot.node(() => n.security, (v) => n.security = v as SecurityCharacteristic, label: 'security'),
+        SpecSlot.node(() => n.maintainability, (v) => n.maintainability = v as MaintainabilityCharacteristic, label: 'maintainability'),
+        SpecSlot.node(() => n.flexibility, (v) => n.flexibility = v as FlexibilityCharacteristic, label: 'flexibility'),
         SpecSlot.node(() => n.documentationQualityCriteria, (v) => n.documentationQualityCriteria = v as DocumentationQualityCriteria, label: 'documentationQualityCriteria'),
         SpecSlot.node(() => n.qualityPrioritization, (v) => n.qualityPrioritization = v as QualityPrioritization, label: 'qualityPrioritization'),
         SpecSlot.node(() => n.acceptanceCriteriaSummary, (v) => n.acceptanceCriteriaSummary = v as AcceptanceCriteriaSummary, label: 'acceptanceCriteriaSummary'),
@@ -8048,9 +8070,14 @@ void registerSpecOps() {
         ..content = n.content
         ..header = n.header
         ..qualityFramework = n.qualityFramework
-        ..userQualityCriteria = n.userQualityCriteria
-        ..technicalQualityCriteria = n.technicalQualityCriteria
-        ..operationsQualityCriteria = n.operationsQualityCriteria
+        ..functionalSuitability = n.functionalSuitability
+        ..performanceEfficiency = n.performanceEfficiency
+        ..compatibility = n.compatibility
+        ..interactionCapability = n.interactionCapability
+        ..reliability = n.reliability
+        ..security = n.security
+        ..maintainability = n.maintainability
+        ..flexibility = n.flexibility
         ..documentationQualityCriteria = n.documentationQualityCriteria
         ..qualityPrioritization = n.qualityPrioritization
         ..acceptanceCriteriaSummary = n.acceptanceCriteriaSummary
@@ -11700,105 +11727,105 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DnsRequirementsZones).content,
   ));
-  SpecRegistry.register(DocChangeabilityQuality, SpecClassOps(
+  SpecRegistry.register(DocChangeability, SpecClassOps(
     slots: (o) {
-      final n = o as DocChangeabilityQuality;
+      final n = o as DocChangeability;
       return [
-        SpecSlot.node(() => n.extensibility, (v) => n.extensibility = v as DocChangeabilityQualityExtensibility, label: 'extensibility'),
-        SpecSlot.node(() => n.structure, (v) => n.structure = v as DocChangeabilityQualityStructure, label: 'structure'),
-        SpecSlot.node(() => n.maintenance, (v) => n.maintenance = v as DocChangeabilityQualityMaintenance, label: 'maintenance'),
+        SpecSlot.node(() => n.extensibility, (v) => n.extensibility = v as DocChangeabilityExtensibility, label: 'extensibility'),
+        SpecSlot.node(() => n.structure, (v) => n.structure = v as DocChangeabilityStructure, label: 'structure'),
+        SpecSlot.node(() => n.maintenance, (v) => n.maintenance = v as DocChangeabilityMaintenance, label: 'maintenance'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as DocChangeabilityQuality;
-      return DocChangeabilityQuality()
+      final n = o as DocChangeability;
+      return DocChangeability()
         ..content = n.content
         ..extensibility = n.extensibility
         ..structure = n.structure
         ..maintenance = n.maintenance
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as DocChangeabilityQuality).content,
+    yamlScalar: (o) => (o as DocChangeability).content,
   ));
-  SpecRegistry.register(DocChangeabilityQualityExtensibility, SpecClassOps(
+  SpecRegistry.register(DocChangeabilityExtensibility, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DocChangeabilityQualityExtensibility;
-      return DocChangeabilityQualityExtensibility()
+      final n = o as DocChangeabilityExtensibility;
+      return DocChangeabilityExtensibility()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DocChangeabilityQualityExtensibility).content,
+    yamlScalar: (o) => (o as DocChangeabilityExtensibility).content,
   ));
-  SpecRegistry.register(DocChangeabilityQualityMaintenance, SpecClassOps(
+  SpecRegistry.register(DocChangeabilityMaintenance, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DocChangeabilityQualityMaintenance;
-      return DocChangeabilityQualityMaintenance()
+      final n = o as DocChangeabilityMaintenance;
+      return DocChangeabilityMaintenance()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DocChangeabilityQualityMaintenance).content,
+    yamlScalar: (o) => (o as DocChangeabilityMaintenance).content,
   ));
-  SpecRegistry.register(DocChangeabilityQualityStructure, SpecClassOps(
+  SpecRegistry.register(DocChangeabilityStructure, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DocChangeabilityQualityStructure;
-      return DocChangeabilityQualityStructure()
+      final n = o as DocChangeabilityStructure;
+      return DocChangeabilityStructure()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DocChangeabilityQualityStructure).content,
+    yamlScalar: (o) => (o as DocChangeabilityStructure).content,
   ));
-  SpecRegistry.register(DocCompletenessQuality, SpecClassOps(
+  SpecRegistry.register(DocCompleteness, SpecClassOps(
     slots: (o) {
-      final n = o as DocCompletenessQuality;
+      final n = o as DocCompleteness;
       return [
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as DocCompletenessQuality;
-      return DocCompletenessQuality()
+      final n = o as DocCompleteness;
+      return DocCompleteness()
         ..content = n.content
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as DocCompletenessQuality).content,
+    yamlScalar: (o) => (o as DocCompleteness).content,
   ));
-  SpecRegistry.register(DocCorrectnessQuality, SpecClassOps(
+  SpecRegistry.register(DocCorrectness, SpecClassOps(
     slots: (o) {
-      final n = o as DocCorrectnessQuality;
+      final n = o as DocCorrectness;
       return [
-        SpecSlot.node(() => n.alignment, (v) => n.alignment = v as DocCorrectnessQualityAlignment, label: 'alignment'),
-        SpecSlot.node(() => n.verification, (v) => n.verification = v as DocCorrectnessQualityVerification, label: 'verification'),
+        SpecSlot.node(() => n.alignment, (v) => n.alignment = v as DocCorrectnessAlignment, label: 'alignment'),
+        SpecSlot.node(() => n.verification, (v) => n.verification = v as DocCorrectnessVerification, label: 'verification'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as DocCorrectnessQuality;
-      return DocCorrectnessQuality()
+      final n = o as DocCorrectness;
+      return DocCorrectness()
         ..content = n.content
         ..alignment = n.alignment
         ..verification = n.verification
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as DocCorrectnessQuality).content,
+    yamlScalar: (o) => (o as DocCorrectness).content,
   ));
-  SpecRegistry.register(DocCorrectnessQualityAlignment, SpecClassOps(
+  SpecRegistry.register(DocCorrectnessAlignment, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DocCorrectnessQualityAlignment;
-      return DocCorrectnessQualityAlignment()
+      final n = o as DocCorrectnessAlignment;
+      return DocCorrectnessAlignment()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DocCorrectnessQualityAlignment).content,
+    yamlScalar: (o) => (o as DocCorrectnessAlignment).content,
   ));
-  SpecRegistry.register(DocCorrectnessQualityVerification, SpecClassOps(
+  SpecRegistry.register(DocCorrectnessVerification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DocCorrectnessQualityVerification;
-      return DocCorrectnessQualityVerification()
+      final n = o as DocCorrectnessVerification;
+      return DocCorrectnessVerification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DocCorrectnessQualityVerification).content,
+    yamlScalar: (o) => (o as DocCorrectnessVerification).content,
   ));
   SpecRegistry.register(DocSpecsProject, SpecClassOps(
     slots: (o) {
@@ -11926,10 +11953,10 @@ void registerSpecOps() {
       final n = o as DocumentationQualityCriteria;
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.node(() => n.readability, (v) => n.readability = v as ReadabilityQuality, label: 'readability'),
-        SpecSlot.node(() => n.completeness, (v) => n.completeness = v as DocCompletenessQuality, label: 'completeness'),
-        SpecSlot.node(() => n.correctness, (v) => n.correctness = v as DocCorrectnessQuality, label: 'correctness'),
-        SpecSlot.node(() => n.changeability, (v) => n.changeability = v as DocChangeabilityQuality, label: 'changeability'),
+        SpecSlot.node(() => n.readability, (v) => n.readability = v as Readability, label: 'readability'),
+        SpecSlot.node(() => n.completeness, (v) => n.completeness = v as DocCompleteness, label: 'completeness'),
+        SpecSlot.node(() => n.correctness, (v) => n.correctness = v as DocCorrectness, label: 'correctness'),
+        SpecSlot.node(() => n.changeability, (v) => n.changeability = v as DocChangeability, label: 'changeability'),
       ];
     },
     cloneShallow: (o) {
@@ -12262,53 +12289,53 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DomainVocabulary).content,
   ));
-  SpecRegistry.register(EfficiencyQuality, SpecClassOps(
+  SpecRegistry.register(Efficiency, SpecClassOps(
     slots: (o) {
-      final n = o as EfficiencyQuality;
+      final n = o as Efficiency;
       return [
-        SpecSlot.node(() => n.throughput, (v) => n.throughput = v as EfficiencyQualityThroughput, label: 'throughput'),
-        SpecSlot.node(() => n.resources, (v) => n.resources = v as EfficiencyQualityResources, label: 'resources'),
-        SpecSlot.node(() => n.verification, (v) => n.verification = v as EfficiencyQualityVerification, label: 'verification'),
+        SpecSlot.node(() => n.throughput, (v) => n.throughput = v as EfficiencyThroughput, label: 'throughput'),
+        SpecSlot.node(() => n.resources, (v) => n.resources = v as EfficiencyResources, label: 'resources'),
+        SpecSlot.node(() => n.verification, (v) => n.verification = v as EfficiencyVerification, label: 'verification'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as EfficiencyQuality;
-      return EfficiencyQuality()
+      final n = o as Efficiency;
+      return Efficiency()
         ..content = n.content
         ..throughput = n.throughput
         ..resources = n.resources
         ..verification = n.verification
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as EfficiencyQuality).content,
+    yamlScalar: (o) => (o as Efficiency).content,
   ));
-  SpecRegistry.register(EfficiencyQualityResources, SpecClassOps(
+  SpecRegistry.register(EfficiencyResources, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as EfficiencyQualityResources;
-      return EfficiencyQualityResources()
+      final n = o as EfficiencyResources;
+      return EfficiencyResources()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as EfficiencyQualityResources).content,
+    yamlScalar: (o) => (o as EfficiencyResources).content,
   ));
-  SpecRegistry.register(EfficiencyQualityThroughput, SpecClassOps(
+  SpecRegistry.register(EfficiencyThroughput, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as EfficiencyQualityThroughput;
-      return EfficiencyQualityThroughput()
+      final n = o as EfficiencyThroughput;
+      return EfficiencyThroughput()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as EfficiencyQualityThroughput).content,
+    yamlScalar: (o) => (o as EfficiencyThroughput).content,
   ));
-  SpecRegistry.register(EfficiencyQualityVerification, SpecClassOps(
+  SpecRegistry.register(EfficiencyVerification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as EfficiencyQualityVerification;
-      return EfficiencyQualityVerification()
+      final n = o as EfficiencyVerification;
+      return EfficiencyVerification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as EfficiencyQualityVerification).content,
+    yamlScalar: (o) => (o as EfficiencyVerification).content,
   ));
   SpecRegistry.register(ElementValidationRuleEntry, SpecClassOps(
     slots: (o) => const [],
@@ -14635,53 +14662,72 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as FirewallRequirementsRules).content,
   ));
-  SpecRegistry.register(FlexibilityQuality, SpecClassOps(
+  SpecRegistry.register(Flexibility, SpecClassOps(
     slots: (o) {
-      final n = o as FlexibilityQuality;
+      final n = o as Flexibility;
       return [
-        SpecSlot.node(() => n.modularity, (v) => n.modularity = v as FlexibilityQualityModularity, label: 'modularity'),
-        SpecSlot.node(() => n.deployment, (v) => n.deployment = v as FlexibilityQualityDeployment, label: 'deployment'),
-        SpecSlot.node(() => n.extensibility, (v) => n.extensibility = v as FlexibilityQualityExtensibility, label: 'extensibility'),
+        SpecSlot.node(() => n.modularity, (v) => n.modularity = v as FlexibilityModularity, label: 'modularity'),
+        SpecSlot.node(() => n.deployment, (v) => n.deployment = v as FlexibilityDeployment, label: 'deployment'),
+        SpecSlot.node(() => n.extensibility, (v) => n.extensibility = v as FlexibilityExtensibility, label: 'extensibility'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as FlexibilityQuality;
-      return FlexibilityQuality()
+      final n = o as Flexibility;
+      return Flexibility()
         ..content = n.content
         ..modularity = n.modularity
         ..deployment = n.deployment
         ..extensibility = n.extensibility
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as FlexibilityQuality).content,
+    yamlScalar: (o) => (o as Flexibility).content,
   ));
-  SpecRegistry.register(FlexibilityQualityDeployment, SpecClassOps(
+  SpecRegistry.register(FlexibilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as FlexibilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.flexibility, (v) => n.flexibility = v as Flexibility, label: 'flexibility'),
+        SpecSlot.node(() => n.portability, (v) => n.portability = v as Portability, label: 'portability'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as FlexibilityCharacteristic;
+      return FlexibilityCharacteristic()
+        ..flexibilityContent = n.flexibilityContent
+        ..overview = n.overview
+        ..flexibility = n.flexibility
+        ..portability = n.portability;
+    },
+    yamlScalar: (o) => (o as FlexibilityCharacteristic).flexibilityContent,
+  ));
+  SpecRegistry.register(FlexibilityDeployment, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as FlexibilityQualityDeployment;
-      return FlexibilityQualityDeployment()
+      final n = o as FlexibilityDeployment;
+      return FlexibilityDeployment()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as FlexibilityQualityDeployment).content,
+    yamlScalar: (o) => (o as FlexibilityDeployment).content,
   ));
-  SpecRegistry.register(FlexibilityQualityExtensibility, SpecClassOps(
+  SpecRegistry.register(FlexibilityExtensibility, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as FlexibilityQualityExtensibility;
-      return FlexibilityQualityExtensibility()
+      final n = o as FlexibilityExtensibility;
+      return FlexibilityExtensibility()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as FlexibilityQualityExtensibility).content,
+    yamlScalar: (o) => (o as FlexibilityExtensibility).content,
   ));
-  SpecRegistry.register(FlexibilityQualityModularity, SpecClassOps(
+  SpecRegistry.register(FlexibilityModularity, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as FlexibilityQualityModularity;
-      return FlexibilityQualityModularity()
+      final n = o as FlexibilityModularity;
+      return FlexibilityModularity()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as FlexibilityQualityModularity).content,
+    yamlScalar: (o) => (o as FlexibilityModularity).content,
   ));
   SpecRegistry.register(FragilePointEntry, SpecClassOps(
     slots: (o) => const [],
@@ -14885,20 +14931,20 @@ void registerSpecOps() {
         ..businessRules = n.businessRules;
     },
   ));
-  SpecRegistry.register(FunctionalCompletenessQuality, SpecClassOps(
+  SpecRegistry.register(FunctionalCompleteness, SpecClassOps(
     slots: (o) {
-      final n = o as FunctionalCompletenessQuality;
+      final n = o as FunctionalCompleteness;
       return [
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as FunctionalCompletenessQuality;
-      return FunctionalCompletenessQuality()
+      final n = o as FunctionalCompleteness;
+      return FunctionalCompleteness()
         ..content = n.content
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as FunctionalCompletenessQuality).content,
+    yamlScalar: (o) => (o as FunctionalCompleteness).content,
   ));
   SpecRegistry.register(FunctionalRequirementEntry, SpecClassOps(
     slots: (o) {
@@ -15025,6 +15071,25 @@ void registerSpecOps() {
         ..items = n.items;
     },
     yamlScalar: (o) => (o as FunctionalResponsibilities).content,
+  ));
+  SpecRegistry.register(FunctionalSuitabilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as FunctionalSuitabilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.functionalCompleteness, (v) => n.functionalCompleteness = v as FunctionalCompleteness, label: 'functionalCompleteness'),
+        SpecSlot.node(() => n.correctness, (v) => n.correctness = v as Correctness, label: 'correctness'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as FunctionalSuitabilityCharacteristic;
+      return FunctionalSuitabilityCharacteristic()
+        ..functionalSuitabilityContent = n.functionalSuitabilityContent
+        ..overview = n.overview
+        ..functionalCompleteness = n.functionalCompleteness
+        ..correctness = n.correctness;
+    },
+    yamlScalar: (o) => (o as FunctionalSuitabilityCharacteristic).functionalSuitabilityContent,
   ));
   SpecRegistry.register(GapEntry, SpecClassOps(
     slots: (o) {
@@ -16763,6 +16828,23 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as InteractionBusinessRules).content,
   ));
+  SpecRegistry.register(InteractionCapabilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as InteractionCapabilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.usability, (v) => n.usability = v as Usability, label: 'usability'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as InteractionCapabilityCharacteristic;
+      return InteractionCapabilityCharacteristic()
+        ..interactionCapabilityContent = n.interactionCapabilityContent
+        ..overview = n.overview
+        ..usability = n.usability;
+    },
+    yamlScalar: (o) => (o as InteractionCapabilityCharacteristic).interactionCapabilityContent,
+  ));
   SpecRegistry.register(InteractionCatalog, SpecClassOps(
     slots: (o) {
       final n = o as InteractionCatalog;
@@ -17633,20 +17715,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ItLandscapePosition).content,
   ));
-  SpecRegistry.register(ItSecurityOperationsQuality, SpecClassOps(
+  SpecRegistry.register(ItSecurityOperations, SpecClassOps(
     slots: (o) {
-      final n = o as ItSecurityOperationsQuality;
+      final n = o as ItSecurityOperations;
       return [
-        SpecSlot.node(() => n.access, (v) => n.access = v as ItSecurityOperationsQualityAccess, label: 'access'),
-        SpecSlot.node(() => n.recovery, (v) => n.recovery = v as ItSecurityOperationsQualityRecovery, label: 'recovery'),
-        SpecSlot.node(() => n.testing, (v) => n.testing = v as ItSecurityOperationsQualityTesting, label: 'testing'),
-        SpecSlot.node(() => n.incident, (v) => n.incident = v as ItSecurityOperationsQualityIncident, label: 'incident'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as ItSecurityOperationsAccess, label: 'access'),
+        SpecSlot.node(() => n.recovery, (v) => n.recovery = v as ItSecurityOperationsRecovery, label: 'recovery'),
+        SpecSlot.node(() => n.testing, (v) => n.testing = v as ItSecurityOperationsTesting, label: 'testing'),
+        SpecSlot.node(() => n.incident, (v) => n.incident = v as ItSecurityOperationsIncident, label: 'incident'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as ItSecurityOperationsQuality;
-      return ItSecurityOperationsQuality()
+      final n = o as ItSecurityOperations;
+      return ItSecurityOperations()
         ..content = n.content
         ..access = n.access
         ..recovery = n.recovery
@@ -17654,43 +17736,43 @@ void registerSpecOps() {
         ..incident = n.incident
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as ItSecurityOperationsQuality).content,
+    yamlScalar: (o) => (o as ItSecurityOperations).content,
   ));
-  SpecRegistry.register(ItSecurityOperationsQualityAccess, SpecClassOps(
+  SpecRegistry.register(ItSecurityOperationsAccess, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ItSecurityOperationsQualityAccess;
-      return ItSecurityOperationsQualityAccess()
+      final n = o as ItSecurityOperationsAccess;
+      return ItSecurityOperationsAccess()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ItSecurityOperationsQualityAccess).content,
+    yamlScalar: (o) => (o as ItSecurityOperationsAccess).content,
   ));
-  SpecRegistry.register(ItSecurityOperationsQualityIncident, SpecClassOps(
+  SpecRegistry.register(ItSecurityOperationsIncident, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ItSecurityOperationsQualityIncident;
-      return ItSecurityOperationsQualityIncident()
+      final n = o as ItSecurityOperationsIncident;
+      return ItSecurityOperationsIncident()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ItSecurityOperationsQualityIncident).content,
+    yamlScalar: (o) => (o as ItSecurityOperationsIncident).content,
   ));
-  SpecRegistry.register(ItSecurityOperationsQualityRecovery, SpecClassOps(
+  SpecRegistry.register(ItSecurityOperationsRecovery, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ItSecurityOperationsQualityRecovery;
-      return ItSecurityOperationsQualityRecovery()
+      final n = o as ItSecurityOperationsRecovery;
+      return ItSecurityOperationsRecovery()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ItSecurityOperationsQualityRecovery).content,
+    yamlScalar: (o) => (o as ItSecurityOperationsRecovery).content,
   ));
-  SpecRegistry.register(ItSecurityOperationsQualityTesting, SpecClassOps(
+  SpecRegistry.register(ItSecurityOperationsTesting, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ItSecurityOperationsQualityTesting;
-      return ItSecurityOperationsQualityTesting()
+      final n = o as ItSecurityOperationsTesting;
+      return ItSecurityOperationsTesting()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ItSecurityOperationsQualityTesting).content,
+    yamlScalar: (o) => (o as ItSecurityOperationsTesting).content,
   ));
   SpecRegistry.register(ItSecurityStandardsSection, SpecClassOps(
     slots: (o) {
@@ -18782,20 +18864,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as MainSuccessScenario).content,
   ));
-  SpecRegistry.register(MaintainabilityQuality, SpecClassOps(
+  SpecRegistry.register(Maintainability, SpecClassOps(
     slots: (o) {
-      final n = o as MaintainabilityQuality;
+      final n = o as Maintainability;
       return [
-        SpecSlot.node(() => n.analyzability, (v) => n.analyzability = v as MaintainabilityQualityAnalyzability, label: 'analyzability'),
-        SpecSlot.node(() => n.changeability, (v) => n.changeability = v as MaintainabilityQualityChangeability, label: 'changeability'),
-        SpecSlot.node(() => n.testability, (v) => n.testability = v as MaintainabilityQualityTestability, label: 'testability'),
-        SpecSlot.node(() => n.governance, (v) => n.governance = v as MaintainabilityQualityGovernance, label: 'governance'),
+        SpecSlot.node(() => n.analyzability, (v) => n.analyzability = v as MaintainabilityAnalyzability, label: 'analyzability'),
+        SpecSlot.node(() => n.changeability, (v) => n.changeability = v as MaintainabilityChangeability, label: 'changeability'),
+        SpecSlot.node(() => n.testability, (v) => n.testability = v as MaintainabilityTestability, label: 'testability'),
+        SpecSlot.node(() => n.governance, (v) => n.governance = v as MaintainabilityGovernance, label: 'governance'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as MaintainabilityQuality;
-      return MaintainabilityQuality()
+      final n = o as Maintainability;
+      return Maintainability()
         ..content = n.content
         ..analyzability = n.analyzability
         ..changeability = n.changeability
@@ -18803,43 +18885,60 @@ void registerSpecOps() {
         ..governance = n.governance
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as MaintainabilityQuality).content,
+    yamlScalar: (o) => (o as Maintainability).content,
   ));
-  SpecRegistry.register(MaintainabilityQualityAnalyzability, SpecClassOps(
+  SpecRegistry.register(MaintainabilityAnalyzability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as MaintainabilityQualityAnalyzability;
-      return MaintainabilityQualityAnalyzability()
+      final n = o as MaintainabilityAnalyzability;
+      return MaintainabilityAnalyzability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as MaintainabilityQualityAnalyzability).content,
+    yamlScalar: (o) => (o as MaintainabilityAnalyzability).content,
   ));
-  SpecRegistry.register(MaintainabilityQualityChangeability, SpecClassOps(
+  SpecRegistry.register(MaintainabilityChangeability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as MaintainabilityQualityChangeability;
-      return MaintainabilityQualityChangeability()
+      final n = o as MaintainabilityChangeability;
+      return MaintainabilityChangeability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as MaintainabilityQualityChangeability).content,
+    yamlScalar: (o) => (o as MaintainabilityChangeability).content,
   ));
-  SpecRegistry.register(MaintainabilityQualityGovernance, SpecClassOps(
+  SpecRegistry.register(MaintainabilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as MaintainabilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.maintainability, (v) => n.maintainability = v as Maintainability, label: 'maintainability'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as MaintainabilityCharacteristic;
+      return MaintainabilityCharacteristic()
+        ..maintainabilityContent = n.maintainabilityContent
+        ..overview = n.overview
+        ..maintainability = n.maintainability;
+    },
+    yamlScalar: (o) => (o as MaintainabilityCharacteristic).maintainabilityContent,
+  ));
+  SpecRegistry.register(MaintainabilityGovernance, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as MaintainabilityQualityGovernance;
-      return MaintainabilityQualityGovernance()
+      final n = o as MaintainabilityGovernance;
+      return MaintainabilityGovernance()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as MaintainabilityQualityGovernance).content,
+    yamlScalar: (o) => (o as MaintainabilityGovernance).content,
   ));
-  SpecRegistry.register(MaintainabilityQualityTestability, SpecClassOps(
+  SpecRegistry.register(MaintainabilityTestability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as MaintainabilityQualityTestability;
-      return MaintainabilityQualityTestability()
+      final n = o as MaintainabilityTestability;
+      return MaintainabilityTestability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as MaintainabilityQualityTestability).content,
+    yamlScalar: (o) => (o as MaintainabilityTestability).content,
   ));
   SpecRegistry.register(MaintenanceChangeManagement, SpecClassOps(
     slots: (o) {
@@ -20278,6 +20377,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as Monitoring).monitoringOverview,
   ));
+  SpecRegistry.register(MonitoringAlerting, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MonitoringAlerting;
+      return MonitoringAlerting()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MonitoringAlerting).content,
+  ));
   SpecRegistry.register(MonitoringAndAlertingSection, SpecClassOps(
     slots: (o) {
       final n = o as MonitoringAndAlertingSection;
@@ -20312,6 +20420,24 @@ void registerSpecOps() {
         ..slaMonitoring = n.slaMonitoring;
     },
     yamlScalar: (o) => (o as MonitoringAndAlertingSection).content,
+  ));
+  SpecRegistry.register(MonitoringAutomation, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MonitoringAutomation;
+      return MonitoringAutomation()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MonitoringAutomation).content,
+  ));
+  SpecRegistry.register(MonitoringCoverage, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MonitoringCoverage;
+      return MonitoringCoverage()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MonitoringCoverage).content,
   ));
   SpecRegistry.register(MonitoringDashboards, SpecClassOps(
     slots: (o) {
@@ -20378,6 +20504,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as MonitoringInfrastructureDeployment).content,
   ));
+  SpecRegistry.register(MonitoringOperations, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MonitoringOperations;
+      return MonitoringOperations()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MonitoringOperations).content,
+  ));
   SpecRegistry.register(MonitoringProcedureEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -20386,65 +20521,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as MonitoringProcedureEntry).content,
-  ));
-  SpecRegistry.register(MonitoringQuality, SpecClassOps(
-    slots: (o) {
-      final n = o as MonitoringQuality;
-      return [
-        SpecSlot.node(() => n.coverage, (v) => n.coverage = v as MonitoringQualityCoverage, label: 'coverage'),
-        SpecSlot.node(() => n.automation, (v) => n.automation = v as MonitoringQualityAutomation, label: 'automation'),
-        SpecSlot.node(() => n.alerting, (v) => n.alerting = v as MonitoringQualityAlerting, label: 'alerting'),
-        SpecSlot.node(() => n.operations, (v) => n.operations = v as MonitoringQualityOperations, label: 'operations'),
-        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as MonitoringQuality;
-      return MonitoringQuality()
-        ..content = n.content
-        ..coverage = n.coverage
-        ..automation = n.automation
-        ..alerting = n.alerting
-        ..operations = n.operations
-        ..narrative = n.narrative;
-    },
-    yamlScalar: (o) => (o as MonitoringQuality).content,
-  ));
-  SpecRegistry.register(MonitoringQualityAlerting, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MonitoringQualityAlerting;
-      return MonitoringQualityAlerting()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MonitoringQualityAlerting).content,
-  ));
-  SpecRegistry.register(MonitoringQualityAutomation, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MonitoringQualityAutomation;
-      return MonitoringQualityAutomation()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MonitoringQualityAutomation).content,
-  ));
-  SpecRegistry.register(MonitoringQualityCoverage, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MonitoringQualityCoverage;
-      return MonitoringQualityCoverage()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MonitoringQualityCoverage).content,
-  ));
-  SpecRegistry.register(MonitoringQualityOperations, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as MonitoringQualityOperations;
-      return MonitoringQualityOperations()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as MonitoringQualityOperations).content,
   ));
   SpecRegistry.register(MoscowAnalysis, SpecClassOps(
     slots: (o) {
@@ -21756,6 +21832,29 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as OngoingTrainingEntrySchedule).content,
   ));
+  SpecRegistry.register(OperationalMonitoring, SpecClassOps(
+    slots: (o) {
+      final n = o as OperationalMonitoring;
+      return [
+        SpecSlot.node(() => n.coverage, (v) => n.coverage = v as MonitoringCoverage, label: 'coverage'),
+        SpecSlot.node(() => n.automation, (v) => n.automation = v as MonitoringAutomation, label: 'automation'),
+        SpecSlot.node(() => n.alerting, (v) => n.alerting = v as MonitoringAlerting, label: 'alerting'),
+        SpecSlot.node(() => n.operations, (v) => n.operations = v as MonitoringOperations, label: 'operations'),
+        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as OperationalMonitoring;
+      return OperationalMonitoring()
+        ..content = n.content
+        ..coverage = n.coverage
+        ..automation = n.automation
+        ..alerting = n.alerting
+        ..operations = n.operations
+        ..narrative = n.narrative;
+    },
+    yamlScalar: (o) => (o as OperationalMonitoring).content,
+  ));
   SpecRegistry.register(OperationalPainPoints, SpecClassOps(
     slots: (o) {
       final n = o as OperationalPainPoints;
@@ -21781,29 +21880,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as OperationalPainPointsSummary).content,
-  ));
-  SpecRegistry.register(OperationsQualityCriteria, SpecClassOps(
-    slots: (o) {
-      final n = o as OperationsQualityCriteria;
-      return [
-        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.node(() => n.availability, (v) => n.availability = v as AvailabilityQuality, label: 'availability'),
-        SpecSlot.node(() => n.serviceLevelRequirements, (v) => n.serviceLevelRequirements = v as ServiceLevelQuality, label: 'serviceLevelRequirements'),
-        SpecSlot.node(() => n.monitoringAndPrevention, (v) => n.monitoringAndPrevention = v as MonitoringQuality, label: 'monitoringAndPrevention'),
-        SpecSlot.node(() => n.itSecurityOperations, (v) => n.itSecurityOperations = v as ItSecurityOperationsQuality, label: 'itSecurityOperations'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as OperationsQualityCriteria;
-      return OperationsQualityCriteria()
-        ..operationsOverviewContent = n.operationsOverviewContent
-        ..overview = n.overview
-        ..availability = n.availability
-        ..serviceLevelRequirements = n.serviceLevelRequirements
-        ..monitoringAndPrevention = n.monitoringAndPrevention
-        ..itSecurityOperations = n.itSecurityOperations;
-    },
-    yamlScalar: (o) => (o as OperationsQualityCriteria).operationsOverviewContent,
   ));
   SpecRegistry.register(OperationsRequirements, SpecClassOps(
     slots: (o) {
@@ -22689,6 +22765,23 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as PenetrationTestingRequirementsScheduling).content,
   ));
+  SpecRegistry.register(PerformanceEfficiencyCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as PerformanceEfficiencyCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.efficiency, (v) => n.efficiency = v as Efficiency, label: 'efficiency'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as PerformanceEfficiencyCharacteristic;
+      return PerformanceEfficiencyCharacteristic()
+        ..performanceEfficiencyContent = n.performanceEfficiencyContent
+        ..overview = n.overview
+        ..efficiency = n.efficiency;
+    },
+    yamlScalar: (o) => (o as PerformanceEfficiencyCharacteristic).performanceEfficiencyContent,
+  ));
   SpecRegistry.register(PeriodicReviewPolicy, SpecClassOps(
     slots: (o) {
       final n = o as PeriodicReviewPolicy;
@@ -23200,20 +23293,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as PlatformAndLanguage).content,
   ));
-  SpecRegistry.register(PortabilityQuality, SpecClassOps(
+  SpecRegistry.register(Portability, SpecClassOps(
     slots: (o) {
-      final n = o as PortabilityQuality;
+      final n = o as Portability;
       return [
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as PortabilityQuality;
-      return PortabilityQuality()
+      final n = o as Portability;
+      return Portability()
         ..content = n.content
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as PortabilityQuality).content,
+    yamlScalar: (o) => (o as Portability).content,
   ));
   SpecRegistry.register(PostImplementationReview, SpecClassOps(
     slots: (o) => const [],
@@ -25284,6 +25377,42 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as QualityGateChecklist).checklistOverviewContent,
   ));
+  SpecRegistry.register(QualityGoalsBaseline, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as QualityGoalsBaseline;
+      return QualityGoalsBaseline()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as QualityGoalsBaseline).content,
+  ));
+  SpecRegistry.register(QualityGoalsGovernance, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as QualityGoalsGovernance;
+      return QualityGoalsGovernance()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as QualityGoalsGovernance).content,
+  ));
+  SpecRegistry.register(QualityGoalsMeasurement, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as QualityGoalsMeasurement;
+      return QualityGoalsMeasurement()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as QualityGoalsMeasurement).content,
+  ));
+  SpecRegistry.register(QualityGoalsResources, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as QualityGoalsResources;
+      return QualityGoalsResources()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as QualityGoalsResources).content,
+  ));
   SpecRegistry.register(QualityPrioritization, SpecClassOps(
     slots: (o) {
       final n = o as QualityPrioritization;
@@ -25439,20 +25568,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RateLimitingPolicyQuotas).content,
   ));
-  SpecRegistry.register(ReadabilityQuality, SpecClassOps(
+  SpecRegistry.register(Readability, SpecClassOps(
     slots: (o) {
-      final n = o as ReadabilityQuality;
+      final n = o as Readability;
       return [
-        SpecSlot.node(() => n.navigation, (v) => n.navigation = v as ReadabilityQualityNavigation, label: 'navigation'),
-        SpecSlot.node(() => n.comprehensibility, (v) => n.comprehensibility = v as ReadabilityQualityComprehensibility, label: 'comprehensibility'),
-        SpecSlot.node(() => n.structure, (v) => n.structure = v as ReadabilityQualityStructure, label: 'structure'),
-        SpecSlot.node(() => n.style, (v) => n.style = v as ReadabilityQualityStyle, label: 'style'),
+        SpecSlot.node(() => n.navigation, (v) => n.navigation = v as ReadabilityNavigation, label: 'navigation'),
+        SpecSlot.node(() => n.comprehensibility, (v) => n.comprehensibility = v as ReadabilityComprehensibility, label: 'comprehensibility'),
+        SpecSlot.node(() => n.structure, (v) => n.structure = v as ReadabilityStructure, label: 'structure'),
+        SpecSlot.node(() => n.style, (v) => n.style = v as ReadabilityStyle, label: 'style'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as ReadabilityQuality;
-      return ReadabilityQuality()
+      final n = o as Readability;
+      return Readability()
         ..content = n.content
         ..navigation = n.navigation
         ..comprehensibility = n.comprehensibility
@@ -25460,43 +25589,43 @@ void registerSpecOps() {
         ..style = n.style
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as ReadabilityQuality).content,
+    yamlScalar: (o) => (o as Readability).content,
   ));
-  SpecRegistry.register(ReadabilityQualityComprehensibility, SpecClassOps(
+  SpecRegistry.register(ReadabilityComprehensibility, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReadabilityQualityComprehensibility;
-      return ReadabilityQualityComprehensibility()
+      final n = o as ReadabilityComprehensibility;
+      return ReadabilityComprehensibility()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReadabilityQualityComprehensibility).content,
+    yamlScalar: (o) => (o as ReadabilityComprehensibility).content,
   ));
-  SpecRegistry.register(ReadabilityQualityNavigation, SpecClassOps(
+  SpecRegistry.register(ReadabilityNavigation, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReadabilityQualityNavigation;
-      return ReadabilityQualityNavigation()
+      final n = o as ReadabilityNavigation;
+      return ReadabilityNavigation()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReadabilityQualityNavigation).content,
+    yamlScalar: (o) => (o as ReadabilityNavigation).content,
   ));
-  SpecRegistry.register(ReadabilityQualityStructure, SpecClassOps(
+  SpecRegistry.register(ReadabilityStructure, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReadabilityQualityStructure;
-      return ReadabilityQualityStructure()
+      final n = o as ReadabilityStructure;
+      return ReadabilityStructure()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReadabilityQualityStructure).content,
+    yamlScalar: (o) => (o as ReadabilityStructure).content,
   ));
-  SpecRegistry.register(ReadabilityQualityStyle, SpecClassOps(
+  SpecRegistry.register(ReadabilityStyle, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReadabilityQualityStyle;
-      return ReadabilityQualityStyle()
+      final n = o as ReadabilityStyle;
+      return ReadabilityStyle()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReadabilityQualityStyle).content,
+    yamlScalar: (o) => (o as ReadabilityStyle).content,
   ));
   SpecRegistry.register(ReadinessCriteriaEntry, SpecClassOps(
     slots: (o) => const [],
@@ -25883,20 +26012,20 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RelevantSectionEntry).content,
   ));
-  SpecRegistry.register(ReliabilityQuality, SpecClassOps(
+  SpecRegistry.register(Reliability, SpecClassOps(
     slots: (o) {
-      final n = o as ReliabilityQuality;
+      final n = o as Reliability;
       return [
-        SpecSlot.node(() => n.recovery, (v) => n.recovery = v as ReliabilityQualityRecovery, label: 'recovery'),
-        SpecSlot.node(() => n.failover, (v) => n.failover = v as ReliabilityQualityFailover, label: 'failover'),
-        SpecSlot.node(() => n.durability, (v) => n.durability = v as ReliabilityQualityDurability, label: 'durability'),
-        SpecSlot.node(() => n.verification, (v) => n.verification = v as ReliabilityQualityVerification, label: 'verification'),
+        SpecSlot.node(() => n.recovery, (v) => n.recovery = v as ReliabilityRecovery, label: 'recovery'),
+        SpecSlot.node(() => n.failover, (v) => n.failover = v as ReliabilityFailover, label: 'failover'),
+        SpecSlot.node(() => n.durability, (v) => n.durability = v as ReliabilityDurability, label: 'durability'),
+        SpecSlot.node(() => n.verification, (v) => n.verification = v as ReliabilityVerification, label: 'verification'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as ReliabilityQuality;
-      return ReliabilityQuality()
+      final n = o as Reliability;
+      return Reliability()
         ..content = n.content
         ..recovery = n.recovery
         ..failover = n.failover
@@ -25904,43 +26033,66 @@ void registerSpecOps() {
         ..verification = n.verification
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as ReliabilityQuality).content,
+    yamlScalar: (o) => (o as Reliability).content,
   ));
-  SpecRegistry.register(ReliabilityQualityDurability, SpecClassOps(
+  SpecRegistry.register(ReliabilityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as ReliabilityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.reliability, (v) => n.reliability = v as Reliability, label: 'reliability'),
+        SpecSlot.node(() => n.availability, (v) => n.availability = v as Availability, label: 'availability'),
+        SpecSlot.node(() => n.serviceLevelRequirements, (v) => n.serviceLevelRequirements = v as ServiceLevel, label: 'serviceLevelRequirements'),
+        SpecSlot.node(() => n.monitoringAndPrevention, (v) => n.monitoringAndPrevention = v as OperationalMonitoring, label: 'monitoringAndPrevention'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ReliabilityCharacteristic;
+      return ReliabilityCharacteristic()
+        ..reliabilityContent = n.reliabilityContent
+        ..overview = n.overview
+        ..reliability = n.reliability
+        ..availability = n.availability
+        ..serviceLevelRequirements = n.serviceLevelRequirements
+        ..monitoringAndPrevention = n.monitoringAndPrevention;
+    },
+    yamlScalar: (o) => (o as ReliabilityCharacteristic).reliabilityContent,
+  ));
+  SpecRegistry.register(ReliabilityDurability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReliabilityQualityDurability;
-      return ReliabilityQualityDurability()
+      final n = o as ReliabilityDurability;
+      return ReliabilityDurability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReliabilityQualityDurability).content,
+    yamlScalar: (o) => (o as ReliabilityDurability).content,
   ));
-  SpecRegistry.register(ReliabilityQualityFailover, SpecClassOps(
+  SpecRegistry.register(ReliabilityFailover, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReliabilityQualityFailover;
-      return ReliabilityQualityFailover()
+      final n = o as ReliabilityFailover;
+      return ReliabilityFailover()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReliabilityQualityFailover).content,
+    yamlScalar: (o) => (o as ReliabilityFailover).content,
   ));
-  SpecRegistry.register(ReliabilityQualityRecovery, SpecClassOps(
+  SpecRegistry.register(ReliabilityRecovery, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReliabilityQualityRecovery;
-      return ReliabilityQualityRecovery()
+      final n = o as ReliabilityRecovery;
+      return ReliabilityRecovery()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReliabilityQualityRecovery).content,
+    yamlScalar: (o) => (o as ReliabilityRecovery).content,
   ));
-  SpecRegistry.register(ReliabilityQualityVerification, SpecClassOps(
+  SpecRegistry.register(ReliabilityVerification, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ReliabilityQualityVerification;
-      return ReliabilityQualityVerification()
+      final n = o as ReliabilityVerification;
+      return ReliabilityVerification()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ReliabilityQualityVerification).content,
+    yamlScalar: (o) => (o as ReliabilityVerification).content,
   ));
   SpecRegistry.register(RememberMePolicy, SpecClassOps(
     slots: (o) {
@@ -29324,6 +29476,29 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SecondaryNavigation).content,
   ));
+  SpecRegistry.register(Security, SpecClassOps(
+    slots: (o) {
+      final n = o as Security;
+      return [
+        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as SecurityAuthentication, label: 'authentication'),
+        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as SecurityAuthorization, label: 'authorization'),
+        SpecSlot.node(() => n.vulnerability, (v) => n.vulnerability = v as SecurityVulnerability, label: 'vulnerability'),
+        SpecSlot.node(() => n.compliance, (v) => n.compliance = v as SecurityCompliance, label: 'compliance'),
+        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as Security;
+      return Security()
+        ..content = n.content
+        ..authentication = n.authentication
+        ..authorization = n.authorization
+        ..vulnerability = n.vulnerability
+        ..compliance = n.compliance
+        ..narrative = n.narrative;
+    },
+    yamlScalar: (o) => (o as Security).content,
+  ));
   SpecRegistry.register(SecurityAndAccessModel, SpecClassOps(
     slots: (o) {
       final n = o as SecurityAndAccessModel;
@@ -29428,6 +29603,24 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SecurityAuditRequirementsSection).content,
   ));
+  SpecRegistry.register(SecurityAuthentication, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SecurityAuthentication;
+      return SecurityAuthentication()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SecurityAuthentication).content,
+  ));
+  SpecRegistry.register(SecurityAuthorization, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SecurityAuthorization;
+      return SecurityAuthorization()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SecurityAuthorization).content,
+  ));
   SpecRegistry.register(SecurityCertificationRequirements, SpecClassOps(
     slots: (o) {
       final n = o as SecurityCertificationRequirements;
@@ -29485,6 +29678,25 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SecurityCertificationRequirementsSoc2).content,
   ));
+  SpecRegistry.register(SecurityCharacteristic, SpecClassOps(
+    slots: (o) {
+      final n = o as SecurityCharacteristic;
+      return [
+        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.node(() => n.security, (v) => n.security = v as Security, label: 'security'),
+        SpecSlot.node(() => n.itSecurityOperations, (v) => n.itSecurityOperations = v as ItSecurityOperations, label: 'itSecurityOperations'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SecurityCharacteristic;
+      return SecurityCharacteristic()
+        ..securityContent = n.securityContent
+        ..overview = n.overview
+        ..security = n.security
+        ..itSecurityOperations = n.itSecurityOperations;
+    },
+    yamlScalar: (o) => (o as SecurityCharacteristic).securityContent,
+  ));
   SpecRegistry.register(SecurityCodeReviewPolicy, SpecClassOps(
     slots: (o) {
       final n = o as SecurityCodeReviewPolicy;
@@ -29530,6 +29742,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as SecurityCodeReviewPolicyReviewers).content,
+  ));
+  SpecRegistry.register(SecurityCompliance, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SecurityCompliance;
+      return SecurityCompliance()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SecurityCompliance).content,
   ));
   SpecRegistry.register(SecurityConcernEntry, SpecClassOps(
     slots: (o) => const [],
@@ -29684,65 +29905,6 @@ void registerSpecOps() {
         ..customEvents = n.customEvents;
     },
     yamlScalar: (o) => (o as SecurityEventsDefinition).content,
-  ));
-  SpecRegistry.register(SecurityQuality, SpecClassOps(
-    slots: (o) {
-      final n = o as SecurityQuality;
-      return [
-        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as SecurityQualityAuthentication, label: 'authentication'),
-        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as SecurityQualityAuthorization, label: 'authorization'),
-        SpecSlot.node(() => n.vulnerability, (v) => n.vulnerability = v as SecurityQualityVulnerability, label: 'vulnerability'),
-        SpecSlot.node(() => n.compliance, (v) => n.compliance = v as SecurityQualityCompliance, label: 'compliance'),
-        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as SecurityQuality;
-      return SecurityQuality()
-        ..content = n.content
-        ..authentication = n.authentication
-        ..authorization = n.authorization
-        ..vulnerability = n.vulnerability
-        ..compliance = n.compliance
-        ..narrative = n.narrative;
-    },
-    yamlScalar: (o) => (o as SecurityQuality).content,
-  ));
-  SpecRegistry.register(SecurityQualityAuthentication, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SecurityQualityAuthentication;
-      return SecurityQualityAuthentication()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SecurityQualityAuthentication).content,
-  ));
-  SpecRegistry.register(SecurityQualityAuthorization, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SecurityQualityAuthorization;
-      return SecurityQualityAuthorization()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SecurityQualityAuthorization).content,
-  ));
-  SpecRegistry.register(SecurityQualityCompliance, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SecurityQualityCompliance;
-      return SecurityQualityCompliance()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SecurityQualityCompliance).content,
-  ));
-  SpecRegistry.register(SecurityQualityVulnerability, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SecurityQualityVulnerability;
-      return SecurityQualityVulnerability()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SecurityQualityVulnerability).content,
   ));
   SpecRegistry.register(SecurityRequirementEntry, SpecClassOps(
     slots: (o) {
@@ -29995,6 +30157,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as SecurityTestingAutomationScanning).content,
+  ));
+  SpecRegistry.register(SecurityVulnerability, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as SecurityVulnerability;
+      return SecurityVulnerability()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as SecurityVulnerability).content,
   ));
   SpecRegistry.register(SelfRegistrationPolicy, SpecClassOps(
     slots: (o) {
@@ -30393,6 +30564,33 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ServiceAccountLifecycle).content,
   ));
+  SpecRegistry.register(ServiceLevel, SpecClassOps(
+    slots: (o) {
+      final n = o as ServiceLevel;
+      return [
+        SpecSlot.node(() => n.response, (v) => n.response = v as ServiceLevelResponse, label: 'response'),
+        SpecSlot.node(() => n.resolution, (v) => n.resolution = v as ServiceLevelResolution, label: 'resolution'),
+        SpecSlot.node(() => n.escalation, (v) => n.escalation = v as ServiceLevelEscalation, label: 'escalation'),
+        SpecSlot.node(() => n.onCall, (v) => n.onCall = v as ServiceLevelOnCall, label: 'onCall'),
+        SpecSlot.node(() => n.restoration, (v) => n.restoration = v as ServiceLevelRestoration, label: 'restoration'),
+        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
+        SpecSlot.list(() => n.slaEntries, (v) => n.slaEntries = v.cast<ServiceLevelAgreementEntry>(), label: 'slaEntries'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ServiceLevel;
+      return ServiceLevel()
+        ..content = n.content
+        ..response = n.response
+        ..resolution = n.resolution
+        ..escalation = n.escalation
+        ..onCall = n.onCall
+        ..restoration = n.restoration
+        ..narrative = n.narrative
+        ..slaEntries = n.slaEntries;
+    },
+    yamlScalar: (o) => (o as ServiceLevel).content,
+  ));
   SpecRegistry.register(ServiceLevelAgreementEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -30401,6 +30599,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as ServiceLevelAgreementEntry).content,
+  ));
+  SpecRegistry.register(ServiceLevelEscalation, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ServiceLevelEscalation;
+      return ServiceLevelEscalation()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ServiceLevelEscalation).content,
   ));
   SpecRegistry.register(ServiceLevelIndicators, SpecClassOps(
     slots: (o) {
@@ -30448,77 +30655,41 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ServiceLevelIndicatorsQuality).content,
   ));
-  SpecRegistry.register(ServiceLevelQuality, SpecClassOps(
-    slots: (o) {
-      final n = o as ServiceLevelQuality;
-      return [
-        SpecSlot.node(() => n.response, (v) => n.response = v as ServiceLevelQualityResponse, label: 'response'),
-        SpecSlot.node(() => n.resolution, (v) => n.resolution = v as ServiceLevelQualityResolution, label: 'resolution'),
-        SpecSlot.node(() => n.escalation, (v) => n.escalation = v as ServiceLevelQualityEscalation, label: 'escalation'),
-        SpecSlot.node(() => n.onCall, (v) => n.onCall = v as ServiceLevelQualityOnCall, label: 'onCall'),
-        SpecSlot.node(() => n.restoration, (v) => n.restoration = v as ServiceLevelQualityRestoration, label: 'restoration'),
-        SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
-        SpecSlot.list(() => n.slaEntries, (v) => n.slaEntries = v.cast<ServiceLevelAgreementEntry>(), label: 'slaEntries'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as ServiceLevelQuality;
-      return ServiceLevelQuality()
-        ..content = n.content
-        ..response = n.response
-        ..resolution = n.resolution
-        ..escalation = n.escalation
-        ..onCall = n.onCall
-        ..restoration = n.restoration
-        ..narrative = n.narrative
-        ..slaEntries = n.slaEntries;
-    },
-    yamlScalar: (o) => (o as ServiceLevelQuality).content,
-  ));
-  SpecRegistry.register(ServiceLevelQualityEscalation, SpecClassOps(
+  SpecRegistry.register(ServiceLevelOnCall, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ServiceLevelQualityEscalation;
-      return ServiceLevelQualityEscalation()
+      final n = o as ServiceLevelOnCall;
+      return ServiceLevelOnCall()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ServiceLevelQualityEscalation).content,
+    yamlScalar: (o) => (o as ServiceLevelOnCall).content,
   ));
-  SpecRegistry.register(ServiceLevelQualityOnCall, SpecClassOps(
+  SpecRegistry.register(ServiceLevelResolution, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ServiceLevelQualityOnCall;
-      return ServiceLevelQualityOnCall()
+      final n = o as ServiceLevelResolution;
+      return ServiceLevelResolution()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ServiceLevelQualityOnCall).content,
+    yamlScalar: (o) => (o as ServiceLevelResolution).content,
   ));
-  SpecRegistry.register(ServiceLevelQualityResolution, SpecClassOps(
+  SpecRegistry.register(ServiceLevelResponse, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ServiceLevelQualityResolution;
-      return ServiceLevelQualityResolution()
+      final n = o as ServiceLevelResponse;
+      return ServiceLevelResponse()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ServiceLevelQualityResolution).content,
+    yamlScalar: (o) => (o as ServiceLevelResponse).content,
   ));
-  SpecRegistry.register(ServiceLevelQualityResponse, SpecClassOps(
+  SpecRegistry.register(ServiceLevelRestoration, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as ServiceLevelQualityResponse;
-      return ServiceLevelQualityResponse()
+      final n = o as ServiceLevelRestoration;
+      return ServiceLevelRestoration()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as ServiceLevelQualityResponse).content,
-  ));
-  SpecRegistry.register(ServiceLevelQualityRestoration, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ServiceLevelQualityRestoration;
-      return ServiceLevelQualityRestoration()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ServiceLevelQualityRestoration).content,
+    yamlScalar: (o) => (o as ServiceLevelRestoration).content,
   ));
   SpecRegistry.register(ServiceMeshAndGateway, SpecClassOps(
     slots: (o) {
@@ -33552,19 +33723,24 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as SystemQualityGoals;
       return [
-        SpecSlot.node(() => n.governance, (v) => n.governance = v as SystemQualityGoalsGovernance, label: 'governance'),
-        SpecSlot.node(() => n.baseline, (v) => n.baseline = v as SystemQualityGoalsBaseline, label: 'baseline'),
-        SpecSlot.node(() => n.measurement, (v) => n.measurement = v as SystemQualityGoalsMeasurement, label: 'measurement'),
-        SpecSlot.node(() => n.resources, (v) => n.resources = v as SystemQualityGoalsResources, label: 'resources'),
+        SpecSlot.node(() => n.governance, (v) => n.governance = v as QualityGoalsGovernance, label: 'governance'),
+        SpecSlot.node(() => n.baseline, (v) => n.baseline = v as QualityGoalsBaseline, label: 'baseline'),
+        SpecSlot.node(() => n.measurement, (v) => n.measurement = v as QualityGoalsMeasurement, label: 'measurement'),
+        SpecSlot.node(() => n.resources, (v) => n.resources = v as QualityGoalsResources, label: 'resources'),
         SpecSlot.node(() => n.executiveSummary, (v) => n.executiveSummary = v as TextSection, label: 'executiveSummary'),
         SpecSlot.node(() => n.qualityVision, (v) => n.qualityVision = v as TextSection, label: 'qualityVision'),
         SpecSlot.node(() => n.qaStrategy, (v) => n.qaStrategy = v as TextSection, label: 'qaStrategy'),
         SpecSlot.list(() => n.attributeInterdependencies, (v) => n.attributeInterdependencies = v.cast<AttributeInterdependencyEntry>(), label: 'attributeInterdependencies'),
         SpecSlot.node(() => n.qualityRadar, (v) => n.qualityRadar = v as DiagramSection, label: 'qualityRadar'),
         SpecSlot.node(() => n.framework, (v) => n.framework = v as QualityFramework, label: 'framework'),
-        SpecSlot.node(() => n.userQuality, (v) => n.userQuality = v as UserQualityCriteria, label: 'userQuality'),
-        SpecSlot.node(() => n.technicalQuality, (v) => n.technicalQuality = v as TechnicalQualityCriteria, label: 'technicalQuality'),
-        SpecSlot.node(() => n.operationsQuality, (v) => n.operationsQuality = v as OperationsQualityCriteria, label: 'operationsQuality'),
+        SpecSlot.node(() => n.functionalSuitability, (v) => n.functionalSuitability = v as FunctionalSuitabilityCharacteristic, label: 'functionalSuitability'),
+        SpecSlot.node(() => n.performanceEfficiency, (v) => n.performanceEfficiency = v as PerformanceEfficiencyCharacteristic, label: 'performanceEfficiency'),
+        SpecSlot.node(() => n.compatibility, (v) => n.compatibility = v as CompatibilityCharacteristic, label: 'compatibility'),
+        SpecSlot.node(() => n.interactionCapability, (v) => n.interactionCapability = v as InteractionCapabilityCharacteristic, label: 'interactionCapability'),
+        SpecSlot.node(() => n.reliability, (v) => n.reliability = v as ReliabilityCharacteristic, label: 'reliability'),
+        SpecSlot.node(() => n.security, (v) => n.security = v as SecurityCharacteristic, label: 'security'),
+        SpecSlot.node(() => n.maintainability, (v) => n.maintainability = v as MaintainabilityCharacteristic, label: 'maintainability'),
+        SpecSlot.node(() => n.flexibility, (v) => n.flexibility = v as FlexibilityCharacteristic, label: 'flexibility'),
         SpecSlot.node(() => n.documentationQuality, (v) => n.documentationQuality = v as DocumentationQualityCriteria, label: 'documentationQuality'),
         SpecSlot.node(() => n.prioritization, (v) => n.prioritization = v as QualityPrioritization, label: 'prioritization'),
         SpecSlot.node(() => n.acceptanceCriteria, (v) => n.acceptanceCriteria = v as AcceptanceCriteriaSummary, label: 'acceptanceCriteria'),
@@ -33585,51 +33761,20 @@ void registerSpecOps() {
         ..attributeInterdependencies = n.attributeInterdependencies
         ..qualityRadar = n.qualityRadar
         ..framework = n.framework
-        ..userQuality = n.userQuality
-        ..technicalQuality = n.technicalQuality
-        ..operationsQuality = n.operationsQuality
+        ..functionalSuitability = n.functionalSuitability
+        ..performanceEfficiency = n.performanceEfficiency
+        ..compatibility = n.compatibility
+        ..interactionCapability = n.interactionCapability
+        ..reliability = n.reliability
+        ..security = n.security
+        ..maintainability = n.maintainability
+        ..flexibility = n.flexibility
         ..documentationQuality = n.documentationQuality
         ..prioritization = n.prioritization
         ..acceptanceCriteria = n.acceptanceCriteria
         ..testStrategy = n.testStrategy;
     },
     yamlScalar: (o) => (o as SystemQualityGoals).governanceContent,
-  ));
-  SpecRegistry.register(SystemQualityGoalsBaseline, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemQualityGoalsBaseline;
-      return SystemQualityGoalsBaseline()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemQualityGoalsBaseline).content,
-  ));
-  SpecRegistry.register(SystemQualityGoalsGovernance, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemQualityGoalsGovernance;
-      return SystemQualityGoalsGovernance()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemQualityGoalsGovernance).content,
-  ));
-  SpecRegistry.register(SystemQualityGoalsMeasurement, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemQualityGoalsMeasurement;
-      return SystemQualityGoalsMeasurement()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemQualityGoalsMeasurement).content,
-  ));
-  SpecRegistry.register(SystemQualityGoalsResources, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SystemQualityGoalsResources;
-      return SystemQualityGoalsResources()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SystemQualityGoalsResources).content,
   ));
   SpecRegistry.register(SystemReplacementStrategy, SpecClassOps(
     slots: (o) {
@@ -34606,33 +34751,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as TechnicalPainPointsSummary).content,
-  ));
-  SpecRegistry.register(TechnicalQualityCriteria, SpecClassOps(
-    slots: (o) {
-      final n = o as TechnicalQualityCriteria;
-      return [
-        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.node(() => n.efficiency, (v) => n.efficiency = v as EfficiencyQuality, label: 'efficiency'),
-        SpecSlot.node(() => n.portability, (v) => n.portability = v as PortabilityQuality, label: 'portability'),
-        SpecSlot.node(() => n.flexibility, (v) => n.flexibility = v as FlexibilityQuality, label: 'flexibility'),
-        SpecSlot.node(() => n.security, (v) => n.security = v as SecurityQuality, label: 'security'),
-        SpecSlot.node(() => n.maintainability, (v) => n.maintainability = v as MaintainabilityQuality, label: 'maintainability'),
-        SpecSlot.node(() => n.reliability, (v) => n.reliability = v as ReliabilityQuality, label: 'reliability'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TechnicalQualityCriteria;
-      return TechnicalQualityCriteria()
-        ..technicalQualityContent = n.technicalQualityContent
-        ..overview = n.overview
-        ..efficiency = n.efficiency
-        ..portability = n.portability
-        ..flexibility = n.flexibility
-        ..security = n.security
-        ..maintainability = n.maintainability
-        ..reliability = n.reliability;
-    },
-    yamlScalar: (o) => (o as TechnicalQualityCriteria).technicalQualityContent,
   ));
   SpecRegistry.register(TechnicalRequirementEntry, SpecClassOps(
     slots: (o) {
@@ -36876,21 +36994,21 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as UpgradeCycleFramework).content,
   ));
-  SpecRegistry.register(UsabilityQuality, SpecClassOps(
+  SpecRegistry.register(Usability, SpecClassOps(
     slots: (o) {
-      final n = o as UsabilityQuality;
+      final n = o as Usability;
       return [
-        SpecSlot.node(() => n.operability, (v) => n.operability = v as UsabilityQualityOperability, label: 'operability'),
-        SpecSlot.node(() => n.learnability, (v) => n.learnability = v as UsabilityQualityLearnability, label: 'learnability'),
-        SpecSlot.node(() => n.clarity, (v) => n.clarity = v as UsabilityQualityClarity, label: 'clarity'),
-        SpecSlot.node(() => n.interaction, (v) => n.interaction = v as UsabilityQualityInteraction, label: 'interaction'),
-        SpecSlot.node(() => n.performance, (v) => n.performance = v as UsabilityQualityPerformance, label: 'performance'),
+        SpecSlot.node(() => n.operability, (v) => n.operability = v as UsabilityOperability, label: 'operability'),
+        SpecSlot.node(() => n.learnability, (v) => n.learnability = v as UsabilityLearnability, label: 'learnability'),
+        SpecSlot.node(() => n.clarity, (v) => n.clarity = v as UsabilityClarity, label: 'clarity'),
+        SpecSlot.node(() => n.interaction, (v) => n.interaction = v as UsabilityInteraction, label: 'interaction'),
+        SpecSlot.node(() => n.performance, (v) => n.performance = v as UsabilityPerformance, label: 'performance'),
         SpecSlot.node(() => n.narrative, (v) => n.narrative = v as TextSection, label: 'narrative'),
       ];
     },
     cloneShallow: (o) {
-      final n = o as UsabilityQuality;
-      return UsabilityQuality()
+      final n = o as Usability;
+      return Usability()
         ..content = n.content
         ..operability = n.operability
         ..learnability = n.learnability
@@ -36899,52 +37017,52 @@ void registerSpecOps() {
         ..performance = n.performance
         ..narrative = n.narrative;
     },
-    yamlScalar: (o) => (o as UsabilityQuality).content,
+    yamlScalar: (o) => (o as Usability).content,
   ));
-  SpecRegistry.register(UsabilityQualityClarity, SpecClassOps(
+  SpecRegistry.register(UsabilityClarity, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UsabilityQualityClarity;
-      return UsabilityQualityClarity()
+      final n = o as UsabilityClarity;
+      return UsabilityClarity()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UsabilityQualityClarity).content,
+    yamlScalar: (o) => (o as UsabilityClarity).content,
   ));
-  SpecRegistry.register(UsabilityQualityInteraction, SpecClassOps(
+  SpecRegistry.register(UsabilityInteraction, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UsabilityQualityInteraction;
-      return UsabilityQualityInteraction()
+      final n = o as UsabilityInteraction;
+      return UsabilityInteraction()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UsabilityQualityInteraction).content,
+    yamlScalar: (o) => (o as UsabilityInteraction).content,
   ));
-  SpecRegistry.register(UsabilityQualityLearnability, SpecClassOps(
+  SpecRegistry.register(UsabilityLearnability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UsabilityQualityLearnability;
-      return UsabilityQualityLearnability()
+      final n = o as UsabilityLearnability;
+      return UsabilityLearnability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UsabilityQualityLearnability).content,
+    yamlScalar: (o) => (o as UsabilityLearnability).content,
   ));
-  SpecRegistry.register(UsabilityQualityOperability, SpecClassOps(
+  SpecRegistry.register(UsabilityOperability, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UsabilityQualityOperability;
-      return UsabilityQualityOperability()
+      final n = o as UsabilityOperability;
+      return UsabilityOperability()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UsabilityQualityOperability).content,
+    yamlScalar: (o) => (o as UsabilityOperability).content,
   ));
-  SpecRegistry.register(UsabilityQualityPerformance, SpecClassOps(
+  SpecRegistry.register(UsabilityPerformance, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as UsabilityQualityPerformance;
-      return UsabilityQualityPerformance()
+      final n = o as UsabilityPerformance;
+      return UsabilityPerformance()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as UsabilityQualityPerformance).content,
+    yamlScalar: (o) => (o as UsabilityPerformance).content,
   ));
   SpecRegistry.register(UseCaseExtensions, SpecClassOps(
     slots: (o) {
@@ -37604,27 +37722,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as UserProvisioningToolsRoleManagement).content,
-  ));
-  SpecRegistry.register(UserQualityCriteria, SpecClassOps(
-    slots: (o) {
-      final n = o as UserQualityCriteria;
-      return [
-        SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
-        SpecSlot.node(() => n.usability, (v) => n.usability = v as UsabilityQuality, label: 'usability'),
-        SpecSlot.node(() => n.functionalCompleteness, (v) => n.functionalCompleteness = v as FunctionalCompletenessQuality, label: 'functionalCompleteness'),
-        SpecSlot.node(() => n.correctness, (v) => n.correctness = v as CorrectnessQuality, label: 'correctness'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as UserQualityCriteria;
-      return UserQualityCriteria()
-        ..userQualityContent = n.userQualityContent
-        ..overview = n.overview
-        ..usability = n.usability
-        ..functionalCompleteness = n.functionalCompleteness
-        ..correctness = n.correctness;
-    },
-    yamlScalar: (o) => (o as UserQualityCriteria).userQualityContent,
   ));
   SpecRegistry.register(UserRegistrationProcess, SpecClassOps(
     slots: (o) {

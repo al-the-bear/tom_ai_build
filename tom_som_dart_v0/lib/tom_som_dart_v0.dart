@@ -16,8 +16,13 @@ class AcceptanceCriteriaList extends SomNode {
 
 /// 11.7. Acceptance Criteria Summary.
 /// 
-/// Quality acceptance criteria for the project including must-pass criteria
-/// and quality gate checklists.
+/// The acceptance *framework* and summary for the project: the acceptance
+/// process/authority/scope, the must-pass criteria, and the quality-gate
+/// checklist. The full enumerated, traceable acceptance criteria are NOT
+/// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+/// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+/// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+/// referencing list).
 class AcceptanceCriteriaSummary extends SomNode {
   AcceptanceCriteriaSummary(super.doc, super.path);
 
@@ -31,6 +36,13 @@ class AcceptanceCriteriaSummary extends SomNode {
 
   /// 11.7.2. Quality Gate Checklist.
   QualityGateChecklist get qualityGateChecklist => QualityGateChecklist(doc, '$path/qualityGateChecklist');
+
+  /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
+  /// 
+  /// The single source of truth for the full set of traceable acceptance
+  /// criteria; this summary references — rather than duplicates — it. The same
+  /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  AcceptanceCriteriaList get detailedCriteria => AcceptanceCriteriaList(doc, '$path/detailedCriteria');
 
   /// Acceptance test summary.
   // (skipped: acceptanceTestSummary has no target type)
@@ -2112,53 +2124,53 @@ class AuthorizationRoleEntryStructure extends SomNode {
 }
 
 /// 11.4.1. Availability quality.
-class AvailabilityQuality extends SomNode {
-  AvailabilityQuality(super.doc, super.path);
+class Availability extends SomNode {
+  Availability(super.doc, super.path);
 
-  AvailabilityQualityContentForm get content => AvailabilityQualityContentForm(doc, '$path/content');
+  AvailabilityContentForm get content => AvailabilityContentForm(doc, '$path/content');
 
   /// Operating-hour expectations.
-  AvailabilityQualityOperatingHours get operatingHoursDetails => AvailabilityQualityOperatingHours(doc, '$path/operatingHoursDetails');
+  AvailabilityOperatingHours get operatingHoursDetails => AvailabilityOperatingHours(doc, '$path/operatingHoursDetails');
 
   /// Maintenance window policy.
-  AvailabilityQualityMaintenance get maintenance => AvailabilityQualityMaintenance(doc, '$path/maintenance');
+  AvailabilityMaintenance get maintenance => AvailabilityMaintenance(doc, '$path/maintenance');
 
   /// Degraded-mode behavior.
-  AvailabilityQualityDegradedMode get degradedMode => AvailabilityQualityDegradedMode(doc, '$path/degradedMode');
+  AvailabilityDegradedMode get degradedMode => AvailabilityDegradedMode(doc, '$path/degradedMode');
 
   /// Monitoring and reporting.
-  AvailabilityQualityVerification get verification => AvailabilityQualityVerification(doc, '$path/verification');
+  AvailabilityVerification get verification => AvailabilityVerification(doc, '$path/verification');
 
   /// Detailed availability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Degraded-mode behavior.
-class AvailabilityQualityDegradedMode extends SomNode {
-  AvailabilityQualityDegradedMode(super.doc, super.path);
+class AvailabilityDegradedMode extends SomNode {
+  AvailabilityDegradedMode(super.doc, super.path);
 
-  AvailabilityQualityDegradedModeContentForm get content => AvailabilityQualityDegradedModeContentForm(doc, '$path/content');
+  AvailabilityDegradedModeContentForm get content => AvailabilityDegradedModeContentForm(doc, '$path/content');
 }
 
 /// Maintenance window policy.
-class AvailabilityQualityMaintenance extends SomNode {
-  AvailabilityQualityMaintenance(super.doc, super.path);
+class AvailabilityMaintenance extends SomNode {
+  AvailabilityMaintenance(super.doc, super.path);
 
-  AvailabilityQualityMaintenanceContentForm get content => AvailabilityQualityMaintenanceContentForm(doc, '$path/content');
+  AvailabilityMaintenanceContentForm get content => AvailabilityMaintenanceContentForm(doc, '$path/content');
 }
 
 /// Operating-hour expectations.
-class AvailabilityQualityOperatingHours extends SomNode {
-  AvailabilityQualityOperatingHours(super.doc, super.path);
+class AvailabilityOperatingHours extends SomNode {
+  AvailabilityOperatingHours(super.doc, super.path);
 
-  AvailabilityQualityOperatingHoursContentForm get content => AvailabilityQualityOperatingHoursContentForm(doc, '$path/content');
+  AvailabilityOperatingHoursContentForm get content => AvailabilityOperatingHoursContentForm(doc, '$path/content');
 }
 
 /// Monitoring and reporting.
-class AvailabilityQualityVerification extends SomNode {
-  AvailabilityQualityVerification(super.doc, super.path);
+class AvailabilityVerification extends SomNode {
+  AvailabilityVerification(super.doc, super.path);
 
-  AvailabilityQualityVerificationContentForm get content => AvailabilityQualityVerificationContentForm(doc, '$path/content');
+  AvailabilityVerificationContentForm get content => AvailabilityVerificationContentForm(doc, '$path/content');
 }
 
 /// 8.5.1. Backup and Recovery.
@@ -4867,6 +4879,21 @@ class CommunicationTypeEntry extends SomNode {
   CommunicationTypeEntryContentForm get content => CommunicationTypeEntryContentForm(doc, '$path/content');
 }
 
+/// 11.4. Compatibility (ISO/IEC 25010:2023).
+/// 
+/// Degree to which the product can exchange information with other products and
+/// share the same environment and resources (co-existence + interoperability).
+/// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+/// pending project-specific compatibility leaves.
+class CompatibilityCharacteristic extends SomNode {
+  CompatibilityCharacteristic(super.doc, super.path);
+
+  CompatibilityCharacteristicCompatibilityContentForm get compatibilityContent => CompatibilityCharacteristicCompatibilityContentForm(doc, '$path/compatibilityContent');
+
+  /// Compatibility overview.
+  // (skipped: overview has no target type)
+}
+
 /// 8.3.1. Compatibility Requirements.
 /// 
 /// Compatibility requirements with existing IT infrastructure, standard software,
@@ -6376,43 +6403,43 @@ class ContingencyPlans extends SomNode {
 }
 
 /// 11.2.3. Correctness quality.
-class CorrectnessQuality extends SomNode {
-  CorrectnessQuality(super.doc, super.path);
+class Correctness extends SomNode {
+  Correctness(super.doc, super.path);
 
-  CorrectnessQualityContentForm get content => CorrectnessQualityContentForm(doc, '$path/content');
+  CorrectnessContentForm get content => CorrectnessContentForm(doc, '$path/content');
 
   /// Data integrity expectations.
-  CorrectnessQualityIntegrity get integrity => CorrectnessQualityIntegrity(doc, '$path/integrity');
+  CorrectnessIntegrity get integrity => CorrectnessIntegrity(doc, '$path/integrity');
 
   /// Accuracy and auditability requirements.
-  CorrectnessQualityAccuracy get accuracy => CorrectnessQualityAccuracy(doc, '$path/accuracy');
+  CorrectnessAccuracy get accuracy => CorrectnessAccuracy(doc, '$path/accuracy');
 
   /// Verification and regression approach.
-  CorrectnessQualityVerification get verification => CorrectnessQualityVerification(doc, '$path/verification');
+  CorrectnessVerification get verification => CorrectnessVerification(doc, '$path/verification');
 
   /// Detailed correctness requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Accuracy and auditability requirements.
-class CorrectnessQualityAccuracy extends SomNode {
-  CorrectnessQualityAccuracy(super.doc, super.path);
+class CorrectnessAccuracy extends SomNode {
+  CorrectnessAccuracy(super.doc, super.path);
 
-  CorrectnessQualityAccuracyContentForm get content => CorrectnessQualityAccuracyContentForm(doc, '$path/content');
+  CorrectnessAccuracyContentForm get content => CorrectnessAccuracyContentForm(doc, '$path/content');
 }
 
 /// Data integrity expectations.
-class CorrectnessQualityIntegrity extends SomNode {
-  CorrectnessQualityIntegrity(super.doc, super.path);
+class CorrectnessIntegrity extends SomNode {
+  CorrectnessIntegrity(super.doc, super.path);
 
-  CorrectnessQualityIntegrityContentForm get content => CorrectnessQualityIntegrityContentForm(doc, '$path/content');
+  CorrectnessIntegrityContentForm get content => CorrectnessIntegrityContentForm(doc, '$path/content');
 }
 
 /// Verification and regression approach.
-class CorrectnessQualityVerification extends SomNode {
-  CorrectnessQualityVerification(super.doc, super.path);
+class CorrectnessVerification extends SomNode {
+  CorrectnessVerification(super.doc, super.path);
 
-  CorrectnessQualityVerificationContentForm get content => CorrectnessQualityVerificationContentForm(doc, '$path/content');
+  CorrectnessVerificationContentForm get content => CorrectnessVerificationContentForm(doc, '$path/content');
 }
 
 /// Credential compromise detection policy (form).
@@ -7440,16 +7467,31 @@ class D10QualityAcceptancePlan extends SomNode {
   /// Quality framework.
   QualityFramework get qualityFramework => QualityFramework(doc, '$path/qualityFramework');
 
-  /// User-related quality criteria.
-  UserQualityCriteria get userQualityCriteria => UserQualityCriteria(doc, '$path/userQualityCriteria');
+  /// Functional suitability (ISO/IEC 25010:2023).
+  FunctionalSuitabilityCharacteristic get functionalSuitability => FunctionalSuitabilityCharacteristic(doc, '$path/functionalSuitability');
 
-  /// Technical quality criteria.
-  TechnicalQualityCriteria get technicalQualityCriteria => TechnicalQualityCriteria(doc, '$path/technicalQualityCriteria');
+  /// Performance efficiency (ISO/IEC 25010:2023).
+  PerformanceEfficiencyCharacteristic get performanceEfficiency => PerformanceEfficiencyCharacteristic(doc, '$path/performanceEfficiency');
 
-  /// Operations quality criteria.
-  OperationsQualityCriteria get operationsQualityCriteria => OperationsQualityCriteria(doc, '$path/operationsQualityCriteria');
+  /// Compatibility (ISO/IEC 25010:2023).
+  CompatibilityCharacteristic get compatibility => CompatibilityCharacteristic(doc, '$path/compatibility');
 
-  /// Documentation quality criteria.
+  /// Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+  InteractionCapabilityCharacteristic get interactionCapability => InteractionCapabilityCharacteristic(doc, '$path/interactionCapability');
+
+  /// Reliability (ISO/IEC 25010:2023).
+  ReliabilityCharacteristic get reliability => ReliabilityCharacteristic(doc, '$path/reliability');
+
+  /// Security (ISO/IEC 25010:2023).
+  SecurityCharacteristic get security => SecurityCharacteristic(doc, '$path/security');
+
+  /// Maintainability (ISO/IEC 25010:2023).
+  MaintainabilityCharacteristic get maintainability => MaintainabilityCharacteristic(doc, '$path/maintainability');
+
+  /// Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FlexibilityCharacteristic get flexibility => FlexibilityCharacteristic(doc, '$path/flexibility');
+
+  /// Documentation quality (ISO/IEC 26514 annex).
   DocumentationQualityCriteria get documentationQualityCriteria => DocumentationQualityCriteria(doc, '$path/documentationQualityCriteria');
 
   /// Quality prioritization.
@@ -10801,83 +10843,83 @@ class DnsRequirementsZones extends SomNode {
 }
 
 /// 11.5.4. Documentation changeability quality.
-class DocChangeabilityQuality extends SomNode {
-  DocChangeabilityQuality(super.doc, super.path);
+class DocChangeability extends SomNode {
+  DocChangeability(super.doc, super.path);
 
-  DocChangeabilityQualityContentForm get content => DocChangeabilityQualityContentForm(doc, '$path/content');
+  DocChangeabilityContentForm get content => DocChangeabilityContentForm(doc, '$path/content');
 
   /// Extensibility and localization readiness.
-  DocChangeabilityQualityExtensibility get extensibility => DocChangeabilityQualityExtensibility(doc, '$path/extensibility');
+  DocChangeabilityExtensibility get extensibility => DocChangeabilityExtensibility(doc, '$path/extensibility');
 
   /// Sizing and structural consistency rules.
-  DocChangeabilityQualityStructure get structure => DocChangeabilityQualityStructure(doc, '$path/structure');
+  DocChangeabilityStructure get structure => DocChangeabilityStructure(doc, '$path/structure');
 
   /// Review and retirement maintenance process.
-  DocChangeabilityQualityMaintenance get maintenance => DocChangeabilityQualityMaintenance(doc, '$path/maintenance');
+  DocChangeabilityMaintenance get maintenance => DocChangeabilityMaintenance(doc, '$path/maintenance');
 
   /// Detailed changeability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Extensibility and localization readiness.
-class DocChangeabilityQualityExtensibility extends SomNode {
-  DocChangeabilityQualityExtensibility(super.doc, super.path);
+class DocChangeabilityExtensibility extends SomNode {
+  DocChangeabilityExtensibility(super.doc, super.path);
 
-  DocChangeabilityQualityExtensibilityContentForm get content => DocChangeabilityQualityExtensibilityContentForm(doc, '$path/content');
+  DocChangeabilityExtensibilityContentForm get content => DocChangeabilityExtensibilityContentForm(doc, '$path/content');
 }
 
 /// Review and retirement maintenance process.
-class DocChangeabilityQualityMaintenance extends SomNode {
-  DocChangeabilityQualityMaintenance(super.doc, super.path);
+class DocChangeabilityMaintenance extends SomNode {
+  DocChangeabilityMaintenance(super.doc, super.path);
 
-  DocChangeabilityQualityMaintenanceContentForm get content => DocChangeabilityQualityMaintenanceContentForm(doc, '$path/content');
+  DocChangeabilityMaintenanceContentForm get content => DocChangeabilityMaintenanceContentForm(doc, '$path/content');
 }
 
 /// Sizing and structural consistency rules.
-class DocChangeabilityQualityStructure extends SomNode {
-  DocChangeabilityQualityStructure(super.doc, super.path);
+class DocChangeabilityStructure extends SomNode {
+  DocChangeabilityStructure(super.doc, super.path);
 
-  DocChangeabilityQualityStructureContentForm get content => DocChangeabilityQualityStructureContentForm(doc, '$path/content');
+  DocChangeabilityStructureContentForm get content => DocChangeabilityStructureContentForm(doc, '$path/content');
 }
 
 /// 11.5.2. Documentation completeness quality.
-class DocCompletenessQuality extends SomNode {
-  DocCompletenessQuality(super.doc, super.path);
+class DocCompleteness extends SomNode {
+  DocCompleteness(super.doc, super.path);
 
-  DocCompletenessQualityContentForm get content => DocCompletenessQualityContentForm(doc, '$path/content');
+  DocCompletenessContentForm get content => DocCompletenessContentForm(doc, '$path/content');
 
   /// Detailed completeness requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// 11.5.3. Documentation correctness quality.
-class DocCorrectnessQuality extends SomNode {
-  DocCorrectnessQuality(super.doc, super.path);
+class DocCorrectness extends SomNode {
+  DocCorrectness(super.doc, super.path);
 
-  DocCorrectnessQualityContentForm get content => DocCorrectnessQualityContentForm(doc, '$path/content');
+  DocCorrectnessContentForm get content => DocCorrectnessContentForm(doc, '$path/content');
 
   /// Formatting and implementation alignment.
-  DocCorrectnessQualityAlignment get alignment => DocCorrectnessQualityAlignment(doc, '$path/alignment');
+  DocCorrectnessAlignment get alignment => DocCorrectnessAlignment(doc, '$path/alignment');
 
   /// Verification and feedback handling.
-  DocCorrectnessQualityVerification get verification => DocCorrectnessQualityVerification(doc, '$path/verification');
+  DocCorrectnessVerification get verification => DocCorrectnessVerification(doc, '$path/verification');
 
   /// Detailed correctness requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Formatting and implementation alignment.
-class DocCorrectnessQualityAlignment extends SomNode {
-  DocCorrectnessQualityAlignment(super.doc, super.path);
+class DocCorrectnessAlignment extends SomNode {
+  DocCorrectnessAlignment(super.doc, super.path);
 
-  DocCorrectnessQualityAlignmentContentForm get content => DocCorrectnessQualityAlignmentContentForm(doc, '$path/content');
+  DocCorrectnessAlignmentContentForm get content => DocCorrectnessAlignmentContentForm(doc, '$path/content');
 }
 
 /// Verification and feedback handling.
-class DocCorrectnessQualityVerification extends SomNode {
-  DocCorrectnessQualityVerification(super.doc, super.path);
+class DocCorrectnessVerification extends SomNode {
+  DocCorrectnessVerification(super.doc, super.path);
 
-  DocCorrectnessQualityVerificationContentForm get content => DocCorrectnessQualityVerificationContentForm(doc, '$path/content');
+  DocCorrectnessVerificationContentForm get content => DocCorrectnessVerificationContentForm(doc, '$path/content');
 }
 
 /// SBP.1 Document Control.
@@ -10965,10 +11007,15 @@ class DocumentationDeliverables extends SomNode {
   SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DCDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
-/// 11.5. Documentation Quality Criteria.
+/// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 /// 
-/// Quality criteria for project documentation including readability,
-/// completeness, correctness, and changeability.
+/// Documentation-deliverable quality criteria — readability, completeness,
+/// correctness, and changeability of the user/technical documentation. This
+/// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+/// (which scopes the *product*, not its documentation), so per L34C-8 it is
+/// retained as a documentation-quality annex aligned to ISO/IEC 26514
+/// (systems & software engineering — design and development of information for
+/// users) rather than re-homed under a 25010:2023 characteristic.
 class DocumentationQualityCriteria extends SomNode {
   DocumentationQualityCriteria(super.doc, super.path);
 
@@ -10978,16 +11025,16 @@ class DocumentationQualityCriteria extends SomNode {
   // (skipped: overview has no target type)
 
   /// 11.5.1. Readability.
-  ReadabilityQuality get readability => ReadabilityQuality(doc, '$path/readability');
+  Readability get readability => Readability(doc, '$path/readability');
 
   /// 11.5.2. Completeness.
-  DocCompletenessQuality get completeness => DocCompletenessQuality(doc, '$path/completeness');
+  DocCompleteness get completeness => DocCompleteness(doc, '$path/completeness');
 
   /// 11.5.3. Correctness.
-  DocCorrectnessQuality get correctness => DocCorrectnessQuality(doc, '$path/correctness');
+  DocCorrectness get correctness => DocCorrectness(doc, '$path/correctness');
 
   /// 11.5.4. Changeability.
-  DocChangeabilityQuality get changeability => DocChangeabilityQuality(doc, '$path/changeability');
+  DocChangeability get changeability => DocChangeability(doc, '$path/changeability');
 }
 
 /// Documentation standards and requirements.
@@ -11273,43 +11320,43 @@ class DomainVocabulary extends SomNode {
 }
 
 /// 11.3.1. Efficiency quality.
-class EfficiencyQuality extends SomNode {
-  EfficiencyQuality(super.doc, super.path);
+class Efficiency extends SomNode {
+  Efficiency(super.doc, super.path);
 
-  EfficiencyQualityContentForm get content => EfficiencyQualityContentForm(doc, '$path/content');
+  EfficiencyContentForm get content => EfficiencyContentForm(doc, '$path/content');
 
   /// Throughput and scale targets.
-  EfficiencyQualityThroughput get throughput => EfficiencyQualityThroughput(doc, '$path/throughput');
+  EfficiencyThroughput get throughput => EfficiencyThroughput(doc, '$path/throughput');
 
   /// Resource utilization constraints.
-  EfficiencyQualityResources get resources => EfficiencyQualityResources(doc, '$path/resources');
+  EfficiencyResources get resources => EfficiencyResources(doc, '$path/resources');
 
   /// Performance validation and SLA commitments.
-  EfficiencyQualityVerification get verification => EfficiencyQualityVerification(doc, '$path/verification');
+  EfficiencyVerification get verification => EfficiencyVerification(doc, '$path/verification');
 
   /// Detailed efficiency requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Resource utilization constraints.
-class EfficiencyQualityResources extends SomNode {
-  EfficiencyQualityResources(super.doc, super.path);
+class EfficiencyResources extends SomNode {
+  EfficiencyResources(super.doc, super.path);
 
-  EfficiencyQualityResourcesContentForm get content => EfficiencyQualityResourcesContentForm(doc, '$path/content');
+  EfficiencyResourcesContentForm get content => EfficiencyResourcesContentForm(doc, '$path/content');
 }
 
 /// Throughput and scale targets.
-class EfficiencyQualityThroughput extends SomNode {
-  EfficiencyQualityThroughput(super.doc, super.path);
+class EfficiencyThroughput extends SomNode {
+  EfficiencyThroughput(super.doc, super.path);
 
-  EfficiencyQualityThroughputContentForm get content => EfficiencyQualityThroughputContentForm(doc, '$path/content');
+  EfficiencyThroughputContentForm get content => EfficiencyThroughputContentForm(doc, '$path/content');
 }
 
 /// Performance validation and SLA commitments.
-class EfficiencyQualityVerification extends SomNode {
-  EfficiencyQualityVerification(super.doc, super.path);
+class EfficiencyVerification extends SomNode {
+  EfficiencyVerification(super.doc, super.path);
 
-  EfficiencyQualityVerificationContentForm get content => EfficiencyQualityVerificationContentForm(doc, '$path/content');
+  EfficiencyVerificationContentForm get content => EfficiencyVerificationContentForm(doc, '$path/content');
 }
 
 /// A validation rule entry (form).
@@ -13440,43 +13487,64 @@ class FirewallRequirementsRules extends SomNode {
 }
 
 /// 11.3.3. Flexibility quality.
-class FlexibilityQuality extends SomNode {
-  FlexibilityQuality(super.doc, super.path);
+class Flexibility extends SomNode {
+  Flexibility(super.doc, super.path);
 
-  FlexibilityQualityContentForm get content => FlexibilityQualityContentForm(doc, '$path/content');
+  FlexibilityContentForm get content => FlexibilityContentForm(doc, '$path/content');
 
   /// Modularity and reuse goals.
-  FlexibilityQualityModularity get modularity => FlexibilityQualityModularity(doc, '$path/modularity');
+  FlexibilityModularity get modularity => FlexibilityModularity(doc, '$path/modularity');
 
   /// Distribution and configurability model.
-  FlexibilityQualityDeployment get deployment => FlexibilityQualityDeployment(doc, '$path/deployment');
+  FlexibilityDeployment get deployment => FlexibilityDeployment(doc, '$path/deployment');
 
   /// Extensibility and verification expectations.
-  FlexibilityQualityExtensibility get extensibility => FlexibilityQualityExtensibility(doc, '$path/extensibility');
+  FlexibilityExtensibility get extensibility => FlexibilityExtensibility(doc, '$path/extensibility');
 
   /// Detailed flexibility requirements narrative.
   // (skipped: narrative has no target type)
 }
 
-/// Distribution and configurability model.
-class FlexibilityQualityDeployment extends SomNode {
-  FlexibilityQualityDeployment(super.doc, super.path);
+/// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+/// 
+/// Degree to which the product can be adapted to changes in requirements,
+/// contexts of use, or system environment (adaptability, scalability,
+/// installability, replaceability). Re-homes the former technical-bucket
+/// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+class FlexibilityCharacteristic extends SomNode {
+  FlexibilityCharacteristic(super.doc, super.path);
 
-  FlexibilityQualityDeploymentContentForm get content => FlexibilityQualityDeploymentContentForm(doc, '$path/content');
+  FlexibilityCharacteristicFlexibilityContentForm get flexibilityContent => FlexibilityCharacteristicFlexibilityContentForm(doc, '$path/flexibilityContent');
+
+  /// Flexibility overview.
+  // (skipped: overview has no target type)
+
+  /// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  Flexibility get flexibility => Flexibility(doc, '$path/flexibility');
+
+  /// 11.9.2. Portability.
+  Portability get portability => Portability(doc, '$path/portability');
+}
+
+/// Distribution and configurability model.
+class FlexibilityDeployment extends SomNode {
+  FlexibilityDeployment(super.doc, super.path);
+
+  FlexibilityDeploymentContentForm get content => FlexibilityDeploymentContentForm(doc, '$path/content');
 }
 
 /// Extensibility and verification expectations.
-class FlexibilityQualityExtensibility extends SomNode {
-  FlexibilityQualityExtensibility(super.doc, super.path);
+class FlexibilityExtensibility extends SomNode {
+  FlexibilityExtensibility(super.doc, super.path);
 
-  FlexibilityQualityExtensibilityContentForm get content => FlexibilityQualityExtensibilityContentForm(doc, '$path/content');
+  FlexibilityExtensibilityContentForm get content => FlexibilityExtensibilityContentForm(doc, '$path/content');
 }
 
 /// Modularity and reuse goals.
-class FlexibilityQualityModularity extends SomNode {
-  FlexibilityQualityModularity(super.doc, super.path);
+class FlexibilityModularity extends SomNode {
+  FlexibilityModularity(super.doc, super.path);
 
-  FlexibilityQualityModularityContentForm get content => FlexibilityQualityModularityContentForm(doc, '$path/content');
+  FlexibilityModularityContentForm get content => FlexibilityModularityContentForm(doc, '$path/content');
 }
 
 /// A single fragile point entry.
@@ -13667,10 +13735,10 @@ class FunctionModel extends SomNode {
 }
 
 /// 11.2.2. Functional completeness quality.
-class FunctionalCompletenessQuality extends SomNode {
-  FunctionalCompletenessQuality(super.doc, super.path);
+class FunctionalCompleteness extends SomNode {
+  FunctionalCompleteness(super.doc, super.path);
 
-  FunctionalCompletenessQualityContentForm get content => FunctionalCompletenessQualityContentForm(doc, '$path/content');
+  FunctionalCompletenessContentForm get content => FunctionalCompletenessContentForm(doc, '$path/content');
 
   /// Detailed functional completeness narrative.
   // (skipped: narrative has no target type)
@@ -13803,6 +13871,26 @@ class FunctionalResponsibilities extends SomNode {
 
   /// Contains 0+× Responsibility.
   SomList<ResponsibilityEntry> get items => SomList<ResponsibilityEntry>(doc, '$path/REEN1-ITEM-LST', (d, p) => ResponsibilityEntry(d, p));
+}
+
+/// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+/// 
+/// Degree to which the product provides functions that meet stated and implied
+/// needs — functional completeness and correctness. Re-homes the former
+/// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+class FunctionalSuitabilityCharacteristic extends SomNode {
+  FunctionalSuitabilityCharacteristic(super.doc, super.path);
+
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm get functionalSuitabilityContent => FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, '$path/functionalSuitabilityContent');
+
+  /// Functional suitability overview.
+  // (skipped: overview has no target type)
+
+  /// 11.2.1. Functional Completeness.
+  FunctionalCompleteness get functionalCompleteness => FunctionalCompleteness(doc, '$path/functionalCompleteness');
+
+  /// 11.2.2. Correctness.
+  Correctness get correctness => Correctness(doc, '$path/correctness');
 }
 
 /// A gap entry (form) — a missing capability or feature.
@@ -15319,6 +15407,24 @@ class InteractionBusinessRules extends SomNode {
   InteractionBusinessRulesContentForm get content => InteractionBusinessRulesContentForm(doc, '$path/content');
 }
 
+/// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+/// 
+/// Degree to which the product can be interacted with effectively, efficiently
+/// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+/// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+/// form is preserved here so no authored content is lost.
+class InteractionCapabilityCharacteristic extends SomNode {
+  InteractionCapabilityCharacteristic(super.doc, super.path);
+
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm get interactionCapabilityContent => InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, '$path/interactionCapabilityContent');
+
+  /// Interaction capability overview.
+  // (skipped: overview has no target type)
+
+  /// 11.5.1. Usability.
+  Usability get usability => Usability(doc, '$path/usability');
+}
+
 /// 6.2.2. Interaction Catalog.
 /// 
 /// Container for key interaction descriptions. Each interaction seeds a use
@@ -16053,22 +16159,26 @@ class IpOwnershipEntry extends SomNode {
   IpOwnershipEntryContentForm get content => IpOwnershipEntryContentForm(doc, '$path/content');
 }
 
-/// ISO/IEC 25010 product-quality cross-map.
+/// ISO/IEC 25010:2023 product-quality cross-map (derived).
 /// 
-/// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-/// quality characteristics so that compatibility and portability cannot be
-/// silently missed.
+/// A *derived* view over the canonical quality spine: the eight
+/// `*Characteristic` classes under [SystemQualityGoals] are the single source
+/// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+/// Each entry references one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+/// address it and the target metric — so coverage of any 25010:2023
+/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 class Iso25010Coverage extends SomNode {
   Iso25010Coverage(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// One entry per ISO/IEC 25010 characteristic addressed.
+  /// One entry per ISO/IEC 25010:2023 characteristic addressed.
   SomList<Iso25010CoverageEntry> get characteristics => SomList<Iso25010CoverageEntry>(doc, '$path/I25CV-CHAR-LST', (d, p) => Iso25010CoverageEntry(d, p));
 }
 
-/// A single ISO/IEC 25010 coverage entry (form).
+/// A single ISO/IEC 25010:2023 coverage entry (form).
 class Iso25010CoverageEntry extends SomNode {
   Iso25010CoverageEntry(super.doc, super.path);
 
@@ -16090,53 +16200,53 @@ class ItLandscapePosition extends SomNode {
 }
 
 /// 11.4.4. IT Security Operations quality.
-class ItSecurityOperationsQuality extends SomNode {
-  ItSecurityOperationsQuality(super.doc, super.path);
+class ItSecurityOperations extends SomNode {
+  ItSecurityOperations(super.doc, super.path);
 
-  ItSecurityOperationsQualityContentForm get content => ItSecurityOperationsQualityContentForm(doc, '$path/content');
+  ItSecurityOperationsContentForm get content => ItSecurityOperationsContentForm(doc, '$path/content');
 
   /// Access protection controls.
-  ItSecurityOperationsQualityAccess get access => ItSecurityOperationsQualityAccess(doc, '$path/access');
+  ItSecurityOperationsAccess get access => ItSecurityOperationsAccess(doc, '$path/access');
 
   /// Disaster recovery planning details.
-  ItSecurityOperationsQualityRecovery get recovery => ItSecurityOperationsQualityRecovery(doc, '$path/recovery');
+  ItSecurityOperationsRecovery get recovery => ItSecurityOperationsRecovery(doc, '$path/recovery');
 
   /// Penetration testing and remediation.
-  ItSecurityOperationsQualityTesting get testing => ItSecurityOperationsQualityTesting(doc, '$path/testing');
+  ItSecurityOperationsTesting get testing => ItSecurityOperationsTesting(doc, '$path/testing');
 
   /// Incident handling and reporting.
-  ItSecurityOperationsQualityIncident get incident => ItSecurityOperationsQualityIncident(doc, '$path/incident');
+  ItSecurityOperationsIncident get incident => ItSecurityOperationsIncident(doc, '$path/incident');
 
   /// Detailed IT security operations narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Access protection controls.
-class ItSecurityOperationsQualityAccess extends SomNode {
-  ItSecurityOperationsQualityAccess(super.doc, super.path);
+class ItSecurityOperationsAccess extends SomNode {
+  ItSecurityOperationsAccess(super.doc, super.path);
 
-  ItSecurityOperationsQualityAccessContentForm get content => ItSecurityOperationsQualityAccessContentForm(doc, '$path/content');
+  ItSecurityOperationsAccessContentForm get content => ItSecurityOperationsAccessContentForm(doc, '$path/content');
 }
 
 /// Incident handling and reporting.
-class ItSecurityOperationsQualityIncident extends SomNode {
-  ItSecurityOperationsQualityIncident(super.doc, super.path);
+class ItSecurityOperationsIncident extends SomNode {
+  ItSecurityOperationsIncident(super.doc, super.path);
 
-  ItSecurityOperationsQualityIncidentContentForm get content => ItSecurityOperationsQualityIncidentContentForm(doc, '$path/content');
+  ItSecurityOperationsIncidentContentForm get content => ItSecurityOperationsIncidentContentForm(doc, '$path/content');
 }
 
 /// Disaster recovery planning details.
-class ItSecurityOperationsQualityRecovery extends SomNode {
-  ItSecurityOperationsQualityRecovery(super.doc, super.path);
+class ItSecurityOperationsRecovery extends SomNode {
+  ItSecurityOperationsRecovery(super.doc, super.path);
 
-  ItSecurityOperationsQualityRecoveryContentForm get content => ItSecurityOperationsQualityRecoveryContentForm(doc, '$path/content');
+  ItSecurityOperationsRecoveryContentForm get content => ItSecurityOperationsRecoveryContentForm(doc, '$path/content');
 }
 
 /// Penetration testing and remediation.
-class ItSecurityOperationsQualityTesting extends SomNode {
-  ItSecurityOperationsQualityTesting(super.doc, super.path);
+class ItSecurityOperationsTesting extends SomNode {
+  ItSecurityOperationsTesting(super.doc, super.path);
 
-  ItSecurityOperationsQualityTestingContentForm get content => ItSecurityOperationsQualityTestingContentForm(doc, '$path/content');
+  ItSecurityOperationsTestingContentForm get content => ItSecurityOperationsTestingContentForm(doc, '$path/content');
 }
 
 /// 8.8.1. IT Security Standards.
@@ -17120,53 +17230,70 @@ class MainSuccessScenario extends SomNode {
 }
 
 /// 11.3.5. Maintainability quality.
-class MaintainabilityQuality extends SomNode {
-  MaintainabilityQuality(super.doc, super.path);
+class Maintainability extends SomNode {
+  Maintainability(super.doc, super.path);
 
-  MaintainabilityQualityContentForm get content => MaintainabilityQualityContentForm(doc, '$path/content');
+  MaintainabilityContentForm get content => MaintainabilityContentForm(doc, '$path/content');
 
   /// Analyzability requirements.
-  MaintainabilityQualityAnalyzability get analyzability => MaintainabilityQualityAnalyzability(doc, '$path/analyzability');
+  MaintainabilityAnalyzability get analyzability => MaintainabilityAnalyzability(doc, '$path/analyzability');
 
   /// Changeability requirements.
-  MaintainabilityQualityChangeability get changeability => MaintainabilityQualityChangeability(doc, '$path/changeability');
+  MaintainabilityChangeability get changeability => MaintainabilityChangeability(doc, '$path/changeability');
 
   /// Testability requirements.
-  MaintainabilityQualityTestability get testability => MaintainabilityQualityTestability(doc, '$path/testability');
+  MaintainabilityTestability get testability => MaintainabilityTestability(doc, '$path/testability');
 
   /// Extensibility and verification requirements.
-  MaintainabilityQualityGovernance get governance => MaintainabilityQualityGovernance(doc, '$path/governance');
+  MaintainabilityGovernance get governance => MaintainabilityGovernance(doc, '$path/governance');
 
   /// Detailed maintainability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Analyzability requirements.
-class MaintainabilityQualityAnalyzability extends SomNode {
-  MaintainabilityQualityAnalyzability(super.doc, super.path);
+class MaintainabilityAnalyzability extends SomNode {
+  MaintainabilityAnalyzability(super.doc, super.path);
 
-  MaintainabilityQualityAnalyzabilityContentForm get content => MaintainabilityQualityAnalyzabilityContentForm(doc, '$path/content');
+  MaintainabilityAnalyzabilityContentForm get content => MaintainabilityAnalyzabilityContentForm(doc, '$path/content');
 }
 
 /// Changeability requirements.
-class MaintainabilityQualityChangeability extends SomNode {
-  MaintainabilityQualityChangeability(super.doc, super.path);
+class MaintainabilityChangeability extends SomNode {
+  MaintainabilityChangeability(super.doc, super.path);
 
-  MaintainabilityQualityChangeabilityContentForm get content => MaintainabilityQualityChangeabilityContentForm(doc, '$path/content');
+  MaintainabilityChangeabilityContentForm get content => MaintainabilityChangeabilityContentForm(doc, '$path/content');
+}
+
+/// 11.8. Maintainability (ISO/IEC 25010:2023).
+/// 
+/// Degree of effectiveness and efficiency with which the product can be
+/// modified. Re-homes the former technical-bucket maintainability leaf under
+/// the 25010:2023 spine (L34C-8).
+class MaintainabilityCharacteristic extends SomNode {
+  MaintainabilityCharacteristic(super.doc, super.path);
+
+  MaintainabilityCharacteristicMaintainabilityContentForm get maintainabilityContent => MaintainabilityCharacteristicMaintainabilityContentForm(doc, '$path/maintainabilityContent');
+
+  /// Maintainability overview.
+  // (skipped: overview has no target type)
+
+  /// 11.8.1. Maintainability (product maintainability attributes).
+  Maintainability get maintainability => Maintainability(doc, '$path/maintainability');
 }
 
 /// Extensibility and verification requirements.
-class MaintainabilityQualityGovernance extends SomNode {
-  MaintainabilityQualityGovernance(super.doc, super.path);
+class MaintainabilityGovernance extends SomNode {
+  MaintainabilityGovernance(super.doc, super.path);
 
-  MaintainabilityQualityGovernanceContentForm get content => MaintainabilityQualityGovernanceContentForm(doc, '$path/content');
+  MaintainabilityGovernanceContentForm get content => MaintainabilityGovernanceContentForm(doc, '$path/content');
 }
 
 /// Testability requirements.
-class MaintainabilityQualityTestability extends SomNode {
-  MaintainabilityQualityTestability(super.doc, super.path);
+class MaintainabilityTestability extends SomNode {
+  MaintainabilityTestability(super.doc, super.path);
 
-  MaintainabilityQualityTestabilityContentForm get content => MaintainabilityQualityTestabilityContentForm(doc, '$path/content');
+  MaintainabilityTestabilityContentForm get content => MaintainabilityTestabilityContentForm(doc, '$path/content');
 }
 
 /// Change management for maintenance.
@@ -18450,6 +18577,13 @@ class Monitoring extends SomNode {
   SlaAndSloMonitoring get slaAndSloMonitoring => SlaAndSloMonitoring(doc, '$path/slaAndSloMonitoring');
 }
 
+/// Alerting strategy and channels.
+class MonitoringAlerting extends SomNode {
+  MonitoringAlerting(super.doc, super.path);
+
+  MonitoringAlertingContentForm get content => MonitoringAlertingContentForm(doc, '$path/content');
+}
+
 /// 8.5.3. Monitoring and Alerting.
 /// 
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -18492,6 +18626,20 @@ class MonitoringAndAlertingSection extends SomNode {
 
   /// SLA monitoring.
   SlaMonitoringRequirements get slaMonitoring => SlaMonitoringRequirements(doc, '$path/slaMonitoring');
+}
+
+/// Alert automation capabilities.
+class MonitoringAutomation extends SomNode {
+  MonitoringAutomation(super.doc, super.path);
+
+  MonitoringAutomationContentForm get content => MonitoringAutomationContentForm(doc, '$path/content');
+}
+
+/// Component monitoring coverage.
+class MonitoringCoverage extends SomNode {
+  MonitoringCoverage(super.doc, super.path);
+
+  MonitoringCoverageContentForm get content => MonitoringCoverageContentForm(doc, '$path/content');
 }
 
 /// 8.7.2.4. Monitoring Dashboards.
@@ -18549,62 +18697,19 @@ class MonitoringInfrastructureDeployment extends SomNode {
   MonitoringInfrastructureDeploymentContentForm get content => MonitoringInfrastructureDeploymentContentForm(doc, '$path/content');
 }
 
+/// Planning and observability settings.
+class MonitoringOperations extends SomNode {
+  MonitoringOperations(super.doc, super.path);
+
+  MonitoringOperationsContentForm get content => MonitoringOperationsContentForm(doc, '$path/content');
+}
+
 /// A single monitoring procedure entry.
 class MonitoringProcedureEntry extends SomNode {
   MonitoringProcedureEntry(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// 11.4.3. Monitoring quality.
-class MonitoringQuality extends SomNode {
-  MonitoringQuality(super.doc, super.path);
-
-  MonitoringQualityContentForm get content => MonitoringQualityContentForm(doc, '$path/content');
-
-  /// Component monitoring coverage.
-  MonitoringQualityCoverage get coverage => MonitoringQualityCoverage(doc, '$path/coverage');
-
-  /// Alert automation capabilities.
-  MonitoringQualityAutomation get automation => MonitoringQualityAutomation(doc, '$path/automation');
-
-  /// Alerting strategy and channels.
-  MonitoringQualityAlerting get alerting => MonitoringQualityAlerting(doc, '$path/alerting');
-
-  /// Planning and observability settings.
-  MonitoringQualityOperations get operations => MonitoringQualityOperations(doc, '$path/operations');
-
-  /// Detailed monitoring requirements narrative.
-  // (skipped: narrative has no target type)
-}
-
-/// Alerting strategy and channels.
-class MonitoringQualityAlerting extends SomNode {
-  MonitoringQualityAlerting(super.doc, super.path);
-
-  MonitoringQualityAlertingContentForm get content => MonitoringQualityAlertingContentForm(doc, '$path/content');
-}
-
-/// Alert automation capabilities.
-class MonitoringQualityAutomation extends SomNode {
-  MonitoringQualityAutomation(super.doc, super.path);
-
-  MonitoringQualityAutomationContentForm get content => MonitoringQualityAutomationContentForm(doc, '$path/content');
-}
-
-/// Component monitoring coverage.
-class MonitoringQualityCoverage extends SomNode {
-  MonitoringQualityCoverage(super.doc, super.path);
-
-  MonitoringQualityCoverageContentForm get content => MonitoringQualityCoverageContentForm(doc, '$path/content');
-}
-
-/// Planning and observability settings.
-class MonitoringQualityOperations extends SomNode {
-  MonitoringQualityOperations(super.doc, super.path);
-
-  MonitoringQualityOperationsContentForm get content => MonitoringQualityOperationsContentForm(doc, '$path/content');
 }
 
 /// 13.4.1. MoSCoW Analysis.
@@ -19764,6 +19869,28 @@ class OngoingTrainingEntrySchedule extends SomNode {
   OngoingTrainingEntryScheduleContentForm get content => OngoingTrainingEntryScheduleContentForm(doc, '$path/content');
 }
 
+/// 11.4.3. Monitoring quality.
+class OperationalMonitoring extends SomNode {
+  OperationalMonitoring(super.doc, super.path);
+
+  OperationalMonitoringContentForm get content => OperationalMonitoringContentForm(doc, '$path/content');
+
+  /// Component monitoring coverage.
+  MonitoringCoverage get coverage => MonitoringCoverage(doc, '$path/coverage');
+
+  /// Alert automation capabilities.
+  MonitoringAutomation get automation => MonitoringAutomation(doc, '$path/automation');
+
+  /// Alerting strategy and channels.
+  MonitoringAlerting get alerting => MonitoringAlerting(doc, '$path/alerting');
+
+  /// Planning and observability settings.
+  MonitoringOperations get operations => MonitoringOperations(doc, '$path/operations');
+
+  /// Detailed monitoring requirements narrative.
+  // (skipped: narrative has no target type)
+}
+
 /// 1.3.1. Operational Pain Points.
 /// 
 /// Problems that affect day-to-day operations: downtime, slow response,
@@ -19786,31 +19913,6 @@ class OperationalPainPointsSummary extends SomNode {
   OperationalPainPointsSummary(super.doc, super.path);
 
   OperationalPainPointsSummaryContentForm get content => OperationalPainPointsSummaryContentForm(doc, '$path/content');
-}
-
-/// 11.4. Operations Quality Criteria.
-/// 
-/// Quality criteria for system operations including availability, service
-/// levels, monitoring, and IT security operations.
-class OperationsQualityCriteria extends SomNode {
-  OperationsQualityCriteria(super.doc, super.path);
-
-  OperationsQualityCriteriaOperationsOverviewContentForm get operationsOverviewContent => OperationsQualityCriteriaOperationsOverviewContentForm(doc, '$path/operationsOverviewContent');
-
-  /// Operations quality overview narrative.
-  // (skipped: overview has no target type)
-
-  /// 11.4.1. Availability.
-  AvailabilityQuality get availability => AvailabilityQuality(doc, '$path/availability');
-
-  /// 11.4.2. Service Level Requirements.
-  ServiceLevelQuality get serviceLevelRequirements => ServiceLevelQuality(doc, '$path/serviceLevelRequirements');
-
-  /// 11.4.3. Monitoring and Prevention.
-  MonitoringQuality get monitoringAndPrevention => MonitoringQuality(doc, '$path/monitoringAndPrevention');
-
-  /// 11.4.4. IT Security Operations.
-  ItSecurityOperationsQuality get itSecurityOperations => ItSecurityOperationsQuality(doc, '$path/itSecurityOperations');
 }
 
 /// 8.5. Operations Requirements.
@@ -20655,6 +20757,24 @@ class PenetrationTestingRequirementsScheduling extends SomNode {
   PenetrationTestingRequirementsSchedulingContentForm get content => PenetrationTestingRequirementsSchedulingContentForm(doc, '$path/content');
 }
 
+/// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+/// 
+/// Performance relative to the amount of resources used under stated
+/// conditions. Re-homes the former technical-bucket efficiency leaf under the
+/// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+/// preserved here so no authored content is lost.
+class PerformanceEfficiencyCharacteristic extends SomNode {
+  PerformanceEfficiencyCharacteristic(super.doc, super.path);
+
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm get performanceEfficiencyContent => PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, '$path/performanceEfficiencyContent');
+
+  /// Performance efficiency overview.
+  // (skipped: overview has no target type)
+
+  /// 11.3.1. Efficiency.
+  Efficiency get efficiency => Efficiency(doc, '$path/efficiency');
+}
+
 /// Periodic review policy (form).
 /// 
 /// Defines periodic reviews of access rights and security posture.
@@ -21107,10 +21227,10 @@ class PlatformAndLanguage extends SomNode {
 }
 
 /// 11.3.2. Portability quality.
-class PortabilityQuality extends SomNode {
-  PortabilityQuality(super.doc, super.path);
+class Portability extends SomNode {
+  Portability(super.doc, super.path);
 
-  PortabilityQualityContentForm get content => PortabilityQualityContentForm(doc, '$path/content');
+  PortabilityContentForm get content => PortabilityContentForm(doc, '$path/content');
 
   /// Detailed portability requirements narrative.
   // (skipped: narrative has no target type)
@@ -22614,7 +22734,7 @@ class PwaRequirementsUpdates extends SomNode {
 
 /// SBP.14 Quality & Acceptance Model.
 /// 
-/// Public anchor: ISO/IEC 25010 product quality.
+/// Public anchor: ISO/IEC 25010:2023 product quality.
 class QualityAndAcceptanceModel extends SomNode {
   QualityAndAcceptanceModel(super.doc, super.path);
 
@@ -22627,7 +22747,7 @@ class QualityAndAcceptanceModel extends SomNode {
   /// Delivery scope and acceptance criteria.
   DeliveryScopeAndAcceptance get deliveryAcceptance => DeliveryScopeAndAcceptance(doc, '$path/deliveryAcceptance');
 
-  /// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  /// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
   Iso25010Coverage get iso25010Coverage => Iso25010Coverage(doc, '$path/iso25010Coverage');
 }
 
@@ -22888,6 +23008,34 @@ class QualityGateChecklist extends SomNode {
   SomList<QualityGateCheckEntry> get items => SomList<QualityGateCheckEntry>(doc, '$path/QGCHK-ITEM-LST', (d, p) => QualityGateCheckEntry(d, p));
 }
 
+/// Baseline and target settings.
+class QualityGoalsBaseline extends SomNode {
+  QualityGoalsBaseline(super.doc, super.path);
+
+  QualityGoalsBaselineContentForm get content => QualityGoalsBaselineContentForm(doc, '$path/content');
+}
+
+/// Governance board and escalation details.
+class QualityGoalsGovernance extends SomNode {
+  QualityGoalsGovernance(super.doc, super.path);
+
+  QualityGoalsGovernanceContentForm get content => QualityGoalsGovernanceContentForm(doc, '$path/content');
+}
+
+/// Measurement and reporting approach.
+class QualityGoalsMeasurement extends SomNode {
+  QualityGoalsMeasurement(super.doc, super.path);
+
+  QualityGoalsMeasurementContentForm get content => QualityGoalsMeasurementContentForm(doc, '$path/content');
+}
+
+/// Quality resources and enablement.
+class QualityGoalsResources extends SomNode {
+  QualityGoalsResources(super.doc, super.path);
+
+  QualityGoalsResourcesContentForm get content => QualityGoalsResourcesContentForm(doc, '$path/content');
+}
+
 /// 11.6. Quality Prioritization.
 /// 
 /// Prioritization and balancing of quality attributes including weighted
@@ -23020,53 +23168,53 @@ class RateLimitingPolicyQuotas extends SomNode {
 }
 
 /// 11.5.1. Readability quality.
-class ReadabilityQuality extends SomNode {
-  ReadabilityQuality(super.doc, super.path);
+class Readability extends SomNode {
+  Readability(super.doc, super.path);
 
-  ReadabilityQualityContentForm get content => ReadabilityQualityContentForm(doc, '$path/content');
+  ReadabilityContentForm get content => ReadabilityContentForm(doc, '$path/content');
 
   /// Identifiability and navigation.
-  ReadabilityQualityNavigation get navigation => ReadabilityQualityNavigation(doc, '$path/navigation');
+  ReadabilityNavigation get navigation => ReadabilityNavigation(doc, '$path/navigation');
 
   /// Comprehensibility requirements.
-  ReadabilityQualityComprehensibility get comprehensibility => ReadabilityQualityComprehensibility(doc, '$path/comprehensibility');
+  ReadabilityComprehensibility get comprehensibility => ReadabilityComprehensibility(doc, '$path/comprehensibility');
 
   /// Document structure rules.
-  ReadabilityQualityStructure get structure => ReadabilityQualityStructure(doc, '$path/structure');
+  ReadabilityStructure get structure => ReadabilityStructure(doc, '$path/structure');
 
   /// Style guide alignment.
-  ReadabilityQualityStyle get style => ReadabilityQualityStyle(doc, '$path/style');
+  ReadabilityStyle get style => ReadabilityStyle(doc, '$path/style');
 
   /// Detailed readability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Comprehensibility requirements.
-class ReadabilityQualityComprehensibility extends SomNode {
-  ReadabilityQualityComprehensibility(super.doc, super.path);
+class ReadabilityComprehensibility extends SomNode {
+  ReadabilityComprehensibility(super.doc, super.path);
 
-  ReadabilityQualityComprehensibilityContentForm get content => ReadabilityQualityComprehensibilityContentForm(doc, '$path/content');
+  ReadabilityComprehensibilityContentForm get content => ReadabilityComprehensibilityContentForm(doc, '$path/content');
 }
 
 /// Identifiability and navigation.
-class ReadabilityQualityNavigation extends SomNode {
-  ReadabilityQualityNavigation(super.doc, super.path);
+class ReadabilityNavigation extends SomNode {
+  ReadabilityNavigation(super.doc, super.path);
 
-  ReadabilityQualityNavigationContentForm get content => ReadabilityQualityNavigationContentForm(doc, '$path/content');
+  ReadabilityNavigationContentForm get content => ReadabilityNavigationContentForm(doc, '$path/content');
 }
 
 /// Document structure rules.
-class ReadabilityQualityStructure extends SomNode {
-  ReadabilityQualityStructure(super.doc, super.path);
+class ReadabilityStructure extends SomNode {
+  ReadabilityStructure(super.doc, super.path);
 
-  ReadabilityQualityStructureContentForm get content => ReadabilityQualityStructureContentForm(doc, '$path/content');
+  ReadabilityStructureContentForm get content => ReadabilityStructureContentForm(doc, '$path/content');
 }
 
 /// Style guide alignment.
-class ReadabilityQualityStyle extends SomNode {
-  ReadabilityQualityStyle(super.doc, super.path);
+class ReadabilityStyle extends SomNode {
+  ReadabilityStyle(super.doc, super.path);
 
-  ReadabilityQualityStyleContentForm get content => ReadabilityQualityStyleContentForm(doc, '$path/content');
+  ReadabilityStyleContentForm get content => ReadabilityStyleContentForm(doc, '$path/content');
 }
 
 /// Readiness criteria entry (form).
@@ -23396,53 +23544,82 @@ class RelevantSectionEntry extends SomNode {
 }
 
 /// 11.3.6. Reliability quality.
-class ReliabilityQuality extends SomNode {
-  ReliabilityQuality(super.doc, super.path);
+class Reliability extends SomNode {
+  Reliability(super.doc, super.path);
 
-  ReliabilityQualityContentForm get content => ReliabilityQualityContentForm(doc, '$path/content');
+  ReliabilityContentForm get content => ReliabilityContentForm(doc, '$path/content');
 
   /// Recovery objectives.
-  ReliabilityQualityRecovery get recovery => ReliabilityQualityRecovery(doc, '$path/recovery');
+  ReliabilityRecovery get recovery => ReliabilityRecovery(doc, '$path/recovery');
 
   /// Failover requirements.
-  ReliabilityQualityFailover get failover => ReliabilityQualityFailover(doc, '$path/failover');
+  ReliabilityFailover get failover => ReliabilityFailover(doc, '$path/failover');
 
   /// Data durability requirements.
-  ReliabilityQualityDurability get durability => ReliabilityQualityDurability(doc, '$path/durability');
+  ReliabilityDurability get durability => ReliabilityDurability(doc, '$path/durability');
 
   /// Verification and learning.
-  ReliabilityQualityVerification get verification => ReliabilityQualityVerification(doc, '$path/verification');
+  ReliabilityVerification get verification => ReliabilityVerification(doc, '$path/verification');
 
   /// Detailed reliability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
-/// Data durability requirements.
-class ReliabilityQualityDurability extends SomNode {
-  ReliabilityQualityDurability(super.doc, super.path);
+/// 11.6. Reliability (ISO/IEC 25010:2023).
+/// 
+/// Degree to which the product performs specified functions under specified
+/// conditions for a specified period (availability, fault tolerance,
+/// recoverability, maturity). Re-homes the former technical-bucket reliability
+/// leaf and the operations-bucket availability, service-level and monitoring
+/// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+/// overview form is preserved here so no authored content is lost.
+class ReliabilityCharacteristic extends SomNode {
+  ReliabilityCharacteristic(super.doc, super.path);
 
-  ReliabilityQualityDurabilityContentForm get content => ReliabilityQualityDurabilityContentForm(doc, '$path/content');
+  ReliabilityCharacteristicReliabilityContentForm get reliabilityContent => ReliabilityCharacteristicReliabilityContentForm(doc, '$path/reliabilityContent');
+
+  /// Reliability overview narrative.
+  // (skipped: overview has no target type)
+
+  /// 11.6.1. Reliability (product reliability attributes).
+  Reliability get reliability => Reliability(doc, '$path/reliability');
+
+  /// 11.6.2. Availability.
+  Availability get availability => Availability(doc, '$path/availability');
+
+  /// 11.6.3. Service Level Requirements.
+  ServiceLevel get serviceLevelRequirements => ServiceLevel(doc, '$path/serviceLevelRequirements');
+
+  /// 11.6.4. Monitoring and Prevention.
+  OperationalMonitoring get monitoringAndPrevention => OperationalMonitoring(doc, '$path/monitoringAndPrevention');
+}
+
+/// Data durability requirements.
+class ReliabilityDurability extends SomNode {
+  ReliabilityDurability(super.doc, super.path);
+
+  ReliabilityDurabilityContentForm get content => ReliabilityDurabilityContentForm(doc, '$path/content');
 }
 
 /// Failover requirements.
-class ReliabilityQualityFailover extends SomNode {
-  ReliabilityQualityFailover(super.doc, super.path);
+class ReliabilityFailover extends SomNode {
+  ReliabilityFailover(super.doc, super.path);
 
-  ReliabilityQualityFailoverContentForm get content => ReliabilityQualityFailoverContentForm(doc, '$path/content');
+  ReliabilityFailoverContentForm get content => ReliabilityFailoverContentForm(doc, '$path/content');
 }
 
 /// Recovery objectives.
-class ReliabilityQualityRecovery extends SomNode {
-  ReliabilityQualityRecovery(super.doc, super.path);
+class ReliabilityRecovery extends SomNode {
+  ReliabilityRecovery(super.doc, super.path);
 
-  ReliabilityQualityRecoveryContentForm get content => ReliabilityQualityRecoveryContentForm(doc, '$path/content');
+  ReliabilityRecoveryContentForm get content => ReliabilityRecoveryContentForm(doc, '$path/content');
 }
 
 /// Verification and learning.
-class ReliabilityQualityVerification extends SomNode {
-  ReliabilityQualityVerification(super.doc, super.path);
+class ReliabilityVerification extends SomNode {
+  ReliabilityVerification(super.doc, super.path);
 
-  ReliabilityQualityVerificationContentForm get content => ReliabilityQualityVerificationContentForm(doc, '$path/content');
+  ReliabilityVerificationContentForm get content => ReliabilityVerificationContentForm(doc, '$path/content');
 }
 
 /// Remember-me and persistent session policy (form).
@@ -26434,6 +26611,28 @@ class SecondaryNavigation extends SomNode {
   SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p));
 }
 
+/// 11.3.4. Security quality.
+class Security extends SomNode {
+  Security(super.doc, super.path);
+
+  SecurityContentForm get content => SecurityContentForm(doc, '$path/content');
+
+  /// Authentication controls.
+  SecurityAuthentication get authentication => SecurityAuthentication(doc, '$path/authentication');
+
+  /// Authorization controls.
+  SecurityAuthorization get authorization => SecurityAuthorization(doc, '$path/authorization');
+
+  /// Vulnerability management expectations.
+  SecurityVulnerability get vulnerability => SecurityVulnerability(doc, '$path/vulnerability');
+
+  /// Compliance and verification settings.
+  SecurityCompliance get compliance => SecurityCompliance(doc, '$path/compliance');
+
+  /// Detailed security requirements narrative.
+  // (skipped: narrative has no target type)
+}
+
 /// 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel extends SomNode {
   SecurityAndAccessModel(super.doc, super.path);
@@ -26539,6 +26738,20 @@ class SecurityAuditRequirementsSection extends SomNode {
   SomList<SecurityAuditEntry> get auditEntries => SomList<SecurityAuditEntry>(doc, '$path/SEAUEN-AUDI-LST', (d, p) => SecurityAuditEntry(d, p));
 }
 
+/// Authentication controls.
+class SecurityAuthentication extends SomNode {
+  SecurityAuthentication(super.doc, super.path);
+
+  SecurityAuthenticationContentForm get content => SecurityAuthenticationContentForm(doc, '$path/content');
+}
+
+/// Authorization controls.
+class SecurityAuthorization extends SomNode {
+  SecurityAuthorization(super.doc, super.path);
+
+  SecurityAuthorizationContentForm get content => SecurityAuthorizationContentForm(doc, '$path/content');
+}
+
 /// Security certification and compliance requirements.
 class SecurityCertificationRequirements extends SomNode {
   SecurityCertificationRequirements(super.doc, super.path);
@@ -26586,6 +26799,26 @@ class SecurityCertificationRequirementsSoc2 extends SomNode {
   SecurityCertificationRequirementsSoc2ContentForm get content => SecurityCertificationRequirementsSoc2ContentForm(doc, '$path/content');
 }
 
+/// 11.7. Security (ISO/IEC 25010:2023).
+/// 
+/// Degree to which the product protects information and data. Re-homes the
+/// former technical-bucket security leaf and the operations-bucket IT-security
+/// operations leaf under the 25010:2023 spine (L34C-8).
+class SecurityCharacteristic extends SomNode {
+  SecurityCharacteristic(super.doc, super.path);
+
+  SecurityCharacteristicSecurityContentForm get securityContent => SecurityCharacteristicSecurityContentForm(doc, '$path/securityContent');
+
+  /// Security overview.
+  // (skipped: overview has no target type)
+
+  /// 11.7.1. Security (product security attributes).
+  Security get security => Security(doc, '$path/security');
+
+  /// 11.7.2. IT Security Operations.
+  ItSecurityOperations get itSecurityOperations => ItSecurityOperations(doc, '$path/itSecurityOperations');
+}
+
 /// Security-focused code review policy.
 /// 
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -26625,6 +26858,13 @@ class SecurityCodeReviewPolicyReviewers extends SomNode {
   SecurityCodeReviewPolicyReviewers(super.doc, super.path);
 
   SecurityCodeReviewPolicyReviewersContentForm get content => SecurityCodeReviewPolicyReviewersContentForm(doc, '$path/content');
+}
+
+/// Compliance and verification settings.
+class SecurityCompliance extends SomNode {
+  SecurityCompliance(super.doc, super.path);
+
+  SecurityComplianceContentForm get content => SecurityComplianceContentForm(doc, '$path/content');
 }
 
 /// A single security concern entry.
@@ -26763,56 +27003,6 @@ class SecurityEventsDefinition extends SomNode {
 
   /// Custom Security Events — contains 0+× Security Event Entry.
   SomList<SecurityEventEntry> get customEvents => SomList<SecurityEventEntry>(doc, '$path/SEVT-CUST-LST', (d, p) => SecurityEventEntry(d, p));
-}
-
-/// 11.3.4. Security quality.
-class SecurityQuality extends SomNode {
-  SecurityQuality(super.doc, super.path);
-
-  SecurityQualityContentForm get content => SecurityQualityContentForm(doc, '$path/content');
-
-  /// Authentication controls.
-  SecurityQualityAuthentication get authentication => SecurityQualityAuthentication(doc, '$path/authentication');
-
-  /// Authorization controls.
-  SecurityQualityAuthorization get authorization => SecurityQualityAuthorization(doc, '$path/authorization');
-
-  /// Vulnerability management expectations.
-  SecurityQualityVulnerability get vulnerability => SecurityQualityVulnerability(doc, '$path/vulnerability');
-
-  /// Compliance and verification settings.
-  SecurityQualityCompliance get compliance => SecurityQualityCompliance(doc, '$path/compliance');
-
-  /// Detailed security requirements narrative.
-  // (skipped: narrative has no target type)
-}
-
-/// Authentication controls.
-class SecurityQualityAuthentication extends SomNode {
-  SecurityQualityAuthentication(super.doc, super.path);
-
-  SecurityQualityAuthenticationContentForm get content => SecurityQualityAuthenticationContentForm(doc, '$path/content');
-}
-
-/// Authorization controls.
-class SecurityQualityAuthorization extends SomNode {
-  SecurityQualityAuthorization(super.doc, super.path);
-
-  SecurityQualityAuthorizationContentForm get content => SecurityQualityAuthorizationContentForm(doc, '$path/content');
-}
-
-/// Compliance and verification settings.
-class SecurityQualityCompliance extends SomNode {
-  SecurityQualityCompliance(super.doc, super.path);
-
-  SecurityQualityComplianceContentForm get content => SecurityQualityComplianceContentForm(doc, '$path/content');
-}
-
-/// Vulnerability management expectations.
-class SecurityQualityVulnerability extends SomNode {
-  SecurityQualityVulnerability(super.doc, super.path);
-
-  SecurityQualityVulnerabilityContentForm get content => SecurityQualityVulnerabilityContentForm(doc, '$path/content');
 }
 
 /// A security requirement entry.
@@ -27038,6 +27228,13 @@ class SecurityTestingAutomationScanning extends SomNode {
   SecurityTestingAutomationScanning(super.doc, super.path);
 
   SecurityTestingAutomationScanningContentForm get content => SecurityTestingAutomationScanningContentForm(doc, '$path/content');
+}
+
+/// Vulnerability management expectations.
+class SecurityVulnerability extends SomNode {
+  SecurityVulnerability(super.doc, super.path);
+
+  SecurityVulnerabilityContentForm get content => SecurityVulnerabilityContentForm(doc, '$path/content');
 }
 
 /// Self-registration policy (form).
@@ -27394,11 +27591,46 @@ class ServiceAccountLifecycle extends SomNode {
   // (skipped: serviceAccountDescription has no target type)
 }
 
+/// 11.4.2. Service level quality.
+class ServiceLevel extends SomNode {
+  ServiceLevel(super.doc, super.path);
+
+  ServiceLevelContentForm get content => ServiceLevelContentForm(doc, '$path/content');
+
+  /// Remaining response targets.
+  ServiceLevelResponse get response => ServiceLevelResponse(doc, '$path/response');
+
+  /// Resolution targets.
+  ServiceLevelResolution get resolution => ServiceLevelResolution(doc, '$path/resolution');
+
+  /// Escalation rules.
+  ServiceLevelEscalation get escalation => ServiceLevelEscalation(doc, '$path/escalation');
+
+  /// On-call support expectations.
+  ServiceLevelOnCall get onCall => ServiceLevelOnCall(doc, '$path/onCall');
+
+  /// Restoration and communication priorities.
+  ServiceLevelRestoration get restoration => ServiceLevelRestoration(doc, '$path/restoration');
+
+  /// Detailed service level requirements narrative.
+  // (skipped: narrative has no target type)
+
+  /// Service Level Agreement entries.
+  SomList<ServiceLevelAgreementEntry> get slaEntries => SomList<ServiceLevelAgreementEntry>(doc, '$path/SLAE-SLAE-LST', (d, p) => ServiceLevelAgreementEntry(d, p));
+}
+
 /// A service level agreement entry.
 class ServiceLevelAgreementEntry extends SomNode {
   ServiceLevelAgreementEntry(super.doc, super.path);
 
   ServiceLevelAgreementEntryContentForm get content => ServiceLevelAgreementEntryContentForm(doc, '$path/content');
+}
+
+/// Escalation rules.
+class ServiceLevelEscalation extends SomNode {
+  ServiceLevelEscalation(super.doc, super.path);
+
+  ServiceLevelEscalationContentForm get content => ServiceLevelEscalationContentForm(doc, '$path/content');
 }
 
 /// Service Level Indicators.
@@ -27438,67 +27670,32 @@ class ServiceLevelIndicatorsQuality extends SomNode {
   ServiceLevelIndicatorsQualityContentForm get content => ServiceLevelIndicatorsQualityContentForm(doc, '$path/content');
 }
 
-/// 11.4.2. Service level quality.
-class ServiceLevelQuality extends SomNode {
-  ServiceLevelQuality(super.doc, super.path);
-
-  ServiceLevelQualityContentForm get content => ServiceLevelQualityContentForm(doc, '$path/content');
-
-  /// Remaining response targets.
-  ServiceLevelQualityResponse get response => ServiceLevelQualityResponse(doc, '$path/response');
-
-  /// Resolution targets.
-  ServiceLevelQualityResolution get resolution => ServiceLevelQualityResolution(doc, '$path/resolution');
-
-  /// Escalation rules.
-  ServiceLevelQualityEscalation get escalation => ServiceLevelQualityEscalation(doc, '$path/escalation');
-
-  /// On-call support expectations.
-  ServiceLevelQualityOnCall get onCall => ServiceLevelQualityOnCall(doc, '$path/onCall');
-
-  /// Restoration and communication priorities.
-  ServiceLevelQualityRestoration get restoration => ServiceLevelQualityRestoration(doc, '$path/restoration');
-
-  /// Detailed service level requirements narrative.
-  // (skipped: narrative has no target type)
-
-  /// Service Level Agreement entries.
-  SomList<ServiceLevelAgreementEntry> get slaEntries => SomList<ServiceLevelAgreementEntry>(doc, '$path/SLAE-SLAE-LST', (d, p) => ServiceLevelAgreementEntry(d, p));
-}
-
-/// Escalation rules.
-class ServiceLevelQualityEscalation extends SomNode {
-  ServiceLevelQualityEscalation(super.doc, super.path);
-
-  ServiceLevelQualityEscalationContentForm get content => ServiceLevelQualityEscalationContentForm(doc, '$path/content');
-}
-
 /// On-call support expectations.
-class ServiceLevelQualityOnCall extends SomNode {
-  ServiceLevelQualityOnCall(super.doc, super.path);
+class ServiceLevelOnCall extends SomNode {
+  ServiceLevelOnCall(super.doc, super.path);
 
-  ServiceLevelQualityOnCallContentForm get content => ServiceLevelQualityOnCallContentForm(doc, '$path/content');
+  ServiceLevelOnCallContentForm get content => ServiceLevelOnCallContentForm(doc, '$path/content');
 }
 
 /// Resolution targets.
-class ServiceLevelQualityResolution extends SomNode {
-  ServiceLevelQualityResolution(super.doc, super.path);
+class ServiceLevelResolution extends SomNode {
+  ServiceLevelResolution(super.doc, super.path);
 
-  ServiceLevelQualityResolutionContentForm get content => ServiceLevelQualityResolutionContentForm(doc, '$path/content');
+  ServiceLevelResolutionContentForm get content => ServiceLevelResolutionContentForm(doc, '$path/content');
 }
 
 /// Remaining response targets.
-class ServiceLevelQualityResponse extends SomNode {
-  ServiceLevelQualityResponse(super.doc, super.path);
+class ServiceLevelResponse extends SomNode {
+  ServiceLevelResponse(super.doc, super.path);
 
-  ServiceLevelQualityResponseContentForm get content => ServiceLevelQualityResponseContentForm(doc, '$path/content');
+  ServiceLevelResponseContentForm get content => ServiceLevelResponseContentForm(doc, '$path/content');
 }
 
 /// Restoration and communication priorities.
-class ServiceLevelQualityRestoration extends SomNode {
-  ServiceLevelQualityRestoration(super.doc, super.path);
+class ServiceLevelRestoration extends SomNode {
+  ServiceLevelRestoration(super.doc, super.path);
 
-  ServiceLevelQualityRestorationContentForm get content => ServiceLevelQualityRestorationContentForm(doc, '$path/content');
+  ServiceLevelRestorationContentForm get content => ServiceLevelRestorationContentForm(doc, '$path/content');
 }
 
 /// Service mesh and API gateway.
@@ -30333,16 +30530,16 @@ class SystemQualityGoals extends SomNode {
   SystemQualityGoalsGovernanceContentForm get governanceContent => SystemQualityGoalsGovernanceContentForm(doc, '$path/governanceContent');
 
   /// Governance board and escalation details.
-  SystemQualityGoalsGovernance get governance => SystemQualityGoalsGovernance(doc, '$path/governance');
+  QualityGoalsGovernance get governance => QualityGoalsGovernance(doc, '$path/governance');
 
   /// Baseline and target settings.
-  SystemQualityGoalsBaseline get baseline => SystemQualityGoalsBaseline(doc, '$path/baseline');
+  QualityGoalsBaseline get baseline => QualityGoalsBaseline(doc, '$path/baseline');
 
   /// Measurement and reporting approach.
-  SystemQualityGoalsMeasurement get measurement => SystemQualityGoalsMeasurement(doc, '$path/measurement');
+  QualityGoalsMeasurement get measurement => QualityGoalsMeasurement(doc, '$path/measurement');
 
   /// Quality resources and enablement.
-  SystemQualityGoalsResources get resources => SystemQualityGoalsResources(doc, '$path/resources');
+  QualityGoalsResources get resources => QualityGoalsResources(doc, '$path/resources');
 
   /// Executive summary of quality goals and approach.
   // (skipped: executiveSummary has no target type)
@@ -30362,16 +30559,33 @@ class SystemQualityGoals extends SomNode {
   /// 11.1. Quality Framework.
   QualityFramework get framework => QualityFramework(doc, '$path/framework');
 
-  /// 11.2. User-Related Quality Criteria.
-  UserQualityCriteria get userQuality => UserQualityCriteria(doc, '$path/userQuality');
+  /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  FunctionalSuitabilityCharacteristic get functionalSuitability => FunctionalSuitabilityCharacteristic(doc, '$path/functionalSuitability');
 
-  /// 11.3. Technical Quality Criteria.
-  TechnicalQualityCriteria get technicalQuality => TechnicalQualityCriteria(doc, '$path/technicalQuality');
+  /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  PerformanceEfficiencyCharacteristic get performanceEfficiency => PerformanceEfficiencyCharacteristic(doc, '$path/performanceEfficiency');
 
-  /// 11.4. Operations Quality Criteria.
-  OperationsQualityCriteria get operationsQuality => OperationsQualityCriteria(doc, '$path/operationsQuality');
+  /// 11.4. Compatibility (ISO/IEC 25010:2023).
+  CompatibilityCharacteristic get compatibility => CompatibilityCharacteristic(doc, '$path/compatibility');
 
-  /// 11.5. Documentation Quality Criteria.
+  /// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  InteractionCapabilityCharacteristic get interactionCapability => InteractionCapabilityCharacteristic(doc, '$path/interactionCapability');
+
+  /// 11.6. Reliability (ISO/IEC 25010:2023).
+  ReliabilityCharacteristic get reliability => ReliabilityCharacteristic(doc, '$path/reliability');
+
+  /// 11.7. Security (ISO/IEC 25010:2023).
+  SecurityCharacteristic get security => SecurityCharacteristic(doc, '$path/security');
+
+  /// 11.8. Maintainability (ISO/IEC 25010:2023).
+  MaintainabilityCharacteristic get maintainability => MaintainabilityCharacteristic(doc, '$path/maintainability');
+
+  /// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FlexibilityCharacteristic get flexibility => FlexibilityCharacteristic(doc, '$path/flexibility');
+
+  /// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+  /// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+  /// documentation-quality annex per L34C-8).
   DocumentationQualityCriteria get documentationQuality => DocumentationQualityCriteria(doc, '$path/documentationQuality');
 
   /// 11.6. Quality Prioritization.
@@ -30382,34 +30596,6 @@ class SystemQualityGoals extends SomNode {
 
   /// 11.8. Test Strategy..
   TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
-}
-
-/// Baseline and target settings.
-class SystemQualityGoalsBaseline extends SomNode {
-  SystemQualityGoalsBaseline(super.doc, super.path);
-
-  SystemQualityGoalsBaselineContentForm get content => SystemQualityGoalsBaselineContentForm(doc, '$path/content');
-}
-
-/// Governance board and escalation details.
-class SystemQualityGoalsGovernance extends SomNode {
-  SystemQualityGoalsGovernance(super.doc, super.path);
-
-  SystemQualityGoalsGovernanceContentForm2 get content => SystemQualityGoalsGovernanceContentForm2(doc, '$path/content');
-}
-
-/// Measurement and reporting approach.
-class SystemQualityGoalsMeasurement extends SomNode {
-  SystemQualityGoalsMeasurement(super.doc, super.path);
-
-  SystemQualityGoalsMeasurementContentForm get content => SystemQualityGoalsMeasurementContentForm(doc, '$path/content');
-}
-
-/// Quality resources and enablement.
-class SystemQualityGoalsResources extends SomNode {
-  SystemQualityGoalsResources(super.doc, super.path);
-
-  SystemQualityGoalsResourcesContentForm get content => SystemQualityGoalsResourcesContentForm(doc, '$path/content');
 }
 
 /// Replacement strategy details.
@@ -31328,37 +31514,6 @@ class TechnicalPainPointsSummary extends SomNode {
   TechnicalPainPointsSummary(super.doc, super.path);
 
   TechnicalPainPointsSummaryContentForm get content => TechnicalPainPointsSummaryContentForm(doc, '$path/content');
-}
-
-/// 11.3. Technical Quality Criteria.
-/// 
-/// Quality criteria for the technical implementation including efficiency,
-/// portability, flexibility, security, maintainability, and reliability.
-class TechnicalQualityCriteria extends SomNode {
-  TechnicalQualityCriteria(super.doc, super.path);
-
-  TechnicalQualityCriteriaTechnicalQualityContentForm get technicalQualityContent => TechnicalQualityCriteriaTechnicalQualityContentForm(doc, '$path/technicalQualityContent');
-
-  /// Technical quality overview.
-  // (skipped: overview has no target type)
-
-  /// 11.3.1. Efficiency.
-  EfficiencyQuality get efficiency => EfficiencyQuality(doc, '$path/efficiency');
-
-  /// 11.3.2. Portability.
-  PortabilityQuality get portability => PortabilityQuality(doc, '$path/portability');
-
-  /// 11.3.3. Flexibility.
-  FlexibilityQuality get flexibility => FlexibilityQuality(doc, '$path/flexibility');
-
-  /// 11.3.4. Security.
-  SecurityQuality get security => SecurityQuality(doc, '$path/security');
-
-  /// 11.3.5. Maintainability.
-  MaintainabilityQuality get maintainability => MaintainabilityQuality(doc, '$path/maintainability');
-
-  /// 11.3.6. Reliability.
-  ReliabilityQuality get reliability => ReliabilityQuality(doc, '$path/reliability');
 }
 
 /// A technical requirement entry.
@@ -33360,63 +33515,63 @@ class UpgradeCycleFramework extends SomNode {
 }
 
 /// 11.2.1. Usability quality.
-class UsabilityQuality extends SomNode {
-  UsabilityQuality(super.doc, super.path);
+class Usability extends SomNode {
+  Usability(super.doc, super.path);
 
-  UsabilityQualityContentForm get content => UsabilityQualityContentForm(doc, '$path/content');
+  UsabilityContentForm get content => UsabilityContentForm(doc, '$path/content');
 
   /// Operability verification and ergonomics goals.
-  UsabilityQualityOperability get operability => UsabilityQualityOperability(doc, '$path/operability');
+  UsabilityOperability get operability => UsabilityOperability(doc, '$path/operability');
 
   /// Learnability and onboarding expectations.
-  UsabilityQualityLearnability get learnability => UsabilityQualityLearnability(doc, '$path/learnability');
+  UsabilityLearnability get learnability => UsabilityLearnability(doc, '$path/learnability');
 
   /// Clarity and complexity constraints.
-  UsabilityQualityClarity get clarity => UsabilityQualityClarity(doc, '$path/clarity');
+  UsabilityClarity get clarity => UsabilityClarity(doc, '$path/clarity');
 
   /// Interaction control settings.
-  UsabilityQualityInteraction get interaction => UsabilityQualityInteraction(doc, '$path/interaction');
+  UsabilityInteraction get interaction => UsabilityInteraction(doc, '$path/interaction');
 
   /// Perceived and measured responsiveness targets.
-  UsabilityQualityPerformance get performance => UsabilityQualityPerformance(doc, '$path/performance');
+  UsabilityPerformance get performance => UsabilityPerformance(doc, '$path/performance');
 
   /// Detailed usability requirements narrative.
   // (skipped: narrative has no target type)
 }
 
 /// Clarity and complexity constraints.
-class UsabilityQualityClarity extends SomNode {
-  UsabilityQualityClarity(super.doc, super.path);
+class UsabilityClarity extends SomNode {
+  UsabilityClarity(super.doc, super.path);
 
-  UsabilityQualityClarityContentForm get content => UsabilityQualityClarityContentForm(doc, '$path/content');
+  UsabilityClarityContentForm get content => UsabilityClarityContentForm(doc, '$path/content');
 }
 
 /// Interaction control settings.
-class UsabilityQualityInteraction extends SomNode {
-  UsabilityQualityInteraction(super.doc, super.path);
+class UsabilityInteraction extends SomNode {
+  UsabilityInteraction(super.doc, super.path);
 
-  UsabilityQualityInteractionContentForm get content => UsabilityQualityInteractionContentForm(doc, '$path/content');
+  UsabilityInteractionContentForm get content => UsabilityInteractionContentForm(doc, '$path/content');
 }
 
 /// Learnability and onboarding expectations.
-class UsabilityQualityLearnability extends SomNode {
-  UsabilityQualityLearnability(super.doc, super.path);
+class UsabilityLearnability extends SomNode {
+  UsabilityLearnability(super.doc, super.path);
 
-  UsabilityQualityLearnabilityContentForm get content => UsabilityQualityLearnabilityContentForm(doc, '$path/content');
+  UsabilityLearnabilityContentForm get content => UsabilityLearnabilityContentForm(doc, '$path/content');
 }
 
 /// Operability verification and ergonomics goals.
-class UsabilityQualityOperability extends SomNode {
-  UsabilityQualityOperability(super.doc, super.path);
+class UsabilityOperability extends SomNode {
+  UsabilityOperability(super.doc, super.path);
 
-  UsabilityQualityOperabilityContentForm get content => UsabilityQualityOperabilityContentForm(doc, '$path/content');
+  UsabilityOperabilityContentForm get content => UsabilityOperabilityContentForm(doc, '$path/content');
 }
 
 /// Perceived and measured responsiveness targets.
-class UsabilityQualityPerformance extends SomNode {
-  UsabilityQualityPerformance(super.doc, super.path);
+class UsabilityPerformance extends SomNode {
+  UsabilityPerformance(super.doc, super.path);
 
-  UsabilityQualityPerformanceContentForm get content => UsabilityQualityPerformanceContentForm(doc, '$path/content');
+  UsabilityPerformanceContentForm get content => UsabilityPerformanceContentForm(doc, '$path/content');
 }
 
 /// Use case extensions (alternative and exception flows).
@@ -34064,28 +34219,6 @@ class UserProvisioningToolsRoleManagement extends SomNode {
   UserProvisioningToolsRoleManagement(super.doc, super.path);
 
   UserProvisioningToolsRoleManagementContentForm get content => UserProvisioningToolsRoleManagementContentForm(doc, '$path/content');
-}
-
-/// 11.2. User-Related Quality Criteria.
-/// 
-/// Quality criteria that directly affect user experience, including usability,
-/// functional completeness, and correctness from the end-user perspective.
-class UserQualityCriteria extends SomNode {
-  UserQualityCriteria(super.doc, super.path);
-
-  UserQualityCriteriaUserQualityContentForm get userQualityContent => UserQualityCriteriaUserQualityContentForm(doc, '$path/userQualityContent');
-
-  /// User quality criteria overview.
-  // (skipped: overview has no target type)
-
-  /// 11.2.1. Usability.
-  UsabilityQuality get usability => UsabilityQuality(doc, '$path/usability');
-
-  /// 11.2.2. Functional Completeness.
-  FunctionalCompletenessQuality get functionalCompleteness => FunctionalCompletenessQuality(doc, '$path/functionalCompleteness');
-
-  /// 11.2.3. Correctness.
-  CorrectnessQuality get correctness => CorrectnessQuality(doc, '$path/correctness');
 }
 
 /// 9.1.2.2. Registration Process (form).
@@ -37500,8 +37633,8 @@ class AuthorizationRoleEntryStructureContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AvailabilityQualityContentForm extends SomNode {
-  AvailabilityQualityContentForm(super.doc, super.path);
+class AvailabilityContentForm extends SomNode {
+  AvailabilityContentForm(super.doc, super.path);
 
   String get uptimeTargetPercentage => doc.formField(path, 'uptimeTargetPercentage') ?? '';
   set uptimeTargetPercentage(String value) => doc.setFormField(path, 'uptimeTargetPercentage', value);
@@ -37514,8 +37647,8 @@ class AvailabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AvailabilityQualityDegradedModeContentForm extends SomNode {
-  AvailabilityQualityDegradedModeContentForm(super.doc, super.path);
+class AvailabilityDegradedModeContentForm extends SomNode {
+  AvailabilityDegradedModeContentForm(super.doc, super.path);
 
   String get degradedModeDefinition => doc.formField(path, 'degradedModeDefinition') ?? '';
   set degradedModeDefinition(String value) => doc.setFormField(path, 'degradedModeDefinition', value);
@@ -37528,8 +37661,8 @@ class AvailabilityQualityDegradedModeContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AvailabilityQualityMaintenanceContentForm extends SomNode {
-  AvailabilityQualityMaintenanceContentForm(super.doc, super.path);
+class AvailabilityMaintenanceContentForm extends SomNode {
+  AvailabilityMaintenanceContentForm(super.doc, super.path);
 
   String get scheduledMaintenanceWindow => doc.formField(path, 'scheduledMaintenanceWindow') ?? '';
   set scheduledMaintenanceWindow(String value) => doc.setFormField(path, 'scheduledMaintenanceWindow', value);
@@ -37545,8 +37678,8 @@ class AvailabilityQualityMaintenanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AvailabilityQualityOperatingHoursContentForm extends SomNode {
-  AvailabilityQualityOperatingHoursContentForm(super.doc, super.path);
+class AvailabilityOperatingHoursContentForm extends SomNode {
+  AvailabilityOperatingHoursContentForm(super.doc, super.path);
 
   String get operatingHours => doc.formField(path, 'operatingHours') ?? '';
   set operatingHours(String value) => doc.setFormField(path, 'operatingHours', value);
@@ -37559,8 +37692,8 @@ class AvailabilityQualityOperatingHoursContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AvailabilityQualityVerificationContentForm extends SomNode {
-  AvailabilityQualityVerificationContentForm(super.doc, super.path);
+class AvailabilityVerificationContentForm extends SomNode {
+  AvailabilityVerificationContentForm(super.doc, super.path);
 
   String get availabilityMonitoring => doc.formField(path, 'availabilityMonitoring') ?? '';
   set availabilityMonitoring(String value) => doc.setFormField(path, 'availabilityMonitoring', value);
@@ -41433,6 +41566,17 @@ class CommunicationTypeEntryContentForm extends SomNode {
   set confidentialityLevel(String value) => doc.setFormField(path, 'confidentialityLevel', value);
 }
 
+/// Generated form facade for the `compatibilityContent` `@Form` section.
+class CompatibilityCharacteristicCompatibilityContentForm extends SomNode {
+  CompatibilityCharacteristicCompatibilityContentForm(super.doc, super.path);
+
+  String get coExistenceRequirements => doc.formField(path, 'coExistenceRequirements') ?? '';
+  set coExistenceRequirements(String value) => doc.setFormField(path, 'coExistenceRequirements', value);
+
+  String get interoperabilityStandards => doc.formField(path, 'interoperabilityStandards') ?? '';
+  set interoperabilityStandards(String value) => doc.setFormField(path, 'interoperabilityStandards', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
 class CompetencyEntryContentForm extends SomNode {
   CompetencyEntryContentForm(super.doc, super.path);
@@ -43415,8 +43559,8 @@ class ContingencyPlanEntryTestingContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class CorrectnessQualityAccuracyContentForm extends SomNode {
-  CorrectnessQualityAccuracyContentForm(super.doc, super.path);
+class CorrectnessAccuracyContentForm extends SomNode {
+  CorrectnessAccuracyContentForm(super.doc, super.path);
 
   String get calculationAccuracyTarget => doc.formField(path, 'calculationAccuracyTarget') ?? '';
   set calculationAccuracyTarget(String value) => doc.setFormField(path, 'calculationAccuracyTarget', value);
@@ -43429,8 +43573,8 @@ class CorrectnessQualityAccuracyContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class CorrectnessQualityContentForm extends SomNode {
-  CorrectnessQualityContentForm(super.doc, super.path);
+class CorrectnessContentForm extends SomNode {
+  CorrectnessContentForm(super.doc, super.path);
 
   String get defectDensityTarget => doc.formField(path, 'defectDensityTarget') ?? '';
   set defectDensityTarget(String value) => doc.setFormField(path, 'defectDensityTarget', value);
@@ -43443,8 +43587,8 @@ class CorrectnessQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class CorrectnessQualityIntegrityContentForm extends SomNode {
-  CorrectnessQualityIntegrityContentForm(super.doc, super.path);
+class CorrectnessIntegrityContentForm extends SomNode {
+  CorrectnessIntegrityContentForm(super.doc, super.path);
 
   String get dataIntegrityRequirement => doc.formField(path, 'dataIntegrityRequirement') ?? '';
   set dataIntegrityRequirement(String value) => doc.setFormField(path, 'dataIntegrityRequirement', value);
@@ -43457,8 +43601,8 @@ class CorrectnessQualityIntegrityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class CorrectnessQualityVerificationContentForm extends SomNode {
-  CorrectnessQualityVerificationContentForm(super.doc, super.path);
+class CorrectnessVerificationContentForm extends SomNode {
+  CorrectnessVerificationContentForm(super.doc, super.path);
 
   String get correctnessVerification => doc.formField(path, 'correctnessVerification') ?? '';
   set correctnessVerification(String value) => doc.setFormField(path, 'correctnessVerification', value);
@@ -48139,8 +48283,8 @@ class DnsRequirementsZonesContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocChangeabilityQualityContentForm extends SomNode {
-  DocChangeabilityQualityContentForm(super.doc, super.path);
+class DocChangeabilityContentForm extends SomNode {
+  DocChangeabilityContentForm(super.doc, super.path);
 
   String get versioningStrategy => doc.formField(path, 'versioningStrategy') ?? '';
   set versioningStrategy(String value) => doc.setFormField(path, 'versioningStrategy', value);
@@ -48153,8 +48297,8 @@ class DocChangeabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocChangeabilityQualityExtensibilityContentForm extends SomNode {
-  DocChangeabilityQualityExtensibilityContentForm(super.doc, super.path);
+class DocChangeabilityExtensibilityContentForm extends SomNode {
+  DocChangeabilityExtensibilityContentForm(super.doc, super.path);
 
   String get extensibilityApproach => doc.formField(path, 'extensibilityApproach') ?? '';
   set extensibilityApproach(String value) => doc.setFormField(path, 'extensibilityApproach', value);
@@ -48167,8 +48311,8 @@ class DocChangeabilityQualityExtensibilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocChangeabilityQualityMaintenanceContentForm extends SomNode {
-  DocChangeabilityQualityMaintenanceContentForm(super.doc, super.path);
+class DocChangeabilityMaintenanceContentForm extends SomNode {
+  DocChangeabilityMaintenanceContentForm(super.doc, super.path);
 
   String get reviewCycle => doc.formField(path, 'reviewCycle') ?? '';
   set reviewCycle(String value) => doc.setFormField(path, 'reviewCycle', value);
@@ -48178,8 +48322,8 @@ class DocChangeabilityQualityMaintenanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocChangeabilityQualityStructureContentForm extends SomNode {
-  DocChangeabilityQualityStructureContentForm(super.doc, super.path);
+class DocChangeabilityStructureContentForm extends SomNode {
+  DocChangeabilityStructureContentForm(super.doc, super.path);
 
   String get documentSizingGuideline => doc.formField(path, 'documentSizingGuideline') ?? '';
   set documentSizingGuideline(String value) => doc.setFormField(path, 'documentSizingGuideline', value);
@@ -48195,8 +48339,8 @@ class DocChangeabilityQualityStructureContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocCompletenessQualityContentForm extends SomNode {
-  DocCompletenessQualityContentForm(super.doc, super.path);
+class DocCompletenessContentForm extends SomNode {
+  DocCompletenessContentForm(super.doc, super.path);
 
   String get requiredTopics => doc.formField(path, 'requiredTopics') ?? '';
   set requiredTopics(String value) => doc.setFormField(path, 'requiredTopics', value);
@@ -48230,8 +48374,8 @@ class DocCompletenessQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocCorrectnessQualityAlignmentContentForm extends SomNode {
-  DocCorrectnessQualityAlignmentContentForm(super.doc, super.path);
+class DocCorrectnessAlignmentContentForm extends SomNode {
+  DocCorrectnessAlignmentContentForm(super.doc, super.path);
 
   String get formatConsistency => doc.formField(path, 'formatConsistency') ?? '';
   set formatConsistency(String value) => doc.setFormField(path, 'formatConsistency', value);
@@ -48250,8 +48394,8 @@ class DocCorrectnessQualityAlignmentContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocCorrectnessQualityContentForm extends SomNode {
-  DocCorrectnessQualityContentForm(super.doc, super.path);
+class DocCorrectnessContentForm extends SomNode {
+  DocCorrectnessContentForm(super.doc, super.path);
 
   String get spellingGrammarCheck => doc.formField(path, 'spellingGrammarCheck') ?? '';
   set spellingGrammarCheck(String value) => doc.setFormField(path, 'spellingGrammarCheck', value);
@@ -48267,8 +48411,8 @@ class DocCorrectnessQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DocCorrectnessQualityVerificationContentForm extends SomNode {
-  DocCorrectnessQualityVerificationContentForm(super.doc, super.path);
+class DocCorrectnessVerificationContentForm extends SomNode {
+  DocCorrectnessVerificationContentForm(super.doc, super.path);
 
   String get correctnessVerification => doc.formField(path, 'correctnessVerification') ?? '';
   set correctnessVerification(String value) => doc.setFormField(path, 'correctnessVerification', value);
@@ -48768,8 +48912,8 @@ class DomainTermEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class EfficiencyQualityContentForm extends SomNode {
-  EfficiencyQualityContentForm(super.doc, super.path);
+class EfficiencyContentForm extends SomNode {
+  EfficiencyContentForm(super.doc, super.path);
 
   String get responseTimeP50Target => doc.formField(path, 'responseTimeP50Target') ?? '';
   set responseTimeP50Target(String value) => doc.setFormField(path, 'responseTimeP50Target', value);
@@ -48782,8 +48926,8 @@ class EfficiencyQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class EfficiencyQualityResourcesContentForm extends SomNode {
-  EfficiencyQualityResourcesContentForm(super.doc, super.path);
+class EfficiencyResourcesContentForm extends SomNode {
+  EfficiencyResourcesContentForm(super.doc, super.path);
 
   String get cpuUtilizationLimit => doc.formField(path, 'cpuUtilizationLimit') ?? '';
   set cpuUtilizationLimit(String value) => doc.setFormField(path, 'cpuUtilizationLimit', value);
@@ -48799,8 +48943,8 @@ class EfficiencyQualityResourcesContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class EfficiencyQualityThroughputContentForm extends SomNode {
-  EfficiencyQualityThroughputContentForm(super.doc, super.path);
+class EfficiencyThroughputContentForm extends SomNode {
+  EfficiencyThroughputContentForm(super.doc, super.path);
 
   String get throughputTarget => doc.formField(path, 'throughputTarget') ?? '';
   set throughputTarget(String value) => doc.setFormField(path, 'throughputTarget', value);
@@ -48813,8 +48957,8 @@ class EfficiencyQualityThroughputContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class EfficiencyQualityVerificationContentForm extends SomNode {
-  EfficiencyQualityVerificationContentForm(super.doc, super.path);
+class EfficiencyVerificationContentForm extends SomNode {
+  EfficiencyVerificationContentForm(super.doc, super.path);
 
   String get loadTestingRequirement => doc.formField(path, 'loadTestingRequirement') ?? '';
   set loadTestingRequirement(String value) => doc.setFormField(path, 'loadTestingRequirement', value);
@@ -51838,9 +51982,20 @@ class FirewallRequirementsRulesContentForm extends SomNode {
   set internalRules(String value) => doc.setFormField(path, 'internalRules', value);
 }
 
+/// Generated form facade for the `flexibilityContent` `@Form` section.
+class FlexibilityCharacteristicFlexibilityContentForm extends SomNode {
+  FlexibilityCharacteristicFlexibilityContentForm(super.doc, super.path);
+
+  String get flexibilityApproach => doc.formField(path, 'flexibilityApproach') ?? '';
+  set flexibilityApproach(String value) => doc.setFormField(path, 'flexibilityApproach', value);
+
+  String get portabilityTarget => doc.formField(path, 'portabilityTarget') ?? '';
+  set portabilityTarget(String value) => doc.setFormField(path, 'portabilityTarget', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
-class FlexibilityQualityContentForm extends SomNode {
-  FlexibilityQualityContentForm(super.doc, super.path);
+class FlexibilityContentForm extends SomNode {
+  FlexibilityContentForm(super.doc, super.path);
 
   String get componentArchitecture => doc.formField(path, 'componentArchitecture') ?? '';
   set componentArchitecture(String value) => doc.setFormField(path, 'componentArchitecture', value);
@@ -51853,8 +52008,8 @@ class FlexibilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class FlexibilityQualityDeploymentContentForm extends SomNode {
-  FlexibilityQualityDeploymentContentForm(super.doc, super.path);
+class FlexibilityDeploymentContentForm extends SomNode {
+  FlexibilityDeploymentContentForm(super.doc, super.path);
 
   String get distributionCapability => doc.formField(path, 'distributionCapability') ?? '';
   set distributionCapability(String value) => doc.setFormField(path, 'distributionCapability', value);
@@ -51867,8 +52022,8 @@ class FlexibilityQualityDeploymentContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class FlexibilityQualityExtensibilityContentForm extends SomNode {
-  FlexibilityQualityExtensibilityContentForm(super.doc, super.path);
+class FlexibilityExtensibilityContentForm extends SomNode {
+  FlexibilityExtensibilityContentForm(super.doc, super.path);
 
   String get extensibilityModel => doc.formField(path, 'extensibilityModel') ?? '';
   set extensibilityModel(String value) => doc.setFormField(path, 'extensibilityModel', value);
@@ -51881,8 +52036,8 @@ class FlexibilityQualityExtensibilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class FlexibilityQualityModularityContentForm extends SomNode {
-  FlexibilityQualityModularityContentForm(super.doc, super.path);
+class FlexibilityModularityContentForm extends SomNode {
+  FlexibilityModularityContentForm(super.doc, super.path);
 
   String get modularityLevel => doc.formField(path, 'modularityLevel') ?? '';
   set modularityLevel(String value) => doc.setFormField(path, 'modularityLevel', value);
@@ -52115,8 +52270,8 @@ class FunctionModelMatrixOverviewForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class FunctionalCompletenessQualityContentForm extends SomNode {
-  FunctionalCompletenessQualityContentForm(super.doc, super.path);
+class FunctionalCompletenessContentForm extends SomNode {
+  FunctionalCompletenessContentForm(super.doc, super.path);
 
   String get featureCoverageTarget => doc.formField(path, 'featureCoverageTarget') ?? '';
   set featureCoverageTarget(String value) => doc.setFormField(path, 'featureCoverageTarget', value);
@@ -52291,6 +52446,20 @@ class FunctionalResponsibilitiesContentForm extends SomNode {
 
   String get unassignedAreas => doc.formField(path, 'unassignedAreas') ?? '';
   set unassignedAreas(String value) => doc.setFormField(path, 'unassignedAreas', value);
+}
+
+/// Generated form facade for the `functionalSuitabilityContent` `@Form` section.
+class FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm extends SomNode {
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(super.doc, super.path);
+
+  String get functionalSuitabilityApproach => doc.formField(path, 'functionalSuitabilityApproach') ?? '';
+  set functionalSuitabilityApproach(String value) => doc.setFormField(path, 'functionalSuitabilityApproach', value);
+
+  String get functionalCoverageTarget => doc.formField(path, 'functionalCoverageTarget') ?? '';
+  set functionalCoverageTarget(String value) => doc.setFormField(path, 'functionalCoverageTarget', value);
+
+  String get correctnessStandard => doc.formField(path, 'correctnessStandard') ?? '';
+  set correctnessStandard(String value) => doc.setFormField(path, 'correctnessStandard', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -54365,6 +54534,29 @@ class InteractionBusinessRulesContentForm extends SomNode {
   set integrationRules(String value) => doc.setFormField(path, 'integrationRules', value);
 }
 
+/// Generated form facade for the `interactionCapabilityContent` `@Form` section.
+class InteractionCapabilityCharacteristicInteractionCapabilityContentForm extends SomNode {
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm(super.doc, super.path);
+
+  String get userQualityPhilosophy => doc.formField(path, 'userQualityPhilosophy') ?? '';
+  set userQualityPhilosophy(String value) => doc.setFormField(path, 'userQualityPhilosophy', value);
+
+  String get targetUserExperience => doc.formField(path, 'targetUserExperience') ?? '';
+  set targetUserExperience(String value) => doc.setFormField(path, 'targetUserExperience', value);
+
+  String get userResearchBasis => doc.formField(path, 'userResearchBasis') ?? '';
+  set userResearchBasis(String value) => doc.setFormField(path, 'userResearchBasis', value);
+
+  String get userFeedbackChannel => doc.formField(path, 'userFeedbackChannel') ?? '';
+  set userFeedbackChannel(String value) => doc.setFormField(path, 'userFeedbackChannel', value);
+
+  String get userSatisfactionTarget => doc.formField(path, 'userSatisfactionTarget') ?? '';
+  set userSatisfactionTarget(String value) => doc.setFormField(path, 'userSatisfactionTarget', value);
+
+  String get accessibilityLevel => doc.formField(path, 'accessibilityLevel') ?? '';
+  set accessibilityLevel(String value) => doc.setFormField(path, 'accessibilityLevel', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
 class InteractionCatalogOverviewContentForm extends SomNode {
   InteractionCatalogOverviewContentForm(super.doc, super.path);
@@ -55507,8 +55699,8 @@ class ItLandscapePositionPositionDetailsForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ItSecurityOperationsQualityAccessContentForm extends SomNode {
-  ItSecurityOperationsQualityAccessContentForm(super.doc, super.path);
+class ItSecurityOperationsAccessContentForm extends SomNode {
+  ItSecurityOperationsAccessContentForm(super.doc, super.path);
 
   String get privilegedAccessManagement => doc.formField(path, 'privilegedAccessManagement') ?? '';
   set privilegedAccessManagement(String value) => doc.setFormField(path, 'privilegedAccessManagement', value);
@@ -55521,8 +55713,8 @@ class ItSecurityOperationsQualityAccessContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ItSecurityOperationsQualityContentForm extends SomNode {
-  ItSecurityOperationsQualityContentForm(super.doc, super.path);
+class ItSecurityOperationsContentForm extends SomNode {
+  ItSecurityOperationsContentForm(super.doc, super.path);
 
   String get accessControlModel => doc.formField(path, 'accessControlModel') ?? '';
   set accessControlModel(String value) => doc.setFormField(path, 'accessControlModel', value);
@@ -55535,8 +55727,8 @@ class ItSecurityOperationsQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ItSecurityOperationsQualityIncidentContentForm extends SomNode {
-  ItSecurityOperationsQualityIncidentContentForm(super.doc, super.path);
+class ItSecurityOperationsIncidentContentForm extends SomNode {
+  ItSecurityOperationsIncidentContentForm(super.doc, super.path);
 
   String get securityIncidentClassification => doc.formField(path, 'securityIncidentClassification') ?? '';
   set securityIncidentClassification(String value) => doc.setFormField(path, 'securityIncidentClassification', value);
@@ -55552,8 +55744,8 @@ class ItSecurityOperationsQualityIncidentContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ItSecurityOperationsQualityRecoveryContentForm extends SomNode {
-  ItSecurityOperationsQualityRecoveryContentForm(super.doc, super.path);
+class ItSecurityOperationsRecoveryContentForm extends SomNode {
+  ItSecurityOperationsRecoveryContentForm(super.doc, super.path);
 
   String get drTestingFrequency => doc.formField(path, 'drTestingFrequency') ?? '';
   set drTestingFrequency(String value) => doc.setFormField(path, 'drTestingFrequency', value);
@@ -55569,8 +55761,8 @@ class ItSecurityOperationsQualityRecoveryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ItSecurityOperationsQualityTestingContentForm extends SomNode {
-  ItSecurityOperationsQualityTestingContentForm(super.doc, super.path);
+class ItSecurityOperationsTestingContentForm extends SomNode {
+  ItSecurityOperationsTestingContentForm(super.doc, super.path);
 
   String get penetrationTestScope => doc.formField(path, 'penetrationTestScope') ?? '';
   set penetrationTestScope(String value) => doc.setFormField(path, 'penetrationTestScope', value);
@@ -56817,8 +57009,8 @@ class MainSuccessScenarioContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class MaintainabilityQualityAnalyzabilityContentForm extends SomNode {
-  MaintainabilityQualityAnalyzabilityContentForm(super.doc, super.path);
+class MaintainabilityAnalyzabilityContentForm extends SomNode {
+  MaintainabilityAnalyzabilityContentForm(super.doc, super.path);
 
   String get codeReadabilityStandard => doc.formField(path, 'codeReadabilityStandard') ?? '';
   set codeReadabilityStandard(String value) => doc.setFormField(path, 'codeReadabilityStandard', value);
@@ -56831,8 +57023,8 @@ class MaintainabilityQualityAnalyzabilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class MaintainabilityQualityChangeabilityContentForm extends SomNode {
-  MaintainabilityQualityChangeabilityContentForm(super.doc, super.path);
+class MaintainabilityChangeabilityContentForm extends SomNode {
+  MaintainabilityChangeabilityContentForm(super.doc, super.path);
 
   String get codeCoverageMinimum => doc.formField(path, 'codeCoverageMinimum') ?? '';
   set codeCoverageMinimum(String value) => doc.setFormField(path, 'codeCoverageMinimum', value);
@@ -56847,9 +57039,20 @@ class MaintainabilityQualityChangeabilityContentForm extends SomNode {
   set classLengthLimit(String value) => doc.setFormField(path, 'classLengthLimit', value);
 }
 
+/// Generated form facade for the `maintainabilityContent` `@Form` section.
+class MaintainabilityCharacteristicMaintainabilityContentForm extends SomNode {
+  MaintainabilityCharacteristicMaintainabilityContentForm(super.doc, super.path);
+
+  String get maintainabilityApproach => doc.formField(path, 'maintainabilityApproach') ?? '';
+  set maintainabilityApproach(String value) => doc.setFormField(path, 'maintainabilityApproach', value);
+
+  String get maintainabilityStandard => doc.formField(path, 'maintainabilityStandard') ?? '';
+  set maintainabilityStandard(String value) => doc.setFormField(path, 'maintainabilityStandard', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
-class MaintainabilityQualityContentForm extends SomNode {
-  MaintainabilityQualityContentForm(super.doc, super.path);
+class MaintainabilityContentForm extends SomNode {
+  MaintainabilityContentForm(super.doc, super.path);
 
   String get adaptabilityTarget => doc.formField(path, 'adaptabilityTarget') ?? '';
   set adaptabilityTarget(String value) => doc.setFormField(path, 'adaptabilityTarget', value);
@@ -56859,8 +57062,8 @@ class MaintainabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class MaintainabilityQualityGovernanceContentForm extends SomNode {
-  MaintainabilityQualityGovernanceContentForm(super.doc, super.path);
+class MaintainabilityGovernanceContentForm extends SomNode {
+  MaintainabilityGovernanceContentForm(super.doc, super.path);
 
   String get extensibilityPattern => doc.formField(path, 'extensibilityPattern') ?? '';
   set extensibilityPattern(String value) => doc.setFormField(path, 'extensibilityPattern', value);
@@ -56876,8 +57079,8 @@ class MaintainabilityQualityGovernanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class MaintainabilityQualityTestabilityContentForm extends SomNode {
-  MaintainabilityQualityTestabilityContentForm(super.doc, super.path);
+class MaintainabilityTestabilityContentForm extends SomNode {
+  MaintainabilityTestabilityContentForm(super.doc, super.path);
 
   String get testabilityDesign => doc.formField(path, 'testabilityDesign') ?? '';
   set testabilityDesign(String value) => doc.setFormField(path, 'testabilityDesign', value);
@@ -58951,6 +59154,54 @@ class ModuleVersioningStrategyReleaseManagementContentForm extends SomNode {
   set releaseNotes(String value) => doc.setFormField(path, 'releaseNotes', value);
 }
 
+/// Generated form facade for the `content` `@Form` section.
+class MonitoringAlertingContentForm extends SomNode {
+  MonitoringAlertingContentForm(super.doc, super.path);
+
+  String get alertingStrategy => doc.formField(path, 'alertingStrategy') ?? '';
+  set alertingStrategy(String value) => doc.setFormField(path, 'alertingStrategy', value);
+
+  String get alertPrioritization => doc.formField(path, 'alertPrioritization') ?? '';
+  set alertPrioritization(String value) => doc.setFormField(path, 'alertPrioritization', value);
+
+  String get alertNotificationChannels => doc.formField(path, 'alertNotificationChannels') ?? '';
+  set alertNotificationChannels(String value) => doc.setFormField(path, 'alertNotificationChannels', value);
+
+  String get alertFatiguePrevention => doc.formField(path, 'alertFatiguePrevention') ?? '';
+  set alertFatiguePrevention(String value) => doc.setFormField(path, 'alertFatiguePrevention', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class MonitoringAutomationContentForm extends SomNode {
+  MonitoringAutomationContentForm(super.doc, super.path);
+
+  String get alertAutomation => doc.formField(path, 'alertAutomation') ?? '';
+  set alertAutomation(String value) => doc.setFormField(path, 'alertAutomation', value);
+
+  String get selfHealingCapability => doc.formField(path, 'selfHealingCapability') ?? '';
+  set selfHealingCapability(String value) => doc.setFormField(path, 'selfHealingCapability', value);
+
+  String get runbookAutomation => doc.formField(path, 'runbookAutomation') ?? '';
+  set runbookAutomation(String value) => doc.setFormField(path, 'runbookAutomation', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class MonitoringCoverageContentForm extends SomNode {
+  MonitoringCoverageContentForm(super.doc, super.path);
+
+  String get infrastructureMonitoring => doc.formField(path, 'infrastructureMonitoring') ?? '';
+  set infrastructureMonitoring(String value) => doc.setFormField(path, 'infrastructureMonitoring', value);
+
+  String get applicationMonitoring => doc.formField(path, 'applicationMonitoring') ?? '';
+  set applicationMonitoring(String value) => doc.setFormField(path, 'applicationMonitoring', value);
+
+  String get databaseMonitoring => doc.formField(path, 'databaseMonitoring') ?? '';
+  set databaseMonitoring(String value) => doc.setFormField(path, 'databaseMonitoring', value);
+
+  String get thirdPartyMonitoring => doc.formField(path, 'thirdPartyMonitoring') ?? '';
+  set thirdPartyMonitoring(String value) => doc.setFormField(path, 'thirdPartyMonitoring', value);
+}
+
 /// Generated form facade for the `dashboardOverview` `@Form` section.
 class MonitoringDashboardsDashboardOverviewForm extends SomNode {
   MonitoringDashboardsDashboardOverviewForm(super.doc, super.path);
@@ -59087,70 +59338,8 @@ class MonitoringMonitoringOverviewForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class MonitoringQualityAlertingContentForm extends SomNode {
-  MonitoringQualityAlertingContentForm(super.doc, super.path);
-
-  String get alertingStrategy => doc.formField(path, 'alertingStrategy') ?? '';
-  set alertingStrategy(String value) => doc.setFormField(path, 'alertingStrategy', value);
-
-  String get alertPrioritization => doc.formField(path, 'alertPrioritization') ?? '';
-  set alertPrioritization(String value) => doc.setFormField(path, 'alertPrioritization', value);
-
-  String get alertNotificationChannels => doc.formField(path, 'alertNotificationChannels') ?? '';
-  set alertNotificationChannels(String value) => doc.setFormField(path, 'alertNotificationChannels', value);
-
-  String get alertFatiguePrevention => doc.formField(path, 'alertFatiguePrevention') ?? '';
-  set alertFatiguePrevention(String value) => doc.setFormField(path, 'alertFatiguePrevention', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class MonitoringQualityAutomationContentForm extends SomNode {
-  MonitoringQualityAutomationContentForm(super.doc, super.path);
-
-  String get alertAutomation => doc.formField(path, 'alertAutomation') ?? '';
-  set alertAutomation(String value) => doc.setFormField(path, 'alertAutomation', value);
-
-  String get selfHealingCapability => doc.formField(path, 'selfHealingCapability') ?? '';
-  set selfHealingCapability(String value) => doc.setFormField(path, 'selfHealingCapability', value);
-
-  String get runbookAutomation => doc.formField(path, 'runbookAutomation') ?? '';
-  set runbookAutomation(String value) => doc.setFormField(path, 'runbookAutomation', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class MonitoringQualityContentForm extends SomNode {
-  MonitoringQualityContentForm(super.doc, super.path);
-
-  String get scalabilityMonitoringApproach => doc.formField(path, 'scalabilityMonitoringApproach') ?? '';
-  set scalabilityMonitoringApproach(String value) => doc.setFormField(path, 'scalabilityMonitoringApproach', value);
-
-  String get capacityPlanningProcess => doc.formField(path, 'capacityPlanningProcess') ?? '';
-  set capacityPlanningProcess(String value) => doc.setFormField(path, 'capacityPlanningProcess', value);
-
-  String get growthProjections => doc.formField(path, 'growthProjections') ?? '';
-  set growthProjections(String value) => doc.setFormField(path, 'growthProjections', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class MonitoringQualityCoverageContentForm extends SomNode {
-  MonitoringQualityCoverageContentForm(super.doc, super.path);
-
-  String get infrastructureMonitoring => doc.formField(path, 'infrastructureMonitoring') ?? '';
-  set infrastructureMonitoring(String value) => doc.setFormField(path, 'infrastructureMonitoring', value);
-
-  String get applicationMonitoring => doc.formField(path, 'applicationMonitoring') ?? '';
-  set applicationMonitoring(String value) => doc.setFormField(path, 'applicationMonitoring', value);
-
-  String get databaseMonitoring => doc.formField(path, 'databaseMonitoring') ?? '';
-  set databaseMonitoring(String value) => doc.setFormField(path, 'databaseMonitoring', value);
-
-  String get thirdPartyMonitoring => doc.formField(path, 'thirdPartyMonitoring') ?? '';
-  set thirdPartyMonitoring(String value) => doc.setFormField(path, 'thirdPartyMonitoring', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class MonitoringQualityOperationsContentForm extends SomNode {
-  MonitoringQualityOperationsContentForm(super.doc, super.path);
+class MonitoringOperationsContentForm extends SomNode {
+  MonitoringOperationsContentForm(super.doc, super.path);
 
   String get resourcePlanningFrequency => doc.formField(path, 'resourcePlanningFrequency') ?? '';
   set resourcePlanningFrequency(String value) => doc.setFormField(path, 'resourcePlanningFrequency', value);
@@ -60864,6 +61053,20 @@ class OngoingTrainingEntryScheduleContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class OperationalMonitoringContentForm extends SomNode {
+  OperationalMonitoringContentForm(super.doc, super.path);
+
+  String get scalabilityMonitoringApproach => doc.formField(path, 'scalabilityMonitoringApproach') ?? '';
+  set scalabilityMonitoringApproach(String value) => doc.setFormField(path, 'scalabilityMonitoringApproach', value);
+
+  String get capacityPlanningProcess => doc.formField(path, 'capacityPlanningProcess') ?? '';
+  set capacityPlanningProcess(String value) => doc.setFormField(path, 'capacityPlanningProcess', value);
+
+  String get growthProjections => doc.formField(path, 'growthProjections') ?? '';
+  set growthProjections(String value) => doc.setFormField(path, 'growthProjections', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class OperationalPainPointsSummaryContentForm extends SomNode {
   OperationalPainPointsSummaryContentForm(super.doc, super.path);
 
@@ -60881,29 +61084,6 @@ class OperationalPainPointsSummaryContentForm extends SomNode {
 
   String get staffOverhead => doc.formField(path, 'staffOverhead') ?? '';
   set staffOverhead(String value) => doc.setFormField(path, 'staffOverhead', value);
-}
-
-/// Generated form facade for the `operationsOverviewContent` `@Form` section.
-class OperationsQualityCriteriaOperationsOverviewContentForm extends SomNode {
-  OperationsQualityCriteriaOperationsOverviewContentForm(super.doc, super.path);
-
-  String get operationsMaturityModel => doc.formField(path, 'operationsMaturityModel') ?? '';
-  set operationsMaturityModel(String value) => doc.setFormField(path, 'operationsMaturityModel', value);
-
-  String get operationsPhilosophy => doc.formField(path, 'operationsPhilosophy') ?? '';
-  set operationsPhilosophy(String value) => doc.setFormField(path, 'operationsPhilosophy', value);
-
-  String get operationsResponsibility => doc.formField(path, 'operationsResponsibility') ?? '';
-  set operationsResponsibility(String value) => doc.setFormField(path, 'operationsResponsibility', value);
-
-  String get incidentManagementProcess => doc.formField(path, 'incidentManagementProcess') ?? '';
-  set incidentManagementProcess(String value) => doc.setFormField(path, 'incidentManagementProcess', value);
-
-  String get changeManagementProcess => doc.formField(path, 'changeManagementProcess') ?? '';
-  set changeManagementProcess(String value) => doc.setFormField(path, 'changeManagementProcess', value);
-
-  String get operationsToolchain => doc.formField(path, 'operationsToolchain') ?? '';
-  set operationsToolchain(String value) => doc.setFormField(path, 'operationsToolchain', value);
 }
 
 /// Generated form facade for the `opportunityDetails` `@Form` section.
@@ -61927,6 +62107,26 @@ class PenetrationTestingRequirementsSchedulingContentForm extends SomNode {
   set triggerBasedTesting(String value) => doc.setFormField(path, 'triggerBasedTesting', value);
 }
 
+/// Generated form facade for the `performanceEfficiencyContent` `@Form` section.
+class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm extends SomNode {
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(super.doc, super.path);
+
+  String get technicalQualityPhilosophy => doc.formField(path, 'technicalQualityPhilosophy') ?? '';
+  set technicalQualityPhilosophy(String value) => doc.setFormField(path, 'technicalQualityPhilosophy', value);
+
+  String get architecturalQualityGoals => doc.formField(path, 'architecturalQualityGoals') ?? '';
+  set architecturalQualityGoals(String value) => doc.setFormField(path, 'architecturalQualityGoals', value);
+
+  String get technicalDebtTolerance => doc.formField(path, 'technicalDebtTolerance') ?? '';
+  set technicalDebtTolerance(String value) => doc.setFormField(path, 'technicalDebtTolerance', value);
+
+  String get codeQualityStandard => doc.formField(path, 'codeQualityStandard') ?? '';
+  set codeQualityStandard(String value) => doc.setFormField(path, 'codeQualityStandard', value);
+
+  String get designPrinciplesAdherence => doc.formField(path, 'designPrinciplesAdherence') ?? '';
+  set designPrinciplesAdherence(String value) => doc.setFormField(path, 'designPrinciplesAdherence', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
 class PeriodicReviewPolicyContentForm extends SomNode {
   PeriodicReviewPolicyContentForm(super.doc, super.path);
@@ -62486,8 +62686,8 @@ class PipelineStageEntryTriggerContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class PortabilityQualityContentForm extends SomNode {
-  PortabilityQualityContentForm(super.doc, super.path);
+class PortabilityContentForm extends SomNode {
+  PortabilityContentForm(super.doc, super.path);
 
   String get targetPlatforms => doc.formField(path, 'targetPlatforms') ?? '';
   set targetPlatforms(String value) => doc.setFormField(path, 'targetPlatforms', value);
@@ -65100,6 +65300,74 @@ class QualityGateChecklistChecklistOverviewContentForm extends SomNode {
   set checklistFrequency(String value) => doc.setFormField(path, 'checklistFrequency', value);
 }
 
+/// Generated form facade for the `content` `@Form` section.
+class QualityGoalsBaselineContentForm extends SomNode {
+  QualityGoalsBaselineContentForm(super.doc, super.path);
+
+  String get qualityBaselineDate => doc.formField(path, 'qualityBaselineDate') ?? '';
+  set qualityBaselineDate(String value) => doc.setFormField(path, 'qualityBaselineDate', value);
+
+  String get qualityBaselineVersion => doc.formField(path, 'qualityBaselineVersion') ?? '';
+  set qualityBaselineVersion(String value) => doc.setFormField(path, 'qualityBaselineVersion', value);
+
+  String get overallQualityTargetLevel => doc.formField(path, 'overallQualityTargetLevel') ?? '';
+  set overallQualityTargetLevel(String value) => doc.setFormField(path, 'overallQualityTargetLevel', value);
+
+  String get qualityRiskTolerance => doc.formField(path, 'qualityRiskTolerance') ?? '';
+  set qualityRiskTolerance(String value) => doc.setFormField(path, 'qualityRiskTolerance', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class QualityGoalsGovernanceContentForm extends SomNode {
+  QualityGoalsGovernanceContentForm(super.doc, super.path);
+
+  String get qualityReviewBoard => doc.formField(path, 'qualityReviewBoard') ?? '';
+  set qualityReviewBoard(String value) => doc.setFormField(path, 'qualityReviewBoard', value);
+
+  String get qualityMeetingCadence => doc.formField(path, 'qualityMeetingCadence') ?? '';
+  set qualityMeetingCadence(String value) => doc.setFormField(path, 'qualityMeetingCadence', value);
+
+  String get qualityEscalationPath => doc.formField(path, 'qualityEscalationPath') ?? '';
+  set qualityEscalationPath(String value) => doc.setFormField(path, 'qualityEscalationPath', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class QualityGoalsMeasurementContentForm extends SomNode {
+  QualityGoalsMeasurementContentForm(super.doc, super.path);
+
+  String get qualityMetricsFramework => doc.formField(path, 'qualityMetricsFramework') ?? '';
+  set qualityMetricsFramework(String value) => doc.setFormField(path, 'qualityMetricsFramework', value);
+
+  String get qualityReportingFrequency => doc.formField(path, 'qualityReportingFrequency') ?? '';
+  set qualityReportingFrequency(String value) => doc.setFormField(path, 'qualityReportingFrequency', value);
+
+  String get qualityDashboardTool => doc.formField(path, 'qualityDashboardTool') ?? '';
+  set qualityDashboardTool(String value) => doc.setFormField(path, 'qualityDashboardTool', value);
+
+  String get defectTrackingSystem => doc.formField(path, 'defectTrackingSystem') ?? '';
+  set defectTrackingSystem(String value) => doc.setFormField(path, 'defectTrackingSystem', value);
+
+  String get qualityTrendAnalysis => doc.formField(path, 'qualityTrendAnalysis') ?? '';
+  set qualityTrendAnalysis(String value) => doc.setFormField(path, 'qualityTrendAnalysis', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class QualityGoalsResourcesContentForm extends SomNode {
+  QualityGoalsResourcesContentForm(super.doc, super.path);
+
+  String get qualityBudget => doc.formField(path, 'qualityBudget') ?? '';
+  set qualityBudget(String value) => doc.setFormField(path, 'qualityBudget', value);
+
+  String get qaTeamSize => doc.formField(path, 'qaTeamSize') ?? '';
+  set qaTeamSize(String value) => doc.setFormField(path, 'qaTeamSize', value);
+
+  String get testAutomationTarget => doc.formField(path, 'testAutomationTarget') ?? '';
+  set testAutomationTarget(String value) => doc.setFormField(path, 'testAutomationTarget', value);
+
+  String get qualityTrainingPlan => doc.formField(path, 'qualityTrainingPlan') ?? '';
+  set qualityTrainingPlan(String value) => doc.setFormField(path, 'qualityTrainingPlan', value);
+}
+
 /// Generated form facade for the `prioritizationFrameworkContent` `@Form` section.
 class QualityPrioritizationPrioritizationFrameworkContentForm extends SomNode {
   QualityPrioritizationPrioritizationFrameworkContentForm(super.doc, super.path);
@@ -65320,8 +65588,8 @@ class RateLimitingPolicyQuotasContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReadabilityQualityComprehensibilityContentForm extends SomNode {
-  ReadabilityQualityComprehensibilityContentForm(super.doc, super.path);
+class ReadabilityComprehensibilityContentForm extends SomNode {
+  ReadabilityComprehensibilityContentForm(super.doc, super.path);
 
   String get readingLevelTarget => doc.formField(path, 'readingLevelTarget') ?? '';
   set readingLevelTarget(String value) => doc.setFormField(path, 'readingLevelTarget', value);
@@ -65334,8 +65602,8 @@ class ReadabilityQualityComprehensibilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReadabilityQualityContentForm extends SomNode {
-  ReadabilityQualityContentForm(super.doc, super.path);
+class ReadabilityContentForm extends SomNode {
+  ReadabilityContentForm(super.doc, super.path);
 
   String get terminologyStandard => doc.formField(path, 'terminologyStandard') ?? '';
   set terminologyStandard(String value) => doc.setFormField(path, 'terminologyStandard', value);
@@ -65348,8 +65616,8 @@ class ReadabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReadabilityQualityNavigationContentForm extends SomNode {
-  ReadabilityQualityNavigationContentForm(super.doc, super.path);
+class ReadabilityNavigationContentForm extends SomNode {
+  ReadabilityNavigationContentForm(super.doc, super.path);
 
   String get sectionNumbering => doc.formField(path, 'sectionNumbering') ?? '';
   set sectionNumbering(String value) => doc.setFormField(path, 'sectionNumbering', value);
@@ -65362,8 +65630,8 @@ class ReadabilityQualityNavigationContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReadabilityQualityStructureContentForm extends SomNode {
-  ReadabilityQualityStructureContentForm(super.doc, super.path);
+class ReadabilityStructureContentForm extends SomNode {
+  ReadabilityStructureContentForm(super.doc, super.path);
 
   String get documentStructureTemplate => doc.formField(path, 'documentStructureTemplate') ?? '';
   set documentStructureTemplate(String value) => doc.setFormField(path, 'documentStructureTemplate', value);
@@ -65376,8 +65644,8 @@ class ReadabilityQualityStructureContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReadabilityQualityStyleContentForm extends SomNode {
-  ReadabilityQualityStyleContentForm(super.doc, super.path);
+class ReadabilityStyleContentForm extends SomNode {
+  ReadabilityStyleContentForm(super.doc, super.path);
 
   String get styleGuideReference => doc.formField(path, 'styleGuideReference') ?? '';
   set styleGuideReference(String value) => doc.setFormField(path, 'styleGuideReference', value);
@@ -65902,9 +66170,32 @@ class RelevantSectionEntryContentForm extends SomNode {
   set complianceRequired(String value) => doc.setFormField(path, 'complianceRequired', value);
 }
 
+/// Generated form facade for the `reliabilityContent` `@Form` section.
+class ReliabilityCharacteristicReliabilityContentForm extends SomNode {
+  ReliabilityCharacteristicReliabilityContentForm(super.doc, super.path);
+
+  String get operationsMaturityModel => doc.formField(path, 'operationsMaturityModel') ?? '';
+  set operationsMaturityModel(String value) => doc.setFormField(path, 'operationsMaturityModel', value);
+
+  String get operationsPhilosophy => doc.formField(path, 'operationsPhilosophy') ?? '';
+  set operationsPhilosophy(String value) => doc.setFormField(path, 'operationsPhilosophy', value);
+
+  String get operationsResponsibility => doc.formField(path, 'operationsResponsibility') ?? '';
+  set operationsResponsibility(String value) => doc.setFormField(path, 'operationsResponsibility', value);
+
+  String get incidentManagementProcess => doc.formField(path, 'incidentManagementProcess') ?? '';
+  set incidentManagementProcess(String value) => doc.setFormField(path, 'incidentManagementProcess', value);
+
+  String get changeManagementProcess => doc.formField(path, 'changeManagementProcess') ?? '';
+  set changeManagementProcess(String value) => doc.setFormField(path, 'changeManagementProcess', value);
+
+  String get operationsToolchain => doc.formField(path, 'operationsToolchain') ?? '';
+  set operationsToolchain(String value) => doc.setFormField(path, 'operationsToolchain', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
-class ReliabilityQualityContentForm extends SomNode {
-  ReliabilityQualityContentForm(super.doc, super.path);
+class ReliabilityContentForm extends SomNode {
+  ReliabilityContentForm(super.doc, super.path);
 
   String get uptimeTarget => doc.formField(path, 'uptimeTarget') ?? '';
   set uptimeTarget(String value) => doc.setFormField(path, 'uptimeTarget', value);
@@ -65917,8 +66208,8 @@ class ReliabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReliabilityQualityDurabilityContentForm extends SomNode {
-  ReliabilityQualityDurabilityContentForm(super.doc, super.path);
+class ReliabilityDurabilityContentForm extends SomNode {
+  ReliabilityDurabilityContentForm(super.doc, super.path);
 
   String get dataDurability => doc.formField(path, 'dataDurability') ?? '';
   set dataDurability(String value) => doc.setFormField(path, 'dataDurability', value);
@@ -65934,8 +66225,8 @@ class ReliabilityQualityDurabilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReliabilityQualityFailoverContentForm extends SomNode {
-  ReliabilityQualityFailoverContentForm(super.doc, super.path);
+class ReliabilityFailoverContentForm extends SomNode {
+  ReliabilityFailoverContentForm(super.doc, super.path);
 
   String get failoverStrategy => doc.formField(path, 'failoverStrategy') ?? '';
   set failoverStrategy(String value) => doc.setFormField(path, 'failoverStrategy', value);
@@ -65948,8 +66239,8 @@ class ReliabilityQualityFailoverContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReliabilityQualityRecoveryContentForm extends SomNode {
-  ReliabilityQualityRecoveryContentForm(super.doc, super.path);
+class ReliabilityRecoveryContentForm extends SomNode {
+  ReliabilityRecoveryContentForm(super.doc, super.path);
 
   String get mtbfTarget => doc.formField(path, 'mtbfTarget') ?? '';
   set mtbfTarget(String value) => doc.setFormField(path, 'mtbfTarget', value);
@@ -65965,8 +66256,8 @@ class ReliabilityQualityRecoveryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ReliabilityQualityVerificationContentForm extends SomNode {
-  ReliabilityQualityVerificationContentForm(super.doc, super.path);
+class ReliabilityVerificationContentForm extends SomNode {
+  ReliabilityVerificationContentForm(super.doc, super.path);
 
   String get reliabilityVerification => doc.formField(path, 'reliabilityVerification') ?? '';
   set reliabilityVerification(String value) => doc.setFormField(path, 'reliabilityVerification', value);
@@ -70420,6 +70711,37 @@ class SecurityAuditEntrySchedulingContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class SecurityAuthenticationContentForm extends SomNode {
+  SecurityAuthenticationContentForm(super.doc, super.path);
+
+  String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
+  set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
+
+  String get mfaRequirement => doc.formField(path, 'mfaRequirement') ?? '';
+  set mfaRequirement(String value) => doc.setFormField(path, 'mfaRequirement', value);
+
+  String get passwordPolicy => doc.formField(path, 'passwordPolicy') ?? '';
+  set passwordPolicy(String value) => doc.setFormField(path, 'passwordPolicy', value);
+
+  String get sessionManagement => doc.formField(path, 'sessionManagement') ?? '';
+  set sessionManagement(String value) => doc.setFormField(path, 'sessionManagement', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class SecurityAuthorizationContentForm extends SomNode {
+  SecurityAuthorizationContentForm(super.doc, super.path);
+
+  String get authorizationModel => doc.formField(path, 'authorizationModel') ?? '';
+  set authorizationModel(String value) => doc.setFormField(path, 'authorizationModel', value);
+
+  String get authorizationCoverage => doc.formField(path, 'authorizationCoverage') ?? '';
+  set authorizationCoverage(String value) => doc.setFormField(path, 'authorizationCoverage', value);
+
+  String get privilegeEscalationPrevention => doc.formField(path, 'privilegeEscalationPrevention') ?? '';
+  set privilegeEscalationPrevention(String value) => doc.setFormField(path, 'privilegeEscalationPrevention', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class SecurityCertificationRequirementsContentForm extends SomNode {
   SecurityCertificationRequirementsContentForm(super.doc, super.path);
 
@@ -70492,6 +70814,17 @@ class SecurityCertificationRequirementsSoc2ContentForm extends SomNode {
   set soc2AuditPeriod(String value) => doc.setFormField(path, 'soc2AuditPeriod', value);
 }
 
+/// Generated form facade for the `securityContent` `@Form` section.
+class SecurityCharacteristicSecurityContentForm extends SomNode {
+  SecurityCharacteristicSecurityContentForm(super.doc, super.path);
+
+  String get securityApproach => doc.formField(path, 'securityApproach') ?? '';
+  set securityApproach(String value) => doc.setFormField(path, 'securityApproach', value);
+
+  String get securityComplianceTarget => doc.formField(path, 'securityComplianceTarget') ?? '';
+  set securityComplianceTarget(String value) => doc.setFormField(path, 'securityComplianceTarget', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
 class SecurityCodeReviewPolicyContentForm extends SomNode {
   SecurityCodeReviewPolicyContentForm(super.doc, super.path);
@@ -70549,6 +70882,37 @@ class SecurityCodeReviewPolicyReviewersContentForm extends SomNode {
 
   String get reviewerRotation => doc.formField(path, 'reviewerRotation') ?? '';
   set reviewerRotation(String value) => doc.setFormField(path, 'reviewerRotation', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class SecurityComplianceContentForm extends SomNode {
+  SecurityComplianceContentForm(super.doc, super.path);
+
+  String get securityCompliance => doc.formField(path, 'securityCompliance') ?? '';
+  set securityCompliance(String value) => doc.setFormField(path, 'securityCompliance', value);
+
+  String get securityCertifications => doc.formField(path, 'securityCertifications') ?? '';
+  set securityCertifications(String value) => doc.setFormField(path, 'securityCertifications', value);
+
+  String get securityAuditFrequency => doc.formField(path, 'securityAuditFrequency') ?? '';
+  set securityAuditFrequency(String value) => doc.setFormField(path, 'securityAuditFrequency', value);
+
+  String get securityVerification => doc.formField(path, 'securityVerification') ?? '';
+  set securityVerification(String value) => doc.setFormField(path, 'securityVerification', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class SecurityContentForm extends SomNode {
+  SecurityContentForm(super.doc, super.path);
+
+  String get encryptionAtRest => doc.formField(path, 'encryptionAtRest') ?? '';
+  set encryptionAtRest(String value) => doc.setFormField(path, 'encryptionAtRest', value);
+
+  String get encryptionInTransit => doc.formField(path, 'encryptionInTransit') ?? '';
+  set encryptionInTransit(String value) => doc.setFormField(path, 'encryptionInTransit', value);
+
+  String get keyManagement => doc.formField(path, 'keyManagement') ?? '';
+  set keyManagement(String value) => doc.setFormField(path, 'keyManagement', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -70714,82 +71078,6 @@ class SecurityEventLoggingPolicyContentForm extends SomNode {
 
   String get correlationIdentifiers => doc.formField(path, 'correlationIdentifiers') ?? '';
   set correlationIdentifiers(String value) => doc.setFormField(path, 'correlationIdentifiers', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SecurityQualityAuthenticationContentForm extends SomNode {
-  SecurityQualityAuthenticationContentForm(super.doc, super.path);
-
-  String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
-  set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
-
-  String get mfaRequirement => doc.formField(path, 'mfaRequirement') ?? '';
-  set mfaRequirement(String value) => doc.setFormField(path, 'mfaRequirement', value);
-
-  String get passwordPolicy => doc.formField(path, 'passwordPolicy') ?? '';
-  set passwordPolicy(String value) => doc.setFormField(path, 'passwordPolicy', value);
-
-  String get sessionManagement => doc.formField(path, 'sessionManagement') ?? '';
-  set sessionManagement(String value) => doc.setFormField(path, 'sessionManagement', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SecurityQualityAuthorizationContentForm extends SomNode {
-  SecurityQualityAuthorizationContentForm(super.doc, super.path);
-
-  String get authorizationModel => doc.formField(path, 'authorizationModel') ?? '';
-  set authorizationModel(String value) => doc.setFormField(path, 'authorizationModel', value);
-
-  String get authorizationCoverage => doc.formField(path, 'authorizationCoverage') ?? '';
-  set authorizationCoverage(String value) => doc.setFormField(path, 'authorizationCoverage', value);
-
-  String get privilegeEscalationPrevention => doc.formField(path, 'privilegeEscalationPrevention') ?? '';
-  set privilegeEscalationPrevention(String value) => doc.setFormField(path, 'privilegeEscalationPrevention', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SecurityQualityComplianceContentForm extends SomNode {
-  SecurityQualityComplianceContentForm(super.doc, super.path);
-
-  String get securityCompliance => doc.formField(path, 'securityCompliance') ?? '';
-  set securityCompliance(String value) => doc.setFormField(path, 'securityCompliance', value);
-
-  String get securityCertifications => doc.formField(path, 'securityCertifications') ?? '';
-  set securityCertifications(String value) => doc.setFormField(path, 'securityCertifications', value);
-
-  String get securityAuditFrequency => doc.formField(path, 'securityAuditFrequency') ?? '';
-  set securityAuditFrequency(String value) => doc.setFormField(path, 'securityAuditFrequency', value);
-
-  String get securityVerification => doc.formField(path, 'securityVerification') ?? '';
-  set securityVerification(String value) => doc.setFormField(path, 'securityVerification', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SecurityQualityContentForm extends SomNode {
-  SecurityQualityContentForm(super.doc, super.path);
-
-  String get encryptionAtRest => doc.formField(path, 'encryptionAtRest') ?? '';
-  set encryptionAtRest(String value) => doc.setFormField(path, 'encryptionAtRest', value);
-
-  String get encryptionInTransit => doc.formField(path, 'encryptionInTransit') ?? '';
-  set encryptionInTransit(String value) => doc.setFormField(path, 'encryptionInTransit', value);
-
-  String get keyManagement => doc.formField(path, 'keyManagement') ?? '';
-  set keyManagement(String value) => doc.setFormField(path, 'keyManagement', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SecurityQualityVulnerabilityContentForm extends SomNode {
-  SecurityQualityVulnerabilityContentForm(super.doc, super.path);
-
-  String get vulnerabilityScanFrequency => doc.formField(path, 'vulnerabilityScanFrequency') ?? '';
-  set vulnerabilityScanFrequency(String value) => doc.setFormField(path, 'vulnerabilityScanFrequency', value);
-
-  String get penetrationTestFrequency => doc.formField(path, 'penetrationTestFrequency') ?? '';
-  set penetrationTestFrequency(String value) => doc.setFormField(path, 'penetrationTestFrequency', value);
-
-  String get cveResponseTime => doc.formField(path, 'cveResponseTime') ?? '';
-  set cveResponseTime(String value) => doc.setFormField(path, 'cveResponseTime', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -71129,6 +71417,20 @@ class SecurityTestingAutomationScanningContentForm extends SomNode {
 
   String get secretsDetection => doc.formField(path, 'secretsDetection') ?? '';
   set secretsDetection(String value) => doc.setFormField(path, 'secretsDetection', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class SecurityVulnerabilityContentForm extends SomNode {
+  SecurityVulnerabilityContentForm(super.doc, super.path);
+
+  String get vulnerabilityScanFrequency => doc.formField(path, 'vulnerabilityScanFrequency') ?? '';
+  set vulnerabilityScanFrequency(String value) => doc.setFormField(path, 'vulnerabilityScanFrequency', value);
+
+  String get penetrationTestFrequency => doc.formField(path, 'penetrationTestFrequency') ?? '';
+  set penetrationTestFrequency(String value) => doc.setFormField(path, 'penetrationTestFrequency', value);
+
+  String get cveResponseTime => doc.formField(path, 'cveResponseTime') ?? '';
+  set cveResponseTime(String value) => doc.setFormField(path, 'cveResponseTime', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -71552,6 +71854,34 @@ class ServiceLevelAgreementEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class ServiceLevelContentForm extends SomNode {
+  ServiceLevelContentForm(super.doc, super.path);
+
+  String get supportTierStructure => doc.formField(path, 'supportTierStructure') ?? '';
+  set supportTierStructure(String value) => doc.setFormField(path, 'supportTierStructure', value);
+
+  String get criticalResponseTime => doc.formField(path, 'criticalResponseTime') ?? '';
+  set criticalResponseTime(String value) => doc.setFormField(path, 'criticalResponseTime', value);
+
+  String get highResponseTime => doc.formField(path, 'highResponseTime') ?? '';
+  set highResponseTime(String value) => doc.setFormField(path, 'highResponseTime', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class ServiceLevelEscalationContentForm extends SomNode {
+  ServiceLevelEscalationContentForm(super.doc, super.path);
+
+  String get escalationTimeframes => doc.formField(path, 'escalationTimeframes') ?? '';
+  set escalationTimeframes(String value) => doc.setFormField(path, 'escalationTimeframes', value);
+
+  String get escalationContacts => doc.formField(path, 'escalationContacts') ?? '';
+  set escalationContacts(String value) => doc.setFormField(path, 'escalationContacts', value);
+
+  String get executiveEscalation => doc.formField(path, 'executiveEscalation') ?? '';
+  set executiveEscalation(String value) => doc.setFormField(path, 'executiveEscalation', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class ServiceLevelIndicatorsContentForm extends SomNode {
   ServiceLevelIndicatorsContentForm(super.doc, super.path);
 
@@ -71608,36 +71938,8 @@ class ServiceLevelIndicatorsQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityContentForm extends SomNode {
-  ServiceLevelQualityContentForm(super.doc, super.path);
-
-  String get supportTierStructure => doc.formField(path, 'supportTierStructure') ?? '';
-  set supportTierStructure(String value) => doc.setFormField(path, 'supportTierStructure', value);
-
-  String get criticalResponseTime => doc.formField(path, 'criticalResponseTime') ?? '';
-  set criticalResponseTime(String value) => doc.setFormField(path, 'criticalResponseTime', value);
-
-  String get highResponseTime => doc.formField(path, 'highResponseTime') ?? '';
-  set highResponseTime(String value) => doc.setFormField(path, 'highResponseTime', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityEscalationContentForm extends SomNode {
-  ServiceLevelQualityEscalationContentForm(super.doc, super.path);
-
-  String get escalationTimeframes => doc.formField(path, 'escalationTimeframes') ?? '';
-  set escalationTimeframes(String value) => doc.setFormField(path, 'escalationTimeframes', value);
-
-  String get escalationContacts => doc.formField(path, 'escalationContacts') ?? '';
-  set escalationContacts(String value) => doc.setFormField(path, 'escalationContacts', value);
-
-  String get executiveEscalation => doc.formField(path, 'executiveEscalation') ?? '';
-  set executiveEscalation(String value) => doc.setFormField(path, 'executiveEscalation', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityOnCallContentForm extends SomNode {
-  ServiceLevelQualityOnCallContentForm(super.doc, super.path);
+class ServiceLevelOnCallContentForm extends SomNode {
+  ServiceLevelOnCallContentForm(super.doc, super.path);
 
   String get onCallCoverage => doc.formField(path, 'onCallCoverage') ?? '';
   set onCallCoverage(String value) => doc.setFormField(path, 'onCallCoverage', value);
@@ -71650,8 +71952,8 @@ class ServiceLevelQualityOnCallContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityResolutionContentForm extends SomNode {
-  ServiceLevelQualityResolutionContentForm(super.doc, super.path);
+class ServiceLevelResolutionContentForm extends SomNode {
+  ServiceLevelResolutionContentForm(super.doc, super.path);
 
   String get criticalResolutionTime => doc.formField(path, 'criticalResolutionTime') ?? '';
   set criticalResolutionTime(String value) => doc.setFormField(path, 'criticalResolutionTime', value);
@@ -71667,8 +71969,8 @@ class ServiceLevelQualityResolutionContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityResponseContentForm extends SomNode {
-  ServiceLevelQualityResponseContentForm(super.doc, super.path);
+class ServiceLevelResponseContentForm extends SomNode {
+  ServiceLevelResponseContentForm(super.doc, super.path);
 
   String get mediumResponseTime => doc.formField(path, 'mediumResponseTime') ?? '';
   set mediumResponseTime(String value) => doc.setFormField(path, 'mediumResponseTime', value);
@@ -71678,8 +71980,8 @@ class ServiceLevelQualityResponseContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ServiceLevelQualityRestorationContentForm extends SomNode {
-  ServiceLevelQualityRestorationContentForm(super.doc, super.path);
+class ServiceLevelRestorationContentForm extends SomNode {
+  ServiceLevelRestorationContentForm(super.doc, super.path);
 
   String get serviceRestorationPriority => doc.formField(path, 'serviceRestorationPriority') ?? '';
   set serviceRestorationPriority(String value) => doc.setFormField(path, 'serviceRestorationPriority', value);
@@ -75232,23 +75534,6 @@ class SystemOverviewSummaryStatusContentForm extends SomNode {
   set targetGoLiveDate(String value) => doc.setFormField(path, 'targetGoLiveDate', value);
 }
 
-/// Generated form facade for the `content` `@Form` section.
-class SystemQualityGoalsBaselineContentForm extends SomNode {
-  SystemQualityGoalsBaselineContentForm(super.doc, super.path);
-
-  String get qualityBaselineDate => doc.formField(path, 'qualityBaselineDate') ?? '';
-  set qualityBaselineDate(String value) => doc.setFormField(path, 'qualityBaselineDate', value);
-
-  String get qualityBaselineVersion => doc.formField(path, 'qualityBaselineVersion') ?? '';
-  set qualityBaselineVersion(String value) => doc.setFormField(path, 'qualityBaselineVersion', value);
-
-  String get overallQualityTargetLevel => doc.formField(path, 'overallQualityTargetLevel') ?? '';
-  set overallQualityTargetLevel(String value) => doc.setFormField(path, 'overallQualityTargetLevel', value);
-
-  String get qualityRiskTolerance => doc.formField(path, 'qualityRiskTolerance') ?? '';
-  set qualityRiskTolerance(String value) => doc.setFormField(path, 'qualityRiskTolerance', value);
-}
-
 /// Generated form facade for the `governanceContent` `@Form` section.
 class SystemQualityGoalsGovernanceContentForm extends SomNode {
   SystemQualityGoalsGovernanceContentForm(super.doc, super.path);
@@ -75261,57 +75546,6 @@ class SystemQualityGoalsGovernanceContentForm extends SomNode {
 
   String get qualityOwner => doc.formField(path, 'qualityOwner') ?? '';
   set qualityOwner(String value) => doc.setFormField(path, 'qualityOwner', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemQualityGoalsGovernanceContentForm2 extends SomNode {
-  SystemQualityGoalsGovernanceContentForm2(super.doc, super.path);
-
-  String get qualityReviewBoard => doc.formField(path, 'qualityReviewBoard') ?? '';
-  set qualityReviewBoard(String value) => doc.setFormField(path, 'qualityReviewBoard', value);
-
-  String get qualityMeetingCadence => doc.formField(path, 'qualityMeetingCadence') ?? '';
-  set qualityMeetingCadence(String value) => doc.setFormField(path, 'qualityMeetingCadence', value);
-
-  String get qualityEscalationPath => doc.formField(path, 'qualityEscalationPath') ?? '';
-  set qualityEscalationPath(String value) => doc.setFormField(path, 'qualityEscalationPath', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemQualityGoalsMeasurementContentForm extends SomNode {
-  SystemQualityGoalsMeasurementContentForm(super.doc, super.path);
-
-  String get qualityMetricsFramework => doc.formField(path, 'qualityMetricsFramework') ?? '';
-  set qualityMetricsFramework(String value) => doc.setFormField(path, 'qualityMetricsFramework', value);
-
-  String get qualityReportingFrequency => doc.formField(path, 'qualityReportingFrequency') ?? '';
-  set qualityReportingFrequency(String value) => doc.setFormField(path, 'qualityReportingFrequency', value);
-
-  String get qualityDashboardTool => doc.formField(path, 'qualityDashboardTool') ?? '';
-  set qualityDashboardTool(String value) => doc.setFormField(path, 'qualityDashboardTool', value);
-
-  String get defectTrackingSystem => doc.formField(path, 'defectTrackingSystem') ?? '';
-  set defectTrackingSystem(String value) => doc.setFormField(path, 'defectTrackingSystem', value);
-
-  String get qualityTrendAnalysis => doc.formField(path, 'qualityTrendAnalysis') ?? '';
-  set qualityTrendAnalysis(String value) => doc.setFormField(path, 'qualityTrendAnalysis', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class SystemQualityGoalsResourcesContentForm extends SomNode {
-  SystemQualityGoalsResourcesContentForm(super.doc, super.path);
-
-  String get qualityBudget => doc.formField(path, 'qualityBudget') ?? '';
-  set qualityBudget(String value) => doc.setFormField(path, 'qualityBudget', value);
-
-  String get qaTeamSize => doc.formField(path, 'qaTeamSize') ?? '';
-  set qaTeamSize(String value) => doc.setFormField(path, 'qaTeamSize', value);
-
-  String get testAutomationTarget => doc.formField(path, 'testAutomationTarget') ?? '';
-  set testAutomationTarget(String value) => doc.setFormField(path, 'testAutomationTarget', value);
-
-  String get qualityTrainingPlan => doc.formField(path, 'qualityTrainingPlan') ?? '';
-  set qualityTrainingPlan(String value) => doc.setFormField(path, 'qualityTrainingPlan', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -76349,26 +76583,6 @@ class TechnicalPainPointsSummaryContentForm extends SomNode {
 
   String get integrationComplexityScore => doc.formField(path, 'integrationComplexityScore') ?? '';
   set integrationComplexityScore(String value) => doc.setFormField(path, 'integrationComplexityScore', value);
-}
-
-/// Generated form facade for the `technicalQualityContent` `@Form` section.
-class TechnicalQualityCriteriaTechnicalQualityContentForm extends SomNode {
-  TechnicalQualityCriteriaTechnicalQualityContentForm(super.doc, super.path);
-
-  String get technicalQualityPhilosophy => doc.formField(path, 'technicalQualityPhilosophy') ?? '';
-  set technicalQualityPhilosophy(String value) => doc.setFormField(path, 'technicalQualityPhilosophy', value);
-
-  String get architecturalQualityGoals => doc.formField(path, 'architecturalQualityGoals') ?? '';
-  set architecturalQualityGoals(String value) => doc.setFormField(path, 'architecturalQualityGoals', value);
-
-  String get technicalDebtTolerance => doc.formField(path, 'technicalDebtTolerance') ?? '';
-  set technicalDebtTolerance(String value) => doc.setFormField(path, 'technicalDebtTolerance', value);
-
-  String get codeQualityStandard => doc.formField(path, 'codeQualityStandard') ?? '';
-  set codeQualityStandard(String value) => doc.setFormField(path, 'codeQualityStandard', value);
-
-  String get designPrinciplesAdherence => doc.formField(path, 'designPrinciplesAdherence') ?? '';
-  set designPrinciplesAdherence(String value) => doc.setFormField(path, 'designPrinciplesAdherence', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -79720,8 +79934,8 @@ class UiDesignPrincipleEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityClarityContentForm extends SomNode {
-  UsabilityQualityClarityContentForm(super.doc, super.path);
+class UsabilityClarityContentForm extends SomNode {
+  UsabilityClarityContentForm(super.doc, super.path);
 
   String get functionalClarityTarget => doc.formField(path, 'functionalClarityTarget') ?? '';
   set functionalClarityTarget(String value) => doc.setFormField(path, 'functionalClarityTarget', value);
@@ -79737,8 +79951,8 @@ class UsabilityQualityClarityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityContentForm extends SomNode {
-  UsabilityQualityContentForm(super.doc, super.path);
+class UsabilityContentForm extends SomNode {
+  UsabilityContentForm(super.doc, super.path);
 
   String get operabilityTarget => doc.formField(path, 'operabilityTarget') ?? '';
   set operabilityTarget(String value) => doc.setFormField(path, 'operabilityTarget', value);
@@ -79751,8 +79965,8 @@ class UsabilityQualityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityInteractionContentForm extends SomNode {
-  UsabilityQualityInteractionContentForm(super.doc, super.path);
+class UsabilityInteractionContentForm extends SomNode {
+  UsabilityInteractionContentForm(super.doc, super.path);
 
   String get undoRequirement => doc.formField(path, 'undoRequirement') ?? '';
   set undoRequirement(String value) => doc.setFormField(path, 'undoRequirement', value);
@@ -79762,8 +79976,8 @@ class UsabilityQualityInteractionContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityLearnabilityContentForm extends SomNode {
-  UsabilityQualityLearnabilityContentForm(super.doc, super.path);
+class UsabilityLearnabilityContentForm extends SomNode {
+  UsabilityLearnabilityContentForm(super.doc, super.path);
 
   String get learnabilityVerification => doc.formField(path, 'learnabilityVerification') ?? '';
   set learnabilityVerification(String value) => doc.setFormField(path, 'learnabilityVerification', value);
@@ -79773,8 +79987,8 @@ class UsabilityQualityLearnabilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityOperabilityContentForm extends SomNode {
-  UsabilityQualityOperabilityContentForm(super.doc, super.path);
+class UsabilityOperabilityContentForm extends SomNode {
+  UsabilityOperabilityContentForm(super.doc, super.path);
 
   String get operabilityMetric => doc.formField(path, 'operabilityMetric') ?? '';
   set operabilityMetric(String value) => doc.setFormField(path, 'operabilityMetric', value);
@@ -79787,8 +80001,8 @@ class UsabilityQualityOperabilityContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class UsabilityQualityPerformanceContentForm extends SomNode {
-  UsabilityQualityPerformanceContentForm(super.doc, super.path);
+class UsabilityPerformanceContentForm extends SomNode {
+  UsabilityPerformanceContentForm(super.doc, super.path);
 
   String get responseTimeP50 => doc.formField(path, 'responseTimeP50') ?? '';
   set responseTimeP50(String value) => doc.setFormField(path, 'responseTimeP50', value);
@@ -80340,29 +80554,6 @@ class UserProvisioningToolsRoleManagementContentForm extends SomNode {
 
   String get accessReviewProcess => doc.formField(path, 'accessReviewProcess') ?? '';
   set accessReviewProcess(String value) => doc.setFormField(path, 'accessReviewProcess', value);
-}
-
-/// Generated form facade for the `userQualityContent` `@Form` section.
-class UserQualityCriteriaUserQualityContentForm extends SomNode {
-  UserQualityCriteriaUserQualityContentForm(super.doc, super.path);
-
-  String get userQualityPhilosophy => doc.formField(path, 'userQualityPhilosophy') ?? '';
-  set userQualityPhilosophy(String value) => doc.setFormField(path, 'userQualityPhilosophy', value);
-
-  String get targetUserExperience => doc.formField(path, 'targetUserExperience') ?? '';
-  set targetUserExperience(String value) => doc.setFormField(path, 'targetUserExperience', value);
-
-  String get userResearchBasis => doc.formField(path, 'userResearchBasis') ?? '';
-  set userResearchBasis(String value) => doc.setFormField(path, 'userResearchBasis', value);
-
-  String get userFeedbackChannel => doc.formField(path, 'userFeedbackChannel') ?? '';
-  set userFeedbackChannel(String value) => doc.setFormField(path, 'userFeedbackChannel', value);
-
-  String get userSatisfactionTarget => doc.formField(path, 'userSatisfactionTarget') ?? '';
-  set userSatisfactionTarget(String value) => doc.setFormField(path, 'userSatisfactionTarget', value);
-
-  String get accessibilityLevel => doc.formField(path, 'accessibilityLevel') ?? '';
-  set accessibilityLevel(String value) => doc.setFormField(path, 'accessibilityLevel', value);
 }
 
 /// Generated form facade for the `trainingForm` `@Form` section.

@@ -37,8 +37,13 @@ class AcceptanceCriteriaList extends SomNode {
 
 // 11.7. Acceptance Criteria Summary.
 //
-// Quality acceptance criteria for the project including must-pass criteria
-// and quality gate checklists.
+// The acceptance *framework* and summary for the project: the acceptance
+// process/authority/scope, the must-pass criteria, and the quality-gate
+// checklist. The full enumerated, traceable acceptance criteria are NOT
+// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+// referencing list).
 class AcceptanceCriteriaSummary extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -61,6 +66,15 @@ class AcceptanceCriteriaSummary extends SomNode {
   // 11.7.2. Quality Gate Checklist.
   get qualityGateChecklist() {
     return new QualityGateChecklist(this.doc, this.path + "/qualityGateChecklist");
+  }
+
+  // Canonical, enumerated acceptance criteria (SR-54 explicit link).
+  //
+  // The single source of truth for the full set of traceable acceptance
+  // criteria; this summary references — rather than duplicates — it. The same
+  // [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  get detailedCriteria() {
+    return new AcceptanceCriteriaList(this.doc, this.path + "/detailedCriteria");
   }
 
   // Acceptance test summary.
@@ -3403,33 +3417,33 @@ class AuthorizationRoleEntryStructure extends SomNode {
 }
 
 // 11.4.1. Availability quality.
-class AvailabilityQuality extends SomNode {
+class Availability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new AvailabilityQualityContentForm(this.doc, this.path + "/content");
+    return new AvailabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Operating-hour expectations.
   get operatingHoursDetails() {
-    return new AvailabilityQualityOperatingHours(this.doc, this.path + "/operatingHoursDetails");
+    return new AvailabilityOperatingHours(this.doc, this.path + "/operatingHoursDetails");
   }
 
   // Maintenance window policy.
   get maintenance() {
-    return new AvailabilityQualityMaintenance(this.doc, this.path + "/maintenance");
+    return new AvailabilityMaintenance(this.doc, this.path + "/maintenance");
   }
 
   // Degraded-mode behavior.
   get degradedMode() {
-    return new AvailabilityQualityDegradedMode(this.doc, this.path + "/degradedMode");
+    return new AvailabilityDegradedMode(this.doc, this.path + "/degradedMode");
   }
 
   // Monitoring and reporting.
   get verification() {
-    return new AvailabilityQualityVerification(this.doc, this.path + "/verification");
+    return new AvailabilityVerification(this.doc, this.path + "/verification");
   }
 
   // Detailed availability requirements narrative.
@@ -3439,46 +3453,46 @@ class AvailabilityQuality extends SomNode {
 }
 
 // Degraded-mode behavior.
-class AvailabilityQualityDegradedMode extends SomNode {
+class AvailabilityDegradedMode extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new AvailabilityQualityDegradedModeContentForm(this.doc, this.path + "/content");
+    return new AvailabilityDegradedModeContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Maintenance window policy.
-class AvailabilityQualityMaintenance extends SomNode {
+class AvailabilityMaintenance extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new AvailabilityQualityMaintenanceContentForm(this.doc, this.path + "/content");
+    return new AvailabilityMaintenanceContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Operating-hour expectations.
-class AvailabilityQualityOperatingHours extends SomNode {
+class AvailabilityOperatingHours extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new AvailabilityQualityOperatingHoursContentForm(this.doc, this.path + "/content");
+    return new AvailabilityOperatingHoursContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Monitoring and reporting.
-class AvailabilityQualityVerification extends SomNode {
+class AvailabilityVerification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new AvailabilityQualityVerificationContentForm(this.doc, this.path + "/content");
+    return new AvailabilityVerificationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -7820,6 +7834,27 @@ class CommunicationTypeEntry extends SomNode {
   }
 }
 
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+//
+// Degree to which the product can exchange information with other products and
+// share the same environment and resources (co-existence + interoperability).
+// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+// pending project-specific compatibility leaves.
+class CompatibilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get compatibilityContent() {
+    return new CompatibilityCharacteristicCompatibilityContentForm(this.doc, this.path + "/compatibilityContent");
+  }
+
+  // Compatibility overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+}
+
 // 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
@@ -10219,28 +10254,28 @@ class ContingencyPlans extends SomNode {
 }
 
 // 11.2.3. Correctness quality.
-class CorrectnessQuality extends SomNode {
+class Correctness extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new CorrectnessQualityContentForm(this.doc, this.path + "/content");
+    return new CorrectnessContentForm(this.doc, this.path + "/content");
   }
 
   // Data integrity expectations.
   get integrity() {
-    return new CorrectnessQualityIntegrity(this.doc, this.path + "/integrity");
+    return new CorrectnessIntegrity(this.doc, this.path + "/integrity");
   }
 
   // Accuracy and auditability requirements.
   get accuracy() {
-    return new CorrectnessQualityAccuracy(this.doc, this.path + "/accuracy");
+    return new CorrectnessAccuracy(this.doc, this.path + "/accuracy");
   }
 
   // Verification and regression approach.
   get verification() {
-    return new CorrectnessQualityVerification(this.doc, this.path + "/verification");
+    return new CorrectnessVerification(this.doc, this.path + "/verification");
   }
 
   // Detailed correctness requirements narrative.
@@ -10250,35 +10285,35 @@ class CorrectnessQuality extends SomNode {
 }
 
 // Accuracy and auditability requirements.
-class CorrectnessQualityAccuracy extends SomNode {
+class CorrectnessAccuracy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new CorrectnessQualityAccuracyContentForm(this.doc, this.path + "/content");
+    return new CorrectnessAccuracyContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Data integrity expectations.
-class CorrectnessQualityIntegrity extends SomNode {
+class CorrectnessIntegrity extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new CorrectnessQualityIntegrityContentForm(this.doc, this.path + "/content");
+    return new CorrectnessIntegrityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Verification and regression approach.
-class CorrectnessQualityVerification extends SomNode {
+class CorrectnessVerification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new CorrectnessQualityVerificationContentForm(this.doc, this.path + "/content");
+    return new CorrectnessVerificationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -11895,22 +11930,47 @@ class D10QualityAcceptancePlan extends SomNode {
     return new QualityFramework(this.doc, this.path + "/qualityFramework");
   }
 
-  // User-related quality criteria.
-  get userQualityCriteria() {
-    return new UserQualityCriteria(this.doc, this.path + "/userQualityCriteria");
+  // Functional suitability (ISO/IEC 25010:2023).
+  get functionalSuitability() {
+    return new FunctionalSuitabilityCharacteristic(this.doc, this.path + "/functionalSuitability");
   }
 
-  // Technical quality criteria.
-  get technicalQualityCriteria() {
-    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQualityCriteria");
+  // Performance efficiency (ISO/IEC 25010:2023).
+  get performanceEfficiency() {
+    return new PerformanceEfficiencyCharacteristic(this.doc, this.path + "/performanceEfficiency");
   }
 
-  // Operations quality criteria.
-  get operationsQualityCriteria() {
-    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQualityCriteria");
+  // Compatibility (ISO/IEC 25010:2023).
+  get compatibility() {
+    return new CompatibilityCharacteristic(this.doc, this.path + "/compatibility");
   }
 
-  // Documentation quality criteria.
+  // Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+  get interactionCapability() {
+    return new InteractionCapabilityCharacteristic(this.doc, this.path + "/interactionCapability");
+  }
+
+  // Reliability (ISO/IEC 25010:2023).
+  get reliability() {
+    return new ReliabilityCharacteristic(this.doc, this.path + "/reliability");
+  }
+
+  // Security (ISO/IEC 25010:2023).
+  get security() {
+    return new SecurityCharacteristic(this.doc, this.path + "/security");
+  }
+
+  // Maintainability (ISO/IEC 25010:2023).
+  get maintainability() {
+    return new MaintainabilityCharacteristic(this.doc, this.path + "/maintainability");
+  }
+
+  // Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  get flexibility() {
+    return new FlexibilityCharacteristic(this.doc, this.path + "/flexibility");
+  }
+
+  // Documentation quality (ISO/IEC 26514 annex).
   get documentationQualityCriteria() {
     return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQualityCriteria");
   }
@@ -17294,28 +17354,28 @@ class DnsRequirementsZones extends SomNode {
 }
 
 // 11.5.4. Documentation changeability quality.
-class DocChangeabilityQuality extends SomNode {
+class DocChangeability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocChangeabilityQualityContentForm(this.doc, this.path + "/content");
+    return new DocChangeabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Extensibility and localization readiness.
   get extensibility() {
-    return new DocChangeabilityQualityExtensibility(this.doc, this.path + "/extensibility");
+    return new DocChangeabilityExtensibility(this.doc, this.path + "/extensibility");
   }
 
   // Sizing and structural consistency rules.
   get structure() {
-    return new DocChangeabilityQualityStructure(this.doc, this.path + "/structure");
+    return new DocChangeabilityStructure(this.doc, this.path + "/structure");
   }
 
   // Review and retirement maintenance process.
   get maintenance() {
-    return new DocChangeabilityQualityMaintenance(this.doc, this.path + "/maintenance");
+    return new DocChangeabilityMaintenance(this.doc, this.path + "/maintenance");
   }
 
   // Detailed changeability requirements narrative.
@@ -17325,46 +17385,46 @@ class DocChangeabilityQuality extends SomNode {
 }
 
 // Extensibility and localization readiness.
-class DocChangeabilityQualityExtensibility extends SomNode {
+class DocChangeabilityExtensibility extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocChangeabilityQualityExtensibilityContentForm(this.doc, this.path + "/content");
+    return new DocChangeabilityExtensibilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Review and retirement maintenance process.
-class DocChangeabilityQualityMaintenance extends SomNode {
+class DocChangeabilityMaintenance extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocChangeabilityQualityMaintenanceContentForm(this.doc, this.path + "/content");
+    return new DocChangeabilityMaintenanceContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Sizing and structural consistency rules.
-class DocChangeabilityQualityStructure extends SomNode {
+class DocChangeabilityStructure extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocChangeabilityQualityStructureContentForm(this.doc, this.path + "/content");
+    return new DocChangeabilityStructureContentForm(this.doc, this.path + "/content");
   }
 }
 
 // 11.5.2. Documentation completeness quality.
-class DocCompletenessQuality extends SomNode {
+class DocCompleteness extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocCompletenessQualityContentForm(this.doc, this.path + "/content");
+    return new DocCompletenessContentForm(this.doc, this.path + "/content");
   }
 
   // Detailed completeness requirements narrative.
@@ -17374,23 +17434,23 @@ class DocCompletenessQuality extends SomNode {
 }
 
 // 11.5.3. Documentation correctness quality.
-class DocCorrectnessQuality extends SomNode {
+class DocCorrectness extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocCorrectnessQualityContentForm(this.doc, this.path + "/content");
+    return new DocCorrectnessContentForm(this.doc, this.path + "/content");
   }
 
   // Formatting and implementation alignment.
   get alignment() {
-    return new DocCorrectnessQualityAlignment(this.doc, this.path + "/alignment");
+    return new DocCorrectnessAlignment(this.doc, this.path + "/alignment");
   }
 
   // Verification and feedback handling.
   get verification() {
-    return new DocCorrectnessQualityVerification(this.doc, this.path + "/verification");
+    return new DocCorrectnessVerification(this.doc, this.path + "/verification");
   }
 
   // Detailed correctness requirements narrative.
@@ -17400,24 +17460,24 @@ class DocCorrectnessQuality extends SomNode {
 }
 
 // Formatting and implementation alignment.
-class DocCorrectnessQualityAlignment extends SomNode {
+class DocCorrectnessAlignment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocCorrectnessQualityAlignmentContentForm(this.doc, this.path + "/content");
+    return new DocCorrectnessAlignmentContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Verification and feedback handling.
-class DocCorrectnessQualityVerification extends SomNode {
+class DocCorrectnessVerification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new DocCorrectnessQualityVerificationContentForm(this.doc, this.path + "/content");
+    return new DocCorrectnessVerificationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -17557,10 +17617,15 @@ class DocumentationDeliverables extends SomNode {
   }
 }
 
-// 11.5. Documentation Quality Criteria.
+// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 //
-// Quality criteria for project documentation including readability,
-// completeness, correctness, and changeability.
+// Documentation-deliverable quality criteria — readability, completeness,
+// correctness, and changeability of the user/technical documentation. This
+// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+// (which scopes the *product*, not its documentation), so per L34C-8 it is
+// retained as a documentation-quality annex aligned to ISO/IEC 26514
+// (systems & software engineering — design and development of information for
+// users) rather than re-homed under a 25010:2023 characteristic.
 class DocumentationQualityCriteria extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -17577,22 +17642,22 @@ class DocumentationQualityCriteria extends SomNode {
 
   // 11.5.1. Readability.
   get readability() {
-    return new ReadabilityQuality(this.doc, this.path + "/readability");
+    return new Readability(this.doc, this.path + "/readability");
   }
 
   // 11.5.2. Completeness.
   get completeness() {
-    return new DocCompletenessQuality(this.doc, this.path + "/completeness");
+    return new DocCompleteness(this.doc, this.path + "/completeness");
   }
 
   // 11.5.3. Correctness.
   get correctness() {
-    return new DocCorrectnessQuality(this.doc, this.path + "/correctness");
+    return new DocCorrectness(this.doc, this.path + "/correctness");
   }
 
   // 11.5.4. Changeability.
   get changeability() {
-    return new DocChangeabilityQuality(this.doc, this.path + "/changeability");
+    return new DocChangeability(this.doc, this.path + "/changeability");
   }
 }
 
@@ -18061,28 +18126,28 @@ class DomainVocabulary extends SomNode {
 }
 
 // 11.3.1. Efficiency quality.
-class EfficiencyQuality extends SomNode {
+class Efficiency extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new EfficiencyQualityContentForm(this.doc, this.path + "/content");
+    return new EfficiencyContentForm(this.doc, this.path + "/content");
   }
 
   // Throughput and scale targets.
   get throughput() {
-    return new EfficiencyQualityThroughput(this.doc, this.path + "/throughput");
+    return new EfficiencyThroughput(this.doc, this.path + "/throughput");
   }
 
   // Resource utilization constraints.
   get resources() {
-    return new EfficiencyQualityResources(this.doc, this.path + "/resources");
+    return new EfficiencyResources(this.doc, this.path + "/resources");
   }
 
   // Performance validation and SLA commitments.
   get verification() {
-    return new EfficiencyQualityVerification(this.doc, this.path + "/verification");
+    return new EfficiencyVerification(this.doc, this.path + "/verification");
   }
 
   // Detailed efficiency requirements narrative.
@@ -18092,35 +18157,35 @@ class EfficiencyQuality extends SomNode {
 }
 
 // Resource utilization constraints.
-class EfficiencyQualityResources extends SomNode {
+class EfficiencyResources extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new EfficiencyQualityResourcesContentForm(this.doc, this.path + "/content");
+    return new EfficiencyResourcesContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Throughput and scale targets.
-class EfficiencyQualityThroughput extends SomNode {
+class EfficiencyThroughput extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new EfficiencyQualityThroughputContentForm(this.doc, this.path + "/content");
+    return new EfficiencyThroughputContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Performance validation and SLA commitments.
-class EfficiencyQualityVerification extends SomNode {
+class EfficiencyVerification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new EfficiencyQualityVerificationContentForm(this.doc, this.path + "/content");
+    return new EfficiencyVerificationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -21517,28 +21582,28 @@ class FirewallRequirementsRules extends SomNode {
 }
 
 // 11.3.3. Flexibility quality.
-class FlexibilityQuality extends SomNode {
+class Flexibility extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new FlexibilityQualityContentForm(this.doc, this.path + "/content");
+    return new FlexibilityContentForm(this.doc, this.path + "/content");
   }
 
   // Modularity and reuse goals.
   get modularity() {
-    return new FlexibilityQualityModularity(this.doc, this.path + "/modularity");
+    return new FlexibilityModularity(this.doc, this.path + "/modularity");
   }
 
   // Distribution and configurability model.
   get deployment() {
-    return new FlexibilityQualityDeployment(this.doc, this.path + "/deployment");
+    return new FlexibilityDeployment(this.doc, this.path + "/deployment");
   }
 
   // Extensibility and verification expectations.
   get extensibility() {
-    return new FlexibilityQualityExtensibility(this.doc, this.path + "/extensibility");
+    return new FlexibilityExtensibility(this.doc, this.path + "/extensibility");
   }
 
   // Detailed flexibility requirements narrative.
@@ -21547,36 +21612,67 @@ class FlexibilityQuality extends SomNode {
   }
 }
 
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+//
+// Degree to which the product can be adapted to changes in requirements,
+// contexts of use, or system environment (adaptability, scalability,
+// installability, replaceability). Re-homes the former technical-bucket
+// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+class FlexibilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get flexibilityContent() {
+    return new FlexibilityCharacteristicFlexibilityContentForm(this.doc, this.path + "/flexibilityContent");
+  }
+
+  // Flexibility overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  get flexibility() {
+    return new Flexibility(this.doc, this.path + "/flexibility");
+  }
+
+  // 11.9.2. Portability.
+  get portability() {
+    return new Portability(this.doc, this.path + "/portability");
+  }
+}
+
 // Distribution and configurability model.
-class FlexibilityQualityDeployment extends SomNode {
+class FlexibilityDeployment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new FlexibilityQualityDeploymentContentForm(this.doc, this.path + "/content");
+    return new FlexibilityDeploymentContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Extensibility and verification expectations.
-class FlexibilityQualityExtensibility extends SomNode {
+class FlexibilityExtensibility extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new FlexibilityQualityExtensibilityContentForm(this.doc, this.path + "/content");
+    return new FlexibilityExtensibilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Modularity and reuse goals.
-class FlexibilityQualityModularity extends SomNode {
+class FlexibilityModularity extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new FlexibilityQualityModularityContentForm(this.doc, this.path + "/content");
+    return new FlexibilityModularityContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -21878,13 +21974,13 @@ class FunctionModel extends SomNode {
 }
 
 // 11.2.2. Functional completeness quality.
-class FunctionalCompletenessQuality extends SomNode {
+class FunctionalCompleteness extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new FunctionalCompletenessQualityContentForm(this.doc, this.path + "/content");
+    return new FunctionalCompletenessContentForm(this.doc, this.path + "/content");
   }
 
   // Detailed functional completeness narrative.
@@ -22092,6 +22188,36 @@ class FunctionalResponsibilities extends SomNode {
   // Contains 0+× Responsibility.
   get items() {
     return new SomList(this.doc, this.path + "/REEN1-ITEM-LST", (d, p) => new ResponsibilityEntry(d, p));
+  }
+}
+
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+//
+// Degree to which the product provides functions that meet stated and implied
+// needs — functional completeness and correctness. Re-homes the former
+// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+class FunctionalSuitabilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get functionalSuitabilityContent() {
+    return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(this.doc, this.path + "/functionalSuitabilityContent");
+  }
+
+  // Functional suitability overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.2.1. Functional Completeness.
+  get functionalCompleteness() {
+    return new FunctionalCompleteness(this.doc, this.path + "/functionalCompleteness");
+  }
+
+  // 11.2.2. Correctness.
+  get correctness() {
+    return new Correctness(this.doc, this.path + "/correctness");
   }
 }
 
@@ -24526,6 +24652,32 @@ class InteractionBusinessRules extends SomNode {
   }
 }
 
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+//
+// Degree to which the product can be interacted with effectively, efficiently
+// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+// form is preserved here so no authored content is lost.
+class InteractionCapabilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get interactionCapabilityContent() {
+    return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(this.doc, this.path + "/interactionCapabilityContent");
+  }
+
+  // Interaction capability overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.5.1. Usability.
+  get usability() {
+    return new Usability(this.doc, this.path + "/usability");
+  }
+}
+
 // 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
@@ -25704,11 +25856,15 @@ class IpOwnershipEntry extends SomNode {
   }
 }
 
-// ISO/IEC 25010 product-quality cross-map.
+// ISO/IEC 25010:2023 product-quality cross-map (derived).
 //
-// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-// quality characteristics so that compatibility and portability cannot be
-// silently missed.
+// A *derived* view over the canonical quality spine: the eight
+// `*Characteristic` classes under [SystemQualityGoals] are the single source
+// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+// Each entry references one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+// address it and the target metric — so coverage of any 25010:2023
+// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 class Iso25010Coverage extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -25722,13 +25878,13 @@ class Iso25010Coverage extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // One entry per ISO/IEC 25010 characteristic addressed.
+  // One entry per ISO/IEC 25010:2023 characteristic addressed.
   get characteristics() {
     return new SomList(this.doc, this.path + "/I25CV-CHAR-LST", (d, p) => new Iso25010CoverageEntry(d, p));
   }
 }
 
-// A single ISO/IEC 25010 coverage entry (form).
+// A single ISO/IEC 25010:2023 coverage entry (form).
 class Iso25010CoverageEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -25763,33 +25919,33 @@ class ItLandscapePosition extends SomNode {
 }
 
 // 11.4.4. IT Security Operations quality.
-class ItSecurityOperationsQuality extends SomNode {
+class ItSecurityOperations extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ItSecurityOperationsQualityContentForm(this.doc, this.path + "/content");
+    return new ItSecurityOperationsContentForm(this.doc, this.path + "/content");
   }
 
   // Access protection controls.
   get access() {
-    return new ItSecurityOperationsQualityAccess(this.doc, this.path + "/access");
+    return new ItSecurityOperationsAccess(this.doc, this.path + "/access");
   }
 
   // Disaster recovery planning details.
   get recovery() {
-    return new ItSecurityOperationsQualityRecovery(this.doc, this.path + "/recovery");
+    return new ItSecurityOperationsRecovery(this.doc, this.path + "/recovery");
   }
 
   // Penetration testing and remediation.
   get testing() {
-    return new ItSecurityOperationsQualityTesting(this.doc, this.path + "/testing");
+    return new ItSecurityOperationsTesting(this.doc, this.path + "/testing");
   }
 
   // Incident handling and reporting.
   get incident() {
-    return new ItSecurityOperationsQualityIncident(this.doc, this.path + "/incident");
+    return new ItSecurityOperationsIncident(this.doc, this.path + "/incident");
   }
 
   // Detailed IT security operations narrative.
@@ -25799,46 +25955,46 @@ class ItSecurityOperationsQuality extends SomNode {
 }
 
 // Access protection controls.
-class ItSecurityOperationsQualityAccess extends SomNode {
+class ItSecurityOperationsAccess extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ItSecurityOperationsQualityAccessContentForm(this.doc, this.path + "/content");
+    return new ItSecurityOperationsAccessContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Incident handling and reporting.
-class ItSecurityOperationsQualityIncident extends SomNode {
+class ItSecurityOperationsIncident extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ItSecurityOperationsQualityIncidentContentForm(this.doc, this.path + "/content");
+    return new ItSecurityOperationsIncidentContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Disaster recovery planning details.
-class ItSecurityOperationsQualityRecovery extends SomNode {
+class ItSecurityOperationsRecovery extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ItSecurityOperationsQualityRecoveryContentForm(this.doc, this.path + "/content");
+    return new ItSecurityOperationsRecoveryContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Penetration testing and remediation.
-class ItSecurityOperationsQualityTesting extends SomNode {
+class ItSecurityOperationsTesting extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ItSecurityOperationsQualityTestingContentForm(this.doc, this.path + "/content");
+    return new ItSecurityOperationsTestingContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -27409,33 +27565,33 @@ class MainSuccessScenario extends SomNode {
 }
 
 // 11.3.5. Maintainability quality.
-class MaintainabilityQuality extends SomNode {
+class Maintainability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new MaintainabilityQualityContentForm(this.doc, this.path + "/content");
+    return new MaintainabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Analyzability requirements.
   get analyzability() {
-    return new MaintainabilityQualityAnalyzability(this.doc, this.path + "/analyzability");
+    return new MaintainabilityAnalyzability(this.doc, this.path + "/analyzability");
   }
 
   // Changeability requirements.
   get changeability() {
-    return new MaintainabilityQualityChangeability(this.doc, this.path + "/changeability");
+    return new MaintainabilityChangeability(this.doc, this.path + "/changeability");
   }
 
   // Testability requirements.
   get testability() {
-    return new MaintainabilityQualityTestability(this.doc, this.path + "/testability");
+    return new MaintainabilityTestability(this.doc, this.path + "/testability");
   }
 
   // Extensibility and verification requirements.
   get governance() {
-    return new MaintainabilityQualityGovernance(this.doc, this.path + "/governance");
+    return new MaintainabilityGovernance(this.doc, this.path + "/governance");
   }
 
   // Detailed maintainability requirements narrative.
@@ -27445,46 +27601,71 @@ class MaintainabilityQuality extends SomNode {
 }
 
 // Analyzability requirements.
-class MaintainabilityQualityAnalyzability extends SomNode {
+class MaintainabilityAnalyzability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new MaintainabilityQualityAnalyzabilityContentForm(this.doc, this.path + "/content");
+    return new MaintainabilityAnalyzabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Changeability requirements.
-class MaintainabilityQualityChangeability extends SomNode {
+class MaintainabilityChangeability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new MaintainabilityQualityChangeabilityContentForm(this.doc, this.path + "/content");
+    return new MaintainabilityChangeabilityContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+//
+// Degree of effectiveness and efficiency with which the product can be
+// modified. Re-homes the former technical-bucket maintainability leaf under
+// the 25010:2023 spine (L34C-8).
+class MaintainabilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get maintainabilityContent() {
+    return new MaintainabilityCharacteristicMaintainabilityContentForm(this.doc, this.path + "/maintainabilityContent");
+  }
+
+  // Maintainability overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.8.1. Maintainability (product maintainability attributes).
+  get maintainability() {
+    return new Maintainability(this.doc, this.path + "/maintainability");
   }
 }
 
 // Extensibility and verification requirements.
-class MaintainabilityQualityGovernance extends SomNode {
+class MaintainabilityGovernance extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new MaintainabilityQualityGovernanceContentForm(this.doc, this.path + "/content");
+    return new MaintainabilityGovernanceContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Testability requirements.
-class MaintainabilityQualityTestability extends SomNode {
+class MaintainabilityTestability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new MaintainabilityQualityTestabilityContentForm(this.doc, this.path + "/content");
+    return new MaintainabilityTestabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -29527,6 +29708,17 @@ class Monitoring extends SomNode {
   }
 }
 
+// Alerting strategy and channels.
+class MonitoringAlerting extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new MonitoringAlertingContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -29597,6 +29789,28 @@ class MonitoringAndAlertingSection extends SomNode {
   // SLA monitoring.
   get slaMonitoring() {
     return new SlaMonitoringRequirements(this.doc, this.path + "/slaMonitoring");
+  }
+}
+
+// Alert automation capabilities.
+class MonitoringAutomation extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new MonitoringAutomationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Component monitoring coverage.
+class MonitoringCoverage extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new MonitoringCoverageContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -29687,6 +29901,17 @@ class MonitoringInfrastructureDeployment extends SomNode {
   }
 }
 
+// Planning and observability settings.
+class MonitoringOperations extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new MonitoringOperationsContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A single monitoring procedure entry.
 class MonitoringProcedureEntry extends SomNode {
   constructor(doc, path) {
@@ -29699,86 +29924,6 @@ class MonitoringProcedureEntry extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// 11.4.3. Monitoring quality.
-class MonitoringQuality extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MonitoringQualityContentForm(this.doc, this.path + "/content");
-  }
-
-  // Component monitoring coverage.
-  get coverage() {
-    return new MonitoringQualityCoverage(this.doc, this.path + "/coverage");
-  }
-
-  // Alert automation capabilities.
-  get automation() {
-    return new MonitoringQualityAutomation(this.doc, this.path + "/automation");
-  }
-
-  // Alerting strategy and channels.
-  get alerting() {
-    return new MonitoringQualityAlerting(this.doc, this.path + "/alerting");
-  }
-
-  // Planning and observability settings.
-  get operations() {
-    return new MonitoringQualityOperations(this.doc, this.path + "/operations");
-  }
-
-  // Detailed monitoring requirements narrative.
-  get narrative() {
-    return null; // (skipped: no target type)
-  }
-}
-
-// Alerting strategy and channels.
-class MonitoringQualityAlerting extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MonitoringQualityAlertingContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Alert automation capabilities.
-class MonitoringQualityAutomation extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MonitoringQualityAutomationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Component monitoring coverage.
-class MonitoringQualityCoverage extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MonitoringQualityCoverageContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Planning and observability settings.
-class MonitoringQualityOperations extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new MonitoringQualityOperationsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -31622,6 +31767,42 @@ class OngoingTrainingEntrySchedule extends SomNode {
   }
 }
 
+// 11.4.3. Monitoring quality.
+class OperationalMonitoring extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new OperationalMonitoringContentForm(this.doc, this.path + "/content");
+  }
+
+  // Component monitoring coverage.
+  get coverage() {
+    return new MonitoringCoverage(this.doc, this.path + "/coverage");
+  }
+
+  // Alert automation capabilities.
+  get automation() {
+    return new MonitoringAutomation(this.doc, this.path + "/automation");
+  }
+
+  // Alerting strategy and channels.
+  get alerting() {
+    return new MonitoringAlerting(this.doc, this.path + "/alerting");
+  }
+
+  // Planning and observability settings.
+  get operations() {
+    return new MonitoringOperations(this.doc, this.path + "/operations");
+  }
+
+  // Detailed monitoring requirements narrative.
+  get narrative() {
+    return null; // (skipped: no target type)
+  }
+}
+
 // 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
@@ -31658,45 +31839,6 @@ class OperationalPainPointsSummary extends SomNode {
 
   get content() {
     return new OperationalPainPointsSummaryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 11.4. Operations Quality Criteria.
-//
-// Quality criteria for system operations including availability, service
-// levels, monitoring, and IT security operations.
-class OperationsQualityCriteria extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get operationsOverviewContent() {
-    return new OperationsQualityCriteriaOperationsOverviewContentForm(this.doc, this.path + "/operationsOverviewContent");
-  }
-
-  // Operations quality overview narrative.
-  get overview() {
-    return null; // (skipped: no target type)
-  }
-
-  // 11.4.1. Availability.
-  get availability() {
-    return new AvailabilityQuality(this.doc, this.path + "/availability");
-  }
-
-  // 11.4.2. Service Level Requirements.
-  get serviceLevelRequirements() {
-    return new ServiceLevelQuality(this.doc, this.path + "/serviceLevelRequirements");
-  }
-
-  // 11.4.3. Monitoring and Prevention.
-  get monitoringAndPrevention() {
-    return new MonitoringQuality(this.doc, this.path + "/monitoringAndPrevention");
-  }
-
-  // 11.4.4. IT Security Operations.
-  get itSecurityOperations() {
-    return new ItSecurityOperationsQuality(this.doc, this.path + "/itSecurityOperations");
   }
 }
 
@@ -33053,6 +33195,32 @@ class PenetrationTestingRequirementsScheduling extends SomNode {
   }
 }
 
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+//
+// Performance relative to the amount of resources used under stated
+// conditions. Re-homes the former technical-bucket efficiency leaf under the
+// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+// preserved here so no authored content is lost.
+class PerformanceEfficiencyCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get performanceEfficiencyContent() {
+    return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(this.doc, this.path + "/performanceEfficiencyContent");
+  }
+
+  // Performance efficiency overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.3.1. Efficiency.
+  get efficiency() {
+    return new Efficiency(this.doc, this.path + "/efficiency");
+  }
+}
+
 // Periodic review policy (form).
 //
 // Defines periodic reviews of access rights and security posture.
@@ -33779,13 +33947,13 @@ class PlatformAndLanguage extends SomNode {
 }
 
 // 11.3.2. Portability quality.
-class PortabilityQuality extends SomNode {
+class Portability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new PortabilityQualityContentForm(this.doc, this.path + "/content");
+    return new PortabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Detailed portability requirements narrative.
@@ -36197,7 +36365,7 @@ class PwaRequirementsUpdates extends SomNode {
 
 // SBP.14 Quality & Acceptance Model.
 //
-// Public anchor: ISO/IEC 25010 product quality.
+// Public anchor: ISO/IEC 25010:2023 product quality.
 class QualityAndAcceptanceModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -36221,7 +36389,7 @@ class QualityAndAcceptanceModel extends SomNode {
     return new DeliveryScopeAndAcceptance(this.doc, this.path + "/deliveryAcceptance");
   }
 
-  // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  // ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
   get iso25010Coverage() {
     return new Iso25010Coverage(this.doc, this.path + "/iso25010Coverage");
   }
@@ -36634,6 +36802,50 @@ class QualityGateChecklist extends SomNode {
   }
 }
 
+// Baseline and target settings.
+class QualityGoalsBaseline extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new QualityGoalsBaselineContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Governance board and escalation details.
+class QualityGoalsGovernance extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new QualityGoalsGovernanceContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Measurement and reporting approach.
+class QualityGoalsMeasurement extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new QualityGoalsMeasurementContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Quality resources and enablement.
+class QualityGoalsResources extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new QualityGoalsResourcesContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
@@ -36843,33 +37055,33 @@ class RateLimitingPolicyQuotas extends SomNode {
 }
 
 // 11.5.1. Readability quality.
-class ReadabilityQuality extends SomNode {
+class Readability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReadabilityQualityContentForm(this.doc, this.path + "/content");
+    return new ReadabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Identifiability and navigation.
   get navigation() {
-    return new ReadabilityQualityNavigation(this.doc, this.path + "/navigation");
+    return new ReadabilityNavigation(this.doc, this.path + "/navigation");
   }
 
   // Comprehensibility requirements.
   get comprehensibility() {
-    return new ReadabilityQualityComprehensibility(this.doc, this.path + "/comprehensibility");
+    return new ReadabilityComprehensibility(this.doc, this.path + "/comprehensibility");
   }
 
   // Document structure rules.
   get structure() {
-    return new ReadabilityQualityStructure(this.doc, this.path + "/structure");
+    return new ReadabilityStructure(this.doc, this.path + "/structure");
   }
 
   // Style guide alignment.
   get style() {
-    return new ReadabilityQualityStyle(this.doc, this.path + "/style");
+    return new ReadabilityStyle(this.doc, this.path + "/style");
   }
 
   // Detailed readability requirements narrative.
@@ -36879,46 +37091,46 @@ class ReadabilityQuality extends SomNode {
 }
 
 // Comprehensibility requirements.
-class ReadabilityQualityComprehensibility extends SomNode {
+class ReadabilityComprehensibility extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReadabilityQualityComprehensibilityContentForm(this.doc, this.path + "/content");
+    return new ReadabilityComprehensibilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Identifiability and navigation.
-class ReadabilityQualityNavigation extends SomNode {
+class ReadabilityNavigation extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReadabilityQualityNavigationContentForm(this.doc, this.path + "/content");
+    return new ReadabilityNavigationContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Document structure rules.
-class ReadabilityQualityStructure extends SomNode {
+class ReadabilityStructure extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReadabilityQualityStructureContentForm(this.doc, this.path + "/content");
+    return new ReadabilityStructureContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Style guide alignment.
-class ReadabilityQualityStyle extends SomNode {
+class ReadabilityStyle extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReadabilityQualityStyleContentForm(this.doc, this.path + "/content");
+    return new ReadabilityStyleContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -37447,33 +37659,33 @@ class RelevantSectionEntry extends SomNode {
 }
 
 // 11.3.6. Reliability quality.
-class ReliabilityQuality extends SomNode {
+class Reliability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReliabilityQualityContentForm(this.doc, this.path + "/content");
+    return new ReliabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Recovery objectives.
   get recovery() {
-    return new ReliabilityQualityRecovery(this.doc, this.path + "/recovery");
+    return new ReliabilityRecovery(this.doc, this.path + "/recovery");
   }
 
   // Failover requirements.
   get failover() {
-    return new ReliabilityQualityFailover(this.doc, this.path + "/failover");
+    return new ReliabilityFailover(this.doc, this.path + "/failover");
   }
 
   // Data durability requirements.
   get durability() {
-    return new ReliabilityQualityDurability(this.doc, this.path + "/durability");
+    return new ReliabilityDurability(this.doc, this.path + "/durability");
   }
 
   // Verification and learning.
   get verification() {
-    return new ReliabilityQualityVerification(this.doc, this.path + "/verification");
+    return new ReliabilityVerification(this.doc, this.path + "/verification");
   }
 
   // Detailed reliability requirements narrative.
@@ -37482,47 +37694,90 @@ class ReliabilityQuality extends SomNode {
   }
 }
 
+// 11.6. Reliability (ISO/IEC 25010:2023).
+//
+// Degree to which the product performs specified functions under specified
+// conditions for a specified period (availability, fault tolerance,
+// recoverability, maturity). Re-homes the former technical-bucket reliability
+// leaf and the operations-bucket availability, service-level and monitoring
+// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+// overview form is preserved here so no authored content is lost.
+class ReliabilityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get reliabilityContent() {
+    return new ReliabilityCharacteristicReliabilityContentForm(this.doc, this.path + "/reliabilityContent");
+  }
+
+  // Reliability overview narrative.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.6.1. Reliability (product reliability attributes).
+  get reliability() {
+    return new Reliability(this.doc, this.path + "/reliability");
+  }
+
+  // 11.6.2. Availability.
+  get availability() {
+    return new Availability(this.doc, this.path + "/availability");
+  }
+
+  // 11.6.3. Service Level Requirements.
+  get serviceLevelRequirements() {
+    return new ServiceLevel(this.doc, this.path + "/serviceLevelRequirements");
+  }
+
+  // 11.6.4. Monitoring and Prevention.
+  get monitoringAndPrevention() {
+    return new OperationalMonitoring(this.doc, this.path + "/monitoringAndPrevention");
+  }
+}
+
 // Data durability requirements.
-class ReliabilityQualityDurability extends SomNode {
+class ReliabilityDurability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReliabilityQualityDurabilityContentForm(this.doc, this.path + "/content");
+    return new ReliabilityDurabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Failover requirements.
-class ReliabilityQualityFailover extends SomNode {
+class ReliabilityFailover extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReliabilityQualityFailoverContentForm(this.doc, this.path + "/content");
+    return new ReliabilityFailoverContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Recovery objectives.
-class ReliabilityQualityRecovery extends SomNode {
+class ReliabilityRecovery extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReliabilityQualityRecoveryContentForm(this.doc, this.path + "/content");
+    return new ReliabilityRecoveryContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Verification and learning.
-class ReliabilityQualityVerification extends SomNode {
+class ReliabilityVerification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ReliabilityQualityVerificationContentForm(this.doc, this.path + "/content");
+    return new ReliabilityVerificationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -42302,6 +42557,42 @@ class SecondaryNavigation extends SomNode {
   }
 }
 
+// 11.3.4. Security quality.
+class Security extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SecurityContentForm(this.doc, this.path + "/content");
+  }
+
+  // Authentication controls.
+  get authentication() {
+    return new SecurityAuthentication(this.doc, this.path + "/authentication");
+  }
+
+  // Authorization controls.
+  get authorization() {
+    return new SecurityAuthorization(this.doc, this.path + "/authorization");
+  }
+
+  // Vulnerability management expectations.
+  get vulnerability() {
+    return new SecurityVulnerability(this.doc, this.path + "/vulnerability");
+  }
+
+  // Compliance and verification settings.
+  get compliance() {
+    return new SecurityCompliance(this.doc, this.path + "/compliance");
+  }
+
+  // Detailed security requirements narrative.
+  get narrative() {
+    return null; // (skipped: no target type)
+  }
+}
+
 // 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel extends SomNode {
   constructor(doc, path) {
@@ -42475,6 +42766,28 @@ class SecurityAuditRequirementsSection extends SomNode {
   }
 }
 
+// Authentication controls.
+class SecurityAuthentication extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SecurityAuthenticationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Authorization controls.
+class SecurityAuthorization extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SecurityAuthorizationContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Security certification and compliance requirements.
 class SecurityCertificationRequirements extends SomNode {
   constructor(doc, path) {
@@ -42550,6 +42863,36 @@ class SecurityCertificationRequirementsSoc2 extends SomNode {
   }
 }
 
+// 11.7. Security (ISO/IEC 25010:2023).
+//
+// Degree to which the product protects information and data. Re-homes the
+// former technical-bucket security leaf and the operations-bucket IT-security
+// operations leaf under the 25010:2023 spine (L34C-8).
+class SecurityCharacteristic extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get securityContent() {
+    return new SecurityCharacteristicSecurityContentForm(this.doc, this.path + "/securityContent");
+  }
+
+  // Security overview.
+  get overview() {
+    return null; // (skipped: no target type)
+  }
+
+  // 11.7.1. Security (product security attributes).
+  get security() {
+    return new Security(this.doc, this.path + "/security");
+  }
+
+  // 11.7.2. IT Security Operations.
+  get itSecurityOperations() {
+    return new ItSecurityOperations(this.doc, this.path + "/itSecurityOperations");
+  }
+}
+
 // Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -42610,6 +42953,17 @@ class SecurityCodeReviewPolicyReviewers extends SomNode {
 
   get content() {
     return new SecurityCodeReviewPolicyReviewersContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Compliance and verification settings.
+class SecurityCompliance extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SecurityComplianceContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -42831,86 +43185,6 @@ class SecurityEventsDefinition extends SomNode {
   // Custom Security Events — contains 0+× Security Event Entry.
   get customEvents() {
     return new SomList(this.doc, this.path + "/SEVT-CUST-LST", (d, p) => new SecurityEventEntry(d, p));
-  }
-}
-
-// 11.3.4. Security quality.
-class SecurityQuality extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SecurityQualityContentForm(this.doc, this.path + "/content");
-  }
-
-  // Authentication controls.
-  get authentication() {
-    return new SecurityQualityAuthentication(this.doc, this.path + "/authentication");
-  }
-
-  // Authorization controls.
-  get authorization() {
-    return new SecurityQualityAuthorization(this.doc, this.path + "/authorization");
-  }
-
-  // Vulnerability management expectations.
-  get vulnerability() {
-    return new SecurityQualityVulnerability(this.doc, this.path + "/vulnerability");
-  }
-
-  // Compliance and verification settings.
-  get compliance() {
-    return new SecurityQualityCompliance(this.doc, this.path + "/compliance");
-  }
-
-  // Detailed security requirements narrative.
-  get narrative() {
-    return null; // (skipped: no target type)
-  }
-}
-
-// Authentication controls.
-class SecurityQualityAuthentication extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SecurityQualityAuthenticationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Authorization controls.
-class SecurityQualityAuthorization extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SecurityQualityAuthorizationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Compliance and verification settings.
-class SecurityQualityCompliance extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SecurityQualityComplianceContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Vulnerability management expectations.
-class SecurityQualityVulnerability extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SecurityQualityVulnerabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -43267,6 +43541,17 @@ class SecurityTestingAutomationScanning extends SomNode {
 
   get content() {
     return new SecurityTestingAutomationScanningContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Vulnerability management expectations.
+class SecurityVulnerability extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new SecurityVulnerabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -43841,6 +44126,52 @@ class ServiceAccountLifecycle extends SomNode {
   }
 }
 
+// 11.4.2. Service level quality.
+class ServiceLevel extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ServiceLevelContentForm(this.doc, this.path + "/content");
+  }
+
+  // Remaining response targets.
+  get response() {
+    return new ServiceLevelResponse(this.doc, this.path + "/response");
+  }
+
+  // Resolution targets.
+  get resolution() {
+    return new ServiceLevelResolution(this.doc, this.path + "/resolution");
+  }
+
+  // Escalation rules.
+  get escalation() {
+    return new ServiceLevelEscalation(this.doc, this.path + "/escalation");
+  }
+
+  // On-call support expectations.
+  get onCall() {
+    return new ServiceLevelOnCall(this.doc, this.path + "/onCall");
+  }
+
+  // Restoration and communication priorities.
+  get restoration() {
+    return new ServiceLevelRestoration(this.doc, this.path + "/restoration");
+  }
+
+  // Detailed service level requirements narrative.
+  get narrative() {
+    return null; // (skipped: no target type)
+  }
+
+  // Service Level Agreement entries.
+  get slaEntries() {
+    return new SomList(this.doc, this.path + "/SLAE-SLAE-LST", (d, p) => new ServiceLevelAgreementEntry(d, p));
+  }
+}
+
 // A service level agreement entry.
 class ServiceLevelAgreementEntry extends SomNode {
   constructor(doc, path) {
@@ -43849,6 +44180,17 @@ class ServiceLevelAgreementEntry extends SomNode {
 
   get content() {
     return new ServiceLevelAgreementEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Escalation rules.
+class ServiceLevelEscalation extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ServiceLevelEscalationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -43911,104 +44253,47 @@ class ServiceLevelIndicatorsQuality extends SomNode {
   }
 }
 
-// 11.4.2. Service level quality.
-class ServiceLevelQuality extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new ServiceLevelQualityContentForm(this.doc, this.path + "/content");
-  }
-
-  // Remaining response targets.
-  get response() {
-    return new ServiceLevelQualityResponse(this.doc, this.path + "/response");
-  }
-
-  // Resolution targets.
-  get resolution() {
-    return new ServiceLevelQualityResolution(this.doc, this.path + "/resolution");
-  }
-
-  // Escalation rules.
-  get escalation() {
-    return new ServiceLevelQualityEscalation(this.doc, this.path + "/escalation");
-  }
-
-  // On-call support expectations.
-  get onCall() {
-    return new ServiceLevelQualityOnCall(this.doc, this.path + "/onCall");
-  }
-
-  // Restoration and communication priorities.
-  get restoration() {
-    return new ServiceLevelQualityRestoration(this.doc, this.path + "/restoration");
-  }
-
-  // Detailed service level requirements narrative.
-  get narrative() {
-    return null; // (skipped: no target type)
-  }
-
-  // Service Level Agreement entries.
-  get slaEntries() {
-    return new SomList(this.doc, this.path + "/SLAE-SLAE-LST", (d, p) => new ServiceLevelAgreementEntry(d, p));
-  }
-}
-
-// Escalation rules.
-class ServiceLevelQualityEscalation extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new ServiceLevelQualityEscalationContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // On-call support expectations.
-class ServiceLevelQualityOnCall extends SomNode {
+class ServiceLevelOnCall extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ServiceLevelQualityOnCallContentForm(this.doc, this.path + "/content");
+    return new ServiceLevelOnCallContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Resolution targets.
-class ServiceLevelQualityResolution extends SomNode {
+class ServiceLevelResolution extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ServiceLevelQualityResolutionContentForm(this.doc, this.path + "/content");
+    return new ServiceLevelResolutionContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Remaining response targets.
-class ServiceLevelQualityResponse extends SomNode {
+class ServiceLevelResponse extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ServiceLevelQualityResponseContentForm(this.doc, this.path + "/content");
+    return new ServiceLevelResponseContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Restoration and communication priorities.
-class ServiceLevelQualityRestoration extends SomNode {
+class ServiceLevelRestoration extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new ServiceLevelQualityRestorationContentForm(this.doc, this.path + "/content");
+    return new ServiceLevelRestorationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -48540,22 +48825,22 @@ class SystemQualityGoals extends SomNode {
 
   // Governance board and escalation details.
   get governance() {
-    return new SystemQualityGoalsGovernance(this.doc, this.path + "/governance");
+    return new QualityGoalsGovernance(this.doc, this.path + "/governance");
   }
 
   // Baseline and target settings.
   get baseline() {
-    return new SystemQualityGoalsBaseline(this.doc, this.path + "/baseline");
+    return new QualityGoalsBaseline(this.doc, this.path + "/baseline");
   }
 
   // Measurement and reporting approach.
   get measurement() {
-    return new SystemQualityGoalsMeasurement(this.doc, this.path + "/measurement");
+    return new QualityGoalsMeasurement(this.doc, this.path + "/measurement");
   }
 
   // Quality resources and enablement.
   get resources() {
-    return new SystemQualityGoalsResources(this.doc, this.path + "/resources");
+    return new QualityGoalsResources(this.doc, this.path + "/resources");
   }
 
   // Executive summary of quality goals and approach.
@@ -48588,22 +48873,49 @@ class SystemQualityGoals extends SomNode {
     return new QualityFramework(this.doc, this.path + "/framework");
   }
 
-  // 11.2. User-Related Quality Criteria.
-  get userQuality() {
-    return new UserQualityCriteria(this.doc, this.path + "/userQuality");
+  // 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  get functionalSuitability() {
+    return new FunctionalSuitabilityCharacteristic(this.doc, this.path + "/functionalSuitability");
   }
 
-  // 11.3. Technical Quality Criteria.
-  get technicalQuality() {
-    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQuality");
+  // 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  get performanceEfficiency() {
+    return new PerformanceEfficiencyCharacteristic(this.doc, this.path + "/performanceEfficiency");
   }
 
-  // 11.4. Operations Quality Criteria.
-  get operationsQuality() {
-    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQuality");
+  // 11.4. Compatibility (ISO/IEC 25010:2023).
+  get compatibility() {
+    return new CompatibilityCharacteristic(this.doc, this.path + "/compatibility");
   }
 
-  // 11.5. Documentation Quality Criteria.
+  // 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  get interactionCapability() {
+    return new InteractionCapabilityCharacteristic(this.doc, this.path + "/interactionCapability");
+  }
+
+  // 11.6. Reliability (ISO/IEC 25010:2023).
+  get reliability() {
+    return new ReliabilityCharacteristic(this.doc, this.path + "/reliability");
+  }
+
+  // 11.7. Security (ISO/IEC 25010:2023).
+  get security() {
+    return new SecurityCharacteristic(this.doc, this.path + "/security");
+  }
+
+  // 11.8. Maintainability (ISO/IEC 25010:2023).
+  get maintainability() {
+    return new MaintainabilityCharacteristic(this.doc, this.path + "/maintainability");
+  }
+
+  // 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  get flexibility() {
+    return new FlexibilityCharacteristic(this.doc, this.path + "/flexibility");
+  }
+
+  // 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+  // annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+  // documentation-quality annex per L34C-8).
   get documentationQuality() {
     return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQuality");
   }
@@ -48621,50 +48933,6 @@ class SystemQualityGoals extends SomNode {
   // 11.8. Test Strategy..
   get testStrategy() {
     return new TestStrategy(this.doc, this.path + "/testStrategy");
-  }
-}
-
-// Baseline and target settings.
-class SystemQualityGoalsBaseline extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemQualityGoalsBaselineContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Governance board and escalation details.
-class SystemQualityGoalsGovernance extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemQualityGoalsGovernanceContentForm2(this.doc, this.path + "/content");
-  }
-}
-
-// Measurement and reporting approach.
-class SystemQualityGoalsMeasurement extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemQualityGoalsMeasurementContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Quality resources and enablement.
-class SystemQualityGoalsResources extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get content() {
-    return new SystemQualityGoalsResourcesContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -50139,55 +50407,6 @@ class TechnicalPainPointsSummary extends SomNode {
 
   get content() {
     return new TechnicalPainPointsSummaryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 11.3. Technical Quality Criteria.
-//
-// Quality criteria for the technical implementation including efficiency,
-// portability, flexibility, security, maintainability, and reliability.
-class TechnicalQualityCriteria extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get technicalQualityContent() {
-    return new TechnicalQualityCriteriaTechnicalQualityContentForm(this.doc, this.path + "/technicalQualityContent");
-  }
-
-  // Technical quality overview.
-  get overview() {
-    return null; // (skipped: no target type)
-  }
-
-  // 11.3.1. Efficiency.
-  get efficiency() {
-    return new EfficiencyQuality(this.doc, this.path + "/efficiency");
-  }
-
-  // 11.3.2. Portability.
-  get portability() {
-    return new PortabilityQuality(this.doc, this.path + "/portability");
-  }
-
-  // 11.3.3. Flexibility.
-  get flexibility() {
-    return new FlexibilityQuality(this.doc, this.path + "/flexibility");
-  }
-
-  // 11.3.4. Security.
-  get security() {
-    return new SecurityQuality(this.doc, this.path + "/security");
-  }
-
-  // 11.3.5. Maintainability.
-  get maintainability() {
-    return new MaintainabilityQuality(this.doc, this.path + "/maintainability");
-  }
-
-  // 11.3.6. Reliability.
-  get reliability() {
-    return new ReliabilityQuality(this.doc, this.path + "/reliability");
   }
 }
 
@@ -53349,38 +53568,38 @@ class UpgradeCycleFramework extends SomNode {
 }
 
 // 11.2.1. Usability quality.
-class UsabilityQuality extends SomNode {
+class Usability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityContentForm(this.doc, this.path + "/content");
+    return new UsabilityContentForm(this.doc, this.path + "/content");
   }
 
   // Operability verification and ergonomics goals.
   get operability() {
-    return new UsabilityQualityOperability(this.doc, this.path + "/operability");
+    return new UsabilityOperability(this.doc, this.path + "/operability");
   }
 
   // Learnability and onboarding expectations.
   get learnability() {
-    return new UsabilityQualityLearnability(this.doc, this.path + "/learnability");
+    return new UsabilityLearnability(this.doc, this.path + "/learnability");
   }
 
   // Clarity and complexity constraints.
   get clarity() {
-    return new UsabilityQualityClarity(this.doc, this.path + "/clarity");
+    return new UsabilityClarity(this.doc, this.path + "/clarity");
   }
 
   // Interaction control settings.
   get interaction() {
-    return new UsabilityQualityInteraction(this.doc, this.path + "/interaction");
+    return new UsabilityInteraction(this.doc, this.path + "/interaction");
   }
 
   // Perceived and measured responsiveness targets.
   get performance() {
-    return new UsabilityQualityPerformance(this.doc, this.path + "/performance");
+    return new UsabilityPerformance(this.doc, this.path + "/performance");
   }
 
   // Detailed usability requirements narrative.
@@ -53390,57 +53609,57 @@ class UsabilityQuality extends SomNode {
 }
 
 // Clarity and complexity constraints.
-class UsabilityQualityClarity extends SomNode {
+class UsabilityClarity extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityClarityContentForm(this.doc, this.path + "/content");
+    return new UsabilityClarityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Interaction control settings.
-class UsabilityQualityInteraction extends SomNode {
+class UsabilityInteraction extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityInteractionContentForm(this.doc, this.path + "/content");
+    return new UsabilityInteractionContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Learnability and onboarding expectations.
-class UsabilityQualityLearnability extends SomNode {
+class UsabilityLearnability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityLearnabilityContentForm(this.doc, this.path + "/content");
+    return new UsabilityLearnabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Operability verification and ergonomics goals.
-class UsabilityQualityOperability extends SomNode {
+class UsabilityOperability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityOperabilityContentForm(this.doc, this.path + "/content");
+    return new UsabilityOperabilityContentForm(this.doc, this.path + "/content");
   }
 }
 
 // Perceived and measured responsiveness targets.
-class UsabilityQualityPerformance extends SomNode {
+class UsabilityPerformance extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
 
   get content() {
-    return new UsabilityQualityPerformanceContentForm(this.doc, this.path + "/content");
+    return new UsabilityPerformanceContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -54500,40 +54719,6 @@ class UserProvisioningToolsRoleManagement extends SomNode {
 
   get content() {
     return new UserProvisioningToolsRoleManagementContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 11.2. User-Related Quality Criteria.
-//
-// Quality criteria that directly affect user experience, including usability,
-// functional completeness, and correctness from the end-user perspective.
-class UserQualityCriteria extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get userQualityContent() {
-    return new UserQualityCriteriaUserQualityContentForm(this.doc, this.path + "/userQualityContent");
-  }
-
-  // User quality criteria overview.
-  get overview() {
-    return null; // (skipped: no target type)
-  }
-
-  // 11.2.1. Usability.
-  get usability() {
-    return new UsabilityQuality(this.doc, this.path + "/usability");
-  }
-
-  // 11.2.2. Functional Completeness.
-  get functionalCompleteness() {
-    return new FunctionalCompletenessQuality(this.doc, this.path + "/functionalCompleteness");
-  }
-
-  // 11.2.3. Correctness.
-  get correctness() {
-    return new CorrectnessQuality(this.doc, this.path + "/correctness");
   }
 }
 
@@ -61832,7 +62017,7 @@ class AuthorizationRoleEntryStructureContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityContentForm extends SomNode {
+class AvailabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -61863,7 +62048,7 @@ class AvailabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityDegradedModeContentForm extends SomNode {
+class AvailabilityDegradedModeContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -61894,7 +62079,7 @@ class AvailabilityQualityDegradedModeContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityMaintenanceContentForm extends SomNode {
+class AvailabilityMaintenanceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -61933,7 +62118,7 @@ class AvailabilityQualityMaintenanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityOperatingHoursContentForm extends SomNode {
+class AvailabilityOperatingHoursContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -61964,7 +62149,7 @@ class AvailabilityQualityOperatingHoursContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class AvailabilityQualityVerificationContentForm extends SomNode {
+class AvailabilityVerificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -70827,6 +71012,29 @@ class CommunicationTypeEntryContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `compatibilityContent` @Form section.
+class CompatibilityCharacteristicCompatibilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get coExistenceRequirements() {
+    return this.doc.formField(this.path, "coExistenceRequirements") || '';
+  }
+
+  set coExistenceRequirements(value) {
+    this.doc.setFormField(this.path, "coExistenceRequirements", value);
+  }
+
+  get interoperabilityStandards() {
+    return this.doc.formField(this.path, "interoperabilityStandards") || '';
+  }
+
+  set interoperabilityStandards(value) {
+    this.doc.setFormField(this.path, "interoperabilityStandards", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class CompetencyEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -75319,7 +75527,7 @@ class ContingencyPlanEntryTestingContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityAccuracyContentForm extends SomNode {
+class CorrectnessAccuracyContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -75350,7 +75558,7 @@ class CorrectnessQualityAccuracyContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityContentForm extends SomNode {
+class CorrectnessContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -75381,7 +75589,7 @@ class CorrectnessQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityIntegrityContentForm extends SomNode {
+class CorrectnessIntegrityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -75412,7 +75620,7 @@ class CorrectnessQualityIntegrityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class CorrectnessQualityVerificationContentForm extends SomNode {
+class CorrectnessVerificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86124,7 +86332,7 @@ class DnsRequirementsZonesContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityContentForm extends SomNode {
+class DocChangeabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86155,7 +86363,7 @@ class DocChangeabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityExtensibilityContentForm extends SomNode {
+class DocChangeabilityExtensibilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86186,7 +86394,7 @@ class DocChangeabilityQualityExtensibilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityMaintenanceContentForm extends SomNode {
+class DocChangeabilityMaintenanceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86209,7 +86417,7 @@ class DocChangeabilityQualityMaintenanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocChangeabilityQualityStructureContentForm extends SomNode {
+class DocChangeabilityStructureContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86248,7 +86456,7 @@ class DocChangeabilityQualityStructureContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocCompletenessQualityContentForm extends SomNode {
+class DocCompletenessContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86335,7 +86543,7 @@ class DocCompletenessQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityAlignmentContentForm extends SomNode {
+class DocCorrectnessAlignmentContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86382,7 +86590,7 @@ class DocCorrectnessQualityAlignmentContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityContentForm extends SomNode {
+class DocCorrectnessContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -86421,7 +86629,7 @@ class DocCorrectnessQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class DocCorrectnessQualityVerificationContentForm extends SomNode {
+class DocCorrectnessVerificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -87586,7 +87794,7 @@ class DomainTermEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityContentForm extends SomNode {
+class EfficiencyContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -87617,7 +87825,7 @@ class EfficiencyQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityResourcesContentForm extends SomNode {
+class EfficiencyResourcesContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -87656,7 +87864,7 @@ class EfficiencyQualityResourcesContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityThroughputContentForm extends SomNode {
+class EfficiencyThroughputContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -87687,7 +87895,7 @@ class EfficiencyQualityThroughputContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class EfficiencyQualityVerificationContentForm extends SomNode {
+class EfficiencyVerificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -94704,8 +94912,31 @@ class FirewallRequirementsRulesContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `flexibilityContent` @Form section.
+class FlexibilityCharacteristicFlexibilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get flexibilityApproach() {
+    return this.doc.formField(this.path, "flexibilityApproach") || '';
+  }
+
+  set flexibilityApproach(value) {
+    this.doc.setFormField(this.path, "flexibilityApproach", value);
+  }
+
+  get portabilityTarget() {
+    return this.doc.formField(this.path, "portabilityTarget") || '';
+  }
+
+  set portabilityTarget(value) {
+    this.doc.setFormField(this.path, "portabilityTarget", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityContentForm extends SomNode {
+class FlexibilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -94736,7 +94967,7 @@ class FlexibilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityDeploymentContentForm extends SomNode {
+class FlexibilityDeploymentContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -94767,7 +94998,7 @@ class FlexibilityQualityDeploymentContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityExtensibilityContentForm extends SomNode {
+class FlexibilityExtensibilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -94798,7 +95029,7 @@ class FlexibilityQualityExtensibilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class FlexibilityQualityModularityContentForm extends SomNode {
+class FlexibilityModularityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -95327,7 +95558,7 @@ class FunctionModelMatrixOverviewForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class FunctionalCompletenessQualityContentForm extends SomNode {
+class FunctionalCompletenessContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -95737,6 +95968,37 @@ class FunctionalResponsibilitiesContentForm extends SomNode {
 
   set unassignedAreas(value) {
     this.doc.setFormField(this.path, "unassignedAreas", value);
+  }
+}
+
+// Generated form facade for the `functionalSuitabilityContent` @Form section.
+class FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get functionalSuitabilityApproach() {
+    return this.doc.formField(this.path, "functionalSuitabilityApproach") || '';
+  }
+
+  set functionalSuitabilityApproach(value) {
+    this.doc.setFormField(this.path, "functionalSuitabilityApproach", value);
+  }
+
+  get functionalCoverageTarget() {
+    return this.doc.formField(this.path, "functionalCoverageTarget") || '';
+  }
+
+  set functionalCoverageTarget(value) {
+    this.doc.setFormField(this.path, "functionalCoverageTarget", value);
+  }
+
+  get correctnessStandard() {
+    return this.doc.formField(this.path, "correctnessStandard") || '';
+  }
+
+  set correctnessStandard(value) {
+    this.doc.setFormField(this.path, "correctnessStandard", value);
   }
 }
 
@@ -100480,6 +100742,61 @@ class InteractionBusinessRulesContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `interactionCapabilityContent` @Form section.
+class InteractionCapabilityCharacteristicInteractionCapabilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get userQualityPhilosophy() {
+    return this.doc.formField(this.path, "userQualityPhilosophy") || '';
+  }
+
+  set userQualityPhilosophy(value) {
+    this.doc.setFormField(this.path, "userQualityPhilosophy", value);
+  }
+
+  get targetUserExperience() {
+    return this.doc.formField(this.path, "targetUserExperience") || '';
+  }
+
+  set targetUserExperience(value) {
+    this.doc.setFormField(this.path, "targetUserExperience", value);
+  }
+
+  get userResearchBasis() {
+    return this.doc.formField(this.path, "userResearchBasis") || '';
+  }
+
+  set userResearchBasis(value) {
+    this.doc.setFormField(this.path, "userResearchBasis", value);
+  }
+
+  get userFeedbackChannel() {
+    return this.doc.formField(this.path, "userFeedbackChannel") || '';
+  }
+
+  set userFeedbackChannel(value) {
+    this.doc.setFormField(this.path, "userFeedbackChannel", value);
+  }
+
+  get userSatisfactionTarget() {
+    return this.doc.formField(this.path, "userSatisfactionTarget") || '';
+  }
+
+  set userSatisfactionTarget(value) {
+    this.doc.setFormField(this.path, "userSatisfactionTarget", value);
+  }
+
+  get accessibilityLevel() {
+    return this.doc.formField(this.path, "accessibilityLevel") || '';
+  }
+
+  set accessibilityLevel(value) {
+    this.doc.setFormField(this.path, "accessibilityLevel", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class InteractionCatalogOverviewContentForm extends SomNode {
   constructor(doc, path) {
@@ -103131,7 +103448,7 @@ class ItLandscapePositionPositionDetailsForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityAccessContentForm extends SomNode {
+class ItSecurityOperationsAccessContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -103162,7 +103479,7 @@ class ItSecurityOperationsQualityAccessContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityContentForm extends SomNode {
+class ItSecurityOperationsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -103193,7 +103510,7 @@ class ItSecurityOperationsQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityIncidentContentForm extends SomNode {
+class ItSecurityOperationsIncidentContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -103232,7 +103549,7 @@ class ItSecurityOperationsQualityIncidentContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityRecoveryContentForm extends SomNode {
+class ItSecurityOperationsRecoveryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -103271,7 +103588,7 @@ class ItSecurityOperationsQualityRecoveryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ItSecurityOperationsQualityTestingContentForm extends SomNode {
+class ItSecurityOperationsTestingContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -106143,7 +106460,7 @@ class MainSuccessScenarioContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityAnalyzabilityContentForm extends SomNode {
+class MaintainabilityAnalyzabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -106174,7 +106491,7 @@ class MaintainabilityQualityAnalyzabilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityChangeabilityContentForm extends SomNode {
+class MaintainabilityChangeabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -106212,8 +106529,31 @@ class MaintainabilityQualityChangeabilityContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `maintainabilityContent` @Form section.
+class MaintainabilityCharacteristicMaintainabilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get maintainabilityApproach() {
+    return this.doc.formField(this.path, "maintainabilityApproach") || '';
+  }
+
+  set maintainabilityApproach(value) {
+    this.doc.setFormField(this.path, "maintainabilityApproach", value);
+  }
+
+  get maintainabilityStandard() {
+    return this.doc.formField(this.path, "maintainabilityStandard") || '';
+  }
+
+  set maintainabilityStandard(value) {
+    this.doc.setFormField(this.path, "maintainabilityStandard", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityContentForm extends SomNode {
+class MaintainabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -106236,7 +106576,7 @@ class MaintainabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityGovernanceContentForm extends SomNode {
+class MaintainabilityGovernanceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -106275,7 +106615,7 @@ class MaintainabilityQualityGovernanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class MaintainabilityQualityTestabilityContentForm extends SomNode {
+class MaintainabilityTestabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -111107,6 +111447,115 @@ class ModuleVersioningStrategyReleaseManagementContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `content` @Form section.
+class MonitoringAlertingContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get alertingStrategy() {
+    return this.doc.formField(this.path, "alertingStrategy") || '';
+  }
+
+  set alertingStrategy(value) {
+    this.doc.setFormField(this.path, "alertingStrategy", value);
+  }
+
+  get alertPrioritization() {
+    return this.doc.formField(this.path, "alertPrioritization") || '';
+  }
+
+  set alertPrioritization(value) {
+    this.doc.setFormField(this.path, "alertPrioritization", value);
+  }
+
+  get alertNotificationChannels() {
+    return this.doc.formField(this.path, "alertNotificationChannels") || '';
+  }
+
+  set alertNotificationChannels(value) {
+    this.doc.setFormField(this.path, "alertNotificationChannels", value);
+  }
+
+  get alertFatiguePrevention() {
+    return this.doc.formField(this.path, "alertFatiguePrevention") || '';
+  }
+
+  set alertFatiguePrevention(value) {
+    this.doc.setFormField(this.path, "alertFatiguePrevention", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class MonitoringAutomationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get alertAutomation() {
+    return this.doc.formField(this.path, "alertAutomation") || '';
+  }
+
+  set alertAutomation(value) {
+    this.doc.setFormField(this.path, "alertAutomation", value);
+  }
+
+  get selfHealingCapability() {
+    return this.doc.formField(this.path, "selfHealingCapability") || '';
+  }
+
+  set selfHealingCapability(value) {
+    this.doc.setFormField(this.path, "selfHealingCapability", value);
+  }
+
+  get runbookAutomation() {
+    return this.doc.formField(this.path, "runbookAutomation") || '';
+  }
+
+  set runbookAutomation(value) {
+    this.doc.setFormField(this.path, "runbookAutomation", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class MonitoringCoverageContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get infrastructureMonitoring() {
+    return this.doc.formField(this.path, "infrastructureMonitoring") || '';
+  }
+
+  set infrastructureMonitoring(value) {
+    this.doc.setFormField(this.path, "infrastructureMonitoring", value);
+  }
+
+  get applicationMonitoring() {
+    return this.doc.formField(this.path, "applicationMonitoring") || '';
+  }
+
+  set applicationMonitoring(value) {
+    this.doc.setFormField(this.path, "applicationMonitoring", value);
+  }
+
+  get databaseMonitoring() {
+    return this.doc.formField(this.path, "databaseMonitoring") || '';
+  }
+
+  set databaseMonitoring(value) {
+    this.doc.setFormField(this.path, "databaseMonitoring", value);
+  }
+
+  get thirdPartyMonitoring() {
+    return this.doc.formField(this.path, "thirdPartyMonitoring") || '';
+  }
+
+  set thirdPartyMonitoring(value) {
+    this.doc.setFormField(this.path, "thirdPartyMonitoring", value);
+  }
+}
+
 // Generated form facade for the `dashboardOverview` @Form section.
 class MonitoringDashboardsDashboardOverviewForm extends SomNode {
   constructor(doc, path) {
@@ -111430,147 +111879,7 @@ class MonitoringMonitoringOverviewForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class MonitoringQualityAlertingContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get alertingStrategy() {
-    return this.doc.formField(this.path, "alertingStrategy") || '';
-  }
-
-  set alertingStrategy(value) {
-    this.doc.setFormField(this.path, "alertingStrategy", value);
-  }
-
-  get alertPrioritization() {
-    return this.doc.formField(this.path, "alertPrioritization") || '';
-  }
-
-  set alertPrioritization(value) {
-    this.doc.setFormField(this.path, "alertPrioritization", value);
-  }
-
-  get alertNotificationChannels() {
-    return this.doc.formField(this.path, "alertNotificationChannels") || '';
-  }
-
-  set alertNotificationChannels(value) {
-    this.doc.setFormField(this.path, "alertNotificationChannels", value);
-  }
-
-  get alertFatiguePrevention() {
-    return this.doc.formField(this.path, "alertFatiguePrevention") || '';
-  }
-
-  set alertFatiguePrevention(value) {
-    this.doc.setFormField(this.path, "alertFatiguePrevention", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityAutomationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get alertAutomation() {
-    return this.doc.formField(this.path, "alertAutomation") || '';
-  }
-
-  set alertAutomation(value) {
-    this.doc.setFormField(this.path, "alertAutomation", value);
-  }
-
-  get selfHealingCapability() {
-    return this.doc.formField(this.path, "selfHealingCapability") || '';
-  }
-
-  set selfHealingCapability(value) {
-    this.doc.setFormField(this.path, "selfHealingCapability", value);
-  }
-
-  get runbookAutomation() {
-    return this.doc.formField(this.path, "runbookAutomation") || '';
-  }
-
-  set runbookAutomation(value) {
-    this.doc.setFormField(this.path, "runbookAutomation", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get scalabilityMonitoringApproach() {
-    return this.doc.formField(this.path, "scalabilityMonitoringApproach") || '';
-  }
-
-  set scalabilityMonitoringApproach(value) {
-    this.doc.setFormField(this.path, "scalabilityMonitoringApproach", value);
-  }
-
-  get capacityPlanningProcess() {
-    return this.doc.formField(this.path, "capacityPlanningProcess") || '';
-  }
-
-  set capacityPlanningProcess(value) {
-    this.doc.setFormField(this.path, "capacityPlanningProcess", value);
-  }
-
-  get growthProjections() {
-    return this.doc.formField(this.path, "growthProjections") || '';
-  }
-
-  set growthProjections(value) {
-    this.doc.setFormField(this.path, "growthProjections", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityCoverageContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get infrastructureMonitoring() {
-    return this.doc.formField(this.path, "infrastructureMonitoring") || '';
-  }
-
-  set infrastructureMonitoring(value) {
-    this.doc.setFormField(this.path, "infrastructureMonitoring", value);
-  }
-
-  get applicationMonitoring() {
-    return this.doc.formField(this.path, "applicationMonitoring") || '';
-  }
-
-  set applicationMonitoring(value) {
-    this.doc.setFormField(this.path, "applicationMonitoring", value);
-  }
-
-  get databaseMonitoring() {
-    return this.doc.formField(this.path, "databaseMonitoring") || '';
-  }
-
-  set databaseMonitoring(value) {
-    this.doc.setFormField(this.path, "databaseMonitoring", value);
-  }
-
-  get thirdPartyMonitoring() {
-    return this.doc.formField(this.path, "thirdPartyMonitoring") || '';
-  }
-
-  set thirdPartyMonitoring(value) {
-    this.doc.setFormField(this.path, "thirdPartyMonitoring", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class MonitoringQualityOperationsContentForm extends SomNode {
+class MonitoringOperationsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -115529,6 +115838,37 @@ class OngoingTrainingEntryScheduleContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class OperationalMonitoringContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get scalabilityMonitoringApproach() {
+    return this.doc.formField(this.path, "scalabilityMonitoringApproach") || '';
+  }
+
+  set scalabilityMonitoringApproach(value) {
+    this.doc.setFormField(this.path, "scalabilityMonitoringApproach", value);
+  }
+
+  get capacityPlanningProcess() {
+    return this.doc.formField(this.path, "capacityPlanningProcess") || '';
+  }
+
+  set capacityPlanningProcess(value) {
+    this.doc.setFormField(this.path, "capacityPlanningProcess", value);
+  }
+
+  get growthProjections() {
+    return this.doc.formField(this.path, "growthProjections") || '';
+  }
+
+  set growthProjections(value) {
+    this.doc.setFormField(this.path, "growthProjections", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class OperationalPainPointsSummaryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -115572,61 +115912,6 @@ class OperationalPainPointsSummaryContentForm extends SomNode {
 
   set staffOverhead(value) {
     this.doc.setFormField(this.path, "staffOverhead", value);
-  }
-}
-
-// Generated form facade for the `operationsOverviewContent` @Form section.
-class OperationsQualityCriteriaOperationsOverviewContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get operationsMaturityModel() {
-    return this.doc.formField(this.path, "operationsMaturityModel") || '';
-  }
-
-  set operationsMaturityModel(value) {
-    this.doc.setFormField(this.path, "operationsMaturityModel", value);
-  }
-
-  get operationsPhilosophy() {
-    return this.doc.formField(this.path, "operationsPhilosophy") || '';
-  }
-
-  set operationsPhilosophy(value) {
-    this.doc.setFormField(this.path, "operationsPhilosophy", value);
-  }
-
-  get operationsResponsibility() {
-    return this.doc.formField(this.path, "operationsResponsibility") || '';
-  }
-
-  set operationsResponsibility(value) {
-    this.doc.setFormField(this.path, "operationsResponsibility", value);
-  }
-
-  get incidentManagementProcess() {
-    return this.doc.formField(this.path, "incidentManagementProcess") || '';
-  }
-
-  set incidentManagementProcess(value) {
-    this.doc.setFormField(this.path, "incidentManagementProcess", value);
-  }
-
-  get changeManagementProcess() {
-    return this.doc.formField(this.path, "changeManagementProcess") || '';
-  }
-
-  set changeManagementProcess(value) {
-    this.doc.setFormField(this.path, "changeManagementProcess", value);
-  }
-
-  get operationsToolchain() {
-    return this.doc.formField(this.path, "operationsToolchain") || '';
-  }
-
-  set operationsToolchain(value) {
-    this.doc.setFormField(this.path, "operationsToolchain", value);
   }
 }
 
@@ -118017,6 +118302,53 @@ class PenetrationTestingRequirementsSchedulingContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `performanceEfficiencyContent` @Form section.
+class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get technicalQualityPhilosophy() {
+    return this.doc.formField(this.path, "technicalQualityPhilosophy") || '';
+  }
+
+  set technicalQualityPhilosophy(value) {
+    this.doc.setFormField(this.path, "technicalQualityPhilosophy", value);
+  }
+
+  get architecturalQualityGoals() {
+    return this.doc.formField(this.path, "architecturalQualityGoals") || '';
+  }
+
+  set architecturalQualityGoals(value) {
+    this.doc.setFormField(this.path, "architecturalQualityGoals", value);
+  }
+
+  get technicalDebtTolerance() {
+    return this.doc.formField(this.path, "technicalDebtTolerance") || '';
+  }
+
+  set technicalDebtTolerance(value) {
+    this.doc.setFormField(this.path, "technicalDebtTolerance", value);
+  }
+
+  get codeQualityStandard() {
+    return this.doc.formField(this.path, "codeQualityStandard") || '';
+  }
+
+  set codeQualityStandard(value) {
+    this.doc.setFormField(this.path, "codeQualityStandard", value);
+  }
+
+  get designPrinciplesAdherence() {
+    return this.doc.formField(this.path, "designPrinciplesAdherence") || '';
+  }
+
+  set designPrinciplesAdherence(value) {
+    this.doc.setFormField(this.path, "designPrinciplesAdherence", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class PeriodicReviewPolicyContentForm extends SomNode {
   constructor(doc, path) {
@@ -119297,7 +119629,7 @@ class PipelineStageEntryTriggerContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class PortabilityQualityContentForm extends SomNode {
+class PortabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -125408,6 +125740,162 @@ class QualityGateChecklistChecklistOverviewContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `content` @Form section.
+class QualityGoalsBaselineContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get qualityBaselineDate() {
+    return this.doc.formField(this.path, "qualityBaselineDate") || '';
+  }
+
+  set qualityBaselineDate(value) {
+    this.doc.setFormField(this.path, "qualityBaselineDate", value);
+  }
+
+  get qualityBaselineVersion() {
+    return this.doc.formField(this.path, "qualityBaselineVersion") || '';
+  }
+
+  set qualityBaselineVersion(value) {
+    this.doc.setFormField(this.path, "qualityBaselineVersion", value);
+  }
+
+  get overallQualityTargetLevel() {
+    return this.doc.formField(this.path, "overallQualityTargetLevel") || '';
+  }
+
+  set overallQualityTargetLevel(value) {
+    this.doc.setFormField(this.path, "overallQualityTargetLevel", value);
+  }
+
+  get qualityRiskTolerance() {
+    return this.doc.formField(this.path, "qualityRiskTolerance") || '';
+  }
+
+  set qualityRiskTolerance(value) {
+    this.doc.setFormField(this.path, "qualityRiskTolerance", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsGovernanceContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get qualityReviewBoard() {
+    return this.doc.formField(this.path, "qualityReviewBoard") || '';
+  }
+
+  set qualityReviewBoard(value) {
+    this.doc.setFormField(this.path, "qualityReviewBoard", value);
+  }
+
+  get qualityMeetingCadence() {
+    return this.doc.formField(this.path, "qualityMeetingCadence") || '';
+  }
+
+  set qualityMeetingCadence(value) {
+    this.doc.setFormField(this.path, "qualityMeetingCadence", value);
+  }
+
+  get qualityEscalationPath() {
+    return this.doc.formField(this.path, "qualityEscalationPath") || '';
+  }
+
+  set qualityEscalationPath(value) {
+    this.doc.setFormField(this.path, "qualityEscalationPath", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsMeasurementContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get qualityMetricsFramework() {
+    return this.doc.formField(this.path, "qualityMetricsFramework") || '';
+  }
+
+  set qualityMetricsFramework(value) {
+    this.doc.setFormField(this.path, "qualityMetricsFramework", value);
+  }
+
+  get qualityReportingFrequency() {
+    return this.doc.formField(this.path, "qualityReportingFrequency") || '';
+  }
+
+  set qualityReportingFrequency(value) {
+    this.doc.setFormField(this.path, "qualityReportingFrequency", value);
+  }
+
+  get qualityDashboardTool() {
+    return this.doc.formField(this.path, "qualityDashboardTool") || '';
+  }
+
+  set qualityDashboardTool(value) {
+    this.doc.setFormField(this.path, "qualityDashboardTool", value);
+  }
+
+  get defectTrackingSystem() {
+    return this.doc.formField(this.path, "defectTrackingSystem") || '';
+  }
+
+  set defectTrackingSystem(value) {
+    this.doc.setFormField(this.path, "defectTrackingSystem", value);
+  }
+
+  get qualityTrendAnalysis() {
+    return this.doc.formField(this.path, "qualityTrendAnalysis") || '';
+  }
+
+  set qualityTrendAnalysis(value) {
+    this.doc.setFormField(this.path, "qualityTrendAnalysis", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class QualityGoalsResourcesContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get qualityBudget() {
+    return this.doc.formField(this.path, "qualityBudget") || '';
+  }
+
+  set qualityBudget(value) {
+    this.doc.setFormField(this.path, "qualityBudget", value);
+  }
+
+  get qaTeamSize() {
+    return this.doc.formField(this.path, "qaTeamSize") || '';
+  }
+
+  set qaTeamSize(value) {
+    this.doc.setFormField(this.path, "qaTeamSize", value);
+  }
+
+  get testAutomationTarget() {
+    return this.doc.formField(this.path, "testAutomationTarget") || '';
+  }
+
+  set testAutomationTarget(value) {
+    this.doc.setFormField(this.path, "testAutomationTarget", value);
+  }
+
+  get qualityTrainingPlan() {
+    return this.doc.formField(this.path, "qualityTrainingPlan") || '';
+  }
+
+  set qualityTrainingPlan(value) {
+    this.doc.setFormField(this.path, "qualityTrainingPlan", value);
+  }
+}
+
 // Generated form facade for the `prioritizationFrameworkContent` @Form section.
 class QualityPrioritizationPrioritizationFrameworkContentForm extends SomNode {
   constructor(doc, path) {
@@ -125917,7 +126405,7 @@ class RateLimitingPolicyQuotasContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityComprehensibilityContentForm extends SomNode {
+class ReadabilityComprehensibilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -125948,7 +126436,7 @@ class ReadabilityQualityComprehensibilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityContentForm extends SomNode {
+class ReadabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -125979,7 +126467,7 @@ class ReadabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityNavigationContentForm extends SomNode {
+class ReadabilityNavigationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -126010,7 +126498,7 @@ class ReadabilityQualityNavigationContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityStructureContentForm extends SomNode {
+class ReadabilityStructureContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -126041,7 +126529,7 @@ class ReadabilityQualityStructureContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReadabilityQualityStyleContentForm extends SomNode {
+class ReadabilityStyleContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -127268,8 +127756,63 @@ class RelevantSectionEntryContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `reliabilityContent` @Form section.
+class ReliabilityCharacteristicReliabilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get operationsMaturityModel() {
+    return this.doc.formField(this.path, "operationsMaturityModel") || '';
+  }
+
+  set operationsMaturityModel(value) {
+    this.doc.setFormField(this.path, "operationsMaturityModel", value);
+  }
+
+  get operationsPhilosophy() {
+    return this.doc.formField(this.path, "operationsPhilosophy") || '';
+  }
+
+  set operationsPhilosophy(value) {
+    this.doc.setFormField(this.path, "operationsPhilosophy", value);
+  }
+
+  get operationsResponsibility() {
+    return this.doc.formField(this.path, "operationsResponsibility") || '';
+  }
+
+  set operationsResponsibility(value) {
+    this.doc.setFormField(this.path, "operationsResponsibility", value);
+  }
+
+  get incidentManagementProcess() {
+    return this.doc.formField(this.path, "incidentManagementProcess") || '';
+  }
+
+  set incidentManagementProcess(value) {
+    this.doc.setFormField(this.path, "incidentManagementProcess", value);
+  }
+
+  get changeManagementProcess() {
+    return this.doc.formField(this.path, "changeManagementProcess") || '';
+  }
+
+  set changeManagementProcess(value) {
+    this.doc.setFormField(this.path, "changeManagementProcess", value);
+  }
+
+  get operationsToolchain() {
+    return this.doc.formField(this.path, "operationsToolchain") || '';
+  }
+
+  set operationsToolchain(value) {
+    this.doc.setFormField(this.path, "operationsToolchain", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityContentForm extends SomNode {
+class ReliabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -127300,7 +127843,7 @@ class ReliabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityDurabilityContentForm extends SomNode {
+class ReliabilityDurabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -127339,7 +127882,7 @@ class ReliabilityQualityDurabilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityFailoverContentForm extends SomNode {
+class ReliabilityFailoverContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -127370,7 +127913,7 @@ class ReliabilityQualityFailoverContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityRecoveryContentForm extends SomNode {
+class ReliabilityRecoveryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -127409,7 +127952,7 @@ class ReliabilityQualityRecoveryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ReliabilityQualityVerificationContentForm extends SomNode {
+class ReliabilityVerificationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -137712,6 +138255,76 @@ class SecurityAuditEntrySchedulingContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class SecurityAuthenticationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get authenticationMethod() {
+    return this.doc.formField(this.path, "authenticationMethod") || '';
+  }
+
+  set authenticationMethod(value) {
+    this.doc.setFormField(this.path, "authenticationMethod", value);
+  }
+
+  get mfaRequirement() {
+    return this.doc.formField(this.path, "mfaRequirement") || '';
+  }
+
+  set mfaRequirement(value) {
+    this.doc.setFormField(this.path, "mfaRequirement", value);
+  }
+
+  get passwordPolicy() {
+    return this.doc.formField(this.path, "passwordPolicy") || '';
+  }
+
+  set passwordPolicy(value) {
+    this.doc.setFormField(this.path, "passwordPolicy", value);
+  }
+
+  get sessionManagement() {
+    return this.doc.formField(this.path, "sessionManagement") || '';
+  }
+
+  set sessionManagement(value) {
+    this.doc.setFormField(this.path, "sessionManagement", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class SecurityAuthorizationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get authorizationModel() {
+    return this.doc.formField(this.path, "authorizationModel") || '';
+  }
+
+  set authorizationModel(value) {
+    this.doc.setFormField(this.path, "authorizationModel", value);
+  }
+
+  get authorizationCoverage() {
+    return this.doc.formField(this.path, "authorizationCoverage") || '';
+  }
+
+  set authorizationCoverage(value) {
+    this.doc.setFormField(this.path, "authorizationCoverage", value);
+  }
+
+  get privilegeEscalationPrevention() {
+    return this.doc.formField(this.path, "privilegeEscalationPrevention") || '';
+  }
+
+  set privilegeEscalationPrevention(value) {
+    this.doc.setFormField(this.path, "privilegeEscalationPrevention", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class SecurityCertificationRequirementsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -137874,6 +138487,29 @@ class SecurityCertificationRequirementsSoc2ContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `securityContent` @Form section.
+class SecurityCharacteristicSecurityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get securityApproach() {
+    return this.doc.formField(this.path, "securityApproach") || '';
+  }
+
+  set securityApproach(value) {
+    this.doc.setFormField(this.path, "securityApproach", value);
+  }
+
+  get securityComplianceTarget() {
+    return this.doc.formField(this.path, "securityComplianceTarget") || '';
+  }
+
+  set securityComplianceTarget(value) {
+    this.doc.setFormField(this.path, "securityComplianceTarget", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class SecurityCodeReviewPolicyContentForm extends SomNode {
   constructor(doc, path) {
@@ -138003,6 +138639,76 @@ class SecurityCodeReviewPolicyReviewersContentForm extends SomNode {
 
   set reviewerRotation(value) {
     this.doc.setFormField(this.path, "reviewerRotation", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class SecurityComplianceContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get securityCompliance() {
+    return this.doc.formField(this.path, "securityCompliance") || '';
+  }
+
+  set securityCompliance(value) {
+    this.doc.setFormField(this.path, "securityCompliance", value);
+  }
+
+  get securityCertifications() {
+    return this.doc.formField(this.path, "securityCertifications") || '';
+  }
+
+  set securityCertifications(value) {
+    this.doc.setFormField(this.path, "securityCertifications", value);
+  }
+
+  get securityAuditFrequency() {
+    return this.doc.formField(this.path, "securityAuditFrequency") || '';
+  }
+
+  set securityAuditFrequency(value) {
+    this.doc.setFormField(this.path, "securityAuditFrequency", value);
+  }
+
+  get securityVerification() {
+    return this.doc.formField(this.path, "securityVerification") || '';
+  }
+
+  set securityVerification(value) {
+    this.doc.setFormField(this.path, "securityVerification", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class SecurityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get encryptionAtRest() {
+    return this.doc.formField(this.path, "encryptionAtRest") || '';
+  }
+
+  set encryptionAtRest(value) {
+    this.doc.setFormField(this.path, "encryptionAtRest", value);
+  }
+
+  get encryptionInTransit() {
+    return this.doc.formField(this.path, "encryptionInTransit") || '';
+  }
+
+  set encryptionInTransit(value) {
+    this.doc.setFormField(this.path, "encryptionInTransit", value);
+  }
+
+  get keyManagement() {
+    return this.doc.formField(this.path, "keyManagement") || '';
+  }
+
+  set keyManagement(value) {
+    this.doc.setFormField(this.path, "keyManagement", value);
   }
 }
 
@@ -138386,177 +139092,6 @@ class SecurityEventLoggingPolicyContentForm extends SomNode {
 
   set correlationIdentifiers(value) {
     this.doc.setFormField(this.path, "correlationIdentifiers", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityAuthenticationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get authenticationMethod() {
-    return this.doc.formField(this.path, "authenticationMethod") || '';
-  }
-
-  set authenticationMethod(value) {
-    this.doc.setFormField(this.path, "authenticationMethod", value);
-  }
-
-  get mfaRequirement() {
-    return this.doc.formField(this.path, "mfaRequirement") || '';
-  }
-
-  set mfaRequirement(value) {
-    this.doc.setFormField(this.path, "mfaRequirement", value);
-  }
-
-  get passwordPolicy() {
-    return this.doc.formField(this.path, "passwordPolicy") || '';
-  }
-
-  set passwordPolicy(value) {
-    this.doc.setFormField(this.path, "passwordPolicy", value);
-  }
-
-  get sessionManagement() {
-    return this.doc.formField(this.path, "sessionManagement") || '';
-  }
-
-  set sessionManagement(value) {
-    this.doc.setFormField(this.path, "sessionManagement", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityAuthorizationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get authorizationModel() {
-    return this.doc.formField(this.path, "authorizationModel") || '';
-  }
-
-  set authorizationModel(value) {
-    this.doc.setFormField(this.path, "authorizationModel", value);
-  }
-
-  get authorizationCoverage() {
-    return this.doc.formField(this.path, "authorizationCoverage") || '';
-  }
-
-  set authorizationCoverage(value) {
-    this.doc.setFormField(this.path, "authorizationCoverage", value);
-  }
-
-  get privilegeEscalationPrevention() {
-    return this.doc.formField(this.path, "privilegeEscalationPrevention") || '';
-  }
-
-  set privilegeEscalationPrevention(value) {
-    this.doc.setFormField(this.path, "privilegeEscalationPrevention", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityComplianceContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get securityCompliance() {
-    return this.doc.formField(this.path, "securityCompliance") || '';
-  }
-
-  set securityCompliance(value) {
-    this.doc.setFormField(this.path, "securityCompliance", value);
-  }
-
-  get securityCertifications() {
-    return this.doc.formField(this.path, "securityCertifications") || '';
-  }
-
-  set securityCertifications(value) {
-    this.doc.setFormField(this.path, "securityCertifications", value);
-  }
-
-  get securityAuditFrequency() {
-    return this.doc.formField(this.path, "securityAuditFrequency") || '';
-  }
-
-  set securityAuditFrequency(value) {
-    this.doc.setFormField(this.path, "securityAuditFrequency", value);
-  }
-
-  get securityVerification() {
-    return this.doc.formField(this.path, "securityVerification") || '';
-  }
-
-  set securityVerification(value) {
-    this.doc.setFormField(this.path, "securityVerification", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get encryptionAtRest() {
-    return this.doc.formField(this.path, "encryptionAtRest") || '';
-  }
-
-  set encryptionAtRest(value) {
-    this.doc.setFormField(this.path, "encryptionAtRest", value);
-  }
-
-  get encryptionInTransit() {
-    return this.doc.formField(this.path, "encryptionInTransit") || '';
-  }
-
-  set encryptionInTransit(value) {
-    this.doc.setFormField(this.path, "encryptionInTransit", value);
-  }
-
-  get keyManagement() {
-    return this.doc.formField(this.path, "keyManagement") || '';
-  }
-
-  set keyManagement(value) {
-    this.doc.setFormField(this.path, "keyManagement", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SecurityQualityVulnerabilityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get vulnerabilityScanFrequency() {
-    return this.doc.formField(this.path, "vulnerabilityScanFrequency") || '';
-  }
-
-  set vulnerabilityScanFrequency(value) {
-    this.doc.setFormField(this.path, "vulnerabilityScanFrequency", value);
-  }
-
-  get penetrationTestFrequency() {
-    return this.doc.formField(this.path, "penetrationTestFrequency") || '';
-  }
-
-  set penetrationTestFrequency(value) {
-    this.doc.setFormField(this.path, "penetrationTestFrequency", value);
-  }
-
-  get cveResponseTime() {
-    return this.doc.formField(this.path, "cveResponseTime") || '';
-  }
-
-  set cveResponseTime(value) {
-    this.doc.setFormField(this.path, "cveResponseTime", value);
   }
 }
 
@@ -139328,6 +139863,37 @@ class SecurityTestingAutomationScanningContentForm extends SomNode {
 
   set secretsDetection(value) {
     this.doc.setFormField(this.path, "secretsDetection", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class SecurityVulnerabilityContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get vulnerabilityScanFrequency() {
+    return this.doc.formField(this.path, "vulnerabilityScanFrequency") || '';
+  }
+
+  set vulnerabilityScanFrequency(value) {
+    this.doc.setFormField(this.path, "vulnerabilityScanFrequency", value);
+  }
+
+  get penetrationTestFrequency() {
+    return this.doc.formField(this.path, "penetrationTestFrequency") || '';
+  }
+
+  set penetrationTestFrequency(value) {
+    this.doc.setFormField(this.path, "penetrationTestFrequency", value);
+  }
+
+  get cveResponseTime() {
+    return this.doc.formField(this.path, "cveResponseTime") || '';
+  }
+
+  set cveResponseTime(value) {
+    this.doc.setFormField(this.path, "cveResponseTime", value);
   }
 }
 
@@ -140281,6 +140847,68 @@ class ServiceLevelAgreementEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+class ServiceLevelContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get supportTierStructure() {
+    return this.doc.formField(this.path, "supportTierStructure") || '';
+  }
+
+  set supportTierStructure(value) {
+    this.doc.setFormField(this.path, "supportTierStructure", value);
+  }
+
+  get criticalResponseTime() {
+    return this.doc.formField(this.path, "criticalResponseTime") || '';
+  }
+
+  set criticalResponseTime(value) {
+    this.doc.setFormField(this.path, "criticalResponseTime", value);
+  }
+
+  get highResponseTime() {
+    return this.doc.formField(this.path, "highResponseTime") || '';
+  }
+
+  set highResponseTime(value) {
+    this.doc.setFormField(this.path, "highResponseTime", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+class ServiceLevelEscalationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get escalationTimeframes() {
+    return this.doc.formField(this.path, "escalationTimeframes") || '';
+  }
+
+  set escalationTimeframes(value) {
+    this.doc.setFormField(this.path, "escalationTimeframes", value);
+  }
+
+  get escalationContacts() {
+    return this.doc.formField(this.path, "escalationContacts") || '';
+  }
+
+  set escalationContacts(value) {
+    this.doc.setFormField(this.path, "escalationContacts", value);
+  }
+
+  get executiveEscalation() {
+    return this.doc.formField(this.path, "executiveEscalation") || '';
+  }
+
+  set executiveEscalation(value) {
+    this.doc.setFormField(this.path, "executiveEscalation", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 class ServiceLevelIndicatorsContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -140405,69 +141033,7 @@ class ServiceLevelIndicatorsQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get supportTierStructure() {
-    return this.doc.formField(this.path, "supportTierStructure") || '';
-  }
-
-  set supportTierStructure(value) {
-    this.doc.setFormField(this.path, "supportTierStructure", value);
-  }
-
-  get criticalResponseTime() {
-    return this.doc.formField(this.path, "criticalResponseTime") || '';
-  }
-
-  set criticalResponseTime(value) {
-    this.doc.setFormField(this.path, "criticalResponseTime", value);
-  }
-
-  get highResponseTime() {
-    return this.doc.formField(this.path, "highResponseTime") || '';
-  }
-
-  set highResponseTime(value) {
-    this.doc.setFormField(this.path, "highResponseTime", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class ServiceLevelQualityEscalationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get escalationTimeframes() {
-    return this.doc.formField(this.path, "escalationTimeframes") || '';
-  }
-
-  set escalationTimeframes(value) {
-    this.doc.setFormField(this.path, "escalationTimeframes", value);
-  }
-
-  get escalationContacts() {
-    return this.doc.formField(this.path, "escalationContacts") || '';
-  }
-
-  set escalationContacts(value) {
-    this.doc.setFormField(this.path, "escalationContacts", value);
-  }
-
-  get executiveEscalation() {
-    return this.doc.formField(this.path, "executiveEscalation") || '';
-  }
-
-  set executiveEscalation(value) {
-    this.doc.setFormField(this.path, "executiveEscalation", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class ServiceLevelQualityOnCallContentForm extends SomNode {
+class ServiceLevelOnCallContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -140498,7 +141064,7 @@ class ServiceLevelQualityOnCallContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityResolutionContentForm extends SomNode {
+class ServiceLevelResolutionContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -140537,7 +141103,7 @@ class ServiceLevelQualityResolutionContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityResponseContentForm extends SomNode {
+class ServiceLevelResponseContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -140560,7 +141126,7 @@ class ServiceLevelQualityResponseContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class ServiceLevelQualityRestorationContentForm extends SomNode {
+class ServiceLevelRestorationContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -148766,45 +149332,6 @@ class SystemOverviewSummaryStatusContentForm extends SomNode {
   }
 }
 
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsBaselineContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get qualityBaselineDate() {
-    return this.doc.formField(this.path, "qualityBaselineDate") || '';
-  }
-
-  set qualityBaselineDate(value) {
-    this.doc.setFormField(this.path, "qualityBaselineDate", value);
-  }
-
-  get qualityBaselineVersion() {
-    return this.doc.formField(this.path, "qualityBaselineVersion") || '';
-  }
-
-  set qualityBaselineVersion(value) {
-    this.doc.setFormField(this.path, "qualityBaselineVersion", value);
-  }
-
-  get overallQualityTargetLevel() {
-    return this.doc.formField(this.path, "overallQualityTargetLevel") || '';
-  }
-
-  set overallQualityTargetLevel(value) {
-    this.doc.setFormField(this.path, "overallQualityTargetLevel", value);
-  }
-
-  get qualityRiskTolerance() {
-    return this.doc.formField(this.path, "qualityRiskTolerance") || '';
-  }
-
-  set qualityRiskTolerance(value) {
-    this.doc.setFormField(this.path, "qualityRiskTolerance", value);
-  }
-}
-
 // Generated form facade for the `governanceContent` @Form section.
 class SystemQualityGoalsGovernanceContentForm extends SomNode {
   constructor(doc, path) {
@@ -148833,123 +149360,6 @@ class SystemQualityGoalsGovernanceContentForm extends SomNode {
 
   set qualityOwner(value) {
     this.doc.setFormField(this.path, "qualityOwner", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsGovernanceContentForm2 extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get qualityReviewBoard() {
-    return this.doc.formField(this.path, "qualityReviewBoard") || '';
-  }
-
-  set qualityReviewBoard(value) {
-    this.doc.setFormField(this.path, "qualityReviewBoard", value);
-  }
-
-  get qualityMeetingCadence() {
-    return this.doc.formField(this.path, "qualityMeetingCadence") || '';
-  }
-
-  set qualityMeetingCadence(value) {
-    this.doc.setFormField(this.path, "qualityMeetingCadence", value);
-  }
-
-  get qualityEscalationPath() {
-    return this.doc.formField(this.path, "qualityEscalationPath") || '';
-  }
-
-  set qualityEscalationPath(value) {
-    this.doc.setFormField(this.path, "qualityEscalationPath", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsMeasurementContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get qualityMetricsFramework() {
-    return this.doc.formField(this.path, "qualityMetricsFramework") || '';
-  }
-
-  set qualityMetricsFramework(value) {
-    this.doc.setFormField(this.path, "qualityMetricsFramework", value);
-  }
-
-  get qualityReportingFrequency() {
-    return this.doc.formField(this.path, "qualityReportingFrequency") || '';
-  }
-
-  set qualityReportingFrequency(value) {
-    this.doc.setFormField(this.path, "qualityReportingFrequency", value);
-  }
-
-  get qualityDashboardTool() {
-    return this.doc.formField(this.path, "qualityDashboardTool") || '';
-  }
-
-  set qualityDashboardTool(value) {
-    this.doc.setFormField(this.path, "qualityDashboardTool", value);
-  }
-
-  get defectTrackingSystem() {
-    return this.doc.formField(this.path, "defectTrackingSystem") || '';
-  }
-
-  set defectTrackingSystem(value) {
-    this.doc.setFormField(this.path, "defectTrackingSystem", value);
-  }
-
-  get qualityTrendAnalysis() {
-    return this.doc.formField(this.path, "qualityTrendAnalysis") || '';
-  }
-
-  set qualityTrendAnalysis(value) {
-    this.doc.setFormField(this.path, "qualityTrendAnalysis", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-class SystemQualityGoalsResourcesContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get qualityBudget() {
-    return this.doc.formField(this.path, "qualityBudget") || '';
-  }
-
-  set qualityBudget(value) {
-    this.doc.setFormField(this.path, "qualityBudget", value);
-  }
-
-  get qaTeamSize() {
-    return this.doc.formField(this.path, "qaTeamSize") || '';
-  }
-
-  set qaTeamSize(value) {
-    this.doc.setFormField(this.path, "qaTeamSize", value);
-  }
-
-  get testAutomationTarget() {
-    return this.doc.formField(this.path, "testAutomationTarget") || '';
-  }
-
-  set testAutomationTarget(value) {
-    this.doc.setFormField(this.path, "testAutomationTarget", value);
-  }
-
-  get qualityTrainingPlan() {
-    return this.doc.formField(this.path, "qualityTrainingPlan") || '';
-  }
-
-  set qualityTrainingPlan(value) {
-    this.doc.setFormField(this.path, "qualityTrainingPlan", value);
   }
 }
 
@@ -151348,53 +151758,6 @@ class TechnicalPainPointsSummaryContentForm extends SomNode {
 
   set integrationComplexityScore(value) {
     this.doc.setFormField(this.path, "integrationComplexityScore", value);
-  }
-}
-
-// Generated form facade for the `technicalQualityContent` @Form section.
-class TechnicalQualityCriteriaTechnicalQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get technicalQualityPhilosophy() {
-    return this.doc.formField(this.path, "technicalQualityPhilosophy") || '';
-  }
-
-  set technicalQualityPhilosophy(value) {
-    this.doc.setFormField(this.path, "technicalQualityPhilosophy", value);
-  }
-
-  get architecturalQualityGoals() {
-    return this.doc.formField(this.path, "architecturalQualityGoals") || '';
-  }
-
-  set architecturalQualityGoals(value) {
-    this.doc.setFormField(this.path, "architecturalQualityGoals", value);
-  }
-
-  get technicalDebtTolerance() {
-    return this.doc.formField(this.path, "technicalDebtTolerance") || '';
-  }
-
-  set technicalDebtTolerance(value) {
-    this.doc.setFormField(this.path, "technicalDebtTolerance", value);
-  }
-
-  get codeQualityStandard() {
-    return this.doc.formField(this.path, "codeQualityStandard") || '';
-  }
-
-  set codeQualityStandard(value) {
-    this.doc.setFormField(this.path, "codeQualityStandard", value);
-  }
-
-  get designPrinciplesAdherence() {
-    return this.doc.formField(this.path, "designPrinciplesAdherence") || '';
-  }
-
-  set designPrinciplesAdherence(value) {
-    this.doc.setFormField(this.path, "designPrinciplesAdherence", value);
   }
 }
 
@@ -159206,7 +159569,7 @@ class UiDesignPrincipleEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityClarityContentForm extends SomNode {
+class UsabilityClarityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -159245,7 +159608,7 @@ class UsabilityQualityClarityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityContentForm extends SomNode {
+class UsabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -159276,7 +159639,7 @@ class UsabilityQualityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityInteractionContentForm extends SomNode {
+class UsabilityInteractionContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -159299,7 +159662,7 @@ class UsabilityQualityInteractionContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityLearnabilityContentForm extends SomNode {
+class UsabilityLearnabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -159322,7 +159685,7 @@ class UsabilityQualityLearnabilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityOperabilityContentForm extends SomNode {
+class UsabilityOperabilityContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -159353,7 +159716,7 @@ class UsabilityQualityOperabilityContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-class UsabilityQualityPerformanceContentForm extends SomNode {
+class UsabilityPerformanceContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -160629,61 +160992,6 @@ class UserProvisioningToolsRoleManagementContentForm extends SomNode {
 
   set accessReviewProcess(value) {
     this.doc.setFormField(this.path, "accessReviewProcess", value);
-  }
-}
-
-// Generated form facade for the `userQualityContent` @Form section.
-class UserQualityCriteriaUserQualityContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get userQualityPhilosophy() {
-    return this.doc.formField(this.path, "userQualityPhilosophy") || '';
-  }
-
-  set userQualityPhilosophy(value) {
-    this.doc.setFormField(this.path, "userQualityPhilosophy", value);
-  }
-
-  get targetUserExperience() {
-    return this.doc.formField(this.path, "targetUserExperience") || '';
-  }
-
-  set targetUserExperience(value) {
-    this.doc.setFormField(this.path, "targetUserExperience", value);
-  }
-
-  get userResearchBasis() {
-    return this.doc.formField(this.path, "userResearchBasis") || '';
-  }
-
-  set userResearchBasis(value) {
-    this.doc.setFormField(this.path, "userResearchBasis", value);
-  }
-
-  get userFeedbackChannel() {
-    return this.doc.formField(this.path, "userFeedbackChannel") || '';
-  }
-
-  set userFeedbackChannel(value) {
-    this.doc.setFormField(this.path, "userFeedbackChannel", value);
-  }
-
-  get userSatisfactionTarget() {
-    return this.doc.formField(this.path, "userSatisfactionTarget") || '';
-  }
-
-  set userSatisfactionTarget(value) {
-    this.doc.setFormField(this.path, "userSatisfactionTarget", value);
-  }
-
-  get accessibilityLevel() {
-    return this.doc.formField(this.path, "accessibilityLevel") || '';
-  }
-
-  set accessibilityLevel(value) {
-    this.doc.setFormField(this.path, "accessibilityLevel", value);
   }
 }
 
@@ -163798,11 +164106,11 @@ module.exports = {
   AuthorizationRoleEntryLifecycle,
   AuthorizationRoleEntryStatus,
   AuthorizationRoleEntryStructure,
-  AvailabilityQuality,
-  AvailabilityQualityDegradedMode,
-  AvailabilityQualityMaintenance,
-  AvailabilityQualityOperatingHours,
-  AvailabilityQualityVerification,
+  Availability,
+  AvailabilityDegradedMode,
+  AvailabilityMaintenance,
+  AvailabilityOperatingHours,
+  AvailabilityVerification,
   BackupAndRecoverySection,
   BackupCompliance,
   BackupComplianceAudit,
@@ -164054,6 +164362,7 @@ module.exports = {
   CommunicationRequirements,
   CommunicationToolsRequirements,
   CommunicationTypeEntry,
+  CompatibilityCharacteristic,
   CompatibilityRequirementsSection,
   CompetencyEntry,
   CompetencyFramework,
@@ -164193,10 +164502,10 @@ module.exports = {
   ContingencyPlanEntryResponsibility,
   ContingencyPlanEntryTesting,
   ContingencyPlans,
-  CorrectnessQuality,
-  CorrectnessQualityAccuracy,
-  CorrectnessQualityIntegrity,
-  CorrectnessQualityVerification,
+  Correctness,
+  CorrectnessAccuracy,
+  CorrectnessIntegrity,
+  CorrectnessVerification,
   CredentialCompromiseDetectionPolicy,
   CredentialRecoveryPolicy,
   CriticalKnowledgeAreaEntry,
@@ -164526,14 +164835,14 @@ module.exports = {
   DnsRequirementsHealthChecks,
   DnsRequirementsRecords,
   DnsRequirementsZones,
-  DocChangeabilityQuality,
-  DocChangeabilityQualityExtensibility,
-  DocChangeabilityQualityMaintenance,
-  DocChangeabilityQualityStructure,
-  DocCompletenessQuality,
-  DocCorrectnessQuality,
-  DocCorrectnessQualityAlignment,
-  DocCorrectnessQualityVerification,
+  DocChangeability,
+  DocChangeabilityExtensibility,
+  DocChangeabilityMaintenance,
+  DocChangeabilityStructure,
+  DocCompleteness,
+  DocCorrectness,
+  DocCorrectnessAlignment,
+  DocCorrectnessVerification,
   DocumentControl,
   DocumentHeader,
   DocumentRelationships,
@@ -164568,10 +164877,10 @@ module.exports = {
   DomainProcesses,
   DomainTermEntry,
   DomainVocabulary,
-  EfficiencyQuality,
-  EfficiencyQualityResources,
-  EfficiencyQualityThroughput,
-  EfficiencyQualityVerification,
+  Efficiency,
+  EfficiencyResources,
+  EfficiencyThroughput,
+  EfficiencyVerification,
   ElementValidationRuleEntry,
   EmergencyMaintenanceProcedures,
   EmergencyMaintenanceProceduresCommunication,
@@ -164758,10 +165067,11 @@ module.exports = {
   FirewallRequirementsLogging,
   FirewallRequirementsPorts,
   FirewallRequirementsRules,
-  FlexibilityQuality,
-  FlexibilityQualityDeployment,
-  FlexibilityQualityExtensibility,
-  FlexibilityQualityModularity,
+  Flexibility,
+  FlexibilityCharacteristic,
+  FlexibilityDeployment,
+  FlexibilityExtensibility,
+  FlexibilityModularity,
   FragilePointEntry,
   FrameworkCompatibility,
   FrameworkConditions,
@@ -164778,7 +165088,7 @@ module.exports = {
   FunctionEntryImplementation,
   FunctionEntryOperations,
   FunctionModel,
-  FunctionalCompletenessQuality,
+  FunctionalCompleteness,
   FunctionalRequirementEntry,
   FunctionalRequirementEntryConstraints,
   FunctionalRequirementEntryDetails,
@@ -164788,6 +165098,7 @@ module.exports = {
   FunctionalRequirementEntryVerification,
   FunctionalRequirements,
   FunctionalResponsibilities,
+  FunctionalSuitabilityCharacteristic,
   GapEntry,
   GapEntryDescription,
   GapEntryDiscovery,
@@ -164932,6 +165243,7 @@ module.exports = {
   IntegrityConstraints,
   IntellectualPropertyRequirements,
   InteractionBusinessRules,
+  InteractionCapabilityCharacteristic,
   InteractionCatalog,
   InteractionCatalogOverview,
   InteractionChannelEntry,
@@ -165003,11 +165315,11 @@ module.exports = {
   Iso25010Coverage,
   Iso25010CoverageEntry,
   ItLandscapePosition,
-  ItSecurityOperationsQuality,
-  ItSecurityOperationsQualityAccess,
-  ItSecurityOperationsQualityIncident,
-  ItSecurityOperationsQualityRecovery,
-  ItSecurityOperationsQualityTesting,
+  ItSecurityOperations,
+  ItSecurityOperationsAccess,
+  ItSecurityOperationsIncident,
+  ItSecurityOperationsRecovery,
+  ItSecurityOperationsTesting,
   ItSecurityStandardsSection,
   ItStandardComplianceEntry,
   ItStandardComplianceEntryEvidence,
@@ -165094,11 +165406,12 @@ module.exports = {
   LoginFlowStepEntryValidation,
   MainScenarioStepEntry,
   MainSuccessScenario,
-  MaintainabilityQuality,
-  MaintainabilityQualityAnalyzability,
-  MaintainabilityQualityChangeability,
-  MaintainabilityQualityGovernance,
-  MaintainabilityQualityTestability,
+  Maintainability,
+  MaintainabilityAnalyzability,
+  MaintainabilityChangeability,
+  MaintainabilityCharacteristic,
+  MaintainabilityGovernance,
+  MaintainabilityTestability,
   MaintenanceChangeManagement,
   MaintenanceChangeManagementAudit,
   MaintenanceChangeManagementDocumentation,
@@ -165220,18 +165533,17 @@ module.exports = {
   ModuleVersioningStrategyDependencies,
   ModuleVersioningStrategyReleaseManagement,
   Monitoring,
+  MonitoringAlerting,
   MonitoringAndAlertingSection,
+  MonitoringAutomation,
+  MonitoringCoverage,
   MonitoringDashboards,
   MonitoringInfrastructure,
   MonitoringInfrastructureAccess,
   MonitoringInfrastructureCollection,
   MonitoringInfrastructureDeployment,
+  MonitoringOperations,
   MonitoringProcedureEntry,
-  MonitoringQuality,
-  MonitoringQualityAlerting,
-  MonitoringQualityAutomation,
-  MonitoringQualityCoverage,
-  MonitoringQualityOperations,
   MoscowAnalysis,
   MoscowEntry,
   MoscowEntryClassification,
@@ -165339,9 +165651,9 @@ module.exports = {
   OngoingTrainingEntryCompliance,
   OngoingTrainingEntryContent,
   OngoingTrainingEntrySchedule,
+  OperationalMonitoring,
   OperationalPainPoints,
   OperationalPainPointsSummary,
-  OperationsQualityCriteria,
   OperationsRequirements,
   OpportunityStatement,
   OrgChangeIdentification,
@@ -165408,6 +165720,7 @@ module.exports = {
   PenetrationTestingRequirementsExecution,
   PenetrationTestingRequirementsReporting,
   PenetrationTestingRequirementsScheduling,
+  PerformanceEfficiencyCharacteristic,
   PeriodicReviewPolicy,
   PeripheralEquipmentEntry,
   PermissionCompositionStrategy,
@@ -165449,7 +165762,7 @@ module.exports = {
   PipelineStageEntryFailure,
   PipelineStageEntryTrigger,
   PlatformAndLanguage,
-  PortabilityQuality,
+  Portability,
   PostImplementationReview,
   PostMaintenanceValidation,
   PostMaintenanceValidationClosure,
@@ -165613,6 +165926,10 @@ module.exports = {
   QualityGateCheckEntryStatus,
   QualityGateCheckEntryVerification,
   QualityGateChecklist,
+  QualityGoalsBaseline,
+  QualityGoalsGovernance,
+  QualityGoalsMeasurement,
+  QualityGoalsResources,
   QualityPrioritization,
   QualityScenarioEntry,
   QualityScenarios,
@@ -165626,11 +165943,11 @@ module.exports = {
   RateLimitingPolicyBehavior,
   RateLimitingPolicyLimits,
   RateLimitingPolicyQuotas,
-  ReadabilityQuality,
-  ReadabilityQualityComprehensibility,
-  ReadabilityQualityNavigation,
-  ReadabilityQualityStructure,
-  ReadabilityQualityStyle,
+  Readability,
+  ReadabilityComprehensibility,
+  ReadabilityNavigation,
+  ReadabilityStructure,
+  ReadabilityStyle,
   ReadinessCriteriaEntry,
   RecoveryFlowEntry,
   RecoveryProcedures,
@@ -165664,11 +165981,12 @@ module.exports = {
   ReleaseStrategyFeatureFlags,
   ReleaseStrategyManagement,
   RelevantSectionEntry,
-  ReliabilityQuality,
-  ReliabilityQualityDurability,
-  ReliabilityQualityFailover,
-  ReliabilityQualityRecovery,
-  ReliabilityQualityVerification,
+  Reliability,
+  ReliabilityCharacteristic,
+  ReliabilityDurability,
+  ReliabilityFailover,
+  ReliabilityRecovery,
+  ReliabilityVerification,
   RememberMePolicy,
   RemoteAccessRequirements,
   RemovedRoleEntry,
@@ -165951,21 +166269,26 @@ module.exports = {
   ScreenStates,
   ScreenUserCategoryEntry,
   SecondaryNavigation,
+  Security,
   SecurityAndAccessModel,
   SecurityAuditEntry,
   SecurityAuditEntryExecution,
   SecurityAuditEntryFollowUp,
   SecurityAuditEntryScheduling,
   SecurityAuditRequirementsSection,
+  SecurityAuthentication,
+  SecurityAuthorization,
   SecurityCertificationRequirements,
   SecurityCertificationRequirementsIndustry,
   SecurityCertificationRequirementsIso27001,
   SecurityCertificationRequirementsMaintenance,
   SecurityCertificationRequirementsSoc2,
+  SecurityCharacteristic,
   SecurityCodeReviewPolicy,
   SecurityCodeReviewPolicyFindings,
   SecurityCodeReviewPolicyProcess,
   SecurityCodeReviewPolicyReviewers,
+  SecurityCompliance,
   SecurityConcernEntry,
   SecurityControlEntry,
   SecurityControlEntryImplementation,
@@ -165978,11 +166301,6 @@ module.exports = {
   SecurityEventEntry,
   SecurityEventLoggingPolicy,
   SecurityEventsDefinition,
-  SecurityQuality,
-  SecurityQualityAuthentication,
-  SecurityQualityAuthorization,
-  SecurityQualityCompliance,
-  SecurityQualityVulnerability,
   SecurityRequirementEntry,
   SecurityRequirementEntryClassification,
   SecurityRequirementEntryCompliance,
@@ -166004,6 +166322,7 @@ module.exports = {
   SecurityTestingAutomationGovernance,
   SecurityTestingAutomationIast,
   SecurityTestingAutomationScanning,
+  SecurityVulnerability,
   SelfRegistrationPolicy,
   SelfRegistrationPolicyApproval,
   SelfRegistrationPolicyBotProtection,
@@ -166035,17 +166354,17 @@ module.exports = {
   ServerStorageRequirementsPerformance,
   ServiceAccountCredentialPolicy,
   ServiceAccountLifecycle,
+  ServiceLevel,
   ServiceLevelAgreementEntry,
+  ServiceLevelEscalation,
   ServiceLevelIndicators,
   ServiceLevelIndicatorsMeasurement,
   ServiceLevelIndicatorsPerformance,
   ServiceLevelIndicatorsQuality,
-  ServiceLevelQuality,
-  ServiceLevelQualityEscalation,
-  ServiceLevelQualityOnCall,
-  ServiceLevelQualityResolution,
-  ServiceLevelQualityResponse,
-  ServiceLevelQualityRestoration,
+  ServiceLevelOnCall,
+  ServiceLevelResolution,
+  ServiceLevelResponse,
+  ServiceLevelRestoration,
   ServiceMeshAndGateway,
   ServiceMeshAndGatewayLoadBalancing,
   ServiceMeshAndGatewayMesh,
@@ -166286,10 +166605,6 @@ module.exports = {
   SystemOverviewSummaryStatus,
   SystemPurpose,
   SystemQualityGoals,
-  SystemQualityGoalsBaseline,
-  SystemQualityGoalsGovernance,
-  SystemQualityGoalsMeasurement,
-  SystemQualityGoalsResources,
   SystemReplacementStrategy,
   SystemReplacementStrategyCutover,
   SystemReplacementStrategyTimeline,
@@ -166360,7 +166675,6 @@ module.exports = {
   TechnicalInfrastructure,
   TechnicalPainPoints,
   TechnicalPainPointsSummary,
-  TechnicalQualityCriteria,
   TechnicalRequirementEntry,
   TechnicalRequirementEntryConstraints,
   TechnicalRequirementEntryDetails,
@@ -166550,12 +166864,12 @@ module.exports = {
   UiComponentsVisualLanguage,
   UiDesignPrincipleEntry,
   UpgradeCycleFramework,
-  UsabilityQuality,
-  UsabilityQualityClarity,
-  UsabilityQualityInteraction,
-  UsabilityQualityLearnability,
-  UsabilityQualityOperability,
-  UsabilityQualityPerformance,
+  Usability,
+  UsabilityClarity,
+  UsabilityInteraction,
+  UsabilityLearnability,
+  UsabilityOperability,
+  UsabilityPerformance,
   UseCaseExtensions,
   UseCaseScopeContext,
   UseCaseTraceability,
@@ -166601,7 +166915,6 @@ module.exports = {
   UserProvisioningToolsDirectoryIntegration,
   UserProvisioningToolsLifecycle,
   UserProvisioningToolsRoleManagement,
-  UserQualityCriteria,
   UserRegistrationProcess,
   UserTrainingRequirements,
   UtilityMenuItemEntry,
@@ -166826,11 +167139,11 @@ module.exports = {
   AuthorizationRoleEntryLifecycleContentForm,
   AuthorizationRoleEntryStatusContentForm,
   AuthorizationRoleEntryStructureContentForm,
-  AvailabilityQualityContentForm,
-  AvailabilityQualityDegradedModeContentForm,
-  AvailabilityQualityMaintenanceContentForm,
-  AvailabilityQualityOperatingHoursContentForm,
-  AvailabilityQualityVerificationContentForm,
+  AvailabilityContentForm,
+  AvailabilityDegradedModeContentForm,
+  AvailabilityMaintenanceContentForm,
+  AvailabilityOperatingHoursContentForm,
+  AvailabilityVerificationContentForm,
   BackupComplianceAuditContentForm,
   BackupComplianceContentForm,
   BackupComplianceLegalHoldContentForm,
@@ -167062,6 +167375,7 @@ module.exports = {
   CommunicationPatternsSynchronousContentForm,
   CommunicationToolsRequirementsContentForm,
   CommunicationTypeEntryContentForm,
+  CompatibilityCharacteristicCompatibilityContentForm,
   CompetencyEntryContentForm,
   CompetencyFrameworkOverviewContentForm,
   CompetencyGapAssessmentContentForm,
@@ -167187,10 +167501,10 @@ module.exports = {
   ContingencyPlanEntryReferencesContentForm,
   ContingencyPlanEntryResponsibilityContentForm,
   ContingencyPlanEntryTestingContentForm,
-  CorrectnessQualityAccuracyContentForm,
-  CorrectnessQualityContentForm,
-  CorrectnessQualityIntegrityContentForm,
-  CorrectnessQualityVerificationContentForm,
+  CorrectnessAccuracyContentForm,
+  CorrectnessContentForm,
+  CorrectnessIntegrityContentForm,
+  CorrectnessVerificationContentForm,
   CrossCuttingConcernsCachingContentForm,
   CrossCuttingConcernsContentForm,
   CrossCuttingConcernsErrorsContentForm,
@@ -167470,14 +167784,14 @@ module.exports = {
   DnsRequirementsHealthChecksContentForm,
   DnsRequirementsRecordsContentForm,
   DnsRequirementsZonesContentForm,
-  DocChangeabilityQualityContentForm,
-  DocChangeabilityQualityExtensibilityContentForm,
-  DocChangeabilityQualityMaintenanceContentForm,
-  DocChangeabilityQualityStructureContentForm,
-  DocCompletenessQualityContentForm,
-  DocCorrectnessQualityAlignmentContentForm,
-  DocCorrectnessQualityContentForm,
-  DocCorrectnessQualityVerificationContentForm,
+  DocChangeabilityContentForm,
+  DocChangeabilityExtensibilityContentForm,
+  DocChangeabilityMaintenanceContentForm,
+  DocChangeabilityStructureContentForm,
+  DocCompletenessContentForm,
+  DocCorrectnessAlignmentContentForm,
+  DocCorrectnessContentForm,
+  DocCorrectnessVerificationContentForm,
   DocumentHeaderContentForm,
   DocumentRelevantSectionsContentForm,
   DocumentationAndTrainingDeliverablesContentForm,
@@ -167504,10 +167818,10 @@ module.exports = {
   DomainProcessEntryFlowContentForm,
   DomainProcessEntryOperationsContentForm,
   DomainTermEntryContentForm,
-  EfficiencyQualityContentForm,
-  EfficiencyQualityResourcesContentForm,
-  EfficiencyQualityThroughputContentForm,
-  EfficiencyQualityVerificationContentForm,
+  EfficiencyContentForm,
+  EfficiencyResourcesContentForm,
+  EfficiencyThroughputContentForm,
+  EfficiencyVerificationContentForm,
   ElementValidationRuleEntryContentForm,
   EmergencyMaintenanceProceduresCommunicationContentForm,
   EmergencyMaintenanceProceduresContentForm,
@@ -167673,10 +167987,11 @@ module.exports = {
   FirewallRequirementsLoggingContentForm,
   FirewallRequirementsPortsContentForm,
   FirewallRequirementsRulesContentForm,
-  FlexibilityQualityContentForm,
-  FlexibilityQualityDeploymentContentForm,
-  FlexibilityQualityExtensibilityContentForm,
-  FlexibilityQualityModularityContentForm,
+  FlexibilityCharacteristicFlexibilityContentForm,
+  FlexibilityContentForm,
+  FlexibilityDeploymentContentForm,
+  FlexibilityExtensibilityContentForm,
+  FlexibilityModularityContentForm,
   FrameworkCompatibilityContentForm,
   FrameworkIdentityContentForm,
   FrameworkJustificationContentForm,
@@ -167691,7 +168006,7 @@ module.exports = {
   FunctionEntryOperationsContentForm,
   FunctionModelDecompositionOverviewForm,
   FunctionModelMatrixOverviewForm,
-  FunctionalCompletenessQualityContentForm,
+  FunctionalCompletenessContentForm,
   FunctionalRequirementEntryConstraintsContentForm,
   FunctionalRequirementEntryContentForm,
   FunctionalRequirementEntryDetailsContentForm,
@@ -167701,6 +168016,7 @@ module.exports = {
   FunctionalRequirementEntryVerificationContentForm,
   FunctionalRequirementsSummaryFormForm,
   FunctionalResponsibilitiesContentForm,
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm,
   GapEntryContentForm,
   GapEntryDescriptionContentForm,
   GapEntryDiscoveryContentForm,
@@ -167825,6 +168141,7 @@ module.exports = {
   IntegrationPointEntryContentForm,
   IntellectualPropertyRequirementsContentForm,
   InteractionBusinessRulesContentForm,
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm,
   InteractionCatalogOverviewContentForm,
   InteractionChannelEntryAccessContentForm,
   InteractionChannelEntryComplianceContentForm,
@@ -167887,11 +168204,11 @@ module.exports = {
   IpOwnershipEntryContentForm,
   Iso25010CoverageEntryContentForm,
   ItLandscapePositionPositionDetailsForm,
-  ItSecurityOperationsQualityAccessContentForm,
-  ItSecurityOperationsQualityContentForm,
-  ItSecurityOperationsQualityIncidentContentForm,
-  ItSecurityOperationsQualityRecoveryContentForm,
-  ItSecurityOperationsQualityTestingContentForm,
+  ItSecurityOperationsAccessContentForm,
+  ItSecurityOperationsContentForm,
+  ItSecurityOperationsIncidentContentForm,
+  ItSecurityOperationsRecoveryContentForm,
+  ItSecurityOperationsTestingContentForm,
   ItStandardComplianceEntryContentForm,
   ItStandardComplianceEntryEvidenceContentForm,
   ItStandardComplianceEntryOwnershipContentForm,
@@ -167963,11 +168280,12 @@ module.exports = {
   LoginFlowStepEntryValidationContentForm,
   MainScenarioStepEntryContentForm,
   MainSuccessScenarioContentForm,
-  MaintainabilityQualityAnalyzabilityContentForm,
-  MaintainabilityQualityChangeabilityContentForm,
-  MaintainabilityQualityContentForm,
-  MaintainabilityQualityGovernanceContentForm,
-  MaintainabilityQualityTestabilityContentForm,
+  MaintainabilityAnalyzabilityContentForm,
+  MaintainabilityChangeabilityContentForm,
+  MaintainabilityCharacteristicMaintainabilityContentForm,
+  MaintainabilityContentForm,
+  MaintainabilityGovernanceContentForm,
+  MaintainabilityTestabilityContentForm,
   MaintenanceChangeManagementAuditContentForm,
   MaintenanceChangeManagementContentForm,
   MaintenanceChangeManagementDocumentationContentForm,
@@ -168078,17 +168396,16 @@ module.exports = {
   ModuleVersioningStrategyCoordinationContentForm,
   ModuleVersioningStrategyDependenciesContentForm,
   ModuleVersioningStrategyReleaseManagementContentForm,
+  MonitoringAlertingContentForm,
+  MonitoringAutomationContentForm,
+  MonitoringCoverageContentForm,
   MonitoringDashboardsDashboardOverviewForm,
   MonitoringInfrastructureAccessContentForm,
   MonitoringInfrastructureCollectionContentForm,
   MonitoringInfrastructureContentForm,
   MonitoringInfrastructureDeploymentContentForm,
   MonitoringMonitoringOverviewForm,
-  MonitoringQualityAlertingContentForm,
-  MonitoringQualityAutomationContentForm,
-  MonitoringQualityContentForm,
-  MonitoringQualityCoverageContentForm,
-  MonitoringQualityOperationsContentForm,
+  MonitoringOperationsContentForm,
   MoscowAnalysisContentForm,
   MoscowEntryClassificationContentForm,
   MoscowEntryContentForm,
@@ -168185,8 +168502,8 @@ module.exports = {
   OngoingTrainingEntryContentContentForm,
   OngoingTrainingEntryContentForm,
   OngoingTrainingEntryScheduleContentForm,
+  OperationalMonitoringContentForm,
   OperationalPainPointsSummaryContentForm,
-  OperationsQualityCriteriaOperationsOverviewContentForm,
   OpportunityStatementOpportunityDetailsForm,
   OrgChangeIdentificationContentForm,
   OrgChangeImpactContentForm,
@@ -168240,6 +168557,7 @@ module.exports = {
   PenetrationTestingRequirementsExecutionContentForm,
   PenetrationTestingRequirementsReportingContentForm,
   PenetrationTestingRequirementsSchedulingContentForm,
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm,
   PeriodicReviewPolicyContentForm,
   PeripheralEquipmentEntryContentForm,
   PermissionMatrixEntryContentForm,
@@ -168273,7 +168591,7 @@ module.exports = {
   PipelineStageEntryExecutionContentForm,
   PipelineStageEntryFailureContentForm,
   PipelineStageEntryTriggerContentForm,
-  PortabilityQualityContentForm,
+  PortabilityContentForm,
   PostMaintenanceValidationClosureContentForm,
   PostMaintenanceValidationContentForm,
   PostMaintenanceValidationMonitoringContentForm,
@@ -168409,6 +168727,10 @@ module.exports = {
   QualityGateCheckEntryStatusContentForm,
   QualityGateCheckEntryVerificationContentForm,
   QualityGateChecklistChecklistOverviewContentForm,
+  QualityGoalsBaselineContentForm,
+  QualityGoalsGovernanceContentForm,
+  QualityGoalsMeasurementContentForm,
+  QualityGoalsResourcesContentForm,
   QualityPrioritizationPrioritizationFrameworkContentForm,
   QualityScenarioEntryContentForm,
   QualityStandardEntryCertificationContentForm,
@@ -168421,11 +168743,11 @@ module.exports = {
   RateLimitingPolicyContentForm,
   RateLimitingPolicyLimitsContentForm,
   RateLimitingPolicyQuotasContentForm,
-  ReadabilityQualityComprehensibilityContentForm,
-  ReadabilityQualityContentForm,
-  ReadabilityQualityNavigationContentForm,
-  ReadabilityQualityStructureContentForm,
-  ReadabilityQualityStyleContentForm,
+  ReadabilityComprehensibilityContentForm,
+  ReadabilityContentForm,
+  ReadabilityNavigationContentForm,
+  ReadabilityStructureContentForm,
+  ReadabilityStyleContentForm,
   ReadinessCriteriaEntryContentForm,
   RecoveryProceduresApplicationContentForm,
   RecoveryProceduresAutomationContentForm,
@@ -168453,11 +168775,12 @@ module.exports = {
   ReleaseStrategyFeatureFlagsContentForm,
   ReleaseStrategyManagementContentForm,
   RelevantSectionEntryContentForm,
-  ReliabilityQualityContentForm,
-  ReliabilityQualityDurabilityContentForm,
-  ReliabilityQualityFailoverContentForm,
-  ReliabilityQualityRecoveryContentForm,
-  ReliabilityQualityVerificationContentForm,
+  ReliabilityCharacteristicReliabilityContentForm,
+  ReliabilityContentForm,
+  ReliabilityDurabilityContentForm,
+  ReliabilityFailoverContentForm,
+  ReliabilityRecoveryContentForm,
+  ReliabilityVerificationContentForm,
   RemoteAccessRequirementsContentForm,
   RemovedRoleEntryContentForm,
   RemovedRoleEntryContinuityContentForm,
@@ -168706,15 +169029,20 @@ module.exports = {
   SecurityAuditEntryExecutionContentForm,
   SecurityAuditEntryFollowUpContentForm,
   SecurityAuditEntrySchedulingContentForm,
+  SecurityAuthenticationContentForm,
+  SecurityAuthorizationContentForm,
   SecurityCertificationRequirementsContentForm,
   SecurityCertificationRequirementsIndustryContentForm,
   SecurityCertificationRequirementsIso27001ContentForm,
   SecurityCertificationRequirementsMaintenanceContentForm,
   SecurityCertificationRequirementsSoc2ContentForm,
+  SecurityCharacteristicSecurityContentForm,
   SecurityCodeReviewPolicyContentForm,
   SecurityCodeReviewPolicyFindingsContentForm,
   SecurityCodeReviewPolicyProcessContentForm,
   SecurityCodeReviewPolicyReviewersContentForm,
+  SecurityComplianceContentForm,
+  SecurityContentForm,
   SecurityControlEntryContentForm,
   SecurityControlEntryImplementationContentForm,
   SecurityControlEntryVerificationContentForm,
@@ -168724,11 +169052,6 @@ module.exports = {
   SecurityDevelopmentLifecycleTestingContentForm,
   SecurityEventEntryContentForm,
   SecurityEventLoggingPolicyContentForm,
-  SecurityQualityAuthenticationContentForm,
-  SecurityQualityAuthorizationContentForm,
-  SecurityQualityComplianceContentForm,
-  SecurityQualityContentForm,
-  SecurityQualityVulnerabilityContentForm,
   SecurityRequirementEntryClassificationContentForm,
   SecurityRequirementEntryComplianceContentForm,
   SecurityRequirementEntryContentForm,
@@ -168750,6 +169073,7 @@ module.exports = {
   SecurityTestingAutomationGovernanceContentForm,
   SecurityTestingAutomationIastContentForm,
   SecurityTestingAutomationScanningContentForm,
+  SecurityVulnerabilityContentForm,
   SelfRegistrationPolicyApprovalContentForm,
   SelfRegistrationPolicyBotProtectionContentForm,
   SelfRegistrationPolicyContentForm,
@@ -168777,16 +169101,16 @@ module.exports = {
   ServerStorageRequirementsFileStorageContentForm,
   ServerStorageRequirementsPerformanceContentForm,
   ServiceLevelAgreementEntryContentForm,
+  ServiceLevelContentForm,
+  ServiceLevelEscalationContentForm,
   ServiceLevelIndicatorsContentForm,
   ServiceLevelIndicatorsMeasurementContentForm,
   ServiceLevelIndicatorsPerformanceContentForm,
   ServiceLevelIndicatorsQualityContentForm,
-  ServiceLevelQualityContentForm,
-  ServiceLevelQualityEscalationContentForm,
-  ServiceLevelQualityOnCallContentForm,
-  ServiceLevelQualityResolutionContentForm,
-  ServiceLevelQualityResponseContentForm,
-  ServiceLevelQualityRestorationContentForm,
+  ServiceLevelOnCallContentForm,
+  ServiceLevelResolutionContentForm,
+  ServiceLevelResponseContentForm,
+  ServiceLevelRestorationContentForm,
   ServiceMeshAndGatewayContentForm,
   ServiceMeshAndGatewayLoadBalancingContentForm,
   ServiceMeshAndGatewayMeshContentForm,
@@ -168987,11 +169311,7 @@ module.exports = {
   SystemOverviewSummaryContentForm,
   SystemOverviewSummaryScaleContentForm,
   SystemOverviewSummaryStatusContentForm,
-  SystemQualityGoalsBaselineContentForm,
   SystemQualityGoalsGovernanceContentForm,
-  SystemQualityGoalsGovernanceContentForm2,
-  SystemQualityGoalsMeasurementContentForm,
-  SystemQualityGoalsResourcesContentForm,
   SystemReplacementStrategyContentForm,
   SystemReplacementStrategyCutoverContentForm,
   SystemReplacementStrategyTimelineContentForm,
@@ -169050,7 +169370,6 @@ module.exports = {
   TechnicalGoalTestCaseEntryContentForm,
   TechnicalGoalTestCriteriaTestCriteriaFormForm,
   TechnicalPainPointsSummaryContentForm,
-  TechnicalQualityCriteriaTechnicalQualityContentForm,
   TechnicalRequirementEntryConstraintsContentForm,
   TechnicalRequirementEntryContentForm,
   TechnicalRequirementEntryDetailsContentForm,
@@ -169228,12 +169547,12 @@ module.exports = {
   UiComponentsCustomizationContentForm,
   UiComponentsVisualLanguageContentForm,
   UiDesignPrincipleEntryContentForm,
-  UsabilityQualityClarityContentForm,
-  UsabilityQualityContentForm,
-  UsabilityQualityInteractionContentForm,
-  UsabilityQualityLearnabilityContentForm,
-  UsabilityQualityOperabilityContentForm,
-  UsabilityQualityPerformanceContentForm,
+  UsabilityClarityContentForm,
+  UsabilityContentForm,
+  UsabilityInteractionContentForm,
+  UsabilityLearnabilityContentForm,
+  UsabilityOperabilityContentForm,
+  UsabilityPerformanceContentForm,
   UseCaseExtensionsContentForm,
   UseCaseScopeContextContentForm,
   UserAcceptanceTestingContentForm,
@@ -169265,7 +169584,6 @@ module.exports = {
   UserProvisioningToolsDirectoryIntegrationContentForm,
   UserProvisioningToolsLifecycleContentForm,
   UserProvisioningToolsRoleManagementContentForm,
-  UserQualityCriteriaUserQualityContentForm,
   UserTrainingRequirementsTrainingFormForm,
   UtilityMenuItemEntryActionContentForm,
   UtilityMenuItemEntryBehaviorContentForm,

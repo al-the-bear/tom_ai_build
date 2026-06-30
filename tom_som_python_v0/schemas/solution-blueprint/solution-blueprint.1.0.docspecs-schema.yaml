@@ -1455,7 +1455,7 @@ section-types:
     pattern-check-id:
       pattern: ^i25cv_char_lst-\d+$
       error-message: ID must match i25cv_char_lst-NNN
-    description: "Add one entry per ISO/IEC 25010 characteristic (functional suitability, performance efficiency, compatibility, usability, reliability, security, maintainability, portability)."
+    description: "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility)."
   IDTAM-ATTR-LST:
     prefix: idtam_attr_lst
     pattern-check-id:
@@ -4194,7 +4194,7 @@ section-types:
     description: 11.5.2. Documentation completeness quality.
   DOQUCR:
     prefix: doqucr
-    description: 11.5. Documentation Quality Criteria.
+    description: 11.10. Documentation Quality (ISO/IEC 26514 annex).
   DORES1:
     prefix: dores1
     description: Software prerequisites.
@@ -4873,9 +4873,6 @@ section-types:
   OPPAPO:
     prefix: oppapo
     description: 1.3.1. Operational Pain Points.
-  OPQUCR:
-    prefix: opqucr
-    description: 11.4. Operations Quality Criteria.
   ORENMA:
     prefix: orenma
     description: Organizational maturity indicators.
@@ -5731,9 +5728,6 @@ section-types:
   TEPAPO:
     prefix: tepapo
     description: 1.3.3. Technical Pain Points.
-  TEQUCR:
-    prefix: tequcr
-    description: 11.3. Technical Quality Criteria.
   TESCBU:
     prefix: tescbu
     description: Business context for test scenario.
@@ -6923,10 +6917,10 @@ section-types:
     description: A data handling requirement entry (form).
   I25CE:
     prefix: i25ce
-    description: A single ISO/IEC 25010 coverage entry (form).
+    description: A single ISO/IEC 25010:2023 coverage entry (form).
   I25CV:
     prefix: i25cv
-    description: ISO/IEC 25010 product-quality cross-map.
+    description: ISO/IEC 25010:2023 product-quality cross-map (derived).
   IACS1:
     prefix: iacs1
     description: Security and policy controls.
@@ -8503,9 +8497,6 @@ section-types:
   USPER:
     prefix: usper
     description: 10.1.3. User Personas.
-  USQCR:
-    prefix: usqcr
-    description: 11.2. User-Related Quality Criteria.
   UTCEE:
     prefix: utcee
     description: Staffing and risk context.
@@ -9175,6 +9166,9 @@ section-types:
   CMPR:
     prefix: cmpr
     description: A component property entry.
+  CMPT:
+    prefix: cmpt
+    description: 11.4. Compatibility (ISO/IEC 25010:2023).
   CMRC:
     prefix: cmrc
     description: Collection requirements.
@@ -10071,6 +10065,9 @@ section-types:
   FLQU:
     prefix: flqu
     description: 11.3.3. Flexibility quality.
+  FLXC:
+    prefix: flxc
+    description: 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
   FMEC:
     prefix: fmec
     description: Feature configuration.
@@ -10083,6 +10080,9 @@ section-types:
   FMES:
     prefix: fmes
     description: Structural scope.
+  FNSU:
+    prefix: fnsu
+    description: 11.2. Functional Suitability (ISO/IEC 25010:2023).
   FRCO:
     prefix: frco
     description: 4.6. Framework Conditions.
@@ -10266,6 +10266,9 @@ section-types:
   INCO:
     prefix: inco
     description: 7.1.7. Integrity Constraints.
+  INCP:
+    prefix: incp
+    description: 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
   INEN:
     prefix: inen
     description: An interaction entry.
@@ -10709,6 +10712,9 @@ section-types:
   MLAR:
     prefix: mlar
     description: 10.12. Multi-language and Rollout Support.
+  MNTC:
+    prefix: mntc
+    description: 11.8. Maintainability (ISO/IEC 25010:2023).
   MOAN:
     prefix: moan
     description: 13.4.1. MoSCoW Analysis.
@@ -10993,6 +10999,9 @@ section-types:
   PEEA:
     prefix: peea
     description: "Likelihood, impact, and detection."
+  PEEF:
+    prefix: peef
+    description: 11.3. Performance Efficiency (ISO/IEC 25010:2023).
   PEER:
     prefix: peer
     description: Resolution and prevention approach.
@@ -11260,6 +11269,9 @@ section-types:
   RELA:
     prefix: rela
     description: Report page layout settings.
+  RELC:
+    prefix: relc
+    description: 11.6. Reliability (ISO/IEC 25010:2023).
   RELI:
     prefix: reli
     description: Report lifecycle and archiving.
@@ -11616,6 +11628,9 @@ section-types:
   SEAN:
     prefix: sean
     description: Post-action navigation rules.
+  SECC:
+    prefix: secc
+    description: 11.7. Security (ISO/IEC 25010:2023).
   SECO:
     prefix: seco
     description: Define security controls that implement this requirement.

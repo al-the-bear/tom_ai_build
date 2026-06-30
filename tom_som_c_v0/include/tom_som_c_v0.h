@@ -213,11 +213,11 @@ typedef struct { SomNode node; } AuthorizationRoleEntryGovernance;
 typedef struct { SomNode node; } AuthorizationRoleEntryLifecycle;
 typedef struct { SomNode node; } AuthorizationRoleEntryStatus;
 typedef struct { SomNode node; } AuthorizationRoleEntryStructure;
-typedef struct { SomNode node; } AvailabilityQuality;
-typedef struct { SomNode node; } AvailabilityQualityDegradedMode;
-typedef struct { SomNode node; } AvailabilityQualityMaintenance;
-typedef struct { SomNode node; } AvailabilityQualityOperatingHours;
-typedef struct { SomNode node; } AvailabilityQualityVerification;
+typedef struct { SomNode node; } Availability;
+typedef struct { SomNode node; } AvailabilityDegradedMode;
+typedef struct { SomNode node; } AvailabilityMaintenance;
+typedef struct { SomNode node; } AvailabilityOperatingHours;
+typedef struct { SomNode node; } AvailabilityVerification;
 typedef struct { SomNode node; } BackupAndRecoverySection;
 typedef struct { SomNode node; } BackupCompliance;
 typedef struct { SomNode node; } BackupComplianceAudit;
@@ -469,6 +469,7 @@ typedef struct { SomNode node; } CommunicationPreferenceEntry;
 typedef struct { SomNode node; } CommunicationRequirements;
 typedef struct { SomNode node; } CommunicationToolsRequirements;
 typedef struct { SomNode node; } CommunicationTypeEntry;
+typedef struct { SomNode node; } CompatibilityCharacteristic;
 typedef struct { SomNode node; } CompatibilityRequirementsSection;
 typedef struct { SomNode node; } CompetencyEntry;
 typedef struct { SomNode node; } CompetencyFramework;
@@ -608,10 +609,10 @@ typedef struct { SomNode node; } ContingencyPlanEntryReferences;
 typedef struct { SomNode node; } ContingencyPlanEntryResponsibility;
 typedef struct { SomNode node; } ContingencyPlanEntryTesting;
 typedef struct { SomNode node; } ContingencyPlans;
-typedef struct { SomNode node; } CorrectnessQuality;
-typedef struct { SomNode node; } CorrectnessQualityAccuracy;
-typedef struct { SomNode node; } CorrectnessQualityIntegrity;
-typedef struct { SomNode node; } CorrectnessQualityVerification;
+typedef struct { SomNode node; } Correctness;
+typedef struct { SomNode node; } CorrectnessAccuracy;
+typedef struct { SomNode node; } CorrectnessIntegrity;
+typedef struct { SomNode node; } CorrectnessVerification;
 typedef struct { SomNode node; } CredentialCompromiseDetectionPolicy;
 typedef struct { SomNode node; } CredentialRecoveryPolicy;
 typedef struct { SomNode node; } CriticalKnowledgeAreaEntry;
@@ -941,14 +942,14 @@ typedef struct { SomNode node; } DnsRequirementsAvailability;
 typedef struct { SomNode node; } DnsRequirementsHealthChecks;
 typedef struct { SomNode node; } DnsRequirementsRecords;
 typedef struct { SomNode node; } DnsRequirementsZones;
-typedef struct { SomNode node; } DocChangeabilityQuality;
-typedef struct { SomNode node; } DocChangeabilityQualityExtensibility;
-typedef struct { SomNode node; } DocChangeabilityQualityMaintenance;
-typedef struct { SomNode node; } DocChangeabilityQualityStructure;
-typedef struct { SomNode node; } DocCompletenessQuality;
-typedef struct { SomNode node; } DocCorrectnessQuality;
-typedef struct { SomNode node; } DocCorrectnessQualityAlignment;
-typedef struct { SomNode node; } DocCorrectnessQualityVerification;
+typedef struct { SomNode node; } DocChangeability;
+typedef struct { SomNode node; } DocChangeabilityExtensibility;
+typedef struct { SomNode node; } DocChangeabilityMaintenance;
+typedef struct { SomNode node; } DocChangeabilityStructure;
+typedef struct { SomNode node; } DocCompleteness;
+typedef struct { SomNode node; } DocCorrectness;
+typedef struct { SomNode node; } DocCorrectnessAlignment;
+typedef struct { SomNode node; } DocCorrectnessVerification;
 typedef struct { SomNode node; } DocumentControl;
 typedef struct { SomNode node; } DocumentHeader;
 typedef struct { SomNode node; } DocumentRelationships;
@@ -983,10 +984,10 @@ typedef struct { SomNode node; } DomainProcessEntryOperations;
 typedef struct { SomNode node; } DomainProcesses;
 typedef struct { SomNode node; } DomainTermEntry;
 typedef struct { SomNode node; } DomainVocabulary;
-typedef struct { SomNode node; } EfficiencyQuality;
-typedef struct { SomNode node; } EfficiencyQualityResources;
-typedef struct { SomNode node; } EfficiencyQualityThroughput;
-typedef struct { SomNode node; } EfficiencyQualityVerification;
+typedef struct { SomNode node; } Efficiency;
+typedef struct { SomNode node; } EfficiencyResources;
+typedef struct { SomNode node; } EfficiencyThroughput;
+typedef struct { SomNode node; } EfficiencyVerification;
 typedef struct { SomNode node; } ElementValidationRuleEntry;
 typedef struct { SomNode node; } EmergencyMaintenanceProcedures;
 typedef struct { SomNode node; } EmergencyMaintenanceProceduresCommunication;
@@ -1173,10 +1174,11 @@ typedef struct { SomNode node; } FirewallRequirementsAdvanced;
 typedef struct { SomNode node; } FirewallRequirementsLogging;
 typedef struct { SomNode node; } FirewallRequirementsPorts;
 typedef struct { SomNode node; } FirewallRequirementsRules;
-typedef struct { SomNode node; } FlexibilityQuality;
-typedef struct { SomNode node; } FlexibilityQualityDeployment;
-typedef struct { SomNode node; } FlexibilityQualityExtensibility;
-typedef struct { SomNode node; } FlexibilityQualityModularity;
+typedef struct { SomNode node; } Flexibility;
+typedef struct { SomNode node; } FlexibilityCharacteristic;
+typedef struct { SomNode node; } FlexibilityDeployment;
+typedef struct { SomNode node; } FlexibilityExtensibility;
+typedef struct { SomNode node; } FlexibilityModularity;
 typedef struct { SomNode node; } FragilePointEntry;
 typedef struct { SomNode node; } FrameworkCompatibility;
 typedef struct { SomNode node; } FrameworkConditions;
@@ -1193,7 +1195,7 @@ typedef struct { SomNode node; } FunctionEntryClassification;
 typedef struct { SomNode node; } FunctionEntryImplementation;
 typedef struct { SomNode node; } FunctionEntryOperations;
 typedef struct { SomNode node; } FunctionModel;
-typedef struct { SomNode node; } FunctionalCompletenessQuality;
+typedef struct { SomNode node; } FunctionalCompleteness;
 typedef struct { SomNode node; } FunctionalRequirementEntry;
 typedef struct { SomNode node; } FunctionalRequirementEntryConstraints;
 typedef struct { SomNode node; } FunctionalRequirementEntryDetails;
@@ -1203,6 +1205,7 @@ typedef struct { SomNode node; } FunctionalRequirementEntrySource;
 typedef struct { SomNode node; } FunctionalRequirementEntryVerification;
 typedef struct { SomNode node; } FunctionalRequirements;
 typedef struct { SomNode node; } FunctionalResponsibilities;
+typedef struct { SomNode node; } FunctionalSuitabilityCharacteristic;
 typedef struct { SomNode node; } GapEntry;
 typedef struct { SomNode node; } GapEntryDescription;
 typedef struct { SomNode node; } GapEntryDiscovery;
@@ -1347,6 +1350,7 @@ typedef struct { SomNode node; } Integrations;
 typedef struct { SomNode node; } IntegrityConstraints;
 typedef struct { SomNode node; } IntellectualPropertyRequirements;
 typedef struct { SomNode node; } InteractionBusinessRules;
+typedef struct { SomNode node; } InteractionCapabilityCharacteristic;
 typedef struct { SomNode node; } InteractionCatalog;
 typedef struct { SomNode node; } InteractionCatalogOverview;
 typedef struct { SomNode node; } InteractionChannelEntry;
@@ -1418,11 +1422,11 @@ typedef struct { SomNode node; } IpOwnershipEntry;
 typedef struct { SomNode node; } Iso25010Coverage;
 typedef struct { SomNode node; } Iso25010CoverageEntry;
 typedef struct { SomNode node; } ItLandscapePosition;
-typedef struct { SomNode node; } ItSecurityOperationsQuality;
-typedef struct { SomNode node; } ItSecurityOperationsQualityAccess;
-typedef struct { SomNode node; } ItSecurityOperationsQualityIncident;
-typedef struct { SomNode node; } ItSecurityOperationsQualityRecovery;
-typedef struct { SomNode node; } ItSecurityOperationsQualityTesting;
+typedef struct { SomNode node; } ItSecurityOperations;
+typedef struct { SomNode node; } ItSecurityOperationsAccess;
+typedef struct { SomNode node; } ItSecurityOperationsIncident;
+typedef struct { SomNode node; } ItSecurityOperationsRecovery;
+typedef struct { SomNode node; } ItSecurityOperationsTesting;
 typedef struct { SomNode node; } ItSecurityStandardsSection;
 typedef struct { SomNode node; } ItStandardComplianceEntry;
 typedef struct { SomNode node; } ItStandardComplianceEntryEvidence;
@@ -1509,11 +1513,12 @@ typedef struct { SomNode node; } LoginFlowStepEntryProtocol;
 typedef struct { SomNode node; } LoginFlowStepEntryValidation;
 typedef struct { SomNode node; } MainScenarioStepEntry;
 typedef struct { SomNode node; } MainSuccessScenario;
-typedef struct { SomNode node; } MaintainabilityQuality;
-typedef struct { SomNode node; } MaintainabilityQualityAnalyzability;
-typedef struct { SomNode node; } MaintainabilityQualityChangeability;
-typedef struct { SomNode node; } MaintainabilityQualityGovernance;
-typedef struct { SomNode node; } MaintainabilityQualityTestability;
+typedef struct { SomNode node; } Maintainability;
+typedef struct { SomNode node; } MaintainabilityAnalyzability;
+typedef struct { SomNode node; } MaintainabilityChangeability;
+typedef struct { SomNode node; } MaintainabilityCharacteristic;
+typedef struct { SomNode node; } MaintainabilityGovernance;
+typedef struct { SomNode node; } MaintainabilityTestability;
 typedef struct { SomNode node; } MaintenanceChangeManagement;
 typedef struct { SomNode node; } MaintenanceChangeManagementAudit;
 typedef struct { SomNode node; } MaintenanceChangeManagementDocumentation;
@@ -1635,18 +1640,17 @@ typedef struct { SomNode node; } ModuleVersioningStrategyCoordination;
 typedef struct { SomNode node; } ModuleVersioningStrategyDependencies;
 typedef struct { SomNode node; } ModuleVersioningStrategyReleaseManagement;
 typedef struct { SomNode node; } Monitoring;
+typedef struct { SomNode node; } MonitoringAlerting;
 typedef struct { SomNode node; } MonitoringAndAlertingSection;
+typedef struct { SomNode node; } MonitoringAutomation;
+typedef struct { SomNode node; } MonitoringCoverage;
 typedef struct { SomNode node; } MonitoringDashboards;
 typedef struct { SomNode node; } MonitoringInfrastructure;
 typedef struct { SomNode node; } MonitoringInfrastructureAccess;
 typedef struct { SomNode node; } MonitoringInfrastructureCollection;
 typedef struct { SomNode node; } MonitoringInfrastructureDeployment;
+typedef struct { SomNode node; } MonitoringOperations;
 typedef struct { SomNode node; } MonitoringProcedureEntry;
-typedef struct { SomNode node; } MonitoringQuality;
-typedef struct { SomNode node; } MonitoringQualityAlerting;
-typedef struct { SomNode node; } MonitoringQualityAutomation;
-typedef struct { SomNode node; } MonitoringQualityCoverage;
-typedef struct { SomNode node; } MonitoringQualityOperations;
 typedef struct { SomNode node; } MoscowAnalysis;
 typedef struct { SomNode node; } MoscowEntry;
 typedef struct { SomNode node; } MoscowEntryClassification;
@@ -1754,9 +1758,9 @@ typedef struct { SomNode node; } OngoingTrainingEntry;
 typedef struct { SomNode node; } OngoingTrainingEntryCompliance;
 typedef struct { SomNode node; } OngoingTrainingEntryContent;
 typedef struct { SomNode node; } OngoingTrainingEntrySchedule;
+typedef struct { SomNode node; } OperationalMonitoring;
 typedef struct { SomNode node; } OperationalPainPoints;
 typedef struct { SomNode node; } OperationalPainPointsSummary;
-typedef struct { SomNode node; } OperationsQualityCriteria;
 typedef struct { SomNode node; } OperationsRequirements;
 typedef struct { SomNode node; } OpportunityStatement;
 typedef struct { SomNode node; } OrgChangeIdentification;
@@ -1823,6 +1827,7 @@ typedef struct { SomNode node; } PenetrationTestingRequirements;
 typedef struct { SomNode node; } PenetrationTestingRequirementsExecution;
 typedef struct { SomNode node; } PenetrationTestingRequirementsReporting;
 typedef struct { SomNode node; } PenetrationTestingRequirementsScheduling;
+typedef struct { SomNode node; } PerformanceEfficiencyCharacteristic;
 typedef struct { SomNode node; } PeriodicReviewPolicy;
 typedef struct { SomNode node; } PeripheralEquipmentEntry;
 typedef struct { SomNode node; } PermissionCompositionStrategy;
@@ -1864,7 +1869,7 @@ typedef struct { SomNode node; } PipelineStageEntryExecution;
 typedef struct { SomNode node; } PipelineStageEntryFailure;
 typedef struct { SomNode node; } PipelineStageEntryTrigger;
 typedef struct { SomNode node; } PlatformAndLanguage;
-typedef struct { SomNode node; } PortabilityQuality;
+typedef struct { SomNode node; } Portability;
 typedef struct { SomNode node; } PostImplementationReview;
 typedef struct { SomNode node; } PostMaintenanceValidation;
 typedef struct { SomNode node; } PostMaintenanceValidationClosure;
@@ -2028,6 +2033,10 @@ typedef struct { SomNode node; } QualityGateCheckEntryExecution;
 typedef struct { SomNode node; } QualityGateCheckEntryStatus;
 typedef struct { SomNode node; } QualityGateCheckEntryVerification;
 typedef struct { SomNode node; } QualityGateChecklist;
+typedef struct { SomNode node; } QualityGoalsBaseline;
+typedef struct { SomNode node; } QualityGoalsGovernance;
+typedef struct { SomNode node; } QualityGoalsMeasurement;
+typedef struct { SomNode node; } QualityGoalsResources;
 typedef struct { SomNode node; } QualityPrioritization;
 typedef struct { SomNode node; } QualityScenarioEntry;
 typedef struct { SomNode node; } QualityScenarios;
@@ -2041,11 +2050,11 @@ typedef struct { SomNode node; } RateLimitingPolicy;
 typedef struct { SomNode node; } RateLimitingPolicyBehavior;
 typedef struct { SomNode node; } RateLimitingPolicyLimits;
 typedef struct { SomNode node; } RateLimitingPolicyQuotas;
-typedef struct { SomNode node; } ReadabilityQuality;
-typedef struct { SomNode node; } ReadabilityQualityComprehensibility;
-typedef struct { SomNode node; } ReadabilityQualityNavigation;
-typedef struct { SomNode node; } ReadabilityQualityStructure;
-typedef struct { SomNode node; } ReadabilityQualityStyle;
+typedef struct { SomNode node; } Readability;
+typedef struct { SomNode node; } ReadabilityComprehensibility;
+typedef struct { SomNode node; } ReadabilityNavigation;
+typedef struct { SomNode node; } ReadabilityStructure;
+typedef struct { SomNode node; } ReadabilityStyle;
 typedef struct { SomNode node; } ReadinessCriteriaEntry;
 typedef struct { SomNode node; } RecoveryFlowEntry;
 typedef struct { SomNode node; } RecoveryProcedures;
@@ -2079,11 +2088,12 @@ typedef struct { SomNode node; } ReleaseStrategyCanary;
 typedef struct { SomNode node; } ReleaseStrategyFeatureFlags;
 typedef struct { SomNode node; } ReleaseStrategyManagement;
 typedef struct { SomNode node; } RelevantSectionEntry;
-typedef struct { SomNode node; } ReliabilityQuality;
-typedef struct { SomNode node; } ReliabilityQualityDurability;
-typedef struct { SomNode node; } ReliabilityQualityFailover;
-typedef struct { SomNode node; } ReliabilityQualityRecovery;
-typedef struct { SomNode node; } ReliabilityQualityVerification;
+typedef struct { SomNode node; } Reliability;
+typedef struct { SomNode node; } ReliabilityCharacteristic;
+typedef struct { SomNode node; } ReliabilityDurability;
+typedef struct { SomNode node; } ReliabilityFailover;
+typedef struct { SomNode node; } ReliabilityRecovery;
+typedef struct { SomNode node; } ReliabilityVerification;
 typedef struct { SomNode node; } RememberMePolicy;
 typedef struct { SomNode node; } RemoteAccessRequirements;
 typedef struct { SomNode node; } RemovedRoleEntry;
@@ -2366,21 +2376,26 @@ typedef struct { SomNode node; } ScreenStateEntry;
 typedef struct { SomNode node; } ScreenStates;
 typedef struct { SomNode node; } ScreenUserCategoryEntry;
 typedef struct { SomNode node; } SecondaryNavigation;
+typedef struct { SomNode node; } Security;
 typedef struct { SomNode node; } SecurityAndAccessModel;
 typedef struct { SomNode node; } SecurityAuditEntry;
 typedef struct { SomNode node; } SecurityAuditEntryExecution;
 typedef struct { SomNode node; } SecurityAuditEntryFollowUp;
 typedef struct { SomNode node; } SecurityAuditEntryScheduling;
 typedef struct { SomNode node; } SecurityAuditRequirementsSection;
+typedef struct { SomNode node; } SecurityAuthentication;
+typedef struct { SomNode node; } SecurityAuthorization;
 typedef struct { SomNode node; } SecurityCertificationRequirements;
 typedef struct { SomNode node; } SecurityCertificationRequirementsIndustry;
 typedef struct { SomNode node; } SecurityCertificationRequirementsIso27001;
 typedef struct { SomNode node; } SecurityCertificationRequirementsMaintenance;
 typedef struct { SomNode node; } SecurityCertificationRequirementsSoc2;
+typedef struct { SomNode node; } SecurityCharacteristic;
 typedef struct { SomNode node; } SecurityCodeReviewPolicy;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyFindings;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyProcess;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyReviewers;
+typedef struct { SomNode node; } SecurityCompliance;
 typedef struct { SomNode node; } SecurityConcernEntry;
 typedef struct { SomNode node; } SecurityControlEntry;
 typedef struct { SomNode node; } SecurityControlEntryImplementation;
@@ -2393,11 +2408,6 @@ typedef struct { SomNode node; } SecurityDevelopmentLifecycleTesting;
 typedef struct { SomNode node; } SecurityEventEntry;
 typedef struct { SomNode node; } SecurityEventLoggingPolicy;
 typedef struct { SomNode node; } SecurityEventsDefinition;
-typedef struct { SomNode node; } SecurityQuality;
-typedef struct { SomNode node; } SecurityQualityAuthentication;
-typedef struct { SomNode node; } SecurityQualityAuthorization;
-typedef struct { SomNode node; } SecurityQualityCompliance;
-typedef struct { SomNode node; } SecurityQualityVulnerability;
 typedef struct { SomNode node; } SecurityRequirementEntry;
 typedef struct { SomNode node; } SecurityRequirementEntryClassification;
 typedef struct { SomNode node; } SecurityRequirementEntryCompliance;
@@ -2419,6 +2429,7 @@ typedef struct { SomNode node; } SecurityTestingAutomationFuzzing;
 typedef struct { SomNode node; } SecurityTestingAutomationGovernance;
 typedef struct { SomNode node; } SecurityTestingAutomationIast;
 typedef struct { SomNode node; } SecurityTestingAutomationScanning;
+typedef struct { SomNode node; } SecurityVulnerability;
 typedef struct { SomNode node; } SelfRegistrationPolicy;
 typedef struct { SomNode node; } SelfRegistrationPolicyApproval;
 typedef struct { SomNode node; } SelfRegistrationPolicyBotProtection;
@@ -2450,17 +2461,17 @@ typedef struct { SomNode node; } ServerStorageRequirementsFileStorage;
 typedef struct { SomNode node; } ServerStorageRequirementsPerformance;
 typedef struct { SomNode node; } ServiceAccountCredentialPolicy;
 typedef struct { SomNode node; } ServiceAccountLifecycle;
+typedef struct { SomNode node; } ServiceLevel;
 typedef struct { SomNode node; } ServiceLevelAgreementEntry;
+typedef struct { SomNode node; } ServiceLevelEscalation;
 typedef struct { SomNode node; } ServiceLevelIndicators;
 typedef struct { SomNode node; } ServiceLevelIndicatorsMeasurement;
 typedef struct { SomNode node; } ServiceLevelIndicatorsPerformance;
 typedef struct { SomNode node; } ServiceLevelIndicatorsQuality;
-typedef struct { SomNode node; } ServiceLevelQuality;
-typedef struct { SomNode node; } ServiceLevelQualityEscalation;
-typedef struct { SomNode node; } ServiceLevelQualityOnCall;
-typedef struct { SomNode node; } ServiceLevelQualityResolution;
-typedef struct { SomNode node; } ServiceLevelQualityResponse;
-typedef struct { SomNode node; } ServiceLevelQualityRestoration;
+typedef struct { SomNode node; } ServiceLevelOnCall;
+typedef struct { SomNode node; } ServiceLevelResolution;
+typedef struct { SomNode node; } ServiceLevelResponse;
+typedef struct { SomNode node; } ServiceLevelRestoration;
 typedef struct { SomNode node; } ServiceMeshAndGateway;
 typedef struct { SomNode node; } ServiceMeshAndGatewayLoadBalancing;
 typedef struct { SomNode node; } ServiceMeshAndGatewayMesh;
@@ -2701,10 +2712,6 @@ typedef struct { SomNode node; } SystemOverviewSummaryScale;
 typedef struct { SomNode node; } SystemOverviewSummaryStatus;
 typedef struct { SomNode node; } SystemPurpose;
 typedef struct { SomNode node; } SystemQualityGoals;
-typedef struct { SomNode node; } SystemQualityGoalsBaseline;
-typedef struct { SomNode node; } SystemQualityGoalsGovernance;
-typedef struct { SomNode node; } SystemQualityGoalsMeasurement;
-typedef struct { SomNode node; } SystemQualityGoalsResources;
 typedef struct { SomNode node; } SystemReplacementStrategy;
 typedef struct { SomNode node; } SystemReplacementStrategyCutover;
 typedef struct { SomNode node; } SystemReplacementStrategyTimeline;
@@ -2775,7 +2782,6 @@ typedef struct { SomNode node; } TechnicalGoals;
 typedef struct { SomNode node; } TechnicalInfrastructure;
 typedef struct { SomNode node; } TechnicalPainPoints;
 typedef struct { SomNode node; } TechnicalPainPointsSummary;
-typedef struct { SomNode node; } TechnicalQualityCriteria;
 typedef struct { SomNode node; } TechnicalRequirementEntry;
 typedef struct { SomNode node; } TechnicalRequirementEntryConstraints;
 typedef struct { SomNode node; } TechnicalRequirementEntryDetails;
@@ -2965,12 +2971,12 @@ typedef struct { SomNode node; } UiComponentsCustomization;
 typedef struct { SomNode node; } UiComponentsVisualLanguage;
 typedef struct { SomNode node; } UiDesignPrincipleEntry;
 typedef struct { SomNode node; } UpgradeCycleFramework;
-typedef struct { SomNode node; } UsabilityQuality;
-typedef struct { SomNode node; } UsabilityQualityClarity;
-typedef struct { SomNode node; } UsabilityQualityInteraction;
-typedef struct { SomNode node; } UsabilityQualityLearnability;
-typedef struct { SomNode node; } UsabilityQualityOperability;
-typedef struct { SomNode node; } UsabilityQualityPerformance;
+typedef struct { SomNode node; } Usability;
+typedef struct { SomNode node; } UsabilityClarity;
+typedef struct { SomNode node; } UsabilityInteraction;
+typedef struct { SomNode node; } UsabilityLearnability;
+typedef struct { SomNode node; } UsabilityOperability;
+typedef struct { SomNode node; } UsabilityPerformance;
 typedef struct { SomNode node; } UseCaseExtensions;
 typedef struct { SomNode node; } UseCaseScopeContext;
 typedef struct { SomNode node; } UseCaseTraceability;
@@ -3016,7 +3022,6 @@ typedef struct { SomNode node; } UserProvisioningTools;
 typedef struct { SomNode node; } UserProvisioningToolsDirectoryIntegration;
 typedef struct { SomNode node; } UserProvisioningToolsLifecycle;
 typedef struct { SomNode node; } UserProvisioningToolsRoleManagement;
-typedef struct { SomNode node; } UserQualityCriteria;
 typedef struct { SomNode node; } UserRegistrationProcess;
 typedef struct { SomNode node; } UserTrainingRequirements;
 typedef struct { SomNode node; } UtilityMenuItemEntry;
@@ -3241,11 +3246,11 @@ typedef struct { SomNode node; } AuthorizationRoleEntryGovernanceContentForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryLifecycleContentForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryStatusContentForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryStructureContentForm;
-typedef struct { SomNode node; } AvailabilityQualityContentForm;
-typedef struct { SomNode node; } AvailabilityQualityDegradedModeContentForm;
-typedef struct { SomNode node; } AvailabilityQualityMaintenanceContentForm;
-typedef struct { SomNode node; } AvailabilityQualityOperatingHoursContentForm;
-typedef struct { SomNode node; } AvailabilityQualityVerificationContentForm;
+typedef struct { SomNode node; } AvailabilityContentForm;
+typedef struct { SomNode node; } AvailabilityDegradedModeContentForm;
+typedef struct { SomNode node; } AvailabilityMaintenanceContentForm;
+typedef struct { SomNode node; } AvailabilityOperatingHoursContentForm;
+typedef struct { SomNode node; } AvailabilityVerificationContentForm;
 typedef struct { SomNode node; } BackupComplianceAuditContentForm;
 typedef struct { SomNode node; } BackupComplianceContentForm;
 typedef struct { SomNode node; } BackupComplianceLegalHoldContentForm;
@@ -3477,6 +3482,7 @@ typedef struct { SomNode node; } CommunicationPatternsReliabilityContentForm;
 typedef struct { SomNode node; } CommunicationPatternsSynchronousContentForm;
 typedef struct { SomNode node; } CommunicationToolsRequirementsContentForm;
 typedef struct { SomNode node; } CommunicationTypeEntryContentForm;
+typedef struct { SomNode node; } CompatibilityCharacteristicCompatibilityContentForm;
 typedef struct { SomNode node; } CompetencyEntryContentForm;
 typedef struct { SomNode node; } CompetencyFrameworkOverviewContentForm;
 typedef struct { SomNode node; } CompetencyGapAssessmentContentForm;
@@ -3602,10 +3608,10 @@ typedef struct { SomNode node; } ContingencyPlanEntryContentForm;
 typedef struct { SomNode node; } ContingencyPlanEntryReferencesContentForm;
 typedef struct { SomNode node; } ContingencyPlanEntryResponsibilityContentForm;
 typedef struct { SomNode node; } ContingencyPlanEntryTestingContentForm;
-typedef struct { SomNode node; } CorrectnessQualityAccuracyContentForm;
-typedef struct { SomNode node; } CorrectnessQualityContentForm;
-typedef struct { SomNode node; } CorrectnessQualityIntegrityContentForm;
-typedef struct { SomNode node; } CorrectnessQualityVerificationContentForm;
+typedef struct { SomNode node; } CorrectnessAccuracyContentForm;
+typedef struct { SomNode node; } CorrectnessContentForm;
+typedef struct { SomNode node; } CorrectnessIntegrityContentForm;
+typedef struct { SomNode node; } CorrectnessVerificationContentForm;
 typedef struct { SomNode node; } CrossCuttingConcernsCachingContentForm;
 typedef struct { SomNode node; } CrossCuttingConcernsContentForm;
 typedef struct { SomNode node; } CrossCuttingConcernsErrorsContentForm;
@@ -3885,14 +3891,14 @@ typedef struct { SomNode node; } DnsRequirementsContentForm;
 typedef struct { SomNode node; } DnsRequirementsHealthChecksContentForm;
 typedef struct { SomNode node; } DnsRequirementsRecordsContentForm;
 typedef struct { SomNode node; } DnsRequirementsZonesContentForm;
-typedef struct { SomNode node; } DocChangeabilityQualityContentForm;
-typedef struct { SomNode node; } DocChangeabilityQualityExtensibilityContentForm;
-typedef struct { SomNode node; } DocChangeabilityQualityMaintenanceContentForm;
-typedef struct { SomNode node; } DocChangeabilityQualityStructureContentForm;
-typedef struct { SomNode node; } DocCompletenessQualityContentForm;
-typedef struct { SomNode node; } DocCorrectnessQualityAlignmentContentForm;
-typedef struct { SomNode node; } DocCorrectnessQualityContentForm;
-typedef struct { SomNode node; } DocCorrectnessQualityVerificationContentForm;
+typedef struct { SomNode node; } DocChangeabilityContentForm;
+typedef struct { SomNode node; } DocChangeabilityExtensibilityContentForm;
+typedef struct { SomNode node; } DocChangeabilityMaintenanceContentForm;
+typedef struct { SomNode node; } DocChangeabilityStructureContentForm;
+typedef struct { SomNode node; } DocCompletenessContentForm;
+typedef struct { SomNode node; } DocCorrectnessAlignmentContentForm;
+typedef struct { SomNode node; } DocCorrectnessContentForm;
+typedef struct { SomNode node; } DocCorrectnessVerificationContentForm;
 typedef struct { SomNode node; } DocumentHeaderContentForm;
 typedef struct { SomNode node; } DocumentRelevantSectionsContentForm;
 typedef struct { SomNode node; } DocumentationAndTrainingDeliverablesContentForm;
@@ -3919,10 +3925,10 @@ typedef struct { SomNode node; } DomainProcessEntryContentForm;
 typedef struct { SomNode node; } DomainProcessEntryFlowContentForm;
 typedef struct { SomNode node; } DomainProcessEntryOperationsContentForm;
 typedef struct { SomNode node; } DomainTermEntryContentForm;
-typedef struct { SomNode node; } EfficiencyQualityContentForm;
-typedef struct { SomNode node; } EfficiencyQualityResourcesContentForm;
-typedef struct { SomNode node; } EfficiencyQualityThroughputContentForm;
-typedef struct { SomNode node; } EfficiencyQualityVerificationContentForm;
+typedef struct { SomNode node; } EfficiencyContentForm;
+typedef struct { SomNode node; } EfficiencyResourcesContentForm;
+typedef struct { SomNode node; } EfficiencyThroughputContentForm;
+typedef struct { SomNode node; } EfficiencyVerificationContentForm;
 typedef struct { SomNode node; } ElementValidationRuleEntryContentForm;
 typedef struct { SomNode node; } EmergencyMaintenanceProceduresCommunicationContentForm;
 typedef struct { SomNode node; } EmergencyMaintenanceProceduresContentForm;
@@ -4088,10 +4094,11 @@ typedef struct { SomNode node; } FirewallRequirementsContentForm;
 typedef struct { SomNode node; } FirewallRequirementsLoggingContentForm;
 typedef struct { SomNode node; } FirewallRequirementsPortsContentForm;
 typedef struct { SomNode node; } FirewallRequirementsRulesContentForm;
-typedef struct { SomNode node; } FlexibilityQualityContentForm;
-typedef struct { SomNode node; } FlexibilityQualityDeploymentContentForm;
-typedef struct { SomNode node; } FlexibilityQualityExtensibilityContentForm;
-typedef struct { SomNode node; } FlexibilityQualityModularityContentForm;
+typedef struct { SomNode node; } FlexibilityCharacteristicFlexibilityContentForm;
+typedef struct { SomNode node; } FlexibilityContentForm;
+typedef struct { SomNode node; } FlexibilityDeploymentContentForm;
+typedef struct { SomNode node; } FlexibilityExtensibilityContentForm;
+typedef struct { SomNode node; } FlexibilityModularityContentForm;
 typedef struct { SomNode node; } FrameworkCompatibilityContentForm;
 typedef struct { SomNode node; } FrameworkIdentityContentForm;
 typedef struct { SomNode node; } FrameworkJustificationContentForm;
@@ -4106,7 +4113,7 @@ typedef struct { SomNode node; } FunctionEntryImplementationContentForm;
 typedef struct { SomNode node; } FunctionEntryOperationsContentForm;
 typedef struct { SomNode node; } FunctionModelDecompositionOverviewForm;
 typedef struct { SomNode node; } FunctionModelMatrixOverviewForm;
-typedef struct { SomNode node; } FunctionalCompletenessQualityContentForm;
+typedef struct { SomNode node; } FunctionalCompletenessContentForm;
 typedef struct { SomNode node; } FunctionalRequirementEntryConstraintsContentForm;
 typedef struct { SomNode node; } FunctionalRequirementEntryContentForm;
 typedef struct { SomNode node; } FunctionalRequirementEntryDetailsContentForm;
@@ -4116,6 +4123,7 @@ typedef struct { SomNode node; } FunctionalRequirementEntrySourceContentForm;
 typedef struct { SomNode node; } FunctionalRequirementEntryVerificationContentForm;
 typedef struct { SomNode node; } FunctionalRequirementsSummaryFormForm;
 typedef struct { SomNode node; } FunctionalResponsibilitiesContentForm;
+typedef struct { SomNode node; } FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm;
 typedef struct { SomNode node; } GapEntryContentForm;
 typedef struct { SomNode node; } GapEntryDescriptionContentForm;
 typedef struct { SomNode node; } GapEntryDiscoveryContentForm;
@@ -4240,6 +4248,7 @@ typedef struct { SomNode node; } IntegrationHealthSummaryContentForm;
 typedef struct { SomNode node; } IntegrationPointEntryContentForm;
 typedef struct { SomNode node; } IntellectualPropertyRequirementsContentForm;
 typedef struct { SomNode node; } InteractionBusinessRulesContentForm;
+typedef struct { SomNode node; } InteractionCapabilityCharacteristicInteractionCapabilityContentForm;
 typedef struct { SomNode node; } InteractionCatalogOverviewContentForm;
 typedef struct { SomNode node; } InteractionChannelEntryAccessContentForm;
 typedef struct { SomNode node; } InteractionChannelEntryComplianceContentForm;
@@ -4302,11 +4311,11 @@ typedef struct { SomNode node; } InteroperabilityRequirementsTestingContentForm;
 typedef struct { SomNode node; } IpOwnershipEntryContentForm;
 typedef struct { SomNode node; } Iso25010CoverageEntryContentForm;
 typedef struct { SomNode node; } ItLandscapePositionPositionDetailsForm;
-typedef struct { SomNode node; } ItSecurityOperationsQualityAccessContentForm;
-typedef struct { SomNode node; } ItSecurityOperationsQualityContentForm;
-typedef struct { SomNode node; } ItSecurityOperationsQualityIncidentContentForm;
-typedef struct { SomNode node; } ItSecurityOperationsQualityRecoveryContentForm;
-typedef struct { SomNode node; } ItSecurityOperationsQualityTestingContentForm;
+typedef struct { SomNode node; } ItSecurityOperationsAccessContentForm;
+typedef struct { SomNode node; } ItSecurityOperationsContentForm;
+typedef struct { SomNode node; } ItSecurityOperationsIncidentContentForm;
+typedef struct { SomNode node; } ItSecurityOperationsRecoveryContentForm;
+typedef struct { SomNode node; } ItSecurityOperationsTestingContentForm;
 typedef struct { SomNode node; } ItStandardComplianceEntryContentForm;
 typedef struct { SomNode node; } ItStandardComplianceEntryEvidenceContentForm;
 typedef struct { SomNode node; } ItStandardComplianceEntryOwnershipContentForm;
@@ -4378,11 +4387,12 @@ typedef struct { SomNode node; } LoginFlowStepEntryProtocolContentForm;
 typedef struct { SomNode node; } LoginFlowStepEntryValidationContentForm;
 typedef struct { SomNode node; } MainScenarioStepEntryContentForm;
 typedef struct { SomNode node; } MainSuccessScenarioContentForm;
-typedef struct { SomNode node; } MaintainabilityQualityAnalyzabilityContentForm;
-typedef struct { SomNode node; } MaintainabilityQualityChangeabilityContentForm;
-typedef struct { SomNode node; } MaintainabilityQualityContentForm;
-typedef struct { SomNode node; } MaintainabilityQualityGovernanceContentForm;
-typedef struct { SomNode node; } MaintainabilityQualityTestabilityContentForm;
+typedef struct { SomNode node; } MaintainabilityAnalyzabilityContentForm;
+typedef struct { SomNode node; } MaintainabilityChangeabilityContentForm;
+typedef struct { SomNode node; } MaintainabilityCharacteristicMaintainabilityContentForm;
+typedef struct { SomNode node; } MaintainabilityContentForm;
+typedef struct { SomNode node; } MaintainabilityGovernanceContentForm;
+typedef struct { SomNode node; } MaintainabilityTestabilityContentForm;
 typedef struct { SomNode node; } MaintenanceChangeManagementAuditContentForm;
 typedef struct { SomNode node; } MaintenanceChangeManagementContentForm;
 typedef struct { SomNode node; } MaintenanceChangeManagementDocumentationContentForm;
@@ -4493,17 +4503,16 @@ typedef struct { SomNode node; } ModuleVersioningStrategyContentForm;
 typedef struct { SomNode node; } ModuleVersioningStrategyCoordinationContentForm;
 typedef struct { SomNode node; } ModuleVersioningStrategyDependenciesContentForm;
 typedef struct { SomNode node; } ModuleVersioningStrategyReleaseManagementContentForm;
+typedef struct { SomNode node; } MonitoringAlertingContentForm;
+typedef struct { SomNode node; } MonitoringAutomationContentForm;
+typedef struct { SomNode node; } MonitoringCoverageContentForm;
 typedef struct { SomNode node; } MonitoringDashboardsDashboardOverviewForm;
 typedef struct { SomNode node; } MonitoringInfrastructureAccessContentForm;
 typedef struct { SomNode node; } MonitoringInfrastructureCollectionContentForm;
 typedef struct { SomNode node; } MonitoringInfrastructureContentForm;
 typedef struct { SomNode node; } MonitoringInfrastructureDeploymentContentForm;
 typedef struct { SomNode node; } MonitoringMonitoringOverviewForm;
-typedef struct { SomNode node; } MonitoringQualityAlertingContentForm;
-typedef struct { SomNode node; } MonitoringQualityAutomationContentForm;
-typedef struct { SomNode node; } MonitoringQualityContentForm;
-typedef struct { SomNode node; } MonitoringQualityCoverageContentForm;
-typedef struct { SomNode node; } MonitoringQualityOperationsContentForm;
+typedef struct { SomNode node; } MonitoringOperationsContentForm;
 typedef struct { SomNode node; } MoscowAnalysisContentForm;
 typedef struct { SomNode node; } MoscowEntryClassificationContentForm;
 typedef struct { SomNode node; } MoscowEntryContentForm;
@@ -4600,8 +4609,8 @@ typedef struct { SomNode node; } OngoingTrainingEntryComplianceContentForm;
 typedef struct { SomNode node; } OngoingTrainingEntryContentContentForm;
 typedef struct { SomNode node; } OngoingTrainingEntryContentForm;
 typedef struct { SomNode node; } OngoingTrainingEntryScheduleContentForm;
+typedef struct { SomNode node; } OperationalMonitoringContentForm;
 typedef struct { SomNode node; } OperationalPainPointsSummaryContentForm;
-typedef struct { SomNode node; } OperationsQualityCriteriaOperationsOverviewContentForm;
 typedef struct { SomNode node; } OpportunityStatementOpportunityDetailsForm;
 typedef struct { SomNode node; } OrgChangeIdentificationContentForm;
 typedef struct { SomNode node; } OrgChangeImpactContentForm;
@@ -4655,6 +4664,7 @@ typedef struct { SomNode node; } PenetrationTestingRequirementsContentForm;
 typedef struct { SomNode node; } PenetrationTestingRequirementsExecutionContentForm;
 typedef struct { SomNode node; } PenetrationTestingRequirementsReportingContentForm;
 typedef struct { SomNode node; } PenetrationTestingRequirementsSchedulingContentForm;
+typedef struct { SomNode node; } PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm;
 typedef struct { SomNode node; } PeriodicReviewPolicyContentForm;
 typedef struct { SomNode node; } PeripheralEquipmentEntryContentForm;
 typedef struct { SomNode node; } PermissionMatrixEntryContentForm;
@@ -4688,7 +4698,7 @@ typedef struct { SomNode node; } PipelineStageEntryContentForm;
 typedef struct { SomNode node; } PipelineStageEntryExecutionContentForm;
 typedef struct { SomNode node; } PipelineStageEntryFailureContentForm;
 typedef struct { SomNode node; } PipelineStageEntryTriggerContentForm;
-typedef struct { SomNode node; } PortabilityQualityContentForm;
+typedef struct { SomNode node; } PortabilityContentForm;
 typedef struct { SomNode node; } PostMaintenanceValidationClosureContentForm;
 typedef struct { SomNode node; } PostMaintenanceValidationContentForm;
 typedef struct { SomNode node; } PostMaintenanceValidationMonitoringContentForm;
@@ -4824,6 +4834,10 @@ typedef struct { SomNode node; } QualityGateCheckEntryExecutionContentForm;
 typedef struct { SomNode node; } QualityGateCheckEntryStatusContentForm;
 typedef struct { SomNode node; } QualityGateCheckEntryVerificationContentForm;
 typedef struct { SomNode node; } QualityGateChecklistChecklistOverviewContentForm;
+typedef struct { SomNode node; } QualityGoalsBaselineContentForm;
+typedef struct { SomNode node; } QualityGoalsGovernanceContentForm;
+typedef struct { SomNode node; } QualityGoalsMeasurementContentForm;
+typedef struct { SomNode node; } QualityGoalsResourcesContentForm;
 typedef struct { SomNode node; } QualityPrioritizationPrioritizationFrameworkContentForm;
 typedef struct { SomNode node; } QualityScenarioEntryContentForm;
 typedef struct { SomNode node; } QualityStandardEntryCertificationContentForm;
@@ -4836,11 +4850,11 @@ typedef struct { SomNode node; } RateLimitingPolicyBehaviorContentForm;
 typedef struct { SomNode node; } RateLimitingPolicyContentForm;
 typedef struct { SomNode node; } RateLimitingPolicyLimitsContentForm;
 typedef struct { SomNode node; } RateLimitingPolicyQuotasContentForm;
-typedef struct { SomNode node; } ReadabilityQualityComprehensibilityContentForm;
-typedef struct { SomNode node; } ReadabilityQualityContentForm;
-typedef struct { SomNode node; } ReadabilityQualityNavigationContentForm;
-typedef struct { SomNode node; } ReadabilityQualityStructureContentForm;
-typedef struct { SomNode node; } ReadabilityQualityStyleContentForm;
+typedef struct { SomNode node; } ReadabilityComprehensibilityContentForm;
+typedef struct { SomNode node; } ReadabilityContentForm;
+typedef struct { SomNode node; } ReadabilityNavigationContentForm;
+typedef struct { SomNode node; } ReadabilityStructureContentForm;
+typedef struct { SomNode node; } ReadabilityStyleContentForm;
 typedef struct { SomNode node; } ReadinessCriteriaEntryContentForm;
 typedef struct { SomNode node; } RecoveryProceduresApplicationContentForm;
 typedef struct { SomNode node; } RecoveryProceduresAutomationContentForm;
@@ -4868,11 +4882,12 @@ typedef struct { SomNode node; } ReleaseStrategyContentForm;
 typedef struct { SomNode node; } ReleaseStrategyFeatureFlagsContentForm;
 typedef struct { SomNode node; } ReleaseStrategyManagementContentForm;
 typedef struct { SomNode node; } RelevantSectionEntryContentForm;
-typedef struct { SomNode node; } ReliabilityQualityContentForm;
-typedef struct { SomNode node; } ReliabilityQualityDurabilityContentForm;
-typedef struct { SomNode node; } ReliabilityQualityFailoverContentForm;
-typedef struct { SomNode node; } ReliabilityQualityRecoveryContentForm;
-typedef struct { SomNode node; } ReliabilityQualityVerificationContentForm;
+typedef struct { SomNode node; } ReliabilityCharacteristicReliabilityContentForm;
+typedef struct { SomNode node; } ReliabilityContentForm;
+typedef struct { SomNode node; } ReliabilityDurabilityContentForm;
+typedef struct { SomNode node; } ReliabilityFailoverContentForm;
+typedef struct { SomNode node; } ReliabilityRecoveryContentForm;
+typedef struct { SomNode node; } ReliabilityVerificationContentForm;
 typedef struct { SomNode node; } RemoteAccessRequirementsContentForm;
 typedef struct { SomNode node; } RemovedRoleEntryContentForm;
 typedef struct { SomNode node; } RemovedRoleEntryContinuityContentForm;
@@ -5121,15 +5136,20 @@ typedef struct { SomNode node; } SecurityAuditEntryContentForm;
 typedef struct { SomNode node; } SecurityAuditEntryExecutionContentForm;
 typedef struct { SomNode node; } SecurityAuditEntryFollowUpContentForm;
 typedef struct { SomNode node; } SecurityAuditEntrySchedulingContentForm;
+typedef struct { SomNode node; } SecurityAuthenticationContentForm;
+typedef struct { SomNode node; } SecurityAuthorizationContentForm;
 typedef struct { SomNode node; } SecurityCertificationRequirementsContentForm;
 typedef struct { SomNode node; } SecurityCertificationRequirementsIndustryContentForm;
 typedef struct { SomNode node; } SecurityCertificationRequirementsIso27001ContentForm;
 typedef struct { SomNode node; } SecurityCertificationRequirementsMaintenanceContentForm;
 typedef struct { SomNode node; } SecurityCertificationRequirementsSoc2ContentForm;
+typedef struct { SomNode node; } SecurityCharacteristicSecurityContentForm;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyContentForm;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyFindingsContentForm;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyProcessContentForm;
 typedef struct { SomNode node; } SecurityCodeReviewPolicyReviewersContentForm;
+typedef struct { SomNode node; } SecurityComplianceContentForm;
+typedef struct { SomNode node; } SecurityContentForm;
 typedef struct { SomNode node; } SecurityControlEntryContentForm;
 typedef struct { SomNode node; } SecurityControlEntryImplementationContentForm;
 typedef struct { SomNode node; } SecurityControlEntryVerificationContentForm;
@@ -5139,11 +5159,6 @@ typedef struct { SomNode node; } SecurityDevelopmentLifecycleReleaseContentForm;
 typedef struct { SomNode node; } SecurityDevelopmentLifecycleTestingContentForm;
 typedef struct { SomNode node; } SecurityEventEntryContentForm;
 typedef struct { SomNode node; } SecurityEventLoggingPolicyContentForm;
-typedef struct { SomNode node; } SecurityQualityAuthenticationContentForm;
-typedef struct { SomNode node; } SecurityQualityAuthorizationContentForm;
-typedef struct { SomNode node; } SecurityQualityComplianceContentForm;
-typedef struct { SomNode node; } SecurityQualityContentForm;
-typedef struct { SomNode node; } SecurityQualityVulnerabilityContentForm;
 typedef struct { SomNode node; } SecurityRequirementEntryClassificationContentForm;
 typedef struct { SomNode node; } SecurityRequirementEntryComplianceContentForm;
 typedef struct { SomNode node; } SecurityRequirementEntryContentForm;
@@ -5165,6 +5180,7 @@ typedef struct { SomNode node; } SecurityTestingAutomationFuzzingContentForm;
 typedef struct { SomNode node; } SecurityTestingAutomationGovernanceContentForm;
 typedef struct { SomNode node; } SecurityTestingAutomationIastContentForm;
 typedef struct { SomNode node; } SecurityTestingAutomationScanningContentForm;
+typedef struct { SomNode node; } SecurityVulnerabilityContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyApprovalContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyBotProtectionContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyContentForm;
@@ -5192,16 +5208,16 @@ typedef struct { SomNode node; } ServerStorageRequirementsDatabaseContentForm;
 typedef struct { SomNode node; } ServerStorageRequirementsFileStorageContentForm;
 typedef struct { SomNode node; } ServerStorageRequirementsPerformanceContentForm;
 typedef struct { SomNode node; } ServiceLevelAgreementEntryContentForm;
+typedef struct { SomNode node; } ServiceLevelContentForm;
+typedef struct { SomNode node; } ServiceLevelEscalationContentForm;
 typedef struct { SomNode node; } ServiceLevelIndicatorsContentForm;
 typedef struct { SomNode node; } ServiceLevelIndicatorsMeasurementContentForm;
 typedef struct { SomNode node; } ServiceLevelIndicatorsPerformanceContentForm;
 typedef struct { SomNode node; } ServiceLevelIndicatorsQualityContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityEscalationContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityOnCallContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityResolutionContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityResponseContentForm;
-typedef struct { SomNode node; } ServiceLevelQualityRestorationContentForm;
+typedef struct { SomNode node; } ServiceLevelOnCallContentForm;
+typedef struct { SomNode node; } ServiceLevelResolutionContentForm;
+typedef struct { SomNode node; } ServiceLevelResponseContentForm;
+typedef struct { SomNode node; } ServiceLevelRestorationContentForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayContentForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayLoadBalancingContentForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayMeshContentForm;
@@ -5402,11 +5418,7 @@ typedef struct { SomNode node; } SystemOverviewSummaryComplexityContentForm;
 typedef struct { SomNode node; } SystemOverviewSummaryContentForm;
 typedef struct { SomNode node; } SystemOverviewSummaryScaleContentForm;
 typedef struct { SomNode node; } SystemOverviewSummaryStatusContentForm;
-typedef struct { SomNode node; } SystemQualityGoalsBaselineContentForm;
 typedef struct { SomNode node; } SystemQualityGoalsGovernanceContentForm;
-typedef struct { SomNode node; } SystemQualityGoalsGovernanceContentForm_2;
-typedef struct { SomNode node; } SystemQualityGoalsMeasurementContentForm;
-typedef struct { SomNode node; } SystemQualityGoalsResourcesContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyCutoverContentForm;
 typedef struct { SomNode node; } SystemReplacementStrategyTimelineContentForm;
@@ -5465,7 +5477,6 @@ typedef struct { SomNode node; } TechnicalGoalEntryMeasurementContentForm;
 typedef struct { SomNode node; } TechnicalGoalTestCaseEntryContentForm;
 typedef struct { SomNode node; } TechnicalGoalTestCriteriaTestCriteriaFormForm;
 typedef struct { SomNode node; } TechnicalPainPointsSummaryContentForm;
-typedef struct { SomNode node; } TechnicalQualityCriteriaTechnicalQualityContentForm;
 typedef struct { SomNode node; } TechnicalRequirementEntryConstraintsContentForm;
 typedef struct { SomNode node; } TechnicalRequirementEntryContentForm;
 typedef struct { SomNode node; } TechnicalRequirementEntryDetailsContentForm;
@@ -5643,12 +5654,12 @@ typedef struct { SomNode node; } UiComponentsComponentLibraryOverviewForm;
 typedef struct { SomNode node; } UiComponentsCustomizationContentForm;
 typedef struct { SomNode node; } UiComponentsVisualLanguageContentForm;
 typedef struct { SomNode node; } UiDesignPrincipleEntryContentForm;
-typedef struct { SomNode node; } UsabilityQualityClarityContentForm;
-typedef struct { SomNode node; } UsabilityQualityContentForm;
-typedef struct { SomNode node; } UsabilityQualityInteractionContentForm;
-typedef struct { SomNode node; } UsabilityQualityLearnabilityContentForm;
-typedef struct { SomNode node; } UsabilityQualityOperabilityContentForm;
-typedef struct { SomNode node; } UsabilityQualityPerformanceContentForm;
+typedef struct { SomNode node; } UsabilityClarityContentForm;
+typedef struct { SomNode node; } UsabilityContentForm;
+typedef struct { SomNode node; } UsabilityInteractionContentForm;
+typedef struct { SomNode node; } UsabilityLearnabilityContentForm;
+typedef struct { SomNode node; } UsabilityOperabilityContentForm;
+typedef struct { SomNode node; } UsabilityPerformanceContentForm;
 typedef struct { SomNode node; } UseCaseExtensionsContentForm;
 typedef struct { SomNode node; } UseCaseScopeContextContentForm;
 typedef struct { SomNode node; } UserAcceptanceTestingContentForm;
@@ -5680,7 +5691,6 @@ typedef struct { SomNode node; } UserProvisioningToolsContentForm;
 typedef struct { SomNode node; } UserProvisioningToolsDirectoryIntegrationContentForm;
 typedef struct { SomNode node; } UserProvisioningToolsLifecycleContentForm;
 typedef struct { SomNode node; } UserProvisioningToolsRoleManagementContentForm;
-typedef struct { SomNode node; } UserQualityCriteriaUserQualityContentForm;
 typedef struct { SomNode node; } UserTrainingRequirementsTrainingFormForm;
 typedef struct { SomNode node; } UtilityMenuItemEntryActionContentForm;
 typedef struct { SomNode node; } UtilityMenuItemEntryBehaviorContentForm;
@@ -5763,8 +5773,13 @@ SomList acceptance_criteria_list_items(const AcceptanceCriteriaList *self);
 
 // 11.7. Acceptance Criteria Summary.
 //
-// Quality acceptance criteria for the project including must-pass criteria
-// and quality gate checklists.
+// The acceptance *framework* and summary for the project: the acceptance
+// process/authority/scope, the must-pass criteria, and the quality-gate
+// checklist. The full enumerated, traceable acceptance criteria are NOT
+// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+// referencing list).
 // Binds a AcceptanceCriteriaSummary facade to a document and a path (path copied).
 void acceptance_criteria_summary_init(AcceptanceCriteriaSummary *self, SpecDocument *doc, const char *path);
 void acceptance_criteria_summary_free(AcceptanceCriteriaSummary *self);
@@ -5775,6 +5790,12 @@ AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptance_criteria_summ
 MustPassCriteria acceptance_criteria_summary_must_pass_criteria(const AcceptanceCriteriaSummary *self);
 // 11.7.2. Quality Gate Checklist.
 QualityGateChecklist acceptance_criteria_summary_quality_gate_checklist(const AcceptanceCriteriaSummary *self);
+// Canonical, enumerated acceptance criteria (SR-54 explicit link).
+//
+// The single source of truth for the full set of traceable acceptance
+// criteria; this summary references — rather than duplicates — it. The same
+// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+AcceptanceCriteriaList acceptance_criteria_summary_detailed_criteria(const AcceptanceCriteriaSummary *self);
 // Acceptance test summary.
 // (skipped: acceptanceTestSummary has no target type)
 
@@ -7488,44 +7509,44 @@ void authorization_role_entry_structure_free(AuthorizationRoleEntryStructure *se
 AuthorizationRoleEntryStructureContentForm authorization_role_entry_structure_content(const AuthorizationRoleEntryStructure *self);
 
 // 11.4.1. Availability quality.
-// Binds a AvailabilityQuality facade to a document and a path (path copied).
-void availability_quality_init(AvailabilityQuality *self, SpecDocument *doc, const char *path);
-void availability_quality_free(AvailabilityQuality *self);
-AvailabilityQualityContentForm availability_quality_content(const AvailabilityQuality *self);
+// Binds a Availability facade to a document and a path (path copied).
+void availability_init(Availability *self, SpecDocument *doc, const char *path);
+void availability_free(Availability *self);
+AvailabilityContentForm availability_content(const Availability *self);
 // Operating-hour expectations.
-AvailabilityQualityOperatingHours availability_quality_operating_hours_details(const AvailabilityQuality *self);
+AvailabilityOperatingHours availability_operating_hours_details(const Availability *self);
 // Maintenance window policy.
-AvailabilityQualityMaintenance availability_quality_maintenance(const AvailabilityQuality *self);
+AvailabilityMaintenance availability_maintenance(const Availability *self);
 // Degraded-mode behavior.
-AvailabilityQualityDegradedMode availability_quality_degraded_mode(const AvailabilityQuality *self);
+AvailabilityDegradedMode availability_degraded_mode(const Availability *self);
 // Monitoring and reporting.
-AvailabilityQualityVerification availability_quality_verification(const AvailabilityQuality *self);
+AvailabilityVerification availability_verification(const Availability *self);
 // Detailed availability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Degraded-mode behavior.
-// Binds a AvailabilityQualityDegradedMode facade to a document and a path (path copied).
-void availability_quality_degraded_mode_init(AvailabilityQualityDegradedMode *self, SpecDocument *doc, const char *path);
-void availability_quality_degraded_mode_free(AvailabilityQualityDegradedMode *self);
-AvailabilityQualityDegradedModeContentForm availability_quality_degraded_mode_content(const AvailabilityQualityDegradedMode *self);
+// Binds a AvailabilityDegradedMode facade to a document and a path (path copied).
+void availability_degraded_mode_init(AvailabilityDegradedMode *self, SpecDocument *doc, const char *path);
+void availability_degraded_mode_free(AvailabilityDegradedMode *self);
+AvailabilityDegradedModeContentForm availability_degraded_mode_content(const AvailabilityDegradedMode *self);
 
 // Maintenance window policy.
-// Binds a AvailabilityQualityMaintenance facade to a document and a path (path copied).
-void availability_quality_maintenance_init(AvailabilityQualityMaintenance *self, SpecDocument *doc, const char *path);
-void availability_quality_maintenance_free(AvailabilityQualityMaintenance *self);
-AvailabilityQualityMaintenanceContentForm availability_quality_maintenance_content(const AvailabilityQualityMaintenance *self);
+// Binds a AvailabilityMaintenance facade to a document and a path (path copied).
+void availability_maintenance_init(AvailabilityMaintenance *self, SpecDocument *doc, const char *path);
+void availability_maintenance_free(AvailabilityMaintenance *self);
+AvailabilityMaintenanceContentForm availability_maintenance_content(const AvailabilityMaintenance *self);
 
 // Operating-hour expectations.
-// Binds a AvailabilityQualityOperatingHours facade to a document and a path (path copied).
-void availability_quality_operating_hours_init(AvailabilityQualityOperatingHours *self, SpecDocument *doc, const char *path);
-void availability_quality_operating_hours_free(AvailabilityQualityOperatingHours *self);
-AvailabilityQualityOperatingHoursContentForm availability_quality_operating_hours_content(const AvailabilityQualityOperatingHours *self);
+// Binds a AvailabilityOperatingHours facade to a document and a path (path copied).
+void availability_operating_hours_init(AvailabilityOperatingHours *self, SpecDocument *doc, const char *path);
+void availability_operating_hours_free(AvailabilityOperatingHours *self);
+AvailabilityOperatingHoursContentForm availability_operating_hours_content(const AvailabilityOperatingHours *self);
 
 // Monitoring and reporting.
-// Binds a AvailabilityQualityVerification facade to a document and a path (path copied).
-void availability_quality_verification_init(AvailabilityQualityVerification *self, SpecDocument *doc, const char *path);
-void availability_quality_verification_free(AvailabilityQualityVerification *self);
-AvailabilityQualityVerificationContentForm availability_quality_verification_content(const AvailabilityQualityVerification *self);
+// Binds a AvailabilityVerification facade to a document and a path (path copied).
+void availability_verification_init(AvailabilityVerification *self, SpecDocument *doc, const char *path);
+void availability_verification_free(AvailabilityVerification *self);
+AvailabilityVerificationContentForm availability_verification_content(const AvailabilityVerification *self);
 
 // 8.5.1. Backup and Recovery.
 //
@@ -9746,6 +9767,19 @@ void communication_type_entry_init(CommunicationTypeEntry *self, SpecDocument *d
 void communication_type_entry_free(CommunicationTypeEntry *self);
 CommunicationTypeEntryContentForm communication_type_entry_content(const CommunicationTypeEntry *self);
 
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+//
+// Degree to which the product can exchange information with other products and
+// share the same environment and resources (co-existence + interoperability).
+// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+// pending project-specific compatibility leaves.
+// Binds a CompatibilityCharacteristic facade to a document and a path (path copied).
+void compatibility_characteristic_init(CompatibilityCharacteristic *self, SpecDocument *doc, const char *path);
+void compatibility_characteristic_free(CompatibilityCharacteristic *self);
+CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic_compatibility_content(const CompatibilityCharacteristic *self);
+// Compatibility overview.
+// (skipped: overview has no target type)
+
 // 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
@@ -10994,36 +11028,36 @@ void contingency_plans_set_content(ContingencyPlans *self, const char *value);
 SomList contingency_plans_items(const ContingencyPlans *self);
 
 // 11.2.3. Correctness quality.
-// Binds a CorrectnessQuality facade to a document and a path (path copied).
-void correctness_quality_init(CorrectnessQuality *self, SpecDocument *doc, const char *path);
-void correctness_quality_free(CorrectnessQuality *self);
-CorrectnessQualityContentForm correctness_quality_content(const CorrectnessQuality *self);
+// Binds a Correctness facade to a document and a path (path copied).
+void correctness_init(Correctness *self, SpecDocument *doc, const char *path);
+void correctness_free(Correctness *self);
+CorrectnessContentForm correctness_content(const Correctness *self);
 // Data integrity expectations.
-CorrectnessQualityIntegrity correctness_quality_integrity(const CorrectnessQuality *self);
+CorrectnessIntegrity correctness_integrity(const Correctness *self);
 // Accuracy and auditability requirements.
-CorrectnessQualityAccuracy correctness_quality_accuracy(const CorrectnessQuality *self);
+CorrectnessAccuracy correctness_accuracy(const Correctness *self);
 // Verification and regression approach.
-CorrectnessQualityVerification correctness_quality_verification(const CorrectnessQuality *self);
+CorrectnessVerification correctness_verification(const Correctness *self);
 // Detailed correctness requirements narrative.
 // (skipped: narrative has no target type)
 
 // Accuracy and auditability requirements.
-// Binds a CorrectnessQualityAccuracy facade to a document and a path (path copied).
-void correctness_quality_accuracy_init(CorrectnessQualityAccuracy *self, SpecDocument *doc, const char *path);
-void correctness_quality_accuracy_free(CorrectnessQualityAccuracy *self);
-CorrectnessQualityAccuracyContentForm correctness_quality_accuracy_content(const CorrectnessQualityAccuracy *self);
+// Binds a CorrectnessAccuracy facade to a document and a path (path copied).
+void correctness_accuracy_init(CorrectnessAccuracy *self, SpecDocument *doc, const char *path);
+void correctness_accuracy_free(CorrectnessAccuracy *self);
+CorrectnessAccuracyContentForm correctness_accuracy_content(const CorrectnessAccuracy *self);
 
 // Data integrity expectations.
-// Binds a CorrectnessQualityIntegrity facade to a document and a path (path copied).
-void correctness_quality_integrity_init(CorrectnessQualityIntegrity *self, SpecDocument *doc, const char *path);
-void correctness_quality_integrity_free(CorrectnessQualityIntegrity *self);
-CorrectnessQualityIntegrityContentForm correctness_quality_integrity_content(const CorrectnessQualityIntegrity *self);
+// Binds a CorrectnessIntegrity facade to a document and a path (path copied).
+void correctness_integrity_init(CorrectnessIntegrity *self, SpecDocument *doc, const char *path);
+void correctness_integrity_free(CorrectnessIntegrity *self);
+CorrectnessIntegrityContentForm correctness_integrity_content(const CorrectnessIntegrity *self);
 
 // Verification and regression approach.
-// Binds a CorrectnessQualityVerification facade to a document and a path (path copied).
-void correctness_quality_verification_init(CorrectnessQualityVerification *self, SpecDocument *doc, const char *path);
-void correctness_quality_verification_free(CorrectnessQualityVerification *self);
-CorrectnessQualityVerificationContentForm correctness_quality_verification_content(const CorrectnessQualityVerification *self);
+// Binds a CorrectnessVerification facade to a document and a path (path copied).
+void correctness_verification_init(CorrectnessVerification *self, SpecDocument *doc, const char *path);
+void correctness_verification_free(CorrectnessVerification *self);
+CorrectnessVerificationContentForm correctness_verification_content(const CorrectnessVerification *self);
 
 // Credential compromise detection policy (form).
 //
@@ -11799,13 +11833,23 @@ void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, con
 DocumentHeader d10_quality_acceptance_plan_header(const D10QualityAcceptancePlan *self);
 // Quality framework.
 QualityFramework d10_quality_acceptance_plan_quality_framework(const D10QualityAcceptancePlan *self);
-// User-related quality criteria.
-UserQualityCriteria d10_quality_acceptance_plan_user_quality_criteria(const D10QualityAcceptancePlan *self);
-// Technical quality criteria.
-TechnicalQualityCriteria d10_quality_acceptance_plan_technical_quality_criteria(const D10QualityAcceptancePlan *self);
-// Operations quality criteria.
-OperationsQualityCriteria d10_quality_acceptance_plan_operations_quality_criteria(const D10QualityAcceptancePlan *self);
-// Documentation quality criteria.
+// Functional suitability (ISO/IEC 25010:2023).
+FunctionalSuitabilityCharacteristic d10_quality_acceptance_plan_functional_suitability(const D10QualityAcceptancePlan *self);
+// Performance efficiency (ISO/IEC 25010:2023).
+PerformanceEfficiencyCharacteristic d10_quality_acceptance_plan_performance_efficiency(const D10QualityAcceptancePlan *self);
+// Compatibility (ISO/IEC 25010:2023).
+CompatibilityCharacteristic d10_quality_acceptance_plan_compatibility(const D10QualityAcceptancePlan *self);
+// Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+InteractionCapabilityCharacteristic d10_quality_acceptance_plan_interaction_capability(const D10QualityAcceptancePlan *self);
+// Reliability (ISO/IEC 25010:2023).
+ReliabilityCharacteristic d10_quality_acceptance_plan_reliability(const D10QualityAcceptancePlan *self);
+// Security (ISO/IEC 25010:2023).
+SecurityCharacteristic d10_quality_acceptance_plan_security(const D10QualityAcceptancePlan *self);
+// Maintainability (ISO/IEC 25010:2023).
+MaintainabilityCharacteristic d10_quality_acceptance_plan_maintainability(const D10QualityAcceptancePlan *self);
+// Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+FlexibilityCharacteristic d10_quality_acceptance_plan_flexibility(const D10QualityAcceptancePlan *self);
+// Documentation quality (ISO/IEC 26514 annex).
 DocumentationQualityCriteria d10_quality_acceptance_plan_documentation_quality_criteria(const D10QualityAcceptancePlan *self);
 // Quality prioritization.
 QualityPrioritization d10_quality_acceptance_plan_quality_prioritization(const D10QualityAcceptancePlan *self);
@@ -14531,68 +14575,68 @@ void dns_requirements_zones_free(DnsRequirementsZones *self);
 DnsRequirementsZonesContentForm dns_requirements_zones_content(const DnsRequirementsZones *self);
 
 // 11.5.4. Documentation changeability quality.
-// Binds a DocChangeabilityQuality facade to a document and a path (path copied).
-void doc_changeability_quality_init(DocChangeabilityQuality *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_free(DocChangeabilityQuality *self);
-DocChangeabilityQualityContentForm doc_changeability_quality_content(const DocChangeabilityQuality *self);
+// Binds a DocChangeability facade to a document and a path (path copied).
+void doc_changeability_init(DocChangeability *self, SpecDocument *doc, const char *path);
+void doc_changeability_free(DocChangeability *self);
+DocChangeabilityContentForm doc_changeability_content(const DocChangeability *self);
 // Extensibility and localization readiness.
-DocChangeabilityQualityExtensibility doc_changeability_quality_extensibility(const DocChangeabilityQuality *self);
+DocChangeabilityExtensibility doc_changeability_extensibility(const DocChangeability *self);
 // Sizing and structural consistency rules.
-DocChangeabilityQualityStructure doc_changeability_quality_structure(const DocChangeabilityQuality *self);
+DocChangeabilityStructure doc_changeability_structure(const DocChangeability *self);
 // Review and retirement maintenance process.
-DocChangeabilityQualityMaintenance doc_changeability_quality_maintenance(const DocChangeabilityQuality *self);
+DocChangeabilityMaintenance doc_changeability_maintenance(const DocChangeability *self);
 // Detailed changeability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Extensibility and localization readiness.
-// Binds a DocChangeabilityQualityExtensibility facade to a document and a path (path copied).
-void doc_changeability_quality_extensibility_init(DocChangeabilityQualityExtensibility *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_extensibility_free(DocChangeabilityQualityExtensibility *self);
-DocChangeabilityQualityExtensibilityContentForm doc_changeability_quality_extensibility_content(const DocChangeabilityQualityExtensibility *self);
+// Binds a DocChangeabilityExtensibility facade to a document and a path (path copied).
+void doc_changeability_extensibility_init(DocChangeabilityExtensibility *self, SpecDocument *doc, const char *path);
+void doc_changeability_extensibility_free(DocChangeabilityExtensibility *self);
+DocChangeabilityExtensibilityContentForm doc_changeability_extensibility_content(const DocChangeabilityExtensibility *self);
 
 // Review and retirement maintenance process.
-// Binds a DocChangeabilityQualityMaintenance facade to a document and a path (path copied).
-void doc_changeability_quality_maintenance_init(DocChangeabilityQualityMaintenance *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_maintenance_free(DocChangeabilityQualityMaintenance *self);
-DocChangeabilityQualityMaintenanceContentForm doc_changeability_quality_maintenance_content(const DocChangeabilityQualityMaintenance *self);
+// Binds a DocChangeabilityMaintenance facade to a document and a path (path copied).
+void doc_changeability_maintenance_init(DocChangeabilityMaintenance *self, SpecDocument *doc, const char *path);
+void doc_changeability_maintenance_free(DocChangeabilityMaintenance *self);
+DocChangeabilityMaintenanceContentForm doc_changeability_maintenance_content(const DocChangeabilityMaintenance *self);
 
 // Sizing and structural consistency rules.
-// Binds a DocChangeabilityQualityStructure facade to a document and a path (path copied).
-void doc_changeability_quality_structure_init(DocChangeabilityQualityStructure *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_structure_free(DocChangeabilityQualityStructure *self);
-DocChangeabilityQualityStructureContentForm doc_changeability_quality_structure_content(const DocChangeabilityQualityStructure *self);
+// Binds a DocChangeabilityStructure facade to a document and a path (path copied).
+void doc_changeability_structure_init(DocChangeabilityStructure *self, SpecDocument *doc, const char *path);
+void doc_changeability_structure_free(DocChangeabilityStructure *self);
+DocChangeabilityStructureContentForm doc_changeability_structure_content(const DocChangeabilityStructure *self);
 
 // 11.5.2. Documentation completeness quality.
-// Binds a DocCompletenessQuality facade to a document and a path (path copied).
-void doc_completeness_quality_init(DocCompletenessQuality *self, SpecDocument *doc, const char *path);
-void doc_completeness_quality_free(DocCompletenessQuality *self);
-DocCompletenessQualityContentForm doc_completeness_quality_content(const DocCompletenessQuality *self);
+// Binds a DocCompleteness facade to a document and a path (path copied).
+void doc_completeness_init(DocCompleteness *self, SpecDocument *doc, const char *path);
+void doc_completeness_free(DocCompleteness *self);
+DocCompletenessContentForm doc_completeness_content(const DocCompleteness *self);
 // Detailed completeness requirements narrative.
 // (skipped: narrative has no target type)
 
 // 11.5.3. Documentation correctness quality.
-// Binds a DocCorrectnessQuality facade to a document and a path (path copied).
-void doc_correctness_quality_init(DocCorrectnessQuality *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_free(DocCorrectnessQuality *self);
-DocCorrectnessQualityContentForm doc_correctness_quality_content(const DocCorrectnessQuality *self);
+// Binds a DocCorrectness facade to a document and a path (path copied).
+void doc_correctness_init(DocCorrectness *self, SpecDocument *doc, const char *path);
+void doc_correctness_free(DocCorrectness *self);
+DocCorrectnessContentForm doc_correctness_content(const DocCorrectness *self);
 // Formatting and implementation alignment.
-DocCorrectnessQualityAlignment doc_correctness_quality_alignment(const DocCorrectnessQuality *self);
+DocCorrectnessAlignment doc_correctness_alignment(const DocCorrectness *self);
 // Verification and feedback handling.
-DocCorrectnessQualityVerification doc_correctness_quality_verification(const DocCorrectnessQuality *self);
+DocCorrectnessVerification doc_correctness_verification(const DocCorrectness *self);
 // Detailed correctness requirements narrative.
 // (skipped: narrative has no target type)
 
 // Formatting and implementation alignment.
-// Binds a DocCorrectnessQualityAlignment facade to a document and a path (path copied).
-void doc_correctness_quality_alignment_init(DocCorrectnessQualityAlignment *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_alignment_free(DocCorrectnessQualityAlignment *self);
-DocCorrectnessQualityAlignmentContentForm doc_correctness_quality_alignment_content(const DocCorrectnessQualityAlignment *self);
+// Binds a DocCorrectnessAlignment facade to a document and a path (path copied).
+void doc_correctness_alignment_init(DocCorrectnessAlignment *self, SpecDocument *doc, const char *path);
+void doc_correctness_alignment_free(DocCorrectnessAlignment *self);
+DocCorrectnessAlignmentContentForm doc_correctness_alignment_content(const DocCorrectnessAlignment *self);
 
 // Verification and feedback handling.
-// Binds a DocCorrectnessQualityVerification facade to a document and a path (path copied).
-void doc_correctness_quality_verification_init(DocCorrectnessQualityVerification *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_verification_free(DocCorrectnessQualityVerification *self);
-DocCorrectnessQualityVerificationContentForm doc_correctness_quality_verification_content(const DocCorrectnessQualityVerification *self);
+// Binds a DocCorrectnessVerification facade to a document and a path (path copied).
+void doc_correctness_verification_init(DocCorrectnessVerification *self, SpecDocument *doc, const char *path);
+void doc_correctness_verification_free(DocCorrectnessVerification *self);
+DocCorrectnessVerificationContentForm doc_correctness_verification_content(const DocCorrectnessVerification *self);
 
 // SBP.1 Document Control.
 //
@@ -14669,10 +14713,15 @@ void documentation_deliverables_set_content(DocumentationDeliverables *self, con
 // Returns the list view; element type: DeliverableEntry (construct from item paths).
 SomList documentation_deliverables_items(const DocumentationDeliverables *self);
 
-// 11.5. Documentation Quality Criteria.
+// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 //
-// Quality criteria for project documentation including readability,
-// completeness, correctness, and changeability.
+// Documentation-deliverable quality criteria — readability, completeness,
+// correctness, and changeability of the user/technical documentation. This
+// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+// (which scopes the *product*, not its documentation), so per L34C-8 it is
+// retained as a documentation-quality annex aligned to ISO/IEC 26514
+// (systems & software engineering — design and development of information for
+// users) rather than re-homed under a 25010:2023 characteristic.
 // Binds a DocumentationQualityCriteria facade to a document and a path (path copied).
 void documentation_quality_criteria_init(DocumentationQualityCriteria *self, SpecDocument *doc, const char *path);
 void documentation_quality_criteria_free(DocumentationQualityCriteria *self);
@@ -14680,13 +14729,13 @@ DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quali
 // Documentation quality overview narrative.
 // (skipped: overview has no target type)
 // 11.5.1. Readability.
-ReadabilityQuality documentation_quality_criteria_readability(const DocumentationQualityCriteria *self);
+Readability documentation_quality_criteria_readability(const DocumentationQualityCriteria *self);
 // 11.5.2. Completeness.
-DocCompletenessQuality documentation_quality_criteria_completeness(const DocumentationQualityCriteria *self);
+DocCompleteness documentation_quality_criteria_completeness(const DocumentationQualityCriteria *self);
 // 11.5.3. Correctness.
-DocCorrectnessQuality documentation_quality_criteria_correctness(const DocumentationQualityCriteria *self);
+DocCorrectness documentation_quality_criteria_correctness(const DocumentationQualityCriteria *self);
 // 11.5.4. Changeability.
-DocChangeabilityQuality documentation_quality_criteria_changeability(const DocumentationQualityCriteria *self);
+DocChangeability documentation_quality_criteria_changeability(const DocumentationQualityCriteria *self);
 
 // Documentation standards and requirements.
 // Binds a DocumentationStandards facade to a document and a path (path copied).
@@ -14926,36 +14975,36 @@ void domain_vocabulary_set_content(DomainVocabulary *self, const char *value);
 SomList domain_vocabulary_terms(const DomainVocabulary *self);
 
 // 11.3.1. Efficiency quality.
-// Binds a EfficiencyQuality facade to a document and a path (path copied).
-void efficiency_quality_init(EfficiencyQuality *self, SpecDocument *doc, const char *path);
-void efficiency_quality_free(EfficiencyQuality *self);
-EfficiencyQualityContentForm efficiency_quality_content(const EfficiencyQuality *self);
+// Binds a Efficiency facade to a document and a path (path copied).
+void efficiency_init(Efficiency *self, SpecDocument *doc, const char *path);
+void efficiency_free(Efficiency *self);
+EfficiencyContentForm efficiency_content(const Efficiency *self);
 // Throughput and scale targets.
-EfficiencyQualityThroughput efficiency_quality_throughput(const EfficiencyQuality *self);
+EfficiencyThroughput efficiency_throughput(const Efficiency *self);
 // Resource utilization constraints.
-EfficiencyQualityResources efficiency_quality_resources(const EfficiencyQuality *self);
+EfficiencyResources efficiency_resources(const Efficiency *self);
 // Performance validation and SLA commitments.
-EfficiencyQualityVerification efficiency_quality_verification(const EfficiencyQuality *self);
+EfficiencyVerification efficiency_verification(const Efficiency *self);
 // Detailed efficiency requirements narrative.
 // (skipped: narrative has no target type)
 
 // Resource utilization constraints.
-// Binds a EfficiencyQualityResources facade to a document and a path (path copied).
-void efficiency_quality_resources_init(EfficiencyQualityResources *self, SpecDocument *doc, const char *path);
-void efficiency_quality_resources_free(EfficiencyQualityResources *self);
-EfficiencyQualityResourcesContentForm efficiency_quality_resources_content(const EfficiencyQualityResources *self);
+// Binds a EfficiencyResources facade to a document and a path (path copied).
+void efficiency_resources_init(EfficiencyResources *self, SpecDocument *doc, const char *path);
+void efficiency_resources_free(EfficiencyResources *self);
+EfficiencyResourcesContentForm efficiency_resources_content(const EfficiencyResources *self);
 
 // Throughput and scale targets.
-// Binds a EfficiencyQualityThroughput facade to a document and a path (path copied).
-void efficiency_quality_throughput_init(EfficiencyQualityThroughput *self, SpecDocument *doc, const char *path);
-void efficiency_quality_throughput_free(EfficiencyQualityThroughput *self);
-EfficiencyQualityThroughputContentForm efficiency_quality_throughput_content(const EfficiencyQualityThroughput *self);
+// Binds a EfficiencyThroughput facade to a document and a path (path copied).
+void efficiency_throughput_init(EfficiencyThroughput *self, SpecDocument *doc, const char *path);
+void efficiency_throughput_free(EfficiencyThroughput *self);
+EfficiencyThroughputContentForm efficiency_throughput_content(const EfficiencyThroughput *self);
 
 // Performance validation and SLA commitments.
-// Binds a EfficiencyQualityVerification facade to a document and a path (path copied).
-void efficiency_quality_verification_init(EfficiencyQualityVerification *self, SpecDocument *doc, const char *path);
-void efficiency_quality_verification_free(EfficiencyQualityVerification *self);
-EfficiencyQualityVerificationContentForm efficiency_quality_verification_content(const EfficiencyQualityVerification *self);
+// Binds a EfficiencyVerification facade to a document and a path (path copied).
+void efficiency_verification_init(EfficiencyVerification *self, SpecDocument *doc, const char *path);
+void efficiency_verification_free(EfficiencyVerification *self);
+EfficiencyVerificationContentForm efficiency_verification_content(const EfficiencyVerification *self);
 
 // A validation rule entry (form).
 // Binds a ElementValidationRuleEntry facade to a document and a path (path copied).
@@ -16710,36 +16759,53 @@ void firewall_requirements_rules_free(FirewallRequirementsRules *self);
 FirewallRequirementsRulesContentForm firewall_requirements_rules_content(const FirewallRequirementsRules *self);
 
 // 11.3.3. Flexibility quality.
-// Binds a FlexibilityQuality facade to a document and a path (path copied).
-void flexibility_quality_init(FlexibilityQuality *self, SpecDocument *doc, const char *path);
-void flexibility_quality_free(FlexibilityQuality *self);
-FlexibilityQualityContentForm flexibility_quality_content(const FlexibilityQuality *self);
+// Binds a Flexibility facade to a document and a path (path copied).
+void flexibility_init(Flexibility *self, SpecDocument *doc, const char *path);
+void flexibility_free(Flexibility *self);
+FlexibilityContentForm flexibility_content(const Flexibility *self);
 // Modularity and reuse goals.
-FlexibilityQualityModularity flexibility_quality_modularity(const FlexibilityQuality *self);
+FlexibilityModularity flexibility_modularity(const Flexibility *self);
 // Distribution and configurability model.
-FlexibilityQualityDeployment flexibility_quality_deployment(const FlexibilityQuality *self);
+FlexibilityDeployment flexibility_deployment(const Flexibility *self);
 // Extensibility and verification expectations.
-FlexibilityQualityExtensibility flexibility_quality_extensibility(const FlexibilityQuality *self);
+FlexibilityExtensibility flexibility_extensibility(const Flexibility *self);
 // Detailed flexibility requirements narrative.
 // (skipped: narrative has no target type)
 
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+//
+// Degree to which the product can be adapted to changes in requirements,
+// contexts of use, or system environment (adaptability, scalability,
+// installability, replaceability). Re-homes the former technical-bucket
+// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+// Binds a FlexibilityCharacteristic facade to a document and a path (path copied).
+void flexibility_characteristic_init(FlexibilityCharacteristic *self, SpecDocument *doc, const char *path);
+void flexibility_characteristic_free(FlexibilityCharacteristic *self);
+FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexibility_content(const FlexibilityCharacteristic *self);
+// Flexibility overview.
+// (skipped: overview has no target type)
+// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+Flexibility flexibility_characteristic_flexibility(const FlexibilityCharacteristic *self);
+// 11.9.2. Portability.
+Portability flexibility_characteristic_portability(const FlexibilityCharacteristic *self);
+
 // Distribution and configurability model.
-// Binds a FlexibilityQualityDeployment facade to a document and a path (path copied).
-void flexibility_quality_deployment_init(FlexibilityQualityDeployment *self, SpecDocument *doc, const char *path);
-void flexibility_quality_deployment_free(FlexibilityQualityDeployment *self);
-FlexibilityQualityDeploymentContentForm flexibility_quality_deployment_content(const FlexibilityQualityDeployment *self);
+// Binds a FlexibilityDeployment facade to a document and a path (path copied).
+void flexibility_deployment_init(FlexibilityDeployment *self, SpecDocument *doc, const char *path);
+void flexibility_deployment_free(FlexibilityDeployment *self);
+FlexibilityDeploymentContentForm flexibility_deployment_content(const FlexibilityDeployment *self);
 
 // Extensibility and verification expectations.
-// Binds a FlexibilityQualityExtensibility facade to a document and a path (path copied).
-void flexibility_quality_extensibility_init(FlexibilityQualityExtensibility *self, SpecDocument *doc, const char *path);
-void flexibility_quality_extensibility_free(FlexibilityQualityExtensibility *self);
-FlexibilityQualityExtensibilityContentForm flexibility_quality_extensibility_content(const FlexibilityQualityExtensibility *self);
+// Binds a FlexibilityExtensibility facade to a document and a path (path copied).
+void flexibility_extensibility_init(FlexibilityExtensibility *self, SpecDocument *doc, const char *path);
+void flexibility_extensibility_free(FlexibilityExtensibility *self);
+FlexibilityExtensibilityContentForm flexibility_extensibility_content(const FlexibilityExtensibility *self);
 
 // Modularity and reuse goals.
-// Binds a FlexibilityQualityModularity facade to a document and a path (path copied).
-void flexibility_quality_modularity_init(FlexibilityQualityModularity *self, SpecDocument *doc, const char *path);
-void flexibility_quality_modularity_free(FlexibilityQualityModularity *self);
-FlexibilityQualityModularityContentForm flexibility_quality_modularity_content(const FlexibilityQualityModularity *self);
+// Binds a FlexibilityModularity facade to a document and a path (path copied).
+void flexibility_modularity_init(FlexibilityModularity *self, SpecDocument *doc, const char *path);
+void flexibility_modularity_free(FlexibilityModularity *self);
+FlexibilityModularityContentForm flexibility_modularity_content(const FlexibilityModularity *self);
 
 // A single fragile point entry.
 // Binds a FragilePointEntry facade to a document and a path (path copied).
@@ -16898,10 +16964,10 @@ SomList function_model_matrix_entries(const FunctionModel *self);
 SomList function_model_business_rules(const FunctionModel *self);
 
 // 11.2.2. Functional completeness quality.
-// Binds a FunctionalCompletenessQuality facade to a document and a path (path copied).
-void functional_completeness_quality_init(FunctionalCompletenessQuality *self, SpecDocument *doc, const char *path);
-void functional_completeness_quality_free(FunctionalCompletenessQuality *self);
-FunctionalCompletenessQualityContentForm functional_completeness_quality_content(const FunctionalCompletenessQuality *self);
+// Binds a FunctionalCompleteness facade to a document and a path (path copied).
+void functional_completeness_init(FunctionalCompleteness *self, SpecDocument *doc, const char *path);
+void functional_completeness_free(FunctionalCompleteness *self);
+FunctionalCompletenessContentForm functional_completeness_content(const FunctionalCompleteness *self);
 // Detailed functional completeness narrative.
 // (skipped: narrative has no target type)
 
@@ -17009,6 +17075,22 @@ FunctionalResponsibilitiesContentForm functional_responsibilities_content(const 
 // Contains 0+× Responsibility.
 // Returns the list view; element type: ResponsibilityEntry (construct from item paths).
 SomList functional_responsibilities_items(const FunctionalResponsibilities *self);
+
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+//
+// Degree to which the product provides functions that meet stated and implied
+// needs — functional completeness and correctness. Re-homes the former
+// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+// Binds a FunctionalSuitabilityCharacteristic facade to a document and a path (path copied).
+void functional_suitability_characteristic_init(FunctionalSuitabilityCharacteristic *self, SpecDocument *doc, const char *path);
+void functional_suitability_characteristic_free(FunctionalSuitabilityCharacteristic *self);
+FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functional_suitability_characteristic_functional_suitability_content(const FunctionalSuitabilityCharacteristic *self);
+// Functional suitability overview.
+// (skipped: overview has no target type)
+// 11.2.1. Functional Completeness.
+FunctionalCompleteness functional_suitability_characteristic_functional_completeness(const FunctionalSuitabilityCharacteristic *self);
+// 11.2.2. Correctness.
+Correctness functional_suitability_characteristic_correctness(const FunctionalSuitabilityCharacteristic *self);
 
 // A gap entry (form) — a missing capability or feature.
 //
@@ -18263,6 +18345,21 @@ void interaction_business_rules_init(InteractionBusinessRules *self, SpecDocumen
 void interaction_business_rules_free(InteractionBusinessRules *self);
 InteractionBusinessRulesContentForm interaction_business_rules_content(const InteractionBusinessRules *self);
 
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+//
+// Degree to which the product can be interacted with effectively, efficiently
+// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+// form is preserved here so no authored content is lost.
+// Binds a InteractionCapabilityCharacteristic facade to a document and a path (path copied).
+void interaction_capability_characteristic_init(InteractionCapabilityCharacteristic *self, SpecDocument *doc, const char *path);
+void interaction_capability_characteristic_free(InteractionCapabilityCharacteristic *self);
+InteractionCapabilityCharacteristicInteractionCapabilityContentForm interaction_capability_characteristic_interaction_capability_content(const InteractionCapabilityCharacteristic *self);
+// Interaction capability overview.
+// (skipped: overview has no target type)
+// 11.5.1. Usability.
+Usability interaction_capability_characteristic_usability(const InteractionCapabilityCharacteristic *self);
+
 // 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
@@ -18872,21 +18969,25 @@ void ip_ownership_entry_init(IpOwnershipEntry *self, SpecDocument *doc, const ch
 void ip_ownership_entry_free(IpOwnershipEntry *self);
 IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *self);
 
-// ISO/IEC 25010 product-quality cross-map.
+// ISO/IEC 25010:2023 product-quality cross-map (derived).
 //
-// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-// quality characteristics so that compatibility and portability cannot be
-// silently missed.
+// A *derived* view over the canonical quality spine: the eight
+// `*Characteristic` classes under [SystemQualityGoals] are the single source
+// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+// Each entry references one of those characteristics (via the closed
+// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+// address it and the target metric — so coverage of any 25010:2023
+// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 // Binds a Iso25010Coverage facade to a document and a path (path copied).
 void iso25010_coverage_init(Iso25010Coverage *self, SpecDocument *doc, const char *path);
 void iso25010_coverage_free(Iso25010Coverage *self);
 char *iso25010_coverage_content(const Iso25010Coverage *self);
 void iso25010_coverage_set_content(Iso25010Coverage *self, const char *value);
-// One entry per ISO/IEC 25010 characteristic addressed.
+// One entry per ISO/IEC 25010:2023 characteristic addressed.
 // Returns the list view; element type: Iso25010CoverageEntry (construct from item paths).
 SomList iso25010_coverage_characteristics(const Iso25010Coverage *self);
 
-// A single ISO/IEC 25010 coverage entry (form).
+// A single ISO/IEC 25010:2023 coverage entry (form).
 // Binds a Iso25010CoverageEntry facade to a document and a path (path copied).
 void iso25010_coverage_entry_init(Iso25010CoverageEntry *self, SpecDocument *doc, const char *path);
 void iso25010_coverage_entry_free(Iso25010CoverageEntry *self);
@@ -18905,44 +19006,44 @@ void it_landscape_position_set_content(ItLandscapePosition *self, const char *va
 ItLandscapePositionPositionDetailsForm it_landscape_position_position_details(const ItLandscapePosition *self);
 
 // 11.4.4. IT Security Operations quality.
-// Binds a ItSecurityOperationsQuality facade to a document and a path (path copied).
-void it_security_operations_quality_init(ItSecurityOperationsQuality *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_free(ItSecurityOperationsQuality *self);
-ItSecurityOperationsQualityContentForm it_security_operations_quality_content(const ItSecurityOperationsQuality *self);
+// Binds a ItSecurityOperations facade to a document and a path (path copied).
+void it_security_operations_init(ItSecurityOperations *self, SpecDocument *doc, const char *path);
+void it_security_operations_free(ItSecurityOperations *self);
+ItSecurityOperationsContentForm it_security_operations_content(const ItSecurityOperations *self);
 // Access protection controls.
-ItSecurityOperationsQualityAccess it_security_operations_quality_access(const ItSecurityOperationsQuality *self);
+ItSecurityOperationsAccess it_security_operations_access(const ItSecurityOperations *self);
 // Disaster recovery planning details.
-ItSecurityOperationsQualityRecovery it_security_operations_quality_recovery(const ItSecurityOperationsQuality *self);
+ItSecurityOperationsRecovery it_security_operations_recovery(const ItSecurityOperations *self);
 // Penetration testing and remediation.
-ItSecurityOperationsQualityTesting it_security_operations_quality_testing(const ItSecurityOperationsQuality *self);
+ItSecurityOperationsTesting it_security_operations_testing(const ItSecurityOperations *self);
 // Incident handling and reporting.
-ItSecurityOperationsQualityIncident it_security_operations_quality_incident(const ItSecurityOperationsQuality *self);
+ItSecurityOperationsIncident it_security_operations_incident(const ItSecurityOperations *self);
 // Detailed IT security operations narrative.
 // (skipped: narrative has no target type)
 
 // Access protection controls.
-// Binds a ItSecurityOperationsQualityAccess facade to a document and a path (path copied).
-void it_security_operations_quality_access_init(ItSecurityOperationsQualityAccess *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_access_free(ItSecurityOperationsQualityAccess *self);
-ItSecurityOperationsQualityAccessContentForm it_security_operations_quality_access_content(const ItSecurityOperationsQualityAccess *self);
+// Binds a ItSecurityOperationsAccess facade to a document and a path (path copied).
+void it_security_operations_access_init(ItSecurityOperationsAccess *self, SpecDocument *doc, const char *path);
+void it_security_operations_access_free(ItSecurityOperationsAccess *self);
+ItSecurityOperationsAccessContentForm it_security_operations_access_content(const ItSecurityOperationsAccess *self);
 
 // Incident handling and reporting.
-// Binds a ItSecurityOperationsQualityIncident facade to a document and a path (path copied).
-void it_security_operations_quality_incident_init(ItSecurityOperationsQualityIncident *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_incident_free(ItSecurityOperationsQualityIncident *self);
-ItSecurityOperationsQualityIncidentContentForm it_security_operations_quality_incident_content(const ItSecurityOperationsQualityIncident *self);
+// Binds a ItSecurityOperationsIncident facade to a document and a path (path copied).
+void it_security_operations_incident_init(ItSecurityOperationsIncident *self, SpecDocument *doc, const char *path);
+void it_security_operations_incident_free(ItSecurityOperationsIncident *self);
+ItSecurityOperationsIncidentContentForm it_security_operations_incident_content(const ItSecurityOperationsIncident *self);
 
 // Disaster recovery planning details.
-// Binds a ItSecurityOperationsQualityRecovery facade to a document and a path (path copied).
-void it_security_operations_quality_recovery_init(ItSecurityOperationsQualityRecovery *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_recovery_free(ItSecurityOperationsQualityRecovery *self);
-ItSecurityOperationsQualityRecoveryContentForm it_security_operations_quality_recovery_content(const ItSecurityOperationsQualityRecovery *self);
+// Binds a ItSecurityOperationsRecovery facade to a document and a path (path copied).
+void it_security_operations_recovery_init(ItSecurityOperationsRecovery *self, SpecDocument *doc, const char *path);
+void it_security_operations_recovery_free(ItSecurityOperationsRecovery *self);
+ItSecurityOperationsRecoveryContentForm it_security_operations_recovery_content(const ItSecurityOperationsRecovery *self);
 
 // Penetration testing and remediation.
-// Binds a ItSecurityOperationsQualityTesting facade to a document and a path (path copied).
-void it_security_operations_quality_testing_init(ItSecurityOperationsQualityTesting *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_testing_free(ItSecurityOperationsQualityTesting *self);
-ItSecurityOperationsQualityTestingContentForm it_security_operations_quality_testing_content(const ItSecurityOperationsQualityTesting *self);
+// Binds a ItSecurityOperationsTesting facade to a document and a path (path copied).
+void it_security_operations_testing_init(ItSecurityOperationsTesting *self, SpecDocument *doc, const char *path);
+void it_security_operations_testing_free(ItSecurityOperationsTesting *self);
+ItSecurityOperationsTestingContentForm it_security_operations_testing_content(const ItSecurityOperationsTesting *self);
 
 // 8.8.1. IT Security Standards.
 // Binds a ItSecurityStandardsSection facade to a document and a path (path copied).
@@ -19754,44 +19855,58 @@ MainSuccessScenarioContentForm main_success_scenario_content(const MainSuccessSc
 SomList main_success_scenario_steps(const MainSuccessScenario *self);
 
 // 11.3.5. Maintainability quality.
-// Binds a MaintainabilityQuality facade to a document and a path (path copied).
-void maintainability_quality_init(MaintainabilityQuality *self, SpecDocument *doc, const char *path);
-void maintainability_quality_free(MaintainabilityQuality *self);
-MaintainabilityQualityContentForm maintainability_quality_content(const MaintainabilityQuality *self);
+// Binds a Maintainability facade to a document and a path (path copied).
+void maintainability_init(Maintainability *self, SpecDocument *doc, const char *path);
+void maintainability_free(Maintainability *self);
+MaintainabilityContentForm maintainability_content(const Maintainability *self);
 // Analyzability requirements.
-MaintainabilityQualityAnalyzability maintainability_quality_analyzability(const MaintainabilityQuality *self);
+MaintainabilityAnalyzability maintainability_analyzability(const Maintainability *self);
 // Changeability requirements.
-MaintainabilityQualityChangeability maintainability_quality_changeability(const MaintainabilityQuality *self);
+MaintainabilityChangeability maintainability_changeability(const Maintainability *self);
 // Testability requirements.
-MaintainabilityQualityTestability maintainability_quality_testability(const MaintainabilityQuality *self);
+MaintainabilityTestability maintainability_testability(const Maintainability *self);
 // Extensibility and verification requirements.
-MaintainabilityQualityGovernance maintainability_quality_governance(const MaintainabilityQuality *self);
+MaintainabilityGovernance maintainability_governance(const Maintainability *self);
 // Detailed maintainability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Analyzability requirements.
-// Binds a MaintainabilityQualityAnalyzability facade to a document and a path (path copied).
-void maintainability_quality_analyzability_init(MaintainabilityQualityAnalyzability *self, SpecDocument *doc, const char *path);
-void maintainability_quality_analyzability_free(MaintainabilityQualityAnalyzability *self);
-MaintainabilityQualityAnalyzabilityContentForm maintainability_quality_analyzability_content(const MaintainabilityQualityAnalyzability *self);
+// Binds a MaintainabilityAnalyzability facade to a document and a path (path copied).
+void maintainability_analyzability_init(MaintainabilityAnalyzability *self, SpecDocument *doc, const char *path);
+void maintainability_analyzability_free(MaintainabilityAnalyzability *self);
+MaintainabilityAnalyzabilityContentForm maintainability_analyzability_content(const MaintainabilityAnalyzability *self);
 
 // Changeability requirements.
-// Binds a MaintainabilityQualityChangeability facade to a document and a path (path copied).
-void maintainability_quality_changeability_init(MaintainabilityQualityChangeability *self, SpecDocument *doc, const char *path);
-void maintainability_quality_changeability_free(MaintainabilityQualityChangeability *self);
-MaintainabilityQualityChangeabilityContentForm maintainability_quality_changeability_content(const MaintainabilityQualityChangeability *self);
+// Binds a MaintainabilityChangeability facade to a document and a path (path copied).
+void maintainability_changeability_init(MaintainabilityChangeability *self, SpecDocument *doc, const char *path);
+void maintainability_changeability_free(MaintainabilityChangeability *self);
+MaintainabilityChangeabilityContentForm maintainability_changeability_content(const MaintainabilityChangeability *self);
+
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+//
+// Degree of effectiveness and efficiency with which the product can be
+// modified. Re-homes the former technical-bucket maintainability leaf under
+// the 25010:2023 spine (L34C-8).
+// Binds a MaintainabilityCharacteristic facade to a document and a path (path copied).
+void maintainability_characteristic_init(MaintainabilityCharacteristic *self, SpecDocument *doc, const char *path);
+void maintainability_characteristic_free(MaintainabilityCharacteristic *self);
+MaintainabilityCharacteristicMaintainabilityContentForm maintainability_characteristic_maintainability_content(const MaintainabilityCharacteristic *self);
+// Maintainability overview.
+// (skipped: overview has no target type)
+// 11.8.1. Maintainability (product maintainability attributes).
+Maintainability maintainability_characteristic_maintainability(const MaintainabilityCharacteristic *self);
 
 // Extensibility and verification requirements.
-// Binds a MaintainabilityQualityGovernance facade to a document and a path (path copied).
-void maintainability_quality_governance_init(MaintainabilityQualityGovernance *self, SpecDocument *doc, const char *path);
-void maintainability_quality_governance_free(MaintainabilityQualityGovernance *self);
-MaintainabilityQualityGovernanceContentForm maintainability_quality_governance_content(const MaintainabilityQualityGovernance *self);
+// Binds a MaintainabilityGovernance facade to a document and a path (path copied).
+void maintainability_governance_init(MaintainabilityGovernance *self, SpecDocument *doc, const char *path);
+void maintainability_governance_free(MaintainabilityGovernance *self);
+MaintainabilityGovernanceContentForm maintainability_governance_content(const MaintainabilityGovernance *self);
 
 // Testability requirements.
-// Binds a MaintainabilityQualityTestability facade to a document and a path (path copied).
-void maintainability_quality_testability_init(MaintainabilityQualityTestability *self, SpecDocument *doc, const char *path);
-void maintainability_quality_testability_free(MaintainabilityQualityTestability *self);
-MaintainabilityQualityTestabilityContentForm maintainability_quality_testability_content(const MaintainabilityQualityTestability *self);
+// Binds a MaintainabilityTestability facade to a document and a path (path copied).
+void maintainability_testability_init(MaintainabilityTestability *self, SpecDocument *doc, const char *path);
+void maintainability_testability_free(MaintainabilityTestability *self);
+MaintainabilityTestabilityContentForm maintainability_testability_content(const MaintainabilityTestability *self);
 
 // Change management for maintenance.
 // Binds a MaintenanceChangeManagement facade to a document and a path (path copied).
@@ -20848,6 +20963,12 @@ MonitoringDashboards monitoring_dashboards(const Monitoring *self);
 // 8.7.2.5. SLA and SLO Monitoring.
 SlaAndSloMonitoring monitoring_sla_and_slo_monitoring(const Monitoring *self);
 
+// Alerting strategy and channels.
+// Binds a MonitoringAlerting facade to a document and a path (path copied).
+void monitoring_alerting_init(MonitoringAlerting *self, SpecDocument *doc, const char *path);
+void monitoring_alerting_free(MonitoringAlerting *self);
+MonitoringAlertingContentForm monitoring_alerting_content(const MonitoringAlerting *self);
+
 // 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -20880,6 +21001,18 @@ OnCallProcedures monitoring_and_alerting_section_on_call_procedures(const Monito
 IncidentManagementRequirements monitoring_and_alerting_section_incident_management(const MonitoringAndAlertingSection *self);
 // SLA monitoring.
 SlaMonitoringRequirements monitoring_and_alerting_section_sla_monitoring(const MonitoringAndAlertingSection *self);
+
+// Alert automation capabilities.
+// Binds a MonitoringAutomation facade to a document and a path (path copied).
+void monitoring_automation_init(MonitoringAutomation *self, SpecDocument *doc, const char *path);
+void monitoring_automation_free(MonitoringAutomation *self);
+MonitoringAutomationContentForm monitoring_automation_content(const MonitoringAutomation *self);
+
+// Component monitoring coverage.
+// Binds a MonitoringCoverage facade to a document and a path (path copied).
+void monitoring_coverage_init(MonitoringCoverage *self, SpecDocument *doc, const char *path);
+void monitoring_coverage_free(MonitoringCoverage *self);
+MonitoringCoverageContentForm monitoring_coverage_content(const MonitoringCoverage *self);
 
 // 8.7.2.4. Monitoring Dashboards.
 //
@@ -20927,52 +21060,18 @@ void monitoring_infrastructure_deployment_init(MonitoringInfrastructureDeploymen
 void monitoring_infrastructure_deployment_free(MonitoringInfrastructureDeployment *self);
 MonitoringInfrastructureDeploymentContentForm monitoring_infrastructure_deployment_content(const MonitoringInfrastructureDeployment *self);
 
+// Planning and observability settings.
+// Binds a MonitoringOperations facade to a document and a path (path copied).
+void monitoring_operations_init(MonitoringOperations *self, SpecDocument *doc, const char *path);
+void monitoring_operations_free(MonitoringOperations *self);
+MonitoringOperationsContentForm monitoring_operations_content(const MonitoringOperations *self);
+
 // A single monitoring procedure entry.
 // Binds a MonitoringProcedureEntry facade to a document and a path (path copied).
 void monitoring_procedure_entry_init(MonitoringProcedureEntry *self, SpecDocument *doc, const char *path);
 void monitoring_procedure_entry_free(MonitoringProcedureEntry *self);
 char *monitoring_procedure_entry_content(const MonitoringProcedureEntry *self);
 void monitoring_procedure_entry_set_content(MonitoringProcedureEntry *self, const char *value);
-
-// 11.4.3. Monitoring quality.
-// Binds a MonitoringQuality facade to a document and a path (path copied).
-void monitoring_quality_init(MonitoringQuality *self, SpecDocument *doc, const char *path);
-void monitoring_quality_free(MonitoringQuality *self);
-MonitoringQualityContentForm monitoring_quality_content(const MonitoringQuality *self);
-// Component monitoring coverage.
-MonitoringQualityCoverage monitoring_quality_coverage(const MonitoringQuality *self);
-// Alert automation capabilities.
-MonitoringQualityAutomation monitoring_quality_automation(const MonitoringQuality *self);
-// Alerting strategy and channels.
-MonitoringQualityAlerting monitoring_quality_alerting(const MonitoringQuality *self);
-// Planning and observability settings.
-MonitoringQualityOperations monitoring_quality_operations(const MonitoringQuality *self);
-// Detailed monitoring requirements narrative.
-// (skipped: narrative has no target type)
-
-// Alerting strategy and channels.
-// Binds a MonitoringQualityAlerting facade to a document and a path (path copied).
-void monitoring_quality_alerting_init(MonitoringQualityAlerting *self, SpecDocument *doc, const char *path);
-void monitoring_quality_alerting_free(MonitoringQualityAlerting *self);
-MonitoringQualityAlertingContentForm monitoring_quality_alerting_content(const MonitoringQualityAlerting *self);
-
-// Alert automation capabilities.
-// Binds a MonitoringQualityAutomation facade to a document and a path (path copied).
-void monitoring_quality_automation_init(MonitoringQualityAutomation *self, SpecDocument *doc, const char *path);
-void monitoring_quality_automation_free(MonitoringQualityAutomation *self);
-MonitoringQualityAutomationContentForm monitoring_quality_automation_content(const MonitoringQualityAutomation *self);
-
-// Component monitoring coverage.
-// Binds a MonitoringQualityCoverage facade to a document and a path (path copied).
-void monitoring_quality_coverage_init(MonitoringQualityCoverage *self, SpecDocument *doc, const char *path);
-void monitoring_quality_coverage_free(MonitoringQualityCoverage *self);
-MonitoringQualityCoverageContentForm monitoring_quality_coverage_content(const MonitoringQualityCoverage *self);
-
-// Planning and observability settings.
-// Binds a MonitoringQualityOperations facade to a document and a path (path copied).
-void monitoring_quality_operations_init(MonitoringQualityOperations *self, SpecDocument *doc, const char *path);
-void monitoring_quality_operations_free(MonitoringQualityOperations *self);
-MonitoringQualityOperationsContentForm monitoring_quality_operations_content(const MonitoringQualityOperations *self);
 
 // 13.4.1. MoSCoW Analysis.
 //
@@ -21924,6 +22023,22 @@ void ongoing_training_entry_schedule_init(OngoingTrainingEntrySchedule *self, Sp
 void ongoing_training_entry_schedule_free(OngoingTrainingEntrySchedule *self);
 OngoingTrainingEntryScheduleContentForm ongoing_training_entry_schedule_content(const OngoingTrainingEntrySchedule *self);
 
+// 11.4.3. Monitoring quality.
+// Binds a OperationalMonitoring facade to a document and a path (path copied).
+void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path);
+void operational_monitoring_free(OperationalMonitoring *self);
+OperationalMonitoringContentForm operational_monitoring_content(const OperationalMonitoring *self);
+// Component monitoring coverage.
+MonitoringCoverage operational_monitoring_coverage(const OperationalMonitoring *self);
+// Alert automation capabilities.
+MonitoringAutomation operational_monitoring_automation(const OperationalMonitoring *self);
+// Alerting strategy and channels.
+MonitoringAlerting operational_monitoring_alerting(const OperationalMonitoring *self);
+// Planning and observability settings.
+MonitoringOperations operational_monitoring_operations(const OperationalMonitoring *self);
+// Detailed monitoring requirements narrative.
+// (skipped: narrative has no target type)
+
 // 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
@@ -21944,25 +22059,6 @@ SomList operational_pain_points_items(const OperationalPainPoints *self);
 void operational_pain_points_summary_init(OperationalPainPointsSummary *self, SpecDocument *doc, const char *path);
 void operational_pain_points_summary_free(OperationalPainPointsSummary *self);
 OperationalPainPointsSummaryContentForm operational_pain_points_summary_content(const OperationalPainPointsSummary *self);
-
-// 11.4. Operations Quality Criteria.
-//
-// Quality criteria for system operations including availability, service
-// levels, monitoring, and IT security operations.
-// Binds a OperationsQualityCriteria facade to a document and a path (path copied).
-void operations_quality_criteria_init(OperationsQualityCriteria *self, SpecDocument *doc, const char *path);
-void operations_quality_criteria_free(OperationsQualityCriteria *self);
-OperationsQualityCriteriaOperationsOverviewContentForm operations_quality_criteria_operations_overview_content(const OperationsQualityCriteria *self);
-// Operations quality overview narrative.
-// (skipped: overview has no target type)
-// 11.4.1. Availability.
-AvailabilityQuality operations_quality_criteria_availability(const OperationsQualityCriteria *self);
-// 11.4.2. Service Level Requirements.
-ServiceLevelQuality operations_quality_criteria_service_level_requirements(const OperationsQualityCriteria *self);
-// 11.4.3. Monitoring and Prevention.
-MonitoringQuality operations_quality_criteria_monitoring_and_prevention(const OperationsQualityCriteria *self);
-// 11.4.4. IT Security Operations.
-ItSecurityOperationsQuality operations_quality_criteria_it_security_operations(const OperationsQualityCriteria *self);
 
 // 8.5. Operations Requirements.
 // Binds a OperationsRequirements facade to a document and a path (path copied).
@@ -22661,6 +22757,21 @@ void penetration_testing_requirements_scheduling_init(PenetrationTestingRequirem
 void penetration_testing_requirements_scheduling_free(PenetrationTestingRequirementsScheduling *self);
 PenetrationTestingRequirementsSchedulingContentForm penetration_testing_requirements_scheduling_content(const PenetrationTestingRequirementsScheduling *self);
 
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+//
+// Performance relative to the amount of resources used under stated
+// conditions. Re-homes the former technical-bucket efficiency leaf under the
+// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+// preserved here so no authored content is lost.
+// Binds a PerformanceEfficiencyCharacteristic facade to a document and a path (path copied).
+void performance_efficiency_characteristic_init(PerformanceEfficiencyCharacteristic *self, SpecDocument *doc, const char *path);
+void performance_efficiency_characteristic_free(PerformanceEfficiencyCharacteristic *self);
+PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performance_efficiency_characteristic_performance_efficiency_content(const PerformanceEfficiencyCharacteristic *self);
+// Performance efficiency overview.
+// (skipped: overview has no target type)
+// 11.3.1. Efficiency.
+Efficiency performance_efficiency_characteristic_efficiency(const PerformanceEfficiencyCharacteristic *self);
+
 // Periodic review policy (form).
 //
 // Defines periodic reviews of access rights and security posture.
@@ -23039,10 +23150,10 @@ DependencyManagement platform_and_language_dependency_management(const PlatformA
 RuntimeEnvironment platform_and_language_runtime_environment(const PlatformAndLanguage *self);
 
 // 11.3.2. Portability quality.
-// Binds a PortabilityQuality facade to a document and a path (path copied).
-void portability_quality_init(PortabilityQuality *self, SpecDocument *doc, const char *path);
-void portability_quality_free(PortabilityQuality *self);
-PortabilityQualityContentForm portability_quality_content(const PortabilityQuality *self);
+// Binds a Portability facade to a document and a path (path copied).
+void portability_init(Portability *self, SpecDocument *doc, const char *path);
+void portability_free(Portability *self);
+PortabilityContentForm portability_content(const Portability *self);
 // Detailed portability requirements narrative.
 // (skipped: narrative has no target type)
 
@@ -24297,7 +24408,7 @@ PwaRequirementsUpdatesContentForm pwa_requirements_updates_content(const PwaRequ
 
 // SBP.14 Quality & Acceptance Model.
 //
-// Public anchor: ISO/IEC 25010 product quality.
+// Public anchor: ISO/IEC 25010:2023 product quality.
 // Binds a QualityAndAcceptanceModel facade to a document and a path (path copied).
 void quality_and_acceptance_model_init(QualityAndAcceptanceModel *self, SpecDocument *doc, const char *path);
 void quality_and_acceptance_model_free(QualityAndAcceptanceModel *self);
@@ -24307,7 +24418,7 @@ void quality_and_acceptance_model_set_content(QualityAndAcceptanceModel *self, c
 SystemQualityGoals quality_and_acceptance_model_system_quality_goals(const QualityAndAcceptanceModel *self);
 // Delivery scope and acceptance criteria.
 DeliveryScopeAndAcceptance quality_and_acceptance_model_delivery_acceptance(const QualityAndAcceptanceModel *self);
-// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
 Iso25010Coverage quality_and_acceptance_model_iso25010_coverage(const QualityAndAcceptanceModel *self);
 
 // A quality category entry (form).
@@ -24523,6 +24634,30 @@ QualityGateChecklistChecklistOverviewContentForm quality_gate_checklist_checklis
 // Returns the list view; element type: QualityGateCheckEntry (construct from item paths).
 SomList quality_gate_checklist_items(const QualityGateChecklist *self);
 
+// Baseline and target settings.
+// Binds a QualityGoalsBaseline facade to a document and a path (path copied).
+void quality_goals_baseline_init(QualityGoalsBaseline *self, SpecDocument *doc, const char *path);
+void quality_goals_baseline_free(QualityGoalsBaseline *self);
+QualityGoalsBaselineContentForm quality_goals_baseline_content(const QualityGoalsBaseline *self);
+
+// Governance board and escalation details.
+// Binds a QualityGoalsGovernance facade to a document and a path (path copied).
+void quality_goals_governance_init(QualityGoalsGovernance *self, SpecDocument *doc, const char *path);
+void quality_goals_governance_free(QualityGoalsGovernance *self);
+QualityGoalsGovernanceContentForm quality_goals_governance_content(const QualityGoalsGovernance *self);
+
+// Measurement and reporting approach.
+// Binds a QualityGoalsMeasurement facade to a document and a path (path copied).
+void quality_goals_measurement_init(QualityGoalsMeasurement *self, SpecDocument *doc, const char *path);
+void quality_goals_measurement_free(QualityGoalsMeasurement *self);
+QualityGoalsMeasurementContentForm quality_goals_measurement_content(const QualityGoalsMeasurement *self);
+
+// Quality resources and enablement.
+// Binds a QualityGoalsResources facade to a document and a path (path copied).
+void quality_goals_resources_init(QualityGoalsResources *self, SpecDocument *doc, const char *path);
+void quality_goals_resources_free(QualityGoalsResources *self);
+QualityGoalsResourcesContentForm quality_goals_resources_content(const QualityGoalsResources *self);
+
 // 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
@@ -24632,44 +24767,44 @@ void rate_limiting_policy_quotas_free(RateLimitingPolicyQuotas *self);
 RateLimitingPolicyQuotasContentForm rate_limiting_policy_quotas_content(const RateLimitingPolicyQuotas *self);
 
 // 11.5.1. Readability quality.
-// Binds a ReadabilityQuality facade to a document and a path (path copied).
-void readability_quality_init(ReadabilityQuality *self, SpecDocument *doc, const char *path);
-void readability_quality_free(ReadabilityQuality *self);
-ReadabilityQualityContentForm readability_quality_content(const ReadabilityQuality *self);
+// Binds a Readability facade to a document and a path (path copied).
+void readability_init(Readability *self, SpecDocument *doc, const char *path);
+void readability_free(Readability *self);
+ReadabilityContentForm readability_content(const Readability *self);
 // Identifiability and navigation.
-ReadabilityQualityNavigation readability_quality_navigation(const ReadabilityQuality *self);
+ReadabilityNavigation readability_navigation(const Readability *self);
 // Comprehensibility requirements.
-ReadabilityQualityComprehensibility readability_quality_comprehensibility(const ReadabilityQuality *self);
+ReadabilityComprehensibility readability_comprehensibility(const Readability *self);
 // Document structure rules.
-ReadabilityQualityStructure readability_quality_structure(const ReadabilityQuality *self);
+ReadabilityStructure readability_structure(const Readability *self);
 // Style guide alignment.
-ReadabilityQualityStyle readability_quality_style(const ReadabilityQuality *self);
+ReadabilityStyle readability_style(const Readability *self);
 // Detailed readability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Comprehensibility requirements.
-// Binds a ReadabilityQualityComprehensibility facade to a document and a path (path copied).
-void readability_quality_comprehensibility_init(ReadabilityQualityComprehensibility *self, SpecDocument *doc, const char *path);
-void readability_quality_comprehensibility_free(ReadabilityQualityComprehensibility *self);
-ReadabilityQualityComprehensibilityContentForm readability_quality_comprehensibility_content(const ReadabilityQualityComprehensibility *self);
+// Binds a ReadabilityComprehensibility facade to a document and a path (path copied).
+void readability_comprehensibility_init(ReadabilityComprehensibility *self, SpecDocument *doc, const char *path);
+void readability_comprehensibility_free(ReadabilityComprehensibility *self);
+ReadabilityComprehensibilityContentForm readability_comprehensibility_content(const ReadabilityComprehensibility *self);
 
 // Identifiability and navigation.
-// Binds a ReadabilityQualityNavigation facade to a document and a path (path copied).
-void readability_quality_navigation_init(ReadabilityQualityNavigation *self, SpecDocument *doc, const char *path);
-void readability_quality_navigation_free(ReadabilityQualityNavigation *self);
-ReadabilityQualityNavigationContentForm readability_quality_navigation_content(const ReadabilityQualityNavigation *self);
+// Binds a ReadabilityNavigation facade to a document and a path (path copied).
+void readability_navigation_init(ReadabilityNavigation *self, SpecDocument *doc, const char *path);
+void readability_navigation_free(ReadabilityNavigation *self);
+ReadabilityNavigationContentForm readability_navigation_content(const ReadabilityNavigation *self);
 
 // Document structure rules.
-// Binds a ReadabilityQualityStructure facade to a document and a path (path copied).
-void readability_quality_structure_init(ReadabilityQualityStructure *self, SpecDocument *doc, const char *path);
-void readability_quality_structure_free(ReadabilityQualityStructure *self);
-ReadabilityQualityStructureContentForm readability_quality_structure_content(const ReadabilityQualityStructure *self);
+// Binds a ReadabilityStructure facade to a document and a path (path copied).
+void readability_structure_init(ReadabilityStructure *self, SpecDocument *doc, const char *path);
+void readability_structure_free(ReadabilityStructure *self);
+ReadabilityStructureContentForm readability_structure_content(const ReadabilityStructure *self);
 
 // Style guide alignment.
-// Binds a ReadabilityQualityStyle facade to a document and a path (path copied).
-void readability_quality_style_init(ReadabilityQualityStyle *self, SpecDocument *doc, const char *path);
-void readability_quality_style_free(ReadabilityQualityStyle *self);
-ReadabilityQualityStyleContentForm readability_quality_style_content(const ReadabilityQualityStyle *self);
+// Binds a ReadabilityStyle facade to a document and a path (path copied).
+void readability_style_init(ReadabilityStyle *self, SpecDocument *doc, const char *path);
+void readability_style_free(ReadabilityStyle *self);
+ReadabilityStyleContentForm readability_style_content(const ReadabilityStyle *self);
 
 // Readiness criteria entry (form).
 // Binds a ReadinessCriteriaEntry facade to a document and a path (path copied).
@@ -24945,44 +25080,67 @@ void relevant_section_entry_free(RelevantSectionEntry *self);
 RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSectionEntry *self);
 
 // 11.3.6. Reliability quality.
-// Binds a ReliabilityQuality facade to a document and a path (path copied).
-void reliability_quality_init(ReliabilityQuality *self, SpecDocument *doc, const char *path);
-void reliability_quality_free(ReliabilityQuality *self);
-ReliabilityQualityContentForm reliability_quality_content(const ReliabilityQuality *self);
+// Binds a Reliability facade to a document and a path (path copied).
+void reliability_init(Reliability *self, SpecDocument *doc, const char *path);
+void reliability_free(Reliability *self);
+ReliabilityContentForm reliability_content(const Reliability *self);
 // Recovery objectives.
-ReliabilityQualityRecovery reliability_quality_recovery(const ReliabilityQuality *self);
+ReliabilityRecovery reliability_recovery(const Reliability *self);
 // Failover requirements.
-ReliabilityQualityFailover reliability_quality_failover(const ReliabilityQuality *self);
+ReliabilityFailover reliability_failover(const Reliability *self);
 // Data durability requirements.
-ReliabilityQualityDurability reliability_quality_durability(const ReliabilityQuality *self);
+ReliabilityDurability reliability_durability(const Reliability *self);
 // Verification and learning.
-ReliabilityQualityVerification reliability_quality_verification(const ReliabilityQuality *self);
+ReliabilityVerification reliability_verification(const Reliability *self);
 // Detailed reliability requirements narrative.
 // (skipped: narrative has no target type)
 
+// 11.6. Reliability (ISO/IEC 25010:2023).
+//
+// Degree to which the product performs specified functions under specified
+// conditions for a specified period (availability, fault tolerance,
+// recoverability, maturity). Re-homes the former technical-bucket reliability
+// leaf and the operations-bucket availability, service-level and monitoring
+// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+// overview form is preserved here so no authored content is lost.
+// Binds a ReliabilityCharacteristic facade to a document and a path (path copied).
+void reliability_characteristic_init(ReliabilityCharacteristic *self, SpecDocument *doc, const char *path);
+void reliability_characteristic_free(ReliabilityCharacteristic *self);
+ReliabilityCharacteristicReliabilityContentForm reliability_characteristic_reliability_content(const ReliabilityCharacteristic *self);
+// Reliability overview narrative.
+// (skipped: overview has no target type)
+// 11.6.1. Reliability (product reliability attributes).
+Reliability reliability_characteristic_reliability(const ReliabilityCharacteristic *self);
+// 11.6.2. Availability.
+Availability reliability_characteristic_availability(const ReliabilityCharacteristic *self);
+// 11.6.3. Service Level Requirements.
+ServiceLevel reliability_characteristic_service_level_requirements(const ReliabilityCharacteristic *self);
+// 11.6.4. Monitoring and Prevention.
+OperationalMonitoring reliability_characteristic_monitoring_and_prevention(const ReliabilityCharacteristic *self);
+
 // Data durability requirements.
-// Binds a ReliabilityQualityDurability facade to a document and a path (path copied).
-void reliability_quality_durability_init(ReliabilityQualityDurability *self, SpecDocument *doc, const char *path);
-void reliability_quality_durability_free(ReliabilityQualityDurability *self);
-ReliabilityQualityDurabilityContentForm reliability_quality_durability_content(const ReliabilityQualityDurability *self);
+// Binds a ReliabilityDurability facade to a document and a path (path copied).
+void reliability_durability_init(ReliabilityDurability *self, SpecDocument *doc, const char *path);
+void reliability_durability_free(ReliabilityDurability *self);
+ReliabilityDurabilityContentForm reliability_durability_content(const ReliabilityDurability *self);
 
 // Failover requirements.
-// Binds a ReliabilityQualityFailover facade to a document and a path (path copied).
-void reliability_quality_failover_init(ReliabilityQualityFailover *self, SpecDocument *doc, const char *path);
-void reliability_quality_failover_free(ReliabilityQualityFailover *self);
-ReliabilityQualityFailoverContentForm reliability_quality_failover_content(const ReliabilityQualityFailover *self);
+// Binds a ReliabilityFailover facade to a document and a path (path copied).
+void reliability_failover_init(ReliabilityFailover *self, SpecDocument *doc, const char *path);
+void reliability_failover_free(ReliabilityFailover *self);
+ReliabilityFailoverContentForm reliability_failover_content(const ReliabilityFailover *self);
 
 // Recovery objectives.
-// Binds a ReliabilityQualityRecovery facade to a document and a path (path copied).
-void reliability_quality_recovery_init(ReliabilityQualityRecovery *self, SpecDocument *doc, const char *path);
-void reliability_quality_recovery_free(ReliabilityQualityRecovery *self);
-ReliabilityQualityRecoveryContentForm reliability_quality_recovery_content(const ReliabilityQualityRecovery *self);
+// Binds a ReliabilityRecovery facade to a document and a path (path copied).
+void reliability_recovery_init(ReliabilityRecovery *self, SpecDocument *doc, const char *path);
+void reliability_recovery_free(ReliabilityRecovery *self);
+ReliabilityRecoveryContentForm reliability_recovery_content(const ReliabilityRecovery *self);
 
 // Verification and learning.
-// Binds a ReliabilityQualityVerification facade to a document and a path (path copied).
-void reliability_quality_verification_init(ReliabilityQualityVerification *self, SpecDocument *doc, const char *path);
-void reliability_quality_verification_free(ReliabilityQualityVerification *self);
-ReliabilityQualityVerificationContentForm reliability_quality_verification_content(const ReliabilityQualityVerification *self);
+// Binds a ReliabilityVerification facade to a document and a path (path copied).
+void reliability_verification_init(ReliabilityVerification *self, SpecDocument *doc, const char *path);
+void reliability_verification_free(ReliabilityVerification *self);
+ReliabilityVerificationContentForm reliability_verification_content(const ReliabilityVerification *self);
 
 // Remember-me and persistent session policy (form).
 //
@@ -27479,6 +27637,22 @@ void secondary_navigation_set_content(SecondaryNavigation *self, const char *val
 // Returns the list view; element type: TabBarDefinitionEntry (construct from item paths).
 SomList secondary_navigation_tab_bars(const SecondaryNavigation *self);
 
+// 11.3.4. Security quality.
+// Binds a Security facade to a document and a path (path copied).
+void security_init(Security *self, SpecDocument *doc, const char *path);
+void security_free(Security *self);
+SecurityContentForm security_content(const Security *self);
+// Authentication controls.
+SecurityAuthentication security_authentication(const Security *self);
+// Authorization controls.
+SecurityAuthorization security_authorization(const Security *self);
+// Vulnerability management expectations.
+SecurityVulnerability security_vulnerability(const Security *self);
+// Compliance and verification settings.
+SecurityCompliance security_compliance(const Security *self);
+// Detailed security requirements narrative.
+// (skipped: narrative has no target type)
+
 // 9. Security & Access Model. Seeds → SAS.
 // Binds a SecurityAndAccessModel facade to a document and a path (path copied).
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path);
@@ -27560,6 +27734,18 @@ SecurityTestingAutomation security_audit_requirements_section_security_testing_a
 // Returns the list view; element type: SecurityAuditEntry (construct from item paths).
 SomList security_audit_requirements_section_audit_entries(const SecurityAuditRequirementsSection *self);
 
+// Authentication controls.
+// Binds a SecurityAuthentication facade to a document and a path (path copied).
+void security_authentication_init(SecurityAuthentication *self, SpecDocument *doc, const char *path);
+void security_authentication_free(SecurityAuthentication *self);
+SecurityAuthenticationContentForm security_authentication_content(const SecurityAuthentication *self);
+
+// Authorization controls.
+// Binds a SecurityAuthorization facade to a document and a path (path copied).
+void security_authorization_init(SecurityAuthorization *self, SpecDocument *doc, const char *path);
+void security_authorization_free(SecurityAuthorization *self);
+SecurityAuthorizationContentForm security_authorization_content(const SecurityAuthorization *self);
+
 // Security certification and compliance requirements.
 // Binds a SecurityCertificationRequirements facade to a document and a path (path copied).
 void security_certification_requirements_init(SecurityCertificationRequirements *self, SpecDocument *doc, const char *path);
@@ -27598,6 +27784,22 @@ void security_certification_requirements_soc2_init(SecurityCertificationRequirem
 void security_certification_requirements_soc2_free(SecurityCertificationRequirementsSoc2 *self);
 SecurityCertificationRequirementsSoc2ContentForm security_certification_requirements_soc2_content(const SecurityCertificationRequirementsSoc2 *self);
 
+// 11.7. Security (ISO/IEC 25010:2023).
+//
+// Degree to which the product protects information and data. Re-homes the
+// former technical-bucket security leaf and the operations-bucket IT-security
+// operations leaf under the 25010:2023 spine (L34C-8).
+// Binds a SecurityCharacteristic facade to a document and a path (path copied).
+void security_characteristic_init(SecurityCharacteristic *self, SpecDocument *doc, const char *path);
+void security_characteristic_free(SecurityCharacteristic *self);
+SecurityCharacteristicSecurityContentForm security_characteristic_security_content(const SecurityCharacteristic *self);
+// Security overview.
+// (skipped: overview has no target type)
+// 11.7.1. Security (product security attributes).
+Security security_characteristic_security(const SecurityCharacteristic *self);
+// 11.7.2. IT Security Operations.
+ItSecurityOperations security_characteristic_it_security_operations(const SecurityCharacteristic *self);
+
 // Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -27631,6 +27833,12 @@ SecurityCodeReviewPolicyProcessContentForm security_code_review_policy_process_c
 void security_code_review_policy_reviewers_init(SecurityCodeReviewPolicyReviewers *self, SpecDocument *doc, const char *path);
 void security_code_review_policy_reviewers_free(SecurityCodeReviewPolicyReviewers *self);
 SecurityCodeReviewPolicyReviewersContentForm security_code_review_policy_reviewers_content(const SecurityCodeReviewPolicyReviewers *self);
+
+// Compliance and verification settings.
+// Binds a SecurityCompliance facade to a document and a path (path copied).
+void security_compliance_init(SecurityCompliance *self, SpecDocument *doc, const char *path);
+void security_compliance_free(SecurityCompliance *self);
+SecurityComplianceContentForm security_compliance_content(const SecurityCompliance *self);
 
 // A single security concern entry.
 // Binds a SecurityConcernEntry facade to a document and a path (path copied).
@@ -27746,46 +27954,6 @@ AdministrativeEventPolicy security_events_definition_administrative_events(const
 // Custom Security Events — contains 0+× Security Event Entry.
 // Returns the list view; element type: SecurityEventEntry (construct from item paths).
 SomList security_events_definition_custom_events(const SecurityEventsDefinition *self);
-
-// 11.3.4. Security quality.
-// Binds a SecurityQuality facade to a document and a path (path copied).
-void security_quality_init(SecurityQuality *self, SpecDocument *doc, const char *path);
-void security_quality_free(SecurityQuality *self);
-SecurityQualityContentForm security_quality_content(const SecurityQuality *self);
-// Authentication controls.
-SecurityQualityAuthentication security_quality_authentication(const SecurityQuality *self);
-// Authorization controls.
-SecurityQualityAuthorization security_quality_authorization(const SecurityQuality *self);
-// Vulnerability management expectations.
-SecurityQualityVulnerability security_quality_vulnerability(const SecurityQuality *self);
-// Compliance and verification settings.
-SecurityQualityCompliance security_quality_compliance(const SecurityQuality *self);
-// Detailed security requirements narrative.
-// (skipped: narrative has no target type)
-
-// Authentication controls.
-// Binds a SecurityQualityAuthentication facade to a document and a path (path copied).
-void security_quality_authentication_init(SecurityQualityAuthentication *self, SpecDocument *doc, const char *path);
-void security_quality_authentication_free(SecurityQualityAuthentication *self);
-SecurityQualityAuthenticationContentForm security_quality_authentication_content(const SecurityQualityAuthentication *self);
-
-// Authorization controls.
-// Binds a SecurityQualityAuthorization facade to a document and a path (path copied).
-void security_quality_authorization_init(SecurityQualityAuthorization *self, SpecDocument *doc, const char *path);
-void security_quality_authorization_free(SecurityQualityAuthorization *self);
-SecurityQualityAuthorizationContentForm security_quality_authorization_content(const SecurityQualityAuthorization *self);
-
-// Compliance and verification settings.
-// Binds a SecurityQualityCompliance facade to a document and a path (path copied).
-void security_quality_compliance_init(SecurityQualityCompliance *self, SpecDocument *doc, const char *path);
-void security_quality_compliance_free(SecurityQualityCompliance *self);
-SecurityQualityComplianceContentForm security_quality_compliance_content(const SecurityQualityCompliance *self);
-
-// Vulnerability management expectations.
-// Binds a SecurityQualityVulnerability facade to a document and a path (path copied).
-void security_quality_vulnerability_init(SecurityQualityVulnerability *self, SpecDocument *doc, const char *path);
-void security_quality_vulnerability_free(SecurityQualityVulnerability *self);
-SecurityQualityVulnerabilityContentForm security_quality_vulnerability_content(const SecurityQualityVulnerability *self);
 
 // A security requirement entry.
 //
@@ -27969,6 +28137,12 @@ SecurityTestingAutomationIastContentForm security_testing_automation_iast_conten
 void security_testing_automation_scanning_init(SecurityTestingAutomationScanning *self, SpecDocument *doc, const char *path);
 void security_testing_automation_scanning_free(SecurityTestingAutomationScanning *self);
 SecurityTestingAutomationScanningContentForm security_testing_automation_scanning_content(const SecurityTestingAutomationScanning *self);
+
+// Vulnerability management expectations.
+// Binds a SecurityVulnerability facade to a document and a path (path copied).
+void security_vulnerability_init(SecurityVulnerability *self, SpecDocument *doc, const char *path);
+void security_vulnerability_free(SecurityVulnerability *self);
+SecurityVulnerabilityContentForm security_vulnerability_content(const SecurityVulnerability *self);
 
 // Self-registration policy (form).
 //
@@ -28256,11 +28430,38 @@ void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const 
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
 
+// 11.4.2. Service level quality.
+// Binds a ServiceLevel facade to a document and a path (path copied).
+void service_level_init(ServiceLevel *self, SpecDocument *doc, const char *path);
+void service_level_free(ServiceLevel *self);
+ServiceLevelContentForm service_level_content(const ServiceLevel *self);
+// Remaining response targets.
+ServiceLevelResponse service_level_response(const ServiceLevel *self);
+// Resolution targets.
+ServiceLevelResolution service_level_resolution(const ServiceLevel *self);
+// Escalation rules.
+ServiceLevelEscalation service_level_escalation(const ServiceLevel *self);
+// On-call support expectations.
+ServiceLevelOnCall service_level_on_call(const ServiceLevel *self);
+// Restoration and communication priorities.
+ServiceLevelRestoration service_level_restoration(const ServiceLevel *self);
+// Detailed service level requirements narrative.
+// (skipped: narrative has no target type)
+// Service Level Agreement entries.
+// Returns the list view; element type: ServiceLevelAgreementEntry (construct from item paths).
+SomList service_level_sla_entries(const ServiceLevel *self);
+
 // A service level agreement entry.
 // Binds a ServiceLevelAgreementEntry facade to a document and a path (path copied).
 void service_level_agreement_entry_init(ServiceLevelAgreementEntry *self, SpecDocument *doc, const char *path);
 void service_level_agreement_entry_free(ServiceLevelAgreementEntry *self);
 ServiceLevelAgreementEntryContentForm service_level_agreement_entry_content(const ServiceLevelAgreementEntry *self);
+
+// Escalation rules.
+// Binds a ServiceLevelEscalation facade to a document and a path (path copied).
+void service_level_escalation_init(ServiceLevelEscalation *self, SpecDocument *doc, const char *path);
+void service_level_escalation_free(ServiceLevelEscalation *self);
+ServiceLevelEscalationContentForm service_level_escalation_content(const ServiceLevelEscalation *self);
 
 // Service Level Indicators.
 // Binds a ServiceLevelIndicators facade to a document and a path (path copied).
@@ -28292,56 +28493,29 @@ void service_level_indicators_quality_init(ServiceLevelIndicatorsQuality *self, 
 void service_level_indicators_quality_free(ServiceLevelIndicatorsQuality *self);
 ServiceLevelIndicatorsQualityContentForm service_level_indicators_quality_content(const ServiceLevelIndicatorsQuality *self);
 
-// 11.4.2. Service level quality.
-// Binds a ServiceLevelQuality facade to a document and a path (path copied).
-void service_level_quality_init(ServiceLevelQuality *self, SpecDocument *doc, const char *path);
-void service_level_quality_free(ServiceLevelQuality *self);
-ServiceLevelQualityContentForm service_level_quality_content(const ServiceLevelQuality *self);
-// Remaining response targets.
-ServiceLevelQualityResponse service_level_quality_response(const ServiceLevelQuality *self);
-// Resolution targets.
-ServiceLevelQualityResolution service_level_quality_resolution(const ServiceLevelQuality *self);
-// Escalation rules.
-ServiceLevelQualityEscalation service_level_quality_escalation(const ServiceLevelQuality *self);
 // On-call support expectations.
-ServiceLevelQualityOnCall service_level_quality_on_call(const ServiceLevelQuality *self);
-// Restoration and communication priorities.
-ServiceLevelQualityRestoration service_level_quality_restoration(const ServiceLevelQuality *self);
-// Detailed service level requirements narrative.
-// (skipped: narrative has no target type)
-// Service Level Agreement entries.
-// Returns the list view; element type: ServiceLevelAgreementEntry (construct from item paths).
-SomList service_level_quality_sla_entries(const ServiceLevelQuality *self);
-
-// Escalation rules.
-// Binds a ServiceLevelQualityEscalation facade to a document and a path (path copied).
-void service_level_quality_escalation_init(ServiceLevelQualityEscalation *self, SpecDocument *doc, const char *path);
-void service_level_quality_escalation_free(ServiceLevelQualityEscalation *self);
-ServiceLevelQualityEscalationContentForm service_level_quality_escalation_content(const ServiceLevelQualityEscalation *self);
-
-// On-call support expectations.
-// Binds a ServiceLevelQualityOnCall facade to a document and a path (path copied).
-void service_level_quality_on_call_init(ServiceLevelQualityOnCall *self, SpecDocument *doc, const char *path);
-void service_level_quality_on_call_free(ServiceLevelQualityOnCall *self);
-ServiceLevelQualityOnCallContentForm service_level_quality_on_call_content(const ServiceLevelQualityOnCall *self);
+// Binds a ServiceLevelOnCall facade to a document and a path (path copied).
+void service_level_on_call_init(ServiceLevelOnCall *self, SpecDocument *doc, const char *path);
+void service_level_on_call_free(ServiceLevelOnCall *self);
+ServiceLevelOnCallContentForm service_level_on_call_content(const ServiceLevelOnCall *self);
 
 // Resolution targets.
-// Binds a ServiceLevelQualityResolution facade to a document and a path (path copied).
-void service_level_quality_resolution_init(ServiceLevelQualityResolution *self, SpecDocument *doc, const char *path);
-void service_level_quality_resolution_free(ServiceLevelQualityResolution *self);
-ServiceLevelQualityResolutionContentForm service_level_quality_resolution_content(const ServiceLevelQualityResolution *self);
+// Binds a ServiceLevelResolution facade to a document and a path (path copied).
+void service_level_resolution_init(ServiceLevelResolution *self, SpecDocument *doc, const char *path);
+void service_level_resolution_free(ServiceLevelResolution *self);
+ServiceLevelResolutionContentForm service_level_resolution_content(const ServiceLevelResolution *self);
 
 // Remaining response targets.
-// Binds a ServiceLevelQualityResponse facade to a document and a path (path copied).
-void service_level_quality_response_init(ServiceLevelQualityResponse *self, SpecDocument *doc, const char *path);
-void service_level_quality_response_free(ServiceLevelQualityResponse *self);
-ServiceLevelQualityResponseContentForm service_level_quality_response_content(const ServiceLevelQualityResponse *self);
+// Binds a ServiceLevelResponse facade to a document and a path (path copied).
+void service_level_response_init(ServiceLevelResponse *self, SpecDocument *doc, const char *path);
+void service_level_response_free(ServiceLevelResponse *self);
+ServiceLevelResponseContentForm service_level_response_content(const ServiceLevelResponse *self);
 
 // Restoration and communication priorities.
-// Binds a ServiceLevelQualityRestoration facade to a document and a path (path copied).
-void service_level_quality_restoration_init(ServiceLevelQualityRestoration *self, SpecDocument *doc, const char *path);
-void service_level_quality_restoration_free(ServiceLevelQualityRestoration *self);
-ServiceLevelQualityRestorationContentForm service_level_quality_restoration_content(const ServiceLevelQualityRestoration *self);
+// Binds a ServiceLevelRestoration facade to a document and a path (path copied).
+void service_level_restoration_init(ServiceLevelRestoration *self, SpecDocument *doc, const char *path);
+void service_level_restoration_free(ServiceLevelRestoration *self);
+ServiceLevelRestorationContentForm service_level_restoration_content(const ServiceLevelRestoration *self);
 
 // Service mesh and API gateway.
 // Binds a ServiceMeshAndGateway facade to a document and a path (path copied).
@@ -30682,13 +30856,13 @@ void system_quality_goals_init(SystemQualityGoals *self, SpecDocument *doc, cons
 void system_quality_goals_free(SystemQualityGoals *self);
 SystemQualityGoalsGovernanceContentForm system_quality_goals_governance_content(const SystemQualityGoals *self);
 // Governance board and escalation details.
-SystemQualityGoalsGovernance system_quality_goals_governance(const SystemQualityGoals *self);
+QualityGoalsGovernance system_quality_goals_governance(const SystemQualityGoals *self);
 // Baseline and target settings.
-SystemQualityGoalsBaseline system_quality_goals_baseline(const SystemQualityGoals *self);
+QualityGoalsBaseline system_quality_goals_baseline(const SystemQualityGoals *self);
 // Measurement and reporting approach.
-SystemQualityGoalsMeasurement system_quality_goals_measurement(const SystemQualityGoals *self);
+QualityGoalsMeasurement system_quality_goals_measurement(const SystemQualityGoals *self);
 // Quality resources and enablement.
-SystemQualityGoalsResources system_quality_goals_resources(const SystemQualityGoals *self);
+QualityGoalsResources system_quality_goals_resources(const SystemQualityGoals *self);
 // Executive summary of quality goals and approach.
 // (skipped: executiveSummary has no target type)
 // Quality vision and principles.
@@ -30702,13 +30876,25 @@ SomList system_quality_goals_attribute_interdependencies(const SystemQualityGoal
 // (skipped: qualityRadar has no target type)
 // 11.1. Quality Framework.
 QualityFramework system_quality_goals_framework(const SystemQualityGoals *self);
-// 11.2. User-Related Quality Criteria.
-UserQualityCriteria system_quality_goals_user_quality(const SystemQualityGoals *self);
-// 11.3. Technical Quality Criteria.
-TechnicalQualityCriteria system_quality_goals_technical_quality(const SystemQualityGoals *self);
-// 11.4. Operations Quality Criteria.
-OperationsQualityCriteria system_quality_goals_operations_quality(const SystemQualityGoals *self);
-// 11.5. Documentation Quality Criteria.
+// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+FunctionalSuitabilityCharacteristic system_quality_goals_functional_suitability(const SystemQualityGoals *self);
+// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+PerformanceEfficiencyCharacteristic system_quality_goals_performance_efficiency(const SystemQualityGoals *self);
+// 11.4. Compatibility (ISO/IEC 25010:2023).
+CompatibilityCharacteristic system_quality_goals_compatibility(const SystemQualityGoals *self);
+// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+InteractionCapabilityCharacteristic system_quality_goals_interaction_capability(const SystemQualityGoals *self);
+// 11.6. Reliability (ISO/IEC 25010:2023).
+ReliabilityCharacteristic system_quality_goals_reliability(const SystemQualityGoals *self);
+// 11.7. Security (ISO/IEC 25010:2023).
+SecurityCharacteristic system_quality_goals_security(const SystemQualityGoals *self);
+// 11.8. Maintainability (ISO/IEC 25010:2023).
+MaintainabilityCharacteristic system_quality_goals_maintainability(const SystemQualityGoals *self);
+// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+FlexibilityCharacteristic system_quality_goals_flexibility(const SystemQualityGoals *self);
+// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+// documentation-quality annex per L34C-8).
 DocumentationQualityCriteria system_quality_goals_documentation_quality(const SystemQualityGoals *self);
 // 11.6. Quality Prioritization.
 QualityPrioritization system_quality_goals_prioritization(const SystemQualityGoals *self);
@@ -30716,30 +30902,6 @@ QualityPrioritization system_quality_goals_prioritization(const SystemQualityGoa
 AcceptanceCriteriaSummary system_quality_goals_acceptance_criteria(const SystemQualityGoals *self);
 // 11.8. Test Strategy..
 TestStrategy system_quality_goals_test_strategy(const SystemQualityGoals *self);
-
-// Baseline and target settings.
-// Binds a SystemQualityGoalsBaseline facade to a document and a path (path copied).
-void system_quality_goals_baseline_init(SystemQualityGoalsBaseline *self, SpecDocument *doc, const char *path);
-void system_quality_goals_baseline_free(SystemQualityGoalsBaseline *self);
-SystemQualityGoalsBaselineContentForm system_quality_goals_baseline_content(const SystemQualityGoalsBaseline *self);
-
-// Governance board and escalation details.
-// Binds a SystemQualityGoalsGovernance facade to a document and a path (path copied).
-void system_quality_goals_governance_init(SystemQualityGoalsGovernance *self, SpecDocument *doc, const char *path);
-void system_quality_goals_governance_free(SystemQualityGoalsGovernance *self);
-SystemQualityGoalsGovernanceContentForm_2 system_quality_goals_governance_content_2(const SystemQualityGoalsGovernance *self);
-
-// Measurement and reporting approach.
-// Binds a SystemQualityGoalsMeasurement facade to a document and a path (path copied).
-void system_quality_goals_measurement_init(SystemQualityGoalsMeasurement *self, SpecDocument *doc, const char *path);
-void system_quality_goals_measurement_free(SystemQualityGoalsMeasurement *self);
-SystemQualityGoalsMeasurementContentForm system_quality_goals_measurement_content(const SystemQualityGoalsMeasurement *self);
-
-// Quality resources and enablement.
-// Binds a SystemQualityGoalsResources facade to a document and a path (path copied).
-void system_quality_goals_resources_init(SystemQualityGoalsResources *self, SpecDocument *doc, const char *path);
-void system_quality_goals_resources_free(SystemQualityGoalsResources *self);
-SystemQualityGoalsResourcesContentForm system_quality_goals_resources_content(const SystemQualityGoalsResources *self);
 
 // Replacement strategy details.
 // Binds a SystemReplacementStrategy facade to a document and a path (path copied).
@@ -31494,29 +31656,6 @@ SomList technical_pain_points_items(const TechnicalPainPoints *self);
 void technical_pain_points_summary_init(TechnicalPainPointsSummary *self, SpecDocument *doc, const char *path);
 void technical_pain_points_summary_free(TechnicalPainPointsSummary *self);
 TechnicalPainPointsSummaryContentForm technical_pain_points_summary_content(const TechnicalPainPointsSummary *self);
-
-// 11.3. Technical Quality Criteria.
-//
-// Quality criteria for the technical implementation including efficiency,
-// portability, flexibility, security, maintainability, and reliability.
-// Binds a TechnicalQualityCriteria facade to a document and a path (path copied).
-void technical_quality_criteria_init(TechnicalQualityCriteria *self, SpecDocument *doc, const char *path);
-void technical_quality_criteria_free(TechnicalQualityCriteria *self);
-TechnicalQualityCriteriaTechnicalQualityContentForm technical_quality_criteria_technical_quality_content(const TechnicalQualityCriteria *self);
-// Technical quality overview.
-// (skipped: overview has no target type)
-// 11.3.1. Efficiency.
-EfficiencyQuality technical_quality_criteria_efficiency(const TechnicalQualityCriteria *self);
-// 11.3.2. Portability.
-PortabilityQuality technical_quality_criteria_portability(const TechnicalQualityCriteria *self);
-// 11.3.3. Flexibility.
-FlexibilityQuality technical_quality_criteria_flexibility(const TechnicalQualityCriteria *self);
-// 11.3.4. Security.
-SecurityQuality technical_quality_criteria_security(const TechnicalQualityCriteria *self);
-// 11.3.5. Maintainability.
-MaintainabilityQuality technical_quality_criteria_maintainability(const TechnicalQualityCriteria *self);
-// 11.3.6. Reliability.
-ReliabilityQuality technical_quality_criteria_reliability(const TechnicalQualityCriteria *self);
 
 // A technical requirement entry.
 //
@@ -33177,52 +33316,52 @@ char *upgrade_cycle_framework_content(const UpgradeCycleFramework *self);
 void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char *value);
 
 // 11.2.1. Usability quality.
-// Binds a UsabilityQuality facade to a document and a path (path copied).
-void usability_quality_init(UsabilityQuality *self, SpecDocument *doc, const char *path);
-void usability_quality_free(UsabilityQuality *self);
-UsabilityQualityContentForm usability_quality_content(const UsabilityQuality *self);
+// Binds a Usability facade to a document and a path (path copied).
+void usability_init(Usability *self, SpecDocument *doc, const char *path);
+void usability_free(Usability *self);
+UsabilityContentForm usability_content(const Usability *self);
 // Operability verification and ergonomics goals.
-UsabilityQualityOperability usability_quality_operability(const UsabilityQuality *self);
+UsabilityOperability usability_operability(const Usability *self);
 // Learnability and onboarding expectations.
-UsabilityQualityLearnability usability_quality_learnability(const UsabilityQuality *self);
+UsabilityLearnability usability_learnability(const Usability *self);
 // Clarity and complexity constraints.
-UsabilityQualityClarity usability_quality_clarity(const UsabilityQuality *self);
+UsabilityClarity usability_clarity(const Usability *self);
 // Interaction control settings.
-UsabilityQualityInteraction usability_quality_interaction(const UsabilityQuality *self);
+UsabilityInteraction usability_interaction(const Usability *self);
 // Perceived and measured responsiveness targets.
-UsabilityQualityPerformance usability_quality_performance(const UsabilityQuality *self);
+UsabilityPerformance usability_performance(const Usability *self);
 // Detailed usability requirements narrative.
 // (skipped: narrative has no target type)
 
 // Clarity and complexity constraints.
-// Binds a UsabilityQualityClarity facade to a document and a path (path copied).
-void usability_quality_clarity_init(UsabilityQualityClarity *self, SpecDocument *doc, const char *path);
-void usability_quality_clarity_free(UsabilityQualityClarity *self);
-UsabilityQualityClarityContentForm usability_quality_clarity_content(const UsabilityQualityClarity *self);
+// Binds a UsabilityClarity facade to a document and a path (path copied).
+void usability_clarity_init(UsabilityClarity *self, SpecDocument *doc, const char *path);
+void usability_clarity_free(UsabilityClarity *self);
+UsabilityClarityContentForm usability_clarity_content(const UsabilityClarity *self);
 
 // Interaction control settings.
-// Binds a UsabilityQualityInteraction facade to a document and a path (path copied).
-void usability_quality_interaction_init(UsabilityQualityInteraction *self, SpecDocument *doc, const char *path);
-void usability_quality_interaction_free(UsabilityQualityInteraction *self);
-UsabilityQualityInteractionContentForm usability_quality_interaction_content(const UsabilityQualityInteraction *self);
+// Binds a UsabilityInteraction facade to a document and a path (path copied).
+void usability_interaction_init(UsabilityInteraction *self, SpecDocument *doc, const char *path);
+void usability_interaction_free(UsabilityInteraction *self);
+UsabilityInteractionContentForm usability_interaction_content(const UsabilityInteraction *self);
 
 // Learnability and onboarding expectations.
-// Binds a UsabilityQualityLearnability facade to a document and a path (path copied).
-void usability_quality_learnability_init(UsabilityQualityLearnability *self, SpecDocument *doc, const char *path);
-void usability_quality_learnability_free(UsabilityQualityLearnability *self);
-UsabilityQualityLearnabilityContentForm usability_quality_learnability_content(const UsabilityQualityLearnability *self);
+// Binds a UsabilityLearnability facade to a document and a path (path copied).
+void usability_learnability_init(UsabilityLearnability *self, SpecDocument *doc, const char *path);
+void usability_learnability_free(UsabilityLearnability *self);
+UsabilityLearnabilityContentForm usability_learnability_content(const UsabilityLearnability *self);
 
 // Operability verification and ergonomics goals.
-// Binds a UsabilityQualityOperability facade to a document and a path (path copied).
-void usability_quality_operability_init(UsabilityQualityOperability *self, SpecDocument *doc, const char *path);
-void usability_quality_operability_free(UsabilityQualityOperability *self);
-UsabilityQualityOperabilityContentForm usability_quality_operability_content(const UsabilityQualityOperability *self);
+// Binds a UsabilityOperability facade to a document and a path (path copied).
+void usability_operability_init(UsabilityOperability *self, SpecDocument *doc, const char *path);
+void usability_operability_free(UsabilityOperability *self);
+UsabilityOperabilityContentForm usability_operability_content(const UsabilityOperability *self);
 
 // Perceived and measured responsiveness targets.
-// Binds a UsabilityQualityPerformance facade to a document and a path (path copied).
-void usability_quality_performance_init(UsabilityQualityPerformance *self, SpecDocument *doc, const char *path);
-void usability_quality_performance_free(UsabilityQualityPerformance *self);
-UsabilityQualityPerformanceContentForm usability_quality_performance_content(const UsabilityQualityPerformance *self);
+// Binds a UsabilityPerformance facade to a document and a path (path copied).
+void usability_performance_init(UsabilityPerformance *self, SpecDocument *doc, const char *path);
+void usability_performance_free(UsabilityPerformance *self);
+UsabilityPerformanceContentForm usability_performance_content(const UsabilityPerformance *self);
 
 // Use case extensions (alternative and exception flows).
 // Binds a UseCaseExtensions facade to a document and a path (path copied).
@@ -33756,23 +33895,6 @@ UserProvisioningToolsLifecycleContentForm user_provisioning_tools_lifecycle_cont
 void user_provisioning_tools_role_management_init(UserProvisioningToolsRoleManagement *self, SpecDocument *doc, const char *path);
 void user_provisioning_tools_role_management_free(UserProvisioningToolsRoleManagement *self);
 UserProvisioningToolsRoleManagementContentForm user_provisioning_tools_role_management_content(const UserProvisioningToolsRoleManagement *self);
-
-// 11.2. User-Related Quality Criteria.
-//
-// Quality criteria that directly affect user experience, including usability,
-// functional completeness, and correctness from the end-user perspective.
-// Binds a UserQualityCriteria facade to a document and a path (path copied).
-void user_quality_criteria_init(UserQualityCriteria *self, SpecDocument *doc, const char *path);
-void user_quality_criteria_free(UserQualityCriteria *self);
-UserQualityCriteriaUserQualityContentForm user_quality_criteria_user_quality_content(const UserQualityCriteria *self);
-// User quality criteria overview.
-// (skipped: overview has no target type)
-// 11.2.1. Usability.
-UsabilityQuality user_quality_criteria_usability(const UserQualityCriteria *self);
-// 11.2.2. Functional Completeness.
-FunctionalCompletenessQuality user_quality_criteria_functional_completeness(const UserQualityCriteria *self);
-// 11.2.3. Correctness.
-CorrectnessQuality user_quality_criteria_correctness(const UserQualityCriteria *self);
 
 // 9.1.2.2. Registration Process (form).
 //
@@ -36290,55 +36412,55 @@ void authorization_role_entry_structure_content_form_set_inherits_from(Authoriza
 char *authorization_role_entry_structure_content_form_permission_set(const AuthorizationRoleEntryStructureContentForm *self);
 void authorization_role_entry_structure_content_form_set_permission_set(AuthorizationRoleEntryStructureContentForm *self, const char *value);
 
-// AvailabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void availability_quality_content_form_init(AvailabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void availability_quality_content_form_free(AvailabilityQualityContentForm *self);
-char *availability_quality_content_form_uptime_target_percentage(const AvailabilityQualityContentForm *self);
-void availability_quality_content_form_set_uptime_target_percentage(AvailabilityQualityContentForm *self, const char *value);
-char *availability_quality_content_form_uptime_calculation_method(const AvailabilityQualityContentForm *self);
-void availability_quality_content_form_set_uptime_calculation_method(AvailabilityQualityContentForm *self, const char *value);
-char *availability_quality_content_form_uptime_measurement_period(const AvailabilityQualityContentForm *self);
-void availability_quality_content_form_set_uptime_measurement_period(AvailabilityQualityContentForm *self, const char *value);
+// AvailabilityContentForm is the generated form facade for the `content` @Form section.
+void availability_content_form_init(AvailabilityContentForm *self, SpecDocument *doc, const char *path);
+void availability_content_form_free(AvailabilityContentForm *self);
+char *availability_content_form_uptime_target_percentage(const AvailabilityContentForm *self);
+void availability_content_form_set_uptime_target_percentage(AvailabilityContentForm *self, const char *value);
+char *availability_content_form_uptime_calculation_method(const AvailabilityContentForm *self);
+void availability_content_form_set_uptime_calculation_method(AvailabilityContentForm *self, const char *value);
+char *availability_content_form_uptime_measurement_period(const AvailabilityContentForm *self);
+void availability_content_form_set_uptime_measurement_period(AvailabilityContentForm *self, const char *value);
 
-// AvailabilityQualityDegradedModeContentForm is the generated form facade for the `content` @Form section.
-void availability_quality_degraded_mode_content_form_init(AvailabilityQualityDegradedModeContentForm *self, SpecDocument *doc, const char *path);
-void availability_quality_degraded_mode_content_form_free(AvailabilityQualityDegradedModeContentForm *self);
-char *availability_quality_degraded_mode_content_form_degraded_mode_definition(const AvailabilityQualityDegradedModeContentForm *self);
-void availability_quality_degraded_mode_content_form_set_degraded_mode_definition(AvailabilityQualityDegradedModeContentForm *self, const char *value);
-char *availability_quality_degraded_mode_content_form_degraded_mode_capabilities(const AvailabilityQualityDegradedModeContentForm *self);
-void availability_quality_degraded_mode_content_form_set_degraded_mode_capabilities(AvailabilityQualityDegradedModeContentForm *self, const char *value);
-char *availability_quality_degraded_mode_content_form_degraded_mode_communication(const AvailabilityQualityDegradedModeContentForm *self);
-void availability_quality_degraded_mode_content_form_set_degraded_mode_communication(AvailabilityQualityDegradedModeContentForm *self, const char *value);
+// AvailabilityDegradedModeContentForm is the generated form facade for the `content` @Form section.
+void availability_degraded_mode_content_form_init(AvailabilityDegradedModeContentForm *self, SpecDocument *doc, const char *path);
+void availability_degraded_mode_content_form_free(AvailabilityDegradedModeContentForm *self);
+char *availability_degraded_mode_content_form_degraded_mode_definition(const AvailabilityDegradedModeContentForm *self);
+void availability_degraded_mode_content_form_set_degraded_mode_definition(AvailabilityDegradedModeContentForm *self, const char *value);
+char *availability_degraded_mode_content_form_degraded_mode_capabilities(const AvailabilityDegradedModeContentForm *self);
+void availability_degraded_mode_content_form_set_degraded_mode_capabilities(AvailabilityDegradedModeContentForm *self, const char *value);
+char *availability_degraded_mode_content_form_degraded_mode_communication(const AvailabilityDegradedModeContentForm *self);
+void availability_degraded_mode_content_form_set_degraded_mode_communication(AvailabilityDegradedModeContentForm *self, const char *value);
 
-// AvailabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-void availability_quality_maintenance_content_form_init(AvailabilityQualityMaintenanceContentForm *self, SpecDocument *doc, const char *path);
-void availability_quality_maintenance_content_form_free(AvailabilityQualityMaintenanceContentForm *self);
-char *availability_quality_maintenance_content_form_scheduled_maintenance_window(const AvailabilityQualityMaintenanceContentForm *self);
-void availability_quality_maintenance_content_form_set_scheduled_maintenance_window(AvailabilityQualityMaintenanceContentForm *self, const char *value);
-char *availability_quality_maintenance_content_form_maintenance_notification(const AvailabilityQualityMaintenanceContentForm *self);
-void availability_quality_maintenance_content_form_set_maintenance_notification(AvailabilityQualityMaintenanceContentForm *self, const char *value);
-char *availability_quality_maintenance_content_form_maintenance_frequency(const AvailabilityQualityMaintenanceContentForm *self);
-void availability_quality_maintenance_content_form_set_maintenance_frequency(AvailabilityQualityMaintenanceContentForm *self, const char *value);
-char *availability_quality_maintenance_content_form_maintenance_duration_limit(const AvailabilityQualityMaintenanceContentForm *self);
-void availability_quality_maintenance_content_form_set_maintenance_duration_limit(AvailabilityQualityMaintenanceContentForm *self, const char *value);
+// AvailabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+void availability_maintenance_content_form_init(AvailabilityMaintenanceContentForm *self, SpecDocument *doc, const char *path);
+void availability_maintenance_content_form_free(AvailabilityMaintenanceContentForm *self);
+char *availability_maintenance_content_form_scheduled_maintenance_window(const AvailabilityMaintenanceContentForm *self);
+void availability_maintenance_content_form_set_scheduled_maintenance_window(AvailabilityMaintenanceContentForm *self, const char *value);
+char *availability_maintenance_content_form_maintenance_notification(const AvailabilityMaintenanceContentForm *self);
+void availability_maintenance_content_form_set_maintenance_notification(AvailabilityMaintenanceContentForm *self, const char *value);
+char *availability_maintenance_content_form_maintenance_frequency(const AvailabilityMaintenanceContentForm *self);
+void availability_maintenance_content_form_set_maintenance_frequency(AvailabilityMaintenanceContentForm *self, const char *value);
+char *availability_maintenance_content_form_maintenance_duration_limit(const AvailabilityMaintenanceContentForm *self);
+void availability_maintenance_content_form_set_maintenance_duration_limit(AvailabilityMaintenanceContentForm *self, const char *value);
 
-// AvailabilityQualityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
-void availability_quality_operating_hours_content_form_init(AvailabilityQualityOperatingHoursContentForm *self, SpecDocument *doc, const char *path);
-void availability_quality_operating_hours_content_form_free(AvailabilityQualityOperatingHoursContentForm *self);
-char *availability_quality_operating_hours_content_form_operating_hours(const AvailabilityQualityOperatingHoursContentForm *self);
-void availability_quality_operating_hours_content_form_set_operating_hours(AvailabilityQualityOperatingHoursContentForm *self, const char *value);
-char *availability_quality_operating_hours_content_form_peak_hours_definition(const AvailabilityQualityOperatingHoursContentForm *self);
-void availability_quality_operating_hours_content_form_set_peak_hours_definition(AvailabilityQualityOperatingHoursContentForm *self, const char *value);
-char *availability_quality_operating_hours_content_form_peak_hours_availability(const AvailabilityQualityOperatingHoursContentForm *self);
-void availability_quality_operating_hours_content_form_set_peak_hours_availability(AvailabilityQualityOperatingHoursContentForm *self, const char *value);
+// AvailabilityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
+void availability_operating_hours_content_form_init(AvailabilityOperatingHoursContentForm *self, SpecDocument *doc, const char *path);
+void availability_operating_hours_content_form_free(AvailabilityOperatingHoursContentForm *self);
+char *availability_operating_hours_content_form_operating_hours(const AvailabilityOperatingHoursContentForm *self);
+void availability_operating_hours_content_form_set_operating_hours(AvailabilityOperatingHoursContentForm *self, const char *value);
+char *availability_operating_hours_content_form_peak_hours_definition(const AvailabilityOperatingHoursContentForm *self);
+void availability_operating_hours_content_form_set_peak_hours_definition(AvailabilityOperatingHoursContentForm *self, const char *value);
+char *availability_operating_hours_content_form_peak_hours_availability(const AvailabilityOperatingHoursContentForm *self);
+void availability_operating_hours_content_form_set_peak_hours_availability(AvailabilityOperatingHoursContentForm *self, const char *value);
 
-// AvailabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-void availability_quality_verification_content_form_init(AvailabilityQualityVerificationContentForm *self, SpecDocument *doc, const char *path);
-void availability_quality_verification_content_form_free(AvailabilityQualityVerificationContentForm *self);
-char *availability_quality_verification_content_form_availability_monitoring(const AvailabilityQualityVerificationContentForm *self);
-void availability_quality_verification_content_form_set_availability_monitoring(AvailabilityQualityVerificationContentForm *self, const char *value);
-char *availability_quality_verification_content_form_availability_reporting(const AvailabilityQualityVerificationContentForm *self);
-void availability_quality_verification_content_form_set_availability_reporting(AvailabilityQualityVerificationContentForm *self, const char *value);
+// AvailabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+void availability_verification_content_form_init(AvailabilityVerificationContentForm *self, SpecDocument *doc, const char *path);
+void availability_verification_content_form_free(AvailabilityVerificationContentForm *self);
+char *availability_verification_content_form_availability_monitoring(const AvailabilityVerificationContentForm *self);
+void availability_verification_content_form_set_availability_monitoring(AvailabilityVerificationContentForm *self, const char *value);
+char *availability_verification_content_form_availability_reporting(const AvailabilityVerificationContentForm *self);
+void availability_verification_content_form_set_availability_reporting(AvailabilityVerificationContentForm *self, const char *value);
 
 // BackupComplianceAuditContentForm is the generated form facade for the `content` @Form section.
 void backup_compliance_audit_content_form_init(BackupComplianceAuditContentForm *self, SpecDocument *doc, const char *path);
@@ -39070,6 +39192,14 @@ void communication_type_entry_content_form_set_retention_period(CommunicationTyp
 char *communication_type_entry_content_form_confidentiality_level(const CommunicationTypeEntryContentForm *self);
 void communication_type_entry_content_form_set_confidentiality_level(CommunicationTypeEntryContentForm *self, const char *value);
 
+// CompatibilityCharacteristicCompatibilityContentForm is the generated form facade for the `compatibilityContent` @Form section.
+void compatibility_characteristic_compatibility_content_form_init(CompatibilityCharacteristicCompatibilityContentForm *self, SpecDocument *doc, const char *path);
+void compatibility_characteristic_compatibility_content_form_free(CompatibilityCharacteristicCompatibilityContentForm *self);
+char *compatibility_characteristic_compatibility_content_form_co_existence_requirements(const CompatibilityCharacteristicCompatibilityContentForm *self);
+void compatibility_characteristic_compatibility_content_form_set_co_existence_requirements(CompatibilityCharacteristicCompatibilityContentForm *self, const char *value);
+char *compatibility_characteristic_compatibility_content_form_interoperability_standards(const CompatibilityCharacteristicCompatibilityContentForm *self);
+void compatibility_characteristic_compatibility_content_form_set_interoperability_standards(CompatibilityCharacteristicCompatibilityContentForm *self, const char *value);
+
 // CompetencyEntryContentForm is the generated form facade for the `content` @Form section.
 void competency_entry_content_form_init(CompetencyEntryContentForm *self, SpecDocument *doc, const char *path);
 void competency_entry_content_form_free(CompetencyEntryContentForm *self);
@@ -40474,45 +40604,45 @@ void contingency_plan_entry_testing_content_form_set_fallback_plan(ContingencyPl
 char *contingency_plan_entry_testing_content_form_document_location(const ContingencyPlanEntryTestingContentForm *self);
 void contingency_plan_entry_testing_content_form_set_document_location(ContingencyPlanEntryTestingContentForm *self, const char *value);
 
-// CorrectnessQualityAccuracyContentForm is the generated form facade for the `content` @Form section.
-void correctness_quality_accuracy_content_form_init(CorrectnessQualityAccuracyContentForm *self, SpecDocument *doc, const char *path);
-void correctness_quality_accuracy_content_form_free(CorrectnessQualityAccuracyContentForm *self);
-char *correctness_quality_accuracy_content_form_calculation_accuracy_target(const CorrectnessQualityAccuracyContentForm *self);
-void correctness_quality_accuracy_content_form_set_calculation_accuracy_target(CorrectnessQualityAccuracyContentForm *self, const char *value);
-char *correctness_quality_accuracy_content_form_financial_accuracy_requirement(const CorrectnessQualityAccuracyContentForm *self);
-void correctness_quality_accuracy_content_form_set_financial_accuracy_requirement(CorrectnessQualityAccuracyContentForm *self, const char *value);
-char *correctness_quality_accuracy_content_form_audit_trail_requirement(const CorrectnessQualityAccuracyContentForm *self);
-void correctness_quality_accuracy_content_form_set_audit_trail_requirement(CorrectnessQualityAccuracyContentForm *self, const char *value);
+// CorrectnessAccuracyContentForm is the generated form facade for the `content` @Form section.
+void correctness_accuracy_content_form_init(CorrectnessAccuracyContentForm *self, SpecDocument *doc, const char *path);
+void correctness_accuracy_content_form_free(CorrectnessAccuracyContentForm *self);
+char *correctness_accuracy_content_form_calculation_accuracy_target(const CorrectnessAccuracyContentForm *self);
+void correctness_accuracy_content_form_set_calculation_accuracy_target(CorrectnessAccuracyContentForm *self, const char *value);
+char *correctness_accuracy_content_form_financial_accuracy_requirement(const CorrectnessAccuracyContentForm *self);
+void correctness_accuracy_content_form_set_financial_accuracy_requirement(CorrectnessAccuracyContentForm *self, const char *value);
+char *correctness_accuracy_content_form_audit_trail_requirement(const CorrectnessAccuracyContentForm *self);
+void correctness_accuracy_content_form_set_audit_trail_requirement(CorrectnessAccuracyContentForm *self, const char *value);
 
-// CorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-void correctness_quality_content_form_init(CorrectnessQualityContentForm *self, SpecDocument *doc, const char *path);
-void correctness_quality_content_form_free(CorrectnessQualityContentForm *self);
-char *correctness_quality_content_form_defect_density_target(const CorrectnessQualityContentForm *self);
-void correctness_quality_content_form_set_defect_density_target(CorrectnessQualityContentForm *self, const char *value);
-char *correctness_quality_content_form_critical_defect_target(const CorrectnessQualityContentForm *self);
-void correctness_quality_content_form_set_critical_defect_target(CorrectnessQualityContentForm *self, const char *value);
-char *correctness_quality_content_form_defect_escape_rate(const CorrectnessQualityContentForm *self);
-void correctness_quality_content_form_set_defect_escape_rate(CorrectnessQualityContentForm *self, const char *value);
+// CorrectnessContentForm is the generated form facade for the `content` @Form section.
+void correctness_content_form_init(CorrectnessContentForm *self, SpecDocument *doc, const char *path);
+void correctness_content_form_free(CorrectnessContentForm *self);
+char *correctness_content_form_defect_density_target(const CorrectnessContentForm *self);
+void correctness_content_form_set_defect_density_target(CorrectnessContentForm *self, const char *value);
+char *correctness_content_form_critical_defect_target(const CorrectnessContentForm *self);
+void correctness_content_form_set_critical_defect_target(CorrectnessContentForm *self, const char *value);
+char *correctness_content_form_defect_escape_rate(const CorrectnessContentForm *self);
+void correctness_content_form_set_defect_escape_rate(CorrectnessContentForm *self, const char *value);
 
-// CorrectnessQualityIntegrityContentForm is the generated form facade for the `content` @Form section.
-void correctness_quality_integrity_content_form_init(CorrectnessQualityIntegrityContentForm *self, SpecDocument *doc, const char *path);
-void correctness_quality_integrity_content_form_free(CorrectnessQualityIntegrityContentForm *self);
-char *correctness_quality_integrity_content_form_data_integrity_requirement(const CorrectnessQualityIntegrityContentForm *self);
-void correctness_quality_integrity_content_form_set_data_integrity_requirement(CorrectnessQualityIntegrityContentForm *self, const char *value);
-char *correctness_quality_integrity_content_form_data_validation_coverage(const CorrectnessQualityIntegrityContentForm *self);
-void correctness_quality_integrity_content_form_set_data_validation_coverage(CorrectnessQualityIntegrityContentForm *self, const char *value);
-char *correctness_quality_integrity_content_form_data_corruption_handling(const CorrectnessQualityIntegrityContentForm *self);
-void correctness_quality_integrity_content_form_set_data_corruption_handling(CorrectnessQualityIntegrityContentForm *self, const char *value);
+// CorrectnessIntegrityContentForm is the generated form facade for the `content` @Form section.
+void correctness_integrity_content_form_init(CorrectnessIntegrityContentForm *self, SpecDocument *doc, const char *path);
+void correctness_integrity_content_form_free(CorrectnessIntegrityContentForm *self);
+char *correctness_integrity_content_form_data_integrity_requirement(const CorrectnessIntegrityContentForm *self);
+void correctness_integrity_content_form_set_data_integrity_requirement(CorrectnessIntegrityContentForm *self, const char *value);
+char *correctness_integrity_content_form_data_validation_coverage(const CorrectnessIntegrityContentForm *self);
+void correctness_integrity_content_form_set_data_validation_coverage(CorrectnessIntegrityContentForm *self, const char *value);
+char *correctness_integrity_content_form_data_corruption_handling(const CorrectnessIntegrityContentForm *self);
+void correctness_integrity_content_form_set_data_corruption_handling(CorrectnessIntegrityContentForm *self, const char *value);
 
-// CorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-void correctness_quality_verification_content_form_init(CorrectnessQualityVerificationContentForm *self, SpecDocument *doc, const char *path);
-void correctness_quality_verification_content_form_free(CorrectnessQualityVerificationContentForm *self);
-char *correctness_quality_verification_content_form_correctness_verification(const CorrectnessQualityVerificationContentForm *self);
-void correctness_quality_verification_content_form_set_correctness_verification(CorrectnessQualityVerificationContentForm *self, const char *value);
-char *correctness_quality_verification_content_form_test_coverage_target(const CorrectnessQualityVerificationContentForm *self);
-void correctness_quality_verification_content_form_set_test_coverage_target(CorrectnessQualityVerificationContentForm *self, const char *value);
-char *correctness_quality_verification_content_form_regression_testing_approach(const CorrectnessQualityVerificationContentForm *self);
-void correctness_quality_verification_content_form_set_regression_testing_approach(CorrectnessQualityVerificationContentForm *self, const char *value);
+// CorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+void correctness_verification_content_form_init(CorrectnessVerificationContentForm *self, SpecDocument *doc, const char *path);
+void correctness_verification_content_form_free(CorrectnessVerificationContentForm *self);
+char *correctness_verification_content_form_correctness_verification(const CorrectnessVerificationContentForm *self);
+void correctness_verification_content_form_set_correctness_verification(CorrectnessVerificationContentForm *self, const char *value);
+char *correctness_verification_content_form_test_coverage_target(const CorrectnessVerificationContentForm *self);
+void correctness_verification_content_form_set_test_coverage_target(CorrectnessVerificationContentForm *self, const char *value);
+char *correctness_verification_content_form_regression_testing_approach(const CorrectnessVerificationContentForm *self);
+void correctness_verification_content_form_set_regression_testing_approach(CorrectnessVerificationContentForm *self, const char *value);
 
 // CrossCuttingConcernsCachingContentForm is the generated form facade for the `content` @Form section.
 void cross_cutting_concerns_caching_content_form_init(CrossCuttingConcernsCachingContentForm *self, SpecDocument *doc, const char *path);
@@ -43812,103 +43942,103 @@ void dns_requirements_zones_content_form_set_private_zones(DnsRequirementsZonesC
 char *dns_requirements_zones_content_form_split_horizon(const DnsRequirementsZonesContentForm *self);
 void dns_requirements_zones_content_form_set_split_horizon(DnsRequirementsZonesContentForm *self, const char *value);
 
-// DocChangeabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void doc_changeability_quality_content_form_init(DocChangeabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_content_form_free(DocChangeabilityQualityContentForm *self);
-char *doc_changeability_quality_content_form_versioning_strategy(const DocChangeabilityQualityContentForm *self);
-void doc_changeability_quality_content_form_set_versioning_strategy(DocChangeabilityQualityContentForm *self, const char *value);
-char *doc_changeability_quality_content_form_version_history_tracking(const DocChangeabilityQualityContentForm *self);
-void doc_changeability_quality_content_form_set_version_history_tracking(DocChangeabilityQualityContentForm *self, const char *value);
-char *doc_changeability_quality_content_form_multi_version_support(const DocChangeabilityQualityContentForm *self);
-void doc_changeability_quality_content_form_set_multi_version_support(DocChangeabilityQualityContentForm *self, const char *value);
+// DocChangeabilityContentForm is the generated form facade for the `content` @Form section.
+void doc_changeability_content_form_init(DocChangeabilityContentForm *self, SpecDocument *doc, const char *path);
+void doc_changeability_content_form_free(DocChangeabilityContentForm *self);
+char *doc_changeability_content_form_versioning_strategy(const DocChangeabilityContentForm *self);
+void doc_changeability_content_form_set_versioning_strategy(DocChangeabilityContentForm *self, const char *value);
+char *doc_changeability_content_form_version_history_tracking(const DocChangeabilityContentForm *self);
+void doc_changeability_content_form_set_version_history_tracking(DocChangeabilityContentForm *self, const char *value);
+char *doc_changeability_content_form_multi_version_support(const DocChangeabilityContentForm *self);
+void doc_changeability_content_form_set_multi_version_support(DocChangeabilityContentForm *self, const char *value);
 
-// DocChangeabilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-void doc_changeability_quality_extensibility_content_form_init(DocChangeabilityQualityExtensibilityContentForm *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_extensibility_content_form_free(DocChangeabilityQualityExtensibilityContentForm *self);
-char *doc_changeability_quality_extensibility_content_form_extensibility_approach(const DocChangeabilityQualityExtensibilityContentForm *self);
-void doc_changeability_quality_extensibility_content_form_set_extensibility_approach(DocChangeabilityQualityExtensibilityContentForm *self, const char *value);
-char *doc_changeability_quality_extensibility_content_form_new_section_guidelines(const DocChangeabilityQualityExtensibilityContentForm *self);
-void doc_changeability_quality_extensibility_content_form_set_new_section_guidelines(DocChangeabilityQualityExtensibilityContentForm *self, const char *value);
-char *doc_changeability_quality_extensibility_content_form_localization_readiness(const DocChangeabilityQualityExtensibilityContentForm *self);
-void doc_changeability_quality_extensibility_content_form_set_localization_readiness(DocChangeabilityQualityExtensibilityContentForm *self, const char *value);
+// DocChangeabilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+void doc_changeability_extensibility_content_form_init(DocChangeabilityExtensibilityContentForm *self, SpecDocument *doc, const char *path);
+void doc_changeability_extensibility_content_form_free(DocChangeabilityExtensibilityContentForm *self);
+char *doc_changeability_extensibility_content_form_extensibility_approach(const DocChangeabilityExtensibilityContentForm *self);
+void doc_changeability_extensibility_content_form_set_extensibility_approach(DocChangeabilityExtensibilityContentForm *self, const char *value);
+char *doc_changeability_extensibility_content_form_new_section_guidelines(const DocChangeabilityExtensibilityContentForm *self);
+void doc_changeability_extensibility_content_form_set_new_section_guidelines(DocChangeabilityExtensibilityContentForm *self, const char *value);
+char *doc_changeability_extensibility_content_form_localization_readiness(const DocChangeabilityExtensibilityContentForm *self);
+void doc_changeability_extensibility_content_form_set_localization_readiness(DocChangeabilityExtensibilityContentForm *self, const char *value);
 
-// DocChangeabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-void doc_changeability_quality_maintenance_content_form_init(DocChangeabilityQualityMaintenanceContentForm *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_maintenance_content_form_free(DocChangeabilityQualityMaintenanceContentForm *self);
-char *doc_changeability_quality_maintenance_content_form_review_cycle(const DocChangeabilityQualityMaintenanceContentForm *self);
-void doc_changeability_quality_maintenance_content_form_set_review_cycle(DocChangeabilityQualityMaintenanceContentForm *self, const char *value);
-char *doc_changeability_quality_maintenance_content_form_retirement_process(const DocChangeabilityQualityMaintenanceContentForm *self);
-void doc_changeability_quality_maintenance_content_form_set_retirement_process(DocChangeabilityQualityMaintenanceContentForm *self, const char *value);
+// DocChangeabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+void doc_changeability_maintenance_content_form_init(DocChangeabilityMaintenanceContentForm *self, SpecDocument *doc, const char *path);
+void doc_changeability_maintenance_content_form_free(DocChangeabilityMaintenanceContentForm *self);
+char *doc_changeability_maintenance_content_form_review_cycle(const DocChangeabilityMaintenanceContentForm *self);
+void doc_changeability_maintenance_content_form_set_review_cycle(DocChangeabilityMaintenanceContentForm *self, const char *value);
+char *doc_changeability_maintenance_content_form_retirement_process(const DocChangeabilityMaintenanceContentForm *self);
+void doc_changeability_maintenance_content_form_set_retirement_process(DocChangeabilityMaintenanceContentForm *self, const char *value);
 
-// DocChangeabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-void doc_changeability_quality_structure_content_form_init(DocChangeabilityQualityStructureContentForm *self, SpecDocument *doc, const char *path);
-void doc_changeability_quality_structure_content_form_free(DocChangeabilityQualityStructureContentForm *self);
-char *doc_changeability_quality_structure_content_form_document_sizing_guideline(const DocChangeabilityQualityStructureContentForm *self);
-void doc_changeability_quality_structure_content_form_set_document_sizing_guideline(DocChangeabilityQualityStructureContentForm *self, const char *value);
-char *doc_changeability_quality_structure_content_form_topic_granularity(const DocChangeabilityQualityStructureContentForm *self);
-void doc_changeability_quality_structure_content_form_set_topic_granularity(DocChangeabilityQualityStructureContentForm *self, const char *value);
-char *doc_changeability_quality_structure_content_form_template_adherence(const DocChangeabilityQualityStructureContentForm *self);
-void doc_changeability_quality_structure_content_form_set_template_adherence(DocChangeabilityQualityStructureContentForm *self, const char *value);
-char *doc_changeability_quality_structure_content_form_structural_change_process(const DocChangeabilityQualityStructureContentForm *self);
-void doc_changeability_quality_structure_content_form_set_structural_change_process(DocChangeabilityQualityStructureContentForm *self, const char *value);
+// DocChangeabilityStructureContentForm is the generated form facade for the `content` @Form section.
+void doc_changeability_structure_content_form_init(DocChangeabilityStructureContentForm *self, SpecDocument *doc, const char *path);
+void doc_changeability_structure_content_form_free(DocChangeabilityStructureContentForm *self);
+char *doc_changeability_structure_content_form_document_sizing_guideline(const DocChangeabilityStructureContentForm *self);
+void doc_changeability_structure_content_form_set_document_sizing_guideline(DocChangeabilityStructureContentForm *self, const char *value);
+char *doc_changeability_structure_content_form_topic_granularity(const DocChangeabilityStructureContentForm *self);
+void doc_changeability_structure_content_form_set_topic_granularity(DocChangeabilityStructureContentForm *self, const char *value);
+char *doc_changeability_structure_content_form_template_adherence(const DocChangeabilityStructureContentForm *self);
+void doc_changeability_structure_content_form_set_template_adherence(DocChangeabilityStructureContentForm *self, const char *value);
+char *doc_changeability_structure_content_form_structural_change_process(const DocChangeabilityStructureContentForm *self);
+void doc_changeability_structure_content_form_set_structural_change_process(DocChangeabilityStructureContentForm *self, const char *value);
 
-// DocCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-void doc_completeness_quality_content_form_init(DocCompletenessQualityContentForm *self, SpecDocument *doc, const char *path);
-void doc_completeness_quality_content_form_free(DocCompletenessQualityContentForm *self);
-char *doc_completeness_quality_content_form_required_topics(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_required_topics(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_topic_coverage_target(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_topic_coverage_target(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_audience_coverage(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_audience_coverage(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_detail_level_expectation(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_detail_level_expectation(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_example_requirements(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_example_requirements(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_screenshot_requirements(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_screenshot_requirements(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_cross_reference_integrity(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_cross_reference_integrity(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_related_topics_linking(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_related_topics_linking(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_completeness_review(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_completeness_review(DocCompletenessQualityContentForm *self, const char *value);
-char *doc_completeness_quality_content_form_gap_identification_process(const DocCompletenessQualityContentForm *self);
-void doc_completeness_quality_content_form_set_gap_identification_process(DocCompletenessQualityContentForm *self, const char *value);
+// DocCompletenessContentForm is the generated form facade for the `content` @Form section.
+void doc_completeness_content_form_init(DocCompletenessContentForm *self, SpecDocument *doc, const char *path);
+void doc_completeness_content_form_free(DocCompletenessContentForm *self);
+char *doc_completeness_content_form_required_topics(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_required_topics(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_topic_coverage_target(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_topic_coverage_target(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_audience_coverage(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_audience_coverage(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_detail_level_expectation(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_detail_level_expectation(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_example_requirements(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_example_requirements(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_screenshot_requirements(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_screenshot_requirements(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_cross_reference_integrity(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_cross_reference_integrity(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_related_topics_linking(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_related_topics_linking(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_completeness_review(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_completeness_review(DocCompletenessContentForm *self, const char *value);
+char *doc_completeness_content_form_gap_identification_process(const DocCompletenessContentForm *self);
+void doc_completeness_content_form_set_gap_identification_process(DocCompletenessContentForm *self, const char *value);
 
-// DocCorrectnessQualityAlignmentContentForm is the generated form facade for the `content` @Form section.
-void doc_correctness_quality_alignment_content_form_init(DocCorrectnessQualityAlignmentContentForm *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_alignment_content_form_free(DocCorrectnessQualityAlignmentContentForm *self);
-char *doc_correctness_quality_alignment_content_form_format_consistency(const DocCorrectnessQualityAlignmentContentForm *self);
-void doc_correctness_quality_alignment_content_form_set_format_consistency(DocCorrectnessQualityAlignmentContentForm *self, const char *value);
-char *doc_correctness_quality_alignment_content_form_cross_document_consistency(const DocCorrectnessQualityAlignmentContentForm *self);
-void doc_correctness_quality_alignment_content_form_set_cross_document_consistency(DocCorrectnessQualityAlignmentContentForm *self, const char *value);
-char *doc_correctness_quality_alignment_content_form_documentation_sync_process(const DocCorrectnessQualityAlignmentContentForm *self);
-void doc_correctness_quality_alignment_content_form_set_documentation_sync_process(DocCorrectnessQualityAlignmentContentForm *self, const char *value);
-char *doc_correctness_quality_alignment_content_form_version_alignment(const DocCorrectnessQualityAlignmentContentForm *self);
-void doc_correctness_quality_alignment_content_form_set_version_alignment(DocCorrectnessQualityAlignmentContentForm *self, const char *value);
-char *doc_correctness_quality_alignment_content_form_deprecation_handling(const DocCorrectnessQualityAlignmentContentForm *self);
-void doc_correctness_quality_alignment_content_form_set_deprecation_handling(DocCorrectnessQualityAlignmentContentForm *self, const char *value);
+// DocCorrectnessAlignmentContentForm is the generated form facade for the `content` @Form section.
+void doc_correctness_alignment_content_form_init(DocCorrectnessAlignmentContentForm *self, SpecDocument *doc, const char *path);
+void doc_correctness_alignment_content_form_free(DocCorrectnessAlignmentContentForm *self);
+char *doc_correctness_alignment_content_form_format_consistency(const DocCorrectnessAlignmentContentForm *self);
+void doc_correctness_alignment_content_form_set_format_consistency(DocCorrectnessAlignmentContentForm *self, const char *value);
+char *doc_correctness_alignment_content_form_cross_document_consistency(const DocCorrectnessAlignmentContentForm *self);
+void doc_correctness_alignment_content_form_set_cross_document_consistency(DocCorrectnessAlignmentContentForm *self, const char *value);
+char *doc_correctness_alignment_content_form_documentation_sync_process(const DocCorrectnessAlignmentContentForm *self);
+void doc_correctness_alignment_content_form_set_documentation_sync_process(DocCorrectnessAlignmentContentForm *self, const char *value);
+char *doc_correctness_alignment_content_form_version_alignment(const DocCorrectnessAlignmentContentForm *self);
+void doc_correctness_alignment_content_form_set_version_alignment(DocCorrectnessAlignmentContentForm *self, const char *value);
+char *doc_correctness_alignment_content_form_deprecation_handling(const DocCorrectnessAlignmentContentForm *self);
+void doc_correctness_alignment_content_form_set_deprecation_handling(DocCorrectnessAlignmentContentForm *self, const char *value);
 
-// DocCorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-void doc_correctness_quality_content_form_init(DocCorrectnessQualityContentForm *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_content_form_free(DocCorrectnessQualityContentForm *self);
-char *doc_correctness_quality_content_form_spelling_grammar_check(const DocCorrectnessQualityContentForm *self);
-void doc_correctness_quality_content_form_set_spelling_grammar_check(DocCorrectnessQualityContentForm *self, const char *value);
-char *doc_correctness_quality_content_form_technical_accuracy_review(const DocCorrectnessQualityContentForm *self);
-void doc_correctness_quality_content_form_set_technical_accuracy_review(DocCorrectnessQualityContentForm *self, const char *value);
-char *doc_correctness_quality_content_form_error_tolerance_level(const DocCorrectnessQualityContentForm *self);
-void doc_correctness_quality_content_form_set_error_tolerance_level(DocCorrectnessQualityContentForm *self, const char *value);
-char *doc_correctness_quality_content_form_terminology_consistency(const DocCorrectnessQualityContentForm *self);
-void doc_correctness_quality_content_form_set_terminology_consistency(DocCorrectnessQualityContentForm *self, const char *value);
+// DocCorrectnessContentForm is the generated form facade for the `content` @Form section.
+void doc_correctness_content_form_init(DocCorrectnessContentForm *self, SpecDocument *doc, const char *path);
+void doc_correctness_content_form_free(DocCorrectnessContentForm *self);
+char *doc_correctness_content_form_spelling_grammar_check(const DocCorrectnessContentForm *self);
+void doc_correctness_content_form_set_spelling_grammar_check(DocCorrectnessContentForm *self, const char *value);
+char *doc_correctness_content_form_technical_accuracy_review(const DocCorrectnessContentForm *self);
+void doc_correctness_content_form_set_technical_accuracy_review(DocCorrectnessContentForm *self, const char *value);
+char *doc_correctness_content_form_error_tolerance_level(const DocCorrectnessContentForm *self);
+void doc_correctness_content_form_set_error_tolerance_level(DocCorrectnessContentForm *self, const char *value);
+char *doc_correctness_content_form_terminology_consistency(const DocCorrectnessContentForm *self);
+void doc_correctness_content_form_set_terminology_consistency(DocCorrectnessContentForm *self, const char *value);
 
-// DocCorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-void doc_correctness_quality_verification_content_form_init(DocCorrectnessQualityVerificationContentForm *self, SpecDocument *doc, const char *path);
-void doc_correctness_quality_verification_content_form_free(DocCorrectnessQualityVerificationContentForm *self);
-char *doc_correctness_quality_verification_content_form_correctness_verification(const DocCorrectnessQualityVerificationContentForm *self);
-void doc_correctness_quality_verification_content_form_set_correctness_verification(DocCorrectnessQualityVerificationContentForm *self, const char *value);
-char *doc_correctness_quality_verification_content_form_user_feedback_integration(const DocCorrectnessQualityVerificationContentForm *self);
-void doc_correctness_quality_verification_content_form_set_user_feedback_integration(DocCorrectnessQualityVerificationContentForm *self, const char *value);
+// DocCorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+void doc_correctness_verification_content_form_init(DocCorrectnessVerificationContentForm *self, SpecDocument *doc, const char *path);
+void doc_correctness_verification_content_form_free(DocCorrectnessVerificationContentForm *self);
+char *doc_correctness_verification_content_form_correctness_verification(const DocCorrectnessVerificationContentForm *self);
+void doc_correctness_verification_content_form_set_correctness_verification(DocCorrectnessVerificationContentForm *self, const char *value);
+char *doc_correctness_verification_content_form_user_feedback_integration(const DocCorrectnessVerificationContentForm *self);
+void doc_correctness_verification_content_form_set_user_feedback_integration(DocCorrectnessVerificationContentForm *self, const char *value);
 
 // DocumentHeaderContentForm is the generated form facade for the `content` @Form section.
 void document_header_content_form_init(DocumentHeaderContentForm *self, SpecDocument *doc, const char *path);
@@ -44254,49 +44384,49 @@ void domain_term_entry_content_form_set_source(DomainTermEntryContentForm *self,
 char *domain_term_entry_content_form_abbreviation(const DomainTermEntryContentForm *self);
 void domain_term_entry_content_form_set_abbreviation(DomainTermEntryContentForm *self, const char *value);
 
-// EfficiencyQualityContentForm is the generated form facade for the `content` @Form section.
-void efficiency_quality_content_form_init(EfficiencyQualityContentForm *self, SpecDocument *doc, const char *path);
-void efficiency_quality_content_form_free(EfficiencyQualityContentForm *self);
-char *efficiency_quality_content_form_response_time_p50_target(const EfficiencyQualityContentForm *self);
-void efficiency_quality_content_form_set_response_time_p50_target(EfficiencyQualityContentForm *self, const char *value);
-char *efficiency_quality_content_form_response_time_p95_target(const EfficiencyQualityContentForm *self);
-void efficiency_quality_content_form_set_response_time_p95_target(EfficiencyQualityContentForm *self, const char *value);
-char *efficiency_quality_content_form_response_time_p99_target(const EfficiencyQualityContentForm *self);
-void efficiency_quality_content_form_set_response_time_p99_target(EfficiencyQualityContentForm *self, const char *value);
+// EfficiencyContentForm is the generated form facade for the `content` @Form section.
+void efficiency_content_form_init(EfficiencyContentForm *self, SpecDocument *doc, const char *path);
+void efficiency_content_form_free(EfficiencyContentForm *self);
+char *efficiency_content_form_response_time_p50_target(const EfficiencyContentForm *self);
+void efficiency_content_form_set_response_time_p50_target(EfficiencyContentForm *self, const char *value);
+char *efficiency_content_form_response_time_p95_target(const EfficiencyContentForm *self);
+void efficiency_content_form_set_response_time_p95_target(EfficiencyContentForm *self, const char *value);
+char *efficiency_content_form_response_time_p99_target(const EfficiencyContentForm *self);
+void efficiency_content_form_set_response_time_p99_target(EfficiencyContentForm *self, const char *value);
 
-// EfficiencyQualityResourcesContentForm is the generated form facade for the `content` @Form section.
-void efficiency_quality_resources_content_form_init(EfficiencyQualityResourcesContentForm *self, SpecDocument *doc, const char *path);
-void efficiency_quality_resources_content_form_free(EfficiencyQualityResourcesContentForm *self);
-char *efficiency_quality_resources_content_form_cpu_utilization_limit(const EfficiencyQualityResourcesContentForm *self);
-void efficiency_quality_resources_content_form_set_cpu_utilization_limit(EfficiencyQualityResourcesContentForm *self, const char *value);
-char *efficiency_quality_resources_content_form_memory_utilization_limit(const EfficiencyQualityResourcesContentForm *self);
-void efficiency_quality_resources_content_form_set_memory_utilization_limit(EfficiencyQualityResourcesContentForm *self, const char *value);
-char *efficiency_quality_resources_content_form_storage_efficiency_target(const EfficiencyQualityResourcesContentForm *self);
-void efficiency_quality_resources_content_form_set_storage_efficiency_target(EfficiencyQualityResourcesContentForm *self, const char *value);
-char *efficiency_quality_resources_content_form_network_bandwidth_limit(const EfficiencyQualityResourcesContentForm *self);
-void efficiency_quality_resources_content_form_set_network_bandwidth_limit(EfficiencyQualityResourcesContentForm *self, const char *value);
+// EfficiencyResourcesContentForm is the generated form facade for the `content` @Form section.
+void efficiency_resources_content_form_init(EfficiencyResourcesContentForm *self, SpecDocument *doc, const char *path);
+void efficiency_resources_content_form_free(EfficiencyResourcesContentForm *self);
+char *efficiency_resources_content_form_cpu_utilization_limit(const EfficiencyResourcesContentForm *self);
+void efficiency_resources_content_form_set_cpu_utilization_limit(EfficiencyResourcesContentForm *self, const char *value);
+char *efficiency_resources_content_form_memory_utilization_limit(const EfficiencyResourcesContentForm *self);
+void efficiency_resources_content_form_set_memory_utilization_limit(EfficiencyResourcesContentForm *self, const char *value);
+char *efficiency_resources_content_form_storage_efficiency_target(const EfficiencyResourcesContentForm *self);
+void efficiency_resources_content_form_set_storage_efficiency_target(EfficiencyResourcesContentForm *self, const char *value);
+char *efficiency_resources_content_form_network_bandwidth_limit(const EfficiencyResourcesContentForm *self);
+void efficiency_resources_content_form_set_network_bandwidth_limit(EfficiencyResourcesContentForm *self, const char *value);
 
-// EfficiencyQualityThroughputContentForm is the generated form facade for the `content` @Form section.
-void efficiency_quality_throughput_content_form_init(EfficiencyQualityThroughputContentForm *self, SpecDocument *doc, const char *path);
-void efficiency_quality_throughput_content_form_free(EfficiencyQualityThroughputContentForm *self);
-char *efficiency_quality_throughput_content_form_throughput_target(const EfficiencyQualityThroughputContentForm *self);
-void efficiency_quality_throughput_content_form_set_throughput_target(EfficiencyQualityThroughputContentForm *self, const char *value);
-char *efficiency_quality_throughput_content_form_concurrent_users_target(const EfficiencyQualityThroughputContentForm *self);
-void efficiency_quality_throughput_content_form_set_concurrent_users_target(EfficiencyQualityThroughputContentForm *self, const char *value);
-char *efficiency_quality_throughput_content_form_scalability_model(const EfficiencyQualityThroughputContentForm *self);
-void efficiency_quality_throughput_content_form_set_scalability_model(EfficiencyQualityThroughputContentForm *self, const char *value);
+// EfficiencyThroughputContentForm is the generated form facade for the `content` @Form section.
+void efficiency_throughput_content_form_init(EfficiencyThroughputContentForm *self, SpecDocument *doc, const char *path);
+void efficiency_throughput_content_form_free(EfficiencyThroughputContentForm *self);
+char *efficiency_throughput_content_form_throughput_target(const EfficiencyThroughputContentForm *self);
+void efficiency_throughput_content_form_set_throughput_target(EfficiencyThroughputContentForm *self, const char *value);
+char *efficiency_throughput_content_form_concurrent_users_target(const EfficiencyThroughputContentForm *self);
+void efficiency_throughput_content_form_set_concurrent_users_target(EfficiencyThroughputContentForm *self, const char *value);
+char *efficiency_throughput_content_form_scalability_model(const EfficiencyThroughputContentForm *self);
+void efficiency_throughput_content_form_set_scalability_model(EfficiencyThroughputContentForm *self, const char *value);
 
-// EfficiencyQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-void efficiency_quality_verification_content_form_init(EfficiencyQualityVerificationContentForm *self, SpecDocument *doc, const char *path);
-void efficiency_quality_verification_content_form_free(EfficiencyQualityVerificationContentForm *self);
-char *efficiency_quality_verification_content_form_load_testing_requirement(const EfficiencyQualityVerificationContentForm *self);
-void efficiency_quality_verification_content_form_set_load_testing_requirement(EfficiencyQualityVerificationContentForm *self, const char *value);
-char *efficiency_quality_verification_content_form_performance_profiling_approach(const EfficiencyQualityVerificationContentForm *self);
-void efficiency_quality_verification_content_form_set_performance_profiling_approach(EfficiencyQualityVerificationContentForm *self, const char *value);
-char *efficiency_quality_verification_content_form_performance_baseline_date(const EfficiencyQualityVerificationContentForm *self);
-void efficiency_quality_verification_content_form_set_performance_baseline_date(EfficiencyQualityVerificationContentForm *self, const char *value);
-char *efficiency_quality_verification_content_form_performance_sla_definition(const EfficiencyQualityVerificationContentForm *self);
-void efficiency_quality_verification_content_form_set_performance_sla_definition(EfficiencyQualityVerificationContentForm *self, const char *value);
+// EfficiencyVerificationContentForm is the generated form facade for the `content` @Form section.
+void efficiency_verification_content_form_init(EfficiencyVerificationContentForm *self, SpecDocument *doc, const char *path);
+void efficiency_verification_content_form_free(EfficiencyVerificationContentForm *self);
+char *efficiency_verification_content_form_load_testing_requirement(const EfficiencyVerificationContentForm *self);
+void efficiency_verification_content_form_set_load_testing_requirement(EfficiencyVerificationContentForm *self, const char *value);
+char *efficiency_verification_content_form_performance_profiling_approach(const EfficiencyVerificationContentForm *self);
+void efficiency_verification_content_form_set_performance_profiling_approach(EfficiencyVerificationContentForm *self, const char *value);
+char *efficiency_verification_content_form_performance_baseline_date(const EfficiencyVerificationContentForm *self);
+void efficiency_verification_content_form_set_performance_baseline_date(EfficiencyVerificationContentForm *self, const char *value);
+char *efficiency_verification_content_form_performance_sla_definition(const EfficiencyVerificationContentForm *self);
+void efficiency_verification_content_form_set_performance_sla_definition(EfficiencyVerificationContentForm *self, const char *value);
 
 // ElementValidationRuleEntryContentForm is the generated form facade for the `content` @Form section.
 void element_validation_rule_entry_content_form_init(ElementValidationRuleEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -46414,45 +46544,53 @@ void firewall_requirements_rules_content_form_set_outbound_rules(FirewallRequire
 char *firewall_requirements_rules_content_form_internal_rules(const FirewallRequirementsRulesContentForm *self);
 void firewall_requirements_rules_content_form_set_internal_rules(FirewallRequirementsRulesContentForm *self, const char *value);
 
-// FlexibilityQualityContentForm is the generated form facade for the `content` @Form section.
-void flexibility_quality_content_form_init(FlexibilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void flexibility_quality_content_form_free(FlexibilityQualityContentForm *self);
-char *flexibility_quality_content_form_component_architecture(const FlexibilityQualityContentForm *self);
-void flexibility_quality_content_form_set_component_architecture(FlexibilityQualityContentForm *self, const char *value);
-char *flexibility_quality_content_form_component_granularity(const FlexibilityQualityContentForm *self);
-void flexibility_quality_content_form_set_component_granularity(FlexibilityQualityContentForm *self, const char *value);
-char *flexibility_quality_content_form_component_replaceability(const FlexibilityQualityContentForm *self);
-void flexibility_quality_content_form_set_component_replaceability(FlexibilityQualityContentForm *self, const char *value);
+// FlexibilityCharacteristicFlexibilityContentForm is the generated form facade for the `flexibilityContent` @Form section.
+void flexibility_characteristic_flexibility_content_form_init(FlexibilityCharacteristicFlexibilityContentForm *self, SpecDocument *doc, const char *path);
+void flexibility_characteristic_flexibility_content_form_free(FlexibilityCharacteristicFlexibilityContentForm *self);
+char *flexibility_characteristic_flexibility_content_form_flexibility_approach(const FlexibilityCharacteristicFlexibilityContentForm *self);
+void flexibility_characteristic_flexibility_content_form_set_flexibility_approach(FlexibilityCharacteristicFlexibilityContentForm *self, const char *value);
+char *flexibility_characteristic_flexibility_content_form_portability_target(const FlexibilityCharacteristicFlexibilityContentForm *self);
+void flexibility_characteristic_flexibility_content_form_set_portability_target(FlexibilityCharacteristicFlexibilityContentForm *self, const char *value);
 
-// FlexibilityQualityDeploymentContentForm is the generated form facade for the `content` @Form section.
-void flexibility_quality_deployment_content_form_init(FlexibilityQualityDeploymentContentForm *self, SpecDocument *doc, const char *path);
-void flexibility_quality_deployment_content_form_free(FlexibilityQualityDeploymentContentForm *self);
-char *flexibility_quality_deployment_content_form_distribution_capability(const FlexibilityQualityDeploymentContentForm *self);
-void flexibility_quality_deployment_content_form_set_distribution_capability(FlexibilityQualityDeploymentContentForm *self, const char *value);
-char *flexibility_quality_deployment_content_form_multi_tenancy(const FlexibilityQualityDeploymentContentForm *self);
-void flexibility_quality_deployment_content_form_set_multi_tenancy(FlexibilityQualityDeploymentContentForm *self, const char *value);
-char *flexibility_quality_deployment_content_form_configurability_level(const FlexibilityQualityDeploymentContentForm *self);
-void flexibility_quality_deployment_content_form_set_configurability_level(FlexibilityQualityDeploymentContentForm *self, const char *value);
+// FlexibilityContentForm is the generated form facade for the `content` @Form section.
+void flexibility_content_form_init(FlexibilityContentForm *self, SpecDocument *doc, const char *path);
+void flexibility_content_form_free(FlexibilityContentForm *self);
+char *flexibility_content_form_component_architecture(const FlexibilityContentForm *self);
+void flexibility_content_form_set_component_architecture(FlexibilityContentForm *self, const char *value);
+char *flexibility_content_form_component_granularity(const FlexibilityContentForm *self);
+void flexibility_content_form_set_component_granularity(FlexibilityContentForm *self, const char *value);
+char *flexibility_content_form_component_replaceability(const FlexibilityContentForm *self);
+void flexibility_content_form_set_component_replaceability(FlexibilityContentForm *self, const char *value);
 
-// FlexibilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-void flexibility_quality_extensibility_content_form_init(FlexibilityQualityExtensibilityContentForm *self, SpecDocument *doc, const char *path);
-void flexibility_quality_extensibility_content_form_free(FlexibilityQualityExtensibilityContentForm *self);
-char *flexibility_quality_extensibility_content_form_extensibility_model(const FlexibilityQualityExtensibilityContentForm *self);
-void flexibility_quality_extensibility_content_form_set_extensibility_model(FlexibilityQualityExtensibilityContentForm *self, const char *value);
-char *flexibility_quality_extensibility_content_form_customization_scope(const FlexibilityQualityExtensibilityContentForm *self);
-void flexibility_quality_extensibility_content_form_set_customization_scope(FlexibilityQualityExtensibilityContentForm *self, const char *value);
-char *flexibility_quality_extensibility_content_form_flexibility_verification(const FlexibilityQualityExtensibilityContentForm *self);
-void flexibility_quality_extensibility_content_form_set_flexibility_verification(FlexibilityQualityExtensibilityContentForm *self, const char *value);
+// FlexibilityDeploymentContentForm is the generated form facade for the `content` @Form section.
+void flexibility_deployment_content_form_init(FlexibilityDeploymentContentForm *self, SpecDocument *doc, const char *path);
+void flexibility_deployment_content_form_free(FlexibilityDeploymentContentForm *self);
+char *flexibility_deployment_content_form_distribution_capability(const FlexibilityDeploymentContentForm *self);
+void flexibility_deployment_content_form_set_distribution_capability(FlexibilityDeploymentContentForm *self, const char *value);
+char *flexibility_deployment_content_form_multi_tenancy(const FlexibilityDeploymentContentForm *self);
+void flexibility_deployment_content_form_set_multi_tenancy(FlexibilityDeploymentContentForm *self, const char *value);
+char *flexibility_deployment_content_form_configurability_level(const FlexibilityDeploymentContentForm *self);
+void flexibility_deployment_content_form_set_configurability_level(FlexibilityDeploymentContentForm *self, const char *value);
 
-// FlexibilityQualityModularityContentForm is the generated form facade for the `content` @Form section.
-void flexibility_quality_modularity_content_form_init(FlexibilityQualityModularityContentForm *self, SpecDocument *doc, const char *path);
-void flexibility_quality_modularity_content_form_free(FlexibilityQualityModularityContentForm *self);
-char *flexibility_quality_modularity_content_form_modularity_level(const FlexibilityQualityModularityContentForm *self);
-void flexibility_quality_modularity_content_form_set_modularity_level(FlexibilityQualityModularityContentForm *self, const char *value);
-char *flexibility_quality_modularity_content_form_module_independence(const FlexibilityQualityModularityContentForm *self);
-void flexibility_quality_modularity_content_form_set_module_independence(FlexibilityQualityModularityContentForm *self, const char *value);
-char *flexibility_quality_modularity_content_form_module_reusability(const FlexibilityQualityModularityContentForm *self);
-void flexibility_quality_modularity_content_form_set_module_reusability(FlexibilityQualityModularityContentForm *self, const char *value);
+// FlexibilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+void flexibility_extensibility_content_form_init(FlexibilityExtensibilityContentForm *self, SpecDocument *doc, const char *path);
+void flexibility_extensibility_content_form_free(FlexibilityExtensibilityContentForm *self);
+char *flexibility_extensibility_content_form_extensibility_model(const FlexibilityExtensibilityContentForm *self);
+void flexibility_extensibility_content_form_set_extensibility_model(FlexibilityExtensibilityContentForm *self, const char *value);
+char *flexibility_extensibility_content_form_customization_scope(const FlexibilityExtensibilityContentForm *self);
+void flexibility_extensibility_content_form_set_customization_scope(FlexibilityExtensibilityContentForm *self, const char *value);
+char *flexibility_extensibility_content_form_flexibility_verification(const FlexibilityExtensibilityContentForm *self);
+void flexibility_extensibility_content_form_set_flexibility_verification(FlexibilityExtensibilityContentForm *self, const char *value);
+
+// FlexibilityModularityContentForm is the generated form facade for the `content` @Form section.
+void flexibility_modularity_content_form_init(FlexibilityModularityContentForm *self, SpecDocument *doc, const char *path);
+void flexibility_modularity_content_form_free(FlexibilityModularityContentForm *self);
+char *flexibility_modularity_content_form_modularity_level(const FlexibilityModularityContentForm *self);
+void flexibility_modularity_content_form_set_modularity_level(FlexibilityModularityContentForm *self, const char *value);
+char *flexibility_modularity_content_form_module_independence(const FlexibilityModularityContentForm *self);
+void flexibility_modularity_content_form_set_module_independence(FlexibilityModularityContentForm *self, const char *value);
+char *flexibility_modularity_content_form_module_reusability(const FlexibilityModularityContentForm *self);
+void flexibility_modularity_content_form_set_module_reusability(FlexibilityModularityContentForm *self, const char *value);
 
 // FrameworkCompatibilityContentForm is the generated form facade for the `content` @Form section.
 void framework_compatibility_content_form_init(FrameworkCompatibilityContentForm *self, SpecDocument *doc, const char *path);
@@ -46610,27 +46748,27 @@ void function_model_matrix_overview_form_set_primary_access_patterns(FunctionMod
 char *function_model_matrix_overview_form_data_ownership(const FunctionModelMatrixOverviewForm *self);
 void function_model_matrix_overview_form_set_data_ownership(FunctionModelMatrixOverviewForm *self, const char *value);
 
-// FunctionalCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-void functional_completeness_quality_content_form_init(FunctionalCompletenessQualityContentForm *self, SpecDocument *doc, const char *path);
-void functional_completeness_quality_content_form_free(FunctionalCompletenessQualityContentForm *self);
-char *functional_completeness_quality_content_form_feature_coverage_target(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_feature_coverage_target(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_core_workflow_coverage(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_core_workflow_coverage(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_edge_case_handling(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_edge_case_handling(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_scope_prioritization(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_scope_prioritization(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_mvp_definition(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_mvp_definition(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_deferred_feature_handling(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_deferred_feature_handling(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_completeness_verification(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_completeness_verification(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_user_story_tracking(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_user_story_tracking(FunctionalCompletenessQualityContentForm *self, const char *value);
-char *functional_completeness_quality_content_form_gap_analysis_frequency(const FunctionalCompletenessQualityContentForm *self);
-void functional_completeness_quality_content_form_set_gap_analysis_frequency(FunctionalCompletenessQualityContentForm *self, const char *value);
+// FunctionalCompletenessContentForm is the generated form facade for the `content` @Form section.
+void functional_completeness_content_form_init(FunctionalCompletenessContentForm *self, SpecDocument *doc, const char *path);
+void functional_completeness_content_form_free(FunctionalCompletenessContentForm *self);
+char *functional_completeness_content_form_feature_coverage_target(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_feature_coverage_target(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_core_workflow_coverage(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_core_workflow_coverage(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_edge_case_handling(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_edge_case_handling(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_scope_prioritization(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_scope_prioritization(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_mvp_definition(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_mvp_definition(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_deferred_feature_handling(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_deferred_feature_handling(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_completeness_verification(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_completeness_verification(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_user_story_tracking(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_user_story_tracking(FunctionalCompletenessContentForm *self, const char *value);
+char *functional_completeness_content_form_gap_analysis_frequency(const FunctionalCompletenessContentForm *self);
+void functional_completeness_content_form_set_gap_analysis_frequency(FunctionalCompletenessContentForm *self, const char *value);
 
 // FunctionalRequirementEntryConstraintsContentForm is the generated form facade for the `content` @Form section.
 void functional_requirement_entry_constraints_content_form_init(FunctionalRequirementEntryConstraintsContentForm *self, SpecDocument *doc, const char *path);
@@ -46735,6 +46873,16 @@ char *functional_responsibilities_content_form_total_function_count(const Functi
 void functional_responsibilities_content_form_set_total_function_count(FunctionalResponsibilitiesContentForm *self, const char *value);
 char *functional_responsibilities_content_form_unassigned_areas(const FunctionalResponsibilitiesContentForm *self);
 void functional_responsibilities_content_form_set_unassigned_areas(FunctionalResponsibilitiesContentForm *self, const char *value);
+
+// FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm is the generated form facade for the `functionalSuitabilityContent` @Form section.
+void functional_suitability_characteristic_functional_suitability_content_form_init(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, SpecDocument *doc, const char *path);
+void functional_suitability_characteristic_functional_suitability_content_form_free(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self);
+char *functional_suitability_characteristic_functional_suitability_content_form_functional_suitability_approach(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self);
+void functional_suitability_characteristic_functional_suitability_content_form_set_functional_suitability_approach(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value);
+char *functional_suitability_characteristic_functional_suitability_content_form_functional_coverage_target(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self);
+void functional_suitability_characteristic_functional_suitability_content_form_set_functional_coverage_target(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value);
+char *functional_suitability_characteristic_functional_suitability_content_form_correctness_standard(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self);
+void functional_suitability_characteristic_functional_suitability_content_form_set_correctness_standard(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value);
 
 // GapEntryContentForm is the generated form facade for the `content` @Form section.
 void gap_entry_content_form_init(GapEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -48200,6 +48348,22 @@ void interaction_business_rules_content_form_set_notification_rules(InteractionB
 char *interaction_business_rules_content_form_integration_rules(const InteractionBusinessRulesContentForm *self);
 void interaction_business_rules_content_form_set_integration_rules(InteractionBusinessRulesContentForm *self, const char *value);
 
+// InteractionCapabilityCharacteristicInteractionCapabilityContentForm is the generated form facade for the `interactionCapabilityContent` @Form section.
+void interaction_capability_characteristic_interaction_capability_content_form_init(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, SpecDocument *doc, const char *path);
+void interaction_capability_characteristic_interaction_capability_content_form_free(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+char *interaction_capability_characteristic_interaction_capability_content_form_user_quality_philosophy(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_quality_philosophy(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+char *interaction_capability_characteristic_interaction_capability_content_form_target_user_experience(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_target_user_experience(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+char *interaction_capability_characteristic_interaction_capability_content_form_user_research_basis(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_research_basis(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+char *interaction_capability_characteristic_interaction_capability_content_form_user_feedback_channel(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_feedback_channel(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+char *interaction_capability_characteristic_interaction_capability_content_form_user_satisfaction_target(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_satisfaction_target(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+char *interaction_capability_characteristic_interaction_capability_content_form_accessibility_level(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self);
+void interaction_capability_characteristic_interaction_capability_content_form_set_accessibility_level(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value);
+
 // InteractionCatalogOverviewContentForm is the generated form facade for the `content` @Form section.
 void interaction_catalog_overview_content_form_init(InteractionCatalogOverviewContentForm *self, SpecDocument *doc, const char *path);
 void interaction_catalog_overview_content_form_free(InteractionCatalogOverviewContentForm *self);
@@ -49002,61 +49166,61 @@ void it_landscape_position_position_details_form_set_data_ownership(ItLandscapeP
 char *it_landscape_position_position_details_form_integration_pattern(const ItLandscapePositionPositionDetailsForm *self);
 void it_landscape_position_position_details_form_set_integration_pattern(ItLandscapePositionPositionDetailsForm *self, const char *value);
 
-// ItSecurityOperationsQualityAccessContentForm is the generated form facade for the `content` @Form section.
-void it_security_operations_quality_access_content_form_init(ItSecurityOperationsQualityAccessContentForm *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_access_content_form_free(ItSecurityOperationsQualityAccessContentForm *self);
-char *it_security_operations_quality_access_content_form_privileged_access_management(const ItSecurityOperationsQualityAccessContentForm *self);
-void it_security_operations_quality_access_content_form_set_privileged_access_management(ItSecurityOperationsQualityAccessContentForm *self, const char *value);
-char *it_security_operations_quality_access_content_form_access_review_frequency(const ItSecurityOperationsQualityAccessContentForm *self);
-void it_security_operations_quality_access_content_form_set_access_review_frequency(ItSecurityOperationsQualityAccessContentForm *self, const char *value);
-char *it_security_operations_quality_access_content_form_access_audit_logging(const ItSecurityOperationsQualityAccessContentForm *self);
-void it_security_operations_quality_access_content_form_set_access_audit_logging(ItSecurityOperationsQualityAccessContentForm *self, const char *value);
+// ItSecurityOperationsAccessContentForm is the generated form facade for the `content` @Form section.
+void it_security_operations_access_content_form_init(ItSecurityOperationsAccessContentForm *self, SpecDocument *doc, const char *path);
+void it_security_operations_access_content_form_free(ItSecurityOperationsAccessContentForm *self);
+char *it_security_operations_access_content_form_privileged_access_management(const ItSecurityOperationsAccessContentForm *self);
+void it_security_operations_access_content_form_set_privileged_access_management(ItSecurityOperationsAccessContentForm *self, const char *value);
+char *it_security_operations_access_content_form_access_review_frequency(const ItSecurityOperationsAccessContentForm *self);
+void it_security_operations_access_content_form_set_access_review_frequency(ItSecurityOperationsAccessContentForm *self, const char *value);
+char *it_security_operations_access_content_form_access_audit_logging(const ItSecurityOperationsAccessContentForm *self);
+void it_security_operations_access_content_form_set_access_audit_logging(ItSecurityOperationsAccessContentForm *self, const char *value);
 
-// ItSecurityOperationsQualityContentForm is the generated form facade for the `content` @Form section.
-void it_security_operations_quality_content_form_init(ItSecurityOperationsQualityContentForm *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_content_form_free(ItSecurityOperationsQualityContentForm *self);
-char *it_security_operations_quality_content_form_access_control_model(const ItSecurityOperationsQualityContentForm *self);
-void it_security_operations_quality_content_form_set_access_control_model(ItSecurityOperationsQualityContentForm *self, const char *value);
-char *it_security_operations_quality_content_form_dr_plan_required(const ItSecurityOperationsQualityContentForm *self);
-void it_security_operations_quality_content_form_set_dr_plan_required(ItSecurityOperationsQualityContentForm *self, const char *value);
-char *it_security_operations_quality_content_form_incident_response_plan(const ItSecurityOperationsQualityContentForm *self);
-void it_security_operations_quality_content_form_set_incident_response_plan(ItSecurityOperationsQualityContentForm *self, const char *value);
+// ItSecurityOperationsContentForm is the generated form facade for the `content` @Form section.
+void it_security_operations_content_form_init(ItSecurityOperationsContentForm *self, SpecDocument *doc, const char *path);
+void it_security_operations_content_form_free(ItSecurityOperationsContentForm *self);
+char *it_security_operations_content_form_access_control_model(const ItSecurityOperationsContentForm *self);
+void it_security_operations_content_form_set_access_control_model(ItSecurityOperationsContentForm *self, const char *value);
+char *it_security_operations_content_form_dr_plan_required(const ItSecurityOperationsContentForm *self);
+void it_security_operations_content_form_set_dr_plan_required(ItSecurityOperationsContentForm *self, const char *value);
+char *it_security_operations_content_form_incident_response_plan(const ItSecurityOperationsContentForm *self);
+void it_security_operations_content_form_set_incident_response_plan(ItSecurityOperationsContentForm *self, const char *value);
 
-// ItSecurityOperationsQualityIncidentContentForm is the generated form facade for the `content` @Form section.
-void it_security_operations_quality_incident_content_form_init(ItSecurityOperationsQualityIncidentContentForm *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_incident_content_form_free(ItSecurityOperationsQualityIncidentContentForm *self);
-char *it_security_operations_quality_incident_content_form_security_incident_classification(const ItSecurityOperationsQualityIncidentContentForm *self);
-void it_security_operations_quality_incident_content_form_set_security_incident_classification(ItSecurityOperationsQualityIncidentContentForm *self, const char *value);
-char *it_security_operations_quality_incident_content_form_security_incident_notification(const ItSecurityOperationsQualityIncidentContentForm *self);
-void it_security_operations_quality_incident_content_form_set_security_incident_notification(ItSecurityOperationsQualityIncidentContentForm *self, const char *value);
-char *it_security_operations_quality_incident_content_form_forensics_capability(const ItSecurityOperationsQualityIncidentContentForm *self);
-void it_security_operations_quality_incident_content_form_set_forensics_capability(ItSecurityOperationsQualityIncidentContentForm *self, const char *value);
-char *it_security_operations_quality_incident_content_form_regulatory_reporting(const ItSecurityOperationsQualityIncidentContentForm *self);
-void it_security_operations_quality_incident_content_form_set_regulatory_reporting(ItSecurityOperationsQualityIncidentContentForm *self, const char *value);
+// ItSecurityOperationsIncidentContentForm is the generated form facade for the `content` @Form section.
+void it_security_operations_incident_content_form_init(ItSecurityOperationsIncidentContentForm *self, SpecDocument *doc, const char *path);
+void it_security_operations_incident_content_form_free(ItSecurityOperationsIncidentContentForm *self);
+char *it_security_operations_incident_content_form_security_incident_classification(const ItSecurityOperationsIncidentContentForm *self);
+void it_security_operations_incident_content_form_set_security_incident_classification(ItSecurityOperationsIncidentContentForm *self, const char *value);
+char *it_security_operations_incident_content_form_security_incident_notification(const ItSecurityOperationsIncidentContentForm *self);
+void it_security_operations_incident_content_form_set_security_incident_notification(ItSecurityOperationsIncidentContentForm *self, const char *value);
+char *it_security_operations_incident_content_form_forensics_capability(const ItSecurityOperationsIncidentContentForm *self);
+void it_security_operations_incident_content_form_set_forensics_capability(ItSecurityOperationsIncidentContentForm *self, const char *value);
+char *it_security_operations_incident_content_form_regulatory_reporting(const ItSecurityOperationsIncidentContentForm *self);
+void it_security_operations_incident_content_form_set_regulatory_reporting(ItSecurityOperationsIncidentContentForm *self, const char *value);
 
-// ItSecurityOperationsQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-void it_security_operations_quality_recovery_content_form_init(ItSecurityOperationsQualityRecoveryContentForm *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_recovery_content_form_free(ItSecurityOperationsQualityRecoveryContentForm *self);
-char *it_security_operations_quality_recovery_content_form_dr_testing_frequency(const ItSecurityOperationsQualityRecoveryContentForm *self);
-void it_security_operations_quality_recovery_content_form_set_dr_testing_frequency(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value);
-char *it_security_operations_quality_recovery_content_form_dr_recovery_targets(const ItSecurityOperationsQualityRecoveryContentForm *self);
-void it_security_operations_quality_recovery_content_form_set_dr_recovery_targets(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value);
-char *it_security_operations_quality_recovery_content_form_dr_data_center_strategy(const ItSecurityOperationsQualityRecoveryContentForm *self);
-void it_security_operations_quality_recovery_content_form_set_dr_data_center_strategy(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value);
-char *it_security_operations_quality_recovery_content_form_dr_communication_plan(const ItSecurityOperationsQualityRecoveryContentForm *self);
-void it_security_operations_quality_recovery_content_form_set_dr_communication_plan(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value);
+// ItSecurityOperationsRecoveryContentForm is the generated form facade for the `content` @Form section.
+void it_security_operations_recovery_content_form_init(ItSecurityOperationsRecoveryContentForm *self, SpecDocument *doc, const char *path);
+void it_security_operations_recovery_content_form_free(ItSecurityOperationsRecoveryContentForm *self);
+char *it_security_operations_recovery_content_form_dr_testing_frequency(const ItSecurityOperationsRecoveryContentForm *self);
+void it_security_operations_recovery_content_form_set_dr_testing_frequency(ItSecurityOperationsRecoveryContentForm *self, const char *value);
+char *it_security_operations_recovery_content_form_dr_recovery_targets(const ItSecurityOperationsRecoveryContentForm *self);
+void it_security_operations_recovery_content_form_set_dr_recovery_targets(ItSecurityOperationsRecoveryContentForm *self, const char *value);
+char *it_security_operations_recovery_content_form_dr_data_center_strategy(const ItSecurityOperationsRecoveryContentForm *self);
+void it_security_operations_recovery_content_form_set_dr_data_center_strategy(ItSecurityOperationsRecoveryContentForm *self, const char *value);
+char *it_security_operations_recovery_content_form_dr_communication_plan(const ItSecurityOperationsRecoveryContentForm *self);
+void it_security_operations_recovery_content_form_set_dr_communication_plan(ItSecurityOperationsRecoveryContentForm *self, const char *value);
 
-// ItSecurityOperationsQualityTestingContentForm is the generated form facade for the `content` @Form section.
-void it_security_operations_quality_testing_content_form_init(ItSecurityOperationsQualityTestingContentForm *self, SpecDocument *doc, const char *path);
-void it_security_operations_quality_testing_content_form_free(ItSecurityOperationsQualityTestingContentForm *self);
-char *it_security_operations_quality_testing_content_form_penetration_test_scope(const ItSecurityOperationsQualityTestingContentForm *self);
-void it_security_operations_quality_testing_content_form_set_penetration_test_scope(ItSecurityOperationsQualityTestingContentForm *self, const char *value);
-char *it_security_operations_quality_testing_content_form_penetration_test_frequency(const ItSecurityOperationsQualityTestingContentForm *self);
-void it_security_operations_quality_testing_content_form_set_penetration_test_frequency(ItSecurityOperationsQualityTestingContentForm *self, const char *value);
-char *it_security_operations_quality_testing_content_form_vulnerability_sla_resolution(const ItSecurityOperationsQualityTestingContentForm *self);
-void it_security_operations_quality_testing_content_form_set_vulnerability_sla_resolution(ItSecurityOperationsQualityTestingContentForm *self, const char *value);
-char *it_security_operations_quality_testing_content_form_bug_bounty_program(const ItSecurityOperationsQualityTestingContentForm *self);
-void it_security_operations_quality_testing_content_form_set_bug_bounty_program(ItSecurityOperationsQualityTestingContentForm *self, const char *value);
+// ItSecurityOperationsTestingContentForm is the generated form facade for the `content` @Form section.
+void it_security_operations_testing_content_form_init(ItSecurityOperationsTestingContentForm *self, SpecDocument *doc, const char *path);
+void it_security_operations_testing_content_form_free(ItSecurityOperationsTestingContentForm *self);
+char *it_security_operations_testing_content_form_penetration_test_scope(const ItSecurityOperationsTestingContentForm *self);
+void it_security_operations_testing_content_form_set_penetration_test_scope(ItSecurityOperationsTestingContentForm *self, const char *value);
+char *it_security_operations_testing_content_form_penetration_test_frequency(const ItSecurityOperationsTestingContentForm *self);
+void it_security_operations_testing_content_form_set_penetration_test_frequency(ItSecurityOperationsTestingContentForm *self, const char *value);
+char *it_security_operations_testing_content_form_vulnerability_sla_resolution(const ItSecurityOperationsTestingContentForm *self);
+void it_security_operations_testing_content_form_set_vulnerability_sla_resolution(ItSecurityOperationsTestingContentForm *self, const char *value);
+char *it_security_operations_testing_content_form_bug_bounty_program(const ItSecurityOperationsTestingContentForm *self);
+void it_security_operations_testing_content_form_set_bug_bounty_program(ItSecurityOperationsTestingContentForm *self, const char *value);
 
 // ItStandardComplianceEntryContentForm is the generated form facade for the `content` @Form section.
 void it_standard_compliance_entry_content_form_init(ItStandardComplianceEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -49926,57 +50090,65 @@ void main_success_scenario_content_form_set_estimated_duration(MainSuccessScenar
 char *main_success_scenario_content_form_step_count(const MainSuccessScenarioContentForm *self);
 void main_success_scenario_content_form_set_step_count(MainSuccessScenarioContentForm *self, const char *value);
 
-// MaintainabilityQualityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
-void maintainability_quality_analyzability_content_form_init(MaintainabilityQualityAnalyzabilityContentForm *self, SpecDocument *doc, const char *path);
-void maintainability_quality_analyzability_content_form_free(MaintainabilityQualityAnalyzabilityContentForm *self);
-char *maintainability_quality_analyzability_content_form_code_readability_standard(const MaintainabilityQualityAnalyzabilityContentForm *self);
-void maintainability_quality_analyzability_content_form_set_code_readability_standard(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value);
-char *maintainability_quality_analyzability_content_form_documentation_requirement(const MaintainabilityQualityAnalyzabilityContentForm *self);
-void maintainability_quality_analyzability_content_form_set_documentation_requirement(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value);
-char *maintainability_quality_analyzability_content_form_logging_standard(const MaintainabilityQualityAnalyzabilityContentForm *self);
-void maintainability_quality_analyzability_content_form_set_logging_standard(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value);
+// MaintainabilityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
+void maintainability_analyzability_content_form_init(MaintainabilityAnalyzabilityContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_analyzability_content_form_free(MaintainabilityAnalyzabilityContentForm *self);
+char *maintainability_analyzability_content_form_code_readability_standard(const MaintainabilityAnalyzabilityContentForm *self);
+void maintainability_analyzability_content_form_set_code_readability_standard(MaintainabilityAnalyzabilityContentForm *self, const char *value);
+char *maintainability_analyzability_content_form_documentation_requirement(const MaintainabilityAnalyzabilityContentForm *self);
+void maintainability_analyzability_content_form_set_documentation_requirement(MaintainabilityAnalyzabilityContentForm *self, const char *value);
+char *maintainability_analyzability_content_form_logging_standard(const MaintainabilityAnalyzabilityContentForm *self);
+void maintainability_analyzability_content_form_set_logging_standard(MaintainabilityAnalyzabilityContentForm *self, const char *value);
 
-// MaintainabilityQualityChangeabilityContentForm is the generated form facade for the `content` @Form section.
-void maintainability_quality_changeability_content_form_init(MaintainabilityQualityChangeabilityContentForm *self, SpecDocument *doc, const char *path);
-void maintainability_quality_changeability_content_form_free(MaintainabilityQualityChangeabilityContentForm *self);
-char *maintainability_quality_changeability_content_form_code_coverage_minimum(const MaintainabilityQualityChangeabilityContentForm *self);
-void maintainability_quality_changeability_content_form_set_code_coverage_minimum(MaintainabilityQualityChangeabilityContentForm *self, const char *value);
-char *maintainability_quality_changeability_content_form_cyclomatic_complexity_limit(const MaintainabilityQualityChangeabilityContentForm *self);
-void maintainability_quality_changeability_content_form_set_cyclomatic_complexity_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value);
-char *maintainability_quality_changeability_content_form_method_length_limit(const MaintainabilityQualityChangeabilityContentForm *self);
-void maintainability_quality_changeability_content_form_set_method_length_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value);
-char *maintainability_quality_changeability_content_form_class_length_limit(const MaintainabilityQualityChangeabilityContentForm *self);
-void maintainability_quality_changeability_content_form_set_class_length_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value);
+// MaintainabilityChangeabilityContentForm is the generated form facade for the `content` @Form section.
+void maintainability_changeability_content_form_init(MaintainabilityChangeabilityContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_changeability_content_form_free(MaintainabilityChangeabilityContentForm *self);
+char *maintainability_changeability_content_form_code_coverage_minimum(const MaintainabilityChangeabilityContentForm *self);
+void maintainability_changeability_content_form_set_code_coverage_minimum(MaintainabilityChangeabilityContentForm *self, const char *value);
+char *maintainability_changeability_content_form_cyclomatic_complexity_limit(const MaintainabilityChangeabilityContentForm *self);
+void maintainability_changeability_content_form_set_cyclomatic_complexity_limit(MaintainabilityChangeabilityContentForm *self, const char *value);
+char *maintainability_changeability_content_form_method_length_limit(const MaintainabilityChangeabilityContentForm *self);
+void maintainability_changeability_content_form_set_method_length_limit(MaintainabilityChangeabilityContentForm *self, const char *value);
+char *maintainability_changeability_content_form_class_length_limit(const MaintainabilityChangeabilityContentForm *self);
+void maintainability_changeability_content_form_set_class_length_limit(MaintainabilityChangeabilityContentForm *self, const char *value);
 
-// MaintainabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void maintainability_quality_content_form_init(MaintainabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void maintainability_quality_content_form_free(MaintainabilityQualityContentForm *self);
-char *maintainability_quality_content_form_adaptability_target(const MaintainabilityQualityContentForm *self);
-void maintainability_quality_content_form_set_adaptability_target(MaintainabilityQualityContentForm *self, const char *value);
-char *maintainability_quality_content_form_change_impact_limit(const MaintainabilityQualityContentForm *self);
-void maintainability_quality_content_form_set_change_impact_limit(MaintainabilityQualityContentForm *self, const char *value);
+// MaintainabilityCharacteristicMaintainabilityContentForm is the generated form facade for the `maintainabilityContent` @Form section.
+void maintainability_characteristic_maintainability_content_form_init(MaintainabilityCharacteristicMaintainabilityContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_characteristic_maintainability_content_form_free(MaintainabilityCharacteristicMaintainabilityContentForm *self);
+char *maintainability_characteristic_maintainability_content_form_maintainability_approach(const MaintainabilityCharacteristicMaintainabilityContentForm *self);
+void maintainability_characteristic_maintainability_content_form_set_maintainability_approach(MaintainabilityCharacteristicMaintainabilityContentForm *self, const char *value);
+char *maintainability_characteristic_maintainability_content_form_maintainability_standard(const MaintainabilityCharacteristicMaintainabilityContentForm *self);
+void maintainability_characteristic_maintainability_content_form_set_maintainability_standard(MaintainabilityCharacteristicMaintainabilityContentForm *self, const char *value);
 
-// MaintainabilityQualityGovernanceContentForm is the generated form facade for the `content` @Form section.
-void maintainability_quality_governance_content_form_init(MaintainabilityQualityGovernanceContentForm *self, SpecDocument *doc, const char *path);
-void maintainability_quality_governance_content_form_free(MaintainabilityQualityGovernanceContentForm *self);
-char *maintainability_quality_governance_content_form_extensibility_pattern(const MaintainabilityQualityGovernanceContentForm *self);
-void maintainability_quality_governance_content_form_set_extensibility_pattern(MaintainabilityQualityGovernanceContentForm *self, const char *value);
-char *maintainability_quality_governance_content_form_api_versioning_strategy(const MaintainabilityQualityGovernanceContentForm *self);
-void maintainability_quality_governance_content_form_set_api_versioning_strategy(MaintainabilityQualityGovernanceContentForm *self, const char *value);
-char *maintainability_quality_governance_content_form_maintainability_verification(const MaintainabilityQualityGovernanceContentForm *self);
-void maintainability_quality_governance_content_form_set_maintainability_verification(MaintainabilityQualityGovernanceContentForm *self, const char *value);
-char *maintainability_quality_governance_content_form_technical_debt_tracking(const MaintainabilityQualityGovernanceContentForm *self);
-void maintainability_quality_governance_content_form_set_technical_debt_tracking(MaintainabilityQualityGovernanceContentForm *self, const char *value);
+// MaintainabilityContentForm is the generated form facade for the `content` @Form section.
+void maintainability_content_form_init(MaintainabilityContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_content_form_free(MaintainabilityContentForm *self);
+char *maintainability_content_form_adaptability_target(const MaintainabilityContentForm *self);
+void maintainability_content_form_set_adaptability_target(MaintainabilityContentForm *self, const char *value);
+char *maintainability_content_form_change_impact_limit(const MaintainabilityContentForm *self);
+void maintainability_content_form_set_change_impact_limit(MaintainabilityContentForm *self, const char *value);
 
-// MaintainabilityQualityTestabilityContentForm is the generated form facade for the `content` @Form section.
-void maintainability_quality_testability_content_form_init(MaintainabilityQualityTestabilityContentForm *self, SpecDocument *doc, const char *path);
-void maintainability_quality_testability_content_form_free(MaintainabilityQualityTestabilityContentForm *self);
-char *maintainability_quality_testability_content_form_testability_design(const MaintainabilityQualityTestabilityContentForm *self);
-void maintainability_quality_testability_content_form_set_testability_design(MaintainabilityQualityTestabilityContentForm *self, const char *value);
-char *maintainability_quality_testability_content_form_test_pyramid_ratio(const MaintainabilityQualityTestabilityContentForm *self);
-void maintainability_quality_testability_content_form_set_test_pyramid_ratio(MaintainabilityQualityTestabilityContentForm *self, const char *value);
-char *maintainability_quality_testability_content_form_test_data_management(const MaintainabilityQualityTestabilityContentForm *self);
-void maintainability_quality_testability_content_form_set_test_data_management(MaintainabilityQualityTestabilityContentForm *self, const char *value);
+// MaintainabilityGovernanceContentForm is the generated form facade for the `content` @Form section.
+void maintainability_governance_content_form_init(MaintainabilityGovernanceContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_governance_content_form_free(MaintainabilityGovernanceContentForm *self);
+char *maintainability_governance_content_form_extensibility_pattern(const MaintainabilityGovernanceContentForm *self);
+void maintainability_governance_content_form_set_extensibility_pattern(MaintainabilityGovernanceContentForm *self, const char *value);
+char *maintainability_governance_content_form_api_versioning_strategy(const MaintainabilityGovernanceContentForm *self);
+void maintainability_governance_content_form_set_api_versioning_strategy(MaintainabilityGovernanceContentForm *self, const char *value);
+char *maintainability_governance_content_form_maintainability_verification(const MaintainabilityGovernanceContentForm *self);
+void maintainability_governance_content_form_set_maintainability_verification(MaintainabilityGovernanceContentForm *self, const char *value);
+char *maintainability_governance_content_form_technical_debt_tracking(const MaintainabilityGovernanceContentForm *self);
+void maintainability_governance_content_form_set_technical_debt_tracking(MaintainabilityGovernanceContentForm *self, const char *value);
+
+// MaintainabilityTestabilityContentForm is the generated form facade for the `content` @Form section.
+void maintainability_testability_content_form_init(MaintainabilityTestabilityContentForm *self, SpecDocument *doc, const char *path);
+void maintainability_testability_content_form_free(MaintainabilityTestabilityContentForm *self);
+char *maintainability_testability_content_form_testability_design(const MaintainabilityTestabilityContentForm *self);
+void maintainability_testability_content_form_set_testability_design(MaintainabilityTestabilityContentForm *self, const char *value);
+char *maintainability_testability_content_form_test_pyramid_ratio(const MaintainabilityTestabilityContentForm *self);
+void maintainability_testability_content_form_set_test_pyramid_ratio(MaintainabilityTestabilityContentForm *self, const char *value);
+char *maintainability_testability_content_form_test_data_management(const MaintainabilityTestabilityContentForm *self);
+void maintainability_testability_content_form_set_test_data_management(MaintainabilityTestabilityContentForm *self, const char *value);
 
 // MaintenanceChangeManagementAuditContentForm is the generated form facade for the `content` @Form section.
 void maintenance_change_management_audit_content_form_init(MaintenanceChangeManagementAuditContentForm *self, SpecDocument *doc, const char *path);
@@ -51426,6 +51598,40 @@ void module_versioning_strategy_release_management_content_form_set_pre_release_
 char *module_versioning_strategy_release_management_content_form_release_notes(const ModuleVersioningStrategyReleaseManagementContentForm *self);
 void module_versioning_strategy_release_management_content_form_set_release_notes(ModuleVersioningStrategyReleaseManagementContentForm *self, const char *value);
 
+// MonitoringAlertingContentForm is the generated form facade for the `content` @Form section.
+void monitoring_alerting_content_form_init(MonitoringAlertingContentForm *self, SpecDocument *doc, const char *path);
+void monitoring_alerting_content_form_free(MonitoringAlertingContentForm *self);
+char *monitoring_alerting_content_form_alerting_strategy(const MonitoringAlertingContentForm *self);
+void monitoring_alerting_content_form_set_alerting_strategy(MonitoringAlertingContentForm *self, const char *value);
+char *monitoring_alerting_content_form_alert_prioritization(const MonitoringAlertingContentForm *self);
+void monitoring_alerting_content_form_set_alert_prioritization(MonitoringAlertingContentForm *self, const char *value);
+char *monitoring_alerting_content_form_alert_notification_channels(const MonitoringAlertingContentForm *self);
+void monitoring_alerting_content_form_set_alert_notification_channels(MonitoringAlertingContentForm *self, const char *value);
+char *monitoring_alerting_content_form_alert_fatigue_prevention(const MonitoringAlertingContentForm *self);
+void monitoring_alerting_content_form_set_alert_fatigue_prevention(MonitoringAlertingContentForm *self, const char *value);
+
+// MonitoringAutomationContentForm is the generated form facade for the `content` @Form section.
+void monitoring_automation_content_form_init(MonitoringAutomationContentForm *self, SpecDocument *doc, const char *path);
+void monitoring_automation_content_form_free(MonitoringAutomationContentForm *self);
+char *monitoring_automation_content_form_alert_automation(const MonitoringAutomationContentForm *self);
+void monitoring_automation_content_form_set_alert_automation(MonitoringAutomationContentForm *self, const char *value);
+char *monitoring_automation_content_form_self_healing_capability(const MonitoringAutomationContentForm *self);
+void monitoring_automation_content_form_set_self_healing_capability(MonitoringAutomationContentForm *self, const char *value);
+char *monitoring_automation_content_form_runbook_automation(const MonitoringAutomationContentForm *self);
+void monitoring_automation_content_form_set_runbook_automation(MonitoringAutomationContentForm *self, const char *value);
+
+// MonitoringCoverageContentForm is the generated form facade for the `content` @Form section.
+void monitoring_coverage_content_form_init(MonitoringCoverageContentForm *self, SpecDocument *doc, const char *path);
+void monitoring_coverage_content_form_free(MonitoringCoverageContentForm *self);
+char *monitoring_coverage_content_form_infrastructure_monitoring(const MonitoringCoverageContentForm *self);
+void monitoring_coverage_content_form_set_infrastructure_monitoring(MonitoringCoverageContentForm *self, const char *value);
+char *monitoring_coverage_content_form_application_monitoring(const MonitoringCoverageContentForm *self);
+void monitoring_coverage_content_form_set_application_monitoring(MonitoringCoverageContentForm *self, const char *value);
+char *monitoring_coverage_content_form_database_monitoring(const MonitoringCoverageContentForm *self);
+void monitoring_coverage_content_form_set_database_monitoring(MonitoringCoverageContentForm *self, const char *value);
+char *monitoring_coverage_content_form_third_party_monitoring(const MonitoringCoverageContentForm *self);
+void monitoring_coverage_content_form_set_third_party_monitoring(MonitoringCoverageContentForm *self, const char *value);
+
 // MonitoringDashboardsDashboardOverviewForm is the generated form facade for the `dashboardOverview` @Form section.
 void monitoring_dashboards_dashboard_overview_form_init(MonitoringDashboardsDashboardOverviewForm *self, SpecDocument *doc, const char *path);
 void monitoring_dashboards_dashboard_overview_form_free(MonitoringDashboardsDashboardOverviewForm *self);
@@ -51520,63 +51726,19 @@ void monitoring_monitoring_overview_form_set_data_retention(MonitoringMonitoring
 char *monitoring_monitoring_overview_form_cost_budget(const MonitoringMonitoringOverviewForm *self);
 void monitoring_monitoring_overview_form_set_cost_budget(MonitoringMonitoringOverviewForm *self, const char *value);
 
-// MonitoringQualityAlertingContentForm is the generated form facade for the `content` @Form section.
-void monitoring_quality_alerting_content_form_init(MonitoringQualityAlertingContentForm *self, SpecDocument *doc, const char *path);
-void monitoring_quality_alerting_content_form_free(MonitoringQualityAlertingContentForm *self);
-char *monitoring_quality_alerting_content_form_alerting_strategy(const MonitoringQualityAlertingContentForm *self);
-void monitoring_quality_alerting_content_form_set_alerting_strategy(MonitoringQualityAlertingContentForm *self, const char *value);
-char *monitoring_quality_alerting_content_form_alert_prioritization(const MonitoringQualityAlertingContentForm *self);
-void monitoring_quality_alerting_content_form_set_alert_prioritization(MonitoringQualityAlertingContentForm *self, const char *value);
-char *monitoring_quality_alerting_content_form_alert_notification_channels(const MonitoringQualityAlertingContentForm *self);
-void monitoring_quality_alerting_content_form_set_alert_notification_channels(MonitoringQualityAlertingContentForm *self, const char *value);
-char *monitoring_quality_alerting_content_form_alert_fatigue_prevention(const MonitoringQualityAlertingContentForm *self);
-void monitoring_quality_alerting_content_form_set_alert_fatigue_prevention(MonitoringQualityAlertingContentForm *self, const char *value);
-
-// MonitoringQualityAutomationContentForm is the generated form facade for the `content` @Form section.
-void monitoring_quality_automation_content_form_init(MonitoringQualityAutomationContentForm *self, SpecDocument *doc, const char *path);
-void monitoring_quality_automation_content_form_free(MonitoringQualityAutomationContentForm *self);
-char *monitoring_quality_automation_content_form_alert_automation(const MonitoringQualityAutomationContentForm *self);
-void monitoring_quality_automation_content_form_set_alert_automation(MonitoringQualityAutomationContentForm *self, const char *value);
-char *monitoring_quality_automation_content_form_self_healing_capability(const MonitoringQualityAutomationContentForm *self);
-void monitoring_quality_automation_content_form_set_self_healing_capability(MonitoringQualityAutomationContentForm *self, const char *value);
-char *monitoring_quality_automation_content_form_runbook_automation(const MonitoringQualityAutomationContentForm *self);
-void monitoring_quality_automation_content_form_set_runbook_automation(MonitoringQualityAutomationContentForm *self, const char *value);
-
-// MonitoringQualityContentForm is the generated form facade for the `content` @Form section.
-void monitoring_quality_content_form_init(MonitoringQualityContentForm *self, SpecDocument *doc, const char *path);
-void monitoring_quality_content_form_free(MonitoringQualityContentForm *self);
-char *monitoring_quality_content_form_scalability_monitoring_approach(const MonitoringQualityContentForm *self);
-void monitoring_quality_content_form_set_scalability_monitoring_approach(MonitoringQualityContentForm *self, const char *value);
-char *monitoring_quality_content_form_capacity_planning_process(const MonitoringQualityContentForm *self);
-void monitoring_quality_content_form_set_capacity_planning_process(MonitoringQualityContentForm *self, const char *value);
-char *monitoring_quality_content_form_growth_projections(const MonitoringQualityContentForm *self);
-void monitoring_quality_content_form_set_growth_projections(MonitoringQualityContentForm *self, const char *value);
-
-// MonitoringQualityCoverageContentForm is the generated form facade for the `content` @Form section.
-void monitoring_quality_coverage_content_form_init(MonitoringQualityCoverageContentForm *self, SpecDocument *doc, const char *path);
-void monitoring_quality_coverage_content_form_free(MonitoringQualityCoverageContentForm *self);
-char *monitoring_quality_coverage_content_form_infrastructure_monitoring(const MonitoringQualityCoverageContentForm *self);
-void monitoring_quality_coverage_content_form_set_infrastructure_monitoring(MonitoringQualityCoverageContentForm *self, const char *value);
-char *monitoring_quality_coverage_content_form_application_monitoring(const MonitoringQualityCoverageContentForm *self);
-void monitoring_quality_coverage_content_form_set_application_monitoring(MonitoringQualityCoverageContentForm *self, const char *value);
-char *monitoring_quality_coverage_content_form_database_monitoring(const MonitoringQualityCoverageContentForm *self);
-void monitoring_quality_coverage_content_form_set_database_monitoring(MonitoringQualityCoverageContentForm *self, const char *value);
-char *monitoring_quality_coverage_content_form_third_party_monitoring(const MonitoringQualityCoverageContentForm *self);
-void monitoring_quality_coverage_content_form_set_third_party_monitoring(MonitoringQualityCoverageContentForm *self, const char *value);
-
-// MonitoringQualityOperationsContentForm is the generated form facade for the `content` @Form section.
-void monitoring_quality_operations_content_form_init(MonitoringQualityOperationsContentForm *self, SpecDocument *doc, const char *path);
-void monitoring_quality_operations_content_form_free(MonitoringQualityOperationsContentForm *self);
-char *monitoring_quality_operations_content_form_resource_planning_frequency(const MonitoringQualityOperationsContentForm *self);
-void monitoring_quality_operations_content_form_set_resource_planning_frequency(MonitoringQualityOperationsContentForm *self, const char *value);
-char *monitoring_quality_operations_content_form_proactive_maintenance_schedule(const MonitoringQualityOperationsContentForm *self);
-void monitoring_quality_operations_content_form_set_proactive_maintenance_schedule(MonitoringQualityOperationsContentForm *self, const char *value);
-char *monitoring_quality_operations_content_form_observability_pillars(const MonitoringQualityOperationsContentForm *self);
-void monitoring_quality_operations_content_form_set_observability_pillars(MonitoringQualityOperationsContentForm *self, const char *value);
-char *monitoring_quality_operations_content_form_distributed_tracing_requirement(const MonitoringQualityOperationsContentForm *self);
-void monitoring_quality_operations_content_form_set_distributed_tracing_requirement(MonitoringQualityOperationsContentForm *self, const char *value);
-char *monitoring_quality_operations_content_form_log_retention_period(const MonitoringQualityOperationsContentForm *self);
-void monitoring_quality_operations_content_form_set_log_retention_period(MonitoringQualityOperationsContentForm *self, const char *value);
+// MonitoringOperationsContentForm is the generated form facade for the `content` @Form section.
+void monitoring_operations_content_form_init(MonitoringOperationsContentForm *self, SpecDocument *doc, const char *path);
+void monitoring_operations_content_form_free(MonitoringOperationsContentForm *self);
+char *monitoring_operations_content_form_resource_planning_frequency(const MonitoringOperationsContentForm *self);
+void monitoring_operations_content_form_set_resource_planning_frequency(MonitoringOperationsContentForm *self, const char *value);
+char *monitoring_operations_content_form_proactive_maintenance_schedule(const MonitoringOperationsContentForm *self);
+void monitoring_operations_content_form_set_proactive_maintenance_schedule(MonitoringOperationsContentForm *self, const char *value);
+char *monitoring_operations_content_form_observability_pillars(const MonitoringOperationsContentForm *self);
+void monitoring_operations_content_form_set_observability_pillars(MonitoringOperationsContentForm *self, const char *value);
+char *monitoring_operations_content_form_distributed_tracing_requirement(const MonitoringOperationsContentForm *self);
+void monitoring_operations_content_form_set_distributed_tracing_requirement(MonitoringOperationsContentForm *self, const char *value);
+char *monitoring_operations_content_form_log_retention_period(const MonitoringOperationsContentForm *self);
+void monitoring_operations_content_form_set_log_retention_period(MonitoringOperationsContentForm *self, const char *value);
 
 // MoscowAnalysisContentForm is the generated form facade for the `content` @Form section.
 void moscow_analysis_content_form_init(MoscowAnalysisContentForm *self, SpecDocument *doc, const char *path);
@@ -52772,6 +52934,16 @@ void ongoing_training_entry_schedule_content_form_set_format(OngoingTrainingEntr
 char *ongoing_training_entry_schedule_content_form_duration(const OngoingTrainingEntryScheduleContentForm *self);
 void ongoing_training_entry_schedule_content_form_set_duration(OngoingTrainingEntryScheduleContentForm *self, const char *value);
 
+// OperationalMonitoringContentForm is the generated form facade for the `content` @Form section.
+void operational_monitoring_content_form_init(OperationalMonitoringContentForm *self, SpecDocument *doc, const char *path);
+void operational_monitoring_content_form_free(OperationalMonitoringContentForm *self);
+char *operational_monitoring_content_form_scalability_monitoring_approach(const OperationalMonitoringContentForm *self);
+void operational_monitoring_content_form_set_scalability_monitoring_approach(OperationalMonitoringContentForm *self, const char *value);
+char *operational_monitoring_content_form_capacity_planning_process(const OperationalMonitoringContentForm *self);
+void operational_monitoring_content_form_set_capacity_planning_process(OperationalMonitoringContentForm *self, const char *value);
+char *operational_monitoring_content_form_growth_projections(const OperationalMonitoringContentForm *self);
+void operational_monitoring_content_form_set_growth_projections(OperationalMonitoringContentForm *self, const char *value);
+
 // OperationalPainPointsSummaryContentForm is the generated form facade for the `content` @Form section.
 void operational_pain_points_summary_content_form_init(OperationalPainPointsSummaryContentForm *self, SpecDocument *doc, const char *path);
 void operational_pain_points_summary_content_form_free(OperationalPainPointsSummaryContentForm *self);
@@ -52785,22 +52957,6 @@ char *operational_pain_points_summary_content_form_critical_processes_affected(c
 void operational_pain_points_summary_content_form_set_critical_processes_affected(OperationalPainPointsSummaryContentForm *self, const char *value);
 char *operational_pain_points_summary_content_form_staff_overhead(const OperationalPainPointsSummaryContentForm *self);
 void operational_pain_points_summary_content_form_set_staff_overhead(OperationalPainPointsSummaryContentForm *self, const char *value);
-
-// OperationsQualityCriteriaOperationsOverviewContentForm is the generated form facade for the `operationsOverviewContent` @Form section.
-void operations_quality_criteria_operations_overview_content_form_init(OperationsQualityCriteriaOperationsOverviewContentForm *self, SpecDocument *doc, const char *path);
-void operations_quality_criteria_operations_overview_content_form_free(OperationsQualityCriteriaOperationsOverviewContentForm *self);
-char *operations_quality_criteria_operations_overview_content_form_operations_maturity_model(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_operations_maturity_model(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
-char *operations_quality_criteria_operations_overview_content_form_operations_philosophy(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_operations_philosophy(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
-char *operations_quality_criteria_operations_overview_content_form_operations_responsibility(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_operations_responsibility(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
-char *operations_quality_criteria_operations_overview_content_form_incident_management_process(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_incident_management_process(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
-char *operations_quality_criteria_operations_overview_content_form_change_management_process(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_change_management_process(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
-char *operations_quality_criteria_operations_overview_content_form_operations_toolchain(const OperationsQualityCriteriaOperationsOverviewContentForm *self);
-void operations_quality_criteria_operations_overview_content_form_set_operations_toolchain(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value);
 
 // OpportunityStatementOpportunityDetailsForm is the generated form facade for the `opportunityDetails` @Form section.
 void opportunity_statement_opportunity_details_form_init(OpportunityStatementOpportunityDetailsForm *self, SpecDocument *doc, const char *path);
@@ -53518,6 +53674,20 @@ void penetration_testing_requirements_scheduling_content_form_set_retest_require
 char *penetration_testing_requirements_scheduling_content_form_trigger_based_testing(const PenetrationTestingRequirementsSchedulingContentForm *self);
 void penetration_testing_requirements_scheduling_content_form_set_trigger_based_testing(PenetrationTestingRequirementsSchedulingContentForm *self, const char *value);
 
+// PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm is the generated form facade for the `performanceEfficiencyContent` @Form section.
+void performance_efficiency_characteristic_performance_efficiency_content_form_init(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, SpecDocument *doc, const char *path);
+void performance_efficiency_characteristic_performance_efficiency_content_form_free(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+char *performance_efficiency_characteristic_performance_efficiency_content_form_technical_quality_philosophy(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_technical_quality_philosophy(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value);
+char *performance_efficiency_characteristic_performance_efficiency_content_form_architectural_quality_goals(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_architectural_quality_goals(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value);
+char *performance_efficiency_characteristic_performance_efficiency_content_form_technical_debt_tolerance(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_technical_debt_tolerance(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value);
+char *performance_efficiency_characteristic_performance_efficiency_content_form_code_quality_standard(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_code_quality_standard(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value);
+char *performance_efficiency_characteristic_performance_efficiency_content_form_design_principles_adherence(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self);
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_design_principles_adherence(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value);
+
 // PeriodicReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 void periodic_review_policy_content_form_init(PeriodicReviewPolicyContentForm *self, SpecDocument *doc, const char *path);
 void periodic_review_policy_content_form_free(PeriodicReviewPolicyContentForm *self);
@@ -53912,29 +54082,29 @@ void pipeline_stage_entry_trigger_content_form_set_conditions(PipelineStageEntry
 char *pipeline_stage_entry_trigger_content_form_manual_approval(const PipelineStageEntryTriggerContentForm *self);
 void pipeline_stage_entry_trigger_content_form_set_manual_approval(PipelineStageEntryTriggerContentForm *self, const char *value);
 
-// PortabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void portability_quality_content_form_init(PortabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void portability_quality_content_form_free(PortabilityQualityContentForm *self);
-char *portability_quality_content_form_target_platforms(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_target_platforms(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_browser_support(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_browser_support(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_mobile_os_versions(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_mobile_os_versions(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_desktop_os_versions(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_desktop_os_versions(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_migration_effort_constraint(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_migration_effort_constraint(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_data_portability(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_data_portability(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_vendor_lock_in_avoidance(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_vendor_lock_in_avoidance(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_containerization_requirement(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_containerization_requirement(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_infrastructure_as_code(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_infrastructure_as_code(PortabilityQualityContentForm *self, const char *value);
-char *portability_quality_content_form_portability_verification(const PortabilityQualityContentForm *self);
-void portability_quality_content_form_set_portability_verification(PortabilityQualityContentForm *self, const char *value);
+// PortabilityContentForm is the generated form facade for the `content` @Form section.
+void portability_content_form_init(PortabilityContentForm *self, SpecDocument *doc, const char *path);
+void portability_content_form_free(PortabilityContentForm *self);
+char *portability_content_form_target_platforms(const PortabilityContentForm *self);
+void portability_content_form_set_target_platforms(PortabilityContentForm *self, const char *value);
+char *portability_content_form_browser_support(const PortabilityContentForm *self);
+void portability_content_form_set_browser_support(PortabilityContentForm *self, const char *value);
+char *portability_content_form_mobile_os_versions(const PortabilityContentForm *self);
+void portability_content_form_set_mobile_os_versions(PortabilityContentForm *self, const char *value);
+char *portability_content_form_desktop_os_versions(const PortabilityContentForm *self);
+void portability_content_form_set_desktop_os_versions(PortabilityContentForm *self, const char *value);
+char *portability_content_form_migration_effort_constraint(const PortabilityContentForm *self);
+void portability_content_form_set_migration_effort_constraint(PortabilityContentForm *self, const char *value);
+char *portability_content_form_data_portability(const PortabilityContentForm *self);
+void portability_content_form_set_data_portability(PortabilityContentForm *self, const char *value);
+char *portability_content_form_vendor_lock_in_avoidance(const PortabilityContentForm *self);
+void portability_content_form_set_vendor_lock_in_avoidance(PortabilityContentForm *self, const char *value);
+char *portability_content_form_containerization_requirement(const PortabilityContentForm *self);
+void portability_content_form_set_containerization_requirement(PortabilityContentForm *self, const char *value);
+char *portability_content_form_infrastructure_as_code(const PortabilityContentForm *self);
+void portability_content_form_set_infrastructure_as_code(PortabilityContentForm *self, const char *value);
+char *portability_content_form_portability_verification(const PortabilityContentForm *self);
+void portability_content_form_set_portability_verification(PortabilityContentForm *self, const char *value);
 
 // PostMaintenanceValidationClosureContentForm is the generated form facade for the `content` @Form section.
 void post_maintenance_validation_closure_content_form_init(PostMaintenanceValidationClosureContentForm *self, SpecDocument *doc, const char *path);
@@ -55746,6 +55916,54 @@ void quality_gate_checklist_checklist_overview_content_form_set_checklist_signof
 char *quality_gate_checklist_checklist_overview_content_form_checklist_frequency(const QualityGateChecklistChecklistOverviewContentForm *self);
 void quality_gate_checklist_checklist_overview_content_form_set_checklist_frequency(QualityGateChecklistChecklistOverviewContentForm *self, const char *value);
 
+// QualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
+void quality_goals_baseline_content_form_init(QualityGoalsBaselineContentForm *self, SpecDocument *doc, const char *path);
+void quality_goals_baseline_content_form_free(QualityGoalsBaselineContentForm *self);
+char *quality_goals_baseline_content_form_quality_baseline_date(const QualityGoalsBaselineContentForm *self);
+void quality_goals_baseline_content_form_set_quality_baseline_date(QualityGoalsBaselineContentForm *self, const char *value);
+char *quality_goals_baseline_content_form_quality_baseline_version(const QualityGoalsBaselineContentForm *self);
+void quality_goals_baseline_content_form_set_quality_baseline_version(QualityGoalsBaselineContentForm *self, const char *value);
+char *quality_goals_baseline_content_form_overall_quality_target_level(const QualityGoalsBaselineContentForm *self);
+void quality_goals_baseline_content_form_set_overall_quality_target_level(QualityGoalsBaselineContentForm *self, const char *value);
+char *quality_goals_baseline_content_form_quality_risk_tolerance(const QualityGoalsBaselineContentForm *self);
+void quality_goals_baseline_content_form_set_quality_risk_tolerance(QualityGoalsBaselineContentForm *self, const char *value);
+
+// QualityGoalsGovernanceContentForm is the generated form facade for the `content` @Form section.
+void quality_goals_governance_content_form_init(QualityGoalsGovernanceContentForm *self, SpecDocument *doc, const char *path);
+void quality_goals_governance_content_form_free(QualityGoalsGovernanceContentForm *self);
+char *quality_goals_governance_content_form_quality_review_board(const QualityGoalsGovernanceContentForm *self);
+void quality_goals_governance_content_form_set_quality_review_board(QualityGoalsGovernanceContentForm *self, const char *value);
+char *quality_goals_governance_content_form_quality_meeting_cadence(const QualityGoalsGovernanceContentForm *self);
+void quality_goals_governance_content_form_set_quality_meeting_cadence(QualityGoalsGovernanceContentForm *self, const char *value);
+char *quality_goals_governance_content_form_quality_escalation_path(const QualityGoalsGovernanceContentForm *self);
+void quality_goals_governance_content_form_set_quality_escalation_path(QualityGoalsGovernanceContentForm *self, const char *value);
+
+// QualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
+void quality_goals_measurement_content_form_init(QualityGoalsMeasurementContentForm *self, SpecDocument *doc, const char *path);
+void quality_goals_measurement_content_form_free(QualityGoalsMeasurementContentForm *self);
+char *quality_goals_measurement_content_form_quality_metrics_framework(const QualityGoalsMeasurementContentForm *self);
+void quality_goals_measurement_content_form_set_quality_metrics_framework(QualityGoalsMeasurementContentForm *self, const char *value);
+char *quality_goals_measurement_content_form_quality_reporting_frequency(const QualityGoalsMeasurementContentForm *self);
+void quality_goals_measurement_content_form_set_quality_reporting_frequency(QualityGoalsMeasurementContentForm *self, const char *value);
+char *quality_goals_measurement_content_form_quality_dashboard_tool(const QualityGoalsMeasurementContentForm *self);
+void quality_goals_measurement_content_form_set_quality_dashboard_tool(QualityGoalsMeasurementContentForm *self, const char *value);
+char *quality_goals_measurement_content_form_defect_tracking_system(const QualityGoalsMeasurementContentForm *self);
+void quality_goals_measurement_content_form_set_defect_tracking_system(QualityGoalsMeasurementContentForm *self, const char *value);
+char *quality_goals_measurement_content_form_quality_trend_analysis(const QualityGoalsMeasurementContentForm *self);
+void quality_goals_measurement_content_form_set_quality_trend_analysis(QualityGoalsMeasurementContentForm *self, const char *value);
+
+// QualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
+void quality_goals_resources_content_form_init(QualityGoalsResourcesContentForm *self, SpecDocument *doc, const char *path);
+void quality_goals_resources_content_form_free(QualityGoalsResourcesContentForm *self);
+char *quality_goals_resources_content_form_quality_budget(const QualityGoalsResourcesContentForm *self);
+void quality_goals_resources_content_form_set_quality_budget(QualityGoalsResourcesContentForm *self, const char *value);
+char *quality_goals_resources_content_form_qa_team_size(const QualityGoalsResourcesContentForm *self);
+void quality_goals_resources_content_form_set_qa_team_size(QualityGoalsResourcesContentForm *self, const char *value);
+char *quality_goals_resources_content_form_test_automation_target(const QualityGoalsResourcesContentForm *self);
+void quality_goals_resources_content_form_set_test_automation_target(QualityGoalsResourcesContentForm *self, const char *value);
+char *quality_goals_resources_content_form_quality_training_plan(const QualityGoalsResourcesContentForm *self);
+void quality_goals_resources_content_form_set_quality_training_plan(QualityGoalsResourcesContentForm *self, const char *value);
+
 // QualityPrioritizationPrioritizationFrameworkContentForm is the generated form facade for the `prioritizationFrameworkContent` @Form section.
 void quality_prioritization_prioritization_framework_content_form_init(QualityPrioritizationPrioritizationFrameworkContentForm *self, SpecDocument *doc, const char *path);
 void quality_prioritization_prioritization_framework_content_form_free(QualityPrioritizationPrioritizationFrameworkContentForm *self);
@@ -55900,55 +56118,55 @@ void rate_limiting_policy_quotas_content_form_set_exemptions(RateLimitingPolicyQ
 char *rate_limiting_policy_quotas_content_form_notes(const RateLimitingPolicyQuotasContentForm *self);
 void rate_limiting_policy_quotas_content_form_set_notes(RateLimitingPolicyQuotasContentForm *self, const char *value);
 
-// ReadabilityQualityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
-void readability_quality_comprehensibility_content_form_init(ReadabilityQualityComprehensibilityContentForm *self, SpecDocument *doc, const char *path);
-void readability_quality_comprehensibility_content_form_free(ReadabilityQualityComprehensibilityContentForm *self);
-char *readability_quality_comprehensibility_content_form_reading_level_target(const ReadabilityQualityComprehensibilityContentForm *self);
-void readability_quality_comprehensibility_content_form_set_reading_level_target(ReadabilityQualityComprehensibilityContentForm *self, const char *value);
-char *readability_quality_comprehensibility_content_form_format_standards(const ReadabilityQualityComprehensibilityContentForm *self);
-void readability_quality_comprehensibility_content_form_set_format_standards(ReadabilityQualityComprehensibilityContentForm *self, const char *value);
-char *readability_quality_comprehensibility_content_form_visual_aid_requirements(const ReadabilityQualityComprehensibilityContentForm *self);
-void readability_quality_comprehensibility_content_form_set_visual_aid_requirements(ReadabilityQualityComprehensibilityContentForm *self, const char *value);
+// ReadabilityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
+void readability_comprehensibility_content_form_init(ReadabilityComprehensibilityContentForm *self, SpecDocument *doc, const char *path);
+void readability_comprehensibility_content_form_free(ReadabilityComprehensibilityContentForm *self);
+char *readability_comprehensibility_content_form_reading_level_target(const ReadabilityComprehensibilityContentForm *self);
+void readability_comprehensibility_content_form_set_reading_level_target(ReadabilityComprehensibilityContentForm *self, const char *value);
+char *readability_comprehensibility_content_form_format_standards(const ReadabilityComprehensibilityContentForm *self);
+void readability_comprehensibility_content_form_set_format_standards(ReadabilityComprehensibilityContentForm *self, const char *value);
+char *readability_comprehensibility_content_form_visual_aid_requirements(const ReadabilityComprehensibilityContentForm *self);
+void readability_comprehensibility_content_form_set_visual_aid_requirements(ReadabilityComprehensibilityContentForm *self, const char *value);
 
-// ReadabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void readability_quality_content_form_init(ReadabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void readability_quality_content_form_free(ReadabilityQualityContentForm *self);
-char *readability_quality_content_form_terminology_standard(const ReadabilityQualityContentForm *self);
-void readability_quality_content_form_set_terminology_standard(ReadabilityQualityContentForm *self, const char *value);
-char *readability_quality_content_form_ambiguity_prevention(const ReadabilityQualityContentForm *self);
-void readability_quality_content_form_set_ambiguity_prevention(ReadabilityQualityContentForm *self, const char *value);
-char *readability_quality_content_form_jargon_policy(const ReadabilityQualityContentForm *self);
-void readability_quality_content_form_set_jargon_policy(ReadabilityQualityContentForm *self, const char *value);
+// ReadabilityContentForm is the generated form facade for the `content` @Form section.
+void readability_content_form_init(ReadabilityContentForm *self, SpecDocument *doc, const char *path);
+void readability_content_form_free(ReadabilityContentForm *self);
+char *readability_content_form_terminology_standard(const ReadabilityContentForm *self);
+void readability_content_form_set_terminology_standard(ReadabilityContentForm *self, const char *value);
+char *readability_content_form_ambiguity_prevention(const ReadabilityContentForm *self);
+void readability_content_form_set_ambiguity_prevention(ReadabilityContentForm *self, const char *value);
+char *readability_content_form_jargon_policy(const ReadabilityContentForm *self);
+void readability_content_form_set_jargon_policy(ReadabilityContentForm *self, const char *value);
 
-// ReadabilityQualityNavigationContentForm is the generated form facade for the `content` @Form section.
-void readability_quality_navigation_content_form_init(ReadabilityQualityNavigationContentForm *self, SpecDocument *doc, const char *path);
-void readability_quality_navigation_content_form_free(ReadabilityQualityNavigationContentForm *self);
-char *readability_quality_navigation_content_form_section_numbering(const ReadabilityQualityNavigationContentForm *self);
-void readability_quality_navigation_content_form_set_section_numbering(ReadabilityQualityNavigationContentForm *self, const char *value);
-char *readability_quality_navigation_content_form_cross_reference_standard(const ReadabilityQualityNavigationContentForm *self);
-void readability_quality_navigation_content_form_set_cross_reference_standard(ReadabilityQualityNavigationContentForm *self, const char *value);
-char *readability_quality_navigation_content_form_searchability(const ReadabilityQualityNavigationContentForm *self);
-void readability_quality_navigation_content_form_set_searchability(ReadabilityQualityNavigationContentForm *self, const char *value);
+// ReadabilityNavigationContentForm is the generated form facade for the `content` @Form section.
+void readability_navigation_content_form_init(ReadabilityNavigationContentForm *self, SpecDocument *doc, const char *path);
+void readability_navigation_content_form_free(ReadabilityNavigationContentForm *self);
+char *readability_navigation_content_form_section_numbering(const ReadabilityNavigationContentForm *self);
+void readability_navigation_content_form_set_section_numbering(ReadabilityNavigationContentForm *self, const char *value);
+char *readability_navigation_content_form_cross_reference_standard(const ReadabilityNavigationContentForm *self);
+void readability_navigation_content_form_set_cross_reference_standard(ReadabilityNavigationContentForm *self, const char *value);
+char *readability_navigation_content_form_searchability(const ReadabilityNavigationContentForm *self);
+void readability_navigation_content_form_set_searchability(ReadabilityNavigationContentForm *self, const char *value);
 
-// ReadabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-void readability_quality_structure_content_form_init(ReadabilityQualityStructureContentForm *self, SpecDocument *doc, const char *path);
-void readability_quality_structure_content_form_free(ReadabilityQualityStructureContentForm *self);
-char *readability_quality_structure_content_form_document_structure_template(const ReadabilityQualityStructureContentForm *self);
-void readability_quality_structure_content_form_set_document_structure_template(ReadabilityQualityStructureContentForm *self, const char *value);
-char *readability_quality_structure_content_form_information_hierarchy(const ReadabilityQualityStructureContentForm *self);
-void readability_quality_structure_content_form_set_information_hierarchy(ReadabilityQualityStructureContentForm *self, const char *value);
-char *readability_quality_structure_content_form_navigation_aids(const ReadabilityQualityStructureContentForm *self);
-void readability_quality_structure_content_form_set_navigation_aids(ReadabilityQualityStructureContentForm *self, const char *value);
+// ReadabilityStructureContentForm is the generated form facade for the `content` @Form section.
+void readability_structure_content_form_init(ReadabilityStructureContentForm *self, SpecDocument *doc, const char *path);
+void readability_structure_content_form_free(ReadabilityStructureContentForm *self);
+char *readability_structure_content_form_document_structure_template(const ReadabilityStructureContentForm *self);
+void readability_structure_content_form_set_document_structure_template(ReadabilityStructureContentForm *self, const char *value);
+char *readability_structure_content_form_information_hierarchy(const ReadabilityStructureContentForm *self);
+void readability_structure_content_form_set_information_hierarchy(ReadabilityStructureContentForm *self, const char *value);
+char *readability_structure_content_form_navigation_aids(const ReadabilityStructureContentForm *self);
+void readability_structure_content_form_set_navigation_aids(ReadabilityStructureContentForm *self, const char *value);
 
-// ReadabilityQualityStyleContentForm is the generated form facade for the `content` @Form section.
-void readability_quality_style_content_form_init(ReadabilityQualityStyleContentForm *self, SpecDocument *doc, const char *path);
-void readability_quality_style_content_form_free(ReadabilityQualityStyleContentForm *self);
-char *readability_quality_style_content_form_style_guide_reference(const ReadabilityQualityStyleContentForm *self);
-void readability_quality_style_content_form_set_style_guide_reference(ReadabilityQualityStyleContentForm *self, const char *value);
-char *readability_quality_style_content_form_writing_voice(const ReadabilityQualityStyleContentForm *self);
-void readability_quality_style_content_form_set_writing_voice(ReadabilityQualityStyleContentForm *self, const char *value);
-char *readability_quality_style_content_form_formatting_conventions(const ReadabilityQualityStyleContentForm *self);
-void readability_quality_style_content_form_set_formatting_conventions(ReadabilityQualityStyleContentForm *self, const char *value);
+// ReadabilityStyleContentForm is the generated form facade for the `content` @Form section.
+void readability_style_content_form_init(ReadabilityStyleContentForm *self, SpecDocument *doc, const char *path);
+void readability_style_content_form_free(ReadabilityStyleContentForm *self);
+char *readability_style_content_form_style_guide_reference(const ReadabilityStyleContentForm *self);
+void readability_style_content_form_set_style_guide_reference(ReadabilityStyleContentForm *self, const char *value);
+char *readability_style_content_form_writing_voice(const ReadabilityStyleContentForm *self);
+void readability_style_content_form_set_writing_voice(ReadabilityStyleContentForm *self, const char *value);
+char *readability_style_content_form_formatting_conventions(const ReadabilityStyleContentForm *self);
+void readability_style_content_form_set_formatting_conventions(ReadabilityStyleContentForm *self, const char *value);
 
 // ReadinessCriteriaEntryContentForm is the generated form facade for the `content` @Form section.
 void readiness_criteria_entry_content_form_init(ReadinessCriteriaEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -56310,57 +56528,73 @@ void relevant_section_entry_content_form_set_extract_summary(RelevantSectionEntr
 char *relevant_section_entry_content_form_compliance_required(const RelevantSectionEntryContentForm *self);
 void relevant_section_entry_content_form_set_compliance_required(RelevantSectionEntryContentForm *self, const char *value);
 
-// ReliabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void reliability_quality_content_form_init(ReliabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void reliability_quality_content_form_free(ReliabilityQualityContentForm *self);
-char *reliability_quality_content_form_uptime_target(const ReliabilityQualityContentForm *self);
-void reliability_quality_content_form_set_uptime_target(ReliabilityQualityContentForm *self, const char *value);
-char *reliability_quality_content_form_planned_downtime_window(const ReliabilityQualityContentForm *self);
-void reliability_quality_content_form_set_planned_downtime_window(ReliabilityQualityContentForm *self, const char *value);
-char *reliability_quality_content_form_degraded_mode_capability(const ReliabilityQualityContentForm *self);
-void reliability_quality_content_form_set_degraded_mode_capability(ReliabilityQualityContentForm *self, const char *value);
+// ReliabilityCharacteristicReliabilityContentForm is the generated form facade for the `reliabilityContent` @Form section.
+void reliability_characteristic_reliability_content_form_init(ReliabilityCharacteristicReliabilityContentForm *self, SpecDocument *doc, const char *path);
+void reliability_characteristic_reliability_content_form_free(ReliabilityCharacteristicReliabilityContentForm *self);
+char *reliability_characteristic_reliability_content_form_operations_maturity_model(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_operations_maturity_model(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
+char *reliability_characteristic_reliability_content_form_operations_philosophy(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_operations_philosophy(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
+char *reliability_characteristic_reliability_content_form_operations_responsibility(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_operations_responsibility(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
+char *reliability_characteristic_reliability_content_form_incident_management_process(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_incident_management_process(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
+char *reliability_characteristic_reliability_content_form_change_management_process(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_change_management_process(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
+char *reliability_characteristic_reliability_content_form_operations_toolchain(const ReliabilityCharacteristicReliabilityContentForm *self);
+void reliability_characteristic_reliability_content_form_set_operations_toolchain(ReliabilityCharacteristicReliabilityContentForm *self, const char *value);
 
-// ReliabilityQualityDurabilityContentForm is the generated form facade for the `content` @Form section.
-void reliability_quality_durability_content_form_init(ReliabilityQualityDurabilityContentForm *self, SpecDocument *doc, const char *path);
-void reliability_quality_durability_content_form_free(ReliabilityQualityDurabilityContentForm *self);
-char *reliability_quality_durability_content_form_data_durability(const ReliabilityQualityDurabilityContentForm *self);
-void reliability_quality_durability_content_form_set_data_durability(ReliabilityQualityDurabilityContentForm *self, const char *value);
-char *reliability_quality_durability_content_form_backup_frequency(const ReliabilityQualityDurabilityContentForm *self);
-void reliability_quality_durability_content_form_set_backup_frequency(ReliabilityQualityDurabilityContentForm *self, const char *value);
-char *reliability_quality_durability_content_form_backup_retention(const ReliabilityQualityDurabilityContentForm *self);
-void reliability_quality_durability_content_form_set_backup_retention(ReliabilityQualityDurabilityContentForm *self, const char *value);
-char *reliability_quality_durability_content_form_backup_verification(const ReliabilityQualityDurabilityContentForm *self);
-void reliability_quality_durability_content_form_set_backup_verification(ReliabilityQualityDurabilityContentForm *self, const char *value);
+// ReliabilityContentForm is the generated form facade for the `content` @Form section.
+void reliability_content_form_init(ReliabilityContentForm *self, SpecDocument *doc, const char *path);
+void reliability_content_form_free(ReliabilityContentForm *self);
+char *reliability_content_form_uptime_target(const ReliabilityContentForm *self);
+void reliability_content_form_set_uptime_target(ReliabilityContentForm *self, const char *value);
+char *reliability_content_form_planned_downtime_window(const ReliabilityContentForm *self);
+void reliability_content_form_set_planned_downtime_window(ReliabilityContentForm *self, const char *value);
+char *reliability_content_form_degraded_mode_capability(const ReliabilityContentForm *self);
+void reliability_content_form_set_degraded_mode_capability(ReliabilityContentForm *self, const char *value);
 
-// ReliabilityQualityFailoverContentForm is the generated form facade for the `content` @Form section.
-void reliability_quality_failover_content_form_init(ReliabilityQualityFailoverContentForm *self, SpecDocument *doc, const char *path);
-void reliability_quality_failover_content_form_free(ReliabilityQualityFailoverContentForm *self);
-char *reliability_quality_failover_content_form_failover_strategy(const ReliabilityQualityFailoverContentForm *self);
-void reliability_quality_failover_content_form_set_failover_strategy(ReliabilityQualityFailoverContentForm *self, const char *value);
-char *reliability_quality_failover_content_form_failover_time(const ReliabilityQualityFailoverContentForm *self);
-void reliability_quality_failover_content_form_set_failover_time(ReliabilityQualityFailoverContentForm *self, const char *value);
-char *reliability_quality_failover_content_form_failover_testing(const ReliabilityQualityFailoverContentForm *self);
-void reliability_quality_failover_content_form_set_failover_testing(ReliabilityQualityFailoverContentForm *self, const char *value);
+// ReliabilityDurabilityContentForm is the generated form facade for the `content` @Form section.
+void reliability_durability_content_form_init(ReliabilityDurabilityContentForm *self, SpecDocument *doc, const char *path);
+void reliability_durability_content_form_free(ReliabilityDurabilityContentForm *self);
+char *reliability_durability_content_form_data_durability(const ReliabilityDurabilityContentForm *self);
+void reliability_durability_content_form_set_data_durability(ReliabilityDurabilityContentForm *self, const char *value);
+char *reliability_durability_content_form_backup_frequency(const ReliabilityDurabilityContentForm *self);
+void reliability_durability_content_form_set_backup_frequency(ReliabilityDurabilityContentForm *self, const char *value);
+char *reliability_durability_content_form_backup_retention(const ReliabilityDurabilityContentForm *self);
+void reliability_durability_content_form_set_backup_retention(ReliabilityDurabilityContentForm *self, const char *value);
+char *reliability_durability_content_form_backup_verification(const ReliabilityDurabilityContentForm *self);
+void reliability_durability_content_form_set_backup_verification(ReliabilityDurabilityContentForm *self, const char *value);
 
-// ReliabilityQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-void reliability_quality_recovery_content_form_init(ReliabilityQualityRecoveryContentForm *self, SpecDocument *doc, const char *path);
-void reliability_quality_recovery_content_form_free(ReliabilityQualityRecoveryContentForm *self);
-char *reliability_quality_recovery_content_form_mtbf_target(const ReliabilityQualityRecoveryContentForm *self);
-void reliability_quality_recovery_content_form_set_mtbf_target(ReliabilityQualityRecoveryContentForm *self, const char *value);
-char *reliability_quality_recovery_content_form_mttr_target(const ReliabilityQualityRecoveryContentForm *self);
-void reliability_quality_recovery_content_form_set_mttr_target(ReliabilityQualityRecoveryContentForm *self, const char *value);
-char *reliability_quality_recovery_content_form_rto_target(const ReliabilityQualityRecoveryContentForm *self);
-void reliability_quality_recovery_content_form_set_rto_target(ReliabilityQualityRecoveryContentForm *self, const char *value);
-char *reliability_quality_recovery_content_form_rpo_target(const ReliabilityQualityRecoveryContentForm *self);
-void reliability_quality_recovery_content_form_set_rpo_target(ReliabilityQualityRecoveryContentForm *self, const char *value);
+// ReliabilityFailoverContentForm is the generated form facade for the `content` @Form section.
+void reliability_failover_content_form_init(ReliabilityFailoverContentForm *self, SpecDocument *doc, const char *path);
+void reliability_failover_content_form_free(ReliabilityFailoverContentForm *self);
+char *reliability_failover_content_form_failover_strategy(const ReliabilityFailoverContentForm *self);
+void reliability_failover_content_form_set_failover_strategy(ReliabilityFailoverContentForm *self, const char *value);
+char *reliability_failover_content_form_failover_time(const ReliabilityFailoverContentForm *self);
+void reliability_failover_content_form_set_failover_time(ReliabilityFailoverContentForm *self, const char *value);
+char *reliability_failover_content_form_failover_testing(const ReliabilityFailoverContentForm *self);
+void reliability_failover_content_form_set_failover_testing(ReliabilityFailoverContentForm *self, const char *value);
 
-// ReliabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-void reliability_quality_verification_content_form_init(ReliabilityQualityVerificationContentForm *self, SpecDocument *doc, const char *path);
-void reliability_quality_verification_content_form_free(ReliabilityQualityVerificationContentForm *self);
-char *reliability_quality_verification_content_form_reliability_verification(const ReliabilityQualityVerificationContentForm *self);
-void reliability_quality_verification_content_form_set_reliability_verification(ReliabilityQualityVerificationContentForm *self, const char *value);
-char *reliability_quality_verification_content_form_incident_postmortem(const ReliabilityQualityVerificationContentForm *self);
-void reliability_quality_verification_content_form_set_incident_postmortem(ReliabilityQualityVerificationContentForm *self, const char *value);
+// ReliabilityRecoveryContentForm is the generated form facade for the `content` @Form section.
+void reliability_recovery_content_form_init(ReliabilityRecoveryContentForm *self, SpecDocument *doc, const char *path);
+void reliability_recovery_content_form_free(ReliabilityRecoveryContentForm *self);
+char *reliability_recovery_content_form_mtbf_target(const ReliabilityRecoveryContentForm *self);
+void reliability_recovery_content_form_set_mtbf_target(ReliabilityRecoveryContentForm *self, const char *value);
+char *reliability_recovery_content_form_mttr_target(const ReliabilityRecoveryContentForm *self);
+void reliability_recovery_content_form_set_mttr_target(ReliabilityRecoveryContentForm *self, const char *value);
+char *reliability_recovery_content_form_rto_target(const ReliabilityRecoveryContentForm *self);
+void reliability_recovery_content_form_set_rto_target(ReliabilityRecoveryContentForm *self, const char *value);
+char *reliability_recovery_content_form_rpo_target(const ReliabilityRecoveryContentForm *self);
+void reliability_recovery_content_form_set_rpo_target(ReliabilityRecoveryContentForm *self, const char *value);
+
+// ReliabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+void reliability_verification_content_form_init(ReliabilityVerificationContentForm *self, SpecDocument *doc, const char *path);
+void reliability_verification_content_form_free(ReliabilityVerificationContentForm *self);
+char *reliability_verification_content_form_reliability_verification(const ReliabilityVerificationContentForm *self);
+void reliability_verification_content_form_set_reliability_verification(ReliabilityVerificationContentForm *self, const char *value);
+char *reliability_verification_content_form_incident_postmortem(const ReliabilityVerificationContentForm *self);
+void reliability_verification_content_form_set_incident_postmortem(ReliabilityVerificationContentForm *self, const char *value);
 
 // RemoteAccessRequirementsContentForm is the generated form facade for the `content` @Form section.
 void remote_access_requirements_content_form_init(RemoteAccessRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -59490,6 +59724,28 @@ void security_audit_entry_scheduling_content_form_set_last_audit_date(SecurityAu
 char *security_audit_entry_scheduling_content_form_next_audit_date(const SecurityAuditEntrySchedulingContentForm *self);
 void security_audit_entry_scheduling_content_form_set_next_audit_date(SecurityAuditEntrySchedulingContentForm *self, const char *value);
 
+// SecurityAuthenticationContentForm is the generated form facade for the `content` @Form section.
+void security_authentication_content_form_init(SecurityAuthenticationContentForm *self, SpecDocument *doc, const char *path);
+void security_authentication_content_form_free(SecurityAuthenticationContentForm *self);
+char *security_authentication_content_form_authentication_method(const SecurityAuthenticationContentForm *self);
+void security_authentication_content_form_set_authentication_method(SecurityAuthenticationContentForm *self, const char *value);
+char *security_authentication_content_form_mfa_requirement(const SecurityAuthenticationContentForm *self);
+void security_authentication_content_form_set_mfa_requirement(SecurityAuthenticationContentForm *self, const char *value);
+char *security_authentication_content_form_password_policy(const SecurityAuthenticationContentForm *self);
+void security_authentication_content_form_set_password_policy(SecurityAuthenticationContentForm *self, const char *value);
+char *security_authentication_content_form_session_management(const SecurityAuthenticationContentForm *self);
+void security_authentication_content_form_set_session_management(SecurityAuthenticationContentForm *self, const char *value);
+
+// SecurityAuthorizationContentForm is the generated form facade for the `content` @Form section.
+void security_authorization_content_form_init(SecurityAuthorizationContentForm *self, SpecDocument *doc, const char *path);
+void security_authorization_content_form_free(SecurityAuthorizationContentForm *self);
+char *security_authorization_content_form_authorization_model(const SecurityAuthorizationContentForm *self);
+void security_authorization_content_form_set_authorization_model(SecurityAuthorizationContentForm *self, const char *value);
+char *security_authorization_content_form_authorization_coverage(const SecurityAuthorizationContentForm *self);
+void security_authorization_content_form_set_authorization_coverage(SecurityAuthorizationContentForm *self, const char *value);
+char *security_authorization_content_form_privilege_escalation_prevention(const SecurityAuthorizationContentForm *self);
+void security_authorization_content_form_set_privilege_escalation_prevention(SecurityAuthorizationContentForm *self, const char *value);
+
 // SecurityCertificationRequirementsContentForm is the generated form facade for the `content` @Form section.
 void security_certification_requirements_content_form_init(SecurityCertificationRequirementsContentForm *self, SpecDocument *doc, const char *path);
 void security_certification_requirements_content_form_free(SecurityCertificationRequirementsContentForm *self);
@@ -59542,6 +59798,14 @@ void security_certification_requirements_soc2_content_form_set_soc2_report_type(
 char *security_certification_requirements_soc2_content_form_soc2_audit_period(const SecurityCertificationRequirementsSoc2ContentForm *self);
 void security_certification_requirements_soc2_content_form_set_soc2_audit_period(SecurityCertificationRequirementsSoc2ContentForm *self, const char *value);
 
+// SecurityCharacteristicSecurityContentForm is the generated form facade for the `securityContent` @Form section.
+void security_characteristic_security_content_form_init(SecurityCharacteristicSecurityContentForm *self, SpecDocument *doc, const char *path);
+void security_characteristic_security_content_form_free(SecurityCharacteristicSecurityContentForm *self);
+char *security_characteristic_security_content_form_security_approach(const SecurityCharacteristicSecurityContentForm *self);
+void security_characteristic_security_content_form_set_security_approach(SecurityCharacteristicSecurityContentForm *self, const char *value);
+char *security_characteristic_security_content_form_security_compliance_target(const SecurityCharacteristicSecurityContentForm *self);
+void security_characteristic_security_content_form_set_security_compliance_target(SecurityCharacteristicSecurityContentForm *self, const char *value);
+
 // SecurityCodeReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 void security_code_review_policy_content_form_init(SecurityCodeReviewPolicyContentForm *self, SpecDocument *doc, const char *path);
 void security_code_review_policy_content_form_free(SecurityCodeReviewPolicyContentForm *self);
@@ -59583,6 +59847,28 @@ char *security_code_review_policy_reviewers_content_form_external_review_criteri
 void security_code_review_policy_reviewers_content_form_set_external_review_criteria(SecurityCodeReviewPolicyReviewersContentForm *self, const char *value);
 char *security_code_review_policy_reviewers_content_form_reviewer_rotation(const SecurityCodeReviewPolicyReviewersContentForm *self);
 void security_code_review_policy_reviewers_content_form_set_reviewer_rotation(SecurityCodeReviewPolicyReviewersContentForm *self, const char *value);
+
+// SecurityComplianceContentForm is the generated form facade for the `content` @Form section.
+void security_compliance_content_form_init(SecurityComplianceContentForm *self, SpecDocument *doc, const char *path);
+void security_compliance_content_form_free(SecurityComplianceContentForm *self);
+char *security_compliance_content_form_security_compliance(const SecurityComplianceContentForm *self);
+void security_compliance_content_form_set_security_compliance(SecurityComplianceContentForm *self, const char *value);
+char *security_compliance_content_form_security_certifications(const SecurityComplianceContentForm *self);
+void security_compliance_content_form_set_security_certifications(SecurityComplianceContentForm *self, const char *value);
+char *security_compliance_content_form_security_audit_frequency(const SecurityComplianceContentForm *self);
+void security_compliance_content_form_set_security_audit_frequency(SecurityComplianceContentForm *self, const char *value);
+char *security_compliance_content_form_security_verification(const SecurityComplianceContentForm *self);
+void security_compliance_content_form_set_security_verification(SecurityComplianceContentForm *self, const char *value);
+
+// SecurityContentForm is the generated form facade for the `content` @Form section.
+void security_content_form_init(SecurityContentForm *self, SpecDocument *doc, const char *path);
+void security_content_form_free(SecurityContentForm *self);
+char *security_content_form_encryption_at_rest(const SecurityContentForm *self);
+void security_content_form_set_encryption_at_rest(SecurityContentForm *self, const char *value);
+char *security_content_form_encryption_in_transit(const SecurityContentForm *self);
+void security_content_form_set_encryption_in_transit(SecurityContentForm *self, const char *value);
+char *security_content_form_key_management(const SecurityContentForm *self);
+void security_content_form_set_key_management(SecurityContentForm *self, const char *value);
 
 // SecurityControlEntryContentForm is the generated form facade for the `content` @Form section.
 void security_control_entry_content_form_init(SecurityControlEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -59699,60 +59985,6 @@ char *security_event_logging_policy_content_form_time_synchronization(const Secu
 void security_event_logging_policy_content_form_set_time_synchronization(SecurityEventLoggingPolicyContentForm *self, const char *value);
 char *security_event_logging_policy_content_form_correlation_identifiers(const SecurityEventLoggingPolicyContentForm *self);
 void security_event_logging_policy_content_form_set_correlation_identifiers(SecurityEventLoggingPolicyContentForm *self, const char *value);
-
-// SecurityQualityAuthenticationContentForm is the generated form facade for the `content` @Form section.
-void security_quality_authentication_content_form_init(SecurityQualityAuthenticationContentForm *self, SpecDocument *doc, const char *path);
-void security_quality_authentication_content_form_free(SecurityQualityAuthenticationContentForm *self);
-char *security_quality_authentication_content_form_authentication_method(const SecurityQualityAuthenticationContentForm *self);
-void security_quality_authentication_content_form_set_authentication_method(SecurityQualityAuthenticationContentForm *self, const char *value);
-char *security_quality_authentication_content_form_mfa_requirement(const SecurityQualityAuthenticationContentForm *self);
-void security_quality_authentication_content_form_set_mfa_requirement(SecurityQualityAuthenticationContentForm *self, const char *value);
-char *security_quality_authentication_content_form_password_policy(const SecurityQualityAuthenticationContentForm *self);
-void security_quality_authentication_content_form_set_password_policy(SecurityQualityAuthenticationContentForm *self, const char *value);
-char *security_quality_authentication_content_form_session_management(const SecurityQualityAuthenticationContentForm *self);
-void security_quality_authentication_content_form_set_session_management(SecurityQualityAuthenticationContentForm *self, const char *value);
-
-// SecurityQualityAuthorizationContentForm is the generated form facade for the `content` @Form section.
-void security_quality_authorization_content_form_init(SecurityQualityAuthorizationContentForm *self, SpecDocument *doc, const char *path);
-void security_quality_authorization_content_form_free(SecurityQualityAuthorizationContentForm *self);
-char *security_quality_authorization_content_form_authorization_model(const SecurityQualityAuthorizationContentForm *self);
-void security_quality_authorization_content_form_set_authorization_model(SecurityQualityAuthorizationContentForm *self, const char *value);
-char *security_quality_authorization_content_form_authorization_coverage(const SecurityQualityAuthorizationContentForm *self);
-void security_quality_authorization_content_form_set_authorization_coverage(SecurityQualityAuthorizationContentForm *self, const char *value);
-char *security_quality_authorization_content_form_privilege_escalation_prevention(const SecurityQualityAuthorizationContentForm *self);
-void security_quality_authorization_content_form_set_privilege_escalation_prevention(SecurityQualityAuthorizationContentForm *self, const char *value);
-
-// SecurityQualityComplianceContentForm is the generated form facade for the `content` @Form section.
-void security_quality_compliance_content_form_init(SecurityQualityComplianceContentForm *self, SpecDocument *doc, const char *path);
-void security_quality_compliance_content_form_free(SecurityQualityComplianceContentForm *self);
-char *security_quality_compliance_content_form_security_compliance(const SecurityQualityComplianceContentForm *self);
-void security_quality_compliance_content_form_set_security_compliance(SecurityQualityComplianceContentForm *self, const char *value);
-char *security_quality_compliance_content_form_security_certifications(const SecurityQualityComplianceContentForm *self);
-void security_quality_compliance_content_form_set_security_certifications(SecurityQualityComplianceContentForm *self, const char *value);
-char *security_quality_compliance_content_form_security_audit_frequency(const SecurityQualityComplianceContentForm *self);
-void security_quality_compliance_content_form_set_security_audit_frequency(SecurityQualityComplianceContentForm *self, const char *value);
-char *security_quality_compliance_content_form_security_verification(const SecurityQualityComplianceContentForm *self);
-void security_quality_compliance_content_form_set_security_verification(SecurityQualityComplianceContentForm *self, const char *value);
-
-// SecurityQualityContentForm is the generated form facade for the `content` @Form section.
-void security_quality_content_form_init(SecurityQualityContentForm *self, SpecDocument *doc, const char *path);
-void security_quality_content_form_free(SecurityQualityContentForm *self);
-char *security_quality_content_form_encryption_at_rest(const SecurityQualityContentForm *self);
-void security_quality_content_form_set_encryption_at_rest(SecurityQualityContentForm *self, const char *value);
-char *security_quality_content_form_encryption_in_transit(const SecurityQualityContentForm *self);
-void security_quality_content_form_set_encryption_in_transit(SecurityQualityContentForm *self, const char *value);
-char *security_quality_content_form_key_management(const SecurityQualityContentForm *self);
-void security_quality_content_form_set_key_management(SecurityQualityContentForm *self, const char *value);
-
-// SecurityQualityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
-void security_quality_vulnerability_content_form_init(SecurityQualityVulnerabilityContentForm *self, SpecDocument *doc, const char *path);
-void security_quality_vulnerability_content_form_free(SecurityQualityVulnerabilityContentForm *self);
-char *security_quality_vulnerability_content_form_vulnerability_scan_frequency(const SecurityQualityVulnerabilityContentForm *self);
-void security_quality_vulnerability_content_form_set_vulnerability_scan_frequency(SecurityQualityVulnerabilityContentForm *self, const char *value);
-char *security_quality_vulnerability_content_form_penetration_test_frequency(const SecurityQualityVulnerabilityContentForm *self);
-void security_quality_vulnerability_content_form_set_penetration_test_frequency(SecurityQualityVulnerabilityContentForm *self, const char *value);
-char *security_quality_vulnerability_content_form_cve_response_time(const SecurityQualityVulnerabilityContentForm *self);
-void security_quality_vulnerability_content_form_set_cve_response_time(SecurityQualityVulnerabilityContentForm *self, const char *value);
 
 // SecurityRequirementEntryClassificationContentForm is the generated form facade for the `content` @Form section.
 void security_requirement_entry_classification_content_form_init(SecurityRequirementEntryClassificationContentForm *self, SpecDocument *doc, const char *path);
@@ -59993,6 +60225,16 @@ char *security_testing_automation_scanning_content_form_infrastructure_as_code_s
 void security_testing_automation_scanning_content_form_set_infrastructure_as_code_scanning(SecurityTestingAutomationScanningContentForm *self, const char *value);
 char *security_testing_automation_scanning_content_form_secrets_detection(const SecurityTestingAutomationScanningContentForm *self);
 void security_testing_automation_scanning_content_form_set_secrets_detection(SecurityTestingAutomationScanningContentForm *self, const char *value);
+
+// SecurityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
+void security_vulnerability_content_form_init(SecurityVulnerabilityContentForm *self, SpecDocument *doc, const char *path);
+void security_vulnerability_content_form_free(SecurityVulnerabilityContentForm *self);
+char *security_vulnerability_content_form_vulnerability_scan_frequency(const SecurityVulnerabilityContentForm *self);
+void security_vulnerability_content_form_set_vulnerability_scan_frequency(SecurityVulnerabilityContentForm *self, const char *value);
+char *security_vulnerability_content_form_penetration_test_frequency(const SecurityVulnerabilityContentForm *self);
+void security_vulnerability_content_form_set_penetration_test_frequency(SecurityVulnerabilityContentForm *self, const char *value);
+char *security_vulnerability_content_form_cve_response_time(const SecurityVulnerabilityContentForm *self);
+void security_vulnerability_content_form_set_cve_response_time(SecurityVulnerabilityContentForm *self, const char *value);
 
 // SelfRegistrationPolicyApprovalContentForm is the generated form facade for the `content` @Form section.
 void self_registration_policy_approval_content_form_init(SelfRegistrationPolicyApprovalContentForm *self, SpecDocument *doc, const char *path);
@@ -60292,6 +60534,26 @@ void service_level_agreement_entry_content_form_set_sla_penalty(ServiceLevelAgre
 char *service_level_agreement_entry_content_form_sla_exclusions(const ServiceLevelAgreementEntryContentForm *self);
 void service_level_agreement_entry_content_form_set_sla_exclusions(ServiceLevelAgreementEntryContentForm *self, const char *value);
 
+// ServiceLevelContentForm is the generated form facade for the `content` @Form section.
+void service_level_content_form_init(ServiceLevelContentForm *self, SpecDocument *doc, const char *path);
+void service_level_content_form_free(ServiceLevelContentForm *self);
+char *service_level_content_form_support_tier_structure(const ServiceLevelContentForm *self);
+void service_level_content_form_set_support_tier_structure(ServiceLevelContentForm *self, const char *value);
+char *service_level_content_form_critical_response_time(const ServiceLevelContentForm *self);
+void service_level_content_form_set_critical_response_time(ServiceLevelContentForm *self, const char *value);
+char *service_level_content_form_high_response_time(const ServiceLevelContentForm *self);
+void service_level_content_form_set_high_response_time(ServiceLevelContentForm *self, const char *value);
+
+// ServiceLevelEscalationContentForm is the generated form facade for the `content` @Form section.
+void service_level_escalation_content_form_init(ServiceLevelEscalationContentForm *self, SpecDocument *doc, const char *path);
+void service_level_escalation_content_form_free(ServiceLevelEscalationContentForm *self);
+char *service_level_escalation_content_form_escalation_timeframes(const ServiceLevelEscalationContentForm *self);
+void service_level_escalation_content_form_set_escalation_timeframes(ServiceLevelEscalationContentForm *self, const char *value);
+char *service_level_escalation_content_form_escalation_contacts(const ServiceLevelEscalationContentForm *self);
+void service_level_escalation_content_form_set_escalation_contacts(ServiceLevelEscalationContentForm *self, const char *value);
+char *service_level_escalation_content_form_executive_escalation(const ServiceLevelEscalationContentForm *self);
+void service_level_escalation_content_form_set_executive_escalation(ServiceLevelEscalationContentForm *self, const char *value);
+
 // ServiceLevelIndicatorsContentForm is the generated form facade for the `content` @Form section.
 void service_level_indicators_content_form_init(ServiceLevelIndicatorsContentForm *self, SpecDocument *doc, const char *path);
 void service_level_indicators_content_form_free(ServiceLevelIndicatorsContentForm *self);
@@ -60332,63 +60594,43 @@ void service_level_indicators_quality_content_form_set_correctness_sli(ServiceLe
 char *service_level_indicators_quality_content_form_freshness_sli(const ServiceLevelIndicatorsQualityContentForm *self);
 void service_level_indicators_quality_content_form_set_freshness_sli(ServiceLevelIndicatorsQualityContentForm *self, const char *value);
 
-// ServiceLevelQualityContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_content_form_init(ServiceLevelQualityContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_content_form_free(ServiceLevelQualityContentForm *self);
-char *service_level_quality_content_form_support_tier_structure(const ServiceLevelQualityContentForm *self);
-void service_level_quality_content_form_set_support_tier_structure(ServiceLevelQualityContentForm *self, const char *value);
-char *service_level_quality_content_form_critical_response_time(const ServiceLevelQualityContentForm *self);
-void service_level_quality_content_form_set_critical_response_time(ServiceLevelQualityContentForm *self, const char *value);
-char *service_level_quality_content_form_high_response_time(const ServiceLevelQualityContentForm *self);
-void service_level_quality_content_form_set_high_response_time(ServiceLevelQualityContentForm *self, const char *value);
+// ServiceLevelOnCallContentForm is the generated form facade for the `content` @Form section.
+void service_level_on_call_content_form_init(ServiceLevelOnCallContentForm *self, SpecDocument *doc, const char *path);
+void service_level_on_call_content_form_free(ServiceLevelOnCallContentForm *self);
+char *service_level_on_call_content_form_on_call_coverage(const ServiceLevelOnCallContentForm *self);
+void service_level_on_call_content_form_set_on_call_coverage(ServiceLevelOnCallContentForm *self, const char *value);
+char *service_level_on_call_content_form_on_call_rotation(const ServiceLevelOnCallContentForm *self);
+void service_level_on_call_content_form_set_on_call_rotation(ServiceLevelOnCallContentForm *self, const char *value);
+char *service_level_on_call_content_form_on_call_compensation(const ServiceLevelOnCallContentForm *self);
+void service_level_on_call_content_form_set_on_call_compensation(ServiceLevelOnCallContentForm *self, const char *value);
 
-// ServiceLevelQualityEscalationContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_escalation_content_form_init(ServiceLevelQualityEscalationContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_escalation_content_form_free(ServiceLevelQualityEscalationContentForm *self);
-char *service_level_quality_escalation_content_form_escalation_timeframes(const ServiceLevelQualityEscalationContentForm *self);
-void service_level_quality_escalation_content_form_set_escalation_timeframes(ServiceLevelQualityEscalationContentForm *self, const char *value);
-char *service_level_quality_escalation_content_form_escalation_contacts(const ServiceLevelQualityEscalationContentForm *self);
-void service_level_quality_escalation_content_form_set_escalation_contacts(ServiceLevelQualityEscalationContentForm *self, const char *value);
-char *service_level_quality_escalation_content_form_executive_escalation(const ServiceLevelQualityEscalationContentForm *self);
-void service_level_quality_escalation_content_form_set_executive_escalation(ServiceLevelQualityEscalationContentForm *self, const char *value);
+// ServiceLevelResolutionContentForm is the generated form facade for the `content` @Form section.
+void service_level_resolution_content_form_init(ServiceLevelResolutionContentForm *self, SpecDocument *doc, const char *path);
+void service_level_resolution_content_form_free(ServiceLevelResolutionContentForm *self);
+char *service_level_resolution_content_form_critical_resolution_time(const ServiceLevelResolutionContentForm *self);
+void service_level_resolution_content_form_set_critical_resolution_time(ServiceLevelResolutionContentForm *self, const char *value);
+char *service_level_resolution_content_form_high_resolution_time(const ServiceLevelResolutionContentForm *self);
+void service_level_resolution_content_form_set_high_resolution_time(ServiceLevelResolutionContentForm *self, const char *value);
+char *service_level_resolution_content_form_medium_resolution_time(const ServiceLevelResolutionContentForm *self);
+void service_level_resolution_content_form_set_medium_resolution_time(ServiceLevelResolutionContentForm *self, const char *value);
+char *service_level_resolution_content_form_low_resolution_time(const ServiceLevelResolutionContentForm *self);
+void service_level_resolution_content_form_set_low_resolution_time(ServiceLevelResolutionContentForm *self, const char *value);
 
-// ServiceLevelQualityOnCallContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_on_call_content_form_init(ServiceLevelQualityOnCallContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_on_call_content_form_free(ServiceLevelQualityOnCallContentForm *self);
-char *service_level_quality_on_call_content_form_on_call_coverage(const ServiceLevelQualityOnCallContentForm *self);
-void service_level_quality_on_call_content_form_set_on_call_coverage(ServiceLevelQualityOnCallContentForm *self, const char *value);
-char *service_level_quality_on_call_content_form_on_call_rotation(const ServiceLevelQualityOnCallContentForm *self);
-void service_level_quality_on_call_content_form_set_on_call_rotation(ServiceLevelQualityOnCallContentForm *self, const char *value);
-char *service_level_quality_on_call_content_form_on_call_compensation(const ServiceLevelQualityOnCallContentForm *self);
-void service_level_quality_on_call_content_form_set_on_call_compensation(ServiceLevelQualityOnCallContentForm *self, const char *value);
+// ServiceLevelResponseContentForm is the generated form facade for the `content` @Form section.
+void service_level_response_content_form_init(ServiceLevelResponseContentForm *self, SpecDocument *doc, const char *path);
+void service_level_response_content_form_free(ServiceLevelResponseContentForm *self);
+char *service_level_response_content_form_medium_response_time(const ServiceLevelResponseContentForm *self);
+void service_level_response_content_form_set_medium_response_time(ServiceLevelResponseContentForm *self, const char *value);
+char *service_level_response_content_form_low_response_time(const ServiceLevelResponseContentForm *self);
+void service_level_response_content_form_set_low_response_time(ServiceLevelResponseContentForm *self, const char *value);
 
-// ServiceLevelQualityResolutionContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_resolution_content_form_init(ServiceLevelQualityResolutionContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_resolution_content_form_free(ServiceLevelQualityResolutionContentForm *self);
-char *service_level_quality_resolution_content_form_critical_resolution_time(const ServiceLevelQualityResolutionContentForm *self);
-void service_level_quality_resolution_content_form_set_critical_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value);
-char *service_level_quality_resolution_content_form_high_resolution_time(const ServiceLevelQualityResolutionContentForm *self);
-void service_level_quality_resolution_content_form_set_high_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value);
-char *service_level_quality_resolution_content_form_medium_resolution_time(const ServiceLevelQualityResolutionContentForm *self);
-void service_level_quality_resolution_content_form_set_medium_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value);
-char *service_level_quality_resolution_content_form_low_resolution_time(const ServiceLevelQualityResolutionContentForm *self);
-void service_level_quality_resolution_content_form_set_low_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value);
-
-// ServiceLevelQualityResponseContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_response_content_form_init(ServiceLevelQualityResponseContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_response_content_form_free(ServiceLevelQualityResponseContentForm *self);
-char *service_level_quality_response_content_form_medium_response_time(const ServiceLevelQualityResponseContentForm *self);
-void service_level_quality_response_content_form_set_medium_response_time(ServiceLevelQualityResponseContentForm *self, const char *value);
-char *service_level_quality_response_content_form_low_response_time(const ServiceLevelQualityResponseContentForm *self);
-void service_level_quality_response_content_form_set_low_response_time(ServiceLevelQualityResponseContentForm *self, const char *value);
-
-// ServiceLevelQualityRestorationContentForm is the generated form facade for the `content` @Form section.
-void service_level_quality_restoration_content_form_init(ServiceLevelQualityRestorationContentForm *self, SpecDocument *doc, const char *path);
-void service_level_quality_restoration_content_form_free(ServiceLevelQualityRestorationContentForm *self);
-char *service_level_quality_restoration_content_form_service_restoration_priority(const ServiceLevelQualityRestorationContentForm *self);
-void service_level_quality_restoration_content_form_set_service_restoration_priority(ServiceLevelQualityRestorationContentForm *self, const char *value);
-char *service_level_quality_restoration_content_form_communication_during_outage(const ServiceLevelQualityRestorationContentForm *self);
-void service_level_quality_restoration_content_form_set_communication_during_outage(ServiceLevelQualityRestorationContentForm *self, const char *value);
+// ServiceLevelRestorationContentForm is the generated form facade for the `content` @Form section.
+void service_level_restoration_content_form_init(ServiceLevelRestorationContentForm *self, SpecDocument *doc, const char *path);
+void service_level_restoration_content_form_free(ServiceLevelRestorationContentForm *self);
+char *service_level_restoration_content_form_service_restoration_priority(const ServiceLevelRestorationContentForm *self);
+void service_level_restoration_content_form_set_service_restoration_priority(ServiceLevelRestorationContentForm *self, const char *value);
+char *service_level_restoration_content_form_communication_during_outage(const ServiceLevelRestorationContentForm *self);
+void service_level_restoration_content_form_set_communication_during_outage(ServiceLevelRestorationContentForm *self, const char *value);
 
 // ServiceMeshAndGatewayContentForm is the generated form facade for the `content` @Form section.
 void service_mesh_and_gateway_content_form_init(ServiceMeshAndGatewayContentForm *self, SpecDocument *doc, const char *path);
@@ -62886,18 +63128,6 @@ void system_overview_summary_status_content_form_set_specification_status(System
 char *system_overview_summary_status_content_form_target_go_live_date(const SystemOverviewSummaryStatusContentForm *self);
 void system_overview_summary_status_content_form_set_target_go_live_date(SystemOverviewSummaryStatusContentForm *self, const char *value);
 
-// SystemQualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
-void system_quality_goals_baseline_content_form_init(SystemQualityGoalsBaselineContentForm *self, SpecDocument *doc, const char *path);
-void system_quality_goals_baseline_content_form_free(SystemQualityGoalsBaselineContentForm *self);
-char *system_quality_goals_baseline_content_form_quality_baseline_date(const SystemQualityGoalsBaselineContentForm *self);
-void system_quality_goals_baseline_content_form_set_quality_baseline_date(SystemQualityGoalsBaselineContentForm *self, const char *value);
-char *system_quality_goals_baseline_content_form_quality_baseline_version(const SystemQualityGoalsBaselineContentForm *self);
-void system_quality_goals_baseline_content_form_set_quality_baseline_version(SystemQualityGoalsBaselineContentForm *self, const char *value);
-char *system_quality_goals_baseline_content_form_overall_quality_target_level(const SystemQualityGoalsBaselineContentForm *self);
-void system_quality_goals_baseline_content_form_set_overall_quality_target_level(SystemQualityGoalsBaselineContentForm *self, const char *value);
-char *system_quality_goals_baseline_content_form_quality_risk_tolerance(const SystemQualityGoalsBaselineContentForm *self);
-void system_quality_goals_baseline_content_form_set_quality_risk_tolerance(SystemQualityGoalsBaselineContentForm *self, const char *value);
-
 // SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 void system_quality_goals_governance_content_form_init(SystemQualityGoalsGovernanceContentForm *self, SpecDocument *doc, const char *path);
 void system_quality_goals_governance_content_form_free(SystemQualityGoalsGovernanceContentForm *self);
@@ -62907,42 +63137,6 @@ char *system_quality_goals_governance_content_form_quality_standards(const Syste
 void system_quality_goals_governance_content_form_set_quality_standards(SystemQualityGoalsGovernanceContentForm *self, const char *value);
 char *system_quality_goals_governance_content_form_quality_owner(const SystemQualityGoalsGovernanceContentForm *self);
 void system_quality_goals_governance_content_form_set_quality_owner(SystemQualityGoalsGovernanceContentForm *self, const char *value);
-
-// SystemQualityGoalsGovernanceContentForm_2 is the generated form facade for the `content` @Form section.
-void system_quality_goals_governance_content_form_2_init(SystemQualityGoalsGovernanceContentForm_2 *self, SpecDocument *doc, const char *path);
-void system_quality_goals_governance_content_form_2_free(SystemQualityGoalsGovernanceContentForm_2 *self);
-char *system_quality_goals_governance_content_form_2_quality_review_board(const SystemQualityGoalsGovernanceContentForm_2 *self);
-void system_quality_goals_governance_content_form_2_set_quality_review_board(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value);
-char *system_quality_goals_governance_content_form_2_quality_meeting_cadence(const SystemQualityGoalsGovernanceContentForm_2 *self);
-void system_quality_goals_governance_content_form_2_set_quality_meeting_cadence(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value);
-char *system_quality_goals_governance_content_form_2_quality_escalation_path(const SystemQualityGoalsGovernanceContentForm_2 *self);
-void system_quality_goals_governance_content_form_2_set_quality_escalation_path(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value);
-
-// SystemQualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
-void system_quality_goals_measurement_content_form_init(SystemQualityGoalsMeasurementContentForm *self, SpecDocument *doc, const char *path);
-void system_quality_goals_measurement_content_form_free(SystemQualityGoalsMeasurementContentForm *self);
-char *system_quality_goals_measurement_content_form_quality_metrics_framework(const SystemQualityGoalsMeasurementContentForm *self);
-void system_quality_goals_measurement_content_form_set_quality_metrics_framework(SystemQualityGoalsMeasurementContentForm *self, const char *value);
-char *system_quality_goals_measurement_content_form_quality_reporting_frequency(const SystemQualityGoalsMeasurementContentForm *self);
-void system_quality_goals_measurement_content_form_set_quality_reporting_frequency(SystemQualityGoalsMeasurementContentForm *self, const char *value);
-char *system_quality_goals_measurement_content_form_quality_dashboard_tool(const SystemQualityGoalsMeasurementContentForm *self);
-void system_quality_goals_measurement_content_form_set_quality_dashboard_tool(SystemQualityGoalsMeasurementContentForm *self, const char *value);
-char *system_quality_goals_measurement_content_form_defect_tracking_system(const SystemQualityGoalsMeasurementContentForm *self);
-void system_quality_goals_measurement_content_form_set_defect_tracking_system(SystemQualityGoalsMeasurementContentForm *self, const char *value);
-char *system_quality_goals_measurement_content_form_quality_trend_analysis(const SystemQualityGoalsMeasurementContentForm *self);
-void system_quality_goals_measurement_content_form_set_quality_trend_analysis(SystemQualityGoalsMeasurementContentForm *self, const char *value);
-
-// SystemQualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
-void system_quality_goals_resources_content_form_init(SystemQualityGoalsResourcesContentForm *self, SpecDocument *doc, const char *path);
-void system_quality_goals_resources_content_form_free(SystemQualityGoalsResourcesContentForm *self);
-char *system_quality_goals_resources_content_form_quality_budget(const SystemQualityGoalsResourcesContentForm *self);
-void system_quality_goals_resources_content_form_set_quality_budget(SystemQualityGoalsResourcesContentForm *self, const char *value);
-char *system_quality_goals_resources_content_form_qa_team_size(const SystemQualityGoalsResourcesContentForm *self);
-void system_quality_goals_resources_content_form_set_qa_team_size(SystemQualityGoalsResourcesContentForm *self, const char *value);
-char *system_quality_goals_resources_content_form_test_automation_target(const SystemQualityGoalsResourcesContentForm *self);
-void system_quality_goals_resources_content_form_set_test_automation_target(SystemQualityGoalsResourcesContentForm *self, const char *value);
-char *system_quality_goals_resources_content_form_quality_training_plan(const SystemQualityGoalsResourcesContentForm *self);
-void system_quality_goals_resources_content_form_set_quality_training_plan(SystemQualityGoalsResourcesContentForm *self, const char *value);
 
 // SystemReplacementStrategyContentForm is the generated form facade for the `content` @Form section.
 void system_replacement_strategy_content_form_init(SystemReplacementStrategyContentForm *self, SpecDocument *doc, const char *path);
@@ -63673,20 +63867,6 @@ char *technical_pain_points_summary_content_form_vendor_lock_in_risk(const Techn
 void technical_pain_points_summary_content_form_set_vendor_lock_in_risk(TechnicalPainPointsSummaryContentForm *self, const char *value);
 char *technical_pain_points_summary_content_form_integration_complexity_score(const TechnicalPainPointsSummaryContentForm *self);
 void technical_pain_points_summary_content_form_set_integration_complexity_score(TechnicalPainPointsSummaryContentForm *self, const char *value);
-
-// TechnicalQualityCriteriaTechnicalQualityContentForm is the generated form facade for the `technicalQualityContent` @Form section.
-void technical_quality_criteria_technical_quality_content_form_init(TechnicalQualityCriteriaTechnicalQualityContentForm *self, SpecDocument *doc, const char *path);
-void technical_quality_criteria_technical_quality_content_form_free(TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-char *technical_quality_criteria_technical_quality_content_form_technical_quality_philosophy(const TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-void technical_quality_criteria_technical_quality_content_form_set_technical_quality_philosophy(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value);
-char *technical_quality_criteria_technical_quality_content_form_architectural_quality_goals(const TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-void technical_quality_criteria_technical_quality_content_form_set_architectural_quality_goals(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value);
-char *technical_quality_criteria_technical_quality_content_form_technical_debt_tolerance(const TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-void technical_quality_criteria_technical_quality_content_form_set_technical_debt_tolerance(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value);
-char *technical_quality_criteria_technical_quality_content_form_code_quality_standard(const TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-void technical_quality_criteria_technical_quality_content_form_set_code_quality_standard(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value);
-char *technical_quality_criteria_technical_quality_content_form_design_principles_adherence(const TechnicalQualityCriteriaTechnicalQualityContentForm *self);
-void technical_quality_criteria_technical_quality_content_form_set_design_principles_adherence(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value);
 
 // TechnicalRequirementEntryConstraintsContentForm is the generated form facade for the `content` @Form section.
 void technical_requirement_entry_constraints_content_form_init(TechnicalRequirementEntryConstraintsContentForm *self, SpecDocument *doc, const char *path);
@@ -66038,65 +66218,65 @@ void ui_design_principle_entry_content_form_set_source_reference(UiDesignPrincip
 char *ui_design_principle_entry_content_form_related_goals(const UiDesignPrincipleEntryContentForm *self);
 void ui_design_principle_entry_content_form_set_related_goals(UiDesignPrincipleEntryContentForm *self, const char *value);
 
-// UsabilityQualityClarityContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_clarity_content_form_init(UsabilityQualityClarityContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_clarity_content_form_free(UsabilityQualityClarityContentForm *self);
-char *usability_quality_clarity_content_form_functional_clarity_target(const UsabilityQualityClarityContentForm *self);
-void usability_quality_clarity_content_form_set_functional_clarity_target(UsabilityQualityClarityContentForm *self, const char *value);
-char *usability_quality_clarity_content_form_help_system_requirement(const UsabilityQualityClarityContentForm *self);
-void usability_quality_clarity_content_form_set_help_system_requirement(UsabilityQualityClarityContentForm *self, const char *value);
-char *usability_quality_clarity_content_form_complexity_limit(const UsabilityQualityClarityContentForm *self);
-void usability_quality_clarity_content_form_set_complexity_limit(UsabilityQualityClarityContentForm *self, const char *value);
-char *usability_quality_clarity_content_form_cognitive_load_target(const UsabilityQualityClarityContentForm *self);
-void usability_quality_clarity_content_form_set_cognitive_load_target(UsabilityQualityClarityContentForm *self, const char *value);
+// UsabilityClarityContentForm is the generated form facade for the `content` @Form section.
+void usability_clarity_content_form_init(UsabilityClarityContentForm *self, SpecDocument *doc, const char *path);
+void usability_clarity_content_form_free(UsabilityClarityContentForm *self);
+char *usability_clarity_content_form_functional_clarity_target(const UsabilityClarityContentForm *self);
+void usability_clarity_content_form_set_functional_clarity_target(UsabilityClarityContentForm *self, const char *value);
+char *usability_clarity_content_form_help_system_requirement(const UsabilityClarityContentForm *self);
+void usability_clarity_content_form_set_help_system_requirement(UsabilityClarityContentForm *self, const char *value);
+char *usability_clarity_content_form_complexity_limit(const UsabilityClarityContentForm *self);
+void usability_clarity_content_form_set_complexity_limit(UsabilityClarityContentForm *self, const char *value);
+char *usability_clarity_content_form_cognitive_load_target(const UsabilityClarityContentForm *self);
+void usability_clarity_content_form_set_cognitive_load_target(UsabilityClarityContentForm *self, const char *value);
 
-// UsabilityQualityContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_content_form_init(UsabilityQualityContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_content_form_free(UsabilityQualityContentForm *self);
-char *usability_quality_content_form_operability_target(const UsabilityQualityContentForm *self);
-void usability_quality_content_form_set_operability_target(UsabilityQualityContentForm *self, const char *value);
-char *usability_quality_content_form_ergonomics_standard(const UsabilityQualityContentForm *self);
-void usability_quality_content_form_set_ergonomics_standard(UsabilityQualityContentForm *self, const char *value);
-char *usability_quality_content_form_learnability_target(const UsabilityQualityContentForm *self);
-void usability_quality_content_form_set_learnability_target(UsabilityQualityContentForm *self, const char *value);
+// UsabilityContentForm is the generated form facade for the `content` @Form section.
+void usability_content_form_init(UsabilityContentForm *self, SpecDocument *doc, const char *path);
+void usability_content_form_free(UsabilityContentForm *self);
+char *usability_content_form_operability_target(const UsabilityContentForm *self);
+void usability_content_form_set_operability_target(UsabilityContentForm *self, const char *value);
+char *usability_content_form_ergonomics_standard(const UsabilityContentForm *self);
+void usability_content_form_set_ergonomics_standard(UsabilityContentForm *self, const char *value);
+char *usability_content_form_learnability_target(const UsabilityContentForm *self);
+void usability_content_form_set_learnability_target(UsabilityContentForm *self, const char *value);
 
-// UsabilityQualityInteractionContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_interaction_content_form_init(UsabilityQualityInteractionContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_interaction_content_form_free(UsabilityQualityInteractionContentForm *self);
-char *usability_quality_interaction_content_form_undo_requirement(const UsabilityQualityInteractionContentForm *self);
-void usability_quality_interaction_content_form_set_undo_requirement(UsabilityQualityInteractionContentForm *self, const char *value);
-char *usability_quality_interaction_content_form_customization_level(const UsabilityQualityInteractionContentForm *self);
-void usability_quality_interaction_content_form_set_customization_level(UsabilityQualityInteractionContentForm *self, const char *value);
+// UsabilityInteractionContentForm is the generated form facade for the `content` @Form section.
+void usability_interaction_content_form_init(UsabilityInteractionContentForm *self, SpecDocument *doc, const char *path);
+void usability_interaction_content_form_free(UsabilityInteractionContentForm *self);
+char *usability_interaction_content_form_undo_requirement(const UsabilityInteractionContentForm *self);
+void usability_interaction_content_form_set_undo_requirement(UsabilityInteractionContentForm *self, const char *value);
+char *usability_interaction_content_form_customization_level(const UsabilityInteractionContentForm *self);
+void usability_interaction_content_form_set_customization_level(UsabilityInteractionContentForm *self, const char *value);
 
-// UsabilityQualityLearnabilityContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_learnability_content_form_init(UsabilityQualityLearnabilityContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_learnability_content_form_free(UsabilityQualityLearnabilityContentForm *self);
-char *usability_quality_learnability_content_form_learnability_verification(const UsabilityQualityLearnabilityContentForm *self);
-void usability_quality_learnability_content_form_set_learnability_verification(UsabilityQualityLearnabilityContentForm *self, const char *value);
-char *usability_quality_learnability_content_form_onboarding_requirement(const UsabilityQualityLearnabilityContentForm *self);
-void usability_quality_learnability_content_form_set_onboarding_requirement(UsabilityQualityLearnabilityContentForm *self, const char *value);
+// UsabilityLearnabilityContentForm is the generated form facade for the `content` @Form section.
+void usability_learnability_content_form_init(UsabilityLearnabilityContentForm *self, SpecDocument *doc, const char *path);
+void usability_learnability_content_form_free(UsabilityLearnabilityContentForm *self);
+char *usability_learnability_content_form_learnability_verification(const UsabilityLearnabilityContentForm *self);
+void usability_learnability_content_form_set_learnability_verification(UsabilityLearnabilityContentForm *self, const char *value);
+char *usability_learnability_content_form_onboarding_requirement(const UsabilityLearnabilityContentForm *self);
+void usability_learnability_content_form_set_onboarding_requirement(UsabilityLearnabilityContentForm *self, const char *value);
 
-// UsabilityQualityOperabilityContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_operability_content_form_init(UsabilityQualityOperabilityContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_operability_content_form_free(UsabilityQualityOperabilityContentForm *self);
-char *usability_quality_operability_content_form_operability_metric(const UsabilityQualityOperabilityContentForm *self);
-void usability_quality_operability_content_form_set_operability_metric(UsabilityQualityOperabilityContentForm *self, const char *value);
-char *usability_quality_operability_content_form_operability_verification(const UsabilityQualityOperabilityContentForm *self);
-void usability_quality_operability_content_form_set_operability_verification(UsabilityQualityOperabilityContentForm *self, const char *value);
-char *usability_quality_operability_content_form_ergonomics_target(const UsabilityQualityOperabilityContentForm *self);
-void usability_quality_operability_content_form_set_ergonomics_target(UsabilityQualityOperabilityContentForm *self, const char *value);
+// UsabilityOperabilityContentForm is the generated form facade for the `content` @Form section.
+void usability_operability_content_form_init(UsabilityOperabilityContentForm *self, SpecDocument *doc, const char *path);
+void usability_operability_content_form_free(UsabilityOperabilityContentForm *self);
+char *usability_operability_content_form_operability_metric(const UsabilityOperabilityContentForm *self);
+void usability_operability_content_form_set_operability_metric(UsabilityOperabilityContentForm *self, const char *value);
+char *usability_operability_content_form_operability_verification(const UsabilityOperabilityContentForm *self);
+void usability_operability_content_form_set_operability_verification(UsabilityOperabilityContentForm *self, const char *value);
+char *usability_operability_content_form_ergonomics_target(const UsabilityOperabilityContentForm *self);
+void usability_operability_content_form_set_ergonomics_target(UsabilityOperabilityContentForm *self, const char *value);
 
-// UsabilityQualityPerformanceContentForm is the generated form facade for the `content` @Form section.
-void usability_quality_performance_content_form_init(UsabilityQualityPerformanceContentForm *self, SpecDocument *doc, const char *path);
-void usability_quality_performance_content_form_free(UsabilityQualityPerformanceContentForm *self);
-char *usability_quality_performance_content_form_response_time_p50(const UsabilityQualityPerformanceContentForm *self);
-void usability_quality_performance_content_form_set_response_time_p50(UsabilityQualityPerformanceContentForm *self, const char *value);
-char *usability_quality_performance_content_form_response_time_p95(const UsabilityQualityPerformanceContentForm *self);
-void usability_quality_performance_content_form_set_response_time_p95(UsabilityQualityPerformanceContentForm *self, const char *value);
-char *usability_quality_performance_content_form_response_time_p99(const UsabilityQualityPerformanceContentForm *self);
-void usability_quality_performance_content_form_set_response_time_p99(UsabilityQualityPerformanceContentForm *self, const char *value);
-char *usability_quality_performance_content_form_perceived_performance(const UsabilityQualityPerformanceContentForm *self);
-void usability_quality_performance_content_form_set_perceived_performance(UsabilityQualityPerformanceContentForm *self, const char *value);
+// UsabilityPerformanceContentForm is the generated form facade for the `content` @Form section.
+void usability_performance_content_form_init(UsabilityPerformanceContentForm *self, SpecDocument *doc, const char *path);
+void usability_performance_content_form_free(UsabilityPerformanceContentForm *self);
+char *usability_performance_content_form_response_time_p50(const UsabilityPerformanceContentForm *self);
+void usability_performance_content_form_set_response_time_p50(UsabilityPerformanceContentForm *self, const char *value);
+char *usability_performance_content_form_response_time_p95(const UsabilityPerformanceContentForm *self);
+void usability_performance_content_form_set_response_time_p95(UsabilityPerformanceContentForm *self, const char *value);
+char *usability_performance_content_form_response_time_p99(const UsabilityPerformanceContentForm *self);
+void usability_performance_content_form_set_response_time_p99(UsabilityPerformanceContentForm *self, const char *value);
+char *usability_performance_content_form_perceived_performance(const UsabilityPerformanceContentForm *self);
+void usability_performance_content_form_set_perceived_performance(UsabilityPerformanceContentForm *self, const char *value);
 
 // UseCaseExtensionsContentForm is the generated form facade for the `content` @Form section.
 void use_case_extensions_content_form_init(UseCaseExtensionsContentForm *self, SpecDocument *doc, const char *path);
@@ -66477,22 +66657,6 @@ char *user_provisioning_tools_role_management_content_form_delegated_administrat
 void user_provisioning_tools_role_management_content_form_set_delegated_administration(UserProvisioningToolsRoleManagementContentForm *self, const char *value);
 char *user_provisioning_tools_role_management_content_form_access_review_process(const UserProvisioningToolsRoleManagementContentForm *self);
 void user_provisioning_tools_role_management_content_form_set_access_review_process(UserProvisioningToolsRoleManagementContentForm *self, const char *value);
-
-// UserQualityCriteriaUserQualityContentForm is the generated form facade for the `userQualityContent` @Form section.
-void user_quality_criteria_user_quality_content_form_init(UserQualityCriteriaUserQualityContentForm *self, SpecDocument *doc, const char *path);
-void user_quality_criteria_user_quality_content_form_free(UserQualityCriteriaUserQualityContentForm *self);
-char *user_quality_criteria_user_quality_content_form_user_quality_philosophy(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_user_quality_philosophy(UserQualityCriteriaUserQualityContentForm *self, const char *value);
-char *user_quality_criteria_user_quality_content_form_target_user_experience(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_target_user_experience(UserQualityCriteriaUserQualityContentForm *self, const char *value);
-char *user_quality_criteria_user_quality_content_form_user_research_basis(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_user_research_basis(UserQualityCriteriaUserQualityContentForm *self, const char *value);
-char *user_quality_criteria_user_quality_content_form_user_feedback_channel(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_user_feedback_channel(UserQualityCriteriaUserQualityContentForm *self, const char *value);
-char *user_quality_criteria_user_quality_content_form_user_satisfaction_target(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_user_satisfaction_target(UserQualityCriteriaUserQualityContentForm *self, const char *value);
-char *user_quality_criteria_user_quality_content_form_accessibility_level(const UserQualityCriteriaUserQualityContentForm *self);
-void user_quality_criteria_user_quality_content_form_set_accessibility_level(UserQualityCriteriaUserQualityContentForm *self, const char *value);
 
 // UserTrainingRequirementsTrainingFormForm is the generated form facade for the `trainingForm` @Form section.
 void user_training_requirements_training_form_form_init(UserTrainingRequirementsTrainingFormForm *self, SpecDocument *doc, const char *path);

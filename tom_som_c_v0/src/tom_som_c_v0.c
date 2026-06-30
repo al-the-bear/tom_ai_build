@@ -59,6 +59,13 @@ QualityGateChecklist acceptance_criteria_summary_quality_gate_checklist(const Ac
   free(path);
   return out;
 }
+AcceptanceCriteriaList acceptance_criteria_summary_detailed_criteria(const AcceptanceCriteriaSummary *self) {
+  char *path = spec_path_join(self->node.path, "detailedCriteria");
+  AcceptanceCriteriaList out;
+  acceptance_criteria_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void acceptance_criterion_entry_init(AcceptanceCriterionEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -4009,100 +4016,100 @@ AuthorizationRoleEntryStructureContentForm authorization_role_entry_structure_co
   return out;
 }
 
-void availability_quality_init(AvailabilityQuality *self, SpecDocument *doc, const char *path) {
+void availability_init(Availability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_free(AvailabilityQuality *self) {
+void availability_free(Availability *self) {
   som_node_free(&self->node);
 }
-AvailabilityQualityContentForm availability_quality_content(const AvailabilityQuality *self) {
+AvailabilityContentForm availability_content(const Availability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  AvailabilityQualityContentForm out;
-  availability_quality_content_form_init(&out, self->node.doc, path);
+  AvailabilityContentForm out;
+  availability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-AvailabilityQualityOperatingHours availability_quality_operating_hours_details(const AvailabilityQuality *self) {
+AvailabilityOperatingHours availability_operating_hours_details(const Availability *self) {
   char *path = spec_path_join(self->node.path, "operatingHoursDetails");
-  AvailabilityQualityOperatingHours out;
-  availability_quality_operating_hours_init(&out, self->node.doc, path);
+  AvailabilityOperatingHours out;
+  availability_operating_hours_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-AvailabilityQualityMaintenance availability_quality_maintenance(const AvailabilityQuality *self) {
+AvailabilityMaintenance availability_maintenance(const Availability *self) {
   char *path = spec_path_join(self->node.path, "maintenance");
-  AvailabilityQualityMaintenance out;
-  availability_quality_maintenance_init(&out, self->node.doc, path);
+  AvailabilityMaintenance out;
+  availability_maintenance_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-AvailabilityQualityDegradedMode availability_quality_degraded_mode(const AvailabilityQuality *self) {
+AvailabilityDegradedMode availability_degraded_mode(const Availability *self) {
   char *path = spec_path_join(self->node.path, "degradedMode");
-  AvailabilityQualityDegradedMode out;
-  availability_quality_degraded_mode_init(&out, self->node.doc, path);
+  AvailabilityDegradedMode out;
+  availability_degraded_mode_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-AvailabilityQualityVerification availability_quality_verification(const AvailabilityQuality *self) {
+AvailabilityVerification availability_verification(const Availability *self) {
   char *path = spec_path_join(self->node.path, "verification");
-  AvailabilityQualityVerification out;
-  availability_quality_verification_init(&out, self->node.doc, path);
+  AvailabilityVerification out;
+  availability_verification_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void availability_quality_degraded_mode_init(AvailabilityQualityDegradedMode *self, SpecDocument *doc, const char *path) {
+void availability_degraded_mode_init(AvailabilityDegradedMode *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_degraded_mode_free(AvailabilityQualityDegradedMode *self) {
+void availability_degraded_mode_free(AvailabilityDegradedMode *self) {
   som_node_free(&self->node);
 }
-AvailabilityQualityDegradedModeContentForm availability_quality_degraded_mode_content(const AvailabilityQualityDegradedMode *self) {
+AvailabilityDegradedModeContentForm availability_degraded_mode_content(const AvailabilityDegradedMode *self) {
   char *path = spec_path_join(self->node.path, "content");
-  AvailabilityQualityDegradedModeContentForm out;
-  availability_quality_degraded_mode_content_form_init(&out, self->node.doc, path);
+  AvailabilityDegradedModeContentForm out;
+  availability_degraded_mode_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void availability_quality_maintenance_init(AvailabilityQualityMaintenance *self, SpecDocument *doc, const char *path) {
+void availability_maintenance_init(AvailabilityMaintenance *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_maintenance_free(AvailabilityQualityMaintenance *self) {
+void availability_maintenance_free(AvailabilityMaintenance *self) {
   som_node_free(&self->node);
 }
-AvailabilityQualityMaintenanceContentForm availability_quality_maintenance_content(const AvailabilityQualityMaintenance *self) {
+AvailabilityMaintenanceContentForm availability_maintenance_content(const AvailabilityMaintenance *self) {
   char *path = spec_path_join(self->node.path, "content");
-  AvailabilityQualityMaintenanceContentForm out;
-  availability_quality_maintenance_content_form_init(&out, self->node.doc, path);
+  AvailabilityMaintenanceContentForm out;
+  availability_maintenance_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void availability_quality_operating_hours_init(AvailabilityQualityOperatingHours *self, SpecDocument *doc, const char *path) {
+void availability_operating_hours_init(AvailabilityOperatingHours *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_operating_hours_free(AvailabilityQualityOperatingHours *self) {
+void availability_operating_hours_free(AvailabilityOperatingHours *self) {
   som_node_free(&self->node);
 }
-AvailabilityQualityOperatingHoursContentForm availability_quality_operating_hours_content(const AvailabilityQualityOperatingHours *self) {
+AvailabilityOperatingHoursContentForm availability_operating_hours_content(const AvailabilityOperatingHours *self) {
   char *path = spec_path_join(self->node.path, "content");
-  AvailabilityQualityOperatingHoursContentForm out;
-  availability_quality_operating_hours_content_form_init(&out, self->node.doc, path);
+  AvailabilityOperatingHoursContentForm out;
+  availability_operating_hours_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void availability_quality_verification_init(AvailabilityQualityVerification *self, SpecDocument *doc, const char *path) {
+void availability_verification_init(AvailabilityVerification *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_verification_free(AvailabilityQualityVerification *self) {
+void availability_verification_free(AvailabilityVerification *self) {
   som_node_free(&self->node);
 }
-AvailabilityQualityVerificationContentForm availability_quality_verification_content(const AvailabilityQualityVerification *self) {
+AvailabilityVerificationContentForm availability_verification_content(const AvailabilityVerification *self) {
   char *path = spec_path_join(self->node.path, "content");
-  AvailabilityQualityVerificationContentForm out;
-  availability_quality_verification_content_form_init(&out, self->node.doc, path);
+  AvailabilityVerificationContentForm out;
+  availability_verification_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -9582,6 +9589,20 @@ CommunicationTypeEntryContentForm communication_type_entry_content(const Communi
   return out;
 }
 
+void compatibility_characteristic_init(CompatibilityCharacteristic *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void compatibility_characteristic_free(CompatibilityCharacteristic *self) {
+  som_node_free(&self->node);
+}
+CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic_compatibility_content(const CompatibilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "compatibilityContent");
+  CompatibilityCharacteristicCompatibilityContentForm out;
+  compatibility_characteristic_compatibility_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void compatibility_requirements_section_init(CompatibilityRequirementsSection *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -12522,79 +12543,79 @@ SomList contingency_plans_items(const ContingencyPlans *self) {
   return out;
 }
 
-void correctness_quality_init(CorrectnessQuality *self, SpecDocument *doc, const char *path) {
+void correctness_init(Correctness *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_free(CorrectnessQuality *self) {
+void correctness_free(Correctness *self) {
   som_node_free(&self->node);
 }
-CorrectnessQualityContentForm correctness_quality_content(const CorrectnessQuality *self) {
+CorrectnessContentForm correctness_content(const Correctness *self) {
   char *path = spec_path_join(self->node.path, "content");
-  CorrectnessQualityContentForm out;
-  correctness_quality_content_form_init(&out, self->node.doc, path);
+  CorrectnessContentForm out;
+  correctness_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-CorrectnessQualityIntegrity correctness_quality_integrity(const CorrectnessQuality *self) {
+CorrectnessIntegrity correctness_integrity(const Correctness *self) {
   char *path = spec_path_join(self->node.path, "integrity");
-  CorrectnessQualityIntegrity out;
-  correctness_quality_integrity_init(&out, self->node.doc, path);
+  CorrectnessIntegrity out;
+  correctness_integrity_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-CorrectnessQualityAccuracy correctness_quality_accuracy(const CorrectnessQuality *self) {
+CorrectnessAccuracy correctness_accuracy(const Correctness *self) {
   char *path = spec_path_join(self->node.path, "accuracy");
-  CorrectnessQualityAccuracy out;
-  correctness_quality_accuracy_init(&out, self->node.doc, path);
+  CorrectnessAccuracy out;
+  correctness_accuracy_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-CorrectnessQualityVerification correctness_quality_verification(const CorrectnessQuality *self) {
+CorrectnessVerification correctness_verification(const Correctness *self) {
   char *path = spec_path_join(self->node.path, "verification");
-  CorrectnessQualityVerification out;
-  correctness_quality_verification_init(&out, self->node.doc, path);
+  CorrectnessVerification out;
+  correctness_verification_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void correctness_quality_accuracy_init(CorrectnessQualityAccuracy *self, SpecDocument *doc, const char *path) {
+void correctness_accuracy_init(CorrectnessAccuracy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_accuracy_free(CorrectnessQualityAccuracy *self) {
+void correctness_accuracy_free(CorrectnessAccuracy *self) {
   som_node_free(&self->node);
 }
-CorrectnessQualityAccuracyContentForm correctness_quality_accuracy_content(const CorrectnessQualityAccuracy *self) {
+CorrectnessAccuracyContentForm correctness_accuracy_content(const CorrectnessAccuracy *self) {
   char *path = spec_path_join(self->node.path, "content");
-  CorrectnessQualityAccuracyContentForm out;
-  correctness_quality_accuracy_content_form_init(&out, self->node.doc, path);
+  CorrectnessAccuracyContentForm out;
+  correctness_accuracy_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void correctness_quality_integrity_init(CorrectnessQualityIntegrity *self, SpecDocument *doc, const char *path) {
+void correctness_integrity_init(CorrectnessIntegrity *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_integrity_free(CorrectnessQualityIntegrity *self) {
+void correctness_integrity_free(CorrectnessIntegrity *self) {
   som_node_free(&self->node);
 }
-CorrectnessQualityIntegrityContentForm correctness_quality_integrity_content(const CorrectnessQualityIntegrity *self) {
+CorrectnessIntegrityContentForm correctness_integrity_content(const CorrectnessIntegrity *self) {
   char *path = spec_path_join(self->node.path, "content");
-  CorrectnessQualityIntegrityContentForm out;
-  correctness_quality_integrity_content_form_init(&out, self->node.doc, path);
+  CorrectnessIntegrityContentForm out;
+  correctness_integrity_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void correctness_quality_verification_init(CorrectnessQualityVerification *self, SpecDocument *doc, const char *path) {
+void correctness_verification_init(CorrectnessVerification *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_verification_free(CorrectnessQualityVerification *self) {
+void correctness_verification_free(CorrectnessVerification *self) {
   som_node_free(&self->node);
 }
-CorrectnessQualityVerificationContentForm correctness_quality_verification_content(const CorrectnessQualityVerification *self) {
+CorrectnessVerificationContentForm correctness_verification_content(const CorrectnessVerification *self) {
   char *path = spec_path_join(self->node.path, "content");
-  CorrectnessQualityVerificationContentForm out;
-  correctness_quality_verification_content_form_init(&out, self->node.doc, path);
+  CorrectnessVerificationContentForm out;
+  correctness_verification_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -14522,24 +14543,59 @@ QualityFramework d10_quality_acceptance_plan_quality_framework(const D10QualityA
   free(path);
   return out;
 }
-UserQualityCriteria d10_quality_acceptance_plan_user_quality_criteria(const D10QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "userQualityCriteria");
-  UserQualityCriteria out;
-  user_quality_criteria_init(&out, self->node.doc, path);
+FunctionalSuitabilityCharacteristic d10_quality_acceptance_plan_functional_suitability(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "functionalSuitability");
+  FunctionalSuitabilityCharacteristic out;
+  functional_suitability_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-TechnicalQualityCriteria d10_quality_acceptance_plan_technical_quality_criteria(const D10QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "technicalQualityCriteria");
-  TechnicalQualityCriteria out;
-  technical_quality_criteria_init(&out, self->node.doc, path);
+PerformanceEfficiencyCharacteristic d10_quality_acceptance_plan_performance_efficiency(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "performanceEfficiency");
+  PerformanceEfficiencyCharacteristic out;
+  performance_efficiency_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-OperationsQualityCriteria d10_quality_acceptance_plan_operations_quality_criteria(const D10QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "operationsQualityCriteria");
-  OperationsQualityCriteria out;
-  operations_quality_criteria_init(&out, self->node.doc, path);
+CompatibilityCharacteristic d10_quality_acceptance_plan_compatibility(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "compatibility");
+  CompatibilityCharacteristic out;
+  compatibility_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InteractionCapabilityCharacteristic d10_quality_acceptance_plan_interaction_capability(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "interactionCapability");
+  InteractionCapabilityCharacteristic out;
+  interaction_capability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReliabilityCharacteristic d10_quality_acceptance_plan_reliability(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "reliability");
+  ReliabilityCharacteristic out;
+  reliability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityCharacteristic d10_quality_acceptance_plan_security(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "security");
+  SecurityCharacteristic out;
+  security_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MaintainabilityCharacteristic d10_quality_acceptance_plan_maintainability(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "maintainability");
+  MaintainabilityCharacteristic out;
+  maintainability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+FlexibilityCharacteristic d10_quality_acceptance_plan_flexibility(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "flexibility");
+  FlexibilityCharacteristic out;
+  flexibility_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -21304,149 +21360,149 @@ DnsRequirementsZonesContentForm dns_requirements_zones_content(const DnsRequirem
   return out;
 }
 
-void doc_changeability_quality_init(DocChangeabilityQuality *self, SpecDocument *doc, const char *path) {
+void doc_changeability_init(DocChangeability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_free(DocChangeabilityQuality *self) {
+void doc_changeability_free(DocChangeability *self) {
   som_node_free(&self->node);
 }
-DocChangeabilityQualityContentForm doc_changeability_quality_content(const DocChangeabilityQuality *self) {
+DocChangeabilityContentForm doc_changeability_content(const DocChangeability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocChangeabilityQualityContentForm out;
-  doc_changeability_quality_content_form_init(&out, self->node.doc, path);
+  DocChangeabilityContentForm out;
+  doc_changeability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocChangeabilityQualityExtensibility doc_changeability_quality_extensibility(const DocChangeabilityQuality *self) {
+DocChangeabilityExtensibility doc_changeability_extensibility(const DocChangeability *self) {
   char *path = spec_path_join(self->node.path, "extensibility");
-  DocChangeabilityQualityExtensibility out;
-  doc_changeability_quality_extensibility_init(&out, self->node.doc, path);
+  DocChangeabilityExtensibility out;
+  doc_changeability_extensibility_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocChangeabilityQualityStructure doc_changeability_quality_structure(const DocChangeabilityQuality *self) {
+DocChangeabilityStructure doc_changeability_structure(const DocChangeability *self) {
   char *path = spec_path_join(self->node.path, "structure");
-  DocChangeabilityQualityStructure out;
-  doc_changeability_quality_structure_init(&out, self->node.doc, path);
+  DocChangeabilityStructure out;
+  doc_changeability_structure_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocChangeabilityQualityMaintenance doc_changeability_quality_maintenance(const DocChangeabilityQuality *self) {
+DocChangeabilityMaintenance doc_changeability_maintenance(const DocChangeability *self) {
   char *path = spec_path_join(self->node.path, "maintenance");
-  DocChangeabilityQualityMaintenance out;
-  doc_changeability_quality_maintenance_init(&out, self->node.doc, path);
+  DocChangeabilityMaintenance out;
+  doc_changeability_maintenance_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_changeability_quality_extensibility_init(DocChangeabilityQualityExtensibility *self, SpecDocument *doc, const char *path) {
+void doc_changeability_extensibility_init(DocChangeabilityExtensibility *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_extensibility_free(DocChangeabilityQualityExtensibility *self) {
+void doc_changeability_extensibility_free(DocChangeabilityExtensibility *self) {
   som_node_free(&self->node);
 }
-DocChangeabilityQualityExtensibilityContentForm doc_changeability_quality_extensibility_content(const DocChangeabilityQualityExtensibility *self) {
+DocChangeabilityExtensibilityContentForm doc_changeability_extensibility_content(const DocChangeabilityExtensibility *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocChangeabilityQualityExtensibilityContentForm out;
-  doc_changeability_quality_extensibility_content_form_init(&out, self->node.doc, path);
+  DocChangeabilityExtensibilityContentForm out;
+  doc_changeability_extensibility_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_changeability_quality_maintenance_init(DocChangeabilityQualityMaintenance *self, SpecDocument *doc, const char *path) {
+void doc_changeability_maintenance_init(DocChangeabilityMaintenance *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_maintenance_free(DocChangeabilityQualityMaintenance *self) {
+void doc_changeability_maintenance_free(DocChangeabilityMaintenance *self) {
   som_node_free(&self->node);
 }
-DocChangeabilityQualityMaintenanceContentForm doc_changeability_quality_maintenance_content(const DocChangeabilityQualityMaintenance *self) {
+DocChangeabilityMaintenanceContentForm doc_changeability_maintenance_content(const DocChangeabilityMaintenance *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocChangeabilityQualityMaintenanceContentForm out;
-  doc_changeability_quality_maintenance_content_form_init(&out, self->node.doc, path);
+  DocChangeabilityMaintenanceContentForm out;
+  doc_changeability_maintenance_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_changeability_quality_structure_init(DocChangeabilityQualityStructure *self, SpecDocument *doc, const char *path) {
+void doc_changeability_structure_init(DocChangeabilityStructure *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_structure_free(DocChangeabilityQualityStructure *self) {
+void doc_changeability_structure_free(DocChangeabilityStructure *self) {
   som_node_free(&self->node);
 }
-DocChangeabilityQualityStructureContentForm doc_changeability_quality_structure_content(const DocChangeabilityQualityStructure *self) {
+DocChangeabilityStructureContentForm doc_changeability_structure_content(const DocChangeabilityStructure *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocChangeabilityQualityStructureContentForm out;
-  doc_changeability_quality_structure_content_form_init(&out, self->node.doc, path);
+  DocChangeabilityStructureContentForm out;
+  doc_changeability_structure_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_completeness_quality_init(DocCompletenessQuality *self, SpecDocument *doc, const char *path) {
+void doc_completeness_init(DocCompleteness *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_completeness_quality_free(DocCompletenessQuality *self) {
+void doc_completeness_free(DocCompleteness *self) {
   som_node_free(&self->node);
 }
-DocCompletenessQualityContentForm doc_completeness_quality_content(const DocCompletenessQuality *self) {
+DocCompletenessContentForm doc_completeness_content(const DocCompleteness *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocCompletenessQualityContentForm out;
-  doc_completeness_quality_content_form_init(&out, self->node.doc, path);
+  DocCompletenessContentForm out;
+  doc_completeness_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_correctness_quality_init(DocCorrectnessQuality *self, SpecDocument *doc, const char *path) {
+void doc_correctness_init(DocCorrectness *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_free(DocCorrectnessQuality *self) {
+void doc_correctness_free(DocCorrectness *self) {
   som_node_free(&self->node);
 }
-DocCorrectnessQualityContentForm doc_correctness_quality_content(const DocCorrectnessQuality *self) {
+DocCorrectnessContentForm doc_correctness_content(const DocCorrectness *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocCorrectnessQualityContentForm out;
-  doc_correctness_quality_content_form_init(&out, self->node.doc, path);
+  DocCorrectnessContentForm out;
+  doc_correctness_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocCorrectnessQualityAlignment doc_correctness_quality_alignment(const DocCorrectnessQuality *self) {
+DocCorrectnessAlignment doc_correctness_alignment(const DocCorrectness *self) {
   char *path = spec_path_join(self->node.path, "alignment");
-  DocCorrectnessQualityAlignment out;
-  doc_correctness_quality_alignment_init(&out, self->node.doc, path);
+  DocCorrectnessAlignment out;
+  doc_correctness_alignment_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocCorrectnessQualityVerification doc_correctness_quality_verification(const DocCorrectnessQuality *self) {
+DocCorrectnessVerification doc_correctness_verification(const DocCorrectness *self) {
   char *path = spec_path_join(self->node.path, "verification");
-  DocCorrectnessQualityVerification out;
-  doc_correctness_quality_verification_init(&out, self->node.doc, path);
+  DocCorrectnessVerification out;
+  doc_correctness_verification_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_correctness_quality_alignment_init(DocCorrectnessQualityAlignment *self, SpecDocument *doc, const char *path) {
+void doc_correctness_alignment_init(DocCorrectnessAlignment *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_alignment_free(DocCorrectnessQualityAlignment *self) {
+void doc_correctness_alignment_free(DocCorrectnessAlignment *self) {
   som_node_free(&self->node);
 }
-DocCorrectnessQualityAlignmentContentForm doc_correctness_quality_alignment_content(const DocCorrectnessQualityAlignment *self) {
+DocCorrectnessAlignmentContentForm doc_correctness_alignment_content(const DocCorrectnessAlignment *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocCorrectnessQualityAlignmentContentForm out;
-  doc_correctness_quality_alignment_content_form_init(&out, self->node.doc, path);
+  DocCorrectnessAlignmentContentForm out;
+  doc_correctness_alignment_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void doc_correctness_quality_verification_init(DocCorrectnessQualityVerification *self, SpecDocument *doc, const char *path) {
+void doc_correctness_verification_init(DocCorrectnessVerification *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_verification_free(DocCorrectnessQualityVerification *self) {
+void doc_correctness_verification_free(DocCorrectnessVerification *self) {
   som_node_free(&self->node);
 }
-DocCorrectnessQualityVerificationContentForm doc_correctness_quality_verification_content(const DocCorrectnessQualityVerification *self) {
+DocCorrectnessVerificationContentForm doc_correctness_verification_content(const DocCorrectnessVerification *self) {
   char *path = spec_path_join(self->node.path, "content");
-  DocCorrectnessQualityVerificationContentForm out;
-  doc_correctness_quality_verification_content_form_init(&out, self->node.doc, path);
+  DocCorrectnessVerificationContentForm out;
+  doc_correctness_verification_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -21626,31 +21682,31 @@ DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quali
   free(path);
   return out;
 }
-ReadabilityQuality documentation_quality_criteria_readability(const DocumentationQualityCriteria *self) {
+Readability documentation_quality_criteria_readability(const DocumentationQualityCriteria *self) {
   char *path = spec_path_join(self->node.path, "readability");
-  ReadabilityQuality out;
-  readability_quality_init(&out, self->node.doc, path);
+  Readability out;
+  readability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocCompletenessQuality documentation_quality_criteria_completeness(const DocumentationQualityCriteria *self) {
+DocCompleteness documentation_quality_criteria_completeness(const DocumentationQualityCriteria *self) {
   char *path = spec_path_join(self->node.path, "completeness");
-  DocCompletenessQuality out;
-  doc_completeness_quality_init(&out, self->node.doc, path);
+  DocCompleteness out;
+  doc_completeness_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocCorrectnessQuality documentation_quality_criteria_correctness(const DocumentationQualityCriteria *self) {
+DocCorrectness documentation_quality_criteria_correctness(const DocumentationQualityCriteria *self) {
   char *path = spec_path_join(self->node.path, "correctness");
-  DocCorrectnessQuality out;
-  doc_correctness_quality_init(&out, self->node.doc, path);
+  DocCorrectness out;
+  doc_correctness_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-DocChangeabilityQuality documentation_quality_criteria_changeability(const DocumentationQualityCriteria *self) {
+DocChangeability documentation_quality_criteria_changeability(const DocumentationQualityCriteria *self) {
   char *path = spec_path_join(self->node.path, "changeability");
-  DocChangeabilityQuality out;
-  doc_changeability_quality_init(&out, self->node.doc, path);
+  DocChangeability out;
+  doc_changeability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -22230,79 +22286,79 @@ SomList domain_vocabulary_terms(const DomainVocabulary *self) {
   return out;
 }
 
-void efficiency_quality_init(EfficiencyQuality *self, SpecDocument *doc, const char *path) {
+void efficiency_init(Efficiency *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_free(EfficiencyQuality *self) {
+void efficiency_free(Efficiency *self) {
   som_node_free(&self->node);
 }
-EfficiencyQualityContentForm efficiency_quality_content(const EfficiencyQuality *self) {
+EfficiencyContentForm efficiency_content(const Efficiency *self) {
   char *path = spec_path_join(self->node.path, "content");
-  EfficiencyQualityContentForm out;
-  efficiency_quality_content_form_init(&out, self->node.doc, path);
+  EfficiencyContentForm out;
+  efficiency_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-EfficiencyQualityThroughput efficiency_quality_throughput(const EfficiencyQuality *self) {
+EfficiencyThroughput efficiency_throughput(const Efficiency *self) {
   char *path = spec_path_join(self->node.path, "throughput");
-  EfficiencyQualityThroughput out;
-  efficiency_quality_throughput_init(&out, self->node.doc, path);
+  EfficiencyThroughput out;
+  efficiency_throughput_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-EfficiencyQualityResources efficiency_quality_resources(const EfficiencyQuality *self) {
+EfficiencyResources efficiency_resources(const Efficiency *self) {
   char *path = spec_path_join(self->node.path, "resources");
-  EfficiencyQualityResources out;
-  efficiency_quality_resources_init(&out, self->node.doc, path);
+  EfficiencyResources out;
+  efficiency_resources_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-EfficiencyQualityVerification efficiency_quality_verification(const EfficiencyQuality *self) {
+EfficiencyVerification efficiency_verification(const Efficiency *self) {
   char *path = spec_path_join(self->node.path, "verification");
-  EfficiencyQualityVerification out;
-  efficiency_quality_verification_init(&out, self->node.doc, path);
+  EfficiencyVerification out;
+  efficiency_verification_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void efficiency_quality_resources_init(EfficiencyQualityResources *self, SpecDocument *doc, const char *path) {
+void efficiency_resources_init(EfficiencyResources *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_resources_free(EfficiencyQualityResources *self) {
+void efficiency_resources_free(EfficiencyResources *self) {
   som_node_free(&self->node);
 }
-EfficiencyQualityResourcesContentForm efficiency_quality_resources_content(const EfficiencyQualityResources *self) {
+EfficiencyResourcesContentForm efficiency_resources_content(const EfficiencyResources *self) {
   char *path = spec_path_join(self->node.path, "content");
-  EfficiencyQualityResourcesContentForm out;
-  efficiency_quality_resources_content_form_init(&out, self->node.doc, path);
+  EfficiencyResourcesContentForm out;
+  efficiency_resources_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void efficiency_quality_throughput_init(EfficiencyQualityThroughput *self, SpecDocument *doc, const char *path) {
+void efficiency_throughput_init(EfficiencyThroughput *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_throughput_free(EfficiencyQualityThroughput *self) {
+void efficiency_throughput_free(EfficiencyThroughput *self) {
   som_node_free(&self->node);
 }
-EfficiencyQualityThroughputContentForm efficiency_quality_throughput_content(const EfficiencyQualityThroughput *self) {
+EfficiencyThroughputContentForm efficiency_throughput_content(const EfficiencyThroughput *self) {
   char *path = spec_path_join(self->node.path, "content");
-  EfficiencyQualityThroughputContentForm out;
-  efficiency_quality_throughput_content_form_init(&out, self->node.doc, path);
+  EfficiencyThroughputContentForm out;
+  efficiency_throughput_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void efficiency_quality_verification_init(EfficiencyQualityVerification *self, SpecDocument *doc, const char *path) {
+void efficiency_verification_init(EfficiencyVerification *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_verification_free(EfficiencyQualityVerification *self) {
+void efficiency_verification_free(EfficiencyVerification *self) {
   som_node_free(&self->node);
 }
-EfficiencyQualityVerificationContentForm efficiency_quality_verification_content(const EfficiencyQualityVerification *self) {
+EfficiencyVerificationContentForm efficiency_verification_content(const EfficiencyVerification *self) {
   char *path = spec_path_join(self->node.path, "content");
-  EfficiencyQualityVerificationContentForm out;
-  efficiency_quality_verification_content_form_init(&out, self->node.doc, path);
+  EfficiencyVerificationContentForm out;
+  efficiency_verification_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -26443,79 +26499,107 @@ FirewallRequirementsRulesContentForm firewall_requirements_rules_content(const F
   return out;
 }
 
-void flexibility_quality_init(FlexibilityQuality *self, SpecDocument *doc, const char *path) {
+void flexibility_init(Flexibility *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_free(FlexibilityQuality *self) {
+void flexibility_free(Flexibility *self) {
   som_node_free(&self->node);
 }
-FlexibilityQualityContentForm flexibility_quality_content(const FlexibilityQuality *self) {
+FlexibilityContentForm flexibility_content(const Flexibility *self) {
   char *path = spec_path_join(self->node.path, "content");
-  FlexibilityQualityContentForm out;
-  flexibility_quality_content_form_init(&out, self->node.doc, path);
+  FlexibilityContentForm out;
+  flexibility_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-FlexibilityQualityModularity flexibility_quality_modularity(const FlexibilityQuality *self) {
+FlexibilityModularity flexibility_modularity(const Flexibility *self) {
   char *path = spec_path_join(self->node.path, "modularity");
-  FlexibilityQualityModularity out;
-  flexibility_quality_modularity_init(&out, self->node.doc, path);
+  FlexibilityModularity out;
+  flexibility_modularity_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-FlexibilityQualityDeployment flexibility_quality_deployment(const FlexibilityQuality *self) {
+FlexibilityDeployment flexibility_deployment(const Flexibility *self) {
   char *path = spec_path_join(self->node.path, "deployment");
-  FlexibilityQualityDeployment out;
-  flexibility_quality_deployment_init(&out, self->node.doc, path);
+  FlexibilityDeployment out;
+  flexibility_deployment_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-FlexibilityQualityExtensibility flexibility_quality_extensibility(const FlexibilityQuality *self) {
+FlexibilityExtensibility flexibility_extensibility(const Flexibility *self) {
   char *path = spec_path_join(self->node.path, "extensibility");
-  FlexibilityQualityExtensibility out;
-  flexibility_quality_extensibility_init(&out, self->node.doc, path);
+  FlexibilityExtensibility out;
+  flexibility_extensibility_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void flexibility_quality_deployment_init(FlexibilityQualityDeployment *self, SpecDocument *doc, const char *path) {
+void flexibility_characteristic_init(FlexibilityCharacteristic *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_deployment_free(FlexibilityQualityDeployment *self) {
+void flexibility_characteristic_free(FlexibilityCharacteristic *self) {
   som_node_free(&self->node);
 }
-FlexibilityQualityDeploymentContentForm flexibility_quality_deployment_content(const FlexibilityQualityDeployment *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  FlexibilityQualityDeploymentContentForm out;
-  flexibility_quality_deployment_content_form_init(&out, self->node.doc, path);
+FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexibility_content(const FlexibilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "flexibilityContent");
+  FlexibilityCharacteristicFlexibilityContentForm out;
+  flexibility_characteristic_flexibility_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Flexibility flexibility_characteristic_flexibility(const FlexibilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "flexibility");
+  Flexibility out;
+  flexibility_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Portability flexibility_characteristic_portability(const FlexibilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "portability");
+  Portability out;
+  portability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void flexibility_quality_extensibility_init(FlexibilityQualityExtensibility *self, SpecDocument *doc, const char *path) {
+void flexibility_deployment_init(FlexibilityDeployment *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_extensibility_free(FlexibilityQualityExtensibility *self) {
+void flexibility_deployment_free(FlexibilityDeployment *self) {
   som_node_free(&self->node);
 }
-FlexibilityQualityExtensibilityContentForm flexibility_quality_extensibility_content(const FlexibilityQualityExtensibility *self) {
+FlexibilityDeploymentContentForm flexibility_deployment_content(const FlexibilityDeployment *self) {
   char *path = spec_path_join(self->node.path, "content");
-  FlexibilityQualityExtensibilityContentForm out;
-  flexibility_quality_extensibility_content_form_init(&out, self->node.doc, path);
+  FlexibilityDeploymentContentForm out;
+  flexibility_deployment_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void flexibility_quality_modularity_init(FlexibilityQualityModularity *self, SpecDocument *doc, const char *path) {
+void flexibility_extensibility_init(FlexibilityExtensibility *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_modularity_free(FlexibilityQualityModularity *self) {
+void flexibility_extensibility_free(FlexibilityExtensibility *self) {
   som_node_free(&self->node);
 }
-FlexibilityQualityModularityContentForm flexibility_quality_modularity_content(const FlexibilityQualityModularity *self) {
+FlexibilityExtensibilityContentForm flexibility_extensibility_content(const FlexibilityExtensibility *self) {
   char *path = spec_path_join(self->node.path, "content");
-  FlexibilityQualityModularityContentForm out;
-  flexibility_quality_modularity_content_form_init(&out, self->node.doc, path);
+  FlexibilityExtensibilityContentForm out;
+  flexibility_extensibility_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void flexibility_modularity_init(FlexibilityModularity *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void flexibility_modularity_free(FlexibilityModularity *self) {
+  som_node_free(&self->node);
+}
+FlexibilityModularityContentForm flexibility_modularity_content(const FlexibilityModularity *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  FlexibilityModularityContentForm out;
+  flexibility_modularity_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -26887,16 +26971,16 @@ SomList function_model_business_rules(const FunctionModel *self) {
   return out;
 }
 
-void functional_completeness_quality_init(FunctionalCompletenessQuality *self, SpecDocument *doc, const char *path) {
+void functional_completeness_init(FunctionalCompleteness *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void functional_completeness_quality_free(FunctionalCompletenessQuality *self) {
+void functional_completeness_free(FunctionalCompleteness *self) {
   som_node_free(&self->node);
 }
-FunctionalCompletenessQualityContentForm functional_completeness_quality_content(const FunctionalCompletenessQuality *self) {
+FunctionalCompletenessContentForm functional_completeness_content(const FunctionalCompleteness *self) {
   char *path = spec_path_join(self->node.path, "content");
-  FunctionalCompletenessQualityContentForm out;
-  functional_completeness_quality_content_form_init(&out, self->node.doc, path);
+  FunctionalCompletenessContentForm out;
+  functional_completeness_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -27140,6 +27224,34 @@ SomList functional_responsibilities_items(const FunctionalResponsibilities *self
   char *path = spec_path_join(self->node.path, "REEN1-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void functional_suitability_characteristic_init(FunctionalSuitabilityCharacteristic *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void functional_suitability_characteristic_free(FunctionalSuitabilityCharacteristic *self) {
+  som_node_free(&self->node);
+}
+FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functional_suitability_characteristic_functional_suitability_content(const FunctionalSuitabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "functionalSuitabilityContent");
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm out;
+  functional_suitability_characteristic_functional_suitability_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+FunctionalCompleteness functional_suitability_characteristic_functional_completeness(const FunctionalSuitabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "functionalCompleteness");
+  FunctionalCompleteness out;
+  functional_completeness_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Correctness functional_suitability_characteristic_correctness(const FunctionalSuitabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "correctness");
+  Correctness out;
+  correctness_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -30171,6 +30283,27 @@ InteractionBusinessRulesContentForm interaction_business_rules_content(const Int
   return out;
 }
 
+void interaction_capability_characteristic_init(InteractionCapabilityCharacteristic *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void interaction_capability_characteristic_free(InteractionCapabilityCharacteristic *self) {
+  som_node_free(&self->node);
+}
+InteractionCapabilityCharacteristicInteractionCapabilityContentForm interaction_capability_characteristic_interaction_capability_content(const InteractionCapabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "interactionCapabilityContent");
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm out;
+  interaction_capability_characteristic_interaction_capability_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Usability interaction_capability_characteristic_usability(const InteractionCapabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "usability");
+  Usability out;
+  usability_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void interaction_catalog_init(InteractionCatalog *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -31733,100 +31866,100 @@ ItLandscapePositionPositionDetailsForm it_landscape_position_position_details(co
   return out;
 }
 
-void it_security_operations_quality_init(ItSecurityOperationsQuality *self, SpecDocument *doc, const char *path) {
+void it_security_operations_init(ItSecurityOperations *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_free(ItSecurityOperationsQuality *self) {
+void it_security_operations_free(ItSecurityOperations *self) {
   som_node_free(&self->node);
 }
-ItSecurityOperationsQualityContentForm it_security_operations_quality_content(const ItSecurityOperationsQuality *self) {
+ItSecurityOperationsContentForm it_security_operations_content(const ItSecurityOperations *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ItSecurityOperationsQualityContentForm out;
-  it_security_operations_quality_content_form_init(&out, self->node.doc, path);
+  ItSecurityOperationsContentForm out;
+  it_security_operations_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ItSecurityOperationsQualityAccess it_security_operations_quality_access(const ItSecurityOperationsQuality *self) {
+ItSecurityOperationsAccess it_security_operations_access(const ItSecurityOperations *self) {
   char *path = spec_path_join(self->node.path, "access");
-  ItSecurityOperationsQualityAccess out;
-  it_security_operations_quality_access_init(&out, self->node.doc, path);
+  ItSecurityOperationsAccess out;
+  it_security_operations_access_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ItSecurityOperationsQualityRecovery it_security_operations_quality_recovery(const ItSecurityOperationsQuality *self) {
+ItSecurityOperationsRecovery it_security_operations_recovery(const ItSecurityOperations *self) {
   char *path = spec_path_join(self->node.path, "recovery");
-  ItSecurityOperationsQualityRecovery out;
-  it_security_operations_quality_recovery_init(&out, self->node.doc, path);
+  ItSecurityOperationsRecovery out;
+  it_security_operations_recovery_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ItSecurityOperationsQualityTesting it_security_operations_quality_testing(const ItSecurityOperationsQuality *self) {
+ItSecurityOperationsTesting it_security_operations_testing(const ItSecurityOperations *self) {
   char *path = spec_path_join(self->node.path, "testing");
-  ItSecurityOperationsQualityTesting out;
-  it_security_operations_quality_testing_init(&out, self->node.doc, path);
+  ItSecurityOperationsTesting out;
+  it_security_operations_testing_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ItSecurityOperationsQualityIncident it_security_operations_quality_incident(const ItSecurityOperationsQuality *self) {
+ItSecurityOperationsIncident it_security_operations_incident(const ItSecurityOperations *self) {
   char *path = spec_path_join(self->node.path, "incident");
-  ItSecurityOperationsQualityIncident out;
-  it_security_operations_quality_incident_init(&out, self->node.doc, path);
+  ItSecurityOperationsIncident out;
+  it_security_operations_incident_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void it_security_operations_quality_access_init(ItSecurityOperationsQualityAccess *self, SpecDocument *doc, const char *path) {
+void it_security_operations_access_init(ItSecurityOperationsAccess *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_access_free(ItSecurityOperationsQualityAccess *self) {
+void it_security_operations_access_free(ItSecurityOperationsAccess *self) {
   som_node_free(&self->node);
 }
-ItSecurityOperationsQualityAccessContentForm it_security_operations_quality_access_content(const ItSecurityOperationsQualityAccess *self) {
+ItSecurityOperationsAccessContentForm it_security_operations_access_content(const ItSecurityOperationsAccess *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ItSecurityOperationsQualityAccessContentForm out;
-  it_security_operations_quality_access_content_form_init(&out, self->node.doc, path);
+  ItSecurityOperationsAccessContentForm out;
+  it_security_operations_access_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void it_security_operations_quality_incident_init(ItSecurityOperationsQualityIncident *self, SpecDocument *doc, const char *path) {
+void it_security_operations_incident_init(ItSecurityOperationsIncident *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_incident_free(ItSecurityOperationsQualityIncident *self) {
+void it_security_operations_incident_free(ItSecurityOperationsIncident *self) {
   som_node_free(&self->node);
 }
-ItSecurityOperationsQualityIncidentContentForm it_security_operations_quality_incident_content(const ItSecurityOperationsQualityIncident *self) {
+ItSecurityOperationsIncidentContentForm it_security_operations_incident_content(const ItSecurityOperationsIncident *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ItSecurityOperationsQualityIncidentContentForm out;
-  it_security_operations_quality_incident_content_form_init(&out, self->node.doc, path);
+  ItSecurityOperationsIncidentContentForm out;
+  it_security_operations_incident_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void it_security_operations_quality_recovery_init(ItSecurityOperationsQualityRecovery *self, SpecDocument *doc, const char *path) {
+void it_security_operations_recovery_init(ItSecurityOperationsRecovery *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_recovery_free(ItSecurityOperationsQualityRecovery *self) {
+void it_security_operations_recovery_free(ItSecurityOperationsRecovery *self) {
   som_node_free(&self->node);
 }
-ItSecurityOperationsQualityRecoveryContentForm it_security_operations_quality_recovery_content(const ItSecurityOperationsQualityRecovery *self) {
+ItSecurityOperationsRecoveryContentForm it_security_operations_recovery_content(const ItSecurityOperationsRecovery *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ItSecurityOperationsQualityRecoveryContentForm out;
-  it_security_operations_quality_recovery_content_form_init(&out, self->node.doc, path);
+  ItSecurityOperationsRecoveryContentForm out;
+  it_security_operations_recovery_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void it_security_operations_quality_testing_init(ItSecurityOperationsQualityTesting *self, SpecDocument *doc, const char *path) {
+void it_security_operations_testing_init(ItSecurityOperationsTesting *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_testing_free(ItSecurityOperationsQualityTesting *self) {
+void it_security_operations_testing_free(ItSecurityOperationsTesting *self) {
   som_node_free(&self->node);
 }
-ItSecurityOperationsQualityTestingContentForm it_security_operations_quality_testing_content(const ItSecurityOperationsQualityTesting *self) {
+ItSecurityOperationsTestingContentForm it_security_operations_testing_content(const ItSecurityOperationsTesting *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ItSecurityOperationsQualityTestingContentForm out;
-  it_security_operations_quality_testing_content_form_init(&out, self->node.doc, path);
+  ItSecurityOperationsTestingContentForm out;
+  it_security_operations_testing_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -33668,100 +33801,121 @@ SomList main_success_scenario_steps(const MainSuccessScenario *self) {
   return out;
 }
 
-void maintainability_quality_init(MaintainabilityQuality *self, SpecDocument *doc, const char *path) {
+void maintainability_init(Maintainability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_free(MaintainabilityQuality *self) {
+void maintainability_free(Maintainability *self) {
   som_node_free(&self->node);
 }
-MaintainabilityQualityContentForm maintainability_quality_content(const MaintainabilityQuality *self) {
+MaintainabilityContentForm maintainability_content(const Maintainability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  MaintainabilityQualityContentForm out;
-  maintainability_quality_content_form_init(&out, self->node.doc, path);
+  MaintainabilityContentForm out;
+  maintainability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-MaintainabilityQualityAnalyzability maintainability_quality_analyzability(const MaintainabilityQuality *self) {
+MaintainabilityAnalyzability maintainability_analyzability(const Maintainability *self) {
   char *path = spec_path_join(self->node.path, "analyzability");
-  MaintainabilityQualityAnalyzability out;
-  maintainability_quality_analyzability_init(&out, self->node.doc, path);
+  MaintainabilityAnalyzability out;
+  maintainability_analyzability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-MaintainabilityQualityChangeability maintainability_quality_changeability(const MaintainabilityQuality *self) {
+MaintainabilityChangeability maintainability_changeability(const Maintainability *self) {
   char *path = spec_path_join(self->node.path, "changeability");
-  MaintainabilityQualityChangeability out;
-  maintainability_quality_changeability_init(&out, self->node.doc, path);
+  MaintainabilityChangeability out;
+  maintainability_changeability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-MaintainabilityQualityTestability maintainability_quality_testability(const MaintainabilityQuality *self) {
+MaintainabilityTestability maintainability_testability(const Maintainability *self) {
   char *path = spec_path_join(self->node.path, "testability");
-  MaintainabilityQualityTestability out;
-  maintainability_quality_testability_init(&out, self->node.doc, path);
+  MaintainabilityTestability out;
+  maintainability_testability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-MaintainabilityQualityGovernance maintainability_quality_governance(const MaintainabilityQuality *self) {
+MaintainabilityGovernance maintainability_governance(const Maintainability *self) {
   char *path = spec_path_join(self->node.path, "governance");
-  MaintainabilityQualityGovernance out;
-  maintainability_quality_governance_init(&out, self->node.doc, path);
+  MaintainabilityGovernance out;
+  maintainability_governance_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void maintainability_quality_analyzability_init(MaintainabilityQualityAnalyzability *self, SpecDocument *doc, const char *path) {
+void maintainability_analyzability_init(MaintainabilityAnalyzability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_analyzability_free(MaintainabilityQualityAnalyzability *self) {
+void maintainability_analyzability_free(MaintainabilityAnalyzability *self) {
   som_node_free(&self->node);
 }
-MaintainabilityQualityAnalyzabilityContentForm maintainability_quality_analyzability_content(const MaintainabilityQualityAnalyzability *self) {
+MaintainabilityAnalyzabilityContentForm maintainability_analyzability_content(const MaintainabilityAnalyzability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  MaintainabilityQualityAnalyzabilityContentForm out;
-  maintainability_quality_analyzability_content_form_init(&out, self->node.doc, path);
+  MaintainabilityAnalyzabilityContentForm out;
+  maintainability_analyzability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void maintainability_quality_changeability_init(MaintainabilityQualityChangeability *self, SpecDocument *doc, const char *path) {
+void maintainability_changeability_init(MaintainabilityChangeability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_changeability_free(MaintainabilityQualityChangeability *self) {
+void maintainability_changeability_free(MaintainabilityChangeability *self) {
   som_node_free(&self->node);
 }
-MaintainabilityQualityChangeabilityContentForm maintainability_quality_changeability_content(const MaintainabilityQualityChangeability *self) {
+MaintainabilityChangeabilityContentForm maintainability_changeability_content(const MaintainabilityChangeability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  MaintainabilityQualityChangeabilityContentForm out;
-  maintainability_quality_changeability_content_form_init(&out, self->node.doc, path);
+  MaintainabilityChangeabilityContentForm out;
+  maintainability_changeability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void maintainability_quality_governance_init(MaintainabilityQualityGovernance *self, SpecDocument *doc, const char *path) {
+void maintainability_characteristic_init(MaintainabilityCharacteristic *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_governance_free(MaintainabilityQualityGovernance *self) {
+void maintainability_characteristic_free(MaintainabilityCharacteristic *self) {
   som_node_free(&self->node);
 }
-MaintainabilityQualityGovernanceContentForm maintainability_quality_governance_content(const MaintainabilityQualityGovernance *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MaintainabilityQualityGovernanceContentForm out;
-  maintainability_quality_governance_content_form_init(&out, self->node.doc, path);
+MaintainabilityCharacteristicMaintainabilityContentForm maintainability_characteristic_maintainability_content(const MaintainabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "maintainabilityContent");
+  MaintainabilityCharacteristicMaintainabilityContentForm out;
+  maintainability_characteristic_maintainability_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Maintainability maintainability_characteristic_maintainability(const MaintainabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "maintainability");
+  Maintainability out;
+  maintainability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void maintainability_quality_testability_init(MaintainabilityQualityTestability *self, SpecDocument *doc, const char *path) {
+void maintainability_governance_init(MaintainabilityGovernance *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_testability_free(MaintainabilityQualityTestability *self) {
+void maintainability_governance_free(MaintainabilityGovernance *self) {
   som_node_free(&self->node);
 }
-MaintainabilityQualityTestabilityContentForm maintainability_quality_testability_content(const MaintainabilityQualityTestability *self) {
+MaintainabilityGovernanceContentForm maintainability_governance_content(const MaintainabilityGovernance *self) {
   char *path = spec_path_join(self->node.path, "content");
-  MaintainabilityQualityTestabilityContentForm out;
-  maintainability_quality_testability_content_form_init(&out, self->node.doc, path);
+  MaintainabilityGovernanceContentForm out;
+  maintainability_governance_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void maintainability_testability_init(MaintainabilityTestability *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void maintainability_testability_free(MaintainabilityTestability *self) {
+  som_node_free(&self->node);
+}
+MaintainabilityTestabilityContentForm maintainability_testability_content(const MaintainabilityTestability *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MaintainabilityTestabilityContentForm out;
+  maintainability_testability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -36231,6 +36385,20 @@ SlaAndSloMonitoring monitoring_sla_and_slo_monitoring(const Monitoring *self) {
   return out;
 }
 
+void monitoring_alerting_init(MonitoringAlerting *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_alerting_free(MonitoringAlerting *self) {
+  som_node_free(&self->node);
+}
+MonitoringAlertingContentForm monitoring_alerting_content(const MonitoringAlerting *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MonitoringAlertingContentForm out;
+  monitoring_alerting_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void monitoring_and_alerting_section_init(MonitoringAndAlertingSection *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -36316,6 +36484,34 @@ SlaMonitoringRequirements monitoring_and_alerting_section_sla_monitoring(const M
   char *path = spec_path_join(self->node.path, "slaMonitoring");
   SlaMonitoringRequirements out;
   sla_monitoring_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void monitoring_automation_init(MonitoringAutomation *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_automation_free(MonitoringAutomation *self) {
+  som_node_free(&self->node);
+}
+MonitoringAutomationContentForm monitoring_automation_content(const MonitoringAutomation *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MonitoringAutomationContentForm out;
+  monitoring_automation_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void monitoring_coverage_init(MonitoringCoverage *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_coverage_free(MonitoringCoverage *self) {
+  som_node_free(&self->node);
+}
+MonitoringCoverageContentForm monitoring_coverage_content(const MonitoringCoverage *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MonitoringCoverageContentForm out;
+  monitoring_coverage_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -36425,6 +36621,20 @@ MonitoringInfrastructureDeploymentContentForm monitoring_infrastructure_deployme
   return out;
 }
 
+void monitoring_operations_init(MonitoringOperations *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_operations_free(MonitoringOperations *self) {
+  som_node_free(&self->node);
+}
+MonitoringOperationsContentForm monitoring_operations_content(const MonitoringOperations *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  MonitoringOperationsContentForm out;
+  monitoring_operations_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void monitoring_procedure_entry_init(MonitoringProcedureEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -36442,104 +36652,6 @@ void monitoring_procedure_entry_set_content(MonitoringProcedureEntry *self, cons
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
-}
-
-void monitoring_quality_init(MonitoringQuality *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_free(MonitoringQuality *self) {
-  som_node_free(&self->node);
-}
-MonitoringQualityContentForm monitoring_quality_content(const MonitoringQuality *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MonitoringQualityContentForm out;
-  monitoring_quality_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MonitoringQualityCoverage monitoring_quality_coverage(const MonitoringQuality *self) {
-  char *path = spec_path_join(self->node.path, "coverage");
-  MonitoringQualityCoverage out;
-  monitoring_quality_coverage_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MonitoringQualityAutomation monitoring_quality_automation(const MonitoringQuality *self) {
-  char *path = spec_path_join(self->node.path, "automation");
-  MonitoringQualityAutomation out;
-  monitoring_quality_automation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MonitoringQualityAlerting monitoring_quality_alerting(const MonitoringQuality *self) {
-  char *path = spec_path_join(self->node.path, "alerting");
-  MonitoringQualityAlerting out;
-  monitoring_quality_alerting_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MonitoringQualityOperations monitoring_quality_operations(const MonitoringQuality *self) {
-  char *path = spec_path_join(self->node.path, "operations");
-  MonitoringQualityOperations out;
-  monitoring_quality_operations_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void monitoring_quality_alerting_init(MonitoringQualityAlerting *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_alerting_free(MonitoringQualityAlerting *self) {
-  som_node_free(&self->node);
-}
-MonitoringQualityAlertingContentForm monitoring_quality_alerting_content(const MonitoringQualityAlerting *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MonitoringQualityAlertingContentForm out;
-  monitoring_quality_alerting_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void monitoring_quality_automation_init(MonitoringQualityAutomation *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_automation_free(MonitoringQualityAutomation *self) {
-  som_node_free(&self->node);
-}
-MonitoringQualityAutomationContentForm monitoring_quality_automation_content(const MonitoringQualityAutomation *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MonitoringQualityAutomationContentForm out;
-  monitoring_quality_automation_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void monitoring_quality_coverage_init(MonitoringQualityCoverage *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_coverage_free(MonitoringQualityCoverage *self) {
-  som_node_free(&self->node);
-}
-MonitoringQualityCoverageContentForm monitoring_quality_coverage_content(const MonitoringQualityCoverage *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MonitoringQualityCoverageContentForm out;
-  monitoring_quality_coverage_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void monitoring_quality_operations_init(MonitoringQualityOperations *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_operations_free(MonitoringQualityOperations *self) {
-  som_node_free(&self->node);
-}
-MonitoringQualityOperationsContentForm monitoring_quality_operations_content(const MonitoringQualityOperations *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  MonitoringQualityOperationsContentForm out;
-  monitoring_quality_operations_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void moscow_analysis_init(MoscowAnalysis *self, SpecDocument *doc, const char *path) {
@@ -38806,6 +38918,48 @@ OngoingTrainingEntryScheduleContentForm ongoing_training_entry_schedule_content(
   return out;
 }
 
+void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void operational_monitoring_free(OperationalMonitoring *self) {
+  som_node_free(&self->node);
+}
+OperationalMonitoringContentForm operational_monitoring_content(const OperationalMonitoring *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  OperationalMonitoringContentForm out;
+  operational_monitoring_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MonitoringCoverage operational_monitoring_coverage(const OperationalMonitoring *self) {
+  char *path = spec_path_join(self->node.path, "coverage");
+  MonitoringCoverage out;
+  monitoring_coverage_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MonitoringAutomation operational_monitoring_automation(const OperationalMonitoring *self) {
+  char *path = spec_path_join(self->node.path, "automation");
+  MonitoringAutomation out;
+  monitoring_automation_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MonitoringAlerting operational_monitoring_alerting(const OperationalMonitoring *self) {
+  char *path = spec_path_join(self->node.path, "alerting");
+  MonitoringAlerting out;
+  monitoring_alerting_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MonitoringOperations operational_monitoring_operations(const OperationalMonitoring *self) {
+  char *path = spec_path_join(self->node.path, "operations");
+  MonitoringOperations out;
+  monitoring_operations_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void operational_pain_points_init(OperationalPainPoints *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -38849,48 +39003,6 @@ OperationalPainPointsSummaryContentForm operational_pain_points_summary_content(
   char *path = spec_path_join(self->node.path, "content");
   OperationalPainPointsSummaryContentForm out;
   operational_pain_points_summary_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void operations_quality_criteria_init(OperationsQualityCriteria *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void operations_quality_criteria_free(OperationsQualityCriteria *self) {
-  som_node_free(&self->node);
-}
-OperationsQualityCriteriaOperationsOverviewContentForm operations_quality_criteria_operations_overview_content(const OperationsQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "operationsOverviewContent");
-  OperationsQualityCriteriaOperationsOverviewContentForm out;
-  operations_quality_criteria_operations_overview_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AvailabilityQuality operations_quality_criteria_availability(const OperationsQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "availability");
-  AvailabilityQuality out;
-  availability_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQuality operations_quality_criteria_service_level_requirements(const OperationsQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "serviceLevelRequirements");
-  ServiceLevelQuality out;
-  service_level_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MonitoringQuality operations_quality_criteria_monitoring_and_prevention(const OperationsQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "monitoringAndPrevention");
-  MonitoringQuality out;
-  monitoring_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ItSecurityOperationsQuality operations_quality_criteria_it_security_operations(const OperationsQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "itSecurityOperations");
-  ItSecurityOperationsQuality out;
-  it_security_operations_quality_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -40520,6 +40632,27 @@ PenetrationTestingRequirementsSchedulingContentForm penetration_testing_requirem
   return out;
 }
 
+void performance_efficiency_characteristic_init(PerformanceEfficiencyCharacteristic *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void performance_efficiency_characteristic_free(PerformanceEfficiencyCharacteristic *self) {
+  som_node_free(&self->node);
+}
+PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performance_efficiency_characteristic_performance_efficiency_content(const PerformanceEfficiencyCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "performanceEfficiencyContent");
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm out;
+  performance_efficiency_characteristic_performance_efficiency_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Efficiency performance_efficiency_characteristic_efficiency(const PerformanceEfficiencyCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "efficiency");
+  Efficiency out;
+  efficiency_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void periodic_review_policy_init(PeriodicReviewPolicy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -41386,16 +41519,16 @@ RuntimeEnvironment platform_and_language_runtime_environment(const PlatformAndLa
   return out;
 }
 
-void portability_quality_init(PortabilityQuality *self, SpecDocument *doc, const char *path) {
+void portability_init(Portability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void portability_quality_free(PortabilityQuality *self) {
+void portability_free(Portability *self) {
   som_node_free(&self->node);
 }
-PortabilityQualityContentForm portability_quality_content(const PortabilityQuality *self) {
+PortabilityContentForm portability_content(const Portability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  PortabilityQualityContentForm out;
-  portability_quality_content_form_init(&out, self->node.doc, path);
+  PortabilityContentForm out;
+  portability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -44912,6 +45045,62 @@ SomList quality_gate_checklist_items(const QualityGateChecklist *self) {
   return out;
 }
 
+void quality_goals_baseline_init(QualityGoalsBaseline *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_baseline_free(QualityGoalsBaseline *self) {
+  som_node_free(&self->node);
+}
+QualityGoalsBaselineContentForm quality_goals_baseline_content(const QualityGoalsBaseline *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  QualityGoalsBaselineContentForm out;
+  quality_goals_baseline_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void quality_goals_governance_init(QualityGoalsGovernance *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_governance_free(QualityGoalsGovernance *self) {
+  som_node_free(&self->node);
+}
+QualityGoalsGovernanceContentForm quality_goals_governance_content(const QualityGoalsGovernance *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  QualityGoalsGovernanceContentForm out;
+  quality_goals_governance_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void quality_goals_measurement_init(QualityGoalsMeasurement *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_measurement_free(QualityGoalsMeasurement *self) {
+  som_node_free(&self->node);
+}
+QualityGoalsMeasurementContentForm quality_goals_measurement_content(const QualityGoalsMeasurement *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  QualityGoalsMeasurementContentForm out;
+  quality_goals_measurement_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void quality_goals_resources_init(QualityGoalsResources *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_resources_free(QualityGoalsResources *self) {
+  som_node_free(&self->node);
+}
+QualityGoalsResourcesContentForm quality_goals_resources_content(const QualityGoalsResources *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  QualityGoalsResourcesContentForm out;
+  quality_goals_resources_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void quality_prioritization_init(QualityPrioritization *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -45169,100 +45358,100 @@ RateLimitingPolicyQuotasContentForm rate_limiting_policy_quotas_content(const Ra
   return out;
 }
 
-void readability_quality_init(ReadabilityQuality *self, SpecDocument *doc, const char *path) {
+void readability_init(Readability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_free(ReadabilityQuality *self) {
+void readability_free(Readability *self) {
   som_node_free(&self->node);
 }
-ReadabilityQualityContentForm readability_quality_content(const ReadabilityQuality *self) {
+ReadabilityContentForm readability_content(const Readability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReadabilityQualityContentForm out;
-  readability_quality_content_form_init(&out, self->node.doc, path);
+  ReadabilityContentForm out;
+  readability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReadabilityQualityNavigation readability_quality_navigation(const ReadabilityQuality *self) {
+ReadabilityNavigation readability_navigation(const Readability *self) {
   char *path = spec_path_join(self->node.path, "navigation");
-  ReadabilityQualityNavigation out;
-  readability_quality_navigation_init(&out, self->node.doc, path);
+  ReadabilityNavigation out;
+  readability_navigation_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReadabilityQualityComprehensibility readability_quality_comprehensibility(const ReadabilityQuality *self) {
+ReadabilityComprehensibility readability_comprehensibility(const Readability *self) {
   char *path = spec_path_join(self->node.path, "comprehensibility");
-  ReadabilityQualityComprehensibility out;
-  readability_quality_comprehensibility_init(&out, self->node.doc, path);
+  ReadabilityComprehensibility out;
+  readability_comprehensibility_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReadabilityQualityStructure readability_quality_structure(const ReadabilityQuality *self) {
+ReadabilityStructure readability_structure(const Readability *self) {
   char *path = spec_path_join(self->node.path, "structure");
-  ReadabilityQualityStructure out;
-  readability_quality_structure_init(&out, self->node.doc, path);
+  ReadabilityStructure out;
+  readability_structure_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReadabilityQualityStyle readability_quality_style(const ReadabilityQuality *self) {
+ReadabilityStyle readability_style(const Readability *self) {
   char *path = spec_path_join(self->node.path, "style");
-  ReadabilityQualityStyle out;
-  readability_quality_style_init(&out, self->node.doc, path);
+  ReadabilityStyle out;
+  readability_style_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void readability_quality_comprehensibility_init(ReadabilityQualityComprehensibility *self, SpecDocument *doc, const char *path) {
+void readability_comprehensibility_init(ReadabilityComprehensibility *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_comprehensibility_free(ReadabilityQualityComprehensibility *self) {
+void readability_comprehensibility_free(ReadabilityComprehensibility *self) {
   som_node_free(&self->node);
 }
-ReadabilityQualityComprehensibilityContentForm readability_quality_comprehensibility_content(const ReadabilityQualityComprehensibility *self) {
+ReadabilityComprehensibilityContentForm readability_comprehensibility_content(const ReadabilityComprehensibility *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReadabilityQualityComprehensibilityContentForm out;
-  readability_quality_comprehensibility_content_form_init(&out, self->node.doc, path);
+  ReadabilityComprehensibilityContentForm out;
+  readability_comprehensibility_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void readability_quality_navigation_init(ReadabilityQualityNavigation *self, SpecDocument *doc, const char *path) {
+void readability_navigation_init(ReadabilityNavigation *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_navigation_free(ReadabilityQualityNavigation *self) {
+void readability_navigation_free(ReadabilityNavigation *self) {
   som_node_free(&self->node);
 }
-ReadabilityQualityNavigationContentForm readability_quality_navigation_content(const ReadabilityQualityNavigation *self) {
+ReadabilityNavigationContentForm readability_navigation_content(const ReadabilityNavigation *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReadabilityQualityNavigationContentForm out;
-  readability_quality_navigation_content_form_init(&out, self->node.doc, path);
+  ReadabilityNavigationContentForm out;
+  readability_navigation_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void readability_quality_structure_init(ReadabilityQualityStructure *self, SpecDocument *doc, const char *path) {
+void readability_structure_init(ReadabilityStructure *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_structure_free(ReadabilityQualityStructure *self) {
+void readability_structure_free(ReadabilityStructure *self) {
   som_node_free(&self->node);
 }
-ReadabilityQualityStructureContentForm readability_quality_structure_content(const ReadabilityQualityStructure *self) {
+ReadabilityStructureContentForm readability_structure_content(const ReadabilityStructure *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReadabilityQualityStructureContentForm out;
-  readability_quality_structure_content_form_init(&out, self->node.doc, path);
+  ReadabilityStructureContentForm out;
+  readability_structure_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void readability_quality_style_init(ReadabilityQualityStyle *self, SpecDocument *doc, const char *path) {
+void readability_style_init(ReadabilityStyle *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_style_free(ReadabilityQualityStyle *self) {
+void readability_style_free(ReadabilityStyle *self) {
   som_node_free(&self->node);
 }
-ReadabilityQualityStyleContentForm readability_quality_style_content(const ReadabilityQualityStyle *self) {
+ReadabilityStyleContentForm readability_style_content(const ReadabilityStyle *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReadabilityQualityStyleContentForm out;
-  readability_quality_style_content_form_init(&out, self->node.doc, path);
+  ReadabilityStyleContentForm out;
+  readability_style_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -45906,100 +46095,142 @@ RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSec
   return out;
 }
 
-void reliability_quality_init(ReliabilityQuality *self, SpecDocument *doc, const char *path) {
+void reliability_init(Reliability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_free(ReliabilityQuality *self) {
+void reliability_free(Reliability *self) {
   som_node_free(&self->node);
 }
-ReliabilityQualityContentForm reliability_quality_content(const ReliabilityQuality *self) {
+ReliabilityContentForm reliability_content(const Reliability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReliabilityQualityContentForm out;
-  reliability_quality_content_form_init(&out, self->node.doc, path);
+  ReliabilityContentForm out;
+  reliability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReliabilityQualityRecovery reliability_quality_recovery(const ReliabilityQuality *self) {
+ReliabilityRecovery reliability_recovery(const Reliability *self) {
   char *path = spec_path_join(self->node.path, "recovery");
-  ReliabilityQualityRecovery out;
-  reliability_quality_recovery_init(&out, self->node.doc, path);
+  ReliabilityRecovery out;
+  reliability_recovery_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReliabilityQualityFailover reliability_quality_failover(const ReliabilityQuality *self) {
+ReliabilityFailover reliability_failover(const Reliability *self) {
   char *path = spec_path_join(self->node.path, "failover");
-  ReliabilityQualityFailover out;
-  reliability_quality_failover_init(&out, self->node.doc, path);
+  ReliabilityFailover out;
+  reliability_failover_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReliabilityQualityDurability reliability_quality_durability(const ReliabilityQuality *self) {
+ReliabilityDurability reliability_durability(const Reliability *self) {
   char *path = spec_path_join(self->node.path, "durability");
-  ReliabilityQualityDurability out;
-  reliability_quality_durability_init(&out, self->node.doc, path);
+  ReliabilityDurability out;
+  reliability_durability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ReliabilityQualityVerification reliability_quality_verification(const ReliabilityQuality *self) {
+ReliabilityVerification reliability_verification(const Reliability *self) {
   char *path = spec_path_join(self->node.path, "verification");
-  ReliabilityQualityVerification out;
-  reliability_quality_verification_init(&out, self->node.doc, path);
+  ReliabilityVerification out;
+  reliability_verification_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void reliability_quality_durability_init(ReliabilityQualityDurability *self, SpecDocument *doc, const char *path) {
+void reliability_characteristic_init(ReliabilityCharacteristic *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_durability_free(ReliabilityQualityDurability *self) {
+void reliability_characteristic_free(ReliabilityCharacteristic *self) {
   som_node_free(&self->node);
 }
-ReliabilityQualityDurabilityContentForm reliability_quality_durability_content(const ReliabilityQualityDurability *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ReliabilityQualityDurabilityContentForm out;
-  reliability_quality_durability_content_form_init(&out, self->node.doc, path);
+ReliabilityCharacteristicReliabilityContentForm reliability_characteristic_reliability_content(const ReliabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "reliabilityContent");
+  ReliabilityCharacteristicReliabilityContentForm out;
+  reliability_characteristic_reliability_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Reliability reliability_characteristic_reliability(const ReliabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "reliability");
+  Reliability out;
+  reliability_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Availability reliability_characteristic_availability(const ReliabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "availability");
+  Availability out;
+  availability_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevel reliability_characteristic_service_level_requirements(const ReliabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "serviceLevelRequirements");
+  ServiceLevel out;
+  service_level_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OperationalMonitoring reliability_characteristic_monitoring_and_prevention(const ReliabilityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "monitoringAndPrevention");
+  OperationalMonitoring out;
+  operational_monitoring_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void reliability_quality_failover_init(ReliabilityQualityFailover *self, SpecDocument *doc, const char *path) {
+void reliability_durability_init(ReliabilityDurability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_failover_free(ReliabilityQualityFailover *self) {
+void reliability_durability_free(ReliabilityDurability *self) {
   som_node_free(&self->node);
 }
-ReliabilityQualityFailoverContentForm reliability_quality_failover_content(const ReliabilityQualityFailover *self) {
+ReliabilityDurabilityContentForm reliability_durability_content(const ReliabilityDurability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReliabilityQualityFailoverContentForm out;
-  reliability_quality_failover_content_form_init(&out, self->node.doc, path);
+  ReliabilityDurabilityContentForm out;
+  reliability_durability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void reliability_quality_recovery_init(ReliabilityQualityRecovery *self, SpecDocument *doc, const char *path) {
+void reliability_failover_init(ReliabilityFailover *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_recovery_free(ReliabilityQualityRecovery *self) {
+void reliability_failover_free(ReliabilityFailover *self) {
   som_node_free(&self->node);
 }
-ReliabilityQualityRecoveryContentForm reliability_quality_recovery_content(const ReliabilityQualityRecovery *self) {
+ReliabilityFailoverContentForm reliability_failover_content(const ReliabilityFailover *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReliabilityQualityRecoveryContentForm out;
-  reliability_quality_recovery_content_form_init(&out, self->node.doc, path);
+  ReliabilityFailoverContentForm out;
+  reliability_failover_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void reliability_quality_verification_init(ReliabilityQualityVerification *self, SpecDocument *doc, const char *path) {
+void reliability_recovery_init(ReliabilityRecovery *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_verification_free(ReliabilityQualityVerification *self) {
+void reliability_recovery_free(ReliabilityRecovery *self) {
   som_node_free(&self->node);
 }
-ReliabilityQualityVerificationContentForm reliability_quality_verification_content(const ReliabilityQualityVerification *self) {
+ReliabilityRecoveryContentForm reliability_recovery_content(const ReliabilityRecovery *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ReliabilityQualityVerificationContentForm out;
-  reliability_quality_verification_content_form_init(&out, self->node.doc, path);
+  ReliabilityRecoveryContentForm out;
+  reliability_recovery_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void reliability_verification_init(ReliabilityVerification *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void reliability_verification_free(ReliabilityVerification *self) {
+  som_node_free(&self->node);
+}
+ReliabilityVerificationContentForm reliability_verification_content(const ReliabilityVerification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ReliabilityVerificationContentForm out;
+  reliability_verification_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -51917,6 +52148,48 @@ SomList secondary_navigation_tab_bars(const SecondaryNavigation *self) {
   return out;
 }
 
+void security_init(Security *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_free(Security *self) {
+  som_node_free(&self->node);
+}
+SecurityContentForm security_content(const Security *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SecurityContentForm out;
+  security_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityAuthentication security_authentication(const Security *self) {
+  char *path = spec_path_join(self->node.path, "authentication");
+  SecurityAuthentication out;
+  security_authentication_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityAuthorization security_authorization(const Security *self) {
+  char *path = spec_path_join(self->node.path, "authorization");
+  SecurityAuthorization out;
+  security_authorization_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityVulnerability security_vulnerability(const Security *self) {
+  char *path = spec_path_join(self->node.path, "vulnerability");
+  SecurityVulnerability out;
+  security_vulnerability_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityCompliance security_compliance(const Security *self) {
+  char *path = spec_path_join(self->node.path, "compliance");
+  SecurityCompliance out;
+  security_compliance_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -52137,6 +52410,34 @@ SomList security_audit_requirements_section_audit_entries(const SecurityAuditReq
   return out;
 }
 
+void security_authentication_init(SecurityAuthentication *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_authentication_free(SecurityAuthentication *self) {
+  som_node_free(&self->node);
+}
+SecurityAuthenticationContentForm security_authentication_content(const SecurityAuthentication *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SecurityAuthenticationContentForm out;
+  security_authentication_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void security_authorization_init(SecurityAuthorization *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_authorization_free(SecurityAuthorization *self) {
+  som_node_free(&self->node);
+}
+SecurityAuthorizationContentForm security_authorization_content(const SecurityAuthorization *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SecurityAuthorizationContentForm out;
+  security_authorization_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void security_certification_requirements_init(SecurityCertificationRequirements *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -52235,6 +52536,34 @@ SecurityCertificationRequirementsSoc2ContentForm security_certification_requirem
   return out;
 }
 
+void security_characteristic_init(SecurityCharacteristic *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_characteristic_free(SecurityCharacteristic *self) {
+  som_node_free(&self->node);
+}
+SecurityCharacteristicSecurityContentForm security_characteristic_security_content(const SecurityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "securityContent");
+  SecurityCharacteristicSecurityContentForm out;
+  security_characteristic_security_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Security security_characteristic_security(const SecurityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "security");
+  Security out;
+  security_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ItSecurityOperations security_characteristic_it_security_operations(const SecurityCharacteristic *self) {
+  char *path = spec_path_join(self->node.path, "itSecurityOperations");
+  ItSecurityOperations out;
+  it_security_operations_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void security_code_review_policy_init(SecurityCodeReviewPolicy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -52308,6 +52637,20 @@ SecurityCodeReviewPolicyReviewersContentForm security_code_review_policy_reviewe
   char *path = spec_path_join(self->node.path, "content");
   SecurityCodeReviewPolicyReviewersContentForm out;
   security_code_review_policy_reviewers_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void security_compliance_init(SecurityCompliance *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_compliance_free(SecurityCompliance *self) {
+  som_node_free(&self->node);
+}
+SecurityComplianceContentForm security_compliance_content(const SecurityCompliance *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SecurityComplianceContentForm out;
+  security_compliance_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -52575,104 +52918,6 @@ SomList security_events_definition_custom_events(const SecurityEventsDefinition 
   char *path = spec_path_join(self->node.path, "SEVT-CUST-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void security_quality_init(SecurityQuality *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_free(SecurityQuality *self) {
-  som_node_free(&self->node);
-}
-SecurityQualityContentForm security_quality_content(const SecurityQuality *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SecurityQualityContentForm out;
-  security_quality_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityQualityAuthentication security_quality_authentication(const SecurityQuality *self) {
-  char *path = spec_path_join(self->node.path, "authentication");
-  SecurityQualityAuthentication out;
-  security_quality_authentication_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityQualityAuthorization security_quality_authorization(const SecurityQuality *self) {
-  char *path = spec_path_join(self->node.path, "authorization");
-  SecurityQualityAuthorization out;
-  security_quality_authorization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityQualityVulnerability security_quality_vulnerability(const SecurityQuality *self) {
-  char *path = spec_path_join(self->node.path, "vulnerability");
-  SecurityQualityVulnerability out;
-  security_quality_vulnerability_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityQualityCompliance security_quality_compliance(const SecurityQuality *self) {
-  char *path = spec_path_join(self->node.path, "compliance");
-  SecurityQualityCompliance out;
-  security_quality_compliance_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void security_quality_authentication_init(SecurityQualityAuthentication *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_authentication_free(SecurityQualityAuthentication *self) {
-  som_node_free(&self->node);
-}
-SecurityQualityAuthenticationContentForm security_quality_authentication_content(const SecurityQualityAuthentication *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SecurityQualityAuthenticationContentForm out;
-  security_quality_authentication_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void security_quality_authorization_init(SecurityQualityAuthorization *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_authorization_free(SecurityQualityAuthorization *self) {
-  som_node_free(&self->node);
-}
-SecurityQualityAuthorizationContentForm security_quality_authorization_content(const SecurityQualityAuthorization *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SecurityQualityAuthorizationContentForm out;
-  security_quality_authorization_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void security_quality_compliance_init(SecurityQualityCompliance *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_compliance_free(SecurityQualityCompliance *self) {
-  som_node_free(&self->node);
-}
-SecurityQualityComplianceContentForm security_quality_compliance_content(const SecurityQualityCompliance *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SecurityQualityComplianceContentForm out;
-  security_quality_compliance_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void security_quality_vulnerability_init(SecurityQualityVulnerability *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_vulnerability_free(SecurityQualityVulnerability *self) {
-  som_node_free(&self->node);
-}
-SecurityQualityVulnerabilityContentForm security_quality_vulnerability_content(const SecurityQualityVulnerability *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SecurityQualityVulnerabilityContentForm out;
-  security_quality_vulnerability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -53126,6 +53371,20 @@ SecurityTestingAutomationScanningContentForm security_testing_automation_scannin
   char *path = spec_path_join(self->node.path, "content");
   SecurityTestingAutomationScanningContentForm out;
   security_testing_automation_scanning_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void security_vulnerability_init(SecurityVulnerability *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_vulnerability_free(SecurityVulnerability *self) {
+  som_node_free(&self->node);
+}
+SecurityVulnerabilityContentForm security_vulnerability_content(const SecurityVulnerability *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  SecurityVulnerabilityContentForm out;
+  security_vulnerability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -53827,6 +54086,62 @@ void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const 
   free(path);
 }
 
+void service_level_init(ServiceLevel *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void service_level_free(ServiceLevel *self) {
+  som_node_free(&self->node);
+}
+ServiceLevelContentForm service_level_content(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ServiceLevelContentForm out;
+  service_level_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevelResponse service_level_response(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "response");
+  ServiceLevelResponse out;
+  service_level_response_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevelResolution service_level_resolution(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "resolution");
+  ServiceLevelResolution out;
+  service_level_resolution_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevelEscalation service_level_escalation(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "escalation");
+  ServiceLevelEscalation out;
+  service_level_escalation_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevelOnCall service_level_on_call(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "onCall");
+  ServiceLevelOnCall out;
+  service_level_on_call_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ServiceLevelRestoration service_level_restoration(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "restoration");
+  ServiceLevelRestoration out;
+  service_level_restoration_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList service_level_sla_entries(const ServiceLevel *self) {
+  char *path = spec_path_join(self->node.path, "SLAE-SLAE-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void service_level_agreement_entry_init(ServiceLevelAgreementEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -53837,6 +54152,20 @@ ServiceLevelAgreementEntryContentForm service_level_agreement_entry_content(cons
   char *path = spec_path_join(self->node.path, "content");
   ServiceLevelAgreementEntryContentForm out;
   service_level_agreement_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void service_level_escalation_init(ServiceLevelEscalation *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void service_level_escalation_free(ServiceLevelEscalation *self) {
+  som_node_free(&self->node);
+}
+ServiceLevelEscalationContentForm service_level_escalation_content(const ServiceLevelEscalation *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ServiceLevelEscalationContentForm out;
+  service_level_escalation_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -53918,128 +54247,58 @@ ServiceLevelIndicatorsQualityContentForm service_level_indicators_quality_conten
   return out;
 }
 
-void service_level_quality_init(ServiceLevelQuality *self, SpecDocument *doc, const char *path) {
+void service_level_on_call_init(ServiceLevelOnCall *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_free(ServiceLevelQuality *self) {
+void service_level_on_call_free(ServiceLevelOnCall *self) {
   som_node_free(&self->node);
 }
-ServiceLevelQualityContentForm service_level_quality_content(const ServiceLevelQuality *self) {
+ServiceLevelOnCallContentForm service_level_on_call_content(const ServiceLevelOnCall *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityContentForm out;
-  service_level_quality_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQualityResponse service_level_quality_response(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "response");
-  ServiceLevelQualityResponse out;
-  service_level_quality_response_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQualityResolution service_level_quality_resolution(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "resolution");
-  ServiceLevelQualityResolution out;
-  service_level_quality_resolution_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQualityEscalation service_level_quality_escalation(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "escalation");
-  ServiceLevelQualityEscalation out;
-  service_level_quality_escalation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQualityOnCall service_level_quality_on_call(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "onCall");
-  ServiceLevelQualityOnCall out;
-  service_level_quality_on_call_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ServiceLevelQualityRestoration service_level_quality_restoration(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "restoration");
-  ServiceLevelQualityRestoration out;
-  service_level_quality_restoration_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList service_level_quality_sla_entries(const ServiceLevelQuality *self) {
-  char *path = spec_path_join(self->node.path, "SLAE-SLAE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+  ServiceLevelOnCallContentForm out;
+  service_level_on_call_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void service_level_quality_escalation_init(ServiceLevelQualityEscalation *self, SpecDocument *doc, const char *path) {
+void service_level_resolution_init(ServiceLevelResolution *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_escalation_free(ServiceLevelQualityEscalation *self) {
+void service_level_resolution_free(ServiceLevelResolution *self) {
   som_node_free(&self->node);
 }
-ServiceLevelQualityEscalationContentForm service_level_quality_escalation_content(const ServiceLevelQualityEscalation *self) {
+ServiceLevelResolutionContentForm service_level_resolution_content(const ServiceLevelResolution *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityEscalationContentForm out;
-  service_level_quality_escalation_content_form_init(&out, self->node.doc, path);
+  ServiceLevelResolutionContentForm out;
+  service_level_resolution_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void service_level_quality_on_call_init(ServiceLevelQualityOnCall *self, SpecDocument *doc, const char *path) {
+void service_level_response_init(ServiceLevelResponse *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_on_call_free(ServiceLevelQualityOnCall *self) {
+void service_level_response_free(ServiceLevelResponse *self) {
   som_node_free(&self->node);
 }
-ServiceLevelQualityOnCallContentForm service_level_quality_on_call_content(const ServiceLevelQualityOnCall *self) {
+ServiceLevelResponseContentForm service_level_response_content(const ServiceLevelResponse *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityOnCallContentForm out;
-  service_level_quality_on_call_content_form_init(&out, self->node.doc, path);
+  ServiceLevelResponseContentForm out;
+  service_level_response_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void service_level_quality_resolution_init(ServiceLevelQualityResolution *self, SpecDocument *doc, const char *path) {
+void service_level_restoration_init(ServiceLevelRestoration *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_resolution_free(ServiceLevelQualityResolution *self) {
+void service_level_restoration_free(ServiceLevelRestoration *self) {
   som_node_free(&self->node);
 }
-ServiceLevelQualityResolutionContentForm service_level_quality_resolution_content(const ServiceLevelQualityResolution *self) {
+ServiceLevelRestorationContentForm service_level_restoration_content(const ServiceLevelRestoration *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityResolutionContentForm out;
-  service_level_quality_resolution_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void service_level_quality_response_init(ServiceLevelQualityResponse *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void service_level_quality_response_free(ServiceLevelQualityResponse *self) {
-  som_node_free(&self->node);
-}
-ServiceLevelQualityResponseContentForm service_level_quality_response_content(const ServiceLevelQualityResponse *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityResponseContentForm out;
-  service_level_quality_response_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void service_level_quality_restoration_init(ServiceLevelQualityRestoration *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void service_level_quality_restoration_free(ServiceLevelQualityRestoration *self) {
-  som_node_free(&self->node);
-}
-ServiceLevelQualityRestorationContentForm service_level_quality_restoration_content(const ServiceLevelQualityRestoration *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ServiceLevelQualityRestorationContentForm out;
-  service_level_quality_restoration_content_form_init(&out, self->node.doc, path);
+  ServiceLevelRestorationContentForm out;
+  service_level_restoration_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -59504,31 +59763,31 @@ SystemQualityGoalsGovernanceContentForm system_quality_goals_governance_content(
   free(path);
   return out;
 }
-SystemQualityGoalsGovernance system_quality_goals_governance(const SystemQualityGoals *self) {
+QualityGoalsGovernance system_quality_goals_governance(const SystemQualityGoals *self) {
   char *path = spec_path_join(self->node.path, "governance");
-  SystemQualityGoalsGovernance out;
-  system_quality_goals_governance_init(&out, self->node.doc, path);
+  QualityGoalsGovernance out;
+  quality_goals_governance_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SystemQualityGoalsBaseline system_quality_goals_baseline(const SystemQualityGoals *self) {
+QualityGoalsBaseline system_quality_goals_baseline(const SystemQualityGoals *self) {
   char *path = spec_path_join(self->node.path, "baseline");
-  SystemQualityGoalsBaseline out;
-  system_quality_goals_baseline_init(&out, self->node.doc, path);
+  QualityGoalsBaseline out;
+  quality_goals_baseline_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SystemQualityGoalsMeasurement system_quality_goals_measurement(const SystemQualityGoals *self) {
+QualityGoalsMeasurement system_quality_goals_measurement(const SystemQualityGoals *self) {
   char *path = spec_path_join(self->node.path, "measurement");
-  SystemQualityGoalsMeasurement out;
-  system_quality_goals_measurement_init(&out, self->node.doc, path);
+  QualityGoalsMeasurement out;
+  quality_goals_measurement_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SystemQualityGoalsResources system_quality_goals_resources(const SystemQualityGoals *self) {
+QualityGoalsResources system_quality_goals_resources(const SystemQualityGoals *self) {
   char *path = spec_path_join(self->node.path, "resources");
-  SystemQualityGoalsResources out;
-  system_quality_goals_resources_init(&out, self->node.doc, path);
+  QualityGoalsResources out;
+  quality_goals_resources_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -59546,24 +59805,59 @@ QualityFramework system_quality_goals_framework(const SystemQualityGoals *self) 
   free(path);
   return out;
 }
-UserQualityCriteria system_quality_goals_user_quality(const SystemQualityGoals *self) {
-  char *path = spec_path_join(self->node.path, "userQuality");
-  UserQualityCriteria out;
-  user_quality_criteria_init(&out, self->node.doc, path);
+FunctionalSuitabilityCharacteristic system_quality_goals_functional_suitability(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "functionalSuitability");
+  FunctionalSuitabilityCharacteristic out;
+  functional_suitability_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-TechnicalQualityCriteria system_quality_goals_technical_quality(const SystemQualityGoals *self) {
-  char *path = spec_path_join(self->node.path, "technicalQuality");
-  TechnicalQualityCriteria out;
-  technical_quality_criteria_init(&out, self->node.doc, path);
+PerformanceEfficiencyCharacteristic system_quality_goals_performance_efficiency(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "performanceEfficiency");
+  PerformanceEfficiencyCharacteristic out;
+  performance_efficiency_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-OperationsQualityCriteria system_quality_goals_operations_quality(const SystemQualityGoals *self) {
-  char *path = spec_path_join(self->node.path, "operationsQuality");
-  OperationsQualityCriteria out;
-  operations_quality_criteria_init(&out, self->node.doc, path);
+CompatibilityCharacteristic system_quality_goals_compatibility(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "compatibility");
+  CompatibilityCharacteristic out;
+  compatibility_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InteractionCapabilityCharacteristic system_quality_goals_interaction_capability(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "interactionCapability");
+  InteractionCapabilityCharacteristic out;
+  interaction_capability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReliabilityCharacteristic system_quality_goals_reliability(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "reliability");
+  ReliabilityCharacteristic out;
+  reliability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityCharacteristic system_quality_goals_security(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "security");
+  SecurityCharacteristic out;
+  security_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MaintainabilityCharacteristic system_quality_goals_maintainability(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "maintainability");
+  MaintainabilityCharacteristic out;
+  maintainability_characteristic_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+FlexibilityCharacteristic system_quality_goals_flexibility(const SystemQualityGoals *self) {
+  char *path = spec_path_join(self->node.path, "flexibility");
+  FlexibilityCharacteristic out;
+  flexibility_characteristic_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -59592,62 +59886,6 @@ TestStrategy system_quality_goals_test_strategy(const SystemQualityGoals *self) 
   char *path = spec_path_join(self->node.path, "testStrategy");
   TestStrategy out;
   test_strategy_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void system_quality_goals_baseline_init(SystemQualityGoalsBaseline *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_baseline_free(SystemQualityGoalsBaseline *self) {
-  som_node_free(&self->node);
-}
-SystemQualityGoalsBaselineContentForm system_quality_goals_baseline_content(const SystemQualityGoalsBaseline *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SystemQualityGoalsBaselineContentForm out;
-  system_quality_goals_baseline_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void system_quality_goals_governance_init(SystemQualityGoalsGovernance *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_governance_free(SystemQualityGoalsGovernance *self) {
-  som_node_free(&self->node);
-}
-SystemQualityGoalsGovernanceContentForm_2 system_quality_goals_governance_content_2(const SystemQualityGoalsGovernance *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SystemQualityGoalsGovernanceContentForm_2 out;
-  system_quality_goals_governance_content_form_2_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void system_quality_goals_measurement_init(SystemQualityGoalsMeasurement *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_measurement_free(SystemQualityGoalsMeasurement *self) {
-  som_node_free(&self->node);
-}
-SystemQualityGoalsMeasurementContentForm system_quality_goals_measurement_content(const SystemQualityGoalsMeasurement *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SystemQualityGoalsMeasurementContentForm out;
-  system_quality_goals_measurement_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void system_quality_goals_resources_init(SystemQualityGoalsResources *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_resources_free(SystemQualityGoalsResources *self) {
-  som_node_free(&self->node);
-}
-SystemQualityGoalsResourcesContentForm system_quality_goals_resources_content(const SystemQualityGoalsResources *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  SystemQualityGoalsResourcesContentForm out;
-  system_quality_goals_resources_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -61472,62 +61710,6 @@ TechnicalPainPointsSummaryContentForm technical_pain_points_summary_content(cons
   char *path = spec_path_join(self->node.path, "content");
   TechnicalPainPointsSummaryContentForm out;
   technical_pain_points_summary_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void technical_quality_criteria_init(TechnicalQualityCriteria *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void technical_quality_criteria_free(TechnicalQualityCriteria *self) {
-  som_node_free(&self->node);
-}
-TechnicalQualityCriteriaTechnicalQualityContentForm technical_quality_criteria_technical_quality_content(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "technicalQualityContent");
-  TechnicalQualityCriteriaTechnicalQualityContentForm out;
-  technical_quality_criteria_technical_quality_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-EfficiencyQuality technical_quality_criteria_efficiency(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "efficiency");
-  EfficiencyQuality out;
-  efficiency_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-PortabilityQuality technical_quality_criteria_portability(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "portability");
-  PortabilityQuality out;
-  portability_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FlexibilityQuality technical_quality_criteria_flexibility(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "flexibility");
-  FlexibilityQuality out;
-  flexibility_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityQuality technical_quality_criteria_security(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "security");
-  SecurityQuality out;
-  security_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MaintainabilityQuality technical_quality_criteria_maintainability(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "maintainability");
-  MaintainabilityQuality out;
-  maintainability_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ReliabilityQuality technical_quality_criteria_reliability(const TechnicalQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "reliability");
-  ReliabilityQuality out;
-  reliability_quality_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -65366,121 +65548,121 @@ void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char
   free(path);
 }
 
-void usability_quality_init(UsabilityQuality *self, SpecDocument *doc, const char *path) {
+void usability_init(Usability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_free(UsabilityQuality *self) {
+void usability_free(Usability *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityContentForm usability_quality_content(const UsabilityQuality *self) {
+UsabilityContentForm usability_content(const Usability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityContentForm out;
-  usability_quality_content_form_init(&out, self->node.doc, path);
+  UsabilityContentForm out;
+  usability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-UsabilityQualityOperability usability_quality_operability(const UsabilityQuality *self) {
+UsabilityOperability usability_operability(const Usability *self) {
   char *path = spec_path_join(self->node.path, "operability");
-  UsabilityQualityOperability out;
-  usability_quality_operability_init(&out, self->node.doc, path);
+  UsabilityOperability out;
+  usability_operability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-UsabilityQualityLearnability usability_quality_learnability(const UsabilityQuality *self) {
+UsabilityLearnability usability_learnability(const Usability *self) {
   char *path = spec_path_join(self->node.path, "learnability");
-  UsabilityQualityLearnability out;
-  usability_quality_learnability_init(&out, self->node.doc, path);
+  UsabilityLearnability out;
+  usability_learnability_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-UsabilityQualityClarity usability_quality_clarity(const UsabilityQuality *self) {
+UsabilityClarity usability_clarity(const Usability *self) {
   char *path = spec_path_join(self->node.path, "clarity");
-  UsabilityQualityClarity out;
-  usability_quality_clarity_init(&out, self->node.doc, path);
+  UsabilityClarity out;
+  usability_clarity_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-UsabilityQualityInteraction usability_quality_interaction(const UsabilityQuality *self) {
+UsabilityInteraction usability_interaction(const Usability *self) {
   char *path = spec_path_join(self->node.path, "interaction");
-  UsabilityQualityInteraction out;
-  usability_quality_interaction_init(&out, self->node.doc, path);
+  UsabilityInteraction out;
+  usability_interaction_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-UsabilityQualityPerformance usability_quality_performance(const UsabilityQuality *self) {
+UsabilityPerformance usability_performance(const Usability *self) {
   char *path = spec_path_join(self->node.path, "performance");
-  UsabilityQualityPerformance out;
-  usability_quality_performance_init(&out, self->node.doc, path);
+  UsabilityPerformance out;
+  usability_performance_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void usability_quality_clarity_init(UsabilityQualityClarity *self, SpecDocument *doc, const char *path) {
+void usability_clarity_init(UsabilityClarity *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_clarity_free(UsabilityQualityClarity *self) {
+void usability_clarity_free(UsabilityClarity *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityClarityContentForm usability_quality_clarity_content(const UsabilityQualityClarity *self) {
+UsabilityClarityContentForm usability_clarity_content(const UsabilityClarity *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityClarityContentForm out;
-  usability_quality_clarity_content_form_init(&out, self->node.doc, path);
+  UsabilityClarityContentForm out;
+  usability_clarity_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void usability_quality_interaction_init(UsabilityQualityInteraction *self, SpecDocument *doc, const char *path) {
+void usability_interaction_init(UsabilityInteraction *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_interaction_free(UsabilityQualityInteraction *self) {
+void usability_interaction_free(UsabilityInteraction *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityInteractionContentForm usability_quality_interaction_content(const UsabilityQualityInteraction *self) {
+UsabilityInteractionContentForm usability_interaction_content(const UsabilityInteraction *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityInteractionContentForm out;
-  usability_quality_interaction_content_form_init(&out, self->node.doc, path);
+  UsabilityInteractionContentForm out;
+  usability_interaction_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void usability_quality_learnability_init(UsabilityQualityLearnability *self, SpecDocument *doc, const char *path) {
+void usability_learnability_init(UsabilityLearnability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_learnability_free(UsabilityQualityLearnability *self) {
+void usability_learnability_free(UsabilityLearnability *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityLearnabilityContentForm usability_quality_learnability_content(const UsabilityQualityLearnability *self) {
+UsabilityLearnabilityContentForm usability_learnability_content(const UsabilityLearnability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityLearnabilityContentForm out;
-  usability_quality_learnability_content_form_init(&out, self->node.doc, path);
+  UsabilityLearnabilityContentForm out;
+  usability_learnability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void usability_quality_operability_init(UsabilityQualityOperability *self, SpecDocument *doc, const char *path) {
+void usability_operability_init(UsabilityOperability *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_operability_free(UsabilityQualityOperability *self) {
+void usability_operability_free(UsabilityOperability *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityOperabilityContentForm usability_quality_operability_content(const UsabilityQualityOperability *self) {
+UsabilityOperabilityContentForm usability_operability_content(const UsabilityOperability *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityOperabilityContentForm out;
-  usability_quality_operability_content_form_init(&out, self->node.doc, path);
+  UsabilityOperabilityContentForm out;
+  usability_operability_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 
-void usability_quality_performance_init(UsabilityQualityPerformance *self, SpecDocument *doc, const char *path) {
+void usability_performance_init(UsabilityPerformance *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_performance_free(UsabilityQualityPerformance *self) {
+void usability_performance_free(UsabilityPerformance *self) {
   som_node_free(&self->node);
 }
-UsabilityQualityPerformanceContentForm usability_quality_performance_content(const UsabilityQualityPerformance *self) {
+UsabilityPerformanceContentForm usability_performance_content(const UsabilityPerformance *self) {
   char *path = spec_path_join(self->node.path, "content");
-  UsabilityQualityPerformanceContentForm out;
-  usability_quality_performance_content_form_init(&out, self->node.doc, path);
+  UsabilityPerformanceContentForm out;
+  usability_performance_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -66764,41 +66946,6 @@ UserProvisioningToolsRoleManagementContentForm user_provisioning_tools_role_mana
   char *path = spec_path_join(self->node.path, "content");
   UserProvisioningToolsRoleManagementContentForm out;
   user_provisioning_tools_role_management_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void user_quality_criteria_init(UserQualityCriteria *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void user_quality_criteria_free(UserQualityCriteria *self) {
-  som_node_free(&self->node);
-}
-UserQualityCriteriaUserQualityContentForm user_quality_criteria_user_quality_content(const UserQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "userQualityContent");
-  UserQualityCriteriaUserQualityContentForm out;
-  user_quality_criteria_user_quality_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UsabilityQuality user_quality_criteria_usability(const UserQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "usability");
-  UsabilityQuality out;
-  usability_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FunctionalCompletenessQuality user_quality_criteria_functional_completeness(const UserQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "functionalCompleteness");
-  FunctionalCompletenessQuality out;
-  functional_completeness_quality_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CorrectnessQuality user_quality_criteria_correctness(const UserQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "correctness");
-  CorrectnessQuality out;
-  correctness_quality_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -73789,143 +73936,143 @@ void authorization_role_entry_structure_content_form_set_permission_set(Authoriz
   spec_document_set_form_field(self->node.doc, self->node.path, "permissionSet", value);
 }
 
-void availability_quality_content_form_init(AvailabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void availability_content_form_init(AvailabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_content_form_free(AvailabilityQualityContentForm *self) {
+void availability_content_form_free(AvailabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *availability_quality_content_form_uptime_target_percentage(const AvailabilityQualityContentForm *self) {
+char *availability_content_form_uptime_target_percentage(const AvailabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "uptimeTargetPercentage");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_content_form_set_uptime_target_percentage(AvailabilityQualityContentForm *self, const char *value) {
+void availability_content_form_set_uptime_target_percentage(AvailabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "uptimeTargetPercentage", value);
 }
-char *availability_quality_content_form_uptime_calculation_method(const AvailabilityQualityContentForm *self) {
+char *availability_content_form_uptime_calculation_method(const AvailabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "uptimeCalculationMethod");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_content_form_set_uptime_calculation_method(AvailabilityQualityContentForm *self, const char *value) {
+void availability_content_form_set_uptime_calculation_method(AvailabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "uptimeCalculationMethod", value);
 }
-char *availability_quality_content_form_uptime_measurement_period(const AvailabilityQualityContentForm *self) {
+char *availability_content_form_uptime_measurement_period(const AvailabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "uptimeMeasurementPeriod");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_content_form_set_uptime_measurement_period(AvailabilityQualityContentForm *self, const char *value) {
+void availability_content_form_set_uptime_measurement_period(AvailabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "uptimeMeasurementPeriod", value);
 }
 
-void availability_quality_degraded_mode_content_form_init(AvailabilityQualityDegradedModeContentForm *self, SpecDocument *doc, const char *path) {
+void availability_degraded_mode_content_form_init(AvailabilityDegradedModeContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_degraded_mode_content_form_free(AvailabilityQualityDegradedModeContentForm *self) {
+void availability_degraded_mode_content_form_free(AvailabilityDegradedModeContentForm *self) {
   som_node_free(&self->node);
 }
-char *availability_quality_degraded_mode_content_form_degraded_mode_definition(const AvailabilityQualityDegradedModeContentForm *self) {
+char *availability_degraded_mode_content_form_degraded_mode_definition(const AvailabilityDegradedModeContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "degradedModeDefinition");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_degraded_mode_content_form_set_degraded_mode_definition(AvailabilityQualityDegradedModeContentForm *self, const char *value) {
+void availability_degraded_mode_content_form_set_degraded_mode_definition(AvailabilityDegradedModeContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "degradedModeDefinition", value);
 }
-char *availability_quality_degraded_mode_content_form_degraded_mode_capabilities(const AvailabilityQualityDegradedModeContentForm *self) {
+char *availability_degraded_mode_content_form_degraded_mode_capabilities(const AvailabilityDegradedModeContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "degradedModeCapabilities");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_degraded_mode_content_form_set_degraded_mode_capabilities(AvailabilityQualityDegradedModeContentForm *self, const char *value) {
+void availability_degraded_mode_content_form_set_degraded_mode_capabilities(AvailabilityDegradedModeContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "degradedModeCapabilities", value);
 }
-char *availability_quality_degraded_mode_content_form_degraded_mode_communication(const AvailabilityQualityDegradedModeContentForm *self) {
+char *availability_degraded_mode_content_form_degraded_mode_communication(const AvailabilityDegradedModeContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "degradedModeCommunication");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_degraded_mode_content_form_set_degraded_mode_communication(AvailabilityQualityDegradedModeContentForm *self, const char *value) {
+void availability_degraded_mode_content_form_set_degraded_mode_communication(AvailabilityDegradedModeContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "degradedModeCommunication", value);
 }
 
-void availability_quality_maintenance_content_form_init(AvailabilityQualityMaintenanceContentForm *self, SpecDocument *doc, const char *path) {
+void availability_maintenance_content_form_init(AvailabilityMaintenanceContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_maintenance_content_form_free(AvailabilityQualityMaintenanceContentForm *self) {
+void availability_maintenance_content_form_free(AvailabilityMaintenanceContentForm *self) {
   som_node_free(&self->node);
 }
-char *availability_quality_maintenance_content_form_scheduled_maintenance_window(const AvailabilityQualityMaintenanceContentForm *self) {
+char *availability_maintenance_content_form_scheduled_maintenance_window(const AvailabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scheduledMaintenanceWindow");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_maintenance_content_form_set_scheduled_maintenance_window(AvailabilityQualityMaintenanceContentForm *self, const char *value) {
+void availability_maintenance_content_form_set_scheduled_maintenance_window(AvailabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scheduledMaintenanceWindow", value);
 }
-char *availability_quality_maintenance_content_form_maintenance_notification(const AvailabilityQualityMaintenanceContentForm *self) {
+char *availability_maintenance_content_form_maintenance_notification(const AvailabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintenanceNotification");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_maintenance_content_form_set_maintenance_notification(AvailabilityQualityMaintenanceContentForm *self, const char *value) {
+void availability_maintenance_content_form_set_maintenance_notification(AvailabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "maintenanceNotification", value);
 }
-char *availability_quality_maintenance_content_form_maintenance_frequency(const AvailabilityQualityMaintenanceContentForm *self) {
+char *availability_maintenance_content_form_maintenance_frequency(const AvailabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintenanceFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_maintenance_content_form_set_maintenance_frequency(AvailabilityQualityMaintenanceContentForm *self, const char *value) {
+void availability_maintenance_content_form_set_maintenance_frequency(AvailabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "maintenanceFrequency", value);
 }
-char *availability_quality_maintenance_content_form_maintenance_duration_limit(const AvailabilityQualityMaintenanceContentForm *self) {
+char *availability_maintenance_content_form_maintenance_duration_limit(const AvailabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintenanceDurationLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_maintenance_content_form_set_maintenance_duration_limit(AvailabilityQualityMaintenanceContentForm *self, const char *value) {
+void availability_maintenance_content_form_set_maintenance_duration_limit(AvailabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "maintenanceDurationLimit", value);
 }
 
-void availability_quality_operating_hours_content_form_init(AvailabilityQualityOperatingHoursContentForm *self, SpecDocument *doc, const char *path) {
+void availability_operating_hours_content_form_init(AvailabilityOperatingHoursContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_operating_hours_content_form_free(AvailabilityQualityOperatingHoursContentForm *self) {
+void availability_operating_hours_content_form_free(AvailabilityOperatingHoursContentForm *self) {
   som_node_free(&self->node);
 }
-char *availability_quality_operating_hours_content_form_operating_hours(const AvailabilityQualityOperatingHoursContentForm *self) {
+char *availability_operating_hours_content_form_operating_hours(const AvailabilityOperatingHoursContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "operatingHours");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_operating_hours_content_form_set_operating_hours(AvailabilityQualityOperatingHoursContentForm *self, const char *value) {
+void availability_operating_hours_content_form_set_operating_hours(AvailabilityOperatingHoursContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operatingHours", value);
 }
-char *availability_quality_operating_hours_content_form_peak_hours_definition(const AvailabilityQualityOperatingHoursContentForm *self) {
+char *availability_operating_hours_content_form_peak_hours_definition(const AvailabilityOperatingHoursContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "peakHoursDefinition");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_operating_hours_content_form_set_peak_hours_definition(AvailabilityQualityOperatingHoursContentForm *self, const char *value) {
+void availability_operating_hours_content_form_set_peak_hours_definition(AvailabilityOperatingHoursContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "peakHoursDefinition", value);
 }
-char *availability_quality_operating_hours_content_form_peak_hours_availability(const AvailabilityQualityOperatingHoursContentForm *self) {
+char *availability_operating_hours_content_form_peak_hours_availability(const AvailabilityOperatingHoursContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "peakHoursAvailability");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_operating_hours_content_form_set_peak_hours_availability(AvailabilityQualityOperatingHoursContentForm *self, const char *value) {
+void availability_operating_hours_content_form_set_peak_hours_availability(AvailabilityOperatingHoursContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "peakHoursAvailability", value);
 }
 
-void availability_quality_verification_content_form_init(AvailabilityQualityVerificationContentForm *self, SpecDocument *doc, const char *path) {
+void availability_verification_content_form_init(AvailabilityVerificationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void availability_quality_verification_content_form_free(AvailabilityQualityVerificationContentForm *self) {
+void availability_verification_content_form_free(AvailabilityVerificationContentForm *self) {
   som_node_free(&self->node);
 }
-char *availability_quality_verification_content_form_availability_monitoring(const AvailabilityQualityVerificationContentForm *self) {
+char *availability_verification_content_form_availability_monitoring(const AvailabilityVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "availabilityMonitoring");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_verification_content_form_set_availability_monitoring(AvailabilityQualityVerificationContentForm *self, const char *value) {
+void availability_verification_content_form_set_availability_monitoring(AvailabilityVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "availabilityMonitoring", value);
 }
-char *availability_quality_verification_content_form_availability_reporting(const AvailabilityQualityVerificationContentForm *self) {
+char *availability_verification_content_form_availability_reporting(const AvailabilityVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "availabilityReporting");
   return som_strdup(v != NULL ? v : "");
 }
-void availability_quality_verification_content_form_set_availability_reporting(AvailabilityQualityVerificationContentForm *self, const char *value) {
+void availability_verification_content_form_set_availability_reporting(AvailabilityVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "availabilityReporting", value);
 }
 
@@ -81867,6 +82014,27 @@ void communication_type_entry_content_form_set_confidentiality_level(Communicati
   spec_document_set_form_field(self->node.doc, self->node.path, "confidentialityLevel", value);
 }
 
+void compatibility_characteristic_compatibility_content_form_init(CompatibilityCharacteristicCompatibilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void compatibility_characteristic_compatibility_content_form_free(CompatibilityCharacteristicCompatibilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *compatibility_characteristic_compatibility_content_form_co_existence_requirements(const CompatibilityCharacteristicCompatibilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "coExistenceRequirements");
+  return som_strdup(v != NULL ? v : "");
+}
+void compatibility_characteristic_compatibility_content_form_set_co_existence_requirements(CompatibilityCharacteristicCompatibilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "coExistenceRequirements", value);
+}
+char *compatibility_characteristic_compatibility_content_form_interoperability_standards(const CompatibilityCharacteristicCompatibilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "interoperabilityStandards");
+  return som_strdup(v != NULL ? v : "");
+}
+void compatibility_characteristic_compatibility_content_form_set_interoperability_standards(CompatibilityCharacteristicCompatibilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "interoperabilityStandards", value);
+}
+
 void competency_entry_content_form_init(CompetencyEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -85906,115 +86074,115 @@ void contingency_plan_entry_testing_content_form_set_document_location(Contingen
   spec_document_set_form_field(self->node.doc, self->node.path, "documentLocation", value);
 }
 
-void correctness_quality_accuracy_content_form_init(CorrectnessQualityAccuracyContentForm *self, SpecDocument *doc, const char *path) {
+void correctness_accuracy_content_form_init(CorrectnessAccuracyContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_accuracy_content_form_free(CorrectnessQualityAccuracyContentForm *self) {
+void correctness_accuracy_content_form_free(CorrectnessAccuracyContentForm *self) {
   som_node_free(&self->node);
 }
-char *correctness_quality_accuracy_content_form_calculation_accuracy_target(const CorrectnessQualityAccuracyContentForm *self) {
+char *correctness_accuracy_content_form_calculation_accuracy_target(const CorrectnessAccuracyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "calculationAccuracyTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_accuracy_content_form_set_calculation_accuracy_target(CorrectnessQualityAccuracyContentForm *self, const char *value) {
+void correctness_accuracy_content_form_set_calculation_accuracy_target(CorrectnessAccuracyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "calculationAccuracyTarget", value);
 }
-char *correctness_quality_accuracy_content_form_financial_accuracy_requirement(const CorrectnessQualityAccuracyContentForm *self) {
+char *correctness_accuracy_content_form_financial_accuracy_requirement(const CorrectnessAccuracyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "financialAccuracyRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_accuracy_content_form_set_financial_accuracy_requirement(CorrectnessQualityAccuracyContentForm *self, const char *value) {
+void correctness_accuracy_content_form_set_financial_accuracy_requirement(CorrectnessAccuracyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "financialAccuracyRequirement", value);
 }
-char *correctness_quality_accuracy_content_form_audit_trail_requirement(const CorrectnessQualityAccuracyContentForm *self) {
+char *correctness_accuracy_content_form_audit_trail_requirement(const CorrectnessAccuracyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditTrailRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_accuracy_content_form_set_audit_trail_requirement(CorrectnessQualityAccuracyContentForm *self, const char *value) {
+void correctness_accuracy_content_form_set_audit_trail_requirement(CorrectnessAccuracyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "auditTrailRequirement", value);
 }
 
-void correctness_quality_content_form_init(CorrectnessQualityContentForm *self, SpecDocument *doc, const char *path) {
+void correctness_content_form_init(CorrectnessContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_content_form_free(CorrectnessQualityContentForm *self) {
+void correctness_content_form_free(CorrectnessContentForm *self) {
   som_node_free(&self->node);
 }
-char *correctness_quality_content_form_defect_density_target(const CorrectnessQualityContentForm *self) {
+char *correctness_content_form_defect_density_target(const CorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "defectDensityTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_content_form_set_defect_density_target(CorrectnessQualityContentForm *self, const char *value) {
+void correctness_content_form_set_defect_density_target(CorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "defectDensityTarget", value);
 }
-char *correctness_quality_content_form_critical_defect_target(const CorrectnessQualityContentForm *self) {
+char *correctness_content_form_critical_defect_target(const CorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalDefectTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_content_form_set_critical_defect_target(CorrectnessQualityContentForm *self, const char *value) {
+void correctness_content_form_set_critical_defect_target(CorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criticalDefectTarget", value);
 }
-char *correctness_quality_content_form_defect_escape_rate(const CorrectnessQualityContentForm *self) {
+char *correctness_content_form_defect_escape_rate(const CorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "defectEscapeRate");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_content_form_set_defect_escape_rate(CorrectnessQualityContentForm *self, const char *value) {
+void correctness_content_form_set_defect_escape_rate(CorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "defectEscapeRate", value);
 }
 
-void correctness_quality_integrity_content_form_init(CorrectnessQualityIntegrityContentForm *self, SpecDocument *doc, const char *path) {
+void correctness_integrity_content_form_init(CorrectnessIntegrityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_integrity_content_form_free(CorrectnessQualityIntegrityContentForm *self) {
+void correctness_integrity_content_form_free(CorrectnessIntegrityContentForm *self) {
   som_node_free(&self->node);
 }
-char *correctness_quality_integrity_content_form_data_integrity_requirement(const CorrectnessQualityIntegrityContentForm *self) {
+char *correctness_integrity_content_form_data_integrity_requirement(const CorrectnessIntegrityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataIntegrityRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_integrity_content_form_set_data_integrity_requirement(CorrectnessQualityIntegrityContentForm *self, const char *value) {
+void correctness_integrity_content_form_set_data_integrity_requirement(CorrectnessIntegrityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataIntegrityRequirement", value);
 }
-char *correctness_quality_integrity_content_form_data_validation_coverage(const CorrectnessQualityIntegrityContentForm *self) {
+char *correctness_integrity_content_form_data_validation_coverage(const CorrectnessIntegrityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataValidationCoverage");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_integrity_content_form_set_data_validation_coverage(CorrectnessQualityIntegrityContentForm *self, const char *value) {
+void correctness_integrity_content_form_set_data_validation_coverage(CorrectnessIntegrityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataValidationCoverage", value);
 }
-char *correctness_quality_integrity_content_form_data_corruption_handling(const CorrectnessQualityIntegrityContentForm *self) {
+char *correctness_integrity_content_form_data_corruption_handling(const CorrectnessIntegrityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataCorruptionHandling");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_integrity_content_form_set_data_corruption_handling(CorrectnessQualityIntegrityContentForm *self, const char *value) {
+void correctness_integrity_content_form_set_data_corruption_handling(CorrectnessIntegrityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataCorruptionHandling", value);
 }
 
-void correctness_quality_verification_content_form_init(CorrectnessQualityVerificationContentForm *self, SpecDocument *doc, const char *path) {
+void correctness_verification_content_form_init(CorrectnessVerificationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void correctness_quality_verification_content_form_free(CorrectnessQualityVerificationContentForm *self) {
+void correctness_verification_content_form_free(CorrectnessVerificationContentForm *self) {
   som_node_free(&self->node);
 }
-char *correctness_quality_verification_content_form_correctness_verification(const CorrectnessQualityVerificationContentForm *self) {
+char *correctness_verification_content_form_correctness_verification(const CorrectnessVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "correctnessVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_verification_content_form_set_correctness_verification(CorrectnessQualityVerificationContentForm *self, const char *value) {
+void correctness_verification_content_form_set_correctness_verification(CorrectnessVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "correctnessVerification", value);
 }
-char *correctness_quality_verification_content_form_test_coverage_target(const CorrectnessQualityVerificationContentForm *self) {
+char *correctness_verification_content_form_test_coverage_target(const CorrectnessVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "testCoverageTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_verification_content_form_set_test_coverage_target(CorrectnessQualityVerificationContentForm *self, const char *value) {
+void correctness_verification_content_form_set_test_coverage_target(CorrectnessVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testCoverageTarget", value);
 }
-char *correctness_quality_verification_content_form_regression_testing_approach(const CorrectnessQualityVerificationContentForm *self) {
+char *correctness_verification_content_form_regression_testing_approach(const CorrectnessVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "regressionTestingApproach");
   return som_strdup(v != NULL ? v : "");
 }
-void correctness_quality_verification_content_form_set_regression_testing_approach(CorrectnessQualityVerificationContentForm *self, const char *value) {
+void correctness_verification_content_form_set_regression_testing_approach(CorrectnessVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "regressionTestingApproach", value);
 }
 
@@ -95608,290 +95776,290 @@ void dns_requirements_zones_content_form_set_split_horizon(DnsRequirementsZonesC
   spec_document_set_form_field(self->node.doc, self->node.path, "splitHorizon", value);
 }
 
-void doc_changeability_quality_content_form_init(DocChangeabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void doc_changeability_content_form_init(DocChangeabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_content_form_free(DocChangeabilityQualityContentForm *self) {
+void doc_changeability_content_form_free(DocChangeabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_changeability_quality_content_form_versioning_strategy(const DocChangeabilityQualityContentForm *self) {
+char *doc_changeability_content_form_versioning_strategy(const DocChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "versioningStrategy");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_content_form_set_versioning_strategy(DocChangeabilityQualityContentForm *self, const char *value) {
+void doc_changeability_content_form_set_versioning_strategy(DocChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "versioningStrategy", value);
 }
-char *doc_changeability_quality_content_form_version_history_tracking(const DocChangeabilityQualityContentForm *self) {
+char *doc_changeability_content_form_version_history_tracking(const DocChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "versionHistoryTracking");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_content_form_set_version_history_tracking(DocChangeabilityQualityContentForm *self, const char *value) {
+void doc_changeability_content_form_set_version_history_tracking(DocChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "versionHistoryTracking", value);
 }
-char *doc_changeability_quality_content_form_multi_version_support(const DocChangeabilityQualityContentForm *self) {
+char *doc_changeability_content_form_multi_version_support(const DocChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "multiVersionSupport");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_content_form_set_multi_version_support(DocChangeabilityQualityContentForm *self, const char *value) {
+void doc_changeability_content_form_set_multi_version_support(DocChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "multiVersionSupport", value);
 }
 
-void doc_changeability_quality_extensibility_content_form_init(DocChangeabilityQualityExtensibilityContentForm *self, SpecDocument *doc, const char *path) {
+void doc_changeability_extensibility_content_form_init(DocChangeabilityExtensibilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_extensibility_content_form_free(DocChangeabilityQualityExtensibilityContentForm *self) {
+void doc_changeability_extensibility_content_form_free(DocChangeabilityExtensibilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_changeability_quality_extensibility_content_form_extensibility_approach(const DocChangeabilityQualityExtensibilityContentForm *self) {
+char *doc_changeability_extensibility_content_form_extensibility_approach(const DocChangeabilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "extensibilityApproach");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_extensibility_content_form_set_extensibility_approach(DocChangeabilityQualityExtensibilityContentForm *self, const char *value) {
+void doc_changeability_extensibility_content_form_set_extensibility_approach(DocChangeabilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "extensibilityApproach", value);
 }
-char *doc_changeability_quality_extensibility_content_form_new_section_guidelines(const DocChangeabilityQualityExtensibilityContentForm *self) {
+char *doc_changeability_extensibility_content_form_new_section_guidelines(const DocChangeabilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "newSectionGuidelines");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_extensibility_content_form_set_new_section_guidelines(DocChangeabilityQualityExtensibilityContentForm *self, const char *value) {
+void doc_changeability_extensibility_content_form_set_new_section_guidelines(DocChangeabilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "newSectionGuidelines", value);
 }
-char *doc_changeability_quality_extensibility_content_form_localization_readiness(const DocChangeabilityQualityExtensibilityContentForm *self) {
+char *doc_changeability_extensibility_content_form_localization_readiness(const DocChangeabilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "localizationReadiness");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_extensibility_content_form_set_localization_readiness(DocChangeabilityQualityExtensibilityContentForm *self, const char *value) {
+void doc_changeability_extensibility_content_form_set_localization_readiness(DocChangeabilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "localizationReadiness", value);
 }
 
-void doc_changeability_quality_maintenance_content_form_init(DocChangeabilityQualityMaintenanceContentForm *self, SpecDocument *doc, const char *path) {
+void doc_changeability_maintenance_content_form_init(DocChangeabilityMaintenanceContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_maintenance_content_form_free(DocChangeabilityQualityMaintenanceContentForm *self) {
+void doc_changeability_maintenance_content_form_free(DocChangeabilityMaintenanceContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_changeability_quality_maintenance_content_form_review_cycle(const DocChangeabilityQualityMaintenanceContentForm *self) {
+char *doc_changeability_maintenance_content_form_review_cycle(const DocChangeabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "reviewCycle");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_maintenance_content_form_set_review_cycle(DocChangeabilityQualityMaintenanceContentForm *self, const char *value) {
+void doc_changeability_maintenance_content_form_set_review_cycle(DocChangeabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "reviewCycle", value);
 }
-char *doc_changeability_quality_maintenance_content_form_retirement_process(const DocChangeabilityQualityMaintenanceContentForm *self) {
+char *doc_changeability_maintenance_content_form_retirement_process(const DocChangeabilityMaintenanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "retirementProcess");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_maintenance_content_form_set_retirement_process(DocChangeabilityQualityMaintenanceContentForm *self, const char *value) {
+void doc_changeability_maintenance_content_form_set_retirement_process(DocChangeabilityMaintenanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "retirementProcess", value);
 }
 
-void doc_changeability_quality_structure_content_form_init(DocChangeabilityQualityStructureContentForm *self, SpecDocument *doc, const char *path) {
+void doc_changeability_structure_content_form_init(DocChangeabilityStructureContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_changeability_quality_structure_content_form_free(DocChangeabilityQualityStructureContentForm *self) {
+void doc_changeability_structure_content_form_free(DocChangeabilityStructureContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_changeability_quality_structure_content_form_document_sizing_guideline(const DocChangeabilityQualityStructureContentForm *self) {
+char *doc_changeability_structure_content_form_document_sizing_guideline(const DocChangeabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentSizingGuideline");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_structure_content_form_set_document_sizing_guideline(DocChangeabilityQualityStructureContentForm *self, const char *value) {
+void doc_changeability_structure_content_form_set_document_sizing_guideline(DocChangeabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "documentSizingGuideline", value);
 }
-char *doc_changeability_quality_structure_content_form_topic_granularity(const DocChangeabilityQualityStructureContentForm *self) {
+char *doc_changeability_structure_content_form_topic_granularity(const DocChangeabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "topicGranularity");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_structure_content_form_set_topic_granularity(DocChangeabilityQualityStructureContentForm *self, const char *value) {
+void doc_changeability_structure_content_form_set_topic_granularity(DocChangeabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "topicGranularity", value);
 }
-char *doc_changeability_quality_structure_content_form_template_adherence(const DocChangeabilityQualityStructureContentForm *self) {
+char *doc_changeability_structure_content_form_template_adherence(const DocChangeabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "templateAdherence");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_structure_content_form_set_template_adherence(DocChangeabilityQualityStructureContentForm *self, const char *value) {
+void doc_changeability_structure_content_form_set_template_adherence(DocChangeabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "templateAdherence", value);
 }
-char *doc_changeability_quality_structure_content_form_structural_change_process(const DocChangeabilityQualityStructureContentForm *self) {
+char *doc_changeability_structure_content_form_structural_change_process(const DocChangeabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "structuralChangeProcess");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_changeability_quality_structure_content_form_set_structural_change_process(DocChangeabilityQualityStructureContentForm *self, const char *value) {
+void doc_changeability_structure_content_form_set_structural_change_process(DocChangeabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "structuralChangeProcess", value);
 }
 
-void doc_completeness_quality_content_form_init(DocCompletenessQualityContentForm *self, SpecDocument *doc, const char *path) {
+void doc_completeness_content_form_init(DocCompletenessContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_completeness_quality_content_form_free(DocCompletenessQualityContentForm *self) {
+void doc_completeness_content_form_free(DocCompletenessContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_completeness_quality_content_form_required_topics(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_required_topics(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredTopics");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_required_topics(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_required_topics(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "requiredTopics", value);
 }
-char *doc_completeness_quality_content_form_topic_coverage_target(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_topic_coverage_target(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "topicCoverageTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_topic_coverage_target(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_topic_coverage_target(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "topicCoverageTarget", value);
 }
-char *doc_completeness_quality_content_form_audience_coverage(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_audience_coverage(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "audienceCoverage");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_audience_coverage(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_audience_coverage(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "audienceCoverage", value);
 }
-char *doc_completeness_quality_content_form_detail_level_expectation(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_detail_level_expectation(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "detailLevelExpectation");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_detail_level_expectation(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_detail_level_expectation(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "detailLevelExpectation", value);
 }
-char *doc_completeness_quality_content_form_example_requirements(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_example_requirements(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "exampleRequirements");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_example_requirements(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_example_requirements(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "exampleRequirements", value);
 }
-char *doc_completeness_quality_content_form_screenshot_requirements(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_screenshot_requirements(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "screenshotRequirements");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_screenshot_requirements(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_screenshot_requirements(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "screenshotRequirements", value);
 }
-char *doc_completeness_quality_content_form_cross_reference_integrity(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_cross_reference_integrity(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossReferenceIntegrity");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_cross_reference_integrity(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_cross_reference_integrity(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "crossReferenceIntegrity", value);
 }
-char *doc_completeness_quality_content_form_related_topics_linking(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_related_topics_linking(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedTopicsLinking");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_related_topics_linking(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_related_topics_linking(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "relatedTopicsLinking", value);
 }
-char *doc_completeness_quality_content_form_completeness_review(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_completeness_review(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "completenessReview");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_completeness_review(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_completeness_review(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "completenessReview", value);
 }
-char *doc_completeness_quality_content_form_gap_identification_process(const DocCompletenessQualityContentForm *self) {
+char *doc_completeness_content_form_gap_identification_process(const DocCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "gapIdentificationProcess");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_completeness_quality_content_form_set_gap_identification_process(DocCompletenessQualityContentForm *self, const char *value) {
+void doc_completeness_content_form_set_gap_identification_process(DocCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "gapIdentificationProcess", value);
 }
 
-void doc_correctness_quality_alignment_content_form_init(DocCorrectnessQualityAlignmentContentForm *self, SpecDocument *doc, const char *path) {
+void doc_correctness_alignment_content_form_init(DocCorrectnessAlignmentContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_alignment_content_form_free(DocCorrectnessQualityAlignmentContentForm *self) {
+void doc_correctness_alignment_content_form_free(DocCorrectnessAlignmentContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_correctness_quality_alignment_content_form_format_consistency(const DocCorrectnessQualityAlignmentContentForm *self) {
+char *doc_correctness_alignment_content_form_format_consistency(const DocCorrectnessAlignmentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatConsistency");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_alignment_content_form_set_format_consistency(DocCorrectnessQualityAlignmentContentForm *self, const char *value) {
+void doc_correctness_alignment_content_form_set_format_consistency(DocCorrectnessAlignmentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "formatConsistency", value);
 }
-char *doc_correctness_quality_alignment_content_form_cross_document_consistency(const DocCorrectnessQualityAlignmentContentForm *self) {
+char *doc_correctness_alignment_content_form_cross_document_consistency(const DocCorrectnessAlignmentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossDocumentConsistency");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_alignment_content_form_set_cross_document_consistency(DocCorrectnessQualityAlignmentContentForm *self, const char *value) {
+void doc_correctness_alignment_content_form_set_cross_document_consistency(DocCorrectnessAlignmentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "crossDocumentConsistency", value);
 }
-char *doc_correctness_quality_alignment_content_form_documentation_sync_process(const DocCorrectnessQualityAlignmentContentForm *self) {
+char *doc_correctness_alignment_content_form_documentation_sync_process(const DocCorrectnessAlignmentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationSyncProcess");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_alignment_content_form_set_documentation_sync_process(DocCorrectnessQualityAlignmentContentForm *self, const char *value) {
+void doc_correctness_alignment_content_form_set_documentation_sync_process(DocCorrectnessAlignmentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "documentationSyncProcess", value);
 }
-char *doc_correctness_quality_alignment_content_form_version_alignment(const DocCorrectnessQualityAlignmentContentForm *self) {
+char *doc_correctness_alignment_content_form_version_alignment(const DocCorrectnessAlignmentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "versionAlignment");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_alignment_content_form_set_version_alignment(DocCorrectnessQualityAlignmentContentForm *self, const char *value) {
+void doc_correctness_alignment_content_form_set_version_alignment(DocCorrectnessAlignmentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "versionAlignment", value);
 }
-char *doc_correctness_quality_alignment_content_form_deprecation_handling(const DocCorrectnessQualityAlignmentContentForm *self) {
+char *doc_correctness_alignment_content_form_deprecation_handling(const DocCorrectnessAlignmentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "deprecationHandling");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_alignment_content_form_set_deprecation_handling(DocCorrectnessQualityAlignmentContentForm *self, const char *value) {
+void doc_correctness_alignment_content_form_set_deprecation_handling(DocCorrectnessAlignmentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "deprecationHandling", value);
 }
 
-void doc_correctness_quality_content_form_init(DocCorrectnessQualityContentForm *self, SpecDocument *doc, const char *path) {
+void doc_correctness_content_form_init(DocCorrectnessContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_content_form_free(DocCorrectnessQualityContentForm *self) {
+void doc_correctness_content_form_free(DocCorrectnessContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_correctness_quality_content_form_spelling_grammar_check(const DocCorrectnessQualityContentForm *self) {
+char *doc_correctness_content_form_spelling_grammar_check(const DocCorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "spellingGrammarCheck");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_content_form_set_spelling_grammar_check(DocCorrectnessQualityContentForm *self, const char *value) {
+void doc_correctness_content_form_set_spelling_grammar_check(DocCorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "spellingGrammarCheck", value);
 }
-char *doc_correctness_quality_content_form_technical_accuracy_review(const DocCorrectnessQualityContentForm *self) {
+char *doc_correctness_content_form_technical_accuracy_review(const DocCorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalAccuracyReview");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_content_form_set_technical_accuracy_review(DocCorrectnessQualityContentForm *self, const char *value) {
+void doc_correctness_content_form_set_technical_accuracy_review(DocCorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "technicalAccuracyReview", value);
 }
-char *doc_correctness_quality_content_form_error_tolerance_level(const DocCorrectnessQualityContentForm *self) {
+char *doc_correctness_content_form_error_tolerance_level(const DocCorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorToleranceLevel");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_content_form_set_error_tolerance_level(DocCorrectnessQualityContentForm *self, const char *value) {
+void doc_correctness_content_form_set_error_tolerance_level(DocCorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "errorToleranceLevel", value);
 }
-char *doc_correctness_quality_content_form_terminology_consistency(const DocCorrectnessQualityContentForm *self) {
+char *doc_correctness_content_form_terminology_consistency(const DocCorrectnessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "terminologyConsistency");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_content_form_set_terminology_consistency(DocCorrectnessQualityContentForm *self, const char *value) {
+void doc_correctness_content_form_set_terminology_consistency(DocCorrectnessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "terminologyConsistency", value);
 }
 
-void doc_correctness_quality_verification_content_form_init(DocCorrectnessQualityVerificationContentForm *self, SpecDocument *doc, const char *path) {
+void doc_correctness_verification_content_form_init(DocCorrectnessVerificationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void doc_correctness_quality_verification_content_form_free(DocCorrectnessQualityVerificationContentForm *self) {
+void doc_correctness_verification_content_form_free(DocCorrectnessVerificationContentForm *self) {
   som_node_free(&self->node);
 }
-char *doc_correctness_quality_verification_content_form_correctness_verification(const DocCorrectnessQualityVerificationContentForm *self) {
+char *doc_correctness_verification_content_form_correctness_verification(const DocCorrectnessVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "correctnessVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_verification_content_form_set_correctness_verification(DocCorrectnessQualityVerificationContentForm *self, const char *value) {
+void doc_correctness_verification_content_form_set_correctness_verification(DocCorrectnessVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "correctnessVerification", value);
 }
-char *doc_correctness_quality_verification_content_form_user_feedback_integration(const DocCorrectnessQualityVerificationContentForm *self) {
+char *doc_correctness_verification_content_form_user_feedback_integration(const DocCorrectnessVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "userFeedbackIntegration");
   return som_strdup(v != NULL ? v : "");
 }
-void doc_correctness_quality_verification_content_form_set_user_feedback_integration(DocCorrectnessQualityVerificationContentForm *self, const char *value) {
+void doc_correctness_verification_content_form_set_user_feedback_integration(DocCorrectnessVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "userFeedbackIntegration", value);
 }
 
@@ -96917,129 +97085,129 @@ void domain_term_entry_content_form_set_abbreviation(DomainTermEntryContentForm 
   spec_document_set_form_field(self->node.doc, self->node.path, "abbreviation", value);
 }
 
-void efficiency_quality_content_form_init(EfficiencyQualityContentForm *self, SpecDocument *doc, const char *path) {
+void efficiency_content_form_init(EfficiencyContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_content_form_free(EfficiencyQualityContentForm *self) {
+void efficiency_content_form_free(EfficiencyContentForm *self) {
   som_node_free(&self->node);
 }
-char *efficiency_quality_content_form_response_time_p50_target(const EfficiencyQualityContentForm *self) {
+char *efficiency_content_form_response_time_p50_target(const EfficiencyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP50Target");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_content_form_set_response_time_p50_target(EfficiencyQualityContentForm *self, const char *value) {
+void efficiency_content_form_set_response_time_p50_target(EfficiencyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP50Target", value);
 }
-char *efficiency_quality_content_form_response_time_p95_target(const EfficiencyQualityContentForm *self) {
+char *efficiency_content_form_response_time_p95_target(const EfficiencyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP95Target");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_content_form_set_response_time_p95_target(EfficiencyQualityContentForm *self, const char *value) {
+void efficiency_content_form_set_response_time_p95_target(EfficiencyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP95Target", value);
 }
-char *efficiency_quality_content_form_response_time_p99_target(const EfficiencyQualityContentForm *self) {
+char *efficiency_content_form_response_time_p99_target(const EfficiencyContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP99Target");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_content_form_set_response_time_p99_target(EfficiencyQualityContentForm *self, const char *value) {
+void efficiency_content_form_set_response_time_p99_target(EfficiencyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP99Target", value);
 }
 
-void efficiency_quality_resources_content_form_init(EfficiencyQualityResourcesContentForm *self, SpecDocument *doc, const char *path) {
+void efficiency_resources_content_form_init(EfficiencyResourcesContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_resources_content_form_free(EfficiencyQualityResourcesContentForm *self) {
+void efficiency_resources_content_form_free(EfficiencyResourcesContentForm *self) {
   som_node_free(&self->node);
 }
-char *efficiency_quality_resources_content_form_cpu_utilization_limit(const EfficiencyQualityResourcesContentForm *self) {
+char *efficiency_resources_content_form_cpu_utilization_limit(const EfficiencyResourcesContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "cpuUtilizationLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_resources_content_form_set_cpu_utilization_limit(EfficiencyQualityResourcesContentForm *self, const char *value) {
+void efficiency_resources_content_form_set_cpu_utilization_limit(EfficiencyResourcesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "cpuUtilizationLimit", value);
 }
-char *efficiency_quality_resources_content_form_memory_utilization_limit(const EfficiencyQualityResourcesContentForm *self) {
+char *efficiency_resources_content_form_memory_utilization_limit(const EfficiencyResourcesContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "memoryUtilizationLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_resources_content_form_set_memory_utilization_limit(EfficiencyQualityResourcesContentForm *self, const char *value) {
+void efficiency_resources_content_form_set_memory_utilization_limit(EfficiencyResourcesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "memoryUtilizationLimit", value);
 }
-char *efficiency_quality_resources_content_form_storage_efficiency_target(const EfficiencyQualityResourcesContentForm *self) {
+char *efficiency_resources_content_form_storage_efficiency_target(const EfficiencyResourcesContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "storageEfficiencyTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_resources_content_form_set_storage_efficiency_target(EfficiencyQualityResourcesContentForm *self, const char *value) {
+void efficiency_resources_content_form_set_storage_efficiency_target(EfficiencyResourcesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "storageEfficiencyTarget", value);
 }
-char *efficiency_quality_resources_content_form_network_bandwidth_limit(const EfficiencyQualityResourcesContentForm *self) {
+char *efficiency_resources_content_form_network_bandwidth_limit(const EfficiencyResourcesContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "networkBandwidthLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_resources_content_form_set_network_bandwidth_limit(EfficiencyQualityResourcesContentForm *self, const char *value) {
+void efficiency_resources_content_form_set_network_bandwidth_limit(EfficiencyResourcesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "networkBandwidthLimit", value);
 }
 
-void efficiency_quality_throughput_content_form_init(EfficiencyQualityThroughputContentForm *self, SpecDocument *doc, const char *path) {
+void efficiency_throughput_content_form_init(EfficiencyThroughputContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_throughput_content_form_free(EfficiencyQualityThroughputContentForm *self) {
+void efficiency_throughput_content_form_free(EfficiencyThroughputContentForm *self) {
   som_node_free(&self->node);
 }
-char *efficiency_quality_throughput_content_form_throughput_target(const EfficiencyQualityThroughputContentForm *self) {
+char *efficiency_throughput_content_form_throughput_target(const EfficiencyThroughputContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "throughputTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_throughput_content_form_set_throughput_target(EfficiencyQualityThroughputContentForm *self, const char *value) {
+void efficiency_throughput_content_form_set_throughput_target(EfficiencyThroughputContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "throughputTarget", value);
 }
-char *efficiency_quality_throughput_content_form_concurrent_users_target(const EfficiencyQualityThroughputContentForm *self) {
+char *efficiency_throughput_content_form_concurrent_users_target(const EfficiencyThroughputContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "concurrentUsersTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_throughput_content_form_set_concurrent_users_target(EfficiencyQualityThroughputContentForm *self, const char *value) {
+void efficiency_throughput_content_form_set_concurrent_users_target(EfficiencyThroughputContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "concurrentUsersTarget", value);
 }
-char *efficiency_quality_throughput_content_form_scalability_model(const EfficiencyQualityThroughputContentForm *self) {
+char *efficiency_throughput_content_form_scalability_model(const EfficiencyThroughputContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scalabilityModel");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_throughput_content_form_set_scalability_model(EfficiencyQualityThroughputContentForm *self, const char *value) {
+void efficiency_throughput_content_form_set_scalability_model(EfficiencyThroughputContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scalabilityModel", value);
 }
 
-void efficiency_quality_verification_content_form_init(EfficiencyQualityVerificationContentForm *self, SpecDocument *doc, const char *path) {
+void efficiency_verification_content_form_init(EfficiencyVerificationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void efficiency_quality_verification_content_form_free(EfficiencyQualityVerificationContentForm *self) {
+void efficiency_verification_content_form_free(EfficiencyVerificationContentForm *self) {
   som_node_free(&self->node);
 }
-char *efficiency_quality_verification_content_form_load_testing_requirement(const EfficiencyQualityVerificationContentForm *self) {
+char *efficiency_verification_content_form_load_testing_requirement(const EfficiencyVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "loadTestingRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_verification_content_form_set_load_testing_requirement(EfficiencyQualityVerificationContentForm *self, const char *value) {
+void efficiency_verification_content_form_set_load_testing_requirement(EfficiencyVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "loadTestingRequirement", value);
 }
-char *efficiency_quality_verification_content_form_performance_profiling_approach(const EfficiencyQualityVerificationContentForm *self) {
+char *efficiency_verification_content_form_performance_profiling_approach(const EfficiencyVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "performanceProfilingApproach");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_verification_content_form_set_performance_profiling_approach(EfficiencyQualityVerificationContentForm *self, const char *value) {
+void efficiency_verification_content_form_set_performance_profiling_approach(EfficiencyVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "performanceProfilingApproach", value);
 }
-char *efficiency_quality_verification_content_form_performance_baseline_date(const EfficiencyQualityVerificationContentForm *self) {
+char *efficiency_verification_content_form_performance_baseline_date(const EfficiencyVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "performanceBaselineDate");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_verification_content_form_set_performance_baseline_date(EfficiencyQualityVerificationContentForm *self, const char *value) {
+void efficiency_verification_content_form_set_performance_baseline_date(EfficiencyVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "performanceBaselineDate", value);
 }
-char *efficiency_quality_verification_content_form_performance_sla_definition(const EfficiencyQualityVerificationContentForm *self) {
+char *efficiency_verification_content_form_performance_sla_definition(const EfficiencyVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "performanceSlaDefinition");
   return som_strdup(v != NULL ? v : "");
 }
-void efficiency_quality_verification_content_form_set_performance_sla_definition(EfficiencyQualityVerificationContentForm *self, const char *value) {
+void efficiency_verification_content_form_set_performance_sla_definition(EfficiencyVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "performanceSlaDefinition", value);
 }
 
@@ -103294,115 +103462,136 @@ void firewall_requirements_rules_content_form_set_internal_rules(FirewallRequire
   spec_document_set_form_field(self->node.doc, self->node.path, "internalRules", value);
 }
 
-void flexibility_quality_content_form_init(FlexibilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void flexibility_characteristic_flexibility_content_form_init(FlexibilityCharacteristicFlexibilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_content_form_free(FlexibilityQualityContentForm *self) {
+void flexibility_characteristic_flexibility_content_form_free(FlexibilityCharacteristicFlexibilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *flexibility_quality_content_form_component_architecture(const FlexibilityQualityContentForm *self) {
+char *flexibility_characteristic_flexibility_content_form_flexibility_approach(const FlexibilityCharacteristicFlexibilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "flexibilityApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void flexibility_characteristic_flexibility_content_form_set_flexibility_approach(FlexibilityCharacteristicFlexibilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "flexibilityApproach", value);
+}
+char *flexibility_characteristic_flexibility_content_form_portability_target(const FlexibilityCharacteristicFlexibilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "portabilityTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void flexibility_characteristic_flexibility_content_form_set_portability_target(FlexibilityCharacteristicFlexibilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "portabilityTarget", value);
+}
+
+void flexibility_content_form_init(FlexibilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void flexibility_content_form_free(FlexibilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *flexibility_content_form_component_architecture(const FlexibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentArchitecture");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_content_form_set_component_architecture(FlexibilityQualityContentForm *self, const char *value) {
+void flexibility_content_form_set_component_architecture(FlexibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentArchitecture", value);
 }
-char *flexibility_quality_content_form_component_granularity(const FlexibilityQualityContentForm *self) {
+char *flexibility_content_form_component_granularity(const FlexibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentGranularity");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_content_form_set_component_granularity(FlexibilityQualityContentForm *self, const char *value) {
+void flexibility_content_form_set_component_granularity(FlexibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentGranularity", value);
 }
-char *flexibility_quality_content_form_component_replaceability(const FlexibilityQualityContentForm *self) {
+char *flexibility_content_form_component_replaceability(const FlexibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentReplaceability");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_content_form_set_component_replaceability(FlexibilityQualityContentForm *self, const char *value) {
+void flexibility_content_form_set_component_replaceability(FlexibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentReplaceability", value);
 }
 
-void flexibility_quality_deployment_content_form_init(FlexibilityQualityDeploymentContentForm *self, SpecDocument *doc, const char *path) {
+void flexibility_deployment_content_form_init(FlexibilityDeploymentContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_deployment_content_form_free(FlexibilityQualityDeploymentContentForm *self) {
+void flexibility_deployment_content_form_free(FlexibilityDeploymentContentForm *self) {
   som_node_free(&self->node);
 }
-char *flexibility_quality_deployment_content_form_distribution_capability(const FlexibilityQualityDeploymentContentForm *self) {
+char *flexibility_deployment_content_form_distribution_capability(const FlexibilityDeploymentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "distributionCapability");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_deployment_content_form_set_distribution_capability(FlexibilityQualityDeploymentContentForm *self, const char *value) {
+void flexibility_deployment_content_form_set_distribution_capability(FlexibilityDeploymentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "distributionCapability", value);
 }
-char *flexibility_quality_deployment_content_form_multi_tenancy(const FlexibilityQualityDeploymentContentForm *self) {
+char *flexibility_deployment_content_form_multi_tenancy(const FlexibilityDeploymentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "multiTenancy");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_deployment_content_form_set_multi_tenancy(FlexibilityQualityDeploymentContentForm *self, const char *value) {
+void flexibility_deployment_content_form_set_multi_tenancy(FlexibilityDeploymentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "multiTenancy", value);
 }
-char *flexibility_quality_deployment_content_form_configurability_level(const FlexibilityQualityDeploymentContentForm *self) {
+char *flexibility_deployment_content_form_configurability_level(const FlexibilityDeploymentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "configurabilityLevel");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_deployment_content_form_set_configurability_level(FlexibilityQualityDeploymentContentForm *self, const char *value) {
+void flexibility_deployment_content_form_set_configurability_level(FlexibilityDeploymentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "configurabilityLevel", value);
 }
 
-void flexibility_quality_extensibility_content_form_init(FlexibilityQualityExtensibilityContentForm *self, SpecDocument *doc, const char *path) {
+void flexibility_extensibility_content_form_init(FlexibilityExtensibilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_extensibility_content_form_free(FlexibilityQualityExtensibilityContentForm *self) {
+void flexibility_extensibility_content_form_free(FlexibilityExtensibilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *flexibility_quality_extensibility_content_form_extensibility_model(const FlexibilityQualityExtensibilityContentForm *self) {
+char *flexibility_extensibility_content_form_extensibility_model(const FlexibilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "extensibilityModel");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_extensibility_content_form_set_extensibility_model(FlexibilityQualityExtensibilityContentForm *self, const char *value) {
+void flexibility_extensibility_content_form_set_extensibility_model(FlexibilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "extensibilityModel", value);
 }
-char *flexibility_quality_extensibility_content_form_customization_scope(const FlexibilityQualityExtensibilityContentForm *self) {
+char *flexibility_extensibility_content_form_customization_scope(const FlexibilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "customizationScope");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_extensibility_content_form_set_customization_scope(FlexibilityQualityExtensibilityContentForm *self, const char *value) {
+void flexibility_extensibility_content_form_set_customization_scope(FlexibilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "customizationScope", value);
 }
-char *flexibility_quality_extensibility_content_form_flexibility_verification(const FlexibilityQualityExtensibilityContentForm *self) {
+char *flexibility_extensibility_content_form_flexibility_verification(const FlexibilityExtensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "flexibilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_extensibility_content_form_set_flexibility_verification(FlexibilityQualityExtensibilityContentForm *self, const char *value) {
+void flexibility_extensibility_content_form_set_flexibility_verification(FlexibilityExtensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "flexibilityVerification", value);
 }
 
-void flexibility_quality_modularity_content_form_init(FlexibilityQualityModularityContentForm *self, SpecDocument *doc, const char *path) {
+void flexibility_modularity_content_form_init(FlexibilityModularityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void flexibility_quality_modularity_content_form_free(FlexibilityQualityModularityContentForm *self) {
+void flexibility_modularity_content_form_free(FlexibilityModularityContentForm *self) {
   som_node_free(&self->node);
 }
-char *flexibility_quality_modularity_content_form_modularity_level(const FlexibilityQualityModularityContentForm *self) {
+char *flexibility_modularity_content_form_modularity_level(const FlexibilityModularityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "modularityLevel");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_modularity_content_form_set_modularity_level(FlexibilityQualityModularityContentForm *self, const char *value) {
+void flexibility_modularity_content_form_set_modularity_level(FlexibilityModularityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "modularityLevel", value);
 }
-char *flexibility_quality_modularity_content_form_module_independence(const FlexibilityQualityModularityContentForm *self) {
+char *flexibility_modularity_content_form_module_independence(const FlexibilityModularityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "moduleIndependence");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_modularity_content_form_set_module_independence(FlexibilityQualityModularityContentForm *self, const char *value) {
+void flexibility_modularity_content_form_set_module_independence(FlexibilityModularityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "moduleIndependence", value);
 }
-char *flexibility_quality_modularity_content_form_module_reusability(const FlexibilityQualityModularityContentForm *self) {
+char *flexibility_modularity_content_form_module_reusability(const FlexibilityModularityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "moduleReusability");
   return som_strdup(v != NULL ? v : "");
 }
-void flexibility_quality_modularity_content_form_set_module_reusability(FlexibilityQualityModularityContentForm *self, const char *value) {
+void flexibility_modularity_content_form_set_module_reusability(FlexibilityModularityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "moduleReusability", value);
 }
 
@@ -103854,73 +104043,73 @@ void function_model_matrix_overview_form_set_data_ownership(FunctionModelMatrixO
   spec_document_set_form_field(self->node.doc, self->node.path, "dataOwnership", value);
 }
 
-void functional_completeness_quality_content_form_init(FunctionalCompletenessQualityContentForm *self, SpecDocument *doc, const char *path) {
+void functional_completeness_content_form_init(FunctionalCompletenessContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void functional_completeness_quality_content_form_free(FunctionalCompletenessQualityContentForm *self) {
+void functional_completeness_content_form_free(FunctionalCompletenessContentForm *self) {
   som_node_free(&self->node);
 }
-char *functional_completeness_quality_content_form_feature_coverage_target(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_feature_coverage_target(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureCoverageTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_feature_coverage_target(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_feature_coverage_target(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureCoverageTarget", value);
 }
-char *functional_completeness_quality_content_form_core_workflow_coverage(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_core_workflow_coverage(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "coreWorkflowCoverage");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_core_workflow_coverage(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_core_workflow_coverage(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "coreWorkflowCoverage", value);
 }
-char *functional_completeness_quality_content_form_edge_case_handling(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_edge_case_handling(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "edgeCaseHandling");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_edge_case_handling(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_edge_case_handling(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "edgeCaseHandling", value);
 }
-char *functional_completeness_quality_content_form_scope_prioritization(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_scope_prioritization(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scopePrioritization");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_scope_prioritization(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_scope_prioritization(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scopePrioritization", value);
 }
-char *functional_completeness_quality_content_form_mvp_definition(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_mvp_definition(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mvpDefinition");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_mvp_definition(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_mvp_definition(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mvpDefinition", value);
 }
-char *functional_completeness_quality_content_form_deferred_feature_handling(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_deferred_feature_handling(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "deferredFeatureHandling");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_deferred_feature_handling(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_deferred_feature_handling(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "deferredFeatureHandling", value);
 }
-char *functional_completeness_quality_content_form_completeness_verification(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_completeness_verification(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "completenessVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_completeness_verification(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_completeness_verification(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "completenessVerification", value);
 }
-char *functional_completeness_quality_content_form_user_story_tracking(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_user_story_tracking(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "userStoryTracking");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_user_story_tracking(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_user_story_tracking(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "userStoryTracking", value);
 }
-char *functional_completeness_quality_content_form_gap_analysis_frequency(const FunctionalCompletenessQualityContentForm *self) {
+char *functional_completeness_content_form_gap_analysis_frequency(const FunctionalCompletenessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "gapAnalysisFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void functional_completeness_quality_content_form_set_gap_analysis_frequency(FunctionalCompletenessQualityContentForm *self, const char *value) {
+void functional_completeness_content_form_set_gap_analysis_frequency(FunctionalCompletenessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "gapAnalysisFrequency", value);
 }
 
@@ -104223,6 +104412,34 @@ char *functional_responsibilities_content_form_unassigned_areas(const Functional
 }
 void functional_responsibilities_content_form_set_unassigned_areas(FunctionalResponsibilitiesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "unassignedAreas", value);
+}
+
+void functional_suitability_characteristic_functional_suitability_content_form_init(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void functional_suitability_characteristic_functional_suitability_content_form_free(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *functional_suitability_characteristic_functional_suitability_content_form_functional_suitability_approach(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionalSuitabilityApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void functional_suitability_characteristic_functional_suitability_content_form_set_functional_suitability_approach(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "functionalSuitabilityApproach", value);
+}
+char *functional_suitability_characteristic_functional_suitability_content_form_functional_coverage_target(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionalCoverageTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void functional_suitability_characteristic_functional_suitability_content_form_set_functional_coverage_target(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "functionalCoverageTarget", value);
+}
+char *functional_suitability_characteristic_functional_suitability_content_form_correctness_standard(const FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "correctnessStandard");
+  return som_strdup(v != NULL ? v : "");
+}
+void functional_suitability_characteristic_functional_suitability_content_form_set_correctness_standard(FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "correctnessStandard", value);
 }
 
 void gap_entry_content_form_init(GapEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -108481,6 +108698,55 @@ void interaction_business_rules_content_form_set_integration_rules(InteractionBu
   spec_document_set_form_field(self->node.doc, self->node.path, "integrationRules", value);
 }
 
+void interaction_capability_characteristic_interaction_capability_content_form_init(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void interaction_capability_characteristic_interaction_capability_content_form_free(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_user_quality_philosophy(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userQualityPhilosophy");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_quality_philosophy(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "userQualityPhilosophy", value);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_target_user_experience(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetUserExperience");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_target_user_experience(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "targetUserExperience", value);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_user_research_basis(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userResearchBasis");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_research_basis(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "userResearchBasis", value);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_user_feedback_channel(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userFeedbackChannel");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_feedback_channel(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "userFeedbackChannel", value);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_user_satisfaction_target(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userSatisfactionTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_user_satisfaction_target(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "userSatisfactionTarget", value);
+}
+char *interaction_capability_characteristic_interaction_capability_content_form_accessibility_level(const InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessibilityLevel");
+  return som_strdup(v != NULL ? v : "");
+}
+void interaction_capability_characteristic_interaction_capability_content_form_set_accessibility_level(InteractionCapabilityCharacteristicInteractionCapabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "accessibilityLevel", value);
+}
+
 void interaction_catalog_overview_content_form_init(InteractionCatalogOverviewContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -110854,164 +111120,164 @@ void it_landscape_position_position_details_form_set_integration_pattern(ItLands
   spec_document_set_form_field(self->node.doc, self->node.path, "integrationPattern", value);
 }
 
-void it_security_operations_quality_access_content_form_init(ItSecurityOperationsQualityAccessContentForm *self, SpecDocument *doc, const char *path) {
+void it_security_operations_access_content_form_init(ItSecurityOperationsAccessContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_access_content_form_free(ItSecurityOperationsQualityAccessContentForm *self) {
+void it_security_operations_access_content_form_free(ItSecurityOperationsAccessContentForm *self) {
   som_node_free(&self->node);
 }
-char *it_security_operations_quality_access_content_form_privileged_access_management(const ItSecurityOperationsQualityAccessContentForm *self) {
+char *it_security_operations_access_content_form_privileged_access_management(const ItSecurityOperationsAccessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "privilegedAccessManagement");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_access_content_form_set_privileged_access_management(ItSecurityOperationsQualityAccessContentForm *self, const char *value) {
+void it_security_operations_access_content_form_set_privileged_access_management(ItSecurityOperationsAccessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "privilegedAccessManagement", value);
 }
-char *it_security_operations_quality_access_content_form_access_review_frequency(const ItSecurityOperationsQualityAccessContentForm *self) {
+char *it_security_operations_access_content_form_access_review_frequency(const ItSecurityOperationsAccessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessReviewFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_access_content_form_set_access_review_frequency(ItSecurityOperationsQualityAccessContentForm *self, const char *value) {
+void it_security_operations_access_content_form_set_access_review_frequency(ItSecurityOperationsAccessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "accessReviewFrequency", value);
 }
-char *it_security_operations_quality_access_content_form_access_audit_logging(const ItSecurityOperationsQualityAccessContentForm *self) {
+char *it_security_operations_access_content_form_access_audit_logging(const ItSecurityOperationsAccessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessAuditLogging");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_access_content_form_set_access_audit_logging(ItSecurityOperationsQualityAccessContentForm *self, const char *value) {
+void it_security_operations_access_content_form_set_access_audit_logging(ItSecurityOperationsAccessContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "accessAuditLogging", value);
 }
 
-void it_security_operations_quality_content_form_init(ItSecurityOperationsQualityContentForm *self, SpecDocument *doc, const char *path) {
+void it_security_operations_content_form_init(ItSecurityOperationsContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_content_form_free(ItSecurityOperationsQualityContentForm *self) {
+void it_security_operations_content_form_free(ItSecurityOperationsContentForm *self) {
   som_node_free(&self->node);
 }
-char *it_security_operations_quality_content_form_access_control_model(const ItSecurityOperationsQualityContentForm *self) {
+char *it_security_operations_content_form_access_control_model(const ItSecurityOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessControlModel");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_content_form_set_access_control_model(ItSecurityOperationsQualityContentForm *self, const char *value) {
+void it_security_operations_content_form_set_access_control_model(ItSecurityOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "accessControlModel", value);
 }
-char *it_security_operations_quality_content_form_dr_plan_required(const ItSecurityOperationsQualityContentForm *self) {
+char *it_security_operations_content_form_dr_plan_required(const ItSecurityOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "drPlanRequired");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_content_form_set_dr_plan_required(ItSecurityOperationsQualityContentForm *self, const char *value) {
+void it_security_operations_content_form_set_dr_plan_required(ItSecurityOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "drPlanRequired", value);
 }
-char *it_security_operations_quality_content_form_incident_response_plan(const ItSecurityOperationsQualityContentForm *self) {
+char *it_security_operations_content_form_incident_response_plan(const ItSecurityOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "incidentResponsePlan");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_content_form_set_incident_response_plan(ItSecurityOperationsQualityContentForm *self, const char *value) {
+void it_security_operations_content_form_set_incident_response_plan(ItSecurityOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "incidentResponsePlan", value);
 }
 
-void it_security_operations_quality_incident_content_form_init(ItSecurityOperationsQualityIncidentContentForm *self, SpecDocument *doc, const char *path) {
+void it_security_operations_incident_content_form_init(ItSecurityOperationsIncidentContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_incident_content_form_free(ItSecurityOperationsQualityIncidentContentForm *self) {
+void it_security_operations_incident_content_form_free(ItSecurityOperationsIncidentContentForm *self) {
   som_node_free(&self->node);
 }
-char *it_security_operations_quality_incident_content_form_security_incident_classification(const ItSecurityOperationsQualityIncidentContentForm *self) {
+char *it_security_operations_incident_content_form_security_incident_classification(const ItSecurityOperationsIncidentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityIncidentClassification");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_incident_content_form_set_security_incident_classification(ItSecurityOperationsQualityIncidentContentForm *self, const char *value) {
+void it_security_operations_incident_content_form_set_security_incident_classification(ItSecurityOperationsIncidentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "securityIncidentClassification", value);
 }
-char *it_security_operations_quality_incident_content_form_security_incident_notification(const ItSecurityOperationsQualityIncidentContentForm *self) {
+char *it_security_operations_incident_content_form_security_incident_notification(const ItSecurityOperationsIncidentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityIncidentNotification");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_incident_content_form_set_security_incident_notification(ItSecurityOperationsQualityIncidentContentForm *self, const char *value) {
+void it_security_operations_incident_content_form_set_security_incident_notification(ItSecurityOperationsIncidentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "securityIncidentNotification", value);
 }
-char *it_security_operations_quality_incident_content_form_forensics_capability(const ItSecurityOperationsQualityIncidentContentForm *self) {
+char *it_security_operations_incident_content_form_forensics_capability(const ItSecurityOperationsIncidentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "forensicsCapability");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_incident_content_form_set_forensics_capability(ItSecurityOperationsQualityIncidentContentForm *self, const char *value) {
+void it_security_operations_incident_content_form_set_forensics_capability(ItSecurityOperationsIncidentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "forensicsCapability", value);
 }
-char *it_security_operations_quality_incident_content_form_regulatory_reporting(const ItSecurityOperationsQualityIncidentContentForm *self) {
+char *it_security_operations_incident_content_form_regulatory_reporting(const ItSecurityOperationsIncidentContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulatoryReporting");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_incident_content_form_set_regulatory_reporting(ItSecurityOperationsQualityIncidentContentForm *self, const char *value) {
+void it_security_operations_incident_content_form_set_regulatory_reporting(ItSecurityOperationsIncidentContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "regulatoryReporting", value);
 }
 
-void it_security_operations_quality_recovery_content_form_init(ItSecurityOperationsQualityRecoveryContentForm *self, SpecDocument *doc, const char *path) {
+void it_security_operations_recovery_content_form_init(ItSecurityOperationsRecoveryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_recovery_content_form_free(ItSecurityOperationsQualityRecoveryContentForm *self) {
+void it_security_operations_recovery_content_form_free(ItSecurityOperationsRecoveryContentForm *self) {
   som_node_free(&self->node);
 }
-char *it_security_operations_quality_recovery_content_form_dr_testing_frequency(const ItSecurityOperationsQualityRecoveryContentForm *self) {
+char *it_security_operations_recovery_content_form_dr_testing_frequency(const ItSecurityOperationsRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "drTestingFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_recovery_content_form_set_dr_testing_frequency(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value) {
+void it_security_operations_recovery_content_form_set_dr_testing_frequency(ItSecurityOperationsRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "drTestingFrequency", value);
 }
-char *it_security_operations_quality_recovery_content_form_dr_recovery_targets(const ItSecurityOperationsQualityRecoveryContentForm *self) {
+char *it_security_operations_recovery_content_form_dr_recovery_targets(const ItSecurityOperationsRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "drRecoveryTargets");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_recovery_content_form_set_dr_recovery_targets(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value) {
+void it_security_operations_recovery_content_form_set_dr_recovery_targets(ItSecurityOperationsRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "drRecoveryTargets", value);
 }
-char *it_security_operations_quality_recovery_content_form_dr_data_center_strategy(const ItSecurityOperationsQualityRecoveryContentForm *self) {
+char *it_security_operations_recovery_content_form_dr_data_center_strategy(const ItSecurityOperationsRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "drDataCenterStrategy");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_recovery_content_form_set_dr_data_center_strategy(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value) {
+void it_security_operations_recovery_content_form_set_dr_data_center_strategy(ItSecurityOperationsRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "drDataCenterStrategy", value);
 }
-char *it_security_operations_quality_recovery_content_form_dr_communication_plan(const ItSecurityOperationsQualityRecoveryContentForm *self) {
+char *it_security_operations_recovery_content_form_dr_communication_plan(const ItSecurityOperationsRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "drCommunicationPlan");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_recovery_content_form_set_dr_communication_plan(ItSecurityOperationsQualityRecoveryContentForm *self, const char *value) {
+void it_security_operations_recovery_content_form_set_dr_communication_plan(ItSecurityOperationsRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "drCommunicationPlan", value);
 }
 
-void it_security_operations_quality_testing_content_form_init(ItSecurityOperationsQualityTestingContentForm *self, SpecDocument *doc, const char *path) {
+void it_security_operations_testing_content_form_init(ItSecurityOperationsTestingContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void it_security_operations_quality_testing_content_form_free(ItSecurityOperationsQualityTestingContentForm *self) {
+void it_security_operations_testing_content_form_free(ItSecurityOperationsTestingContentForm *self) {
   som_node_free(&self->node);
 }
-char *it_security_operations_quality_testing_content_form_penetration_test_scope(const ItSecurityOperationsQualityTestingContentForm *self) {
+char *it_security_operations_testing_content_form_penetration_test_scope(const ItSecurityOperationsTestingContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "penetrationTestScope");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_testing_content_form_set_penetration_test_scope(ItSecurityOperationsQualityTestingContentForm *self, const char *value) {
+void it_security_operations_testing_content_form_set_penetration_test_scope(ItSecurityOperationsTestingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "penetrationTestScope", value);
 }
-char *it_security_operations_quality_testing_content_form_penetration_test_frequency(const ItSecurityOperationsQualityTestingContentForm *self) {
+char *it_security_operations_testing_content_form_penetration_test_frequency(const ItSecurityOperationsTestingContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "penetrationTestFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_testing_content_form_set_penetration_test_frequency(ItSecurityOperationsQualityTestingContentForm *self, const char *value) {
+void it_security_operations_testing_content_form_set_penetration_test_frequency(ItSecurityOperationsTestingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "penetrationTestFrequency", value);
 }
-char *it_security_operations_quality_testing_content_form_vulnerability_sla_resolution(const ItSecurityOperationsQualityTestingContentForm *self) {
+char *it_security_operations_testing_content_form_vulnerability_sla_resolution(const ItSecurityOperationsTestingContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "vulnerabilitySlaResolution");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_testing_content_form_set_vulnerability_sla_resolution(ItSecurityOperationsQualityTestingContentForm *self, const char *value) {
+void it_security_operations_testing_content_form_set_vulnerability_sla_resolution(ItSecurityOperationsTestingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "vulnerabilitySlaResolution", value);
 }
-char *it_security_operations_quality_testing_content_form_bug_bounty_program(const ItSecurityOperationsQualityTestingContentForm *self) {
+char *it_security_operations_testing_content_form_bug_bounty_program(const ItSecurityOperationsTestingContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "bugBountyProgram");
   return som_strdup(v != NULL ? v : "");
 }
-void it_security_operations_quality_testing_content_form_set_bug_bounty_program(ItSecurityOperationsQualityTestingContentForm *self, const char *value) {
+void it_security_operations_testing_content_form_set_bug_bounty_program(ItSecurityOperationsTestingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "bugBountyProgram", value);
 }
 
@@ -113556,150 +113822,171 @@ void main_success_scenario_content_form_set_step_count(MainSuccessScenarioConten
   spec_document_set_form_field(self->node.doc, self->node.path, "stepCount", value);
 }
 
-void maintainability_quality_analyzability_content_form_init(MaintainabilityQualityAnalyzabilityContentForm *self, SpecDocument *doc, const char *path) {
+void maintainability_analyzability_content_form_init(MaintainabilityAnalyzabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_analyzability_content_form_free(MaintainabilityQualityAnalyzabilityContentForm *self) {
+void maintainability_analyzability_content_form_free(MaintainabilityAnalyzabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *maintainability_quality_analyzability_content_form_code_readability_standard(const MaintainabilityQualityAnalyzabilityContentForm *self) {
+char *maintainability_analyzability_content_form_code_readability_standard(const MaintainabilityAnalyzabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "codeReadabilityStandard");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_analyzability_content_form_set_code_readability_standard(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value) {
+void maintainability_analyzability_content_form_set_code_readability_standard(MaintainabilityAnalyzabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "codeReadabilityStandard", value);
 }
-char *maintainability_quality_analyzability_content_form_documentation_requirement(const MaintainabilityQualityAnalyzabilityContentForm *self) {
+char *maintainability_analyzability_content_form_documentation_requirement(const MaintainabilityAnalyzabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_analyzability_content_form_set_documentation_requirement(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value) {
+void maintainability_analyzability_content_form_set_documentation_requirement(MaintainabilityAnalyzabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "documentationRequirement", value);
 }
-char *maintainability_quality_analyzability_content_form_logging_standard(const MaintainabilityQualityAnalyzabilityContentForm *self) {
+char *maintainability_analyzability_content_form_logging_standard(const MaintainabilityAnalyzabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "loggingStandard");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_analyzability_content_form_set_logging_standard(MaintainabilityQualityAnalyzabilityContentForm *self, const char *value) {
+void maintainability_analyzability_content_form_set_logging_standard(MaintainabilityAnalyzabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "loggingStandard", value);
 }
 
-void maintainability_quality_changeability_content_form_init(MaintainabilityQualityChangeabilityContentForm *self, SpecDocument *doc, const char *path) {
+void maintainability_changeability_content_form_init(MaintainabilityChangeabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_changeability_content_form_free(MaintainabilityQualityChangeabilityContentForm *self) {
+void maintainability_changeability_content_form_free(MaintainabilityChangeabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *maintainability_quality_changeability_content_form_code_coverage_minimum(const MaintainabilityQualityChangeabilityContentForm *self) {
+char *maintainability_changeability_content_form_code_coverage_minimum(const MaintainabilityChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "codeCoverageMinimum");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_changeability_content_form_set_code_coverage_minimum(MaintainabilityQualityChangeabilityContentForm *self, const char *value) {
+void maintainability_changeability_content_form_set_code_coverage_minimum(MaintainabilityChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "codeCoverageMinimum", value);
 }
-char *maintainability_quality_changeability_content_form_cyclomatic_complexity_limit(const MaintainabilityQualityChangeabilityContentForm *self) {
+char *maintainability_changeability_content_form_cyclomatic_complexity_limit(const MaintainabilityChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "cyclomaticComplexityLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_changeability_content_form_set_cyclomatic_complexity_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value) {
+void maintainability_changeability_content_form_set_cyclomatic_complexity_limit(MaintainabilityChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "cyclomaticComplexityLimit", value);
 }
-char *maintainability_quality_changeability_content_form_method_length_limit(const MaintainabilityQualityChangeabilityContentForm *self) {
+char *maintainability_changeability_content_form_method_length_limit(const MaintainabilityChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "methodLengthLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_changeability_content_form_set_method_length_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value) {
+void maintainability_changeability_content_form_set_method_length_limit(MaintainabilityChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "methodLengthLimit", value);
 }
-char *maintainability_quality_changeability_content_form_class_length_limit(const MaintainabilityQualityChangeabilityContentForm *self) {
+char *maintainability_changeability_content_form_class_length_limit(const MaintainabilityChangeabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "classLengthLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_changeability_content_form_set_class_length_limit(MaintainabilityQualityChangeabilityContentForm *self, const char *value) {
+void maintainability_changeability_content_form_set_class_length_limit(MaintainabilityChangeabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "classLengthLimit", value);
 }
 
-void maintainability_quality_content_form_init(MaintainabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void maintainability_characteristic_maintainability_content_form_init(MaintainabilityCharacteristicMaintainabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_content_form_free(MaintainabilityQualityContentForm *self) {
+void maintainability_characteristic_maintainability_content_form_free(MaintainabilityCharacteristicMaintainabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *maintainability_quality_content_form_adaptability_target(const MaintainabilityQualityContentForm *self) {
+char *maintainability_characteristic_maintainability_content_form_maintainability_approach(const MaintainabilityCharacteristicMaintainabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintainabilityApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void maintainability_characteristic_maintainability_content_form_set_maintainability_approach(MaintainabilityCharacteristicMaintainabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maintainabilityApproach", value);
+}
+char *maintainability_characteristic_maintainability_content_form_maintainability_standard(const MaintainabilityCharacteristicMaintainabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintainabilityStandard");
+  return som_strdup(v != NULL ? v : "");
+}
+void maintainability_characteristic_maintainability_content_form_set_maintainability_standard(MaintainabilityCharacteristicMaintainabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maintainabilityStandard", value);
+}
+
+void maintainability_content_form_init(MaintainabilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void maintainability_content_form_free(MaintainabilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *maintainability_content_form_adaptability_target(const MaintainabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "adaptabilityTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_content_form_set_adaptability_target(MaintainabilityQualityContentForm *self, const char *value) {
+void maintainability_content_form_set_adaptability_target(MaintainabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "adaptabilityTarget", value);
 }
-char *maintainability_quality_content_form_change_impact_limit(const MaintainabilityQualityContentForm *self) {
+char *maintainability_content_form_change_impact_limit(const MaintainabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeImpactLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_content_form_set_change_impact_limit(MaintainabilityQualityContentForm *self, const char *value) {
+void maintainability_content_form_set_change_impact_limit(MaintainabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "changeImpactLimit", value);
 }
 
-void maintainability_quality_governance_content_form_init(MaintainabilityQualityGovernanceContentForm *self, SpecDocument *doc, const char *path) {
+void maintainability_governance_content_form_init(MaintainabilityGovernanceContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_governance_content_form_free(MaintainabilityQualityGovernanceContentForm *self) {
+void maintainability_governance_content_form_free(MaintainabilityGovernanceContentForm *self) {
   som_node_free(&self->node);
 }
-char *maintainability_quality_governance_content_form_extensibility_pattern(const MaintainabilityQualityGovernanceContentForm *self) {
+char *maintainability_governance_content_form_extensibility_pattern(const MaintainabilityGovernanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "extensibilityPattern");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_governance_content_form_set_extensibility_pattern(MaintainabilityQualityGovernanceContentForm *self, const char *value) {
+void maintainability_governance_content_form_set_extensibility_pattern(MaintainabilityGovernanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "extensibilityPattern", value);
 }
-char *maintainability_quality_governance_content_form_api_versioning_strategy(const MaintainabilityQualityGovernanceContentForm *self) {
+char *maintainability_governance_content_form_api_versioning_strategy(const MaintainabilityGovernanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "apiVersioningStrategy");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_governance_content_form_set_api_versioning_strategy(MaintainabilityQualityGovernanceContentForm *self, const char *value) {
+void maintainability_governance_content_form_set_api_versioning_strategy(MaintainabilityGovernanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "apiVersioningStrategy", value);
 }
-char *maintainability_quality_governance_content_form_maintainability_verification(const MaintainabilityQualityGovernanceContentForm *self) {
+char *maintainability_governance_content_form_maintainability_verification(const MaintainabilityGovernanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintainabilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_governance_content_form_set_maintainability_verification(MaintainabilityQualityGovernanceContentForm *self, const char *value) {
+void maintainability_governance_content_form_set_maintainability_verification(MaintainabilityGovernanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "maintainabilityVerification", value);
 }
-char *maintainability_quality_governance_content_form_technical_debt_tracking(const MaintainabilityQualityGovernanceContentForm *self) {
+char *maintainability_governance_content_form_technical_debt_tracking(const MaintainabilityGovernanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalDebtTracking");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_governance_content_form_set_technical_debt_tracking(MaintainabilityQualityGovernanceContentForm *self, const char *value) {
+void maintainability_governance_content_form_set_technical_debt_tracking(MaintainabilityGovernanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "technicalDebtTracking", value);
 }
 
-void maintainability_quality_testability_content_form_init(MaintainabilityQualityTestabilityContentForm *self, SpecDocument *doc, const char *path) {
+void maintainability_testability_content_form_init(MaintainabilityTestabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void maintainability_quality_testability_content_form_free(MaintainabilityQualityTestabilityContentForm *self) {
+void maintainability_testability_content_form_free(MaintainabilityTestabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *maintainability_quality_testability_content_form_testability_design(const MaintainabilityQualityTestabilityContentForm *self) {
+char *maintainability_testability_content_form_testability_design(const MaintainabilityTestabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "testabilityDesign");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_testability_content_form_set_testability_design(MaintainabilityQualityTestabilityContentForm *self, const char *value) {
+void maintainability_testability_content_form_set_testability_design(MaintainabilityTestabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testabilityDesign", value);
 }
-char *maintainability_quality_testability_content_form_test_pyramid_ratio(const MaintainabilityQualityTestabilityContentForm *self) {
+char *maintainability_testability_content_form_test_pyramid_ratio(const MaintainabilityTestabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "testPyramidRatio");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_testability_content_form_set_test_pyramid_ratio(MaintainabilityQualityTestabilityContentForm *self, const char *value) {
+void maintainability_testability_content_form_set_test_pyramid_ratio(MaintainabilityTestabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testPyramidRatio", value);
 }
-char *maintainability_quality_testability_content_form_test_data_management(const MaintainabilityQualityTestabilityContentForm *self) {
+char *maintainability_testability_content_form_test_data_management(const MaintainabilityTestabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "testDataManagement");
   return som_strdup(v != NULL ? v : "");
 }
-void maintainability_quality_testability_content_form_set_test_data_management(MaintainabilityQualityTestabilityContentForm *self, const char *value) {
+void maintainability_testability_content_form_set_test_data_management(MaintainabilityTestabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testDataManagement", value);
 }
 
@@ -118001,6 +118288,104 @@ void module_versioning_strategy_release_management_content_form_set_release_note
   spec_document_set_form_field(self->node.doc, self->node.path, "releaseNotes", value);
 }
 
+void monitoring_alerting_content_form_init(MonitoringAlertingContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_alerting_content_form_free(MonitoringAlertingContentForm *self) {
+  som_node_free(&self->node);
+}
+char *monitoring_alerting_content_form_alerting_strategy(const MonitoringAlertingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertingStrategy");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_alerting_content_form_set_alerting_strategy(MonitoringAlertingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "alertingStrategy", value);
+}
+char *monitoring_alerting_content_form_alert_prioritization(const MonitoringAlertingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertPrioritization");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_alerting_content_form_set_alert_prioritization(MonitoringAlertingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "alertPrioritization", value);
+}
+char *monitoring_alerting_content_form_alert_notification_channels(const MonitoringAlertingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertNotificationChannels");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_alerting_content_form_set_alert_notification_channels(MonitoringAlertingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "alertNotificationChannels", value);
+}
+char *monitoring_alerting_content_form_alert_fatigue_prevention(const MonitoringAlertingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertFatiguePrevention");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_alerting_content_form_set_alert_fatigue_prevention(MonitoringAlertingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "alertFatiguePrevention", value);
+}
+
+void monitoring_automation_content_form_init(MonitoringAutomationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_automation_content_form_free(MonitoringAutomationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *monitoring_automation_content_form_alert_automation(const MonitoringAutomationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertAutomation");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_automation_content_form_set_alert_automation(MonitoringAutomationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "alertAutomation", value);
+}
+char *monitoring_automation_content_form_self_healing_capability(const MonitoringAutomationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "selfHealingCapability");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_automation_content_form_set_self_healing_capability(MonitoringAutomationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "selfHealingCapability", value);
+}
+char *monitoring_automation_content_form_runbook_automation(const MonitoringAutomationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "runbookAutomation");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_automation_content_form_set_runbook_automation(MonitoringAutomationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "runbookAutomation", value);
+}
+
+void monitoring_coverage_content_form_init(MonitoringCoverageContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void monitoring_coverage_content_form_free(MonitoringCoverageContentForm *self) {
+  som_node_free(&self->node);
+}
+char *monitoring_coverage_content_form_infrastructure_monitoring(const MonitoringCoverageContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "infrastructureMonitoring");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_coverage_content_form_set_infrastructure_monitoring(MonitoringCoverageContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "infrastructureMonitoring", value);
+}
+char *monitoring_coverage_content_form_application_monitoring(const MonitoringCoverageContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "applicationMonitoring");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_coverage_content_form_set_application_monitoring(MonitoringCoverageContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "applicationMonitoring", value);
+}
+char *monitoring_coverage_content_form_database_monitoring(const MonitoringCoverageContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "databaseMonitoring");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_coverage_content_form_set_database_monitoring(MonitoringCoverageContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "databaseMonitoring", value);
+}
+char *monitoring_coverage_content_form_third_party_monitoring(const MonitoringCoverageContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "thirdPartyMonitoring");
+  return som_strdup(v != NULL ? v : "");
+}
+void monitoring_coverage_content_form_set_third_party_monitoring(MonitoringCoverageContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "thirdPartyMonitoring", value);
+}
+
 void monitoring_dashboards_dashboard_overview_form_init(MonitoringDashboardsDashboardOverviewForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -118288,171 +118673,45 @@ void monitoring_monitoring_overview_form_set_cost_budget(MonitoringMonitoringOve
   spec_document_set_form_field(self->node.doc, self->node.path, "costBudget", value);
 }
 
-void monitoring_quality_alerting_content_form_init(MonitoringQualityAlertingContentForm *self, SpecDocument *doc, const char *path) {
+void monitoring_operations_content_form_init(MonitoringOperationsContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void monitoring_quality_alerting_content_form_free(MonitoringQualityAlertingContentForm *self) {
+void monitoring_operations_content_form_free(MonitoringOperationsContentForm *self) {
   som_node_free(&self->node);
 }
-char *monitoring_quality_alerting_content_form_alerting_strategy(const MonitoringQualityAlertingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertingStrategy");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_alerting_content_form_set_alerting_strategy(MonitoringQualityAlertingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertingStrategy", value);
-}
-char *monitoring_quality_alerting_content_form_alert_prioritization(const MonitoringQualityAlertingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertPrioritization");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_alerting_content_form_set_alert_prioritization(MonitoringQualityAlertingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertPrioritization", value);
-}
-char *monitoring_quality_alerting_content_form_alert_notification_channels(const MonitoringQualityAlertingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertNotificationChannels");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_alerting_content_form_set_alert_notification_channels(MonitoringQualityAlertingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertNotificationChannels", value);
-}
-char *monitoring_quality_alerting_content_form_alert_fatigue_prevention(const MonitoringQualityAlertingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertFatiguePrevention");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_alerting_content_form_set_alert_fatigue_prevention(MonitoringQualityAlertingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertFatiguePrevention", value);
-}
-
-void monitoring_quality_automation_content_form_init(MonitoringQualityAutomationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_automation_content_form_free(MonitoringQualityAutomationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *monitoring_quality_automation_content_form_alert_automation(const MonitoringQualityAutomationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertAutomation");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_automation_content_form_set_alert_automation(MonitoringQualityAutomationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertAutomation", value);
-}
-char *monitoring_quality_automation_content_form_self_healing_capability(const MonitoringQualityAutomationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "selfHealingCapability");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_automation_content_form_set_self_healing_capability(MonitoringQualityAutomationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "selfHealingCapability", value);
-}
-char *monitoring_quality_automation_content_form_runbook_automation(const MonitoringQualityAutomationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "runbookAutomation");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_automation_content_form_set_runbook_automation(MonitoringQualityAutomationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "runbookAutomation", value);
-}
-
-void monitoring_quality_content_form_init(MonitoringQualityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_content_form_free(MonitoringQualityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *monitoring_quality_content_form_scalability_monitoring_approach(const MonitoringQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scalabilityMonitoringApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_content_form_set_scalability_monitoring_approach(MonitoringQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scalabilityMonitoringApproach", value);
-}
-char *monitoring_quality_content_form_capacity_planning_process(const MonitoringQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "capacityPlanningProcess");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_content_form_set_capacity_planning_process(MonitoringQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "capacityPlanningProcess", value);
-}
-char *monitoring_quality_content_form_growth_projections(const MonitoringQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "growthProjections");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_content_form_set_growth_projections(MonitoringQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "growthProjections", value);
-}
-
-void monitoring_quality_coverage_content_form_init(MonitoringQualityCoverageContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_coverage_content_form_free(MonitoringQualityCoverageContentForm *self) {
-  som_node_free(&self->node);
-}
-char *monitoring_quality_coverage_content_form_infrastructure_monitoring(const MonitoringQualityCoverageContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "infrastructureMonitoring");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_coverage_content_form_set_infrastructure_monitoring(MonitoringQualityCoverageContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "infrastructureMonitoring", value);
-}
-char *monitoring_quality_coverage_content_form_application_monitoring(const MonitoringQualityCoverageContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "applicationMonitoring");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_coverage_content_form_set_application_monitoring(MonitoringQualityCoverageContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "applicationMonitoring", value);
-}
-char *monitoring_quality_coverage_content_form_database_monitoring(const MonitoringQualityCoverageContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "databaseMonitoring");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_coverage_content_form_set_database_monitoring(MonitoringQualityCoverageContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "databaseMonitoring", value);
-}
-char *monitoring_quality_coverage_content_form_third_party_monitoring(const MonitoringQualityCoverageContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "thirdPartyMonitoring");
-  return som_strdup(v != NULL ? v : "");
-}
-void monitoring_quality_coverage_content_form_set_third_party_monitoring(MonitoringQualityCoverageContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "thirdPartyMonitoring", value);
-}
-
-void monitoring_quality_operations_content_form_init(MonitoringQualityOperationsContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_quality_operations_content_form_free(MonitoringQualityOperationsContentForm *self) {
-  som_node_free(&self->node);
-}
-char *monitoring_quality_operations_content_form_resource_planning_frequency(const MonitoringQualityOperationsContentForm *self) {
+char *monitoring_operations_content_form_resource_planning_frequency(const MonitoringOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourcePlanningFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void monitoring_quality_operations_content_form_set_resource_planning_frequency(MonitoringQualityOperationsContentForm *self, const char *value) {
+void monitoring_operations_content_form_set_resource_planning_frequency(MonitoringOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "resourcePlanningFrequency", value);
 }
-char *monitoring_quality_operations_content_form_proactive_maintenance_schedule(const MonitoringQualityOperationsContentForm *self) {
+char *monitoring_operations_content_form_proactive_maintenance_schedule(const MonitoringOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "proactiveMaintenanceSchedule");
   return som_strdup(v != NULL ? v : "");
 }
-void monitoring_quality_operations_content_form_set_proactive_maintenance_schedule(MonitoringQualityOperationsContentForm *self, const char *value) {
+void monitoring_operations_content_form_set_proactive_maintenance_schedule(MonitoringOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "proactiveMaintenanceSchedule", value);
 }
-char *monitoring_quality_operations_content_form_observability_pillars(const MonitoringQualityOperationsContentForm *self) {
+char *monitoring_operations_content_form_observability_pillars(const MonitoringOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "observabilityPillars");
   return som_strdup(v != NULL ? v : "");
 }
-void monitoring_quality_operations_content_form_set_observability_pillars(MonitoringQualityOperationsContentForm *self, const char *value) {
+void monitoring_operations_content_form_set_observability_pillars(MonitoringOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "observabilityPillars", value);
 }
-char *monitoring_quality_operations_content_form_distributed_tracing_requirement(const MonitoringQualityOperationsContentForm *self) {
+char *monitoring_operations_content_form_distributed_tracing_requirement(const MonitoringOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "distributedTracingRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void monitoring_quality_operations_content_form_set_distributed_tracing_requirement(MonitoringQualityOperationsContentForm *self, const char *value) {
+void monitoring_operations_content_form_set_distributed_tracing_requirement(MonitoringOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "distributedTracingRequirement", value);
 }
-char *monitoring_quality_operations_content_form_log_retention_period(const MonitoringQualityOperationsContentForm *self) {
+char *monitoring_operations_content_form_log_retention_period(const MonitoringOperationsContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "logRetentionPeriod");
   return som_strdup(v != NULL ? v : "");
 }
-void monitoring_quality_operations_content_form_set_log_retention_period(MonitoringQualityOperationsContentForm *self, const char *value) {
+void monitoring_operations_content_form_set_log_retention_period(MonitoringOperationsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "logRetentionPeriod", value);
 }
 
@@ -121963,6 +122222,34 @@ void ongoing_training_entry_schedule_content_form_set_duration(OngoingTrainingEn
   spec_document_set_form_field(self->node.doc, self->node.path, "duration", value);
 }
 
+void operational_monitoring_content_form_init(OperationalMonitoringContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void operational_monitoring_content_form_free(OperationalMonitoringContentForm *self) {
+  som_node_free(&self->node);
+}
+char *operational_monitoring_content_form_scalability_monitoring_approach(const OperationalMonitoringContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scalabilityMonitoringApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void operational_monitoring_content_form_set_scalability_monitoring_approach(OperationalMonitoringContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "scalabilityMonitoringApproach", value);
+}
+char *operational_monitoring_content_form_capacity_planning_process(const OperationalMonitoringContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "capacityPlanningProcess");
+  return som_strdup(v != NULL ? v : "");
+}
+void operational_monitoring_content_form_set_capacity_planning_process(OperationalMonitoringContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "capacityPlanningProcess", value);
+}
+char *operational_monitoring_content_form_growth_projections(const OperationalMonitoringContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "growthProjections");
+  return som_strdup(v != NULL ? v : "");
+}
+void operational_monitoring_content_form_set_growth_projections(OperationalMonitoringContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "growthProjections", value);
+}
+
 void operational_pain_points_summary_content_form_init(OperationalPainPointsSummaryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -122003,55 +122290,6 @@ char *operational_pain_points_summary_content_form_staff_overhead(const Operatio
 }
 void operational_pain_points_summary_content_form_set_staff_overhead(OperationalPainPointsSummaryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "staffOverhead", value);
-}
-
-void operations_quality_criteria_operations_overview_content_form_init(OperationsQualityCriteriaOperationsOverviewContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void operations_quality_criteria_operations_overview_content_form_free(OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  som_node_free(&self->node);
-}
-char *operations_quality_criteria_operations_overview_content_form_operations_maturity_model(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsMaturityModel");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_operations_maturity_model(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationsMaturityModel", value);
-}
-char *operations_quality_criteria_operations_overview_content_form_operations_philosophy(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsPhilosophy");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_operations_philosophy(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationsPhilosophy", value);
-}
-char *operations_quality_criteria_operations_overview_content_form_operations_responsibility(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsResponsibility");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_operations_responsibility(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationsResponsibility", value);
-}
-char *operations_quality_criteria_operations_overview_content_form_incident_management_process(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "incidentManagementProcess");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_incident_management_process(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "incidentManagementProcess", value);
-}
-char *operations_quality_criteria_operations_overview_content_form_change_management_process(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeManagementProcess");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_change_management_process(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "changeManagementProcess", value);
-}
-char *operations_quality_criteria_operations_overview_content_form_operations_toolchain(const OperationsQualityCriteriaOperationsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsToolchain");
-  return som_strdup(v != NULL ? v : "");
-}
-void operations_quality_criteria_operations_overview_content_form_set_operations_toolchain(OperationsQualityCriteriaOperationsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationsToolchain", value);
 }
 
 void opportunity_statement_opportunity_details_form_init(OpportunityStatementOpportunityDetailsForm *self, SpecDocument *doc, const char *path) {
@@ -124189,6 +124427,48 @@ void penetration_testing_requirements_scheduling_content_form_set_trigger_based_
   spec_document_set_form_field(self->node.doc, self->node.path, "triggerBasedTesting", value);
 }
 
+void performance_efficiency_characteristic_performance_efficiency_content_form_init(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_free(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  som_node_free(&self->node);
+}
+char *performance_efficiency_characteristic_performance_efficiency_content_form_technical_quality_philosophy(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalQualityPhilosophy");
+  return som_strdup(v != NULL ? v : "");
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_technical_quality_philosophy(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "technicalQualityPhilosophy", value);
+}
+char *performance_efficiency_characteristic_performance_efficiency_content_form_architectural_quality_goals(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "architecturalQualityGoals");
+  return som_strdup(v != NULL ? v : "");
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_architectural_quality_goals(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "architecturalQualityGoals", value);
+}
+char *performance_efficiency_characteristic_performance_efficiency_content_form_technical_debt_tolerance(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalDebtTolerance");
+  return som_strdup(v != NULL ? v : "");
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_technical_debt_tolerance(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "technicalDebtTolerance", value);
+}
+char *performance_efficiency_characteristic_performance_efficiency_content_form_code_quality_standard(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "codeQualityStandard");
+  return som_strdup(v != NULL ? v : "");
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_code_quality_standard(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "codeQualityStandard", value);
+}
+char *performance_efficiency_characteristic_performance_efficiency_content_form_design_principles_adherence(const PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "designPrinciplesAdherence");
+  return som_strdup(v != NULL ? v : "");
+}
+void performance_efficiency_characteristic_performance_efficiency_content_form_set_design_principles_adherence(PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "designPrinciplesAdherence", value);
+}
+
 void periodic_review_policy_content_form_init(PeriodicReviewPolicyContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -125337,80 +125617,80 @@ void pipeline_stage_entry_trigger_content_form_set_manual_approval(PipelineStage
   spec_document_set_form_field(self->node.doc, self->node.path, "manualApproval", value);
 }
 
-void portability_quality_content_form_init(PortabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void portability_content_form_init(PortabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void portability_quality_content_form_free(PortabilityQualityContentForm *self) {
+void portability_content_form_free(PortabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *portability_quality_content_form_target_platforms(const PortabilityQualityContentForm *self) {
+char *portability_content_form_target_platforms(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetPlatforms");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_target_platforms(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_target_platforms(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "targetPlatforms", value);
 }
-char *portability_quality_content_form_browser_support(const PortabilityQualityContentForm *self) {
+char *portability_content_form_browser_support(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "browserSupport");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_browser_support(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_browser_support(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "browserSupport", value);
 }
-char *portability_quality_content_form_mobile_os_versions(const PortabilityQualityContentForm *self) {
+char *portability_content_form_mobile_os_versions(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mobileOsVersions");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_mobile_os_versions(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_mobile_os_versions(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mobileOsVersions", value);
 }
-char *portability_quality_content_form_desktop_os_versions(const PortabilityQualityContentForm *self) {
+char *portability_content_form_desktop_os_versions(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "desktopOsVersions");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_desktop_os_versions(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_desktop_os_versions(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "desktopOsVersions", value);
 }
-char *portability_quality_content_form_migration_effort_constraint(const PortabilityQualityContentForm *self) {
+char *portability_content_form_migration_effort_constraint(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "migrationEffortConstraint");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_migration_effort_constraint(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_migration_effort_constraint(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "migrationEffortConstraint", value);
 }
-char *portability_quality_content_form_data_portability(const PortabilityQualityContentForm *self) {
+char *portability_content_form_data_portability(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataPortability");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_data_portability(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_data_portability(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataPortability", value);
 }
-char *portability_quality_content_form_vendor_lock_in_avoidance(const PortabilityQualityContentForm *self) {
+char *portability_content_form_vendor_lock_in_avoidance(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "vendorLockInAvoidance");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_vendor_lock_in_avoidance(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_vendor_lock_in_avoidance(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "vendorLockInAvoidance", value);
 }
-char *portability_quality_content_form_containerization_requirement(const PortabilityQualityContentForm *self) {
+char *portability_content_form_containerization_requirement(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "containerizationRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_containerization_requirement(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_containerization_requirement(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "containerizationRequirement", value);
 }
-char *portability_quality_content_form_infrastructure_as_code(const PortabilityQualityContentForm *self) {
+char *portability_content_form_infrastructure_as_code(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "infrastructureAsCode");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_infrastructure_as_code(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_infrastructure_as_code(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "infrastructureAsCode", value);
 }
-char *portability_quality_content_form_portability_verification(const PortabilityQualityContentForm *self) {
+char *portability_content_form_portability_verification(const PortabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "portabilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void portability_quality_content_form_set_portability_verification(PortabilityQualityContentForm *self, const char *value) {
+void portability_content_form_set_portability_verification(PortabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "portabilityVerification", value);
 }
 
@@ -130804,6 +131084,146 @@ void quality_gate_checklist_checklist_overview_content_form_set_checklist_freque
   spec_document_set_form_field(self->node.doc, self->node.path, "checklistFrequency", value);
 }
 
+void quality_goals_baseline_content_form_init(QualityGoalsBaselineContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_baseline_content_form_free(QualityGoalsBaselineContentForm *self) {
+  som_node_free(&self->node);
+}
+char *quality_goals_baseline_content_form_quality_baseline_date(const QualityGoalsBaselineContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBaselineDate");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_baseline_content_form_set_quality_baseline_date(QualityGoalsBaselineContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBaselineDate", value);
+}
+char *quality_goals_baseline_content_form_quality_baseline_version(const QualityGoalsBaselineContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBaselineVersion");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_baseline_content_form_set_quality_baseline_version(QualityGoalsBaselineContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBaselineVersion", value);
+}
+char *quality_goals_baseline_content_form_overall_quality_target_level(const QualityGoalsBaselineContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "overallQualityTargetLevel");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_baseline_content_form_set_overall_quality_target_level(QualityGoalsBaselineContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "overallQualityTargetLevel", value);
+}
+char *quality_goals_baseline_content_form_quality_risk_tolerance(const QualityGoalsBaselineContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityRiskTolerance");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_baseline_content_form_set_quality_risk_tolerance(QualityGoalsBaselineContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityRiskTolerance", value);
+}
+
+void quality_goals_governance_content_form_init(QualityGoalsGovernanceContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_governance_content_form_free(QualityGoalsGovernanceContentForm *self) {
+  som_node_free(&self->node);
+}
+char *quality_goals_governance_content_form_quality_review_board(const QualityGoalsGovernanceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityReviewBoard");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_governance_content_form_set_quality_review_board(QualityGoalsGovernanceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityReviewBoard", value);
+}
+char *quality_goals_governance_content_form_quality_meeting_cadence(const QualityGoalsGovernanceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityMeetingCadence");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_governance_content_form_set_quality_meeting_cadence(QualityGoalsGovernanceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityMeetingCadence", value);
+}
+char *quality_goals_governance_content_form_quality_escalation_path(const QualityGoalsGovernanceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityEscalationPath");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_governance_content_form_set_quality_escalation_path(QualityGoalsGovernanceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityEscalationPath", value);
+}
+
+void quality_goals_measurement_content_form_init(QualityGoalsMeasurementContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_measurement_content_form_free(QualityGoalsMeasurementContentForm *self) {
+  som_node_free(&self->node);
+}
+char *quality_goals_measurement_content_form_quality_metrics_framework(const QualityGoalsMeasurementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityMetricsFramework");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_measurement_content_form_set_quality_metrics_framework(QualityGoalsMeasurementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityMetricsFramework", value);
+}
+char *quality_goals_measurement_content_form_quality_reporting_frequency(const QualityGoalsMeasurementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityReportingFrequency");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_measurement_content_form_set_quality_reporting_frequency(QualityGoalsMeasurementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityReportingFrequency", value);
+}
+char *quality_goals_measurement_content_form_quality_dashboard_tool(const QualityGoalsMeasurementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityDashboardTool");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_measurement_content_form_set_quality_dashboard_tool(QualityGoalsMeasurementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityDashboardTool", value);
+}
+char *quality_goals_measurement_content_form_defect_tracking_system(const QualityGoalsMeasurementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "defectTrackingSystem");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_measurement_content_form_set_defect_tracking_system(QualityGoalsMeasurementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "defectTrackingSystem", value);
+}
+char *quality_goals_measurement_content_form_quality_trend_analysis(const QualityGoalsMeasurementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityTrendAnalysis");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_measurement_content_form_set_quality_trend_analysis(QualityGoalsMeasurementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityTrendAnalysis", value);
+}
+
+void quality_goals_resources_content_form_init(QualityGoalsResourcesContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void quality_goals_resources_content_form_free(QualityGoalsResourcesContentForm *self) {
+  som_node_free(&self->node);
+}
+char *quality_goals_resources_content_form_quality_budget(const QualityGoalsResourcesContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBudget");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_resources_content_form_set_quality_budget(QualityGoalsResourcesContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBudget", value);
+}
+char *quality_goals_resources_content_form_qa_team_size(const QualityGoalsResourcesContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qaTeamSize");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_resources_content_form_set_qa_team_size(QualityGoalsResourcesContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qaTeamSize", value);
+}
+char *quality_goals_resources_content_form_test_automation_target(const QualityGoalsResourcesContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "testAutomationTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_resources_content_form_set_test_automation_target(QualityGoalsResourcesContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "testAutomationTarget", value);
+}
+char *quality_goals_resources_content_form_quality_training_plan(const QualityGoalsResourcesContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityTrainingPlan");
+  return som_strdup(v != NULL ? v : "");
+}
+void quality_goals_resources_content_form_set_quality_training_plan(QualityGoalsResourcesContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "qualityTrainingPlan", value);
+}
+
 void quality_prioritization_prioritization_framework_content_form_init(QualityPrioritizationPrioritizationFrameworkContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -131259,143 +131679,143 @@ void rate_limiting_policy_quotas_content_form_set_notes(RateLimitingPolicyQuotas
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
 }
 
-void readability_quality_comprehensibility_content_form_init(ReadabilityQualityComprehensibilityContentForm *self, SpecDocument *doc, const char *path) {
+void readability_comprehensibility_content_form_init(ReadabilityComprehensibilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_comprehensibility_content_form_free(ReadabilityQualityComprehensibilityContentForm *self) {
+void readability_comprehensibility_content_form_free(ReadabilityComprehensibilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *readability_quality_comprehensibility_content_form_reading_level_target(const ReadabilityQualityComprehensibilityContentForm *self) {
+char *readability_comprehensibility_content_form_reading_level_target(const ReadabilityComprehensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "readingLevelTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_comprehensibility_content_form_set_reading_level_target(ReadabilityQualityComprehensibilityContentForm *self, const char *value) {
+void readability_comprehensibility_content_form_set_reading_level_target(ReadabilityComprehensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "readingLevelTarget", value);
 }
-char *readability_quality_comprehensibility_content_form_format_standards(const ReadabilityQualityComprehensibilityContentForm *self) {
+char *readability_comprehensibility_content_form_format_standards(const ReadabilityComprehensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatStandards");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_comprehensibility_content_form_set_format_standards(ReadabilityQualityComprehensibilityContentForm *self, const char *value) {
+void readability_comprehensibility_content_form_set_format_standards(ReadabilityComprehensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "formatStandards", value);
 }
-char *readability_quality_comprehensibility_content_form_visual_aid_requirements(const ReadabilityQualityComprehensibilityContentForm *self) {
+char *readability_comprehensibility_content_form_visual_aid_requirements(const ReadabilityComprehensibilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "visualAidRequirements");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_comprehensibility_content_form_set_visual_aid_requirements(ReadabilityQualityComprehensibilityContentForm *self, const char *value) {
+void readability_comprehensibility_content_form_set_visual_aid_requirements(ReadabilityComprehensibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "visualAidRequirements", value);
 }
 
-void readability_quality_content_form_init(ReadabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void readability_content_form_init(ReadabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_content_form_free(ReadabilityQualityContentForm *self) {
+void readability_content_form_free(ReadabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *readability_quality_content_form_terminology_standard(const ReadabilityQualityContentForm *self) {
+char *readability_content_form_terminology_standard(const ReadabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "terminologyStandard");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_content_form_set_terminology_standard(ReadabilityQualityContentForm *self, const char *value) {
+void readability_content_form_set_terminology_standard(ReadabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "terminologyStandard", value);
 }
-char *readability_quality_content_form_ambiguity_prevention(const ReadabilityQualityContentForm *self) {
+char *readability_content_form_ambiguity_prevention(const ReadabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ambiguityPrevention");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_content_form_set_ambiguity_prevention(ReadabilityQualityContentForm *self, const char *value) {
+void readability_content_form_set_ambiguity_prevention(ReadabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ambiguityPrevention", value);
 }
-char *readability_quality_content_form_jargon_policy(const ReadabilityQualityContentForm *self) {
+char *readability_content_form_jargon_policy(const ReadabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "jargonPolicy");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_content_form_set_jargon_policy(ReadabilityQualityContentForm *self, const char *value) {
+void readability_content_form_set_jargon_policy(ReadabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "jargonPolicy", value);
 }
 
-void readability_quality_navigation_content_form_init(ReadabilityQualityNavigationContentForm *self, SpecDocument *doc, const char *path) {
+void readability_navigation_content_form_init(ReadabilityNavigationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_navigation_content_form_free(ReadabilityQualityNavigationContentForm *self) {
+void readability_navigation_content_form_free(ReadabilityNavigationContentForm *self) {
   som_node_free(&self->node);
 }
-char *readability_quality_navigation_content_form_section_numbering(const ReadabilityQualityNavigationContentForm *self) {
+char *readability_navigation_content_form_section_numbering(const ReadabilityNavigationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "sectionNumbering");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_navigation_content_form_set_section_numbering(ReadabilityQualityNavigationContentForm *self, const char *value) {
+void readability_navigation_content_form_set_section_numbering(ReadabilityNavigationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "sectionNumbering", value);
 }
-char *readability_quality_navigation_content_form_cross_reference_standard(const ReadabilityQualityNavigationContentForm *self) {
+char *readability_navigation_content_form_cross_reference_standard(const ReadabilityNavigationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossReferenceStandard");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_navigation_content_form_set_cross_reference_standard(ReadabilityQualityNavigationContentForm *self, const char *value) {
+void readability_navigation_content_form_set_cross_reference_standard(ReadabilityNavigationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "crossReferenceStandard", value);
 }
-char *readability_quality_navigation_content_form_searchability(const ReadabilityQualityNavigationContentForm *self) {
+char *readability_navigation_content_form_searchability(const ReadabilityNavigationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "searchability");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_navigation_content_form_set_searchability(ReadabilityQualityNavigationContentForm *self, const char *value) {
+void readability_navigation_content_form_set_searchability(ReadabilityNavigationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "searchability", value);
 }
 
-void readability_quality_structure_content_form_init(ReadabilityQualityStructureContentForm *self, SpecDocument *doc, const char *path) {
+void readability_structure_content_form_init(ReadabilityStructureContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_structure_content_form_free(ReadabilityQualityStructureContentForm *self) {
+void readability_structure_content_form_free(ReadabilityStructureContentForm *self) {
   som_node_free(&self->node);
 }
-char *readability_quality_structure_content_form_document_structure_template(const ReadabilityQualityStructureContentForm *self) {
+char *readability_structure_content_form_document_structure_template(const ReadabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentStructureTemplate");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_structure_content_form_set_document_structure_template(ReadabilityQualityStructureContentForm *self, const char *value) {
+void readability_structure_content_form_set_document_structure_template(ReadabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "documentStructureTemplate", value);
 }
-char *readability_quality_structure_content_form_information_hierarchy(const ReadabilityQualityStructureContentForm *self) {
+char *readability_structure_content_form_information_hierarchy(const ReadabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "informationHierarchy");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_structure_content_form_set_information_hierarchy(ReadabilityQualityStructureContentForm *self, const char *value) {
+void readability_structure_content_form_set_information_hierarchy(ReadabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "informationHierarchy", value);
 }
-char *readability_quality_structure_content_form_navigation_aids(const ReadabilityQualityStructureContentForm *self) {
+char *readability_structure_content_form_navigation_aids(const ReadabilityStructureContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "navigationAids");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_structure_content_form_set_navigation_aids(ReadabilityQualityStructureContentForm *self, const char *value) {
+void readability_structure_content_form_set_navigation_aids(ReadabilityStructureContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "navigationAids", value);
 }
 
-void readability_quality_style_content_form_init(ReadabilityQualityStyleContentForm *self, SpecDocument *doc, const char *path) {
+void readability_style_content_form_init(ReadabilityStyleContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void readability_quality_style_content_form_free(ReadabilityQualityStyleContentForm *self) {
+void readability_style_content_form_free(ReadabilityStyleContentForm *self) {
   som_node_free(&self->node);
 }
-char *readability_quality_style_content_form_style_guide_reference(const ReadabilityQualityStyleContentForm *self) {
+char *readability_style_content_form_style_guide_reference(const ReadabilityStyleContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "styleGuideReference");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_style_content_form_set_style_guide_reference(ReadabilityQualityStyleContentForm *self, const char *value) {
+void readability_style_content_form_set_style_guide_reference(ReadabilityStyleContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "styleGuideReference", value);
 }
-char *readability_quality_style_content_form_writing_voice(const ReadabilityQualityStyleContentForm *self) {
+char *readability_style_content_form_writing_voice(const ReadabilityStyleContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "writingVoice");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_style_content_form_set_writing_voice(ReadabilityQualityStyleContentForm *self, const char *value) {
+void readability_style_content_form_set_writing_voice(ReadabilityStyleContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "writingVoice", value);
 }
-char *readability_quality_style_content_form_formatting_conventions(const ReadabilityQualityStyleContentForm *self) {
+char *readability_style_content_form_formatting_conventions(const ReadabilityStyleContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "formattingConventions");
   return som_strdup(v != NULL ? v : "");
 }
-void readability_quality_style_content_form_set_formatting_conventions(ReadabilityQualityStyleContentForm *self, const char *value) {
+void readability_style_content_form_set_formatting_conventions(ReadabilityStyleContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "formattingConventions", value);
 }
 
@@ -132470,150 +132890,199 @@ void relevant_section_entry_content_form_set_compliance_required(RelevantSection
   spec_document_set_form_field(self->node.doc, self->node.path, "complianceRequired", value);
 }
 
-void reliability_quality_content_form_init(ReliabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void reliability_characteristic_reliability_content_form_init(ReliabilityCharacteristicReliabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_content_form_free(ReliabilityQualityContentForm *self) {
+void reliability_characteristic_reliability_content_form_free(ReliabilityCharacteristicReliabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *reliability_quality_content_form_uptime_target(const ReliabilityQualityContentForm *self) {
+char *reliability_characteristic_reliability_content_form_operations_maturity_model(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsMaturityModel");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_operations_maturity_model(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "operationsMaturityModel", value);
+}
+char *reliability_characteristic_reliability_content_form_operations_philosophy(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsPhilosophy");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_operations_philosophy(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "operationsPhilosophy", value);
+}
+char *reliability_characteristic_reliability_content_form_operations_responsibility(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsResponsibility");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_operations_responsibility(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "operationsResponsibility", value);
+}
+char *reliability_characteristic_reliability_content_form_incident_management_process(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "incidentManagementProcess");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_incident_management_process(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "incidentManagementProcess", value);
+}
+char *reliability_characteristic_reliability_content_form_change_management_process(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeManagementProcess");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_change_management_process(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "changeManagementProcess", value);
+}
+char *reliability_characteristic_reliability_content_form_operations_toolchain(const ReliabilityCharacteristicReliabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationsToolchain");
+  return som_strdup(v != NULL ? v : "");
+}
+void reliability_characteristic_reliability_content_form_set_operations_toolchain(ReliabilityCharacteristicReliabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "operationsToolchain", value);
+}
+
+void reliability_content_form_init(ReliabilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void reliability_content_form_free(ReliabilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *reliability_content_form_uptime_target(const ReliabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "uptimeTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_content_form_set_uptime_target(ReliabilityQualityContentForm *self, const char *value) {
+void reliability_content_form_set_uptime_target(ReliabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "uptimeTarget", value);
 }
-char *reliability_quality_content_form_planned_downtime_window(const ReliabilityQualityContentForm *self) {
+char *reliability_content_form_planned_downtime_window(const ReliabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "plannedDowntimeWindow");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_content_form_set_planned_downtime_window(ReliabilityQualityContentForm *self, const char *value) {
+void reliability_content_form_set_planned_downtime_window(ReliabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "plannedDowntimeWindow", value);
 }
-char *reliability_quality_content_form_degraded_mode_capability(const ReliabilityQualityContentForm *self) {
+char *reliability_content_form_degraded_mode_capability(const ReliabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "degradedModeCapability");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_content_form_set_degraded_mode_capability(ReliabilityQualityContentForm *self, const char *value) {
+void reliability_content_form_set_degraded_mode_capability(ReliabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "degradedModeCapability", value);
 }
 
-void reliability_quality_durability_content_form_init(ReliabilityQualityDurabilityContentForm *self, SpecDocument *doc, const char *path) {
+void reliability_durability_content_form_init(ReliabilityDurabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_durability_content_form_free(ReliabilityQualityDurabilityContentForm *self) {
+void reliability_durability_content_form_free(ReliabilityDurabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *reliability_quality_durability_content_form_data_durability(const ReliabilityQualityDurabilityContentForm *self) {
+char *reliability_durability_content_form_data_durability(const ReliabilityDurabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataDurability");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_durability_content_form_set_data_durability(ReliabilityQualityDurabilityContentForm *self, const char *value) {
+void reliability_durability_content_form_set_data_durability(ReliabilityDurabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dataDurability", value);
 }
-char *reliability_quality_durability_content_form_backup_frequency(const ReliabilityQualityDurabilityContentForm *self) {
+char *reliability_durability_content_form_backup_frequency(const ReliabilityDurabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "backupFrequency");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_durability_content_form_set_backup_frequency(ReliabilityQualityDurabilityContentForm *self, const char *value) {
+void reliability_durability_content_form_set_backup_frequency(ReliabilityDurabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "backupFrequency", value);
 }
-char *reliability_quality_durability_content_form_backup_retention(const ReliabilityQualityDurabilityContentForm *self) {
+char *reliability_durability_content_form_backup_retention(const ReliabilityDurabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "backupRetention");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_durability_content_form_set_backup_retention(ReliabilityQualityDurabilityContentForm *self, const char *value) {
+void reliability_durability_content_form_set_backup_retention(ReliabilityDurabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "backupRetention", value);
 }
-char *reliability_quality_durability_content_form_backup_verification(const ReliabilityQualityDurabilityContentForm *self) {
+char *reliability_durability_content_form_backup_verification(const ReliabilityDurabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "backupVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_durability_content_form_set_backup_verification(ReliabilityQualityDurabilityContentForm *self, const char *value) {
+void reliability_durability_content_form_set_backup_verification(ReliabilityDurabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "backupVerification", value);
 }
 
-void reliability_quality_failover_content_form_init(ReliabilityQualityFailoverContentForm *self, SpecDocument *doc, const char *path) {
+void reliability_failover_content_form_init(ReliabilityFailoverContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_failover_content_form_free(ReliabilityQualityFailoverContentForm *self) {
+void reliability_failover_content_form_free(ReliabilityFailoverContentForm *self) {
   som_node_free(&self->node);
 }
-char *reliability_quality_failover_content_form_failover_strategy(const ReliabilityQualityFailoverContentForm *self) {
+char *reliability_failover_content_form_failover_strategy(const ReliabilityFailoverContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "failoverStrategy");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_failover_content_form_set_failover_strategy(ReliabilityQualityFailoverContentForm *self, const char *value) {
+void reliability_failover_content_form_set_failover_strategy(ReliabilityFailoverContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failoverStrategy", value);
 }
-char *reliability_quality_failover_content_form_failover_time(const ReliabilityQualityFailoverContentForm *self) {
+char *reliability_failover_content_form_failover_time(const ReliabilityFailoverContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "failoverTime");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_failover_content_form_set_failover_time(ReliabilityQualityFailoverContentForm *self, const char *value) {
+void reliability_failover_content_form_set_failover_time(ReliabilityFailoverContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failoverTime", value);
 }
-char *reliability_quality_failover_content_form_failover_testing(const ReliabilityQualityFailoverContentForm *self) {
+char *reliability_failover_content_form_failover_testing(const ReliabilityFailoverContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "failoverTesting");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_failover_content_form_set_failover_testing(ReliabilityQualityFailoverContentForm *self, const char *value) {
+void reliability_failover_content_form_set_failover_testing(ReliabilityFailoverContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failoverTesting", value);
 }
 
-void reliability_quality_recovery_content_form_init(ReliabilityQualityRecoveryContentForm *self, SpecDocument *doc, const char *path) {
+void reliability_recovery_content_form_init(ReliabilityRecoveryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_recovery_content_form_free(ReliabilityQualityRecoveryContentForm *self) {
+void reliability_recovery_content_form_free(ReliabilityRecoveryContentForm *self) {
   som_node_free(&self->node);
 }
-char *reliability_quality_recovery_content_form_mtbf_target(const ReliabilityQualityRecoveryContentForm *self) {
+char *reliability_recovery_content_form_mtbf_target(const ReliabilityRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mtbfTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_recovery_content_form_set_mtbf_target(ReliabilityQualityRecoveryContentForm *self, const char *value) {
+void reliability_recovery_content_form_set_mtbf_target(ReliabilityRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mtbfTarget", value);
 }
-char *reliability_quality_recovery_content_form_mttr_target(const ReliabilityQualityRecoveryContentForm *self) {
+char *reliability_recovery_content_form_mttr_target(const ReliabilityRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mttrTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_recovery_content_form_set_mttr_target(ReliabilityQualityRecoveryContentForm *self, const char *value) {
+void reliability_recovery_content_form_set_mttr_target(ReliabilityRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mttrTarget", value);
 }
-char *reliability_quality_recovery_content_form_rto_target(const ReliabilityQualityRecoveryContentForm *self) {
+char *reliability_recovery_content_form_rto_target(const ReliabilityRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "rtoTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_recovery_content_form_set_rto_target(ReliabilityQualityRecoveryContentForm *self, const char *value) {
+void reliability_recovery_content_form_set_rto_target(ReliabilityRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "rtoTarget", value);
 }
-char *reliability_quality_recovery_content_form_rpo_target(const ReliabilityQualityRecoveryContentForm *self) {
+char *reliability_recovery_content_form_rpo_target(const ReliabilityRecoveryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "rpoTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_recovery_content_form_set_rpo_target(ReliabilityQualityRecoveryContentForm *self, const char *value) {
+void reliability_recovery_content_form_set_rpo_target(ReliabilityRecoveryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "rpoTarget", value);
 }
 
-void reliability_quality_verification_content_form_init(ReliabilityQualityVerificationContentForm *self, SpecDocument *doc, const char *path) {
+void reliability_verification_content_form_init(ReliabilityVerificationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void reliability_quality_verification_content_form_free(ReliabilityQualityVerificationContentForm *self) {
+void reliability_verification_content_form_free(ReliabilityVerificationContentForm *self) {
   som_node_free(&self->node);
 }
-char *reliability_quality_verification_content_form_reliability_verification(const ReliabilityQualityVerificationContentForm *self) {
+char *reliability_verification_content_form_reliability_verification(const ReliabilityVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "reliabilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_verification_content_form_set_reliability_verification(ReliabilityQualityVerificationContentForm *self, const char *value) {
+void reliability_verification_content_form_set_reliability_verification(ReliabilityVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "reliabilityVerification", value);
 }
-char *reliability_quality_verification_content_form_incident_postmortem(const ReliabilityQualityVerificationContentForm *self) {
+char *reliability_verification_content_form_incident_postmortem(const ReliabilityVerificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "incidentPostmortem");
   return som_strdup(v != NULL ? v : "");
 }
-void reliability_quality_verification_content_form_set_incident_postmortem(ReliabilityQualityVerificationContentForm *self, const char *value) {
+void reliability_verification_content_form_set_incident_postmortem(ReliabilityVerificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "incidentPostmortem", value);
 }
 
@@ -141829,6 +142298,69 @@ void security_audit_entry_scheduling_content_form_set_next_audit_date(SecurityAu
   spec_document_set_form_field(self->node.doc, self->node.path, "nextAuditDate", value);
 }
 
+void security_authentication_content_form_init(SecurityAuthenticationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_authentication_content_form_free(SecurityAuthenticationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_authentication_content_form_authentication_method(const SecurityAuthenticationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authenticationMethod");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authentication_content_form_set_authentication_method(SecurityAuthenticationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "authenticationMethod", value);
+}
+char *security_authentication_content_form_mfa_requirement(const SecurityAuthenticationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "mfaRequirement");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authentication_content_form_set_mfa_requirement(SecurityAuthenticationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "mfaRequirement", value);
+}
+char *security_authentication_content_form_password_policy(const SecurityAuthenticationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "passwordPolicy");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authentication_content_form_set_password_policy(SecurityAuthenticationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "passwordPolicy", value);
+}
+char *security_authentication_content_form_session_management(const SecurityAuthenticationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sessionManagement");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authentication_content_form_set_session_management(SecurityAuthenticationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "sessionManagement", value);
+}
+
+void security_authorization_content_form_init(SecurityAuthorizationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_authorization_content_form_free(SecurityAuthorizationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_authorization_content_form_authorization_model(const SecurityAuthorizationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authorizationModel");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authorization_content_form_set_authorization_model(SecurityAuthorizationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "authorizationModel", value);
+}
+char *security_authorization_content_form_authorization_coverage(const SecurityAuthorizationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authorizationCoverage");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authorization_content_form_set_authorization_coverage(SecurityAuthorizationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "authorizationCoverage", value);
+}
+char *security_authorization_content_form_privilege_escalation_prevention(const SecurityAuthorizationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "privilegeEscalationPrevention");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_authorization_content_form_set_privilege_escalation_prevention(SecurityAuthorizationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "privilegeEscalationPrevention", value);
+}
+
 void security_certification_requirements_content_form_init(SecurityCertificationRequirementsContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -141976,6 +142508,27 @@ void security_certification_requirements_soc2_content_form_set_soc2_audit_period
   spec_document_set_form_field(self->node.doc, self->node.path, "soc2AuditPeriod", value);
 }
 
+void security_characteristic_security_content_form_init(SecurityCharacteristicSecurityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_characteristic_security_content_form_free(SecurityCharacteristicSecurityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_characteristic_security_content_form_security_approach(const SecurityCharacteristicSecurityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityApproach");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_characteristic_security_content_form_set_security_approach(SecurityCharacteristicSecurityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityApproach", value);
+}
+char *security_characteristic_security_content_form_security_compliance_target(const SecurityCharacteristicSecurityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityComplianceTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_characteristic_security_content_form_set_security_compliance_target(SecurityCharacteristicSecurityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityComplianceTarget", value);
+}
+
 void security_code_review_policy_content_form_init(SecurityCodeReviewPolicyContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -142093,6 +142646,69 @@ char *security_code_review_policy_reviewers_content_form_reviewer_rotation(const
 }
 void security_code_review_policy_reviewers_content_form_set_reviewer_rotation(SecurityCodeReviewPolicyReviewersContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "reviewerRotation", value);
+}
+
+void security_compliance_content_form_init(SecurityComplianceContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_compliance_content_form_free(SecurityComplianceContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_compliance_content_form_security_compliance(const SecurityComplianceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityCompliance");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_compliance_content_form_set_security_compliance(SecurityComplianceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityCompliance", value);
+}
+char *security_compliance_content_form_security_certifications(const SecurityComplianceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityCertifications");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_compliance_content_form_set_security_certifications(SecurityComplianceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityCertifications", value);
+}
+char *security_compliance_content_form_security_audit_frequency(const SecurityComplianceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityAuditFrequency");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_compliance_content_form_set_security_audit_frequency(SecurityComplianceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityAuditFrequency", value);
+}
+char *security_compliance_content_form_security_verification(const SecurityComplianceContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityVerification");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_compliance_content_form_set_security_verification(SecurityComplianceContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "securityVerification", value);
+}
+
+void security_content_form_init(SecurityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_content_form_free(SecurityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_content_form_encryption_at_rest(const SecurityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "encryptionAtRest");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_content_form_set_encryption_at_rest(SecurityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "encryptionAtRest", value);
+}
+char *security_content_form_encryption_in_transit(const SecurityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "encryptionInTransit");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_content_form_set_encryption_in_transit(SecurityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "encryptionInTransit", value);
+}
+char *security_content_form_key_management(const SecurityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "keyManagement");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_content_form_set_key_management(SecurityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "keyManagement", value);
 }
 
 void security_control_entry_content_form_init(SecurityControlEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -142436,160 +143052,6 @@ char *security_event_logging_policy_content_form_correlation_identifiers(const S
 }
 void security_event_logging_policy_content_form_set_correlation_identifiers(SecurityEventLoggingPolicyContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "correlationIdentifiers", value);
-}
-
-void security_quality_authentication_content_form_init(SecurityQualityAuthenticationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_authentication_content_form_free(SecurityQualityAuthenticationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *security_quality_authentication_content_form_authentication_method(const SecurityQualityAuthenticationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authenticationMethod");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authentication_content_form_set_authentication_method(SecurityQualityAuthenticationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "authenticationMethod", value);
-}
-char *security_quality_authentication_content_form_mfa_requirement(const SecurityQualityAuthenticationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "mfaRequirement");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authentication_content_form_set_mfa_requirement(SecurityQualityAuthenticationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "mfaRequirement", value);
-}
-char *security_quality_authentication_content_form_password_policy(const SecurityQualityAuthenticationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "passwordPolicy");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authentication_content_form_set_password_policy(SecurityQualityAuthenticationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "passwordPolicy", value);
-}
-char *security_quality_authentication_content_form_session_management(const SecurityQualityAuthenticationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sessionManagement");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authentication_content_form_set_session_management(SecurityQualityAuthenticationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sessionManagement", value);
-}
-
-void security_quality_authorization_content_form_init(SecurityQualityAuthorizationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_authorization_content_form_free(SecurityQualityAuthorizationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *security_quality_authorization_content_form_authorization_model(const SecurityQualityAuthorizationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authorizationModel");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authorization_content_form_set_authorization_model(SecurityQualityAuthorizationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "authorizationModel", value);
-}
-char *security_quality_authorization_content_form_authorization_coverage(const SecurityQualityAuthorizationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authorizationCoverage");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authorization_content_form_set_authorization_coverage(SecurityQualityAuthorizationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "authorizationCoverage", value);
-}
-char *security_quality_authorization_content_form_privilege_escalation_prevention(const SecurityQualityAuthorizationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "privilegeEscalationPrevention");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_authorization_content_form_set_privilege_escalation_prevention(SecurityQualityAuthorizationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "privilegeEscalationPrevention", value);
-}
-
-void security_quality_compliance_content_form_init(SecurityQualityComplianceContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_compliance_content_form_free(SecurityQualityComplianceContentForm *self) {
-  som_node_free(&self->node);
-}
-char *security_quality_compliance_content_form_security_compliance(const SecurityQualityComplianceContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityCompliance");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_compliance_content_form_set_security_compliance(SecurityQualityComplianceContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "securityCompliance", value);
-}
-char *security_quality_compliance_content_form_security_certifications(const SecurityQualityComplianceContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityCertifications");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_compliance_content_form_set_security_certifications(SecurityQualityComplianceContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "securityCertifications", value);
-}
-char *security_quality_compliance_content_form_security_audit_frequency(const SecurityQualityComplianceContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityAuditFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_compliance_content_form_set_security_audit_frequency(SecurityQualityComplianceContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "securityAuditFrequency", value);
-}
-char *security_quality_compliance_content_form_security_verification(const SecurityQualityComplianceContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "securityVerification");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_compliance_content_form_set_security_verification(SecurityQualityComplianceContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "securityVerification", value);
-}
-
-void security_quality_content_form_init(SecurityQualityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_content_form_free(SecurityQualityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *security_quality_content_form_encryption_at_rest(const SecurityQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "encryptionAtRest");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_content_form_set_encryption_at_rest(SecurityQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "encryptionAtRest", value);
-}
-char *security_quality_content_form_encryption_in_transit(const SecurityQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "encryptionInTransit");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_content_form_set_encryption_in_transit(SecurityQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "encryptionInTransit", value);
-}
-char *security_quality_content_form_key_management(const SecurityQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "keyManagement");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_content_form_set_key_management(SecurityQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "keyManagement", value);
-}
-
-void security_quality_vulnerability_content_form_init(SecurityQualityVulnerabilityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_quality_vulnerability_content_form_free(SecurityQualityVulnerabilityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *security_quality_vulnerability_content_form_vulnerability_scan_frequency(const SecurityQualityVulnerabilityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "vulnerabilityScanFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_vulnerability_content_form_set_vulnerability_scan_frequency(SecurityQualityVulnerabilityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "vulnerabilityScanFrequency", value);
-}
-char *security_quality_vulnerability_content_form_penetration_test_frequency(const SecurityQualityVulnerabilityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "penetrationTestFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_vulnerability_content_form_set_penetration_test_frequency(SecurityQualityVulnerabilityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "penetrationTestFrequency", value);
-}
-char *security_quality_vulnerability_content_form_cve_response_time(const SecurityQualityVulnerabilityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "cveResponseTime");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_quality_vulnerability_content_form_set_cve_response_time(SecurityQualityVulnerabilityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "cveResponseTime", value);
 }
 
 void security_requirement_entry_classification_content_form_init(SecurityRequirementEntryClassificationContentForm *self, SpecDocument *doc, const char *path) {
@@ -143283,6 +143745,34 @@ char *security_testing_automation_scanning_content_form_secrets_detection(const 
 }
 void security_testing_automation_scanning_content_form_set_secrets_detection(SecurityTestingAutomationScanningContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "secretsDetection", value);
+}
+
+void security_vulnerability_content_form_init(SecurityVulnerabilityContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void security_vulnerability_content_form_free(SecurityVulnerabilityContentForm *self) {
+  som_node_free(&self->node);
+}
+char *security_vulnerability_content_form_vulnerability_scan_frequency(const SecurityVulnerabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "vulnerabilityScanFrequency");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_vulnerability_content_form_set_vulnerability_scan_frequency(SecurityVulnerabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "vulnerabilityScanFrequency", value);
+}
+char *security_vulnerability_content_form_penetration_test_frequency(const SecurityVulnerabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "penetrationTestFrequency");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_vulnerability_content_form_set_penetration_test_frequency(SecurityVulnerabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "penetrationTestFrequency", value);
+}
+char *security_vulnerability_content_form_cve_response_time(const SecurityVulnerabilityContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "cveResponseTime");
+  return som_strdup(v != NULL ? v : "");
+}
+void security_vulnerability_content_form_set_cve_response_time(SecurityVulnerabilityContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "cveResponseTime", value);
 }
 
 void self_registration_policy_approval_content_form_init(SelfRegistrationPolicyApprovalContentForm *self, SpecDocument *doc, const char *path) {
@@ -144139,6 +144629,62 @@ void service_level_agreement_entry_content_form_set_sla_exclusions(ServiceLevelA
   spec_document_set_form_field(self->node.doc, self->node.path, "slaExclusions", value);
 }
 
+void service_level_content_form_init(ServiceLevelContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void service_level_content_form_free(ServiceLevelContentForm *self) {
+  som_node_free(&self->node);
+}
+char *service_level_content_form_support_tier_structure(const ServiceLevelContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "supportTierStructure");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_content_form_set_support_tier_structure(ServiceLevelContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "supportTierStructure", value);
+}
+char *service_level_content_form_critical_response_time(const ServiceLevelContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalResponseTime");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_content_form_set_critical_response_time(ServiceLevelContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "criticalResponseTime", value);
+}
+char *service_level_content_form_high_response_time(const ServiceLevelContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "highResponseTime");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_content_form_set_high_response_time(ServiceLevelContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "highResponseTime", value);
+}
+
+void service_level_escalation_content_form_init(ServiceLevelEscalationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void service_level_escalation_content_form_free(ServiceLevelEscalationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *service_level_escalation_content_form_escalation_timeframes(const ServiceLevelEscalationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationTimeframes");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_escalation_content_form_set_escalation_timeframes(ServiceLevelEscalationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "escalationTimeframes", value);
+}
+char *service_level_escalation_content_form_escalation_contacts(const ServiceLevelEscalationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationContacts");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_escalation_content_form_set_escalation_contacts(ServiceLevelEscalationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "escalationContacts", value);
+}
+char *service_level_escalation_content_form_executive_escalation(const ServiceLevelEscalationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "executiveEscalation");
+  return som_strdup(v != NULL ? v : "");
+}
+void service_level_escalation_content_form_set_executive_escalation(ServiceLevelEscalationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "executiveEscalation", value);
+}
+
 void service_level_indicators_content_form_init(ServiceLevelIndicatorsContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -144251,164 +144797,108 @@ void service_level_indicators_quality_content_form_set_freshness_sli(ServiceLeve
   spec_document_set_form_field(self->node.doc, self->node.path, "freshnessSli", value);
 }
 
-void service_level_quality_content_form_init(ServiceLevelQualityContentForm *self, SpecDocument *doc, const char *path) {
+void service_level_on_call_content_form_init(ServiceLevelOnCallContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_content_form_free(ServiceLevelQualityContentForm *self) {
+void service_level_on_call_content_form_free(ServiceLevelOnCallContentForm *self) {
   som_node_free(&self->node);
 }
-char *service_level_quality_content_form_support_tier_structure(const ServiceLevelQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "supportTierStructure");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_content_form_set_support_tier_structure(ServiceLevelQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "supportTierStructure", value);
-}
-char *service_level_quality_content_form_critical_response_time(const ServiceLevelQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalResponseTime");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_content_form_set_critical_response_time(ServiceLevelQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticalResponseTime", value);
-}
-char *service_level_quality_content_form_high_response_time(const ServiceLevelQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "highResponseTime");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_content_form_set_high_response_time(ServiceLevelQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "highResponseTime", value);
-}
-
-void service_level_quality_escalation_content_form_init(ServiceLevelQualityEscalationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void service_level_quality_escalation_content_form_free(ServiceLevelQualityEscalationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *service_level_quality_escalation_content_form_escalation_timeframes(const ServiceLevelQualityEscalationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationTimeframes");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_escalation_content_form_set_escalation_timeframes(ServiceLevelQualityEscalationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "escalationTimeframes", value);
-}
-char *service_level_quality_escalation_content_form_escalation_contacts(const ServiceLevelQualityEscalationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationContacts");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_escalation_content_form_set_escalation_contacts(ServiceLevelQualityEscalationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "escalationContacts", value);
-}
-char *service_level_quality_escalation_content_form_executive_escalation(const ServiceLevelQualityEscalationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "executiveEscalation");
-  return som_strdup(v != NULL ? v : "");
-}
-void service_level_quality_escalation_content_form_set_executive_escalation(ServiceLevelQualityEscalationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "executiveEscalation", value);
-}
-
-void service_level_quality_on_call_content_form_init(ServiceLevelQualityOnCallContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void service_level_quality_on_call_content_form_free(ServiceLevelQualityOnCallContentForm *self) {
-  som_node_free(&self->node);
-}
-char *service_level_quality_on_call_content_form_on_call_coverage(const ServiceLevelQualityOnCallContentForm *self) {
+char *service_level_on_call_content_form_on_call_coverage(const ServiceLevelOnCallContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "onCallCoverage");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_on_call_content_form_set_on_call_coverage(ServiceLevelQualityOnCallContentForm *self, const char *value) {
+void service_level_on_call_content_form_set_on_call_coverage(ServiceLevelOnCallContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "onCallCoverage", value);
 }
-char *service_level_quality_on_call_content_form_on_call_rotation(const ServiceLevelQualityOnCallContentForm *self) {
+char *service_level_on_call_content_form_on_call_rotation(const ServiceLevelOnCallContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "onCallRotation");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_on_call_content_form_set_on_call_rotation(ServiceLevelQualityOnCallContentForm *self, const char *value) {
+void service_level_on_call_content_form_set_on_call_rotation(ServiceLevelOnCallContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "onCallRotation", value);
 }
-char *service_level_quality_on_call_content_form_on_call_compensation(const ServiceLevelQualityOnCallContentForm *self) {
+char *service_level_on_call_content_form_on_call_compensation(const ServiceLevelOnCallContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "onCallCompensation");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_on_call_content_form_set_on_call_compensation(ServiceLevelQualityOnCallContentForm *self, const char *value) {
+void service_level_on_call_content_form_set_on_call_compensation(ServiceLevelOnCallContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "onCallCompensation", value);
 }
 
-void service_level_quality_resolution_content_form_init(ServiceLevelQualityResolutionContentForm *self, SpecDocument *doc, const char *path) {
+void service_level_resolution_content_form_init(ServiceLevelResolutionContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_resolution_content_form_free(ServiceLevelQualityResolutionContentForm *self) {
+void service_level_resolution_content_form_free(ServiceLevelResolutionContentForm *self) {
   som_node_free(&self->node);
 }
-char *service_level_quality_resolution_content_form_critical_resolution_time(const ServiceLevelQualityResolutionContentForm *self) {
+char *service_level_resolution_content_form_critical_resolution_time(const ServiceLevelResolutionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalResolutionTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_resolution_content_form_set_critical_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value) {
+void service_level_resolution_content_form_set_critical_resolution_time(ServiceLevelResolutionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criticalResolutionTime", value);
 }
-char *service_level_quality_resolution_content_form_high_resolution_time(const ServiceLevelQualityResolutionContentForm *self) {
+char *service_level_resolution_content_form_high_resolution_time(const ServiceLevelResolutionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "highResolutionTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_resolution_content_form_set_high_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value) {
+void service_level_resolution_content_form_set_high_resolution_time(ServiceLevelResolutionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "highResolutionTime", value);
 }
-char *service_level_quality_resolution_content_form_medium_resolution_time(const ServiceLevelQualityResolutionContentForm *self) {
+char *service_level_resolution_content_form_medium_resolution_time(const ServiceLevelResolutionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mediumResolutionTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_resolution_content_form_set_medium_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value) {
+void service_level_resolution_content_form_set_medium_resolution_time(ServiceLevelResolutionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mediumResolutionTime", value);
 }
-char *service_level_quality_resolution_content_form_low_resolution_time(const ServiceLevelQualityResolutionContentForm *self) {
+char *service_level_resolution_content_form_low_resolution_time(const ServiceLevelResolutionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "lowResolutionTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_resolution_content_form_set_low_resolution_time(ServiceLevelQualityResolutionContentForm *self, const char *value) {
+void service_level_resolution_content_form_set_low_resolution_time(ServiceLevelResolutionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "lowResolutionTime", value);
 }
 
-void service_level_quality_response_content_form_init(ServiceLevelQualityResponseContentForm *self, SpecDocument *doc, const char *path) {
+void service_level_response_content_form_init(ServiceLevelResponseContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_response_content_form_free(ServiceLevelQualityResponseContentForm *self) {
+void service_level_response_content_form_free(ServiceLevelResponseContentForm *self) {
   som_node_free(&self->node);
 }
-char *service_level_quality_response_content_form_medium_response_time(const ServiceLevelQualityResponseContentForm *self) {
+char *service_level_response_content_form_medium_response_time(const ServiceLevelResponseContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mediumResponseTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_response_content_form_set_medium_response_time(ServiceLevelQualityResponseContentForm *self, const char *value) {
+void service_level_response_content_form_set_medium_response_time(ServiceLevelResponseContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "mediumResponseTime", value);
 }
-char *service_level_quality_response_content_form_low_response_time(const ServiceLevelQualityResponseContentForm *self) {
+char *service_level_response_content_form_low_response_time(const ServiceLevelResponseContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "lowResponseTime");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_response_content_form_set_low_response_time(ServiceLevelQualityResponseContentForm *self, const char *value) {
+void service_level_response_content_form_set_low_response_time(ServiceLevelResponseContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "lowResponseTime", value);
 }
 
-void service_level_quality_restoration_content_form_init(ServiceLevelQualityRestorationContentForm *self, SpecDocument *doc, const char *path) {
+void service_level_restoration_content_form_init(ServiceLevelRestorationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void service_level_quality_restoration_content_form_free(ServiceLevelQualityRestorationContentForm *self) {
+void service_level_restoration_content_form_free(ServiceLevelRestorationContentForm *self) {
   som_node_free(&self->node);
 }
-char *service_level_quality_restoration_content_form_service_restoration_priority(const ServiceLevelQualityRestorationContentForm *self) {
+char *service_level_restoration_content_form_service_restoration_priority(const ServiceLevelRestorationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "serviceRestorationPriority");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_restoration_content_form_set_service_restoration_priority(ServiceLevelQualityRestorationContentForm *self, const char *value) {
+void service_level_restoration_content_form_set_service_restoration_priority(ServiceLevelRestorationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "serviceRestorationPriority", value);
 }
-char *service_level_quality_restoration_content_form_communication_during_outage(const ServiceLevelQualityRestorationContentForm *self) {
+char *service_level_restoration_content_form_communication_during_outage(const ServiceLevelRestorationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "communicationDuringOutage");
   return som_strdup(v != NULL ? v : "");
 }
-void service_level_quality_restoration_content_form_set_communication_during_outage(ServiceLevelQualityRestorationContentForm *self, const char *value) {
+void service_level_restoration_content_form_set_communication_during_outage(ServiceLevelRestorationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "communicationDuringOutage", value);
 }
 
@@ -151748,41 +152238,6 @@ void system_overview_summary_status_content_form_set_target_go_live_date(SystemO
   spec_document_set_form_field(self->node.doc, self->node.path, "targetGoLiveDate", value);
 }
 
-void system_quality_goals_baseline_content_form_init(SystemQualityGoalsBaselineContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_baseline_content_form_free(SystemQualityGoalsBaselineContentForm *self) {
-  som_node_free(&self->node);
-}
-char *system_quality_goals_baseline_content_form_quality_baseline_date(const SystemQualityGoalsBaselineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBaselineDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_baseline_content_form_set_quality_baseline_date(SystemQualityGoalsBaselineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBaselineDate", value);
-}
-char *system_quality_goals_baseline_content_form_quality_baseline_version(const SystemQualityGoalsBaselineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBaselineVersion");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_baseline_content_form_set_quality_baseline_version(SystemQualityGoalsBaselineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBaselineVersion", value);
-}
-char *system_quality_goals_baseline_content_form_overall_quality_target_level(const SystemQualityGoalsBaselineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "overallQualityTargetLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_baseline_content_form_set_overall_quality_target_level(SystemQualityGoalsBaselineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "overallQualityTargetLevel", value);
-}
-char *system_quality_goals_baseline_content_form_quality_risk_tolerance(const SystemQualityGoalsBaselineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityRiskTolerance");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_baseline_content_form_set_quality_risk_tolerance(SystemQualityGoalsBaselineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityRiskTolerance", value);
-}
-
 void system_quality_goals_governance_content_form_init(SystemQualityGoalsGovernanceContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -151809,111 +152264,6 @@ char *system_quality_goals_governance_content_form_quality_owner(const SystemQua
 }
 void system_quality_goals_governance_content_form_set_quality_owner(SystemQualityGoalsGovernanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "qualityOwner", value);
-}
-
-void system_quality_goals_governance_content_form_2_init(SystemQualityGoalsGovernanceContentForm_2 *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_governance_content_form_2_free(SystemQualityGoalsGovernanceContentForm_2 *self) {
-  som_node_free(&self->node);
-}
-char *system_quality_goals_governance_content_form_2_quality_review_board(const SystemQualityGoalsGovernanceContentForm_2 *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityReviewBoard");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_governance_content_form_2_set_quality_review_board(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityReviewBoard", value);
-}
-char *system_quality_goals_governance_content_form_2_quality_meeting_cadence(const SystemQualityGoalsGovernanceContentForm_2 *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityMeetingCadence");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_governance_content_form_2_set_quality_meeting_cadence(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityMeetingCadence", value);
-}
-char *system_quality_goals_governance_content_form_2_quality_escalation_path(const SystemQualityGoalsGovernanceContentForm_2 *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityEscalationPath");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_governance_content_form_2_set_quality_escalation_path(SystemQualityGoalsGovernanceContentForm_2 *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityEscalationPath", value);
-}
-
-void system_quality_goals_measurement_content_form_init(SystemQualityGoalsMeasurementContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_measurement_content_form_free(SystemQualityGoalsMeasurementContentForm *self) {
-  som_node_free(&self->node);
-}
-char *system_quality_goals_measurement_content_form_quality_metrics_framework(const SystemQualityGoalsMeasurementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityMetricsFramework");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_measurement_content_form_set_quality_metrics_framework(SystemQualityGoalsMeasurementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityMetricsFramework", value);
-}
-char *system_quality_goals_measurement_content_form_quality_reporting_frequency(const SystemQualityGoalsMeasurementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityReportingFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_measurement_content_form_set_quality_reporting_frequency(SystemQualityGoalsMeasurementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityReportingFrequency", value);
-}
-char *system_quality_goals_measurement_content_form_quality_dashboard_tool(const SystemQualityGoalsMeasurementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityDashboardTool");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_measurement_content_form_set_quality_dashboard_tool(SystemQualityGoalsMeasurementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityDashboardTool", value);
-}
-char *system_quality_goals_measurement_content_form_defect_tracking_system(const SystemQualityGoalsMeasurementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "defectTrackingSystem");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_measurement_content_form_set_defect_tracking_system(SystemQualityGoalsMeasurementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "defectTrackingSystem", value);
-}
-char *system_quality_goals_measurement_content_form_quality_trend_analysis(const SystemQualityGoalsMeasurementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityTrendAnalysis");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_measurement_content_form_set_quality_trend_analysis(SystemQualityGoalsMeasurementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityTrendAnalysis", value);
-}
-
-void system_quality_goals_resources_content_form_init(SystemQualityGoalsResourcesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_quality_goals_resources_content_form_free(SystemQualityGoalsResourcesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *system_quality_goals_resources_content_form_quality_budget(const SystemQualityGoalsResourcesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityBudget");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_resources_content_form_set_quality_budget(SystemQualityGoalsResourcesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityBudget", value);
-}
-char *system_quality_goals_resources_content_form_qa_team_size(const SystemQualityGoalsResourcesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qaTeamSize");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_resources_content_form_set_qa_team_size(SystemQualityGoalsResourcesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qaTeamSize", value);
-}
-char *system_quality_goals_resources_content_form_test_automation_target(const SystemQualityGoalsResourcesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "testAutomationTarget");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_resources_content_form_set_test_automation_target(SystemQualityGoalsResourcesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "testAutomationTarget", value);
-}
-char *system_quality_goals_resources_content_form_quality_training_plan(const SystemQualityGoalsResourcesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityTrainingPlan");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_quality_goals_resources_content_form_set_quality_training_plan(SystemQualityGoalsResourcesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityTrainingPlan", value);
 }
 
 void system_replacement_strategy_content_form_init(SystemReplacementStrategyContentForm *self, SpecDocument *doc, const char *path) {
@@ -154063,48 +154413,6 @@ char *technical_pain_points_summary_content_form_integration_complexity_score(co
 }
 void technical_pain_points_summary_content_form_set_integration_complexity_score(TechnicalPainPointsSummaryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "integrationComplexityScore", value);
-}
-
-void technical_quality_criteria_technical_quality_content_form_init(TechnicalQualityCriteriaTechnicalQualityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void technical_quality_criteria_technical_quality_content_form_free(TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *technical_quality_criteria_technical_quality_content_form_technical_quality_philosophy(const TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalQualityPhilosophy");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_quality_criteria_technical_quality_content_form_set_technical_quality_philosophy(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "technicalQualityPhilosophy", value);
-}
-char *technical_quality_criteria_technical_quality_content_form_architectural_quality_goals(const TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "architecturalQualityGoals");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_quality_criteria_technical_quality_content_form_set_architectural_quality_goals(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "architecturalQualityGoals", value);
-}
-char *technical_quality_criteria_technical_quality_content_form_technical_debt_tolerance(const TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalDebtTolerance");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_quality_criteria_technical_quality_content_form_set_technical_debt_tolerance(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "technicalDebtTolerance", value);
-}
-char *technical_quality_criteria_technical_quality_content_form_code_quality_standard(const TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "codeQualityStandard");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_quality_criteria_technical_quality_content_form_set_code_quality_standard(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "codeQualityStandard", value);
-}
-char *technical_quality_criteria_technical_quality_content_form_design_principles_adherence(const TechnicalQualityCriteriaTechnicalQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "designPrinciplesAdherence");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_quality_criteria_technical_quality_content_form_set_design_principles_adherence(TechnicalQualityCriteriaTechnicalQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "designPrinciplesAdherence", value);
 }
 
 void technical_requirement_entry_constraints_content_form_init(TechnicalRequirementEntryConstraintsContentForm *self, SpecDocument *doc, const char *path) {
@@ -161093,171 +161401,171 @@ void ui_design_principle_entry_content_form_set_related_goals(UiDesignPrincipleE
   spec_document_set_form_field(self->node.doc, self->node.path, "relatedGoals", value);
 }
 
-void usability_quality_clarity_content_form_init(UsabilityQualityClarityContentForm *self, SpecDocument *doc, const char *path) {
+void usability_clarity_content_form_init(UsabilityClarityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_clarity_content_form_free(UsabilityQualityClarityContentForm *self) {
+void usability_clarity_content_form_free(UsabilityClarityContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_clarity_content_form_functional_clarity_target(const UsabilityQualityClarityContentForm *self) {
+char *usability_clarity_content_form_functional_clarity_target(const UsabilityClarityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionalClarityTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_clarity_content_form_set_functional_clarity_target(UsabilityQualityClarityContentForm *self, const char *value) {
+void usability_clarity_content_form_set_functional_clarity_target(UsabilityClarityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "functionalClarityTarget", value);
 }
-char *usability_quality_clarity_content_form_help_system_requirement(const UsabilityQualityClarityContentForm *self) {
+char *usability_clarity_content_form_help_system_requirement(const UsabilityClarityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "helpSystemRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_clarity_content_form_set_help_system_requirement(UsabilityQualityClarityContentForm *self, const char *value) {
+void usability_clarity_content_form_set_help_system_requirement(UsabilityClarityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "helpSystemRequirement", value);
 }
-char *usability_quality_clarity_content_form_complexity_limit(const UsabilityQualityClarityContentForm *self) {
+char *usability_clarity_content_form_complexity_limit(const UsabilityClarityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "complexityLimit");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_clarity_content_form_set_complexity_limit(UsabilityQualityClarityContentForm *self, const char *value) {
+void usability_clarity_content_form_set_complexity_limit(UsabilityClarityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "complexityLimit", value);
 }
-char *usability_quality_clarity_content_form_cognitive_load_target(const UsabilityQualityClarityContentForm *self) {
+char *usability_clarity_content_form_cognitive_load_target(const UsabilityClarityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "cognitiveLoadTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_clarity_content_form_set_cognitive_load_target(UsabilityQualityClarityContentForm *self, const char *value) {
+void usability_clarity_content_form_set_cognitive_load_target(UsabilityClarityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "cognitiveLoadTarget", value);
 }
 
-void usability_quality_content_form_init(UsabilityQualityContentForm *self, SpecDocument *doc, const char *path) {
+void usability_content_form_init(UsabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_content_form_free(UsabilityQualityContentForm *self) {
+void usability_content_form_free(UsabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_content_form_operability_target(const UsabilityQualityContentForm *self) {
+char *usability_content_form_operability_target(const UsabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "operabilityTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_content_form_set_operability_target(UsabilityQualityContentForm *self, const char *value) {
+void usability_content_form_set_operability_target(UsabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operabilityTarget", value);
 }
-char *usability_quality_content_form_ergonomics_standard(const UsabilityQualityContentForm *self) {
+char *usability_content_form_ergonomics_standard(const UsabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ergonomicsStandard");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_content_form_set_ergonomics_standard(UsabilityQualityContentForm *self, const char *value) {
+void usability_content_form_set_ergonomics_standard(UsabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ergonomicsStandard", value);
 }
-char *usability_quality_content_form_learnability_target(const UsabilityQualityContentForm *self) {
+char *usability_content_form_learnability_target(const UsabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "learnabilityTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_content_form_set_learnability_target(UsabilityQualityContentForm *self, const char *value) {
+void usability_content_form_set_learnability_target(UsabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "learnabilityTarget", value);
 }
 
-void usability_quality_interaction_content_form_init(UsabilityQualityInteractionContentForm *self, SpecDocument *doc, const char *path) {
+void usability_interaction_content_form_init(UsabilityInteractionContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_interaction_content_form_free(UsabilityQualityInteractionContentForm *self) {
+void usability_interaction_content_form_free(UsabilityInteractionContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_interaction_content_form_undo_requirement(const UsabilityQualityInteractionContentForm *self) {
+char *usability_interaction_content_form_undo_requirement(const UsabilityInteractionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "undoRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_interaction_content_form_set_undo_requirement(UsabilityQualityInteractionContentForm *self, const char *value) {
+void usability_interaction_content_form_set_undo_requirement(UsabilityInteractionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "undoRequirement", value);
 }
-char *usability_quality_interaction_content_form_customization_level(const UsabilityQualityInteractionContentForm *self) {
+char *usability_interaction_content_form_customization_level(const UsabilityInteractionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "customizationLevel");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_interaction_content_form_set_customization_level(UsabilityQualityInteractionContentForm *self, const char *value) {
+void usability_interaction_content_form_set_customization_level(UsabilityInteractionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "customizationLevel", value);
 }
 
-void usability_quality_learnability_content_form_init(UsabilityQualityLearnabilityContentForm *self, SpecDocument *doc, const char *path) {
+void usability_learnability_content_form_init(UsabilityLearnabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_learnability_content_form_free(UsabilityQualityLearnabilityContentForm *self) {
+void usability_learnability_content_form_free(UsabilityLearnabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_learnability_content_form_learnability_verification(const UsabilityQualityLearnabilityContentForm *self) {
+char *usability_learnability_content_form_learnability_verification(const UsabilityLearnabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "learnabilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_learnability_content_form_set_learnability_verification(UsabilityQualityLearnabilityContentForm *self, const char *value) {
+void usability_learnability_content_form_set_learnability_verification(UsabilityLearnabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "learnabilityVerification", value);
 }
-char *usability_quality_learnability_content_form_onboarding_requirement(const UsabilityQualityLearnabilityContentForm *self) {
+char *usability_learnability_content_form_onboarding_requirement(const UsabilityLearnabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "onboardingRequirement");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_learnability_content_form_set_onboarding_requirement(UsabilityQualityLearnabilityContentForm *self, const char *value) {
+void usability_learnability_content_form_set_onboarding_requirement(UsabilityLearnabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "onboardingRequirement", value);
 }
 
-void usability_quality_operability_content_form_init(UsabilityQualityOperabilityContentForm *self, SpecDocument *doc, const char *path) {
+void usability_operability_content_form_init(UsabilityOperabilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_operability_content_form_free(UsabilityQualityOperabilityContentForm *self) {
+void usability_operability_content_form_free(UsabilityOperabilityContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_operability_content_form_operability_metric(const UsabilityQualityOperabilityContentForm *self) {
+char *usability_operability_content_form_operability_metric(const UsabilityOperabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "operabilityMetric");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_operability_content_form_set_operability_metric(UsabilityQualityOperabilityContentForm *self, const char *value) {
+void usability_operability_content_form_set_operability_metric(UsabilityOperabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operabilityMetric", value);
 }
-char *usability_quality_operability_content_form_operability_verification(const UsabilityQualityOperabilityContentForm *self) {
+char *usability_operability_content_form_operability_verification(const UsabilityOperabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "operabilityVerification");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_operability_content_form_set_operability_verification(UsabilityQualityOperabilityContentForm *self, const char *value) {
+void usability_operability_content_form_set_operability_verification(UsabilityOperabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operabilityVerification", value);
 }
-char *usability_quality_operability_content_form_ergonomics_target(const UsabilityQualityOperabilityContentForm *self) {
+char *usability_operability_content_form_ergonomics_target(const UsabilityOperabilityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ergonomicsTarget");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_operability_content_form_set_ergonomics_target(UsabilityQualityOperabilityContentForm *self, const char *value) {
+void usability_operability_content_form_set_ergonomics_target(UsabilityOperabilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ergonomicsTarget", value);
 }
 
-void usability_quality_performance_content_form_init(UsabilityQualityPerformanceContentForm *self, SpecDocument *doc, const char *path) {
+void usability_performance_content_form_init(UsabilityPerformanceContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void usability_quality_performance_content_form_free(UsabilityQualityPerformanceContentForm *self) {
+void usability_performance_content_form_free(UsabilityPerformanceContentForm *self) {
   som_node_free(&self->node);
 }
-char *usability_quality_performance_content_form_response_time_p50(const UsabilityQualityPerformanceContentForm *self) {
+char *usability_performance_content_form_response_time_p50(const UsabilityPerformanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP50");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_performance_content_form_set_response_time_p50(UsabilityQualityPerformanceContentForm *self, const char *value) {
+void usability_performance_content_form_set_response_time_p50(UsabilityPerformanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP50", value);
 }
-char *usability_quality_performance_content_form_response_time_p95(const UsabilityQualityPerformanceContentForm *self) {
+char *usability_performance_content_form_response_time_p95(const UsabilityPerformanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP95");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_performance_content_form_set_response_time_p95(UsabilityQualityPerformanceContentForm *self, const char *value) {
+void usability_performance_content_form_set_response_time_p95(UsabilityPerformanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP95", value);
 }
-char *usability_quality_performance_content_form_response_time_p99(const UsabilityQualityPerformanceContentForm *self) {
+char *usability_performance_content_form_response_time_p99(const UsabilityPerformanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseTimeP99");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_performance_content_form_set_response_time_p99(UsabilityQualityPerformanceContentForm *self, const char *value) {
+void usability_performance_content_form_set_response_time_p99(UsabilityPerformanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "responseTimeP99", value);
 }
-char *usability_quality_performance_content_form_perceived_performance(const UsabilityQualityPerformanceContentForm *self) {
+char *usability_performance_content_form_perceived_performance(const UsabilityPerformanceContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "perceivedPerformance");
   return som_strdup(v != NULL ? v : "");
 }
-void usability_quality_performance_content_form_set_perceived_performance(UsabilityQualityPerformanceContentForm *self, const char *value) {
+void usability_performance_content_form_set_perceived_performance(UsabilityPerformanceContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "perceivedPerformance", value);
 }
 
@@ -162372,55 +162680,6 @@ char *user_provisioning_tools_role_management_content_form_access_review_process
 }
 void user_provisioning_tools_role_management_content_form_set_access_review_process(UserProvisioningToolsRoleManagementContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "accessReviewProcess", value);
-}
-
-void user_quality_criteria_user_quality_content_form_init(UserQualityCriteriaUserQualityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void user_quality_criteria_user_quality_content_form_free(UserQualityCriteriaUserQualityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *user_quality_criteria_user_quality_content_form_user_quality_philosophy(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userQualityPhilosophy");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_user_quality_philosophy(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "userQualityPhilosophy", value);
-}
-char *user_quality_criteria_user_quality_content_form_target_user_experience(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetUserExperience");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_target_user_experience(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "targetUserExperience", value);
-}
-char *user_quality_criteria_user_quality_content_form_user_research_basis(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userResearchBasis");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_user_research_basis(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "userResearchBasis", value);
-}
-char *user_quality_criteria_user_quality_content_form_user_feedback_channel(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userFeedbackChannel");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_user_feedback_channel(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "userFeedbackChannel", value);
-}
-char *user_quality_criteria_user_quality_content_form_user_satisfaction_target(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "userSatisfactionTarget");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_user_satisfaction_target(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "userSatisfactionTarget", value);
-}
-char *user_quality_criteria_user_quality_content_form_accessibility_level(const UserQualityCriteriaUserQualityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessibilityLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_quality_criteria_user_quality_content_form_set_accessibility_level(UserQualityCriteriaUserQualityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "accessibilityLevel", value);
 }
 
 void user_training_requirements_training_form_form_init(UserTrainingRequirementsTrainingFormForm *self, SpecDocument *doc, const char *path) {

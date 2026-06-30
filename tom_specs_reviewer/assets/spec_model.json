@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-30T14:57:59.532872Z",
+  "generatedAt": "2026-06-30T15:20:56.304170Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
-  "classCount": 3075,
+  "classCount": 3080,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -81,7 +81,7 @@
       "type": "D10QualityAcceptancePlan",
       "title": "Quality & Acceptance Plan",
       "sectionId": "QAP",
-      "description": "Business-facing quality plan — quality framework, user / technical / operations / documentation criteria, prioritization, acceptance criteria summary, test strategy, and the full acceptance plan (criteria, process, UAT, defects, sign-off, warranty).",
+      "description": "Business-facing quality plan — quality framework, the eight ISO/IEC 25010:2023 product-quality characteristics plus an ISO/IEC 26514 documentation annex, prioritization, acceptance criteria summary, test strategy, and the full acceptance plan (criteria, process, UAT, defects, sign-off, warranty).",
       "doc": "QAP00 Quality & Acceptance Plan.\n\nFull quality plan combining quality goals and the acceptance plan."
     },
     {
@@ -169,7 +169,7 @@
     "AcceptanceCriteriaSummary": {
       "name": "AcceptanceCriteriaSummary",
       "sectionId": "ACCRSU",
-      "doc": "11.7. Acceptance Criteria Summary.\n\nQuality acceptance criteria for the project including must-pass criteria\nand quality gate checklists.",
+      "doc": "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).",
       "detailedIn": "D10QualityAcceptancePlan",
       "annotations": [
         {
@@ -283,6 +283,12 @@
           "kind": "complex",
           "doc": "11.7.2. Quality Gate Checklist.",
           "type": "QualityGateChecklist"
+        },
+        {
+          "name": "detailedCriteria",
+          "kind": "complex",
+          "doc": "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nThe single source of truth for the full set of traceable acceptance\ncriteria; this summary references — rather than duplicates — it. The same\n[AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.",
+          "type": "AcceptanceCriteriaList"
         },
         {
           "name": "acceptanceTestSummary",
@@ -11588,8 +11594,8 @@
         }
       ]
     },
-    "AvailabilityQuality": {
-      "name": "AvailabilityQuality",
+    "Availability": {
+      "name": "Availability",
       "sectionId": "AVQU",
       "doc": "11.4.1. Availability quality.",
       "annotations": [
@@ -11640,25 +11646,25 @@
           "name": "operatingHoursDetails",
           "kind": "complex",
           "doc": "Operating-hour expectations.",
-          "type": "AvailabilityQualityOperatingHours"
+          "type": "AvailabilityOperatingHours"
         },
         {
           "name": "maintenance",
           "kind": "complex",
           "doc": "Maintenance window policy.",
-          "type": "AvailabilityQualityMaintenance"
+          "type": "AvailabilityMaintenance"
         },
         {
           "name": "degradedMode",
           "kind": "complex",
           "doc": "Degraded-mode behavior.",
-          "type": "AvailabilityQualityDegradedMode"
+          "type": "AvailabilityDegradedMode"
         },
         {
           "name": "verification",
           "kind": "complex",
           "doc": "Monitoring and reporting.",
-          "type": "AvailabilityQualityVerification"
+          "type": "AvailabilityVerification"
         },
         {
           "name": "narrative",
@@ -11669,8 +11675,8 @@
         }
       ]
     },
-    "AvailabilityQualityDegradedMode": {
-      "name": "AvailabilityQualityDegradedMode",
+    "AvailabilityDegradedMode": {
+      "name": "AvailabilityDegradedMode",
       "sectionId": "AQDM",
       "doc": "Degraded-mode behavior.",
       "annotations": [
@@ -11719,8 +11725,8 @@
         }
       ]
     },
-    "AvailabilityQualityMaintenance": {
-      "name": "AvailabilityQualityMaintenance",
+    "AvailabilityMaintenance": {
+      "name": "AvailabilityMaintenance",
       "sectionId": "AVQUMA",
       "doc": "Maintenance window policy.",
       "annotations": [
@@ -11776,8 +11782,8 @@
         }
       ]
     },
-    "AvailabilityQualityOperatingHours": {
-      "name": "AvailabilityQualityOperatingHours",
+    "AvailabilityOperatingHours": {
+      "name": "AvailabilityOperatingHours",
       "sectionId": "AQOH",
       "doc": "Operating-hour expectations.",
       "annotations": [
@@ -11826,8 +11832,8 @@
         }
       ]
     },
-    "AvailabilityQualityVerification": {
-      "name": "AvailabilityQualityVerification",
+    "AvailabilityVerification": {
+      "name": "AvailabilityVerification",
       "sectionId": "AVQUVE",
       "doc": "Monitoring and reporting.",
       "annotations": [
@@ -27946,6 +27952,79 @@
         }
       ]
     },
+    "CompatibilityCharacteristic": {
+      "name": "CompatibilityCharacteristic",
+      "sectionId": "CMPT",
+      "doc": "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CMPT"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-CMP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "compatibilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "coExistenceRequirements",
+              "label": "Co-existence Requirements",
+              "hint": "Other products sharing the environment without adverse impact",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "interoperabilityStandards",
+              "label": "Interoperability Standards",
+              "hint": "Protocols/formats for exchanging and using information",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Compatibility overview.",
+          "help": "Executive summary of co-existence and interoperability goals.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of co-existence and interoperability goals."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        }
+      ]
+    },
     "CompatibilityRequirementsSection": {
       "name": "CompatibilityRequirementsSection",
       "sectionId": "CRS",
@@ -36415,8 +36494,8 @@
         }
       ]
     },
-    "CorrectnessQuality": {
-      "name": "CorrectnessQuality",
+    "Correctness": {
+      "name": "Correctness",
       "sectionId": "COQU",
       "doc": "11.2.3. Correctness quality.",
       "annotations": [
@@ -36467,19 +36546,19 @@
           "name": "integrity",
           "kind": "complex",
           "doc": "Data integrity expectations.",
-          "type": "CorrectnessQualityIntegrity"
+          "type": "CorrectnessIntegrity"
         },
         {
           "name": "accuracy",
           "kind": "complex",
           "doc": "Accuracy and auditability requirements.",
-          "type": "CorrectnessQualityAccuracy"
+          "type": "CorrectnessAccuracy"
         },
         {
           "name": "verification",
           "kind": "complex",
           "doc": "Verification and regression approach.",
-          "type": "CorrectnessQualityVerification"
+          "type": "CorrectnessVerification"
         },
         {
           "name": "narrative",
@@ -36490,8 +36569,8 @@
         }
       ]
     },
-    "CorrectnessQualityAccuracy": {
-      "name": "CorrectnessQualityAccuracy",
+    "CorrectnessAccuracy": {
+      "name": "CorrectnessAccuracy",
       "sectionId": "COQUAC",
       "doc": "Accuracy and auditability requirements.",
       "annotations": [
@@ -36540,8 +36619,8 @@
         }
       ]
     },
-    "CorrectnessQualityIntegrity": {
-      "name": "CorrectnessQualityIntegrity",
+    "CorrectnessIntegrity": {
+      "name": "CorrectnessIntegrity",
       "sectionId": "COQUIN",
       "doc": "Data integrity expectations.",
       "annotations": [
@@ -36590,8 +36669,8 @@
         }
       ]
     },
-    "CorrectnessQualityVerification": {
-      "name": "CorrectnessQualityVerification",
+    "CorrectnessVerification": {
+      "name": "CorrectnessVerification",
       "sectionId": "COQUVE",
       "doc": "Verification and regression approach.",
       "annotations": [
@@ -39924,7 +40003,7 @@
           "name": "Document",
           "arguments": {
             "name": "Quality & Acceptance Plan",
-            "description": "Business-facing quality plan — quality framework, user / technical / operations / documentation criteria, prioritization, acceptance criteria summary, test strategy, and the full acceptance plan (criteria, process, UAT, defects, sign-off, warranty).",
+            "description": "Business-facing quality plan — quality framework, the eight ISO/IEC 25010:2023 product-quality characteristics plus an ISO/IEC 26514 documentation annex, prioritization, acceptance criteria summary, test strategy, and the full acceptance plan (criteria, process, UAT, defects, sign-off, warranty).",
             "basedOn": [
               "D00SolutionBlueprint"
             ]
@@ -39965,27 +40044,57 @@
           "type": "QualityFramework"
         },
         {
-          "name": "userQualityCriteria",
+          "name": "functionalSuitability",
           "kind": "complex",
-          "doc": "User-related quality criteria.",
-          "type": "UserQualityCriteria"
+          "doc": "Functional suitability (ISO/IEC 25010:2023).",
+          "type": "FunctionalSuitabilityCharacteristic"
         },
         {
-          "name": "technicalQualityCriteria",
+          "name": "performanceEfficiency",
           "kind": "complex",
-          "doc": "Technical quality criteria.",
-          "type": "TechnicalQualityCriteria"
+          "doc": "Performance efficiency (ISO/IEC 25010:2023).",
+          "type": "PerformanceEfficiencyCharacteristic"
         },
         {
-          "name": "operationsQualityCriteria",
+          "name": "compatibility",
           "kind": "complex",
-          "doc": "Operations quality criteria.",
-          "type": "OperationsQualityCriteria"
+          "doc": "Compatibility (ISO/IEC 25010:2023).",
+          "type": "CompatibilityCharacteristic"
+        },
+        {
+          "name": "interactionCapability",
+          "kind": "complex",
+          "doc": "Interaction capability (ISO/IEC 25010:2023; formerly Usability).",
+          "type": "InteractionCapabilityCharacteristic"
+        },
+        {
+          "name": "reliability",
+          "kind": "complex",
+          "doc": "Reliability (ISO/IEC 25010:2023).",
+          "type": "ReliabilityCharacteristic"
+        },
+        {
+          "name": "security",
+          "kind": "complex",
+          "doc": "Security (ISO/IEC 25010:2023).",
+          "type": "SecurityCharacteristic"
+        },
+        {
+          "name": "maintainability",
+          "kind": "complex",
+          "doc": "Maintainability (ISO/IEC 25010:2023).",
+          "type": "MaintainabilityCharacteristic"
+        },
+        {
+          "name": "flexibility",
+          "kind": "complex",
+          "doc": "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
+          "type": "FlexibilityCharacteristic"
         },
         {
           "name": "documentationQualityCriteria",
           "kind": "complex",
-          "doc": "Documentation quality criteria.",
+          "doc": "Documentation quality (ISO/IEC 26514 annex).",
           "type": "DocumentationQualityCriteria"
         },
         {
@@ -59120,8 +59229,8 @@
         }
       ]
     },
-    "DocChangeabilityQuality": {
-      "name": "DocChangeabilityQuality",
+    "DocChangeability": {
+      "name": "DocChangeability",
       "sectionId": "DOCHQU",
       "doc": "11.5.4. Documentation changeability quality.",
       "annotations": [
@@ -59172,19 +59281,19 @@
           "name": "extensibility",
           "kind": "complex",
           "doc": "Extensibility and localization readiness.",
-          "type": "DocChangeabilityQualityExtensibility"
+          "type": "DocChangeabilityExtensibility"
         },
         {
           "name": "structure",
           "kind": "complex",
           "doc": "Sizing and structural consistency rules.",
-          "type": "DocChangeabilityQualityStructure"
+          "type": "DocChangeabilityStructure"
         },
         {
           "name": "maintenance",
           "kind": "complex",
           "doc": "Review and retirement maintenance process.",
-          "type": "DocChangeabilityQualityMaintenance"
+          "type": "DocChangeabilityMaintenance"
         },
         {
           "name": "narrative",
@@ -59195,8 +59304,8 @@
         }
       ]
     },
-    "DocChangeabilityQualityExtensibility": {
-      "name": "DocChangeabilityQualityExtensibility",
+    "DocChangeabilityExtensibility": {
+      "name": "DocChangeabilityExtensibility",
       "sectionId": "DCQE",
       "doc": "Extensibility and localization readiness.",
       "annotations": [
@@ -59245,8 +59354,8 @@
         }
       ]
     },
-    "DocChangeabilityQualityMaintenance": {
-      "name": "DocChangeabilityQualityMaintenance",
+    "DocChangeabilityMaintenance": {
+      "name": "DocChangeabilityMaintenance",
       "sectionId": "DCQM",
       "doc": "Review and retirement maintenance process.",
       "annotations": [
@@ -59288,8 +59397,8 @@
         }
       ]
     },
-    "DocChangeabilityQualityStructure": {
-      "name": "DocChangeabilityQualityStructure",
+    "DocChangeabilityStructure": {
+      "name": "DocChangeabilityStructure",
       "sectionId": "DCQS",
       "doc": "Sizing and structural consistency rules.",
       "annotations": [
@@ -59345,8 +59454,8 @@
         }
       ]
     },
-    "DocCompletenessQuality": {
-      "name": "DocCompletenessQuality",
+    "DocCompleteness": {
+      "name": "DocCompleteness",
       "sectionId": "DOCOQU",
       "doc": "11.5.2. Documentation completeness quality.",
       "annotations": [
@@ -59451,8 +59560,8 @@
         }
       ]
     },
-    "DocCorrectnessQuality": {
-      "name": "DocCorrectnessQuality",
+    "DocCorrectness": {
+      "name": "DocCorrectness",
       "sectionId": "DOCOQ1",
       "doc": "11.5.3. Documentation correctness quality.",
       "annotations": [
@@ -59510,13 +59619,13 @@
           "name": "alignment",
           "kind": "complex",
           "doc": "Formatting and implementation alignment.",
-          "type": "DocCorrectnessQualityAlignment"
+          "type": "DocCorrectnessAlignment"
         },
         {
           "name": "verification",
           "kind": "complex",
           "doc": "Verification and feedback handling.",
-          "type": "DocCorrectnessQualityVerification"
+          "type": "DocCorrectnessVerification"
         },
         {
           "name": "narrative",
@@ -59527,8 +59636,8 @@
         }
       ]
     },
-    "DocCorrectnessQualityAlignment": {
-      "name": "DocCorrectnessQualityAlignment",
+    "DocCorrectnessAlignment": {
+      "name": "DocCorrectnessAlignment",
       "sectionId": "DCQA",
       "doc": "Formatting and implementation alignment.",
       "annotations": [
@@ -59591,8 +59700,8 @@
         }
       ]
     },
-    "DocCorrectnessQualityVerification": {
-      "name": "DocCorrectnessQualityVerification",
+    "DocCorrectnessVerification": {
+      "name": "DocCorrectnessVerification",
       "sectionId": "DCQV",
       "doc": "Verification and feedback handling.",
       "annotations": [
@@ -60153,7 +60262,7 @@
     "DocumentationQualityCriteria": {
       "name": "DocumentationQualityCriteria",
       "sectionId": "DOQUCR",
-      "doc": "11.5. Documentation Quality Criteria.\n\nQuality criteria for project documentation including readability,\ncompleteness, correctness, and changeability.",
+      "doc": "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.",
       "detailedIn": "D10QualityAcceptancePlan",
       "annotations": [
         {
@@ -60253,25 +60362,25 @@
           "name": "readability",
           "kind": "complex",
           "doc": "11.5.1. Readability.",
-          "type": "ReadabilityQuality"
+          "type": "Readability"
         },
         {
           "name": "completeness",
           "kind": "complex",
           "doc": "11.5.2. Completeness.",
-          "type": "DocCompletenessQuality"
+          "type": "DocCompleteness"
         },
         {
           "name": "correctness",
           "kind": "complex",
           "doc": "11.5.3. Correctness.",
-          "type": "DocCorrectnessQuality"
+          "type": "DocCorrectness"
         },
         {
           "name": "changeability",
           "kind": "complex",
           "doc": "11.5.4. Changeability.",
-          "type": "DocChangeabilityQuality"
+          "type": "DocChangeability"
         }
       ]
     },
@@ -61981,8 +62090,8 @@
         }
       ]
     },
-    "EfficiencyQuality": {
-      "name": "EfficiencyQuality",
+    "Efficiency": {
+      "name": "Efficiency",
       "sectionId": "EFQU",
       "doc": "11.3.1. Efficiency quality.",
       "annotations": [
@@ -62033,19 +62142,19 @@
           "name": "throughput",
           "kind": "complex",
           "doc": "Throughput and scale targets.",
-          "type": "EfficiencyQualityThroughput"
+          "type": "EfficiencyThroughput"
         },
         {
           "name": "resources",
           "kind": "complex",
           "doc": "Resource utilization constraints.",
-          "type": "EfficiencyQualityResources"
+          "type": "EfficiencyResources"
         },
         {
           "name": "verification",
           "kind": "complex",
           "doc": "Performance validation and SLA commitments.",
-          "type": "EfficiencyQualityVerification"
+          "type": "EfficiencyVerification"
         },
         {
           "name": "narrative",
@@ -62056,8 +62165,8 @@
         }
       ]
     },
-    "EfficiencyQualityResources": {
-      "name": "EfficiencyQualityResources",
+    "EfficiencyResources": {
+      "name": "EfficiencyResources",
       "sectionId": "EFQURE",
       "doc": "Resource utilization constraints.",
       "annotations": [
@@ -62113,8 +62222,8 @@
         }
       ]
     },
-    "EfficiencyQualityThroughput": {
-      "name": "EfficiencyQualityThroughput",
+    "EfficiencyThroughput": {
+      "name": "EfficiencyThroughput",
       "sectionId": "EFQUTH",
       "doc": "Throughput and scale targets.",
       "annotations": [
@@ -62163,8 +62272,8 @@
         }
       ]
     },
-    "EfficiencyQualityVerification": {
-      "name": "EfficiencyQualityVerification",
+    "EfficiencyVerification": {
+      "name": "EfficiencyVerification",
       "sectionId": "EFQUVE",
       "doc": "Performance validation and SLA commitments.",
       "annotations": [
@@ -74834,8 +74943,8 @@
         }
       ]
     },
-    "FlexibilityQuality": {
-      "name": "FlexibilityQuality",
+    "Flexibility": {
+      "name": "Flexibility",
       "sectionId": "FLQU",
       "doc": "11.3.3. Flexibility quality.",
       "annotations": [
@@ -74886,19 +74995,19 @@
           "name": "modularity",
           "kind": "complex",
           "doc": "Modularity and reuse goals.",
-          "type": "FlexibilityQualityModularity"
+          "type": "FlexibilityModularity"
         },
         {
           "name": "deployment",
           "kind": "complex",
           "doc": "Distribution and configurability model.",
-          "type": "FlexibilityQualityDeployment"
+          "type": "FlexibilityDeployment"
         },
         {
           "name": "extensibility",
           "kind": "complex",
           "doc": "Extensibility and verification expectations.",
-          "type": "FlexibilityQualityExtensibility"
+          "type": "FlexibilityExtensibility"
         },
         {
           "name": "narrative",
@@ -74909,8 +75018,93 @@
         }
       ]
     },
-    "FlexibilityQualityDeployment": {
-      "name": "FlexibilityQualityDeployment",
+    "FlexibilityCharacteristic": {
+      "name": "FlexibilityCharacteristic",
+      "sectionId": "FLXC",
+      "doc": "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FLXC"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-FLX"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "flexibilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "flexibilityApproach",
+              "label": "Flexibility Approach",
+              "hint": "How adaptability, scalability and portability are achieved",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "portabilityTarget",
+              "label": "Portability Target",
+              "hint": "Target environments/platforms the product must run on",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Flexibility overview.",
+          "help": "Executive summary of flexibility, adaptability and portability goals.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of flexibility, adaptability and portability goals."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "flexibility",
+          "kind": "complex",
+          "doc": "11.9.1. Flexibility (adaptability/scalability/extensibility).",
+          "type": "Flexibility"
+        },
+        {
+          "name": "portability",
+          "kind": "complex",
+          "doc": "11.9.2. Portability.",
+          "type": "Portability"
+        }
+      ]
+    },
+    "FlexibilityDeployment": {
+      "name": "FlexibilityDeployment",
       "sectionId": "FLQUDE",
       "doc": "Distribution and configurability model.",
       "annotations": [
@@ -74959,8 +75153,8 @@
         }
       ]
     },
-    "FlexibilityQualityExtensibility": {
-      "name": "FlexibilityQualityExtensibility",
+    "FlexibilityExtensibility": {
+      "name": "FlexibilityExtensibility",
       "sectionId": "FLQUEX",
       "doc": "Extensibility and verification expectations.",
       "annotations": [
@@ -75009,8 +75203,8 @@
         }
       ]
     },
-    "FlexibilityQualityModularity": {
-      "name": "FlexibilityQualityModularity",
+    "FlexibilityModularity": {
+      "name": "FlexibilityModularity",
       "sectionId": "FLQUMO",
       "doc": "Modularity and reuse goals.",
       "annotations": [
@@ -76110,8 +76304,8 @@
         }
       ]
     },
-    "FunctionalCompletenessQuality": {
-      "name": "FunctionalCompletenessQuality",
+    "FunctionalCompleteness": {
+      "name": "FunctionalCompleteness",
       "sectionId": "FNCOQ",
       "doc": "11.2.2. Functional completeness quality.",
       "annotations": [
@@ -76858,6 +77052,98 @@
           ],
           "elementType": "ResponsibilityEntry",
           "elementIsComplex": true
+        }
+      ]
+    },
+    "FunctionalSuitabilityCharacteristic": {
+      "name": "FunctionalSuitabilityCharacteristic",
+      "sectionId": "FNSU",
+      "doc": "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FNSU"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-FSU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "functionalSuitabilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "functionalSuitabilityApproach",
+              "label": "Functional Suitability Approach",
+              "hint": "How functional completeness and correctness are assured",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "functionalCoverageTarget",
+              "label": "Functional Coverage Target",
+              "hint": "Required vs. optional feature coverage",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "correctnessStandard",
+              "label": "Correctness Standard",
+              "hint": "Acceptable defect density, accuracy thresholds",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Functional suitability overview.",
+          "help": "Executive summary of functional-suitability goals, coverage targets, and correctness metrics.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of functional-suitability goals, coverage targets, and correctness metrics."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "functionalCompleteness",
+          "kind": "complex",
+          "doc": "11.2.1. Functional Completeness.",
+          "type": "FunctionalCompleteness"
+        },
+        {
+          "name": "correctness",
+          "kind": "complex",
+          "doc": "11.2.2. Correctness.",
+          "type": "Correctness"
         }
       ]
     },
@@ -85664,6 +85950,113 @@
         }
       ]
     },
+    "InteractionCapabilityCharacteristic": {
+      "name": "InteractionCapabilityCharacteristic",
+      "sectionId": "INCP",
+      "doc": "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "INCP"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-ICP"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "interactionCapabilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "userQualityPhilosophy",
+              "label": "User Quality Philosophy",
+              "hint": "User-first, balanced, efficiency-focused",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "targetUserExperience",
+              "label": "Target User Experience",
+              "hint": "Delightful, efficient, adequate, minimal",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "userResearchBasis",
+              "label": "User Research Basis",
+              "hint": "Personas, surveys, interviews, analytics",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "userFeedbackChannel",
+              "label": "User Feedback Channel",
+              "hint": "How user quality feedback is collected",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "userSatisfactionTarget",
+              "label": "User Satisfaction Target",
+              "hint": "NPS > 50, CSAT > 80%, etc.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "accessibilityLevel",
+              "label": "Accessibility Level",
+              "hint": "WCAG 2.1 AA, AAA, Section 508",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Interaction capability overview.",
+          "help": "Executive summary of interaction-capability goals, target user experience, and key user-quality metrics.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of interaction-capability goals, target user experience, and key user-quality metrics."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "usability",
+          "kind": "complex",
+          "doc": "11.5.1. Usability.",
+          "type": "Usability"
+        }
+      ]
+    },
     "InteractionCatalog": {
       "name": "InteractionCatalog",
       "sectionId": "INCA",
@@ -90150,7 +90543,7 @@
     "Iso25010Coverage": {
       "name": "Iso25010Coverage",
       "sectionId": "I25CV",
-      "doc": "ISO/IEC 25010 product-quality cross-map.\n\nMaps the system's quality goals onto the eight ISO/IEC 25010 product\nquality characteristics so that compatibility and portability cannot be\nsilently missed.",
+      "doc": "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.",
       "annotations": [
         {
           "name": "SectionId",
@@ -90168,7 +90561,7 @@
               "name": "ContentType",
               "arguments": {
                 "type": "description",
-                "description": "Summarize how the quality goals cover the eight ISO/IEC 25010 characteristics."
+                "description": "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy."
               }
             }
           ],
@@ -90177,8 +90570,8 @@
         {
           "name": "characteristics",
           "kind": "list",
-          "doc": "One entry per ISO/IEC 25010 characteristic addressed.",
-          "help": "Add one entry per ISO/IEC 25010 characteristic (functional suitability, performance efficiency, compatibility, usability, reliability, security, maintainability, portability).",
+          "doc": "One entry per ISO/IEC 25010:2023 characteristic addressed.",
+          "help": "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).",
           "sectionId": "I25CV-CHAR-LST",
           "sectionIdPattern": "I25CV-CHAR-xxx",
           "annotations": [
@@ -90197,7 +90590,7 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add one entry per ISO/IEC 25010 characteristic (functional suitability, performance efficiency, compatibility, usability, reliability, security, maintainability, portability)."
+                "guidance": "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility)."
               }
             }
           ],
@@ -90209,7 +90602,7 @@
     "Iso25010CoverageEntry": {
       "name": "Iso25010CoverageEntry",
       "sectionId": "I25CE",
-      "doc": "A single ISO/IEC 25010 coverage entry (form).",
+      "doc": "A single ISO/IEC 25010:2023 coverage entry (form).",
       "annotations": [
         {
           "name": "SectionId",
@@ -90233,8 +90626,8 @@
           "formFields": [
             {
               "name": "characteristic",
-              "label": "ISO/IEC 25010 Characteristic",
-              "type": "String",
+              "label": "ISO/IEC 25010:2023 Characteristic",
+              "type": "Iso25010Characteristic",
               "required": true
             },
             {
@@ -90349,8 +90742,8 @@
         }
       ]
     },
-    "ItSecurityOperationsQuality": {
-      "name": "ItSecurityOperationsQuality",
+    "ItSecurityOperations": {
+      "name": "ItSecurityOperations",
       "sectionId": "ISOQ",
       "doc": "11.4.4. IT Security Operations quality.",
       "annotations": [
@@ -90400,25 +90793,25 @@
           "name": "access",
           "kind": "complex",
           "doc": "Access protection controls.",
-          "type": "ItSecurityOperationsQualityAccess"
+          "type": "ItSecurityOperationsAccess"
         },
         {
           "name": "recovery",
           "kind": "complex",
           "doc": "Disaster recovery planning details.",
-          "type": "ItSecurityOperationsQualityRecovery"
+          "type": "ItSecurityOperationsRecovery"
         },
         {
           "name": "testing",
           "kind": "complex",
           "doc": "Penetration testing and remediation.",
-          "type": "ItSecurityOperationsQualityTesting"
+          "type": "ItSecurityOperationsTesting"
         },
         {
           "name": "incident",
           "kind": "complex",
           "doc": "Incident handling and reporting.",
-          "type": "ItSecurityOperationsQualityIncident"
+          "type": "ItSecurityOperationsIncident"
         },
         {
           "name": "narrative",
@@ -90429,8 +90822,8 @@
         }
       ]
     },
-    "ItSecurityOperationsQualityAccess": {
-      "name": "ItSecurityOperationsQualityAccess",
+    "ItSecurityOperationsAccess": {
+      "name": "ItSecurityOperationsAccess",
       "sectionId": "ISOQA",
       "doc": "Access protection controls.",
       "annotations": [
@@ -90479,8 +90872,8 @@
         }
       ]
     },
-    "ItSecurityOperationsQualityIncident": {
-      "name": "ItSecurityOperationsQualityIncident",
+    "ItSecurityOperationsIncident": {
+      "name": "ItSecurityOperationsIncident",
       "sectionId": "ISOQI",
       "doc": "Incident handling and reporting.",
       "annotations": [
@@ -90536,8 +90929,8 @@
         }
       ]
     },
-    "ItSecurityOperationsQualityRecovery": {
-      "name": "ItSecurityOperationsQualityRecovery",
+    "ItSecurityOperationsRecovery": {
+      "name": "ItSecurityOperationsRecovery",
       "sectionId": "ISOQR",
       "doc": "Disaster recovery planning details.",
       "annotations": [
@@ -90593,8 +90986,8 @@
         }
       ]
     },
-    "ItSecurityOperationsQualityTesting": {
-      "name": "ItSecurityOperationsQualityTesting",
+    "ItSecurityOperationsTesting": {
+      "name": "ItSecurityOperationsTesting",
       "sectionId": "ISOQT",
       "doc": "Penetration testing and remediation.",
       "annotations": [
@@ -96054,8 +96447,8 @@
         }
       ]
     },
-    "MaintainabilityQuality": {
-      "name": "MaintainabilityQuality",
+    "Maintainability": {
+      "name": "Maintainability",
       "sectionId": "MAQU",
       "doc": "11.3.5. Maintainability quality.",
       "annotations": [
@@ -96099,25 +96492,25 @@
           "name": "analyzability",
           "kind": "complex",
           "doc": "Analyzability requirements.",
-          "type": "MaintainabilityQualityAnalyzability"
+          "type": "MaintainabilityAnalyzability"
         },
         {
           "name": "changeability",
           "kind": "complex",
           "doc": "Changeability requirements.",
-          "type": "MaintainabilityQualityChangeability"
+          "type": "MaintainabilityChangeability"
         },
         {
           "name": "testability",
           "kind": "complex",
           "doc": "Testability requirements.",
-          "type": "MaintainabilityQualityTestability"
+          "type": "MaintainabilityTestability"
         },
         {
           "name": "governance",
           "kind": "complex",
           "doc": "Extensibility and verification requirements.",
-          "type": "MaintainabilityQualityGovernance"
+          "type": "MaintainabilityGovernance"
         },
         {
           "name": "narrative",
@@ -96128,8 +96521,8 @@
         }
       ]
     },
-    "MaintainabilityQualityAnalyzability": {
-      "name": "MaintainabilityQualityAnalyzability",
+    "MaintainabilityAnalyzability": {
+      "name": "MaintainabilityAnalyzability",
       "sectionId": "MAQUAN",
       "doc": "Analyzability requirements.",
       "annotations": [
@@ -96178,8 +96571,8 @@
         }
       ]
     },
-    "MaintainabilityQualityChangeability": {
-      "name": "MaintainabilityQualityChangeability",
+    "MaintainabilityChangeability": {
+      "name": "MaintainabilityChangeability",
       "sectionId": "MAQUCH",
       "doc": "Changeability requirements.",
       "annotations": [
@@ -96235,8 +96628,87 @@
         }
       ]
     },
-    "MaintainabilityQualityGovernance": {
-      "name": "MaintainabilityQualityGovernance",
+    "MaintainabilityCharacteristic": {
+      "name": "MaintainabilityCharacteristic",
+      "sectionId": "MNTC",
+      "doc": "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MNTC"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-MNT"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "maintainabilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "maintainabilityApproach",
+              "label": "Maintainability Approach",
+              "hint": "Modularity, analyzability, testability priorities",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maintainabilityStandard",
+              "label": "Maintainability Standard",
+              "hint": "Complexity thresholds, test-coverage targets",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Maintainability overview.",
+          "help": "Executive summary of maintainability goals and standards.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of maintainability goals and standards."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "maintainability",
+          "kind": "complex",
+          "doc": "11.8.1. Maintainability (product maintainability attributes).",
+          "type": "Maintainability"
+        }
+      ]
+    },
+    "MaintainabilityGovernance": {
+      "name": "MaintainabilityGovernance",
       "sectionId": "MAQUGO",
       "doc": "Extensibility and verification requirements.",
       "annotations": [
@@ -96292,8 +96764,8 @@
         }
       ]
     },
-    "MaintainabilityQualityTestability": {
-      "name": "MaintainabilityQualityTestability",
+    "MaintainabilityTestability": {
+      "name": "MaintainabilityTestability",
       "sectionId": "MAQUTE",
       "doc": "Testability requirements.",
       "annotations": [
@@ -104580,6 +105052,63 @@
         }
       ]
     },
+    "MonitoringAlerting": {
+      "name": "MonitoringAlerting",
+      "sectionId": "MOQUAL",
+      "doc": "Alerting strategy and channels.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MOQUAL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "alertingStrategy",
+              "label": "Alerting Strategy",
+              "hint": "Threshold-based, anomaly detection",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "alertPrioritization",
+              "label": "Alert Prioritization",
+              "hint": "How alerts are prioritized",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "alertNotificationChannels",
+              "label": "Notification Channels",
+              "hint": "Slack, PagerDuty, email, SMS",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "alertFatiguePrevention",
+              "label": "Alert Fatigue Prevention",
+              "hint": "De-duplication, correlation",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "MonitoringAndAlertingSection": {
       "name": "MonitoringAndAlertingSection",
       "sectionId": "MAAS",
@@ -104697,6 +105226,113 @@
           "kind": "complex",
           "doc": "SLA monitoring.",
           "type": "SlaMonitoringRequirements"
+        }
+      ]
+    },
+    "MonitoringAutomation": {
+      "name": "MonitoringAutomation",
+      "sectionId": "MOQUAU",
+      "doc": "Alert automation capabilities.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MOQUAU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "alertAutomation",
+              "label": "Alert Automation",
+              "hint": "Automated response to alerts",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "selfHealingCapability",
+              "label": "Self-Healing Capability",
+              "hint": "Auto-recovery mechanisms",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "runbookAutomation",
+              "label": "Runbook Automation",
+              "hint": "Automated runbook execution",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "MonitoringCoverage": {
+      "name": "MonitoringCoverage",
+      "sectionId": "MOQUCO",
+      "doc": "Component monitoring coverage.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MOQUCO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "infrastructureMonitoring",
+              "label": "Infrastructure Monitoring",
+              "hint": "Servers, containers, network",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "applicationMonitoring",
+              "label": "Application Monitoring",
+              "hint": "APM, logs, traces",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "databaseMonitoring",
+              "label": "Database Monitoring",
+              "hint": "Queries, connections, storage",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "thirdPartyMonitoring",
+              "label": "Third-Party Monitoring",
+              "hint": "External service monitoring",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -105091,282 +105727,8 @@
         }
       ]
     },
-    "MonitoringProcedureEntry": {
-      "name": "MonitoringProcedureEntry",
-      "sectionId": "MONIT",
-      "doc": "A single monitoring procedure entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MONIT"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "MonitoringQuality": {
-      "name": "MonitoringQuality",
-      "sectionId": "MOQU",
-      "doc": "11.4.3. Monitoring quality.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MOQU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "scalabilityMonitoringApproach",
-              "label": "Scalability Monitoring",
-              "hint": "Auto-scaling triggers, capacity alerts",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "capacityPlanningProcess",
-              "label": "Capacity Planning Process",
-              "hint": "How capacity is planned",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "growthProjections",
-              "label": "Growth Projections",
-              "hint": "Expected growth rate",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "coverage",
-          "kind": "complex",
-          "doc": "Component monitoring coverage.",
-          "type": "MonitoringQualityCoverage"
-        },
-        {
-          "name": "automation",
-          "kind": "complex",
-          "doc": "Alert automation capabilities.",
-          "type": "MonitoringQualityAutomation"
-        },
-        {
-          "name": "alerting",
-          "kind": "complex",
-          "doc": "Alerting strategy and channels.",
-          "type": "MonitoringQualityAlerting"
-        },
-        {
-          "name": "operations",
-          "kind": "complex",
-          "doc": "Planning and observability settings.",
-          "type": "MonitoringQualityOperations"
-        },
-        {
-          "name": "narrative",
-          "kind": "section",
-          "doc": "Detailed monitoring requirements narrative.",
-          "contentType": "text",
-          "sectionType": "TextSection"
-        }
-      ]
-    },
-    "MonitoringQualityAlerting": {
-      "name": "MonitoringQualityAlerting",
-      "sectionId": "MOQUAL",
-      "doc": "Alerting strategy and channels.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MOQUAL"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "alertingStrategy",
-              "label": "Alerting Strategy",
-              "hint": "Threshold-based, anomaly detection",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "alertPrioritization",
-              "label": "Alert Prioritization",
-              "hint": "How alerts are prioritized",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "alertNotificationChannels",
-              "label": "Notification Channels",
-              "hint": "Slack, PagerDuty, email, SMS",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "alertFatiguePrevention",
-              "label": "Alert Fatigue Prevention",
-              "hint": "De-duplication, correlation",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "MonitoringQualityAutomation": {
-      "name": "MonitoringQualityAutomation",
-      "sectionId": "MOQUAU",
-      "doc": "Alert automation capabilities.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MOQUAU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "alertAutomation",
-              "label": "Alert Automation",
-              "hint": "Automated response to alerts",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "selfHealingCapability",
-              "label": "Self-Healing Capability",
-              "hint": "Auto-recovery mechanisms",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "runbookAutomation",
-              "label": "Runbook Automation",
-              "hint": "Automated runbook execution",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "MonitoringQualityCoverage": {
-      "name": "MonitoringQualityCoverage",
-      "sectionId": "MOQUCO",
-      "doc": "Component monitoring coverage.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MOQUCO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "infrastructureMonitoring",
-              "label": "Infrastructure Monitoring",
-              "hint": "Servers, containers, network",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "applicationMonitoring",
-              "label": "Application Monitoring",
-              "hint": "APM, logs, traces",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "databaseMonitoring",
-              "label": "Database Monitoring",
-              "hint": "Queries, connections, storage",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "thirdPartyMonitoring",
-              "label": "Third-Party Monitoring",
-              "hint": "External service monitoring",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "MonitoringQualityOperations": {
-      "name": "MonitoringQualityOperations",
+    "MonitoringOperations": {
+      "name": "MonitoringOperations",
       "sectionId": "MOQUOP",
       "doc": "Planning and observability settings.",
       "annotations": [
@@ -105426,6 +105788,35 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "MonitoringProcedureEntry": {
+      "name": "MonitoringProcedureEntry",
+      "sectionId": "MONIT",
+      "doc": "A single monitoring procedure entry.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MONIT"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "text",
+                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
+              }
+            }
+          ],
+          "contentType": "text"
         }
       ]
     },
@@ -112265,6 +112656,87 @@
         }
       ]
     },
+    "OperationalMonitoring": {
+      "name": "OperationalMonitoring",
+      "sectionId": "MOQU",
+      "doc": "11.4.3. Monitoring quality.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MOQU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "scalabilityMonitoringApproach",
+              "label": "Scalability Monitoring",
+              "hint": "Auto-scaling triggers, capacity alerts",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "capacityPlanningProcess",
+              "label": "Capacity Planning Process",
+              "hint": "How capacity is planned",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "growthProjections",
+              "label": "Growth Projections",
+              "hint": "Expected growth rate",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "coverage",
+          "kind": "complex",
+          "doc": "Component monitoring coverage.",
+          "type": "MonitoringCoverage"
+        },
+        {
+          "name": "automation",
+          "kind": "complex",
+          "doc": "Alert automation capabilities.",
+          "type": "MonitoringAutomation"
+        },
+        {
+          "name": "alerting",
+          "kind": "complex",
+          "doc": "Alerting strategy and channels.",
+          "type": "MonitoringAlerting"
+        },
+        {
+          "name": "operations",
+          "kind": "complex",
+          "doc": "Planning and observability settings.",
+          "type": "MonitoringOperations"
+        },
+        {
+          "name": "narrative",
+          "kind": "section",
+          "doc": "Detailed monitoring requirements narrative.",
+          "contentType": "text",
+          "sectionType": "TextSection"
+        }
+      ]
+    },
     "OperationalPainPoints": {
       "name": "OperationalPainPoints",
       "sectionId": "OPPAPO",
@@ -112384,131 +112856,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "OperationsQualityCriteria": {
-      "name": "OperationsQualityCriteria",
-      "sectionId": "OPQUCR",
-      "doc": "11.4. Operations Quality Criteria.\n\nQuality criteria for system operations including availability, service\nlevels, monitoring, and IT security operations.",
-      "detailedIn": "D10QualityAcceptancePlan",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "OPQUCR"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-OPE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "operationsOverviewContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "operationsMaturityModel",
-              "label": "Operations Maturity Model",
-              "hint": "ITIL, DevOps, SRE",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "operationsPhilosophy",
-              "label": "Operations Philosophy",
-              "hint": "Ops-driven, DevOps, NoOps",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "operationsResponsibility",
-              "label": "Operations Responsibility",
-              "hint": "Dedicated team, shared, outsourced",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "incidentManagementProcess",
-              "label": "Incident Management Process",
-              "hint": "PagerDuty, custom, ITIL-based",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "changeManagementProcess",
-              "label": "Change Management Process",
-              "hint": "ITIL change management, lightweight",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "operationsToolchain",
-              "label": "Operations Toolchain",
-              "hint": "Key ops tools and platforms",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "overview",
-          "kind": "section",
-          "doc": "Operations quality overview narrative.",
-          "help": "Executive summary of operational requirements, support model, and key operational metrics.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Executive summary of operational requirements, support model, and key operational metrics."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "availability",
-          "kind": "complex",
-          "doc": "11.4.1. Availability.",
-          "type": "AvailabilityQuality"
-        },
-        {
-          "name": "serviceLevelRequirements",
-          "kind": "complex",
-          "doc": "11.4.2. Service Level Requirements.",
-          "type": "ServiceLevelQuality"
-        },
-        {
-          "name": "monitoringAndPrevention",
-          "kind": "complex",
-          "doc": "11.4.3. Monitoring and Prevention.",
-          "type": "MonitoringQuality"
-        },
-        {
-          "name": "itSecurityOperations",
-          "kind": "complex",
-          "doc": "11.4.4. IT Security Operations.",
-          "type": "ItSecurityOperationsQuality"
         }
       ]
     },
@@ -117193,6 +117540,106 @@
         }
       ]
     },
+    "PerformanceEfficiencyCharacteristic": {
+      "name": "PerformanceEfficiencyCharacteristic",
+      "sectionId": "PEEF",
+      "doc": "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "PEEF"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-PEF"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "performanceEfficiencyContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "technicalQualityPhilosophy",
+              "label": "Technical Quality Philosophy",
+              "hint": "Performance-first, maintainability-first, balanced",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "architecturalQualityGoals",
+              "label": "Architectural Quality Goals",
+              "hint": "Key architectural quality attributes",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "technicalDebtTolerance",
+              "label": "Technical Debt Tolerance",
+              "hint": "Zero, controlled, pragmatic",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "codeQualityStandard",
+              "label": "Code Quality Standard",
+              "hint": "Style guide, linting rules",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "designPrinciplesAdherence",
+              "label": "Design Principles Adherence",
+              "hint": "SOLID, DRY, KISS, YAGNI",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Performance efficiency overview.",
+          "help": "Executive summary of performance-efficiency goals, architectural decisions, and key technical metrics.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of performance-efficiency goals, architectural decisions, and key technical metrics."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "efficiency",
+          "kind": "complex",
+          "doc": "11.3.1. Efficiency.",
+          "type": "Efficiency"
+        }
+      ]
+    },
     "PeriodicReviewPolicy": {
       "name": "PeriodicReviewPolicy",
       "sectionId": "PEREPO",
@@ -119748,8 +120195,8 @@
         }
       ]
     },
-    "PortabilityQuality": {
-      "name": "PortabilityQuality",
+    "Portability": {
+      "name": "Portability",
       "sectionId": "POQU",
       "doc": "11.3.2. Portability quality.",
       "annotations": [
@@ -129448,7 +129895,7 @@
     "QualityAndAcceptanceModel": {
       "name": "QualityAndAcceptanceModel",
       "sectionId": "QACM",
-      "doc": "SBP.14 Quality & Acceptance Model.\n\nPublic anchor: ISO/IEC 25010 product quality.",
+      "doc": "SBP.14 Quality & Acceptance Model.\n\nPublic anchor: ISO/IEC 25010:2023 product quality.",
       "annotations": [
         {
           "name": "SectionId",
@@ -129483,7 +129930,7 @@
         {
           "name": "iso25010Coverage",
           "kind": "complex",
-          "doc": "ISO/IEC 25010 product-quality cross-map (§5 completeness addition).",
+          "doc": "ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).",
           "type": "Iso25010Coverage"
         }
       ]
@@ -131065,6 +131512,233 @@
         }
       ]
     },
+    "QualityGoalsBaseline": {
+      "name": "QualityGoalsBaseline",
+      "sectionId": "SQGBS",
+      "doc": "Baseline and target settings.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SQGBS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "qualityBaselineDate",
+              "label": "Quality Baseline Date",
+              "hint": "When quality targets were baselined",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityBaselineVersion",
+              "label": "Baseline Version",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "overallQualityTargetLevel",
+              "label": "Overall Quality Target Level",
+              "hint": "High, production-grade, MVP-acceptable",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityRiskTolerance",
+              "label": "Quality Risk Tolerance",
+              "hint": "Low (zero defects), medium, high tolerance",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "QualityGoalsGovernance": {
+      "name": "QualityGoalsGovernance",
+      "sectionId": "SQGGV",
+      "doc": "Governance board and escalation details.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SQGGV"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "qualityReviewBoard",
+              "label": "Quality Review Board",
+              "hint": "Governance body for quality decisions",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityMeetingCadence",
+              "label": "Quality Meeting Cadence",
+              "hint": "Weekly, bi-weekly, sprint-aligned",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityEscalationPath",
+              "label": "Escalation Path",
+              "hint": "How quality issues escalate to leadership",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "QualityGoalsMeasurement": {
+      "name": "QualityGoalsMeasurement",
+      "sectionId": "SQGMS",
+      "doc": "Measurement and reporting approach.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SQGMS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "qualityMetricsFramework",
+              "label": "Metrics Framework",
+              "hint": "How quality is measured: GQM, balanced scorecard",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityReportingFrequency",
+              "label": "Reporting Frequency",
+              "hint": "Daily, weekly, sprint, release",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityDashboardTool",
+              "label": "Quality Dashboard Tool",
+              "hint": "SonarQube, custom dashboard, spreadsheet",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defectTrackingSystem",
+              "label": "Defect Tracking System",
+              "hint": "Jira, Azure DevOps, GitHub Issues",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityTrendAnalysis",
+              "label": "Trend Analysis Approach",
+              "hint": "How quality trends are tracked over time",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "QualityGoalsResources": {
+      "name": "QualityGoalsResources",
+      "sectionId": "SQGRS",
+      "doc": "Quality resources and enablement.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SQGRS"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "qualityBudget",
+              "label": "Quality Budget",
+              "hint": "Budget allocated for QA activities",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qaTeamSize",
+              "label": "QA Team Size",
+              "hint": "Number of dedicated QA resources",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "testAutomationTarget",
+              "label": "Test Automation Target %",
+              "hint": "Target percentage of automated tests",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "qualityTrainingPlan",
+              "label": "Quality Training Plan",
+              "hint": "Training for team on quality practices",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "QualityPrioritization": {
       "name": "QualityPrioritization",
       "sectionId": "QUPR",
@@ -131915,8 +132589,8 @@
         }
       ]
     },
-    "ReadabilityQuality": {
-      "name": "ReadabilityQuality",
+    "Readability": {
+      "name": "Readability",
       "sectionId": "REQU1",
       "doc": "11.5.1. Readability quality.",
       "annotations": [
@@ -131967,25 +132641,25 @@
           "name": "navigation",
           "kind": "complex",
           "doc": "Identifiability and navigation.",
-          "type": "ReadabilityQualityNavigation"
+          "type": "ReadabilityNavigation"
         },
         {
           "name": "comprehensibility",
           "kind": "complex",
           "doc": "Comprehensibility requirements.",
-          "type": "ReadabilityQualityComprehensibility"
+          "type": "ReadabilityComprehensibility"
         },
         {
           "name": "structure",
           "kind": "complex",
           "doc": "Document structure rules.",
-          "type": "ReadabilityQualityStructure"
+          "type": "ReadabilityStructure"
         },
         {
           "name": "style",
           "kind": "complex",
           "doc": "Style guide alignment.",
-          "type": "ReadabilityQualityStyle"
+          "type": "ReadabilityStyle"
         },
         {
           "name": "narrative",
@@ -131996,8 +132670,8 @@
         }
       ]
     },
-    "ReadabilityQualityComprehensibility": {
-      "name": "ReadabilityQualityComprehensibility",
+    "ReadabilityComprehensibility": {
+      "name": "ReadabilityComprehensibility",
       "sectionId": "REQUCO",
       "doc": "Comprehensibility requirements.",
       "annotations": [
@@ -132046,8 +132720,8 @@
         }
       ]
     },
-    "ReadabilityQualityNavigation": {
-      "name": "ReadabilityQualityNavigation",
+    "ReadabilityNavigation": {
+      "name": "ReadabilityNavigation",
       "sectionId": "REQUNA",
       "doc": "Identifiability and navigation.",
       "annotations": [
@@ -132096,8 +132770,8 @@
         }
       ]
     },
-    "ReadabilityQualityStructure": {
-      "name": "ReadabilityQualityStructure",
+    "ReadabilityStructure": {
+      "name": "ReadabilityStructure",
       "sectionId": "REQUST",
       "doc": "Document structure rules.",
       "annotations": [
@@ -132146,8 +132820,8 @@
         }
       ]
     },
-    "ReadabilityQualityStyle": {
-      "name": "ReadabilityQualityStyle",
+    "ReadabilityStyle": {
+      "name": "ReadabilityStyle",
       "sectionId": "REQUS1",
       "doc": "Style guide alignment.",
       "annotations": [
@@ -134237,8 +134911,8 @@
         }
       ]
     },
-    "ReliabilityQuality": {
-      "name": "ReliabilityQuality",
+    "Reliability": {
+      "name": "Reliability",
       "sectionId": "REQU",
       "doc": "11.3.6. Reliability quality.",
       "annotations": [
@@ -134289,25 +134963,25 @@
           "name": "recovery",
           "kind": "complex",
           "doc": "Recovery objectives.",
-          "type": "ReliabilityQualityRecovery"
+          "type": "ReliabilityRecovery"
         },
         {
           "name": "failover",
           "kind": "complex",
           "doc": "Failover requirements.",
-          "type": "ReliabilityQualityFailover"
+          "type": "ReliabilityFailover"
         },
         {
           "name": "durability",
           "kind": "complex",
           "doc": "Data durability requirements.",
-          "type": "ReliabilityQualityDurability"
+          "type": "ReliabilityDurability"
         },
         {
           "name": "verification",
           "kind": "complex",
           "doc": "Verification and learning.",
-          "type": "ReliabilityQualityVerification"
+          "type": "ReliabilityVerification"
         },
         {
           "name": "narrative",
@@ -134318,8 +134992,133 @@
         }
       ]
     },
-    "ReliabilityQualityDurability": {
-      "name": "ReliabilityQualityDurability",
+    "ReliabilityCharacteristic": {
+      "name": "ReliabilityCharacteristic",
+      "sectionId": "RELC",
+      "doc": "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RELC"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-REL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "reliabilityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "operationsMaturityModel",
+              "label": "Operations Maturity Model",
+              "hint": "ITIL, DevOps, SRE",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "operationsPhilosophy",
+              "label": "Operations Philosophy",
+              "hint": "Ops-driven, DevOps, NoOps",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "operationsResponsibility",
+              "label": "Operations Responsibility",
+              "hint": "Dedicated team, shared, outsourced",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "incidentManagementProcess",
+              "label": "Incident Management Process",
+              "hint": "PagerDuty, custom, ITIL-based",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "changeManagementProcess",
+              "label": "Change Management Process",
+              "hint": "ITIL change management, lightweight",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "operationsToolchain",
+              "label": "Operations Toolchain",
+              "hint": "Key ops tools and platforms",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Reliability overview narrative.",
+          "help": "Executive summary of reliability and operational requirements, support model, and key operational metrics.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of reliability and operational requirements, support model, and key operational metrics."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "reliability",
+          "kind": "complex",
+          "doc": "11.6.1. Reliability (product reliability attributes).",
+          "type": "Reliability"
+        },
+        {
+          "name": "availability",
+          "kind": "complex",
+          "doc": "11.6.2. Availability.",
+          "type": "Availability"
+        },
+        {
+          "name": "serviceLevelRequirements",
+          "kind": "complex",
+          "doc": "11.6.3. Service Level Requirements.",
+          "type": "ServiceLevel"
+        },
+        {
+          "name": "monitoringAndPrevention",
+          "kind": "complex",
+          "doc": "11.6.4. Monitoring and Prevention.",
+          "type": "OperationalMonitoring"
+        }
+      ]
+    },
+    "ReliabilityDurability": {
+      "name": "ReliabilityDurability",
       "sectionId": "REQUDU",
       "doc": "Data durability requirements.",
       "annotations": [
@@ -134375,8 +135174,8 @@
         }
       ]
     },
-    "ReliabilityQualityFailover": {
-      "name": "ReliabilityQualityFailover",
+    "ReliabilityFailover": {
+      "name": "ReliabilityFailover",
       "sectionId": "REQUFA",
       "doc": "Failover requirements.",
       "annotations": [
@@ -134425,8 +135224,8 @@
         }
       ]
     },
-    "ReliabilityQualityRecovery": {
-      "name": "ReliabilityQualityRecovery",
+    "ReliabilityRecovery": {
+      "name": "ReliabilityRecovery",
       "sectionId": "REQURE",
       "doc": "Recovery objectives.",
       "annotations": [
@@ -134482,8 +135281,8 @@
         }
       ]
     },
-    "ReliabilityQualityVerification": {
-      "name": "ReliabilityQualityVerification",
+    "ReliabilityVerification": {
+      "name": "ReliabilityVerification",
       "sectionId": "REQUVE",
       "doc": "Verification and learning.",
       "annotations": [
@@ -152833,6 +153632,87 @@
         }
       ]
     },
+    "Security": {
+      "name": "Security",
+      "sectionId": "SEQU",
+      "doc": "11.3.4. Security quality.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SEQU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "encryptionAtRest",
+              "label": "Encryption at Rest",
+              "hint": "AES-256, database-level, disk-level",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "encryptionInTransit",
+              "label": "Encryption in Transit",
+              "hint": "TLS 1.2+, certificate requirements",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "keyManagement",
+              "label": "Key Management",
+              "hint": "HSM, KMS, key rotation policy",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "authentication",
+          "kind": "complex",
+          "doc": "Authentication controls.",
+          "type": "SecurityAuthentication"
+        },
+        {
+          "name": "authorization",
+          "kind": "complex",
+          "doc": "Authorization controls.",
+          "type": "SecurityAuthorization"
+        },
+        {
+          "name": "vulnerability",
+          "kind": "complex",
+          "doc": "Vulnerability management expectations.",
+          "type": "SecurityVulnerability"
+        },
+        {
+          "name": "compliance",
+          "kind": "complex",
+          "doc": "Compliance and verification settings.",
+          "type": "SecurityCompliance"
+        },
+        {
+          "name": "narrative",
+          "kind": "section",
+          "doc": "Detailed security requirements narrative.",
+          "contentType": "text",
+          "sectionType": "TextSection"
+        }
+      ]
+    },
     "SecurityAndAccessModel": {
       "name": "SecurityAndAccessModel",
       "sectionId": "ACAZ",
@@ -153257,6 +154137,113 @@
         }
       ]
     },
+    "SecurityAuthentication": {
+      "name": "SecurityAuthentication",
+      "sectionId": "SEQUAU",
+      "doc": "Authentication controls.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SEQUAU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "authenticationMethod",
+              "label": "Authentication Method",
+              "hint": "OAuth2, SAML, OIDC, MFA",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "mfaRequirement",
+              "label": "MFA Requirement",
+              "hint": "All users, privileged users, optional",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "passwordPolicy",
+              "label": "Password Policy",
+              "hint": "Complexity, rotation, history",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "sessionManagement",
+              "label": "Session Management",
+              "hint": "Timeout, concurrent sessions",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SecurityAuthorization": {
+      "name": "SecurityAuthorization",
+      "sectionId": "SEQUA1",
+      "doc": "Authorization controls.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SEQUA1"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "authorizationModel",
+              "label": "Authorization Model",
+              "hint": "RBAC, ABAC, ACL",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "authorizationCoverage",
+              "label": "Authorization Coverage",
+              "hint": "All resources, sensitive resources",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "privilegeEscalationPrevention",
+              "label": "Privilege Escalation",
+              "hint": "Controls to prevent escalation",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "SecurityCertificationRequirements": {
       "name": "SecurityCertificationRequirements",
       "sectionId": "SECERE",
@@ -153538,6 +154525,91 @@
         }
       ]
     },
+    "SecurityCharacteristic": {
+      "name": "SecurityCharacteristic",
+      "sectionId": "SECC",
+      "doc": "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).",
+      "detailedIn": "D10QualityAcceptancePlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SECC"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D10QualityAcceptancePlan",
+            "id": "QAP-SEC"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "securityContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "securityApproach",
+              "label": "Security Approach",
+              "hint": "Zero-trust, defence-in-depth, least-privilege",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "securityComplianceTarget",
+              "label": "Security Compliance Target",
+              "hint": "ISO 27001, SOC 2, GDPR, sector-specific",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "overview",
+          "kind": "section",
+          "doc": "Security overview.",
+          "help": "Executive summary of security goals, threat model, and compliance targets.",
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of security goals, threat model, and compliance targets."
+              }
+            }
+          ],
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "security",
+          "kind": "complex",
+          "doc": "11.7.1. Security (product security attributes).",
+          "type": "Security"
+        },
+        {
+          "name": "itSecurityOperations",
+          "kind": "complex",
+          "doc": "11.7.2. IT Security Operations.",
+          "type": "ItSecurityOperations"
+        }
+      ]
+    },
     "SecurityCodeReviewPolicy": {
       "name": "SecurityCodeReviewPolicy",
       "sectionId": "SCRP",
@@ -153756,6 +154828,63 @@
               "name": "reviewerRotation",
               "label": "Reviewer Rotation",
               "hint": "How security reviewers are rotated to avoid bias",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SecurityCompliance": {
+      "name": "SecurityCompliance",
+      "sectionId": "SEQUCO",
+      "doc": "Compliance and verification settings.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SEQUCO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "securityCompliance",
+              "label": "Security Compliance",
+              "hint": "SOC2, ISO 27001, GDPR",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "securityCertifications",
+              "label": "Security Certifications",
+              "hint": "Required certifications",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "securityAuditFrequency",
+              "label": "Security Audit Frequency",
+              "hint": "Annual, continuous",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "securityVerification",
+              "label": "Security Verification",
+              "hint": "SAST, DAST, security review",
               "type": "String",
               "required": false
             }
@@ -154497,301 +155626,6 @@
           ],
           "elementType": "SecurityEventEntry",
           "elementIsComplex": true
-        }
-      ]
-    },
-    "SecurityQuality": {
-      "name": "SecurityQuality",
-      "sectionId": "SEQU",
-      "doc": "11.3.4. Security quality.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SEQU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "encryptionAtRest",
-              "label": "Encryption at Rest",
-              "hint": "AES-256, database-level, disk-level",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "encryptionInTransit",
-              "label": "Encryption in Transit",
-              "hint": "TLS 1.2+, certificate requirements",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "keyManagement",
-              "label": "Key Management",
-              "hint": "HSM, KMS, key rotation policy",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "authentication",
-          "kind": "complex",
-          "doc": "Authentication controls.",
-          "type": "SecurityQualityAuthentication"
-        },
-        {
-          "name": "authorization",
-          "kind": "complex",
-          "doc": "Authorization controls.",
-          "type": "SecurityQualityAuthorization"
-        },
-        {
-          "name": "vulnerability",
-          "kind": "complex",
-          "doc": "Vulnerability management expectations.",
-          "type": "SecurityQualityVulnerability"
-        },
-        {
-          "name": "compliance",
-          "kind": "complex",
-          "doc": "Compliance and verification settings.",
-          "type": "SecurityQualityCompliance"
-        },
-        {
-          "name": "narrative",
-          "kind": "section",
-          "doc": "Detailed security requirements narrative.",
-          "contentType": "text",
-          "sectionType": "TextSection"
-        }
-      ]
-    },
-    "SecurityQualityAuthentication": {
-      "name": "SecurityQualityAuthentication",
-      "sectionId": "SEQUAU",
-      "doc": "Authentication controls.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SEQUAU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "authenticationMethod",
-              "label": "Authentication Method",
-              "hint": "OAuth2, SAML, OIDC, MFA",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "mfaRequirement",
-              "label": "MFA Requirement",
-              "hint": "All users, privileged users, optional",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "passwordPolicy",
-              "label": "Password Policy",
-              "hint": "Complexity, rotation, history",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "sessionManagement",
-              "label": "Session Management",
-              "hint": "Timeout, concurrent sessions",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SecurityQualityAuthorization": {
-      "name": "SecurityQualityAuthorization",
-      "sectionId": "SEQUA1",
-      "doc": "Authorization controls.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SEQUA1"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "authorizationModel",
-              "label": "Authorization Model",
-              "hint": "RBAC, ABAC, ACL",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "authorizationCoverage",
-              "label": "Authorization Coverage",
-              "hint": "All resources, sensitive resources",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "privilegeEscalationPrevention",
-              "label": "Privilege Escalation",
-              "hint": "Controls to prevent escalation",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SecurityQualityCompliance": {
-      "name": "SecurityQualityCompliance",
-      "sectionId": "SEQUCO",
-      "doc": "Compliance and verification settings.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SEQUCO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "securityCompliance",
-              "label": "Security Compliance",
-              "hint": "SOC2, ISO 27001, GDPR",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "securityCertifications",
-              "label": "Security Certifications",
-              "hint": "Required certifications",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "securityAuditFrequency",
-              "label": "Security Audit Frequency",
-              "hint": "Annual, continuous",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "securityVerification",
-              "label": "Security Verification",
-              "hint": "SAST, DAST, security review",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SecurityQualityVulnerability": {
-      "name": "SecurityQualityVulnerability",
-      "sectionId": "SEQUVU",
-      "doc": "Vulnerability management expectations.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SEQUVU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "vulnerabilityScanFrequency",
-              "label": "Vulnerability Scan Frequency",
-              "hint": "Continuous, weekly, per-release",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "penetrationTestFrequency",
-              "label": "Penetration Test Frequency",
-              "hint": "Annual, semi-annual, per-release",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "cveResponseTime",
-              "label": "CVE Response Time",
-              "hint": "Critical: 24h, high: 7d",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },
@@ -156092,6 +156926,56 @@
               "name": "secretsDetection",
               "label": "Secrets Detection",
               "hint": "Pre-commit secrets scanning: GitLeaks, TruffleHog, detect-secrets",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "SecurityVulnerability": {
+      "name": "SecurityVulnerability",
+      "sectionId": "SEQUVU",
+      "doc": "Vulnerability management expectations.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SEQUVU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "vulnerabilityScanFrequency",
+              "label": "Vulnerability Scan Frequency",
+              "hint": "Continuous, weekly, per-release",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "penetrationTestFrequency",
+              "label": "Penetration Test Frequency",
+              "hint": "Annual, semi-annual, per-release",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "cveResponseTime",
+              "label": "CVE Response Time",
+              "hint": "Critical: 24h, high: 7d",
               "type": "String",
               "required": false
             }
@@ -157885,6 +158769,116 @@
         }
       ]
     },
+    "ServiceLevel": {
+      "name": "ServiceLevel",
+      "sectionId": "SELEQU",
+      "doc": "11.4.2. Service level quality.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SELEQU"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "supportTierStructure",
+              "label": "Support Tier Structure",
+              "hint": "L1/L2/L3, single tier",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "criticalResponseTime",
+              "label": "Critical Response Time",
+              "hint": "Response time for P1 issues",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "highResponseTime",
+              "label": "High Response Time",
+              "hint": "Response time for P2 issues",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "response",
+          "kind": "complex",
+          "doc": "Remaining response targets.",
+          "type": "ServiceLevelResponse"
+        },
+        {
+          "name": "resolution",
+          "kind": "complex",
+          "doc": "Resolution targets.",
+          "type": "ServiceLevelResolution"
+        },
+        {
+          "name": "escalation",
+          "kind": "complex",
+          "doc": "Escalation rules.",
+          "type": "ServiceLevelEscalation"
+        },
+        {
+          "name": "onCall",
+          "kind": "complex",
+          "doc": "On-call support expectations.",
+          "type": "ServiceLevelOnCall"
+        },
+        {
+          "name": "restoration",
+          "kind": "complex",
+          "doc": "Restoration and communication priorities.",
+          "type": "ServiceLevelRestoration"
+        },
+        {
+          "name": "narrative",
+          "kind": "section",
+          "doc": "Detailed service level requirements narrative.",
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "slaEntries",
+          "kind": "list",
+          "doc": "Service Level Agreement entries.",
+          "sectionId": "SLAE-SLAE-LST",
+          "sectionIdPattern": "SLAE-SLAE-xxx",
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SLAE-SLAE-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SLAE-SLAE-xxx"
+              }
+            }
+          ],
+          "elementType": "ServiceLevelAgreementEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "ServiceLevelAgreementEntry": {
       "name": "ServiceLevelAgreementEntry",
       "sectionId": "SLAE",
@@ -157965,6 +158959,56 @@
               "name": "slaExclusions",
               "label": "Exclusions",
               "hint": "What is excluded from SLA",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ServiceLevelEscalation": {
+      "name": "ServiceLevelEscalation",
+      "sectionId": "SLQE",
+      "doc": "Escalation rules.",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SLQE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "escalationTimeframes",
+              "label": "Escalation Timeframes",
+              "hint": "When issues escalate",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "escalationContacts",
+              "label": "Escalation Contacts",
+              "hint": "Who to escalate to",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "executiveEscalation",
+              "label": "Executive Escalation",
+              "hint": "When executive escalation occurs",
               "type": "String",
               "required": false
             }
@@ -158189,168 +159233,8 @@
         }
       ]
     },
-    "ServiceLevelQuality": {
-      "name": "ServiceLevelQuality",
-      "sectionId": "SELEQU",
-      "doc": "11.4.2. Service level quality.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SELEQU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "supportTierStructure",
-              "label": "Support Tier Structure",
-              "hint": "L1/L2/L3, single tier",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "criticalResponseTime",
-              "label": "Critical Response Time",
-              "hint": "Response time for P1 issues",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "highResponseTime",
-              "label": "High Response Time",
-              "hint": "Response time for P2 issues",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "response",
-          "kind": "complex",
-          "doc": "Remaining response targets.",
-          "type": "ServiceLevelQualityResponse"
-        },
-        {
-          "name": "resolution",
-          "kind": "complex",
-          "doc": "Resolution targets.",
-          "type": "ServiceLevelQualityResolution"
-        },
-        {
-          "name": "escalation",
-          "kind": "complex",
-          "doc": "Escalation rules.",
-          "type": "ServiceLevelQualityEscalation"
-        },
-        {
-          "name": "onCall",
-          "kind": "complex",
-          "doc": "On-call support expectations.",
-          "type": "ServiceLevelQualityOnCall"
-        },
-        {
-          "name": "restoration",
-          "kind": "complex",
-          "doc": "Restoration and communication priorities.",
-          "type": "ServiceLevelQualityRestoration"
-        },
-        {
-          "name": "narrative",
-          "kind": "section",
-          "doc": "Detailed service level requirements narrative.",
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "slaEntries",
-          "kind": "list",
-          "doc": "Service Level Agreement entries.",
-          "sectionId": "SLAE-SLAE-LST",
-          "sectionIdPattern": "SLAE-SLAE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "SLAE-SLAE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "SLAE-SLAE-xxx"
-              }
-            }
-          ],
-          "elementType": "ServiceLevelAgreementEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "ServiceLevelQualityEscalation": {
-      "name": "ServiceLevelQualityEscalation",
-      "sectionId": "SLQE",
-      "doc": "Escalation rules.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SLQE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "escalationTimeframes",
-              "label": "Escalation Timeframes",
-              "hint": "When issues escalate",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "escalationContacts",
-              "label": "Escalation Contacts",
-              "hint": "Who to escalate to",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "executiveEscalation",
-              "label": "Executive Escalation",
-              "hint": "When executive escalation occurs",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "ServiceLevelQualityOnCall": {
-      "name": "ServiceLevelQualityOnCall",
+    "ServiceLevelOnCall": {
+      "name": "ServiceLevelOnCall",
       "sectionId": "SLQOC",
       "doc": "On-call support expectations.",
       "annotations": [
@@ -158399,8 +159283,8 @@
         }
       ]
     },
-    "ServiceLevelQualityResolution": {
-      "name": "ServiceLevelQualityResolution",
+    "ServiceLevelResolution": {
+      "name": "ServiceLevelResolution",
       "sectionId": "SLQR1",
       "doc": "Resolution targets.",
       "annotations": [
@@ -158456,8 +159340,8 @@
         }
       ]
     },
-    "ServiceLevelQualityResponse": {
-      "name": "ServiceLevelQualityResponse",
+    "ServiceLevelResponse": {
+      "name": "ServiceLevelResponse",
       "sectionId": "SLQR",
       "doc": "Remaining response targets.",
       "annotations": [
@@ -158499,8 +159383,8 @@
         }
       ]
     },
-    "ServiceLevelQualityRestoration": {
-      "name": "ServiceLevelQualityRestoration",
+    "ServiceLevelRestoration": {
+      "name": "ServiceLevelRestoration",
       "sectionId": "SLQR2",
       "doc": "Restoration and communication priorities.",
       "annotations": [
@@ -174528,25 +175412,25 @@
           "name": "governance",
           "kind": "complex",
           "doc": "Governance board and escalation details.",
-          "type": "SystemQualityGoalsGovernance"
+          "type": "QualityGoalsGovernance"
         },
         {
           "name": "baseline",
           "kind": "complex",
           "doc": "Baseline and target settings.",
-          "type": "SystemQualityGoalsBaseline"
+          "type": "QualityGoalsBaseline"
         },
         {
           "name": "measurement",
           "kind": "complex",
           "doc": "Measurement and reporting approach.",
-          "type": "SystemQualityGoalsMeasurement"
+          "type": "QualityGoalsMeasurement"
         },
         {
           "name": "resources",
           "kind": "complex",
           "doc": "Quality resources and enablement.",
-          "type": "SystemQualityGoalsResources"
+          "type": "QualityGoalsResources"
         },
         {
           "name": "executiveSummary",
@@ -174642,27 +175526,57 @@
           "type": "QualityFramework"
         },
         {
-          "name": "userQuality",
+          "name": "functionalSuitability",
           "kind": "complex",
-          "doc": "11.2. User-Related Quality Criteria.",
-          "type": "UserQualityCriteria"
+          "doc": "11.2. Functional Suitability (ISO/IEC 25010:2023).",
+          "type": "FunctionalSuitabilityCharacteristic"
         },
         {
-          "name": "technicalQuality",
+          "name": "performanceEfficiency",
           "kind": "complex",
-          "doc": "11.3. Technical Quality Criteria.",
-          "type": "TechnicalQualityCriteria"
+          "doc": "11.3. Performance Efficiency (ISO/IEC 25010:2023).",
+          "type": "PerformanceEfficiencyCharacteristic"
         },
         {
-          "name": "operationsQuality",
+          "name": "compatibility",
           "kind": "complex",
-          "doc": "11.4. Operations Quality Criteria.",
-          "type": "OperationsQualityCriteria"
+          "doc": "11.4. Compatibility (ISO/IEC 25010:2023).",
+          "type": "CompatibilityCharacteristic"
+        },
+        {
+          "name": "interactionCapability",
+          "kind": "complex",
+          "doc": "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).",
+          "type": "InteractionCapabilityCharacteristic"
+        },
+        {
+          "name": "reliability",
+          "kind": "complex",
+          "doc": "11.6. Reliability (ISO/IEC 25010:2023).",
+          "type": "ReliabilityCharacteristic"
+        },
+        {
+          "name": "security",
+          "kind": "complex",
+          "doc": "11.7. Security (ISO/IEC 25010:2023).",
+          "type": "SecurityCharacteristic"
+        },
+        {
+          "name": "maintainability",
+          "kind": "complex",
+          "doc": "11.8. Maintainability (ISO/IEC 25010:2023).",
+          "type": "MaintainabilityCharacteristic"
+        },
+        {
+          "name": "flexibility",
+          "kind": "complex",
+          "doc": "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
+          "type": "FlexibilityCharacteristic"
         },
         {
           "name": "documentationQuality",
           "kind": "complex",
-          "doc": "11.5. Documentation Quality Criteria.",
+          "doc": "11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable\nannex — has no ISO/IEC 25010:2023 product-quality home; retained as a\ndocumentation-quality annex per L34C-8).",
           "type": "DocumentationQualityCriteria"
         },
         {
@@ -174682,233 +175596,6 @@
           "kind": "complex",
           "doc": "11.8. Test Strategy..",
           "type": "TestStrategy"
-        }
-      ]
-    },
-    "SystemQualityGoalsBaseline": {
-      "name": "SystemQualityGoalsBaseline",
-      "sectionId": "SQGBS",
-      "doc": "Baseline and target settings.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SQGBS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "qualityBaselineDate",
-              "label": "Quality Baseline Date",
-              "hint": "When quality targets were baselined",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityBaselineVersion",
-              "label": "Baseline Version",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "overallQualityTargetLevel",
-              "label": "Overall Quality Target Level",
-              "hint": "High, production-grade, MVP-acceptable",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityRiskTolerance",
-              "label": "Quality Risk Tolerance",
-              "hint": "Low (zero defects), medium, high tolerance",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemQualityGoalsGovernance": {
-      "name": "SystemQualityGoalsGovernance",
-      "sectionId": "SQGGV",
-      "doc": "Governance board and escalation details.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SQGGV"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "qualityReviewBoard",
-              "label": "Quality Review Board",
-              "hint": "Governance body for quality decisions",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityMeetingCadence",
-              "label": "Quality Meeting Cadence",
-              "hint": "Weekly, bi-weekly, sprint-aligned",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityEscalationPath",
-              "label": "Escalation Path",
-              "hint": "How quality issues escalate to leadership",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemQualityGoalsMeasurement": {
-      "name": "SystemQualityGoalsMeasurement",
-      "sectionId": "SQGMS",
-      "doc": "Measurement and reporting approach.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SQGMS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "qualityMetricsFramework",
-              "label": "Metrics Framework",
-              "hint": "How quality is measured: GQM, balanced scorecard",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityReportingFrequency",
-              "label": "Reporting Frequency",
-              "hint": "Daily, weekly, sprint, release",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityDashboardTool",
-              "label": "Quality Dashboard Tool",
-              "hint": "SonarQube, custom dashboard, spreadsheet",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "defectTrackingSystem",
-              "label": "Defect Tracking System",
-              "hint": "Jira, Azure DevOps, GitHub Issues",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityTrendAnalysis",
-              "label": "Trend Analysis Approach",
-              "hint": "How quality trends are tracked over time",
-              "type": "String",
-              "required": false
-            }
-          ]
-        }
-      ]
-    },
-    "SystemQualityGoalsResources": {
-      "name": "SystemQualityGoalsResources",
-      "sectionId": "SQGRS",
-      "doc": "Quality resources and enablement.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SQGRS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "qualityBudget",
-              "label": "Quality Budget",
-              "hint": "Budget allocated for QA activities",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qaTeamSize",
-              "label": "QA Team Size",
-              "hint": "Number of dedicated QA resources",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "testAutomationTarget",
-              "label": "Test Automation Target %",
-              "hint": "Target percentage of automated tests",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "qualityTrainingPlan",
-              "label": "Quality Training Plan",
-              "hint": "Training for team on quality practices",
-              "type": "String",
-              "required": false
-            }
-          ]
         }
       ]
     },
@@ -179903,136 +180590,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "TechnicalQualityCriteria": {
-      "name": "TechnicalQualityCriteria",
-      "sectionId": "TEQUCR",
-      "doc": "11.3. Technical Quality Criteria.\n\nQuality criteria for the technical implementation including efficiency,\nportability, flexibility, security, maintainability, and reliability.",
-      "detailedIn": "D10QualityAcceptancePlan",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "TEQUCR"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-TEC"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "technicalQualityContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "technicalQualityPhilosophy",
-              "label": "Technical Quality Philosophy",
-              "hint": "Performance-first, maintainability-first, balanced",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "architecturalQualityGoals",
-              "label": "Architectural Quality Goals",
-              "hint": "Key architectural quality attributes",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "technicalDebtTolerance",
-              "label": "Technical Debt Tolerance",
-              "hint": "Zero, controlled, pragmatic",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "codeQualityStandard",
-              "label": "Code Quality Standard",
-              "hint": "Style guide, linting rules",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "designPrinciplesAdherence",
-              "label": "Design Principles Adherence",
-              "hint": "SOLID, DRY, KISS, YAGNI",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "overview",
-          "kind": "section",
-          "doc": "Technical quality overview.",
-          "help": "Executive summary of technical quality goals, architectural decisions, and key technical metrics.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Executive summary of technical quality goals, architectural decisions, and key technical metrics."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "efficiency",
-          "kind": "complex",
-          "doc": "11.3.1. Efficiency.",
-          "type": "EfficiencyQuality"
-        },
-        {
-          "name": "portability",
-          "kind": "complex",
-          "doc": "11.3.2. Portability.",
-          "type": "PortabilityQuality"
-        },
-        {
-          "name": "flexibility",
-          "kind": "complex",
-          "doc": "11.3.3. Flexibility.",
-          "type": "FlexibilityQuality"
-        },
-        {
-          "name": "security",
-          "kind": "complex",
-          "doc": "11.3.4. Security.",
-          "type": "SecurityQuality"
-        },
-        {
-          "name": "maintainability",
-          "kind": "complex",
-          "doc": "11.3.5. Maintainability.",
-          "type": "MaintainabilityQuality"
-        },
-        {
-          "name": "reliability",
-          "kind": "complex",
-          "doc": "11.3.6. Reliability.",
-          "type": "ReliabilityQuality"
         }
       ]
     },
@@ -192776,8 +193333,8 @@
         }
       ]
     },
-    "UsabilityQuality": {
-      "name": "UsabilityQuality",
+    "Usability": {
+      "name": "Usability",
       "sectionId": "USAQL",
       "doc": "11.2.1. Usability quality.",
       "annotations": [
@@ -192828,31 +193385,31 @@
           "name": "operability",
           "kind": "complex",
           "doc": "Operability verification and ergonomics goals.",
-          "type": "UsabilityQualityOperability"
+          "type": "UsabilityOperability"
         },
         {
           "name": "learnability",
           "kind": "complex",
           "doc": "Learnability and onboarding expectations.",
-          "type": "UsabilityQualityLearnability"
+          "type": "UsabilityLearnability"
         },
         {
           "name": "clarity",
           "kind": "complex",
           "doc": "Clarity and complexity constraints.",
-          "type": "UsabilityQualityClarity"
+          "type": "UsabilityClarity"
         },
         {
           "name": "interaction",
           "kind": "complex",
           "doc": "Interaction control settings.",
-          "type": "UsabilityQualityInteraction"
+          "type": "UsabilityInteraction"
         },
         {
           "name": "performance",
           "kind": "complex",
           "doc": "Perceived and measured responsiveness targets.",
-          "type": "UsabilityQualityPerformance"
+          "type": "UsabilityPerformance"
         },
         {
           "name": "narrative",
@@ -192863,8 +193420,8 @@
         }
       ]
     },
-    "UsabilityQualityClarity": {
-      "name": "UsabilityQualityClarity",
+    "UsabilityClarity": {
+      "name": "UsabilityClarity",
       "sectionId": "USACL",
       "doc": "Clarity and complexity constraints.",
       "annotations": [
@@ -192920,8 +193477,8 @@
         }
       ]
     },
-    "UsabilityQualityInteraction": {
-      "name": "UsabilityQualityInteraction",
+    "UsabilityInteraction": {
+      "name": "UsabilityInteraction",
       "sectionId": "USAIN",
       "doc": "Interaction control settings.",
       "annotations": [
@@ -192963,8 +193520,8 @@
         }
       ]
     },
-    "UsabilityQualityLearnability": {
-      "name": "UsabilityQualityLearnability",
+    "UsabilityLearnability": {
+      "name": "UsabilityLearnability",
       "sectionId": "USALN",
       "doc": "Learnability and onboarding expectations.",
       "annotations": [
@@ -193006,8 +193563,8 @@
         }
       ]
     },
-    "UsabilityQualityOperability": {
-      "name": "UsabilityQualityOperability",
+    "UsabilityOperability": {
+      "name": "UsabilityOperability",
       "sectionId": "USAOP",
       "doc": "Operability verification and ergonomics goals.",
       "annotations": [
@@ -193056,8 +193613,8 @@
         }
       ]
     },
-    "UsabilityQualityPerformance": {
-      "name": "UsabilityQualityPerformance",
+    "UsabilityPerformance": {
+      "name": "UsabilityPerformance",
       "sectionId": "USAPR",
       "doc": "Perceived and measured responsiveness targets.",
       "annotations": [
@@ -196350,125 +196907,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "UserQualityCriteria": {
-      "name": "UserQualityCriteria",
-      "sectionId": "USQCR",
-      "doc": "11.2. User-Related Quality Criteria.\n\nQuality criteria that directly affect user experience, including usability,\nfunctional completeness, and correctness from the end-user perspective.",
-      "detailedIn": "D10QualityAcceptancePlan",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "USQCR"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D10QualityAcceptancePlan",
-            "id": "QAP-USE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "userQualityContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "userQualityPhilosophy",
-              "label": "User Quality Philosophy",
-              "hint": "User-first, balanced, efficiency-focused",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "targetUserExperience",
-              "label": "Target User Experience",
-              "hint": "Delightful, efficient, adequate, minimal",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "userResearchBasis",
-              "label": "User Research Basis",
-              "hint": "Personas, surveys, interviews, analytics",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "userFeedbackChannel",
-              "label": "User Feedback Channel",
-              "hint": "How user quality feedback is collected",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "userSatisfactionTarget",
-              "label": "User Satisfaction Target",
-              "hint": "NPS > 50, CSAT > 80%, etc.",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "accessibilityLevel",
-              "label": "Accessibility Level",
-              "hint": "WCAG 2.1 AA, AAA, Section 508",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "overview",
-          "kind": "section",
-          "doc": "User quality criteria overview.",
-          "help": "Executive summary of user-related quality goals, target user experience, and key user quality metrics.",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Executive summary of user-related quality goals, target user experience, and key user quality metrics."
-              }
-            }
-          ],
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "usability",
-          "kind": "complex",
-          "doc": "11.2.1. Usability.",
-          "type": "UsabilityQuality"
-        },
-        {
-          "name": "functionalCompleteness",
-          "kind": "complex",
-          "doc": "11.2.2. Functional Completeness.",
-          "type": "FunctionalCompletenessQuality"
-        },
-        {
-          "name": "correctness",
-          "kind": "complex",
-          "doc": "11.2.3. Correctness.",
-          "type": "CorrectnessQuality"
         }
       ]
     },

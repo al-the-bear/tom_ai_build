@@ -41,8 +41,13 @@ impl AcceptanceCriteriaList {
 
 /// 11.7. Acceptance Criteria Summary.
 ///
-/// Quality acceptance criteria for the project including must-pass criteria
-/// and quality gate checklists.
+/// The acceptance *framework* and summary for the project: the acceptance
+/// process/authority/scope, the must-pass criteria, and the quality-gate
+/// checklist. The full enumerated, traceable acceptance criteria are NOT
+/// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+/// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+/// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+/// referencing list).
 pub struct AcceptanceCriteriaSummary {
     pub node: som::SomNode,
 }
@@ -68,6 +73,15 @@ impl AcceptanceCriteriaSummary {
     /// 11.7.2. Quality Gate Checklist.
     pub fn quality_gate_checklist(&self) -> QualityGateChecklist {
         QualityGateChecklist::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityGateChecklist"))
+    }
+
+    /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
+    ///
+    /// The single source of truth for the full set of traceable acceptance
+    /// criteria; this summary references — rather than duplicates — it. The same
+    /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+    pub fn detailed_criteria(&self) -> AcceptanceCriteriaList {
+        AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "detailedCriteria"))
     }
 
     // Acceptance test summary.
@@ -4377,38 +4391,38 @@ impl AuthorizationRoleEntryStructure {
 }
 
 /// 11.4.1. Availability quality.
-pub struct AvailabilityQuality {
+pub struct Availability {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQuality {
-    /// Binds a AvailabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQuality {
-        AvailabilityQuality { node: som::SomNode::new(doc, path) }
+impl Availability {
+    /// Binds a Availability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Availability {
+        Availability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> AvailabilityQualityContentForm {
-        AvailabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> AvailabilityContentForm {
+        AvailabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Operating-hour expectations.
-    pub fn operating_hours_details(&self) -> AvailabilityQualityOperatingHours {
-        AvailabilityQualityOperatingHours::new(self.node.doc(), format!("{}/{}", self.node.path(), "operatingHoursDetails"))
+    pub fn operating_hours_details(&self) -> AvailabilityOperatingHours {
+        AvailabilityOperatingHours::new(self.node.doc(), format!("{}/{}", self.node.path(), "operatingHoursDetails"))
     }
 
     /// Maintenance window policy.
-    pub fn maintenance(&self) -> AvailabilityQualityMaintenance {
-        AvailabilityQualityMaintenance::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenance"))
+    pub fn maintenance(&self) -> AvailabilityMaintenance {
+        AvailabilityMaintenance::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenance"))
     }
 
     /// Degraded-mode behavior.
-    pub fn degraded_mode(&self) -> AvailabilityQualityDegradedMode {
-        AvailabilityQualityDegradedMode::new(self.node.doc(), format!("{}/{}", self.node.path(), "degradedMode"))
+    pub fn degraded_mode(&self) -> AvailabilityDegradedMode {
+        AvailabilityDegradedMode::new(self.node.doc(), format!("{}/{}", self.node.path(), "degradedMode"))
     }
 
     /// Monitoring and reporting.
-    pub fn verification(&self) -> AvailabilityQualityVerification {
-        AvailabilityQualityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
+    pub fn verification(&self) -> AvailabilityVerification {
+        AvailabilityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
     // Detailed availability requirements narrative.
@@ -4416,66 +4430,66 @@ impl AvailabilityQuality {
 }
 
 /// Degraded-mode behavior.
-pub struct AvailabilityQualityDegradedMode {
+pub struct AvailabilityDegradedMode {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityDegradedMode {
-    /// Binds a AvailabilityQualityDegradedMode facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityDegradedMode {
-        AvailabilityQualityDegradedMode { node: som::SomNode::new(doc, path) }
+impl AvailabilityDegradedMode {
+    /// Binds a AvailabilityDegradedMode facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityDegradedMode {
+        AvailabilityDegradedMode { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> AvailabilityQualityDegradedModeContentForm {
-        AvailabilityQualityDegradedModeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> AvailabilityDegradedModeContentForm {
+        AvailabilityDegradedModeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Maintenance window policy.
-pub struct AvailabilityQualityMaintenance {
+pub struct AvailabilityMaintenance {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityMaintenance {
-    /// Binds a AvailabilityQualityMaintenance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityMaintenance {
-        AvailabilityQualityMaintenance { node: som::SomNode::new(doc, path) }
+impl AvailabilityMaintenance {
+    /// Binds a AvailabilityMaintenance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityMaintenance {
+        AvailabilityMaintenance { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> AvailabilityQualityMaintenanceContentForm {
-        AvailabilityQualityMaintenanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> AvailabilityMaintenanceContentForm {
+        AvailabilityMaintenanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Operating-hour expectations.
-pub struct AvailabilityQualityOperatingHours {
+pub struct AvailabilityOperatingHours {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityOperatingHours {
-    /// Binds a AvailabilityQualityOperatingHours facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityOperatingHours {
-        AvailabilityQualityOperatingHours { node: som::SomNode::new(doc, path) }
+impl AvailabilityOperatingHours {
+    /// Binds a AvailabilityOperatingHours facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityOperatingHours {
+        AvailabilityOperatingHours { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> AvailabilityQualityOperatingHoursContentForm {
-        AvailabilityQualityOperatingHoursContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> AvailabilityOperatingHoursContentForm {
+        AvailabilityOperatingHoursContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Monitoring and reporting.
-pub struct AvailabilityQualityVerification {
+pub struct AvailabilityVerification {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityVerification {
-    /// Binds a AvailabilityQualityVerification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityVerification {
-        AvailabilityQualityVerification { node: som::SomNode::new(doc, path) }
+impl AvailabilityVerification {
+    /// Binds a AvailabilityVerification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityVerification {
+        AvailabilityVerification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> AvailabilityQualityVerificationContentForm {
-        AvailabilityQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> AvailabilityVerificationContentForm {
+        AvailabilityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -10234,6 +10248,30 @@ impl CommunicationTypeEntry {
     }
 }
 
+/// 11.4. Compatibility (ISO/IEC 25010:2023).
+///
+/// Degree to which the product can exchange information with other products and
+/// share the same environment and resources (co-existence + interoperability).
+/// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+/// pending project-specific compatibility leaves.
+pub struct CompatibilityCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl CompatibilityCharacteristic {
+    /// Binds a CompatibilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CompatibilityCharacteristic {
+        CompatibilityCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn compatibility_content(&self) -> CompatibilityCharacteristicCompatibilityContentForm {
+        CompatibilityCharacteristicCompatibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "compatibilityContent"))
+    }
+
+    // Compatibility overview.
+    // (skipped: overview has no target type)
+}
+
 /// 8.3.1. Compatibility Requirements.
 ///
 /// Compatibility requirements with existing IT infrastructure, standard software,
@@ -13410,33 +13448,33 @@ impl ContingencyPlans {
 }
 
 /// 11.2.3. Correctness quality.
-pub struct CorrectnessQuality {
+pub struct Correctness {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQuality {
-    /// Binds a CorrectnessQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQuality {
-        CorrectnessQuality { node: som::SomNode::new(doc, path) }
+impl Correctness {
+    /// Binds a Correctness facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Correctness {
+        Correctness { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> CorrectnessQualityContentForm {
-        CorrectnessQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> CorrectnessContentForm {
+        CorrectnessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Data integrity expectations.
-    pub fn integrity(&self) -> CorrectnessQualityIntegrity {
-        CorrectnessQualityIntegrity::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrity"))
+    pub fn integrity(&self) -> CorrectnessIntegrity {
+        CorrectnessIntegrity::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrity"))
     }
 
     /// Accuracy and auditability requirements.
-    pub fn accuracy(&self) -> CorrectnessQualityAccuracy {
-        CorrectnessQualityAccuracy::new(self.node.doc(), format!("{}/{}", self.node.path(), "accuracy"))
+    pub fn accuracy(&self) -> CorrectnessAccuracy {
+        CorrectnessAccuracy::new(self.node.doc(), format!("{}/{}", self.node.path(), "accuracy"))
     }
 
     /// Verification and regression approach.
-    pub fn verification(&self) -> CorrectnessQualityVerification {
-        CorrectnessQualityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
+    pub fn verification(&self) -> CorrectnessVerification {
+        CorrectnessVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
     // Detailed correctness requirements narrative.
@@ -13444,50 +13482,50 @@ impl CorrectnessQuality {
 }
 
 /// Accuracy and auditability requirements.
-pub struct CorrectnessQualityAccuracy {
+pub struct CorrectnessAccuracy {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityAccuracy {
-    /// Binds a CorrectnessQualityAccuracy facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityAccuracy {
-        CorrectnessQualityAccuracy { node: som::SomNode::new(doc, path) }
+impl CorrectnessAccuracy {
+    /// Binds a CorrectnessAccuracy facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessAccuracy {
+        CorrectnessAccuracy { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> CorrectnessQualityAccuracyContentForm {
-        CorrectnessQualityAccuracyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> CorrectnessAccuracyContentForm {
+        CorrectnessAccuracyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Data integrity expectations.
-pub struct CorrectnessQualityIntegrity {
+pub struct CorrectnessIntegrity {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityIntegrity {
-    /// Binds a CorrectnessQualityIntegrity facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityIntegrity {
-        CorrectnessQualityIntegrity { node: som::SomNode::new(doc, path) }
+impl CorrectnessIntegrity {
+    /// Binds a CorrectnessIntegrity facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessIntegrity {
+        CorrectnessIntegrity { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> CorrectnessQualityIntegrityContentForm {
-        CorrectnessQualityIntegrityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> CorrectnessIntegrityContentForm {
+        CorrectnessIntegrityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Verification and regression approach.
-pub struct CorrectnessQualityVerification {
+pub struct CorrectnessVerification {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityVerification {
-    /// Binds a CorrectnessQualityVerification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityVerification {
-        CorrectnessQualityVerification { node: som::SomNode::new(doc, path) }
+impl CorrectnessVerification {
+    /// Binds a CorrectnessVerification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessVerification {
+        CorrectnessVerification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> CorrectnessQualityVerificationContentForm {
-        CorrectnessQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> CorrectnessVerificationContentForm {
+        CorrectnessVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -15442,22 +15480,47 @@ impl D10QualityAcceptancePlan {
         QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityFramework"))
     }
 
-    /// User-related quality criteria.
-    pub fn user_quality_criteria(&self) -> UserQualityCriteria {
-        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityCriteria"))
+    /// Functional suitability (ISO/IEC 25010:2023).
+    pub fn functional_suitability(&self) -> FunctionalSuitabilityCharacteristic {
+        FunctionalSuitabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalSuitability"))
     }
 
-    /// Technical quality criteria.
-    pub fn technical_quality_criteria(&self) -> TechnicalQualityCriteria {
-        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityCriteria"))
+    /// Performance efficiency (ISO/IEC 25010:2023).
+    pub fn performance_efficiency(&self) -> PerformanceEfficiencyCharacteristic {
+        PerformanceEfficiencyCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "performanceEfficiency"))
     }
 
-    /// Operations quality criteria.
-    pub fn operations_quality_criteria(&self) -> OperationsQualityCriteria {
-        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQualityCriteria"))
+    /// Compatibility (ISO/IEC 25010:2023).
+    pub fn compatibility(&self) -> CompatibilityCharacteristic {
+        CompatibilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "compatibility"))
     }
 
-    /// Documentation quality criteria.
+    /// Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+    pub fn interaction_capability(&self) -> InteractionCapabilityCharacteristic {
+        InteractionCapabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCapability"))
+    }
+
+    /// Reliability (ISO/IEC 25010:2023).
+    pub fn reliability(&self) -> ReliabilityCharacteristic {
+        ReliabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliability"))
+    }
+
+    /// Security (ISO/IEC 25010:2023).
+    pub fn security(&self) -> SecurityCharacteristic {
+        SecurityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
+    }
+
+    /// Maintainability (ISO/IEC 25010:2023).
+    pub fn maintainability(&self) -> MaintainabilityCharacteristic {
+        MaintainabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainability"))
+    }
+
+    /// Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+    pub fn flexibility(&self) -> FlexibilityCharacteristic {
+        FlexibilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibility"))
+    }
+
+    /// Documentation quality (ISO/IEC 26514 annex).
     pub fn documentation_quality_criteria(&self) -> DocumentationQualityCriteria {
         DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQualityCriteria"))
     }
@@ -22492,33 +22555,33 @@ impl DnsRequirementsZones {
 }
 
 /// 11.5.4. Documentation changeability quality.
-pub struct DocChangeabilityQuality {
+pub struct DocChangeability {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQuality {
-    /// Binds a DocChangeabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQuality {
-        DocChangeabilityQuality { node: som::SomNode::new(doc, path) }
+impl DocChangeability {
+    /// Binds a DocChangeability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeability {
+        DocChangeability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocChangeabilityQualityContentForm {
-        DocChangeabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocChangeabilityContentForm {
+        DocChangeabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Extensibility and localization readiness.
-    pub fn extensibility(&self) -> DocChangeabilityQualityExtensibility {
-        DocChangeabilityQualityExtensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "extensibility"))
+    pub fn extensibility(&self) -> DocChangeabilityExtensibility {
+        DocChangeabilityExtensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "extensibility"))
     }
 
     /// Sizing and structural consistency rules.
-    pub fn structure(&self) -> DocChangeabilityQualityStructure {
-        DocChangeabilityQualityStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "structure"))
+    pub fn structure(&self) -> DocChangeabilityStructure {
+        DocChangeabilityStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "structure"))
     }
 
     /// Review and retirement maintenance process.
-    pub fn maintenance(&self) -> DocChangeabilityQualityMaintenance {
-        DocChangeabilityQualityMaintenance::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenance"))
+    pub fn maintenance(&self) -> DocChangeabilityMaintenance {
+        DocChangeabilityMaintenance::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenance"))
     }
 
     // Detailed changeability requirements narrative.
@@ -22526,66 +22589,66 @@ impl DocChangeabilityQuality {
 }
 
 /// Extensibility and localization readiness.
-pub struct DocChangeabilityQualityExtensibility {
+pub struct DocChangeabilityExtensibility {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityExtensibility {
-    /// Binds a DocChangeabilityQualityExtensibility facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityExtensibility {
-        DocChangeabilityQualityExtensibility { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityExtensibility {
+    /// Binds a DocChangeabilityExtensibility facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityExtensibility {
+        DocChangeabilityExtensibility { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocChangeabilityQualityExtensibilityContentForm {
-        DocChangeabilityQualityExtensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocChangeabilityExtensibilityContentForm {
+        DocChangeabilityExtensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Review and retirement maintenance process.
-pub struct DocChangeabilityQualityMaintenance {
+pub struct DocChangeabilityMaintenance {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityMaintenance {
-    /// Binds a DocChangeabilityQualityMaintenance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityMaintenance {
-        DocChangeabilityQualityMaintenance { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityMaintenance {
+    /// Binds a DocChangeabilityMaintenance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityMaintenance {
+        DocChangeabilityMaintenance { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocChangeabilityQualityMaintenanceContentForm {
-        DocChangeabilityQualityMaintenanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocChangeabilityMaintenanceContentForm {
+        DocChangeabilityMaintenanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Sizing and structural consistency rules.
-pub struct DocChangeabilityQualityStructure {
+pub struct DocChangeabilityStructure {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityStructure {
-    /// Binds a DocChangeabilityQualityStructure facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityStructure {
-        DocChangeabilityQualityStructure { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityStructure {
+    /// Binds a DocChangeabilityStructure facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityStructure {
+        DocChangeabilityStructure { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocChangeabilityQualityStructureContentForm {
-        DocChangeabilityQualityStructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocChangeabilityStructureContentForm {
+        DocChangeabilityStructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// 11.5.2. Documentation completeness quality.
-pub struct DocCompletenessQuality {
+pub struct DocCompleteness {
     pub node: som::SomNode,
 }
 
-impl DocCompletenessQuality {
-    /// Binds a DocCompletenessQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCompletenessQuality {
-        DocCompletenessQuality { node: som::SomNode::new(doc, path) }
+impl DocCompleteness {
+    /// Binds a DocCompleteness facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCompleteness {
+        DocCompleteness { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocCompletenessQualityContentForm {
-        DocCompletenessQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocCompletenessContentForm {
+        DocCompletenessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Detailed completeness requirements narrative.
@@ -22593,28 +22656,28 @@ impl DocCompletenessQuality {
 }
 
 /// 11.5.3. Documentation correctness quality.
-pub struct DocCorrectnessQuality {
+pub struct DocCorrectness {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQuality {
-    /// Binds a DocCorrectnessQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQuality {
-        DocCorrectnessQuality { node: som::SomNode::new(doc, path) }
+impl DocCorrectness {
+    /// Binds a DocCorrectness facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectness {
+        DocCorrectness { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocCorrectnessQualityContentForm {
-        DocCorrectnessQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocCorrectnessContentForm {
+        DocCorrectnessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Formatting and implementation alignment.
-    pub fn alignment(&self) -> DocCorrectnessQualityAlignment {
-        DocCorrectnessQualityAlignment::new(self.node.doc(), format!("{}/{}", self.node.path(), "alignment"))
+    pub fn alignment(&self) -> DocCorrectnessAlignment {
+        DocCorrectnessAlignment::new(self.node.doc(), format!("{}/{}", self.node.path(), "alignment"))
     }
 
     /// Verification and feedback handling.
-    pub fn verification(&self) -> DocCorrectnessQualityVerification {
-        DocCorrectnessQualityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
+    pub fn verification(&self) -> DocCorrectnessVerification {
+        DocCorrectnessVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
     // Detailed correctness requirements narrative.
@@ -22622,34 +22685,34 @@ impl DocCorrectnessQuality {
 }
 
 /// Formatting and implementation alignment.
-pub struct DocCorrectnessQualityAlignment {
+pub struct DocCorrectnessAlignment {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQualityAlignment {
-    /// Binds a DocCorrectnessQualityAlignment facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQualityAlignment {
-        DocCorrectnessQualityAlignment { node: som::SomNode::new(doc, path) }
+impl DocCorrectnessAlignment {
+    /// Binds a DocCorrectnessAlignment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessAlignment {
+        DocCorrectnessAlignment { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocCorrectnessQualityAlignmentContentForm {
-        DocCorrectnessQualityAlignmentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocCorrectnessAlignmentContentForm {
+        DocCorrectnessAlignmentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Verification and feedback handling.
-pub struct DocCorrectnessQualityVerification {
+pub struct DocCorrectnessVerification {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQualityVerification {
-    /// Binds a DocCorrectnessQualityVerification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQualityVerification {
-        DocCorrectnessQualityVerification { node: som::SomNode::new(doc, path) }
+impl DocCorrectnessVerification {
+    /// Binds a DocCorrectnessVerification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessVerification {
+        DocCorrectnessVerification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> DocCorrectnessQualityVerificationContentForm {
-        DocCorrectnessQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> DocCorrectnessVerificationContentForm {
+        DocCorrectnessVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -22843,10 +22906,15 @@ impl DocumentationDeliverables {
     }
 }
 
-/// 11.5. Documentation Quality Criteria.
+/// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 ///
-/// Quality criteria for project documentation including readability,
-/// completeness, correctness, and changeability.
+/// Documentation-deliverable quality criteria — readability, completeness,
+/// correctness, and changeability of the user/technical documentation. This
+/// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+/// (which scopes the *product*, not its documentation), so per L34C-8 it is
+/// retained as a documentation-quality annex aligned to ISO/IEC 26514
+/// (systems & software engineering — design and development of information for
+/// users) rather than re-homed under a 25010:2023 characteristic.
 pub struct DocumentationQualityCriteria {
     pub node: som::SomNode,
 }
@@ -22865,23 +22933,23 @@ impl DocumentationQualityCriteria {
     // (skipped: overview has no target type)
 
     /// 11.5.1. Readability.
-    pub fn readability(&self) -> ReadabilityQuality {
-        ReadabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "readability"))
+    pub fn readability(&self) -> Readability {
+        Readability::new(self.node.doc(), format!("{}/{}", self.node.path(), "readability"))
     }
 
     /// 11.5.2. Completeness.
-    pub fn completeness(&self) -> DocCompletenessQuality {
-        DocCompletenessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "completeness"))
+    pub fn completeness(&self) -> DocCompleteness {
+        DocCompleteness::new(self.node.doc(), format!("{}/{}", self.node.path(), "completeness"))
     }
 
     /// 11.5.3. Correctness.
-    pub fn correctness(&self) -> DocCorrectnessQuality {
-        DocCorrectnessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
+    pub fn correctness(&self) -> DocCorrectness {
+        DocCorrectness::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
     }
 
     /// 11.5.4. Changeability.
-    pub fn changeability(&self) -> DocChangeabilityQuality {
-        DocChangeabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeability"))
+    pub fn changeability(&self) -> DocChangeability {
+        DocChangeability::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeability"))
     }
 }
 
@@ -23508,33 +23576,33 @@ impl DomainVocabulary {
 }
 
 /// 11.3.1. Efficiency quality.
-pub struct EfficiencyQuality {
+pub struct Efficiency {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQuality {
-    /// Binds a EfficiencyQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQuality {
-        EfficiencyQuality { node: som::SomNode::new(doc, path) }
+impl Efficiency {
+    /// Binds a Efficiency facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Efficiency {
+        Efficiency { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> EfficiencyQualityContentForm {
-        EfficiencyQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> EfficiencyContentForm {
+        EfficiencyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Throughput and scale targets.
-    pub fn throughput(&self) -> EfficiencyQualityThroughput {
-        EfficiencyQualityThroughput::new(self.node.doc(), format!("{}/{}", self.node.path(), "throughput"))
+    pub fn throughput(&self) -> EfficiencyThroughput {
+        EfficiencyThroughput::new(self.node.doc(), format!("{}/{}", self.node.path(), "throughput"))
     }
 
     /// Resource utilization constraints.
-    pub fn resources(&self) -> EfficiencyQualityResources {
-        EfficiencyQualityResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
+    pub fn resources(&self) -> EfficiencyResources {
+        EfficiencyResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
     }
 
     /// Performance validation and SLA commitments.
-    pub fn verification(&self) -> EfficiencyQualityVerification {
-        EfficiencyQualityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
+    pub fn verification(&self) -> EfficiencyVerification {
+        EfficiencyVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
     // Detailed efficiency requirements narrative.
@@ -23542,50 +23610,50 @@ impl EfficiencyQuality {
 }
 
 /// Resource utilization constraints.
-pub struct EfficiencyQualityResources {
+pub struct EfficiencyResources {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityResources {
-    /// Binds a EfficiencyQualityResources facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityResources {
-        EfficiencyQualityResources { node: som::SomNode::new(doc, path) }
+impl EfficiencyResources {
+    /// Binds a EfficiencyResources facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyResources {
+        EfficiencyResources { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> EfficiencyQualityResourcesContentForm {
-        EfficiencyQualityResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> EfficiencyResourcesContentForm {
+        EfficiencyResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Throughput and scale targets.
-pub struct EfficiencyQualityThroughput {
+pub struct EfficiencyThroughput {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityThroughput {
-    /// Binds a EfficiencyQualityThroughput facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityThroughput {
-        EfficiencyQualityThroughput { node: som::SomNode::new(doc, path) }
+impl EfficiencyThroughput {
+    /// Binds a EfficiencyThroughput facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyThroughput {
+        EfficiencyThroughput { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> EfficiencyQualityThroughputContentForm {
-        EfficiencyQualityThroughputContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> EfficiencyThroughputContentForm {
+        EfficiencyThroughputContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Performance validation and SLA commitments.
-pub struct EfficiencyQualityVerification {
+pub struct EfficiencyVerification {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityVerification {
-    /// Binds a EfficiencyQualityVerification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityVerification {
-        EfficiencyQualityVerification { node: som::SomNode::new(doc, path) }
+impl EfficiencyVerification {
+    /// Binds a EfficiencyVerification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyVerification {
+        EfficiencyVerification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> EfficiencyQualityVerificationContentForm {
-        EfficiencyQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> EfficiencyVerificationContentForm {
+        EfficiencyVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -28029,84 +28097,118 @@ impl FirewallRequirementsRules {
 }
 
 /// 11.3.3. Flexibility quality.
-pub struct FlexibilityQuality {
+pub struct Flexibility {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQuality {
-    /// Binds a FlexibilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQuality {
-        FlexibilityQuality { node: som::SomNode::new(doc, path) }
+impl Flexibility {
+    /// Binds a Flexibility facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Flexibility {
+        Flexibility { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> FlexibilityQualityContentForm {
-        FlexibilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> FlexibilityContentForm {
+        FlexibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Modularity and reuse goals.
-    pub fn modularity(&self) -> FlexibilityQualityModularity {
-        FlexibilityQualityModularity::new(self.node.doc(), format!("{}/{}", self.node.path(), "modularity"))
+    pub fn modularity(&self) -> FlexibilityModularity {
+        FlexibilityModularity::new(self.node.doc(), format!("{}/{}", self.node.path(), "modularity"))
     }
 
     /// Distribution and configurability model.
-    pub fn deployment(&self) -> FlexibilityQualityDeployment {
-        FlexibilityQualityDeployment::new(self.node.doc(), format!("{}/{}", self.node.path(), "deployment"))
+    pub fn deployment(&self) -> FlexibilityDeployment {
+        FlexibilityDeployment::new(self.node.doc(), format!("{}/{}", self.node.path(), "deployment"))
     }
 
     /// Extensibility and verification expectations.
-    pub fn extensibility(&self) -> FlexibilityQualityExtensibility {
-        FlexibilityQualityExtensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "extensibility"))
+    pub fn extensibility(&self) -> FlexibilityExtensibility {
+        FlexibilityExtensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "extensibility"))
     }
 
     // Detailed flexibility requirements narrative.
     // (skipped: narrative has no target type)
 }
 
-/// Distribution and configurability model.
-pub struct FlexibilityQualityDeployment {
+/// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+///
+/// Degree to which the product can be adapted to changes in requirements,
+/// contexts of use, or system environment (adaptability, scalability,
+/// installability, replaceability). Re-homes the former technical-bucket
+/// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+pub struct FlexibilityCharacteristic {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityDeployment {
-    /// Binds a FlexibilityQualityDeployment facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityDeployment {
-        FlexibilityQualityDeployment { node: som::SomNode::new(doc, path) }
+impl FlexibilityCharacteristic {
+    /// Binds a FlexibilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityCharacteristic {
+        FlexibilityCharacteristic { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> FlexibilityQualityDeploymentContentForm {
-        FlexibilityQualityDeploymentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn flexibility_content(&self) -> FlexibilityCharacteristicFlexibilityContentForm {
+        FlexibilityCharacteristicFlexibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibilityContent"))
+    }
+
+    // Flexibility overview.
+    // (skipped: overview has no target type)
+
+    /// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+    pub fn flexibility(&self) -> Flexibility {
+        Flexibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibility"))
+    }
+
+    /// 11.9.2. Portability.
+    pub fn portability(&self) -> Portability {
+        Portability::new(self.node.doc(), format!("{}/{}", self.node.path(), "portability"))
+    }
+}
+
+/// Distribution and configurability model.
+pub struct FlexibilityDeployment {
+    pub node: som::SomNode,
+}
+
+impl FlexibilityDeployment {
+    /// Binds a FlexibilityDeployment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityDeployment {
+        FlexibilityDeployment { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> FlexibilityDeploymentContentForm {
+        FlexibilityDeploymentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Extensibility and verification expectations.
-pub struct FlexibilityQualityExtensibility {
+pub struct FlexibilityExtensibility {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityExtensibility {
-    /// Binds a FlexibilityQualityExtensibility facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityExtensibility {
-        FlexibilityQualityExtensibility { node: som::SomNode::new(doc, path) }
+impl FlexibilityExtensibility {
+    /// Binds a FlexibilityExtensibility facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityExtensibility {
+        FlexibilityExtensibility { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> FlexibilityQualityExtensibilityContentForm {
-        FlexibilityQualityExtensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> FlexibilityExtensibilityContentForm {
+        FlexibilityExtensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Modularity and reuse goals.
-pub struct FlexibilityQualityModularity {
+pub struct FlexibilityModularity {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityModularity {
-    /// Binds a FlexibilityQualityModularity facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityModularity {
-        FlexibilityQualityModularity { node: som::SomNode::new(doc, path) }
+impl FlexibilityModularity {
+    /// Binds a FlexibilityModularity facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityModularity {
+        FlexibilityModularity { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> FlexibilityQualityModularityContentForm {
-        FlexibilityQualityModularityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> FlexibilityModularityContentForm {
+        FlexibilityModularityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -28508,18 +28610,18 @@ impl FunctionModel {
 }
 
 /// 11.2.2. Functional completeness quality.
-pub struct FunctionalCompletenessQuality {
+pub struct FunctionalCompleteness {
     pub node: som::SomNode,
 }
 
-impl FunctionalCompletenessQuality {
-    /// Binds a FunctionalCompletenessQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FunctionalCompletenessQuality {
-        FunctionalCompletenessQuality { node: som::SomNode::new(doc, path) }
+impl FunctionalCompleteness {
+    /// Binds a FunctionalCompleteness facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FunctionalCompleteness {
+        FunctionalCompleteness { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> FunctionalCompletenessQualityContentForm {
-        FunctionalCompletenessQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> FunctionalCompletenessContentForm {
+        FunctionalCompletenessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Detailed functional completeness narrative.
@@ -28777,6 +28879,39 @@ impl FunctionalResponsibilities {
             format!("{}/{}", self.node.path(), "REEN1-ITEM-LST"),
             Box::new(|d, p| ResponsibilityEntry::new(d, p)),
         )
+    }
+}
+
+/// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+///
+/// Degree to which the product provides functions that meet stated and implied
+/// needs — functional completeness and correctness. Re-homes the former
+/// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+pub struct FunctionalSuitabilityCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl FunctionalSuitabilityCharacteristic {
+    /// Binds a FunctionalSuitabilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FunctionalSuitabilityCharacteristic {
+        FunctionalSuitabilityCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn functional_suitability_content(&self) -> FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+        FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalSuitabilityContent"))
+    }
+
+    // Functional suitability overview.
+    // (skipped: overview has no target type)
+
+    /// 11.2.1. Functional Completeness.
+    pub fn functional_completeness(&self) -> FunctionalCompleteness {
+        FunctionalCompleteness::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalCompleteness"))
+    }
+
+    /// 11.2.2. Correctness.
+    pub fn correctness(&self) -> Correctness {
+        Correctness::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
     }
 }
 
@@ -32014,6 +32149,35 @@ impl InteractionBusinessRules {
     }
 }
 
+/// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+///
+/// Degree to which the product can be interacted with effectively, efficiently
+/// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+/// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+/// form is preserved here so no authored content is lost.
+pub struct InteractionCapabilityCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl InteractionCapabilityCharacteristic {
+    /// Binds a InteractionCapabilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> InteractionCapabilityCharacteristic {
+        InteractionCapabilityCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn interaction_capability_content(&self) -> InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+        InteractionCapabilityCharacteristicInteractionCapabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCapabilityContent"))
+    }
+
+    // Interaction capability overview.
+    // (skipped: overview has no target type)
+
+    /// 11.5.1. Usability.
+    pub fn usability(&self) -> Usability {
+        Usability::new(self.node.doc(), format!("{}/{}", self.node.path(), "usability"))
+    }
+}
+
 /// 6.2.2. Interaction Catalog.
 ///
 /// Container for key interaction descriptions. Each interaction seeds a use
@@ -33604,11 +33768,15 @@ impl IpOwnershipEntry {
     }
 }
 
-/// ISO/IEC 25010 product-quality cross-map.
+/// ISO/IEC 25010:2023 product-quality cross-map (derived).
 ///
-/// Maps the system's quality goals onto the eight ISO/IEC 25010 product
-/// quality characteristics so that compatibility and portability cannot be
-/// silently missed.
+/// A *derived* view over the canonical quality spine: the eight
+/// `*Characteristic` classes under [SystemQualityGoals] are the single source
+/// of truth for the taxonomy (L34C-8); this cross-map does not re-declare it.
+/// Each entry references one of those characteristics (via the closed
+/// [Iso25010Characteristic] enum) and records which quality goals / NFRs
+/// address it and the target metric — so coverage of any 25010:2023
+/// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
 pub struct Iso25010Coverage {
     pub node: som::SomNode,
 }
@@ -33628,7 +33796,7 @@ impl Iso25010Coverage {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// One entry per ISO/IEC 25010 characteristic addressed.
+    /// One entry per ISO/IEC 25010:2023 characteristic addressed.
     pub fn characteristics(&self) -> som::SomList<Iso25010CoverageEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -33638,7 +33806,7 @@ impl Iso25010Coverage {
     }
 }
 
-/// A single ISO/IEC 25010 coverage entry (form).
+/// A single ISO/IEC 25010:2023 coverage entry (form).
 pub struct Iso25010CoverageEntry {
     pub node: som::SomNode,
 }
@@ -33684,38 +33852,38 @@ impl ItLandscapePosition {
 }
 
 /// 11.4.4. IT Security Operations quality.
-pub struct ItSecurityOperationsQuality {
+pub struct ItSecurityOperations {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQuality {
-    /// Binds a ItSecurityOperationsQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQuality {
-        ItSecurityOperationsQuality { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperations {
+    /// Binds a ItSecurityOperations facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperations {
+        ItSecurityOperations { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ItSecurityOperationsQualityContentForm {
-        ItSecurityOperationsQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ItSecurityOperationsContentForm {
+        ItSecurityOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Access protection controls.
-    pub fn access(&self) -> ItSecurityOperationsQualityAccess {
-        ItSecurityOperationsQualityAccess::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
+    pub fn access(&self) -> ItSecurityOperationsAccess {
+        ItSecurityOperationsAccess::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Disaster recovery planning details.
-    pub fn recovery(&self) -> ItSecurityOperationsQualityRecovery {
-        ItSecurityOperationsQualityRecovery::new(self.node.doc(), format!("{}/{}", self.node.path(), "recovery"))
+    pub fn recovery(&self) -> ItSecurityOperationsRecovery {
+        ItSecurityOperationsRecovery::new(self.node.doc(), format!("{}/{}", self.node.path(), "recovery"))
     }
 
     /// Penetration testing and remediation.
-    pub fn testing(&self) -> ItSecurityOperationsQualityTesting {
-        ItSecurityOperationsQualityTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "testing"))
+    pub fn testing(&self) -> ItSecurityOperationsTesting {
+        ItSecurityOperationsTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "testing"))
     }
 
     /// Incident handling and reporting.
-    pub fn incident(&self) -> ItSecurityOperationsQualityIncident {
-        ItSecurityOperationsQualityIncident::new(self.node.doc(), format!("{}/{}", self.node.path(), "incident"))
+    pub fn incident(&self) -> ItSecurityOperationsIncident {
+        ItSecurityOperationsIncident::new(self.node.doc(), format!("{}/{}", self.node.path(), "incident"))
     }
 
     // Detailed IT security operations narrative.
@@ -33723,66 +33891,66 @@ impl ItSecurityOperationsQuality {
 }
 
 /// Access protection controls.
-pub struct ItSecurityOperationsQualityAccess {
+pub struct ItSecurityOperationsAccess {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityAccess {
-    /// Binds a ItSecurityOperationsQualityAccess facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityAccess {
-        ItSecurityOperationsQualityAccess { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsAccess {
+    /// Binds a ItSecurityOperationsAccess facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsAccess {
+        ItSecurityOperationsAccess { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ItSecurityOperationsQualityAccessContentForm {
-        ItSecurityOperationsQualityAccessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ItSecurityOperationsAccessContentForm {
+        ItSecurityOperationsAccessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Incident handling and reporting.
-pub struct ItSecurityOperationsQualityIncident {
+pub struct ItSecurityOperationsIncident {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityIncident {
-    /// Binds a ItSecurityOperationsQualityIncident facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityIncident {
-        ItSecurityOperationsQualityIncident { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsIncident {
+    /// Binds a ItSecurityOperationsIncident facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsIncident {
+        ItSecurityOperationsIncident { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ItSecurityOperationsQualityIncidentContentForm {
-        ItSecurityOperationsQualityIncidentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ItSecurityOperationsIncidentContentForm {
+        ItSecurityOperationsIncidentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Disaster recovery planning details.
-pub struct ItSecurityOperationsQualityRecovery {
+pub struct ItSecurityOperationsRecovery {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityRecovery {
-    /// Binds a ItSecurityOperationsQualityRecovery facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityRecovery {
-        ItSecurityOperationsQualityRecovery { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsRecovery {
+    /// Binds a ItSecurityOperationsRecovery facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsRecovery {
+        ItSecurityOperationsRecovery { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ItSecurityOperationsQualityRecoveryContentForm {
-        ItSecurityOperationsQualityRecoveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ItSecurityOperationsRecoveryContentForm {
+        ItSecurityOperationsRecoveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Penetration testing and remediation.
-pub struct ItSecurityOperationsQualityTesting {
+pub struct ItSecurityOperationsTesting {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityTesting {
-    /// Binds a ItSecurityOperationsQualityTesting facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityTesting {
-        ItSecurityOperationsQualityTesting { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsTesting {
+    /// Binds a ItSecurityOperationsTesting facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsTesting {
+        ItSecurityOperationsTesting { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ItSecurityOperationsQualityTestingContentForm {
-        ItSecurityOperationsQualityTestingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ItSecurityOperationsTestingContentForm {
+        ItSecurityOperationsTestingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -35811,38 +35979,38 @@ impl MainSuccessScenario {
 }
 
 /// 11.3.5. Maintainability quality.
-pub struct MaintainabilityQuality {
+pub struct Maintainability {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQuality {
-    /// Binds a MaintainabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQuality {
-        MaintainabilityQuality { node: som::SomNode::new(doc, path) }
+impl Maintainability {
+    /// Binds a Maintainability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Maintainability {
+        Maintainability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> MaintainabilityQualityContentForm {
-        MaintainabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> MaintainabilityContentForm {
+        MaintainabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Analyzability requirements.
-    pub fn analyzability(&self) -> MaintainabilityQualityAnalyzability {
-        MaintainabilityQualityAnalyzability::new(self.node.doc(), format!("{}/{}", self.node.path(), "analyzability"))
+    pub fn analyzability(&self) -> MaintainabilityAnalyzability {
+        MaintainabilityAnalyzability::new(self.node.doc(), format!("{}/{}", self.node.path(), "analyzability"))
     }
 
     /// Changeability requirements.
-    pub fn changeability(&self) -> MaintainabilityQualityChangeability {
-        MaintainabilityQualityChangeability::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeability"))
+    pub fn changeability(&self) -> MaintainabilityChangeability {
+        MaintainabilityChangeability::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeability"))
     }
 
     /// Testability requirements.
-    pub fn testability(&self) -> MaintainabilityQualityTestability {
-        MaintainabilityQualityTestability::new(self.node.doc(), format!("{}/{}", self.node.path(), "testability"))
+    pub fn testability(&self) -> MaintainabilityTestability {
+        MaintainabilityTestability::new(self.node.doc(), format!("{}/{}", self.node.path(), "testability"))
     }
 
     /// Extensibility and verification requirements.
-    pub fn governance(&self) -> MaintainabilityQualityGovernance {
-        MaintainabilityQualityGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
+    pub fn governance(&self) -> MaintainabilityGovernance {
+        MaintainabilityGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
     // Detailed maintainability requirements narrative.
@@ -35850,66 +36018,94 @@ impl MaintainabilityQuality {
 }
 
 /// Analyzability requirements.
-pub struct MaintainabilityQualityAnalyzability {
+pub struct MaintainabilityAnalyzability {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityAnalyzability {
-    /// Binds a MaintainabilityQualityAnalyzability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityAnalyzability {
-        MaintainabilityQualityAnalyzability { node: som::SomNode::new(doc, path) }
+impl MaintainabilityAnalyzability {
+    /// Binds a MaintainabilityAnalyzability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityAnalyzability {
+        MaintainabilityAnalyzability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> MaintainabilityQualityAnalyzabilityContentForm {
-        MaintainabilityQualityAnalyzabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> MaintainabilityAnalyzabilityContentForm {
+        MaintainabilityAnalyzabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Changeability requirements.
-pub struct MaintainabilityQualityChangeability {
+pub struct MaintainabilityChangeability {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityChangeability {
-    /// Binds a MaintainabilityQualityChangeability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityChangeability {
-        MaintainabilityQualityChangeability { node: som::SomNode::new(doc, path) }
+impl MaintainabilityChangeability {
+    /// Binds a MaintainabilityChangeability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityChangeability {
+        MaintainabilityChangeability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> MaintainabilityQualityChangeabilityContentForm {
-        MaintainabilityQualityChangeabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> MaintainabilityChangeabilityContentForm {
+        MaintainabilityChangeabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 11.8. Maintainability (ISO/IEC 25010:2023).
+///
+/// Degree of effectiveness and efficiency with which the product can be
+/// modified. Re-homes the former technical-bucket maintainability leaf under
+/// the 25010:2023 spine (L34C-8).
+pub struct MaintainabilityCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl MaintainabilityCharacteristic {
+    /// Binds a MaintainabilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityCharacteristic {
+        MaintainabilityCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn maintainability_content(&self) -> MaintainabilityCharacteristicMaintainabilityContentForm {
+        MaintainabilityCharacteristicMaintainabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainabilityContent"))
+    }
+
+    // Maintainability overview.
+    // (skipped: overview has no target type)
+
+    /// 11.8.1. Maintainability (product maintainability attributes).
+    pub fn maintainability(&self) -> Maintainability {
+        Maintainability::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainability"))
     }
 }
 
 /// Extensibility and verification requirements.
-pub struct MaintainabilityQualityGovernance {
+pub struct MaintainabilityGovernance {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityGovernance {
-    /// Binds a MaintainabilityQualityGovernance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityGovernance {
-        MaintainabilityQualityGovernance { node: som::SomNode::new(doc, path) }
+impl MaintainabilityGovernance {
+    /// Binds a MaintainabilityGovernance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityGovernance {
+        MaintainabilityGovernance { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> MaintainabilityQualityGovernanceContentForm {
-        MaintainabilityQualityGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> MaintainabilityGovernanceContentForm {
+        MaintainabilityGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Testability requirements.
-pub struct MaintainabilityQualityTestability {
+pub struct MaintainabilityTestability {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityTestability {
-    /// Binds a MaintainabilityQualityTestability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityTestability {
-        MaintainabilityQualityTestability { node: som::SomNode::new(doc, path) }
+impl MaintainabilityTestability {
+    /// Binds a MaintainabilityTestability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityTestability {
+        MaintainabilityTestability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> MaintainabilityQualityTestabilityContentForm {
-        MaintainabilityQualityTestabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> MaintainabilityTestabilityContentForm {
+        MaintainabilityTestabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -38597,6 +38793,22 @@ impl Monitoring {
     }
 }
 
+/// Alerting strategy and channels.
+pub struct MonitoringAlerting {
+    pub node: som::SomNode,
+}
+
+impl MonitoringAlerting {
+    /// Binds a MonitoringAlerting facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringAlerting {
+        MonitoringAlerting { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> MonitoringAlertingContentForm {
+        MonitoringAlertingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 8.5.3. Monitoring and Alerting.
 ///
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
@@ -38675,6 +38887,38 @@ impl MonitoringAndAlertingSection {
     /// SLA monitoring.
     pub fn sla_monitoring(&self) -> SlaMonitoringRequirements {
         SlaMonitoringRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "slaMonitoring"))
+    }
+}
+
+/// Alert automation capabilities.
+pub struct MonitoringAutomation {
+    pub node: som::SomNode,
+}
+
+impl MonitoringAutomation {
+    /// Binds a MonitoringAutomation facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringAutomation {
+        MonitoringAutomation { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> MonitoringAutomationContentForm {
+        MonitoringAutomationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Component monitoring coverage.
+pub struct MonitoringCoverage {
+    pub node: som::SomNode,
+}
+
+impl MonitoringCoverage {
+    /// Binds a MonitoringCoverage facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringCoverage {
+        MonitoringCoverage { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> MonitoringCoverageContentForm {
+        MonitoringCoverageContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -38796,6 +39040,22 @@ impl MonitoringInfrastructureDeployment {
     }
 }
 
+/// Planning and observability settings.
+pub struct MonitoringOperations {
+    pub node: som::SomNode,
+}
+
+impl MonitoringOperations {
+    /// Binds a MonitoringOperations facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringOperations {
+        MonitoringOperations { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> MonitoringOperationsContentForm {
+        MonitoringOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A single monitoring procedure entry.
 pub struct MonitoringProcedureEntry {
     pub node: som::SomNode,
@@ -38814,109 +39074,6 @@ impl MonitoringProcedureEntry {
     pub fn set_content(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// 11.4.3. Monitoring quality.
-pub struct MonitoringQuality {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQuality {
-    /// Binds a MonitoringQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQuality {
-        MonitoringQuality { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MonitoringQualityContentForm {
-        MonitoringQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-
-    /// Component monitoring coverage.
-    pub fn coverage(&self) -> MonitoringQualityCoverage {
-        MonitoringQualityCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "coverage"))
-    }
-
-    /// Alert automation capabilities.
-    pub fn automation(&self) -> MonitoringQualityAutomation {
-        MonitoringQualityAutomation::new(self.node.doc(), format!("{}/{}", self.node.path(), "automation"))
-    }
-
-    /// Alerting strategy and channels.
-    pub fn alerting(&self) -> MonitoringQualityAlerting {
-        MonitoringQualityAlerting::new(self.node.doc(), format!("{}/{}", self.node.path(), "alerting"))
-    }
-
-    /// Planning and observability settings.
-    pub fn operations(&self) -> MonitoringQualityOperations {
-        MonitoringQualityOperations::new(self.node.doc(), format!("{}/{}", self.node.path(), "operations"))
-    }
-
-    // Detailed monitoring requirements narrative.
-    // (skipped: narrative has no target type)
-}
-
-/// Alerting strategy and channels.
-pub struct MonitoringQualityAlerting {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityAlerting {
-    /// Binds a MonitoringQualityAlerting facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityAlerting {
-        MonitoringQualityAlerting { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MonitoringQualityAlertingContentForm {
-        MonitoringQualityAlertingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Alert automation capabilities.
-pub struct MonitoringQualityAutomation {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityAutomation {
-    /// Binds a MonitoringQualityAutomation facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityAutomation {
-        MonitoringQualityAutomation { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MonitoringQualityAutomationContentForm {
-        MonitoringQualityAutomationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Component monitoring coverage.
-pub struct MonitoringQualityCoverage {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityCoverage {
-    /// Binds a MonitoringQualityCoverage facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityCoverage {
-        MonitoringQualityCoverage { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MonitoringQualityCoverageContentForm {
-        MonitoringQualityCoverageContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Planning and observability settings.
-pub struct MonitoringQualityOperations {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityOperations {
-    /// Binds a MonitoringQualityOperations facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityOperations {
-        MonitoringQualityOperations { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> MonitoringQualityOperationsContentForm {
-        MonitoringQualityOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -41338,6 +41495,45 @@ impl OngoingTrainingEntrySchedule {
     }
 }
 
+/// 11.4.3. Monitoring quality.
+pub struct OperationalMonitoring {
+    pub node: som::SomNode,
+}
+
+impl OperationalMonitoring {
+    /// Binds a OperationalMonitoring facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OperationalMonitoring {
+        OperationalMonitoring { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> OperationalMonitoringContentForm {
+        OperationalMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Component monitoring coverage.
+    pub fn coverage(&self) -> MonitoringCoverage {
+        MonitoringCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "coverage"))
+    }
+
+    /// Alert automation capabilities.
+    pub fn automation(&self) -> MonitoringAutomation {
+        MonitoringAutomation::new(self.node.doc(), format!("{}/{}", self.node.path(), "automation"))
+    }
+
+    /// Alerting strategy and channels.
+    pub fn alerting(&self) -> MonitoringAlerting {
+        MonitoringAlerting::new(self.node.doc(), format!("{}/{}", self.node.path(), "alerting"))
+    }
+
+    /// Planning and observability settings.
+    pub fn operations(&self) -> MonitoringOperations {
+        MonitoringOperations::new(self.node.doc(), format!("{}/{}", self.node.path(), "operations"))
+    }
+
+    // Detailed monitoring requirements narrative.
+    // (skipped: narrative has no target type)
+}
+
 /// 1.3.1. Operational Pain Points.
 ///
 /// Problems that affect day-to-day operations: downtime, slow response,
@@ -41389,48 +41585,6 @@ impl OperationalPainPointsSummary {
 
     pub fn content(&self) -> OperationalPainPointsSummaryContentForm {
         OperationalPainPointsSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// 11.4. Operations Quality Criteria.
-///
-/// Quality criteria for system operations including availability, service
-/// levels, monitoring, and IT security operations.
-pub struct OperationsQualityCriteria {
-    pub node: som::SomNode,
-}
-
-impl OperationsQualityCriteria {
-    /// Binds a OperationsQualityCriteria facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> OperationsQualityCriteria {
-        OperationsQualityCriteria { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn operations_overview_content(&self) -> OperationsQualityCriteriaOperationsOverviewContentForm {
-        OperationsQualityCriteriaOperationsOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsOverviewContent"))
-    }
-
-    // Operations quality overview narrative.
-    // (skipped: overview has no target type)
-
-    /// 11.4.1. Availability.
-    pub fn availability(&self) -> AvailabilityQuality {
-        AvailabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "availability"))
-    }
-
-    /// 11.4.2. Service Level Requirements.
-    pub fn service_level_requirements(&self) -> ServiceLevelQuality {
-        ServiceLevelQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "serviceLevelRequirements"))
-    }
-
-    /// 11.4.3. Monitoring and Prevention.
-    pub fn monitoring_and_prevention(&self) -> MonitoringQuality {
-        MonitoringQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoringAndPrevention"))
-    }
-
-    /// 11.4.4. IT Security Operations.
-    pub fn it_security_operations(&self) -> ItSecurityOperationsQuality {
-        ItSecurityOperationsQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "itSecurityOperations"))
     }
 }
 
@@ -43190,6 +43344,35 @@ impl PenetrationTestingRequirementsScheduling {
     }
 }
 
+/// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+///
+/// Performance relative to the amount of resources used under stated
+/// conditions. Re-homes the former technical-bucket efficiency leaf under the
+/// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+/// preserved here so no authored content is lost.
+pub struct PerformanceEfficiencyCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl PerformanceEfficiencyCharacteristic {
+    /// Binds a PerformanceEfficiencyCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PerformanceEfficiencyCharacteristic {
+        PerformanceEfficiencyCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn performance_efficiency_content(&self) -> PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+        PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "performanceEfficiencyContent"))
+    }
+
+    // Performance efficiency overview.
+    // (skipped: overview has no target type)
+
+    /// 11.3.1. Efficiency.
+    pub fn efficiency(&self) -> Efficiency {
+        Efficiency::new(self.node.doc(), format!("{}/{}", self.node.path(), "efficiency"))
+    }
+}
+
 /// Periodic review policy (form).
 ///
 /// Defines periodic reviews of access rights and security posture.
@@ -44155,18 +44338,18 @@ impl PlatformAndLanguage {
 }
 
 /// 11.3.2. Portability quality.
-pub struct PortabilityQuality {
+pub struct Portability {
     pub node: som::SomNode,
 }
 
-impl PortabilityQuality {
-    /// Binds a PortabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PortabilityQuality {
-        PortabilityQuality { node: som::SomNode::new(doc, path) }
+impl Portability {
+    /// Binds a Portability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Portability {
+        Portability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> PortabilityQualityContentForm {
-        PortabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> PortabilityContentForm {
+        PortabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Detailed portability requirements narrative.
@@ -47420,7 +47603,7 @@ impl PwaRequirementsUpdates {
 
 /// SBP.14 Quality & Acceptance Model.
 ///
-/// Public anchor: ISO/IEC 25010 product quality.
+/// Public anchor: ISO/IEC 25010:2023 product quality.
 pub struct QualityAndAcceptanceModel {
     pub node: som::SomNode,
 }
@@ -47450,7 +47633,7 @@ impl QualityAndAcceptanceModel {
         DeliveryScopeAndAcceptance::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryAcceptance"))
     }
 
-    /// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+    /// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
     pub fn iso25010_coverage(&self) -> Iso25010Coverage {
         Iso25010Coverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "iso25010Coverage"))
     }
@@ -47992,6 +48175,70 @@ impl QualityGateChecklist {
     }
 }
 
+/// Baseline and target settings.
+pub struct QualityGoalsBaseline {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsBaseline {
+    /// Binds a QualityGoalsBaseline facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsBaseline {
+        QualityGoalsBaseline { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> QualityGoalsBaselineContentForm {
+        QualityGoalsBaselineContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Governance board and escalation details.
+pub struct QualityGoalsGovernance {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsGovernance {
+    /// Binds a QualityGoalsGovernance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsGovernance {
+        QualityGoalsGovernance { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> QualityGoalsGovernanceContentForm {
+        QualityGoalsGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Measurement and reporting approach.
+pub struct QualityGoalsMeasurement {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsMeasurement {
+    /// Binds a QualityGoalsMeasurement facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsMeasurement {
+        QualityGoalsMeasurement { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> QualityGoalsMeasurementContentForm {
+        QualityGoalsMeasurementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Quality resources and enablement.
+pub struct QualityGoalsResources {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsResources {
+    /// Binds a QualityGoalsResources facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsResources {
+        QualityGoalsResources { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> QualityGoalsResourcesContentForm {
+        QualityGoalsResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// 11.6. Quality Prioritization.
 ///
 /// Prioritization and balancing of quality attributes including weighted
@@ -48269,38 +48516,38 @@ impl RateLimitingPolicyQuotas {
 }
 
 /// 11.5.1. Readability quality.
-pub struct ReadabilityQuality {
+pub struct Readability {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQuality {
-    /// Binds a ReadabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQuality {
-        ReadabilityQuality { node: som::SomNode::new(doc, path) }
+impl Readability {
+    /// Binds a Readability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Readability {
+        Readability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReadabilityQualityContentForm {
-        ReadabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReadabilityContentForm {
+        ReadabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Identifiability and navigation.
-    pub fn navigation(&self) -> ReadabilityQualityNavigation {
-        ReadabilityQualityNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "navigation"))
+    pub fn navigation(&self) -> ReadabilityNavigation {
+        ReadabilityNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "navigation"))
     }
 
     /// Comprehensibility requirements.
-    pub fn comprehensibility(&self) -> ReadabilityQualityComprehensibility {
-        ReadabilityQualityComprehensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "comprehensibility"))
+    pub fn comprehensibility(&self) -> ReadabilityComprehensibility {
+        ReadabilityComprehensibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "comprehensibility"))
     }
 
     /// Document structure rules.
-    pub fn structure(&self) -> ReadabilityQualityStructure {
-        ReadabilityQualityStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "structure"))
+    pub fn structure(&self) -> ReadabilityStructure {
+        ReadabilityStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "structure"))
     }
 
     /// Style guide alignment.
-    pub fn style(&self) -> ReadabilityQualityStyle {
-        ReadabilityQualityStyle::new(self.node.doc(), format!("{}/{}", self.node.path(), "style"))
+    pub fn style(&self) -> ReadabilityStyle {
+        ReadabilityStyle::new(self.node.doc(), format!("{}/{}", self.node.path(), "style"))
     }
 
     // Detailed readability requirements narrative.
@@ -48308,66 +48555,66 @@ impl ReadabilityQuality {
 }
 
 /// Comprehensibility requirements.
-pub struct ReadabilityQualityComprehensibility {
+pub struct ReadabilityComprehensibility {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityComprehensibility {
-    /// Binds a ReadabilityQualityComprehensibility facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityComprehensibility {
-        ReadabilityQualityComprehensibility { node: som::SomNode::new(doc, path) }
+impl ReadabilityComprehensibility {
+    /// Binds a ReadabilityComprehensibility facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityComprehensibility {
+        ReadabilityComprehensibility { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReadabilityQualityComprehensibilityContentForm {
-        ReadabilityQualityComprehensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReadabilityComprehensibilityContentForm {
+        ReadabilityComprehensibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Identifiability and navigation.
-pub struct ReadabilityQualityNavigation {
+pub struct ReadabilityNavigation {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityNavigation {
-    /// Binds a ReadabilityQualityNavigation facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityNavigation {
-        ReadabilityQualityNavigation { node: som::SomNode::new(doc, path) }
+impl ReadabilityNavigation {
+    /// Binds a ReadabilityNavigation facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityNavigation {
+        ReadabilityNavigation { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReadabilityQualityNavigationContentForm {
-        ReadabilityQualityNavigationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReadabilityNavigationContentForm {
+        ReadabilityNavigationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Document structure rules.
-pub struct ReadabilityQualityStructure {
+pub struct ReadabilityStructure {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityStructure {
-    /// Binds a ReadabilityQualityStructure facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityStructure {
-        ReadabilityQualityStructure { node: som::SomNode::new(doc, path) }
+impl ReadabilityStructure {
+    /// Binds a ReadabilityStructure facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityStructure {
+        ReadabilityStructure { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReadabilityQualityStructureContentForm {
-        ReadabilityQualityStructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReadabilityStructureContentForm {
+        ReadabilityStructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Style guide alignment.
-pub struct ReadabilityQualityStyle {
+pub struct ReadabilityStyle {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityStyle {
-    /// Binds a ReadabilityQualityStyle facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityStyle {
-        ReadabilityQualityStyle { node: som::SomNode::new(doc, path) }
+impl ReadabilityStyle {
+    /// Binds a ReadabilityStyle facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityStyle {
+        ReadabilityStyle { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReadabilityQualityStyleContentForm {
-        ReadabilityQualityStyleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReadabilityStyleContentForm {
+        ReadabilityStyleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -49077,105 +49324,151 @@ impl RelevantSectionEntry {
 }
 
 /// 11.3.6. Reliability quality.
-pub struct ReliabilityQuality {
+pub struct Reliability {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQuality {
-    /// Binds a ReliabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQuality {
-        ReliabilityQuality { node: som::SomNode::new(doc, path) }
+impl Reliability {
+    /// Binds a Reliability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Reliability {
+        Reliability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReliabilityQualityContentForm {
-        ReliabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReliabilityContentForm {
+        ReliabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Recovery objectives.
-    pub fn recovery(&self) -> ReliabilityQualityRecovery {
-        ReliabilityQualityRecovery::new(self.node.doc(), format!("{}/{}", self.node.path(), "recovery"))
+    pub fn recovery(&self) -> ReliabilityRecovery {
+        ReliabilityRecovery::new(self.node.doc(), format!("{}/{}", self.node.path(), "recovery"))
     }
 
     /// Failover requirements.
-    pub fn failover(&self) -> ReliabilityQualityFailover {
-        ReliabilityQualityFailover::new(self.node.doc(), format!("{}/{}", self.node.path(), "failover"))
+    pub fn failover(&self) -> ReliabilityFailover {
+        ReliabilityFailover::new(self.node.doc(), format!("{}/{}", self.node.path(), "failover"))
     }
 
     /// Data durability requirements.
-    pub fn durability(&self) -> ReliabilityQualityDurability {
-        ReliabilityQualityDurability::new(self.node.doc(), format!("{}/{}", self.node.path(), "durability"))
+    pub fn durability(&self) -> ReliabilityDurability {
+        ReliabilityDurability::new(self.node.doc(), format!("{}/{}", self.node.path(), "durability"))
     }
 
     /// Verification and learning.
-    pub fn verification(&self) -> ReliabilityQualityVerification {
-        ReliabilityQualityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
+    pub fn verification(&self) -> ReliabilityVerification {
+        ReliabilityVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
     // Detailed reliability requirements narrative.
     // (skipped: narrative has no target type)
 }
 
-/// Data durability requirements.
-pub struct ReliabilityQualityDurability {
+/// 11.6. Reliability (ISO/IEC 25010:2023).
+///
+/// Degree to which the product performs specified functions under specified
+/// conditions for a specified period (availability, fault tolerance,
+/// recoverability, maturity). Re-homes the former technical-bucket reliability
+/// leaf and the operations-bucket availability, service-level and monitoring
+/// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+/// overview form is preserved here so no authored content is lost.
+pub struct ReliabilityCharacteristic {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityDurability {
-    /// Binds a ReliabilityQualityDurability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityDurability {
-        ReliabilityQualityDurability { node: som::SomNode::new(doc, path) }
+impl ReliabilityCharacteristic {
+    /// Binds a ReliabilityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityCharacteristic {
+        ReliabilityCharacteristic { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReliabilityQualityDurabilityContentForm {
-        ReliabilityQualityDurabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn reliability_content(&self) -> ReliabilityCharacteristicReliabilityContentForm {
+        ReliabilityCharacteristicReliabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliabilityContent"))
+    }
+
+    // Reliability overview narrative.
+    // (skipped: overview has no target type)
+
+    /// 11.6.1. Reliability (product reliability attributes).
+    pub fn reliability(&self) -> Reliability {
+        Reliability::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliability"))
+    }
+
+    /// 11.6.2. Availability.
+    pub fn availability(&self) -> Availability {
+        Availability::new(self.node.doc(), format!("{}/{}", self.node.path(), "availability"))
+    }
+
+    /// 11.6.3. Service Level Requirements.
+    pub fn service_level_requirements(&self) -> ServiceLevel {
+        ServiceLevel::new(self.node.doc(), format!("{}/{}", self.node.path(), "serviceLevelRequirements"))
+    }
+
+    /// 11.6.4. Monitoring and Prevention.
+    pub fn monitoring_and_prevention(&self) -> OperationalMonitoring {
+        OperationalMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoringAndPrevention"))
+    }
+}
+
+/// Data durability requirements.
+pub struct ReliabilityDurability {
+    pub node: som::SomNode,
+}
+
+impl ReliabilityDurability {
+    /// Binds a ReliabilityDurability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityDurability {
+        ReliabilityDurability { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ReliabilityDurabilityContentForm {
+        ReliabilityDurabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Failover requirements.
-pub struct ReliabilityQualityFailover {
+pub struct ReliabilityFailover {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityFailover {
-    /// Binds a ReliabilityQualityFailover facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityFailover {
-        ReliabilityQualityFailover { node: som::SomNode::new(doc, path) }
+impl ReliabilityFailover {
+    /// Binds a ReliabilityFailover facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityFailover {
+        ReliabilityFailover { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReliabilityQualityFailoverContentForm {
-        ReliabilityQualityFailoverContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReliabilityFailoverContentForm {
+        ReliabilityFailoverContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Recovery objectives.
-pub struct ReliabilityQualityRecovery {
+pub struct ReliabilityRecovery {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityRecovery {
-    /// Binds a ReliabilityQualityRecovery facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityRecovery {
-        ReliabilityQualityRecovery { node: som::SomNode::new(doc, path) }
+impl ReliabilityRecovery {
+    /// Binds a ReliabilityRecovery facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityRecovery {
+        ReliabilityRecovery { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReliabilityQualityRecoveryContentForm {
-        ReliabilityQualityRecoveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReliabilityRecoveryContentForm {
+        ReliabilityRecoveryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Verification and learning.
-pub struct ReliabilityQualityVerification {
+pub struct ReliabilityVerification {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityVerification {
-    /// Binds a ReliabilityQualityVerification facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityVerification {
-        ReliabilityQualityVerification { node: som::SomNode::new(doc, path) }
+impl ReliabilityVerification {
+    /// Binds a ReliabilityVerification facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityVerification {
+        ReliabilityVerification { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ReliabilityQualityVerificationContentForm {
-        ReliabilityQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ReliabilityVerificationContentForm {
+        ReliabilityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -55590,6 +55883,45 @@ impl SecondaryNavigation {
     }
 }
 
+/// 11.3.4. Security quality.
+pub struct Security {
+    pub node: som::SomNode,
+}
+
+impl Security {
+    /// Binds a Security facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Security {
+        Security { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SecurityContentForm {
+        SecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Authentication controls.
+    pub fn authentication(&self) -> SecurityAuthentication {
+        SecurityAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
+    }
+
+    /// Authorization controls.
+    pub fn authorization(&self) -> SecurityAuthorization {
+        SecurityAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
+    }
+
+    /// Vulnerability management expectations.
+    pub fn vulnerability(&self) -> SecurityVulnerability {
+        SecurityVulnerability::new(self.node.doc(), format!("{}/{}", self.node.path(), "vulnerability"))
+    }
+
+    /// Compliance and verification settings.
+    pub fn compliance(&self) -> SecurityCompliance {
+        SecurityCompliance::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
+    }
+
+    // Detailed security requirements narrative.
+    // (skipped: narrative has no target type)
+}
+
 /// 9. Security & Access Model. Seeds → SAS.
 pub struct SecurityAndAccessModel {
     pub node: som::SomNode,
@@ -55797,6 +56129,38 @@ impl SecurityAuditRequirementsSection {
     }
 }
 
+/// Authentication controls.
+pub struct SecurityAuthentication {
+    pub node: som::SomNode,
+}
+
+impl SecurityAuthentication {
+    /// Binds a SecurityAuthentication facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityAuthentication {
+        SecurityAuthentication { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SecurityAuthenticationContentForm {
+        SecurityAuthenticationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Authorization controls.
+pub struct SecurityAuthorization {
+    pub node: som::SomNode,
+}
+
+impl SecurityAuthorization {
+    /// Binds a SecurityAuthorization facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityAuthorization {
+        SecurityAuthorization { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SecurityAuthorizationContentForm {
+        SecurityAuthorizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Security certification and compliance requirements.
 pub struct SecurityCertificationRequirements {
     pub node: som::SomNode,
@@ -55897,6 +56261,39 @@ impl SecurityCertificationRequirementsSoc2 {
     }
 }
 
+/// 11.7. Security (ISO/IEC 25010:2023).
+///
+/// Degree to which the product protects information and data. Re-homes the
+/// former technical-bucket security leaf and the operations-bucket IT-security
+/// operations leaf under the 25010:2023 spine (L34C-8).
+pub struct SecurityCharacteristic {
+    pub node: som::SomNode,
+}
+
+impl SecurityCharacteristic {
+    /// Binds a SecurityCharacteristic facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityCharacteristic {
+        SecurityCharacteristic { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn security_content(&self) -> SecurityCharacteristicSecurityContentForm {
+        SecurityCharacteristicSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityContent"))
+    }
+
+    // Security overview.
+    // (skipped: overview has no target type)
+
+    /// 11.7.1. Security (product security attributes).
+    pub fn security(&self) -> Security {
+        Security::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
+    }
+
+    /// 11.7.2. IT Security Operations.
+    pub fn it_security_operations(&self) -> ItSecurityOperations {
+        ItSecurityOperations::new(self.node.doc(), format!("{}/{}", self.node.path(), "itSecurityOperations"))
+    }
+}
+
 /// Security-focused code review policy.
 ///
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
@@ -55977,6 +56374,22 @@ impl SecurityCodeReviewPolicyReviewers {
 
     pub fn content(&self) -> SecurityCodeReviewPolicyReviewersContentForm {
         SecurityCodeReviewPolicyReviewersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Compliance and verification settings.
+pub struct SecurityCompliance {
+    pub node: som::SomNode,
+}
+
+impl SecurityCompliance {
+    /// Binds a SecurityCompliance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityCompliance {
+        SecurityCompliance { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SecurityComplianceContentForm {
+        SecurityComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -56267,109 +56680,6 @@ impl SecurityEventsDefinition {
             format!("{}/{}", self.node.path(), "SEVT-CUST-LST"),
             Box::new(|d, p| SecurityEventEntry::new(d, p)),
         )
-    }
-}
-
-/// 11.3.4. Security quality.
-pub struct SecurityQuality {
-    pub node: som::SomNode,
-}
-
-impl SecurityQuality {
-    /// Binds a SecurityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQuality {
-        SecurityQuality { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SecurityQualityContentForm {
-        SecurityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-
-    /// Authentication controls.
-    pub fn authentication(&self) -> SecurityQualityAuthentication {
-        SecurityQualityAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
-    }
-
-    /// Authorization controls.
-    pub fn authorization(&self) -> SecurityQualityAuthorization {
-        SecurityQualityAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
-    }
-
-    /// Vulnerability management expectations.
-    pub fn vulnerability(&self) -> SecurityQualityVulnerability {
-        SecurityQualityVulnerability::new(self.node.doc(), format!("{}/{}", self.node.path(), "vulnerability"))
-    }
-
-    /// Compliance and verification settings.
-    pub fn compliance(&self) -> SecurityQualityCompliance {
-        SecurityQualityCompliance::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
-    }
-
-    // Detailed security requirements narrative.
-    // (skipped: narrative has no target type)
-}
-
-/// Authentication controls.
-pub struct SecurityQualityAuthentication {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityAuthentication {
-    /// Binds a SecurityQualityAuthentication facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityAuthentication {
-        SecurityQualityAuthentication { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SecurityQualityAuthenticationContentForm {
-        SecurityQualityAuthenticationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Authorization controls.
-pub struct SecurityQualityAuthorization {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityAuthorization {
-    /// Binds a SecurityQualityAuthorization facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityAuthorization {
-        SecurityQualityAuthorization { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SecurityQualityAuthorizationContentForm {
-        SecurityQualityAuthorizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Compliance and verification settings.
-pub struct SecurityQualityCompliance {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityCompliance {
-    /// Binds a SecurityQualityCompliance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityCompliance {
-        SecurityQualityCompliance { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SecurityQualityComplianceContentForm {
-        SecurityQualityComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Vulnerability management expectations.
-pub struct SecurityQualityVulnerability {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityVulnerability {
-    /// Binds a SecurityQualityVulnerability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityVulnerability {
-        SecurityQualityVulnerability { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SecurityQualityVulnerabilityContentForm {
-        SecurityQualityVulnerabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -56836,6 +57146,22 @@ impl SecurityTestingAutomationScanning {
 
     pub fn content(&self) -> SecurityTestingAutomationScanningContentForm {
         SecurityTestingAutomationScanningContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Vulnerability management expectations.
+pub struct SecurityVulnerability {
+    pub node: som::SomNode,
+}
+
+impl SecurityVulnerability {
+    /// Binds a SecurityVulnerability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityVulnerability {
+        SecurityVulnerability { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> SecurityVulnerabilityContentForm {
+        SecurityVulnerabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -57568,6 +57894,59 @@ impl ServiceAccountLifecycle {
     // (skipped: serviceAccountDescription has no target type)
 }
 
+/// 11.4.2. Service level quality.
+pub struct ServiceLevel {
+    pub node: som::SomNode,
+}
+
+impl ServiceLevel {
+    /// Binds a ServiceLevel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevel {
+        ServiceLevel { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ServiceLevelContentForm {
+        ServiceLevelContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Remaining response targets.
+    pub fn response(&self) -> ServiceLevelResponse {
+        ServiceLevelResponse::new(self.node.doc(), format!("{}/{}", self.node.path(), "response"))
+    }
+
+    /// Resolution targets.
+    pub fn resolution(&self) -> ServiceLevelResolution {
+        ServiceLevelResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "resolution"))
+    }
+
+    /// Escalation rules.
+    pub fn escalation(&self) -> ServiceLevelEscalation {
+        ServiceLevelEscalation::new(self.node.doc(), format!("{}/{}", self.node.path(), "escalation"))
+    }
+
+    /// On-call support expectations.
+    pub fn on_call(&self) -> ServiceLevelOnCall {
+        ServiceLevelOnCall::new(self.node.doc(), format!("{}/{}", self.node.path(), "onCall"))
+    }
+
+    /// Restoration and communication priorities.
+    pub fn restoration(&self) -> ServiceLevelRestoration {
+        ServiceLevelRestoration::new(self.node.doc(), format!("{}/{}", self.node.path(), "restoration"))
+    }
+
+    // Detailed service level requirements narrative.
+    // (skipped: narrative has no target type)
+
+    /// Service Level Agreement entries.
+    pub fn sla_entries(&self) -> som::SomList<ServiceLevelAgreementEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SLAE-SLAE-LST"),
+            Box::new(|d, p| ServiceLevelAgreementEntry::new(d, p)),
+        )
+    }
+}
+
 /// A service level agreement entry.
 pub struct ServiceLevelAgreementEntry {
     pub node: som::SomNode,
@@ -57581,6 +57960,22 @@ impl ServiceLevelAgreementEntry {
 
     pub fn content(&self) -> ServiceLevelAgreementEntryContentForm {
         ServiceLevelAgreementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Escalation rules.
+pub struct ServiceLevelEscalation {
+    pub node: som::SomNode,
+}
+
+impl ServiceLevelEscalation {
+    /// Binds a ServiceLevelEscalation facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelEscalation {
+        ServiceLevelEscalation { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ServiceLevelEscalationContentForm {
+        ServiceLevelEscalationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -57663,136 +58058,67 @@ impl ServiceLevelIndicatorsQuality {
     }
 }
 
-/// 11.4.2. Service level quality.
-pub struct ServiceLevelQuality {
-    pub node: som::SomNode,
-}
-
-impl ServiceLevelQuality {
-    /// Binds a ServiceLevelQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQuality {
-        ServiceLevelQuality { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> ServiceLevelQualityContentForm {
-        ServiceLevelQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-
-    /// Remaining response targets.
-    pub fn response(&self) -> ServiceLevelQualityResponse {
-        ServiceLevelQualityResponse::new(self.node.doc(), format!("{}/{}", self.node.path(), "response"))
-    }
-
-    /// Resolution targets.
-    pub fn resolution(&self) -> ServiceLevelQualityResolution {
-        ServiceLevelQualityResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "resolution"))
-    }
-
-    /// Escalation rules.
-    pub fn escalation(&self) -> ServiceLevelQualityEscalation {
-        ServiceLevelQualityEscalation::new(self.node.doc(), format!("{}/{}", self.node.path(), "escalation"))
-    }
-
-    /// On-call support expectations.
-    pub fn on_call(&self) -> ServiceLevelQualityOnCall {
-        ServiceLevelQualityOnCall::new(self.node.doc(), format!("{}/{}", self.node.path(), "onCall"))
-    }
-
-    /// Restoration and communication priorities.
-    pub fn restoration(&self) -> ServiceLevelQualityRestoration {
-        ServiceLevelQualityRestoration::new(self.node.doc(), format!("{}/{}", self.node.path(), "restoration"))
-    }
-
-    // Detailed service level requirements narrative.
-    // (skipped: narrative has no target type)
-
-    /// Service Level Agreement entries.
-    pub fn sla_entries(&self) -> som::SomList<ServiceLevelAgreementEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "SLAE-SLAE-LST"),
-            Box::new(|d, p| ServiceLevelAgreementEntry::new(d, p)),
-        )
-    }
-}
-
-/// Escalation rules.
-pub struct ServiceLevelQualityEscalation {
-    pub node: som::SomNode,
-}
-
-impl ServiceLevelQualityEscalation {
-    /// Binds a ServiceLevelQualityEscalation facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityEscalation {
-        ServiceLevelQualityEscalation { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> ServiceLevelQualityEscalationContentForm {
-        ServiceLevelQualityEscalationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
 /// On-call support expectations.
-pub struct ServiceLevelQualityOnCall {
+pub struct ServiceLevelOnCall {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityOnCall {
-    /// Binds a ServiceLevelQualityOnCall facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityOnCall {
-        ServiceLevelQualityOnCall { node: som::SomNode::new(doc, path) }
+impl ServiceLevelOnCall {
+    /// Binds a ServiceLevelOnCall facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelOnCall {
+        ServiceLevelOnCall { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ServiceLevelQualityOnCallContentForm {
-        ServiceLevelQualityOnCallContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ServiceLevelOnCallContentForm {
+        ServiceLevelOnCallContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Resolution targets.
-pub struct ServiceLevelQualityResolution {
+pub struct ServiceLevelResolution {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityResolution {
-    /// Binds a ServiceLevelQualityResolution facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityResolution {
-        ServiceLevelQualityResolution { node: som::SomNode::new(doc, path) }
+impl ServiceLevelResolution {
+    /// Binds a ServiceLevelResolution facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelResolution {
+        ServiceLevelResolution { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ServiceLevelQualityResolutionContentForm {
-        ServiceLevelQualityResolutionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ServiceLevelResolutionContentForm {
+        ServiceLevelResolutionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Remaining response targets.
-pub struct ServiceLevelQualityResponse {
+pub struct ServiceLevelResponse {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityResponse {
-    /// Binds a ServiceLevelQualityResponse facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityResponse {
-        ServiceLevelQualityResponse { node: som::SomNode::new(doc, path) }
+impl ServiceLevelResponse {
+    /// Binds a ServiceLevelResponse facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelResponse {
+        ServiceLevelResponse { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ServiceLevelQualityResponseContentForm {
-        ServiceLevelQualityResponseContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ServiceLevelResponseContentForm {
+        ServiceLevelResponseContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Restoration and communication priorities.
-pub struct ServiceLevelQualityRestoration {
+pub struct ServiceLevelRestoration {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityRestoration {
-    /// Binds a ServiceLevelQualityRestoration facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityRestoration {
-        ServiceLevelQualityRestoration { node: som::SomNode::new(doc, path) }
+impl ServiceLevelRestoration {
+    /// Binds a ServiceLevelRestoration facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelRestoration {
+        ServiceLevelRestoration { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> ServiceLevelQualityRestorationContentForm {
-        ServiceLevelQualityRestorationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ServiceLevelRestorationContentForm {
+        ServiceLevelRestorationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -63692,23 +64018,23 @@ impl SystemQualityGoals {
     }
 
     /// Governance board and escalation details.
-    pub fn governance(&self) -> SystemQualityGoalsGovernance {
-        SystemQualityGoalsGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
+    pub fn governance(&self) -> QualityGoalsGovernance {
+        QualityGoalsGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
     /// Baseline and target settings.
-    pub fn baseline(&self) -> SystemQualityGoalsBaseline {
-        SystemQualityGoalsBaseline::new(self.node.doc(), format!("{}/{}", self.node.path(), "baseline"))
+    pub fn baseline(&self) -> QualityGoalsBaseline {
+        QualityGoalsBaseline::new(self.node.doc(), format!("{}/{}", self.node.path(), "baseline"))
     }
 
     /// Measurement and reporting approach.
-    pub fn measurement(&self) -> SystemQualityGoalsMeasurement {
-        SystemQualityGoalsMeasurement::new(self.node.doc(), format!("{}/{}", self.node.path(), "measurement"))
+    pub fn measurement(&self) -> QualityGoalsMeasurement {
+        QualityGoalsMeasurement::new(self.node.doc(), format!("{}/{}", self.node.path(), "measurement"))
     }
 
     /// Quality resources and enablement.
-    pub fn resources(&self) -> SystemQualityGoalsResources {
-        SystemQualityGoalsResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
+    pub fn resources(&self) -> QualityGoalsResources {
+        QualityGoalsResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
     }
 
     // Executive summary of quality goals and approach.
@@ -63737,22 +64063,49 @@ impl SystemQualityGoals {
         QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "framework"))
     }
 
-    /// 11.2. User-Related Quality Criteria.
-    pub fn user_quality(&self) -> UserQualityCriteria {
-        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQuality"))
+    /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+    pub fn functional_suitability(&self) -> FunctionalSuitabilityCharacteristic {
+        FunctionalSuitabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalSuitability"))
     }
 
-    /// 11.3. Technical Quality Criteria.
-    pub fn technical_quality(&self) -> TechnicalQualityCriteria {
-        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQuality"))
+    /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+    pub fn performance_efficiency(&self) -> PerformanceEfficiencyCharacteristic {
+        PerformanceEfficiencyCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "performanceEfficiency"))
     }
 
-    /// 11.4. Operations Quality Criteria.
-    pub fn operations_quality(&self) -> OperationsQualityCriteria {
-        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQuality"))
+    /// 11.4. Compatibility (ISO/IEC 25010:2023).
+    pub fn compatibility(&self) -> CompatibilityCharacteristic {
+        CompatibilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "compatibility"))
     }
 
-    /// 11.5. Documentation Quality Criteria.
+    /// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+    pub fn interaction_capability(&self) -> InteractionCapabilityCharacteristic {
+        InteractionCapabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCapability"))
+    }
+
+    /// 11.6. Reliability (ISO/IEC 25010:2023).
+    pub fn reliability(&self) -> ReliabilityCharacteristic {
+        ReliabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliability"))
+    }
+
+    /// 11.7. Security (ISO/IEC 25010:2023).
+    pub fn security(&self) -> SecurityCharacteristic {
+        SecurityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
+    }
+
+    /// 11.8. Maintainability (ISO/IEC 25010:2023).
+    pub fn maintainability(&self) -> MaintainabilityCharacteristic {
+        MaintainabilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainability"))
+    }
+
+    /// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+    pub fn flexibility(&self) -> FlexibilityCharacteristic {
+        FlexibilityCharacteristic::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibility"))
+    }
+
+    /// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+    /// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+    /// documentation-quality annex per L34C-8).
     pub fn documentation_quality(&self) -> DocumentationQualityCriteria {
         DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQuality"))
     }
@@ -63770,70 +64123,6 @@ impl SystemQualityGoals {
     /// 11.8. Test Strategy..
     pub fn test_strategy(&self) -> TestStrategy {
         TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
-    }
-}
-
-/// Baseline and target settings.
-pub struct SystemQualityGoalsBaseline {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsBaseline {
-    /// Binds a SystemQualityGoalsBaseline facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsBaseline {
-        SystemQualityGoalsBaseline { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemQualityGoalsBaselineContentForm {
-        SystemQualityGoalsBaselineContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Governance board and escalation details.
-pub struct SystemQualityGoalsGovernance {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsGovernance {
-    /// Binds a SystemQualityGoalsGovernance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsGovernance {
-        SystemQualityGoalsGovernance { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemQualityGoalsGovernanceContentForm2 {
-        SystemQualityGoalsGovernanceContentForm2::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Measurement and reporting approach.
-pub struct SystemQualityGoalsMeasurement {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsMeasurement {
-    /// Binds a SystemQualityGoalsMeasurement facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsMeasurement {
-        SystemQualityGoalsMeasurement { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemQualityGoalsMeasurementContentForm {
-        SystemQualityGoalsMeasurementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// Quality resources and enablement.
-pub struct SystemQualityGoalsResources {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsResources {
-    /// Binds a SystemQualityGoalsResources facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsResources {
-        SystemQualityGoalsResources { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> SystemQualityGoalsResourcesContentForm {
-        SystemQualityGoalsResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -65758,58 +66047,6 @@ impl TechnicalPainPointsSummary {
 
     pub fn content(&self) -> TechnicalPainPointsSummaryContentForm {
         TechnicalPainPointsSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// 11.3. Technical Quality Criteria.
-///
-/// Quality criteria for the technical implementation including efficiency,
-/// portability, flexibility, security, maintainability, and reliability.
-pub struct TechnicalQualityCriteria {
-    pub node: som::SomNode,
-}
-
-impl TechnicalQualityCriteria {
-    /// Binds a TechnicalQualityCriteria facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalQualityCriteria {
-        TechnicalQualityCriteria { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn technical_quality_content(&self) -> TechnicalQualityCriteriaTechnicalQualityContentForm {
-        TechnicalQualityCriteriaTechnicalQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityContent"))
-    }
-
-    // Technical quality overview.
-    // (skipped: overview has no target type)
-
-    /// 11.3.1. Efficiency.
-    pub fn efficiency(&self) -> EfficiencyQuality {
-        EfficiencyQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "efficiency"))
-    }
-
-    /// 11.3.2. Portability.
-    pub fn portability(&self) -> PortabilityQuality {
-        PortabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "portability"))
-    }
-
-    /// 11.3.3. Flexibility.
-    pub fn flexibility(&self) -> FlexibilityQuality {
-        FlexibilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibility"))
-    }
-
-    /// 11.3.4. Security.
-    pub fn security(&self) -> SecurityQuality {
-        SecurityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
-    }
-
-    /// 11.3.5. Maintainability.
-    pub fn maintainability(&self) -> MaintainabilityQuality {
-        MaintainabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainability"))
-    }
-
-    /// 11.3.6. Reliability.
-    pub fn reliability(&self) -> ReliabilityQuality {
-        ReliabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliability"))
     }
 }
 
@@ -70003,43 +70240,43 @@ impl UpgradeCycleFramework {
 }
 
 /// 11.2.1. Usability quality.
-pub struct UsabilityQuality {
+pub struct Usability {
     pub node: som::SomNode,
 }
 
-impl UsabilityQuality {
-    /// Binds a UsabilityQuality facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQuality {
-        UsabilityQuality { node: som::SomNode::new(doc, path) }
+impl Usability {
+    /// Binds a Usability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Usability {
+        Usability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityContentForm {
-        UsabilityQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityContentForm {
+        UsabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Operability verification and ergonomics goals.
-    pub fn operability(&self) -> UsabilityQualityOperability {
-        UsabilityQualityOperability::new(self.node.doc(), format!("{}/{}", self.node.path(), "operability"))
+    pub fn operability(&self) -> UsabilityOperability {
+        UsabilityOperability::new(self.node.doc(), format!("{}/{}", self.node.path(), "operability"))
     }
 
     /// Learnability and onboarding expectations.
-    pub fn learnability(&self) -> UsabilityQualityLearnability {
-        UsabilityQualityLearnability::new(self.node.doc(), format!("{}/{}", self.node.path(), "learnability"))
+    pub fn learnability(&self) -> UsabilityLearnability {
+        UsabilityLearnability::new(self.node.doc(), format!("{}/{}", self.node.path(), "learnability"))
     }
 
     /// Clarity and complexity constraints.
-    pub fn clarity(&self) -> UsabilityQualityClarity {
-        UsabilityQualityClarity::new(self.node.doc(), format!("{}/{}", self.node.path(), "clarity"))
+    pub fn clarity(&self) -> UsabilityClarity {
+        UsabilityClarity::new(self.node.doc(), format!("{}/{}", self.node.path(), "clarity"))
     }
 
     /// Interaction control settings.
-    pub fn interaction(&self) -> UsabilityQualityInteraction {
-        UsabilityQualityInteraction::new(self.node.doc(), format!("{}/{}", self.node.path(), "interaction"))
+    pub fn interaction(&self) -> UsabilityInteraction {
+        UsabilityInteraction::new(self.node.doc(), format!("{}/{}", self.node.path(), "interaction"))
     }
 
     /// Perceived and measured responsiveness targets.
-    pub fn performance(&self) -> UsabilityQualityPerformance {
-        UsabilityQualityPerformance::new(self.node.doc(), format!("{}/{}", self.node.path(), "performance"))
+    pub fn performance(&self) -> UsabilityPerformance {
+        UsabilityPerformance::new(self.node.doc(), format!("{}/{}", self.node.path(), "performance"))
     }
 
     // Detailed usability requirements narrative.
@@ -70047,82 +70284,82 @@ impl UsabilityQuality {
 }
 
 /// Clarity and complexity constraints.
-pub struct UsabilityQualityClarity {
+pub struct UsabilityClarity {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityClarity {
-    /// Binds a UsabilityQualityClarity facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityClarity {
-        UsabilityQualityClarity { node: som::SomNode::new(doc, path) }
+impl UsabilityClarity {
+    /// Binds a UsabilityClarity facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityClarity {
+        UsabilityClarity { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityClarityContentForm {
-        UsabilityQualityClarityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityClarityContentForm {
+        UsabilityClarityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Interaction control settings.
-pub struct UsabilityQualityInteraction {
+pub struct UsabilityInteraction {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityInteraction {
-    /// Binds a UsabilityQualityInteraction facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityInteraction {
-        UsabilityQualityInteraction { node: som::SomNode::new(doc, path) }
+impl UsabilityInteraction {
+    /// Binds a UsabilityInteraction facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityInteraction {
+        UsabilityInteraction { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityInteractionContentForm {
-        UsabilityQualityInteractionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityInteractionContentForm {
+        UsabilityInteractionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Learnability and onboarding expectations.
-pub struct UsabilityQualityLearnability {
+pub struct UsabilityLearnability {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityLearnability {
-    /// Binds a UsabilityQualityLearnability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityLearnability {
-        UsabilityQualityLearnability { node: som::SomNode::new(doc, path) }
+impl UsabilityLearnability {
+    /// Binds a UsabilityLearnability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityLearnability {
+        UsabilityLearnability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityLearnabilityContentForm {
-        UsabilityQualityLearnabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityLearnabilityContentForm {
+        UsabilityLearnabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Operability verification and ergonomics goals.
-pub struct UsabilityQualityOperability {
+pub struct UsabilityOperability {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityOperability {
-    /// Binds a UsabilityQualityOperability facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityOperability {
-        UsabilityQualityOperability { node: som::SomNode::new(doc, path) }
+impl UsabilityOperability {
+    /// Binds a UsabilityOperability facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityOperability {
+        UsabilityOperability { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityOperabilityContentForm {
-        UsabilityQualityOperabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityOperabilityContentForm {
+        UsabilityOperabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
 /// Perceived and measured responsiveness targets.
-pub struct UsabilityQualityPerformance {
+pub struct UsabilityPerformance {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityPerformance {
-    /// Binds a UsabilityQualityPerformance facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityPerformance {
-        UsabilityQualityPerformance { node: som::SomNode::new(doc, path) }
+impl UsabilityPerformance {
+    /// Binds a UsabilityPerformance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityPerformance {
+        UsabilityPerformance { node: som::SomNode::new(doc, path) }
     }
 
-    pub fn content(&self) -> UsabilityQualityPerformanceContentForm {
-        UsabilityQualityPerformanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> UsabilityPerformanceContentForm {
+        UsabilityPerformanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -71481,43 +71718,6 @@ impl UserProvisioningToolsRoleManagement {
 
     pub fn content(&self) -> UserProvisioningToolsRoleManagementContentForm {
         UserProvisioningToolsRoleManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// 11.2. User-Related Quality Criteria.
-///
-/// Quality criteria that directly affect user experience, including usability,
-/// functional completeness, and correctness from the end-user perspective.
-pub struct UserQualityCriteria {
-    pub node: som::SomNode,
-}
-
-impl UserQualityCriteria {
-    /// Binds a UserQualityCriteria facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserQualityCriteria {
-        UserQualityCriteria { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn user_quality_content(&self) -> UserQualityCriteriaUserQualityContentForm {
-        UserQualityCriteriaUserQualityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityContent"))
-    }
-
-    // User quality criteria overview.
-    // (skipped: overview has no target type)
-
-    /// 11.2.1. Usability.
-    pub fn usability(&self) -> UsabilityQuality {
-        UsabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "usability"))
-    }
-
-    /// 11.2.2. Functional Completeness.
-    pub fn functional_completeness(&self) -> FunctionalCompletenessQuality {
-        FunctionalCompletenessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalCompleteness"))
-    }
-
-    /// 11.2.3. Correctness.
-    pub fn correctness(&self) -> CorrectnessQuality {
-        CorrectnessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
     }
 }
 
@@ -80628,15 +80828,15 @@ impl AuthorizationRoleEntryStructureContentForm {
     }
 }
 
-/// AvailabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct AvailabilityQualityContentForm {
+/// AvailabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct AvailabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityContentForm {
-    /// Binds a AvailabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityContentForm {
-        AvailabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl AvailabilityContentForm {
+    /// Binds a AvailabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityContentForm {
+        AvailabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn uptime_target_percentage(&self) -> String {
@@ -80667,15 +80867,15 @@ impl AvailabilityQualityContentForm {
     }
 }
 
-/// AvailabilityQualityDegradedModeContentForm is the generated form facade for the `content` @Form section.
-pub struct AvailabilityQualityDegradedModeContentForm {
+/// AvailabilityDegradedModeContentForm is the generated form facade for the `content` @Form section.
+pub struct AvailabilityDegradedModeContentForm {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityDegradedModeContentForm {
-    /// Binds a AvailabilityQualityDegradedModeContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityDegradedModeContentForm {
-        AvailabilityQualityDegradedModeContentForm { node: som::SomNode::new(doc, path) }
+impl AvailabilityDegradedModeContentForm {
+    /// Binds a AvailabilityDegradedModeContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityDegradedModeContentForm {
+        AvailabilityDegradedModeContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn degraded_mode_definition(&self) -> String {
@@ -80706,15 +80906,15 @@ impl AvailabilityQualityDegradedModeContentForm {
     }
 }
 
-/// AvailabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-pub struct AvailabilityQualityMaintenanceContentForm {
+/// AvailabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+pub struct AvailabilityMaintenanceContentForm {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityMaintenanceContentForm {
-    /// Binds a AvailabilityQualityMaintenanceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityMaintenanceContentForm {
-        AvailabilityQualityMaintenanceContentForm { node: som::SomNode::new(doc, path) }
+impl AvailabilityMaintenanceContentForm {
+    /// Binds a AvailabilityMaintenanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityMaintenanceContentForm {
+        AvailabilityMaintenanceContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn scheduled_maintenance_window(&self) -> String {
@@ -80754,15 +80954,15 @@ impl AvailabilityQualityMaintenanceContentForm {
     }
 }
 
-/// AvailabilityQualityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
-pub struct AvailabilityQualityOperatingHoursContentForm {
+/// AvailabilityOperatingHoursContentForm is the generated form facade for the `content` @Form section.
+pub struct AvailabilityOperatingHoursContentForm {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityOperatingHoursContentForm {
-    /// Binds a AvailabilityQualityOperatingHoursContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityOperatingHoursContentForm {
-        AvailabilityQualityOperatingHoursContentForm { node: som::SomNode::new(doc, path) }
+impl AvailabilityOperatingHoursContentForm {
+    /// Binds a AvailabilityOperatingHoursContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityOperatingHoursContentForm {
+        AvailabilityOperatingHoursContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn operating_hours(&self) -> String {
@@ -80793,15 +80993,15 @@ impl AvailabilityQualityOperatingHoursContentForm {
     }
 }
 
-/// AvailabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-pub struct AvailabilityQualityVerificationContentForm {
+/// AvailabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+pub struct AvailabilityVerificationContentForm {
     pub node: som::SomNode,
 }
 
-impl AvailabilityQualityVerificationContentForm {
-    /// Binds a AvailabilityQualityVerificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AvailabilityQualityVerificationContentForm {
-        AvailabilityQualityVerificationContentForm { node: som::SomNode::new(doc, path) }
+impl AvailabilityVerificationContentForm {
+    /// Binds a AvailabilityVerificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AvailabilityVerificationContentForm {
+        AvailabilityVerificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn availability_monitoring(&self) -> String {
@@ -91722,6 +91922,36 @@ impl CommunicationTypeEntryContentForm {
     }
 }
 
+/// CompatibilityCharacteristicCompatibilityContentForm is the generated form facade for the `compatibilityContent` @Form section.
+pub struct CompatibilityCharacteristicCompatibilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl CompatibilityCharacteristicCompatibilityContentForm {
+    /// Binds a CompatibilityCharacteristicCompatibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CompatibilityCharacteristicCompatibilityContentForm {
+        CompatibilityCharacteristicCompatibilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn co_existence_requirements(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "coExistenceRequirements")
+    }
+
+    pub fn set_co_existence_requirements(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "coExistenceRequirements", value);
+    }
+
+    pub fn interoperability_standards(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "interoperabilityStandards")
+    }
+
+    pub fn set_interoperability_standards(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "interoperabilityStandards", value);
+    }
+}
+
 /// CompetencyEntryContentForm is the generated form facade for the `content` @Form section.
 pub struct CompetencyEntryContentForm {
     pub node: som::SomNode,
@@ -97290,15 +97520,15 @@ impl ContingencyPlanEntryTestingContentForm {
     }
 }
 
-/// CorrectnessQualityAccuracyContentForm is the generated form facade for the `content` @Form section.
-pub struct CorrectnessQualityAccuracyContentForm {
+/// CorrectnessAccuracyContentForm is the generated form facade for the `content` @Form section.
+pub struct CorrectnessAccuracyContentForm {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityAccuracyContentForm {
-    /// Binds a CorrectnessQualityAccuracyContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityAccuracyContentForm {
-        CorrectnessQualityAccuracyContentForm { node: som::SomNode::new(doc, path) }
+impl CorrectnessAccuracyContentForm {
+    /// Binds a CorrectnessAccuracyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessAccuracyContentForm {
+        CorrectnessAccuracyContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn calculation_accuracy_target(&self) -> String {
@@ -97329,15 +97559,15 @@ impl CorrectnessQualityAccuracyContentForm {
     }
 }
 
-/// CorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct CorrectnessQualityContentForm {
+/// CorrectnessContentForm is the generated form facade for the `content` @Form section.
+pub struct CorrectnessContentForm {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityContentForm {
-    /// Binds a CorrectnessQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityContentForm {
-        CorrectnessQualityContentForm { node: som::SomNode::new(doc, path) }
+impl CorrectnessContentForm {
+    /// Binds a CorrectnessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessContentForm {
+        CorrectnessContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn defect_density_target(&self) -> String {
@@ -97368,15 +97598,15 @@ impl CorrectnessQualityContentForm {
     }
 }
 
-/// CorrectnessQualityIntegrityContentForm is the generated form facade for the `content` @Form section.
-pub struct CorrectnessQualityIntegrityContentForm {
+/// CorrectnessIntegrityContentForm is the generated form facade for the `content` @Form section.
+pub struct CorrectnessIntegrityContentForm {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityIntegrityContentForm {
-    /// Binds a CorrectnessQualityIntegrityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityIntegrityContentForm {
-        CorrectnessQualityIntegrityContentForm { node: som::SomNode::new(doc, path) }
+impl CorrectnessIntegrityContentForm {
+    /// Binds a CorrectnessIntegrityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessIntegrityContentForm {
+        CorrectnessIntegrityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn data_integrity_requirement(&self) -> String {
@@ -97407,15 +97637,15 @@ impl CorrectnessQualityIntegrityContentForm {
     }
 }
 
-/// CorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-pub struct CorrectnessQualityVerificationContentForm {
+/// CorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+pub struct CorrectnessVerificationContentForm {
     pub node: som::SomNode,
 }
 
-impl CorrectnessQualityVerificationContentForm {
-    /// Binds a CorrectnessQualityVerificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CorrectnessQualityVerificationContentForm {
-        CorrectnessQualityVerificationContentForm { node: som::SomNode::new(doc, path) }
+impl CorrectnessVerificationContentForm {
+    /// Binds a CorrectnessVerificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CorrectnessVerificationContentForm {
+        CorrectnessVerificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn correctness_verification(&self) -> String {
@@ -110613,15 +110843,15 @@ impl DnsRequirementsZonesContentForm {
     }
 }
 
-/// DocChangeabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct DocChangeabilityQualityContentForm {
+/// DocChangeabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct DocChangeabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityContentForm {
-    /// Binds a DocChangeabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityContentForm {
-        DocChangeabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityContentForm {
+    /// Binds a DocChangeabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityContentForm {
+        DocChangeabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn versioning_strategy(&self) -> String {
@@ -110652,15 +110882,15 @@ impl DocChangeabilityQualityContentForm {
     }
 }
 
-/// DocChangeabilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-pub struct DocChangeabilityQualityExtensibilityContentForm {
+/// DocChangeabilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+pub struct DocChangeabilityExtensibilityContentForm {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityExtensibilityContentForm {
-    /// Binds a DocChangeabilityQualityExtensibilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityExtensibilityContentForm {
-        DocChangeabilityQualityExtensibilityContentForm { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityExtensibilityContentForm {
+    /// Binds a DocChangeabilityExtensibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityExtensibilityContentForm {
+        DocChangeabilityExtensibilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn extensibility_approach(&self) -> String {
@@ -110691,15 +110921,15 @@ impl DocChangeabilityQualityExtensibilityContentForm {
     }
 }
 
-/// DocChangeabilityQualityMaintenanceContentForm is the generated form facade for the `content` @Form section.
-pub struct DocChangeabilityQualityMaintenanceContentForm {
+/// DocChangeabilityMaintenanceContentForm is the generated form facade for the `content` @Form section.
+pub struct DocChangeabilityMaintenanceContentForm {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityMaintenanceContentForm {
-    /// Binds a DocChangeabilityQualityMaintenanceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityMaintenanceContentForm {
-        DocChangeabilityQualityMaintenanceContentForm { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityMaintenanceContentForm {
+    /// Binds a DocChangeabilityMaintenanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityMaintenanceContentForm {
+        DocChangeabilityMaintenanceContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn review_cycle(&self) -> String {
@@ -110721,15 +110951,15 @@ impl DocChangeabilityQualityMaintenanceContentForm {
     }
 }
 
-/// DocChangeabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-pub struct DocChangeabilityQualityStructureContentForm {
+/// DocChangeabilityStructureContentForm is the generated form facade for the `content` @Form section.
+pub struct DocChangeabilityStructureContentForm {
     pub node: som::SomNode,
 }
 
-impl DocChangeabilityQualityStructureContentForm {
-    /// Binds a DocChangeabilityQualityStructureContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityQualityStructureContentForm {
-        DocChangeabilityQualityStructureContentForm { node: som::SomNode::new(doc, path) }
+impl DocChangeabilityStructureContentForm {
+    /// Binds a DocChangeabilityStructureContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocChangeabilityStructureContentForm {
+        DocChangeabilityStructureContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn document_sizing_guideline(&self) -> String {
@@ -110769,15 +110999,15 @@ impl DocChangeabilityQualityStructureContentForm {
     }
 }
 
-/// DocCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct DocCompletenessQualityContentForm {
+/// DocCompletenessContentForm is the generated form facade for the `content` @Form section.
+pub struct DocCompletenessContentForm {
     pub node: som::SomNode,
 }
 
-impl DocCompletenessQualityContentForm {
-    /// Binds a DocCompletenessQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCompletenessQualityContentForm {
-        DocCompletenessQualityContentForm { node: som::SomNode::new(doc, path) }
+impl DocCompletenessContentForm {
+    /// Binds a DocCompletenessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCompletenessContentForm {
+        DocCompletenessContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn required_topics(&self) -> String {
@@ -110871,15 +111101,15 @@ impl DocCompletenessQualityContentForm {
     }
 }
 
-/// DocCorrectnessQualityAlignmentContentForm is the generated form facade for the `content` @Form section.
-pub struct DocCorrectnessQualityAlignmentContentForm {
+/// DocCorrectnessAlignmentContentForm is the generated form facade for the `content` @Form section.
+pub struct DocCorrectnessAlignmentContentForm {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQualityAlignmentContentForm {
-    /// Binds a DocCorrectnessQualityAlignmentContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQualityAlignmentContentForm {
-        DocCorrectnessQualityAlignmentContentForm { node: som::SomNode::new(doc, path) }
+impl DocCorrectnessAlignmentContentForm {
+    /// Binds a DocCorrectnessAlignmentContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessAlignmentContentForm {
+        DocCorrectnessAlignmentContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn format_consistency(&self) -> String {
@@ -110928,15 +111158,15 @@ impl DocCorrectnessQualityAlignmentContentForm {
     }
 }
 
-/// DocCorrectnessQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct DocCorrectnessQualityContentForm {
+/// DocCorrectnessContentForm is the generated form facade for the `content` @Form section.
+pub struct DocCorrectnessContentForm {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQualityContentForm {
-    /// Binds a DocCorrectnessQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQualityContentForm {
-        DocCorrectnessQualityContentForm { node: som::SomNode::new(doc, path) }
+impl DocCorrectnessContentForm {
+    /// Binds a DocCorrectnessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessContentForm {
+        DocCorrectnessContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn spelling_grammar_check(&self) -> String {
@@ -110976,15 +111206,15 @@ impl DocCorrectnessQualityContentForm {
     }
 }
 
-/// DocCorrectnessQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-pub struct DocCorrectnessQualityVerificationContentForm {
+/// DocCorrectnessVerificationContentForm is the generated form facade for the `content` @Form section.
+pub struct DocCorrectnessVerificationContentForm {
     pub node: som::SomNode,
 }
 
-impl DocCorrectnessQualityVerificationContentForm {
-    /// Binds a DocCorrectnessQualityVerificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessQualityVerificationContentForm {
-        DocCorrectnessQualityVerificationContentForm { node: som::SomNode::new(doc, path) }
+impl DocCorrectnessVerificationContentForm {
+    /// Binds a DocCorrectnessVerificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocCorrectnessVerificationContentForm {
+        DocCorrectnessVerificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn correctness_verification(&self) -> String {
@@ -112398,15 +112628,15 @@ impl DomainTermEntryContentForm {
     }
 }
 
-/// EfficiencyQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct EfficiencyQualityContentForm {
+/// EfficiencyContentForm is the generated form facade for the `content` @Form section.
+pub struct EfficiencyContentForm {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityContentForm {
-    /// Binds a EfficiencyQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityContentForm {
-        EfficiencyQualityContentForm { node: som::SomNode::new(doc, path) }
+impl EfficiencyContentForm {
+    /// Binds a EfficiencyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyContentForm {
+        EfficiencyContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn response_time_p50_target(&self) -> String {
@@ -112437,15 +112667,15 @@ impl EfficiencyQualityContentForm {
     }
 }
 
-/// EfficiencyQualityResourcesContentForm is the generated form facade for the `content` @Form section.
-pub struct EfficiencyQualityResourcesContentForm {
+/// EfficiencyResourcesContentForm is the generated form facade for the `content` @Form section.
+pub struct EfficiencyResourcesContentForm {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityResourcesContentForm {
-    /// Binds a EfficiencyQualityResourcesContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityResourcesContentForm {
-        EfficiencyQualityResourcesContentForm { node: som::SomNode::new(doc, path) }
+impl EfficiencyResourcesContentForm {
+    /// Binds a EfficiencyResourcesContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyResourcesContentForm {
+        EfficiencyResourcesContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn cpu_utilization_limit(&self) -> String {
@@ -112485,15 +112715,15 @@ impl EfficiencyQualityResourcesContentForm {
     }
 }
 
-/// EfficiencyQualityThroughputContentForm is the generated form facade for the `content` @Form section.
-pub struct EfficiencyQualityThroughputContentForm {
+/// EfficiencyThroughputContentForm is the generated form facade for the `content` @Form section.
+pub struct EfficiencyThroughputContentForm {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityThroughputContentForm {
-    /// Binds a EfficiencyQualityThroughputContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityThroughputContentForm {
-        EfficiencyQualityThroughputContentForm { node: som::SomNode::new(doc, path) }
+impl EfficiencyThroughputContentForm {
+    /// Binds a EfficiencyThroughputContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyThroughputContentForm {
+        EfficiencyThroughputContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn throughput_target(&self) -> String {
@@ -112524,15 +112754,15 @@ impl EfficiencyQualityThroughputContentForm {
     }
 }
 
-/// EfficiencyQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-pub struct EfficiencyQualityVerificationContentForm {
+/// EfficiencyVerificationContentForm is the generated form facade for the `content` @Form section.
+pub struct EfficiencyVerificationContentForm {
     pub node: som::SomNode,
 }
 
-impl EfficiencyQualityVerificationContentForm {
-    /// Binds a EfficiencyQualityVerificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EfficiencyQualityVerificationContentForm {
-        EfficiencyQualityVerificationContentForm { node: som::SomNode::new(doc, path) }
+impl EfficiencyVerificationContentForm {
+    /// Binds a EfficiencyVerificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EfficiencyVerificationContentForm {
+        EfficiencyVerificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn load_testing_requirement(&self) -> String {
@@ -121104,15 +121334,45 @@ impl FirewallRequirementsRulesContentForm {
     }
 }
 
-/// FlexibilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct FlexibilityQualityContentForm {
+/// FlexibilityCharacteristicFlexibilityContentForm is the generated form facade for the `flexibilityContent` @Form section.
+pub struct FlexibilityCharacteristicFlexibilityContentForm {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityContentForm {
-    /// Binds a FlexibilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityContentForm {
-        FlexibilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl FlexibilityCharacteristicFlexibilityContentForm {
+    /// Binds a FlexibilityCharacteristicFlexibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityCharacteristicFlexibilityContentForm {
+        FlexibilityCharacteristicFlexibilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn flexibility_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "flexibilityApproach")
+    }
+
+    pub fn set_flexibility_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "flexibilityApproach", value);
+    }
+
+    pub fn portability_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "portabilityTarget")
+    }
+
+    pub fn set_portability_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "portabilityTarget", value);
+    }
+}
+
+/// FlexibilityContentForm is the generated form facade for the `content` @Form section.
+pub struct FlexibilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl FlexibilityContentForm {
+    /// Binds a FlexibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityContentForm {
+        FlexibilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn component_architecture(&self) -> String {
@@ -121143,15 +121403,15 @@ impl FlexibilityQualityContentForm {
     }
 }
 
-/// FlexibilityQualityDeploymentContentForm is the generated form facade for the `content` @Form section.
-pub struct FlexibilityQualityDeploymentContentForm {
+/// FlexibilityDeploymentContentForm is the generated form facade for the `content` @Form section.
+pub struct FlexibilityDeploymentContentForm {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityDeploymentContentForm {
-    /// Binds a FlexibilityQualityDeploymentContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityDeploymentContentForm {
-        FlexibilityQualityDeploymentContentForm { node: som::SomNode::new(doc, path) }
+impl FlexibilityDeploymentContentForm {
+    /// Binds a FlexibilityDeploymentContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityDeploymentContentForm {
+        FlexibilityDeploymentContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn distribution_capability(&self) -> String {
@@ -121182,15 +121442,15 @@ impl FlexibilityQualityDeploymentContentForm {
     }
 }
 
-/// FlexibilityQualityExtensibilityContentForm is the generated form facade for the `content` @Form section.
-pub struct FlexibilityQualityExtensibilityContentForm {
+/// FlexibilityExtensibilityContentForm is the generated form facade for the `content` @Form section.
+pub struct FlexibilityExtensibilityContentForm {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityExtensibilityContentForm {
-    /// Binds a FlexibilityQualityExtensibilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityExtensibilityContentForm {
-        FlexibilityQualityExtensibilityContentForm { node: som::SomNode::new(doc, path) }
+impl FlexibilityExtensibilityContentForm {
+    /// Binds a FlexibilityExtensibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityExtensibilityContentForm {
+        FlexibilityExtensibilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn extensibility_model(&self) -> String {
@@ -121221,15 +121481,15 @@ impl FlexibilityQualityExtensibilityContentForm {
     }
 }
 
-/// FlexibilityQualityModularityContentForm is the generated form facade for the `content` @Form section.
-pub struct FlexibilityQualityModularityContentForm {
+/// FlexibilityModularityContentForm is the generated form facade for the `content` @Form section.
+pub struct FlexibilityModularityContentForm {
     pub node: som::SomNode,
 }
 
-impl FlexibilityQualityModularityContentForm {
-    /// Binds a FlexibilityQualityModularityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FlexibilityQualityModularityContentForm {
-        FlexibilityQualityModularityContentForm { node: som::SomNode::new(doc, path) }
+impl FlexibilityModularityContentForm {
+    /// Binds a FlexibilityModularityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FlexibilityModularityContentForm {
+        FlexibilityModularityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn modularity_level(&self) -> String {
@@ -121878,15 +122138,15 @@ impl FunctionModelMatrixOverviewForm {
     }
 }
 
-/// FunctionalCompletenessQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct FunctionalCompletenessQualityContentForm {
+/// FunctionalCompletenessContentForm is the generated form facade for the `content` @Form section.
+pub struct FunctionalCompletenessContentForm {
     pub node: som::SomNode,
 }
 
-impl FunctionalCompletenessQualityContentForm {
-    /// Binds a FunctionalCompletenessQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FunctionalCompletenessQualityContentForm {
-        FunctionalCompletenessQualityContentForm { node: som::SomNode::new(doc, path) }
+impl FunctionalCompletenessContentForm {
+    /// Binds a FunctionalCompletenessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FunctionalCompletenessContentForm {
+        FunctionalCompletenessContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn feature_coverage_target(&self) -> String {
@@ -122382,6 +122642,45 @@ impl FunctionalResponsibilitiesContentForm {
     pub fn set_unassigned_areas(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "unassignedAreas", value);
+    }
+}
+
+/// FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm is the generated form facade for the `functionalSuitabilityContent` @Form section.
+pub struct FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+    /// Binds a FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
+        FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn functional_suitability_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionalSuitabilityApproach")
+    }
+
+    pub fn set_functional_suitability_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "functionalSuitabilityApproach", value);
+    }
+
+    pub fn functional_coverage_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionalCoverageTarget")
+    }
+
+    pub fn set_functional_coverage_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "functionalCoverageTarget", value);
+    }
+
+    pub fn correctness_standard(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "correctnessStandard")
+    }
+
+    pub fn set_correctness_standard(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "correctnessStandard", value);
     }
 }
 
@@ -128229,6 +128528,72 @@ impl InteractionBusinessRulesContentForm {
     }
 }
 
+/// InteractionCapabilityCharacteristicInteractionCapabilityContentForm is the generated form facade for the `interactionCapabilityContent` @Form section.
+pub struct InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+    /// Binds a InteractionCapabilityCharacteristicInteractionCapabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
+        InteractionCapabilityCharacteristicInteractionCapabilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn user_quality_philosophy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userQualityPhilosophy")
+    }
+
+    pub fn set_user_quality_philosophy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userQualityPhilosophy", value);
+    }
+
+    pub fn target_user_experience(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetUserExperience")
+    }
+
+    pub fn set_target_user_experience(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetUserExperience", value);
+    }
+
+    pub fn user_research_basis(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userResearchBasis")
+    }
+
+    pub fn set_user_research_basis(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userResearchBasis", value);
+    }
+
+    pub fn user_feedback_channel(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userFeedbackChannel")
+    }
+
+    pub fn set_user_feedback_channel(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userFeedbackChannel", value);
+    }
+
+    pub fn user_satisfaction_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userSatisfactionTarget")
+    }
+
+    pub fn set_user_satisfaction_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userSatisfactionTarget", value);
+    }
+
+    pub fn accessibility_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessibilityLevel")
+    }
+
+    pub fn set_accessibility_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessibilityLevel", value);
+    }
+}
+
 /// InteractionCatalogOverviewContentForm is the generated form facade for the `content` @Form section.
 pub struct InteractionCatalogOverviewContentForm {
     pub node: som::SomNode,
@@ -131466,15 +131831,15 @@ impl ItLandscapePositionPositionDetailsForm {
     }
 }
 
-/// ItSecurityOperationsQualityAccessContentForm is the generated form facade for the `content` @Form section.
-pub struct ItSecurityOperationsQualityAccessContentForm {
+/// ItSecurityOperationsAccessContentForm is the generated form facade for the `content` @Form section.
+pub struct ItSecurityOperationsAccessContentForm {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityAccessContentForm {
-    /// Binds a ItSecurityOperationsQualityAccessContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityAccessContentForm {
-        ItSecurityOperationsQualityAccessContentForm { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsAccessContentForm {
+    /// Binds a ItSecurityOperationsAccessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsAccessContentForm {
+        ItSecurityOperationsAccessContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn privileged_access_management(&self) -> String {
@@ -131505,15 +131870,15 @@ impl ItSecurityOperationsQualityAccessContentForm {
     }
 }
 
-/// ItSecurityOperationsQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct ItSecurityOperationsQualityContentForm {
+/// ItSecurityOperationsContentForm is the generated form facade for the `content` @Form section.
+pub struct ItSecurityOperationsContentForm {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityContentForm {
-    /// Binds a ItSecurityOperationsQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityContentForm {
-        ItSecurityOperationsQualityContentForm { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsContentForm {
+    /// Binds a ItSecurityOperationsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsContentForm {
+        ItSecurityOperationsContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn access_control_model(&self) -> String {
@@ -131544,15 +131909,15 @@ impl ItSecurityOperationsQualityContentForm {
     }
 }
 
-/// ItSecurityOperationsQualityIncidentContentForm is the generated form facade for the `content` @Form section.
-pub struct ItSecurityOperationsQualityIncidentContentForm {
+/// ItSecurityOperationsIncidentContentForm is the generated form facade for the `content` @Form section.
+pub struct ItSecurityOperationsIncidentContentForm {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityIncidentContentForm {
-    /// Binds a ItSecurityOperationsQualityIncidentContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityIncidentContentForm {
-        ItSecurityOperationsQualityIncidentContentForm { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsIncidentContentForm {
+    /// Binds a ItSecurityOperationsIncidentContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsIncidentContentForm {
+        ItSecurityOperationsIncidentContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn security_incident_classification(&self) -> String {
@@ -131592,15 +131957,15 @@ impl ItSecurityOperationsQualityIncidentContentForm {
     }
 }
 
-/// ItSecurityOperationsQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-pub struct ItSecurityOperationsQualityRecoveryContentForm {
+/// ItSecurityOperationsRecoveryContentForm is the generated form facade for the `content` @Form section.
+pub struct ItSecurityOperationsRecoveryContentForm {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityRecoveryContentForm {
-    /// Binds a ItSecurityOperationsQualityRecoveryContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityRecoveryContentForm {
-        ItSecurityOperationsQualityRecoveryContentForm { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsRecoveryContentForm {
+    /// Binds a ItSecurityOperationsRecoveryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsRecoveryContentForm {
+        ItSecurityOperationsRecoveryContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn dr_testing_frequency(&self) -> String {
@@ -131640,15 +132005,15 @@ impl ItSecurityOperationsQualityRecoveryContentForm {
     }
 }
 
-/// ItSecurityOperationsQualityTestingContentForm is the generated form facade for the `content` @Form section.
-pub struct ItSecurityOperationsQualityTestingContentForm {
+/// ItSecurityOperationsTestingContentForm is the generated form facade for the `content` @Form section.
+pub struct ItSecurityOperationsTestingContentForm {
     pub node: som::SomNode,
 }
 
-impl ItSecurityOperationsQualityTestingContentForm {
-    /// Binds a ItSecurityOperationsQualityTestingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsQualityTestingContentForm {
-        ItSecurityOperationsQualityTestingContentForm { node: som::SomNode::new(doc, path) }
+impl ItSecurityOperationsTestingContentForm {
+    /// Binds a ItSecurityOperationsTestingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ItSecurityOperationsTestingContentForm {
+        ItSecurityOperationsTestingContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn penetration_test_scope(&self) -> String {
@@ -135168,15 +135533,15 @@ impl MainSuccessScenarioContentForm {
     }
 }
 
-/// MaintainabilityQualityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct MaintainabilityQualityAnalyzabilityContentForm {
+/// MaintainabilityAnalyzabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct MaintainabilityAnalyzabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityAnalyzabilityContentForm {
-    /// Binds a MaintainabilityQualityAnalyzabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityAnalyzabilityContentForm {
-        MaintainabilityQualityAnalyzabilityContentForm { node: som::SomNode::new(doc, path) }
+impl MaintainabilityAnalyzabilityContentForm {
+    /// Binds a MaintainabilityAnalyzabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityAnalyzabilityContentForm {
+        MaintainabilityAnalyzabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn code_readability_standard(&self) -> String {
@@ -135207,15 +135572,15 @@ impl MaintainabilityQualityAnalyzabilityContentForm {
     }
 }
 
-/// MaintainabilityQualityChangeabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct MaintainabilityQualityChangeabilityContentForm {
+/// MaintainabilityChangeabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct MaintainabilityChangeabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityChangeabilityContentForm {
-    /// Binds a MaintainabilityQualityChangeabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityChangeabilityContentForm {
-        MaintainabilityQualityChangeabilityContentForm { node: som::SomNode::new(doc, path) }
+impl MaintainabilityChangeabilityContentForm {
+    /// Binds a MaintainabilityChangeabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityChangeabilityContentForm {
+        MaintainabilityChangeabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn code_coverage_minimum(&self) -> String {
@@ -135255,15 +135620,45 @@ impl MaintainabilityQualityChangeabilityContentForm {
     }
 }
 
-/// MaintainabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct MaintainabilityQualityContentForm {
+/// MaintainabilityCharacteristicMaintainabilityContentForm is the generated form facade for the `maintainabilityContent` @Form section.
+pub struct MaintainabilityCharacteristicMaintainabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityContentForm {
-    /// Binds a MaintainabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityContentForm {
-        MaintainabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl MaintainabilityCharacteristicMaintainabilityContentForm {
+    /// Binds a MaintainabilityCharacteristicMaintainabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityCharacteristicMaintainabilityContentForm {
+        MaintainabilityCharacteristicMaintainabilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn maintainability_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maintainabilityApproach")
+    }
+
+    pub fn set_maintainability_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maintainabilityApproach", value);
+    }
+
+    pub fn maintainability_standard(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maintainabilityStandard")
+    }
+
+    pub fn set_maintainability_standard(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maintainabilityStandard", value);
+    }
+}
+
+/// MaintainabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct MaintainabilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl MaintainabilityContentForm {
+    /// Binds a MaintainabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityContentForm {
+        MaintainabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn adaptability_target(&self) -> String {
@@ -135285,15 +135680,15 @@ impl MaintainabilityQualityContentForm {
     }
 }
 
-/// MaintainabilityQualityGovernanceContentForm is the generated form facade for the `content` @Form section.
-pub struct MaintainabilityQualityGovernanceContentForm {
+/// MaintainabilityGovernanceContentForm is the generated form facade for the `content` @Form section.
+pub struct MaintainabilityGovernanceContentForm {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityGovernanceContentForm {
-    /// Binds a MaintainabilityQualityGovernanceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityGovernanceContentForm {
-        MaintainabilityQualityGovernanceContentForm { node: som::SomNode::new(doc, path) }
+impl MaintainabilityGovernanceContentForm {
+    /// Binds a MaintainabilityGovernanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityGovernanceContentForm {
+        MaintainabilityGovernanceContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn extensibility_pattern(&self) -> String {
@@ -135333,15 +135728,15 @@ impl MaintainabilityQualityGovernanceContentForm {
     }
 }
 
-/// MaintainabilityQualityTestabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct MaintainabilityQualityTestabilityContentForm {
+/// MaintainabilityTestabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct MaintainabilityTestabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl MaintainabilityQualityTestabilityContentForm {
-    /// Binds a MaintainabilityQualityTestabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityQualityTestabilityContentForm {
-        MaintainabilityQualityTestabilityContentForm { node: som::SomNode::new(doc, path) }
+impl MaintainabilityTestabilityContentForm {
+    /// Binds a MaintainabilityTestabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintainabilityTestabilityContentForm {
+        MaintainabilityTestabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn testability_design(&self) -> String {
@@ -141228,6 +141623,141 @@ impl ModuleVersioningStrategyReleaseManagementContentForm {
     }
 }
 
+/// MonitoringAlertingContentForm is the generated form facade for the `content` @Form section.
+pub struct MonitoringAlertingContentForm {
+    pub node: som::SomNode,
+}
+
+impl MonitoringAlertingContentForm {
+    /// Binds a MonitoringAlertingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringAlertingContentForm {
+        MonitoringAlertingContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn alerting_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertingStrategy")
+    }
+
+    pub fn set_alerting_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertingStrategy", value);
+    }
+
+    pub fn alert_prioritization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertPrioritization")
+    }
+
+    pub fn set_alert_prioritization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertPrioritization", value);
+    }
+
+    pub fn alert_notification_channels(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertNotificationChannels")
+    }
+
+    pub fn set_alert_notification_channels(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertNotificationChannels", value);
+    }
+
+    pub fn alert_fatigue_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertFatiguePrevention")
+    }
+
+    pub fn set_alert_fatigue_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertFatiguePrevention", value);
+    }
+}
+
+/// MonitoringAutomationContentForm is the generated form facade for the `content` @Form section.
+pub struct MonitoringAutomationContentForm {
+    pub node: som::SomNode,
+}
+
+impl MonitoringAutomationContentForm {
+    /// Binds a MonitoringAutomationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringAutomationContentForm {
+        MonitoringAutomationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn alert_automation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertAutomation")
+    }
+
+    pub fn set_alert_automation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertAutomation", value);
+    }
+
+    pub fn self_healing_capability(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "selfHealingCapability")
+    }
+
+    pub fn set_self_healing_capability(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "selfHealingCapability", value);
+    }
+
+    pub fn runbook_automation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "runbookAutomation")
+    }
+
+    pub fn set_runbook_automation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "runbookAutomation", value);
+    }
+}
+
+/// MonitoringCoverageContentForm is the generated form facade for the `content` @Form section.
+pub struct MonitoringCoverageContentForm {
+    pub node: som::SomNode,
+}
+
+impl MonitoringCoverageContentForm {
+    /// Binds a MonitoringCoverageContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringCoverageContentForm {
+        MonitoringCoverageContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn infrastructure_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "infrastructureMonitoring")
+    }
+
+    pub fn set_infrastructure_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "infrastructureMonitoring", value);
+    }
+
+    pub fn application_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "applicationMonitoring")
+    }
+
+    pub fn set_application_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "applicationMonitoring", value);
+    }
+
+    pub fn database_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseMonitoring")
+    }
+
+    pub fn set_database_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseMonitoring", value);
+    }
+
+    pub fn third_party_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "thirdPartyMonitoring")
+    }
+
+    pub fn set_third_party_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "thirdPartyMonitoring", value);
+    }
+}
+
 /// MonitoringDashboardsDashboardOverviewForm is the generated form facade for the `dashboardOverview` @Form section.
 pub struct MonitoringDashboardsDashboardOverviewForm {
     pub node: som::SomNode,
@@ -141615,189 +142145,15 @@ impl MonitoringMonitoringOverviewForm {
     }
 }
 
-/// MonitoringQualityAlertingContentForm is the generated form facade for the `content` @Form section.
-pub struct MonitoringQualityAlertingContentForm {
+/// MonitoringOperationsContentForm is the generated form facade for the `content` @Form section.
+pub struct MonitoringOperationsContentForm {
     pub node: som::SomNode,
 }
 
-impl MonitoringQualityAlertingContentForm {
-    /// Binds a MonitoringQualityAlertingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityAlertingContentForm {
-        MonitoringQualityAlertingContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn alerting_strategy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertingStrategy")
-    }
-
-    pub fn set_alerting_strategy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertingStrategy", value);
-    }
-
-    pub fn alert_prioritization(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertPrioritization")
-    }
-
-    pub fn set_alert_prioritization(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertPrioritization", value);
-    }
-
-    pub fn alert_notification_channels(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertNotificationChannels")
-    }
-
-    pub fn set_alert_notification_channels(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertNotificationChannels", value);
-    }
-
-    pub fn alert_fatigue_prevention(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertFatiguePrevention")
-    }
-
-    pub fn set_alert_fatigue_prevention(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertFatiguePrevention", value);
-    }
-}
-
-/// MonitoringQualityAutomationContentForm is the generated form facade for the `content` @Form section.
-pub struct MonitoringQualityAutomationContentForm {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityAutomationContentForm {
-    /// Binds a MonitoringQualityAutomationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityAutomationContentForm {
-        MonitoringQualityAutomationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn alert_automation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertAutomation")
-    }
-
-    pub fn set_alert_automation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertAutomation", value);
-    }
-
-    pub fn self_healing_capability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "selfHealingCapability")
-    }
-
-    pub fn set_self_healing_capability(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "selfHealingCapability", value);
-    }
-
-    pub fn runbook_automation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "runbookAutomation")
-    }
-
-    pub fn set_runbook_automation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "runbookAutomation", value);
-    }
-}
-
-/// MonitoringQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct MonitoringQualityContentForm {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityContentForm {
-    /// Binds a MonitoringQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityContentForm {
-        MonitoringQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn scalability_monitoring_approach(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scalabilityMonitoringApproach")
-    }
-
-    pub fn set_scalability_monitoring_approach(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scalabilityMonitoringApproach", value);
-    }
-
-    pub fn capacity_planning_process(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "capacityPlanningProcess")
-    }
-
-    pub fn set_capacity_planning_process(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "capacityPlanningProcess", value);
-    }
-
-    pub fn growth_projections(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "growthProjections")
-    }
-
-    pub fn set_growth_projections(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "growthProjections", value);
-    }
-}
-
-/// MonitoringQualityCoverageContentForm is the generated form facade for the `content` @Form section.
-pub struct MonitoringQualityCoverageContentForm {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityCoverageContentForm {
-    /// Binds a MonitoringQualityCoverageContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityCoverageContentForm {
-        MonitoringQualityCoverageContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn infrastructure_monitoring(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "infrastructureMonitoring")
-    }
-
-    pub fn set_infrastructure_monitoring(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "infrastructureMonitoring", value);
-    }
-
-    pub fn application_monitoring(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "applicationMonitoring")
-    }
-
-    pub fn set_application_monitoring(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "applicationMonitoring", value);
-    }
-
-    pub fn database_monitoring(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "databaseMonitoring")
-    }
-
-    pub fn set_database_monitoring(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "databaseMonitoring", value);
-    }
-
-    pub fn third_party_monitoring(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "thirdPartyMonitoring")
-    }
-
-    pub fn set_third_party_monitoring(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "thirdPartyMonitoring", value);
-    }
-}
-
-/// MonitoringQualityOperationsContentForm is the generated form facade for the `content` @Form section.
-pub struct MonitoringQualityOperationsContentForm {
-    pub node: som::SomNode,
-}
-
-impl MonitoringQualityOperationsContentForm {
-    /// Binds a MonitoringQualityOperationsContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringQualityOperationsContentForm {
-        MonitoringQualityOperationsContentForm { node: som::SomNode::new(doc, path) }
+impl MonitoringOperationsContentForm {
+    /// Binds a MonitoringOperationsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MonitoringOperationsContentForm {
+        MonitoringOperationsContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn resource_planning_frequency(&self) -> String {
@@ -146643,6 +146999,45 @@ impl OngoingTrainingEntryScheduleContentForm {
     }
 }
 
+/// OperationalMonitoringContentForm is the generated form facade for the `content` @Form section.
+pub struct OperationalMonitoringContentForm {
+    pub node: som::SomNode,
+}
+
+impl OperationalMonitoringContentForm {
+    /// Binds a OperationalMonitoringContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OperationalMonitoringContentForm {
+        OperationalMonitoringContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn scalability_monitoring_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scalabilityMonitoringApproach")
+    }
+
+    pub fn set_scalability_monitoring_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scalabilityMonitoringApproach", value);
+    }
+
+    pub fn capacity_planning_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "capacityPlanningProcess")
+    }
+
+    pub fn set_capacity_planning_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "capacityPlanningProcess", value);
+    }
+
+    pub fn growth_projections(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "growthProjections")
+    }
+
+    pub fn set_growth_projections(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "growthProjections", value);
+    }
+}
+
 /// OperationalPainPointsSummaryContentForm is the generated form facade for the `content` @Form section.
 pub struct OperationalPainPointsSummaryContentForm {
     pub node: som::SomNode,
@@ -146697,72 +147092,6 @@ impl OperationalPainPointsSummaryContentForm {
     pub fn set_staff_overhead(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "staffOverhead", value);
-    }
-}
-
-/// OperationsQualityCriteriaOperationsOverviewContentForm is the generated form facade for the `operationsOverviewContent` @Form section.
-pub struct OperationsQualityCriteriaOperationsOverviewContentForm {
-    pub node: som::SomNode,
-}
-
-impl OperationsQualityCriteriaOperationsOverviewContentForm {
-    /// Binds a OperationsQualityCriteriaOperationsOverviewContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> OperationsQualityCriteriaOperationsOverviewContentForm {
-        OperationsQualityCriteriaOperationsOverviewContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn operations_maturity_model(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "operationsMaturityModel")
-    }
-
-    pub fn set_operations_maturity_model(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "operationsMaturityModel", value);
-    }
-
-    pub fn operations_philosophy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "operationsPhilosophy")
-    }
-
-    pub fn set_operations_philosophy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "operationsPhilosophy", value);
-    }
-
-    pub fn operations_responsibility(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "operationsResponsibility")
-    }
-
-    pub fn set_operations_responsibility(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "operationsResponsibility", value);
-    }
-
-    pub fn incident_management_process(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "incidentManagementProcess")
-    }
-
-    pub fn set_incident_management_process(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "incidentManagementProcess", value);
-    }
-
-    pub fn change_management_process(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeManagementProcess")
-    }
-
-    pub fn set_change_management_process(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeManagementProcess", value);
-    }
-
-    pub fn operations_toolchain(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "operationsToolchain")
-    }
-
-    pub fn set_operations_toolchain(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "operationsToolchain", value);
     }
 }
 
@@ -149670,6 +149999,63 @@ impl PenetrationTestingRequirementsSchedulingContentForm {
     }
 }
 
+/// PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm is the generated form facade for the `performanceEfficiencyContent` @Form section.
+pub struct PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+    /// Binds a PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
+        PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn technical_quality_philosophy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "technicalQualityPhilosophy")
+    }
+
+    pub fn set_technical_quality_philosophy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "technicalQualityPhilosophy", value);
+    }
+
+    pub fn architectural_quality_goals(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "architecturalQualityGoals")
+    }
+
+    pub fn set_architectural_quality_goals(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "architecturalQualityGoals", value);
+    }
+
+    pub fn technical_debt_tolerance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtTolerance")
+    }
+
+    pub fn set_technical_debt_tolerance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtTolerance", value);
+    }
+
+    pub fn code_quality_standard(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "codeQualityStandard")
+    }
+
+    pub fn set_code_quality_standard(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "codeQualityStandard", value);
+    }
+
+    pub fn design_principles_adherence(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "designPrinciplesAdherence")
+    }
+
+    pub fn set_design_principles_adherence(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "designPrinciplesAdherence", value);
+    }
+}
+
 /// PeriodicReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 pub struct PeriodicReviewPolicyContentForm {
     pub node: som::SomNode,
@@ -151245,15 +151631,15 @@ impl PipelineStageEntryTriggerContentForm {
     }
 }
 
-/// PortabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct PortabilityQualityContentForm {
+/// PortabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct PortabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl PortabilityQualityContentForm {
-    /// Binds a PortabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PortabilityQualityContentForm {
-        PortabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl PortabilityContentForm {
+    /// Binds a PortabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PortabilityContentForm {
+        PortabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn target_platforms(&self) -> String {
@@ -158682,6 +159068,198 @@ impl QualityGateChecklistChecklistOverviewContentForm {
     }
 }
 
+/// QualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
+pub struct QualityGoalsBaselineContentForm {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsBaselineContentForm {
+    /// Binds a QualityGoalsBaselineContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsBaselineContentForm {
+        QualityGoalsBaselineContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn quality_baseline_date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBaselineDate")
+    }
+
+    pub fn set_quality_baseline_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityBaselineDate", value);
+    }
+
+    pub fn quality_baseline_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBaselineVersion")
+    }
+
+    pub fn set_quality_baseline_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityBaselineVersion", value);
+    }
+
+    pub fn overall_quality_target_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overallQualityTargetLevel")
+    }
+
+    pub fn set_overall_quality_target_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overallQualityTargetLevel", value);
+    }
+
+    pub fn quality_risk_tolerance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityRiskTolerance")
+    }
+
+    pub fn set_quality_risk_tolerance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityRiskTolerance", value);
+    }
+}
+
+/// QualityGoalsGovernanceContentForm is the generated form facade for the `content` @Form section.
+pub struct QualityGoalsGovernanceContentForm {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsGovernanceContentForm {
+    /// Binds a QualityGoalsGovernanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsGovernanceContentForm {
+        QualityGoalsGovernanceContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn quality_review_board(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityReviewBoard")
+    }
+
+    pub fn set_quality_review_board(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityReviewBoard", value);
+    }
+
+    pub fn quality_meeting_cadence(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityMeetingCadence")
+    }
+
+    pub fn set_quality_meeting_cadence(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityMeetingCadence", value);
+    }
+
+    pub fn quality_escalation_path(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityEscalationPath")
+    }
+
+    pub fn set_quality_escalation_path(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityEscalationPath", value);
+    }
+}
+
+/// QualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
+pub struct QualityGoalsMeasurementContentForm {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsMeasurementContentForm {
+    /// Binds a QualityGoalsMeasurementContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsMeasurementContentForm {
+        QualityGoalsMeasurementContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn quality_metrics_framework(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityMetricsFramework")
+    }
+
+    pub fn set_quality_metrics_framework(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityMetricsFramework", value);
+    }
+
+    pub fn quality_reporting_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityReportingFrequency")
+    }
+
+    pub fn set_quality_reporting_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityReportingFrequency", value);
+    }
+
+    pub fn quality_dashboard_tool(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityDashboardTool")
+    }
+
+    pub fn set_quality_dashboard_tool(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityDashboardTool", value);
+    }
+
+    pub fn defect_tracking_system(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defectTrackingSystem")
+    }
+
+    pub fn set_defect_tracking_system(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defectTrackingSystem", value);
+    }
+
+    pub fn quality_trend_analysis(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityTrendAnalysis")
+    }
+
+    pub fn set_quality_trend_analysis(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityTrendAnalysis", value);
+    }
+}
+
+/// QualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
+pub struct QualityGoalsResourcesContentForm {
+    pub node: som::SomNode,
+}
+
+impl QualityGoalsResourcesContentForm {
+    /// Binds a QualityGoalsResourcesContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityGoalsResourcesContentForm {
+        QualityGoalsResourcesContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn quality_budget(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBudget")
+    }
+
+    pub fn set_quality_budget(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityBudget", value);
+    }
+
+    pub fn qa_team_size(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qaTeamSize")
+    }
+
+    pub fn set_qa_team_size(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qaTeamSize", value);
+    }
+
+    pub fn test_automation_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "testAutomationTarget")
+    }
+
+    pub fn set_test_automation_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "testAutomationTarget", value);
+    }
+
+    pub fn quality_training_plan(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "qualityTrainingPlan")
+    }
+
+    pub fn set_quality_training_plan(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityTrainingPlan", value);
+    }
+}
+
 /// QualityPrioritizationPrioritizationFrameworkContentForm is the generated form facade for the `prioritizationFrameworkContent` @Form section.
 pub struct QualityPrioritizationPrioritizationFrameworkContentForm {
     pub node: som::SomNode,
@@ -159303,15 +159881,15 @@ impl RateLimitingPolicyQuotasContentForm {
     }
 }
 
-/// ReadabilityQualityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
-pub struct ReadabilityQualityComprehensibilityContentForm {
+/// ReadabilityComprehensibilityContentForm is the generated form facade for the `content` @Form section.
+pub struct ReadabilityComprehensibilityContentForm {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityComprehensibilityContentForm {
-    /// Binds a ReadabilityQualityComprehensibilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityComprehensibilityContentForm {
-        ReadabilityQualityComprehensibilityContentForm { node: som::SomNode::new(doc, path) }
+impl ReadabilityComprehensibilityContentForm {
+    /// Binds a ReadabilityComprehensibilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityComprehensibilityContentForm {
+        ReadabilityComprehensibilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn reading_level_target(&self) -> String {
@@ -159342,15 +159920,15 @@ impl ReadabilityQualityComprehensibilityContentForm {
     }
 }
 
-/// ReadabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct ReadabilityQualityContentForm {
+/// ReadabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct ReadabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityContentForm {
-    /// Binds a ReadabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityContentForm {
-        ReadabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl ReadabilityContentForm {
+    /// Binds a ReadabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityContentForm {
+        ReadabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn terminology_standard(&self) -> String {
@@ -159381,15 +159959,15 @@ impl ReadabilityQualityContentForm {
     }
 }
 
-/// ReadabilityQualityNavigationContentForm is the generated form facade for the `content` @Form section.
-pub struct ReadabilityQualityNavigationContentForm {
+/// ReadabilityNavigationContentForm is the generated form facade for the `content` @Form section.
+pub struct ReadabilityNavigationContentForm {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityNavigationContentForm {
-    /// Binds a ReadabilityQualityNavigationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityNavigationContentForm {
-        ReadabilityQualityNavigationContentForm { node: som::SomNode::new(doc, path) }
+impl ReadabilityNavigationContentForm {
+    /// Binds a ReadabilityNavigationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityNavigationContentForm {
+        ReadabilityNavigationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn section_numbering(&self) -> String {
@@ -159420,15 +159998,15 @@ impl ReadabilityQualityNavigationContentForm {
     }
 }
 
-/// ReadabilityQualityStructureContentForm is the generated form facade for the `content` @Form section.
-pub struct ReadabilityQualityStructureContentForm {
+/// ReadabilityStructureContentForm is the generated form facade for the `content` @Form section.
+pub struct ReadabilityStructureContentForm {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityStructureContentForm {
-    /// Binds a ReadabilityQualityStructureContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityStructureContentForm {
-        ReadabilityQualityStructureContentForm { node: som::SomNode::new(doc, path) }
+impl ReadabilityStructureContentForm {
+    /// Binds a ReadabilityStructureContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityStructureContentForm {
+        ReadabilityStructureContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn document_structure_template(&self) -> String {
@@ -159459,15 +160037,15 @@ impl ReadabilityQualityStructureContentForm {
     }
 }
 
-/// ReadabilityQualityStyleContentForm is the generated form facade for the `content` @Form section.
-pub struct ReadabilityQualityStyleContentForm {
+/// ReadabilityStyleContentForm is the generated form facade for the `content` @Form section.
+pub struct ReadabilityStyleContentForm {
     pub node: som::SomNode,
 }
 
-impl ReadabilityQualityStyleContentForm {
-    /// Binds a ReadabilityQualityStyleContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReadabilityQualityStyleContentForm {
-        ReadabilityQualityStyleContentForm { node: som::SomNode::new(doc, path) }
+impl ReadabilityStyleContentForm {
+    /// Binds a ReadabilityStyleContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReadabilityStyleContentForm {
+        ReadabilityStyleContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn style_guide_reference(&self) -> String {
@@ -160956,15 +161534,81 @@ impl RelevantSectionEntryContentForm {
     }
 }
 
-/// ReliabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct ReliabilityQualityContentForm {
+/// ReliabilityCharacteristicReliabilityContentForm is the generated form facade for the `reliabilityContent` @Form section.
+pub struct ReliabilityCharacteristicReliabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityContentForm {
-    /// Binds a ReliabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityContentForm {
-        ReliabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl ReliabilityCharacteristicReliabilityContentForm {
+    /// Binds a ReliabilityCharacteristicReliabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityCharacteristicReliabilityContentForm {
+        ReliabilityCharacteristicReliabilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn operations_maturity_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationsMaturityModel")
+    }
+
+    pub fn set_operations_maturity_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationsMaturityModel", value);
+    }
+
+    pub fn operations_philosophy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationsPhilosophy")
+    }
+
+    pub fn set_operations_philosophy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationsPhilosophy", value);
+    }
+
+    pub fn operations_responsibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationsResponsibility")
+    }
+
+    pub fn set_operations_responsibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationsResponsibility", value);
+    }
+
+    pub fn incident_management_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "incidentManagementProcess")
+    }
+
+    pub fn set_incident_management_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "incidentManagementProcess", value);
+    }
+
+    pub fn change_management_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "changeManagementProcess")
+    }
+
+    pub fn set_change_management_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "changeManagementProcess", value);
+    }
+
+    pub fn operations_toolchain(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationsToolchain")
+    }
+
+    pub fn set_operations_toolchain(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationsToolchain", value);
+    }
+}
+
+/// ReliabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct ReliabilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl ReliabilityContentForm {
+    /// Binds a ReliabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityContentForm {
+        ReliabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn uptime_target(&self) -> String {
@@ -160995,15 +161639,15 @@ impl ReliabilityQualityContentForm {
     }
 }
 
-/// ReliabilityQualityDurabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct ReliabilityQualityDurabilityContentForm {
+/// ReliabilityDurabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct ReliabilityDurabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityDurabilityContentForm {
-    /// Binds a ReliabilityQualityDurabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityDurabilityContentForm {
-        ReliabilityQualityDurabilityContentForm { node: som::SomNode::new(doc, path) }
+impl ReliabilityDurabilityContentForm {
+    /// Binds a ReliabilityDurabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityDurabilityContentForm {
+        ReliabilityDurabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn data_durability(&self) -> String {
@@ -161043,15 +161687,15 @@ impl ReliabilityQualityDurabilityContentForm {
     }
 }
 
-/// ReliabilityQualityFailoverContentForm is the generated form facade for the `content` @Form section.
-pub struct ReliabilityQualityFailoverContentForm {
+/// ReliabilityFailoverContentForm is the generated form facade for the `content` @Form section.
+pub struct ReliabilityFailoverContentForm {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityFailoverContentForm {
-    /// Binds a ReliabilityQualityFailoverContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityFailoverContentForm {
-        ReliabilityQualityFailoverContentForm { node: som::SomNode::new(doc, path) }
+impl ReliabilityFailoverContentForm {
+    /// Binds a ReliabilityFailoverContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityFailoverContentForm {
+        ReliabilityFailoverContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn failover_strategy(&self) -> String {
@@ -161082,15 +161726,15 @@ impl ReliabilityQualityFailoverContentForm {
     }
 }
 
-/// ReliabilityQualityRecoveryContentForm is the generated form facade for the `content` @Form section.
-pub struct ReliabilityQualityRecoveryContentForm {
+/// ReliabilityRecoveryContentForm is the generated form facade for the `content` @Form section.
+pub struct ReliabilityRecoveryContentForm {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityRecoveryContentForm {
-    /// Binds a ReliabilityQualityRecoveryContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityRecoveryContentForm {
-        ReliabilityQualityRecoveryContentForm { node: som::SomNode::new(doc, path) }
+impl ReliabilityRecoveryContentForm {
+    /// Binds a ReliabilityRecoveryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityRecoveryContentForm {
+        ReliabilityRecoveryContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn mtbf_target(&self) -> String {
@@ -161130,15 +161774,15 @@ impl ReliabilityQualityRecoveryContentForm {
     }
 }
 
-/// ReliabilityQualityVerificationContentForm is the generated form facade for the `content` @Form section.
-pub struct ReliabilityQualityVerificationContentForm {
+/// ReliabilityVerificationContentForm is the generated form facade for the `content` @Form section.
+pub struct ReliabilityVerificationContentForm {
     pub node: som::SomNode,
 }
 
-impl ReliabilityQualityVerificationContentForm {
-    /// Binds a ReliabilityQualityVerificationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ReliabilityQualityVerificationContentForm {
-        ReliabilityQualityVerificationContentForm { node: som::SomNode::new(doc, path) }
+impl ReliabilityVerificationContentForm {
+    /// Binds a ReliabilityVerificationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReliabilityVerificationContentForm {
+        ReliabilityVerificationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn reliability_verification(&self) -> String {
@@ -173748,6 +174392,93 @@ impl SecurityAuditEntrySchedulingContentForm {
     }
 }
 
+/// SecurityAuthenticationContentForm is the generated form facade for the `content` @Form section.
+pub struct SecurityAuthenticationContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityAuthenticationContentForm {
+    /// Binds a SecurityAuthenticationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityAuthenticationContentForm {
+        SecurityAuthenticationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn authentication_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationMethod")
+    }
+
+    pub fn set_authentication_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationMethod", value);
+    }
+
+    pub fn mfa_requirement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaRequirement")
+    }
+
+    pub fn set_mfa_requirement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaRequirement", value);
+    }
+
+    pub fn password_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordPolicy")
+    }
+
+    pub fn set_password_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordPolicy", value);
+    }
+
+    pub fn session_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionManagement")
+    }
+
+    pub fn set_session_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionManagement", value);
+    }
+}
+
+/// SecurityAuthorizationContentForm is the generated form facade for the `content` @Form section.
+pub struct SecurityAuthorizationContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityAuthorizationContentForm {
+    /// Binds a SecurityAuthorizationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityAuthorizationContentForm {
+        SecurityAuthorizationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn authorization_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationModel")
+    }
+
+    pub fn set_authorization_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationModel", value);
+    }
+
+    pub fn authorization_coverage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationCoverage")
+    }
+
+    pub fn set_authorization_coverage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationCoverage", value);
+    }
+
+    pub fn privilege_escalation_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privilegeEscalationPrevention")
+    }
+
+    pub fn set_privilege_escalation_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegeEscalationPrevention", value);
+    }
+}
+
 /// SecurityCertificationRequirementsContentForm is the generated form facade for the `content` @Form section.
 pub struct SecurityCertificationRequirementsContentForm {
     pub node: som::SomNode,
@@ -173952,6 +174683,36 @@ impl SecurityCertificationRequirementsSoc2ContentForm {
     }
 }
 
+/// SecurityCharacteristicSecurityContentForm is the generated form facade for the `securityContent` @Form section.
+pub struct SecurityCharacteristicSecurityContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityCharacteristicSecurityContentForm {
+    /// Binds a SecurityCharacteristicSecurityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityCharacteristicSecurityContentForm {
+        SecurityCharacteristicSecurityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn security_approach(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityApproach")
+    }
+
+    pub fn set_security_approach(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityApproach", value);
+    }
+
+    pub fn security_compliance_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityComplianceTarget")
+    }
+
+    pub fn set_security_compliance_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityComplianceTarget", value);
+    }
+}
+
 /// SecurityCodeReviewPolicyContentForm is the generated form facade for the `content` @Form section.
 pub struct SecurityCodeReviewPolicyContentForm {
     pub node: som::SomNode,
@@ -174114,6 +174875,93 @@ impl SecurityCodeReviewPolicyReviewersContentForm {
     pub fn set_reviewer_rotation(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "reviewerRotation", value);
+    }
+}
+
+/// SecurityComplianceContentForm is the generated form facade for the `content` @Form section.
+pub struct SecurityComplianceContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityComplianceContentForm {
+    /// Binds a SecurityComplianceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityComplianceContentForm {
+        SecurityComplianceContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn security_compliance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityCompliance")
+    }
+
+    pub fn set_security_compliance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityCompliance", value);
+    }
+
+    pub fn security_certifications(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityCertifications")
+    }
+
+    pub fn set_security_certifications(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityCertifications", value);
+    }
+
+    pub fn security_audit_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityAuditFrequency")
+    }
+
+    pub fn set_security_audit_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityAuditFrequency", value);
+    }
+
+    pub fn security_verification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityVerification")
+    }
+
+    pub fn set_security_verification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityVerification", value);
+    }
+}
+
+/// SecurityContentForm is the generated form facade for the `content` @Form section.
+pub struct SecurityContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityContentForm {
+    /// Binds a SecurityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityContentForm {
+        SecurityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn encryption_at_rest(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionAtRest")
+    }
+
+    pub fn set_encryption_at_rest(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionAtRest", value);
+    }
+
+    pub fn encryption_in_transit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionInTransit")
+    }
+
+    pub fn set_encryption_in_transit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionInTransit", value);
+    }
+
+    pub fn key_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyManagement")
+    }
+
+    pub fn set_key_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyManagement", value);
     }
 }
 
@@ -174582,219 +175430,6 @@ impl SecurityEventLoggingPolicyContentForm {
     pub fn set_correlation_identifiers(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "correlationIdentifiers", value);
-    }
-}
-
-/// SecurityQualityAuthenticationContentForm is the generated form facade for the `content` @Form section.
-pub struct SecurityQualityAuthenticationContentForm {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityAuthenticationContentForm {
-    /// Binds a SecurityQualityAuthenticationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityAuthenticationContentForm {
-        SecurityQualityAuthenticationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn authentication_method(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationMethod")
-    }
-
-    pub fn set_authentication_method(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "authenticationMethod", value);
-    }
-
-    pub fn mfa_requirement(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "mfaRequirement")
-    }
-
-    pub fn set_mfa_requirement(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "mfaRequirement", value);
-    }
-
-    pub fn password_policy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "passwordPolicy")
-    }
-
-    pub fn set_password_policy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "passwordPolicy", value);
-    }
-
-    pub fn session_management(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "sessionManagement")
-    }
-
-    pub fn set_session_management(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "sessionManagement", value);
-    }
-}
-
-/// SecurityQualityAuthorizationContentForm is the generated form facade for the `content` @Form section.
-pub struct SecurityQualityAuthorizationContentForm {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityAuthorizationContentForm {
-    /// Binds a SecurityQualityAuthorizationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityAuthorizationContentForm {
-        SecurityQualityAuthorizationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn authorization_model(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationModel")
-    }
-
-    pub fn set_authorization_model(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "authorizationModel", value);
-    }
-
-    pub fn authorization_coverage(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationCoverage")
-    }
-
-    pub fn set_authorization_coverage(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "authorizationCoverage", value);
-    }
-
-    pub fn privilege_escalation_prevention(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "privilegeEscalationPrevention")
-    }
-
-    pub fn set_privilege_escalation_prevention(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "privilegeEscalationPrevention", value);
-    }
-}
-
-/// SecurityQualityComplianceContentForm is the generated form facade for the `content` @Form section.
-pub struct SecurityQualityComplianceContentForm {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityComplianceContentForm {
-    /// Binds a SecurityQualityComplianceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityComplianceContentForm {
-        SecurityQualityComplianceContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn security_compliance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "securityCompliance")
-    }
-
-    pub fn set_security_compliance(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "securityCompliance", value);
-    }
-
-    pub fn security_certifications(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "securityCertifications")
-    }
-
-    pub fn set_security_certifications(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "securityCertifications", value);
-    }
-
-    pub fn security_audit_frequency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "securityAuditFrequency")
-    }
-
-    pub fn set_security_audit_frequency(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "securityAuditFrequency", value);
-    }
-
-    pub fn security_verification(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "securityVerification")
-    }
-
-    pub fn set_security_verification(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "securityVerification", value);
-    }
-}
-
-/// SecurityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct SecurityQualityContentForm {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityContentForm {
-    /// Binds a SecurityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityContentForm {
-        SecurityQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn encryption_at_rest(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionAtRest")
-    }
-
-    pub fn set_encryption_at_rest(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "encryptionAtRest", value);
-    }
-
-    pub fn encryption_in_transit(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionInTransit")
-    }
-
-    pub fn set_encryption_in_transit(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "encryptionInTransit", value);
-    }
-
-    pub fn key_management(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "keyManagement")
-    }
-
-    pub fn set_key_management(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "keyManagement", value);
-    }
-}
-
-/// SecurityQualityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct SecurityQualityVulnerabilityContentForm {
-    pub node: som::SomNode,
-}
-
-impl SecurityQualityVulnerabilityContentForm {
-    /// Binds a SecurityQualityVulnerabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityQualityVulnerabilityContentForm {
-        SecurityQualityVulnerabilityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn vulnerability_scan_frequency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "vulnerabilityScanFrequency")
-    }
-
-    pub fn set_vulnerability_scan_frequency(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "vulnerabilityScanFrequency", value);
-    }
-
-    pub fn penetration_test_frequency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "penetrationTestFrequency")
-    }
-
-    pub fn set_penetration_test_frequency(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "penetrationTestFrequency", value);
-    }
-
-    pub fn cve_response_time(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "cveResponseTime")
-    }
-
-    pub fn set_cve_response_time(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "cveResponseTime", value);
     }
 }
 
@@ -175749,6 +176384,45 @@ impl SecurityTestingAutomationScanningContentForm {
     pub fn set_secrets_detection(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "secretsDetection", value);
+    }
+}
+
+/// SecurityVulnerabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct SecurityVulnerabilityContentForm {
+    pub node: som::SomNode,
+}
+
+impl SecurityVulnerabilityContentForm {
+    /// Binds a SecurityVulnerabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityVulnerabilityContentForm {
+        SecurityVulnerabilityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn vulnerability_scan_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "vulnerabilityScanFrequency")
+    }
+
+    pub fn set_vulnerability_scan_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "vulnerabilityScanFrequency", value);
+    }
+
+    pub fn penetration_test_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "penetrationTestFrequency")
+    }
+
+    pub fn set_penetration_test_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "penetrationTestFrequency", value);
+    }
+
+    pub fn cve_response_time(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cveResponseTime")
+    }
+
+    pub fn set_cve_response_time(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cveResponseTime", value);
     }
 }
 
@@ -176931,6 +177605,84 @@ impl ServiceLevelAgreementEntryContentForm {
     }
 }
 
+/// ServiceLevelContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServiceLevelContentForm {
+    /// Binds a ServiceLevelContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelContentForm {
+        ServiceLevelContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn support_tier_structure(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "supportTierStructure")
+    }
+
+    pub fn set_support_tier_structure(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "supportTierStructure", value);
+    }
+
+    pub fn critical_response_time(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "criticalResponseTime")
+    }
+
+    pub fn set_critical_response_time(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "criticalResponseTime", value);
+    }
+
+    pub fn high_response_time(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "highResponseTime")
+    }
+
+    pub fn set_high_response_time(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "highResponseTime", value);
+    }
+}
+
+/// ServiceLevelEscalationContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelEscalationContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServiceLevelEscalationContentForm {
+    /// Binds a ServiceLevelEscalationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelEscalationContentForm {
+        ServiceLevelEscalationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn escalation_timeframes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "escalationTimeframes")
+    }
+
+    pub fn set_escalation_timeframes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "escalationTimeframes", value);
+    }
+
+    pub fn escalation_contacts(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "escalationContacts")
+    }
+
+    pub fn set_escalation_contacts(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "escalationContacts", value);
+    }
+
+    pub fn executive_escalation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "executiveEscalation")
+    }
+
+    pub fn set_executive_escalation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "executiveEscalation", value);
+    }
+}
+
 /// ServiceLevelIndicatorsContentForm is the generated form facade for the `content` @Form section.
 pub struct ServiceLevelIndicatorsContentForm {
     pub node: som::SomNode,
@@ -177087,93 +177839,15 @@ impl ServiceLevelIndicatorsQualityContentForm {
     }
 }
 
-/// ServiceLevelQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityContentForm {
+/// ServiceLevelOnCallContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelOnCallContentForm {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityContentForm {
-    /// Binds a ServiceLevelQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityContentForm {
-        ServiceLevelQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn support_tier_structure(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "supportTierStructure")
-    }
-
-    pub fn set_support_tier_structure(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "supportTierStructure", value);
-    }
-
-    pub fn critical_response_time(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criticalResponseTime")
-    }
-
-    pub fn set_critical_response_time(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criticalResponseTime", value);
-    }
-
-    pub fn high_response_time(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "highResponseTime")
-    }
-
-    pub fn set_high_response_time(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "highResponseTime", value);
-    }
-}
-
-/// ServiceLevelQualityEscalationContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityEscalationContentForm {
-    pub node: som::SomNode,
-}
-
-impl ServiceLevelQualityEscalationContentForm {
-    /// Binds a ServiceLevelQualityEscalationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityEscalationContentForm {
-        ServiceLevelQualityEscalationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn escalation_timeframes(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "escalationTimeframes")
-    }
-
-    pub fn set_escalation_timeframes(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "escalationTimeframes", value);
-    }
-
-    pub fn escalation_contacts(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "escalationContacts")
-    }
-
-    pub fn set_escalation_contacts(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "escalationContacts", value);
-    }
-
-    pub fn executive_escalation(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "executiveEscalation")
-    }
-
-    pub fn set_executive_escalation(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "executiveEscalation", value);
-    }
-}
-
-/// ServiceLevelQualityOnCallContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityOnCallContentForm {
-    pub node: som::SomNode,
-}
-
-impl ServiceLevelQualityOnCallContentForm {
-    /// Binds a ServiceLevelQualityOnCallContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityOnCallContentForm {
-        ServiceLevelQualityOnCallContentForm { node: som::SomNode::new(doc, path) }
+impl ServiceLevelOnCallContentForm {
+    /// Binds a ServiceLevelOnCallContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelOnCallContentForm {
+        ServiceLevelOnCallContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn on_call_coverage(&self) -> String {
@@ -177204,15 +177878,15 @@ impl ServiceLevelQualityOnCallContentForm {
     }
 }
 
-/// ServiceLevelQualityResolutionContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityResolutionContentForm {
+/// ServiceLevelResolutionContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelResolutionContentForm {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityResolutionContentForm {
-    /// Binds a ServiceLevelQualityResolutionContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityResolutionContentForm {
-        ServiceLevelQualityResolutionContentForm { node: som::SomNode::new(doc, path) }
+impl ServiceLevelResolutionContentForm {
+    /// Binds a ServiceLevelResolutionContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelResolutionContentForm {
+        ServiceLevelResolutionContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn critical_resolution_time(&self) -> String {
@@ -177252,15 +177926,15 @@ impl ServiceLevelQualityResolutionContentForm {
     }
 }
 
-/// ServiceLevelQualityResponseContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityResponseContentForm {
+/// ServiceLevelResponseContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelResponseContentForm {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityResponseContentForm {
-    /// Binds a ServiceLevelQualityResponseContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityResponseContentForm {
-        ServiceLevelQualityResponseContentForm { node: som::SomNode::new(doc, path) }
+impl ServiceLevelResponseContentForm {
+    /// Binds a ServiceLevelResponseContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelResponseContentForm {
+        ServiceLevelResponseContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn medium_response_time(&self) -> String {
@@ -177282,15 +177956,15 @@ impl ServiceLevelQualityResponseContentForm {
     }
 }
 
-/// ServiceLevelQualityRestorationContentForm is the generated form facade for the `content` @Form section.
-pub struct ServiceLevelQualityRestorationContentForm {
+/// ServiceLevelRestorationContentForm is the generated form facade for the `content` @Form section.
+pub struct ServiceLevelRestorationContentForm {
     pub node: som::SomNode,
 }
 
-impl ServiceLevelQualityRestorationContentForm {
-    /// Binds a ServiceLevelQualityRestorationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelQualityRestorationContentForm {
-        ServiceLevelQualityRestorationContentForm { node: som::SomNode::new(doc, path) }
+impl ServiceLevelRestorationContentForm {
+    /// Binds a ServiceLevelRestorationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceLevelRestorationContentForm {
+        ServiceLevelRestorationContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn service_restoration_priority(&self) -> String {
@@ -187344,54 +188018,6 @@ impl SystemOverviewSummaryStatusContentForm {
     }
 }
 
-/// SystemQualityGoalsBaselineContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemQualityGoalsBaselineContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsBaselineContentForm {
-    /// Binds a SystemQualityGoalsBaselineContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsBaselineContentForm {
-        SystemQualityGoalsBaselineContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn quality_baseline_date(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBaselineDate")
-    }
-
-    pub fn set_quality_baseline_date(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityBaselineDate", value);
-    }
-
-    pub fn quality_baseline_version(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBaselineVersion")
-    }
-
-    pub fn set_quality_baseline_version(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityBaselineVersion", value);
-    }
-
-    pub fn overall_quality_target_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overallQualityTargetLevel")
-    }
-
-    pub fn set_overall_quality_target_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overallQualityTargetLevel", value);
-    }
-
-    pub fn quality_risk_tolerance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityRiskTolerance")
-    }
-
-    pub fn set_quality_risk_tolerance(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityRiskTolerance", value);
-    }
-}
-
 /// SystemQualityGoalsGovernanceContentForm is the generated form facade for the `governanceContent` @Form section.
 pub struct SystemQualityGoalsGovernanceContentForm {
     pub node: som::SomNode,
@@ -187428,150 +188054,6 @@ impl SystemQualityGoalsGovernanceContentForm {
     pub fn set_quality_owner(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "qualityOwner", value);
-    }
-}
-
-/// SystemQualityGoalsGovernanceContentForm2 is the generated form facade for the `content` @Form section.
-pub struct SystemQualityGoalsGovernanceContentForm2 {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsGovernanceContentForm2 {
-    /// Binds a SystemQualityGoalsGovernanceContentForm2 facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsGovernanceContentForm2 {
-        SystemQualityGoalsGovernanceContentForm2 { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn quality_review_board(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityReviewBoard")
-    }
-
-    pub fn set_quality_review_board(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityReviewBoard", value);
-    }
-
-    pub fn quality_meeting_cadence(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityMeetingCadence")
-    }
-
-    pub fn set_quality_meeting_cadence(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityMeetingCadence", value);
-    }
-
-    pub fn quality_escalation_path(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityEscalationPath")
-    }
-
-    pub fn set_quality_escalation_path(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityEscalationPath", value);
-    }
-}
-
-/// SystemQualityGoalsMeasurementContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemQualityGoalsMeasurementContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsMeasurementContentForm {
-    /// Binds a SystemQualityGoalsMeasurementContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsMeasurementContentForm {
-        SystemQualityGoalsMeasurementContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn quality_metrics_framework(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityMetricsFramework")
-    }
-
-    pub fn set_quality_metrics_framework(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityMetricsFramework", value);
-    }
-
-    pub fn quality_reporting_frequency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityReportingFrequency")
-    }
-
-    pub fn set_quality_reporting_frequency(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityReportingFrequency", value);
-    }
-
-    pub fn quality_dashboard_tool(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityDashboardTool")
-    }
-
-    pub fn set_quality_dashboard_tool(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityDashboardTool", value);
-    }
-
-    pub fn defect_tracking_system(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "defectTrackingSystem")
-    }
-
-    pub fn set_defect_tracking_system(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "defectTrackingSystem", value);
-    }
-
-    pub fn quality_trend_analysis(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityTrendAnalysis")
-    }
-
-    pub fn set_quality_trend_analysis(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityTrendAnalysis", value);
-    }
-}
-
-/// SystemQualityGoalsResourcesContentForm is the generated form facade for the `content` @Form section.
-pub struct SystemQualityGoalsResourcesContentForm {
-    pub node: som::SomNode,
-}
-
-impl SystemQualityGoalsResourcesContentForm {
-    /// Binds a SystemQualityGoalsResourcesContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemQualityGoalsResourcesContentForm {
-        SystemQualityGoalsResourcesContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn quality_budget(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityBudget")
-    }
-
-    pub fn set_quality_budget(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityBudget", value);
-    }
-
-    pub fn qa_team_size(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qaTeamSize")
-    }
-
-    pub fn set_qa_team_size(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qaTeamSize", value);
-    }
-
-    pub fn test_automation_target(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "testAutomationTarget")
-    }
-
-    pub fn set_test_automation_target(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "testAutomationTarget", value);
-    }
-
-    pub fn quality_training_plan(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityTrainingPlan")
-    }
-
-    pub fn set_quality_training_plan(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityTrainingPlan", value);
     }
 }
 
@@ -190509,63 +190991,6 @@ impl TechnicalPainPointsSummaryContentForm {
     pub fn set_integration_complexity_score(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "integrationComplexityScore", value);
-    }
-}
-
-/// TechnicalQualityCriteriaTechnicalQualityContentForm is the generated form facade for the `technicalQualityContent` @Form section.
-pub struct TechnicalQualityCriteriaTechnicalQualityContentForm {
-    pub node: som::SomNode,
-}
-
-impl TechnicalQualityCriteriaTechnicalQualityContentForm {
-    /// Binds a TechnicalQualityCriteriaTechnicalQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> TechnicalQualityCriteriaTechnicalQualityContentForm {
-        TechnicalQualityCriteriaTechnicalQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn technical_quality_philosophy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "technicalQualityPhilosophy")
-    }
-
-    pub fn set_technical_quality_philosophy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "technicalQualityPhilosophy", value);
-    }
-
-    pub fn architectural_quality_goals(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "architecturalQualityGoals")
-    }
-
-    pub fn set_architectural_quality_goals(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "architecturalQualityGoals", value);
-    }
-
-    pub fn technical_debt_tolerance(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "technicalDebtTolerance")
-    }
-
-    pub fn set_technical_debt_tolerance(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "technicalDebtTolerance", value);
-    }
-
-    pub fn code_quality_standard(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "codeQualityStandard")
-    }
-
-    pub fn set_code_quality_standard(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "codeQualityStandard", value);
-    }
-
-    pub fn design_principles_adherence(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "designPrinciplesAdherence")
-    }
-
-    pub fn set_design_principles_adherence(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "designPrinciplesAdherence", value);
     }
 }
 
@@ -200082,15 +200507,15 @@ impl UiDesignPrincipleEntryContentForm {
     }
 }
 
-/// UsabilityQualityClarityContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityClarityContentForm {
+/// UsabilityClarityContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityClarityContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityClarityContentForm {
-    /// Binds a UsabilityQualityClarityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityClarityContentForm {
-        UsabilityQualityClarityContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityClarityContentForm {
+    /// Binds a UsabilityClarityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityClarityContentForm {
+        UsabilityClarityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn functional_clarity_target(&self) -> String {
@@ -200130,15 +200555,15 @@ impl UsabilityQualityClarityContentForm {
     }
 }
 
-/// UsabilityQualityContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityContentForm {
+/// UsabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityContentForm {
-    /// Binds a UsabilityQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityContentForm {
-        UsabilityQualityContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityContentForm {
+    /// Binds a UsabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityContentForm {
+        UsabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn operability_target(&self) -> String {
@@ -200169,15 +200594,15 @@ impl UsabilityQualityContentForm {
     }
 }
 
-/// UsabilityQualityInteractionContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityInteractionContentForm {
+/// UsabilityInteractionContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityInteractionContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityInteractionContentForm {
-    /// Binds a UsabilityQualityInteractionContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityInteractionContentForm {
-        UsabilityQualityInteractionContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityInteractionContentForm {
+    /// Binds a UsabilityInteractionContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityInteractionContentForm {
+        UsabilityInteractionContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn undo_requirement(&self) -> String {
@@ -200199,15 +200624,15 @@ impl UsabilityQualityInteractionContentForm {
     }
 }
 
-/// UsabilityQualityLearnabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityLearnabilityContentForm {
+/// UsabilityLearnabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityLearnabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityLearnabilityContentForm {
-    /// Binds a UsabilityQualityLearnabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityLearnabilityContentForm {
-        UsabilityQualityLearnabilityContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityLearnabilityContentForm {
+    /// Binds a UsabilityLearnabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityLearnabilityContentForm {
+        UsabilityLearnabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn learnability_verification(&self) -> String {
@@ -200229,15 +200654,15 @@ impl UsabilityQualityLearnabilityContentForm {
     }
 }
 
-/// UsabilityQualityOperabilityContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityOperabilityContentForm {
+/// UsabilityOperabilityContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityOperabilityContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityOperabilityContentForm {
-    /// Binds a UsabilityQualityOperabilityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityOperabilityContentForm {
-        UsabilityQualityOperabilityContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityOperabilityContentForm {
+    /// Binds a UsabilityOperabilityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityOperabilityContentForm {
+        UsabilityOperabilityContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn operability_metric(&self) -> String {
@@ -200268,15 +200693,15 @@ impl UsabilityQualityOperabilityContentForm {
     }
 }
 
-/// UsabilityQualityPerformanceContentForm is the generated form facade for the `content` @Form section.
-pub struct UsabilityQualityPerformanceContentForm {
+/// UsabilityPerformanceContentForm is the generated form facade for the `content` @Form section.
+pub struct UsabilityPerformanceContentForm {
     pub node: som::SomNode,
 }
 
-impl UsabilityQualityPerformanceContentForm {
-    /// Binds a UsabilityQualityPerformanceContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UsabilityQualityPerformanceContentForm {
-        UsabilityQualityPerformanceContentForm { node: som::SomNode::new(doc, path) }
+impl UsabilityPerformanceContentForm {
+    /// Binds a UsabilityPerformanceContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UsabilityPerformanceContentForm {
+        UsabilityPerformanceContentForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn response_time_p50(&self) -> String {
@@ -201837,72 +202262,6 @@ impl UserProvisioningToolsRoleManagementContentForm {
     pub fn set_access_review_process(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "accessReviewProcess", value);
-    }
-}
-
-/// UserQualityCriteriaUserQualityContentForm is the generated form facade for the `userQualityContent` @Form section.
-pub struct UserQualityCriteriaUserQualityContentForm {
-    pub node: som::SomNode,
-}
-
-impl UserQualityCriteriaUserQualityContentForm {
-    /// Binds a UserQualityCriteriaUserQualityContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserQualityCriteriaUserQualityContentForm {
-        UserQualityCriteriaUserQualityContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn user_quality_philosophy(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "userQualityPhilosophy")
-    }
-
-    pub fn set_user_quality_philosophy(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "userQualityPhilosophy", value);
-    }
-
-    pub fn target_user_experience(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "targetUserExperience")
-    }
-
-    pub fn set_target_user_experience(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "targetUserExperience", value);
-    }
-
-    pub fn user_research_basis(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "userResearchBasis")
-    }
-
-    pub fn set_user_research_basis(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "userResearchBasis", value);
-    }
-
-    pub fn user_feedback_channel(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "userFeedbackChannel")
-    }
-
-    pub fn set_user_feedback_channel(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "userFeedbackChannel", value);
-    }
-
-    pub fn user_satisfaction_target(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "userSatisfactionTarget")
-    }
-
-    pub fn set_user_satisfaction_target(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "userSatisfactionTarget", value);
-    }
-
-    pub fn accessibility_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessibilityLevel")
-    }
-
-    pub fn set_accessibility_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessibilityLevel", value);
     }
 }
 

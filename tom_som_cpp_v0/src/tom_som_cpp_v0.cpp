@@ -30,6 +30,9 @@ MustPassCriteria AcceptanceCriteriaSummary::mustPassCriteria() const {
 QualityGateChecklist AcceptanceCriteriaSummary::qualityGateChecklist() const {
   return QualityGateChecklist(doc(), som::joinPath(path(), "qualityGateChecklist"));
 }
+AcceptanceCriteriaList AcceptanceCriteriaSummary::detailedCriteria() const {
+  return AcceptanceCriteriaList(doc(), som::joinPath(path(), "detailedCriteria"));
+}
 
 AcceptanceCriterionEntry::AcceptanceCriterionEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -1756,46 +1759,46 @@ AuthorizationRoleEntryStructureContentForm AuthorizationRoleEntryStructure::cont
   return AuthorizationRoleEntryStructureContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-AvailabilityQuality::AvailabilityQuality(som::SpecDocument& doc, std::string path)
+Availability::Availability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-AvailabilityQualityContentForm AvailabilityQuality::content() const {
-  return AvailabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+AvailabilityContentForm Availability::content() const {
+  return AvailabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-AvailabilityQualityOperatingHours AvailabilityQuality::operatingHoursDetails() const {
-  return AvailabilityQualityOperatingHours(doc(), som::joinPath(path(), "operatingHoursDetails"));
+AvailabilityOperatingHours Availability::operatingHoursDetails() const {
+  return AvailabilityOperatingHours(doc(), som::joinPath(path(), "operatingHoursDetails"));
 }
-AvailabilityQualityMaintenance AvailabilityQuality::maintenance() const {
-  return AvailabilityQualityMaintenance(doc(), som::joinPath(path(), "maintenance"));
+AvailabilityMaintenance Availability::maintenance() const {
+  return AvailabilityMaintenance(doc(), som::joinPath(path(), "maintenance"));
 }
-AvailabilityQualityDegradedMode AvailabilityQuality::degradedMode() const {
-  return AvailabilityQualityDegradedMode(doc(), som::joinPath(path(), "degradedMode"));
+AvailabilityDegradedMode Availability::degradedMode() const {
+  return AvailabilityDegradedMode(doc(), som::joinPath(path(), "degradedMode"));
 }
-AvailabilityQualityVerification AvailabilityQuality::verification() const {
-  return AvailabilityQualityVerification(doc(), som::joinPath(path(), "verification"));
+AvailabilityVerification Availability::verification() const {
+  return AvailabilityVerification(doc(), som::joinPath(path(), "verification"));
 }
 
-AvailabilityQualityDegradedMode::AvailabilityQualityDegradedMode(som::SpecDocument& doc, std::string path)
+AvailabilityDegradedMode::AvailabilityDegradedMode(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-AvailabilityQualityDegradedModeContentForm AvailabilityQualityDegradedMode::content() const {
-  return AvailabilityQualityDegradedModeContentForm(doc(), som::joinPath(path(), "content"));
+AvailabilityDegradedModeContentForm AvailabilityDegradedMode::content() const {
+  return AvailabilityDegradedModeContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-AvailabilityQualityMaintenance::AvailabilityQualityMaintenance(som::SpecDocument& doc, std::string path)
+AvailabilityMaintenance::AvailabilityMaintenance(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-AvailabilityQualityMaintenanceContentForm AvailabilityQualityMaintenance::content() const {
-  return AvailabilityQualityMaintenanceContentForm(doc(), som::joinPath(path(), "content"));
+AvailabilityMaintenanceContentForm AvailabilityMaintenance::content() const {
+  return AvailabilityMaintenanceContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-AvailabilityQualityOperatingHours::AvailabilityQualityOperatingHours(som::SpecDocument& doc, std::string path)
+AvailabilityOperatingHours::AvailabilityOperatingHours(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-AvailabilityQualityOperatingHoursContentForm AvailabilityQualityOperatingHours::content() const {
-  return AvailabilityQualityOperatingHoursContentForm(doc(), som::joinPath(path(), "content"));
+AvailabilityOperatingHoursContentForm AvailabilityOperatingHours::content() const {
+  return AvailabilityOperatingHoursContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-AvailabilityQualityVerification::AvailabilityQualityVerification(som::SpecDocument& doc, std::string path)
+AvailabilityVerification::AvailabilityVerification(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-AvailabilityQualityVerificationContentForm AvailabilityQualityVerification::content() const {
-  return AvailabilityQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
+AvailabilityVerificationContentForm AvailabilityVerification::content() const {
+  return AvailabilityVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 BackupAndRecoverySection::BackupAndRecoverySection(som::SpecDocument& doc, std::string path)
@@ -4165,6 +4168,12 @@ CommunicationTypeEntryContentForm CommunicationTypeEntry::content() const {
   return CommunicationTypeEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+CompatibilityCharacteristic::CompatibilityCharacteristic(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+CompatibilityCharacteristicCompatibilityContentForm CompatibilityCharacteristic::compatibilityContent() const {
+  return CompatibilityCharacteristicCompatibilityContentForm(doc(), som::joinPath(path(), "compatibilityContent"));
+}
+
 CompatibilityRequirementsSection::CompatibilityRequirementsSection(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CompatibilityRequirementsSection::content() const {
@@ -5437,37 +5446,37 @@ som::SomList ContingencyPlans::items() const {
   return som::SomList(doc(), som::joinPath(path(), "COPL-ITEM-LST"));
 }
 
-CorrectnessQuality::CorrectnessQuality(som::SpecDocument& doc, std::string path)
+Correctness::Correctness(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-CorrectnessQualityContentForm CorrectnessQuality::content() const {
-  return CorrectnessQualityContentForm(doc(), som::joinPath(path(), "content"));
+CorrectnessContentForm Correctness::content() const {
+  return CorrectnessContentForm(doc(), som::joinPath(path(), "content"));
 }
-CorrectnessQualityIntegrity CorrectnessQuality::integrity() const {
-  return CorrectnessQualityIntegrity(doc(), som::joinPath(path(), "integrity"));
+CorrectnessIntegrity Correctness::integrity() const {
+  return CorrectnessIntegrity(doc(), som::joinPath(path(), "integrity"));
 }
-CorrectnessQualityAccuracy CorrectnessQuality::accuracy() const {
-  return CorrectnessQualityAccuracy(doc(), som::joinPath(path(), "accuracy"));
+CorrectnessAccuracy Correctness::accuracy() const {
+  return CorrectnessAccuracy(doc(), som::joinPath(path(), "accuracy"));
 }
-CorrectnessQualityVerification CorrectnessQuality::verification() const {
-  return CorrectnessQualityVerification(doc(), som::joinPath(path(), "verification"));
+CorrectnessVerification Correctness::verification() const {
+  return CorrectnessVerification(doc(), som::joinPath(path(), "verification"));
 }
 
-CorrectnessQualityAccuracy::CorrectnessQualityAccuracy(som::SpecDocument& doc, std::string path)
+CorrectnessAccuracy::CorrectnessAccuracy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-CorrectnessQualityAccuracyContentForm CorrectnessQualityAccuracy::content() const {
-  return CorrectnessQualityAccuracyContentForm(doc(), som::joinPath(path(), "content"));
+CorrectnessAccuracyContentForm CorrectnessAccuracy::content() const {
+  return CorrectnessAccuracyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-CorrectnessQualityIntegrity::CorrectnessQualityIntegrity(som::SpecDocument& doc, std::string path)
+CorrectnessIntegrity::CorrectnessIntegrity(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-CorrectnessQualityIntegrityContentForm CorrectnessQualityIntegrity::content() const {
-  return CorrectnessQualityIntegrityContentForm(doc(), som::joinPath(path(), "content"));
+CorrectnessIntegrityContentForm CorrectnessIntegrity::content() const {
+  return CorrectnessIntegrityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-CorrectnessQualityVerification::CorrectnessQualityVerification(som::SpecDocument& doc, std::string path)
+CorrectnessVerification::CorrectnessVerification(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-CorrectnessQualityVerificationContentForm CorrectnessQualityVerification::content() const {
-  return CorrectnessQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
+CorrectnessVerificationContentForm CorrectnessVerification::content() const {
+  return CorrectnessVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CredentialCompromiseDetectionPolicy::CredentialCompromiseDetectionPolicy(som::SpecDocument& doc, std::string path)
@@ -6340,14 +6349,29 @@ DocumentHeader D10QualityAcceptancePlan::header() const {
 QualityFramework D10QualityAcceptancePlan::qualityFramework() const {
   return QualityFramework(doc(), som::joinPath(path(), "qualityFramework"));
 }
-UserQualityCriteria D10QualityAcceptancePlan::userQualityCriteria() const {
-  return UserQualityCriteria(doc(), som::joinPath(path(), "userQualityCriteria"));
+FunctionalSuitabilityCharacteristic D10QualityAcceptancePlan::functionalSuitability() const {
+  return FunctionalSuitabilityCharacteristic(doc(), som::joinPath(path(), "functionalSuitability"));
 }
-TechnicalQualityCriteria D10QualityAcceptancePlan::technicalQualityCriteria() const {
-  return TechnicalQualityCriteria(doc(), som::joinPath(path(), "technicalQualityCriteria"));
+PerformanceEfficiencyCharacteristic D10QualityAcceptancePlan::performanceEfficiency() const {
+  return PerformanceEfficiencyCharacteristic(doc(), som::joinPath(path(), "performanceEfficiency"));
 }
-OperationsQualityCriteria D10QualityAcceptancePlan::operationsQualityCriteria() const {
-  return OperationsQualityCriteria(doc(), som::joinPath(path(), "operationsQualityCriteria"));
+CompatibilityCharacteristic D10QualityAcceptancePlan::compatibility() const {
+  return CompatibilityCharacteristic(doc(), som::joinPath(path(), "compatibility"));
+}
+InteractionCapabilityCharacteristic D10QualityAcceptancePlan::interactionCapability() const {
+  return InteractionCapabilityCharacteristic(doc(), som::joinPath(path(), "interactionCapability"));
+}
+ReliabilityCharacteristic D10QualityAcceptancePlan::reliability() const {
+  return ReliabilityCharacteristic(doc(), som::joinPath(path(), "reliability"));
+}
+SecurityCharacteristic D10QualityAcceptancePlan::security() const {
+  return SecurityCharacteristic(doc(), som::joinPath(path(), "security"));
+}
+MaintainabilityCharacteristic D10QualityAcceptancePlan::maintainability() const {
+  return MaintainabilityCharacteristic(doc(), som::joinPath(path(), "maintainability"));
+}
+FlexibilityCharacteristic D10QualityAcceptancePlan::flexibility() const {
+  return FlexibilityCharacteristic(doc(), som::joinPath(path(), "flexibility"));
 }
 DocumentationQualityCriteria D10QualityAcceptancePlan::documentationQualityCriteria() const {
   return DocumentationQualityCriteria(doc(), som::joinPath(path(), "documentationQualityCriteria"));
@@ -9288,67 +9312,67 @@ DnsRequirementsZonesContentForm DnsRequirementsZones::content() const {
   return DnsRequirementsZonesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocChangeabilityQuality::DocChangeabilityQuality(som::SpecDocument& doc, std::string path)
+DocChangeability::DocChangeability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocChangeabilityQualityContentForm DocChangeabilityQuality::content() const {
-  return DocChangeabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+DocChangeabilityContentForm DocChangeability::content() const {
+  return DocChangeabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-DocChangeabilityQualityExtensibility DocChangeabilityQuality::extensibility() const {
-  return DocChangeabilityQualityExtensibility(doc(), som::joinPath(path(), "extensibility"));
+DocChangeabilityExtensibility DocChangeability::extensibility() const {
+  return DocChangeabilityExtensibility(doc(), som::joinPath(path(), "extensibility"));
 }
-DocChangeabilityQualityStructure DocChangeabilityQuality::structure() const {
-  return DocChangeabilityQualityStructure(doc(), som::joinPath(path(), "structure"));
+DocChangeabilityStructure DocChangeability::structure() const {
+  return DocChangeabilityStructure(doc(), som::joinPath(path(), "structure"));
 }
-DocChangeabilityQualityMaintenance DocChangeabilityQuality::maintenance() const {
-  return DocChangeabilityQualityMaintenance(doc(), som::joinPath(path(), "maintenance"));
+DocChangeabilityMaintenance DocChangeability::maintenance() const {
+  return DocChangeabilityMaintenance(doc(), som::joinPath(path(), "maintenance"));
 }
 
-DocChangeabilityQualityExtensibility::DocChangeabilityQualityExtensibility(som::SpecDocument& doc, std::string path)
+DocChangeabilityExtensibility::DocChangeabilityExtensibility(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocChangeabilityQualityExtensibilityContentForm DocChangeabilityQualityExtensibility::content() const {
-  return DocChangeabilityQualityExtensibilityContentForm(doc(), som::joinPath(path(), "content"));
+DocChangeabilityExtensibilityContentForm DocChangeabilityExtensibility::content() const {
+  return DocChangeabilityExtensibilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocChangeabilityQualityMaintenance::DocChangeabilityQualityMaintenance(som::SpecDocument& doc, std::string path)
+DocChangeabilityMaintenance::DocChangeabilityMaintenance(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocChangeabilityQualityMaintenanceContentForm DocChangeabilityQualityMaintenance::content() const {
-  return DocChangeabilityQualityMaintenanceContentForm(doc(), som::joinPath(path(), "content"));
+DocChangeabilityMaintenanceContentForm DocChangeabilityMaintenance::content() const {
+  return DocChangeabilityMaintenanceContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocChangeabilityQualityStructure::DocChangeabilityQualityStructure(som::SpecDocument& doc, std::string path)
+DocChangeabilityStructure::DocChangeabilityStructure(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocChangeabilityQualityStructureContentForm DocChangeabilityQualityStructure::content() const {
-  return DocChangeabilityQualityStructureContentForm(doc(), som::joinPath(path(), "content"));
+DocChangeabilityStructureContentForm DocChangeabilityStructure::content() const {
+  return DocChangeabilityStructureContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocCompletenessQuality::DocCompletenessQuality(som::SpecDocument& doc, std::string path)
+DocCompleteness::DocCompleteness(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocCompletenessQualityContentForm DocCompletenessQuality::content() const {
-  return DocCompletenessQualityContentForm(doc(), som::joinPath(path(), "content"));
+DocCompletenessContentForm DocCompleteness::content() const {
+  return DocCompletenessContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocCorrectnessQuality::DocCorrectnessQuality(som::SpecDocument& doc, std::string path)
+DocCorrectness::DocCorrectness(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocCorrectnessQualityContentForm DocCorrectnessQuality::content() const {
-  return DocCorrectnessQualityContentForm(doc(), som::joinPath(path(), "content"));
+DocCorrectnessContentForm DocCorrectness::content() const {
+  return DocCorrectnessContentForm(doc(), som::joinPath(path(), "content"));
 }
-DocCorrectnessQualityAlignment DocCorrectnessQuality::alignment() const {
-  return DocCorrectnessQualityAlignment(doc(), som::joinPath(path(), "alignment"));
+DocCorrectnessAlignment DocCorrectness::alignment() const {
+  return DocCorrectnessAlignment(doc(), som::joinPath(path(), "alignment"));
 }
-DocCorrectnessQualityVerification DocCorrectnessQuality::verification() const {
-  return DocCorrectnessQualityVerification(doc(), som::joinPath(path(), "verification"));
+DocCorrectnessVerification DocCorrectness::verification() const {
+  return DocCorrectnessVerification(doc(), som::joinPath(path(), "verification"));
 }
 
-DocCorrectnessQualityAlignment::DocCorrectnessQualityAlignment(som::SpecDocument& doc, std::string path)
+DocCorrectnessAlignment::DocCorrectnessAlignment(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocCorrectnessQualityAlignmentContentForm DocCorrectnessQualityAlignment::content() const {
-  return DocCorrectnessQualityAlignmentContentForm(doc(), som::joinPath(path(), "content"));
+DocCorrectnessAlignmentContentForm DocCorrectnessAlignment::content() const {
+  return DocCorrectnessAlignmentContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DocCorrectnessQualityVerification::DocCorrectnessQualityVerification(som::SpecDocument& doc, std::string path)
+DocCorrectnessVerification::DocCorrectnessVerification(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-DocCorrectnessQualityVerificationContentForm DocCorrectnessQualityVerification::content() const {
-  return DocCorrectnessQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
+DocCorrectnessVerificationContentForm DocCorrectnessVerification::content() const {
+  return DocCorrectnessVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DocumentControl::DocumentControl(som::SpecDocument& doc, std::string path)
@@ -9428,17 +9452,17 @@ DocumentationQualityCriteria::DocumentationQualityCriteria(som::SpecDocument& do
 DocumentationQualityCriteriaDocumentationOverviewContentForm DocumentationQualityCriteria::documentationOverviewContent() const {
   return DocumentationQualityCriteriaDocumentationOverviewContentForm(doc(), som::joinPath(path(), "documentationOverviewContent"));
 }
-ReadabilityQuality DocumentationQualityCriteria::readability() const {
-  return ReadabilityQuality(doc(), som::joinPath(path(), "readability"));
+Readability DocumentationQualityCriteria::readability() const {
+  return Readability(doc(), som::joinPath(path(), "readability"));
 }
-DocCompletenessQuality DocumentationQualityCriteria::completeness() const {
-  return DocCompletenessQuality(doc(), som::joinPath(path(), "completeness"));
+DocCompleteness DocumentationQualityCriteria::completeness() const {
+  return DocCompleteness(doc(), som::joinPath(path(), "completeness"));
 }
-DocCorrectnessQuality DocumentationQualityCriteria::correctness() const {
-  return DocCorrectnessQuality(doc(), som::joinPath(path(), "correctness"));
+DocCorrectness DocumentationQualityCriteria::correctness() const {
+  return DocCorrectness(doc(), som::joinPath(path(), "correctness"));
 }
-DocChangeabilityQuality DocumentationQualityCriteria::changeability() const {
-  return DocChangeabilityQuality(doc(), som::joinPath(path(), "changeability"));
+DocChangeability DocumentationQualityCriteria::changeability() const {
+  return DocChangeability(doc(), som::joinPath(path(), "changeability"));
 }
 
 DocumentationStandards::DocumentationStandards(som::SpecDocument& doc, std::string path)
@@ -9696,37 +9720,37 @@ som::SomList DomainVocabulary::terms() const {
   return som::SomList(doc(), som::joinPath(path(), "DTE-TERM-LST"));
 }
 
-EfficiencyQuality::EfficiencyQuality(som::SpecDocument& doc, std::string path)
+Efficiency::Efficiency(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-EfficiencyQualityContentForm EfficiencyQuality::content() const {
-  return EfficiencyQualityContentForm(doc(), som::joinPath(path(), "content"));
+EfficiencyContentForm Efficiency::content() const {
+  return EfficiencyContentForm(doc(), som::joinPath(path(), "content"));
 }
-EfficiencyQualityThroughput EfficiencyQuality::throughput() const {
-  return EfficiencyQualityThroughput(doc(), som::joinPath(path(), "throughput"));
+EfficiencyThroughput Efficiency::throughput() const {
+  return EfficiencyThroughput(doc(), som::joinPath(path(), "throughput"));
 }
-EfficiencyQualityResources EfficiencyQuality::resources() const {
-  return EfficiencyQualityResources(doc(), som::joinPath(path(), "resources"));
+EfficiencyResources Efficiency::resources() const {
+  return EfficiencyResources(doc(), som::joinPath(path(), "resources"));
 }
-EfficiencyQualityVerification EfficiencyQuality::verification() const {
-  return EfficiencyQualityVerification(doc(), som::joinPath(path(), "verification"));
+EfficiencyVerification Efficiency::verification() const {
+  return EfficiencyVerification(doc(), som::joinPath(path(), "verification"));
 }
 
-EfficiencyQualityResources::EfficiencyQualityResources(som::SpecDocument& doc, std::string path)
+EfficiencyResources::EfficiencyResources(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-EfficiencyQualityResourcesContentForm EfficiencyQualityResources::content() const {
-  return EfficiencyQualityResourcesContentForm(doc(), som::joinPath(path(), "content"));
+EfficiencyResourcesContentForm EfficiencyResources::content() const {
+  return EfficiencyResourcesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-EfficiencyQualityThroughput::EfficiencyQualityThroughput(som::SpecDocument& doc, std::string path)
+EfficiencyThroughput::EfficiencyThroughput(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-EfficiencyQualityThroughputContentForm EfficiencyQualityThroughput::content() const {
-  return EfficiencyQualityThroughputContentForm(doc(), som::joinPath(path(), "content"));
+EfficiencyThroughputContentForm EfficiencyThroughput::content() const {
+  return EfficiencyThroughputContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-EfficiencyQualityVerification::EfficiencyQualityVerification(som::SpecDocument& doc, std::string path)
+EfficiencyVerification::EfficiencyVerification(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-EfficiencyQualityVerificationContentForm EfficiencyQualityVerification::content() const {
-  return EfficiencyQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
+EfficiencyVerificationContentForm EfficiencyVerification::content() const {
+  return EfficiencyVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ElementValidationRuleEntry::ElementValidationRuleEntry(som::SpecDocument& doc, std::string path)
@@ -11523,37 +11547,49 @@ FirewallRequirementsRulesContentForm FirewallRequirementsRules::content() const 
   return FirewallRequirementsRulesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-FlexibilityQuality::FlexibilityQuality(som::SpecDocument& doc, std::string path)
+Flexibility::Flexibility(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-FlexibilityQualityContentForm FlexibilityQuality::content() const {
-  return FlexibilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+FlexibilityContentForm Flexibility::content() const {
+  return FlexibilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-FlexibilityQualityModularity FlexibilityQuality::modularity() const {
-  return FlexibilityQualityModularity(doc(), som::joinPath(path(), "modularity"));
+FlexibilityModularity Flexibility::modularity() const {
+  return FlexibilityModularity(doc(), som::joinPath(path(), "modularity"));
 }
-FlexibilityQualityDeployment FlexibilityQuality::deployment() const {
-  return FlexibilityQualityDeployment(doc(), som::joinPath(path(), "deployment"));
+FlexibilityDeployment Flexibility::deployment() const {
+  return FlexibilityDeployment(doc(), som::joinPath(path(), "deployment"));
 }
-FlexibilityQualityExtensibility FlexibilityQuality::extensibility() const {
-  return FlexibilityQualityExtensibility(doc(), som::joinPath(path(), "extensibility"));
+FlexibilityExtensibility Flexibility::extensibility() const {
+  return FlexibilityExtensibility(doc(), som::joinPath(path(), "extensibility"));
 }
 
-FlexibilityQualityDeployment::FlexibilityQualityDeployment(som::SpecDocument& doc, std::string path)
+FlexibilityCharacteristic::FlexibilityCharacteristic(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-FlexibilityQualityDeploymentContentForm FlexibilityQualityDeployment::content() const {
-  return FlexibilityQualityDeploymentContentForm(doc(), som::joinPath(path(), "content"));
+FlexibilityCharacteristicFlexibilityContentForm FlexibilityCharacteristic::flexibilityContent() const {
+  return FlexibilityCharacteristicFlexibilityContentForm(doc(), som::joinPath(path(), "flexibilityContent"));
+}
+Flexibility FlexibilityCharacteristic::flexibility() const {
+  return Flexibility(doc(), som::joinPath(path(), "flexibility"));
+}
+Portability FlexibilityCharacteristic::portability() const {
+  return Portability(doc(), som::joinPath(path(), "portability"));
 }
 
-FlexibilityQualityExtensibility::FlexibilityQualityExtensibility(som::SpecDocument& doc, std::string path)
+FlexibilityDeployment::FlexibilityDeployment(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-FlexibilityQualityExtensibilityContentForm FlexibilityQualityExtensibility::content() const {
-  return FlexibilityQualityExtensibilityContentForm(doc(), som::joinPath(path(), "content"));
+FlexibilityDeploymentContentForm FlexibilityDeployment::content() const {
+  return FlexibilityDeploymentContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-FlexibilityQualityModularity::FlexibilityQualityModularity(som::SpecDocument& doc, std::string path)
+FlexibilityExtensibility::FlexibilityExtensibility(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-FlexibilityQualityModularityContentForm FlexibilityQualityModularity::content() const {
-  return FlexibilityQualityModularityContentForm(doc(), som::joinPath(path(), "content"));
+FlexibilityExtensibilityContentForm FlexibilityExtensibility::content() const {
+  return FlexibilityExtensibilityContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+FlexibilityModularity::FlexibilityModularity(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+FlexibilityModularityContentForm FlexibilityModularity::content() const {
+  return FlexibilityModularityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FragilePointEntry::FragilePointEntry(som::SpecDocument& doc, std::string path)
@@ -11715,10 +11751,10 @@ som::SomList FunctionModel::businessRules() const {
   return som::SomList(doc(), som::joinPath(path(), "BIRU-BUSI-LST"));
 }
 
-FunctionalCompletenessQuality::FunctionalCompletenessQuality(som::SpecDocument& doc, std::string path)
+FunctionalCompleteness::FunctionalCompleteness(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-FunctionalCompletenessQualityContentForm FunctionalCompletenessQuality::content() const {
-  return FunctionalCompletenessQualityContentForm(doc(), som::joinPath(path(), "content"));
+FunctionalCompletenessContentForm FunctionalCompleteness::content() const {
+  return FunctionalCompletenessContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FunctionalRequirementEntry::FunctionalRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -11824,6 +11860,18 @@ FunctionalResponsibilitiesContentForm FunctionalResponsibilities::content() cons
 }
 som::SomList FunctionalResponsibilities::items() const {
   return som::SomList(doc(), som::joinPath(path(), "REEN1-ITEM-LST"));
+}
+
+FunctionalSuitabilityCharacteristic::FunctionalSuitabilityCharacteristic(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm FunctionalSuitabilityCharacteristic::functionalSuitabilityContent() const {
+  return FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc(), som::joinPath(path(), "functionalSuitabilityContent"));
+}
+FunctionalCompleteness FunctionalSuitabilityCharacteristic::functionalCompleteness() const {
+  return FunctionalCompleteness(doc(), som::joinPath(path(), "functionalCompleteness"));
+}
+Correctness FunctionalSuitabilityCharacteristic::correctness() const {
+  return Correctness(doc(), som::joinPath(path(), "correctness"));
 }
 
 GapEntry::GapEntry(som::SpecDocument& doc, std::string path)
@@ -13143,6 +13191,15 @@ InteractionBusinessRulesContentForm InteractionBusinessRules::content() const {
   return InteractionBusinessRulesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+InteractionCapabilityCharacteristic::InteractionCapabilityCharacteristic(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+InteractionCapabilityCharacteristicInteractionCapabilityContentForm InteractionCapabilityCharacteristic::interactionCapabilityContent() const {
+  return InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc(), som::joinPath(path(), "interactionCapabilityContent"));
+}
+Usability InteractionCapabilityCharacteristic::usability() const {
+  return Usability(doc(), som::joinPath(path(), "usability"));
+}
+
 InteractionCatalog::InteractionCatalog(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string InteractionCatalog::content() const {
@@ -13821,46 +13878,46 @@ ItLandscapePositionPositionDetailsForm ItLandscapePosition::positionDetails() co
   return ItLandscapePositionPositionDetailsForm(doc(), som::joinPath(path(), "positionDetails"));
 }
 
-ItSecurityOperationsQuality::ItSecurityOperationsQuality(som::SpecDocument& doc, std::string path)
+ItSecurityOperations::ItSecurityOperations(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ItSecurityOperationsQualityContentForm ItSecurityOperationsQuality::content() const {
-  return ItSecurityOperationsQualityContentForm(doc(), som::joinPath(path(), "content"));
+ItSecurityOperationsContentForm ItSecurityOperations::content() const {
+  return ItSecurityOperationsContentForm(doc(), som::joinPath(path(), "content"));
 }
-ItSecurityOperationsQualityAccess ItSecurityOperationsQuality::access() const {
-  return ItSecurityOperationsQualityAccess(doc(), som::joinPath(path(), "access"));
+ItSecurityOperationsAccess ItSecurityOperations::access() const {
+  return ItSecurityOperationsAccess(doc(), som::joinPath(path(), "access"));
 }
-ItSecurityOperationsQualityRecovery ItSecurityOperationsQuality::recovery() const {
-  return ItSecurityOperationsQualityRecovery(doc(), som::joinPath(path(), "recovery"));
+ItSecurityOperationsRecovery ItSecurityOperations::recovery() const {
+  return ItSecurityOperationsRecovery(doc(), som::joinPath(path(), "recovery"));
 }
-ItSecurityOperationsQualityTesting ItSecurityOperationsQuality::testing() const {
-  return ItSecurityOperationsQualityTesting(doc(), som::joinPath(path(), "testing"));
+ItSecurityOperationsTesting ItSecurityOperations::testing() const {
+  return ItSecurityOperationsTesting(doc(), som::joinPath(path(), "testing"));
 }
-ItSecurityOperationsQualityIncident ItSecurityOperationsQuality::incident() const {
-  return ItSecurityOperationsQualityIncident(doc(), som::joinPath(path(), "incident"));
+ItSecurityOperationsIncident ItSecurityOperations::incident() const {
+  return ItSecurityOperationsIncident(doc(), som::joinPath(path(), "incident"));
 }
 
-ItSecurityOperationsQualityAccess::ItSecurityOperationsQualityAccess(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsAccess::ItSecurityOperationsAccess(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ItSecurityOperationsQualityAccessContentForm ItSecurityOperationsQualityAccess::content() const {
-  return ItSecurityOperationsQualityAccessContentForm(doc(), som::joinPath(path(), "content"));
+ItSecurityOperationsAccessContentForm ItSecurityOperationsAccess::content() const {
+  return ItSecurityOperationsAccessContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ItSecurityOperationsQualityIncident::ItSecurityOperationsQualityIncident(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsIncident::ItSecurityOperationsIncident(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ItSecurityOperationsQualityIncidentContentForm ItSecurityOperationsQualityIncident::content() const {
-  return ItSecurityOperationsQualityIncidentContentForm(doc(), som::joinPath(path(), "content"));
+ItSecurityOperationsIncidentContentForm ItSecurityOperationsIncident::content() const {
+  return ItSecurityOperationsIncidentContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ItSecurityOperationsQualityRecovery::ItSecurityOperationsQualityRecovery(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsRecovery::ItSecurityOperationsRecovery(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ItSecurityOperationsQualityRecoveryContentForm ItSecurityOperationsQualityRecovery::content() const {
-  return ItSecurityOperationsQualityRecoveryContentForm(doc(), som::joinPath(path(), "content"));
+ItSecurityOperationsRecoveryContentForm ItSecurityOperationsRecovery::content() const {
+  return ItSecurityOperationsRecoveryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ItSecurityOperationsQualityTesting::ItSecurityOperationsQualityTesting(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsTesting::ItSecurityOperationsTesting(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ItSecurityOperationsQualityTestingContentForm ItSecurityOperationsQualityTesting::content() const {
-  return ItSecurityOperationsQualityTestingContentForm(doc(), som::joinPath(path(), "content"));
+ItSecurityOperationsTestingContentForm ItSecurityOperationsTesting::content() const {
+  return ItSecurityOperationsTestingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ItSecurityStandardsSection::ItSecurityStandardsSection(som::SpecDocument& doc, std::string path)
@@ -14664,46 +14721,55 @@ som::SomList MainSuccessScenario::steps() const {
   return som::SomList(doc(), som::joinPath(path(), "MNSST-STEP-LST"));
 }
 
-MaintainabilityQuality::MaintainabilityQuality(som::SpecDocument& doc, std::string path)
+Maintainability::Maintainability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-MaintainabilityQualityContentForm MaintainabilityQuality::content() const {
-  return MaintainabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+MaintainabilityContentForm Maintainability::content() const {
+  return MaintainabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-MaintainabilityQualityAnalyzability MaintainabilityQuality::analyzability() const {
-  return MaintainabilityQualityAnalyzability(doc(), som::joinPath(path(), "analyzability"));
+MaintainabilityAnalyzability Maintainability::analyzability() const {
+  return MaintainabilityAnalyzability(doc(), som::joinPath(path(), "analyzability"));
 }
-MaintainabilityQualityChangeability MaintainabilityQuality::changeability() const {
-  return MaintainabilityQualityChangeability(doc(), som::joinPath(path(), "changeability"));
+MaintainabilityChangeability Maintainability::changeability() const {
+  return MaintainabilityChangeability(doc(), som::joinPath(path(), "changeability"));
 }
-MaintainabilityQualityTestability MaintainabilityQuality::testability() const {
-  return MaintainabilityQualityTestability(doc(), som::joinPath(path(), "testability"));
+MaintainabilityTestability Maintainability::testability() const {
+  return MaintainabilityTestability(doc(), som::joinPath(path(), "testability"));
 }
-MaintainabilityQualityGovernance MaintainabilityQuality::governance() const {
-  return MaintainabilityQualityGovernance(doc(), som::joinPath(path(), "governance"));
+MaintainabilityGovernance Maintainability::governance() const {
+  return MaintainabilityGovernance(doc(), som::joinPath(path(), "governance"));
 }
 
-MaintainabilityQualityAnalyzability::MaintainabilityQualityAnalyzability(som::SpecDocument& doc, std::string path)
+MaintainabilityAnalyzability::MaintainabilityAnalyzability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-MaintainabilityQualityAnalyzabilityContentForm MaintainabilityQualityAnalyzability::content() const {
-  return MaintainabilityQualityAnalyzabilityContentForm(doc(), som::joinPath(path(), "content"));
+MaintainabilityAnalyzabilityContentForm MaintainabilityAnalyzability::content() const {
+  return MaintainabilityAnalyzabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-MaintainabilityQualityChangeability::MaintainabilityQualityChangeability(som::SpecDocument& doc, std::string path)
+MaintainabilityChangeability::MaintainabilityChangeability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-MaintainabilityQualityChangeabilityContentForm MaintainabilityQualityChangeability::content() const {
-  return MaintainabilityQualityChangeabilityContentForm(doc(), som::joinPath(path(), "content"));
+MaintainabilityChangeabilityContentForm MaintainabilityChangeability::content() const {
+  return MaintainabilityChangeabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-MaintainabilityQualityGovernance::MaintainabilityQualityGovernance(som::SpecDocument& doc, std::string path)
+MaintainabilityCharacteristic::MaintainabilityCharacteristic(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-MaintainabilityQualityGovernanceContentForm MaintainabilityQualityGovernance::content() const {
-  return MaintainabilityQualityGovernanceContentForm(doc(), som::joinPath(path(), "content"));
+MaintainabilityCharacteristicMaintainabilityContentForm MaintainabilityCharacteristic::maintainabilityContent() const {
+  return MaintainabilityCharacteristicMaintainabilityContentForm(doc(), som::joinPath(path(), "maintainabilityContent"));
+}
+Maintainability MaintainabilityCharacteristic::maintainability() const {
+  return Maintainability(doc(), som::joinPath(path(), "maintainability"));
 }
 
-MaintainabilityQualityTestability::MaintainabilityQualityTestability(som::SpecDocument& doc, std::string path)
+MaintainabilityGovernance::MaintainabilityGovernance(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-MaintainabilityQualityTestabilityContentForm MaintainabilityQualityTestability::content() const {
-  return MaintainabilityQualityTestabilityContentForm(doc(), som::joinPath(path(), "content"));
+MaintainabilityGovernanceContentForm MaintainabilityGovernance::content() const {
+  return MaintainabilityGovernanceContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+MaintainabilityTestability::MaintainabilityTestability(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MaintainabilityTestabilityContentForm MaintainabilityTestability::content() const {
+  return MaintainabilityTestabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 MaintenanceChangeManagement::MaintenanceChangeManagement(som::SpecDocument& doc, std::string path)
@@ -15771,6 +15837,12 @@ SlaAndSloMonitoring Monitoring::slaAndSloMonitoring() const {
   return SlaAndSloMonitoring(doc(), som::joinPath(path(), "slaAndSloMonitoring"));
 }
 
+MonitoringAlerting::MonitoringAlerting(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MonitoringAlertingContentForm MonitoringAlerting::content() const {
+  return MonitoringAlertingContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 MonitoringAndAlertingSection::MonitoringAndAlertingSection(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string MonitoringAndAlertingSection::content() const {
@@ -15808,6 +15880,18 @@ IncidentManagementRequirements MonitoringAndAlertingSection::incidentManagement(
 }
 SlaMonitoringRequirements MonitoringAndAlertingSection::slaMonitoring() const {
   return SlaMonitoringRequirements(doc(), som::joinPath(path(), "slaMonitoring"));
+}
+
+MonitoringAutomation::MonitoringAutomation(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MonitoringAutomationContentForm MonitoringAutomation::content() const {
+  return MonitoringAutomationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+MonitoringCoverage::MonitoringCoverage(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MonitoringCoverageContentForm MonitoringCoverage::content() const {
+  return MonitoringCoverageContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 MonitoringDashboards::MonitoringDashboards(som::SpecDocument& doc, std::string path)
@@ -15855,6 +15939,12 @@ MonitoringInfrastructureDeploymentContentForm MonitoringInfrastructureDeployment
   return MonitoringInfrastructureDeploymentContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+MonitoringOperations::MonitoringOperations(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MonitoringOperationsContentForm MonitoringOperations::content() const {
+  return MonitoringOperationsContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 MonitoringProcedureEntry::MonitoringProcedureEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string MonitoringProcedureEntry::content() const {
@@ -15862,48 +15952,6 @@ std::string MonitoringProcedureEntry::content() const {
 }
 void MonitoringProcedureEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-MonitoringQuality::MonitoringQuality(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-MonitoringQualityContentForm MonitoringQuality::content() const {
-  return MonitoringQualityContentForm(doc(), som::joinPath(path(), "content"));
-}
-MonitoringQualityCoverage MonitoringQuality::coverage() const {
-  return MonitoringQualityCoverage(doc(), som::joinPath(path(), "coverage"));
-}
-MonitoringQualityAutomation MonitoringQuality::automation() const {
-  return MonitoringQualityAutomation(doc(), som::joinPath(path(), "automation"));
-}
-MonitoringQualityAlerting MonitoringQuality::alerting() const {
-  return MonitoringQualityAlerting(doc(), som::joinPath(path(), "alerting"));
-}
-MonitoringQualityOperations MonitoringQuality::operations() const {
-  return MonitoringQualityOperations(doc(), som::joinPath(path(), "operations"));
-}
-
-MonitoringQualityAlerting::MonitoringQualityAlerting(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-MonitoringQualityAlertingContentForm MonitoringQualityAlerting::content() const {
-  return MonitoringQualityAlertingContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-MonitoringQualityAutomation::MonitoringQualityAutomation(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-MonitoringQualityAutomationContentForm MonitoringQualityAutomation::content() const {
-  return MonitoringQualityAutomationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-MonitoringQualityCoverage::MonitoringQualityCoverage(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-MonitoringQualityCoverageContentForm MonitoringQualityCoverage::content() const {
-  return MonitoringQualityCoverageContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-MonitoringQualityOperations::MonitoringQualityOperations(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-MonitoringQualityOperationsContentForm MonitoringQualityOperations::content() const {
-  return MonitoringQualityOperationsContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 MoscowAnalysis::MoscowAnalysis(som::SpecDocument& doc, std::string path)
@@ -16884,6 +16932,24 @@ OngoingTrainingEntryScheduleContentForm OngoingTrainingEntrySchedule::content() 
   return OngoingTrainingEntryScheduleContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+OperationalMonitoring::OperationalMonitoring(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+OperationalMonitoringContentForm OperationalMonitoring::content() const {
+  return OperationalMonitoringContentForm(doc(), som::joinPath(path(), "content"));
+}
+MonitoringCoverage OperationalMonitoring::coverage() const {
+  return MonitoringCoverage(doc(), som::joinPath(path(), "coverage"));
+}
+MonitoringAutomation OperationalMonitoring::automation() const {
+  return MonitoringAutomation(doc(), som::joinPath(path(), "automation"));
+}
+MonitoringAlerting OperationalMonitoring::alerting() const {
+  return MonitoringAlerting(doc(), som::joinPath(path(), "alerting"));
+}
+MonitoringOperations OperationalMonitoring::operations() const {
+  return MonitoringOperations(doc(), som::joinPath(path(), "operations"));
+}
+
 OperationalPainPoints::OperationalPainPoints(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string OperationalPainPoints::content() const {
@@ -16903,24 +16969,6 @@ OperationalPainPointsSummary::OperationalPainPointsSummary(som::SpecDocument& do
     : som::SomNode(doc, std::move(path)) {}
 OperationalPainPointsSummaryContentForm OperationalPainPointsSummary::content() const {
   return OperationalPainPointsSummaryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-OperationsQualityCriteria::OperationsQualityCriteria(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-OperationsQualityCriteriaOperationsOverviewContentForm OperationsQualityCriteria::operationsOverviewContent() const {
-  return OperationsQualityCriteriaOperationsOverviewContentForm(doc(), som::joinPath(path(), "operationsOverviewContent"));
-}
-AvailabilityQuality OperationsQualityCriteria::availability() const {
-  return AvailabilityQuality(doc(), som::joinPath(path(), "availability"));
-}
-ServiceLevelQuality OperationsQualityCriteria::serviceLevelRequirements() const {
-  return ServiceLevelQuality(doc(), som::joinPath(path(), "serviceLevelRequirements"));
-}
-MonitoringQuality OperationsQualityCriteria::monitoringAndPrevention() const {
-  return MonitoringQuality(doc(), som::joinPath(path(), "monitoringAndPrevention"));
-}
-ItSecurityOperationsQuality OperationsQualityCriteria::itSecurityOperations() const {
-  return ItSecurityOperationsQuality(doc(), som::joinPath(path(), "itSecurityOperations"));
 }
 
 OperationsRequirements::OperationsRequirements(som::SpecDocument& doc, std::string path)
@@ -17634,6 +17682,15 @@ PenetrationTestingRequirementsSchedulingContentForm PenetrationTestingRequiremen
   return PenetrationTestingRequirementsSchedulingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+PerformanceEfficiencyCharacteristic::PerformanceEfficiencyCharacteristic(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm PerformanceEfficiencyCharacteristic::performanceEfficiencyContent() const {
+  return PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc(), som::joinPath(path(), "performanceEfficiencyContent"));
+}
+Efficiency PerformanceEfficiencyCharacteristic::efficiency() const {
+  return Efficiency(doc(), som::joinPath(path(), "efficiency"));
+}
+
 PeriodicReviewPolicy::PeriodicReviewPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 PeriodicReviewPolicyContentForm PeriodicReviewPolicy::content() const {
@@ -18012,10 +18069,10 @@ RuntimeEnvironment PlatformAndLanguage::runtimeEnvironment() const {
   return RuntimeEnvironment(doc(), som::joinPath(path(), "runtimeEnvironment"));
 }
 
-PortabilityQuality::PortabilityQuality(som::SpecDocument& doc, std::string path)
+Portability::Portability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-PortabilityQualityContentForm PortabilityQuality::content() const {
-  return PortabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+PortabilityContentForm Portability::content() const {
+  return PortabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PostImplementationReview::PostImplementationReview(som::SpecDocument& doc, std::string path)
@@ -19542,6 +19599,30 @@ som::SomList QualityGateChecklist::items() const {
   return som::SomList(doc(), som::joinPath(path(), "QGCHK-ITEM-LST"));
 }
 
+QualityGoalsBaseline::QualityGoalsBaseline(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+QualityGoalsBaselineContentForm QualityGoalsBaseline::content() const {
+  return QualityGoalsBaselineContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+QualityGoalsGovernance::QualityGoalsGovernance(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+QualityGoalsGovernanceContentForm QualityGoalsGovernance::content() const {
+  return QualityGoalsGovernanceContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+QualityGoalsMeasurement::QualityGoalsMeasurement(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+QualityGoalsMeasurementContentForm QualityGoalsMeasurement::content() const {
+  return QualityGoalsMeasurementContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+QualityGoalsResources::QualityGoalsResources(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+QualityGoalsResourcesContentForm QualityGoalsResources::content() const {
+  return QualityGoalsResourcesContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 QualityPrioritization::QualityPrioritization(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 QualityPrioritizationPrioritizationFrameworkContentForm QualityPrioritization::prioritizationFrameworkContent() const {
@@ -19653,46 +19734,46 @@ RateLimitingPolicyQuotasContentForm RateLimitingPolicyQuotas::content() const {
   return RateLimitingPolicyQuotasContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReadabilityQuality::ReadabilityQuality(som::SpecDocument& doc, std::string path)
+Readability::Readability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReadabilityQualityContentForm ReadabilityQuality::content() const {
-  return ReadabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+ReadabilityContentForm Readability::content() const {
+  return ReadabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-ReadabilityQualityNavigation ReadabilityQuality::navigation() const {
-  return ReadabilityQualityNavigation(doc(), som::joinPath(path(), "navigation"));
+ReadabilityNavigation Readability::navigation() const {
+  return ReadabilityNavigation(doc(), som::joinPath(path(), "navigation"));
 }
-ReadabilityQualityComprehensibility ReadabilityQuality::comprehensibility() const {
-  return ReadabilityQualityComprehensibility(doc(), som::joinPath(path(), "comprehensibility"));
+ReadabilityComprehensibility Readability::comprehensibility() const {
+  return ReadabilityComprehensibility(doc(), som::joinPath(path(), "comprehensibility"));
 }
-ReadabilityQualityStructure ReadabilityQuality::structure() const {
-  return ReadabilityQualityStructure(doc(), som::joinPath(path(), "structure"));
+ReadabilityStructure Readability::structure() const {
+  return ReadabilityStructure(doc(), som::joinPath(path(), "structure"));
 }
-ReadabilityQualityStyle ReadabilityQuality::style() const {
-  return ReadabilityQualityStyle(doc(), som::joinPath(path(), "style"));
+ReadabilityStyle Readability::style() const {
+  return ReadabilityStyle(doc(), som::joinPath(path(), "style"));
 }
 
-ReadabilityQualityComprehensibility::ReadabilityQualityComprehensibility(som::SpecDocument& doc, std::string path)
+ReadabilityComprehensibility::ReadabilityComprehensibility(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReadabilityQualityComprehensibilityContentForm ReadabilityQualityComprehensibility::content() const {
-  return ReadabilityQualityComprehensibilityContentForm(doc(), som::joinPath(path(), "content"));
+ReadabilityComprehensibilityContentForm ReadabilityComprehensibility::content() const {
+  return ReadabilityComprehensibilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReadabilityQualityNavigation::ReadabilityQualityNavigation(som::SpecDocument& doc, std::string path)
+ReadabilityNavigation::ReadabilityNavigation(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReadabilityQualityNavigationContentForm ReadabilityQualityNavigation::content() const {
-  return ReadabilityQualityNavigationContentForm(doc(), som::joinPath(path(), "content"));
+ReadabilityNavigationContentForm ReadabilityNavigation::content() const {
+  return ReadabilityNavigationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReadabilityQualityStructure::ReadabilityQualityStructure(som::SpecDocument& doc, std::string path)
+ReadabilityStructure::ReadabilityStructure(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReadabilityQualityStructureContentForm ReadabilityQualityStructure::content() const {
-  return ReadabilityQualityStructureContentForm(doc(), som::joinPath(path(), "content"));
+ReadabilityStructureContentForm ReadabilityStructure::content() const {
+  return ReadabilityStructureContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReadabilityQualityStyle::ReadabilityQualityStyle(som::SpecDocument& doc, std::string path)
+ReadabilityStyle::ReadabilityStyle(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReadabilityQualityStyleContentForm ReadabilityQualityStyle::content() const {
-  return ReadabilityQualityStyleContentForm(doc(), som::joinPath(path(), "content"));
+ReadabilityStyleContentForm ReadabilityStyle::content() const {
+  return ReadabilityStyleContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ReadinessCriteriaEntry::ReadinessCriteriaEntry(som::SpecDocument& doc, std::string path)
@@ -19974,46 +20055,64 @@ RelevantSectionEntryContentForm RelevantSectionEntry::content() const {
   return RelevantSectionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReliabilityQuality::ReliabilityQuality(som::SpecDocument& doc, std::string path)
+Reliability::Reliability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReliabilityQualityContentForm ReliabilityQuality::content() const {
-  return ReliabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+ReliabilityContentForm Reliability::content() const {
+  return ReliabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-ReliabilityQualityRecovery ReliabilityQuality::recovery() const {
-  return ReliabilityQualityRecovery(doc(), som::joinPath(path(), "recovery"));
+ReliabilityRecovery Reliability::recovery() const {
+  return ReliabilityRecovery(doc(), som::joinPath(path(), "recovery"));
 }
-ReliabilityQualityFailover ReliabilityQuality::failover() const {
-  return ReliabilityQualityFailover(doc(), som::joinPath(path(), "failover"));
+ReliabilityFailover Reliability::failover() const {
+  return ReliabilityFailover(doc(), som::joinPath(path(), "failover"));
 }
-ReliabilityQualityDurability ReliabilityQuality::durability() const {
-  return ReliabilityQualityDurability(doc(), som::joinPath(path(), "durability"));
+ReliabilityDurability Reliability::durability() const {
+  return ReliabilityDurability(doc(), som::joinPath(path(), "durability"));
 }
-ReliabilityQualityVerification ReliabilityQuality::verification() const {
-  return ReliabilityQualityVerification(doc(), som::joinPath(path(), "verification"));
+ReliabilityVerification Reliability::verification() const {
+  return ReliabilityVerification(doc(), som::joinPath(path(), "verification"));
 }
 
-ReliabilityQualityDurability::ReliabilityQualityDurability(som::SpecDocument& doc, std::string path)
+ReliabilityCharacteristic::ReliabilityCharacteristic(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReliabilityQualityDurabilityContentForm ReliabilityQualityDurability::content() const {
-  return ReliabilityQualityDurabilityContentForm(doc(), som::joinPath(path(), "content"));
+ReliabilityCharacteristicReliabilityContentForm ReliabilityCharacteristic::reliabilityContent() const {
+  return ReliabilityCharacteristicReliabilityContentForm(doc(), som::joinPath(path(), "reliabilityContent"));
+}
+Reliability ReliabilityCharacteristic::reliability() const {
+  return Reliability(doc(), som::joinPath(path(), "reliability"));
+}
+Availability ReliabilityCharacteristic::availability() const {
+  return Availability(doc(), som::joinPath(path(), "availability"));
+}
+ServiceLevel ReliabilityCharacteristic::serviceLevelRequirements() const {
+  return ServiceLevel(doc(), som::joinPath(path(), "serviceLevelRequirements"));
+}
+OperationalMonitoring ReliabilityCharacteristic::monitoringAndPrevention() const {
+  return OperationalMonitoring(doc(), som::joinPath(path(), "monitoringAndPrevention"));
 }
 
-ReliabilityQualityFailover::ReliabilityQualityFailover(som::SpecDocument& doc, std::string path)
+ReliabilityDurability::ReliabilityDurability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReliabilityQualityFailoverContentForm ReliabilityQualityFailover::content() const {
-  return ReliabilityQualityFailoverContentForm(doc(), som::joinPath(path(), "content"));
+ReliabilityDurabilityContentForm ReliabilityDurability::content() const {
+  return ReliabilityDurabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReliabilityQualityRecovery::ReliabilityQualityRecovery(som::SpecDocument& doc, std::string path)
+ReliabilityFailover::ReliabilityFailover(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReliabilityQualityRecoveryContentForm ReliabilityQualityRecovery::content() const {
-  return ReliabilityQualityRecoveryContentForm(doc(), som::joinPath(path(), "content"));
+ReliabilityFailoverContentForm ReliabilityFailover::content() const {
+  return ReliabilityFailoverContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ReliabilityQualityVerification::ReliabilityQualityVerification(som::SpecDocument& doc, std::string path)
+ReliabilityRecovery::ReliabilityRecovery(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ReliabilityQualityVerificationContentForm ReliabilityQualityVerification::content() const {
-  return ReliabilityQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
+ReliabilityRecoveryContentForm ReliabilityRecovery::content() const {
+  return ReliabilityRecoveryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ReliabilityVerification::ReliabilityVerification(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ReliabilityVerificationContentForm ReliabilityVerification::content() const {
+  return ReliabilityVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RememberMePolicy::RememberMePolicy(som::SpecDocument& doc, std::string path)
@@ -22587,6 +22686,24 @@ som::SomList SecondaryNavigation::tabBars() const {
   return som::SomList(doc(), som::joinPath(path(), "TBDE-TABB-LST"));
 }
 
+Security::Security(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityContentForm Security::content() const {
+  return SecurityContentForm(doc(), som::joinPath(path(), "content"));
+}
+SecurityAuthentication Security::authentication() const {
+  return SecurityAuthentication(doc(), som::joinPath(path(), "authentication"));
+}
+SecurityAuthorization Security::authorization() const {
+  return SecurityAuthorization(doc(), som::joinPath(path(), "authorization"));
+}
+SecurityVulnerability Security::vulnerability() const {
+  return SecurityVulnerability(doc(), som::joinPath(path(), "vulnerability"));
+}
+SecurityCompliance Security::compliance() const {
+  return SecurityCompliance(doc(), som::joinPath(path(), "compliance"));
+}
+
 SecurityAndAccessModel::SecurityAndAccessModel(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SecurityAndAccessModel::content() const {
@@ -22683,6 +22800,18 @@ som::SomList SecurityAuditRequirementsSection::auditEntries() const {
   return som::SomList(doc(), som::joinPath(path(), "SEAUEN-AUDI-LST"));
 }
 
+SecurityAuthentication::SecurityAuthentication(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityAuthenticationContentForm SecurityAuthentication::content() const {
+  return SecurityAuthenticationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+SecurityAuthorization::SecurityAuthorization(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityAuthorizationContentForm SecurityAuthorization::content() const {
+  return SecurityAuthorizationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 SecurityCertificationRequirements::SecurityCertificationRequirements(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 SecurityCertificationRequirementsContentForm SecurityCertificationRequirements::content() const {
@@ -22725,6 +22854,18 @@ SecurityCertificationRequirementsSoc2ContentForm SecurityCertificationRequiremen
   return SecurityCertificationRequirementsSoc2ContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+SecurityCharacteristic::SecurityCharacteristic(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityCharacteristicSecurityContentForm SecurityCharacteristic::securityContent() const {
+  return SecurityCharacteristicSecurityContentForm(doc(), som::joinPath(path(), "securityContent"));
+}
+Security SecurityCharacteristic::security() const {
+  return Security(doc(), som::joinPath(path(), "security"));
+}
+ItSecurityOperations SecurityCharacteristic::itSecurityOperations() const {
+  return ItSecurityOperations(doc(), som::joinPath(path(), "itSecurityOperations"));
+}
+
 SecurityCodeReviewPolicy::SecurityCodeReviewPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 SecurityCodeReviewPolicyContentForm SecurityCodeReviewPolicy::content() const {
@@ -22756,6 +22897,12 @@ SecurityCodeReviewPolicyReviewers::SecurityCodeReviewPolicyReviewers(som::SpecDo
     : som::SomNode(doc, std::move(path)) {}
 SecurityCodeReviewPolicyReviewersContentForm SecurityCodeReviewPolicyReviewers::content() const {
   return SecurityCodeReviewPolicyReviewersContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+SecurityCompliance::SecurityCompliance(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityComplianceContentForm SecurityCompliance::content() const {
+  return SecurityComplianceContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SecurityConcernEntry::SecurityConcernEntry(som::SpecDocument& doc, std::string path)
@@ -22873,48 +23020,6 @@ AdministrativeEventPolicy SecurityEventsDefinition::administrativeEvents() const
 }
 som::SomList SecurityEventsDefinition::customEvents() const {
   return som::SomList(doc(), som::joinPath(path(), "SEVT-CUST-LST"));
-}
-
-SecurityQuality::SecurityQuality(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SecurityQualityContentForm SecurityQuality::content() const {
-  return SecurityQualityContentForm(doc(), som::joinPath(path(), "content"));
-}
-SecurityQualityAuthentication SecurityQuality::authentication() const {
-  return SecurityQualityAuthentication(doc(), som::joinPath(path(), "authentication"));
-}
-SecurityQualityAuthorization SecurityQuality::authorization() const {
-  return SecurityQualityAuthorization(doc(), som::joinPath(path(), "authorization"));
-}
-SecurityQualityVulnerability SecurityQuality::vulnerability() const {
-  return SecurityQualityVulnerability(doc(), som::joinPath(path(), "vulnerability"));
-}
-SecurityQualityCompliance SecurityQuality::compliance() const {
-  return SecurityQualityCompliance(doc(), som::joinPath(path(), "compliance"));
-}
-
-SecurityQualityAuthentication::SecurityQualityAuthentication(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SecurityQualityAuthenticationContentForm SecurityQualityAuthentication::content() const {
-  return SecurityQualityAuthenticationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SecurityQualityAuthorization::SecurityQualityAuthorization(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SecurityQualityAuthorizationContentForm SecurityQualityAuthorization::content() const {
-  return SecurityQualityAuthorizationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SecurityQualityCompliance::SecurityQualityCompliance(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SecurityQualityComplianceContentForm SecurityQualityCompliance::content() const {
-  return SecurityQualityComplianceContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SecurityQualityVulnerability::SecurityQualityVulnerability(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SecurityQualityVulnerabilityContentForm SecurityQualityVulnerability::content() const {
-  return SecurityQualityVulnerabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SecurityRequirementEntry::SecurityRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -23110,6 +23215,12 @@ SecurityTestingAutomationScanning::SecurityTestingAutomationScanning(som::SpecDo
     : som::SomNode(doc, std::move(path)) {}
 SecurityTestingAutomationScanningContentForm SecurityTestingAutomationScanning::content() const {
   return SecurityTestingAutomationScanningContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+SecurityVulnerability::SecurityVulnerability(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+SecurityVulnerabilityContentForm SecurityVulnerability::content() const {
+  return SecurityVulnerabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SelfRegistrationPolicy::SelfRegistrationPolicy(som::SpecDocument& doc, std::string path)
@@ -23415,10 +23526,40 @@ void ServiceAccountLifecycle::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
+ServiceLevel::ServiceLevel(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ServiceLevelContentForm ServiceLevel::content() const {
+  return ServiceLevelContentForm(doc(), som::joinPath(path(), "content"));
+}
+ServiceLevelResponse ServiceLevel::response() const {
+  return ServiceLevelResponse(doc(), som::joinPath(path(), "response"));
+}
+ServiceLevelResolution ServiceLevel::resolution() const {
+  return ServiceLevelResolution(doc(), som::joinPath(path(), "resolution"));
+}
+ServiceLevelEscalation ServiceLevel::escalation() const {
+  return ServiceLevelEscalation(doc(), som::joinPath(path(), "escalation"));
+}
+ServiceLevelOnCall ServiceLevel::onCall() const {
+  return ServiceLevelOnCall(doc(), som::joinPath(path(), "onCall"));
+}
+ServiceLevelRestoration ServiceLevel::restoration() const {
+  return ServiceLevelRestoration(doc(), som::joinPath(path(), "restoration"));
+}
+som::SomList ServiceLevel::slaEntries() const {
+  return som::SomList(doc(), som::joinPath(path(), "SLAE-SLAE-LST"));
+}
+
 ServiceLevelAgreementEntry::ServiceLevelAgreementEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ServiceLevelAgreementEntryContentForm ServiceLevelAgreementEntry::content() const {
   return ServiceLevelAgreementEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ServiceLevelEscalation::ServiceLevelEscalation(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ServiceLevelEscalationContentForm ServiceLevelEscalation::content() const {
+  return ServiceLevelEscalationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ServiceLevelIndicators::ServiceLevelIndicators(som::SpecDocument& doc, std::string path)
@@ -23454,58 +23595,28 @@ ServiceLevelIndicatorsQualityContentForm ServiceLevelIndicatorsQuality::content(
   return ServiceLevelIndicatorsQualityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ServiceLevelQuality::ServiceLevelQuality(som::SpecDocument& doc, std::string path)
+ServiceLevelOnCall::ServiceLevelOnCall(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityContentForm ServiceLevelQuality::content() const {
-  return ServiceLevelQualityContentForm(doc(), som::joinPath(path(), "content"));
-}
-ServiceLevelQualityResponse ServiceLevelQuality::response() const {
-  return ServiceLevelQualityResponse(doc(), som::joinPath(path(), "response"));
-}
-ServiceLevelQualityResolution ServiceLevelQuality::resolution() const {
-  return ServiceLevelQualityResolution(doc(), som::joinPath(path(), "resolution"));
-}
-ServiceLevelQualityEscalation ServiceLevelQuality::escalation() const {
-  return ServiceLevelQualityEscalation(doc(), som::joinPath(path(), "escalation"));
-}
-ServiceLevelQualityOnCall ServiceLevelQuality::onCall() const {
-  return ServiceLevelQualityOnCall(doc(), som::joinPath(path(), "onCall"));
-}
-ServiceLevelQualityRestoration ServiceLevelQuality::restoration() const {
-  return ServiceLevelQualityRestoration(doc(), som::joinPath(path(), "restoration"));
-}
-som::SomList ServiceLevelQuality::slaEntries() const {
-  return som::SomList(doc(), som::joinPath(path(), "SLAE-SLAE-LST"));
+ServiceLevelOnCallContentForm ServiceLevelOnCall::content() const {
+  return ServiceLevelOnCallContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ServiceLevelQualityEscalation::ServiceLevelQualityEscalation(som::SpecDocument& doc, std::string path)
+ServiceLevelResolution::ServiceLevelResolution(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityEscalationContentForm ServiceLevelQualityEscalation::content() const {
-  return ServiceLevelQualityEscalationContentForm(doc(), som::joinPath(path(), "content"));
+ServiceLevelResolutionContentForm ServiceLevelResolution::content() const {
+  return ServiceLevelResolutionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ServiceLevelQualityOnCall::ServiceLevelQualityOnCall(som::SpecDocument& doc, std::string path)
+ServiceLevelResponse::ServiceLevelResponse(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityOnCallContentForm ServiceLevelQualityOnCall::content() const {
-  return ServiceLevelQualityOnCallContentForm(doc(), som::joinPath(path(), "content"));
+ServiceLevelResponseContentForm ServiceLevelResponse::content() const {
+  return ServiceLevelResponseContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ServiceLevelQualityResolution::ServiceLevelQualityResolution(som::SpecDocument& doc, std::string path)
+ServiceLevelRestoration::ServiceLevelRestoration(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityResolutionContentForm ServiceLevelQualityResolution::content() const {
-  return ServiceLevelQualityResolutionContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ServiceLevelQualityResponse::ServiceLevelQualityResponse(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityResponseContentForm ServiceLevelQualityResponse::content() const {
-  return ServiceLevelQualityResponseContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ServiceLevelQualityRestoration::ServiceLevelQualityRestoration(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ServiceLevelQualityRestorationContentForm ServiceLevelQualityRestoration::content() const {
-  return ServiceLevelQualityRestorationContentForm(doc(), som::joinPath(path(), "content"));
+ServiceLevelRestorationContentForm ServiceLevelRestoration::content() const {
+  return ServiceLevelRestorationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ServiceMeshAndGateway::ServiceMeshAndGateway(som::SpecDocument& doc, std::string path)
@@ -25886,17 +25997,17 @@ SystemQualityGoals::SystemQualityGoals(som::SpecDocument& doc, std::string path)
 SystemQualityGoalsGovernanceContentForm SystemQualityGoals::governanceContent() const {
   return SystemQualityGoalsGovernanceContentForm(doc(), som::joinPath(path(), "governanceContent"));
 }
-SystemQualityGoalsGovernance SystemQualityGoals::governance() const {
-  return SystemQualityGoalsGovernance(doc(), som::joinPath(path(), "governance"));
+QualityGoalsGovernance SystemQualityGoals::governance() const {
+  return QualityGoalsGovernance(doc(), som::joinPath(path(), "governance"));
 }
-SystemQualityGoalsBaseline SystemQualityGoals::baseline() const {
-  return SystemQualityGoalsBaseline(doc(), som::joinPath(path(), "baseline"));
+QualityGoalsBaseline SystemQualityGoals::baseline() const {
+  return QualityGoalsBaseline(doc(), som::joinPath(path(), "baseline"));
 }
-SystemQualityGoalsMeasurement SystemQualityGoals::measurement() const {
-  return SystemQualityGoalsMeasurement(doc(), som::joinPath(path(), "measurement"));
+QualityGoalsMeasurement SystemQualityGoals::measurement() const {
+  return QualityGoalsMeasurement(doc(), som::joinPath(path(), "measurement"));
 }
-SystemQualityGoalsResources SystemQualityGoals::resources() const {
-  return SystemQualityGoalsResources(doc(), som::joinPath(path(), "resources"));
+QualityGoalsResources SystemQualityGoals::resources() const {
+  return QualityGoalsResources(doc(), som::joinPath(path(), "resources"));
 }
 som::SomList SystemQualityGoals::attributeInterdependencies() const {
   return som::SomList(doc(), som::joinPath(path(), "ATTRI-ATTR-LST"));
@@ -25904,14 +26015,29 @@ som::SomList SystemQualityGoals::attributeInterdependencies() const {
 QualityFramework SystemQualityGoals::framework() const {
   return QualityFramework(doc(), som::joinPath(path(), "framework"));
 }
-UserQualityCriteria SystemQualityGoals::userQuality() const {
-  return UserQualityCriteria(doc(), som::joinPath(path(), "userQuality"));
+FunctionalSuitabilityCharacteristic SystemQualityGoals::functionalSuitability() const {
+  return FunctionalSuitabilityCharacteristic(doc(), som::joinPath(path(), "functionalSuitability"));
 }
-TechnicalQualityCriteria SystemQualityGoals::technicalQuality() const {
-  return TechnicalQualityCriteria(doc(), som::joinPath(path(), "technicalQuality"));
+PerformanceEfficiencyCharacteristic SystemQualityGoals::performanceEfficiency() const {
+  return PerformanceEfficiencyCharacteristic(doc(), som::joinPath(path(), "performanceEfficiency"));
 }
-OperationsQualityCriteria SystemQualityGoals::operationsQuality() const {
-  return OperationsQualityCriteria(doc(), som::joinPath(path(), "operationsQuality"));
+CompatibilityCharacteristic SystemQualityGoals::compatibility() const {
+  return CompatibilityCharacteristic(doc(), som::joinPath(path(), "compatibility"));
+}
+InteractionCapabilityCharacteristic SystemQualityGoals::interactionCapability() const {
+  return InteractionCapabilityCharacteristic(doc(), som::joinPath(path(), "interactionCapability"));
+}
+ReliabilityCharacteristic SystemQualityGoals::reliability() const {
+  return ReliabilityCharacteristic(doc(), som::joinPath(path(), "reliability"));
+}
+SecurityCharacteristic SystemQualityGoals::security() const {
+  return SecurityCharacteristic(doc(), som::joinPath(path(), "security"));
+}
+MaintainabilityCharacteristic SystemQualityGoals::maintainability() const {
+  return MaintainabilityCharacteristic(doc(), som::joinPath(path(), "maintainability"));
+}
+FlexibilityCharacteristic SystemQualityGoals::flexibility() const {
+  return FlexibilityCharacteristic(doc(), som::joinPath(path(), "flexibility"));
 }
 DocumentationQualityCriteria SystemQualityGoals::documentationQuality() const {
   return DocumentationQualityCriteria(doc(), som::joinPath(path(), "documentationQuality"));
@@ -25924,30 +26050,6 @@ AcceptanceCriteriaSummary SystemQualityGoals::acceptanceCriteria() const {
 }
 TestStrategy SystemQualityGoals::testStrategy() const {
   return TestStrategy(doc(), som::joinPath(path(), "testStrategy"));
-}
-
-SystemQualityGoalsBaseline::SystemQualityGoalsBaseline(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SystemQualityGoalsBaselineContentForm SystemQualityGoalsBaseline::content() const {
-  return SystemQualityGoalsBaselineContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SystemQualityGoalsGovernance::SystemQualityGoalsGovernance(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SystemQualityGoalsGovernanceContentForm2 SystemQualityGoalsGovernance::content() const {
-  return SystemQualityGoalsGovernanceContentForm2(doc(), som::joinPath(path(), "content"));
-}
-
-SystemQualityGoalsMeasurement::SystemQualityGoalsMeasurement(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SystemQualityGoalsMeasurementContentForm SystemQualityGoalsMeasurement::content() const {
-  return SystemQualityGoalsMeasurementContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SystemQualityGoalsResources::SystemQualityGoalsResources(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-SystemQualityGoalsResourcesContentForm SystemQualityGoalsResources::content() const {
-  return SystemQualityGoalsResourcesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SystemReplacementStrategy::SystemReplacementStrategy(som::SpecDocument& doc, std::string path)
@@ -26740,30 +26842,6 @@ TechnicalPainPointsSummary::TechnicalPainPointsSummary(som::SpecDocument& doc, s
     : som::SomNode(doc, std::move(path)) {}
 TechnicalPainPointsSummaryContentForm TechnicalPainPointsSummary::content() const {
   return TechnicalPainPointsSummaryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-TechnicalQualityCriteria::TechnicalQualityCriteria(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-TechnicalQualityCriteriaTechnicalQualityContentForm TechnicalQualityCriteria::technicalQualityContent() const {
-  return TechnicalQualityCriteriaTechnicalQualityContentForm(doc(), som::joinPath(path(), "technicalQualityContent"));
-}
-EfficiencyQuality TechnicalQualityCriteria::efficiency() const {
-  return EfficiencyQuality(doc(), som::joinPath(path(), "efficiency"));
-}
-PortabilityQuality TechnicalQualityCriteria::portability() const {
-  return PortabilityQuality(doc(), som::joinPath(path(), "portability"));
-}
-FlexibilityQuality TechnicalQualityCriteria::flexibility() const {
-  return FlexibilityQuality(doc(), som::joinPath(path(), "flexibility"));
-}
-SecurityQuality TechnicalQualityCriteria::security() const {
-  return SecurityQuality(doc(), som::joinPath(path(), "security"));
-}
-MaintainabilityQuality TechnicalQualityCriteria::maintainability() const {
-  return MaintainabilityQuality(doc(), som::joinPath(path(), "maintainability"));
-}
-ReliabilityQuality TechnicalQualityCriteria::reliability() const {
-  return ReliabilityQuality(doc(), som::joinPath(path(), "reliability"));
 }
 
 TechnicalRequirementEntry::TechnicalRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -28422,55 +28500,55 @@ void UpgradeCycleFramework::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
-UsabilityQuality::UsabilityQuality(som::SpecDocument& doc, std::string path)
+Usability::Usability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityContentForm UsabilityQuality::content() const {
-  return UsabilityQualityContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityContentForm Usability::content() const {
+  return UsabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
-UsabilityQualityOperability UsabilityQuality::operability() const {
-  return UsabilityQualityOperability(doc(), som::joinPath(path(), "operability"));
+UsabilityOperability Usability::operability() const {
+  return UsabilityOperability(doc(), som::joinPath(path(), "operability"));
 }
-UsabilityQualityLearnability UsabilityQuality::learnability() const {
-  return UsabilityQualityLearnability(doc(), som::joinPath(path(), "learnability"));
+UsabilityLearnability Usability::learnability() const {
+  return UsabilityLearnability(doc(), som::joinPath(path(), "learnability"));
 }
-UsabilityQualityClarity UsabilityQuality::clarity() const {
-  return UsabilityQualityClarity(doc(), som::joinPath(path(), "clarity"));
+UsabilityClarity Usability::clarity() const {
+  return UsabilityClarity(doc(), som::joinPath(path(), "clarity"));
 }
-UsabilityQualityInteraction UsabilityQuality::interaction() const {
-  return UsabilityQualityInteraction(doc(), som::joinPath(path(), "interaction"));
+UsabilityInteraction Usability::interaction() const {
+  return UsabilityInteraction(doc(), som::joinPath(path(), "interaction"));
 }
-UsabilityQualityPerformance UsabilityQuality::performance() const {
-  return UsabilityQualityPerformance(doc(), som::joinPath(path(), "performance"));
+UsabilityPerformance Usability::performance() const {
+  return UsabilityPerformance(doc(), som::joinPath(path(), "performance"));
 }
 
-UsabilityQualityClarity::UsabilityQualityClarity(som::SpecDocument& doc, std::string path)
+UsabilityClarity::UsabilityClarity(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityClarityContentForm UsabilityQualityClarity::content() const {
-  return UsabilityQualityClarityContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityClarityContentForm UsabilityClarity::content() const {
+  return UsabilityClarityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-UsabilityQualityInteraction::UsabilityQualityInteraction(som::SpecDocument& doc, std::string path)
+UsabilityInteraction::UsabilityInteraction(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityInteractionContentForm UsabilityQualityInteraction::content() const {
-  return UsabilityQualityInteractionContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityInteractionContentForm UsabilityInteraction::content() const {
+  return UsabilityInteractionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-UsabilityQualityLearnability::UsabilityQualityLearnability(som::SpecDocument& doc, std::string path)
+UsabilityLearnability::UsabilityLearnability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityLearnabilityContentForm UsabilityQualityLearnability::content() const {
-  return UsabilityQualityLearnabilityContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityLearnabilityContentForm UsabilityLearnability::content() const {
+  return UsabilityLearnabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-UsabilityQualityOperability::UsabilityQualityOperability(som::SpecDocument& doc, std::string path)
+UsabilityOperability::UsabilityOperability(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityOperabilityContentForm UsabilityQualityOperability::content() const {
-  return UsabilityQualityOperabilityContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityOperabilityContentForm UsabilityOperability::content() const {
+  return UsabilityOperabilityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-UsabilityQualityPerformance::UsabilityQualityPerformance(som::SpecDocument& doc, std::string path)
+UsabilityPerformance::UsabilityPerformance(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-UsabilityQualityPerformanceContentForm UsabilityQualityPerformance::content() const {
-  return UsabilityQualityPerformanceContentForm(doc(), som::joinPath(path(), "content"));
+UsabilityPerformanceContentForm UsabilityPerformance::content() const {
+  return UsabilityPerformanceContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 UseCaseExtensions::UseCaseExtensions(som::SpecDocument& doc, std::string path)
@@ -29038,21 +29116,6 @@ UserProvisioningToolsRoleManagement::UserProvisioningToolsRoleManagement(som::Sp
     : som::SomNode(doc, std::move(path)) {}
 UserProvisioningToolsRoleManagementContentForm UserProvisioningToolsRoleManagement::content() const {
   return UserProvisioningToolsRoleManagementContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-UserQualityCriteria::UserQualityCriteria(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-UserQualityCriteriaUserQualityContentForm UserQualityCriteria::userQualityContent() const {
-  return UserQualityCriteriaUserQualityContentForm(doc(), som::joinPath(path(), "userQualityContent"));
-}
-UsabilityQuality UserQualityCriteria::usability() const {
-  return UsabilityQuality(doc(), som::joinPath(path(), "usability"));
-}
-FunctionalCompletenessQuality UserQualityCriteria::functionalCompleteness() const {
-  return FunctionalCompletenessQuality(doc(), som::joinPath(path(), "functionalCompleteness"));
-}
-CorrectnessQuality UserQualityCriteria::correctness() const {
-  return CorrectnessQuality(doc(), som::joinPath(path(), "correctness"));
 }
 
 UserRegistrationProcess::UserRegistrationProcess(som::SpecDocument& doc, std::string path)
@@ -33912,108 +33975,108 @@ void AuthorizationRoleEntryStructureContentForm::setPermissionSet(const std::str
   doc().setFormField(path(), "permissionSet", value);
 }
 
-AvailabilityQualityContentForm::AvailabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+AvailabilityContentForm::AvailabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AvailabilityQualityContentForm::uptimeTargetPercentage() const {
+std::string AvailabilityContentForm::uptimeTargetPercentage() const {
   return doc().formField(path(), "uptimeTargetPercentage");
 }
-void AvailabilityQualityContentForm::setUptimeTargetPercentage(const std::string& value) {
+void AvailabilityContentForm::setUptimeTargetPercentage(const std::string& value) {
   doc().setFormField(path(), "uptimeTargetPercentage", value);
 }
-std::string AvailabilityQualityContentForm::uptimeCalculationMethod() const {
+std::string AvailabilityContentForm::uptimeCalculationMethod() const {
   return doc().formField(path(), "uptimeCalculationMethod");
 }
-void AvailabilityQualityContentForm::setUptimeCalculationMethod(const std::string& value) {
+void AvailabilityContentForm::setUptimeCalculationMethod(const std::string& value) {
   doc().setFormField(path(), "uptimeCalculationMethod", value);
 }
-std::string AvailabilityQualityContentForm::uptimeMeasurementPeriod() const {
+std::string AvailabilityContentForm::uptimeMeasurementPeriod() const {
   return doc().formField(path(), "uptimeMeasurementPeriod");
 }
-void AvailabilityQualityContentForm::setUptimeMeasurementPeriod(const std::string& value) {
+void AvailabilityContentForm::setUptimeMeasurementPeriod(const std::string& value) {
   doc().setFormField(path(), "uptimeMeasurementPeriod", value);
 }
 
-AvailabilityQualityDegradedModeContentForm::AvailabilityQualityDegradedModeContentForm(som::SpecDocument& doc, std::string path)
+AvailabilityDegradedModeContentForm::AvailabilityDegradedModeContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AvailabilityQualityDegradedModeContentForm::degradedModeDefinition() const {
+std::string AvailabilityDegradedModeContentForm::degradedModeDefinition() const {
   return doc().formField(path(), "degradedModeDefinition");
 }
-void AvailabilityQualityDegradedModeContentForm::setDegradedModeDefinition(const std::string& value) {
+void AvailabilityDegradedModeContentForm::setDegradedModeDefinition(const std::string& value) {
   doc().setFormField(path(), "degradedModeDefinition", value);
 }
-std::string AvailabilityQualityDegradedModeContentForm::degradedModeCapabilities() const {
+std::string AvailabilityDegradedModeContentForm::degradedModeCapabilities() const {
   return doc().formField(path(), "degradedModeCapabilities");
 }
-void AvailabilityQualityDegradedModeContentForm::setDegradedModeCapabilities(const std::string& value) {
+void AvailabilityDegradedModeContentForm::setDegradedModeCapabilities(const std::string& value) {
   doc().setFormField(path(), "degradedModeCapabilities", value);
 }
-std::string AvailabilityQualityDegradedModeContentForm::degradedModeCommunication() const {
+std::string AvailabilityDegradedModeContentForm::degradedModeCommunication() const {
   return doc().formField(path(), "degradedModeCommunication");
 }
-void AvailabilityQualityDegradedModeContentForm::setDegradedModeCommunication(const std::string& value) {
+void AvailabilityDegradedModeContentForm::setDegradedModeCommunication(const std::string& value) {
   doc().setFormField(path(), "degradedModeCommunication", value);
 }
 
-AvailabilityQualityMaintenanceContentForm::AvailabilityQualityMaintenanceContentForm(som::SpecDocument& doc, std::string path)
+AvailabilityMaintenanceContentForm::AvailabilityMaintenanceContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AvailabilityQualityMaintenanceContentForm::scheduledMaintenanceWindow() const {
+std::string AvailabilityMaintenanceContentForm::scheduledMaintenanceWindow() const {
   return doc().formField(path(), "scheduledMaintenanceWindow");
 }
-void AvailabilityQualityMaintenanceContentForm::setScheduledMaintenanceWindow(const std::string& value) {
+void AvailabilityMaintenanceContentForm::setScheduledMaintenanceWindow(const std::string& value) {
   doc().setFormField(path(), "scheduledMaintenanceWindow", value);
 }
-std::string AvailabilityQualityMaintenanceContentForm::maintenanceNotification() const {
+std::string AvailabilityMaintenanceContentForm::maintenanceNotification() const {
   return doc().formField(path(), "maintenanceNotification");
 }
-void AvailabilityQualityMaintenanceContentForm::setMaintenanceNotification(const std::string& value) {
+void AvailabilityMaintenanceContentForm::setMaintenanceNotification(const std::string& value) {
   doc().setFormField(path(), "maintenanceNotification", value);
 }
-std::string AvailabilityQualityMaintenanceContentForm::maintenanceFrequency() const {
+std::string AvailabilityMaintenanceContentForm::maintenanceFrequency() const {
   return doc().formField(path(), "maintenanceFrequency");
 }
-void AvailabilityQualityMaintenanceContentForm::setMaintenanceFrequency(const std::string& value) {
+void AvailabilityMaintenanceContentForm::setMaintenanceFrequency(const std::string& value) {
   doc().setFormField(path(), "maintenanceFrequency", value);
 }
-std::string AvailabilityQualityMaintenanceContentForm::maintenanceDurationLimit() const {
+std::string AvailabilityMaintenanceContentForm::maintenanceDurationLimit() const {
   return doc().formField(path(), "maintenanceDurationLimit");
 }
-void AvailabilityQualityMaintenanceContentForm::setMaintenanceDurationLimit(const std::string& value) {
+void AvailabilityMaintenanceContentForm::setMaintenanceDurationLimit(const std::string& value) {
   doc().setFormField(path(), "maintenanceDurationLimit", value);
 }
 
-AvailabilityQualityOperatingHoursContentForm::AvailabilityQualityOperatingHoursContentForm(som::SpecDocument& doc, std::string path)
+AvailabilityOperatingHoursContentForm::AvailabilityOperatingHoursContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AvailabilityQualityOperatingHoursContentForm::operatingHours() const {
+std::string AvailabilityOperatingHoursContentForm::operatingHours() const {
   return doc().formField(path(), "operatingHours");
 }
-void AvailabilityQualityOperatingHoursContentForm::setOperatingHours(const std::string& value) {
+void AvailabilityOperatingHoursContentForm::setOperatingHours(const std::string& value) {
   doc().setFormField(path(), "operatingHours", value);
 }
-std::string AvailabilityQualityOperatingHoursContentForm::peakHoursDefinition() const {
+std::string AvailabilityOperatingHoursContentForm::peakHoursDefinition() const {
   return doc().formField(path(), "peakHoursDefinition");
 }
-void AvailabilityQualityOperatingHoursContentForm::setPeakHoursDefinition(const std::string& value) {
+void AvailabilityOperatingHoursContentForm::setPeakHoursDefinition(const std::string& value) {
   doc().setFormField(path(), "peakHoursDefinition", value);
 }
-std::string AvailabilityQualityOperatingHoursContentForm::peakHoursAvailability() const {
+std::string AvailabilityOperatingHoursContentForm::peakHoursAvailability() const {
   return doc().formField(path(), "peakHoursAvailability");
 }
-void AvailabilityQualityOperatingHoursContentForm::setPeakHoursAvailability(const std::string& value) {
+void AvailabilityOperatingHoursContentForm::setPeakHoursAvailability(const std::string& value) {
   doc().setFormField(path(), "peakHoursAvailability", value);
 }
 
-AvailabilityQualityVerificationContentForm::AvailabilityQualityVerificationContentForm(som::SpecDocument& doc, std::string path)
+AvailabilityVerificationContentForm::AvailabilityVerificationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AvailabilityQualityVerificationContentForm::availabilityMonitoring() const {
+std::string AvailabilityVerificationContentForm::availabilityMonitoring() const {
   return doc().formField(path(), "availabilityMonitoring");
 }
-void AvailabilityQualityVerificationContentForm::setAvailabilityMonitoring(const std::string& value) {
+void AvailabilityVerificationContentForm::setAvailabilityMonitoring(const std::string& value) {
   doc().setFormField(path(), "availabilityMonitoring", value);
 }
-std::string AvailabilityQualityVerificationContentForm::availabilityReporting() const {
+std::string AvailabilityVerificationContentForm::availabilityReporting() const {
   return doc().formField(path(), "availabilityReporting");
 }
-void AvailabilityQualityVerificationContentForm::setAvailabilityReporting(const std::string& value) {
+void AvailabilityVerificationContentForm::setAvailabilityReporting(const std::string& value) {
   doc().setFormField(path(), "availabilityReporting", value);
 }
 
@@ -40128,6 +40191,21 @@ void CommunicationTypeEntryContentForm::setConfidentialityLevel(const std::strin
   doc().setFormField(path(), "confidentialityLevel", value);
 }
 
+CompatibilityCharacteristicCompatibilityContentForm::CompatibilityCharacteristicCompatibilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CompatibilityCharacteristicCompatibilityContentForm::coExistenceRequirements() const {
+  return doc().formField(path(), "coExistenceRequirements");
+}
+void CompatibilityCharacteristicCompatibilityContentForm::setCoExistenceRequirements(const std::string& value) {
+  doc().setFormField(path(), "coExistenceRequirements", value);
+}
+std::string CompatibilityCharacteristicCompatibilityContentForm::interoperabilityStandards() const {
+  return doc().formField(path(), "interoperabilityStandards");
+}
+void CompatibilityCharacteristicCompatibilityContentForm::setInteroperabilityStandards(const std::string& value) {
+  doc().setFormField(path(), "interoperabilityStandards", value);
+}
+
 CompetencyEntryContentForm::CompetencyEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CompetencyEntryContentForm::competencyId() const {
@@ -43215,87 +43293,87 @@ void ContingencyPlanEntryTestingContentForm::setDocumentLocation(const std::stri
   doc().setFormField(path(), "documentLocation", value);
 }
 
-CorrectnessQualityAccuracyContentForm::CorrectnessQualityAccuracyContentForm(som::SpecDocument& doc, std::string path)
+CorrectnessAccuracyContentForm::CorrectnessAccuracyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CorrectnessQualityAccuracyContentForm::calculationAccuracyTarget() const {
+std::string CorrectnessAccuracyContentForm::calculationAccuracyTarget() const {
   return doc().formField(path(), "calculationAccuracyTarget");
 }
-void CorrectnessQualityAccuracyContentForm::setCalculationAccuracyTarget(const std::string& value) {
+void CorrectnessAccuracyContentForm::setCalculationAccuracyTarget(const std::string& value) {
   doc().setFormField(path(), "calculationAccuracyTarget", value);
 }
-std::string CorrectnessQualityAccuracyContentForm::financialAccuracyRequirement() const {
+std::string CorrectnessAccuracyContentForm::financialAccuracyRequirement() const {
   return doc().formField(path(), "financialAccuracyRequirement");
 }
-void CorrectnessQualityAccuracyContentForm::setFinancialAccuracyRequirement(const std::string& value) {
+void CorrectnessAccuracyContentForm::setFinancialAccuracyRequirement(const std::string& value) {
   doc().setFormField(path(), "financialAccuracyRequirement", value);
 }
-std::string CorrectnessQualityAccuracyContentForm::auditTrailRequirement() const {
+std::string CorrectnessAccuracyContentForm::auditTrailRequirement() const {
   return doc().formField(path(), "auditTrailRequirement");
 }
-void CorrectnessQualityAccuracyContentForm::setAuditTrailRequirement(const std::string& value) {
+void CorrectnessAccuracyContentForm::setAuditTrailRequirement(const std::string& value) {
   doc().setFormField(path(), "auditTrailRequirement", value);
 }
 
-CorrectnessQualityContentForm::CorrectnessQualityContentForm(som::SpecDocument& doc, std::string path)
+CorrectnessContentForm::CorrectnessContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CorrectnessQualityContentForm::defectDensityTarget() const {
+std::string CorrectnessContentForm::defectDensityTarget() const {
   return doc().formField(path(), "defectDensityTarget");
 }
-void CorrectnessQualityContentForm::setDefectDensityTarget(const std::string& value) {
+void CorrectnessContentForm::setDefectDensityTarget(const std::string& value) {
   doc().setFormField(path(), "defectDensityTarget", value);
 }
-std::string CorrectnessQualityContentForm::criticalDefectTarget() const {
+std::string CorrectnessContentForm::criticalDefectTarget() const {
   return doc().formField(path(), "criticalDefectTarget");
 }
-void CorrectnessQualityContentForm::setCriticalDefectTarget(const std::string& value) {
+void CorrectnessContentForm::setCriticalDefectTarget(const std::string& value) {
   doc().setFormField(path(), "criticalDefectTarget", value);
 }
-std::string CorrectnessQualityContentForm::defectEscapeRate() const {
+std::string CorrectnessContentForm::defectEscapeRate() const {
   return doc().formField(path(), "defectEscapeRate");
 }
-void CorrectnessQualityContentForm::setDefectEscapeRate(const std::string& value) {
+void CorrectnessContentForm::setDefectEscapeRate(const std::string& value) {
   doc().setFormField(path(), "defectEscapeRate", value);
 }
 
-CorrectnessQualityIntegrityContentForm::CorrectnessQualityIntegrityContentForm(som::SpecDocument& doc, std::string path)
+CorrectnessIntegrityContentForm::CorrectnessIntegrityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CorrectnessQualityIntegrityContentForm::dataIntegrityRequirement() const {
+std::string CorrectnessIntegrityContentForm::dataIntegrityRequirement() const {
   return doc().formField(path(), "dataIntegrityRequirement");
 }
-void CorrectnessQualityIntegrityContentForm::setDataIntegrityRequirement(const std::string& value) {
+void CorrectnessIntegrityContentForm::setDataIntegrityRequirement(const std::string& value) {
   doc().setFormField(path(), "dataIntegrityRequirement", value);
 }
-std::string CorrectnessQualityIntegrityContentForm::dataValidationCoverage() const {
+std::string CorrectnessIntegrityContentForm::dataValidationCoverage() const {
   return doc().formField(path(), "dataValidationCoverage");
 }
-void CorrectnessQualityIntegrityContentForm::setDataValidationCoverage(const std::string& value) {
+void CorrectnessIntegrityContentForm::setDataValidationCoverage(const std::string& value) {
   doc().setFormField(path(), "dataValidationCoverage", value);
 }
-std::string CorrectnessQualityIntegrityContentForm::dataCorruptionHandling() const {
+std::string CorrectnessIntegrityContentForm::dataCorruptionHandling() const {
   return doc().formField(path(), "dataCorruptionHandling");
 }
-void CorrectnessQualityIntegrityContentForm::setDataCorruptionHandling(const std::string& value) {
+void CorrectnessIntegrityContentForm::setDataCorruptionHandling(const std::string& value) {
   doc().setFormField(path(), "dataCorruptionHandling", value);
 }
 
-CorrectnessQualityVerificationContentForm::CorrectnessQualityVerificationContentForm(som::SpecDocument& doc, std::string path)
+CorrectnessVerificationContentForm::CorrectnessVerificationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CorrectnessQualityVerificationContentForm::correctnessVerification() const {
+std::string CorrectnessVerificationContentForm::correctnessVerification() const {
   return doc().formField(path(), "correctnessVerification");
 }
-void CorrectnessQualityVerificationContentForm::setCorrectnessVerification(const std::string& value) {
+void CorrectnessVerificationContentForm::setCorrectnessVerification(const std::string& value) {
   doc().setFormField(path(), "correctnessVerification", value);
 }
-std::string CorrectnessQualityVerificationContentForm::testCoverageTarget() const {
+std::string CorrectnessVerificationContentForm::testCoverageTarget() const {
   return doc().formField(path(), "testCoverageTarget");
 }
-void CorrectnessQualityVerificationContentForm::setTestCoverageTarget(const std::string& value) {
+void CorrectnessVerificationContentForm::setTestCoverageTarget(const std::string& value) {
   doc().setFormField(path(), "testCoverageTarget", value);
 }
-std::string CorrectnessQualityVerificationContentForm::regressionTestingApproach() const {
+std::string CorrectnessVerificationContentForm::regressionTestingApproach() const {
   return doc().formField(path(), "regressionTestingApproach");
 }
-void CorrectnessQualityVerificationContentForm::setRegressionTestingApproach(const std::string& value) {
+void CorrectnessVerificationContentForm::setRegressionTestingApproach(const std::string& value) {
   doc().setFormField(path(), "regressionTestingApproach", value);
 }
 
@@ -50682,225 +50760,225 @@ void DnsRequirementsZonesContentForm::setSplitHorizon(const std::string& value) 
   doc().setFormField(path(), "splitHorizon", value);
 }
 
-DocChangeabilityQualityContentForm::DocChangeabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+DocChangeabilityContentForm::DocChangeabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocChangeabilityQualityContentForm::versioningStrategy() const {
+std::string DocChangeabilityContentForm::versioningStrategy() const {
   return doc().formField(path(), "versioningStrategy");
 }
-void DocChangeabilityQualityContentForm::setVersioningStrategy(const std::string& value) {
+void DocChangeabilityContentForm::setVersioningStrategy(const std::string& value) {
   doc().setFormField(path(), "versioningStrategy", value);
 }
-std::string DocChangeabilityQualityContentForm::versionHistoryTracking() const {
+std::string DocChangeabilityContentForm::versionHistoryTracking() const {
   return doc().formField(path(), "versionHistoryTracking");
 }
-void DocChangeabilityQualityContentForm::setVersionHistoryTracking(const std::string& value) {
+void DocChangeabilityContentForm::setVersionHistoryTracking(const std::string& value) {
   doc().setFormField(path(), "versionHistoryTracking", value);
 }
-std::string DocChangeabilityQualityContentForm::multiVersionSupport() const {
+std::string DocChangeabilityContentForm::multiVersionSupport() const {
   return doc().formField(path(), "multiVersionSupport");
 }
-void DocChangeabilityQualityContentForm::setMultiVersionSupport(const std::string& value) {
+void DocChangeabilityContentForm::setMultiVersionSupport(const std::string& value) {
   doc().setFormField(path(), "multiVersionSupport", value);
 }
 
-DocChangeabilityQualityExtensibilityContentForm::DocChangeabilityQualityExtensibilityContentForm(som::SpecDocument& doc, std::string path)
+DocChangeabilityExtensibilityContentForm::DocChangeabilityExtensibilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocChangeabilityQualityExtensibilityContentForm::extensibilityApproach() const {
+std::string DocChangeabilityExtensibilityContentForm::extensibilityApproach() const {
   return doc().formField(path(), "extensibilityApproach");
 }
-void DocChangeabilityQualityExtensibilityContentForm::setExtensibilityApproach(const std::string& value) {
+void DocChangeabilityExtensibilityContentForm::setExtensibilityApproach(const std::string& value) {
   doc().setFormField(path(), "extensibilityApproach", value);
 }
-std::string DocChangeabilityQualityExtensibilityContentForm::newSectionGuidelines() const {
+std::string DocChangeabilityExtensibilityContentForm::newSectionGuidelines() const {
   return doc().formField(path(), "newSectionGuidelines");
 }
-void DocChangeabilityQualityExtensibilityContentForm::setNewSectionGuidelines(const std::string& value) {
+void DocChangeabilityExtensibilityContentForm::setNewSectionGuidelines(const std::string& value) {
   doc().setFormField(path(), "newSectionGuidelines", value);
 }
-std::string DocChangeabilityQualityExtensibilityContentForm::localizationReadiness() const {
+std::string DocChangeabilityExtensibilityContentForm::localizationReadiness() const {
   return doc().formField(path(), "localizationReadiness");
 }
-void DocChangeabilityQualityExtensibilityContentForm::setLocalizationReadiness(const std::string& value) {
+void DocChangeabilityExtensibilityContentForm::setLocalizationReadiness(const std::string& value) {
   doc().setFormField(path(), "localizationReadiness", value);
 }
 
-DocChangeabilityQualityMaintenanceContentForm::DocChangeabilityQualityMaintenanceContentForm(som::SpecDocument& doc, std::string path)
+DocChangeabilityMaintenanceContentForm::DocChangeabilityMaintenanceContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocChangeabilityQualityMaintenanceContentForm::reviewCycle() const {
+std::string DocChangeabilityMaintenanceContentForm::reviewCycle() const {
   return doc().formField(path(), "reviewCycle");
 }
-void DocChangeabilityQualityMaintenanceContentForm::setReviewCycle(const std::string& value) {
+void DocChangeabilityMaintenanceContentForm::setReviewCycle(const std::string& value) {
   doc().setFormField(path(), "reviewCycle", value);
 }
-std::string DocChangeabilityQualityMaintenanceContentForm::retirementProcess() const {
+std::string DocChangeabilityMaintenanceContentForm::retirementProcess() const {
   return doc().formField(path(), "retirementProcess");
 }
-void DocChangeabilityQualityMaintenanceContentForm::setRetirementProcess(const std::string& value) {
+void DocChangeabilityMaintenanceContentForm::setRetirementProcess(const std::string& value) {
   doc().setFormField(path(), "retirementProcess", value);
 }
 
-DocChangeabilityQualityStructureContentForm::DocChangeabilityQualityStructureContentForm(som::SpecDocument& doc, std::string path)
+DocChangeabilityStructureContentForm::DocChangeabilityStructureContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocChangeabilityQualityStructureContentForm::documentSizingGuideline() const {
+std::string DocChangeabilityStructureContentForm::documentSizingGuideline() const {
   return doc().formField(path(), "documentSizingGuideline");
 }
-void DocChangeabilityQualityStructureContentForm::setDocumentSizingGuideline(const std::string& value) {
+void DocChangeabilityStructureContentForm::setDocumentSizingGuideline(const std::string& value) {
   doc().setFormField(path(), "documentSizingGuideline", value);
 }
-std::string DocChangeabilityQualityStructureContentForm::topicGranularity() const {
+std::string DocChangeabilityStructureContentForm::topicGranularity() const {
   return doc().formField(path(), "topicGranularity");
 }
-void DocChangeabilityQualityStructureContentForm::setTopicGranularity(const std::string& value) {
+void DocChangeabilityStructureContentForm::setTopicGranularity(const std::string& value) {
   doc().setFormField(path(), "topicGranularity", value);
 }
-std::string DocChangeabilityQualityStructureContentForm::templateAdherence() const {
+std::string DocChangeabilityStructureContentForm::templateAdherence() const {
   return doc().formField(path(), "templateAdherence");
 }
-void DocChangeabilityQualityStructureContentForm::setTemplateAdherence(const std::string& value) {
+void DocChangeabilityStructureContentForm::setTemplateAdherence(const std::string& value) {
   doc().setFormField(path(), "templateAdherence", value);
 }
-std::string DocChangeabilityQualityStructureContentForm::structuralChangeProcess() const {
+std::string DocChangeabilityStructureContentForm::structuralChangeProcess() const {
   return doc().formField(path(), "structuralChangeProcess");
 }
-void DocChangeabilityQualityStructureContentForm::setStructuralChangeProcess(const std::string& value) {
+void DocChangeabilityStructureContentForm::setStructuralChangeProcess(const std::string& value) {
   doc().setFormField(path(), "structuralChangeProcess", value);
 }
 
-DocCompletenessQualityContentForm::DocCompletenessQualityContentForm(som::SpecDocument& doc, std::string path)
+DocCompletenessContentForm::DocCompletenessContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocCompletenessQualityContentForm::requiredTopics() const {
+std::string DocCompletenessContentForm::requiredTopics() const {
   return doc().formField(path(), "requiredTopics");
 }
-void DocCompletenessQualityContentForm::setRequiredTopics(const std::string& value) {
+void DocCompletenessContentForm::setRequiredTopics(const std::string& value) {
   doc().setFormField(path(), "requiredTopics", value);
 }
-std::string DocCompletenessQualityContentForm::topicCoverageTarget() const {
+std::string DocCompletenessContentForm::topicCoverageTarget() const {
   return doc().formField(path(), "topicCoverageTarget");
 }
-void DocCompletenessQualityContentForm::setTopicCoverageTarget(const std::string& value) {
+void DocCompletenessContentForm::setTopicCoverageTarget(const std::string& value) {
   doc().setFormField(path(), "topicCoverageTarget", value);
 }
-std::string DocCompletenessQualityContentForm::audienceCoverage() const {
+std::string DocCompletenessContentForm::audienceCoverage() const {
   return doc().formField(path(), "audienceCoverage");
 }
-void DocCompletenessQualityContentForm::setAudienceCoverage(const std::string& value) {
+void DocCompletenessContentForm::setAudienceCoverage(const std::string& value) {
   doc().setFormField(path(), "audienceCoverage", value);
 }
-std::string DocCompletenessQualityContentForm::detailLevelExpectation() const {
+std::string DocCompletenessContentForm::detailLevelExpectation() const {
   return doc().formField(path(), "detailLevelExpectation");
 }
-void DocCompletenessQualityContentForm::setDetailLevelExpectation(const std::string& value) {
+void DocCompletenessContentForm::setDetailLevelExpectation(const std::string& value) {
   doc().setFormField(path(), "detailLevelExpectation", value);
 }
-std::string DocCompletenessQualityContentForm::exampleRequirements() const {
+std::string DocCompletenessContentForm::exampleRequirements() const {
   return doc().formField(path(), "exampleRequirements");
 }
-void DocCompletenessQualityContentForm::setExampleRequirements(const std::string& value) {
+void DocCompletenessContentForm::setExampleRequirements(const std::string& value) {
   doc().setFormField(path(), "exampleRequirements", value);
 }
-std::string DocCompletenessQualityContentForm::screenshotRequirements() const {
+std::string DocCompletenessContentForm::screenshotRequirements() const {
   return doc().formField(path(), "screenshotRequirements");
 }
-void DocCompletenessQualityContentForm::setScreenshotRequirements(const std::string& value) {
+void DocCompletenessContentForm::setScreenshotRequirements(const std::string& value) {
   doc().setFormField(path(), "screenshotRequirements", value);
 }
-std::string DocCompletenessQualityContentForm::crossReferenceIntegrity() const {
+std::string DocCompletenessContentForm::crossReferenceIntegrity() const {
   return doc().formField(path(), "crossReferenceIntegrity");
 }
-void DocCompletenessQualityContentForm::setCrossReferenceIntegrity(const std::string& value) {
+void DocCompletenessContentForm::setCrossReferenceIntegrity(const std::string& value) {
   doc().setFormField(path(), "crossReferenceIntegrity", value);
 }
-std::string DocCompletenessQualityContentForm::relatedTopicsLinking() const {
+std::string DocCompletenessContentForm::relatedTopicsLinking() const {
   return doc().formField(path(), "relatedTopicsLinking");
 }
-void DocCompletenessQualityContentForm::setRelatedTopicsLinking(const std::string& value) {
+void DocCompletenessContentForm::setRelatedTopicsLinking(const std::string& value) {
   doc().setFormField(path(), "relatedTopicsLinking", value);
 }
-std::string DocCompletenessQualityContentForm::completenessReview() const {
+std::string DocCompletenessContentForm::completenessReview() const {
   return doc().formField(path(), "completenessReview");
 }
-void DocCompletenessQualityContentForm::setCompletenessReview(const std::string& value) {
+void DocCompletenessContentForm::setCompletenessReview(const std::string& value) {
   doc().setFormField(path(), "completenessReview", value);
 }
-std::string DocCompletenessQualityContentForm::gapIdentificationProcess() const {
+std::string DocCompletenessContentForm::gapIdentificationProcess() const {
   return doc().formField(path(), "gapIdentificationProcess");
 }
-void DocCompletenessQualityContentForm::setGapIdentificationProcess(const std::string& value) {
+void DocCompletenessContentForm::setGapIdentificationProcess(const std::string& value) {
   doc().setFormField(path(), "gapIdentificationProcess", value);
 }
 
-DocCorrectnessQualityAlignmentContentForm::DocCorrectnessQualityAlignmentContentForm(som::SpecDocument& doc, std::string path)
+DocCorrectnessAlignmentContentForm::DocCorrectnessAlignmentContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocCorrectnessQualityAlignmentContentForm::formatConsistency() const {
+std::string DocCorrectnessAlignmentContentForm::formatConsistency() const {
   return doc().formField(path(), "formatConsistency");
 }
-void DocCorrectnessQualityAlignmentContentForm::setFormatConsistency(const std::string& value) {
+void DocCorrectnessAlignmentContentForm::setFormatConsistency(const std::string& value) {
   doc().setFormField(path(), "formatConsistency", value);
 }
-std::string DocCorrectnessQualityAlignmentContentForm::crossDocumentConsistency() const {
+std::string DocCorrectnessAlignmentContentForm::crossDocumentConsistency() const {
   return doc().formField(path(), "crossDocumentConsistency");
 }
-void DocCorrectnessQualityAlignmentContentForm::setCrossDocumentConsistency(const std::string& value) {
+void DocCorrectnessAlignmentContentForm::setCrossDocumentConsistency(const std::string& value) {
   doc().setFormField(path(), "crossDocumentConsistency", value);
 }
-std::string DocCorrectnessQualityAlignmentContentForm::documentationSyncProcess() const {
+std::string DocCorrectnessAlignmentContentForm::documentationSyncProcess() const {
   return doc().formField(path(), "documentationSyncProcess");
 }
-void DocCorrectnessQualityAlignmentContentForm::setDocumentationSyncProcess(const std::string& value) {
+void DocCorrectnessAlignmentContentForm::setDocumentationSyncProcess(const std::string& value) {
   doc().setFormField(path(), "documentationSyncProcess", value);
 }
-std::string DocCorrectnessQualityAlignmentContentForm::versionAlignment() const {
+std::string DocCorrectnessAlignmentContentForm::versionAlignment() const {
   return doc().formField(path(), "versionAlignment");
 }
-void DocCorrectnessQualityAlignmentContentForm::setVersionAlignment(const std::string& value) {
+void DocCorrectnessAlignmentContentForm::setVersionAlignment(const std::string& value) {
   doc().setFormField(path(), "versionAlignment", value);
 }
-std::string DocCorrectnessQualityAlignmentContentForm::deprecationHandling() const {
+std::string DocCorrectnessAlignmentContentForm::deprecationHandling() const {
   return doc().formField(path(), "deprecationHandling");
 }
-void DocCorrectnessQualityAlignmentContentForm::setDeprecationHandling(const std::string& value) {
+void DocCorrectnessAlignmentContentForm::setDeprecationHandling(const std::string& value) {
   doc().setFormField(path(), "deprecationHandling", value);
 }
 
-DocCorrectnessQualityContentForm::DocCorrectnessQualityContentForm(som::SpecDocument& doc, std::string path)
+DocCorrectnessContentForm::DocCorrectnessContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocCorrectnessQualityContentForm::spellingGrammarCheck() const {
+std::string DocCorrectnessContentForm::spellingGrammarCheck() const {
   return doc().formField(path(), "spellingGrammarCheck");
 }
-void DocCorrectnessQualityContentForm::setSpellingGrammarCheck(const std::string& value) {
+void DocCorrectnessContentForm::setSpellingGrammarCheck(const std::string& value) {
   doc().setFormField(path(), "spellingGrammarCheck", value);
 }
-std::string DocCorrectnessQualityContentForm::technicalAccuracyReview() const {
+std::string DocCorrectnessContentForm::technicalAccuracyReview() const {
   return doc().formField(path(), "technicalAccuracyReview");
 }
-void DocCorrectnessQualityContentForm::setTechnicalAccuracyReview(const std::string& value) {
+void DocCorrectnessContentForm::setTechnicalAccuracyReview(const std::string& value) {
   doc().setFormField(path(), "technicalAccuracyReview", value);
 }
-std::string DocCorrectnessQualityContentForm::errorToleranceLevel() const {
+std::string DocCorrectnessContentForm::errorToleranceLevel() const {
   return doc().formField(path(), "errorToleranceLevel");
 }
-void DocCorrectnessQualityContentForm::setErrorToleranceLevel(const std::string& value) {
+void DocCorrectnessContentForm::setErrorToleranceLevel(const std::string& value) {
   doc().setFormField(path(), "errorToleranceLevel", value);
 }
-std::string DocCorrectnessQualityContentForm::terminologyConsistency() const {
+std::string DocCorrectnessContentForm::terminologyConsistency() const {
   return doc().formField(path(), "terminologyConsistency");
 }
-void DocCorrectnessQualityContentForm::setTerminologyConsistency(const std::string& value) {
+void DocCorrectnessContentForm::setTerminologyConsistency(const std::string& value) {
   doc().setFormField(path(), "terminologyConsistency", value);
 }
 
-DocCorrectnessQualityVerificationContentForm::DocCorrectnessQualityVerificationContentForm(som::SpecDocument& doc, std::string path)
+DocCorrectnessVerificationContentForm::DocCorrectnessVerificationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DocCorrectnessQualityVerificationContentForm::correctnessVerification() const {
+std::string DocCorrectnessVerificationContentForm::correctnessVerification() const {
   return doc().formField(path(), "correctnessVerification");
 }
-void DocCorrectnessQualityVerificationContentForm::setCorrectnessVerification(const std::string& value) {
+void DocCorrectnessVerificationContentForm::setCorrectnessVerification(const std::string& value) {
   doc().setFormField(path(), "correctnessVerification", value);
 }
-std::string DocCorrectnessQualityVerificationContentForm::userFeedbackIntegration() const {
+std::string DocCorrectnessVerificationContentForm::userFeedbackIntegration() const {
   return doc().formField(path(), "userFeedbackIntegration");
 }
-void DocCorrectnessQualityVerificationContentForm::setUserFeedbackIntegration(const std::string& value) {
+void DocCorrectnessVerificationContentForm::setUserFeedbackIntegration(const std::string& value) {
   doc().setFormField(path(), "userFeedbackIntegration", value);
 }
 
@@ -51702,99 +51780,99 @@ void DomainTermEntryContentForm::setAbbreviation(const std::string& value) {
   doc().setFormField(path(), "abbreviation", value);
 }
 
-EfficiencyQualityContentForm::EfficiencyQualityContentForm(som::SpecDocument& doc, std::string path)
+EfficiencyContentForm::EfficiencyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string EfficiencyQualityContentForm::responseTimeP50Target() const {
+std::string EfficiencyContentForm::responseTimeP50Target() const {
   return doc().formField(path(), "responseTimeP50Target");
 }
-void EfficiencyQualityContentForm::setResponseTimeP50Target(const std::string& value) {
+void EfficiencyContentForm::setResponseTimeP50Target(const std::string& value) {
   doc().setFormField(path(), "responseTimeP50Target", value);
 }
-std::string EfficiencyQualityContentForm::responseTimeP95Target() const {
+std::string EfficiencyContentForm::responseTimeP95Target() const {
   return doc().formField(path(), "responseTimeP95Target");
 }
-void EfficiencyQualityContentForm::setResponseTimeP95Target(const std::string& value) {
+void EfficiencyContentForm::setResponseTimeP95Target(const std::string& value) {
   doc().setFormField(path(), "responseTimeP95Target", value);
 }
-std::string EfficiencyQualityContentForm::responseTimeP99Target() const {
+std::string EfficiencyContentForm::responseTimeP99Target() const {
   return doc().formField(path(), "responseTimeP99Target");
 }
-void EfficiencyQualityContentForm::setResponseTimeP99Target(const std::string& value) {
+void EfficiencyContentForm::setResponseTimeP99Target(const std::string& value) {
   doc().setFormField(path(), "responseTimeP99Target", value);
 }
 
-EfficiencyQualityResourcesContentForm::EfficiencyQualityResourcesContentForm(som::SpecDocument& doc, std::string path)
+EfficiencyResourcesContentForm::EfficiencyResourcesContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string EfficiencyQualityResourcesContentForm::cpuUtilizationLimit() const {
+std::string EfficiencyResourcesContentForm::cpuUtilizationLimit() const {
   return doc().formField(path(), "cpuUtilizationLimit");
 }
-void EfficiencyQualityResourcesContentForm::setCpuUtilizationLimit(const std::string& value) {
+void EfficiencyResourcesContentForm::setCpuUtilizationLimit(const std::string& value) {
   doc().setFormField(path(), "cpuUtilizationLimit", value);
 }
-std::string EfficiencyQualityResourcesContentForm::memoryUtilizationLimit() const {
+std::string EfficiencyResourcesContentForm::memoryUtilizationLimit() const {
   return doc().formField(path(), "memoryUtilizationLimit");
 }
-void EfficiencyQualityResourcesContentForm::setMemoryUtilizationLimit(const std::string& value) {
+void EfficiencyResourcesContentForm::setMemoryUtilizationLimit(const std::string& value) {
   doc().setFormField(path(), "memoryUtilizationLimit", value);
 }
-std::string EfficiencyQualityResourcesContentForm::storageEfficiencyTarget() const {
+std::string EfficiencyResourcesContentForm::storageEfficiencyTarget() const {
   return doc().formField(path(), "storageEfficiencyTarget");
 }
-void EfficiencyQualityResourcesContentForm::setStorageEfficiencyTarget(const std::string& value) {
+void EfficiencyResourcesContentForm::setStorageEfficiencyTarget(const std::string& value) {
   doc().setFormField(path(), "storageEfficiencyTarget", value);
 }
-std::string EfficiencyQualityResourcesContentForm::networkBandwidthLimit() const {
+std::string EfficiencyResourcesContentForm::networkBandwidthLimit() const {
   return doc().formField(path(), "networkBandwidthLimit");
 }
-void EfficiencyQualityResourcesContentForm::setNetworkBandwidthLimit(const std::string& value) {
+void EfficiencyResourcesContentForm::setNetworkBandwidthLimit(const std::string& value) {
   doc().setFormField(path(), "networkBandwidthLimit", value);
 }
 
-EfficiencyQualityThroughputContentForm::EfficiencyQualityThroughputContentForm(som::SpecDocument& doc, std::string path)
+EfficiencyThroughputContentForm::EfficiencyThroughputContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string EfficiencyQualityThroughputContentForm::throughputTarget() const {
+std::string EfficiencyThroughputContentForm::throughputTarget() const {
   return doc().formField(path(), "throughputTarget");
 }
-void EfficiencyQualityThroughputContentForm::setThroughputTarget(const std::string& value) {
+void EfficiencyThroughputContentForm::setThroughputTarget(const std::string& value) {
   doc().setFormField(path(), "throughputTarget", value);
 }
-std::string EfficiencyQualityThroughputContentForm::concurrentUsersTarget() const {
+std::string EfficiencyThroughputContentForm::concurrentUsersTarget() const {
   return doc().formField(path(), "concurrentUsersTarget");
 }
-void EfficiencyQualityThroughputContentForm::setConcurrentUsersTarget(const std::string& value) {
+void EfficiencyThroughputContentForm::setConcurrentUsersTarget(const std::string& value) {
   doc().setFormField(path(), "concurrentUsersTarget", value);
 }
-std::string EfficiencyQualityThroughputContentForm::scalabilityModel() const {
+std::string EfficiencyThroughputContentForm::scalabilityModel() const {
   return doc().formField(path(), "scalabilityModel");
 }
-void EfficiencyQualityThroughputContentForm::setScalabilityModel(const std::string& value) {
+void EfficiencyThroughputContentForm::setScalabilityModel(const std::string& value) {
   doc().setFormField(path(), "scalabilityModel", value);
 }
 
-EfficiencyQualityVerificationContentForm::EfficiencyQualityVerificationContentForm(som::SpecDocument& doc, std::string path)
+EfficiencyVerificationContentForm::EfficiencyVerificationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string EfficiencyQualityVerificationContentForm::loadTestingRequirement() const {
+std::string EfficiencyVerificationContentForm::loadTestingRequirement() const {
   return doc().formField(path(), "loadTestingRequirement");
 }
-void EfficiencyQualityVerificationContentForm::setLoadTestingRequirement(const std::string& value) {
+void EfficiencyVerificationContentForm::setLoadTestingRequirement(const std::string& value) {
   doc().setFormField(path(), "loadTestingRequirement", value);
 }
-std::string EfficiencyQualityVerificationContentForm::performanceProfilingApproach() const {
+std::string EfficiencyVerificationContentForm::performanceProfilingApproach() const {
   return doc().formField(path(), "performanceProfilingApproach");
 }
-void EfficiencyQualityVerificationContentForm::setPerformanceProfilingApproach(const std::string& value) {
+void EfficiencyVerificationContentForm::setPerformanceProfilingApproach(const std::string& value) {
   doc().setFormField(path(), "performanceProfilingApproach", value);
 }
-std::string EfficiencyQualityVerificationContentForm::performanceBaselineDate() const {
+std::string EfficiencyVerificationContentForm::performanceBaselineDate() const {
   return doc().formField(path(), "performanceBaselineDate");
 }
-void EfficiencyQualityVerificationContentForm::setPerformanceBaselineDate(const std::string& value) {
+void EfficiencyVerificationContentForm::setPerformanceBaselineDate(const std::string& value) {
   doc().setFormField(path(), "performanceBaselineDate", value);
 }
-std::string EfficiencyQualityVerificationContentForm::performanceSlaDefinition() const {
+std::string EfficiencyVerificationContentForm::performanceSlaDefinition() const {
   return doc().formField(path(), "performanceSlaDefinition");
 }
-void EfficiencyQualityVerificationContentForm::setPerformanceSlaDefinition(const std::string& value) {
+void EfficiencyVerificationContentForm::setPerformanceSlaDefinition(const std::string& value) {
   doc().setFormField(path(), "performanceSlaDefinition", value);
 }
 
@@ -56661,87 +56739,102 @@ void FirewallRequirementsRulesContentForm::setInternalRules(const std::string& v
   doc().setFormField(path(), "internalRules", value);
 }
 
-FlexibilityQualityContentForm::FlexibilityQualityContentForm(som::SpecDocument& doc, std::string path)
+FlexibilityCharacteristicFlexibilityContentForm::FlexibilityCharacteristicFlexibilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FlexibilityQualityContentForm::componentArchitecture() const {
+std::string FlexibilityCharacteristicFlexibilityContentForm::flexibilityApproach() const {
+  return doc().formField(path(), "flexibilityApproach");
+}
+void FlexibilityCharacteristicFlexibilityContentForm::setFlexibilityApproach(const std::string& value) {
+  doc().setFormField(path(), "flexibilityApproach", value);
+}
+std::string FlexibilityCharacteristicFlexibilityContentForm::portabilityTarget() const {
+  return doc().formField(path(), "portabilityTarget");
+}
+void FlexibilityCharacteristicFlexibilityContentForm::setPortabilityTarget(const std::string& value) {
+  doc().setFormField(path(), "portabilityTarget", value);
+}
+
+FlexibilityContentForm::FlexibilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FlexibilityContentForm::componentArchitecture() const {
   return doc().formField(path(), "componentArchitecture");
 }
-void FlexibilityQualityContentForm::setComponentArchitecture(const std::string& value) {
+void FlexibilityContentForm::setComponentArchitecture(const std::string& value) {
   doc().setFormField(path(), "componentArchitecture", value);
 }
-std::string FlexibilityQualityContentForm::componentGranularity() const {
+std::string FlexibilityContentForm::componentGranularity() const {
   return doc().formField(path(), "componentGranularity");
 }
-void FlexibilityQualityContentForm::setComponentGranularity(const std::string& value) {
+void FlexibilityContentForm::setComponentGranularity(const std::string& value) {
   doc().setFormField(path(), "componentGranularity", value);
 }
-std::string FlexibilityQualityContentForm::componentReplaceability() const {
+std::string FlexibilityContentForm::componentReplaceability() const {
   return doc().formField(path(), "componentReplaceability");
 }
-void FlexibilityQualityContentForm::setComponentReplaceability(const std::string& value) {
+void FlexibilityContentForm::setComponentReplaceability(const std::string& value) {
   doc().setFormField(path(), "componentReplaceability", value);
 }
 
-FlexibilityQualityDeploymentContentForm::FlexibilityQualityDeploymentContentForm(som::SpecDocument& doc, std::string path)
+FlexibilityDeploymentContentForm::FlexibilityDeploymentContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FlexibilityQualityDeploymentContentForm::distributionCapability() const {
+std::string FlexibilityDeploymentContentForm::distributionCapability() const {
   return doc().formField(path(), "distributionCapability");
 }
-void FlexibilityQualityDeploymentContentForm::setDistributionCapability(const std::string& value) {
+void FlexibilityDeploymentContentForm::setDistributionCapability(const std::string& value) {
   doc().setFormField(path(), "distributionCapability", value);
 }
-std::string FlexibilityQualityDeploymentContentForm::multiTenancy() const {
+std::string FlexibilityDeploymentContentForm::multiTenancy() const {
   return doc().formField(path(), "multiTenancy");
 }
-void FlexibilityQualityDeploymentContentForm::setMultiTenancy(const std::string& value) {
+void FlexibilityDeploymentContentForm::setMultiTenancy(const std::string& value) {
   doc().setFormField(path(), "multiTenancy", value);
 }
-std::string FlexibilityQualityDeploymentContentForm::configurabilityLevel() const {
+std::string FlexibilityDeploymentContentForm::configurabilityLevel() const {
   return doc().formField(path(), "configurabilityLevel");
 }
-void FlexibilityQualityDeploymentContentForm::setConfigurabilityLevel(const std::string& value) {
+void FlexibilityDeploymentContentForm::setConfigurabilityLevel(const std::string& value) {
   doc().setFormField(path(), "configurabilityLevel", value);
 }
 
-FlexibilityQualityExtensibilityContentForm::FlexibilityQualityExtensibilityContentForm(som::SpecDocument& doc, std::string path)
+FlexibilityExtensibilityContentForm::FlexibilityExtensibilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FlexibilityQualityExtensibilityContentForm::extensibilityModel() const {
+std::string FlexibilityExtensibilityContentForm::extensibilityModel() const {
   return doc().formField(path(), "extensibilityModel");
 }
-void FlexibilityQualityExtensibilityContentForm::setExtensibilityModel(const std::string& value) {
+void FlexibilityExtensibilityContentForm::setExtensibilityModel(const std::string& value) {
   doc().setFormField(path(), "extensibilityModel", value);
 }
-std::string FlexibilityQualityExtensibilityContentForm::customizationScope() const {
+std::string FlexibilityExtensibilityContentForm::customizationScope() const {
   return doc().formField(path(), "customizationScope");
 }
-void FlexibilityQualityExtensibilityContentForm::setCustomizationScope(const std::string& value) {
+void FlexibilityExtensibilityContentForm::setCustomizationScope(const std::string& value) {
   doc().setFormField(path(), "customizationScope", value);
 }
-std::string FlexibilityQualityExtensibilityContentForm::flexibilityVerification() const {
+std::string FlexibilityExtensibilityContentForm::flexibilityVerification() const {
   return doc().formField(path(), "flexibilityVerification");
 }
-void FlexibilityQualityExtensibilityContentForm::setFlexibilityVerification(const std::string& value) {
+void FlexibilityExtensibilityContentForm::setFlexibilityVerification(const std::string& value) {
   doc().setFormField(path(), "flexibilityVerification", value);
 }
 
-FlexibilityQualityModularityContentForm::FlexibilityQualityModularityContentForm(som::SpecDocument& doc, std::string path)
+FlexibilityModularityContentForm::FlexibilityModularityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FlexibilityQualityModularityContentForm::modularityLevel() const {
+std::string FlexibilityModularityContentForm::modularityLevel() const {
   return doc().formField(path(), "modularityLevel");
 }
-void FlexibilityQualityModularityContentForm::setModularityLevel(const std::string& value) {
+void FlexibilityModularityContentForm::setModularityLevel(const std::string& value) {
   doc().setFormField(path(), "modularityLevel", value);
 }
-std::string FlexibilityQualityModularityContentForm::moduleIndependence() const {
+std::string FlexibilityModularityContentForm::moduleIndependence() const {
   return doc().formField(path(), "moduleIndependence");
 }
-void FlexibilityQualityModularityContentForm::setModuleIndependence(const std::string& value) {
+void FlexibilityModularityContentForm::setModuleIndependence(const std::string& value) {
   doc().setFormField(path(), "moduleIndependence", value);
 }
-std::string FlexibilityQualityModularityContentForm::moduleReusability() const {
+std::string FlexibilityModularityContentForm::moduleReusability() const {
   return doc().formField(path(), "moduleReusability");
 }
-void FlexibilityQualityModularityContentForm::setModuleReusability(const std::string& value) {
+void FlexibilityModularityContentForm::setModuleReusability(const std::string& value) {
   doc().setFormField(path(), "moduleReusability", value);
 }
 
@@ -57087,60 +57180,60 @@ void FunctionModelMatrixOverviewForm::setDataOwnership(const std::string& value)
   doc().setFormField(path(), "dataOwnership", value);
 }
 
-FunctionalCompletenessQualityContentForm::FunctionalCompletenessQualityContentForm(som::SpecDocument& doc, std::string path)
+FunctionalCompletenessContentForm::FunctionalCompletenessContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FunctionalCompletenessQualityContentForm::featureCoverageTarget() const {
+std::string FunctionalCompletenessContentForm::featureCoverageTarget() const {
   return doc().formField(path(), "featureCoverageTarget");
 }
-void FunctionalCompletenessQualityContentForm::setFeatureCoverageTarget(const std::string& value) {
+void FunctionalCompletenessContentForm::setFeatureCoverageTarget(const std::string& value) {
   doc().setFormField(path(), "featureCoverageTarget", value);
 }
-std::string FunctionalCompletenessQualityContentForm::coreWorkflowCoverage() const {
+std::string FunctionalCompletenessContentForm::coreWorkflowCoverage() const {
   return doc().formField(path(), "coreWorkflowCoverage");
 }
-void FunctionalCompletenessQualityContentForm::setCoreWorkflowCoverage(const std::string& value) {
+void FunctionalCompletenessContentForm::setCoreWorkflowCoverage(const std::string& value) {
   doc().setFormField(path(), "coreWorkflowCoverage", value);
 }
-std::string FunctionalCompletenessQualityContentForm::edgeCaseHandling() const {
+std::string FunctionalCompletenessContentForm::edgeCaseHandling() const {
   return doc().formField(path(), "edgeCaseHandling");
 }
-void FunctionalCompletenessQualityContentForm::setEdgeCaseHandling(const std::string& value) {
+void FunctionalCompletenessContentForm::setEdgeCaseHandling(const std::string& value) {
   doc().setFormField(path(), "edgeCaseHandling", value);
 }
-std::string FunctionalCompletenessQualityContentForm::scopePrioritization() const {
+std::string FunctionalCompletenessContentForm::scopePrioritization() const {
   return doc().formField(path(), "scopePrioritization");
 }
-void FunctionalCompletenessQualityContentForm::setScopePrioritization(const std::string& value) {
+void FunctionalCompletenessContentForm::setScopePrioritization(const std::string& value) {
   doc().setFormField(path(), "scopePrioritization", value);
 }
-std::string FunctionalCompletenessQualityContentForm::mvpDefinition() const {
+std::string FunctionalCompletenessContentForm::mvpDefinition() const {
   return doc().formField(path(), "mvpDefinition");
 }
-void FunctionalCompletenessQualityContentForm::setMvpDefinition(const std::string& value) {
+void FunctionalCompletenessContentForm::setMvpDefinition(const std::string& value) {
   doc().setFormField(path(), "mvpDefinition", value);
 }
-std::string FunctionalCompletenessQualityContentForm::deferredFeatureHandling() const {
+std::string FunctionalCompletenessContentForm::deferredFeatureHandling() const {
   return doc().formField(path(), "deferredFeatureHandling");
 }
-void FunctionalCompletenessQualityContentForm::setDeferredFeatureHandling(const std::string& value) {
+void FunctionalCompletenessContentForm::setDeferredFeatureHandling(const std::string& value) {
   doc().setFormField(path(), "deferredFeatureHandling", value);
 }
-std::string FunctionalCompletenessQualityContentForm::completenessVerification() const {
+std::string FunctionalCompletenessContentForm::completenessVerification() const {
   return doc().formField(path(), "completenessVerification");
 }
-void FunctionalCompletenessQualityContentForm::setCompletenessVerification(const std::string& value) {
+void FunctionalCompletenessContentForm::setCompletenessVerification(const std::string& value) {
   doc().setFormField(path(), "completenessVerification", value);
 }
-std::string FunctionalCompletenessQualityContentForm::userStoryTracking() const {
+std::string FunctionalCompletenessContentForm::userStoryTracking() const {
   return doc().formField(path(), "userStoryTracking");
 }
-void FunctionalCompletenessQualityContentForm::setUserStoryTracking(const std::string& value) {
+void FunctionalCompletenessContentForm::setUserStoryTracking(const std::string& value) {
   doc().setFormField(path(), "userStoryTracking", value);
 }
-std::string FunctionalCompletenessQualityContentForm::gapAnalysisFrequency() const {
+std::string FunctionalCompletenessContentForm::gapAnalysisFrequency() const {
   return doc().formField(path(), "gapAnalysisFrequency");
 }
-void FunctionalCompletenessQualityContentForm::setGapAnalysisFrequency(const std::string& value) {
+void FunctionalCompletenessContentForm::setGapAnalysisFrequency(const std::string& value) {
   doc().setFormField(path(), "gapAnalysisFrequency", value);
 }
 
@@ -57373,6 +57466,27 @@ std::string FunctionalResponsibilitiesContentForm::unassignedAreas() const {
 }
 void FunctionalResponsibilitiesContentForm::setUnassignedAreas(const std::string& value) {
   doc().setFormField(path(), "unassignedAreas", value);
+}
+
+FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::functionalSuitabilityApproach() const {
+  return doc().formField(path(), "functionalSuitabilityApproach");
+}
+void FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::setFunctionalSuitabilityApproach(const std::string& value) {
+  doc().setFormField(path(), "functionalSuitabilityApproach", value);
+}
+std::string FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::functionalCoverageTarget() const {
+  return doc().formField(path(), "functionalCoverageTarget");
+}
+void FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::setFunctionalCoverageTarget(const std::string& value) {
+  doc().setFormField(path(), "functionalCoverageTarget", value);
+}
+std::string FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::correctnessStandard() const {
+  return doc().formField(path(), "correctnessStandard");
+}
+void FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::setCorrectnessStandard(const std::string& value) {
+  doc().setFormField(path(), "correctnessStandard", value);
 }
 
 GapEntryContentForm::GapEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -60651,6 +60765,45 @@ void InteractionBusinessRulesContentForm::setIntegrationRules(const std::string&
   doc().setFormField(path(), "integrationRules", value);
 }
 
+InteractionCapabilityCharacteristicInteractionCapabilityContentForm::InteractionCapabilityCharacteristicInteractionCapabilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::userQualityPhilosophy() const {
+  return doc().formField(path(), "userQualityPhilosophy");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setUserQualityPhilosophy(const std::string& value) {
+  doc().setFormField(path(), "userQualityPhilosophy", value);
+}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::targetUserExperience() const {
+  return doc().formField(path(), "targetUserExperience");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setTargetUserExperience(const std::string& value) {
+  doc().setFormField(path(), "targetUserExperience", value);
+}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::userResearchBasis() const {
+  return doc().formField(path(), "userResearchBasis");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setUserResearchBasis(const std::string& value) {
+  doc().setFormField(path(), "userResearchBasis", value);
+}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::userFeedbackChannel() const {
+  return doc().formField(path(), "userFeedbackChannel");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setUserFeedbackChannel(const std::string& value) {
+  doc().setFormField(path(), "userFeedbackChannel", value);
+}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::userSatisfactionTarget() const {
+  return doc().formField(path(), "userSatisfactionTarget");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setUserSatisfactionTarget(const std::string& value) {
+  doc().setFormField(path(), "userSatisfactionTarget", value);
+}
+std::string InteractionCapabilityCharacteristicInteractionCapabilityContentForm::accessibilityLevel() const {
+  return doc().formField(path(), "accessibilityLevel");
+}
+void InteractionCapabilityCharacteristicInteractionCapabilityContentForm::setAccessibilityLevel(const std::string& value) {
+  doc().setFormField(path(), "accessibilityLevel", value);
+}
+
 InteractionCatalogOverviewContentForm::InteractionCatalogOverviewContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string InteractionCatalogOverviewContentForm::totalInteractionCount() const {
@@ -62499,126 +62652,126 @@ void ItLandscapePositionPositionDetailsForm::setIntegrationPattern(const std::st
   doc().setFormField(path(), "integrationPattern", value);
 }
 
-ItSecurityOperationsQualityAccessContentForm::ItSecurityOperationsQualityAccessContentForm(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsAccessContentForm::ItSecurityOperationsAccessContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ItSecurityOperationsQualityAccessContentForm::privilegedAccessManagement() const {
+std::string ItSecurityOperationsAccessContentForm::privilegedAccessManagement() const {
   return doc().formField(path(), "privilegedAccessManagement");
 }
-void ItSecurityOperationsQualityAccessContentForm::setPrivilegedAccessManagement(const std::string& value) {
+void ItSecurityOperationsAccessContentForm::setPrivilegedAccessManagement(const std::string& value) {
   doc().setFormField(path(), "privilegedAccessManagement", value);
 }
-std::string ItSecurityOperationsQualityAccessContentForm::accessReviewFrequency() const {
+std::string ItSecurityOperationsAccessContentForm::accessReviewFrequency() const {
   return doc().formField(path(), "accessReviewFrequency");
 }
-void ItSecurityOperationsQualityAccessContentForm::setAccessReviewFrequency(const std::string& value) {
+void ItSecurityOperationsAccessContentForm::setAccessReviewFrequency(const std::string& value) {
   doc().setFormField(path(), "accessReviewFrequency", value);
 }
-std::string ItSecurityOperationsQualityAccessContentForm::accessAuditLogging() const {
+std::string ItSecurityOperationsAccessContentForm::accessAuditLogging() const {
   return doc().formField(path(), "accessAuditLogging");
 }
-void ItSecurityOperationsQualityAccessContentForm::setAccessAuditLogging(const std::string& value) {
+void ItSecurityOperationsAccessContentForm::setAccessAuditLogging(const std::string& value) {
   doc().setFormField(path(), "accessAuditLogging", value);
 }
 
-ItSecurityOperationsQualityContentForm::ItSecurityOperationsQualityContentForm(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsContentForm::ItSecurityOperationsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ItSecurityOperationsQualityContentForm::accessControlModel() const {
+std::string ItSecurityOperationsContentForm::accessControlModel() const {
   return doc().formField(path(), "accessControlModel");
 }
-void ItSecurityOperationsQualityContentForm::setAccessControlModel(const std::string& value) {
+void ItSecurityOperationsContentForm::setAccessControlModel(const std::string& value) {
   doc().setFormField(path(), "accessControlModel", value);
 }
-std::string ItSecurityOperationsQualityContentForm::drPlanRequired() const {
+std::string ItSecurityOperationsContentForm::drPlanRequired() const {
   return doc().formField(path(), "drPlanRequired");
 }
-void ItSecurityOperationsQualityContentForm::setDrPlanRequired(const std::string& value) {
+void ItSecurityOperationsContentForm::setDrPlanRequired(const std::string& value) {
   doc().setFormField(path(), "drPlanRequired", value);
 }
-std::string ItSecurityOperationsQualityContentForm::incidentResponsePlan() const {
+std::string ItSecurityOperationsContentForm::incidentResponsePlan() const {
   return doc().formField(path(), "incidentResponsePlan");
 }
-void ItSecurityOperationsQualityContentForm::setIncidentResponsePlan(const std::string& value) {
+void ItSecurityOperationsContentForm::setIncidentResponsePlan(const std::string& value) {
   doc().setFormField(path(), "incidentResponsePlan", value);
 }
 
-ItSecurityOperationsQualityIncidentContentForm::ItSecurityOperationsQualityIncidentContentForm(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsIncidentContentForm::ItSecurityOperationsIncidentContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ItSecurityOperationsQualityIncidentContentForm::securityIncidentClassification() const {
+std::string ItSecurityOperationsIncidentContentForm::securityIncidentClassification() const {
   return doc().formField(path(), "securityIncidentClassification");
 }
-void ItSecurityOperationsQualityIncidentContentForm::setSecurityIncidentClassification(const std::string& value) {
+void ItSecurityOperationsIncidentContentForm::setSecurityIncidentClassification(const std::string& value) {
   doc().setFormField(path(), "securityIncidentClassification", value);
 }
-std::string ItSecurityOperationsQualityIncidentContentForm::securityIncidentNotification() const {
+std::string ItSecurityOperationsIncidentContentForm::securityIncidentNotification() const {
   return doc().formField(path(), "securityIncidentNotification");
 }
-void ItSecurityOperationsQualityIncidentContentForm::setSecurityIncidentNotification(const std::string& value) {
+void ItSecurityOperationsIncidentContentForm::setSecurityIncidentNotification(const std::string& value) {
   doc().setFormField(path(), "securityIncidentNotification", value);
 }
-std::string ItSecurityOperationsQualityIncidentContentForm::forensicsCapability() const {
+std::string ItSecurityOperationsIncidentContentForm::forensicsCapability() const {
   return doc().formField(path(), "forensicsCapability");
 }
-void ItSecurityOperationsQualityIncidentContentForm::setForensicsCapability(const std::string& value) {
+void ItSecurityOperationsIncidentContentForm::setForensicsCapability(const std::string& value) {
   doc().setFormField(path(), "forensicsCapability", value);
 }
-std::string ItSecurityOperationsQualityIncidentContentForm::regulatoryReporting() const {
+std::string ItSecurityOperationsIncidentContentForm::regulatoryReporting() const {
   return doc().formField(path(), "regulatoryReporting");
 }
-void ItSecurityOperationsQualityIncidentContentForm::setRegulatoryReporting(const std::string& value) {
+void ItSecurityOperationsIncidentContentForm::setRegulatoryReporting(const std::string& value) {
   doc().setFormField(path(), "regulatoryReporting", value);
 }
 
-ItSecurityOperationsQualityRecoveryContentForm::ItSecurityOperationsQualityRecoveryContentForm(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsRecoveryContentForm::ItSecurityOperationsRecoveryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ItSecurityOperationsQualityRecoveryContentForm::drTestingFrequency() const {
+std::string ItSecurityOperationsRecoveryContentForm::drTestingFrequency() const {
   return doc().formField(path(), "drTestingFrequency");
 }
-void ItSecurityOperationsQualityRecoveryContentForm::setDrTestingFrequency(const std::string& value) {
+void ItSecurityOperationsRecoveryContentForm::setDrTestingFrequency(const std::string& value) {
   doc().setFormField(path(), "drTestingFrequency", value);
 }
-std::string ItSecurityOperationsQualityRecoveryContentForm::drRecoveryTargets() const {
+std::string ItSecurityOperationsRecoveryContentForm::drRecoveryTargets() const {
   return doc().formField(path(), "drRecoveryTargets");
 }
-void ItSecurityOperationsQualityRecoveryContentForm::setDrRecoveryTargets(const std::string& value) {
+void ItSecurityOperationsRecoveryContentForm::setDrRecoveryTargets(const std::string& value) {
   doc().setFormField(path(), "drRecoveryTargets", value);
 }
-std::string ItSecurityOperationsQualityRecoveryContentForm::drDataCenterStrategy() const {
+std::string ItSecurityOperationsRecoveryContentForm::drDataCenterStrategy() const {
   return doc().formField(path(), "drDataCenterStrategy");
 }
-void ItSecurityOperationsQualityRecoveryContentForm::setDrDataCenterStrategy(const std::string& value) {
+void ItSecurityOperationsRecoveryContentForm::setDrDataCenterStrategy(const std::string& value) {
   doc().setFormField(path(), "drDataCenterStrategy", value);
 }
-std::string ItSecurityOperationsQualityRecoveryContentForm::drCommunicationPlan() const {
+std::string ItSecurityOperationsRecoveryContentForm::drCommunicationPlan() const {
   return doc().formField(path(), "drCommunicationPlan");
 }
-void ItSecurityOperationsQualityRecoveryContentForm::setDrCommunicationPlan(const std::string& value) {
+void ItSecurityOperationsRecoveryContentForm::setDrCommunicationPlan(const std::string& value) {
   doc().setFormField(path(), "drCommunicationPlan", value);
 }
 
-ItSecurityOperationsQualityTestingContentForm::ItSecurityOperationsQualityTestingContentForm(som::SpecDocument& doc, std::string path)
+ItSecurityOperationsTestingContentForm::ItSecurityOperationsTestingContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ItSecurityOperationsQualityTestingContentForm::penetrationTestScope() const {
+std::string ItSecurityOperationsTestingContentForm::penetrationTestScope() const {
   return doc().formField(path(), "penetrationTestScope");
 }
-void ItSecurityOperationsQualityTestingContentForm::setPenetrationTestScope(const std::string& value) {
+void ItSecurityOperationsTestingContentForm::setPenetrationTestScope(const std::string& value) {
   doc().setFormField(path(), "penetrationTestScope", value);
 }
-std::string ItSecurityOperationsQualityTestingContentForm::penetrationTestFrequency() const {
+std::string ItSecurityOperationsTestingContentForm::penetrationTestFrequency() const {
   return doc().formField(path(), "penetrationTestFrequency");
 }
-void ItSecurityOperationsQualityTestingContentForm::setPenetrationTestFrequency(const std::string& value) {
+void ItSecurityOperationsTestingContentForm::setPenetrationTestFrequency(const std::string& value) {
   doc().setFormField(path(), "penetrationTestFrequency", value);
 }
-std::string ItSecurityOperationsQualityTestingContentForm::vulnerabilitySlaResolution() const {
+std::string ItSecurityOperationsTestingContentForm::vulnerabilitySlaResolution() const {
   return doc().formField(path(), "vulnerabilitySlaResolution");
 }
-void ItSecurityOperationsQualityTestingContentForm::setVulnerabilitySlaResolution(const std::string& value) {
+void ItSecurityOperationsTestingContentForm::setVulnerabilitySlaResolution(const std::string& value) {
   doc().setFormField(path(), "vulnerabilitySlaResolution", value);
 }
-std::string ItSecurityOperationsQualityTestingContentForm::bugBountyProgram() const {
+std::string ItSecurityOperationsTestingContentForm::bugBountyProgram() const {
   return doc().formField(path(), "bugBountyProgram");
 }
-void ItSecurityOperationsQualityTestingContentForm::setBugBountyProgram(const std::string& value) {
+void ItSecurityOperationsTestingContentForm::setBugBountyProgram(const std::string& value) {
   doc().setFormField(path(), "bugBountyProgram", value);
 }
 
@@ -64587,114 +64740,129 @@ void MainSuccessScenarioContentForm::setStepCount(const std::string& value) {
   doc().setFormField(path(), "stepCount", value);
 }
 
-MaintainabilityQualityAnalyzabilityContentForm::MaintainabilityQualityAnalyzabilityContentForm(som::SpecDocument& doc, std::string path)
+MaintainabilityAnalyzabilityContentForm::MaintainabilityAnalyzabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MaintainabilityQualityAnalyzabilityContentForm::codeReadabilityStandard() const {
+std::string MaintainabilityAnalyzabilityContentForm::codeReadabilityStandard() const {
   return doc().formField(path(), "codeReadabilityStandard");
 }
-void MaintainabilityQualityAnalyzabilityContentForm::setCodeReadabilityStandard(const std::string& value) {
+void MaintainabilityAnalyzabilityContentForm::setCodeReadabilityStandard(const std::string& value) {
   doc().setFormField(path(), "codeReadabilityStandard", value);
 }
-std::string MaintainabilityQualityAnalyzabilityContentForm::documentationRequirement() const {
+std::string MaintainabilityAnalyzabilityContentForm::documentationRequirement() const {
   return doc().formField(path(), "documentationRequirement");
 }
-void MaintainabilityQualityAnalyzabilityContentForm::setDocumentationRequirement(const std::string& value) {
+void MaintainabilityAnalyzabilityContentForm::setDocumentationRequirement(const std::string& value) {
   doc().setFormField(path(), "documentationRequirement", value);
 }
-std::string MaintainabilityQualityAnalyzabilityContentForm::loggingStandard() const {
+std::string MaintainabilityAnalyzabilityContentForm::loggingStandard() const {
   return doc().formField(path(), "loggingStandard");
 }
-void MaintainabilityQualityAnalyzabilityContentForm::setLoggingStandard(const std::string& value) {
+void MaintainabilityAnalyzabilityContentForm::setLoggingStandard(const std::string& value) {
   doc().setFormField(path(), "loggingStandard", value);
 }
 
-MaintainabilityQualityChangeabilityContentForm::MaintainabilityQualityChangeabilityContentForm(som::SpecDocument& doc, std::string path)
+MaintainabilityChangeabilityContentForm::MaintainabilityChangeabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MaintainabilityQualityChangeabilityContentForm::codeCoverageMinimum() const {
+std::string MaintainabilityChangeabilityContentForm::codeCoverageMinimum() const {
   return doc().formField(path(), "codeCoverageMinimum");
 }
-void MaintainabilityQualityChangeabilityContentForm::setCodeCoverageMinimum(const std::string& value) {
+void MaintainabilityChangeabilityContentForm::setCodeCoverageMinimum(const std::string& value) {
   doc().setFormField(path(), "codeCoverageMinimum", value);
 }
-std::string MaintainabilityQualityChangeabilityContentForm::cyclomaticComplexityLimit() const {
+std::string MaintainabilityChangeabilityContentForm::cyclomaticComplexityLimit() const {
   return doc().formField(path(), "cyclomaticComplexityLimit");
 }
-void MaintainabilityQualityChangeabilityContentForm::setCyclomaticComplexityLimit(const std::string& value) {
+void MaintainabilityChangeabilityContentForm::setCyclomaticComplexityLimit(const std::string& value) {
   doc().setFormField(path(), "cyclomaticComplexityLimit", value);
 }
-std::string MaintainabilityQualityChangeabilityContentForm::methodLengthLimit() const {
+std::string MaintainabilityChangeabilityContentForm::methodLengthLimit() const {
   return doc().formField(path(), "methodLengthLimit");
 }
-void MaintainabilityQualityChangeabilityContentForm::setMethodLengthLimit(const std::string& value) {
+void MaintainabilityChangeabilityContentForm::setMethodLengthLimit(const std::string& value) {
   doc().setFormField(path(), "methodLengthLimit", value);
 }
-std::string MaintainabilityQualityChangeabilityContentForm::classLengthLimit() const {
+std::string MaintainabilityChangeabilityContentForm::classLengthLimit() const {
   return doc().formField(path(), "classLengthLimit");
 }
-void MaintainabilityQualityChangeabilityContentForm::setClassLengthLimit(const std::string& value) {
+void MaintainabilityChangeabilityContentForm::setClassLengthLimit(const std::string& value) {
   doc().setFormField(path(), "classLengthLimit", value);
 }
 
-MaintainabilityQualityContentForm::MaintainabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+MaintainabilityCharacteristicMaintainabilityContentForm::MaintainabilityCharacteristicMaintainabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MaintainabilityQualityContentForm::adaptabilityTarget() const {
+std::string MaintainabilityCharacteristicMaintainabilityContentForm::maintainabilityApproach() const {
+  return doc().formField(path(), "maintainabilityApproach");
+}
+void MaintainabilityCharacteristicMaintainabilityContentForm::setMaintainabilityApproach(const std::string& value) {
+  doc().setFormField(path(), "maintainabilityApproach", value);
+}
+std::string MaintainabilityCharacteristicMaintainabilityContentForm::maintainabilityStandard() const {
+  return doc().formField(path(), "maintainabilityStandard");
+}
+void MaintainabilityCharacteristicMaintainabilityContentForm::setMaintainabilityStandard(const std::string& value) {
+  doc().setFormField(path(), "maintainabilityStandard", value);
+}
+
+MaintainabilityContentForm::MaintainabilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MaintainabilityContentForm::adaptabilityTarget() const {
   return doc().formField(path(), "adaptabilityTarget");
 }
-void MaintainabilityQualityContentForm::setAdaptabilityTarget(const std::string& value) {
+void MaintainabilityContentForm::setAdaptabilityTarget(const std::string& value) {
   doc().setFormField(path(), "adaptabilityTarget", value);
 }
-std::string MaintainabilityQualityContentForm::changeImpactLimit() const {
+std::string MaintainabilityContentForm::changeImpactLimit() const {
   return doc().formField(path(), "changeImpactLimit");
 }
-void MaintainabilityQualityContentForm::setChangeImpactLimit(const std::string& value) {
+void MaintainabilityContentForm::setChangeImpactLimit(const std::string& value) {
   doc().setFormField(path(), "changeImpactLimit", value);
 }
 
-MaintainabilityQualityGovernanceContentForm::MaintainabilityQualityGovernanceContentForm(som::SpecDocument& doc, std::string path)
+MaintainabilityGovernanceContentForm::MaintainabilityGovernanceContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MaintainabilityQualityGovernanceContentForm::extensibilityPattern() const {
+std::string MaintainabilityGovernanceContentForm::extensibilityPattern() const {
   return doc().formField(path(), "extensibilityPattern");
 }
-void MaintainabilityQualityGovernanceContentForm::setExtensibilityPattern(const std::string& value) {
+void MaintainabilityGovernanceContentForm::setExtensibilityPattern(const std::string& value) {
   doc().setFormField(path(), "extensibilityPattern", value);
 }
-std::string MaintainabilityQualityGovernanceContentForm::apiVersioningStrategy() const {
+std::string MaintainabilityGovernanceContentForm::apiVersioningStrategy() const {
   return doc().formField(path(), "apiVersioningStrategy");
 }
-void MaintainabilityQualityGovernanceContentForm::setApiVersioningStrategy(const std::string& value) {
+void MaintainabilityGovernanceContentForm::setApiVersioningStrategy(const std::string& value) {
   doc().setFormField(path(), "apiVersioningStrategy", value);
 }
-std::string MaintainabilityQualityGovernanceContentForm::maintainabilityVerification() const {
+std::string MaintainabilityGovernanceContentForm::maintainabilityVerification() const {
   return doc().formField(path(), "maintainabilityVerification");
 }
-void MaintainabilityQualityGovernanceContentForm::setMaintainabilityVerification(const std::string& value) {
+void MaintainabilityGovernanceContentForm::setMaintainabilityVerification(const std::string& value) {
   doc().setFormField(path(), "maintainabilityVerification", value);
 }
-std::string MaintainabilityQualityGovernanceContentForm::technicalDebtTracking() const {
+std::string MaintainabilityGovernanceContentForm::technicalDebtTracking() const {
   return doc().formField(path(), "technicalDebtTracking");
 }
-void MaintainabilityQualityGovernanceContentForm::setTechnicalDebtTracking(const std::string& value) {
+void MaintainabilityGovernanceContentForm::setTechnicalDebtTracking(const std::string& value) {
   doc().setFormField(path(), "technicalDebtTracking", value);
 }
 
-MaintainabilityQualityTestabilityContentForm::MaintainabilityQualityTestabilityContentForm(som::SpecDocument& doc, std::string path)
+MaintainabilityTestabilityContentForm::MaintainabilityTestabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MaintainabilityQualityTestabilityContentForm::testabilityDesign() const {
+std::string MaintainabilityTestabilityContentForm::testabilityDesign() const {
   return doc().formField(path(), "testabilityDesign");
 }
-void MaintainabilityQualityTestabilityContentForm::setTestabilityDesign(const std::string& value) {
+void MaintainabilityTestabilityContentForm::setTestabilityDesign(const std::string& value) {
   doc().setFormField(path(), "testabilityDesign", value);
 }
-std::string MaintainabilityQualityTestabilityContentForm::testPyramidRatio() const {
+std::string MaintainabilityTestabilityContentForm::testPyramidRatio() const {
   return doc().formField(path(), "testPyramidRatio");
 }
-void MaintainabilityQualityTestabilityContentForm::setTestPyramidRatio(const std::string& value) {
+void MaintainabilityTestabilityContentForm::setTestPyramidRatio(const std::string& value) {
   doc().setFormField(path(), "testPyramidRatio", value);
 }
-std::string MaintainabilityQualityTestabilityContentForm::testDataManagement() const {
+std::string MaintainabilityTestabilityContentForm::testDataManagement() const {
   return doc().formField(path(), "testDataManagement");
 }
-void MaintainabilityQualityTestabilityContentForm::setTestDataManagement(const std::string& value) {
+void MaintainabilityTestabilityContentForm::setTestDataManagement(const std::string& value) {
   doc().setFormField(path(), "testDataManagement", value);
 }
 
@@ -68052,6 +68220,81 @@ void ModuleVersioningStrategyReleaseManagementContentForm::setReleaseNotes(const
   doc().setFormField(path(), "releaseNotes", value);
 }
 
+MonitoringAlertingContentForm::MonitoringAlertingContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MonitoringAlertingContentForm::alertingStrategy() const {
+  return doc().formField(path(), "alertingStrategy");
+}
+void MonitoringAlertingContentForm::setAlertingStrategy(const std::string& value) {
+  doc().setFormField(path(), "alertingStrategy", value);
+}
+std::string MonitoringAlertingContentForm::alertPrioritization() const {
+  return doc().formField(path(), "alertPrioritization");
+}
+void MonitoringAlertingContentForm::setAlertPrioritization(const std::string& value) {
+  doc().setFormField(path(), "alertPrioritization", value);
+}
+std::string MonitoringAlertingContentForm::alertNotificationChannels() const {
+  return doc().formField(path(), "alertNotificationChannels");
+}
+void MonitoringAlertingContentForm::setAlertNotificationChannels(const std::string& value) {
+  doc().setFormField(path(), "alertNotificationChannels", value);
+}
+std::string MonitoringAlertingContentForm::alertFatiguePrevention() const {
+  return doc().formField(path(), "alertFatiguePrevention");
+}
+void MonitoringAlertingContentForm::setAlertFatiguePrevention(const std::string& value) {
+  doc().setFormField(path(), "alertFatiguePrevention", value);
+}
+
+MonitoringAutomationContentForm::MonitoringAutomationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MonitoringAutomationContentForm::alertAutomation() const {
+  return doc().formField(path(), "alertAutomation");
+}
+void MonitoringAutomationContentForm::setAlertAutomation(const std::string& value) {
+  doc().setFormField(path(), "alertAutomation", value);
+}
+std::string MonitoringAutomationContentForm::selfHealingCapability() const {
+  return doc().formField(path(), "selfHealingCapability");
+}
+void MonitoringAutomationContentForm::setSelfHealingCapability(const std::string& value) {
+  doc().setFormField(path(), "selfHealingCapability", value);
+}
+std::string MonitoringAutomationContentForm::runbookAutomation() const {
+  return doc().formField(path(), "runbookAutomation");
+}
+void MonitoringAutomationContentForm::setRunbookAutomation(const std::string& value) {
+  doc().setFormField(path(), "runbookAutomation", value);
+}
+
+MonitoringCoverageContentForm::MonitoringCoverageContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MonitoringCoverageContentForm::infrastructureMonitoring() const {
+  return doc().formField(path(), "infrastructureMonitoring");
+}
+void MonitoringCoverageContentForm::setInfrastructureMonitoring(const std::string& value) {
+  doc().setFormField(path(), "infrastructureMonitoring", value);
+}
+std::string MonitoringCoverageContentForm::applicationMonitoring() const {
+  return doc().formField(path(), "applicationMonitoring");
+}
+void MonitoringCoverageContentForm::setApplicationMonitoring(const std::string& value) {
+  doc().setFormField(path(), "applicationMonitoring", value);
+}
+std::string MonitoringCoverageContentForm::databaseMonitoring() const {
+  return doc().formField(path(), "databaseMonitoring");
+}
+void MonitoringCoverageContentForm::setDatabaseMonitoring(const std::string& value) {
+  doc().setFormField(path(), "databaseMonitoring", value);
+}
+std::string MonitoringCoverageContentForm::thirdPartyMonitoring() const {
+  return doc().formField(path(), "thirdPartyMonitoring");
+}
+void MonitoringCoverageContentForm::setThirdPartyMonitoring(const std::string& value) {
+  doc().setFormField(path(), "thirdPartyMonitoring", value);
+}
+
 MonitoringDashboardsDashboardOverviewForm::MonitoringDashboardsDashboardOverviewForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string MonitoringDashboardsDashboardOverviewForm::dashboardPlatform() const {
@@ -68280,132 +68523,36 @@ void MonitoringMonitoringOverviewForm::setCostBudget(const std::string& value) {
   doc().setFormField(path(), "costBudget", value);
 }
 
-MonitoringQualityAlertingContentForm::MonitoringQualityAlertingContentForm(som::SpecDocument& doc, std::string path)
+MonitoringOperationsContentForm::MonitoringOperationsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringQualityAlertingContentForm::alertingStrategy() const {
-  return doc().formField(path(), "alertingStrategy");
-}
-void MonitoringQualityAlertingContentForm::setAlertingStrategy(const std::string& value) {
-  doc().setFormField(path(), "alertingStrategy", value);
-}
-std::string MonitoringQualityAlertingContentForm::alertPrioritization() const {
-  return doc().formField(path(), "alertPrioritization");
-}
-void MonitoringQualityAlertingContentForm::setAlertPrioritization(const std::string& value) {
-  doc().setFormField(path(), "alertPrioritization", value);
-}
-std::string MonitoringQualityAlertingContentForm::alertNotificationChannels() const {
-  return doc().formField(path(), "alertNotificationChannels");
-}
-void MonitoringQualityAlertingContentForm::setAlertNotificationChannels(const std::string& value) {
-  doc().setFormField(path(), "alertNotificationChannels", value);
-}
-std::string MonitoringQualityAlertingContentForm::alertFatiguePrevention() const {
-  return doc().formField(path(), "alertFatiguePrevention");
-}
-void MonitoringQualityAlertingContentForm::setAlertFatiguePrevention(const std::string& value) {
-  doc().setFormField(path(), "alertFatiguePrevention", value);
-}
-
-MonitoringQualityAutomationContentForm::MonitoringQualityAutomationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringQualityAutomationContentForm::alertAutomation() const {
-  return doc().formField(path(), "alertAutomation");
-}
-void MonitoringQualityAutomationContentForm::setAlertAutomation(const std::string& value) {
-  doc().setFormField(path(), "alertAutomation", value);
-}
-std::string MonitoringQualityAutomationContentForm::selfHealingCapability() const {
-  return doc().formField(path(), "selfHealingCapability");
-}
-void MonitoringQualityAutomationContentForm::setSelfHealingCapability(const std::string& value) {
-  doc().setFormField(path(), "selfHealingCapability", value);
-}
-std::string MonitoringQualityAutomationContentForm::runbookAutomation() const {
-  return doc().formField(path(), "runbookAutomation");
-}
-void MonitoringQualityAutomationContentForm::setRunbookAutomation(const std::string& value) {
-  doc().setFormField(path(), "runbookAutomation", value);
-}
-
-MonitoringQualityContentForm::MonitoringQualityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringQualityContentForm::scalabilityMonitoringApproach() const {
-  return doc().formField(path(), "scalabilityMonitoringApproach");
-}
-void MonitoringQualityContentForm::setScalabilityMonitoringApproach(const std::string& value) {
-  doc().setFormField(path(), "scalabilityMonitoringApproach", value);
-}
-std::string MonitoringQualityContentForm::capacityPlanningProcess() const {
-  return doc().formField(path(), "capacityPlanningProcess");
-}
-void MonitoringQualityContentForm::setCapacityPlanningProcess(const std::string& value) {
-  doc().setFormField(path(), "capacityPlanningProcess", value);
-}
-std::string MonitoringQualityContentForm::growthProjections() const {
-  return doc().formField(path(), "growthProjections");
-}
-void MonitoringQualityContentForm::setGrowthProjections(const std::string& value) {
-  doc().setFormField(path(), "growthProjections", value);
-}
-
-MonitoringQualityCoverageContentForm::MonitoringQualityCoverageContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringQualityCoverageContentForm::infrastructureMonitoring() const {
-  return doc().formField(path(), "infrastructureMonitoring");
-}
-void MonitoringQualityCoverageContentForm::setInfrastructureMonitoring(const std::string& value) {
-  doc().setFormField(path(), "infrastructureMonitoring", value);
-}
-std::string MonitoringQualityCoverageContentForm::applicationMonitoring() const {
-  return doc().formField(path(), "applicationMonitoring");
-}
-void MonitoringQualityCoverageContentForm::setApplicationMonitoring(const std::string& value) {
-  doc().setFormField(path(), "applicationMonitoring", value);
-}
-std::string MonitoringQualityCoverageContentForm::databaseMonitoring() const {
-  return doc().formField(path(), "databaseMonitoring");
-}
-void MonitoringQualityCoverageContentForm::setDatabaseMonitoring(const std::string& value) {
-  doc().setFormField(path(), "databaseMonitoring", value);
-}
-std::string MonitoringQualityCoverageContentForm::thirdPartyMonitoring() const {
-  return doc().formField(path(), "thirdPartyMonitoring");
-}
-void MonitoringQualityCoverageContentForm::setThirdPartyMonitoring(const std::string& value) {
-  doc().setFormField(path(), "thirdPartyMonitoring", value);
-}
-
-MonitoringQualityOperationsContentForm::MonitoringQualityOperationsContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringQualityOperationsContentForm::resourcePlanningFrequency() const {
+std::string MonitoringOperationsContentForm::resourcePlanningFrequency() const {
   return doc().formField(path(), "resourcePlanningFrequency");
 }
-void MonitoringQualityOperationsContentForm::setResourcePlanningFrequency(const std::string& value) {
+void MonitoringOperationsContentForm::setResourcePlanningFrequency(const std::string& value) {
   doc().setFormField(path(), "resourcePlanningFrequency", value);
 }
-std::string MonitoringQualityOperationsContentForm::proactiveMaintenanceSchedule() const {
+std::string MonitoringOperationsContentForm::proactiveMaintenanceSchedule() const {
   return doc().formField(path(), "proactiveMaintenanceSchedule");
 }
-void MonitoringQualityOperationsContentForm::setProactiveMaintenanceSchedule(const std::string& value) {
+void MonitoringOperationsContentForm::setProactiveMaintenanceSchedule(const std::string& value) {
   doc().setFormField(path(), "proactiveMaintenanceSchedule", value);
 }
-std::string MonitoringQualityOperationsContentForm::observabilityPillars() const {
+std::string MonitoringOperationsContentForm::observabilityPillars() const {
   return doc().formField(path(), "observabilityPillars");
 }
-void MonitoringQualityOperationsContentForm::setObservabilityPillars(const std::string& value) {
+void MonitoringOperationsContentForm::setObservabilityPillars(const std::string& value) {
   doc().setFormField(path(), "observabilityPillars", value);
 }
-std::string MonitoringQualityOperationsContentForm::distributedTracingRequirement() const {
+std::string MonitoringOperationsContentForm::distributedTracingRequirement() const {
   return doc().formField(path(), "distributedTracingRequirement");
 }
-void MonitoringQualityOperationsContentForm::setDistributedTracingRequirement(const std::string& value) {
+void MonitoringOperationsContentForm::setDistributedTracingRequirement(const std::string& value) {
   doc().setFormField(path(), "distributedTracingRequirement", value);
 }
-std::string MonitoringQualityOperationsContentForm::logRetentionPeriod() const {
+std::string MonitoringOperationsContentForm::logRetentionPeriod() const {
   return doc().formField(path(), "logRetentionPeriod");
 }
-void MonitoringQualityOperationsContentForm::setLogRetentionPeriod(const std::string& value) {
+void MonitoringOperationsContentForm::setLogRetentionPeriod(const std::string& value) {
   doc().setFormField(path(), "logRetentionPeriod", value);
 }
 
@@ -71127,6 +71274,27 @@ void OngoingTrainingEntryScheduleContentForm::setDuration(const std::string& val
   doc().setFormField(path(), "duration", value);
 }
 
+OperationalMonitoringContentForm::OperationalMonitoringContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string OperationalMonitoringContentForm::scalabilityMonitoringApproach() const {
+  return doc().formField(path(), "scalabilityMonitoringApproach");
+}
+void OperationalMonitoringContentForm::setScalabilityMonitoringApproach(const std::string& value) {
+  doc().setFormField(path(), "scalabilityMonitoringApproach", value);
+}
+std::string OperationalMonitoringContentForm::capacityPlanningProcess() const {
+  return doc().formField(path(), "capacityPlanningProcess");
+}
+void OperationalMonitoringContentForm::setCapacityPlanningProcess(const std::string& value) {
+  doc().setFormField(path(), "capacityPlanningProcess", value);
+}
+std::string OperationalMonitoringContentForm::growthProjections() const {
+  return doc().formField(path(), "growthProjections");
+}
+void OperationalMonitoringContentForm::setGrowthProjections(const std::string& value) {
+  doc().setFormField(path(), "growthProjections", value);
+}
+
 OperationalPainPointsSummaryContentForm::OperationalPainPointsSummaryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string OperationalPainPointsSummaryContentForm::averageDowntimePerMonth() const {
@@ -71158,45 +71326,6 @@ std::string OperationalPainPointsSummaryContentForm::staffOverhead() const {
 }
 void OperationalPainPointsSummaryContentForm::setStaffOverhead(const std::string& value) {
   doc().setFormField(path(), "staffOverhead", value);
-}
-
-OperationsQualityCriteriaOperationsOverviewContentForm::OperationsQualityCriteriaOperationsOverviewContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::operationsMaturityModel() const {
-  return doc().formField(path(), "operationsMaturityModel");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setOperationsMaturityModel(const std::string& value) {
-  doc().setFormField(path(), "operationsMaturityModel", value);
-}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::operationsPhilosophy() const {
-  return doc().formField(path(), "operationsPhilosophy");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setOperationsPhilosophy(const std::string& value) {
-  doc().setFormField(path(), "operationsPhilosophy", value);
-}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::operationsResponsibility() const {
-  return doc().formField(path(), "operationsResponsibility");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setOperationsResponsibility(const std::string& value) {
-  doc().setFormField(path(), "operationsResponsibility", value);
-}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::incidentManagementProcess() const {
-  return doc().formField(path(), "incidentManagementProcess");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setIncidentManagementProcess(const std::string& value) {
-  doc().setFormField(path(), "incidentManagementProcess", value);
-}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::changeManagementProcess() const {
-  return doc().formField(path(), "changeManagementProcess");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setChangeManagementProcess(const std::string& value) {
-  doc().setFormField(path(), "changeManagementProcess", value);
-}
-std::string OperationsQualityCriteriaOperationsOverviewContentForm::operationsToolchain() const {
-  return doc().formField(path(), "operationsToolchain");
-}
-void OperationsQualityCriteriaOperationsOverviewContentForm::setOperationsToolchain(const std::string& value) {
-  doc().setFormField(path(), "operationsToolchain", value);
 }
 
 OpportunityStatementOpportunityDetailsForm::OpportunityStatementOpportunityDetailsForm(som::SpecDocument& doc, std::string path)
@@ -72870,6 +72999,39 @@ void PenetrationTestingRequirementsSchedulingContentForm::setTriggerBasedTesting
   doc().setFormField(path(), "triggerBasedTesting", value);
 }
 
+PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::technicalQualityPhilosophy() const {
+  return doc().formField(path(), "technicalQualityPhilosophy");
+}
+void PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::setTechnicalQualityPhilosophy(const std::string& value) {
+  doc().setFormField(path(), "technicalQualityPhilosophy", value);
+}
+std::string PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::architecturalQualityGoals() const {
+  return doc().formField(path(), "architecturalQualityGoals");
+}
+void PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::setArchitecturalQualityGoals(const std::string& value) {
+  doc().setFormField(path(), "architecturalQualityGoals", value);
+}
+std::string PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::technicalDebtTolerance() const {
+  return doc().formField(path(), "technicalDebtTolerance");
+}
+void PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::setTechnicalDebtTolerance(const std::string& value) {
+  doc().setFormField(path(), "technicalDebtTolerance", value);
+}
+std::string PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::codeQualityStandard() const {
+  return doc().formField(path(), "codeQualityStandard");
+}
+void PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::setCodeQualityStandard(const std::string& value) {
+  doc().setFormField(path(), "codeQualityStandard", value);
+}
+std::string PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::designPrinciplesAdherence() const {
+  return doc().formField(path(), "designPrinciplesAdherence");
+}
+void PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::setDesignPrinciplesAdherence(const std::string& value) {
+  doc().setFormField(path(), "designPrinciplesAdherence", value);
+}
+
 PeriodicReviewPolicyContentForm::PeriodicReviewPolicyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string PeriodicReviewPolicyContentForm::accessReviewFrequency() const {
@@ -73755,66 +73917,66 @@ void PipelineStageEntryTriggerContentForm::setManualApproval(const std::string& 
   doc().setFormField(path(), "manualApproval", value);
 }
 
-PortabilityQualityContentForm::PortabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+PortabilityContentForm::PortabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PortabilityQualityContentForm::targetPlatforms() const {
+std::string PortabilityContentForm::targetPlatforms() const {
   return doc().formField(path(), "targetPlatforms");
 }
-void PortabilityQualityContentForm::setTargetPlatforms(const std::string& value) {
+void PortabilityContentForm::setTargetPlatforms(const std::string& value) {
   doc().setFormField(path(), "targetPlatforms", value);
 }
-std::string PortabilityQualityContentForm::browserSupport() const {
+std::string PortabilityContentForm::browserSupport() const {
   return doc().formField(path(), "browserSupport");
 }
-void PortabilityQualityContentForm::setBrowserSupport(const std::string& value) {
+void PortabilityContentForm::setBrowserSupport(const std::string& value) {
   doc().setFormField(path(), "browserSupport", value);
 }
-std::string PortabilityQualityContentForm::mobileOsVersions() const {
+std::string PortabilityContentForm::mobileOsVersions() const {
   return doc().formField(path(), "mobileOsVersions");
 }
-void PortabilityQualityContentForm::setMobileOsVersions(const std::string& value) {
+void PortabilityContentForm::setMobileOsVersions(const std::string& value) {
   doc().setFormField(path(), "mobileOsVersions", value);
 }
-std::string PortabilityQualityContentForm::desktopOsVersions() const {
+std::string PortabilityContentForm::desktopOsVersions() const {
   return doc().formField(path(), "desktopOsVersions");
 }
-void PortabilityQualityContentForm::setDesktopOsVersions(const std::string& value) {
+void PortabilityContentForm::setDesktopOsVersions(const std::string& value) {
   doc().setFormField(path(), "desktopOsVersions", value);
 }
-std::string PortabilityQualityContentForm::migrationEffortConstraint() const {
+std::string PortabilityContentForm::migrationEffortConstraint() const {
   return doc().formField(path(), "migrationEffortConstraint");
 }
-void PortabilityQualityContentForm::setMigrationEffortConstraint(const std::string& value) {
+void PortabilityContentForm::setMigrationEffortConstraint(const std::string& value) {
   doc().setFormField(path(), "migrationEffortConstraint", value);
 }
-std::string PortabilityQualityContentForm::dataPortability() const {
+std::string PortabilityContentForm::dataPortability() const {
   return doc().formField(path(), "dataPortability");
 }
-void PortabilityQualityContentForm::setDataPortability(const std::string& value) {
+void PortabilityContentForm::setDataPortability(const std::string& value) {
   doc().setFormField(path(), "dataPortability", value);
 }
-std::string PortabilityQualityContentForm::vendorLockInAvoidance() const {
+std::string PortabilityContentForm::vendorLockInAvoidance() const {
   return doc().formField(path(), "vendorLockInAvoidance");
 }
-void PortabilityQualityContentForm::setVendorLockInAvoidance(const std::string& value) {
+void PortabilityContentForm::setVendorLockInAvoidance(const std::string& value) {
   doc().setFormField(path(), "vendorLockInAvoidance", value);
 }
-std::string PortabilityQualityContentForm::containerizationRequirement() const {
+std::string PortabilityContentForm::containerizationRequirement() const {
   return doc().formField(path(), "containerizationRequirement");
 }
-void PortabilityQualityContentForm::setContainerizationRequirement(const std::string& value) {
+void PortabilityContentForm::setContainerizationRequirement(const std::string& value) {
   doc().setFormField(path(), "containerizationRequirement", value);
 }
-std::string PortabilityQualityContentForm::infrastructureAsCode() const {
+std::string PortabilityContentForm::infrastructureAsCode() const {
   return doc().formField(path(), "infrastructureAsCode");
 }
-void PortabilityQualityContentForm::setInfrastructureAsCode(const std::string& value) {
+void PortabilityContentForm::setInfrastructureAsCode(const std::string& value) {
   doc().setFormField(path(), "infrastructureAsCode", value);
 }
-std::string PortabilityQualityContentForm::portabilityVerification() const {
+std::string PortabilityContentForm::portabilityVerification() const {
   return doc().formField(path(), "portabilityVerification");
 }
-void PortabilityQualityContentForm::setPortabilityVerification(const std::string& value) {
+void PortabilityContentForm::setPortabilityVerification(const std::string& value) {
   doc().setFormField(path(), "portabilityVerification", value);
 }
 
@@ -78033,6 +78195,114 @@ void QualityGateChecklistChecklistOverviewContentForm::setChecklistFrequency(con
   doc().setFormField(path(), "checklistFrequency", value);
 }
 
+QualityGoalsBaselineContentForm::QualityGoalsBaselineContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string QualityGoalsBaselineContentForm::qualityBaselineDate() const {
+  return doc().formField(path(), "qualityBaselineDate");
+}
+void QualityGoalsBaselineContentForm::setQualityBaselineDate(const std::string& value) {
+  doc().setFormField(path(), "qualityBaselineDate", value);
+}
+std::string QualityGoalsBaselineContentForm::qualityBaselineVersion() const {
+  return doc().formField(path(), "qualityBaselineVersion");
+}
+void QualityGoalsBaselineContentForm::setQualityBaselineVersion(const std::string& value) {
+  doc().setFormField(path(), "qualityBaselineVersion", value);
+}
+std::string QualityGoalsBaselineContentForm::overallQualityTargetLevel() const {
+  return doc().formField(path(), "overallQualityTargetLevel");
+}
+void QualityGoalsBaselineContentForm::setOverallQualityTargetLevel(const std::string& value) {
+  doc().setFormField(path(), "overallQualityTargetLevel", value);
+}
+std::string QualityGoalsBaselineContentForm::qualityRiskTolerance() const {
+  return doc().formField(path(), "qualityRiskTolerance");
+}
+void QualityGoalsBaselineContentForm::setQualityRiskTolerance(const std::string& value) {
+  doc().setFormField(path(), "qualityRiskTolerance", value);
+}
+
+QualityGoalsGovernanceContentForm::QualityGoalsGovernanceContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string QualityGoalsGovernanceContentForm::qualityReviewBoard() const {
+  return doc().formField(path(), "qualityReviewBoard");
+}
+void QualityGoalsGovernanceContentForm::setQualityReviewBoard(const std::string& value) {
+  doc().setFormField(path(), "qualityReviewBoard", value);
+}
+std::string QualityGoalsGovernanceContentForm::qualityMeetingCadence() const {
+  return doc().formField(path(), "qualityMeetingCadence");
+}
+void QualityGoalsGovernanceContentForm::setQualityMeetingCadence(const std::string& value) {
+  doc().setFormField(path(), "qualityMeetingCadence", value);
+}
+std::string QualityGoalsGovernanceContentForm::qualityEscalationPath() const {
+  return doc().formField(path(), "qualityEscalationPath");
+}
+void QualityGoalsGovernanceContentForm::setQualityEscalationPath(const std::string& value) {
+  doc().setFormField(path(), "qualityEscalationPath", value);
+}
+
+QualityGoalsMeasurementContentForm::QualityGoalsMeasurementContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string QualityGoalsMeasurementContentForm::qualityMetricsFramework() const {
+  return doc().formField(path(), "qualityMetricsFramework");
+}
+void QualityGoalsMeasurementContentForm::setQualityMetricsFramework(const std::string& value) {
+  doc().setFormField(path(), "qualityMetricsFramework", value);
+}
+std::string QualityGoalsMeasurementContentForm::qualityReportingFrequency() const {
+  return doc().formField(path(), "qualityReportingFrequency");
+}
+void QualityGoalsMeasurementContentForm::setQualityReportingFrequency(const std::string& value) {
+  doc().setFormField(path(), "qualityReportingFrequency", value);
+}
+std::string QualityGoalsMeasurementContentForm::qualityDashboardTool() const {
+  return doc().formField(path(), "qualityDashboardTool");
+}
+void QualityGoalsMeasurementContentForm::setQualityDashboardTool(const std::string& value) {
+  doc().setFormField(path(), "qualityDashboardTool", value);
+}
+std::string QualityGoalsMeasurementContentForm::defectTrackingSystem() const {
+  return doc().formField(path(), "defectTrackingSystem");
+}
+void QualityGoalsMeasurementContentForm::setDefectTrackingSystem(const std::string& value) {
+  doc().setFormField(path(), "defectTrackingSystem", value);
+}
+std::string QualityGoalsMeasurementContentForm::qualityTrendAnalysis() const {
+  return doc().formField(path(), "qualityTrendAnalysis");
+}
+void QualityGoalsMeasurementContentForm::setQualityTrendAnalysis(const std::string& value) {
+  doc().setFormField(path(), "qualityTrendAnalysis", value);
+}
+
+QualityGoalsResourcesContentForm::QualityGoalsResourcesContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string QualityGoalsResourcesContentForm::qualityBudget() const {
+  return doc().formField(path(), "qualityBudget");
+}
+void QualityGoalsResourcesContentForm::setQualityBudget(const std::string& value) {
+  doc().setFormField(path(), "qualityBudget", value);
+}
+std::string QualityGoalsResourcesContentForm::qaTeamSize() const {
+  return doc().formField(path(), "qaTeamSize");
+}
+void QualityGoalsResourcesContentForm::setQaTeamSize(const std::string& value) {
+  doc().setFormField(path(), "qaTeamSize", value);
+}
+std::string QualityGoalsResourcesContentForm::testAutomationTarget() const {
+  return doc().formField(path(), "testAutomationTarget");
+}
+void QualityGoalsResourcesContentForm::setTestAutomationTarget(const std::string& value) {
+  doc().setFormField(path(), "testAutomationTarget", value);
+}
+std::string QualityGoalsResourcesContentForm::qualityTrainingPlan() const {
+  return doc().formField(path(), "qualityTrainingPlan");
+}
+void QualityGoalsResourcesContentForm::setQualityTrainingPlan(const std::string& value) {
+  doc().setFormField(path(), "qualityTrainingPlan", value);
+}
+
 QualityPrioritizationPrioritizationFrameworkContentForm::QualityPrioritizationPrioritizationFrameworkContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string QualityPrioritizationPrioritizationFrameworkContentForm::prioritizationMethod() const {
@@ -78387,108 +78657,108 @@ void RateLimitingPolicyQuotasContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
-ReadabilityQualityComprehensibilityContentForm::ReadabilityQualityComprehensibilityContentForm(som::SpecDocument& doc, std::string path)
+ReadabilityComprehensibilityContentForm::ReadabilityComprehensibilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReadabilityQualityComprehensibilityContentForm::readingLevelTarget() const {
+std::string ReadabilityComprehensibilityContentForm::readingLevelTarget() const {
   return doc().formField(path(), "readingLevelTarget");
 }
-void ReadabilityQualityComprehensibilityContentForm::setReadingLevelTarget(const std::string& value) {
+void ReadabilityComprehensibilityContentForm::setReadingLevelTarget(const std::string& value) {
   doc().setFormField(path(), "readingLevelTarget", value);
 }
-std::string ReadabilityQualityComprehensibilityContentForm::formatStandards() const {
+std::string ReadabilityComprehensibilityContentForm::formatStandards() const {
   return doc().formField(path(), "formatStandards");
 }
-void ReadabilityQualityComprehensibilityContentForm::setFormatStandards(const std::string& value) {
+void ReadabilityComprehensibilityContentForm::setFormatStandards(const std::string& value) {
   doc().setFormField(path(), "formatStandards", value);
 }
-std::string ReadabilityQualityComprehensibilityContentForm::visualAidRequirements() const {
+std::string ReadabilityComprehensibilityContentForm::visualAidRequirements() const {
   return doc().formField(path(), "visualAidRequirements");
 }
-void ReadabilityQualityComprehensibilityContentForm::setVisualAidRequirements(const std::string& value) {
+void ReadabilityComprehensibilityContentForm::setVisualAidRequirements(const std::string& value) {
   doc().setFormField(path(), "visualAidRequirements", value);
 }
 
-ReadabilityQualityContentForm::ReadabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+ReadabilityContentForm::ReadabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReadabilityQualityContentForm::terminologyStandard() const {
+std::string ReadabilityContentForm::terminologyStandard() const {
   return doc().formField(path(), "terminologyStandard");
 }
-void ReadabilityQualityContentForm::setTerminologyStandard(const std::string& value) {
+void ReadabilityContentForm::setTerminologyStandard(const std::string& value) {
   doc().setFormField(path(), "terminologyStandard", value);
 }
-std::string ReadabilityQualityContentForm::ambiguityPrevention() const {
+std::string ReadabilityContentForm::ambiguityPrevention() const {
   return doc().formField(path(), "ambiguityPrevention");
 }
-void ReadabilityQualityContentForm::setAmbiguityPrevention(const std::string& value) {
+void ReadabilityContentForm::setAmbiguityPrevention(const std::string& value) {
   doc().setFormField(path(), "ambiguityPrevention", value);
 }
-std::string ReadabilityQualityContentForm::jargonPolicy() const {
+std::string ReadabilityContentForm::jargonPolicy() const {
   return doc().formField(path(), "jargonPolicy");
 }
-void ReadabilityQualityContentForm::setJargonPolicy(const std::string& value) {
+void ReadabilityContentForm::setJargonPolicy(const std::string& value) {
   doc().setFormField(path(), "jargonPolicy", value);
 }
 
-ReadabilityQualityNavigationContentForm::ReadabilityQualityNavigationContentForm(som::SpecDocument& doc, std::string path)
+ReadabilityNavigationContentForm::ReadabilityNavigationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReadabilityQualityNavigationContentForm::sectionNumbering() const {
+std::string ReadabilityNavigationContentForm::sectionNumbering() const {
   return doc().formField(path(), "sectionNumbering");
 }
-void ReadabilityQualityNavigationContentForm::setSectionNumbering(const std::string& value) {
+void ReadabilityNavigationContentForm::setSectionNumbering(const std::string& value) {
   doc().setFormField(path(), "sectionNumbering", value);
 }
-std::string ReadabilityQualityNavigationContentForm::crossReferenceStandard() const {
+std::string ReadabilityNavigationContentForm::crossReferenceStandard() const {
   return doc().formField(path(), "crossReferenceStandard");
 }
-void ReadabilityQualityNavigationContentForm::setCrossReferenceStandard(const std::string& value) {
+void ReadabilityNavigationContentForm::setCrossReferenceStandard(const std::string& value) {
   doc().setFormField(path(), "crossReferenceStandard", value);
 }
-std::string ReadabilityQualityNavigationContentForm::searchability() const {
+std::string ReadabilityNavigationContentForm::searchability() const {
   return doc().formField(path(), "searchability");
 }
-void ReadabilityQualityNavigationContentForm::setSearchability(const std::string& value) {
+void ReadabilityNavigationContentForm::setSearchability(const std::string& value) {
   doc().setFormField(path(), "searchability", value);
 }
 
-ReadabilityQualityStructureContentForm::ReadabilityQualityStructureContentForm(som::SpecDocument& doc, std::string path)
+ReadabilityStructureContentForm::ReadabilityStructureContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReadabilityQualityStructureContentForm::documentStructureTemplate() const {
+std::string ReadabilityStructureContentForm::documentStructureTemplate() const {
   return doc().formField(path(), "documentStructureTemplate");
 }
-void ReadabilityQualityStructureContentForm::setDocumentStructureTemplate(const std::string& value) {
+void ReadabilityStructureContentForm::setDocumentStructureTemplate(const std::string& value) {
   doc().setFormField(path(), "documentStructureTemplate", value);
 }
-std::string ReadabilityQualityStructureContentForm::informationHierarchy() const {
+std::string ReadabilityStructureContentForm::informationHierarchy() const {
   return doc().formField(path(), "informationHierarchy");
 }
-void ReadabilityQualityStructureContentForm::setInformationHierarchy(const std::string& value) {
+void ReadabilityStructureContentForm::setInformationHierarchy(const std::string& value) {
   doc().setFormField(path(), "informationHierarchy", value);
 }
-std::string ReadabilityQualityStructureContentForm::navigationAids() const {
+std::string ReadabilityStructureContentForm::navigationAids() const {
   return doc().formField(path(), "navigationAids");
 }
-void ReadabilityQualityStructureContentForm::setNavigationAids(const std::string& value) {
+void ReadabilityStructureContentForm::setNavigationAids(const std::string& value) {
   doc().setFormField(path(), "navigationAids", value);
 }
 
-ReadabilityQualityStyleContentForm::ReadabilityQualityStyleContentForm(som::SpecDocument& doc, std::string path)
+ReadabilityStyleContentForm::ReadabilityStyleContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReadabilityQualityStyleContentForm::styleGuideReference() const {
+std::string ReadabilityStyleContentForm::styleGuideReference() const {
   return doc().formField(path(), "styleGuideReference");
 }
-void ReadabilityQualityStyleContentForm::setStyleGuideReference(const std::string& value) {
+void ReadabilityStyleContentForm::setStyleGuideReference(const std::string& value) {
   doc().setFormField(path(), "styleGuideReference", value);
 }
-std::string ReadabilityQualityStyleContentForm::writingVoice() const {
+std::string ReadabilityStyleContentForm::writingVoice() const {
   return doc().formField(path(), "writingVoice");
 }
-void ReadabilityQualityStyleContentForm::setWritingVoice(const std::string& value) {
+void ReadabilityStyleContentForm::setWritingVoice(const std::string& value) {
   doc().setFormField(path(), "writingVoice", value);
 }
-std::string ReadabilityQualityStyleContentForm::formattingConventions() const {
+std::string ReadabilityStyleContentForm::formattingConventions() const {
   return doc().formField(path(), "formattingConventions");
 }
-void ReadabilityQualityStyleContentForm::setFormattingConventions(const std::string& value) {
+void ReadabilityStyleContentForm::setFormattingConventions(const std::string& value) {
   doc().setFormField(path(), "formattingConventions", value);
 }
 
@@ -79329,114 +79599,153 @@ void RelevantSectionEntryContentForm::setComplianceRequired(const std::string& v
   doc().setFormField(path(), "complianceRequired", value);
 }
 
-ReliabilityQualityContentForm::ReliabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+ReliabilityCharacteristicReliabilityContentForm::ReliabilityCharacteristicReliabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReliabilityQualityContentForm::uptimeTarget() const {
+std::string ReliabilityCharacteristicReliabilityContentForm::operationsMaturityModel() const {
+  return doc().formField(path(), "operationsMaturityModel");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setOperationsMaturityModel(const std::string& value) {
+  doc().setFormField(path(), "operationsMaturityModel", value);
+}
+std::string ReliabilityCharacteristicReliabilityContentForm::operationsPhilosophy() const {
+  return doc().formField(path(), "operationsPhilosophy");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setOperationsPhilosophy(const std::string& value) {
+  doc().setFormField(path(), "operationsPhilosophy", value);
+}
+std::string ReliabilityCharacteristicReliabilityContentForm::operationsResponsibility() const {
+  return doc().formField(path(), "operationsResponsibility");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setOperationsResponsibility(const std::string& value) {
+  doc().setFormField(path(), "operationsResponsibility", value);
+}
+std::string ReliabilityCharacteristicReliabilityContentForm::incidentManagementProcess() const {
+  return doc().formField(path(), "incidentManagementProcess");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setIncidentManagementProcess(const std::string& value) {
+  doc().setFormField(path(), "incidentManagementProcess", value);
+}
+std::string ReliabilityCharacteristicReliabilityContentForm::changeManagementProcess() const {
+  return doc().formField(path(), "changeManagementProcess");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setChangeManagementProcess(const std::string& value) {
+  doc().setFormField(path(), "changeManagementProcess", value);
+}
+std::string ReliabilityCharacteristicReliabilityContentForm::operationsToolchain() const {
+  return doc().formField(path(), "operationsToolchain");
+}
+void ReliabilityCharacteristicReliabilityContentForm::setOperationsToolchain(const std::string& value) {
+  doc().setFormField(path(), "operationsToolchain", value);
+}
+
+ReliabilityContentForm::ReliabilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReliabilityContentForm::uptimeTarget() const {
   return doc().formField(path(), "uptimeTarget");
 }
-void ReliabilityQualityContentForm::setUptimeTarget(const std::string& value) {
+void ReliabilityContentForm::setUptimeTarget(const std::string& value) {
   doc().setFormField(path(), "uptimeTarget", value);
 }
-std::string ReliabilityQualityContentForm::plannedDowntimeWindow() const {
+std::string ReliabilityContentForm::plannedDowntimeWindow() const {
   return doc().formField(path(), "plannedDowntimeWindow");
 }
-void ReliabilityQualityContentForm::setPlannedDowntimeWindow(const std::string& value) {
+void ReliabilityContentForm::setPlannedDowntimeWindow(const std::string& value) {
   doc().setFormField(path(), "plannedDowntimeWindow", value);
 }
-std::string ReliabilityQualityContentForm::degradedModeCapability() const {
+std::string ReliabilityContentForm::degradedModeCapability() const {
   return doc().formField(path(), "degradedModeCapability");
 }
-void ReliabilityQualityContentForm::setDegradedModeCapability(const std::string& value) {
+void ReliabilityContentForm::setDegradedModeCapability(const std::string& value) {
   doc().setFormField(path(), "degradedModeCapability", value);
 }
 
-ReliabilityQualityDurabilityContentForm::ReliabilityQualityDurabilityContentForm(som::SpecDocument& doc, std::string path)
+ReliabilityDurabilityContentForm::ReliabilityDurabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReliabilityQualityDurabilityContentForm::dataDurability() const {
+std::string ReliabilityDurabilityContentForm::dataDurability() const {
   return doc().formField(path(), "dataDurability");
 }
-void ReliabilityQualityDurabilityContentForm::setDataDurability(const std::string& value) {
+void ReliabilityDurabilityContentForm::setDataDurability(const std::string& value) {
   doc().setFormField(path(), "dataDurability", value);
 }
-std::string ReliabilityQualityDurabilityContentForm::backupFrequency() const {
+std::string ReliabilityDurabilityContentForm::backupFrequency() const {
   return doc().formField(path(), "backupFrequency");
 }
-void ReliabilityQualityDurabilityContentForm::setBackupFrequency(const std::string& value) {
+void ReliabilityDurabilityContentForm::setBackupFrequency(const std::string& value) {
   doc().setFormField(path(), "backupFrequency", value);
 }
-std::string ReliabilityQualityDurabilityContentForm::backupRetention() const {
+std::string ReliabilityDurabilityContentForm::backupRetention() const {
   return doc().formField(path(), "backupRetention");
 }
-void ReliabilityQualityDurabilityContentForm::setBackupRetention(const std::string& value) {
+void ReliabilityDurabilityContentForm::setBackupRetention(const std::string& value) {
   doc().setFormField(path(), "backupRetention", value);
 }
-std::string ReliabilityQualityDurabilityContentForm::backupVerification() const {
+std::string ReliabilityDurabilityContentForm::backupVerification() const {
   return doc().formField(path(), "backupVerification");
 }
-void ReliabilityQualityDurabilityContentForm::setBackupVerification(const std::string& value) {
+void ReliabilityDurabilityContentForm::setBackupVerification(const std::string& value) {
   doc().setFormField(path(), "backupVerification", value);
 }
 
-ReliabilityQualityFailoverContentForm::ReliabilityQualityFailoverContentForm(som::SpecDocument& doc, std::string path)
+ReliabilityFailoverContentForm::ReliabilityFailoverContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReliabilityQualityFailoverContentForm::failoverStrategy() const {
+std::string ReliabilityFailoverContentForm::failoverStrategy() const {
   return doc().formField(path(), "failoverStrategy");
 }
-void ReliabilityQualityFailoverContentForm::setFailoverStrategy(const std::string& value) {
+void ReliabilityFailoverContentForm::setFailoverStrategy(const std::string& value) {
   doc().setFormField(path(), "failoverStrategy", value);
 }
-std::string ReliabilityQualityFailoverContentForm::failoverTime() const {
+std::string ReliabilityFailoverContentForm::failoverTime() const {
   return doc().formField(path(), "failoverTime");
 }
-void ReliabilityQualityFailoverContentForm::setFailoverTime(const std::string& value) {
+void ReliabilityFailoverContentForm::setFailoverTime(const std::string& value) {
   doc().setFormField(path(), "failoverTime", value);
 }
-std::string ReliabilityQualityFailoverContentForm::failoverTesting() const {
+std::string ReliabilityFailoverContentForm::failoverTesting() const {
   return doc().formField(path(), "failoverTesting");
 }
-void ReliabilityQualityFailoverContentForm::setFailoverTesting(const std::string& value) {
+void ReliabilityFailoverContentForm::setFailoverTesting(const std::string& value) {
   doc().setFormField(path(), "failoverTesting", value);
 }
 
-ReliabilityQualityRecoveryContentForm::ReliabilityQualityRecoveryContentForm(som::SpecDocument& doc, std::string path)
+ReliabilityRecoveryContentForm::ReliabilityRecoveryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReliabilityQualityRecoveryContentForm::mtbfTarget() const {
+std::string ReliabilityRecoveryContentForm::mtbfTarget() const {
   return doc().formField(path(), "mtbfTarget");
 }
-void ReliabilityQualityRecoveryContentForm::setMtbfTarget(const std::string& value) {
+void ReliabilityRecoveryContentForm::setMtbfTarget(const std::string& value) {
   doc().setFormField(path(), "mtbfTarget", value);
 }
-std::string ReliabilityQualityRecoveryContentForm::mttrTarget() const {
+std::string ReliabilityRecoveryContentForm::mttrTarget() const {
   return doc().formField(path(), "mttrTarget");
 }
-void ReliabilityQualityRecoveryContentForm::setMttrTarget(const std::string& value) {
+void ReliabilityRecoveryContentForm::setMttrTarget(const std::string& value) {
   doc().setFormField(path(), "mttrTarget", value);
 }
-std::string ReliabilityQualityRecoveryContentForm::rtoTarget() const {
+std::string ReliabilityRecoveryContentForm::rtoTarget() const {
   return doc().formField(path(), "rtoTarget");
 }
-void ReliabilityQualityRecoveryContentForm::setRtoTarget(const std::string& value) {
+void ReliabilityRecoveryContentForm::setRtoTarget(const std::string& value) {
   doc().setFormField(path(), "rtoTarget", value);
 }
-std::string ReliabilityQualityRecoveryContentForm::rpoTarget() const {
+std::string ReliabilityRecoveryContentForm::rpoTarget() const {
   return doc().formField(path(), "rpoTarget");
 }
-void ReliabilityQualityRecoveryContentForm::setRpoTarget(const std::string& value) {
+void ReliabilityRecoveryContentForm::setRpoTarget(const std::string& value) {
   doc().setFormField(path(), "rpoTarget", value);
 }
 
-ReliabilityQualityVerificationContentForm::ReliabilityQualityVerificationContentForm(som::SpecDocument& doc, std::string path)
+ReliabilityVerificationContentForm::ReliabilityVerificationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ReliabilityQualityVerificationContentForm::reliabilityVerification() const {
+std::string ReliabilityVerificationContentForm::reliabilityVerification() const {
   return doc().formField(path(), "reliabilityVerification");
 }
-void ReliabilityQualityVerificationContentForm::setReliabilityVerification(const std::string& value) {
+void ReliabilityVerificationContentForm::setReliabilityVerification(const std::string& value) {
   doc().setFormField(path(), "reliabilityVerification", value);
 }
-std::string ReliabilityQualityVerificationContentForm::incidentPostmortem() const {
+std::string ReliabilityVerificationContentForm::incidentPostmortem() const {
   return doc().formField(path(), "incidentPostmortem");
 }
-void ReliabilityQualityVerificationContentForm::setIncidentPostmortem(const std::string& value) {
+void ReliabilityVerificationContentForm::setIncidentPostmortem(const std::string& value) {
   doc().setFormField(path(), "incidentPostmortem", value);
 }
 
@@ -86592,6 +86901,54 @@ void SecurityAuditEntrySchedulingContentForm::setNextAuditDate(const std::string
   doc().setFormField(path(), "nextAuditDate", value);
 }
 
+SecurityAuthenticationContentForm::SecurityAuthenticationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityAuthenticationContentForm::authenticationMethod() const {
+  return doc().formField(path(), "authenticationMethod");
+}
+void SecurityAuthenticationContentForm::setAuthenticationMethod(const std::string& value) {
+  doc().setFormField(path(), "authenticationMethod", value);
+}
+std::string SecurityAuthenticationContentForm::mfaRequirement() const {
+  return doc().formField(path(), "mfaRequirement");
+}
+void SecurityAuthenticationContentForm::setMfaRequirement(const std::string& value) {
+  doc().setFormField(path(), "mfaRequirement", value);
+}
+std::string SecurityAuthenticationContentForm::passwordPolicy() const {
+  return doc().formField(path(), "passwordPolicy");
+}
+void SecurityAuthenticationContentForm::setPasswordPolicy(const std::string& value) {
+  doc().setFormField(path(), "passwordPolicy", value);
+}
+std::string SecurityAuthenticationContentForm::sessionManagement() const {
+  return doc().formField(path(), "sessionManagement");
+}
+void SecurityAuthenticationContentForm::setSessionManagement(const std::string& value) {
+  doc().setFormField(path(), "sessionManagement", value);
+}
+
+SecurityAuthorizationContentForm::SecurityAuthorizationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityAuthorizationContentForm::authorizationModel() const {
+  return doc().formField(path(), "authorizationModel");
+}
+void SecurityAuthorizationContentForm::setAuthorizationModel(const std::string& value) {
+  doc().setFormField(path(), "authorizationModel", value);
+}
+std::string SecurityAuthorizationContentForm::authorizationCoverage() const {
+  return doc().formField(path(), "authorizationCoverage");
+}
+void SecurityAuthorizationContentForm::setAuthorizationCoverage(const std::string& value) {
+  doc().setFormField(path(), "authorizationCoverage", value);
+}
+std::string SecurityAuthorizationContentForm::privilegeEscalationPrevention() const {
+  return doc().formField(path(), "privilegeEscalationPrevention");
+}
+void SecurityAuthorizationContentForm::setPrivilegeEscalationPrevention(const std::string& value) {
+  doc().setFormField(path(), "privilegeEscalationPrevention", value);
+}
+
 SecurityCertificationRequirementsContentForm::SecurityCertificationRequirementsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SecurityCertificationRequirementsContentForm::targetCertifications() const {
@@ -86703,6 +87060,21 @@ void SecurityCertificationRequirementsSoc2ContentForm::setSoc2AuditPeriod(const 
   doc().setFormField(path(), "soc2AuditPeriod", value);
 }
 
+SecurityCharacteristicSecurityContentForm::SecurityCharacteristicSecurityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityCharacteristicSecurityContentForm::securityApproach() const {
+  return doc().formField(path(), "securityApproach");
+}
+void SecurityCharacteristicSecurityContentForm::setSecurityApproach(const std::string& value) {
+  doc().setFormField(path(), "securityApproach", value);
+}
+std::string SecurityCharacteristicSecurityContentForm::securityComplianceTarget() const {
+  return doc().formField(path(), "securityComplianceTarget");
+}
+void SecurityCharacteristicSecurityContentForm::setSecurityComplianceTarget(const std::string& value) {
+  doc().setFormField(path(), "securityComplianceTarget", value);
+}
+
 SecurityCodeReviewPolicyContentForm::SecurityCodeReviewPolicyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SecurityCodeReviewPolicyContentForm::securityReviewTriggers() const {
@@ -86791,6 +87163,54 @@ std::string SecurityCodeReviewPolicyReviewersContentForm::reviewerRotation() con
 }
 void SecurityCodeReviewPolicyReviewersContentForm::setReviewerRotation(const std::string& value) {
   doc().setFormField(path(), "reviewerRotation", value);
+}
+
+SecurityComplianceContentForm::SecurityComplianceContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityComplianceContentForm::securityCompliance() const {
+  return doc().formField(path(), "securityCompliance");
+}
+void SecurityComplianceContentForm::setSecurityCompliance(const std::string& value) {
+  doc().setFormField(path(), "securityCompliance", value);
+}
+std::string SecurityComplianceContentForm::securityCertifications() const {
+  return doc().formField(path(), "securityCertifications");
+}
+void SecurityComplianceContentForm::setSecurityCertifications(const std::string& value) {
+  doc().setFormField(path(), "securityCertifications", value);
+}
+std::string SecurityComplianceContentForm::securityAuditFrequency() const {
+  return doc().formField(path(), "securityAuditFrequency");
+}
+void SecurityComplianceContentForm::setSecurityAuditFrequency(const std::string& value) {
+  doc().setFormField(path(), "securityAuditFrequency", value);
+}
+std::string SecurityComplianceContentForm::securityVerification() const {
+  return doc().formField(path(), "securityVerification");
+}
+void SecurityComplianceContentForm::setSecurityVerification(const std::string& value) {
+  doc().setFormField(path(), "securityVerification", value);
+}
+
+SecurityContentForm::SecurityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityContentForm::encryptionAtRest() const {
+  return doc().formField(path(), "encryptionAtRest");
+}
+void SecurityContentForm::setEncryptionAtRest(const std::string& value) {
+  doc().setFormField(path(), "encryptionAtRest", value);
+}
+std::string SecurityContentForm::encryptionInTransit() const {
+  return doc().formField(path(), "encryptionInTransit");
+}
+void SecurityContentForm::setEncryptionInTransit(const std::string& value) {
+  doc().setFormField(path(), "encryptionInTransit", value);
+}
+std::string SecurityContentForm::keyManagement() const {
+  return doc().formField(path(), "keyManagement");
+}
+void SecurityContentForm::setKeyManagement(const std::string& value) {
+  doc().setFormField(path(), "keyManagement", value);
 }
 
 SecurityControlEntryContentForm::SecurityControlEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -87058,123 +87478,6 @@ std::string SecurityEventLoggingPolicyContentForm::correlationIdentifiers() cons
 }
 void SecurityEventLoggingPolicyContentForm::setCorrelationIdentifiers(const std::string& value) {
   doc().setFormField(path(), "correlationIdentifiers", value);
-}
-
-SecurityQualityAuthenticationContentForm::SecurityQualityAuthenticationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityQualityAuthenticationContentForm::authenticationMethod() const {
-  return doc().formField(path(), "authenticationMethod");
-}
-void SecurityQualityAuthenticationContentForm::setAuthenticationMethod(const std::string& value) {
-  doc().setFormField(path(), "authenticationMethod", value);
-}
-std::string SecurityQualityAuthenticationContentForm::mfaRequirement() const {
-  return doc().formField(path(), "mfaRequirement");
-}
-void SecurityQualityAuthenticationContentForm::setMfaRequirement(const std::string& value) {
-  doc().setFormField(path(), "mfaRequirement", value);
-}
-std::string SecurityQualityAuthenticationContentForm::passwordPolicy() const {
-  return doc().formField(path(), "passwordPolicy");
-}
-void SecurityQualityAuthenticationContentForm::setPasswordPolicy(const std::string& value) {
-  doc().setFormField(path(), "passwordPolicy", value);
-}
-std::string SecurityQualityAuthenticationContentForm::sessionManagement() const {
-  return doc().formField(path(), "sessionManagement");
-}
-void SecurityQualityAuthenticationContentForm::setSessionManagement(const std::string& value) {
-  doc().setFormField(path(), "sessionManagement", value);
-}
-
-SecurityQualityAuthorizationContentForm::SecurityQualityAuthorizationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityQualityAuthorizationContentForm::authorizationModel() const {
-  return doc().formField(path(), "authorizationModel");
-}
-void SecurityQualityAuthorizationContentForm::setAuthorizationModel(const std::string& value) {
-  doc().setFormField(path(), "authorizationModel", value);
-}
-std::string SecurityQualityAuthorizationContentForm::authorizationCoverage() const {
-  return doc().formField(path(), "authorizationCoverage");
-}
-void SecurityQualityAuthorizationContentForm::setAuthorizationCoverage(const std::string& value) {
-  doc().setFormField(path(), "authorizationCoverage", value);
-}
-std::string SecurityQualityAuthorizationContentForm::privilegeEscalationPrevention() const {
-  return doc().formField(path(), "privilegeEscalationPrevention");
-}
-void SecurityQualityAuthorizationContentForm::setPrivilegeEscalationPrevention(const std::string& value) {
-  doc().setFormField(path(), "privilegeEscalationPrevention", value);
-}
-
-SecurityQualityComplianceContentForm::SecurityQualityComplianceContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityQualityComplianceContentForm::securityCompliance() const {
-  return doc().formField(path(), "securityCompliance");
-}
-void SecurityQualityComplianceContentForm::setSecurityCompliance(const std::string& value) {
-  doc().setFormField(path(), "securityCompliance", value);
-}
-std::string SecurityQualityComplianceContentForm::securityCertifications() const {
-  return doc().formField(path(), "securityCertifications");
-}
-void SecurityQualityComplianceContentForm::setSecurityCertifications(const std::string& value) {
-  doc().setFormField(path(), "securityCertifications", value);
-}
-std::string SecurityQualityComplianceContentForm::securityAuditFrequency() const {
-  return doc().formField(path(), "securityAuditFrequency");
-}
-void SecurityQualityComplianceContentForm::setSecurityAuditFrequency(const std::string& value) {
-  doc().setFormField(path(), "securityAuditFrequency", value);
-}
-std::string SecurityQualityComplianceContentForm::securityVerification() const {
-  return doc().formField(path(), "securityVerification");
-}
-void SecurityQualityComplianceContentForm::setSecurityVerification(const std::string& value) {
-  doc().setFormField(path(), "securityVerification", value);
-}
-
-SecurityQualityContentForm::SecurityQualityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityQualityContentForm::encryptionAtRest() const {
-  return doc().formField(path(), "encryptionAtRest");
-}
-void SecurityQualityContentForm::setEncryptionAtRest(const std::string& value) {
-  doc().setFormField(path(), "encryptionAtRest", value);
-}
-std::string SecurityQualityContentForm::encryptionInTransit() const {
-  return doc().formField(path(), "encryptionInTransit");
-}
-void SecurityQualityContentForm::setEncryptionInTransit(const std::string& value) {
-  doc().setFormField(path(), "encryptionInTransit", value);
-}
-std::string SecurityQualityContentForm::keyManagement() const {
-  return doc().formField(path(), "keyManagement");
-}
-void SecurityQualityContentForm::setKeyManagement(const std::string& value) {
-  doc().setFormField(path(), "keyManagement", value);
-}
-
-SecurityQualityVulnerabilityContentForm::SecurityQualityVulnerabilityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityQualityVulnerabilityContentForm::vulnerabilityScanFrequency() const {
-  return doc().formField(path(), "vulnerabilityScanFrequency");
-}
-void SecurityQualityVulnerabilityContentForm::setVulnerabilityScanFrequency(const std::string& value) {
-  doc().setFormField(path(), "vulnerabilityScanFrequency", value);
-}
-std::string SecurityQualityVulnerabilityContentForm::penetrationTestFrequency() const {
-  return doc().formField(path(), "penetrationTestFrequency");
-}
-void SecurityQualityVulnerabilityContentForm::setPenetrationTestFrequency(const std::string& value) {
-  doc().setFormField(path(), "penetrationTestFrequency", value);
-}
-std::string SecurityQualityVulnerabilityContentForm::cveResponseTime() const {
-  return doc().formField(path(), "cveResponseTime");
-}
-void SecurityQualityVulnerabilityContentForm::setCveResponseTime(const std::string& value) {
-  doc().setFormField(path(), "cveResponseTime", value);
 }
 
 SecurityRequirementEntryClassificationContentForm::SecurityRequirementEntryClassificationContentForm(som::SpecDocument& doc, std::string path)
@@ -87706,6 +88009,27 @@ std::string SecurityTestingAutomationScanningContentForm::secretsDetection() con
 }
 void SecurityTestingAutomationScanningContentForm::setSecretsDetection(const std::string& value) {
   doc().setFormField(path(), "secretsDetection", value);
+}
+
+SecurityVulnerabilityContentForm::SecurityVulnerabilityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityVulnerabilityContentForm::vulnerabilityScanFrequency() const {
+  return doc().formField(path(), "vulnerabilityScanFrequency");
+}
+void SecurityVulnerabilityContentForm::setVulnerabilityScanFrequency(const std::string& value) {
+  doc().setFormField(path(), "vulnerabilityScanFrequency", value);
+}
+std::string SecurityVulnerabilityContentForm::penetrationTestFrequency() const {
+  return doc().formField(path(), "penetrationTestFrequency");
+}
+void SecurityVulnerabilityContentForm::setPenetrationTestFrequency(const std::string& value) {
+  doc().setFormField(path(), "penetrationTestFrequency", value);
+}
+std::string SecurityVulnerabilityContentForm::cveResponseTime() const {
+  return doc().formField(path(), "cveResponseTime");
+}
+void SecurityVulnerabilityContentForm::setCveResponseTime(const std::string& value) {
+  doc().setFormField(path(), "cveResponseTime", value);
 }
 
 SelfRegistrationPolicyApprovalContentForm::SelfRegistrationPolicyApprovalContentForm(som::SpecDocument& doc, std::string path)
@@ -88359,6 +88683,48 @@ void ServiceLevelAgreementEntryContentForm::setSlaExclusions(const std::string& 
   doc().setFormField(path(), "slaExclusions", value);
 }
 
+ServiceLevelContentForm::ServiceLevelContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServiceLevelContentForm::supportTierStructure() const {
+  return doc().formField(path(), "supportTierStructure");
+}
+void ServiceLevelContentForm::setSupportTierStructure(const std::string& value) {
+  doc().setFormField(path(), "supportTierStructure", value);
+}
+std::string ServiceLevelContentForm::criticalResponseTime() const {
+  return doc().formField(path(), "criticalResponseTime");
+}
+void ServiceLevelContentForm::setCriticalResponseTime(const std::string& value) {
+  doc().setFormField(path(), "criticalResponseTime", value);
+}
+std::string ServiceLevelContentForm::highResponseTime() const {
+  return doc().formField(path(), "highResponseTime");
+}
+void ServiceLevelContentForm::setHighResponseTime(const std::string& value) {
+  doc().setFormField(path(), "highResponseTime", value);
+}
+
+ServiceLevelEscalationContentForm::ServiceLevelEscalationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServiceLevelEscalationContentForm::escalationTimeframes() const {
+  return doc().formField(path(), "escalationTimeframes");
+}
+void ServiceLevelEscalationContentForm::setEscalationTimeframes(const std::string& value) {
+  doc().setFormField(path(), "escalationTimeframes", value);
+}
+std::string ServiceLevelEscalationContentForm::escalationContacts() const {
+  return doc().formField(path(), "escalationContacts");
+}
+void ServiceLevelEscalationContentForm::setEscalationContacts(const std::string& value) {
+  doc().setFormField(path(), "escalationContacts", value);
+}
+std::string ServiceLevelEscalationContentForm::executiveEscalation() const {
+  return doc().formField(path(), "executiveEscalation");
+}
+void ServiceLevelEscalationContentForm::setExecutiveEscalation(const std::string& value) {
+  doc().setFormField(path(), "executiveEscalation", value);
+}
+
 ServiceLevelIndicatorsContentForm::ServiceLevelIndicatorsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ServiceLevelIndicatorsContentForm::availabilitySli() const {
@@ -88443,123 +88809,81 @@ void ServiceLevelIndicatorsQualityContentForm::setFreshnessSli(const std::string
   doc().setFormField(path(), "freshnessSli", value);
 }
 
-ServiceLevelQualityContentForm::ServiceLevelQualityContentForm(som::SpecDocument& doc, std::string path)
+ServiceLevelOnCallContentForm::ServiceLevelOnCallContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityContentForm::supportTierStructure() const {
-  return doc().formField(path(), "supportTierStructure");
-}
-void ServiceLevelQualityContentForm::setSupportTierStructure(const std::string& value) {
-  doc().setFormField(path(), "supportTierStructure", value);
-}
-std::string ServiceLevelQualityContentForm::criticalResponseTime() const {
-  return doc().formField(path(), "criticalResponseTime");
-}
-void ServiceLevelQualityContentForm::setCriticalResponseTime(const std::string& value) {
-  doc().setFormField(path(), "criticalResponseTime", value);
-}
-std::string ServiceLevelQualityContentForm::highResponseTime() const {
-  return doc().formField(path(), "highResponseTime");
-}
-void ServiceLevelQualityContentForm::setHighResponseTime(const std::string& value) {
-  doc().setFormField(path(), "highResponseTime", value);
-}
-
-ServiceLevelQualityEscalationContentForm::ServiceLevelQualityEscalationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityEscalationContentForm::escalationTimeframes() const {
-  return doc().formField(path(), "escalationTimeframes");
-}
-void ServiceLevelQualityEscalationContentForm::setEscalationTimeframes(const std::string& value) {
-  doc().setFormField(path(), "escalationTimeframes", value);
-}
-std::string ServiceLevelQualityEscalationContentForm::escalationContacts() const {
-  return doc().formField(path(), "escalationContacts");
-}
-void ServiceLevelQualityEscalationContentForm::setEscalationContacts(const std::string& value) {
-  doc().setFormField(path(), "escalationContacts", value);
-}
-std::string ServiceLevelQualityEscalationContentForm::executiveEscalation() const {
-  return doc().formField(path(), "executiveEscalation");
-}
-void ServiceLevelQualityEscalationContentForm::setExecutiveEscalation(const std::string& value) {
-  doc().setFormField(path(), "executiveEscalation", value);
-}
-
-ServiceLevelQualityOnCallContentForm::ServiceLevelQualityOnCallContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityOnCallContentForm::onCallCoverage() const {
+std::string ServiceLevelOnCallContentForm::onCallCoverage() const {
   return doc().formField(path(), "onCallCoverage");
 }
-void ServiceLevelQualityOnCallContentForm::setOnCallCoverage(const std::string& value) {
+void ServiceLevelOnCallContentForm::setOnCallCoverage(const std::string& value) {
   doc().setFormField(path(), "onCallCoverage", value);
 }
-std::string ServiceLevelQualityOnCallContentForm::onCallRotation() const {
+std::string ServiceLevelOnCallContentForm::onCallRotation() const {
   return doc().formField(path(), "onCallRotation");
 }
-void ServiceLevelQualityOnCallContentForm::setOnCallRotation(const std::string& value) {
+void ServiceLevelOnCallContentForm::setOnCallRotation(const std::string& value) {
   doc().setFormField(path(), "onCallRotation", value);
 }
-std::string ServiceLevelQualityOnCallContentForm::onCallCompensation() const {
+std::string ServiceLevelOnCallContentForm::onCallCompensation() const {
   return doc().formField(path(), "onCallCompensation");
 }
-void ServiceLevelQualityOnCallContentForm::setOnCallCompensation(const std::string& value) {
+void ServiceLevelOnCallContentForm::setOnCallCompensation(const std::string& value) {
   doc().setFormField(path(), "onCallCompensation", value);
 }
 
-ServiceLevelQualityResolutionContentForm::ServiceLevelQualityResolutionContentForm(som::SpecDocument& doc, std::string path)
+ServiceLevelResolutionContentForm::ServiceLevelResolutionContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityResolutionContentForm::criticalResolutionTime() const {
+std::string ServiceLevelResolutionContentForm::criticalResolutionTime() const {
   return doc().formField(path(), "criticalResolutionTime");
 }
-void ServiceLevelQualityResolutionContentForm::setCriticalResolutionTime(const std::string& value) {
+void ServiceLevelResolutionContentForm::setCriticalResolutionTime(const std::string& value) {
   doc().setFormField(path(), "criticalResolutionTime", value);
 }
-std::string ServiceLevelQualityResolutionContentForm::highResolutionTime() const {
+std::string ServiceLevelResolutionContentForm::highResolutionTime() const {
   return doc().formField(path(), "highResolutionTime");
 }
-void ServiceLevelQualityResolutionContentForm::setHighResolutionTime(const std::string& value) {
+void ServiceLevelResolutionContentForm::setHighResolutionTime(const std::string& value) {
   doc().setFormField(path(), "highResolutionTime", value);
 }
-std::string ServiceLevelQualityResolutionContentForm::mediumResolutionTime() const {
+std::string ServiceLevelResolutionContentForm::mediumResolutionTime() const {
   return doc().formField(path(), "mediumResolutionTime");
 }
-void ServiceLevelQualityResolutionContentForm::setMediumResolutionTime(const std::string& value) {
+void ServiceLevelResolutionContentForm::setMediumResolutionTime(const std::string& value) {
   doc().setFormField(path(), "mediumResolutionTime", value);
 }
-std::string ServiceLevelQualityResolutionContentForm::lowResolutionTime() const {
+std::string ServiceLevelResolutionContentForm::lowResolutionTime() const {
   return doc().formField(path(), "lowResolutionTime");
 }
-void ServiceLevelQualityResolutionContentForm::setLowResolutionTime(const std::string& value) {
+void ServiceLevelResolutionContentForm::setLowResolutionTime(const std::string& value) {
   doc().setFormField(path(), "lowResolutionTime", value);
 }
 
-ServiceLevelQualityResponseContentForm::ServiceLevelQualityResponseContentForm(som::SpecDocument& doc, std::string path)
+ServiceLevelResponseContentForm::ServiceLevelResponseContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityResponseContentForm::mediumResponseTime() const {
+std::string ServiceLevelResponseContentForm::mediumResponseTime() const {
   return doc().formField(path(), "mediumResponseTime");
 }
-void ServiceLevelQualityResponseContentForm::setMediumResponseTime(const std::string& value) {
+void ServiceLevelResponseContentForm::setMediumResponseTime(const std::string& value) {
   doc().setFormField(path(), "mediumResponseTime", value);
 }
-std::string ServiceLevelQualityResponseContentForm::lowResponseTime() const {
+std::string ServiceLevelResponseContentForm::lowResponseTime() const {
   return doc().formField(path(), "lowResponseTime");
 }
-void ServiceLevelQualityResponseContentForm::setLowResponseTime(const std::string& value) {
+void ServiceLevelResponseContentForm::setLowResponseTime(const std::string& value) {
   doc().setFormField(path(), "lowResponseTime", value);
 }
 
-ServiceLevelQualityRestorationContentForm::ServiceLevelQualityRestorationContentForm(som::SpecDocument& doc, std::string path)
+ServiceLevelRestorationContentForm::ServiceLevelRestorationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceLevelQualityRestorationContentForm::serviceRestorationPriority() const {
+std::string ServiceLevelRestorationContentForm::serviceRestorationPriority() const {
   return doc().formField(path(), "serviceRestorationPriority");
 }
-void ServiceLevelQualityRestorationContentForm::setServiceRestorationPriority(const std::string& value) {
+void ServiceLevelRestorationContentForm::setServiceRestorationPriority(const std::string& value) {
   doc().setFormField(path(), "serviceRestorationPriority", value);
 }
-std::string ServiceLevelQualityRestorationContentForm::communicationDuringOutage() const {
+std::string ServiceLevelRestorationContentForm::communicationDuringOutage() const {
   return doc().formField(path(), "communicationDuringOutage");
 }
-void ServiceLevelQualityRestorationContentForm::setCommunicationDuringOutage(const std::string& value) {
+void ServiceLevelRestorationContentForm::setCommunicationDuringOutage(const std::string& value) {
   doc().setFormField(path(), "communicationDuringOutage", value);
 }
 
@@ -94251,33 +94575,6 @@ void SystemOverviewSummaryStatusContentForm::setTargetGoLiveDate(const std::stri
   doc().setFormField(path(), "targetGoLiveDate", value);
 }
 
-SystemQualityGoalsBaselineContentForm::SystemQualityGoalsBaselineContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemQualityGoalsBaselineContentForm::qualityBaselineDate() const {
-  return doc().formField(path(), "qualityBaselineDate");
-}
-void SystemQualityGoalsBaselineContentForm::setQualityBaselineDate(const std::string& value) {
-  doc().setFormField(path(), "qualityBaselineDate", value);
-}
-std::string SystemQualityGoalsBaselineContentForm::qualityBaselineVersion() const {
-  return doc().formField(path(), "qualityBaselineVersion");
-}
-void SystemQualityGoalsBaselineContentForm::setQualityBaselineVersion(const std::string& value) {
-  doc().setFormField(path(), "qualityBaselineVersion", value);
-}
-std::string SystemQualityGoalsBaselineContentForm::overallQualityTargetLevel() const {
-  return doc().formField(path(), "overallQualityTargetLevel");
-}
-void SystemQualityGoalsBaselineContentForm::setOverallQualityTargetLevel(const std::string& value) {
-  doc().setFormField(path(), "overallQualityTargetLevel", value);
-}
-std::string SystemQualityGoalsBaselineContentForm::qualityRiskTolerance() const {
-  return doc().formField(path(), "qualityRiskTolerance");
-}
-void SystemQualityGoalsBaselineContentForm::setQualityRiskTolerance(const std::string& value) {
-  doc().setFormField(path(), "qualityRiskTolerance", value);
-}
-
 SystemQualityGoalsGovernanceContentForm::SystemQualityGoalsGovernanceContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SystemQualityGoalsGovernanceContentForm::qualityApproach() const {
@@ -94297,87 +94594,6 @@ std::string SystemQualityGoalsGovernanceContentForm::qualityOwner() const {
 }
 void SystemQualityGoalsGovernanceContentForm::setQualityOwner(const std::string& value) {
   doc().setFormField(path(), "qualityOwner", value);
-}
-
-SystemQualityGoalsGovernanceContentForm2::SystemQualityGoalsGovernanceContentForm2(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemQualityGoalsGovernanceContentForm2::qualityReviewBoard() const {
-  return doc().formField(path(), "qualityReviewBoard");
-}
-void SystemQualityGoalsGovernanceContentForm2::setQualityReviewBoard(const std::string& value) {
-  doc().setFormField(path(), "qualityReviewBoard", value);
-}
-std::string SystemQualityGoalsGovernanceContentForm2::qualityMeetingCadence() const {
-  return doc().formField(path(), "qualityMeetingCadence");
-}
-void SystemQualityGoalsGovernanceContentForm2::setQualityMeetingCadence(const std::string& value) {
-  doc().setFormField(path(), "qualityMeetingCadence", value);
-}
-std::string SystemQualityGoalsGovernanceContentForm2::qualityEscalationPath() const {
-  return doc().formField(path(), "qualityEscalationPath");
-}
-void SystemQualityGoalsGovernanceContentForm2::setQualityEscalationPath(const std::string& value) {
-  doc().setFormField(path(), "qualityEscalationPath", value);
-}
-
-SystemQualityGoalsMeasurementContentForm::SystemQualityGoalsMeasurementContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemQualityGoalsMeasurementContentForm::qualityMetricsFramework() const {
-  return doc().formField(path(), "qualityMetricsFramework");
-}
-void SystemQualityGoalsMeasurementContentForm::setQualityMetricsFramework(const std::string& value) {
-  doc().setFormField(path(), "qualityMetricsFramework", value);
-}
-std::string SystemQualityGoalsMeasurementContentForm::qualityReportingFrequency() const {
-  return doc().formField(path(), "qualityReportingFrequency");
-}
-void SystemQualityGoalsMeasurementContentForm::setQualityReportingFrequency(const std::string& value) {
-  doc().setFormField(path(), "qualityReportingFrequency", value);
-}
-std::string SystemQualityGoalsMeasurementContentForm::qualityDashboardTool() const {
-  return doc().formField(path(), "qualityDashboardTool");
-}
-void SystemQualityGoalsMeasurementContentForm::setQualityDashboardTool(const std::string& value) {
-  doc().setFormField(path(), "qualityDashboardTool", value);
-}
-std::string SystemQualityGoalsMeasurementContentForm::defectTrackingSystem() const {
-  return doc().formField(path(), "defectTrackingSystem");
-}
-void SystemQualityGoalsMeasurementContentForm::setDefectTrackingSystem(const std::string& value) {
-  doc().setFormField(path(), "defectTrackingSystem", value);
-}
-std::string SystemQualityGoalsMeasurementContentForm::qualityTrendAnalysis() const {
-  return doc().formField(path(), "qualityTrendAnalysis");
-}
-void SystemQualityGoalsMeasurementContentForm::setQualityTrendAnalysis(const std::string& value) {
-  doc().setFormField(path(), "qualityTrendAnalysis", value);
-}
-
-SystemQualityGoalsResourcesContentForm::SystemQualityGoalsResourcesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemQualityGoalsResourcesContentForm::qualityBudget() const {
-  return doc().formField(path(), "qualityBudget");
-}
-void SystemQualityGoalsResourcesContentForm::setQualityBudget(const std::string& value) {
-  doc().setFormField(path(), "qualityBudget", value);
-}
-std::string SystemQualityGoalsResourcesContentForm::qaTeamSize() const {
-  return doc().formField(path(), "qaTeamSize");
-}
-void SystemQualityGoalsResourcesContentForm::setQaTeamSize(const std::string& value) {
-  doc().setFormField(path(), "qaTeamSize", value);
-}
-std::string SystemQualityGoalsResourcesContentForm::testAutomationTarget() const {
-  return doc().formField(path(), "testAutomationTarget");
-}
-void SystemQualityGoalsResourcesContentForm::setTestAutomationTarget(const std::string& value) {
-  doc().setFormField(path(), "testAutomationTarget", value);
-}
-std::string SystemQualityGoalsResourcesContentForm::qualityTrainingPlan() const {
-  return doc().formField(path(), "qualityTrainingPlan");
-}
-void SystemQualityGoalsResourcesContentForm::setQualityTrainingPlan(const std::string& value) {
-  doc().setFormField(path(), "qualityTrainingPlan", value);
 }
 
 SystemReplacementStrategyContentForm::SystemReplacementStrategyContentForm(som::SpecDocument& doc, std::string path)
@@ -96046,39 +96262,6 @@ std::string TechnicalPainPointsSummaryContentForm::integrationComplexityScore() 
 }
 void TechnicalPainPointsSummaryContentForm::setIntegrationComplexityScore(const std::string& value) {
   doc().setFormField(path(), "integrationComplexityScore", value);
-}
-
-TechnicalQualityCriteriaTechnicalQualityContentForm::TechnicalQualityCriteriaTechnicalQualityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string TechnicalQualityCriteriaTechnicalQualityContentForm::technicalQualityPhilosophy() const {
-  return doc().formField(path(), "technicalQualityPhilosophy");
-}
-void TechnicalQualityCriteriaTechnicalQualityContentForm::setTechnicalQualityPhilosophy(const std::string& value) {
-  doc().setFormField(path(), "technicalQualityPhilosophy", value);
-}
-std::string TechnicalQualityCriteriaTechnicalQualityContentForm::architecturalQualityGoals() const {
-  return doc().formField(path(), "architecturalQualityGoals");
-}
-void TechnicalQualityCriteriaTechnicalQualityContentForm::setArchitecturalQualityGoals(const std::string& value) {
-  doc().setFormField(path(), "architecturalQualityGoals", value);
-}
-std::string TechnicalQualityCriteriaTechnicalQualityContentForm::technicalDebtTolerance() const {
-  return doc().formField(path(), "technicalDebtTolerance");
-}
-void TechnicalQualityCriteriaTechnicalQualityContentForm::setTechnicalDebtTolerance(const std::string& value) {
-  doc().setFormField(path(), "technicalDebtTolerance", value);
-}
-std::string TechnicalQualityCriteriaTechnicalQualityContentForm::codeQualityStandard() const {
-  return doc().formField(path(), "codeQualityStandard");
-}
-void TechnicalQualityCriteriaTechnicalQualityContentForm::setCodeQualityStandard(const std::string& value) {
-  doc().setFormField(path(), "codeQualityStandard", value);
-}
-std::string TechnicalQualityCriteriaTechnicalQualityContentForm::designPrinciplesAdherence() const {
-  return doc().formField(path(), "designPrinciplesAdherence");
-}
-void TechnicalQualityCriteriaTechnicalQualityContentForm::setDesignPrinciplesAdherence(const std::string& value) {
-  doc().setFormField(path(), "designPrinciplesAdherence", value);
 }
 
 TechnicalRequirementEntryConstraintsContentForm::TechnicalRequirementEntryConstraintsContentForm(som::SpecDocument& doc, std::string path)
@@ -101538,129 +101721,129 @@ void UiDesignPrincipleEntryContentForm::setRelatedGoals(const std::string& value
   doc().setFormField(path(), "relatedGoals", value);
 }
 
-UsabilityQualityClarityContentForm::UsabilityQualityClarityContentForm(som::SpecDocument& doc, std::string path)
+UsabilityClarityContentForm::UsabilityClarityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityClarityContentForm::functionalClarityTarget() const {
+std::string UsabilityClarityContentForm::functionalClarityTarget() const {
   return doc().formField(path(), "functionalClarityTarget");
 }
-void UsabilityQualityClarityContentForm::setFunctionalClarityTarget(const std::string& value) {
+void UsabilityClarityContentForm::setFunctionalClarityTarget(const std::string& value) {
   doc().setFormField(path(), "functionalClarityTarget", value);
 }
-std::string UsabilityQualityClarityContentForm::helpSystemRequirement() const {
+std::string UsabilityClarityContentForm::helpSystemRequirement() const {
   return doc().formField(path(), "helpSystemRequirement");
 }
-void UsabilityQualityClarityContentForm::setHelpSystemRequirement(const std::string& value) {
+void UsabilityClarityContentForm::setHelpSystemRequirement(const std::string& value) {
   doc().setFormField(path(), "helpSystemRequirement", value);
 }
-std::string UsabilityQualityClarityContentForm::complexityLimit() const {
+std::string UsabilityClarityContentForm::complexityLimit() const {
   return doc().formField(path(), "complexityLimit");
 }
-void UsabilityQualityClarityContentForm::setComplexityLimit(const std::string& value) {
+void UsabilityClarityContentForm::setComplexityLimit(const std::string& value) {
   doc().setFormField(path(), "complexityLimit", value);
 }
-std::string UsabilityQualityClarityContentForm::cognitiveLoadTarget() const {
+std::string UsabilityClarityContentForm::cognitiveLoadTarget() const {
   return doc().formField(path(), "cognitiveLoadTarget");
 }
-void UsabilityQualityClarityContentForm::setCognitiveLoadTarget(const std::string& value) {
+void UsabilityClarityContentForm::setCognitiveLoadTarget(const std::string& value) {
   doc().setFormField(path(), "cognitiveLoadTarget", value);
 }
 
-UsabilityQualityContentForm::UsabilityQualityContentForm(som::SpecDocument& doc, std::string path)
+UsabilityContentForm::UsabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityContentForm::operabilityTarget() const {
+std::string UsabilityContentForm::operabilityTarget() const {
   return doc().formField(path(), "operabilityTarget");
 }
-void UsabilityQualityContentForm::setOperabilityTarget(const std::string& value) {
+void UsabilityContentForm::setOperabilityTarget(const std::string& value) {
   doc().setFormField(path(), "operabilityTarget", value);
 }
-std::string UsabilityQualityContentForm::ergonomicsStandard() const {
+std::string UsabilityContentForm::ergonomicsStandard() const {
   return doc().formField(path(), "ergonomicsStandard");
 }
-void UsabilityQualityContentForm::setErgonomicsStandard(const std::string& value) {
+void UsabilityContentForm::setErgonomicsStandard(const std::string& value) {
   doc().setFormField(path(), "ergonomicsStandard", value);
 }
-std::string UsabilityQualityContentForm::learnabilityTarget() const {
+std::string UsabilityContentForm::learnabilityTarget() const {
   return doc().formField(path(), "learnabilityTarget");
 }
-void UsabilityQualityContentForm::setLearnabilityTarget(const std::string& value) {
+void UsabilityContentForm::setLearnabilityTarget(const std::string& value) {
   doc().setFormField(path(), "learnabilityTarget", value);
 }
 
-UsabilityQualityInteractionContentForm::UsabilityQualityInteractionContentForm(som::SpecDocument& doc, std::string path)
+UsabilityInteractionContentForm::UsabilityInteractionContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityInteractionContentForm::undoRequirement() const {
+std::string UsabilityInteractionContentForm::undoRequirement() const {
   return doc().formField(path(), "undoRequirement");
 }
-void UsabilityQualityInteractionContentForm::setUndoRequirement(const std::string& value) {
+void UsabilityInteractionContentForm::setUndoRequirement(const std::string& value) {
   doc().setFormField(path(), "undoRequirement", value);
 }
-std::string UsabilityQualityInteractionContentForm::customizationLevel() const {
+std::string UsabilityInteractionContentForm::customizationLevel() const {
   return doc().formField(path(), "customizationLevel");
 }
-void UsabilityQualityInteractionContentForm::setCustomizationLevel(const std::string& value) {
+void UsabilityInteractionContentForm::setCustomizationLevel(const std::string& value) {
   doc().setFormField(path(), "customizationLevel", value);
 }
 
-UsabilityQualityLearnabilityContentForm::UsabilityQualityLearnabilityContentForm(som::SpecDocument& doc, std::string path)
+UsabilityLearnabilityContentForm::UsabilityLearnabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityLearnabilityContentForm::learnabilityVerification() const {
+std::string UsabilityLearnabilityContentForm::learnabilityVerification() const {
   return doc().formField(path(), "learnabilityVerification");
 }
-void UsabilityQualityLearnabilityContentForm::setLearnabilityVerification(const std::string& value) {
+void UsabilityLearnabilityContentForm::setLearnabilityVerification(const std::string& value) {
   doc().setFormField(path(), "learnabilityVerification", value);
 }
-std::string UsabilityQualityLearnabilityContentForm::onboardingRequirement() const {
+std::string UsabilityLearnabilityContentForm::onboardingRequirement() const {
   return doc().formField(path(), "onboardingRequirement");
 }
-void UsabilityQualityLearnabilityContentForm::setOnboardingRequirement(const std::string& value) {
+void UsabilityLearnabilityContentForm::setOnboardingRequirement(const std::string& value) {
   doc().setFormField(path(), "onboardingRequirement", value);
 }
 
-UsabilityQualityOperabilityContentForm::UsabilityQualityOperabilityContentForm(som::SpecDocument& doc, std::string path)
+UsabilityOperabilityContentForm::UsabilityOperabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityOperabilityContentForm::operabilityMetric() const {
+std::string UsabilityOperabilityContentForm::operabilityMetric() const {
   return doc().formField(path(), "operabilityMetric");
 }
-void UsabilityQualityOperabilityContentForm::setOperabilityMetric(const std::string& value) {
+void UsabilityOperabilityContentForm::setOperabilityMetric(const std::string& value) {
   doc().setFormField(path(), "operabilityMetric", value);
 }
-std::string UsabilityQualityOperabilityContentForm::operabilityVerification() const {
+std::string UsabilityOperabilityContentForm::operabilityVerification() const {
   return doc().formField(path(), "operabilityVerification");
 }
-void UsabilityQualityOperabilityContentForm::setOperabilityVerification(const std::string& value) {
+void UsabilityOperabilityContentForm::setOperabilityVerification(const std::string& value) {
   doc().setFormField(path(), "operabilityVerification", value);
 }
-std::string UsabilityQualityOperabilityContentForm::ergonomicsTarget() const {
+std::string UsabilityOperabilityContentForm::ergonomicsTarget() const {
   return doc().formField(path(), "ergonomicsTarget");
 }
-void UsabilityQualityOperabilityContentForm::setErgonomicsTarget(const std::string& value) {
+void UsabilityOperabilityContentForm::setErgonomicsTarget(const std::string& value) {
   doc().setFormField(path(), "ergonomicsTarget", value);
 }
 
-UsabilityQualityPerformanceContentForm::UsabilityQualityPerformanceContentForm(som::SpecDocument& doc, std::string path)
+UsabilityPerformanceContentForm::UsabilityPerformanceContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UsabilityQualityPerformanceContentForm::responseTimeP50() const {
+std::string UsabilityPerformanceContentForm::responseTimeP50() const {
   return doc().formField(path(), "responseTimeP50");
 }
-void UsabilityQualityPerformanceContentForm::setResponseTimeP50(const std::string& value) {
+void UsabilityPerformanceContentForm::setResponseTimeP50(const std::string& value) {
   doc().setFormField(path(), "responseTimeP50", value);
 }
-std::string UsabilityQualityPerformanceContentForm::responseTimeP95() const {
+std::string UsabilityPerformanceContentForm::responseTimeP95() const {
   return doc().formField(path(), "responseTimeP95");
 }
-void UsabilityQualityPerformanceContentForm::setResponseTimeP95(const std::string& value) {
+void UsabilityPerformanceContentForm::setResponseTimeP95(const std::string& value) {
   doc().setFormField(path(), "responseTimeP95", value);
 }
-std::string UsabilityQualityPerformanceContentForm::responseTimeP99() const {
+std::string UsabilityPerformanceContentForm::responseTimeP99() const {
   return doc().formField(path(), "responseTimeP99");
 }
-void UsabilityQualityPerformanceContentForm::setResponseTimeP99(const std::string& value) {
+void UsabilityPerformanceContentForm::setResponseTimeP99(const std::string& value) {
   doc().setFormField(path(), "responseTimeP99", value);
 }
-std::string UsabilityQualityPerformanceContentForm::perceivedPerformance() const {
+std::string UsabilityPerformanceContentForm::perceivedPerformance() const {
   return doc().formField(path(), "perceivedPerformance");
 }
-void UsabilityQualityPerformanceContentForm::setPerceivedPerformance(const std::string& value) {
+void UsabilityPerformanceContentForm::setPerceivedPerformance(const std::string& value) {
   doc().setFormField(path(), "perceivedPerformance", value);
 }
 
@@ -102523,45 +102706,6 @@ std::string UserProvisioningToolsRoleManagementContentForm::accessReviewProcess(
 }
 void UserProvisioningToolsRoleManagementContentForm::setAccessReviewProcess(const std::string& value) {
   doc().setFormField(path(), "accessReviewProcess", value);
-}
-
-UserQualityCriteriaUserQualityContentForm::UserQualityCriteriaUserQualityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string UserQualityCriteriaUserQualityContentForm::userQualityPhilosophy() const {
-  return doc().formField(path(), "userQualityPhilosophy");
-}
-void UserQualityCriteriaUserQualityContentForm::setUserQualityPhilosophy(const std::string& value) {
-  doc().setFormField(path(), "userQualityPhilosophy", value);
-}
-std::string UserQualityCriteriaUserQualityContentForm::targetUserExperience() const {
-  return doc().formField(path(), "targetUserExperience");
-}
-void UserQualityCriteriaUserQualityContentForm::setTargetUserExperience(const std::string& value) {
-  doc().setFormField(path(), "targetUserExperience", value);
-}
-std::string UserQualityCriteriaUserQualityContentForm::userResearchBasis() const {
-  return doc().formField(path(), "userResearchBasis");
-}
-void UserQualityCriteriaUserQualityContentForm::setUserResearchBasis(const std::string& value) {
-  doc().setFormField(path(), "userResearchBasis", value);
-}
-std::string UserQualityCriteriaUserQualityContentForm::userFeedbackChannel() const {
-  return doc().formField(path(), "userFeedbackChannel");
-}
-void UserQualityCriteriaUserQualityContentForm::setUserFeedbackChannel(const std::string& value) {
-  doc().setFormField(path(), "userFeedbackChannel", value);
-}
-std::string UserQualityCriteriaUserQualityContentForm::userSatisfactionTarget() const {
-  return doc().formField(path(), "userSatisfactionTarget");
-}
-void UserQualityCriteriaUserQualityContentForm::setUserSatisfactionTarget(const std::string& value) {
-  doc().setFormField(path(), "userSatisfactionTarget", value);
-}
-std::string UserQualityCriteriaUserQualityContentForm::accessibilityLevel() const {
-  return doc().formField(path(), "accessibilityLevel");
-}
-void UserQualityCriteriaUserQualityContentForm::setAccessibilityLevel(const std::string& value) {
-  doc().setFormField(path(), "accessibilityLevel", value);
 }
 
 UserTrainingRequirementsTrainingFormForm::UserTrainingRequirementsTrainingFormForm(som::SpecDocument& doc, std::string path)

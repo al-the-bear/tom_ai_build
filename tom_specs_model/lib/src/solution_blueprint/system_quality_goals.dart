@@ -9,6 +9,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
+import 'delivery_acceptance.dart';
 
 /// 11. System Quality Goals. Seeds → QAP.
 ///
@@ -32,16 +33,16 @@ class SystemQualityGoals {
   String? governanceContent;
 
   /// Governance board and escalation details.
-  SystemQualityGoalsGovernance governance = SystemQualityGoalsGovernance();
+  QualityGoalsGovernance governance = QualityGoalsGovernance();
 
   /// Baseline and target settings.
-  SystemQualityGoalsBaseline baseline = SystemQualityGoalsBaseline();
+  QualityGoalsBaseline baseline = QualityGoalsBaseline();
 
   /// Measurement and reporting approach.
-  SystemQualityGoalsMeasurement measurement = SystemQualityGoalsMeasurement();
+  QualityGoalsMeasurement measurement = QualityGoalsMeasurement();
 
   /// Quality resources and enablement.
-  SystemQualityGoalsResources resources = SystemQualityGoalsResources();
+  QualityGoalsResources resources = QualityGoalsResources();
 
   /// Executive summary of quality goals and approach.
   @ContentHelp('High-level overview of quality objectives, expected quality '
@@ -70,16 +71,41 @@ class SystemQualityGoals {
   /// 11.1. Quality Framework.
   QualityFramework framework = QualityFramework();
 
-  /// 11.2. User-Related Quality Criteria.
-  UserQualityCriteria userQuality = UserQualityCriteria();
+  // 11.2–11.9: the eight ISO/IEC 25010:2023 product-quality characteristics.
+  // The former handbook buckets (user / technical / operations) were dissolved
+  // in L34C-8 and their attribute leaves re-homed under these characteristics.
 
-  /// 11.3. Technical Quality Criteria.
-  TechnicalQualityCriteria technicalQuality = TechnicalQualityCriteria();
+  /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  FunctionalSuitabilityCharacteristic functionalSuitability =
+      FunctionalSuitabilityCharacteristic();
 
-  /// 11.4. Operations Quality Criteria.
-  OperationsQualityCriteria operationsQuality = OperationsQualityCriteria();
+  /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  PerformanceEfficiencyCharacteristic performanceEfficiency =
+      PerformanceEfficiencyCharacteristic();
 
-  /// 11.5. Documentation Quality Criteria.
+  /// 11.4. Compatibility (ISO/IEC 25010:2023).
+  CompatibilityCharacteristic compatibility = CompatibilityCharacteristic();
+
+  /// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  InteractionCapabilityCharacteristic interactionCapability =
+      InteractionCapabilityCharacteristic();
+
+  /// 11.6. Reliability (ISO/IEC 25010:2023).
+  ReliabilityCharacteristic reliability = ReliabilityCharacteristic();
+
+  /// 11.7. Security (ISO/IEC 25010:2023).
+  SecurityCharacteristic security = SecurityCharacteristic();
+
+  /// 11.8. Maintainability (ISO/IEC 25010:2023).
+  MaintainabilityCharacteristic maintainability =
+      MaintainabilityCharacteristic();
+
+  /// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FlexibilityCharacteristic flexibility = FlexibilityCharacteristic();
+
+  /// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
+  /// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
+  /// documentation-quality annex per L34C-8).
   DocumentationQualityCriteria documentationQuality =
       DocumentationQualityCriteria();
 
@@ -95,7 +121,7 @@ class SystemQualityGoals {
 
 /// Governance board and escalation details.
 @SectionId('SQGGV')
-class SystemQualityGoalsGovernance {
+class QualityGoalsGovernance {
     @Form([
         Field('qualityReviewBoard', String, 'Quality Review Board',
                 hint: 'Governance body for quality decisions'),
@@ -109,7 +135,7 @@ class SystemQualityGoalsGovernance {
 
 /// Baseline and target settings.
 @SectionId('SQGBS')
-class SystemQualityGoalsBaseline {
+class QualityGoalsBaseline {
     @Form([
         Field('qualityBaselineDate', String, 'Quality Baseline Date',
                 hint: 'When quality targets were baselined'),
@@ -124,7 +150,7 @@ class SystemQualityGoalsBaseline {
 
 /// Measurement and reporting approach.
 @SectionId('SQGMS')
-class SystemQualityGoalsMeasurement {
+class QualityGoalsMeasurement {
     @Form([
         Field('qualityMetricsFramework', String, 'Metrics Framework',
                 hint: 'How quality is measured: GQM, balanced scorecard'),
@@ -142,7 +168,7 @@ class SystemQualityGoalsMeasurement {
 
 /// Quality resources and enablement.
 @SectionId('SQGRS')
-class SystemQualityGoalsResources {
+class QualityGoalsResources {
     @Form([
         Field('qualityBudget', String, 'Quality Budget',
                 hint: 'Budget allocated for QA activities'),
@@ -350,16 +376,54 @@ class QualityCategoryEntryMetrics {
   String? content;
 }
 
-/// 11.2. User-Related Quality Criteria.
+/// 11.2. Functional Suitability (ISO/IEC 25010:2023).
 ///
-/// Quality criteria that directly affect user experience, including usability,
-/// functional completeness, and correctness from the end-user perspective.
-@SectionId('USQCR')
+/// Degree to which the product provides functions that meet stated and implied
+/// needs — functional completeness and correctness. Re-homes the former
+/// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+@SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-USE')
-class UserQualityCriteria {
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FSU')
+class FunctionalSuitabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
-  // User Quality Overview
+  // Functional Suitability Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('functionalSuitabilityApproach', String,
+        'Functional Suitability Approach',
+        hint: 'How functional completeness and correctness are assured'),
+    Field('functionalCoverageTarget', String, 'Functional Coverage Target',
+        hint: 'Required vs. optional feature coverage'),
+    Field('correctnessStandard', String, 'Correctness Standard',
+        hint: 'Acceptable defect density, accuracy thresholds'),
+  ])
+  String? functionalSuitabilityContent;
+
+  /// Functional suitability overview.
+  @ContentHelp('Executive summary of functional-suitability goals, '
+      'coverage targets, and correctness metrics.')
+  TextSection overview = TextSection();
+
+  /// 11.2.1. Functional Completeness.
+  FunctionalCompleteness functionalCompleteness =
+      FunctionalCompleteness();
+
+  /// 11.2.2. Correctness.
+  Correctness correctness = Correctness();
+}
+
+/// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+///
+/// Degree to which the product can be interacted with effectively, efficiently
+/// and satisfactorily by users. Re-homes the former user-bucket usability leaf
+/// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
+/// form is preserved here so no authored content is lost.
+@SectionId('INCP')
+@DetailedIn(D10QualityAcceptancePlan)
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ICP')
+class InteractionCapabilityCharacteristic {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Interaction Capability Overview (migrated from the former user bucket)
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
     Field('userQualityPhilosophy', String, 'User Quality Philosophy',
@@ -375,27 +439,20 @@ class UserQualityCriteria {
     Field('accessibilityLevel', String, 'Accessibility Level',
         hint: 'WCAG 2.1 AA, AAA, Section 508'),
   ])
-  String? userQualityContent;
+  String? interactionCapabilityContent;
 
-  /// User quality criteria overview.
-  @ContentHelp('Executive summary of user-related quality goals, '
-      'target user experience, and key user quality metrics.')
+  /// Interaction capability overview.
+  @ContentHelp('Executive summary of interaction-capability goals, '
+      'target user experience, and key user-quality metrics.')
   TextSection overview = TextSection();
 
-  /// 11.2.1. Usability.
-  UsabilityQuality usability = UsabilityQuality();
-
-  /// 11.2.2. Functional Completeness.
-  FunctionalCompletenessQuality functionalCompleteness =
-      FunctionalCompletenessQuality();
-
-  /// 11.2.3. Correctness.
-  CorrectnessQuality correctness = CorrectnessQuality();
+  /// 11.5.1. Usability.
+  Usability usability = Usability();
 }
 
 /// 11.2.1. Usability quality.
 @SectionId('USAQL')
-class UsabilityQuality {
+class Usability {
   @Form([
     Field('operabilityTarget', String, 'Operability Target',
         hint: 'Ease of operation: intuitive, training-required'),
@@ -407,19 +464,19 @@ class UsabilityQuality {
   String? content;
 
   /// Operability verification and ergonomics goals.
-  UsabilityQualityOperability operability = UsabilityQualityOperability();
+  UsabilityOperability operability = UsabilityOperability();
 
   /// Learnability and onboarding expectations.
-  UsabilityQualityLearnability learnability = UsabilityQualityLearnability();
+  UsabilityLearnability learnability = UsabilityLearnability();
 
   /// Clarity and complexity constraints.
-  UsabilityQualityClarity clarity = UsabilityQualityClarity();
+  UsabilityClarity clarity = UsabilityClarity();
 
   /// Interaction control settings.
-  UsabilityQualityInteraction interaction = UsabilityQualityInteraction();
+  UsabilityInteraction interaction = UsabilityInteraction();
 
   /// Perceived and measured responsiveness targets.
-  UsabilityQualityPerformance performance = UsabilityQualityPerformance();
+  UsabilityPerformance performance = UsabilityPerformance();
 
   /// Detailed usability requirements narrative.
   TextSection narrative = TextSection();
@@ -427,7 +484,7 @@ class UsabilityQuality {
 
 /// Operability verification and ergonomics goals.
 @SectionId('USAOP')
-class UsabilityQualityOperability {
+class UsabilityOperability {
   @Form([
     Field('operabilityMetric', String, 'Operability Metric',
         hint: 'Task completion rate, error rate'),
@@ -441,7 +498,7 @@ class UsabilityQualityOperability {
 
 /// Learnability and onboarding expectations.
 @SectionId('USALN')
-class UsabilityQualityLearnability {
+class UsabilityLearnability {
   @Form([
     Field('learnabilityVerification', String, 'Learnability Verification',
         hint: 'First-use testing, training time measurement'),
@@ -453,7 +510,7 @@ class UsabilityQualityLearnability {
 
 /// Clarity and complexity constraints.
 @SectionId('USACL')
-class UsabilityQualityClarity {
+class UsabilityClarity {
   @Form([
     Field('functionalClarityTarget', String, 'Functional Clarity Target',
         hint: 'Labels, icons, workflows self-explanatory'),
@@ -469,7 +526,7 @@ class UsabilityQualityClarity {
 
 /// Interaction control settings.
 @SectionId('USAIN')
-class UsabilityQualityInteraction {
+class UsabilityInteraction {
   @Form([
     Field('undoRequirement', String, 'Undo Requirement',
         hint: 'All actions, critical actions, none'),
@@ -481,7 +538,7 @@ class UsabilityQualityInteraction {
 
 /// Perceived and measured responsiveness targets.
 @SectionId('USAPR')
-class UsabilityQualityPerformance {
+class UsabilityPerformance {
   @Form([
     Field('responseTimeP50', String, 'Response Time P50',
         hint: 'Median response time target (e.g., <200ms)'),
@@ -497,7 +554,7 @@ class UsabilityQualityPerformance {
 
 /// 11.2.2. Functional completeness quality.
 @SectionId('FNCOQ')
-class FunctionalCompletenessQuality {
+class FunctionalCompleteness {
   @Form([
     // Coverage
     Field('featureCoverageTarget', String, 'Feature Coverage Target %',
@@ -529,7 +586,7 @@ class FunctionalCompletenessQuality {
 
 /// 11.2.3. Correctness quality.
 @SectionId('COQU')
-class CorrectnessQuality {
+class Correctness {
   @Form([
     Field('defectDensityTarget', String, 'Defect Density Target',
         hint: 'Defects per KLOC, per function point'),
@@ -541,14 +598,14 @@ class CorrectnessQuality {
   String? content;
 
   /// Data integrity expectations.
-  CorrectnessQualityIntegrity integrity = CorrectnessQualityIntegrity();
+  CorrectnessIntegrity integrity = CorrectnessIntegrity();
 
   /// Accuracy and auditability requirements.
-  CorrectnessQualityAccuracy accuracy = CorrectnessQualityAccuracy();
+  CorrectnessAccuracy accuracy = CorrectnessAccuracy();
 
   /// Verification and regression approach.
-  CorrectnessQualityVerification verification =
-      CorrectnessQualityVerification();
+  CorrectnessVerification verification =
+      CorrectnessVerification();
 
   /// Detailed correctness requirements narrative.
   TextSection narrative = TextSection();
@@ -556,7 +613,7 @@ class CorrectnessQuality {
 
 /// Data integrity expectations.
 @SectionId('COQUIN')
-class CorrectnessQualityIntegrity {
+class CorrectnessIntegrity {
   @Form([
     Field('dataIntegrityRequirement', String, 'Data Integrity Requirement',
         hint: 'ACID, eventual consistency'),
@@ -570,7 +627,7 @@ class CorrectnessQualityIntegrity {
 
 /// Accuracy and auditability requirements.
 @SectionId('COQUAC')
-class CorrectnessQualityAccuracy {
+class CorrectnessAccuracy {
   @Form([
     Field('calculationAccuracyTarget', String, 'Calculation Accuracy Target',
         hint: 'Decimal precision, rounding rules'),
@@ -584,7 +641,7 @@ class CorrectnessQualityAccuracy {
 
 /// Verification and regression approach.
 @SectionId('COQUVE')
-class CorrectnessQualityVerification {
+class CorrectnessVerification {
   @Form([
     Field('correctnessVerification', String, 'Correctness Verification',
         hint: 'Unit tests, integration tests, UAT'),
@@ -596,16 +653,18 @@ class CorrectnessQualityVerification {
   String? content;
 }
 
-/// 11.3. Technical Quality Criteria.
+/// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
 ///
-/// Quality criteria for the technical implementation including efficiency,
-/// portability, flexibility, security, maintainability, and reliability.
-@SectionId('TEQUCR')
+/// Performance relative to the amount of resources used under stated
+/// conditions. Re-homes the former technical-bucket efficiency leaf under the
+/// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
+/// preserved here so no authored content is lost.
+@SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TEC')
-class TechnicalQualityCriteria {
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PEF')
+class PerformanceEfficiencyCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
-  // Technical Quality Overview
+  // Performance Efficiency Overview (migrated from the former technical bucket)
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
     Field('technicalQualityPhilosophy', String, 'Technical Quality Philosophy',
@@ -619,35 +678,127 @@ class TechnicalQualityCriteria {
     Field('designPrinciplesAdherence', String, 'Design Principles Adherence',
         hint: 'SOLID, DRY, KISS, YAGNI'),
   ])
-  String? technicalQualityContent;
+  String? performanceEfficiencyContent;
 
-  /// Technical quality overview.
-  @ContentHelp('Executive summary of technical quality goals, '
+  /// Performance efficiency overview.
+  @ContentHelp('Executive summary of performance-efficiency goals, '
       'architectural decisions, and key technical metrics.')
   TextSection overview = TextSection();
 
   /// 11.3.1. Efficiency.
-  EfficiencyQuality efficiency = EfficiencyQuality();
+  Efficiency efficiency = Efficiency();
+}
 
-  /// 11.3.2. Portability.
-  PortabilityQuality portability = PortabilityQuality();
+/// 11.4. Compatibility (ISO/IEC 25010:2023).
+///
+/// Degree to which the product can exchange information with other products and
+/// share the same environment and resources (co-existence + interoperability).
+/// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
+/// pending project-specific compatibility leaves.
+@SectionId('CMPT')
+@DetailedIn(D10QualityAcceptancePlan)
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CMP')
+class CompatibilityCharacteristic {
+  @Form([
+    Field('coExistenceRequirements', String, 'Co-existence Requirements',
+        hint: 'Other products sharing the environment without adverse impact'),
+    Field('interoperabilityStandards', String, 'Interoperability Standards',
+        hint: 'Protocols/formats for exchanging and using information'),
+  ])
+  String? compatibilityContent;
 
-  /// 11.3.3. Flexibility.
-  FlexibilityQuality flexibility = FlexibilityQuality();
+  /// Compatibility overview.
+  @ContentHelp('Executive summary of co-existence and interoperability goals.')
+  TextSection overview = TextSection();
+}
 
-  /// 11.3.4. Security.
-  SecurityQuality security = SecurityQuality();
+/// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+///
+/// Degree to which the product can be adapted to changes in requirements,
+/// contexts of use, or system environment (adaptability, scalability,
+/// installability, replaceability). Re-homes the former technical-bucket
+/// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+@SectionId('FLXC')
+@DetailedIn(D10QualityAcceptancePlan)
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FLX')
+class FlexibilityCharacteristic {
+  @Form([
+    Field('flexibilityApproach', String, 'Flexibility Approach',
+        hint: 'How adaptability, scalability and portability are achieved'),
+    Field('portabilityTarget', String, 'Portability Target',
+        hint: 'Target environments/platforms the product must run on'),
+  ])
+  String? flexibilityContent;
 
-  /// 11.3.5. Maintainability.
-  MaintainabilityQuality maintainability = MaintainabilityQuality();
+  /// Flexibility overview.
+  @ContentHelp('Executive summary of flexibility, adaptability and '
+      'portability goals.')
+  TextSection overview = TextSection();
 
-  /// 11.3.6. Reliability.
-  ReliabilityQuality reliability = ReliabilityQuality();
+  /// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  Flexibility flexibility = Flexibility();
+
+  /// 11.9.2. Portability.
+  Portability portability = Portability();
+}
+
+/// 11.7. Security (ISO/IEC 25010:2023).
+///
+/// Degree to which the product protects information and data. Re-homes the
+/// former technical-bucket security leaf and the operations-bucket IT-security
+/// operations leaf under the 25010:2023 spine (L34C-8).
+@SectionId('SECC')
+@DetailedIn(D10QualityAcceptancePlan)
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SEC')
+class SecurityCharacteristic {
+  @Form([
+    Field('securityApproach', String, 'Security Approach',
+        hint: 'Zero-trust, defence-in-depth, least-privilege'),
+    Field('securityComplianceTarget', String, 'Security Compliance Target',
+        hint: 'ISO 27001, SOC 2, GDPR, sector-specific'),
+  ])
+  String? securityContent;
+
+  /// Security overview.
+  @ContentHelp('Executive summary of security goals, threat model, and '
+      'compliance targets.')
+  TextSection overview = TextSection();
+
+  /// 11.7.1. Security (product security attributes).
+  Security security = Security();
+
+  /// 11.7.2. IT Security Operations.
+  ItSecurityOperations itSecurityOperations = ItSecurityOperations();
+}
+
+/// 11.8. Maintainability (ISO/IEC 25010:2023).
+///
+/// Degree of effectiveness and efficiency with which the product can be
+/// modified. Re-homes the former technical-bucket maintainability leaf under
+/// the 25010:2023 spine (L34C-8).
+@SectionId('MNTC')
+@DetailedIn(D10QualityAcceptancePlan)
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-MNT')
+class MaintainabilityCharacteristic {
+  @Form([
+    Field('maintainabilityApproach', String, 'Maintainability Approach',
+        hint: 'Modularity, analyzability, testability priorities'),
+    Field('maintainabilityStandard', String, 'Maintainability Standard',
+        hint: 'Complexity thresholds, test-coverage targets'),
+  ])
+  String? maintainabilityContent;
+
+  /// Maintainability overview.
+  @ContentHelp('Executive summary of maintainability goals and standards.')
+  TextSection overview = TextSection();
+
+  /// 11.8.1. Maintainability (product maintainability attributes).
+  Maintainability maintainability = Maintainability();
 }
 
 /// 11.3.1. Efficiency quality.
 @SectionId('EFQU')
-class EfficiencyQuality {
+class Efficiency {
   @Form([
     // Response time
     Field('responseTimeP50Target', String, 'Response Time P50',
@@ -660,14 +811,14 @@ class EfficiencyQuality {
   String? content;
 
   /// Throughput and scale targets.
-  EfficiencyQualityThroughput throughput = EfficiencyQualityThroughput();
+  EfficiencyThroughput throughput = EfficiencyThroughput();
 
   /// Resource utilization constraints.
-  EfficiencyQualityResources resources = EfficiencyQualityResources();
+  EfficiencyResources resources = EfficiencyResources();
 
   /// Performance validation and SLA commitments.
-  EfficiencyQualityVerification verification =
-      EfficiencyQualityVerification();
+  EfficiencyVerification verification =
+      EfficiencyVerification();
 
   /// Detailed efficiency requirements narrative.
   TextSection narrative = TextSection();
@@ -675,7 +826,7 @@ class EfficiencyQuality {
 
 /// Throughput and scale targets.
 @SectionId('EFQUTH')
-class EfficiencyQualityThroughput {
+class EfficiencyThroughput {
   @Form([
     Field('throughputTarget', String, 'Throughput Target',
         hint: 'Requests/second, transactions/minute'),
@@ -689,7 +840,7 @@ class EfficiencyQualityThroughput {
 
 /// Resource utilization constraints.
 @SectionId('EFQURE')
-class EfficiencyQualityResources {
+class EfficiencyResources {
   @Form([
     Field('cpuUtilizationLimit', String, 'CPU Utilization Limit',
         hint: 'Max sustained CPU usage (e.g., <70%)'),
@@ -705,7 +856,7 @@ class EfficiencyQualityResources {
 
 /// Performance validation and SLA commitments.
 @SectionId('EFQUVE')
-class EfficiencyQualityVerification {
+class EfficiencyVerification {
   @Form([
     Field('loadTestingRequirement', String, 'Load Testing Requirement',
         hint: 'Load test scenarios, thresholds'),
@@ -721,7 +872,7 @@ class EfficiencyQualityVerification {
 
 /// 11.3.2. Portability quality.
 @SectionId('POQU')
-class PortabilityQuality {
+class Portability {
   @Form([
     // Platform support
     Field('targetPlatforms', String, 'Target Platforms',
@@ -756,7 +907,7 @@ class PortabilityQuality {
 
 /// 11.3.3. Flexibility quality.
 @SectionId('FLQU')
-class FlexibilityQuality {
+class Flexibility {
   @Form([
     Field('componentArchitecture', String, 'Component Architecture',
         hint: 'Microservices, modular monolith, plugins'),
@@ -768,14 +919,14 @@ class FlexibilityQuality {
   String? content;
 
   /// Modularity and reuse goals.
-  FlexibilityQualityModularity modularity = FlexibilityQualityModularity();
+  FlexibilityModularity modularity = FlexibilityModularity();
 
   /// Distribution and configurability model.
-  FlexibilityQualityDeployment deployment = FlexibilityQualityDeployment();
+  FlexibilityDeployment deployment = FlexibilityDeployment();
 
   /// Extensibility and verification expectations.
-  FlexibilityQualityExtensibility extensibility =
-      FlexibilityQualityExtensibility();
+  FlexibilityExtensibility extensibility =
+      FlexibilityExtensibility();
 
   /// Detailed flexibility requirements narrative.
   TextSection narrative = TextSection();
@@ -783,7 +934,7 @@ class FlexibilityQuality {
 
 /// Modularity and reuse goals.
 @SectionId('FLQUMO')
-class FlexibilityQualityModularity {
+class FlexibilityModularity {
   @Form([
     Field('modularityLevel', String, 'Modularity Level',
         hint: 'Highly modular, moderately, monolithic'),
@@ -797,7 +948,7 @@ class FlexibilityQualityModularity {
 
 /// Distribution and configurability model.
 @SectionId('FLQUDE')
-class FlexibilityQualityDeployment {
+class FlexibilityDeployment {
   @Form([
     Field('distributionCapability', String, 'Distribution Capability',
         hint: 'Multi-region, single-region, on-premise'),
@@ -811,7 +962,7 @@ class FlexibilityQualityDeployment {
 
 /// Extensibility and verification expectations.
 @SectionId('FLQUEX')
-class FlexibilityQualityExtensibility {
+class FlexibilityExtensibility {
   @Form([
     Field('extensibilityModel', String, 'Extensibility Model',
         hint: 'Plugins, APIs, webhooks'),
@@ -825,7 +976,7 @@ class FlexibilityQualityExtensibility {
 
 /// 11.3.4. Security quality.
 @SectionId('SEQU')
-class SecurityQuality {
+class Security {
   @Form([
     Field('encryptionAtRest', String, 'Encryption at Rest',
         hint: 'AES-256, database-level, disk-level'),
@@ -837,19 +988,19 @@ class SecurityQuality {
   String? content;
 
   /// Authentication controls.
-  SecurityQualityAuthentication authentication =
-      SecurityQualityAuthentication();
+  SecurityAuthentication authentication =
+      SecurityAuthentication();
 
   /// Authorization controls.
-  SecurityQualityAuthorization authorization =
-      SecurityQualityAuthorization();
+  SecurityAuthorization authorization =
+      SecurityAuthorization();
 
   /// Vulnerability management expectations.
-  SecurityQualityVulnerability vulnerability =
-      SecurityQualityVulnerability();
+  SecurityVulnerability vulnerability =
+      SecurityVulnerability();
 
   /// Compliance and verification settings.
-  SecurityQualityCompliance compliance = SecurityQualityCompliance();
+  SecurityCompliance compliance = SecurityCompliance();
 
   /// Detailed security requirements narrative.
   TextSection narrative = TextSection();
@@ -857,7 +1008,7 @@ class SecurityQuality {
 
 /// Authentication controls.
 @SectionId('SEQUAU')
-class SecurityQualityAuthentication {
+class SecurityAuthentication {
   @Form([
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'OAuth2, SAML, OIDC, MFA'),
@@ -873,7 +1024,7 @@ class SecurityQualityAuthentication {
 
 /// Authorization controls.
 @SectionId('SEQUA1')
-class SecurityQualityAuthorization {
+class SecurityAuthorization {
   @Form([
     Field('authorizationModel', String, 'Authorization Model',
         hint: 'RBAC, ABAC, ACL'),
@@ -887,7 +1038,7 @@ class SecurityQualityAuthorization {
 
 /// Vulnerability management expectations.
 @SectionId('SEQUVU')
-class SecurityQualityVulnerability {
+class SecurityVulnerability {
   @Form([
     Field('vulnerabilityScanFrequency', String, 'Vulnerability Scan Frequency',
         hint: 'Continuous, weekly, per-release'),
@@ -901,7 +1052,7 @@ class SecurityQualityVulnerability {
 
 /// Compliance and verification settings.
 @SectionId('SEQUCO')
-class SecurityQualityCompliance {
+class SecurityCompliance {
   @Form([
     Field('securityCompliance', String, 'Security Compliance',
         hint: 'SOC2, ISO 27001, GDPR'),
@@ -917,7 +1068,7 @@ class SecurityQualityCompliance {
 
 /// 11.3.5. Maintainability quality.
 @SectionId('MAQU')
-class MaintainabilityQuality {
+class Maintainability {
   @Form([
     Field('adaptabilityTarget', String, 'Adaptability Target',
         hint: 'Change implementation time'),
@@ -927,20 +1078,20 @@ class MaintainabilityQuality {
   String? content;
 
   /// Analyzability requirements.
-  MaintainabilityQualityAnalyzability analyzability =
-      MaintainabilityQualityAnalyzability();
+  MaintainabilityAnalyzability analyzability =
+      MaintainabilityAnalyzability();
 
   /// Changeability requirements.
-  MaintainabilityQualityChangeability changeability =
-      MaintainabilityQualityChangeability();
+  MaintainabilityChangeability changeability =
+      MaintainabilityChangeability();
 
   /// Testability requirements.
-  MaintainabilityQualityTestability testability =
-      MaintainabilityQualityTestability();
+  MaintainabilityTestability testability =
+      MaintainabilityTestability();
 
   /// Extensibility and verification requirements.
-  MaintainabilityQualityGovernance governance =
-      MaintainabilityQualityGovernance();
+  MaintainabilityGovernance governance =
+      MaintainabilityGovernance();
 
   /// Detailed maintainability requirements narrative.
   TextSection narrative = TextSection();
@@ -948,7 +1099,7 @@ class MaintainabilityQuality {
 
 /// Analyzability requirements.
 @SectionId('MAQUAN')
-class MaintainabilityQualityAnalyzability {
+class MaintainabilityAnalyzability {
   @Form([
     Field('codeReadabilityStandard', String, 'Code Readability Standard',
         hint: 'Style guide, code review criteria'),
@@ -962,7 +1113,7 @@ class MaintainabilityQualityAnalyzability {
 
 /// Changeability requirements.
 @SectionId('MAQUCH')
-class MaintainabilityQualityChangeability {
+class MaintainabilityChangeability {
   @Form([
     Field('codeCoverageMinimum', String, 'Code Coverage Minimum',
         hint: 'Unit test coverage % target'),
@@ -978,7 +1129,7 @@ class MaintainabilityQualityChangeability {
 
 /// Testability requirements.
 @SectionId('MAQUTE')
-class MaintainabilityQualityTestability {
+class MaintainabilityTestability {
   @Form([
     Field('testabilityDesign', String, 'Testability Design',
         hint: 'Dependency injection, mocking support'),
@@ -992,7 +1143,7 @@ class MaintainabilityQualityTestability {
 
 /// Extensibility and verification requirements.
 @SectionId('MAQUGO')
-class MaintainabilityQualityGovernance {
+class MaintainabilityGovernance {
   @Form([
     Field('extensibilityPattern', String, 'Extensibility Pattern',
         hint: 'Plugin architecture, middleware, hooks'),
@@ -1008,7 +1159,7 @@ class MaintainabilityQualityGovernance {
 
 /// 11.3.6. Reliability quality.
 @SectionId('REQU')
-class ReliabilityQuality {
+class Reliability {
   @Form([
     Field('uptimeTarget', String, 'Uptime Target',
         hint: '99.9%, 99.95%, 99.99%'),
@@ -1020,17 +1171,17 @@ class ReliabilityQuality {
   String? content;
 
   /// Recovery objectives.
-  ReliabilityQualityRecovery recovery = ReliabilityQualityRecovery();
+  ReliabilityRecovery recovery = ReliabilityRecovery();
 
   /// Failover requirements.
-  ReliabilityQualityFailover failover = ReliabilityQualityFailover();
+  ReliabilityFailover failover = ReliabilityFailover();
 
   /// Data durability requirements.
-  ReliabilityQualityDurability durability = ReliabilityQualityDurability();
+  ReliabilityDurability durability = ReliabilityDurability();
 
   /// Verification and learning.
-  ReliabilityQualityVerification verification =
-      ReliabilityQualityVerification();
+  ReliabilityVerification verification =
+      ReliabilityVerification();
 
   /// Detailed reliability requirements narrative.
   TextSection narrative = TextSection();
@@ -1038,7 +1189,7 @@ class ReliabilityQuality {
 
 /// Recovery objectives.
 @SectionId('REQURE')
-class ReliabilityQualityRecovery {
+class ReliabilityRecovery {
   @Form([
     Field('mtbfTarget', String, 'MTBF Target',
         hint: 'Mean time between failures'),
@@ -1054,7 +1205,7 @@ class ReliabilityQualityRecovery {
 
 /// Failover requirements.
 @SectionId('REQUFA')
-class ReliabilityQualityFailover {
+class ReliabilityFailover {
   @Form([
     Field('failoverStrategy', String, 'Failover Strategy',
         hint: 'Active-passive, active-active'),
@@ -1068,7 +1219,7 @@ class ReliabilityQualityFailover {
 
 /// Data durability requirements.
 @SectionId('REQUDU')
-class ReliabilityQualityDurability {
+class ReliabilityDurability {
   @Form([
     Field('dataDurability', String, 'Data Durability',
         hint: '99.999999999% (11 nines)'),
@@ -1084,7 +1235,7 @@ class ReliabilityQualityDurability {
 
 /// Verification and learning.
 @SectionId('REQUVE')
-class ReliabilityQualityVerification {
+class ReliabilityVerification {
   @Form([
     Field('reliabilityVerification', String, 'Reliability Verification',
         hint: 'Soak testing, chaos engineering'),
@@ -1094,16 +1245,20 @@ class ReliabilityQualityVerification {
   String? content;
 }
 
-/// 11.4. Operations Quality Criteria.
+/// 11.6. Reliability (ISO/IEC 25010:2023).
 ///
-/// Quality criteria for system operations including availability, service
-/// levels, monitoring, and IT security operations.
-@SectionId('OPQUCR')
+/// Degree to which the product performs specified functions under specified
+/// conditions for a specified period (availability, fault tolerance,
+/// recoverability, maturity). Re-homes the former technical-bucket reliability
+/// leaf and the operations-bucket availability, service-level and monitoring
+/// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
+/// overview form is preserved here so no authored content is lost.
+@SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-OPE')
-class OperationsQualityCriteria {
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-REL')
+class ReliabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
-  // Operations Quality Overview
+  // Reliability Overview (migrated from the former operations bucket)
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
     Field('operationsMaturityModel', String, 'Operations Maturity Model',
@@ -1119,30 +1274,29 @@ class OperationsQualityCriteria {
     Field('operationsToolchain', String, 'Operations Toolchain',
         hint: 'Key ops tools and platforms'),
   ])
-  String? operationsOverviewContent;
+  String? reliabilityContent;
 
-  /// Operations quality overview narrative.
-  @ContentHelp('Executive summary of operational requirements, '
+  /// Reliability overview narrative.
+  @ContentHelp('Executive summary of reliability and operational requirements, '
       'support model, and key operational metrics.')
   TextSection overview = TextSection();
 
-  /// 11.4.1. Availability.
-  AvailabilityQuality availability = AvailabilityQuality();
+  /// 11.6.1. Reliability (product reliability attributes).
+  Reliability reliability = Reliability();
 
-  /// 11.4.2. Service Level Requirements.
-  ServiceLevelQuality serviceLevelRequirements = ServiceLevelQuality();
+  /// 11.6.2. Availability.
+  Availability availability = Availability();
 
-  /// 11.4.3. Monitoring and Prevention.
-  MonitoringQuality monitoringAndPrevention = MonitoringQuality();
+  /// 11.6.3. Service Level Requirements.
+  ServiceLevel serviceLevelRequirements = ServiceLevel();
 
-  /// 11.4.4. IT Security Operations.
-  ItSecurityOperationsQuality itSecurityOperations =
-      ItSecurityOperationsQuality();
+  /// 11.6.4. Monitoring and Prevention.
+  OperationalMonitoring monitoringAndPrevention = OperationalMonitoring();
 }
 
 /// 11.4.1. Availability quality.
 @SectionId('AVQU')
-class AvailabilityQuality {
+class Availability {
   @Form([
     Field('uptimeTargetPercentage', String, 'Uptime Target %',
         hint: '99.9% (8.76h/year downtime)'),
@@ -1154,20 +1308,20 @@ class AvailabilityQuality {
   String? content;
 
   /// Operating-hour expectations.
-  AvailabilityQualityOperatingHours operatingHoursDetails =
-      AvailabilityQualityOperatingHours();
+  AvailabilityOperatingHours operatingHoursDetails =
+      AvailabilityOperatingHours();
 
   /// Maintenance window policy.
-  AvailabilityQualityMaintenance maintenance =
-      AvailabilityQualityMaintenance();
+  AvailabilityMaintenance maintenance =
+      AvailabilityMaintenance();
 
   /// Degraded-mode behavior.
-  AvailabilityQualityDegradedMode degradedMode =
-      AvailabilityQualityDegradedMode();
+  AvailabilityDegradedMode degradedMode =
+      AvailabilityDegradedMode();
 
   /// Monitoring and reporting.
-  AvailabilityQualityVerification verification =
-      AvailabilityQualityVerification();
+  AvailabilityVerification verification =
+      AvailabilityVerification();
 
   /// Detailed availability requirements narrative.
   TextSection narrative = TextSection();
@@ -1175,7 +1329,7 @@ class AvailabilityQuality {
 
 /// Operating-hour expectations.
 @SectionId('AQOH')
-class AvailabilityQualityOperatingHours {
+class AvailabilityOperatingHours {
   @Form([
     Field('operatingHours', String, 'Operating Hours',
         hint: '24/7, business hours, regional'),
@@ -1189,7 +1343,7 @@ class AvailabilityQualityOperatingHours {
 
 /// Maintenance window policy.
 @SectionId('AVQUMA')
-class AvailabilityQualityMaintenance {
+class AvailabilityMaintenance {
   @Form([
     Field('scheduledMaintenanceWindow', String, 'Scheduled Maintenance Window',
         hint: 'When maintenance can occur'),
@@ -1205,7 +1359,7 @@ class AvailabilityQualityMaintenance {
 
 /// Degraded-mode behavior.
 @SectionId('AQDM')
-class AvailabilityQualityDegradedMode {
+class AvailabilityDegradedMode {
   @Form([
     Field('degradedModeDefinition', String, 'Degraded Mode Definition',
         hint: 'What constitutes degraded mode'),
@@ -1219,7 +1373,7 @@ class AvailabilityQualityDegradedMode {
 
 /// Monitoring and reporting.
 @SectionId('AVQUVE')
-class AvailabilityQualityVerification {
+class AvailabilityVerification {
   @Form([
     Field('availabilityMonitoring', String, 'Availability Monitoring',
         hint: 'Synthetic monitoring, real user'),
@@ -1231,7 +1385,7 @@ class AvailabilityQualityVerification {
 
 /// 11.4.2. Service level quality.
 @SectionId('SELEQU')
-class ServiceLevelQuality {
+class ServiceLevel {
   @Form([
     Field('supportTierStructure', String, 'Support Tier Structure',
         hint: 'L1/L2/L3, single tier'),
@@ -1243,20 +1397,20 @@ class ServiceLevelQuality {
   String? content;
 
   /// Remaining response targets.
-  ServiceLevelQualityResponse response = ServiceLevelQualityResponse();
+  ServiceLevelResponse response = ServiceLevelResponse();
 
   /// Resolution targets.
-  ServiceLevelQualityResolution resolution = ServiceLevelQualityResolution();
+  ServiceLevelResolution resolution = ServiceLevelResolution();
 
   /// Escalation rules.
-  ServiceLevelQualityEscalation escalation = ServiceLevelQualityEscalation();
+  ServiceLevelEscalation escalation = ServiceLevelEscalation();
 
   /// On-call support expectations.
-  ServiceLevelQualityOnCall onCall = ServiceLevelQualityOnCall();
+  ServiceLevelOnCall onCall = ServiceLevelOnCall();
 
   /// Restoration and communication priorities.
-  ServiceLevelQualityRestoration restoration =
-      ServiceLevelQualityRestoration();
+  ServiceLevelRestoration restoration =
+      ServiceLevelRestoration();
 
   /// Detailed service level requirements narrative.
   TextSection narrative = TextSection();
@@ -1269,7 +1423,7 @@ class ServiceLevelQuality {
 
 /// Remaining response targets.
 @SectionId('SLQR')
-class ServiceLevelQualityResponse {
+class ServiceLevelResponse {
     @Form([
         Field('mediumResponseTime', String, 'Medium Response Time',
                 hint: 'Response time for P3 issues'),
@@ -1281,7 +1435,7 @@ class ServiceLevelQualityResponse {
 
 /// Resolution targets.
 @SectionId('SLQR1')
-class ServiceLevelQualityResolution {
+class ServiceLevelResolution {
     @Form([
         Field('criticalResolutionTime', String, 'Critical Resolution Time',
                 hint: 'Resolution target for P1'),
@@ -1297,7 +1451,7 @@ class ServiceLevelQualityResolution {
 
 /// Escalation rules.
 @SectionId('SLQE')
-class ServiceLevelQualityEscalation {
+class ServiceLevelEscalation {
     @Form([
         Field('escalationTimeframes', String, 'Escalation Timeframes',
                 hint: 'When issues escalate'),
@@ -1311,7 +1465,7 @@ class ServiceLevelQualityEscalation {
 
 /// On-call support expectations.
 @SectionId('SLQOC')
-class ServiceLevelQualityOnCall {
+class ServiceLevelOnCall {
     @Form([
         Field('onCallCoverage', String, 'On-Call Coverage',
                 hint: '24/7, business hours, regional'),
@@ -1325,7 +1479,7 @@ class ServiceLevelQualityOnCall {
 
 /// Restoration and communication priorities.
 @SectionId('SLQR2')
-class ServiceLevelQualityRestoration {
+class ServiceLevelRestoration {
     @Form([
         Field('serviceRestorationPriority', String, 'Service Restoration Priority',
                 hint: 'Order of restoration'),
@@ -1358,7 +1512,7 @@ class ServiceLevelAgreementEntry {
 
 /// 11.4.3. Monitoring quality.
 @SectionId('MOQU')
-class MonitoringQuality {
+class OperationalMonitoring {
   @Form([
     Field('scalabilityMonitoringApproach', String, 'Scalability Monitoring',
         hint: 'Auto-scaling triggers, capacity alerts'),
@@ -1370,16 +1524,16 @@ class MonitoringQuality {
   String? content;
 
   /// Component monitoring coverage.
-  MonitoringQualityCoverage coverage = MonitoringQualityCoverage();
+  MonitoringCoverage coverage = MonitoringCoverage();
 
   /// Alert automation capabilities.
-  MonitoringQualityAutomation automation = MonitoringQualityAutomation();
+  MonitoringAutomation automation = MonitoringAutomation();
 
   /// Alerting strategy and channels.
-  MonitoringQualityAlerting alerting = MonitoringQualityAlerting();
+  MonitoringAlerting alerting = MonitoringAlerting();
 
   /// Planning and observability settings.
-  MonitoringQualityOperations operations = MonitoringQualityOperations();
+  MonitoringOperations operations = MonitoringOperations();
 
   /// Detailed monitoring requirements narrative.
   TextSection narrative = TextSection();
@@ -1387,7 +1541,7 @@ class MonitoringQuality {
 
 /// Component monitoring coverage.
 @SectionId('MOQUCO')
-class MonitoringQualityCoverage {
+class MonitoringCoverage {
   @Form([
     Field('infrastructureMonitoring', String, 'Infrastructure Monitoring',
         hint: 'Servers, containers, network'),
@@ -1403,7 +1557,7 @@ class MonitoringQualityCoverage {
 
 /// Alert automation capabilities.
 @SectionId('MOQUAU')
-class MonitoringQualityAutomation {
+class MonitoringAutomation {
   @Form([
     Field('alertAutomation', String, 'Alert Automation',
         hint: 'Automated response to alerts'),
@@ -1417,7 +1571,7 @@ class MonitoringQualityAutomation {
 
 /// Alerting strategy and channels.
 @SectionId('MOQUAL')
-class MonitoringQualityAlerting {
+class MonitoringAlerting {
   @Form([
     Field('alertingStrategy', String, 'Alerting Strategy',
         hint: 'Threshold-based, anomaly detection'),
@@ -1433,7 +1587,7 @@ class MonitoringQualityAlerting {
 
 /// Planning and observability settings.
 @SectionId('MOQUOP')
-class MonitoringQualityOperations {
+class MonitoringOperations {
   @Form([
     Field('resourcePlanningFrequency', String, 'Resource Planning Frequency',
         hint: 'Quarterly, annually'),
@@ -1451,7 +1605,7 @@ class MonitoringQualityOperations {
 
 /// 11.4.4. IT Security Operations quality.
 @SectionId('ISOQ')
-class ItSecurityOperationsQuality {
+class ItSecurityOperations {
   @Form([
     Field('accessControlModel', String, 'Access Control Model',
         hint: 'RBAC, ABAC, zero-trust'),
@@ -1462,20 +1616,20 @@ class ItSecurityOperationsQuality {
   String? content;
 
   /// Access protection controls.
-  ItSecurityOperationsQualityAccess access =
-      ItSecurityOperationsQualityAccess();
+  ItSecurityOperationsAccess access =
+      ItSecurityOperationsAccess();
 
   /// Disaster recovery planning details.
-  ItSecurityOperationsQualityRecovery recovery =
-      ItSecurityOperationsQualityRecovery();
+  ItSecurityOperationsRecovery recovery =
+      ItSecurityOperationsRecovery();
 
   /// Penetration testing and remediation.
-  ItSecurityOperationsQualityTesting testing =
-      ItSecurityOperationsQualityTesting();
+  ItSecurityOperationsTesting testing =
+      ItSecurityOperationsTesting();
 
   /// Incident handling and reporting.
-  ItSecurityOperationsQualityIncident incident =
-      ItSecurityOperationsQualityIncident();
+  ItSecurityOperationsIncident incident =
+      ItSecurityOperationsIncident();
 
   /// Detailed IT security operations narrative.
   TextSection narrative = TextSection();
@@ -1483,7 +1637,7 @@ class ItSecurityOperationsQuality {
 
 /// Access protection controls.
 @SectionId('ISOQA')
-class ItSecurityOperationsQualityAccess {
+class ItSecurityOperationsAccess {
   @Form([
     Field('privilegedAccessManagement', String, 'Privileged Access Management',
         hint: 'PAM solution, just-in-time'),
@@ -1497,7 +1651,7 @@ class ItSecurityOperationsQualityAccess {
 
 /// Disaster recovery planning details.
 @SectionId('ISOQR')
-class ItSecurityOperationsQualityRecovery {
+class ItSecurityOperationsRecovery {
   @Form([
     Field('drTestingFrequency', String, 'DR Testing Frequency',
         hint: 'Annual, semi-annual'),
@@ -1513,7 +1667,7 @@ class ItSecurityOperationsQualityRecovery {
 
 /// Penetration testing and remediation.
 @SectionId('ISOQT')
-class ItSecurityOperationsQualityTesting {
+class ItSecurityOperationsTesting {
   @Form([
     Field('penetrationTestScope', String, 'Penetration Test Scope',
         hint: 'Internal, external, both'),
@@ -1528,7 +1682,7 @@ class ItSecurityOperationsQualityTesting {
 
 /// Incident handling and reporting.
 @SectionId('ISOQI')
-class ItSecurityOperationsQualityIncident {
+class ItSecurityOperationsIncident {
   @Form([
     Field('securityIncidentClassification', String, 'Incident Classification',
         hint: 'Severity levels'),
@@ -1542,10 +1696,15 @@ class ItSecurityOperationsQualityIncident {
   String? content;
 }
 
-/// 11.5. Documentation Quality Criteria.
+/// 11.10. Documentation Quality (ISO/IEC 26514 annex).
 ///
-/// Quality criteria for project documentation including readability,
-/// completeness, correctness, and changeability.
+/// Documentation-deliverable quality criteria — readability, completeness,
+/// correctness, and changeability of the user/technical documentation. This
+/// characteristic has no home in the ISO/IEC 25010:2023 product-quality model
+/// (which scopes the *product*, not its documentation), so per L34C-8 it is
+/// retained as a documentation-quality annex aligned to ISO/IEC 26514
+/// (systems & software engineering — design and development of information for
+/// users) rather than re-homed under a 25010:2023 characteristic.
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DOC')
@@ -1575,21 +1734,21 @@ class DocumentationQualityCriteria {
   TextSection overview = TextSection();
 
   /// 11.5.1. Readability.
-  ReadabilityQuality readability = ReadabilityQuality();
+  Readability readability = Readability();
 
   /// 11.5.2. Completeness.
-  DocCompletenessQuality completeness = DocCompletenessQuality();
+  DocCompleteness completeness = DocCompleteness();
 
   /// 11.5.3. Correctness.
-  DocCorrectnessQuality correctness = DocCorrectnessQuality();
+  DocCorrectness correctness = DocCorrectness();
 
   /// 11.5.4. Changeability.
-  DocChangeabilityQuality changeability = DocChangeabilityQuality();
+  DocChangeability changeability = DocChangeability();
 }
 
 /// 11.5.1. Readability quality.
 @SectionId('REQU1')
-class ReadabilityQuality {
+class Readability {
   @Form([
     Field('terminologyStandard', String, 'Terminology Standard',
         hint: 'Glossary, controlled vocabulary'),
@@ -1601,17 +1760,17 @@ class ReadabilityQuality {
   String? content;
 
   /// Identifiability and navigation.
-  ReadabilityQualityNavigation navigation = ReadabilityQualityNavigation();
+  ReadabilityNavigation navigation = ReadabilityNavigation();
 
   /// Comprehensibility requirements.
-  ReadabilityQualityComprehensibility comprehensibility =
-      ReadabilityQualityComprehensibility();
+  ReadabilityComprehensibility comprehensibility =
+      ReadabilityComprehensibility();
 
   /// Document structure rules.
-  ReadabilityQualityStructure structure = ReadabilityQualityStructure();
+  ReadabilityStructure structure = ReadabilityStructure();
 
   /// Style guide alignment.
-  ReadabilityQualityStyle style = ReadabilityQualityStyle();
+  ReadabilityStyle style = ReadabilityStyle();
 
   /// Detailed readability requirements narrative.
   TextSection narrative = TextSection();
@@ -1619,7 +1778,7 @@ class ReadabilityQuality {
 
 /// Identifiability and navigation.
 @SectionId('REQUNA')
-class ReadabilityQualityNavigation {
+class ReadabilityNavigation {
   @Form([
     Field('sectionNumbering', String, 'Section Numbering',
         hint: 'Hierarchical, flat, none'),
@@ -1633,7 +1792,7 @@ class ReadabilityQualityNavigation {
 
 /// Comprehensibility requirements.
 @SectionId('REQUCO')
-class ReadabilityQualityComprehensibility {
+class ReadabilityComprehensibility {
   @Form([
     Field('readingLevelTarget', String, 'Reading Level Target',
         hint: 'Grade level, technical audience'),
@@ -1647,7 +1806,7 @@ class ReadabilityQualityComprehensibility {
 
 /// Document structure rules.
 @SectionId('REQUST')
-class ReadabilityQualityStructure {
+class ReadabilityStructure {
   @Form([
     Field('documentStructureTemplate', String, 'Structure Template',
         hint: 'Standard document templates'),
@@ -1661,7 +1820,7 @@ class ReadabilityQualityStructure {
 
 /// Style guide alignment.
 @SectionId('REQUS1')
-class ReadabilityQualityStyle {
+class ReadabilityStyle {
   @Form([
     Field('styleGuideReference', String, 'Style Guide Reference',
         hint: 'Google, Microsoft, custom'),
@@ -1675,7 +1834,7 @@ class ReadabilityQualityStyle {
 
 /// 11.5.2. Documentation completeness quality.
 @SectionId('DOCOQU')
-class DocCompletenessQuality {
+class DocCompleteness {
   @Form([
     // Topic coverage
     Field('requiredTopics', String, 'Required Topics',
@@ -1710,7 +1869,7 @@ class DocCompletenessQuality {
 
 /// 11.5.3. Documentation correctness quality.
 @SectionId('DOCOQ1')
-class DocCorrectnessQuality {
+class DocCorrectness {
   @Form([
     // Error-freedom
     Field('spellingGrammarCheck', String, 'Spelling/Grammar Check',
@@ -1726,11 +1885,11 @@ class DocCorrectnessQuality {
   String? content;
 
   /// Formatting and implementation alignment.
-  DocCorrectnessQualityAlignment alignment = DocCorrectnessQualityAlignment();
+  DocCorrectnessAlignment alignment = DocCorrectnessAlignment();
 
   /// Verification and feedback handling.
-  DocCorrectnessQualityVerification verification =
-      DocCorrectnessQualityVerification();
+  DocCorrectnessVerification verification =
+      DocCorrectnessVerification();
 
   /// Detailed correctness requirements narrative.
   TextSection narrative = TextSection();
@@ -1738,7 +1897,7 @@ class DocCorrectnessQuality {
 
 /// Formatting and implementation alignment.
 @SectionId('DCQA')
-class DocCorrectnessQualityAlignment {
+class DocCorrectnessAlignment {
     @Form([
         Field('formatConsistency', String, 'Format Consistency',
                 hint: 'Template adherence'),
@@ -1756,7 +1915,7 @@ class DocCorrectnessQualityAlignment {
 
 /// Verification and feedback handling.
 @SectionId('DCQV')
-class DocCorrectnessQualityVerification {
+class DocCorrectnessVerification {
     @Form([
         Field('correctnessVerification', String, 'Correctness Verification',
                 hint: 'Testing docs against product'),
@@ -1768,7 +1927,7 @@ class DocCorrectnessQualityVerification {
 
 /// 11.5.4. Documentation changeability quality.
 @SectionId('DOCHQU')
-class DocChangeabilityQuality {
+class DocChangeability {
   @Form([
     Field('versioningStrategy', String, 'Versioning Strategy',
         hint: 'Semantic, date-based, product-aligned'),
@@ -1780,16 +1939,16 @@ class DocChangeabilityQuality {
   String? content;
 
   /// Extensibility and localization readiness.
-  DocChangeabilityQualityExtensibility extensibility =
-      DocChangeabilityQualityExtensibility();
+  DocChangeabilityExtensibility extensibility =
+      DocChangeabilityExtensibility();
 
   /// Sizing and structural consistency rules.
-  DocChangeabilityQualityStructure structure =
-      DocChangeabilityQualityStructure();
+  DocChangeabilityStructure structure =
+      DocChangeabilityStructure();
 
   /// Review and retirement maintenance process.
-  DocChangeabilityQualityMaintenance maintenance =
-      DocChangeabilityQualityMaintenance();
+  DocChangeabilityMaintenance maintenance =
+      DocChangeabilityMaintenance();
 
   /// Detailed changeability requirements narrative.
   TextSection narrative = TextSection();
@@ -1797,7 +1956,7 @@ class DocChangeabilityQuality {
 
 /// Extensibility and localization readiness.
 @SectionId('DCQE')
-class DocChangeabilityQualityExtensibility {
+class DocChangeabilityExtensibility {
   @Form([
     Field('extensibilityApproach', String, 'Extensibility Approach',
         hint: 'Modular, template-based'),
@@ -1811,7 +1970,7 @@ class DocChangeabilityQualityExtensibility {
 
 /// Sizing and structural consistency rules.
 @SectionId('DCQS')
-class DocChangeabilityQualityStructure {
+class DocChangeabilityStructure {
   @Form([
     Field('documentSizingGuideline', String, 'Document Sizing',
         hint: 'Max pages, when to split'),
@@ -1827,7 +1986,7 @@ class DocChangeabilityQualityStructure {
 
 /// Review and retirement maintenance process.
 @SectionId('DCQM')
-class DocChangeabilityQualityMaintenance {
+class DocChangeabilityMaintenance {
   @Form([
     Field('reviewCycle', String, 'Review Cycle',
         hint: 'Periodic review schedule'),
@@ -2068,8 +2227,13 @@ class TradeOffDecisionEntryApproval {
 
 /// 11.7. Acceptance Criteria Summary.
 ///
-/// Quality acceptance criteria for the project including must-pass criteria
-/// and quality gate checklists.
+/// The acceptance *framework* and summary for the project: the acceptance
+/// process/authority/scope, the must-pass criteria, and the quality-gate
+/// checklist. The full enumerated, traceable acceptance criteria are NOT
+/// re-declared here — they live in the canonical [AcceptanceCriteriaList]
+/// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
+/// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
+/// referencing list).
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ACC')
@@ -2105,6 +2269,13 @@ class AcceptanceCriteriaSummary {
 
   /// 11.7.2. Quality Gate Checklist.
   QualityGateChecklist qualityGateChecklist = QualityGateChecklist();
+
+  /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
+  ///
+  /// The single source of truth for the full set of traceable acceptance
+  /// criteria; this summary references — rather than duplicates — it. The same
+  /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  AcceptanceCriteriaList detailedCriteria = AcceptanceCriteriaList();
 
   /// Acceptance test summary.
   @ContentHelp('Summary of acceptance test plan and expected outcomes.')

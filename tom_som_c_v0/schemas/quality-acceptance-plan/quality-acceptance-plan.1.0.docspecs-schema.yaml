@@ -151,7 +151,7 @@ section-types:
     description: 11.5.2. Documentation completeness quality.
   DOQUCR:
     prefix: doqucr
-    description: 11.5. Documentation Quality Criteria.
+    description: 11.10. Documentation Quality (ISO/IEC 26514 annex).
   EFQURE:
     prefix: efqure
     description: Resource utilization constraints.
@@ -200,9 +200,6 @@ section-types:
   MUPACR:
     prefix: mupacr
     description: 11.7.1. Must-Pass Criteria.
-  OPQUCR:
-    prefix: opqucr
-    description: 11.4. Operations Quality Criteria.
   QUGACH:
     prefix: qugach
     description: 11.7.2. Quality Gate Checklist.
@@ -248,9 +245,6 @@ section-types:
   SIOFPR:
     prefix: siofpr
     description: 14.2.5. Sign-off Process.
-  TEQUCR:
-    prefix: tequcr
-    description: 11.3. Technical Quality Criteria.
   TESCBU:
     prefix: tescbu
     description: Business context for test scenario.
@@ -446,9 +440,6 @@ section-types:
   USAQL:
     prefix: usaql
     description: 11.2.1. Usability quality.
-  USQCR:
-    prefix: usqcr
-    description: 11.2. User-Related Quality Criteria.
   UTCEE:
     prefix: utcee
     description: Staffing and risk context.
@@ -473,6 +464,9 @@ section-types:
   AVQU:
     prefix: avqu
     description: 11.4.1. Availability quality.
+  CMPT:
+    prefix: cmpt
+    description: 11.4. Compatibility (ISO/IEC 25010:2023).
   COQU:
     prefix: coqu
     description: 11.2.3. Correctness quality.
@@ -500,24 +494,45 @@ section-types:
   FLQU:
     prefix: flqu
     description: 11.3.3. Flexibility quality.
+  FLXC:
+    prefix: flxc
+    description: 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  FNSU:
+    prefix: fnsu
+    description: 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  INCP:
+    prefix: incp
+    description: 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
   ISOQ:
     prefix: isoq
     description: 11.4.4. IT Security Operations quality.
   MAQU:
     prefix: maqu
     description: 11.3.5. Maintainability quality.
+  MNTC:
+    prefix: mntc
+    description: 11.8. Maintainability (ISO/IEC 25010:2023).
   MOQU:
     prefix: moqu
     description: 11.4.3. Monitoring quality.
+  PEEF:
+    prefix: peef
+    description: 11.3. Performance Efficiency (ISO/IEC 25010:2023).
   POQU:
     prefix: poqu
     description: 11.3.2. Portability quality.
   QUPR:
     prefix: qupr
     description: 11.6. Quality Prioritization.
+  RELC:
+    prefix: relc
+    description: 11.6. Reliability (ISO/IEC 25010:2023).
   REQU:
     prefix: requ
     description: 11.3.6. Reliability quality.
+  SECC:
+    prefix: secc
+    description: 11.7. Security (ISO/IEC 25010:2023).
   SEQU:
     prefix: sequ
     description: 11.3.4. Security quality.
@@ -601,14 +616,29 @@ document:
     qualityframework:
       section-type: QLFWK
       optional: true
-    userqualitycriteria:
-      section-type: USQCR
+    functionalsuitability:
+      section-type: FNSU
       optional: true
-    technicalqualitycriteria:
-      section-type: TEQUCR
+    performanceefficiency:
+      section-type: PEEF
       optional: true
-    operationsqualitycriteria:
-      section-type: OPQUCR
+    compatibility:
+      section-type: CMPT
+      optional: true
+    interactioncapability:
+      section-type: INCP
+      optional: true
+    reliability:
+      section-type: RELC
+      optional: true
+    security:
+      section-type: SECC
+      optional: true
+    maintainability:
+      section-type: MNTC
+      optional: true
+    flexibility:
+      section-type: FLXC
       optional: true
     documentationqualitycriteria:
       section-type: DOQUCR
