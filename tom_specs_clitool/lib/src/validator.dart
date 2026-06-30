@@ -102,6 +102,11 @@ import 'model_reader.dart';
 ///   Field-level `@SectionId` values (the `-LST` container IDs on list fields)
 ///   occupy a *separate* namespace and are checked independently (see the
 ///   `-LST` checks below).
+/// - **`@SectionId` single-occurrence (per class)** — a class may declare at
+///   most one class-level `@SectionId`. A duplicate annotation on the same
+///   class would pass the global-uniqueness check silently (the repeated id
+///   only ever collides with itself, and the reader's `getAnnotation` returns
+///   only the first occurrence), so it is rejected explicitly here.
 /// - **Field-level `-LST` checks** — list container IDs follow the form
 ///   `<E>-<FIELDSUFFIX>-LST`, where `<E>` is the element type's class-level
 ///   `@SectionId` and `<FIELDSUFFIX>` is the field name uppercased. Two
@@ -230,6 +235,20 @@ void _validateStructuralInvariants(
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
+
+    // @SectionId single-occurrence — a class may declare @SectionId at most
+    // once. `getAnnotation` returns only the first match, so a duplicate on the
+    // same class would otherwise pass the global-uniqueness check below
+    // silently (the repeated id only collides with itself).
+    final sectionIdCount =
+        cls.annotations.where((a) => a.name == 'SectionId').length;
+    if (sectionIdCount > 1) {
+      errors.add(
+        '§8.6 @SectionId single-occurrence: $className carries $sectionIdCount '
+        'class-level @SectionId annotations — a class may declare @SectionId '
+        'at most once',
+      );
+    }
 
     // @SectionId uniqueness — class-level annotation
     final sectionIdAnno = cls.getAnnotation('SectionId');

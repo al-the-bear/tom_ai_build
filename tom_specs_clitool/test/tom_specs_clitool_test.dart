@@ -218,6 +218,50 @@ void main() {
       final dupeErrors = result.errors.where((e) => e.contains('uniqueness')).toList();
       expect(dupeErrors, isEmpty);
     });
+
+    test('detects a duplicate @SectionId on a single class', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('alpha', 'Alpha')],
+        ),
+        // Two class-level @SectionId annotations on one class (same id) —
+        // mirrors the IDAUT/SCRDZ source-hygiene defect. `getAnnotation`
+        // collapses these, so without the single-occurrence rule the
+        // global-uniqueness check would not catch it.
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'TST-DUP'}),
+          AnnotationData('SectionId', {'id': 'TST-DUP'}),
+        ]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any(
+          (e) =>
+              e.contains('§8.6 @SectionId single-occurrence') &&
+              e.contains('Alpha'),
+        ),
+        isTrue,
+        reason: 'Expected a single-occurrence error for class Alpha',
+      );
+    });
+
+    test('passes when each class carries exactly one @SectionId', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('alpha', 'Alpha')],
+        ),
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-AAA'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final singleOccErrors = result.errors
+          .where((e) => e.contains('§8.6 @SectionId single-occurrence'))
+          .toList();
+      expect(singleOccErrors, isEmpty, reason: singleOccErrors.join('\n'));
+    });
   });
 
   group('unit: @SectionId coverage check', () {

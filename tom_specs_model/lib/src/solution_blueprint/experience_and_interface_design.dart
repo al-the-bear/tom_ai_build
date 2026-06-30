@@ -570,7 +570,6 @@ class PersonaScenarioEntry {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCR')
-@SectionId('SCRDZ')
 class ScreenDescriptions {
   @ContentHelp('''
 ## Screen Descriptions (10.2)

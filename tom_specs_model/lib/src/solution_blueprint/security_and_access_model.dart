@@ -780,7 +780,6 @@ class UserAttributeEntry {
 @SectionId('IDAUT')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-IDE')
-@SectionId('IDAUT')
 class IdentificationAndAuthentication {
   @ContentHelp('''
 Define how users prove their identity to the system. Authentication is the
