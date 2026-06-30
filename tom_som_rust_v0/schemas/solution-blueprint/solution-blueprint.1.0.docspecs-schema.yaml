@@ -218,7 +218,7 @@ section-types:
     pattern-check-id:
       pattern: ^daenre_enti_lst-\d+$
       error-message: ID must match daenre_enti_lst-NNN
-    description: Data entity entries — contains 0+× DataEntityReferenceEntry.
+    description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   DAOWEN-OWNE-LST:
     prefix: daowen_owne_lst
     min-count-in-document: 1
@@ -738,7 +738,7 @@ section-types:
     pattern-check-id:
       pattern: ^rqbiru_rule_lst-\d+$
       error-message: ID must match rqbiru_rule_lst-NNN
-    description: Business rule entries — contains 0+× RequirementBusinessRuleEntry.
+    description: Add one entry per business rule that constrains or guides this requirement.
   RQSCAC-ACTI-LST:
     prefix: rqscac_acti_lst
     pattern-check-id:
@@ -860,7 +860,7 @@ section-types:
     pattern-check-id:
       pattern: ^sucrre_rela_lst-\d+$
       error-message: ID must match sucrre_rela_lst-NNN
-    description: Relationships.
+    description: "Add relationship entries tracing this criterion to related goals, requirements, dependencies, and stakeholders."
   SULOEN-SUPP-LST:
     prefix: suloen_supp_lst
     pattern-check-id:
@@ -891,7 +891,7 @@ section-types:
     pattern-check-id:
       pattern: ^tegots_item_lst-\d+$
       error-message: ID must match tegots_item_lst-NNN
-    description: Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
+    description: "Add one entry per test case covering procedure, expected result, and status for this goal."
   TEPAPO-ITEM-LST:
     prefix: tepapo_item_lst
     pattern-check-id:
@@ -1336,7 +1336,7 @@ section-types:
     pattern-check-id:
       pattern: ^fldvl_vali_lst-\d+$
       error-message: ID must match fldvl_vali_lst-NNN
-    description: Field validation rules — contains 0+× FieldValidationRule.
+    description: Add one entry per validation rule applied to this field.
   FNDMX-MATR-LST:
     prefix: fndmx_matr_lst
     pattern-check-id:
@@ -1384,19 +1384,19 @@ section-types:
     pattern-check-id:
       pattern: ^golde_item_lst-\d+$
       error-message: ID must match golde_item_lst-NNN
-    description: Dependency entries — contains 0+× GoalDependencyEntry.
+    description: "Add one entry per dependency, including its type and impact."
   GOLMS-ITEM-LST:
     prefix: golms_item_lst
     pattern-check-id:
       pattern: ^golms_item_lst-\d+$
       error-message: ID must match golms_item_lst-NNN
-    description: Milestone entries — contains 0+× GoalMilestoneEntry.
+    description: "Add one entry per milestone, ordered by target date."
   GOLRS-ITEM-LST:
     prefix: golrs_item_lst
     pattern-check-id:
       pattern: ^golrs_item_lst-\d+$
       error-message: ID must match golrs_item_lst-NNN
-    description: Risk entries — contains 0+× GoalRiskEntry.
+    description: "Add one entry per risk, with assessment and response details."
   HNDRE-HAND-LST:
     prefix: hndre_hand_lst
     pattern-check-id:
@@ -1671,7 +1671,7 @@ section-types:
     pattern-check-id:
       pattern: ^orgim_acti_lst-\d+$
       error-message: ID must match orgim_acti_lst-NNN
-    description: Implementation activities — contains 0+× OrgImplementationActivity.
+    description: Add one entry per implementation activity for this organizational change.
   OTAGR-OTHE-LST:
     prefix: otagr_othe_lst
     pattern-check-id:
@@ -1852,7 +1852,7 @@ section-types:
     pattern-check-id:
       pattern: ^qlscn_item_lst-\d+$
       error-message: ID must match qlscn_item_lst-NNN
-    description: Quality scenario entries — contains 0+× QualityScenarioEntry.
+    description: Add one entry per quality scenario covering a distinct stimulus and measurable response for the goal.
   QLSTD-QUAL-LST:
     prefix: qlstd_qual_lst
     pattern-check-id:
@@ -1876,7 +1876,7 @@ section-types:
     pattern-check-id:
       pattern: ^rears_item_lst-\d+$
       error-message: ID must match rears_item_lst-NNN
-    description: Resource allocation entries — contains 0+× ResourceAllocationEntry.
+    description: "Add one entry per allocated resource (personnel, budget, tool)."
   RECOV-RECO-LST:
     prefix: recov_reco_lst
     pattern-check-id:
@@ -1990,13 +1990,13 @@ section-types:
     pattern-check-id:
       pattern: ^rqdep_item_lst-\d+$
       error-message: ID must match rqdep_item_lst-NNN
-    description: Dependency entries — contains 0+× RequirementDependencyEntry.
+    description: Add one entry per dependency on another requirement.
   RQTSC-TEST-LST:
     prefix: rqtsc_test_lst
     pattern-check-id:
       pattern: ^rqtsc_test_lst-\d+$
       error-message: ID must match rqtsc_test_lst-NNN
-    description: Test case entries — contains 0+× RequirementTestCaseEntry.
+    description: Add one entry per test case that verifies this requirement.
   RREQE-OPEN-LST:
     prefix: rreqe_open_lst
     pattern-check-id:
@@ -2132,7 +2132,7 @@ section-types:
     pattern-check-id:
       pattern: ^secct_cont_lst-\d+$
       error-message: ID must match secct_cont_lst-NNN
-    description: Security control entries — contains 0+× SecurityControlEntry.
+    description: Add one entry per security control implementing this requirement.
   SECRQ-REQU-LST:
     prefix: secrq_requ_lst
     pattern-check-id:
@@ -2399,7 +2399,7 @@ section-types:
     pattern-check-id:
       pattern: ^acpr_para_lst-\d+$
       error-message: ID must match acpr_para_lst-NNN
-    description: Action parameters — contains 0+× ActionParameterEntry.
+    description: Add one entry per parameter passed to this action.
   ACRG-ASMP-LST:
     prefix: acrg_asmp_lst
     pattern-check-id:
@@ -2930,7 +2930,7 @@ section-types:
     pattern-check-id:
       pattern: ^rere_requ_lst-\d+$
       error-message: ID must match rere_requ_lst-NNN
-    description: 4.3.5. Requirement Relationships.
+    description: "Add one entry per relationship between requirements, capturing the linked requirements and the nature of their relationship."
   RESY-SYST-LST:
     prefix: resy_syst_lst
     pattern-check-id:
@@ -3075,13 +3075,13 @@ section-types:
     pattern-check-id:
       pattern: ^tecn_item_lst-\d+$
       error-message: ID must match tecn_item_lst-NNN
-    description: Constraint entries — contains 0+× TechnicalConstraintEntry.
+    description: "Add one entry per technical constraint, capturing type, source, rationale, impact, and flexibility."
   TEDE-ITEM-LST:
     prefix: tede_item_lst
     pattern-check-id:
       pattern: ^tede_item_lst-\d+$
       error-message: ID must match tede_item_lst-NNN
-    description: Dependency entries — contains 0+× TechnicalDependencyEntry.
+    description: "Add one entry per technical dependency, capturing type, version, SLA, fallback, and status."
   TERQ-REQU-LST:
     prefix: terq_requ_lst
     pattern-check-id:

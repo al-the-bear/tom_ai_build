@@ -7,13 +7,13 @@ section-types:
     pattern-check-id:
       pattern: ^daenre_enti_lst-\d+$
       error-message: ID must match daenre_enti_lst-NNN
-    description: Data entity entries — contains 0+× DataEntityReferenceEntry.
+    description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   RQBIRU-RULE-LST:
     prefix: rqbiru_rule_lst
     pattern-check-id:
       pattern: ^rqbiru_rule_lst-\d+$
       error-message: ID must match rqbiru_rule_lst-NNN
-    description: Business rule entries — contains 0+× RequirementBusinessRuleEntry.
+    description: Add one entry per business rule that constrains or guides this requirement.
   RQSCAC-ACTI-LST:
     prefix: rqscac_acti_lst
     pattern-check-id:
@@ -25,25 +25,25 @@ section-types:
     pattern-check-id:
       pattern: ^fldvl_vali_lst-\d+$
       error-message: ID must match fldvl_vali_lst-NNN
-    description: Field validation rules — contains 0+× FieldValidationRule.
+    description: Add one entry per validation rule applied to this field.
   ORGIM-ACTI-LST:
     prefix: orgim_acti_lst
     pattern-check-id:
       pattern: ^orgim_acti_lst-\d+$
       error-message: ID must match orgim_acti_lst-NNN
-    description: Implementation activities — contains 0+× OrgImplementationActivity.
+    description: Add one entry per implementation activity for this organizational change.
   RQDEP-ITEM-LST:
     prefix: rqdep_item_lst
     pattern-check-id:
       pattern: ^rqdep_item_lst-\d+$
       error-message: ID must match rqdep_item_lst-NNN
-    description: Dependency entries — contains 0+× RequirementDependencyEntry.
+    description: Add one entry per dependency on another requirement.
   RQTSC-TEST-LST:
     prefix: rqtsc_test_lst
     pattern-check-id:
       pattern: ^rqtsc_test_lst-\d+$
       error-message: ID must match rqtsc_test_lst-NNN
-    description: Test case entries — contains 0+× RequirementTestCaseEntry.
+    description: Add one entry per test case that verifies this requirement.
   SCBHV-BEHA-LST:
     prefix: scbhv_beha_lst
     pattern-check-id:
@@ -61,7 +61,7 @@ section-types:
     pattern-check-id:
       pattern: ^secct_cont_lst-\d+$
       error-message: ID must match secct_cont_lst-NNN
-    description: Security control entries — contains 0+× SecurityControlEntry.
+    description: Add one entry per security control implementing this requirement.
   SECRQ-REQU-LST:
     prefix: secrq_requ_lst
     pattern-check-id:
@@ -79,7 +79,7 @@ section-types:
     pattern-check-id:
       pattern: ^acpr_para_lst-\d+$
       error-message: ID must match acpr_para_lst-NNN
-    description: Action parameters — contains 0+× ActionParameterEntry.
+    description: Add one entry per parameter passed to this action.
   ORRQ-REQU-LST:
     prefix: orrq_requ_lst
     pattern-check-id:

@@ -4300,6 +4300,14 @@ class JourneyStageEntry {
 /// objectives that guide project execution and define success. This section
 /// supports OKR (Objectives and Key Results) methodology while also
 /// accommodating traditional goal structures.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — system purpose & goals',
+    'BABOK v3 §6 — strategy analysis (goals & objectives)',
+  ],
+  'Captures the measurable goals the project must achieve, organized by '
+  'category, that define success and guide execution.',
+)
 @ContentHelp('Define clear, measurable goals that the project must achieve. '
     'Organize goals by category (business, technical) and ensure each goal '
     'has specific success metrics and target dates.')
@@ -4338,6 +4346,14 @@ class Goals {
 /// Container for business goal definitions. Business goals define what the
 /// organization wants to achieve through this project in terms of business
 /// outcomes, value delivery, and strategic advancement.
+@StandardReferences(
+  [
+    'BABOK v3 §6.1 — business goals & objectives',
+    'ISO/IEC/IEEE 29148 §6 — business need',
+  ],
+  'Captures the business outcomes the organization wants to achieve through '
+  'this project, expressed as SMART goals with ownership and metrics.',
+)
 @ContentHelp('Define business goals that are specific, measurable, achievable, '
     'relevant, and time-bound (SMART). Each goal should have clear ownership '
     'and success metrics.')
@@ -4350,6 +4366,13 @@ class BusinessGoals {
   String? content;
 
   /// Business goals list — contains 1+× Business Goal.
+  @StandardReferences(
+    [
+      'BABOK v3 §6.1 — business goals & objectives',
+      'ISO/IEC/IEEE 29148 §6 — business need',
+    ],
+    'The set of individual business goal entries defined for this project.',
+  )
   @SectionId('BGE-GOAL-LST')
   @SectionIdPattern('BGE-GOAL-xxx')
   @Min(1)
@@ -4363,15 +4386,24 @@ class BusinessGoals {
 ///
 /// Comprehensive business goal definition following SMART criteria with
 /// OKR-style key results, ownership, and tracking information.
+@StandardReferences(
+  [
+    'BABOK v3 §6.1 — business goals & objectives',
+    'ISO/IEC/IEEE 29148 §6 — business need',
+  ],
+  'Captures a single SMART business goal with OKR-style key results, '
+  'ownership, and tracking information.',
+)
 @SectionId('BGE')
 class BusinessGoalEntry {
   @Form([
     Field('goalId', String, 'Goal ID (unique identifier, e.g., BG-001)',
-        required: true),
+        required: true, hint: 'Unique goal identifier, e.g., BG-001'),
     Field('goalName', String, 'Goal Name (concise objective statement)',
-        required: true),
+        required: true, hint: 'Concise one-line objective statement'),
     Field('goalCategory', String,
-        'Goal Category (Strategic, Tactical, Operational)', required: true),
+        'Goal Category (Strategic, Tactical, Operational)', required: true,
+        hint: 'Strategic, Tactical, or Operational'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4414,71 +4446,116 @@ class BusinessGoalEntry {
 }
 
 /// Goal definition and priority.
+@StandardReferences(
+  [
+    'BABOK v3 §6.1 — business goals & objectives',
+    'ISO/IEC/IEEE 29148 §6 — business need',
+  ],
+  'Captures the detailed meaning, type, and priority of a single business '
+  'goal.',
+)
 @SectionId('BGED')
 class BusinessGoalEntryDefinition {
   @Form([
     Field('description', String,
-        'Description (detailed explanation of what this goal means)'),
+        'Description (detailed explanation of what this goal means)',
+        hint: 'Detailed explanation of what this goal means'),
     Field('goalType', String,
         'Goal Type (Revenue, Cost Reduction, Efficiency, Quality, Compliance, '
-            'Growth, Customer Satisfaction, Market Position, Innovation)'),
+            'Growth, Customer Satisfaction, Market Position, Innovation)',
+        hint: 'e.g., Revenue, Cost Reduction, Quality, Compliance, Growth'),
     Field('priority', String, 'Priority (Critical, High, Medium, Low)',
-        required: true),
+        required: true, hint: 'Critical, High, Medium, or Low'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Success metric and measurement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — measures of effectiveness',
+    'SMART objectives — measurable goals',
+  ],
+  'Captures the measurable success metric, baseline, target, and measurement '
+  'method for a business goal.',
+)
 @SectionId('BGEM')
 class BusinessGoalEntryMeasurement {
   @Form([
     Field('successMetric', String,
-        'Primary Success Metric (what is measured)', required: true),
+        'Primary Success Metric (what is measured)', required: true,
+        hint: 'The primary quantity measured to gauge success'),
     Field('currentValue', String,
-        'Current Value (baseline measurement before project)'),
+        'Current Value (baseline measurement before project)',
+        hint: 'Baseline measurement before the project starts'),
     Field('targetValue', String, 'Target Value (desired end state)',
-        required: true),
+        required: true, hint: 'Desired end-state value for the metric'),
     Field('measurementMethod', String,
-        'Measurement Method (how the metric is captured)'),
+        'Measurement Method (how the metric is captured)',
+        hint: 'How the metric is captured or calculated'),
     Field('measurementFrequency', String,
-        'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)'),
+        'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)',
+        hint: 'Daily, Weekly, Monthly, or Quarterly'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Ownership and timeline.
+@StandardReferences(
+  [
+    'ISO 21500 — governance',
+    'BABOK v3 §6 — monitoring',
+  ],
+  'Captures ownership, timeline, contributing stakeholders, and current '
+  'status for a business goal.',
+)
 @SectionId('BGEG')
 class BusinessGoalEntryGovernance {
   @Form([
     Field('targetDate', String, 'Target Date (when goal should be achieved)',
-        required: true),
+        required: true, hint: 'Date by which the goal should be achieved'),
     Field('owner', String, 'Goal Owner (accountable person or role)',
-        required: true),
+        required: true, hint: 'Accountable person or role for this goal'),
     Field('stakeholders', String,
-        'Contributing Stakeholders (roles involved in achieving this goal)'),
+        'Contributing Stakeholders (roles involved in achieving this goal)',
+        hint: 'Roles involved in achieving this goal'),
     Field('status', String,
-        'Status (Not Started, In Progress, On Track, At Risk, Achieved)'),
+        'Status (Not Started, In Progress, On Track, At Risk, Achieved)',
+        hint: 'Not Started, In Progress, On Track, At Risk, or Achieved'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Business rationale and impact.
+@StandardReferences(
+  [
+    'BABOK v3 §6.1 — business goals & objectives',
+    'ISO/IEC/IEEE 29148 §6 — business need',
+  ],
+  'Captures the business rationale, strategic alignment, impact areas, and '
+  'estimated value justifying a business goal.',
+)
 @SectionId('BGES')
 class BusinessGoalEntryStrategy {
   @Form([
     Field('businessJustification', String,
-        'Business Justification (why this goal matters)'),
+        'Business Justification (why this goal matters)',
+        hint: 'Why this goal matters to the business'),
     Field('strategicAlignment', String,
-        'Strategic Alignment (link to corporate strategy or OKR)'),
+        'Strategic Alignment (link to corporate strategy or OKR)',
+        hint: 'Link to corporate strategy or OKR'),
     Field('impactAreas', String,
-        'Impact Areas (departments, processes, or systems affected)'),
+        'Impact Areas (departments, processes, or systems affected)',
+        hint: 'Departments, processes, or systems affected'),
     Field('estimatedValue', String,
-        'Estimated Value (monetary or quantitative benefit)'),
+        'Estimated Value (monetary or quantitative benefit)',
+        hint: 'Monetary or quantitative benefit expected'),
     Field('riskOfNotAchieving', String,
-        'Risk of Not Achieving (consequences of failure)'),
+        'Risk of Not Achieving (consequences of failure)',
+        hint: 'Consequences if the goal is not achieved'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4489,6 +4566,14 @@ class BusinessGoalEntryStrategy {
 /// OKR-style key results that indicate progress toward the goal.
 /// Key results are specific, measurable outcomes that together constitute
 /// achievement of the parent goal.
+@StandardReferences(
+  [
+    'OKR — objectives & key results',
+    'BABOK v3 §6 — objectives',
+  ],
+  'Captures the OKR-style key results that together indicate achievement of '
+  'the parent business goal.',
+)
 @ContentHelp('Define 3-5 key results that together indicate goal achievement. '
     'Each key result should be independently measurable.')
 @SectionId('GKR')
@@ -4499,6 +4584,13 @@ class GoalKeyResults {
   String? content;
 
   /// Key result entries — contains 0+× KeyResultEntry.
+  @StandardReferences(
+    [
+      'OKR — objectives & key results',
+      'BABOK v3 §6 — objectives',
+    ],
+    'The set of individual key-result entries for a business goal.',
+  )
   @SectionId('KRE-ITEM-LST')
   @SectionIdPattern('KRE-ITEM-xxx')
   @ContentHelp('Add 3-5 key results per goal. Each should be specific '
@@ -4508,20 +4600,36 @@ class GoalKeyResults {
 }
 
 /// A key result entry (form).
+@StandardReferences(
+  [
+    'OKR — objectives & key results',
+    'BABOK v3 §6 — objectives',
+  ],
+  'Captures a single measurable key result with its metric, baseline, target, '
+  'progress, and status.',
+)
 @SectionId('KRE')
 class KeyResultEntry {
   @Form([
-    Field('keyResultId', String, 'Key Result ID', required: true),
-    Field('keyResult', String, 'Key Result (measurable outcome)', required: true),
-    Field('metric', String, 'Metric (what is measured)'),
-    Field('baselineValue', String, 'Baseline Value (starting point)'),
+    Field('keyResultId', String, 'Key Result ID', required: true,
+        hint: 'Unique identifier for this key result'),
+    Field('keyResult', String, 'Key Result (measurable outcome)', required: true,
+        hint: 'The measurable outcome that signals progress'),
+    Field('metric', String, 'Metric (what is measured)',
+        hint: 'What quantity is measured'),
+    Field('baselineValue', String, 'Baseline Value (starting point)',
+        hint: 'Starting value before work begins'),
     Field('targetValue', String, 'Target Value (desired endpoint)',
-        required: true),
-    Field('currentValue', String, 'Current Value (latest measurement)'),
-    Field('progress', String, 'Progress (percentage toward target)'),
-    Field('owner', String, 'Owner (responsible person)'),
-    Field('dueDate', String, 'Due Date'),
-    Field('status', String, 'Status (Not Started, In Progress, Achieved, Missed)'),
+        required: true, hint: 'Desired endpoint value'),
+    Field('currentValue', String, 'Current Value (latest measurement)',
+        hint: 'Latest measured value'),
+    Field('progress', String, 'Progress (percentage toward target)',
+        hint: 'Percentage of progress toward the target'),
+    Field('owner', String, 'Owner (responsible person)',
+        hint: 'Person responsible for this key result'),
+    Field('dueDate', String, 'Due Date', hint: 'Date the key result is due'),
+    Field('status', String, 'Status (Not Started, In Progress, Achieved, Missed)',
+        hint: 'Not Started, In Progress, Achieved, or Missed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4530,6 +4638,14 @@ class KeyResultEntry {
 /// 4.2.1.n.2. Milestones.
 ///
 /// Key milestones marking progress toward the goal.
+@StandardReferences(
+  [
+    'ISO 21500 — project milestones',
+    'PMBOK — schedule milestones',
+  ],
+  'Captures the key milestones that mark significant progress points toward '
+  'achieving a business goal.',
+)
 @SectionId('GOMI')
 @ContentHelp('Define milestones that mark significant progress points.')
 class GoalMilestones {
@@ -4539,25 +4655,50 @@ class GoalMilestones {
   String? content;
 
   /// Milestone entries — contains 0+× GoalMilestoneEntry.
+  @StandardReferences(
+    [
+      'ISO 21500 — project milestones',
+      'PMBOK — schedule milestones',
+    ],
+    'The set of individual milestone entries marking progress toward a goal.',
+  )
   @SectionId('GOLMS-ITEM-LST')
   @SectionIdPattern('GOLMS-ITEM-xxx')
+  @ContentHelp('Add one entry per milestone, ordered by target date.')
   @SerializationOrder(1)
   List<GoalMilestoneEntry> items = [];
 }
 
 /// A goal milestone entry (form).
+@StandardReferences(
+  [
+    'ISO 21500 — project milestones',
+    'PMBOK — schedule milestones',
+  ],
+  'Captures a single milestone with its target date, completion criteria, '
+  'deliverables, and status.',
+)
 @SectionId('GOLMS')
 class GoalMilestoneEntry {
   @Form([
-    Field('milestoneId', String, 'Milestone ID', required: true),
-    Field('milestoneName', String, 'Milestone Name', required: true),
-    Field('description', String, 'Description'),
-    Field('targetDate', String, 'Target Date', required: true),
-    Field('completionCriteria', String, 'Completion Criteria'),
-    Field('deliverables', String, 'Deliverables (outputs of this milestone)'),
-    Field('dependencies', String, 'Dependencies (what must be done first)'),
-    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)'),
-    Field('actualDate', String, 'Actual Completion Date'),
+    Field('milestoneId', String, 'Milestone ID', required: true,
+        hint: 'Unique identifier for this milestone'),
+    Field('milestoneName', String, 'Milestone Name', required: true,
+        hint: 'Short descriptive name for the milestone'),
+    Field('description', String, 'Description',
+        hint: 'What this milestone represents'),
+    Field('targetDate', String, 'Target Date', required: true,
+        hint: 'Planned date for reaching the milestone'),
+    Field('completionCriteria', String, 'Completion Criteria',
+        hint: 'How completion of the milestone is determined'),
+    Field('deliverables', String, 'Deliverables (outputs of this milestone)',
+        hint: 'Outputs produced at this milestone'),
+    Field('dependencies', String, 'Dependencies (what must be done first)',
+        hint: 'What must be completed before this milestone'),
+    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)',
+        hint: 'Planned, In Progress, Completed, or Delayed'),
+    Field('actualDate', String, 'Actual Completion Date',
+        hint: 'Date the milestone was actually completed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4566,6 +4707,14 @@ class GoalMilestoneEntry {
 /// 4.2.1.n.3. Dependencies.
 ///
 /// Dependencies that may affect goal achievement.
+@StandardReferences(
+  [
+    'ISO 21500 — dependency management',
+    'BABOK v3 §6 — dependencies',
+  ],
+  'Captures the dependencies on other goals, projects, or external factors '
+  'that may affect achievement of a business goal.',
+)
 @SectionId('GODE')
 @ContentHelp('Identify dependencies on other goals, projects, or external factors.')
 class GoalDependencies {
@@ -4575,30 +4724,54 @@ class GoalDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× GoalDependencyEntry.
+  @StandardReferences(
+    [
+      'ISO 21500 — dependency management',
+      'BABOK v3 §6 — dependencies',
+    ],
+    'The set of individual dependency entries affecting a business goal.',
+  )
   @SectionId('GOLDE-ITEM-LST')
   @SectionIdPattern('GOLDE-ITEM-xxx')
+  @ContentHelp('Add one entry per dependency, including its type and impact.')
   @SerializationOrder(1)
   List<GoalDependencyEntry> items = [];
 }
 
 /// A goal dependency entry (form).
+@StandardReferences(
+  [
+    'ISO 21500 — dependency management',
+    'BABOK v3 §6 — dependencies',
+  ],
+  'Captures a single dependency with its type, owner, impact, and mitigation '
+  'for a business goal.',
+)
 @SectionId('GOLDE')
 class GoalDependencyEntry {
   @Form([
-    Field('dependencyId', String, 'Dependency ID', required: true),
+    Field('dependencyId', String, 'Dependency ID', required: true,
+        hint: 'Unique identifier for this dependency'),
     Field('dependencyType', String,
         'Dependency Type (Internal Goal, External Project, Resource, '
             'Regulatory, Technical, Organizational)',
-        required: true),
+        required: true,
+        hint: 'e.g., Internal Goal, External Project, Resource, Regulatory'),
     Field('dependencyName', String, 'Dependency Name (what we depend on)',
-        required: true),
-    Field('description', String, 'Description'),
-    Field('owner', String, 'Owner (who controls this dependency)'),
-    Field('expectedResolutionDate', String, 'Expected Resolution Date'),
-    Field('impact', String, 'Impact (how this affects our goal)'),
+        required: true, hint: 'Name of the thing this goal depends on'),
+    Field('description', String, 'Description',
+        hint: 'Details of the dependency'),
+    Field('owner', String, 'Owner (who controls this dependency)',
+        hint: 'Person or party who controls this dependency'),
+    Field('expectedResolutionDate', String, 'Expected Resolution Date',
+        hint: 'When the dependency is expected to be resolved'),
+    Field('impact', String, 'Impact (how this affects our goal)',
+        hint: 'How this dependency affects the goal'),
     Field('mitigationStrategy', String,
-        'Mitigation Strategy (what if dependency is not resolved)'),
-    Field('status', String, 'Status (Open, In Progress, Resolved, Blocked)'),
+        'Mitigation Strategy (what if dependency is not resolved)',
+        hint: 'Plan if the dependency is not resolved'),
+    Field('status', String, 'Status (Open, In Progress, Resolved, Blocked)',
+        hint: 'Open, In Progress, Resolved, or Blocked'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4611,6 +4784,14 @@ class GoalDependencyEntry {
 /// 4.2.1.n.4. Risks.
 ///
 /// Risks that may prevent or delay goal achievement.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'BABOK v3 §6 — risks',
+  ],
+  'Captures the risks that may prevent or delay achievement of a business '
+  'goal, together with their mitigation strategies.',
+)
 @SectionId('GORI')
 @ContentHelp('Identify risks specific to this goal and mitigation strategies.')
 class GoalRisks {
@@ -4620,22 +4801,42 @@ class GoalRisks {
   String? content;
 
   /// Risk entries — contains 0+× GoalRiskEntry.
+  @StandardReferences(
+    [
+      'ISO 31000:2018 — risk management',
+      'BABOK v3 §6 — risks',
+    ],
+    'The set of individual risk entries affecting a business goal.',
+  )
   @SectionId('GOLRS-ITEM-LST')
   @SectionIdPattern('GOLRS-ITEM-xxx')
+  @ContentHelp('Add one entry per risk, with assessment and response details.')
   @SerializationOrder(1)
   List<GoalRiskEntry> items = [];
 }
 
 /// A goal risk entry (form).
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'BABOK v3 §6 — risks',
+  ],
+  'Captures a single risk to a business goal, including its category, '
+  'assessment, and response.',
+)
 @SectionId('GOLRS')
 class GoalRiskEntry {
   @Form([
-    Field('riskId', String, 'Risk ID', required: true),
-    Field('riskName', String, 'Risk Name', required: true),
-    Field('description', String, 'Description'),
+    Field('riskId', String, 'Risk ID', required: true,
+        hint: 'Unique identifier for this risk'),
+    Field('riskName', String, 'Risk Name', required: true,
+        hint: 'Short descriptive name for the risk'),
+    Field('description', String, 'Description',
+        hint: 'What the risk is and how it could materialize'),
     Field('riskCategory', String,
         'Risk Category (Market, Operational, Technical, Resource, '
-            'Regulatory, External)'),
+            'Regulatory, External)',
+        hint: 'e.g., Market, Operational, Technical, Resource, Regulatory'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4650,26 +4851,50 @@ class GoalRiskEntry {
 }
 
 /// Risk assessment details.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'BABOK v3 §6 — risks',
+  ],
+  'Captures the probability, impact, score, and trigger conditions assessed '
+  'for a goal risk.',
+)
 @SectionId('GREA')
 class GoalRiskEntryAssessment {
     @Form([
-        Field('probability', String, 'Probability (Low, Medium, High)'),
-        Field('impact', String, 'Impact (Low, Medium, High, Critical)'),
-        Field('riskScore', String, 'Risk Score (probability × impact)'),
-        Field('triggerConditions', String, 'Trigger Conditions (early warning signs)'),
+        Field('probability', String, 'Probability (Low, Medium, High)',
+            hint: 'Low, Medium, or High'),
+        Field('impact', String, 'Impact (Low, Medium, High, Critical)',
+            hint: 'Low, Medium, High, or Critical'),
+        Field('riskScore', String, 'Risk Score (probability × impact)',
+            hint: 'Computed as probability multiplied by impact'),
+        Field('triggerConditions', String, 'Trigger Conditions (early warning signs)',
+            hint: 'Early warning signs the risk is materializing'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Mitigation ownership and status.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'BABOK v3 §6 — risks',
+  ],
+  'Captures the mitigation strategy, contingency plan, owner, and status of '
+  'the response to a goal risk.',
+)
 @SectionId('GRER')
 class GoalRiskEntryResponse {
     @Form([
-        Field('mitigationStrategy', String, 'Mitigation Strategy'),
-        Field('contingencyPlan', String, 'Contingency Plan (if risk occurs)'),
-        Field('owner', String, 'Risk Owner'),
-        Field('status', String, 'Status (Identified, Mitigating, Occurred, Closed)'),
+        Field('mitigationStrategy', String, 'Mitigation Strategy',
+            hint: 'Actions taken to reduce the risk'),
+        Field('contingencyPlan', String, 'Contingency Plan (if risk occurs)',
+            hint: 'What to do if the risk materializes'),
+        Field('owner', String, 'Risk Owner',
+            hint: 'Person accountable for managing the risk'),
+        Field('status', String, 'Status (Identified, Mitigating, Occurred, Closed)',
+            hint: 'Identified, Mitigating, Occurred, or Closed'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -4678,6 +4903,14 @@ class GoalRiskEntryResponse {
 /// 4.2.1.n.5. Resources.
 ///
 /// Resources required to achieve the goal.
+@StandardReferences(
+  [
+    'PMBOK — resource management',
+    'ISO 21500 — resources',
+  ],
+  'Captures the people, budget, and tools required to achieve a business '
+  'goal, including detailed resource allocations.',
+)
 @SectionId('GORE')
 @ContentHelp('Define resources (people, budget, tools) needed for this goal.')
 class GoalResources {
@@ -4686,38 +4919,68 @@ class GoalResources {
 
   /// Resource requirement form.
   @Form([
-    Field('totalBudget', String, 'Total Budget (estimated or allocated)'),
-    Field('fteRequired', String, 'FTE Required (full-time equivalent staff)'),
-    Field('keySkills', String, 'Key Skills Required'),
-    Field('toolsRequired', String, 'Tools or Systems Required'),
+    Field('totalBudget', String, 'Total Budget (estimated or allocated)',
+        hint: 'Estimated or allocated total budget'),
+    Field('fteRequired', String, 'FTE Required (full-time equivalent staff)',
+        hint: 'Number of full-time-equivalent staff needed'),
+    Field('keySkills', String, 'Key Skills Required',
+        hint: 'Critical skills needed to achieve the goal'),
+    Field('toolsRequired', String, 'Tools or Systems Required',
+        hint: 'Tools or systems needed'),
     Field('externalSupport', String,
-        'External Support (consultants, vendors)'),
-    Field('trainingNeeds', String, 'Training Needs'),
+        'External Support (consultants, vendors)',
+        hint: 'Consultants or vendors required'),
+    Field('trainingNeeds', String, 'Training Needs',
+        hint: 'Training the team needs to acquire'),
   ])
   @SerializationOrder(1)
   String? resourcesForm;
 
   /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
+  @StandardReferences(
+    [
+      'PMBOK — resource management',
+      'ISO 21500 — resources',
+    ],
+    'The set of individual resource allocation entries for a business goal.',
+  )
   @SectionId('REARS-ITEM-LST')
   @SectionIdPattern('REARS-ITEM-xxx')
+  @ContentHelp('Add one entry per allocated resource (personnel, budget, tool).')
   @SerializationOrder(2)
   List<ResourceAllocationEntry> items = [];
 }
 
 /// A resource allocation entry (form).
+@StandardReferences(
+  [
+    'PMBOK — resource management',
+    'ISO 21500 — resources',
+  ],
+  'Captures a single allocated resource with its type, quantity, duration, '
+  'cost, availability, and status.',
+)
 @SectionId('REARS')
 class ResourceAllocationEntry {
   @Form([
     Field('resourceType', String,
         'Resource Type (Personnel, Budget, Tool, System, External)',
-        required: true),
-    Field('resourceName', String, 'Resource Name', required: true),
-    Field('quantity', String, 'Quantity or Allocation'),
-    Field('duration', String, 'Duration (how long needed)'),
-    Field('estimatedCost', String, 'Estimated Cost'),
-    Field('availability', String, 'Availability (when available)'),
-    Field('source', String, 'Source (internal, external, to be hired)'),
-    Field('status', String, 'Status (Requested, Allocated, Confirmed)'),
+        required: true,
+        hint: 'Personnel, Budget, Tool, System, or External'),
+    Field('resourceName', String, 'Resource Name', required: true,
+        hint: 'Name of the specific resource'),
+    Field('quantity', String, 'Quantity or Allocation',
+        hint: 'Amount or share of the resource allocated'),
+    Field('duration', String, 'Duration (how long needed)',
+        hint: 'How long the resource is needed'),
+    Field('estimatedCost', String, 'Estimated Cost',
+        hint: 'Estimated cost of the resource'),
+    Field('availability', String, 'Availability (when available)',
+        hint: 'When the resource becomes available'),
+    Field('source', String, 'Source (internal, external, to be hired)',
+        hint: 'Internal, external, or to be hired'),
+    Field('status', String, 'Status (Requested, Allocated, Confirmed)',
+        hint: 'Requested, Allocated, or Confirmed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4732,6 +4995,15 @@ class ResourceAllocationEntry {
 /// Container for technical goal definitions. Technical goals define the
 /// non-functional characteristics and technical capabilities the system
 /// must achieve, such as performance, scalability, reliability, and security.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality goals',
+    'ISO/IEC/IEEE 42010 — architecture goals',
+  ],
+  'The root of §4.2.2: captures the non-functional, quality-attribute goals '
+  'the system must achieve (performance, scalability, reliability, security) '
+  'with measurable criteria and verification methods.',
+)
 @ContentHelp('Define technical goals that establish the quality attributes '
     'and capabilities of the system. Each goal should have measurable '
     'criteria and clear verification methods.')
@@ -4744,6 +5016,13 @@ class TechnicalGoals {
   String? content;
 
   /// Technical goals list — contains 1+× Technical Goal.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality goals',
+      'ISO/IEC/IEEE 42010 — architecture goals',
+    ],
+    'The list of individual technical-goal entries for this project.',
+  )
   @SectionId('TGE-GOAL-LST')
   @SectionIdPattern('TGE-GOAL-xxx')
   @Min(1)
@@ -4758,21 +5037,32 @@ class TechnicalGoals {
 ///
 /// Comprehensive technical goal definition with quality attributes,
 /// architectural impact, and verification approach.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality goals',
+    'ISO/IEC/IEEE 42010 — architecture goals',
+  ],
+  'A single technical goal: its category, priority, measurement, governance, '
+  'quality scenarios, test criteria, dependencies, and constraints.',
+)
 @SectionId('TGE')
 class TechnicalGoalEntry {
   @Form([
     Field('goalId', String, 'Goal ID (unique identifier, e.g., TG-001)',
-        required: true),
-    Field('goalName', String, 'Goal Name (concise statement)', required: true),
+        required: true, hint: 'Unique identifier, e.g. TG-001'),
+    Field('goalName', String, 'Goal Name (concise statement)', required: true,
+        hint: 'Concise statement of the technical goal'),
     Field('description', String,
-        'Description (detailed explanation of the technical objective)'),
+        'Description (detailed explanation of the technical objective)',
+        hint: 'Detailed explanation of the technical objective'),
     Field('goalCategory', String,
         'Goal Category (Performance, Scalability, Reliability, Security, '
             'Usability, Accessibility, Maintainability, Portability, '
             'Interoperability, Compliance)',
-        required: true),
+        required: true,
+        hint: 'Quality attribute category, e.g. Performance, Security'),
     Field('priority', String, 'Priority (Critical, High, Medium, Low)',
-        required: true),
+        required: true, hint: 'Critical / High / Medium / Low'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4803,38 +5093,64 @@ class TechnicalGoalEntry {
 }
 
 /// Success measurement details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — quality measures',
+    'ISO/IEC 25023 — quality measurement',
+  ],
+  'How achievement of the technical goal is measured: the success metric, '
+  'baseline and target values, measurement method, tool, environment, and '
+  'verification point.',
+)
 @SectionId('TGEM')
 class TechnicalGoalEntryMeasurement {
     @Form([
         Field('successMetric', String,
-                'Primary Success Metric (what is measured)', required: true),
-        Field('currentValue', String, 'Current/Baseline Value'),
-        Field('targetValue', String, 'Target Value', required: true),
+                'Primary Success Metric (what is measured)', required: true,
+                hint: 'The primary quantity measured for this goal'),
+        Field('currentValue', String, 'Current/Baseline Value',
+                hint: 'Current/baseline value before the project'),
+        Field('targetValue', String, 'Target Value', required: true,
+                hint: 'Target value to be achieved'),
         Field('measurementMethod', String,
-                'Measurement Method (APM, load testing, security scan, etc.)'),
+                'Measurement Method (APM, load testing, security scan, etc.)',
+                hint: 'APM, load testing, security scan, etc.'),
         Field('measurementTool', String,
-                'Measurement Tool (specific tool or platform)'),
+                'Measurement Tool (specific tool or platform)',
+                hint: 'Specific tool or platform used to measure'),
         Field('measurementEnvironment', String,
-                'Measurement Environment (production, staging, load test)'),
+                'Measurement Environment (production, staging, load test)',
+                hint: 'Production, staging, or load-test environment'),
         Field('verificationPoint', String,
                 'Verification Point (when/how verified: unit test, integration, '
-                        'acceptance, production monitoring)'),
+                        'acceptance, production monitoring)',
+                hint: 'When/how verified: unit, integration, acceptance, '
+                        'production monitoring'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Scope and ownership details.
+@StandardReferences(
+  ['ISO 21500 — governance'],
+  'Scope and ownership of the technical goal: the system area affected, '
+  'architecture impact, technical owner, and current status.',
+)
 @SectionId('TGEG')
 class TechnicalGoalEntryGovernance {
     @Form([
         Field('systemArea', String,
-                'System Area Affected (frontend, backend, database, network, all)'),
+                'System Area Affected (frontend, backend, database, network, all)',
+                hint: 'Frontend, backend, database, network, or all'),
         Field('architectureImpact', String,
-                'Architecture Impact (how this affects system design)'),
-        Field('owner', String, 'Technical Owner'),
+                'Architecture Impact (how this affects system design)',
+                hint: 'How this goal affects system design'),
+        Field('owner', String, 'Technical Owner',
+                hint: 'Person accountable for achieving this goal'),
         Field('status', String,
-                'Status (Not Started, In Progress, Verified, Failed)'),
+                'Status (Not Started, In Progress, Verified, Failed)',
+                hint: 'Not Started / In Progress / Verified / Failed'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -4844,6 +5160,15 @@ class TechnicalGoalEntryGovernance {
 ///
 /// Quality attribute scenarios that define concrete, testable situations
 /// for verifying the technical goal (based on SEI quality attribute workshop).
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — quality attributes',
+    'SEI ATAM — quality attribute scenarios',
+  ],
+  'Concrete, testable quality-attribute scenarios (source → stimulus → '
+  'environment → artifact → response → response measure) that verify the '
+  'parent technical goal.',
+)
 @ContentHelp('Define quality scenarios using: Source → Stimulus → Environment → '
     'Artifact → Response → Response Measure pattern.')
 @SectionId('QS')
@@ -4854,33 +5179,57 @@ class QualityScenarios {
   String? content;
 
   /// Quality scenario entries — contains 0+× QualityScenarioEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — quality attributes',
+      'SEI ATAM — quality attribute scenarios',
+    ],
+    'The list of individual quality-attribute scenario entries.',
+  )
   @SectionId('QLSCN-ITEM-LST')
   @SectionIdPattern('QLSCN-ITEM-xxx')
+  @ContentHelp('Add one entry per quality scenario covering a distinct '
+      'stimulus and measurable response for the goal.')
   @SerializationOrder(1)
   List<QualityScenarioEntry> items = [];
 }
 
 /// A quality scenario entry (form) - SEI Quality Attribute Workshop format.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — quality attributes',
+    'SEI ATAM — quality attribute scenarios',
+  ],
+  'A single quality-attribute scenario in SEI workshop form: source, stimulus, '
+  'environment, artifact, response, and response measure.',
+)
 @SectionId('QLSCN')
 class QualityScenarioEntry {
   @Form([
-    Field('scenarioId', String, 'Scenario ID', required: true),
-    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('scenarioId', String, 'Scenario ID', required: true,
+        hint: 'Unique identifier for the scenario'),
+    Field('scenarioName', String, 'Scenario Name', required: true,
+        hint: 'Short descriptive name'),
     Field('source', String, 'Source (who/what generates the stimulus)',
-        required: true),
+        required: true, hint: 'Who/what generates the stimulus'),
     Field('stimulus', String,
         'Stimulus (event or condition that triggers the scenario)',
-        required: true),
+        required: true, hint: 'Event or condition that triggers the scenario'),
     Field('environment', String,
-        'Environment (system state when stimulus occurs)'),
-    Field('artifact', String, 'Artifact (what part of system is affected)'),
+        'Environment (system state when stimulus occurs)',
+        hint: 'System state when the stimulus occurs'),
+    Field('artifact', String, 'Artifact (what part of system is affected)',
+        hint: 'What part of the system is affected'),
     Field('response', String, 'Response (how the system should respond)',
-        required: true),
+        required: true, hint: 'How the system should respond'),
     Field('responseMeasure', String,
-        'Response Measure (quantifiable success criterion)', required: true),
-    Field('priority', String, 'Priority (Core, Important, Nice-to-have)'),
+        'Response Measure (quantifiable success criterion)', required: true,
+        hint: 'Quantifiable success criterion for the response'),
+    Field('priority', String, 'Priority (Core, Important, Nice-to-have)',
+        hint: 'Core / Important / Nice-to-have'),
     Field('testability', String,
-        'Testability (how easy to test: Automated, Manual, Complex)'),
+        'Testability (how easy to test: Automated, Manual, Complex)',
+        hint: 'How easy to test: Automated, Manual, Complex'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4889,10 +5238,21 @@ class QualityScenarioEntry {
 /// 4.2.2.n.2. Test Criteria.
 ///
 /// Specific test criteria and acceptance thresholds for the technical goal.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC 25010 — quality verification',
+  ],
+  'The test criteria and acceptance thresholds — test type, environment, '
+  'tools, pass/fail thresholds, and test cases — used to verify the technical '
+  'goal has been achieved.',
+)
 @ContentHelp('Define specific test criteria that will be used to verify '
     'the technical goal has been achieved.')
 @SectionId('TGTC')
 class TechnicalGoalTestCriteria {
+  @ContentHelp('Summarize the overall testing approach for verifying this '
+      'technical goal.')
   @SerializationOrder(0)
   String? content;
 
@@ -4900,36 +5260,68 @@ class TechnicalGoalTestCriteria {
   @Form([
     Field('testType', String,
         'Test Type (Performance, Load, Stress, Security, Penetration, '
-            'Accessibility, Usability)'),
-    Field('testEnvironment', String, 'Test Environment'),
-    Field('testData', String, 'Test Data Requirements'),
-    Field('testTools', String, 'Test Tools'),
-    Field('passThreshold', String, 'Pass Threshold'),
-    Field('failThreshold', String, 'Fail Threshold'),
-    Field('testSchedule', String, 'Test Schedule (when tests will run)'),
-    Field('retestPolicy', String, 'Retest Policy (when retesting is required)'),
+            'Accessibility, Usability)',
+        hint: 'Performance, Load, Stress, Security, Penetration, etc.'),
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'Environment in which tests run'),
+    Field('testData', String, 'Test Data Requirements',
+        hint: 'Data needed to execute the tests'),
+    Field('testTools', String, 'Test Tools',
+        hint: 'Tools used to run the tests'),
+    Field('passThreshold', String, 'Pass Threshold',
+        hint: 'Value at or above which the goal passes'),
+    Field('failThreshold', String, 'Fail Threshold',
+        hint: 'Value at which the goal is considered failed'),
+    Field('testSchedule', String, 'Test Schedule (when tests will run)',
+        hint: 'When the tests will run'),
+    Field('retestPolicy', String, 'Retest Policy (when retesting is required)',
+        hint: 'When retesting is required'),
   ])
   @SerializationOrder(1)
   String? testCriteriaForm;
 
   /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — software testing',
+      'ISO/IEC 25010 — quality verification',
+    ],
+    'The list of individual test-case entries for verifying the technical goal.',
+  )
   @SectionId('TEGOTS-ITEM-LST')
   @SectionIdPattern('TEGOTS-ITEM-xxx')
+  @ContentHelp('Add one entry per test case covering procedure, expected '
+      'result, and status for this goal.')
   @SerializationOrder(2)
   List<TechnicalGoalTestCaseEntry> items = [];
 }
 
 /// A test case entry for technical goal verification (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC 25010 — quality verification',
+  ],
+  'A single test case verifying a technical goal: procedure, expected and '
+  'actual results, and status.',
+)
 @SectionId('TEGOTS')
 class TechnicalGoalTestCaseEntry {
   @Form([
-    Field('testCaseId', String, 'Test Case ID', required: true),
-    Field('testCaseName', String, 'Test Case Name', required: true),
-    Field('description', String, 'Description'),
-    Field('testProcedure', String, 'Test Procedure'),
-    Field('expectedResult', String, 'Expected Result'),
-    Field('actualResult', String, 'Actual Result'),
-    Field('status', String, 'Status (Planned, In Progress, Passed, Failed)'),
+    Field('testCaseId', String, 'Test Case ID', required: true,
+        hint: 'Unique identifier for the test case'),
+    Field('testCaseName', String, 'Test Case Name', required: true,
+        hint: 'Short descriptive name'),
+    Field('description', String, 'Description',
+        hint: 'What this test case verifies'),
+    Field('testProcedure', String, 'Test Procedure',
+        hint: 'Steps to execute the test'),
+    Field('expectedResult', String, 'Expected Result',
+        hint: 'Result expected when the goal is met'),
+    Field('actualResult', String, 'Actual Result',
+        hint: 'Result observed when the test was run'),
+    Field('status', String, 'Status (Planned, In Progress, Passed, Failed)',
+        hint: 'Planned / In Progress / Passed / Failed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4938,6 +5330,11 @@ class TechnicalGoalTestCaseEntry {
 /// 4.2.2.n.3. Dependencies.
 ///
 /// Technical dependencies affecting goal achievement.
+@StandardReferences(
+  ['ISO 21500 — dependency management'],
+  'The technical dependencies — infrastructure, APIs, third-party services, '
+  'other components — that affect achievement of this goal.',
+)
 @ContentHelp('Identify technical dependencies: infrastructure, APIs, '
     'third-party services, other system components.')
 @SectionId('TGD')
@@ -4948,26 +5345,45 @@ class TechnicalGoalDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× TechnicalDependencyEntry.
+  @StandardReferences(
+    ['ISO 21500 — dependency management'],
+    'The list of individual technical-dependency entries for this goal.',
+  )
   @SectionId('TEDE-ITEM-LST')
   @SectionIdPattern('TEDE-ITEM-xxx')
+  @ContentHelp('Add one entry per technical dependency, capturing type, '
+      'version, SLA, fallback, and status.')
   @SerializationOrder(1)
   List<TechnicalDependencyEntry> items = [];
 }
 
 /// A technical dependency entry (form).
+@StandardReferences(
+  ['ISO 21500 — dependency management'],
+  'A single technical dependency: its type, version, SLA, fallback, and '
+  'availability status.',
+)
 @SectionId('TEDE')
 class TechnicalDependencyEntry {
   @Form([
-    Field('dependencyId', String, 'Dependency ID', required: true),
-    Field('dependencyName', String, 'Dependency Name', required: true),
+    Field('dependencyId', String, 'Dependency ID', required: true,
+        hint: 'Unique identifier for the dependency'),
+    Field('dependencyName', String, 'Dependency Name', required: true,
+        hint: 'Name of the dependency'),
     Field('dependencyType', String,
         'Dependency Type (Infrastructure, API, Library, Service, '
-            'Hardware, Network, Third-party)'),
-    Field('description', String, 'Description'),
-    Field('version', String, 'Version (if applicable)'),
-    Field('sla', String, 'SLA (if external service)'),
-    Field('fallback', String, 'Fallback (what if unavailable)'),
-    Field('status', String, 'Status (Available, Pending, At Risk)'),
+            'Hardware, Network, Third-party)',
+        hint: 'Infrastructure, API, Library, Service, Hardware, etc.'),
+    Field('description', String, 'Description',
+        hint: 'What the dependency provides'),
+    Field('version', String, 'Version (if applicable)',
+        hint: 'Required version, if applicable'),
+    Field('sla', String, 'SLA (if external service)',
+        hint: 'Service-level agreement for external services'),
+    Field('fallback', String, 'Fallback (what if unavailable)',
+        hint: 'What happens if the dependency is unavailable'),
+    Field('status', String, 'Status (Available, Pending, At Risk)',
+        hint: 'Available / Pending / At Risk'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -4976,6 +5392,14 @@ class TechnicalDependencyEntry {
 /// 4.2.2.n.4. Constraints.
 ///
 /// Technical constraints that may limit or shape how the goal is achieved.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — constraints',
+    'ISO/IEC/IEEE 42010 — architecture constraints',
+  ],
+  'The technical constraints — technology choices, standards, resource limits, '
+  'compatibility requirements — that limit or shape how this goal is achieved.',
+)
 @ContentHelp('Document constraints: technology choices, standards, '
     'resource limits, compatibility requirements.')
 @SectionId('TGC')
@@ -4986,27 +5410,52 @@ class TechnicalGoalConstraints {
   String? content;
 
   /// Constraint entries — contains 0+× TechnicalConstraintEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — constraints',
+      'ISO/IEC/IEEE 42010 — architecture constraints',
+    ],
+    'The list of individual technical-constraint entries for this goal.',
+  )
   @SectionId('TECN-ITEM-LST')
   @SectionIdPattern('TECN-ITEM-xxx')
+  @ContentHelp('Add one entry per technical constraint, capturing type, '
+      'source, rationale, impact, and flexibility.')
   @SerializationOrder(1)
   List<TechnicalConstraintEntry> items = [];
 }
 
 /// A technical constraint entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — constraints',
+    'ISO/IEC/IEEE 42010 — architecture constraints',
+  ],
+  'A single technical constraint: its type, source, rationale, impact on the '
+  'approach, and degree of flexibility.',
+)
 @SectionId('TECN')
 class TechnicalConstraintEntry {
   @Form([
-    Field('constraintId', String, 'Constraint ID', required: true),
-    Field('constraintName', String, 'Constraint Name', required: true),
+    Field('constraintId', String, 'Constraint ID', required: true,
+        hint: 'Unique identifier for the constraint'),
+    Field('constraintName', String, 'Constraint Name', required: true,
+        hint: 'Short descriptive name'),
     Field('constraintType', String,
         'Constraint Type (Technology, Standard, Resource, '
-            'Compatibility, Budget, Timeline, Regulatory)'),
-    Field('description', String, 'Description'),
-    Field('source', String, 'Source (who/what imposed this constraint)'),
-    Field('rationale', String, 'Rationale (why this constraint exists)'),
-    Field('impact', String, 'Impact (how this affects our approach)'),
+            'Compatibility, Budget, Timeline, Regulatory)',
+        hint: 'Technology, Standard, Resource, Compatibility, Budget, etc.'),
+    Field('description', String, 'Description',
+        hint: 'What the constraint requires'),
+    Field('source', String, 'Source (who/what imposed this constraint)',
+        hint: 'Who or what imposed this constraint'),
+    Field('rationale', String, 'Rationale (why this constraint exists)',
+        hint: 'Why this constraint exists'),
+    Field('impact', String, 'Impact (how this affects our approach)',
+        hint: 'How this affects our approach'),
     Field('flexibility', String,
-        'Flexibility (Fixed, Negotiable, Preferred)'),
+        'Flexibility (Fixed, Negotiable, Preferred)',
+        hint: 'Fixed / Negotiable / Preferred'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5022,12 +5471,23 @@ class TechnicalConstraintEntry {
 /// has achieved its objectives. These criteria will be used during
 /// acceptance testing and project closure. Based on SMART criteria,
 /// Balanced Scorecard, and PRINCE2 benefits management principles.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance & verification criteria',
+    'BABOK v3 — solution evaluation',
+  ],
+  'The root of §4.2.3: captures the objectively verifiable, measurable, '
+  'time-bound criteria that collectively determine whether the project has '
+  'achieved its objectives at acceptance and closure.',
+)
 @ContentHelp('Define criteria that collectively determine project success. '
     'Each criterion should be objectively verifiable, measurable, and '
     'time-bound. Criteria should cover business, technical, user, and '
     'compliance dimensions.')
 @SectionId('SC')
 class SuccessCriteria {
+  @ContentHelp('Provide an overview of how project success is determined and '
+      'which dimensions the criteria collectively cover.')
   @SerializationOrder(0)
   String? content;
 
@@ -5040,6 +5500,13 @@ class SuccessCriteria {
   SuccessCriteriaFramework framework = SuccessCriteriaFramework();
 
   /// Success criterion entries — contains 1+× SuccessCriterionEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — acceptance & verification criteria',
+      'BABOK v3 — solution evaluation',
+    ],
+    'The list of individual success-criterion entries for this project.',
+  )
   @SectionId('SCE-ITEM-LST')
   @SectionIdPattern('SCE-ITEM-xxx')
   @Min(1)
@@ -5066,16 +5533,30 @@ class SuccessCriteria {
 }
 
 /// Summary metrics for success criteria.
+@StandardReferences(
+  ['BABOK v3 — solution evaluation (success measures)'],
+  'Aggregate counts and thresholds across all success criteria — totals by '
+  'priority and category, and the overall threshold for declaring success.',
+)
 @Form([
-  Field('totalCriteria', int, 'Total Number of Criteria'),
-  Field('criticalCount', int, 'Critical Criteria Count'),
-  Field('highPriorityCount', int, 'High Priority Count'),
-  Field('mediumPriorityCount', int, 'Medium Priority Count'),
-  Field('lowPriorityCount', int, 'Low Priority Count'),
-  Field('businessCriteriaCount', int, 'Business Criteria Count'),
-  Field('technicalCriteriaCount', int, 'Technical Criteria Count'),
-  Field('userCriteriaCount', int, 'User Satisfaction Criteria Count'),
-  Field('complianceCriteriaCount', int, 'Compliance Criteria Count'),
+  Field('totalCriteria', int, 'Total Number of Criteria',
+      hint: 'Total number of success criteria defined'),
+  Field('criticalCount', int, 'Critical Criteria Count',
+      hint: 'Number of critical-priority criteria'),
+  Field('highPriorityCount', int, 'High Priority Count',
+      hint: 'Number of high-priority criteria'),
+  Field('mediumPriorityCount', int, 'Medium Priority Count',
+      hint: 'Number of medium-priority criteria'),
+  Field('lowPriorityCount', int, 'Low Priority Count',
+      hint: 'Number of low-priority criteria'),
+  Field('businessCriteriaCount', int, 'Business Criteria Count',
+      hint: 'Number of business-focused criteria'),
+  Field('technicalCriteriaCount', int, 'Technical Criteria Count',
+      hint: 'Number of technical-quality criteria'),
+  Field('userCriteriaCount', int, 'User Satisfaction Criteria Count',
+      hint: 'Number of user-satisfaction criteria'),
+  Field('complianceCriteriaCount', int, 'Compliance Criteria Count',
+      hint: 'Number of compliance-related criteria'),
   Field('minCriteriaMet', String, 'Minimum Criteria for Success',
       hint: 'All critical + X% of others'),
   Field('successThreshold', String, 'Overall Success Threshold',
@@ -5090,6 +5571,15 @@ class SuccessCriteriaSummary {
 }
 
 /// Framework for evaluating and accepting success criteria.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance & verification criteria',
+    'BABOK v3 — solution evaluation',
+  ],
+  'The acceptance and evaluation framework: how and when criteria are '
+  'evaluated, who signs off, the evidence required, and how disputes and '
+  'partial success are handled.',
+)
 @Form([
   Field('acceptanceProcess', String, 'Acceptance Process',
       hint: 'How criteria will be evaluated'),
@@ -5121,6 +5611,11 @@ class SuccessCriteriaFramework {
 }
 
 /// Success criteria organized by category.
+@StandardReferences(
+  ['BABOK v3 — solution evaluation (success measures)'],
+  'Success criteria grouped by dimension — business, technical, user, '
+  'compliance, and project — for a category-by-category view of success.',
+)
 @SectionId('SCBC')
 class SuccessCriteriaByCategory {
   /// Business outcome criteria overview.
@@ -5163,6 +5658,14 @@ class SuccessCriteriaByCategory {
 ///
 /// Individual success criterion with comprehensive measurement details,
 /// thresholds, and verification requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance & verification criteria',
+    'BABOK v3 — solution evaluation',
+  ],
+  'A single success criterion: its identity, metric and thresholds, '
+  'verification, importance, relationships, and current status.',
+)
 @SectionId('SCE')
 class SuccessCriterionEntry {
   @Form([
@@ -5194,8 +5697,15 @@ class SuccessCriterionEntry {
   SuccessCriterionImportance importance = SuccessCriterionImportance();
 
   /// Relationships.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+    'The list of relationship entries linking this criterion to goals, '
+    'requirements, dependencies, and stakeholders.',
+  )
   @SectionId('SUCRRE-RELA-LST')
   @SectionIdPattern('SUCRRE-RELA-xxx')
+  @ContentHelp('Add relationship entries tracing this criterion to related '
+      'goals, requirements, dependencies, and stakeholders.')
   @SerializationOrder(5)
   List<SuccessCriterionRelationships> relationships = [];
 
@@ -5205,6 +5715,14 @@ class SuccessCriterionEntry {
 }
 
 /// Identity for success criterion.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance & verification criteria',
+    'BABOK v3 — solution evaluation',
+  ],
+  'Identifying detail for the criterion: its description of what success means '
+  'and its subcategory.',
+)
 @SectionId('SUCRID')
 class SuccessCriterionIdentity {
   @Form([
@@ -5218,6 +5736,14 @@ class SuccessCriterionIdentity {
 }
 
 /// Measurement for success criterion.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — verification criteria',
+    'ISO/IEC 25023 — measurement',
+  ],
+  'How the criterion is measured: the metric, baseline, minimum threshold, '
+  'target, stretch goal, and unit of measurement.',
+)
 @SectionId('SUCRME')
 class SuccessCriterionMeasurement {
   @Form([
@@ -5239,6 +5765,14 @@ class SuccessCriterionMeasurement {
 }
 
 /// Verification for success criterion.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — verification criteria',
+    'ISO/IEC 25023 — measurement',
+  ],
+  'How the criterion is verified: measurement method, data source, frequency, '
+  'responsible party, verification point, and evidence type.',
+)
 @SectionId('SUCRVE')
 class SuccessCriterionVerification {
   @Form([
@@ -5260,6 +5794,11 @@ class SuccessCriterionVerification {
 }
 
 /// Importance for success criterion.
+@StandardReferences(
+  ['BABOK v3 — solution evaluation (success measures)'],
+  'The importance of the criterion: its weight, whether it is mandatory, and '
+  'the consequence if it is not met.',
+)
 @SectionId('SUCRIM')
 class SuccessCriterionImportance {
   @Form([
@@ -5275,6 +5814,11 @@ class SuccessCriterionImportance {
 }
 
 /// Relationships for success criterion.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'A single relationship entry tracing this criterion to related goals, '
+  'requirements, dependencies, and key stakeholders.',
+)
 @SectionId('SUCRRE')
 class SuccessCriterionRelationships {
   @Form([
@@ -5292,6 +5836,14 @@ class SuccessCriterionRelationships {
 }
 
 /// Status for success criterion.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — verification criteria',
+    'BABOK v3 — solution evaluation',
+  ],
+  'The current evaluation status of the criterion: status, current value, '
+  'trend, evidence, and evaluation notes.',
+)
 @SectionId('SUCRST')
 class SuccessCriterionStatus {
   @Form([
@@ -5311,6 +5863,12 @@ class SuccessCriterionStatus {
 }
 
 /// Post-implementation review plan for success criteria.
+@StandardReferences(
+  ['BABOK v3 — solution evaluation (success measures)'],
+  'The plan for reviewing success after implementation: review schedule and '
+  'owner, participants, reporting, lessons learned, benefits-tracking '
+  'duration, and corrective action.',
+)
 @Form([
   Field('reviewSchedule', String, 'Review Schedule',
       hint: 'When post-implementation reviews occur'),
@@ -5346,6 +5904,15 @@ class PostImplementationReview {
 /// Specification) document with full traceability. This section provides the
 /// foundation for requirements management throughout the project lifecycle.
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §8/§9 — requirements specification (SRS overview)',
+    'BABOK v3 §7 — requirements analysis & design definition',
+  ],
+  'The root of §4.3: captures the initial requirements overview organized by '
+  'category, with each requirement uniquely identified and traceable into the '
+  'full RSP for management across the project lifecycle.',
+)
 @Comment('Seeds → RSP')
 @MapsTo(D04RequirementsSpecification)
 @ContentHelp('Define initial requirements at a level sufficient for project '
@@ -5359,18 +5926,26 @@ class RequirementsOverview {
   /// Requirements overview form.
   @Form([
     Field('requirementsProcess', String,
-        'Requirements Process (how requirements are elicited and managed)'),
+        'Requirements Process (how requirements are elicited and managed)',
+        hint: 'How requirements are elicited, analysed, and managed'),
     Field('traceabilityApproach', String,
-        'Traceability Approach (how requirements are linked to goals, tests, code)'),
+        'Traceability Approach (how requirements are linked to goals, tests, code)',
+        hint: 'How requirements are linked to goals, tests, and code'),
     Field('changeControlProcess', String,
-        'Change Control Process (how requirement changes are handled)'),
+        'Change Control Process (how requirement changes are handled)',
+        hint: 'How requirement changes are proposed, reviewed, and approved'),
     Field('prioritizationMethod', String,
-        'Prioritization Method (MoSCoW, Weighted, etc.)'),
+        'Prioritization Method (MoSCoW, Weighted, etc.)',
+        hint: 'MoSCoW, weighted scoring, or other prioritisation scheme'),
     Field('totalRequirements', String,
-        'Total Requirements Expected (estimated count)'),
-    Field('mustHaveCount', String, 'Must-Have Requirements (estimated)'),
-    Field('shouldHaveCount', String, 'Should-Have Requirements (estimated)'),
-    Field('couldHaveCount', String, 'Could-Have Requirements (estimated)'),
+        'Total Requirements Expected (estimated count)',
+        hint: 'Estimated total number of requirements'),
+    Field('mustHaveCount', String, 'Must-Have Requirements (estimated)',
+        hint: 'Estimated count of Must-Have requirements'),
+    Field('shouldHaveCount', String, 'Should-Have Requirements (estimated)',
+        hint: 'Estimated count of Should-Have requirements'),
+    Field('couldHaveCount', String, 'Could-Have Requirements (estimated)',
+        hint: 'Estimated count of Could-Have requirements'),
   ])
   @SerializationOrder(1)
   String? requirementsForm;
@@ -5400,8 +5975,18 @@ class RequirementsOverview {
       OrganizationalRequirements();
 
   /// 4.3.5. Requirement Relationships.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §5.2 — requirement dependencies',
+      'BABOK v3 §7 — requirements analysis & design definition',
+    ],
+    'The set of relationship entries linking requirements to one another — '
+    'dependencies, conflicts, and refinements across the requirement set.',
+  )
   @SectionId('RERE-REQU-LST')
   @SectionIdPattern('RERE-REQU-xxx')
+  @ContentHelp('Add one entry per relationship between requirements, capturing '
+      'the linked requirements and the nature of their relationship.')
   @SerializationOrder(7)
   List<RequirementRelationships> requirementRelationships = [];
 
@@ -5420,6 +6005,15 @@ class RequirementsOverview {
 /// what the system must do — its features, behaviors, processing rules,
 /// and user interactions. Each requirement is uniquely identified and
 /// traceable to business goals and use cases.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.5 — functional requirements',
+    'BABOK v3 §10 — functional requirements',
+  ],
+  'The container for functional requirements — what the system must do, its '
+  'features, behaviors, processing rules, and user interactions, each uniquely '
+  'identified and traceable to goals and use cases.',
+)
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-FUN')
 @ContentHelp('Functional requirements describe system capabilities, behaviors, '
@@ -5433,17 +6027,31 @@ class FunctionalRequirements {
   /// Functional requirements summary form.
   @Form([
     Field('totalFunctionalRequirements', String,
-        'Total Functional Requirements'),
-    Field('mustHaveFunctional', String, 'Must-Have (count)'),
-    Field('shouldHaveFunctional', String, 'Should-Have (count)'),
-    Field('couldHaveFunctional', String, 'Could-Have (count)'),
-    Field('wontHaveThisTimeFunctional', String, 'Won\'t-Have-This-Time (count)'),
-    Field('coverageNote', String, 'Coverage Notes'),
+        'Total Functional Requirements',
+        hint: 'Total count of functional requirements'),
+    Field('mustHaveFunctional', String, 'Must-Have (count)',
+        hint: 'Count of Must-Have functional requirements'),
+    Field('shouldHaveFunctional', String, 'Should-Have (count)',
+        hint: 'Count of Should-Have functional requirements'),
+    Field('couldHaveFunctional', String, 'Could-Have (count)',
+        hint: 'Count of Could-Have functional requirements'),
+    Field('wontHaveThisTimeFunctional', String, 'Won\'t-Have-This-Time (count)',
+        hint: 'Count of Won\'t-Have-This-Time functional requirements'),
+    Field('coverageNote', String, 'Coverage Notes',
+        hint: 'Notes on coverage and any gaps in the requirement set'),
   ])
   @SerializationOrder(1)
   String? summaryForm;
 
   /// Functional requirements list — contains 1+× Functional Requirement.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9.5 — functional requirements',
+      'BABOK v3 §10 — functional requirements',
+    ],
+    'The list of individual functional requirement entries, each atomic, '
+    'testable, and accompanied by clear acceptance criteria.',
+  )
   @SectionId('FRE-REQU-LST')
   @SectionIdPattern('FRE-REQU-xxx')
   @Min(1)
@@ -5459,15 +6067,27 @@ class FunctionalRequirements {
 /// Comprehensive functional requirement definition following IEEE 830,
 /// ISO 29148, and Volere requirements shell. Includes traceability,
 /// acceptance criteria, UI specification, and business rules.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.5 — functional requirements',
+    'BABOK v3 §10 — functional requirements',
+  ],
+  'A single functional requirement: its identity, definition, priority, source, '
+  'verification, constraints, and the acceptance criteria, business rules, data, '
+  'UI, dependencies, traceability, and test cases that elaborate it.',
+)
 @SectionId('FRE')
 class FunctionalRequirementEntry {
   @Form([
     Field('requirementId', String,
-        'Requirement ID (unique, e.g., REQ-F001)', required: true),
-    Field('title', String, 'Title (concise statement)', required: true),
+        'Requirement ID (unique, e.g., REQ-F001)', required: true,
+        hint: 'Unique requirement identifier, e.g. REQ-F001'),
+    Field('title', String, 'Title (concise statement)', required: true,
+        hint: 'Concise one-line statement of the requirement'),
     Field('status', String,
         'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)',
-        required: true),
+        required: true,
+        hint: 'Draft, Proposed, Approved, Implemented, Verified, or Deferred'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5532,91 +6152,149 @@ class FunctionalRequirementEntry {
 }
 
 /// Requirement details: description, type, category.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.5 — functional requirements',
+    'BABOK v3 §10 — functional requirements',
+  ],
+  'The core definition of a functional requirement — its detailed "the system '
+  'shall" statement, its type, and its functional-area category.',
+)
 @SectionId('FRED')
 class FunctionalRequirementEntryDetails {
   @Form([
     Field('description', String,
-        'Description (The system shall... detailed statement)', required: true),
+        'Description (The system shall... detailed statement)', required: true,
+        hint: 'Detailed "the system shall..." statement of the requirement'),
     Field('requirementType', String,
         'Requirement Type (Feature, User Story, Business Rule, Report, '
             'Integration, Calculation, Workflow, Notification, Search, '
-            'Data Entry, Data Display, Data Export, Batch Process)'),
+            'Data Entry, Data Display, Data Export, Batch Process)',
+        hint: 'Feature, User Story, Business Rule, Report, Integration, etc.'),
     Field('category', String,
-        'Category (functional area grouping)'),
+        'Category (functional area grouping)',
+        hint: 'Functional-area grouping for this requirement'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Priority and effort assessment.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §5.2 — requirement prioritization',
+    'MoSCoW — prioritization',
+  ],
+  'The priority, business value, effort, and risk assessment for a functional '
+  'requirement — how it is ranked and what it costs and risks.',
+)
 @SectionId('FREP')
 class FunctionalRequirementEntryPriority {
   @Form([
     Field('priority', String,
-        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
+        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true,
+        hint: 'MoSCoW priority: Must, Should, Could, or Won\'t-This-Time'),
     Field('businessValue', String,
-        'Business Value (High, Medium, Low) - benefit to business'),
+        'Business Value (High, Medium, Low) - benefit to business',
+        hint: 'High / Medium / Low benefit to the business'),
     Field('effort', String,
-        'Estimated Effort (Small, Medium, Large, XLarge)'),
+        'Estimated Effort (Small, Medium, Large, XLarge)',
+        hint: 'Estimated effort: Small, Medium, Large, or XLarge'),
     Field('riskLevel', String,
-        'Risk Level (High, Medium, Low) - risk of not meeting'),
+        'Risk Level (High, Medium, Low) - risk of not meeting',
+        hint: 'High / Medium / Low risk of not meeting the requirement'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Source and rationale for requirement.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'The provenance of a functional requirement — who requested it, when, and the '
+  'rationale that justifies it, anchoring traceability back to its origin.',
+)
 @SectionId('FRES')
 class FunctionalRequirementEntrySource {
   @Form([
     Field('source', String,
         'Source (who requested: stakeholder name, workshop, document)',
-        required: true),
-    Field('requestDate', String, 'Request Date'),
+        required: true,
+        hint: 'Who requested it: stakeholder name, workshop, or document'),
+    Field('requestDate', String, 'Request Date',
+        hint: 'Date the requirement was requested'),
     Field('rationale', String,
-        'Rationale (why this requirement is needed)'),
+        'Rationale (why this requirement is needed)',
+        hint: 'Why this requirement is needed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Verification criteria for requirement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6.5 — verification',
+    'ISO/IEC/IEEE 29119 — testing',
+  ],
+  'How a functional requirement is verified — its measurable fit criterion and '
+  'the customer satisfaction/dissatisfaction it drives.',
+)
 @SectionId('FREV')
 class FunctionalRequirementEntryVerification {
   @Form([
     Field('fitCriterion', String,
-        'Fit Criterion (measurable condition for acceptance)'),
+        'Fit Criterion (measurable condition for acceptance)',
+        hint: 'Measurable condition that must hold for acceptance'),
     Field('customerSatisfaction', String,
-        'Customer Satisfaction (1-5 scale if delivered)'),
+        'Customer Satisfaction (1-5 scale if delivered)',
+        hint: '1-5 scale of satisfaction if the requirement is delivered'),
     Field('customerDissatisfaction', String,
-        'Customer Dissatisfaction (1-5 scale if NOT delivered)'),
+        'Customer Dissatisfaction (1-5 scale if NOT delivered)',
+        hint: '1-5 scale of dissatisfaction if it is NOT delivered'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Assumptions and constraints for requirement.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §9.5 — functional requirements'],
+  'The assumptions a functional requirement relies on, the constraints it must '
+  'respect, and the other requirements it conflicts with.',
+)
 @SectionId('FREC')
 class FunctionalRequirementEntryConstraints {
   @Form([
     Field('assumptions', String,
-        'Assumptions (conditions assumed to be true)'),
+        'Assumptions (conditions assumed to be true)',
+        hint: 'Conditions assumed to be true for this requirement'),
     Field('constraints', String,
-        'Constraints (limitations on implementation)'),
+        'Constraints (limitations on implementation)',
+        hint: 'Limitations on how the requirement may be implemented'),
     Field('conflictsWith', String,
-        'Conflicts With (IDs of conflicting requirements)'),
+        'Conflicts With (IDs of conflicting requirements)',
+        hint: 'IDs of requirements this one conflicts with'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Version metadata for requirement.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'The version-control metadata for a functional requirement — its version, '
+  'last-modified date, and last editor, supporting change traceability.',
+)
 @SectionId('FREM')
 class FunctionalRequirementEntryMetadata {
   @Form([
-    Field('version', String, 'Version'),
-    Field('lastModified', String, 'Last Modified Date'),
-    Field('modifiedBy', String, 'Modified By'),
+    Field('version', String, 'Version',
+        hint: 'Version number of this requirement'),
+    Field('lastModified', String, 'Last Modified Date',
+        hint: 'Date the requirement was last modified'),
+    Field('modifiedBy', String, 'Modified By',
+        hint: 'Who last modified the requirement'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5626,6 +6304,14 @@ class FunctionalRequirementEntryMetadata {
 ///
 /// Testable conditions that must be met for the requirement to be accepted.
 /// Uses Given-When-Then format for clarity.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance criteria',
+    'Agile — acceptance criteria',
+  ],
+  'The testable conditions, in Given-When-Then form, that must be met for a '
+  'functional requirement to be accepted.',
+)
 @ContentHelp('Define clear, testable acceptance criteria. Use Given-When-Then '
     'format: Given [context], When [action], Then [expected result].')
 @SectionId('RAC')
@@ -5636,6 +6322,14 @@ class RequirementAcceptanceCriteria {
   String? content;
 
   /// Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — acceptance criteria',
+      'Agile — acceptance criteria',
+    ],
+    'The list of individual acceptance-criterion entries, one per testable '
+    'condition for the requirement.',
+  )
   @SectionId('ACCR-CRIT-LST')
   @SectionIdPattern('ACCR-CRIT-xxx')
   @ContentHelp('Add one criterion per testable condition.')
@@ -5646,21 +6340,39 @@ class RequirementAcceptanceCriteria {
 /// An acceptance criterion entry (form).
 ///
 /// Uses Given-When-Then format (Gherkin style) for testable criteria.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — acceptance criteria',
+    'Agile — acceptance criteria',
+  ],
+  'A single acceptance criterion in Given-When-Then form, with its verification '
+  'method, test type, priority, and status.',
+)
 @SectionId('ACE')
 class AcceptanceCriterionEntry {
   @Form([
-    Field('criterionId', String, 'Criterion ID', required: true),
-    Field('criterionTitle', String, 'Criterion Title', required: true),
-    Field('given', String, 'Given (precondition/context)'),
-    Field('when', String, 'When (action/trigger)'),
-    Field('then', String, 'Then (expected outcome)', required: true),
-    Field('and', String, 'And (additional outcomes)'),
+    Field('criterionId', String, 'Criterion ID', required: true,
+        hint: 'Unique identifier for this criterion'),
+    Field('criterionTitle', String, 'Criterion Title', required: true,
+        hint: 'Short title describing the criterion'),
+    Field('given', String, 'Given (precondition/context)',
+        hint: 'Precondition or context that holds before the action'),
+    Field('when', String, 'When (action/trigger)',
+        hint: 'Action or trigger that occurs'),
+    Field('then', String, 'Then (expected outcome)', required: true,
+        hint: 'Expected outcome after the action'),
+    Field('and', String, 'And (additional outcomes)',
+        hint: 'Any additional expected outcomes'),
     Field('verificationMethod', String,
-        'Verification Method (Manual, Automated, Inspection, Demo)'),
+        'Verification Method (Manual, Automated, Inspection, Demo)',
+        hint: 'Manual, Automated, Inspection, or Demo'),
     Field('testType', String,
-        'Test Type (Unit, Integration, System, Acceptance, UAT)'),
-    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
-    Field('status', String, 'Status (Draft, Ready, Passed, Failed, Blocked)'),
+        'Test Type (Unit, Integration, System, Acceptance, UAT)',
+        hint: 'Unit, Integration, System, Acceptance, or UAT'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+        hint: 'Critical, High, Medium, or Low'),
+    Field('status', String, 'Status (Draft, Ready, Passed, Failed, Blocked)',
+        hint: 'Draft, Ready, Passed, Failed, or Blocked'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5669,6 +6381,14 @@ class AcceptanceCriterionEntry {
 /// 4.3.1.n.2. Business Rules.
 ///
 /// Business rules that constrain or guide this requirement's behavior.
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §9 — business rules',
+  ],
+  'The business rules — constraints, calculations, and policies from the '
+  'business domain — that constrain or guide this requirement\'s behavior.',
+)
 @ContentHelp('Define business rules that affect this requirement. Business '
     'rules are constraints, calculations, or policies from the business domain.')
 @SectionId('RBR')
@@ -5679,30 +6399,57 @@ class RequirementBusinessRules {
   String? content;
 
     /// Business rule entries — contains 0+× RequirementBusinessRuleEntry.
+  @StandardReferences(
+    [
+      'BABOK v3 §10.9 — business rules analysis',
+      'ISO/IEC/IEEE 29148 §9 — business rules',
+    ],
+    'The list of individual business-rule entries applying to this requirement.',
+  )
   @SectionId('RQBIRU-RULE-LST')
   @SectionIdPattern('RQBIRU-RULE-xxx')
+  @ContentHelp('Add one entry per business rule that constrains or guides this '
+      'requirement.')
     @SerializationOrder(1)
     List<RequirementBusinessRuleEntry> rules = [];
 }
 
 /// A business rule entry (form).
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §9 — business rules',
+  ],
+  'A single business rule: its identity, type, statement, source, validity '
+  'period, exceptions, enforcement strength, and violation impact.',
+)
 @SectionId('RQBIRU')
 class RequirementBusinessRuleEntry {
   @Form([
-    Field('ruleId', String, 'Rule ID', required: true),
-    Field('ruleName', String, 'Rule Name', required: true),
+    Field('ruleId', String, 'Rule ID', required: true,
+        hint: 'Unique identifier for this business rule'),
+    Field('ruleName', String, 'Rule Name', required: true,
+        hint: 'Short descriptive name for the rule'),
     Field('ruleType', String,
         'Rule Type (Constraint, Computation, Derivation, Inference, '
-            'Condition, Action, Workflow, Authorization)'),
+            'Condition, Action, Workflow, Authorization)',
+        hint: 'Constraint, Computation, Derivation, Inference, Condition, etc.'),
     Field('ruleStatement', String,
-        'Rule Statement (IF/WHEN condition THEN action)', required: true),
-    Field('source', String, 'Source (policy, regulation, expert)'),
-    Field('effectiveDate', String, 'Effective Date'),
-    Field('expirationDate', String, 'Expiration Date'),
-    Field('exceptions', String, 'Exceptions (when rule does not apply)'),
+        'Rule Statement (IF/WHEN condition THEN action)', required: true,
+        hint: 'IF/WHEN condition THEN action statement'),
+    Field('source', String, 'Source (policy, regulation, expert)',
+        hint: 'Origin of the rule: policy, regulation, or expert'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'Date the rule takes effect'),
+    Field('expirationDate', String, 'Expiration Date',
+        hint: 'Date the rule expires, if any'),
+    Field('exceptions', String, 'Exceptions (when rule does not apply)',
+        hint: 'Cases in which the rule does not apply'),
     Field('enforcement', String,
-        'Enforcement (Hard = system enforces, Soft = warning only)'),
-    Field('impact', String, 'Impact (what happens if rule is violated)'),
+        'Enforcement (Hard = system enforces, Soft = warning only)',
+        hint: 'Hard (system enforces) or Soft (warning only)'),
+    Field('impact', String, 'Impact (what happens if rule is violated)',
+        hint: 'What happens if the rule is violated'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5711,6 +6458,14 @@ class RequirementBusinessRuleEntry {
 /// 4.3.1.n.3. Data Requirements.
 ///
 /// Data entities, attributes, and relationships needed by this requirement.
+@StandardReferences(
+  [
+    'BABOK v3 §10.18 — data modelling',
+    'ISO/IEC/IEEE 29148 §9 — data requirements',
+  ],
+  'The data entities, attributes, and relationships a requirement reads, '
+  'creates, updates, or deletes.',
+)
 @ContentHelp('Define the data entities and attributes this requirement '
     'reads, creates, updates, or deletes.')
 @SectionId('RDR')
@@ -5721,26 +6476,49 @@ class RequirementDataRequirements {
   String? content;
 
   /// Data entity entries — contains 0+× DataEntityReferenceEntry.
+  @StandardReferences(
+    [
+      'BABOK v3 §10.18 — data modelling',
+      'ISO/IEC/IEEE 29148 §9 — data requirements',
+    ],
+    'The list of individual data-entity references used by this requirement.',
+  )
   @SectionId('DAENRE-ENTI-LST')
   @SectionIdPattern('DAENRE-ENTI-xxx')
+  @ContentHelp('Add one entry per data entity this requirement reads, creates, '
+      'updates, or deletes.')
   @SerializationOrder(1)
   List<DataEntityReferenceEntry> entities = [];
 }
 
 /// A reference to a data entity (form).
+@StandardReferences(
+  [
+    'BABOK v3 §10.18 — data modelling',
+    'ISO/IEC/IEEE 29148 §9 — data requirements',
+  ],
+  'A single data-entity reference: the entity, the CRUD operations performed on '
+  'it, the attributes involved, volume, quality rules, and data owner.',
+)
 @SectionId('DAENRE')
 class DataEntityReferenceEntry {
   @Form([
-    Field('entityName', String, 'Entity Name', required: true),
+    Field('entityName', String, 'Entity Name', required: true,
+        hint: 'Name of the data entity referenced'),
     Field('crudOperations', String,
-        'CRUD Operations (Create, Read, Update, Delete)', required: true),
+        'CRUD Operations (Create, Read, Update, Delete)', required: true,
+        hint: 'Which of Create, Read, Update, Delete are performed'),
     Field('attributes', String,
-        'Attributes (specific fields involved)'),
+        'Attributes (specific fields involved)',
+        hint: 'Specific fields/attributes involved'),
     Field('volumeEstimate', String,
-        'Volume Estimate (records created/accessed)'),
+        'Volume Estimate (records created/accessed)',
+        hint: 'Estimated number of records created or accessed'),
     Field('dataQualityRules', String,
-        'Data Quality Rules (validation, completeness)'),
-    Field('dataOwner', String, 'Data Owner'),
+        'Data Quality Rules (validation, completeness)',
+        hint: 'Validation and completeness rules for the data'),
+    Field('dataOwner', String, 'Data Owner',
+        hint: 'Owner accountable for this data entity'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5755,6 +6533,14 @@ class DataEntityReferenceEntry {
 /// User interface specification for this requirement. Defines screens,
 /// forms, and interactions needed to fulfill the requirement.
 /// Uses Flutter/Tom UI framework concepts for specification.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'The user-interface specification for a requirement — the screens, forms, '
+  'fields, actions, and behaviors needed to fulfil it.',
+)
 @ContentHelp('Define the UI elements needed to support this requirement. '
     'Specify screens, forms, fields, actions, and behaviors.')
 @SectionId('RUS')
@@ -5764,13 +6550,18 @@ class RequirementUiSpecification {
 
   /// UI specification form.
   @Form([
-    Field('screenName', String, 'Screen/View Name'),
+    Field('screenName', String, 'Screen/View Name',
+        hint: 'Name of the screen or view'),
     Field('screenType', String,
-        'Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)'),
-    Field('navigationPath', String, 'Navigation Path (how user reaches this)'),
-    Field('userRoles', String, 'Allowed User Roles'),
+        'Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)',
+        hint: 'List, Detail, Form, Dashboard, Dialog, or Wizard'),
+    Field('navigationPath', String, 'Navigation Path (how user reaches this)',
+        hint: 'How the user navigates to reach this screen'),
+    Field('userRoles', String, 'Allowed User Roles',
+        hint: 'Roles allowed to access this screen'),
     Field('responsiveBreakpoints', String,
-        'Responsive Breakpoints (mobile, tablet, desktop)'),
+        'Responsive Breakpoints (mobile, tablet, desktop)',
+        hint: 'Responsive breakpoints: mobile, tablet, desktop'),
   ])
   @SerializationOrder(1)
   String? uiForm;
@@ -5790,6 +6581,13 @@ class RequirementUiSpecification {
   String? mockupDescription;
 
   /// Screen field entries — contains 0+× ScreenFieldEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+    ],
+    'The list of individual screen-field entries that make up this UI.',
+  )
   @SectionId('SCFLD-FIEL-LST')
   @SectionIdPattern('SCFLD-FIEL-xxx')
   @ContentHelp('Define each field in the UI.')
@@ -5797,6 +6595,13 @@ class RequirementUiSpecification {
   List<ScreenFieldEntry> fields = [];
 
     /// Screen action entries — contains 0+× RequirementScreenActionEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+    ],
+    'The list of individual screen-action entries available in this UI.',
+  )
   @SectionId('RQSCAC-ACTI-LST')
   @SectionIdPattern('RQSCAC-ACTI-xxx')
   @ContentHelp('Define actions available in the UI.')
@@ -5804,6 +6609,14 @@ class RequirementUiSpecification {
     List<RequirementScreenActionEntry> actions = [];
 
   /// Screen behavior entries — contains 0+× ScreenBehaviorEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+    ],
+    'The list of individual screen-behavior entries — dynamic behaviors and '
+    'interactions of this UI.',
+  )
   @SectionId('SCBHV-BEHA-LST')
   @SectionIdPattern('SCBHV-BEHA-xxx')
   @ContentHelp('Define dynamic behaviors and interactions.')
@@ -5814,11 +6627,21 @@ class RequirementUiSpecification {
 /// A screen field entry (form).
 ///
 /// Defines a field in the user interface with all its properties.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'A single UI field — its identity, label, type, and the data binding, '
+  'conditions, validation, layout, and validation rules that govern it.',
+)
 @SectionId('SFE')
 class ScreenFieldEntry {
   @Form([
-    Field('fieldId', String, 'Field ID', required: true),
-    Field('fieldLabel', String, 'Field Label (display text)', required: true),
+    Field('fieldId', String, 'Field ID', required: true,
+        hint: 'Unique identifier for this field'),
+    Field('fieldLabel', String, 'Field Label (display text)', required: true,
+        hint: 'Display text shown for the field'),
     Field('fieldType', String, 'Field Type', required: true,
         hint: 'Text, Number, Date, Dropdown, Checkbox, etc.'),
   ])
@@ -5842,82 +6665,157 @@ class ScreenFieldEntry {
   ScreenFieldLayout layout = ScreenFieldLayout();
 
   /// Field validation rules — contains 0+× FieldValidationRule.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+      'OWASP ASVS — input validation',
+    ],
+    'The list of individual validation rules applied to this field\'s input.',
+  )
   @SectionId('FLDVL-VALI-LST')
   @SectionIdPattern('FLDVL-VALI-xxx')
+  @ContentHelp('Add one entry per validation rule applied to this field.')
   @SerializationOrder(5)
   List<FieldValidationRule> validationRules = [];
 }
 
 /// Data binding and defaults.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'How a screen field binds to data — its entity.attribute binding, default '
+  'value, placeholder, and help text.',
+)
 @SectionId('SFDB')
 class ScreenFieldDataBinding {
   @Form([
-    Field('dataBinding', String, 'Data Binding (entity.attribute)'),
-    Field('defaultValue', String, 'Default Value'),
-    Field('placeholder', String, 'Placeholder Text'),
-    Field('helpText', String, 'Help Text / Tooltip'),
+    Field('dataBinding', String, 'Data Binding (entity.attribute)',
+        hint: 'Entity.attribute the field binds to'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Default value for the field'),
+    Field('placeholder', String, 'Placeholder Text',
+        hint: 'Placeholder text shown when empty'),
+    Field('helpText', String, 'Help Text / Tooltip',
+        hint: 'Help text or tooltip for the field'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Conditional behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'The conditional behavior of a screen field — when it is required, read-only, '
+  'or visible, and the conditions that govern each.',
+)
 @SectionId('SCFICO')
 class ScreenFieldConditions {
   @Form([
-    Field('required', String, 'Required (Yes, No, Conditional)'),
-    Field('requiredCondition', String, 'Required Condition'),
-    Field('readOnly', String, 'Read Only (Yes, No, Conditional)'),
-    Field('readOnlyCondition', String, 'Read Only Condition'),
-    Field('visible', String, 'Visible (Yes, No, Conditional)'),
-    Field('visibilityCondition', String, 'Visibility Condition'),
+    Field('required', String, 'Required (Yes, No, Conditional)',
+        hint: 'Yes, No, or Conditional'),
+    Field('requiredCondition', String, 'Required Condition',
+        hint: 'Condition under which the field is required'),
+    Field('readOnly', String, 'Read Only (Yes, No, Conditional)',
+        hint: 'Yes, No, or Conditional'),
+    Field('readOnlyCondition', String, 'Read Only Condition',
+        hint: 'Condition under which the field is read-only'),
+    Field('visible', String, 'Visible (Yes, No, Conditional)',
+        hint: 'Yes, No, or Conditional'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'Condition under which the field is visible'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Validation rules.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+    'OWASP ASVS — input validation',
+  ],
+  'The built-in validation constraints on a screen field — length and value '
+  'bounds, regex pattern, and the custom validation message.',
+)
 @SectionId('SCFIVA')
 class ScreenFieldValidation {
   @Form([
-    Field('minLength', String, 'Minimum Length'),
-    Field('maxLength', String, 'Maximum Length'),
-    Field('minValue', String, 'Minimum Value'),
-    Field('maxValue', String, 'Maximum Value'),
-    Field('pattern', String, 'Validation Pattern (regex)'),
-    Field('validationMessage', String, 'Custom Validation Message'),
+    Field('minLength', String, 'Minimum Length',
+        hint: 'Minimum allowed input length'),
+    Field('maxLength', String, 'Maximum Length',
+        hint: 'Maximum allowed input length'),
+    Field('minValue', String, 'Minimum Value',
+        hint: 'Minimum allowed value'),
+    Field('maxValue', String, 'Maximum Value',
+        hint: 'Maximum allowed value'),
+    Field('pattern', String, 'Validation Pattern (regex)',
+        hint: 'Regular expression the input must match'),
+    Field('validationMessage', String, 'Custom Validation Message',
+        hint: 'Message shown when validation fails'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// UI and layout.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'The layout and presentation of a screen field — its dropdown source/values, '
+  'dependencies, width, display order, and grouping.',
+)
 @SectionId('SCFILA')
 class ScreenFieldLayout {
   @Form([
-    Field('dropdownSource', String, 'Dropdown Source (static, API, entity)'),
-    Field('dropdownValues', String, 'Static Dropdown Values'),
-    Field('dependsOn', String, 'Depends On (field IDs that affect this)'),
-    Field('width', String, 'Width (full, half, third, quarter, custom)'),
-    Field('order', String, 'Display Order'),
-    Field('grouping', String, 'Field Grouping / Section'),
+    Field('dropdownSource', String, 'Dropdown Source (static, API, entity)',
+        hint: 'Where dropdown options come from: static, API, or entity'),
+    Field('dropdownValues', String, 'Static Dropdown Values',
+        hint: 'Static list of dropdown values'),
+    Field('dependsOn', String, 'Depends On (field IDs that affect this)',
+        hint: 'Field IDs that affect this field'),
+    Field('width', String, 'Width (full, half, third, quarter, custom)',
+        hint: 'full, half, third, quarter, or custom'),
+    Field('order', String, 'Display Order',
+        hint: 'Order in which the field is displayed'),
+    Field('grouping', String, 'Field Grouping / Section',
+        hint: 'Group or section the field belongs to'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A field validation rule (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+    'OWASP ASVS — input validation',
+  ],
+  'A single field validation rule: its type, expression, error message, '
+  'severity, and the event that triggers it.',
+)
 @SectionId('FLDVL')
 class FieldValidationRule {
   @Form([
     Field('ruleType', String,
         'Rule Type (Required, Pattern, Range, Length, Custom, CrossField)',
-        required: true),
-    Field('ruleExpression', String, 'Rule Expression / Formula'),
-    Field('errorMessage', String, 'Error Message', required: true),
-    Field('severity', String, 'Severity (Error, Warning, Info)'),
+        required: true,
+        hint: 'Required, Pattern, Range, Length, Custom, or CrossField'),
+    Field('ruleExpression', String, 'Rule Expression / Formula',
+        hint: 'Expression or formula implementing the rule'),
+    Field('errorMessage', String, 'Error Message', required: true,
+        hint: 'Message shown when the rule fails'),
+    Field('severity', String, 'Severity (Error, Warning, Info)',
+        hint: 'Error, Warning, or Info'),
     Field('triggerEvent', String,
-        'Trigger Event (OnBlur, OnChange, OnSubmit)'),
+        'Trigger Event (OnBlur, OnChange, OnSubmit)',
+        hint: 'OnBlur, OnChange, or OnSubmit'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5926,55 +6824,104 @@ class FieldValidationRule {
 /// A screen action entry (form).
 ///
 /// Defines an action (button, link, menu item) in the user interface.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'A single UI action (button, link, menu item) — its identity, type, '
+  'presentation, enablement, visibility, confirmation, messaging, target, '
+  'permission, and audit behavior, plus its parameters.',
+)
 @SectionId('RQSCAC')
 class RequirementScreenActionEntry {
   @Form([
-    Field('actionId', String, 'Action ID', required: true),
-    Field('actionLabel', String, 'Action Label (button text)', required: true),
+    Field('actionId', String, 'Action ID', required: true,
+        hint: 'Unique identifier for this action'),
+    Field('actionLabel', String, 'Action Label (button text)', required: true,
+        hint: 'Button or link text for the action'),
     Field('actionType', String,
         'Action Type (Submit, Cancel, Navigate, API Call, Dialog, '
             'Download, Print, Delete, Duplicate, Export, Import, Refresh, '
             'Save, SaveAndNew, SaveAndClose, Custom)',
-        required: true),
-    Field('icon', String, 'Icon (Material Icon name or custom)'),
-    Field('iconPosition', String, 'Icon Position (Left, Right, Only)'),
+        required: true,
+        hint: 'Submit, Cancel, Navigate, API Call, Dialog, Save, etc.'),
+    Field('icon', String, 'Icon (Material Icon name or custom)',
+        hint: 'Material Icon name or custom icon'),
+    Field('iconPosition', String, 'Icon Position (Left, Right, Only)',
+        hint: 'Left, Right, or Only'),
     Field('buttonStyle', String,
-        'Button Style (Primary, Secondary, Text, Outlined, Danger)'),
+        'Button Style (Primary, Secondary, Text, Outlined, Danger)',
+        hint: 'Primary, Secondary, Text, Outlined, or Danger'),
     Field('placement', String,
-        'Placement (Toolbar, Inline, Footer, ContextMenu, FAB)'),
-    Field('keyboardShortcut', String, 'Keyboard Shortcut'),
-    Field('enabled', String, 'Enabled (Yes, No, Conditional)'),
-    Field('enabledCondition', String, 'Enabled Condition'),
-    Field('visible', String, 'Visible (Yes, No, Conditional)'),
-    Field('visibilityCondition', String, 'Visibility Condition'),
-    Field('confirmationRequired', String, 'Confirmation Required (Yes, No)'),
-    Field('confirmationMessage', String, 'Confirmation Message'),
-    Field('successMessage', String, 'Success Message'),
-    Field('errorMessage', String, 'Error Message'),
-    Field('navigationTarget', String, 'Navigation Target (if Navigate)'),
-    Field('apiEndpoint', String, 'API Endpoint (if API Call)'),
-    Field('requiredPermission', String, 'Required Permission'),
-    Field('auditLogging', String, 'Audit Logging (Yes, No)'),
+        'Placement (Toolbar, Inline, Footer, ContextMenu, FAB)',
+        hint: 'Toolbar, Inline, Footer, ContextMenu, or FAB'),
+    Field('keyboardShortcut', String, 'Keyboard Shortcut',
+        hint: 'Keyboard shortcut that triggers the action'),
+    Field('enabled', String, 'Enabled (Yes, No, Conditional)',
+        hint: 'Yes, No, or Conditional'),
+    Field('enabledCondition', String, 'Enabled Condition',
+        hint: 'Condition under which the action is enabled'),
+    Field('visible', String, 'Visible (Yes, No, Conditional)',
+        hint: 'Yes, No, or Conditional'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'Condition under which the action is visible'),
+    Field('confirmationRequired', String, 'Confirmation Required (Yes, No)',
+        hint: 'Whether the action requires confirmation'),
+    Field('confirmationMessage', String, 'Confirmation Message',
+        hint: 'Message shown to confirm the action'),
+    Field('successMessage', String, 'Success Message',
+        hint: 'Message shown on success'),
+    Field('errorMessage', String, 'Error Message',
+        hint: 'Message shown on error'),
+    Field('navigationTarget', String, 'Navigation Target (if Navigate)',
+        hint: 'Destination when the action navigates'),
+    Field('apiEndpoint', String, 'API Endpoint (if API Call)',
+        hint: 'API endpoint called by the action'),
+    Field('requiredPermission', String, 'Required Permission',
+        hint: 'Permission required to invoke the action'),
+    Field('auditLogging', String, 'Audit Logging (Yes, No)',
+        hint: 'Whether the action is audit-logged'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Action parameters — contains 0+× ActionParameterEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+    ],
+    'The list of individual parameters passed to this action.',
+  )
   @SectionId('ACPR-PARA-LST')
   @SectionIdPattern('ACPR-PARA-xxx')
+  @ContentHelp('Add one entry per parameter passed to this action.')
   @SerializationOrder(1)
   List<ActionParameterEntry> parameters = [];
 }
 
 /// An action parameter entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'A single action parameter — its name, where its value comes from, the source '
+  'value, and whether it is required.',
+)
 @SectionId('ACPR')
 class ActionParameterEntry {
   @Form([
-    Field('parameterName', String, 'Parameter Name', required: true),
+    Field('parameterName', String, 'Parameter Name', required: true,
+        hint: 'Name of the parameter'),
     Field('sourceType', String,
-        'Source Type (Field, Constant, Context, User)', required: true),
-    Field('sourceValue', String, 'Source Value / Field ID'),
-    Field('required', String, 'Required (Yes, No)'),
+        'Source Type (Field, Constant, Context, User)', required: true,
+        hint: 'Field, Constant, Context, or User'),
+    Field('sourceValue', String, 'Source Value / Field ID',
+        hint: 'Source value or field ID supplying the parameter'),
+    Field('required', String, 'Required (Yes, No)',
+        hint: 'Whether the parameter is required'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -5984,26 +6931,45 @@ class ActionParameterEntry {
 ///
 /// Defines dynamic behavior such as conditional visibility, calculations,
 /// cascading selects, and other interactions.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
+  ],
+  'A single dynamic screen behavior — conditional visibility, calculations, '
+  'cascading selects, and similar interactions — with its trigger, condition, '
+  'affected fields, and action.',
+)
 @SectionId('SCBHV')
 class ScreenBehaviorEntry {
   @Form([
-    Field('behaviorId', String, 'Behavior ID', required: true),
-    Field('behaviorName', String, 'Behavior Name', required: true),
+    Field('behaviorId', String, 'Behavior ID', required: true,
+        hint: 'Unique identifier for this behavior'),
+    Field('behaviorName', String, 'Behavior Name', required: true,
+        hint: 'Short descriptive name for the behavior'),
     Field('behaviorType', String,
         'Behavior Type (ConditionalVisibility, ConditionalRequired, '
             'Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, '
             'DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)',
-        required: true),
+        required: true,
+        hint: 'ConditionalVisibility, Calculation, CascadingSelect, etc.'),
     Field('triggerEvent', String,
         'Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, '
-            'OnSubmit, OnFieldChange)'),
-    Field('triggerField', String, 'Trigger Field (if field-specific)'),
-    Field('condition', String, 'Condition (when behavior applies)'),
-    Field('affectedFields', String, 'Affected Fields (field IDs)'),
+            'OnSubmit, OnFieldChange)',
+        hint: 'OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.'),
+    Field('triggerField', String, 'Trigger Field (if field-specific)',
+        hint: 'Field that triggers the behavior, if field-specific'),
+    Field('condition', String, 'Condition (when behavior applies)',
+        hint: 'Condition under which the behavior applies'),
+    Field('affectedFields', String, 'Affected Fields (field IDs)',
+        hint: 'Field IDs affected by the behavior'),
     Field('action', String,
-        'Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)'),
-    Field('formula', String, 'Formula / Expression (for calculations)'),
-    Field('description', String, 'Behavior Description'),
+        'Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)',
+        hint: 'Show, Hide, Enable, Disable, Calculate, Populate, or Validate'),
+    Field('formula', String, 'Formula / Expression (for calculations)',
+        hint: 'Formula or expression used for calculations'),
+    Field('description', String, 'Behavior Description',
+        hint: 'Description of what the behavior does'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6012,6 +6978,11 @@ class ScreenBehaviorEntry {
 /// 4.3.1.n.5. Dependencies.
 ///
 /// Dependencies this requirement has on other requirements.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2 — requirement dependencies'],
+  'The dependencies this requirement has on other requirements — what must be '
+  'implemented before or alongside it, and the implementation order.',
+)
 @ContentHelp('Identify requirements that must be implemented before or '
     'alongside this requirement.')
 @SectionId('REQDEP')
@@ -6022,21 +6993,36 @@ class RequirementDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× RequirementDependencyEntry.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §5.2 — requirement dependencies'],
+    'The list of individual dependency entries linking this requirement to '
+    'others.',
+  )
   @SectionId('RQDEP-ITEM-LST')
   @SectionIdPattern('RQDEP-ITEM-xxx')
+  @ContentHelp('Add one entry per dependency on another requirement.')
   @SerializationOrder(1)
   List<RequirementDependencyEntry> items = [];
 }
 
 /// A requirement dependency entry (form).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2 — requirement dependencies'],
+  'A single dependency on another requirement — its type, a description, and '
+  'the impact of the dependency not being met.',
+)
 @SectionId('RQDEP')
 class RequirementDependencyEntry {
   @Form([
     Field('dependencyType', String,
         'Dependency Type (Prerequisite, Bidirectional, Parent-Child, '
-            'Conflict, Refinement)', required: true),
-    Field('description', String, 'Description'),
-    Field('impact', String, 'Impact (what happens if dependency not met)'),
+            'Conflict, Refinement)', required: true,
+        hint: 'Prerequisite, Bidirectional, Parent-Child, Conflict, or '
+            'Refinement'),
+    Field('description', String, 'Description',
+        hint: 'Description of the dependency'),
+    Field('impact', String, 'Impact (what happens if dependency not met)',
+        hint: 'What happens if the dependency is not met'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6049,6 +7035,11 @@ class RequirementDependencyEntry {
 /// 4.3.1.n.6. Traceability.
 ///
 /// Traceability links to goals, use cases, processes, and other artifacts.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'The traceability links of a requirement to goals, use cases, processes, '
+  'stories, and other artifacts that maintain visibility across the lifecycle.',
+)
 @ContentHelp('Document traceability links to maintain visibility of '
     'requirements throughout the project lifecycle.')
 @SectionId('RT')
@@ -6058,10 +7049,14 @@ class RequirementTraceability {
 
   /// Traceability links form.
   @Form([
-    Field('relatedGoals', String, 'Related Business Goals (IDs)'),
-    Field('relatedUseCases', String, 'Related Use Cases (IDs)'),
-    Field('relatedProcesses', String, 'Related Business Processes (IDs)'),
-    Field('relatedUserStories', String, 'Related User Stories (if Agile)'),
+    Field('relatedGoals', String, 'Related Business Goals (IDs)',
+        hint: 'IDs of related business goals'),
+    Field('relatedUseCases', String, 'Related Use Cases (IDs)',
+        hint: 'IDs of related use cases'),
+    Field('relatedProcesses', String, 'Related Business Processes (IDs)',
+        hint: 'IDs of related business processes'),
+    Field('relatedUserStories', String, 'Related User Stories (if Agile)',
+        hint: 'Related user stories, if using Agile'),
   ])
   @SerializationOrder(1)
   String? traceabilityForm;
@@ -6078,27 +7073,44 @@ class RequirementTraceability {
 }
 
 /// Linked artifacts and test coverage references.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'The artifacts a requirement is linked to — UI screens, data entities, test '
+  'cases, and related documents — for coverage and traceability.',
+)
 @SectionId('RETRAR')
 class RequirementTraceabilityArtifacts {
     @Form([
-        Field('relatedScreens', String, 'Related UI Screens/Views'),
-        Field('relatedDataEntities', String, 'Related Data Entities'),
-        Field('relatedTestCases', String, 'Related Test Cases (IDs)'),
-        Field('relatedDocuments', String, 'Related Documents or Artifacts'),
+        Field('relatedScreens', String, 'Related UI Screens/Views',
+            hint: 'UI screens or views related to this requirement'),
+        Field('relatedDataEntities', String, 'Related Data Entities',
+            hint: 'Data entities related to this requirement'),
+        Field('relatedTestCases', String, 'Related Test Cases (IDs)',
+            hint: 'IDs of test cases covering this requirement'),
+        Field('relatedDocuments', String, 'Related Documents or Artifacts',
+            hint: 'Related documents or other artifacts'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Implementation and deployment tracking.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability'],
+  'How a requirement is realised — the implementing component, its '
+  'implementation status, and the deployment version that first delivers it.',
+)
 @SectionId('RETRIM')
 class RequirementTraceabilityImplementation {
     @Form([
         Field('implementationComponent', String,
-                'Implementation Component (module, service)'),
+                'Implementation Component (module, service)',
+            hint: 'Module or service that implements the requirement'),
         Field('implementationStatus', String,
-                'Implementation Status (Not Started, In Progress, Done)'),
-        Field('deploymentVersion', String, 'Deployment Version (first release)'),
+                'Implementation Status (Not Started, In Progress, Done)',
+            hint: 'Not Started, In Progress, or Done'),
+        Field('deploymentVersion', String, 'Deployment Version (first release)',
+            hint: 'Version in which the requirement first ships'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -6107,6 +7119,14 @@ class RequirementTraceabilityImplementation {
 /// 4.3.1.n.7. Test Cases.
 ///
 /// Test cases that verify this requirement is correctly implemented.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC/IEEE 29148 §6.5 — verification',
+  ],
+  'The test cases that verify a requirement is correctly implemented — the test '
+  'coverage that confirms its acceptance criteria are met.',
+)
 @SectionId('RETECA')
 @ContentHelp('Define test cases that verify requirement implementation.')
 class RequirementTestCases {
@@ -6115,23 +7135,44 @@ class RequirementTestCases {
   String? content;
 
   /// Test case entries — contains 0+× RequirementTestCaseEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — software testing',
+      'ISO/IEC/IEEE 29148 §6.5 — verification',
+    ],
+    'The list of individual test-case entries verifying this requirement.',
+  )
   @SectionId('RQTSC-TEST-LST')
   @SectionIdPattern('RQTSC-TEST-xxx')
+  @ContentHelp('Add one entry per test case that verifies this requirement.')
   @SerializationOrder(1)
   List<RequirementTestCaseEntry> testCases = [];
 }
 
 /// A test case entry for requirement verification (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC/IEEE 29148 §6.5 — verification',
+  ],
+  'A single test case verifying a requirement — its identity, type, category, '
+  'preconditions, plus its execution and automation details.',
+)
 @SectionId('RQTSC')
 class RequirementTestCaseEntry {
   @Form([
-    Field('testCaseId', String, 'Test Case ID', required: true),
-    Field('testCaseName', String, 'Test Case Name', required: true),
+    Field('testCaseId', String, 'Test Case ID', required: true,
+        hint: 'Unique identifier for the test case'),
+    Field('testCaseName', String, 'Test Case Name', required: true,
+        hint: 'Short descriptive name for the test case'),
     Field('testType', String,
-        'Test Type (Unit, Integration, System, Acceptance, UAT, Regression)'),
+        'Test Type (Unit, Integration, System, Acceptance, UAT, Regression)',
+        hint: 'Unit, Integration, System, Acceptance, UAT, or Regression'),
     Field('testCategory', String,
-        'Test Category (Positive, Negative, Boundary, Error, Performance)'),
-    Field('preconditions', String, 'Preconditions'),
+        'Test Category (Positive, Negative, Boundary, Error, Performance)',
+        hint: 'Positive, Negative, Boundary, Error, or Performance'),
+    Field('preconditions', String, 'Preconditions',
+        hint: 'Conditions that must hold before the test runs'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6152,25 +7193,47 @@ class RequirementTestCaseEntry {
 }
 
 /// Test execution details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC/IEEE 29148 §6.5 — verification',
+  ],
+  'The execution detail of a test case — the steps to perform, the test data '
+  'used, and the expected result.',
+)
 @SectionId('RTCEE')
 class RequirementTestCaseEntryExecution {
     @Form([
-        Field('testSteps', String, 'Test Steps'),
-        Field('testData', String, 'Test Data'),
-        Field('expectedResult', String, 'Expected Result', required: true),
+        Field('testSteps', String, 'Test Steps',
+            hint: 'Ordered steps to execute the test'),
+        Field('testData', String, 'Test Data',
+            hint: 'Data used when running the test'),
+        Field('expectedResult', String, 'Expected Result', required: true,
+            hint: 'Expected outcome of the test'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Automation and prioritization details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'ISO/IEC/IEEE 29148 §6.5 — verification',
+  ],
+  'The automation and prioritization of a test case — whether it is automated, '
+  'the script that runs it, and its priority.',
+)
 @SectionId('RTCEA')
 class RequirementTestCaseEntryAutomation {
     @Form([
         Field('automationStatus', String,
-                'Automation Status (Automated, Manual, To Be Automated)'),
-        Field('automationScript', String, 'Automation Script Reference'),
-        Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
+                'Automation Status (Automated, Manual, To Be Automated)',
+            hint: 'Automated, Manual, or To Be Automated'),
+        Field('automationScript', String, 'Automation Script Reference',
+            hint: 'Reference to the automation script'),
+        Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+            hint: 'Critical, High, Medium, or Low'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -6186,6 +7249,15 @@ class RequirementTestCaseEntryAutomation {
 /// constraints on how the system is built — platform, performance,
 /// scalability, reliability, and standards compliance. These requirements
 /// often drive architectural decisions.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'The root of §4.3.2: captures the technical, non-functional constraints on '
+  'how the system is built — platform, performance, scalability, reliability, '
+  'and standards compliance.',
+)
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-TEC')
 @ContentHelp('Technical requirements describe non-functional aspects and '
@@ -6198,18 +7270,32 @@ class TechnicalRequirements {
 
   /// Technical requirements summary form.
   @Form([
-    Field('totalTechnicalRequirements', String, 'Total Technical Requirements'),
-    Field('criticalCount', String, 'Critical (count)'),
-    Field('highCount', String, 'High (count)'),
-    Field('mediumCount', String, 'Medium (count)'),
-    Field('lowCount', String, 'Low (count)'),
+    Field('totalTechnicalRequirements', String, 'Total Technical Requirements',
+        hint: 'Total count of technical requirements captured'),
+    Field('criticalCount', String, 'Critical (count)',
+        hint: 'Number of requirements at Critical priority'),
+    Field('highCount', String, 'High (count)',
+        hint: 'Number of requirements at High priority'),
+    Field('mediumCount', String, 'Medium (count)',
+        hint: 'Number of requirements at Medium priority'),
+    Field('lowCount', String, 'Low (count)',
+        hint: 'Number of requirements at Low priority'),
     Field('architectureDrivers', String,
-        'Architecture Drivers (top constraints shaping design)'),
+        'Architecture Drivers (top constraints shaping design)',
+        hint: 'e.g., 99.99% availability, sub-100ms latency, 10k concurrent users'),
   ])
   @SerializationOrder(1)
   String? summaryForm;
 
   /// Technical requirements list — contains 0+× Technical Requirement.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+      'ISO/IEC 25010 — product quality',
+    ],
+    'The set of individual technical requirement entries that constrain how '
+    'the system is built.',
+  )
   @SectionId('TERQ-REQU-LST')
   @SectionIdPattern('TERQ-REQU-xxx')
   @ContentHelp('Add one entry per technical requirement.')
@@ -6221,14 +7307,25 @@ class TechnicalRequirements {
 ///
 /// Comprehensive technical requirement definition following ISO 25010
 /// quality characteristics and architecture decision records.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'A single technical requirement — a measurable, testable non-functional '
+  'constraint on how the system is built.',
+)
 @SectionId('TERQ')
 class TechnicalRequirementEntry {
   @Form([
     Field('requirementId', String,
-        'Requirement ID (unique, e.g., REQ-T001)', required: true),
-    Field('title', String, 'Title', required: true),
+        'Requirement ID (unique, e.g., REQ-T001)', required: true,
+        hint: 'Stable unique identifier, e.g., REQ-T001'),
+    Field('title', String, 'Title', required: true,
+        hint: 'Short descriptive name for the requirement'),
     Field('status', String,
-        'Status (Draft, Proposed, Approved, Verified, Deferred)', required: true),
+        'Status (Draft, Proposed, Approved, Verified, Deferred)', required: true,
+        hint: 'Draft, Proposed, Approved, Verified, or Deferred'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6271,75 +7368,136 @@ class TechnicalRequirementEntry {
 }
 
 /// Technical requirement details: description, category, priority.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'The descriptive core of a technical requirement — its statement, quality '
+  'category, priority, and source.',
+)
 @SectionId('TRED')
 class TechnicalRequirementEntryDetails {
   @Form([
     Field('description', String,
-        'Description (The system shall... detailed statement)', required: true),
+        'Description (The system shall... detailed statement)', required: true,
+        hint: 'Full requirement statement, e.g., The system shall respond '
+            'within 100ms'),
     Field('category', String,
         'Category (Performance, Scalability, Availability, Reliability, '
             'Security, Usability, Accessibility, Maintainability, Portability, '
             'Interoperability, Compliance, Capacity, Recoverability)',
-        required: true),
-    Field('subcategory', String, 'Subcategory (specific aspect within category)'),
+        required: true,
+        hint: 'ISO 25010 quality characteristic the requirement addresses'),
+    Field('subcategory', String, 'Subcategory (specific aspect within category)',
+        hint: 'More specific aspect, e.g., response time within Performance'),
     Field('priority', String,
-        'Priority (Critical, High, Medium, Low)', required: true),
-    Field('source', String, 'Source (who requested)', required: true),
-    Field('rationale', String, 'Rationale'),
+        'Priority (Critical, High, Medium, Low)', required: true,
+        hint: 'Critical, High, Medium, or Low'),
+    Field('source', String, 'Source (who requested)', required: true,
+        hint: 'Stakeholder, document, or standard that originated it'),
+    Field('rationale', String, 'Rationale',
+        hint: 'Why this requirement is needed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Measurement specifications for technical requirement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'How the requirement is quantified and verified — the metric, target value, '
+  'and measurement method that make it testable.',
+)
 @SectionId('TREM')
 class TechnicalRequirementEntryMeasurement {
   @Form([
-    Field('metric', String, 'Metric (what is measured)'),
-    Field('currentValue', String, 'Current Value (baseline)'),
-    Field('targetValue', String, 'Target Value', required: true),
-    Field('measurementMethod', String, 'Measurement Method'),
+    Field('metric', String, 'Metric (what is measured)',
+        hint: 'e.g., p95 response time, throughput, uptime percentage'),
+    Field('currentValue', String, 'Current Value (baseline)',
+        hint: 'Present-day measured value, if known'),
+    Field('targetValue', String, 'Target Value', required: true,
+        hint: 'Required threshold the metric must meet, e.g., < 100ms'),
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'How the metric is captured, e.g., APM instrumentation'),
     Field('measurementEnvironment', String,
-        'Measurement Environment (production, staging, load test)'),
-    Field('measurementFrequency', String, 'Measurement Frequency'),
+        'Measurement Environment (production, staging, load test)',
+        hint: 'Where measured: production, staging, or load test'),
+    Field('measurementFrequency', String, 'Measurement Frequency',
+        hint: 'How often measured, e.g., continuous, per release'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Verification approach for technical requirement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'How conformance to the requirement is verified — the approach, tooling, and '
+  'timing of verification.',
+)
 @SectionId('TREV')
 class TechnicalRequirementEntryVerification {
   @Form([
     Field('verificationApproach', String,
-        'Verification Approach (how verified: test, inspection, analysis)'),
-    Field('verificationTool', String, 'Verification Tool'),
+        'Verification Approach (how verified: test, inspection, analysis)',
+        hint: 'Test, inspection, analysis, or demonstration'),
+    Field('verificationTool', String, 'Verification Tool',
+        hint: 'Tool used to verify, e.g., load testing framework'),
     Field('verificationTiming', String,
-        'Verification Timing (unit test, integration, acceptance, production)'),
+        'Verification Timing (unit test, integration, acceptance, production)',
+        hint: 'When verified: unit, integration, acceptance, or production'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Impact assessment for technical requirement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'The consequences of the requirement — its effect on architecture, the '
+  'effort to satisfy it, and the risk of not meeting it.',
+)
 @SectionId('TREI')
 class TechnicalRequirementEntryImpact {
   @Form([
     Field('architectureImpact', String,
-        'Architecture Impact (how this affects system design)'),
-    Field('estimatedEffort', String, 'Estimated Implementation Effort'),
-    Field('riskIfNotMet', String, 'Risk If Not Met'),
+        'Architecture Impact (how this affects system design)',
+        hint: 'How satisfying this shapes the system design'),
+    Field('estimatedEffort', String, 'Estimated Implementation Effort',
+        hint: 'Rough effort to implement, e.g., 2 sprints'),
+    Field('riskIfNotMet', String, 'Risk If Not Met',
+        hint: 'Consequence if the requirement is not satisfied'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Assumptions and constraints for technical requirement.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'The assumptions the requirement relies on and the constraints it imposes or '
+  'operates under.',
+)
 @SectionId('TREC')
 class TechnicalRequirementEntryConstraints {
   @Form([
-    Field('assumptions', String, 'Assumptions'),
-    Field('constraints', String, 'Constraints'),
+    Field('assumptions', String, 'Assumptions',
+        hint: 'Conditions assumed true for the requirement to hold'),
+    Field('constraints', String, 'Constraints',
+        hint: 'Limits or boundaries that apply, e.g., fixed infrastructure'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6355,6 +7513,14 @@ class TechnicalRequirementEntryConstraints {
 /// information protection, access control, authentication, authorization,
 /// audit, and compliance needs. Based on OWASP, ISO 27001, and common
 /// security frameworks.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'The root of §4.3.3: captures information-protection, access-control, '
+  'authentication, authorization, audit, and compliance needs for the system.',
+)
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-SEC')
 @ContentHelp('Security requirements protect confidentiality, integrity, '
@@ -6367,21 +7533,36 @@ class SecurityRequirements {
 
   /// Security requirements summary form.
   @Form([
-    Field('totalSecurityRequirements', String, 'Total Security Requirements'),
-    Field('criticalCount', String, 'Critical (count)'),
-    Field('highCount', String, 'High (count)'),
-    Field('mediumCount', String, 'Medium (count)'),
+    Field('totalSecurityRequirements', String, 'Total Security Requirements',
+        hint: 'Total count of security requirements captured'),
+    Field('criticalCount', String, 'Critical (count)',
+        hint: 'Number of requirements at Critical priority'),
+    Field('highCount', String, 'High (count)',
+        hint: 'Number of requirements at High priority'),
+    Field('mediumCount', String, 'Medium (count)',
+        hint: 'Number of requirements at Medium priority'),
     Field('securityFramework', String,
-        'Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)'),
+        'Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)',
+        hint: 'Primary framework guiding the requirements'),
     Field('complianceRequirements', String,
-        'Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)'),
+        'Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)',
+        hint: 'Regulations the system must comply with'),
     Field('threatCategories', String,
-        'Threat Categories Addressed (Injection, XSS, CSRF, etc.)'),
+        'Threat Categories Addressed (Injection, XSS, CSRF, etc.)',
+        hint: 'Classes of attack the requirements mitigate'),
   ])
   @SerializationOrder(1)
   String? summaryForm;
 
   /// Security requirements list — contains 0+× Security Requirement.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 Annex A — security controls',
+      'ISO/IEC/IEEE 29148 §9 — security requirements',
+    ],
+    'The set of individual security requirement entries protecting the '
+    'confidentiality, integrity, and availability of information.',
+  )
   @SectionId('SECRQ-REQU-LST')
   @SectionIdPattern('SECRQ-REQU-xxx')
   @ContentHelp('Add one entry per security requirement.')
@@ -6393,14 +7574,26 @@ class SecurityRequirements {
 ///
 /// Comprehensive security requirement definition following OWASP ASVS,
 /// ISO 27001, and security best practices.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'A single security requirement — a protection, access-control, or compliance '
+  'need the system must satisfy.',
+)
 @SectionId('SECRQ')
 class SecurityRequirementEntry {
   @Form([
     Field('requirementId', String,
-        'Requirement ID (unique, e.g., REQ-S001)', required: true),
-    Field('title', String, 'Title', required: true),
+        'Requirement ID (unique, e.g., REQ-S001)', required: true,
+        hint: 'Stable unique identifier, e.g., REQ-S001'),
+    Field('title', String, 'Title', required: true,
+        hint: 'Short descriptive name for the requirement'),
     Field('description', String,
-        'Description (The system shall... detailed statement)', required: true),
+        'Description (The system shall... detailed statement)', required: true,
+        hint: 'Full requirement statement, e.g., The system shall encrypt '
+            'data at rest'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6444,6 +7637,14 @@ class SecurityRequirementEntry {
 }
 
 /// Category and classification for security requirement.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'The classification of a security requirement — its security category, '
+  'priority, source, and the threat and data classification it concerns.',
+)
 @SectionId('SEREENCL')
 class SecurityRequirementEntryClassification {
   @Form([
@@ -6452,61 +7653,103 @@ class SecurityRequirementEntryClassification {
             'Encryption, Audit Logging, Input Validation, Session Management, '
             'Error Handling, Communication Security, Configuration, '
             'Cryptography, Data Retention, Privacy)',
-        required: true),
-    Field('subcategory', String, 'Subcategory'),
+        required: true,
+        hint: 'Security domain the requirement falls under'),
+    Field('subcategory', String, 'Subcategory',
+        hint: 'More specific aspect within the category'),
     Field('priority', String,
-        'Priority (Critical, High, Medium, Low)', required: true),
-    Field('source', String, 'Source', required: true),
-    Field('rationale', String, 'Rationale'),
+        'Priority (Critical, High, Medium, Low)', required: true,
+        hint: 'Critical, High, Medium, or Low'),
+    Field('source', String, 'Source', required: true,
+        hint: 'Stakeholder, standard, or document that originated it'),
+    Field('rationale', String, 'Rationale',
+        hint: 'Why this security requirement is needed'),
     Field('threatMitigated', String,
-        'Threat Mitigated (what attack is prevented)'),
+        'Threat Mitigated (what attack is prevented)',
+        hint: 'Attack or risk this requirement prevents'),
     Field('dataClassification', String,
         'Data Classification Affected (Public, Internal, Confidential, '
-            'Restricted, PII, PHI)'),
+            'Restricted, PII, PHI)',
+        hint: 'Sensitivity of data the requirement protects'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Compliance framework mapping for security requirement.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'The mapping of a security requirement onto external frameworks — OWASP, '
+  'CIS, NIST, ISO 27001, and regulatory compliance references.',
+)
 @SectionId('SEREENCO')
 class SecurityRequirementEntryCompliance {
   @Form([
     Field('owaspCategory', String,
-        'OWASP Category (if applicable, e.g., A01:2021 Broken Access Control)'),
-    Field('cisControl', String, 'CIS Control (if applicable)'),
-    Field('nistControl', String, 'NIST Control (if applicable)'),
-    Field('iso27001Control', String, 'ISO 27001 Control (if applicable)'),
+        'OWASP Category (if applicable, e.g., A01:2021 Broken Access Control)',
+        hint: 'OWASP Top 10 / ASVS category, if applicable'),
+    Field('cisControl', String, 'CIS Control (if applicable)',
+        hint: 'Matching CIS Control number, if applicable'),
+    Field('nistControl', String, 'NIST Control (if applicable)',
+        hint: 'Matching NIST SP 800-53 control, if applicable'),
+    Field('iso27001Control', String, 'ISO 27001 Control (if applicable)',
+        hint: 'Matching ISO 27001 Annex A control, if applicable'),
     Field('complianceReference', String,
-        'Compliance Reference (GDPR Article, PCI-DSS requirement, etc.)'),
+        'Compliance Reference (GDPR Article, PCI-DSS requirement, etc.)',
+        hint: 'Specific regulation clause, e.g., GDPR Art. 32'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Implementation and verification for security requirement.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'How a security requirement is implemented and verified — the approach, '
+  'verification method, and frequency.',
+)
 @SectionId('SREV')
 class SecurityRequirementEntryVerification {
   @Form([
-    Field('implementationApproach', String, 'Implementation Approach'),
+    Field('implementationApproach', String, 'Implementation Approach',
+        hint: 'How the requirement will be technically realized'),
     Field('verificationMethod', String,
-        'Verification Method (Penetration test, Code review, Security scan)'),
+        'Verification Method (Penetration test, Code review, Security scan)',
+        hint: 'How conformance is checked, e.g., penetration test'),
     Field('verificationFrequency', String,
-        'Verification Frequency (Continuous, Release, Quarterly, Annual)'),
+        'Verification Frequency (Continuous, Release, Quarterly, Annual)',
+        hint: 'How often verified: continuous, release, quarterly, annual'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Status and ownership for security requirement.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security controls',
+    'ISO/IEC/IEEE 29148 §9 — security requirements',
+  ],
+  'The lifecycle and ownership of a security requirement — residual risk after '
+  'mitigation, the risk owner, and current status.',
+)
 @SectionId('SEREENST')
 class SecurityRequirementEntryStatus {
   @Form([
-    Field('residualRisk', String, 'Residual Risk (after mitigation)'),
-    Field('riskOwner', String, 'Risk Owner'),
+    Field('residualRisk', String, 'Residual Risk (after mitigation)',
+        hint: 'Risk remaining once controls are applied'),
+    Field('riskOwner', String, 'Risk Owner',
+        hint: 'Person or role accountable for the residual risk'),
     Field('status', String,
         'Status (Draft, Proposed, Approved, Implemented, Verified)',
-        required: true),
+        required: true,
+        hint: 'Draft, Proposed, Approved, Implemented, or Verified'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6515,6 +7758,15 @@ class SecurityRequirementEntryStatus {
 /// 4.3.3.n.2. Security Controls.
 ///
 /// Security controls that implement or support this requirement.
+@StandardReferences(
+  [
+    'ISO/IEC 27002 — information security controls',
+    'OWASP ASVS — security verification',
+    'NIST SP 800-53 — security controls',
+  ],
+  'The root of §4.3.3.n.2: captures the security controls that implement or '
+  'support a security requirement.',
+)
 @SectionId('SECO')
 @ContentHelp('Define security controls that implement this requirement.')
 class SecurityControls {
@@ -6524,24 +7776,48 @@ class SecurityControls {
   String? content;
 
   /// Security control entries — contains 0+× SecurityControlEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC 27002 — information security controls',
+      'OWASP ASVS — security verification',
+      'NIST SP 800-53 — security controls',
+    ],
+    'The set of individual security control entries implementing or supporting '
+    'this security requirement.',
+  )
   @SectionId('SECCT-CONT-LST')
   @SectionIdPattern('SECCT-CONT-xxx')
+  @ContentHelp('Add one entry per security control implementing this '
+      'requirement.')
   @SerializationOrder(1)
   List<SecurityControlEntry> controls = [];
 }
 
 /// A security control entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27002 — information security controls',
+    'OWASP ASVS — security verification',
+    'NIST SP 800-53 — security controls',
+  ],
+  'A single security control — a preventive, detective, or corrective measure '
+  'implementing or supporting a security requirement.',
+)
 @SectionId('SECOEN')
 class SecurityControlEntry {
   @Form([
-    Field('controlId', String, 'Control ID', required: true),
-    Field('controlName', String, 'Control Name', required: true),
+    Field('controlId', String, 'Control ID', required: true,
+        hint: 'Stable unique identifier for the control'),
+    Field('controlName', String, 'Control Name', required: true,
+        hint: 'Short descriptive name for the control'),
     Field('controlType', String,
         'Control Type (Preventive, Detective, Corrective, Deterrent, '
             'Compensating)',
-        required: true),
+        required: true,
+        hint: 'Preventive, Detective, Corrective, Deterrent, or Compensating'),
     Field('implementationType', String,
-        'Implementation Type (Technical, Administrative, Physical)'),
+        'Implementation Type (Technical, Administrative, Physical)',
+        hint: 'Technical, Administrative, or Physical'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6558,25 +7834,50 @@ class SecurityControlEntry {
 }
 
 /// Control implementation details.
+@StandardReferences(
+  [
+    'ISO/IEC 27002 — information security controls',
+    'OWASP ASVS — security verification',
+    'NIST SP 800-53 — security controls',
+  ],
+  'How a security control is implemented — its description, implementation '
+  'details, and effective date.',
+)
 @SectionId('SCEI')
 class SecurityControlEntryImplementation {
     @Form([
-        Field('description', String, 'Description'),
-        Field('implementationDetails', String, 'Implementation Details'),
-        Field('effectiveDate', String, 'Effective Date'),
+        Field('description', String, 'Description',
+            hint: 'What the control does'),
+        Field('implementationDetails', String, 'Implementation Details',
+            hint: 'How the control is configured or deployed'),
+        Field('effectiveDate', String, 'Effective Date',
+            hint: 'Date the control becomes active'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Testing and lifecycle status.
+@StandardReferences(
+  [
+    'ISO/IEC 27002 — information security controls',
+    'OWASP ASVS — security verification',
+    'NIST SP 800-53 — security controls',
+  ],
+  'The testing and lifecycle state of a security control — its test frequency, '
+  'last test, result, and current status.',
+)
 @SectionId('SCEV')
 class SecurityControlEntryVerification {
     @Form([
-        Field('testFrequency', String, 'Test Frequency'),
-        Field('lastTestDate', String, 'Last Test Date'),
-        Field('testResult', String, 'Last Test Result'),
-        Field('status', String, 'Status (Planned, Implemented, Active, Retired)'),
+        Field('testFrequency', String, 'Test Frequency',
+            hint: 'How often the control is tested'),
+        Field('lastTestDate', String, 'Last Test Date',
+            hint: 'Date the control was last tested'),
+        Field('testResult', String, 'Last Test Result',
+            hint: 'Outcome of the most recent test'),
+        Field('status', String, 'Status (Planned, Implemented, Active, Retired)',
+            hint: 'Planned, Implemented, Active, or Retired'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -6592,6 +7893,15 @@ class SecurityControlEntryVerification {
 /// to organization, processes, training, or support that must be fulfilled
 /// for the system to succeed. Based on change management and organizational
 /// readiness assessment practices.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational project management',
+    'BABOK v3 §10 — organizational readiness',
+    'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+  ],
+  'The root of §4.3.4: captures the non-technical changes to organization, '
+  'processes, training, or support needed for the system to succeed.',
+)
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-ORG')
 @ContentHelp('Organizational requirements describe non-technical changes '
@@ -6604,19 +7914,35 @@ class OrganizationalRequirements {
 
   /// Organizational requirements summary form.
   @Form([
-    Field('totalOrgRequirements', String, 'Total Organizational Requirements'),
-    Field('trainingRequirements', String, 'Training Requirements (count)'),
-    Field('processChangeRequirements', String, 'Process Change (count)'),
-    Field('roleChangeRequirements', String, 'Role Change (count)'),
-    Field('supportRequirements', String, 'Support Requirements (count)'),
-    Field('communicationRequirements', String, 'Communication (count)'),
+    Field('totalOrgRequirements', String, 'Total Organizational Requirements',
+        hint: 'Total count of organizational requirements captured'),
+    Field('trainingRequirements', String, 'Training Requirements (count)',
+        hint: 'Number of training-related requirements'),
+    Field('processChangeRequirements', String, 'Process Change (count)',
+        hint: 'Number of process-change requirements'),
+    Field('roleChangeRequirements', String, 'Role Change (count)',
+        hint: 'Number of role-change requirements'),
+    Field('supportRequirements', String, 'Support Requirements (count)',
+        hint: 'Number of support-structure requirements'),
+    Field('communicationRequirements', String, 'Communication (count)',
+        hint: 'Number of communication requirements'),
     Field('changeReadinessScore', String,
-        'Organizational Change Readiness Score'),
+        'Organizational Change Readiness Score',
+        hint: 'Assessed readiness of the organization to adopt the change'),
   ])
   @SerializationOrder(1)
   String? summaryForm;
 
   /// Organizational requirements list — contains 0+× Organizational Requirement.
+  @StandardReferences(
+    [
+      'ISO 21500 — organizational project management',
+      'BABOK v3 §10 — organizational readiness',
+      'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+    ],
+    'The set of individual organizational requirement entries — the '
+    'non-technical changes needed for the system to succeed.',
+  )
   @SectionId('ORRQ-REQU-LST')
   @SectionIdPattern('ORRQ-REQU-xxx')
   @ContentHelp('Add one entry per organizational requirement.')
@@ -6628,14 +7954,26 @@ class OrganizationalRequirements {
 ///
 /// Comprehensive organizational requirement definition following change
 /// management and organizational development best practices.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational project management',
+    'BABOK v3 §10 — organizational readiness',
+    'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+  ],
+  'A single organizational requirement — a needed change to organization, '
+  'process, training, or support for the system to succeed.',
+)
 @SectionId('ORRQ')
 class OrganizationalRequirementEntry {
   @Form([
     Field('requirementId', String,
-        'Requirement ID (unique, e.g., REQ-O001)', required: true),
-    Field('title', String, 'Title', required: true),
+        'Requirement ID (unique, e.g., REQ-O001)', required: true,
+        hint: 'Stable unique identifier, e.g., REQ-O001'),
+    Field('title', String, 'Title', required: true,
+        hint: 'Short descriptive name for the requirement'),
     Field('description', String,
-        'Description (detailed statement)', required: true),
+        'Description (detailed statement)', required: true,
+        hint: 'Full statement of the organizational change needed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6671,54 +8009,98 @@ class OrganizationalRequirementEntry {
 }
 
 /// Requirement classification and source.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational project management',
+    'BABOK v3 §10 — organizational readiness',
+    'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+  ],
+  'The classification of an organizational requirement — its change category, '
+  'priority, source, and rationale.',
+)
 @SectionId('OREC')
 class OrganizationalRequirementEntryClassification {
     @Form([
         Field('category', String,
                 'Category (Training, Process Change, Role Change, Support, '
                         'Communication, Policy, Governance, Culture, Staffing)',
-                required: true),
-        Field('subcategory', String, 'Subcategory'),
+                required: true,
+                hint: 'Type of organizational change the requirement entails'),
+        Field('subcategory', String, 'Subcategory',
+                hint: 'More specific aspect within the category'),
         Field('priority', String,
-                'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
-        Field('source', String, 'Source', required: true),
-        Field('rationale', String, 'Rationale'),
+                'Priority (Must, Should, Could, Won\'t-This-Time)', required: true,
+                hint: 'MoSCoW priority: Must, Should, Could, or Won\'t-This-Time'),
+        Field('source', String, 'Source', required: true,
+                hint: 'Stakeholder or document that originated it'),
+        Field('rationale', String, 'Rationale',
+                hint: 'Why this organizational change is needed'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Impact and change profile.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational project management',
+    'BABOK v3 §10 — organizational readiness',
+    'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+  ],
+  'The impact profile of an organizational requirement — who is affected, the '
+  'type and complexity of change, and expected resistance.',
+)
 @SectionId('OREI')
 class OrganizationalRequirementEntryImpact {
     @Form([
         Field('impactedGroups', String,
-                'Impacted Groups (departments, roles, user categories)'),
-        Field('impactedUserCount', String, 'Estimated Impacted Users'),
+                'Impacted Groups (departments, roles, user categories)',
+                hint: 'Departments, roles, or user categories affected'),
+        Field('impactedUserCount', String, 'Estimated Impacted Users',
+                hint: 'Approximate number of people affected'),
         Field('changeType', String,
-                'Change Type (Behavioral, Procedural, Structural, Cultural)'),
+                'Change Type (Behavioral, Procedural, Structural, Cultural)',
+                hint: 'Behavioral, Procedural, Structural, or Cultural'),
         Field('changeComplexity', String,
-                'Change Complexity (Low, Medium, High)'),
+                'Change Complexity (Low, Medium, High)',
+                hint: 'Low, Medium, or High'),
         Field('resistance', String,
-                'Expected Resistance (Low, Medium, High)'),
+                'Expected Resistance (Low, Medium, High)',
+                hint: 'Anticipated resistance: Low, Medium, or High'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Planning, ownership, and success tracking.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational project management',
+    'BABOK v3 §10 — organizational readiness',
+    'ISO/IEC/IEEE 29148 §9 — organizational requirements',
+  ],
+  'The planning and ownership of an organizational requirement — its timeline, '
+  'dependencies, owner, sponsor, success criteria, and status.',
+)
 @SectionId('OREP')
 class OrganizationalRequirementEntryPlanning {
     @Form([
-        Field('timeline', String, 'Timeline (when change must occur)'),
-        Field('dependencies', String, 'Dependencies (other changes needed first)'),
-        Field('owner', String, 'Change Owner'),
-        Field('sponsor', String, 'Executive Sponsor'),
-        Field('successCriteria', String, 'Success Criteria'),
-        Field('measurementMethod', String, 'Measurement Method'),
+        Field('timeline', String, 'Timeline (when change must occur)',
+                hint: 'When the change must be completed'),
+        Field('dependencies', String, 'Dependencies (other changes needed first)',
+                hint: 'Other changes that must happen first'),
+        Field('owner', String, 'Change Owner',
+                hint: 'Person or role accountable for the change'),
+        Field('sponsor', String, 'Executive Sponsor',
+                hint: 'Leadership sponsor backing the change'),
+        Field('successCriteria', String, 'Success Criteria',
+                hint: 'How success of the change is defined'),
+        Field('measurementMethod', String, 'Measurement Method',
+                hint: 'How success criteria are measured'),
         Field('status', String,
                 'Status (Draft, Proposed, Approved, In Progress, Completed)',
-                required: true),
+                required: true,
+                hint: 'Draft, Proposed, Approved, In Progress, or Completed'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -6727,6 +8109,14 @@ class OrganizationalRequirementEntryPlanning {
 /// 4.3.4.n.2. Implementation Plan.
 ///
 /// Implementation plan for this organizational requirement.
+@StandardReferences(
+  [
+    'ISO 21500 — implementation activities',
+    'PMBOK — change/implementation management',
+  ],
+  'The root of §4.3.4.n.2: captures the implementation approach for an '
+  'organizational change requirement.',
+)
 @ContentHelp('Define the implementation approach for this organizational '
     'change requirement.')
 @SectionId('ORIP')
@@ -6737,39 +8127,75 @@ class OrgRequirementImplementationPlan {
   /// Implementation plan form.
   @Form([
     Field('approach', String,
-        'Approach (Big Bang, Phased, Pilot, Parallel)'),
-    Field('phases', String, 'Phases (if phased rollout)'),
-    Field('pilotGroup', String, 'Pilot Group (if pilot approach)'),
-    Field('trainingApproach', String, 'Training Approach'),
-    Field('communicationPlan', String, 'Communication Plan'),
-    Field('supportPlan', String, 'Support Plan'),
-    Field('rollbackPlan', String, 'Rollback Plan'),
-    Field('resourcesNeeded', String, 'Resources Needed'),
-    Field('budget', String, 'Budget'),
-    Field('timeline', String, 'Timeline'),
+        'Approach (Big Bang, Phased, Pilot, Parallel)',
+        hint: 'Big Bang, Phased, Pilot, or Parallel rollout'),
+    Field('phases', String, 'Phases (if phased rollout)',
+        hint: 'Sequence of phases, if phased'),
+    Field('pilotGroup', String, 'Pilot Group (if pilot approach)',
+        hint: 'Group used for the pilot, if piloting'),
+    Field('trainingApproach', String, 'Training Approach',
+        hint: 'How affected people are trained'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint: 'How the change is communicated to stakeholders'),
+    Field('supportPlan', String, 'Support Plan',
+        hint: 'Support provided during and after the change'),
+    Field('rollbackPlan', String, 'Rollback Plan',
+        hint: 'How to revert if the change fails'),
+    Field('resourcesNeeded', String, 'Resources Needed',
+        hint: 'People, tools, or budget required'),
+    Field('budget', String, 'Budget',
+        hint: 'Estimated cost of the implementation'),
+    Field('timeline', String, 'Timeline',
+        hint: 'Schedule for the implementation'),
   ])
   @SerializationOrder(1)
   String? planForm;
 
   /// Implementation activities — contains 0+× OrgImplementationActivity.
+  @StandardReferences(
+    [
+      'ISO 21500 — implementation activities',
+      'PMBOK — change/implementation management',
+    ],
+    'The set of individual implementation activities that carry out the '
+    'organizational change.',
+  )
   @SectionId('ORGIM-ACTI-LST')
   @SectionIdPattern('ORGIM-ACTI-xxx')
+  @ContentHelp('Add one entry per implementation activity for this '
+      'organizational change.')
   @SerializationOrder(2)
   List<OrgImplementationActivity> activities = [];
 }
 
 /// An organizational implementation activity (form).
+@StandardReferences(
+  [
+    'ISO 21500 — implementation activities',
+    'PMBOK — change/implementation management',
+  ],
+  'A single implementation activity — a discrete, owned, scheduled task that '
+  'carries out part of the organizational change.',
+)
 @SectionId('ORGIM')
 class OrgImplementationActivity {
   @Form([
-    Field('activityId', String, 'Activity ID', required: true),
-    Field('activityName', String, 'Activity Name', required: true),
-    Field('description', String, 'Description'),
-    Field('owner', String, 'Owner'),
-    Field('startDate', String, 'Start Date'),
-    Field('endDate', String, 'End Date'),
-    Field('deliverable', String, 'Deliverable'),
-    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)'),
+    Field('activityId', String, 'Activity ID', required: true,
+        hint: 'Stable unique identifier for the activity'),
+    Field('activityName', String, 'Activity Name', required: true,
+        hint: 'Short descriptive name for the activity'),
+    Field('description', String, 'Description',
+        hint: 'What the activity entails'),
+    Field('owner', String, 'Owner',
+        hint: 'Person or role responsible for the activity'),
+    Field('startDate', String, 'Start Date',
+        hint: 'Planned start date'),
+    Field('endDate', String, 'End Date',
+        hint: 'Planned completion date'),
+    Field('deliverable', String, 'Deliverable',
+        hint: 'Output produced by the activity'),
+    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)',
+        hint: 'Planned, In Progress, Completed, or Delayed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10339,6 +11765,15 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 /// 4.3.5. Requirement Relationships.
 ///
 /// Cross-requirement dependency and conflict graph.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability & relationships',
+    'INCOSE Guide for Writing Requirements — requirement relationships',
+  ],
+  'The cross-requirement dependency, conflict, refinement, and derivation graph '
+  'that ties individual functional/technical/security/organizational '
+  'requirements into a coherent network.',
+)
 @SectionId('RERE')
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-REL')
@@ -10366,6 +11801,15 @@ FUN/TEC/SEC/ORG into a network.
 /// 4.3.6. Requirement Coverage.
 ///
 /// Coverage of requirements against goals, use cases, and tests.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability & coverage',
+    'ISO/IEC/IEEE 29119 — software testing (test coverage)',
+  ],
+  'Reports how completely requirements are covered against goals, use cases, '
+  'and tests, surfacing gaps where requirements lack owners, tests, or '
+  'acceptance criteria.',
+)
 @SectionId('REQCOV')
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-COV')
