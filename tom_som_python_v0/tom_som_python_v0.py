@@ -2515,6 +2515,12 @@ class AssumptionConstraintRegister(SomNode):
     def constraints(self):
         return SomList(self.doc, f"{self.path}/ACRG-CONS-LST", lambda d, p: ConstraintRegisterEntry(d, p))
 
+    # Dependencies the solution relies on (external systems, teams, vendors,
+    # prerequisite deliverables, framework conditions).
+    @property
+    def dependencies(self):
+        return SomList(self.doc, f"{self.path}/ACRG-DEPS-LST", lambda d, p: DependencyRegisterEntry(d, p))
+
 class AssumptionEntry(SomNode):
     """An assumption entry (form).
     
@@ -14319,6 +14325,22 @@ class DependencyMitigation(SomNode):
     @property
     def content(self):
         return DependencyMitigationContentForm(self.doc, f"{self.path}/content")
+
+class DependencyRegisterEntry(SomNode):
+    """A single dependency register entry (form).
+    
+    Captures an external dependency the solution relies on — another system, a
+    team, a vendor, a prerequisite deliverable, or a framework condition — so the
+    dependency content otherwise scattered across SBP.2 / framework conditions
+    has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+    dependency re-home).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DependencyRegisterEntryContentForm(self.doc, f"{self.path}/content")
 
 class DependencyRisk(SomNode):
     """Dependency risk assessment."""
@@ -77906,6 +77928,60 @@ class DependencyMitigationContentForm(SomNode):
     @alternativeOptions.setter
     def alternativeOptions(self, value):
         self.doc.set_form_field(self.path, "alternativeOptions", value)
+
+class DependencyRegisterEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def dependencyId(self):
+        return self.doc.form_field(self.path, "dependencyId") or ""
+
+    @dependencyId.setter
+    def dependencyId(self, value):
+        self.doc.set_form_field(self.path, "dependencyId", value)
+
+    @property
+    def description(self):
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def type(self):
+        return self.doc.form_field(self.path, "type") or ""
+
+    @type.setter
+    def type(self, value):
+        self.doc.set_form_field(self.path, "type", value)
+
+    @property
+    def dependsOn(self):
+        return self.doc.form_field(self.path, "dependsOn") or ""
+
+    @dependsOn.setter
+    def dependsOn(self, value):
+        self.doc.set_form_field(self.path, "dependsOn", value)
+
+    @property
+    def criticality(self):
+        return self.doc.form_field(self.path, "criticality") or ""
+
+    @criticality.setter
+    def criticality(self, value):
+        self.doc.set_form_field(self.path, "criticality", value)
+
+    @property
+    def status(self):
+        return self.doc.form_field(self.path, "status") or ""
+
+    @status.setter
+    def status(self, value):
+        self.doc.set_form_field(self.path, "status", value)
 
 class DependencyRiskContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

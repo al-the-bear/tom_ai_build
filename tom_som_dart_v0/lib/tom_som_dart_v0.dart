@@ -1730,6 +1730,10 @@ class AssumptionConstraintRegister extends SomNode {
 
   /// Constraints the solution must operate within.
   SomList<ConstraintRegisterEntry> get constraints => SomList<ConstraintRegisterEntry>(doc, '$path/ACRG-CONS-LST', (d, p) => ConstraintRegisterEntry(d, p));
+
+  /// Dependencies the solution relies on (external systems, teams, vendors,
+  /// prerequisite deliverables, framework conditions).
+  SomList<DependencyRegisterEntry> get dependencies => SomList<DependencyRegisterEntry>(doc, '$path/ACRG-DEPS-LST', (d, p) => DependencyRegisterEntry(d, p));
 }
 
 /// An assumption entry (form).
@@ -9891,6 +9895,19 @@ class DependencyMitigation extends SomNode {
   DependencyMitigation(super.doc, super.path);
 
   DependencyMitigationContentForm get content => DependencyMitigationContentForm(doc, '$path/content');
+}
+
+/// A single dependency register entry (form).
+/// 
+/// Captures an external dependency the solution relies on — another system, a
+/// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+/// dependency content otherwise scattered across SBP.2 / framework conditions
+/// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+/// dependency re-home).
+class DependencyRegisterEntry extends SomNode {
+  DependencyRegisterEntry(super.doc, super.path);
+
+  DependencyRegisterEntryContentForm get content => DependencyRegisterEntryContentForm(doc, '$path/content');
 }
 
 /// Dependency risk assessment.
@@ -47355,6 +47372,29 @@ class DependencyMitigationContentForm extends SomNode {
 
   String get alternativeOptions => doc.formField(path, 'alternativeOptions') ?? '';
   set alternativeOptions(String value) => doc.setFormField(path, 'alternativeOptions', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class DependencyRegisterEntryContentForm extends SomNode {
+  DependencyRegisterEntryContentForm(super.doc, super.path);
+
+  String get dependencyId => doc.formField(path, 'dependencyId') ?? '';
+  set dependencyId(String value) => doc.setFormField(path, 'dependencyId', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get type => doc.formField(path, 'type') ?? '';
+  set type(String value) => doc.setFormField(path, 'type', value);
+
+  String get dependsOn => doc.formField(path, 'dependsOn') ?? '';
+  set dependsOn(String value) => doc.setFormField(path, 'dependsOn', value);
+
+  String get criticality => doc.formField(path, 'criticality') ?? '';
+  set criticality(String value) => doc.setFormField(path, 'criticality', value);
+
+  String get status => doc.formField(path, 'status') ?? '';
+  set status(String value) => doc.setFormField(path, 'status', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
-  "classCount": 3104,
+  "classCount": 3105,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -9807,6 +9807,36 @@
             }
           ],
           "elementType": "ConstraintRegisterEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "dependencies",
+          "kind": "list",
+          "doc": "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions).",
+          "help": "Add one entry per dependency (DEP-NNN).",
+          "sectionId": "ACRG-DEPS-LST",
+          "sectionIdPattern": "ACRG-DEPS-xxx",
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ACRG-DEPS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "ACRG-DEPS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per dependency (DEP-NNN)."
+              }
+            }
+          ],
+          "elementType": "DependencyRegisterEntry",
           "elementIsComplex": true
         }
       ]
@@ -54356,6 +54386,71 @@
               "name": "alternativeOptions",
               "label": "Alternative Options",
               "hint": "Alternative sources or approaches if primary fails",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "DependencyRegisterEntry": {
+      "name": "DependencyRegisterEntry",
+      "sectionId": "DEPRE",
+      "doc": "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DEPRE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "dependencyId",
+              "label": "Dependency ID (DEP-NNN)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "type",
+              "label": "Type (System, Team, Vendor, Deliverable, Framework)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "dependsOn",
+              "label": "Depends on (the external party / artifact)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "criticality",
+              "label": "Criticality (Low, Medium, High, Blocking)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "status",
+              "label": "Status (Open, Confirmed, Resolved, At risk)",
               "type": "String",
               "required": false
             }

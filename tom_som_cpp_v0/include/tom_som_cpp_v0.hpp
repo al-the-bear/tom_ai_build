@@ -835,6 +835,7 @@ class DependencyManagementOperations;
 class DependencyManagementSecurity;
 class DependencyManagementVersioning;
 class DependencyMitigation;
+class DependencyRegisterEntry;
 class DependencyRisk;
 class DependencyScanningRequirements;
 class DependencyScanningRequirementsLicensing;
@@ -3816,6 +3817,7 @@ class DependencyManagementOperationsContentForm;
 class DependencyManagementSecurityContentForm;
 class DependencyManagementVersioningContentForm;
 class DependencyMitigationContentForm;
+class DependencyRegisterEntryContentForm;
 class DependencyRiskContentForm;
 class DependencyScanningRequirementsContentForm;
 class DependencyScanningRequirementsLicensingContentForm;
@@ -7358,6 +7360,10 @@ class AssumptionConstraintRegister : public som::SomNode {
   // Constraints the solution must operate within.
   // Returns the list view; element type: ConstraintRegisterEntry (construct from item paths).
   som::SomList constraints() const;
+  // Dependencies the solution relies on (external systems, teams, vendors,
+  // prerequisite deliverables, framework conditions).
+  // Returns the list view; element type: DependencyRegisterEntry (construct from item paths).
+  som::SomList dependencies() const;
 };
 
 // An assumption entry (form).
@@ -14691,6 +14697,19 @@ class DependencyMitigation : public som::SomNode {
  public:
   DependencyMitigation(som::SpecDocument& doc, std::string path);
   DependencyMitigationContentForm content() const;
+};
+
+// A single dependency register entry (form).
+//
+// Captures an external dependency the solution relies on — another system, a
+// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+// dependency content otherwise scattered across SBP.2 / framework conditions
+// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+// dependency re-home).
+class DependencyRegisterEntry : public som::SomNode {
+ public:
+  DependencyRegisterEntry(som::SpecDocument& doc, std::string path);
+  DependencyRegisterEntryContentForm content() const;
 };
 
 // Dependency risk assessment.
@@ -47868,6 +47887,24 @@ class DependencyMitigationContentForm : public som::SomNode {
   void setContractualProtection(const std::string& value);
   std::string alternativeOptions() const;
   void setAlternativeOptions(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class DependencyRegisterEntryContentForm : public som::SomNode {
+ public:
+  DependencyRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string dependencyId() const;
+  void setDependencyId(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string type() const;
+  void setType(const std::string& value);
+  std::string dependsOn() const;
+  void setDependsOn(const std::string& value);
+  std::string criticality() const;
+  void setCriticality(const std::string& value);
+  std::string status() const;
+  void setStatus(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

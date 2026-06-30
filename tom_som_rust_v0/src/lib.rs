@@ -3593,6 +3593,16 @@ impl AssumptionConstraintRegister {
             Box::new(|d, p| ConstraintRegisterEntry::new(d, p)),
         )
     }
+
+    /// Dependencies the solution relies on (external systems, teams, vendors,
+    /// prerequisite deliverables, framework conditions).
+    pub fn dependencies(&self) -> som::SomList<DependencyRegisterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ACRG-DEPS-LST"),
+            Box::new(|d, p| DependencyRegisterEntry::new(d, p)),
+        )
+    }
 }
 
 /// An assumption entry (form).
@@ -20579,6 +20589,28 @@ impl DependencyMitigation {
 
     pub fn content(&self) -> DependencyMitigationContentForm {
         DependencyMitigationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A single dependency register entry (form).
+///
+/// Captures an external dependency the solution relies on — another system, a
+/// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+/// dependency content otherwise scattered across SBP.2 / framework conditions
+/// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+/// dependency re-home).
+pub struct DependencyRegisterEntry {
+    pub node: som::SomNode,
+}
+
+impl DependencyRegisterEntry {
+    /// Binds a DependencyRegisterEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DependencyRegisterEntry {
+        DependencyRegisterEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> DependencyRegisterEntryContentForm {
+        DependencyRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -108286,6 +108318,72 @@ impl DependencyMitigationContentForm {
     pub fn set_alternative_options(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "alternativeOptions", value);
+    }
+}
+
+/// DependencyRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct DependencyRegisterEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl DependencyRegisterEntryContentForm {
+    /// Binds a DependencyRegisterEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DependencyRegisterEntryContentForm {
+        DependencyRegisterEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn dependency_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
+    }
+
+    pub fn set_dependency_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn type_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "type")
+    }
+
+    pub fn set_type_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "type", value);
+    }
+
+    pub fn depends_on(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dependsOn")
+    }
+
+    pub fn set_depends_on(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dependsOn", value);
+    }
+
+    pub fn criticality(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "criticality")
+    }
+
+    pub fn set_criticality(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "criticality", value);
+    }
+
+    pub fn status(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    }
+
+    pub fn set_status(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
     }
 }
 

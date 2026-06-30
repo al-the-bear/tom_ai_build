@@ -2758,6 +2758,12 @@ public final class TomSomV0 {
     public SomList<ConstraintRegisterEntry> constraints() {
       return new SomList<>(doc, path + "/ACRG-CONS-LST", (d, p) -> new ConstraintRegisterEntry(d, p));
     }
+
+    // Dependencies the solution relies on (external systems, teams, vendors,
+    // prerequisite deliverables, framework conditions).
+    public SomList<DependencyRegisterEntry> dependencies() {
+      return new SomList<>(doc, path + "/ACRG-DEPS-LST", (d, p) -> new DependencyRegisterEntry(d, p));
+    }
   }
 
   // An assumption entry (form).
@@ -15846,6 +15852,23 @@ public final class TomSomV0 {
 
     public DependencyMitigationContentForm content() {
       return new DependencyMitigationContentForm(doc, path + "/content");
+    }
+  }
+
+  // A single dependency register entry (form).
+  //
+  // Captures an external dependency the solution relies on — another system, a
+  // team, a vendor, a prerequisite deliverable, or a framework condition — so the
+  // dependency content otherwise scattered across SBP.2 / framework conditions
+  // has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+  // dependency re-home).
+  public static final class DependencyRegisterEntry extends SomNode {
+    public DependencyRegisterEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DependencyRegisterEntryContentForm content() {
+      return new DependencyRegisterEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -86964,6 +86987,67 @@ public final class TomSomV0 {
 
     public void alternativeOptions(String value) {
       doc.setFormField(path, "alternativeOptions", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class DependencyRegisterEntryContentForm extends SomNode {
+    public DependencyRegisterEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String dependencyId() {
+      String v = doc.formField(path, "dependencyId");
+      return v == null ? "" : v;
+    }
+
+    public void dependencyId(String value) {
+      doc.setFormField(path, "dependencyId", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String type() {
+      String v = doc.formField(path, "type");
+      return v == null ? "" : v;
+    }
+
+    public void type(String value) {
+      doc.setFormField(path, "type", value);
+    }
+
+    public String dependsOn() {
+      String v = doc.formField(path, "dependsOn");
+      return v == null ? "" : v;
+    }
+
+    public void dependsOn(String value) {
+      doc.setFormField(path, "dependsOn", value);
+    }
+
+    public String criticality() {
+      String v = doc.formField(path, "criticality");
+      return v == null ? "" : v;
+    }
+
+    public void criticality(String value) {
+      doc.setFormField(path, "criticality", value);
+    }
+
+    public String status() {
+      String v = doc.formField(path, "status");
+      return v == null ? "" : v;
+    }
+
+    public void status(String value) {
+      doc.setFormField(path, "status", value);
     }
   }
 

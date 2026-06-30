@@ -1446,6 +1446,9 @@ som::SomList AssumptionConstraintRegister::assumptions() const {
 som::SomList AssumptionConstraintRegister::constraints() const {
   return som::SomList(doc(), som::joinPath(path(), "ACRG-CONS-LST"));
 }
+som::SomList AssumptionConstraintRegister::dependencies() const {
+  return som::SomList(doc(), som::joinPath(path(), "ACRG-DEPS-LST"));
+}
 
 AssumptionEntry::AssumptionEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -8479,6 +8482,12 @@ DependencyMitigation::DependencyMitigation(som::SpecDocument& doc, std::string p
     : som::SomNode(doc, std::move(path)) {}
 DependencyMitigationContentForm DependencyMitigation::content() const {
   return DependencyMitigationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+DependencyRegisterEntry::DependencyRegisterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+DependencyRegisterEntryContentForm DependencyRegisterEntry::content() const {
+  return DependencyRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DependencyRisk::DependencyRisk(som::SpecDocument& doc, std::string path)
@@ -49357,6 +49366,45 @@ std::string DependencyMitigationContentForm::alternativeOptions() const {
 }
 void DependencyMitigationContentForm::setAlternativeOptions(const std::string& value) {
   doc().setFormField(path(), "alternativeOptions", value);
+}
+
+DependencyRegisterEntryContentForm::DependencyRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DependencyRegisterEntryContentForm::dependencyId() const {
+  return doc().formField(path(), "dependencyId");
+}
+void DependencyRegisterEntryContentForm::setDependencyId(const std::string& value) {
+  doc().setFormField(path(), "dependencyId", value);
+}
+std::string DependencyRegisterEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void DependencyRegisterEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string DependencyRegisterEntryContentForm::type() const {
+  return doc().formField(path(), "type");
+}
+void DependencyRegisterEntryContentForm::setType(const std::string& value) {
+  doc().setFormField(path(), "type", value);
+}
+std::string DependencyRegisterEntryContentForm::dependsOn() const {
+  return doc().formField(path(), "dependsOn");
+}
+void DependencyRegisterEntryContentForm::setDependsOn(const std::string& value) {
+  doc().setFormField(path(), "dependsOn", value);
+}
+std::string DependencyRegisterEntryContentForm::criticality() const {
+  return doc().formField(path(), "criticality");
+}
+void DependencyRegisterEntryContentForm::setCriticality(const std::string& value) {
+  doc().setFormField(path(), "criticality", value);
+}
+std::string DependencyRegisterEntryContentForm::status() const {
+  return doc().formField(path(), "status");
+}
+void DependencyRegisterEntryContentForm::setStatus(const std::string& value) {
+  doc().setFormField(path(), "status", value);
 }
 
 DependencyRiskContentForm::DependencyRiskContentForm(som::SpecDocument& doc, std::string path)

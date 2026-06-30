@@ -3305,6 +3305,13 @@ SomList assumption_constraint_register_constraints(const AssumptionConstraintReg
   free(path);
   return out;
 }
+SomList assumption_constraint_register_dependencies(const AssumptionConstraintRegister *self) {
+  char *path = spec_path_join(self->node.path, "ACRG-DEPS-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void assumption_entry_init(AssumptionEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -19437,6 +19444,20 @@ DependencyMitigationContentForm dependency_mitigation_content(const DependencyMi
   char *path = spec_path_join(self->node.path, "content");
   DependencyMitigationContentForm out;
   dependency_mitigation_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void dependency_register_entry_init(DependencyRegisterEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void dependency_register_entry_free(DependencyRegisterEntry *self) {
+  som_node_free(&self->node);
+}
+DependencyRegisterEntryContentForm dependency_register_entry_content(const DependencyRegisterEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  DependencyRegisterEntryContentForm out;
+  dependency_register_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -94094,6 +94115,55 @@ char *dependency_mitigation_content_form_alternative_options(const DependencyMit
 }
 void dependency_mitigation_content_form_set_alternative_options(DependencyMitigationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "alternativeOptions", value);
+}
+
+void dependency_register_entry_content_form_init(DependencyRegisterEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void dependency_register_entry_content_form_free(DependencyRegisterEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *dependency_register_entry_content_form_dependency_id(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyId");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_dependency_id(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyId", value);
+}
+char *dependency_register_entry_content_form_description(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_description(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+char *dependency_register_entry_content_form_type(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "type");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_type(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "type", value);
+}
+char *dependency_register_entry_content_form_depends_on(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependsOn");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_depends_on(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dependsOn", value);
+}
+char *dependency_register_entry_content_form_criticality(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticality");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_criticality(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "criticality", value);
+}
+char *dependency_register_entry_content_form_status(const DependencyRegisterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "status");
+  return som_strdup(v != NULL ? v : "");
+}
+void dependency_register_entry_content_form_set_status(DependencyRegisterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "status", value);
 }
 
 void dependency_risk_content_form_init(DependencyRiskContentForm *self, SpecDocument *doc, const char *path) {

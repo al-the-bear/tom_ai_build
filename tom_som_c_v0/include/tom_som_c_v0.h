@@ -857,6 +857,7 @@ typedef struct { SomNode node; } DependencyManagementOperations;
 typedef struct { SomNode node; } DependencyManagementSecurity;
 typedef struct { SomNode node; } DependencyManagementVersioning;
 typedef struct { SomNode node; } DependencyMitigation;
+typedef struct { SomNode node; } DependencyRegisterEntry;
 typedef struct { SomNode node; } DependencyRisk;
 typedef struct { SomNode node; } DependencyScanningRequirements;
 typedef struct { SomNode node; } DependencyScanningRequirementsLicensing;
@@ -3838,6 +3839,7 @@ typedef struct { SomNode node; } DependencyManagementOperationsContentForm;
 typedef struct { SomNode node; } DependencyManagementSecurityContentForm;
 typedef struct { SomNode node; } DependencyManagementVersioningContentForm;
 typedef struct { SomNode node; } DependencyMitigationContentForm;
+typedef struct { SomNode node; } DependencyRegisterEntryContentForm;
 typedef struct { SomNode node; } DependencyRiskContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsLicensingContentForm;
@@ -7228,6 +7230,10 @@ SomList assumption_constraint_register_assumptions(const AssumptionConstraintReg
 // Constraints the solution must operate within.
 // Returns the list view; element type: ConstraintRegisterEntry (construct from item paths).
 SomList assumption_constraint_register_constraints(const AssumptionConstraintRegister *self);
+// Dependencies the solution relies on (external systems, teams, vendors,
+// prerequisite deliverables, framework conditions).
+// Returns the list view; element type: DependencyRegisterEntry (construct from item paths).
+SomList assumption_constraint_register_dependencies(const AssumptionConstraintRegister *self);
 
 // An assumption entry (form).
 //
@@ -13852,6 +13858,18 @@ DependencyManagementVersioningContentForm dependency_management_versioning_conte
 void dependency_mitigation_init(DependencyMitigation *self, SpecDocument *doc, const char *path);
 void dependency_mitigation_free(DependencyMitigation *self);
 DependencyMitigationContentForm dependency_mitigation_content(const DependencyMitigation *self);
+
+// A single dependency register entry (form).
+//
+// Captures an external dependency the solution relies on — another system, a
+// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+// dependency content otherwise scattered across SBP.2 / framework conditions
+// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+// dependency re-home).
+// Binds a DependencyRegisterEntry facade to a document and a path (path copied).
+void dependency_register_entry_init(DependencyRegisterEntry *self, SpecDocument *doc, const char *path);
+void dependency_register_entry_free(DependencyRegisterEntry *self);
+DependencyRegisterEntryContentForm dependency_register_entry_content(const DependencyRegisterEntry *self);
 
 // Dependency risk assessment.
 // Binds a DependencyRisk facade to a document and a path (path copied).
@@ -43337,6 +43355,22 @@ char *dependency_mitigation_content_form_contractual_protection(const Dependency
 void dependency_mitigation_content_form_set_contractual_protection(DependencyMitigationContentForm *self, const char *value);
 char *dependency_mitigation_content_form_alternative_options(const DependencyMitigationContentForm *self);
 void dependency_mitigation_content_form_set_alternative_options(DependencyMitigationContentForm *self, const char *value);
+
+// DependencyRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+void dependency_register_entry_content_form_init(DependencyRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
+void dependency_register_entry_content_form_free(DependencyRegisterEntryContentForm *self);
+char *dependency_register_entry_content_form_dependency_id(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_dependency_id(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_description(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_description(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_type(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_type(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_depends_on(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_depends_on(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_criticality(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_criticality(DependencyRegisterEntryContentForm *self, const char *value);
+char *dependency_register_entry_content_form_status(const DependencyRegisterEntryContentForm *self);
+void dependency_register_entry_content_form_set_status(DependencyRegisterEntryContentForm *self, const char *value);
 
 // DependencyRiskContentForm is the generated form facade for the `content` @Form section.
 void dependency_risk_content_form_init(DependencyRiskContentForm *self, SpecDocument *doc, const char *path);

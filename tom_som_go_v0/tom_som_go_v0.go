@@ -3223,6 +3223,14 @@ func (x *AssumptionConstraintRegister) Constraints() *som.SomList[*ConstraintReg
 	})
 }
 
+// Dependencies the solution relies on (external systems, teams, vendors,
+// prerequisite deliverables, framework conditions).
+func (x *AssumptionConstraintRegister) Dependencies() *som.SomList[*DependencyRegisterEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-DEPS-LST", func(d *som.SpecDocument, p string) *DependencyRegisterEntry {
+		return NewDependencyRegisterEntry(d, p)
+	})
+}
+
 // An assumption entry (form).
 //
 // Documents a project assumption including its basis, validation approach,
@@ -18505,6 +18513,26 @@ func NewDependencyMitigation(doc *som.SpecDocument, path string) *DependencyMiti
 
 func (x *DependencyMitigation) Content() *DependencyMitigationContentForm {
 	return NewDependencyMitigationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// A single dependency register entry (form).
+//
+// Captures an external dependency the solution relies on — another system, a
+// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+// dependency content otherwise scattered across SBP.2 / framework conditions
+// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+// dependency re-home).
+type DependencyRegisterEntry struct {
+	som.SomNode
+}
+
+// NewDependencyRegisterEntry binds a DependencyRegisterEntry facade to a document and a path.
+func NewDependencyRegisterEntry(doc *som.SpecDocument, path string) *DependencyRegisterEntry {
+	return &DependencyRegisterEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DependencyRegisterEntry) Content() *DependencyRegisterEntryContentForm {
+	return NewDependencyRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Dependency risk assessment.
@@ -96207,6 +96235,64 @@ func (x *DependencyMitigationContentForm) AlternativeOptions() string {
 
 func (x *DependencyMitigationContentForm) SetAlternativeOptions(value string) {
 	x.Doc().SetFormField(x.Path(), "alternativeOptions", value)
+}
+
+// DependencyRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+type DependencyRegisterEntryContentForm struct {
+	som.SomNode
+}
+
+// NewDependencyRegisterEntryContentForm binds a DependencyRegisterEntryContentForm facade to a document and a path.
+func NewDependencyRegisterEntryContentForm(doc *som.SpecDocument, path string) *DependencyRegisterEntryContentForm {
+	return &DependencyRegisterEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DependencyRegisterEntryContentForm) DependencyId() string {
+	return x.Doc().FormFieldOr(x.Path(), "dependencyId")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetDependencyId(value string) {
+	x.Doc().SetFormField(x.Path(), "dependencyId", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) Type() string {
+	return x.Doc().FormFieldOr(x.Path(), "type")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetType(value string) {
+	x.Doc().SetFormField(x.Path(), "type", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) DependsOn() string {
+	return x.Doc().FormFieldOr(x.Path(), "dependsOn")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetDependsOn(value string) {
+	x.Doc().SetFormField(x.Path(), "dependsOn", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) Criticality() string {
+	return x.Doc().FormFieldOr(x.Path(), "criticality")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetCriticality(value string) {
+	x.Doc().SetFormField(x.Path(), "criticality", value)
+}
+
+func (x *DependencyRegisterEntryContentForm) Status() string {
+	return x.Doc().FormFieldOr(x.Path(), "status")
+}
+
+func (x *DependencyRegisterEntryContentForm) SetStatus(value string) {
+	x.Doc().SetFormField(x.Path(), "status", value)
 }
 
 // DependencyRiskContentForm is the generated form facade for the `content` @Form section.

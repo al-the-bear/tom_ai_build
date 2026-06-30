@@ -38,6 +38,13 @@ class AssumptionConstraintRegister {
   @SectionIdPattern('ACRG-CONS-xxx')
   @ContentHelp('Add one entry per constraint (CON-NNN).')
   List<ConstraintRegisterEntry> constraints = [];
+
+  /// Dependencies the solution relies on (external systems, teams, vendors,
+  /// prerequisite deliverables, framework conditions).
+  @SectionId('ACRG-DEPS-LST')
+  @SectionIdPattern('ACRG-DEPS-xxx')
+  @ContentHelp('Add one entry per dependency (DEP-NNN).')
+  List<DependencyRegisterEntry> dependencies = [];
 }
 
 /// A single assumption register entry (form).
@@ -68,6 +75,26 @@ class ConstraintRegisterEntry {
     Field('type', String, 'Type (Technical, Regulatory, Budget, Schedule)'),
     Field('source', String, 'Source'),
     Field('impact', String, 'Impact on the solution'),
+  ])
+  String? content;
+}
+
+/// A single dependency register entry (form).
+///
+/// Captures an external dependency the solution relies on — another system, a
+/// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+/// dependency content otherwise scattered across SBP.2 / framework conditions
+/// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+/// dependency re-home).
+@SectionId('DEPRE')
+class DependencyRegisterEntry {
+  @Form([
+    Field('dependencyId', String, 'Dependency ID (DEP-NNN)', required: true),
+    Field('description', String, 'Description', required: true),
+    Field('type', String, 'Type (System, Team, Vendor, Deliverable, Framework)'),
+    Field('dependsOn', String, 'Depends on (the external party / artifact)'),
+    Field('criticality', String, 'Criticality (Low, Medium, High, Blocking)'),
+    Field('status', String, 'Status (Open, Confirmed, Resolved, At risk)'),
   ])
   String? content;
 }

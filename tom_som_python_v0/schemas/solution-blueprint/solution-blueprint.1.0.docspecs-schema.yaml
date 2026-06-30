@@ -2489,6 +2489,12 @@ section-types:
       pattern: ^acrg_cons_lst-\d+$
       error-message: ID must match acrg_cons_lst-NNN
     description: Add one entry per constraint (CON-NNN).
+  ACRG-DEPS-LST:
+    prefix: acrg_deps_lst
+    pattern-check-id:
+      pattern: ^acrg_deps_lst-\d+$
+      error-message: ID must match acrg_deps_lst-NNN
+    description: Add one entry per dependency (DEP-NNN).
   ACST-STEP-LST:
     prefix: acst_step_lst
     pattern-check-id:
@@ -6475,6 +6481,9 @@ section-types:
   DEPNT:
     prefix: depnt
     description: 1.1.3. Dependencies and Integrations.
+  DEPRE:
+    prefix: depre
+    description: A single dependency register entry (form).
   DEPRI:
     prefix: depri
     description: 10.1.2. Design Principles.

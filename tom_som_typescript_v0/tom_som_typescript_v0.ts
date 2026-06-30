@@ -2730,6 +2730,12 @@ export class AssumptionConstraintRegister extends SomNode {
   get constraints(): SomList<ConstraintRegisterEntry> {
     return new SomList(this.doc, this.path + "/ACRG-CONS-LST", (d: SpecDocument, p: string) => new ConstraintRegisterEntry(d, p));
   }
+
+  // Dependencies the solution relies on (external systems, teams, vendors,
+  // prerequisite deliverables, framework conditions).
+  get dependencies(): SomList<DependencyRegisterEntry> {
+    return new SomList(this.doc, this.path + "/ACRG-DEPS-LST", (d: SpecDocument, p: string) => new DependencyRegisterEntry(d, p));
+  }
 }
 
 // An assumption entry (form).
@@ -15651,6 +15657,23 @@ export class DependencyMitigation extends SomNode {
 
   get content(): DependencyMitigationContentForm {
     return new DependencyMitigationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A single dependency register entry (form).
+//
+// Captures an external dependency the solution relies on — another system, a
+// team, a vendor, a prerequisite deliverable, or a framework condition — so the
+// dependency content otherwise scattered across SBP.2 / framework conditions
+// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
+// dependency re-home).
+export class DependencyRegisterEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): DependencyRegisterEntryContentForm {
+    return new DependencyRegisterEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -83568,6 +83591,61 @@ export class DependencyMitigationContentForm extends SomNode {
 
   set alternativeOptions(value: string) {
     this.doc.setFormField(this.path, "alternativeOptions", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+export class DependencyRegisterEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get dependencyId(): string {
+    return this.doc.formField(this.path, "dependencyId") || '';
+  }
+
+  set dependencyId(value: string) {
+    this.doc.setFormField(this.path, "dependencyId", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get type(): string {
+    return this.doc.formField(this.path, "type") || '';
+  }
+
+  set type(value: string) {
+    this.doc.setFormField(this.path, "type", value);
+  }
+
+  get dependsOn(): string {
+    return this.doc.formField(this.path, "dependsOn") || '';
+  }
+
+  set dependsOn(value: string) {
+    this.doc.setFormField(this.path, "dependsOn", value);
+  }
+
+  get criticality(): string {
+    return this.doc.formField(this.path, "criticality") || '';
+  }
+
+  set criticality(value: string) {
+    this.doc.setFormField(this.path, "criticality", value);
+  }
+
+  get status(): string {
+    return this.doc.formField(this.path, "status") || '';
+  }
+
+  set status(value: string) {
+    this.doc.setFormField(this.path, "status", value);
   }
 }
 
