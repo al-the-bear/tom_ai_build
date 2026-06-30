@@ -10354,14 +10354,21 @@ class D03InformationModel(SomNode):
         return DataDictionary(self.doc, f"{self.path}/dataDictionary")
 
     # Validation constraints.
+    #
+    # One whole-catalog content section (mirrors `dataDictionary` and the
+    # collapsed SBP source); collapsed from `List<ValidationConstraints>`
+    # (L34C-12 SR-25).
     @property
     def validationConstraints(self):
-        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
+        return ValidationConstraints(self.doc, f"{self.path}/validationConstraints")
 
     # Integrity constraints.
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<IntegrityConstraints>` (L34C-12 SR-25).
     @property
     def integrityConstraints(self):
-        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
+        return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
 
 class D04RequirementsSpecification(SomNode):
     """RSP00 Requirements Specification.
@@ -10842,9 +10849,12 @@ class D09ExperienceDesignSpecification(SomNode):
         return Prototype(self.doc, f"{self.path}/prototype")
 
     # Wireframes and mockups (new in Phase A).
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<WireframesAndMockups>` (L34C-12 SR-52).
     @property
     def wireframesAndMockups(self):
-        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
+        return WireframesAndMockups(self.doc, f"{self.path}/wireframesAndMockups")
 
 class D10QualityAcceptancePlan(SomNode):
     """QAP00 Quality & Acceptance Plan.
@@ -11115,14 +11125,20 @@ class D12TransitionRolloutPlan(SomNode):
         return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
 
     # User manuals.
+    #
+    # One whole-catalog content section; collapsed from `List<UserManual>`
+    # (L34C-12 SR-57).
     @property
     def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManual(d, p))
+        return UserManual(self.doc, f"{self.path}/userManuals")
 
     # Training materials.
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
     @property
     def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterial(d, p))
+        return RolloutTrainingMaterial(self.doc, f"{self.path}/trainingMaterials")
 
     # Pilot plan.
     @property
@@ -11130,9 +11146,12 @@ class D12TransitionRolloutPlan(SomNode):
         return PilotPlan(self.doc, f"{self.path}/pilotPlan")
 
     # Cutover procedures.
+    #
+    # One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+    # (L34C-12 SR-57).
     @property
     def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedure(d, p))
+        return CutoverProcedure(self.doc, f"{self.path}/cutoverProcedures")
 
     # Knowledge transfer.
     @property
@@ -12249,14 +12268,20 @@ class DataModel(SomNode):
         return DataDictionary(self.doc, f"{self.path}/dataDictionary")
 
     # 7.1.6. Validation Constraints.
+    #
+    # One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    # from `List<ValidationConstraints>` (L34C-12 SR-25).
     @property
     def validationConstraints(self):
-        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
+        return ValidationConstraints(self.doc, f"{self.path}/validationConstraints")
 
     # 7.1.7. Integrity Constraints.
+    #
+    # One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    # from `List<IntegrityConstraints>` (L34C-12 SR-25).
     @property
     def integrityConstraints(self):
-        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
+        return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
 
 class DataOwnership(SomNode):
     """1.4.4. Data Ownership and Stewardship.
@@ -18024,10 +18049,13 @@ class ExperienceAndInterfaceDesign(SomNode):
     def prototype(self):
         return Prototype(self.doc, f"{self.path}/prototype")
 
-    # 10.14. Wireframes and Mockups..
+    # 10.14. Wireframes and Mockups.
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<WireframesAndMockups>` (L34C-12 SR-52).
     @property
     def wireframesAndMockups(self):
-        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
+        return WireframesAndMockups(self.doc, f"{self.path}/wireframesAndMockups")
 
 class ExportAccess(SomNode):
     """Export access and audit."""
@@ -29122,9 +29150,13 @@ class OrganizationalFramework(SomNode):
         return NewOrganizationStructure(self.doc, f"{self.path}/organizationStructure")
 
     # 5.2. Job Descriptions and Staffing Plans.
+    #
+    # Single composite section: the role multiplicity is carried by the inner
+    # new/changed/removed-role lists, so this is one section, not a catalog of
+    # sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
     @property
     def jobDescriptions(self):
-        return SomList(self.doc, f"{self.path}/JDAS-JOBD-LST", lambda d, p: JobDescriptionsAndStaffing(d, p))
+        return JobDescriptionsAndStaffing(self.doc, f"{self.path}/jobDescriptions")
 
     # 5.3. Workplace Descriptions — contains 1+× per user category.
     @property
@@ -44161,14 +44193,21 @@ class SystemRollout(SomNode):
         return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
 
     # 15.3. User Manuals.
+    #
+    # One whole-catalog content section (mirrors the `rolloutPlan` /
+    # `migrationPlan` / `pilotPlan` siblings); collapsed from
+    # `List<UserManual>` (L34C-12 SR-57).
     @property
     def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManual(d, p))
+        return UserManual(self.doc, f"{self.path}/userManuals")
 
     # 15.4. Training Materials.
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
     @property
     def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterial(d, p))
+        return RolloutTrainingMaterial(self.doc, f"{self.path}/trainingMaterials")
 
     # 15.5. Pilot Plan.
     @property
@@ -44176,9 +44215,12 @@ class SystemRollout(SomNode):
         return PilotPlan(self.doc, f"{self.path}/pilotPlan")
 
     # 15.6. Cutover Procedures.
+    #
+    # One whole-catalog content section; collapsed from
+    # `List<CutoverProcedure>` (L34C-12 SR-57).
     @property
     def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedure(d, p))
+        return CutoverProcedure(self.doc, f"{self.path}/cutoverProcedures")
 
     # 15.7. Knowledge Transfer.
     @property

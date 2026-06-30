@@ -11627,11 +11627,16 @@ SomList d03_information_model_business_rules(const D03InformationModel *self);
 // Data dictionary.
 DataDictionary d03_information_model_data_dictionary(const D03InformationModel *self);
 // Validation constraints.
-// Returns the list view; element type: ValidationConstraints (construct from item paths).
-SomList d03_information_model_validation_constraints(const D03InformationModel *self);
+//
+// One whole-catalog content section (mirrors `dataDictionary` and the
+// collapsed SBP source); collapsed from `List<ValidationConstraints>`
+// (L34C-12 SR-25).
+ValidationConstraints d03_information_model_validation_constraints(const D03InformationModel *self);
 // Integrity constraints.
-// Returns the list view; element type: IntegrityConstraints (construct from item paths).
-SomList d03_information_model_integrity_constraints(const D03InformationModel *self);
+//
+// One whole-catalog content section; collapsed from
+// `List<IntegrityConstraints>` (L34C-12 SR-25).
+IntegrityConstraints d03_information_model_integrity_constraints(const D03InformationModel *self);
 
 // RSP00 Requirements Specification.
 //
@@ -11858,8 +11863,10 @@ LanguageCountrySelection d09_experience_design_specification_language_country_se
 // Prototype.
 Prototype d09_experience_design_specification_prototype(const D09ExperienceDesignSpecification *self);
 // Wireframes and mockups (new in Phase A).
-// Returns the list view; element type: WireframesAndMockups (construct from item paths).
-SomList d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self);
+//
+// One whole-catalog content section; collapsed from
+// `List<WireframesAndMockups>` (L34C-12 SR-52).
+WireframesAndMockups d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self);
 
 // QAP00 Quality & Acceptance Plan.
 //
@@ -11983,16 +11990,22 @@ RolloutPlan d12_transition_rollout_plan_rollout_plan(const D12TransitionRolloutP
 // Migration plan.
 MigrationPlan d12_transition_rollout_plan_migration_plan(const D12TransitionRolloutPlan *self);
 // User manuals.
-// Returns the list view; element type: UserManual (construct from item paths).
-SomList d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self);
+//
+// One whole-catalog content section; collapsed from `List<UserManual>`
+// (L34C-12 SR-57).
+UserManual d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self);
 // Training materials.
-// Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
-SomList d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self);
+//
+// One whole-catalog content section; collapsed from
+// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+RolloutTrainingMaterial d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self);
 // Pilot plan.
 PilotPlan d12_transition_rollout_plan_pilot_plan(const D12TransitionRolloutPlan *self);
 // Cutover procedures.
-// Returns the list view; element type: CutoverProcedure (construct from item paths).
-SomList d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self);
+//
+// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+// (L34C-12 SR-57).
+CutoverProcedure d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self);
 // Knowledge transfer.
 KnowledgeTransfer d12_transition_rollout_plan_knowledge_transfer(const D12TransitionRolloutPlan *self);
 // Warranty and support.
@@ -12610,11 +12623,15 @@ DataClassification data_model_data_classification(const DataModel *self);
 // 7.1.5. Data Dictionary..
 DataDictionary data_model_data_dictionary(const DataModel *self);
 // 7.1.6. Validation Constraints.
-// Returns the list view; element type: ValidationConstraints (construct from item paths).
-SomList data_model_validation_constraints(const DataModel *self);
+//
+// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+// from `List<ValidationConstraints>` (L34C-12 SR-25).
+ValidationConstraints data_model_validation_constraints(const DataModel *self);
 // 7.1.7. Integrity Constraints.
-// Returns the list view; element type: IntegrityConstraints (construct from item paths).
-SomList data_model_integrity_constraints(const DataModel *self);
+//
+// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+IntegrityConstraints data_model_integrity_constraints(const DataModel *self);
 
 // 1.4.4. Data Ownership and Stewardship.
 //
@@ -15907,9 +15924,11 @@ UiComponents experience_and_interface_design_ui_components(const ExperienceAndIn
 MultiLanguageSupport experience_and_interface_design_multi_language_support(const ExperienceAndInterfaceDesign *self);
 // 10.13. Prototype. Seeds → XDS.
 Prototype experience_and_interface_design_prototype(const ExperienceAndInterfaceDesign *self);
-// 10.14. Wireframes and Mockups..
-// Returns the list view; element type: WireframesAndMockups (construct from item paths).
-SomList experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self);
+// 10.14. Wireframes and Mockups.
+//
+// One whole-catalog content section; collapsed from
+// `List<WireframesAndMockups>` (L34C-12 SR-52).
+WireframesAndMockups experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self);
 
 // Export access and audit.
 // Binds a ExportAccess facade to a document and a path (path copied).
@@ -22304,8 +22323,11 @@ void organizational_framework_free(OrganizationalFramework *self);
 // 5.1. New Organization Structure.
 NewOrganizationStructure organizational_framework_organization_structure(const OrganizationalFramework *self);
 // 5.2. Job Descriptions and Staffing Plans.
-// Returns the list view; element type: JobDescriptionsAndStaffing (construct from item paths).
-SomList organizational_framework_job_descriptions(const OrganizationalFramework *self);
+//
+// Single composite section: the role multiplicity is carried by the inner
+// new/changed/removed-role lists, so this is one section, not a catalog of
+// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+JobDescriptionsAndStaffing organizational_framework_job_descriptions(const OrganizationalFramework *self);
 // 5.3. Workplace Descriptions — contains 1+× per user category.
 // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
 SomList organizational_framework_workplace_descriptions(const OrganizationalFramework *self);
@@ -30959,16 +30981,23 @@ RolloutPlan system_rollout_rollout_plan(const SystemRollout *self);
 // 15.2. Migration Plan.
 MigrationPlan system_rollout_migration_plan(const SystemRollout *self);
 // 15.3. User Manuals.
-// Returns the list view; element type: UserManual (construct from item paths).
-SomList system_rollout_user_manuals(const SystemRollout *self);
+//
+// One whole-catalog content section (mirrors the `rolloutPlan` /
+// `migrationPlan` / `pilotPlan` siblings); collapsed from
+// `List<UserManual>` (L34C-12 SR-57).
+UserManual system_rollout_user_manuals(const SystemRollout *self);
 // 15.4. Training Materials.
-// Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
-SomList system_rollout_training_materials(const SystemRollout *self);
+//
+// One whole-catalog content section; collapsed from
+// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+RolloutTrainingMaterial system_rollout_training_materials(const SystemRollout *self);
 // 15.5. Pilot Plan.
 PilotPlan system_rollout_pilot_plan(const SystemRollout *self);
 // 15.6. Cutover Procedures.
-// Returns the list view; element type: CutoverProcedure (construct from item paths).
-SomList system_rollout_cutover_procedures(const SystemRollout *self);
+//
+// One whole-catalog content section; collapsed from
+// `List<CutoverProcedure>` (L34C-12 SR-57).
+CutoverProcedure system_rollout_cutover_procedures(const SystemRollout *self);
 // 15.7. Knowledge Transfer.
 KnowledgeTransfer system_rollout_knowledge_transfer(const SystemRollout *self);
 // 15.8. Warranty and Support.

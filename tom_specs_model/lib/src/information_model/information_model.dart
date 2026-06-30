@@ -84,12 +84,15 @@ class D03InformationModel {
   DataDictionary dataDictionary = DataDictionary();
 
   /// Validation constraints.
-  @SectionId('VACO-VALI-LST')
-  @SectionIdPattern('VACO-VALI-xxx')
-  List<ValidationConstraints> validationConstraints = [];
+  ///
+  /// One whole-catalog content section (mirrors `dataDictionary` and the
+  /// collapsed SBP source); collapsed from `List<ValidationConstraints>`
+  /// (L34C-12 SR-25).
+  ValidationConstraints validationConstraints = ValidationConstraints();
 
   /// Integrity constraints.
-  @SectionId('INCO-INTE-LST')
-  @SectionIdPattern('INCO-INTE-xxx')
-  List<IntegrityConstraints> integrityConstraints = [];
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints integrityConstraints = IntegrityConstraints();
 }

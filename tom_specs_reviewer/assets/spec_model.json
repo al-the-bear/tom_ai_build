@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T16:31:15.457826Z",
+  "generatedAt": "2026-06-30T16:41:46.743824Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -39459,49 +39459,15 @@
         },
         {
           "name": "validationConstraints",
-          "kind": "list",
-          "doc": "Validation constraints.",
-          "sectionId": "VACO-VALI-LST",
-          "sectionIdPattern": "VACO-VALI-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "VACO-VALI-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "VACO-VALI-xxx"
-              }
-            }
-          ],
-          "elementType": "ValidationConstraints",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).",
+          "type": "ValidationConstraints"
         },
         {
           "name": "integrityConstraints",
-          "kind": "list",
-          "doc": "Integrity constraints.",
-          "sectionId": "INCO-INTE-LST",
-          "sectionIdPattern": "INCO-INTE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "INCO-INTE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "INCO-INTE-xxx"
-              }
-            }
-          ],
-          "elementType": "IntegrityConstraints",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).",
+          "type": "IntegrityConstraints"
         }
       ]
     },
@@ -40199,26 +40165,9 @@
         },
         {
           "name": "wireframesAndMockups",
-          "kind": "list",
-          "doc": "Wireframes and mockups (new in Phase A).",
-          "sectionId": "WIANMO-WIRE-LST",
-          "sectionIdPattern": "WIANMO-WIRE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "WIANMO-WIRE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "WIANMO-WIRE-xxx"
-              }
-            }
-          ],
-          "elementType": "WireframesAndMockups",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "type": "WireframesAndMockups"
         }
       ]
     },
@@ -40585,49 +40534,15 @@
         },
         {
           "name": "userManuals",
-          "kind": "list",
-          "doc": "User manuals.",
-          "sectionId": "USRMAN-USER-LST",
-          "sectionIdPattern": "USRMAN-USER-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "USRMAN-USER-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "USRMAN-USER-xxx"
-              }
-            }
-          ],
-          "elementType": "UserManual",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
+          "type": "UserManual"
         },
         {
           "name": "trainingMaterials",
-          "kind": "list",
-          "doc": "Training materials.",
-          "sectionId": "RLTTM-TRAI-LST",
-          "sectionIdPattern": "RLTTM-TRAI-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "RLTTM-TRAI-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "RLTTM-TRAI-xxx"
-              }
-            }
-          ],
-          "elementType": "RolloutTrainingMaterial",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
+          "type": "RolloutTrainingMaterial"
         },
         {
           "name": "pilotPlan",
@@ -40637,26 +40552,9 @@
         },
         {
           "name": "cutoverProcedures",
-          "kind": "list",
-          "doc": "Cutover procedures.",
-          "sectionId": "CUTPRC-CUTO-LST",
-          "sectionIdPattern": "CUTPRC-CUTO-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "CUTPRC-CUTO-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "CUTPRC-CUTO-xxx"
-              }
-            }
-          ],
-          "elementType": "CutoverProcedure",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
+          "type": "CutoverProcedure"
         },
         {
           "name": "knowledgeTransfer",
@@ -45694,49 +45592,15 @@
         },
         {
           "name": "validationConstraints",
-          "kind": "list",
-          "doc": "7.1.6. Validation Constraints.",
-          "sectionId": "VACO-VALI-LST",
-          "sectionIdPattern": "VACO-VALI-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "VACO-VALI-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "VACO-VALI-xxx"
-              }
-            }
-          ],
-          "elementType": "ValidationConstraints",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "7.1.6. Validation Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<ValidationConstraints>` (L34C-12 SR-25).",
+          "type": "ValidationConstraints"
         },
         {
           "name": "integrityConstraints",
-          "kind": "list",
-          "doc": "7.1.7. Integrity Constraints.",
-          "sectionId": "INCO-INTE-LST",
-          "sectionIdPattern": "INCO-INTE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "INCO-INTE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "INCO-INTE-xxx"
-              }
-            }
-          ],
-          "elementType": "IntegrityConstraints",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "7.1.7. Integrity Constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary`); collapsed\nfrom `List<IntegrityConstraints>` (L34C-12 SR-25).",
+          "type": "IntegrityConstraints"
         }
       ]
     },
@@ -68865,26 +68729,9 @@
         },
         {
           "name": "wireframesAndMockups",
-          "kind": "list",
-          "doc": "10.14. Wireframes and Mockups..",
-          "sectionId": "WIANMO-WIRE-LST",
-          "sectionIdPattern": "WIANMO-WIRE-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "WIANMO-WIRE-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "WIANMO-WIRE-xxx"
-              }
-            }
-          ],
-          "elementType": "WireframesAndMockups",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "10.14. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "type": "WireframesAndMockups"
         }
       ]
     },
@@ -114459,26 +114306,9 @@
         },
         {
           "name": "jobDescriptions",
-          "kind": "list",
-          "doc": "5.2. Job Descriptions and Staffing Plans.",
-          "sectionId": "JDAS-JOBD-LST",
-          "sectionIdPattern": "JDAS-JOBD-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "JDAS-JOBD-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "JDAS-JOBD-xxx"
-              }
-            }
-          ],
-          "elementType": "JobDescriptionsAndStaffing",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "5.2. Job Descriptions and Staffing Plans.\n\nSingle composite section: the role multiplicity is carried by the inner\nnew/changed/removed-role lists, so this is one section, not a catalog of\nsections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).",
+          "type": "JobDescriptionsAndStaffing"
         },
         {
           "name": "workplaceDescriptions",
@@ -175976,49 +175806,15 @@
         },
         {
           "name": "userManuals",
-          "kind": "list",
-          "doc": "15.3. User Manuals.",
-          "sectionId": "USRMAN-USER-LST",
-          "sectionIdPattern": "USRMAN-USER-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "USRMAN-USER-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "USRMAN-USER-xxx"
-              }
-            }
-          ],
-          "elementType": "UserManual",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "15.3. User Manuals.\n\nOne whole-catalog content section (mirrors the `rolloutPlan` /\n`migrationPlan` / `pilotPlan` siblings); collapsed from\n`List<UserManual>` (L34C-12 SR-57).",
+          "type": "UserManual"
         },
         {
           "name": "trainingMaterials",
-          "kind": "list",
-          "doc": "15.4. Training Materials.",
-          "sectionId": "RLTTM-TRAI-LST",
-          "sectionIdPattern": "RLTTM-TRAI-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "RLTTM-TRAI-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "RLTTM-TRAI-xxx"
-              }
-            }
-          ],
-          "elementType": "RolloutTrainingMaterial",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "15.4. Training Materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
+          "type": "RolloutTrainingMaterial"
         },
         {
           "name": "pilotPlan",
@@ -176028,26 +175824,9 @@
         },
         {
           "name": "cutoverProcedures",
-          "kind": "list",
-          "doc": "15.6. Cutover Procedures.",
-          "sectionId": "CUTPRC-CUTO-LST",
-          "sectionIdPattern": "CUTPRC-CUTO-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "CUTPRC-CUTO-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "CUTPRC-CUTO-xxx"
-              }
-            }
-          ],
-          "elementType": "CutoverProcedure",
-          "elementIsComplex": true
+          "kind": "complex",
+          "doc": "15.6. Cutover Procedures.\n\nOne whole-catalog content section; collapsed from\n`List<CutoverProcedure>` (L34C-12 SR-57).",
+          "type": "CutoverProcedure"
         },
         {
           "name": "knowledgeTransfer",

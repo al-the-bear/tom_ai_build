@@ -7158,10 +7158,17 @@ class D03InformationModel extends SomNode {
   DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
 
   /// Validation constraints.
-  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
+  /// 
+  /// One whole-catalog content section (mirrors `dataDictionary` and the
+  /// collapsed SBP source); collapsed from `List<ValidationConstraints>`
+  /// (L34C-12 SR-25).
+  ValidationConstraints get validationConstraints => ValidationConstraints(doc, '$path/validationConstraints');
 
   /// Integrity constraints.
-  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints get integrityConstraints => IntegrityConstraints(doc, '$path/integrityConstraints');
 }
 
 /// RSP00 Requirements Specification.
@@ -7493,7 +7500,10 @@ class D09ExperienceDesignSpecification extends SomNode {
   Prototype get prototype => Prototype(doc, '$path/prototype');
 
   /// Wireframes and mockups (new in Phase A).
-  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups get wireframesAndMockups => WireframesAndMockups(doc, '$path/wireframesAndMockups');
 }
 
 /// QAP00 Quality & Acceptance Plan.
@@ -7678,16 +7688,25 @@ class D12TransitionRolloutPlan extends SomNode {
   MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
 
   /// User manuals.
-  SomList<UserManual> get userManuals => SomList<UserManual>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManual(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from `List<UserManual>`
+  /// (L34C-12 SR-57).
+  UserManual get userManuals => UserManual(doc, '$path/userManuals');
 
   /// Training materials.
-  SomList<RolloutTrainingMaterial> get trainingMaterials => SomList<RolloutTrainingMaterial>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterial(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial get trainingMaterials => RolloutTrainingMaterial(doc, '$path/trainingMaterials');
 
   /// Pilot plan.
   PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
 
   /// Cutover procedures.
-  SomList<CutoverProcedure> get cutoverProcedures => SomList<CutoverProcedure>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedure(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+  /// (L34C-12 SR-57).
+  CutoverProcedure get cutoverProcedures => CutoverProcedure(doc, '$path/cutoverProcedures');
 
   /// Knowledge transfer.
   KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
@@ -8442,10 +8461,16 @@ class DataModel extends SomNode {
   DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
 
   /// 7.1.6. Validation Constraints.
-  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
+  /// 
+  /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  /// from `List<ValidationConstraints>` (L34C-12 SR-25).
+  ValidationConstraints get validationConstraints => ValidationConstraints(doc, '$path/validationConstraints');
 
   /// 7.1.7. Integrity Constraints.
-  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
+  /// 
+  /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints get integrityConstraints => IntegrityConstraints(doc, '$path/integrityConstraints');
 }
 
 /// 1.4.4. Data Ownership and Stewardship.
@@ -12455,8 +12480,11 @@ class ExperienceAndInterfaceDesign extends SomNode {
   /// 10.13. Prototype. Seeds → XDS.
   Prototype get prototype => Prototype(doc, '$path/prototype');
 
-  /// 10.14. Wireframes and Mockups..
-  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
+  /// 10.14. Wireframes and Mockups.
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups get wireframesAndMockups => WireframesAndMockups(doc, '$path/wireframesAndMockups');
 }
 
 /// Export access and audit.
@@ -20206,7 +20234,11 @@ class OrganizationalFramework extends SomNode {
   NewOrganizationStructure get organizationStructure => NewOrganizationStructure(doc, '$path/organizationStructure');
 
   /// 5.2. Job Descriptions and Staffing Plans.
-  SomList<JobDescriptionsAndStaffing> get jobDescriptions => SomList<JobDescriptionsAndStaffing>(doc, '$path/JDAS-JOBD-LST', (d, p) => JobDescriptionsAndStaffing(d, p));
+  /// 
+  /// Single composite section: the role multiplicity is carried by the inner
+  /// new/changed/removed-role lists, so this is one section, not a catalog of
+  /// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+  JobDescriptionsAndStaffing get jobDescriptions => JobDescriptionsAndStaffing(doc, '$path/jobDescriptions');
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
   SomList<WorkplaceDescriptionEntry> get workplaceDescriptions => SomList<WorkplaceDescriptionEntry>(doc, '$path/WPDE-WORK-LST', (d, p) => WorkplaceDescriptionEntry(d, p));
@@ -30662,16 +30694,26 @@ class SystemRollout extends SomNode {
   MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
 
   /// 15.3. User Manuals.
-  SomList<UserManual> get userManuals => SomList<UserManual>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManual(d, p));
+  /// 
+  /// One whole-catalog content section (mirrors the `rolloutPlan` /
+  /// `migrationPlan` / `pilotPlan` siblings); collapsed from
+  /// `List<UserManual>` (L34C-12 SR-57).
+  UserManual get userManuals => UserManual(doc, '$path/userManuals');
 
   /// 15.4. Training Materials.
-  SomList<RolloutTrainingMaterial> get trainingMaterials => SomList<RolloutTrainingMaterial>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterial(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial get trainingMaterials => RolloutTrainingMaterial(doc, '$path/trainingMaterials');
 
   /// 15.5. Pilot Plan.
   PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
 
   /// 15.6. Cutover Procedures.
-  SomList<CutoverProcedure> get cutoverProcedures => SomList<CutoverProcedure>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedure(d, p));
+  /// 
+  /// One whole-catalog content section; collapsed from
+  /// `List<CutoverProcedure>` (L34C-12 SR-57).
+  CutoverProcedure get cutoverProcedures => CutoverProcedure(doc, '$path/cutoverProcedures');
 
   /// 15.7. Knowledge Transfer.
   KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');

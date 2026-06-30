@@ -91,14 +91,16 @@ attributes, relationships, and constraints that represent core business data.
   DataDictionary dataDictionary = DataDictionary();
 
   /// 7.1.6. Validation Constraints.
-  @SectionId('VACO-VALI-LST')
-  @SectionIdPattern('VACO-VALI-xxx')
-  List<ValidationConstraints> validationConstraints = [];
+  ///
+  /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  /// from `List<ValidationConstraints>` (L34C-12 SR-25).
+  ValidationConstraints validationConstraints = ValidationConstraints();
 
   /// 7.1.7. Integrity Constraints.
-  @SectionId('INCO-INTE-LST')
-  @SectionIdPattern('INCO-INTE-xxx')
-  List<IntegrityConstraints> integrityConstraints = [];
+  ///
+  /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints integrityConstraints = IntegrityConstraints();
 }
 
 /// A data entity entry (form).

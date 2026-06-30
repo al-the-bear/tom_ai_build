@@ -7867,8 +7867,8 @@ void registerSpecOps() {
         SpecSlot.list(() => n.functionToDataMatrix, (v) => n.functionToDataMatrix = v.cast<FunctionDataMatrixEntry>(), label: 'functionToDataMatrix'),
         SpecSlot.list(() => n.businessRules, (v) => n.businessRules = v.cast<BusinessRuleEntry>(), label: 'businessRules'),
         SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
-        SpecSlot.list(() => n.validationConstraints, (v) => n.validationConstraints = v.cast<ValidationConstraints>(), label: 'validationConstraints'),
-        SpecSlot.list(() => n.integrityConstraints, (v) => n.integrityConstraints = v.cast<IntegrityConstraints>(), label: 'integrityConstraints'),
+        SpecSlot.node(() => n.validationConstraints, (v) => n.validationConstraints = v as ValidationConstraints, label: 'validationConstraints'),
+        SpecSlot.node(() => n.integrityConstraints, (v) => n.integrityConstraints = v as IntegrityConstraints, label: 'integrityConstraints'),
       ];
     },
     cloneShallow: (o) {
@@ -8069,7 +8069,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
         SpecSlot.node(() => n.languageCountrySelection, (v) => n.languageCountrySelection = v as LanguageCountrySelection, label: 'languageCountrySelection'),
         SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
-        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
+        SpecSlot.node(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v as WireframesAndMockups, label: 'wireframesAndMockups'),
       ];
     },
     cloneShallow: (o) {
@@ -8189,10 +8189,10 @@ void registerSpecOps() {
         SpecSlot.node(() => n.trainingDeliverables, (v) => n.trainingDeliverables = v as TrainingDeliverableRequirements, label: 'trainingDeliverables'),
         SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
         SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
-        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManual>(), label: 'userManuals'),
-        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterial>(), label: 'trainingMaterials'),
+        SpecSlot.node(() => n.userManuals, (v) => n.userManuals = v as UserManual, label: 'userManuals'),
+        SpecSlot.node(() => n.trainingMaterials, (v) => n.trainingMaterials = v as RolloutTrainingMaterial, label: 'trainingMaterials'),
         SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
-        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedure>(), label: 'cutoverProcedures'),
+        SpecSlot.node(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v as CutoverProcedure, label: 'cutoverProcedures'),
         SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
         SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
       ];
@@ -9013,8 +9013,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.erDiagram, (v) => n.erDiagram = v as ErDiagramSection, label: 'erDiagram'),
         SpecSlot.node(() => n.dataClassification, (v) => n.dataClassification = v as DataClassification, label: 'dataClassification'),
         SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
-        SpecSlot.list(() => n.validationConstraints, (v) => n.validationConstraints = v.cast<ValidationConstraints>(), label: 'validationConstraints'),
-        SpecSlot.list(() => n.integrityConstraints, (v) => n.integrityConstraints = v.cast<IntegrityConstraints>(), label: 'integrityConstraints'),
+        SpecSlot.node(() => n.validationConstraints, (v) => n.validationConstraints = v as ValidationConstraints, label: 'validationConstraints'),
+        SpecSlot.node(() => n.integrityConstraints, (v) => n.integrityConstraints = v as IntegrityConstraints, label: 'integrityConstraints'),
       ];
     },
     cloneShallow: (o) {
@@ -13493,7 +13493,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
         SpecSlot.node(() => n.multiLanguageSupport, (v) => n.multiLanguageSupport = v as MultiLanguageSupport, label: 'multiLanguageSupport'),
         SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
-        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
+        SpecSlot.node(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v as WireframesAndMockups, label: 'wireframesAndMockups'),
       ];
     },
     cloneShallow: (o) {
@@ -22165,7 +22165,7 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
         SpecSlot.node(() => n.organizationStructure, (v) => n.organizationStructure = v as NewOrganizationStructure, label: 'organizationStructure'),
-        SpecSlot.list(() => n.jobDescriptions, (v) => n.jobDescriptions = v.cast<JobDescriptionsAndStaffing>(), label: 'jobDescriptions'),
+        SpecSlot.node(() => n.jobDescriptions, (v) => n.jobDescriptions = v as JobDescriptionsAndStaffing, label: 'jobDescriptions'),
         SpecSlot.list(() => n.workplaceDescriptions, (v) => n.workplaceDescriptions = v.cast<WorkplaceDescriptionEntry>(), label: 'workplaceDescriptions'),
       ];
     },
@@ -33838,10 +33838,10 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
         SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
-        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManual>(), label: 'userManuals'),
-        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterial>(), label: 'trainingMaterials'),
+        SpecSlot.node(() => n.userManuals, (v) => n.userManuals = v as UserManual, label: 'userManuals'),
+        SpecSlot.node(() => n.trainingMaterials, (v) => n.trainingMaterials = v as RolloutTrainingMaterial, label: 'trainingMaterials'),
         SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
-        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedure>(), label: 'cutoverProcedures'),
+        SpecSlot.node(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v as CutoverProcedure, label: 'cutoverProcedures'),
         SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
         SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
       ];

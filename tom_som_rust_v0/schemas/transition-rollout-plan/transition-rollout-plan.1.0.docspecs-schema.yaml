@@ -2,12 +2,6 @@
 # Schema: transition-rollout-plan/1.0
 
 section-types:
-  CUTPRC-CUTO-LST:
-    prefix: cutprc_cuto_lst
-    pattern-check-id:
-      pattern: ^cutprc_cuto_lst-\d+$
-      error-message: ID must match cutprc_cuto_lst-NNN
-    description: Cutover procedures.
   TRMOEN-TRAI-LST:
     prefix: trmoen_trai_lst
     pattern-check-id:
@@ -20,18 +14,6 @@ section-types:
       pattern: ^trveen_vend_lst-\d+$
       error-message: ID must match trveen_vend_lst-NNN
     description: Translation vendor entries.
-  USRMAN-USER-LST:
-    prefix: usrman_user_lst
-    pattern-check-id:
-      pattern: ^usrman_user_lst-\d+$
-      error-message: ID must match usrman_user_lst-NNN
-    description: User manuals.
-  RLTTM-TRAI-LST:
-    prefix: rlttm_trai_lst
-    pattern-check-id:
-      pattern: ^rlttm_trai_lst-\d+$
-      error-message: ID must match rlttm_trai_lst-NNN
-    description: Training materials.
   CUTPRC:
     prefix: cutprc
     description: 15.6. Cutover Procedures.
@@ -128,16 +110,16 @@ document:
       section-type: MIGPLN
       optional: true
     usermanuals:
-      section-type: USRMAN-USER-LST
+      section-type: USRMAN
       optional: true
     trainingmaterials:
-      section-type: RLTTM-TRAI-LST
+      section-type: RLTTM
       optional: true
     pilotplan:
       section-type: PLTPLN
       optional: true
     cutoverprocedures:
-      section-type: CUTPRC-CUTO-LST
+      section-type: CUTPRC
       optional: true
     knowledgetransfer:
       section-type: KNTFR

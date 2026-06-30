@@ -13413,17 +13413,20 @@ func (x *D03InformationModel) DataDictionary() *DataDictionary {
 }
 
 // Validation constraints.
-func (x *D03InformationModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
-		return NewValidationConstraints(d, p)
-	})
+//
+// One whole-catalog content section (mirrors `dataDictionary` and the
+// collapsed SBP source); collapsed from `List<ValidationConstraints>`
+// (L34C-12 SR-25).
+func (x *D03InformationModel) ValidationConstraints() *ValidationConstraints {
+	return NewValidationConstraints(x.Doc(), x.Path() + "/validationConstraints")
 }
 
 // Integrity constraints.
-func (x *D03InformationModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
-		return NewIntegrityConstraints(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from
+// `List<IntegrityConstraints>` (L34C-12 SR-25).
+func (x *D03InformationModel) IntegrityConstraints() *IntegrityConstraints {
+	return NewIntegrityConstraints(x.Doc(), x.Path() + "/integrityConstraints")
 }
 
 // RSP00 Requirements Specification.
@@ -13975,10 +13978,11 @@ func (x *D09ExperienceDesignSpecification) Prototype() *Prototype {
 }
 
 // Wireframes and mockups (new in Phase A).
-func (x *D09ExperienceDesignSpecification) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
-	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
-		return NewWireframesAndMockups(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from
+// `List<WireframesAndMockups>` (L34C-12 SR-52).
+func (x *D09ExperienceDesignSpecification) WireframesAndMockups() *WireframesAndMockups {
+	return NewWireframesAndMockups(x.Doc(), x.Path() + "/wireframesAndMockups")
 }
 
 // QAP00 Quality & Acceptance Plan.
@@ -14282,17 +14286,19 @@ func (x *D12TransitionRolloutPlan) MigrationPlan() *MigrationPlan {
 }
 
 // User manuals.
-func (x *D12TransitionRolloutPlan) UserManuals() *som.SomList[*UserManual] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManual {
-		return NewUserManual(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from `List<UserManual>`
+// (L34C-12 SR-57).
+func (x *D12TransitionRolloutPlan) UserManuals() *UserManual {
+	return NewUserManual(x.Doc(), x.Path() + "/userManuals")
 }
 
 // Training materials.
-func (x *D12TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterial] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterial {
-		return NewRolloutTrainingMaterial(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from
+// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+func (x *D12TransitionRolloutPlan) TrainingMaterials() *RolloutTrainingMaterial {
+	return NewRolloutTrainingMaterial(x.Doc(), x.Path() + "/trainingMaterials")
 }
 
 // Pilot plan.
@@ -14301,10 +14307,11 @@ func (x *D12TransitionRolloutPlan) PilotPlan() *PilotPlan {
 }
 
 // Cutover procedures.
-func (x *D12TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedure] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedure {
-		return NewCutoverProcedure(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+// (L34C-12 SR-57).
+func (x *D12TransitionRolloutPlan) CutoverProcedures() *CutoverProcedure {
+	return NewCutoverProcedure(x.Doc(), x.Path() + "/cutoverProcedures")
 }
 
 // Knowledge transfer.
@@ -15750,17 +15757,19 @@ func (x *DataModel) DataDictionary() *DataDictionary {
 }
 
 // 7.1.6. Validation Constraints.
-func (x *DataModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
-		return NewValidationConstraints(d, p)
-	})
+//
+// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+// from `List<ValidationConstraints>` (L34C-12 SR-25).
+func (x *DataModel) ValidationConstraints() *ValidationConstraints {
+	return NewValidationConstraints(x.Doc(), x.Path() + "/validationConstraints")
 }
 
 // 7.1.7. Integrity Constraints.
-func (x *DataModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
-		return NewIntegrityConstraints(d, p)
-	})
+//
+// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+func (x *DataModel) IntegrityConstraints() *IntegrityConstraints {
+	return NewIntegrityConstraints(x.Doc(), x.Path() + "/integrityConstraints")
 }
 
 // 1.4.4. Data Ownership and Stewardship.
@@ -23321,11 +23330,12 @@ func (x *ExperienceAndInterfaceDesign) Prototype() *Prototype {
 	return NewPrototype(x.Doc(), x.Path() + "/prototype")
 }
 
-// 10.14. Wireframes and Mockups..
-func (x *ExperienceAndInterfaceDesign) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
-	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
-		return NewWireframesAndMockups(d, p)
-	})
+// 10.14. Wireframes and Mockups.
+//
+// One whole-catalog content section; collapsed from
+// `List<WireframesAndMockups>` (L34C-12 SR-52).
+func (x *ExperienceAndInterfaceDesign) WireframesAndMockups() *WireframesAndMockups {
+	return NewWireframesAndMockups(x.Doc(), x.Path() + "/wireframesAndMockups")
 }
 
 // Export access and audit.
@@ -37848,10 +37858,12 @@ func (x *OrganizationalFramework) OrganizationStructure() *NewOrganizationStruct
 }
 
 // 5.2. Job Descriptions and Staffing Plans.
-func (x *OrganizationalFramework) JobDescriptions() *som.SomList[*JobDescriptionsAndStaffing] {
-	return som.NewSomList(x.Doc(), x.Path() + "/JDAS-JOBD-LST", func(d *som.SpecDocument, p string) *JobDescriptionsAndStaffing {
-		return NewJobDescriptionsAndStaffing(d, p)
-	})
+//
+// Single composite section: the role multiplicity is carried by the inner
+// new/changed/removed-role lists, so this is one section, not a catalog of
+// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+func (x *OrganizationalFramework) JobDescriptions() *JobDescriptionsAndStaffing {
+	return NewJobDescriptionsAndStaffing(x.Doc(), x.Path() + "/jobDescriptions")
 }
 
 // 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -57548,17 +57560,20 @@ func (x *SystemRollout) MigrationPlan() *MigrationPlan {
 }
 
 // 15.3. User Manuals.
-func (x *SystemRollout) UserManuals() *som.SomList[*UserManual] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManual {
-		return NewUserManual(d, p)
-	})
+//
+// One whole-catalog content section (mirrors the `rolloutPlan` /
+// `migrationPlan` / `pilotPlan` siblings); collapsed from
+// `List<UserManual>` (L34C-12 SR-57).
+func (x *SystemRollout) UserManuals() *UserManual {
+	return NewUserManual(x.Doc(), x.Path() + "/userManuals")
 }
 
 // 15.4. Training Materials.
-func (x *SystemRollout) TrainingMaterials() *som.SomList[*RolloutTrainingMaterial] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterial {
-		return NewRolloutTrainingMaterial(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from
+// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+func (x *SystemRollout) TrainingMaterials() *RolloutTrainingMaterial {
+	return NewRolloutTrainingMaterial(x.Doc(), x.Path() + "/trainingMaterials")
 }
 
 // 15.5. Pilot Plan.
@@ -57567,10 +57582,11 @@ func (x *SystemRollout) PilotPlan() *PilotPlan {
 }
 
 // 15.6. Cutover Procedures.
-func (x *SystemRollout) CutoverProcedures() *som.SomList[*CutoverProcedure] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedure {
-		return NewCutoverProcedure(d, p)
-	})
+//
+// One whole-catalog content section; collapsed from
+// `List<CutoverProcedure>` (L34C-12 SR-57).
+func (x *SystemRollout) CutoverProcedures() *CutoverProcedure {
+	return NewCutoverProcedure(x.Doc(), x.Path() + "/cutoverProcedures")
 }
 
 // 15.7. Knowledge Transfer.

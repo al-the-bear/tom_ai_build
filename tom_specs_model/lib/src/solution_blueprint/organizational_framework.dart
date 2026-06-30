@@ -26,9 +26,11 @@ class OrganizationalFramework {
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
   /// 5.2. Job Descriptions and Staffing Plans.
-  @SectionId('JDAS-JOBD-LST')
-  @SectionIdPattern('JDAS-JOBD-xxx')
-  List<JobDescriptionsAndStaffing> jobDescriptions = [];
+  ///
+  /// Single composite section: the role multiplicity is carried by the inner
+  /// new/changed/removed-role lists, so this is one section, not a catalog of
+  /// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+  JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
   @SectionId('WPDE-WORK-LST')

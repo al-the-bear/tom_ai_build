@@ -66,7 +66,8 @@ class D09ExperienceDesignSpecification {
   Prototype prototype = Prototype();
 
   /// Wireframes and mockups (new in Phase A).
-  @SectionId('WIANMO-WIRE-LST')
-  @SectionIdPattern('WIANMO-WIRE-xxx')
-  List<WireframesAndMockups> wireframesAndMockups = [];
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
 }

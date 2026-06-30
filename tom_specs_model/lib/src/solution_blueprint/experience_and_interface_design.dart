@@ -99,10 +99,11 @@ to pixel-perfect designs with exact typography and spacing.
   /// 10.13. Prototype. Seeds → XDS.
   Prototype prototype = Prototype();
 
-  /// 10.14. Wireframes and Mockups..
-  @SectionId('WIANMO-WIRE-LST')
-  @SectionIdPattern('WIANMO-WIRE-xxx')
-  List<WireframesAndMockups> wireframesAndMockups = [];
+  /// 10.14. Wireframes and Mockups.
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
 }
 
 // ---------------------------------------------------------------------------

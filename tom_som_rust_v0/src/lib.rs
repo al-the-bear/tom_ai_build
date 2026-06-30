@@ -14966,21 +14966,20 @@ impl D03InformationModel {
     }
 
     /// Validation constraints.
-    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
-            Box::new(|d, p| ValidationConstraints::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section (mirrors `dataDictionary` and the
+    /// collapsed SBP source); collapsed from `List<ValidationConstraints>`
+    /// (L34C-12 SR-25).
+    pub fn validation_constraints(&self) -> ValidationConstraints {
+        ValidationConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "validationConstraints"))
     }
 
     /// Integrity constraints.
-    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
-            Box::new(|d, p| IntegrityConstraints::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<IntegrityConstraints>` (L34C-12 SR-25).
+    pub fn integrity_constraints(&self) -> IntegrityConstraints {
+        IntegrityConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrityConstraints"))
     }
 }
 
@@ -15537,12 +15536,11 @@ impl D09ExperienceDesignSpecification {
     }
 
     /// Wireframes and mockups (new in Phase A).
-    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
-            Box::new(|d, p| WireframesAndMockups::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+    pub fn wireframes_and_mockups(&self) -> WireframesAndMockups {
+        WireframesAndMockups::new(self.node.doc(), format!("{}/{}", self.node.path(), "wireframesAndMockups"))
     }
 }
 
@@ -15845,21 +15843,19 @@ impl D12TransitionRolloutPlan {
     }
 
     /// User manuals.
-    pub fn user_manuals(&self) -> som::SomList<UserManual> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManual::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from `List<UserManual>`
+    /// (L34C-12 SR-57).
+    pub fn user_manuals(&self) -> UserManual {
+        UserManual::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManuals"))
     }
 
     /// Training materials.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterial> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterial::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+    pub fn training_materials(&self) -> RolloutTrainingMaterial {
+        RolloutTrainingMaterial::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingMaterials"))
     }
 
     /// Pilot plan.
@@ -15868,12 +15864,11 @@ impl D12TransitionRolloutPlan {
     }
 
     /// Cutover procedures.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedure> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedure::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+    /// (L34C-12 SR-57).
+    pub fn cutover_procedures(&self) -> CutoverProcedure {
+        CutoverProcedure::new(self.node.doc(), format!("{}/{}", self.node.path(), "cutoverProcedures"))
     }
 
     /// Knowledge transfer.
@@ -17497,21 +17492,19 @@ impl DataModel {
     }
 
     /// 7.1.6. Validation Constraints.
-    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
-            Box::new(|d, p| ValidationConstraints::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    /// from `List<ValidationConstraints>` (L34C-12 SR-25).
+    pub fn validation_constraints(&self) -> ValidationConstraints {
+        ValidationConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "validationConstraints"))
     }
 
     /// 7.1.7. Integrity Constraints.
-    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
-            Box::new(|d, p| IntegrityConstraints::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+    pub fn integrity_constraints(&self) -> IntegrityConstraints {
+        IntegrityConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrityConstraints"))
     }
 }
 
@@ -25949,13 +25942,12 @@ impl ExperienceAndInterfaceDesign {
         Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
     }
 
-    /// 10.14. Wireframes and Mockups..
-    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
-            Box::new(|d, p| WireframesAndMockups::new(d, p)),
-        )
+    /// 10.14. Wireframes and Mockups.
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+    pub fn wireframes_and_mockups(&self) -> WireframesAndMockups {
+        WireframesAndMockups::new(self.node.doc(), format!("{}/{}", self.node.path(), "wireframesAndMockups"))
     }
 }
 
@@ -42200,12 +42192,12 @@ impl OrganizationalFramework {
     }
 
     /// 5.2. Job Descriptions and Staffing Plans.
-    pub fn job_descriptions(&self) -> som::SomList<JobDescriptionsAndStaffing> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "JDAS-JOBD-LST"),
-            Box::new(|d, p| JobDescriptionsAndStaffing::new(d, p)),
-        )
+    ///
+    /// Single composite section: the role multiplicity is carried by the inner
+    /// new/changed/removed-role lists, so this is one section, not a catalog of
+    /// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+    pub fn job_descriptions(&self) -> JobDescriptionsAndStaffing {
+        JobDescriptionsAndStaffing::new(self.node.doc(), format!("{}/{}", self.node.path(), "jobDescriptions"))
     }
 
     /// 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -64277,21 +64269,20 @@ impl SystemRollout {
     }
 
     /// 15.3. User Manuals.
-    pub fn user_manuals(&self) -> som::SomList<UserManual> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManual::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section (mirrors the `rolloutPlan` /
+    /// `migrationPlan` / `pilotPlan` siblings); collapsed from
+    /// `List<UserManual>` (L34C-12 SR-57).
+    pub fn user_manuals(&self) -> UserManual {
+        UserManual::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManuals"))
     }
 
     /// 15.4. Training Materials.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterial> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterial::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+    pub fn training_materials(&self) -> RolloutTrainingMaterial {
+        RolloutTrainingMaterial::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingMaterials"))
     }
 
     /// 15.5. Pilot Plan.
@@ -64300,12 +64291,11 @@ impl SystemRollout {
     }
 
     /// 15.6. Cutover Procedures.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedure> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedure::new(d, p)),
-        )
+    ///
+    /// One whole-catalog content section; collapsed from
+    /// `List<CutoverProcedure>` (L34C-12 SR-57).
+    pub fn cutover_procedures(&self) -> CutoverProcedure {
+        CutoverProcedure::new(self.node.doc(), format!("{}/{}", self.node.path(), "cutoverProcedures"))
     }
 
     /// 15.7. Knowledge Transfer.

@@ -153,12 +153,6 @@ section-types:
       pattern: ^vamete_mess_lst-\d+$
       error-message: ID must match vamete_mess_lst-NNN
     description: Validation message templates.
-  WIANMO-WIRE-LST:
-    prefix: wianmo_wire_lst
-    pattern-check-id:
-      pattern: ^wianmo_wire_lst-\d+$
-      error-message: ID must match wianmo_wire_lst-NNN
-    description: Wireframes and mockups (new in Phase A).
   DESIG-DESI-LST:
     prefix: desig_desi_lst
     pattern-check-id:
@@ -1351,5 +1345,5 @@ document:
       section-type: PROTOT
       optional: true
     wireframesandmockups:
-      section-type: WIANMO-WIRE-LST
+      section-type: WIANMO
       optional: true

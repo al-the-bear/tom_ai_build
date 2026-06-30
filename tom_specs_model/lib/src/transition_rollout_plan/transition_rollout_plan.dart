@@ -59,22 +59,25 @@ class D12TransitionRolloutPlan {
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// User manuals.
-  @SectionId('USRMAN-USER-LST')
-  @SectionIdPattern('USRMAN-USER-xxx')
-  List<UserManual> userManuals = [];
+  ///
+  /// One whole-catalog content section; collapsed from `List<UserManual>`
+  /// (L34C-12 SR-57).
+  UserManual userManuals = UserManual();
 
   /// Training materials.
-  @SectionId('RLTTM-TRAI-LST')
-  @SectionIdPattern('RLTTM-TRAI-xxx')
-  List<RolloutTrainingMaterial> trainingMaterials = [];
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial trainingMaterials = RolloutTrainingMaterial();
 
   /// Pilot plan.
   PilotPlan pilotPlan = PilotPlan();
 
   /// Cutover procedures.
-  @SectionId('CUTPRC-CUTO-LST')
-  @SectionIdPattern('CUTPRC-CUTO-xxx')
-  List<CutoverProcedure> cutoverProcedures = [];
+  ///
+  /// One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+  /// (L34C-12 SR-57).
+  CutoverProcedure cutoverProcedures = CutoverProcedure();
 
   /// Knowledge transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();

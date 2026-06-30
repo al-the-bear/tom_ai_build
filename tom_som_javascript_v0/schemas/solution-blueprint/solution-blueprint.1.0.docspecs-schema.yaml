@@ -207,12 +207,6 @@ section-types:
       pattern: ^cuopme_oper_lst-\d+$
       error-message: ID must match cuopme_oper_lst-NNN
     description: 1.5. Operational Metrics.
-  CUTPRC-CUTO-LST:
-    prefix: cutprc_cuto_lst
-    pattern-check-id:
-      pattern: ^cutprc_cuto_lst-\d+$
-      error-message: ID must match cutprc_cuto_lst-NNN
-    description: 15.6. Cutover Procedures.
   DACOEN-DATA-LST:
     prefix: dacoen_data_lst
     pattern-check-id:
@@ -964,12 +958,6 @@ section-types:
       pattern: ^uicoen_comp_lst-\d+$
       error-message: ID must match uicoen_comp_lst-NNN
     description: 10.11.2. Component Specifications — contains 0+×.
-  USRMAN-USER-LST:
-    prefix: usrman_user_lst
-    pattern-check-id:
-      pattern: ^usrman_user_lst-\d+$
-      error-message: ID must match usrman_user_lst-NNN
-    description: 15.3. User Manuals.
   VAMETE-MESS-LST:
     prefix: vamete_mess_lst
     pattern-check-id:
@@ -988,12 +976,6 @@ section-types:
       pattern: ^wasele_serv_lst-\d+$
       error-message: ID must match wasele_serv_lst-NNN
     description: Service levels.
-  WIANMO-WIRE-LST:
-    prefix: wianmo_wire_lst
-    pattern-check-id:
-      pattern: ^wianmo_wire_lst-\d+$
-      error-message: ID must match wianmo_wire_lst-NNN
-    description: 10.14. Wireframes and Mockups..
   WOBURU-BUSI-LST:
     prefix: woburu_busi_lst
     pattern-check-id:
@@ -1979,12 +1961,6 @@ section-types:
       pattern: ^rlinh_inhe_lst-\d+$
       error-message: ID must match rlinh_inhe_lst-NNN
     description: Contains 0+× RoleInheritanceRule.
-  RLTTM-TRAI-LST:
-    prefix: rlttm_trai_lst
-    pattern-check-id:
-      pattern: ^rlttm_trai_lst-\d+$
-      error-message: ID must match rlttm_trai_lst-NNN
-    description: 15.4. Training Materials.
   RNDEP-ITEM-LST:
     prefix: rndep_item_lst
     pattern-check-id:
@@ -2822,12 +2798,6 @@ section-types:
       pattern: ^idee_data_lst-\d+$
       error-message: ID must match idee_data_lst-NNN
     description: Data entities exchanged.
-  INCO-INTE-LST:
-    prefix: inco_inte_lst
-    pattern-check-id:
-      pattern: ^inco_inte_lst-\d+$
-      error-message: ID must match inco_inte_lst-NNN
-    description: 7.1.7. Integrity Constraints.
   INEN-INTE-LST:
     prefix: inen_inte_lst
     min-count-in-document: 1
@@ -2847,12 +2817,6 @@ section-types:
       pattern: ^isce_itst_lst-\d+$
       error-message: ID must match isce_itst_lst-NNN
     description: "IT standards compliance (ISO, IEEE, NIST)."
-  JDAS-JOBD-LST:
-    prefix: jdas_jobd_lst
-    pattern-check-id:
-      pattern: ^jdas_jobd_lst-\d+$
-      error-message: ID must match jdas_jobd_lst-NNN
-    description: 5.2. Job Descriptions and Staffing Plans.
   LILI-LIAB-LST:
     prefix: lili_liab_lst
     pattern-check-id:
@@ -3203,12 +3167,6 @@ section-types:
       pattern: ^usca_user_lst-\d+$
       error-message: ID must match usca_user_lst-NNN
     description: 4.1.4. User Categories — contains 1+× User Category.
-  VACO-VALI-LST:
-    prefix: vaco_vali_lst
-    pattern-check-id:
-      pattern: ^vaco_vali_lst-\d+$
-      error-message: ID must match vaco_vali_lst-NNN
-    description: 7.1.6. Validation Constraints.
   WFAC-ACTO-LST:
     prefix: wfac_acto_lst
     pattern-check-id:

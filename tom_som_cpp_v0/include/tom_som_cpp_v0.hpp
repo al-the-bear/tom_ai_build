@@ -12230,11 +12230,16 @@ class D03InformationModel : public som::SomNode {
   // Data dictionary.
   DataDictionary dataDictionary() const;
   // Validation constraints.
-  // Returns the list view; element type: ValidationConstraints (construct from item paths).
-  som::SomList validationConstraints() const;
+  //
+  // One whole-catalog content section (mirrors `dataDictionary` and the
+  // collapsed SBP source); collapsed from `List<ValidationConstraints>`
+  // (L34C-12 SR-25).
+  ValidationConstraints validationConstraints() const;
   // Integrity constraints.
-  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
-  som::SomList integrityConstraints() const;
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints integrityConstraints() const;
 };
 
 // RSP00 Requirements Specification.
@@ -12485,8 +12490,10 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   // Prototype.
   Prototype prototype() const;
   // Wireframes and mockups (new in Phase A).
-  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
-  som::SomList wireframesAndMockups() const;
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups wireframesAndMockups() const;
 };
 
 // QAP00 Quality & Acceptance Plan.
@@ -12622,16 +12629,22 @@ class D12TransitionRolloutPlan : public som::SomNode {
   // Migration plan.
   MigrationPlan migrationPlan() const;
   // User manuals.
-  // Returns the list view; element type: UserManual (construct from item paths).
-  som::SomList userManuals() const;
+  //
+  // One whole-catalog content section; collapsed from `List<UserManual>`
+  // (L34C-12 SR-57).
+  UserManual userManuals() const;
   // Training materials.
-  // Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
-  som::SomList trainingMaterials() const;
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial trainingMaterials() const;
   // Pilot plan.
   PilotPlan pilotPlan() const;
   // Cutover procedures.
-  // Returns the list view; element type: CutoverProcedure (construct from item paths).
-  som::SomList cutoverProcedures() const;
+  //
+  // One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+  // (L34C-12 SR-57).
+  CutoverProcedure cutoverProcedures() const;
   // Knowledge transfer.
   KnowledgeTransfer knowledgeTransfer() const;
   // Warranty and support.
@@ -13311,11 +13324,15 @@ class DataModel : public som::SomNode {
   // 7.1.5. Data Dictionary..
   DataDictionary dataDictionary() const;
   // 7.1.6. Validation Constraints.
-  // Returns the list view; element type: ValidationConstraints (construct from item paths).
-  som::SomList validationConstraints() const;
+  //
+  // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  // from `List<ValidationConstraints>` (L34C-12 SR-25).
+  ValidationConstraints validationConstraints() const;
   // 7.1.7. Integrity Constraints.
-  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
-  som::SomList integrityConstraints() const;
+  //
+  // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  // from `List<IntegrityConstraints>` (L34C-12 SR-25).
+  IntegrityConstraints integrityConstraints() const;
 };
 
 // 1.4.4. Data Ownership and Stewardship.
@@ -16971,9 +16988,11 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   MultiLanguageSupport multiLanguageSupport() const;
   // 10.13. Prototype. Seeds → XDS.
   Prototype prototype() const;
-  // 10.14. Wireframes and Mockups..
-  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
-  som::SomList wireframesAndMockups() const;
+  // 10.14. Wireframes and Mockups.
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<WireframesAndMockups>` (L34C-12 SR-52).
+  WireframesAndMockups wireframesAndMockups() const;
 };
 
 // Export access and audit.
@@ -24068,8 +24087,11 @@ class OrganizationalFramework : public som::SomNode {
   // 5.1. New Organization Structure.
   NewOrganizationStructure organizationStructure() const;
   // 5.2. Job Descriptions and Staffing Plans.
-  // Returns the list view; element type: JobDescriptionsAndStaffing (construct from item paths).
-  som::SomList jobDescriptions() const;
+  //
+  // Single composite section: the role multiplicity is carried by the inner
+  // new/changed/removed-role lists, so this is one section, not a catalog of
+  // sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+  JobDescriptionsAndStaffing jobDescriptions() const;
   // 5.3. Workplace Descriptions — contains 1+× per user category.
   // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
   som::SomList workplaceDescriptions() const;
@@ -33660,16 +33682,23 @@ class SystemRollout : public som::SomNode {
   // 15.2. Migration Plan.
   MigrationPlan migrationPlan() const;
   // 15.3. User Manuals.
-  // Returns the list view; element type: UserManual (construct from item paths).
-  som::SomList userManuals() const;
+  //
+  // One whole-catalog content section (mirrors the `rolloutPlan` /
+  // `migrationPlan` / `pilotPlan` siblings); collapsed from
+  // `List<UserManual>` (L34C-12 SR-57).
+  UserManual userManuals() const;
   // 15.4. Training Materials.
-  // Returns the list view; element type: RolloutTrainingMaterial (construct from item paths).
-  som::SomList trainingMaterials() const;
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial trainingMaterials() const;
   // 15.5. Pilot Plan.
   PilotPlan pilotPlan() const;
   // 15.6. Cutover Procedures.
-  // Returns the list view; element type: CutoverProcedure (construct from item paths).
-  som::SomList cutoverProcedures() const;
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<CutoverProcedure>` (L34C-12 SR-57).
+  CutoverProcedure cutoverProcedures() const;
   // 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer() const;
   // 15.8. Warranty and Support.

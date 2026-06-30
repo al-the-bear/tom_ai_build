@@ -171,12 +171,6 @@ section-types:
       pattern: ^biru_busi_lst-\d+$
       error-message: ID must match biru_busi_lst-NNN
     description: Business rules catalog (list).
-  INCO-INTE-LST:
-    prefix: inco_inte_lst
-    pattern-check-id:
-      pattern: ^inco_inte_lst-\d+$
-      error-message: ID must match inco_inte_lst-NNN
-    description: Integrity constraints.
   OBOP-OPER-LST:
     prefix: obop_oper_lst
     pattern-check-id:
@@ -195,12 +189,6 @@ section-types:
       pattern: ^sufn_subf_lst-\d+$
       error-message: ID must match sufn_subf_lst-NNN
     description: Sub-functions — contains 0+× SubFunction.
-  VACO-VALI-LST:
-    prefix: vaco_vali_lst
-    pattern-check-id:
-      pattern: ^vaco_vali_lst-\d+$
-      error-message: ID must match vaco_vali_lst-NNN
-    description: Validation constraints.
   CRE-COMP-LST:
     prefix: cre_comp_lst
     pattern-check-id:
@@ -398,8 +386,8 @@ document:
       section-type: DADI
       optional: true
     validationconstraints:
-      section-type: VACO-VALI-LST
+      section-type: VACO
       optional: true
     integrityconstraints:
-      section-type: INCO-INTE-LST
+      section-type: INCO
       optional: true

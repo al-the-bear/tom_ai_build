@@ -34,22 +34,26 @@ localization, translation, and documentation subtrees.
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// 15.3. User Manuals.
-  @SectionId('USRMAN-USER-LST')
-  @SectionIdPattern('USRMAN-USER-xxx')
-  List<UserManual> userManuals = [];
+  ///
+  /// One whole-catalog content section (mirrors the `rolloutPlan` /
+  /// `migrationPlan` / `pilotPlan` siblings); collapsed from
+  /// `List<UserManual>` (L34C-12 SR-57).
+  UserManual userManuals = UserManual();
 
   /// 15.4. Training Materials.
-  @SectionId('RLTTM-TRAI-LST')
-  @SectionIdPattern('RLTTM-TRAI-xxx')
-  List<RolloutTrainingMaterial> trainingMaterials = [];
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  RolloutTrainingMaterial trainingMaterials = RolloutTrainingMaterial();
 
   /// 15.5. Pilot Plan.
   PilotPlan pilotPlan = PilotPlan();
 
   /// 15.6. Cutover Procedures.
-  @SectionId('CUTPRC-CUTO-LST')
-  @SectionIdPattern('CUTPRC-CUTO-xxx')
-  List<CutoverProcedure> cutoverProcedures = [];
+  ///
+  /// One whole-catalog content section; collapsed from
+  /// `List<CutoverProcedure>` (L34C-12 SR-57).
+  CutoverProcedure cutoverProcedures = CutoverProcedure();
 
   /// 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();

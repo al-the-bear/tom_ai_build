@@ -13997,17 +13997,17 @@ DataDictionary d03_information_model_data_dictionary(const D03InformationModel *
   free(path);
   return out;
 }
-SomList d03_information_model_validation_constraints(const D03InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "VACO-VALI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+ValidationConstraints d03_information_model_validation_constraints(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "validationConstraints");
+  ValidationConstraints out;
+  validation_constraints_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SomList d03_information_model_integrity_constraints(const D03InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "INCO-INTE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+IntegrityConstraints d03_information_model_integrity_constraints(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "integrityConstraints");
+  IntegrityConstraints out;
+  integrity_constraints_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -14605,10 +14605,10 @@ Prototype d09_experience_design_specification_prototype(const D09ExperienceDesig
   free(path);
   return out;
 }
-SomList d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "WIANMO-WIRE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+WireframesAndMockups d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "wireframesAndMockups");
+  WireframesAndMockups out;
+  wireframes_and_mockups_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -14952,17 +14952,17 @@ MigrationPlan d12_transition_rollout_plan_migration_plan(const D12TransitionRoll
   free(path);
   return out;
 }
-SomList d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "USRMAN-USER-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+UserManual d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "userManuals");
+  UserManual out;
+  user_manual_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SomList d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "RLTTM-TRAI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+RolloutTrainingMaterial d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "trainingMaterials");
+  RolloutTrainingMaterial out;
+  rollout_training_material_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -14973,10 +14973,10 @@ PilotPlan d12_transition_rollout_plan_pilot_plan(const D12TransitionRolloutPlan 
   free(path);
   return out;
 }
-SomList d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "CUTPRC-CUTO-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+CutoverProcedure d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "cutoverProcedures");
+  CutoverProcedure out;
+  cutover_procedure_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -16531,17 +16531,17 @@ DataDictionary data_model_data_dictionary(const DataModel *self) {
   free(path);
   return out;
 }
-SomList data_model_validation_constraints(const DataModel *self) {
-  char *path = spec_path_join(self->node.path, "VACO-VALI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+ValidationConstraints data_model_validation_constraints(const DataModel *self) {
+  char *path = spec_path_join(self->node.path, "validationConstraints");
+  ValidationConstraints out;
+  validation_constraints_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SomList data_model_integrity_constraints(const DataModel *self) {
-  char *path = spec_path_join(self->node.path, "INCO-INTE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+IntegrityConstraints data_model_integrity_constraints(const DataModel *self) {
+  char *path = spec_path_join(self->node.path, "integrityConstraints");
+  IntegrityConstraints out;
+  integrity_constraints_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -24516,10 +24516,10 @@ Prototype experience_and_interface_design_prototype(const ExperienceAndInterface
   free(path);
   return out;
 }
-SomList experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self) {
-  char *path = spec_path_join(self->node.path, "WIANMO-WIRE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+WireframesAndMockups experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self) {
+  char *path = spec_path_join(self->node.path, "wireframesAndMockups");
+  WireframesAndMockups out;
+  wireframes_and_mockups_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -39564,10 +39564,10 @@ NewOrganizationStructure organizational_framework_organization_structure(const O
   free(path);
   return out;
 }
-SomList organizational_framework_job_descriptions(const OrganizationalFramework *self) {
-  char *path = spec_path_join(self->node.path, "JDAS-JOBD-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+JobDescriptionsAndStaffing organizational_framework_job_descriptions(const OrganizationalFramework *self) {
+  char *path = spec_path_join(self->node.path, "jobDescriptions");
+  JobDescriptionsAndStaffing out;
+  job_descriptions_and_staffing_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -60025,17 +60025,17 @@ MigrationPlan system_rollout_migration_plan(const SystemRollout *self) {
   free(path);
   return out;
 }
-SomList system_rollout_user_manuals(const SystemRollout *self) {
-  char *path = spec_path_join(self->node.path, "USRMAN-USER-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+UserManual system_rollout_user_manuals(const SystemRollout *self) {
+  char *path = spec_path_join(self->node.path, "userManuals");
+  UserManual out;
+  user_manual_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-SomList system_rollout_training_materials(const SystemRollout *self) {
-  char *path = spec_path_join(self->node.path, "RLTTM-TRAI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+RolloutTrainingMaterial system_rollout_training_materials(const SystemRollout *self) {
+  char *path = spec_path_join(self->node.path, "trainingMaterials");
+  RolloutTrainingMaterial out;
+  rollout_training_material_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -60046,10 +60046,10 @@ PilotPlan system_rollout_pilot_plan(const SystemRollout *self) {
   free(path);
   return out;
 }
-SomList system_rollout_cutover_procedures(const SystemRollout *self) {
-  char *path = spec_path_join(self->node.path, "CUTPRC-CUTO-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
+CutoverProcedure system_rollout_cutover_procedures(const SystemRollout *self) {
+  char *path = spec_path_join(self->node.path, "cutoverProcedures");
+  CutoverProcedure out;
+  cutover_procedure_init(&out, self->node.doc, path);
   free(path);
   return out;
 }

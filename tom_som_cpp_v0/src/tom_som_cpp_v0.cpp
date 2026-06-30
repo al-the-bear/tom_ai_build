@@ -6098,11 +6098,11 @@ som::SomList D03InformationModel::businessRules() const {
 DataDictionary D03InformationModel::dataDictionary() const {
   return DataDictionary(doc(), som::joinPath(path(), "dataDictionary"));
 }
-som::SomList D03InformationModel::validationConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "VACO-VALI-LST"));
+ValidationConstraints D03InformationModel::validationConstraints() const {
+  return ValidationConstraints(doc(), som::joinPath(path(), "validationConstraints"));
 }
-som::SomList D03InformationModel::integrityConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "INCO-INTE-LST"));
+IntegrityConstraints D03InformationModel::integrityConstraints() const {
+  return IntegrityConstraints(doc(), som::joinPath(path(), "integrityConstraints"));
 }
 
 D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion)
@@ -6374,8 +6374,8 @@ LanguageCountrySelection D09ExperienceDesignSpecification::languageCountrySelect
 Prototype D09ExperienceDesignSpecification::prototype() const {
   return Prototype(doc(), som::joinPath(path(), "prototype"));
 }
-som::SomList D09ExperienceDesignSpecification::wireframesAndMockups() const {
-  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
+WireframesAndMockups D09ExperienceDesignSpecification::wireframesAndMockups() const {
+  return WireframesAndMockups(doc(), som::joinPath(path(), "wireframesAndMockups"));
 }
 
 D10QualityAcceptancePlan::D10QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion)
@@ -6530,17 +6530,17 @@ RolloutPlan D12TransitionRolloutPlan::rolloutPlan() const {
 MigrationPlan D12TransitionRolloutPlan::migrationPlan() const {
   return MigrationPlan(doc(), som::joinPath(path(), "migrationPlan"));
 }
-som::SomList D12TransitionRolloutPlan::userManuals() const {
-  return som::SomList(doc(), som::joinPath(path(), "USRMAN-USER-LST"));
+UserManual D12TransitionRolloutPlan::userManuals() const {
+  return UserManual(doc(), som::joinPath(path(), "userManuals"));
 }
-som::SomList D12TransitionRolloutPlan::trainingMaterials() const {
-  return som::SomList(doc(), som::joinPath(path(), "RLTTM-TRAI-LST"));
+RolloutTrainingMaterial D12TransitionRolloutPlan::trainingMaterials() const {
+  return RolloutTrainingMaterial(doc(), som::joinPath(path(), "trainingMaterials"));
 }
 PilotPlan D12TransitionRolloutPlan::pilotPlan() const {
   return PilotPlan(doc(), som::joinPath(path(), "pilotPlan"));
 }
-som::SomList D12TransitionRolloutPlan::cutoverProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUTPRC-CUTO-LST"));
+CutoverProcedure D12TransitionRolloutPlan::cutoverProcedures() const {
+  return CutoverProcedure(doc(), som::joinPath(path(), "cutoverProcedures"));
 }
 KnowledgeTransfer D12TransitionRolloutPlan::knowledgeTransfer() const {
   return KnowledgeTransfer(doc(), som::joinPath(path(), "knowledgeTransfer"));
@@ -7217,11 +7217,11 @@ DataClassification DataModel::dataClassification() const {
 DataDictionary DataModel::dataDictionary() const {
   return DataDictionary(doc(), som::joinPath(path(), "dataDictionary"));
 }
-som::SomList DataModel::validationConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "VACO-VALI-LST"));
+ValidationConstraints DataModel::validationConstraints() const {
+  return ValidationConstraints(doc(), som::joinPath(path(), "validationConstraints"));
 }
-som::SomList DataModel::integrityConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "INCO-INTE-LST"));
+IntegrityConstraints DataModel::integrityConstraints() const {
+  return IntegrityConstraints(doc(), som::joinPath(path(), "integrityConstraints"));
 }
 
 DataOwnership::DataOwnership(som::SpecDocument& doc, std::string path)
@@ -10688,8 +10688,8 @@ MultiLanguageSupport ExperienceAndInterfaceDesign::multiLanguageSupport() const 
 Prototype ExperienceAndInterfaceDesign::prototype() const {
   return Prototype(doc(), som::joinPath(path(), "prototype"));
 }
-som::SomList ExperienceAndInterfaceDesign::wireframesAndMockups() const {
-  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
+WireframesAndMockups ExperienceAndInterfaceDesign::wireframesAndMockups() const {
+  return WireframesAndMockups(doc(), som::joinPath(path(), "wireframesAndMockups"));
 }
 
 ExportAccess::ExportAccess(som::SpecDocument& doc, std::string path)
@@ -17216,8 +17216,8 @@ OrganizationalFramework::OrganizationalFramework(som::SpecDocument& doc, std::st
 NewOrganizationStructure OrganizationalFramework::organizationStructure() const {
   return NewOrganizationStructure(doc(), som::joinPath(path(), "organizationStructure"));
 }
-som::SomList OrganizationalFramework::jobDescriptions() const {
-  return som::SomList(doc(), som::joinPath(path(), "JDAS-JOBD-LST"));
+JobDescriptionsAndStaffing OrganizationalFramework::jobDescriptions() const {
+  return JobDescriptionsAndStaffing(doc(), som::joinPath(path(), "jobDescriptions"));
 }
 som::SomList OrganizationalFramework::workplaceDescriptions() const {
   return som::SomList(doc(), som::joinPath(path(), "WPDE-WORK-LST"));
@@ -26111,17 +26111,17 @@ RolloutPlan SystemRollout::rolloutPlan() const {
 MigrationPlan SystemRollout::migrationPlan() const {
   return MigrationPlan(doc(), som::joinPath(path(), "migrationPlan"));
 }
-som::SomList SystemRollout::userManuals() const {
-  return som::SomList(doc(), som::joinPath(path(), "USRMAN-USER-LST"));
+UserManual SystemRollout::userManuals() const {
+  return UserManual(doc(), som::joinPath(path(), "userManuals"));
 }
-som::SomList SystemRollout::trainingMaterials() const {
-  return som::SomList(doc(), som::joinPath(path(), "RLTTM-TRAI-LST"));
+RolloutTrainingMaterial SystemRollout::trainingMaterials() const {
+  return RolloutTrainingMaterial(doc(), som::joinPath(path(), "trainingMaterials"));
 }
 PilotPlan SystemRollout::pilotPlan() const {
   return PilotPlan(doc(), som::joinPath(path(), "pilotPlan"));
 }
-som::SomList SystemRollout::cutoverProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUTPRC-CUTO-LST"));
+CutoverProcedure SystemRollout::cutoverProcedures() const {
+  return CutoverProcedure(doc(), som::joinPath(path(), "cutoverProcedures"));
 }
 KnowledgeTransfer SystemRollout::knowledgeTransfer() const {
   return KnowledgeTransfer(doc(), som::joinPath(path(), "knowledgeTransfer"));

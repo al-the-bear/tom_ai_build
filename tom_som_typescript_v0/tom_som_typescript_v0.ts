@@ -11320,13 +11320,20 @@ export class D03InformationModel extends SomNode {
   }
 
   // Validation constraints.
-  get validationConstraints(): SomList<ValidationConstraints> {
-    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d: SpecDocument, p: string) => new ValidationConstraints(d, p));
+  //
+  // One whole-catalog content section (mirrors `dataDictionary` and the
+  // collapsed SBP source); collapsed from `List<ValidationConstraints>`
+  // (L34C-12 SR-25).
+  get validationConstraints(): ValidationConstraints {
+    return new ValidationConstraints(this.doc, this.path + "/validationConstraints");
   }
 
   // Integrity constraints.
-  get integrityConstraints(): SomList<IntegrityConstraints> {
-    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d: SpecDocument, p: string) => new IntegrityConstraints(d, p));
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<IntegrityConstraints>` (L34C-12 SR-25).
+  get integrityConstraints(): IntegrityConstraints {
+    return new IntegrityConstraints(this.doc, this.path + "/integrityConstraints");
   }
 }
 
@@ -11826,8 +11833,11 @@ export class D09ExperienceDesignSpecification extends SomNode {
   }
 
   // Wireframes and mockups (new in Phase A).
-  get wireframesAndMockups(): SomList<WireframesAndMockups> {
-    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<WireframesAndMockups>` (L34C-12 SR-52).
+  get wireframesAndMockups(): WireframesAndMockups {
+    return new WireframesAndMockups(this.doc, this.path + "/wireframesAndMockups");
   }
 }
 
@@ -12108,13 +12118,19 @@ export class D12TransitionRolloutPlan extends SomNode {
   }
 
   // User manuals.
-  get userManuals(): SomList<UserManual> {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d: SpecDocument, p: string) => new UserManual(d, p));
+  //
+  // One whole-catalog content section; collapsed from `List<UserManual>`
+  // (L34C-12 SR-57).
+  get userManuals(): UserManual {
+    return new UserManual(this.doc, this.path + "/userManuals");
   }
 
   // Training materials.
-  get trainingMaterials(): SomList<RolloutTrainingMaterial> {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d: SpecDocument, p: string) => new RolloutTrainingMaterial(d, p));
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  get trainingMaterials(): RolloutTrainingMaterial {
+    return new RolloutTrainingMaterial(this.doc, this.path + "/trainingMaterials");
   }
 
   // Pilot plan.
@@ -12123,8 +12139,11 @@ export class D12TransitionRolloutPlan extends SomNode {
   }
 
   // Cutover procedures.
-  get cutoverProcedures(): SomList<CutoverProcedure> {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d: SpecDocument, p: string) => new CutoverProcedure(d, p));
+  //
+  // One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+  // (L34C-12 SR-57).
+  get cutoverProcedures(): CutoverProcedure {
+    return new CutoverProcedure(this.doc, this.path + "/cutoverProcedures");
   }
 
   // Knowledge transfer.
@@ -13342,13 +13361,19 @@ export class DataModel extends SomNode {
   }
 
   // 7.1.6. Validation Constraints.
-  get validationConstraints(): SomList<ValidationConstraints> {
-    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d: SpecDocument, p: string) => new ValidationConstraints(d, p));
+  //
+  // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  // from `List<ValidationConstraints>` (L34C-12 SR-25).
+  get validationConstraints(): ValidationConstraints {
+    return new ValidationConstraints(this.doc, this.path + "/validationConstraints");
   }
 
   // 7.1.7. Integrity Constraints.
-  get integrityConstraints(): SomList<IntegrityConstraints> {
-    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d: SpecDocument, p: string) => new IntegrityConstraints(d, p));
+  //
+  // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+  // from `List<IntegrityConstraints>` (L34C-12 SR-25).
+  get integrityConstraints(): IntegrityConstraints {
+    return new IntegrityConstraints(this.doc, this.path + "/integrityConstraints");
   }
 }
 
@@ -19726,9 +19751,12 @@ export class ExperienceAndInterfaceDesign extends SomNode {
     return new Prototype(this.doc, this.path + "/prototype");
   }
 
-  // 10.14. Wireframes and Mockups..
-  get wireframesAndMockups(): SomList<WireframesAndMockups> {
-    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
+  // 10.14. Wireframes and Mockups.
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<WireframesAndMockups>` (L34C-12 SR-52).
+  get wireframesAndMockups(): WireframesAndMockups {
+    return new WireframesAndMockups(this.doc, this.path + "/wireframesAndMockups");
   }
 }
 
@@ -31921,8 +31949,12 @@ export class OrganizationalFramework extends SomNode {
   }
 
   // 5.2. Job Descriptions and Staffing Plans.
-  get jobDescriptions(): SomList<JobDescriptionsAndStaffing> {
-    return new SomList(this.doc, this.path + "/JDAS-JOBD-LST", (d: SpecDocument, p: string) => new JobDescriptionsAndStaffing(d, p));
+  //
+  // Single composite section: the role multiplicity is carried by the inner
+  // new/changed/removed-role lists, so this is one section, not a catalog of
+  // sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+  get jobDescriptions(): JobDescriptionsAndStaffing {
+    return new JobDescriptionsAndStaffing(this.doc, this.path + "/jobDescriptions");
   }
 
   // 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -48454,13 +48486,20 @@ export class SystemRollout extends SomNode {
   }
 
   // 15.3. User Manuals.
-  get userManuals(): SomList<UserManual> {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d: SpecDocument, p: string) => new UserManual(d, p));
+  //
+  // One whole-catalog content section (mirrors the `rolloutPlan` /
+  // `migrationPlan` / `pilotPlan` siblings); collapsed from
+  // `List<UserManual>` (L34C-12 SR-57).
+  get userManuals(): UserManual {
+    return new UserManual(this.doc, this.path + "/userManuals");
   }
 
   // 15.4. Training Materials.
-  get trainingMaterials(): SomList<RolloutTrainingMaterial> {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d: SpecDocument, p: string) => new RolloutTrainingMaterial(d, p));
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  get trainingMaterials(): RolloutTrainingMaterial {
+    return new RolloutTrainingMaterial(this.doc, this.path + "/trainingMaterials");
   }
 
   // 15.5. Pilot Plan.
@@ -48469,8 +48508,11 @@ export class SystemRollout extends SomNode {
   }
 
   // 15.6. Cutover Procedures.
-  get cutoverProcedures(): SomList<CutoverProcedure> {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d: SpecDocument, p: string) => new CutoverProcedure(d, p));
+  //
+  // One whole-catalog content section; collapsed from
+  // `List<CutoverProcedure>` (L34C-12 SR-57).
+  get cutoverProcedures(): CutoverProcedure {
+    return new CutoverProcedure(this.doc, this.path + "/cutoverProcedures");
   }
 
   // 15.7. Knowledge Transfer.

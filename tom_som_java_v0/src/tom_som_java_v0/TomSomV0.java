@@ -11438,13 +11438,20 @@ public final class TomSomV0 {
     }
 
     // Validation constraints.
-    public SomList<ValidationConstraints> validationConstraints() {
-      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
+    //
+    // One whole-catalog content section (mirrors `dataDictionary` and the
+    // collapsed SBP source); collapsed from `List<ValidationConstraints>`
+    // (L34C-12 SR-25).
+    public ValidationConstraints validationConstraints() {
+      return new ValidationConstraints(doc, path + "/validationConstraints");
     }
 
     // Integrity constraints.
-    public SomList<IntegrityConstraints> integrityConstraints() {
-      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<IntegrityConstraints>` (L34C-12 SR-25).
+    public IntegrityConstraints integrityConstraints() {
+      return new IntegrityConstraints(doc, path + "/integrityConstraints");
     }
   }
 
@@ -11975,8 +11982,11 @@ public final class TomSomV0 {
     }
 
     // Wireframes and mockups (new in Phase A).
-    public SomList<WireframesAndMockups> wireframesAndMockups() {
-      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<WireframesAndMockups>` (L34C-12 SR-52).
+    public WireframesAndMockups wireframesAndMockups() {
+      return new WireframesAndMockups(doc, path + "/wireframesAndMockups");
     }
   }
 
@@ -12272,13 +12282,19 @@ public final class TomSomV0 {
     }
 
     // User manuals.
-    public SomList<UserManual> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManual(d, p));
+    //
+    // One whole-catalog content section; collapsed from `List<UserManual>`
+    // (L34C-12 SR-57).
+    public UserManual userManuals() {
+      return new UserManual(doc, path + "/userManuals");
     }
 
     // Training materials.
-    public SomList<RolloutTrainingMaterial> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterial(d, p));
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+    public RolloutTrainingMaterial trainingMaterials() {
+      return new RolloutTrainingMaterial(doc, path + "/trainingMaterials");
     }
 
     // Pilot plan.
@@ -12287,8 +12303,11 @@ public final class TomSomV0 {
     }
 
     // Cutover procedures.
-    public SomList<CutoverProcedure> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedure(d, p));
+    //
+    // One whole-catalog content section; collapsed from `List<CutoverProcedure>`
+    // (L34C-12 SR-57).
+    public CutoverProcedure cutoverProcedures() {
+      return new CutoverProcedure(doc, path + "/cutoverProcedures");
     }
 
     // Knowledge transfer.
@@ -13518,13 +13537,19 @@ public final class TomSomV0 {
     }
 
     // 7.1.6. Validation Constraints.
-    public SomList<ValidationConstraints> validationConstraints() {
-      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
+    //
+    // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    // from `List<ValidationConstraints>` (L34C-12 SR-25).
+    public ValidationConstraints validationConstraints() {
+      return new ValidationConstraints(doc, path + "/validationConstraints");
     }
 
     // 7.1.7. Integrity Constraints.
-    public SomList<IntegrityConstraints> integrityConstraints() {
-      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
+    //
+    // One whole-catalog content section (mirrors `dataDictionary`); collapsed
+    // from `List<IntegrityConstraints>` (L34C-12 SR-25).
+    public IntegrityConstraints integrityConstraints() {
+      return new IntegrityConstraints(doc, path + "/integrityConstraints");
     }
   }
 
@@ -19959,9 +19984,12 @@ public final class TomSomV0 {
       return new Prototype(doc, path + "/prototype");
     }
 
-    // 10.14. Wireframes and Mockups..
-    public SomList<WireframesAndMockups> wireframesAndMockups() {
-      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
+    // 10.14. Wireframes and Mockups.
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<WireframesAndMockups>` (L34C-12 SR-52).
+    public WireframesAndMockups wireframesAndMockups() {
+      return new WireframesAndMockups(doc, path + "/wireframesAndMockups");
     }
   }
 
@@ -32246,8 +32274,12 @@ public final class TomSomV0 {
     }
 
     // 5.2. Job Descriptions and Staffing Plans.
-    public SomList<JobDescriptionsAndStaffing> jobDescriptions() {
-      return new SomList<>(doc, path + "/JDAS-JOBD-LST", (d, p) -> new JobDescriptionsAndStaffing(d, p));
+    //
+    // Single composite section: the role multiplicity is carried by the inner
+    // new/changed/removed-role lists, so this is one section, not a catalog of
+    // sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+    public JobDescriptionsAndStaffing jobDescriptions() {
+      return new JobDescriptionsAndStaffing(doc, path + "/jobDescriptions");
     }
 
     // 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -48926,13 +48958,20 @@ public final class TomSomV0 {
     }
 
     // 15.3. User Manuals.
-    public SomList<UserManual> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManual(d, p));
+    //
+    // One whole-catalog content section (mirrors the `rolloutPlan` /
+    // `migrationPlan` / `pilotPlan` siblings); collapsed from
+    // `List<UserManual>` (L34C-12 SR-57).
+    public UserManual userManuals() {
+      return new UserManual(doc, path + "/userManuals");
     }
 
     // 15.4. Training Materials.
-    public SomList<RolloutTrainingMaterial> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterial(d, p));
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+    public RolloutTrainingMaterial trainingMaterials() {
+      return new RolloutTrainingMaterial(doc, path + "/trainingMaterials");
     }
 
     // 15.5. Pilot Plan.
@@ -48941,8 +48980,11 @@ public final class TomSomV0 {
     }
 
     // 15.6. Cutover Procedures.
-    public SomList<CutoverProcedure> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedure(d, p));
+    //
+    // One whole-catalog content section; collapsed from
+    // `List<CutoverProcedure>` (L34C-12 SR-57).
+    public CutoverProcedure cutoverProcedures() {
+      return new CutoverProcedure(doc, path + "/cutoverProcedures");
     }
 
     // 15.7. Knowledge Transfer.
