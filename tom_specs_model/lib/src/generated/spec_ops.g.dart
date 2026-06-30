@@ -8104,7 +8104,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
         SpecSlot.node(() => n.localizationProcess, (v) => n.localizationProcess = v as LocalizationProcess, label: 'localizationProcess'),
         SpecSlot.node(() => n.translationProcess, (v) => n.translationProcess = v as TranslationProcess, label: 'translationProcess'),
-        SpecSlot.node(() => n.documentationAndTraining, (v) => n.documentationAndTraining = v as DocumentationAndTraining, label: 'documentationAndTraining'),
+        SpecSlot.node(() => n.userDocumentation, (v) => n.userDocumentation = v as UserDocumentationRequirements, label: 'userDocumentation'),
+        SpecSlot.node(() => n.trainingDeliverables, (v) => n.trainingDeliverables = v as TrainingDeliverableRequirements, label: 'trainingDeliverables'),
         SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
         SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
         SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManuals>(), label: 'userManuals'),
@@ -8122,7 +8123,8 @@ void registerSpecOps() {
         ..header = n.header
         ..localizationProcess = n.localizationProcess
         ..translationProcess = n.translationProcess
-        ..documentationAndTraining = n.documentationAndTraining
+        ..userDocumentation = n.userDocumentation
+        ..trainingDeliverables = n.trainingDeliverables
         ..rolloutPlan = n.rolloutPlan
         ..migrationPlan = n.migrationPlan
         ..userManuals = n.userManuals
@@ -11885,27 +11887,6 @@ void registerSpecOps() {
         ..sections = n.sections;
     },
     yamlScalar: (o) => (o as DocumentRelevantSections).content,
-  ));
-  SpecRegistry.register(DocumentationAndTraining, SpecClassOps(
-    slots: (o) {
-      final n = o as DocumentationAndTraining;
-      return [
-        SpecSlot.node(() => n.deliverables, (v) => n.deliverables = v as DocumentationAndTrainingDeliverables, label: 'deliverables'),
-        SpecSlot.node(() => n.localization, (v) => n.localization = v as DocumentationAndTrainingLocalization, label: 'localization'),
-        SpecSlot.node(() => n.documentationNarrative, (v) => n.documentationNarrative = v as TextSection, label: 'documentationNarrative'),
-        SpecSlot.list(() => n.trainingModules, (v) => n.trainingModules = v.cast<TrainingModuleEntry>(), label: 'trainingModules'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as DocumentationAndTraining;
-      return DocumentationAndTraining()
-        ..documentationContent = n.documentationContent
-        ..deliverables = n.deliverables
-        ..localization = n.localization
-        ..trainingContent = n.trainingContent
-        ..documentationNarrative = n.documentationNarrative
-        ..trainingModules = n.trainingModules;
-    },
   ));
   SpecRegistry.register(DocumentationAndTrainingDeliverables, SpecClassOps(
     slots: (o) => const [],
@@ -16227,14 +16208,14 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as InformationForUseRequirements;
       return [
-        SpecSlot.node(() => n.documentationAndTraining, (v) => n.documentationAndTraining = v as DocumentationAndTraining, label: 'documentationAndTraining'),
+        SpecSlot.node(() => n.userDocumentation, (v) => n.userDocumentation = v as UserDocumentationRequirements, label: 'userDocumentation'),
       ];
     },
     cloneShallow: (o) {
       final n = o as InformationForUseRequirements;
       return InformationForUseRequirements()
         ..content = n.content
-        ..documentationAndTraining = n.documentationAndTraining;
+        ..userDocumentation = n.userDocumentation;
     },
     yamlScalar: (o) => (o as InformationForUseRequirements).content,
   ));
@@ -35797,6 +35778,23 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TrainingAssessmentReporting).content,
   ));
+  SpecRegistry.register(TrainingDeliverableRequirements, SpecClassOps(
+    slots: (o) {
+      final n = o as TrainingDeliverableRequirements;
+      return [
+        SpecSlot.node(() => n.trainingNarrative, (v) => n.trainingNarrative = v as TextSection, label: 'trainingNarrative'),
+        SpecSlot.list(() => n.trainingModules, (v) => n.trainingModules = v.cast<TrainingModuleEntry>(), label: 'trainingModules'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TrainingDeliverableRequirements;
+      return TrainingDeliverableRequirements()
+        ..trainingContent = n.trainingContent
+        ..trainingNarrative = n.trainingNarrative
+        ..trainingModules = n.trainingModules;
+    },
+    yamlScalar: (o) => (o as TrainingDeliverableRequirements).trainingContent,
+  ));
   SpecRegistry.register(TrainingDeliverables, SpecClassOps(
     slots: (o) {
       final n = o as TrainingDeliverables;
@@ -35813,11 +35811,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as TrainingDeliverables).content,
   ));
   SpecRegistry.register(TrainingEnablementRequirements, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as TrainingEnablementRequirements;
+      return [
+        SpecSlot.node(() => n.trainingDeliverables, (v) => n.trainingDeliverables = v as TrainingDeliverableRequirements, label: 'trainingDeliverables'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as TrainingEnablementRequirements;
       return TrainingEnablementRequirements()
-        ..content = n.content;
+        ..content = n.content
+        ..trainingDeliverables = n.trainingDeliverables;
     },
     yamlScalar: (o) => (o as TrainingEnablementRequirements).content,
   ));
@@ -37212,6 +37216,25 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as UserCategoryRoleEntry).content,
+  ));
+  SpecRegistry.register(UserDocumentationRequirements, SpecClassOps(
+    slots: (o) {
+      final n = o as UserDocumentationRequirements;
+      return [
+        SpecSlot.node(() => n.deliverables, (v) => n.deliverables = v as DocumentationAndTrainingDeliverables, label: 'deliverables'),
+        SpecSlot.node(() => n.localization, (v) => n.localization = v as DocumentationAndTrainingLocalization, label: 'localization'),
+        SpecSlot.node(() => n.documentationNarrative, (v) => n.documentationNarrative = v as TextSection, label: 'documentationNarrative'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as UserDocumentationRequirements;
+      return UserDocumentationRequirements()
+        ..documentationContent = n.documentationContent
+        ..deliverables = n.deliverables
+        ..localization = n.localization
+        ..documentationNarrative = n.documentationNarrative;
+    },
+    yamlScalar: (o) => (o as UserDocumentationRequirements).documentationContent,
   ));
   SpecRegistry.register(UserGroupImpactEntry, SpecClassOps(
     slots: (o) => const [],

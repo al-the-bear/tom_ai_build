@@ -14758,10 +14758,17 @@ TranslationProcess d12_transition_rollout_plan_translation_process(const D12Tran
   free(path);
   return out;
 }
-DocumentationAndTraining d12_transition_rollout_plan_documentation_and_training(const D12TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "documentationAndTraining");
-  DocumentationAndTraining out;
-  documentation_and_training_init(&out, self->node.doc, path);
+UserDocumentationRequirements d12_transition_rollout_plan_user_documentation(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "userDocumentation");
+  UserDocumentationRequirements out;
+  user_documentation_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TrainingDeliverableRequirements d12_transition_rollout_plan_training_deliverables(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "trainingDeliverables");
+  TrainingDeliverableRequirements out;
+  training_deliverable_requirements_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -21546,48 +21553,6 @@ DocumentRelevantSectionsContentForm document_relevant_sections_content(const Doc
 }
 SomList document_relevant_sections_sections(const DocumentRelevantSections *self) {
   char *path = spec_path_join(self->node.path, "RESEEN-SECT-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void documentation_and_training_init(DocumentationAndTraining *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void documentation_and_training_free(DocumentationAndTraining *self) {
-  som_node_free(&self->node);
-}
-DocumentationAndTrainingDocumentationContentForm documentation_and_training_documentation_content(const DocumentationAndTraining *self) {
-  char *path = spec_path_join(self->node.path, "documentationContent");
-  DocumentationAndTrainingDocumentationContentForm out;
-  documentation_and_training_documentation_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DocumentationAndTrainingDeliverables documentation_and_training_deliverables(const DocumentationAndTraining *self) {
-  char *path = spec_path_join(self->node.path, "deliverables");
-  DocumentationAndTrainingDeliverables out;
-  documentation_and_training_deliverables_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DocumentationAndTrainingLocalization documentation_and_training_localization(const DocumentationAndTraining *self) {
-  char *path = spec_path_join(self->node.path, "localization");
-  DocumentationAndTrainingLocalization out;
-  documentation_and_training_localization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DocumentationAndTrainingTrainingContentForm documentation_and_training_training_content(const DocumentationAndTraining *self) {
-  char *path = spec_path_join(self->node.path, "trainingContent");
-  DocumentationAndTrainingTrainingContentForm out;
-  documentation_and_training_training_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList documentation_and_training_training_modules(const DocumentationAndTraining *self) {
-  char *path = spec_path_join(self->node.path, "TRMOEN-TRAI-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -29263,10 +29228,10 @@ void information_for_use_requirements_set_content(InformationForUseRequirements 
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
-DocumentationAndTraining information_for_use_requirements_documentation_and_training(const InformationForUseRequirements *self) {
-  char *path = spec_path_join(self->node.path, "documentationAndTraining");
-  DocumentationAndTraining out;
-  documentation_and_training_init(&out, self->node.doc, path);
+UserDocumentationRequirements information_for_use_requirements_user_documentation(const InformationForUseRequirements *self) {
+  char *path = spec_path_join(self->node.path, "userDocumentation");
+  UserDocumentationRequirements out;
+  user_documentation_requirements_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -63547,6 +63512,27 @@ TrainingAssessmentReportingContentForm training_assessment_reporting_content(con
   return out;
 }
 
+void training_deliverable_requirements_init(TrainingDeliverableRequirements *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void training_deliverable_requirements_free(TrainingDeliverableRequirements *self) {
+  som_node_free(&self->node);
+}
+TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirements_training_content(const TrainingDeliverableRequirements *self) {
+  char *path = spec_path_join(self->node.path, "trainingContent");
+  TrainingDeliverableRequirementsTrainingContentForm out;
+  training_deliverable_requirements_training_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList training_deliverable_requirements_training_modules(const TrainingDeliverableRequirements *self) {
+  char *path = spec_path_join(self->node.path, "TRMOEN-TRAI-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void training_deliverables_init(TrainingDeliverables *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -63583,6 +63569,13 @@ TrainingEnablementRequirementsContentForm training_enablement_requirements_conte
   char *path = spec_path_join(self->node.path, "content");
   TrainingEnablementRequirementsContentForm out;
   training_enablement_requirements_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TrainingDeliverableRequirements training_enablement_requirements_training_deliverables(const TrainingEnablementRequirements *self) {
+  char *path = spec_path_join(self->node.path, "trainingDeliverables");
+  TrainingDeliverableRequirements out;
+  training_deliverable_requirements_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -66008,6 +66001,34 @@ UserCategoryRoleEntryContentForm user_category_role_entry_content(const UserCate
   char *path = spec_path_join(self->node.path, "content");
   UserCategoryRoleEntryContentForm out;
   user_category_role_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void user_documentation_requirements_init(UserDocumentationRequirements *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void user_documentation_requirements_free(UserDocumentationRequirements *self) {
+  som_node_free(&self->node);
+}
+UserDocumentationRequirementsDocumentationContentForm user_documentation_requirements_documentation_content(const UserDocumentationRequirements *self) {
+  char *path = spec_path_join(self->node.path, "documentationContent");
+  UserDocumentationRequirementsDocumentationContentForm out;
+  user_documentation_requirements_documentation_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DocumentationAndTrainingDeliverables user_documentation_requirements_deliverables(const UserDocumentationRequirements *self) {
+  char *path = spec_path_join(self->node.path, "deliverables");
+  DocumentationAndTrainingDeliverables out;
+  documentation_and_training_deliverables_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DocumentationAndTrainingLocalization user_documentation_requirements_localization(const UserDocumentationRequirements *self) {
+  char *path = spec_path_join(self->node.path, "localization");
+  DocumentationAndTrainingLocalization out;
+  documentation_and_training_localization_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -96014,34 +96035,6 @@ void documentation_and_training_deliverables_content_form_set_release_notes(Docu
   spec_document_set_form_field(self->node.doc, self->node.path, "releaseNotes", value);
 }
 
-void documentation_and_training_documentation_content_form_init(DocumentationAndTrainingDocumentationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void documentation_and_training_documentation_content_form_free(DocumentationAndTrainingDocumentationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *documentation_and_training_documentation_content_form_documentation_format(const DocumentationAndTrainingDocumentationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationFormat");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_documentation_content_form_set_documentation_format(DocumentationAndTrainingDocumentationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "documentationFormat", value);
-}
-char *documentation_and_training_documentation_content_form_documentation_platform(const DocumentationAndTrainingDocumentationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationPlatform");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_documentation_content_form_set_documentation_platform(DocumentationAndTrainingDocumentationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "documentationPlatform", value);
-}
-char *documentation_and_training_documentation_content_form_documentation_versioning(const DocumentationAndTrainingDocumentationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationVersioning");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_documentation_content_form_set_documentation_versioning(DocumentationAndTrainingDocumentationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "documentationVersioning", value);
-}
-
 void documentation_and_training_localization_content_form_init(DocumentationAndTrainingLocalizationContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -96061,76 +96054,6 @@ char *documentation_and_training_localization_content_form_documentation_transla
 }
 void documentation_and_training_localization_content_form_set_documentation_translation(DocumentationAndTrainingLocalizationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "documentationTranslation", value);
-}
-
-void documentation_and_training_training_content_form_init(DocumentationAndTrainingTrainingContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void documentation_and_training_training_content_form_free(DocumentationAndTrainingTrainingContentForm *self) {
-  som_node_free(&self->node);
-}
-char *documentation_and_training_training_content_form_training_materials(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingMaterials");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_training_materials(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingMaterials", value);
-}
-char *documentation_and_training_training_content_form_training_format(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingFormat");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_training_format(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingFormat", value);
-}
-char *documentation_and_training_training_content_form_training_duration(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingDuration");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_training_duration(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingDuration", value);
-}
-char *documentation_and_training_training_content_form_training_schedule(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingSchedule");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_training_schedule(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingSchedule", value);
-}
-char *documentation_and_training_training_content_form_train_the_trainer(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainTheTrainer");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_train_the_trainer(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainTheTrainer", value);
-}
-char *documentation_and_training_training_content_form_refresher_training(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "refresherTraining");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_refresher_training(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "refresherTraining", value);
-}
-char *documentation_and_training_training_content_form_knowledge_transfer_plan(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "knowledgeTransferPlan");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_knowledge_transfer_plan(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "knowledgeTransferPlan", value);
-}
-char *documentation_and_training_training_content_form_support_handoff(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "supportHandoff");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_support_handoff(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "supportHandoff", value);
-}
-char *documentation_and_training_training_content_form_certification_program(const DocumentationAndTrainingTrainingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "certificationProgram");
-  return som_strdup(v != NULL ? v : "");
-}
-void documentation_and_training_training_content_form_set_certification_program(DocumentationAndTrainingTrainingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "certificationProgram", value);
 }
 
 void documentation_quality_criteria_documentation_overview_content_form_init(DocumentationQualityCriteriaDocumentationOverviewContentForm *self, SpecDocument *doc, const char *path) {
@@ -157481,6 +157404,76 @@ void training_assessment_reporting_content_form_set_management_visibility(Traini
   spec_document_set_form_field(self->node.doc, self->node.path, "managementVisibility", value);
 }
 
+void training_deliverable_requirements_training_content_form_init(TrainingDeliverableRequirementsTrainingContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void training_deliverable_requirements_training_content_form_free(TrainingDeliverableRequirementsTrainingContentForm *self) {
+  som_node_free(&self->node);
+}
+char *training_deliverable_requirements_training_content_form_training_materials(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingMaterials");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_training_materials(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trainingMaterials", value);
+}
+char *training_deliverable_requirements_training_content_form_training_format(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingFormat");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_training_format(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trainingFormat", value);
+}
+char *training_deliverable_requirements_training_content_form_training_duration(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingDuration");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_training_duration(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trainingDuration", value);
+}
+char *training_deliverable_requirements_training_content_form_training_schedule(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingSchedule");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_training_schedule(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trainingSchedule", value);
+}
+char *training_deliverable_requirements_training_content_form_train_the_trainer(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainTheTrainer");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_train_the_trainer(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "trainTheTrainer", value);
+}
+char *training_deliverable_requirements_training_content_form_refresher_training(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "refresherTraining");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_refresher_training(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "refresherTraining", value);
+}
+char *training_deliverable_requirements_training_content_form_knowledge_transfer_plan(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "knowledgeTransferPlan");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_knowledge_transfer_plan(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "knowledgeTransferPlan", value);
+}
+char *training_deliverable_requirements_training_content_form_support_handoff(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "supportHandoff");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_support_handoff(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "supportHandoff", value);
+}
+char *training_deliverable_requirements_training_content_form_certification_program(const TrainingDeliverableRequirementsTrainingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "certificationProgram");
+  return som_strdup(v != NULL ? v : "");
+}
+void training_deliverable_requirements_training_content_form_set_certification_program(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "certificationProgram", value);
+}
+
 void training_enablement_requirements_content_form_init(TrainingEnablementRequirementsContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -161784,6 +161777,34 @@ char *user_category_role_entry_content_form_performance_metrics(const UserCatego
 }
 void user_category_role_entry_content_form_set_performance_metrics(UserCategoryRoleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "performanceMetrics", value);
+}
+
+void user_documentation_requirements_documentation_content_form_init(UserDocumentationRequirementsDocumentationContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void user_documentation_requirements_documentation_content_form_free(UserDocumentationRequirementsDocumentationContentForm *self) {
+  som_node_free(&self->node);
+}
+char *user_documentation_requirements_documentation_content_form_documentation_format(const UserDocumentationRequirementsDocumentationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationFormat");
+  return som_strdup(v != NULL ? v : "");
+}
+void user_documentation_requirements_documentation_content_form_set_documentation_format(UserDocumentationRequirementsDocumentationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "documentationFormat", value);
+}
+char *user_documentation_requirements_documentation_content_form_documentation_platform(const UserDocumentationRequirementsDocumentationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationPlatform");
+  return som_strdup(v != NULL ? v : "");
+}
+void user_documentation_requirements_documentation_content_form_set_documentation_platform(UserDocumentationRequirementsDocumentationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "documentationPlatform", value);
+}
+char *user_documentation_requirements_documentation_content_form_documentation_versioning(const UserDocumentationRequirementsDocumentationContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentationVersioning");
+  return som_strdup(v != NULL ? v : "");
+}
+void user_documentation_requirements_documentation_content_form_set_documentation_versioning(UserDocumentationRequirementsDocumentationContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "documentationVersioning", value);
 }
 
 void user_group_impact_entry_content_form_init(UserGroupImpactEntryContentForm *self, SpecDocument *doc, const char *path) {

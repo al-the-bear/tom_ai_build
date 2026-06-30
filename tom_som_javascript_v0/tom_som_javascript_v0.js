@@ -12087,9 +12087,16 @@ class D12TransitionRolloutPlan extends SomNode {
     return new TranslationProcess(this.doc, this.path + "/translationProcess");
   }
 
-  // Documentation and training.
-  get documentationAndTraining() {
-    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
+  // User documentation requirements (doc half of the former DOANTR;
+  // split in L34C-7).
+  get userDocumentation() {
+    return new UserDocumentationRequirements(this.doc, this.path + "/userDocumentation");
+  }
+
+  // Training deliverable requirements (training half of the former DOANTR;
+  // split in L34C-7).
+  get trainingDeliverables() {
+    return new TrainingDeliverableRequirements(this.doc, this.path + "/trainingDeliverables");
   }
 
   // Rollout plan.
@@ -17505,43 +17512,6 @@ class DocumentRelevantSections extends SomNode {
   // Individual relevant section entries.
   get sections() {
     return new SomList(this.doc, this.path + "/RESEEN-SECT-LST", (d, p) => new RelevantSectionEntry(d, p));
-  }
-}
-
-// 10.12.3. Documentation and Training.
-//
-// End-user documentation and training materials.
-class DocumentationAndTraining extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get documentationContent() {
-    return new DocumentationAndTrainingDocumentationContentForm(this.doc, this.path + "/documentationContent");
-  }
-
-  // Documentation deliverables provided to users.
-  get deliverables() {
-    return new DocumentationAndTrainingDeliverables(this.doc, this.path + "/deliverables");
-  }
-
-  // Documentation localization approach.
-  get localization() {
-    return new DocumentationAndTrainingLocalization(this.doc, this.path + "/localization");
-  }
-
-  get trainingContent() {
-    return new DocumentationAndTrainingTrainingContentForm(this.doc, this.path + "/trainingContent");
-  }
-
-  // Documentation and training narrative.
-  get documentationNarrative() {
-    return null; // (skipped: no target type)
-  }
-
-  // Training module entries.
-  get trainingModules() {
-    return new SomList(this.doc, this.path + "/TRMOEN-TRAI-LST", (d, p) => new TrainingModuleEntry(d, p));
   }
 }
 
@@ -23798,9 +23768,9 @@ class InformationArchitecture extends SomNode {
 // *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
-// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-// doc/training field-split (separating the documentation half from the
-// training half) is deferred to IP-8.
+// Holds the documentation half of the former `DocumentationAndTraining`,
+// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+// re-homed to [TrainingEnablementRequirements].
 class InformationForUseRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -23814,10 +23784,9 @@ class InformationForUseRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Documentation (and, until the IP-8 split, training) requirements,
-  // re-homed from MLAR.
-  get documentationAndTraining() {
-    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
+  // User documentation requirements (doc half of the former DOANTR).
+  get userDocumentation() {
+    return new UserDocumentationRequirements(this.doc, this.path + "/userDocumentation");
   }
 }
 
@@ -51867,6 +51836,35 @@ class TrainingAssessmentReporting extends SomNode {
   }
 }
 
+// 10.12.3b. Training Deliverable Requirements.
+//
+// End-user training materials and module catalogue. The training half of the
+// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// content in one D12 subsection rather than fragmenting it across a new id.
+class TrainingDeliverableRequirements extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get trainingContent() {
+    return new TrainingDeliverableRequirementsTrainingContentForm(this.doc, this.path + "/trainingContent");
+  }
+
+  // Training narrative.
+  get trainingNarrative() {
+    return null; // (skipped: no target type)
+  }
+
+  // Training module entries.
+  get trainingModules() {
+    return new SomList(this.doc, this.path + "/TRMOEN-TRAI-LST", (d, p) => new TrainingModuleEntry(d, p));
+  }
+}
+
 // 14.1.3. Training Deliverables.
 class TrainingDeliverables extends SomNode {
   constructor(doc, path) {
@@ -51890,10 +51888,10 @@ class TrainingDeliverables extends SomNode {
 // Training & Enablement requirements.
 //
 // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-// detailed training-module catalogue currently lives inside
-// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-// pending the IP-8 doc/training split.
+// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The detailed training-material content and module catalogue is the training
+// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+// re-homed here as [TrainingDeliverableRequirements].
 class TrainingEnablementRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -51902,6 +51900,11 @@ class TrainingEnablementRequirements extends SomNode {
   // Training & enablement requirement form.
   get content() {
     return new TrainingEnablementRequirementsContentForm(this.doc, this.path + "/content");
+  }
+
+  // Training deliverable requirements (training half of the former DOANTR).
+  get trainingDeliverables() {
+    return new TrainingDeliverableRequirements(this.doc, this.path + "/trainingDeliverables");
   }
 }
 
@@ -53860,6 +53863,39 @@ class UserCategoryRoleEntry extends SomNode {
 
   get content() {
     return new UserCategoryRoleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 10.12.3. User Documentation Requirements.
+//
+// End-user documentation deliverables. The documentation half of the former
+// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+// `TRP-DOC` D12 detail subsection.
+class UserDocumentationRequirements extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get documentationContent() {
+    return new UserDocumentationRequirementsDocumentationContentForm(this.doc, this.path + "/documentationContent");
+  }
+
+  // Documentation deliverables provided to users.
+  get deliverables() {
+    return new DocumentationAndTrainingDeliverables(this.doc, this.path + "/deliverables");
+  }
+
+  // Documentation localization approach.
+  get localization() {
+    return new DocumentationAndTrainingLocalization(this.doc, this.path + "/localization");
+  }
+
+  // Documentation narrative.
+  get documentationNarrative() {
+    return null; // (skipped: no target type)
   }
 }
 
@@ -86564,37 +86600,6 @@ class DocumentationAndTrainingDeliverablesContentForm extends SomNode {
   }
 }
 
-// Generated form facade for the `documentationContent` @Form section.
-class DocumentationAndTrainingDocumentationContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get documentationFormat() {
-    return this.doc.formField(this.path, "documentationFormat") || '';
-  }
-
-  set documentationFormat(value) {
-    this.doc.setFormField(this.path, "documentationFormat", value);
-  }
-
-  get documentationPlatform() {
-    return this.doc.formField(this.path, "documentationPlatform") || '';
-  }
-
-  set documentationPlatform(value) {
-    this.doc.setFormField(this.path, "documentationPlatform", value);
-  }
-
-  get documentationVersioning() {
-    return this.doc.formField(this.path, "documentationVersioning") || '';
-  }
-
-  set documentationVersioning(value) {
-    this.doc.setFormField(this.path, "documentationVersioning", value);
-  }
-}
-
 // Generated form facade for the `content` @Form section.
 class DocumentationAndTrainingLocalizationContentForm extends SomNode {
   constructor(doc, path) {
@@ -86615,85 +86620,6 @@ class DocumentationAndTrainingLocalizationContentForm extends SomNode {
 
   set documentationTranslation(value) {
     this.doc.setFormField(this.path, "documentationTranslation", value);
-  }
-}
-
-// Generated form facade for the `trainingContent` @Form section.
-class DocumentationAndTrainingTrainingContentForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get trainingMaterials() {
-    return this.doc.formField(this.path, "trainingMaterials") || '';
-  }
-
-  set trainingMaterials(value) {
-    this.doc.setFormField(this.path, "trainingMaterials", value);
-  }
-
-  get trainingFormat() {
-    return this.doc.formField(this.path, "trainingFormat") || '';
-  }
-
-  set trainingFormat(value) {
-    this.doc.setFormField(this.path, "trainingFormat", value);
-  }
-
-  get trainingDuration() {
-    return this.doc.formField(this.path, "trainingDuration") || '';
-  }
-
-  set trainingDuration(value) {
-    this.doc.setFormField(this.path, "trainingDuration", value);
-  }
-
-  get trainingSchedule() {
-    return this.doc.formField(this.path, "trainingSchedule") || '';
-  }
-
-  set trainingSchedule(value) {
-    this.doc.setFormField(this.path, "trainingSchedule", value);
-  }
-
-  get trainTheTrainer() {
-    return this.doc.formField(this.path, "trainTheTrainer") || '';
-  }
-
-  set trainTheTrainer(value) {
-    this.doc.setFormField(this.path, "trainTheTrainer", value);
-  }
-
-  get refresherTraining() {
-    return this.doc.formField(this.path, "refresherTraining") || '';
-  }
-
-  set refresherTraining(value) {
-    this.doc.setFormField(this.path, "refresherTraining", value);
-  }
-
-  get knowledgeTransferPlan() {
-    return this.doc.formField(this.path, "knowledgeTransferPlan") || '';
-  }
-
-  set knowledgeTransferPlan(value) {
-    this.doc.setFormField(this.path, "knowledgeTransferPlan", value);
-  }
-
-  get supportHandoff() {
-    return this.doc.formField(this.path, "supportHandoff") || '';
-  }
-
-  set supportHandoff(value) {
-    this.doc.setFormField(this.path, "supportHandoff", value);
-  }
-
-  get certificationProgram() {
-    return this.doc.formField(this.path, "certificationProgram") || '';
-  }
-
-  set certificationProgram(value) {
-    this.doc.setFormField(this.path, "certificationProgram", value);
   }
 }
 
@@ -155155,6 +155081,85 @@ class TrainingAssessmentReportingContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `trainingContent` @Form section.
+class TrainingDeliverableRequirementsTrainingContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get trainingMaterials() {
+    return this.doc.formField(this.path, "trainingMaterials") || '';
+  }
+
+  set trainingMaterials(value) {
+    this.doc.setFormField(this.path, "trainingMaterials", value);
+  }
+
+  get trainingFormat() {
+    return this.doc.formField(this.path, "trainingFormat") || '';
+  }
+
+  set trainingFormat(value) {
+    this.doc.setFormField(this.path, "trainingFormat", value);
+  }
+
+  get trainingDuration() {
+    return this.doc.formField(this.path, "trainingDuration") || '';
+  }
+
+  set trainingDuration(value) {
+    this.doc.setFormField(this.path, "trainingDuration", value);
+  }
+
+  get trainingSchedule() {
+    return this.doc.formField(this.path, "trainingSchedule") || '';
+  }
+
+  set trainingSchedule(value) {
+    this.doc.setFormField(this.path, "trainingSchedule", value);
+  }
+
+  get trainTheTrainer() {
+    return this.doc.formField(this.path, "trainTheTrainer") || '';
+  }
+
+  set trainTheTrainer(value) {
+    this.doc.setFormField(this.path, "trainTheTrainer", value);
+  }
+
+  get refresherTraining() {
+    return this.doc.formField(this.path, "refresherTraining") || '';
+  }
+
+  set refresherTraining(value) {
+    this.doc.setFormField(this.path, "refresherTraining", value);
+  }
+
+  get knowledgeTransferPlan() {
+    return this.doc.formField(this.path, "knowledgeTransferPlan") || '';
+  }
+
+  set knowledgeTransferPlan(value) {
+    this.doc.setFormField(this.path, "knowledgeTransferPlan", value);
+  }
+
+  get supportHandoff() {
+    return this.doc.formField(this.path, "supportHandoff") || '';
+  }
+
+  set supportHandoff(value) {
+    this.doc.setFormField(this.path, "supportHandoff", value);
+  }
+
+  get certificationProgram() {
+    return this.doc.formField(this.path, "certificationProgram") || '';
+  }
+
+  set certificationProgram(value) {
+    this.doc.setFormField(this.path, "certificationProgram", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class TrainingEnablementRequirementsContentForm extends SomNode {
   constructor(doc, path) {
@@ -159965,6 +159970,37 @@ class UserCategoryRoleEntryContentForm extends SomNode {
   }
 }
 
+// Generated form facade for the `documentationContent` @Form section.
+class UserDocumentationRequirementsDocumentationContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get documentationFormat() {
+    return this.doc.formField(this.path, "documentationFormat") || '';
+  }
+
+  set documentationFormat(value) {
+    this.doc.setFormField(this.path, "documentationFormat", value);
+  }
+
+  get documentationPlatform() {
+    return this.doc.formField(this.path, "documentationPlatform") || '';
+  }
+
+  set documentationPlatform(value) {
+    this.doc.setFormField(this.path, "documentationPlatform", value);
+  }
+
+  get documentationVersioning() {
+    return this.doc.formField(this.path, "documentationVersioning") || '';
+  }
+
+  set documentationVersioning(value) {
+    this.doc.setFormField(this.path, "documentationVersioning", value);
+  }
+}
+
 // Generated form facade for the `content` @Form section.
 class UserGroupImpactEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -164502,7 +164538,6 @@ module.exports = {
   DocumentHeader,
   DocumentRelationships,
   DocumentRelevantSections,
-  DocumentationAndTraining,
   DocumentationAndTrainingDeliverables,
   DocumentationAndTrainingLocalization,
   DocumentationDeliverables,
@@ -166421,6 +166456,7 @@ module.exports = {
   TrainingAssessmentEffectiveness,
   TrainingAssessmentImprovement,
   TrainingAssessmentReporting,
+  TrainingDeliverableRequirements,
   TrainingDeliverables,
   TrainingEnablementRequirements,
   TrainingMaterials,
@@ -166537,6 +166573,7 @@ module.exports = {
   UserCategoryEntryImportance,
   UserCategoryEntryUsage,
   UserCategoryRoleEntry,
+  UserDocumentationRequirements,
   UserGroupImpactEntry,
   UserGrowthProjections,
   UserGrowthProjectionsForecast,
@@ -167444,9 +167481,7 @@ module.exports = {
   DocumentHeaderContentForm,
   DocumentRelevantSectionsContentForm,
   DocumentationAndTrainingDeliverablesContentForm,
-  DocumentationAndTrainingDocumentationContentForm,
   DocumentationAndTrainingLocalizationContentForm,
-  DocumentationAndTrainingTrainingContentForm,
   DocumentationQualityCriteriaDocumentationOverviewContentForm,
   DocumentationStandardsArchitectureContentForm,
   DocumentationStandardsCodeDocsContentForm,
@@ -169101,6 +169136,7 @@ module.exports = {
   TrainingAssessmentEffectivenessContentForm,
   TrainingAssessmentImprovementContentForm,
   TrainingAssessmentReportingContentForm,
+  TrainingDeliverableRequirementsTrainingContentForm,
   TrainingEnablementRequirementsContentForm,
   TrainingMaterialsContentForm,
   TrainingMaterialsKnowledgeContentForm,
@@ -169211,6 +169247,7 @@ module.exports = {
   UserCategoryEntryImportanceContentForm,
   UserCategoryEntryUsageContentForm,
   UserCategoryRoleEntryContentForm,
+  UserDocumentationRequirementsDocumentationContentForm,
   UserGroupImpactEntryContentForm,
   UserGrowthProjectionsContentForm,
   UserGrowthProjectionsForecastContentForm,

@@ -7566,8 +7566,13 @@ class D12TransitionRolloutPlan extends SomNode {
   /// Translation process.
   TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
 
-  /// Documentation and training.
-  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
+  /// User documentation requirements (doc half of the former DOANTR;
+  /// split in L34C-7).
+  UserDocumentationRequirements get userDocumentation => UserDocumentationRequirements(doc, '$path/userDocumentation');
+
+  /// Training deliverable requirements (training half of the former DOANTR;
+  /// split in L34C-7).
+  TrainingDeliverableRequirements get trainingDeliverables => TrainingDeliverableRequirements(doc, '$path/trainingDeliverables');
 
   /// Rollout plan.
   RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
@@ -10933,29 +10938,6 @@ class DocumentRelevantSections extends SomNode {
 
   /// Individual relevant section entries.
   SomList<RelevantSectionEntry> get sections => SomList<RelevantSectionEntry>(doc, '$path/RESEEN-SECT-LST', (d, p) => RelevantSectionEntry(d, p));
-}
-
-/// 10.12.3. Documentation and Training.
-/// 
-/// End-user documentation and training materials.
-class DocumentationAndTraining extends SomNode {
-  DocumentationAndTraining(super.doc, super.path);
-
-  DocumentationAndTrainingDocumentationContentForm get documentationContent => DocumentationAndTrainingDocumentationContentForm(doc, '$path/documentationContent');
-
-  /// Documentation deliverables provided to users.
-  DocumentationAndTrainingDeliverables get deliverables => DocumentationAndTrainingDeliverables(doc, '$path/deliverables');
-
-  /// Documentation localization approach.
-  DocumentationAndTrainingLocalization get localization => DocumentationAndTrainingLocalization(doc, '$path/localization');
-
-  DocumentationAndTrainingTrainingContentForm get trainingContent => DocumentationAndTrainingTrainingContentForm(doc, '$path/trainingContent');
-
-  /// Documentation and training narrative.
-  // (skipped: documentationNarrative has no target type)
-
-  /// Training module entries.
-  SomList<TrainingModuleEntry> get trainingModules => SomList<TrainingModuleEntry>(doc, '$path/TRMOEN-TRAI-LST', (d, p) => TrainingModuleEntry(d, p));
 }
 
 /// Documentation deliverables provided to users.
@@ -14863,18 +14845,17 @@ class InformationArchitecture extends SomNode {
 /// *quality criteria* cross-map lives in SBP.14
 /// (`DocumentationQualityCriteria`).
 /// 
-/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-/// doc/training field-split (separating the documentation half from the
-/// training half) is deferred to IP-8.
+/// Holds the documentation half of the former `DocumentationAndTraining`,
+/// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+/// re-homed to [TrainingEnablementRequirements].
 class InformationForUseRequirements extends SomNode {
   InformationForUseRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Documentation (and, until the IP-8 split, training) requirements,
-  /// re-homed from MLAR.
-  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
+  /// User documentation requirements (doc half of the former DOANTR).
+  UserDocumentationRequirements get userDocumentation => UserDocumentationRequirements(doc, '$path/userDocumentation');
 }
 
 /// Infrastructure as Code requirements.
@@ -32418,6 +32399,27 @@ class TrainingAssessmentReporting extends SomNode {
   TrainingAssessmentReportingContentForm get content => TrainingAssessmentReportingContentForm(doc, '$path/content');
 }
 
+/// 10.12.3b. Training Deliverable Requirements.
+/// 
+/// End-user training materials and module catalogue. The training half of the
+/// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+/// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+/// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+/// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// content in one D12 subsection rather than fragmenting it across a new id.
+class TrainingDeliverableRequirements extends SomNode {
+  TrainingDeliverableRequirements(super.doc, super.path);
+
+  TrainingDeliverableRequirementsTrainingContentForm get trainingContent => TrainingDeliverableRequirementsTrainingContentForm(doc, '$path/trainingContent');
+
+  /// Training narrative.
+  // (skipped: trainingNarrative has no target type)
+
+  /// Training module entries.
+  SomList<TrainingModuleEntry> get trainingModules => SomList<TrainingModuleEntry>(doc, '$path/TRMOEN-TRAI-LST', (d, p) => TrainingModuleEntry(d, p));
+}
+
 /// 14.1.3. Training Deliverables.
 class TrainingDeliverables extends SomNode {
   TrainingDeliverables(super.doc, super.path);
@@ -32432,15 +32434,18 @@ class TrainingDeliverables extends SomNode {
 /// Training & Enablement requirements.
 /// 
 /// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-/// detailed training-module catalogue currently lives inside
-/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-/// pending the IP-8 doc/training split.
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+/// The detailed training-material content and module catalogue is the training
+/// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+/// re-homed here as [TrainingDeliverableRequirements].
 class TrainingEnablementRequirements extends SomNode {
   TrainingEnablementRequirements(super.doc, super.path);
 
   /// Training & enablement requirement form.
   TrainingEnablementRequirementsContentForm get content => TrainingEnablementRequirementsContentForm(doc, '$path/content');
+
+  /// Training deliverable requirements (training half of the former DOANTR).
+  TrainingDeliverableRequirements get trainingDeliverables => TrainingDeliverableRequirements(doc, '$path/trainingDeliverables');
 }
 
 /// Training materials and resources.
@@ -33672,6 +33677,29 @@ class UserCategoryRoleEntry extends SomNode {
   UserCategoryRoleEntry(super.doc, super.path);
 
   UserCategoryRoleEntryContentForm get content => UserCategoryRoleEntryContentForm(doc, '$path/content');
+}
+
+/// 10.12.3. User Documentation Requirements.
+/// 
+/// End-user documentation deliverables. The documentation half of the former
+/// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+/// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+/// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+/// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+/// `TRP-DOC` D12 detail subsection.
+class UserDocumentationRequirements extends SomNode {
+  UserDocumentationRequirements(super.doc, super.path);
+
+  UserDocumentationRequirementsDocumentationContentForm get documentationContent => UserDocumentationRequirementsDocumentationContentForm(doc, '$path/documentationContent');
+
+  /// Documentation deliverables provided to users.
+  DocumentationAndTrainingDeliverables get deliverables => DocumentationAndTrainingDeliverables(doc, '$path/deliverables');
+
+  /// Documentation localization approach.
+  DocumentationAndTrainingLocalization get localization => DocumentationAndTrainingLocalization(doc, '$path/localization');
+
+  /// Documentation narrative.
+  // (skipped: documentationNarrative has no target type)
 }
 
 /// User group impact entry.
@@ -48315,20 +48343,6 @@ class DocumentationAndTrainingDeliverablesContentForm extends SomNode {
   set releaseNotes(String value) => doc.setFormField(path, 'releaseNotes', value);
 }
 
-/// Generated form facade for the `documentationContent` `@Form` section.
-class DocumentationAndTrainingDocumentationContentForm extends SomNode {
-  DocumentationAndTrainingDocumentationContentForm(super.doc, super.path);
-
-  String get documentationFormat => doc.formField(path, 'documentationFormat') ?? '';
-  set documentationFormat(String value) => doc.setFormField(path, 'documentationFormat', value);
-
-  String get documentationPlatform => doc.formField(path, 'documentationPlatform') ?? '';
-  set documentationPlatform(String value) => doc.setFormField(path, 'documentationPlatform', value);
-
-  String get documentationVersioning => doc.formField(path, 'documentationVersioning') ?? '';
-  set documentationVersioning(String value) => doc.setFormField(path, 'documentationVersioning', value);
-}
-
 /// Generated form facade for the `content` `@Form` section.
 class DocumentationAndTrainingLocalizationContentForm extends SomNode {
   DocumentationAndTrainingLocalizationContentForm(super.doc, super.path);
@@ -48338,38 +48352,6 @@ class DocumentationAndTrainingLocalizationContentForm extends SomNode {
 
   String get documentationTranslation => doc.formField(path, 'documentationTranslation') ?? '';
   set documentationTranslation(String value) => doc.setFormField(path, 'documentationTranslation', value);
-}
-
-/// Generated form facade for the `trainingContent` `@Form` section.
-class DocumentationAndTrainingTrainingContentForm extends SomNode {
-  DocumentationAndTrainingTrainingContentForm(super.doc, super.path);
-
-  String get trainingMaterials => doc.formField(path, 'trainingMaterials') ?? '';
-  set trainingMaterials(String value) => doc.setFormField(path, 'trainingMaterials', value);
-
-  String get trainingFormat => doc.formField(path, 'trainingFormat') ?? '';
-  set trainingFormat(String value) => doc.setFormField(path, 'trainingFormat', value);
-
-  String get trainingDuration => doc.formField(path, 'trainingDuration') ?? '';
-  set trainingDuration(String value) => doc.setFormField(path, 'trainingDuration', value);
-
-  String get trainingSchedule => doc.formField(path, 'trainingSchedule') ?? '';
-  set trainingSchedule(String value) => doc.setFormField(path, 'trainingSchedule', value);
-
-  String get trainTheTrainer => doc.formField(path, 'trainTheTrainer') ?? '';
-  set trainTheTrainer(String value) => doc.setFormField(path, 'trainTheTrainer', value);
-
-  String get refresherTraining => doc.formField(path, 'refresherTraining') ?? '';
-  set refresherTraining(String value) => doc.setFormField(path, 'refresherTraining', value);
-
-  String get knowledgeTransferPlan => doc.formField(path, 'knowledgeTransferPlan') ?? '';
-  set knowledgeTransferPlan(String value) => doc.setFormField(path, 'knowledgeTransferPlan', value);
-
-  String get supportHandoff => doc.formField(path, 'supportHandoff') ?? '';
-  set supportHandoff(String value) => doc.setFormField(path, 'supportHandoff', value);
-
-  String get certificationProgram => doc.formField(path, 'certificationProgram') ?? '';
-  set certificationProgram(String value) => doc.setFormField(path, 'certificationProgram', value);
 }
 
 /// Generated form facade for the `documentationOverviewContent` `@Form` section.
@@ -77972,6 +77954,38 @@ class TrainingAssessmentReportingContentForm extends SomNode {
   set managementVisibility(String value) => doc.setFormField(path, 'managementVisibility', value);
 }
 
+/// Generated form facade for the `trainingContent` `@Form` section.
+class TrainingDeliverableRequirementsTrainingContentForm extends SomNode {
+  TrainingDeliverableRequirementsTrainingContentForm(super.doc, super.path);
+
+  String get trainingMaterials => doc.formField(path, 'trainingMaterials') ?? '';
+  set trainingMaterials(String value) => doc.setFormField(path, 'trainingMaterials', value);
+
+  String get trainingFormat => doc.formField(path, 'trainingFormat') ?? '';
+  set trainingFormat(String value) => doc.setFormField(path, 'trainingFormat', value);
+
+  String get trainingDuration => doc.formField(path, 'trainingDuration') ?? '';
+  set trainingDuration(String value) => doc.setFormField(path, 'trainingDuration', value);
+
+  String get trainingSchedule => doc.formField(path, 'trainingSchedule') ?? '';
+  set trainingSchedule(String value) => doc.setFormField(path, 'trainingSchedule', value);
+
+  String get trainTheTrainer => doc.formField(path, 'trainTheTrainer') ?? '';
+  set trainTheTrainer(String value) => doc.setFormField(path, 'trainTheTrainer', value);
+
+  String get refresherTraining => doc.formField(path, 'refresherTraining') ?? '';
+  set refresherTraining(String value) => doc.setFormField(path, 'refresherTraining', value);
+
+  String get knowledgeTransferPlan => doc.formField(path, 'knowledgeTransferPlan') ?? '';
+  set knowledgeTransferPlan(String value) => doc.setFormField(path, 'knowledgeTransferPlan', value);
+
+  String get supportHandoff => doc.formField(path, 'supportHandoff') ?? '';
+  set supportHandoff(String value) => doc.setFormField(path, 'supportHandoff', value);
+
+  String get certificationProgram => doc.formField(path, 'certificationProgram') ?? '';
+  set certificationProgram(String value) => doc.setFormField(path, 'certificationProgram', value);
+}
+
 /// Generated form facade for the `content` `@Form` section.
 class TrainingEnablementRequirementsContentForm extends SomNode {
   TrainingEnablementRequirementsContentForm(super.doc, super.path);
@@ -80035,6 +80049,20 @@ class UserCategoryRoleEntryContentForm extends SomNode {
 
   String get performanceMetrics => doc.formField(path, 'performanceMetrics') ?? '';
   set performanceMetrics(String value) => doc.setFormField(path, 'performanceMetrics', value);
+}
+
+/// Generated form facade for the `documentationContent` `@Form` section.
+class UserDocumentationRequirementsDocumentationContentForm extends SomNode {
+  UserDocumentationRequirementsDocumentationContentForm(super.doc, super.path);
+
+  String get documentationFormat => doc.formField(path, 'documentationFormat') ?? '';
+  set documentationFormat(String value) => doc.setFormField(path, 'documentationFormat', value);
+
+  String get documentationPlatform => doc.formField(path, 'documentationPlatform') ?? '';
+  set documentationPlatform(String value) => doc.setFormField(path, 'documentationPlatform', value);
+
+  String get documentationVersioning => doc.formField(path, 'documentationVersioning') ?? '';
+  set documentationVersioning(String value) => doc.setFormField(path, 'documentationVersioning', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

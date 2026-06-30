@@ -40,9 +40,15 @@ class D12TransitionRolloutPlan {
   /// Translation process.
   TranslationProcess translationProcess = TranslationProcess();
 
-  /// Documentation and training.
-  DocumentationAndTraining documentationAndTraining =
-      DocumentationAndTraining();
+  /// User documentation requirements (doc half of the former DOANTR;
+  /// split in L34C-7).
+  UserDocumentationRequirements userDocumentation =
+      UserDocumentationRequirements();
+
+  /// Training deliverable requirements (training half of the former DOANTR;
+  /// split in L34C-7).
+  TrainingDeliverableRequirements trainingDeliverables =
+      TrainingDeliverableRequirements();
 
   // ─── System Rollout Concept (flattened) ──────────────────────────────────
 

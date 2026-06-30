@@ -931,7 +931,6 @@ class DocumentControl;
 class DocumentHeader;
 class DocumentRelationships;
 class DocumentRelevantSections;
-class DocumentationAndTraining;
 class DocumentationAndTrainingDeliverables;
 class DocumentationAndTrainingLocalization;
 class DocumentationDeliverables;
@@ -2850,6 +2849,7 @@ class TrainingAssessment;
 class TrainingAssessmentEffectiveness;
 class TrainingAssessmentImprovement;
 class TrainingAssessmentReporting;
+class TrainingDeliverableRequirements;
 class TrainingDeliverables;
 class TrainingEnablementRequirements;
 class TrainingMaterials;
@@ -2966,6 +2966,7 @@ class UserCategoryEntry;
 class UserCategoryEntryImportance;
 class UserCategoryEntryUsage;
 class UserCategoryRoleEntry;
+class UserDocumentationRequirements;
 class UserGroupImpactEntry;
 class UserGrowthProjections;
 class UserGrowthProjectionsForecast;
@@ -3873,9 +3874,7 @@ class DocCorrectnessQualityVerificationContentForm;
 class DocumentHeaderContentForm;
 class DocumentRelevantSectionsContentForm;
 class DocumentationAndTrainingDeliverablesContentForm;
-class DocumentationAndTrainingDocumentationContentForm;
 class DocumentationAndTrainingLocalizationContentForm;
-class DocumentationAndTrainingTrainingContentForm;
 class DocumentationQualityCriteriaDocumentationOverviewContentForm;
 class DocumentationStandardsArchitectureContentForm;
 class DocumentationStandardsCodeDocsContentForm;
@@ -5530,6 +5529,7 @@ class TrainingAssessmentContentForm;
 class TrainingAssessmentEffectivenessContentForm;
 class TrainingAssessmentImprovementContentForm;
 class TrainingAssessmentReportingContentForm;
+class TrainingDeliverableRequirementsTrainingContentForm;
 class TrainingEnablementRequirementsContentForm;
 class TrainingMaterialsContentForm;
 class TrainingMaterialsKnowledgeContentForm;
@@ -5640,6 +5640,7 @@ class UserCategoryEntryContentForm;
 class UserCategoryEntryImportanceContentForm;
 class UserCategoryEntryUsageContentForm;
 class UserCategoryRoleEntryContentForm;
+class UserDocumentationRequirementsDocumentationContentForm;
 class UserGroupImpactEntryContentForm;
 class UserGrowthProjectionsContentForm;
 class UserGrowthProjectionsForecastContentForm;
@@ -12517,8 +12518,12 @@ class D12TransitionRolloutPlan : public som::SomNode {
   LocalizationProcess localizationProcess() const;
   // Translation process.
   TranslationProcess translationProcess() const;
-  // Documentation and training.
-  DocumentationAndTraining documentationAndTraining() const;
+  // User documentation requirements (doc half of the former DOANTR;
+  // split in L34C-7).
+  UserDocumentationRequirements userDocumentation() const;
+  // Training deliverable requirements (training half of the former DOANTR;
+  // split in L34C-7).
+  TrainingDeliverableRequirements trainingDeliverables() const;
   // Rollout plan.
   RolloutPlan rolloutPlan() const;
   // Migration plan.
@@ -15576,25 +15581,6 @@ class DocumentRelevantSections : public som::SomNode {
   // Individual relevant section entries.
   // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
   som::SomList sections() const;
-};
-
-// 10.12.3. Documentation and Training.
-//
-// End-user documentation and training materials.
-class DocumentationAndTraining : public som::SomNode {
- public:
-  DocumentationAndTraining(som::SpecDocument& doc, std::string path);
-  DocumentationAndTrainingDocumentationContentForm documentationContent() const;
-  // Documentation deliverables provided to users.
-  DocumentationAndTrainingDeliverables deliverables() const;
-  // Documentation localization approach.
-  DocumentationAndTrainingLocalization localization() const;
-  DocumentationAndTrainingTrainingContentForm trainingContent() const;
-  // Documentation and training narrative.
-  // (skipped: documentationNarrative has no target type)
-  // Training module entries.
-  // Returns the list view; element type: TrainingModuleEntry (construct from item paths).
-  som::SomList trainingModules() const;
 };
 
 // Documentation deliverables provided to users.
@@ -19163,17 +19149,16 @@ class InformationArchitecture : public som::SomNode {
 // *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
-// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-// doc/training field-split (separating the documentation half from the
-// training half) is deferred to IP-8.
+// Holds the documentation half of the former `DocumentationAndTraining`,
+// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+// re-homed to [TrainingEnablementRequirements].
 class InformationForUseRequirements : public som::SomNode {
  public:
   InformationForUseRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Documentation (and, until the IP-8 split, training) requirements,
-  // re-homed from MLAR.
-  DocumentationAndTraining documentationAndTraining() const;
+  // User documentation requirements (doc half of the former DOANTR).
+  UserDocumentationRequirements userDocumentation() const;
 };
 
 // Infrastructure as Code requirements.
@@ -35239,6 +35224,26 @@ class TrainingAssessmentReporting : public som::SomNode {
   TrainingAssessmentReportingContentForm content() const;
 };
 
+// 10.12.3b. Training Deliverable Requirements.
+//
+// End-user training materials and module catalogue. The training half of the
+// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// content in one D12 subsection rather than fragmenting it across a new id.
+class TrainingDeliverableRequirements : public som::SomNode {
+ public:
+  TrainingDeliverableRequirements(som::SpecDocument& doc, std::string path);
+  TrainingDeliverableRequirementsTrainingContentForm trainingContent() const;
+  // Training narrative.
+  // (skipped: trainingNarrative has no target type)
+  // Training module entries.
+  // Returns the list view; element type: TrainingModuleEntry (construct from item paths).
+  som::SomList trainingModules() const;
+};
+
 // 14.1.3. Training Deliverables.
 class TrainingDeliverables : public som::SomNode {
  public:
@@ -35253,15 +35258,17 @@ class TrainingDeliverables : public som::SomNode {
 // Training & Enablement requirements.
 //
 // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-// detailed training-module catalogue currently lives inside
-// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-// pending the IP-8 doc/training split.
+// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The detailed training-material content and module catalogue is the training
+// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+// re-homed here as [TrainingDeliverableRequirements].
 class TrainingEnablementRequirements : public som::SomNode {
  public:
   TrainingEnablementRequirements(som::SpecDocument& doc, std::string path);
   // Training & enablement requirement form.
   TrainingEnablementRequirementsContentForm content() const;
+  // Training deliverable requirements (training half of the former DOANTR).
+  TrainingDeliverableRequirements trainingDeliverables() const;
 };
 
 // Training materials and resources.
@@ -36401,6 +36408,26 @@ class UserCategoryRoleEntry : public som::SomNode {
  public:
   UserCategoryRoleEntry(som::SpecDocument& doc, std::string path);
   UserCategoryRoleEntryContentForm content() const;
+};
+
+// 10.12.3. User Documentation Requirements.
+//
+// End-user documentation deliverables. The documentation half of the former
+// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+// `TRP-DOC` D12 detail subsection.
+class UserDocumentationRequirements : public som::SomNode {
+ public:
+  UserDocumentationRequirements(som::SpecDocument& doc, std::string path);
+  UserDocumentationRequirementsDocumentationContentForm documentationContent() const;
+  // Documentation deliverables provided to users.
+  DocumentationAndTrainingDeliverables deliverables() const;
+  // Documentation localization approach.
+  DocumentationAndTrainingLocalization localization() const;
+  // Documentation narrative.
+  // (skipped: documentationNarrative has no target type)
 };
 
 // User group impact entry.
@@ -48606,18 +48633,6 @@ class DocumentationAndTrainingDeliverablesContentForm : public som::SomNode {
   void setReleaseNotes(const std::string& value);
 };
 
-// Generated form facade for the `documentationContent` @Form section.
-class DocumentationAndTrainingDocumentationContentForm : public som::SomNode {
- public:
-  DocumentationAndTrainingDocumentationContentForm(som::SpecDocument& doc, std::string path);
-  std::string documentationFormat() const;
-  void setDocumentationFormat(const std::string& value);
-  std::string documentationPlatform() const;
-  void setDocumentationPlatform(const std::string& value);
-  std::string documentationVersioning() const;
-  void setDocumentationVersioning(const std::string& value);
-};
-
 // Generated form facade for the `content` @Form section.
 class DocumentationAndTrainingLocalizationContentForm : public som::SomNode {
  public:
@@ -48626,30 +48641,6 @@ class DocumentationAndTrainingLocalizationContentForm : public som::SomNode {
   void setDocumentationLanguages(const std::string& value);
   std::string documentationTranslation() const;
   void setDocumentationTranslation(const std::string& value);
-};
-
-// Generated form facade for the `trainingContent` @Form section.
-class DocumentationAndTrainingTrainingContentForm : public som::SomNode {
- public:
-  DocumentationAndTrainingTrainingContentForm(som::SpecDocument& doc, std::string path);
-  std::string trainingMaterials() const;
-  void setTrainingMaterials(const std::string& value);
-  std::string trainingFormat() const;
-  void setTrainingFormat(const std::string& value);
-  std::string trainingDuration() const;
-  void setTrainingDuration(const std::string& value);
-  std::string trainingSchedule() const;
-  void setTrainingSchedule(const std::string& value);
-  std::string trainTheTrainer() const;
-  void setTrainTheTrainer(const std::string& value);
-  std::string refresherTraining() const;
-  void setRefresherTraining(const std::string& value);
-  std::string knowledgeTransferPlan() const;
-  void setKnowledgeTransferPlan(const std::string& value);
-  std::string supportHandoff() const;
-  void setSupportHandoff(const std::string& value);
-  std::string certificationProgram() const;
-  void setCertificationProgram(const std::string& value);
 };
 
 // Generated form facade for the `documentationOverviewContent` @Form section.
@@ -72796,6 +72787,30 @@ class TrainingAssessmentReportingContentForm : public som::SomNode {
   void setManagementVisibility(const std::string& value);
 };
 
+// Generated form facade for the `trainingContent` @Form section.
+class TrainingDeliverableRequirementsTrainingContentForm : public som::SomNode {
+ public:
+  TrainingDeliverableRequirementsTrainingContentForm(som::SpecDocument& doc, std::string path);
+  std::string trainingMaterials() const;
+  void setTrainingMaterials(const std::string& value);
+  std::string trainingFormat() const;
+  void setTrainingFormat(const std::string& value);
+  std::string trainingDuration() const;
+  void setTrainingDuration(const std::string& value);
+  std::string trainingSchedule() const;
+  void setTrainingSchedule(const std::string& value);
+  std::string trainTheTrainer() const;
+  void setTrainTheTrainer(const std::string& value);
+  std::string refresherTraining() const;
+  void setRefresherTraining(const std::string& value);
+  std::string knowledgeTransferPlan() const;
+  void setKnowledgeTransferPlan(const std::string& value);
+  std::string supportHandoff() const;
+  void setSupportHandoff(const std::string& value);
+  std::string certificationProgram() const;
+  void setCertificationProgram(const std::string& value);
+};
+
 // Generated form facade for the `content` @Form section.
 class TrainingEnablementRequirementsContentForm : public som::SomNode {
  public:
@@ -74464,6 +74479,18 @@ class UserCategoryRoleEntryContentForm : public som::SomNode {
   void setCollaborators(const std::string& value);
   std::string performanceMetrics() const;
   void setPerformanceMetrics(const std::string& value);
+};
+
+// Generated form facade for the `documentationContent` @Form section.
+class UserDocumentationRequirementsDocumentationContentForm : public som::SomNode {
+ public:
+  UserDocumentationRequirementsDocumentationContentForm(som::SpecDocument& doc, std::string path);
+  std::string documentationFormat() const;
+  void setDocumentationFormat(const std::string& value);
+  std::string documentationPlatform() const;
+  void setDocumentationPlatform(const std::string& value);
+  std::string documentationVersioning() const;
+  void setDocumentationVersioning(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

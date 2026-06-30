@@ -37,7 +37,7 @@ section-types:
     description: 15.6. Cutover Procedures.
   DOANTR:
     prefix: doantr
-    description: 10.12.3. Documentation and Training.
+    description: 10.12.3. User Documentation Requirements.
   LOPRDE:
     prefix: loprde
     description: Deployment settings.
@@ -80,6 +80,9 @@ section-types:
   RLTTM:
     prefix: rlttm
     description: 15.4. Training Materials.
+  TRMAT:
+    prefix: trmat
+    description: 10.12.3b. Training Deliverable Requirements.
   WRTSP:
     prefix: wrtsp
     description: 15.8. Warranty and Support.
@@ -112,8 +115,11 @@ document:
     translationprocess:
       section-type: TRPR
       optional: true
-    documentationandtraining:
+    userdocumentation:
       section-type: DOANTR
+      optional: true
+    trainingdeliverables:
+      section-type: TRMAT
       optional: true
     rolloutplan:
       section-type: RLTPLN

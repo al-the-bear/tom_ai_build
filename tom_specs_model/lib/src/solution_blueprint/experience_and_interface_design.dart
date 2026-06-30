@@ -6615,17 +6615,19 @@ class TranslationVendorEntry {
   String? content;
 }
 
-/// 10.12.3. Documentation and Training.
+/// 10.12.3. User Documentation Requirements.
 ///
-/// End-user documentation and training materials.
+/// End-user documentation deliverables. The documentation half of the former
+/// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+/// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+/// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+/// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+/// `TRP-DOC` D12 detail subsection.
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
-class DocumentationAndTraining {
-  // ─────────────────────────────────────────────────────────────────────────
-  // Documentation
-  // ─────────────────────────────────────────────────────────────────────────
+class UserDocumentationRequirements {
   @Form([
     Field('documentationFormat', String, 'Documentation Format',
         hint: 'HTML, PDF, in-app, wiki'),
@@ -6644,9 +6646,24 @@ class DocumentationAndTraining {
   DocumentationAndTrainingLocalization localization =
       DocumentationAndTrainingLocalization();
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // Training
-  // ─────────────────────────────────────────────────────────────────────────
+  /// Documentation narrative.
+  TextSection documentationNarrative = TextSection();
+}
+
+/// 10.12.3b. Training Deliverable Requirements.
+///
+/// End-user training materials and module catalogue. The training half of the
+/// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+/// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+/// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+/// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// content in one D12 subsection rather than fragmenting it across a new id.
+@SectionId('TRMAT')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
+class TrainingDeliverableRequirements {
   @Form([
     // Training materials
     Field('trainingMaterials', String, 'Training Materials',
@@ -6672,8 +6689,8 @@ class DocumentationAndTraining {
   ])
   String? trainingContent;
 
-  /// Documentation and training narrative.
-  TextSection documentationNarrative = TextSection();
+  /// Training narrative.
+  TextSection trainingNarrative = TextSection();
 
   /// Training module entries.
   @SectionId('TRMOEN-TRAI-LST')

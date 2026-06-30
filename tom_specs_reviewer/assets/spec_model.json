@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-30T14:44:08.795720Z",
+  "generatedAt": "2026-06-30T14:57:59.532872Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
-  "classCount": 3074,
+  "classCount": 3075,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -40223,10 +40223,16 @@
           "type": "TranslationProcess"
         },
         {
-          "name": "documentationAndTraining",
+          "name": "userDocumentation",
           "kind": "complex",
-          "doc": "Documentation and training.",
-          "type": "DocumentationAndTraining"
+          "doc": "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
+          "type": "UserDocumentationRequirements"
+        },
+        {
+          "name": "trainingDeliverables",
+          "kind": "complex",
+          "doc": "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
+          "type": "TrainingDeliverableRequirements"
         },
         {
           "name": "rolloutPlan",
@@ -59974,196 +59980,6 @@
             }
           ],
           "elementType": "RelevantSectionEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "DocumentationAndTraining": {
-      "name": "DocumentationAndTraining",
-      "sectionId": "DOANTR",
-      "doc": "10.12.3. Documentation and Training.\n\nEnd-user documentation and training materials.",
-      "mapsTo": "D12TransitionRolloutPlan",
-      "detailedIn": "D12TransitionRolloutPlan",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "DOANTR"
-          }
-        },
-        {
-          "name": "MapsTo",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "DetailedIn",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan"
-          }
-        },
-        {
-          "name": "SecondLevelSectionId",
-          "arguments": {
-            "documentClass": "D12TransitionRolloutPlan",
-            "id": "TRP-DOC"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "documentationContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "documentationFormat",
-              "label": "Documentation Format",
-              "hint": "HTML, PDF, in-app, wiki",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "documentationPlatform",
-              "label": "Documentation Platform",
-              "hint": "GitBook, Notion, custom, Confluence",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "documentationVersioning",
-              "label": "Documentation Versioning",
-              "hint": "How docs are versioned with releases",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "deliverables",
-          "kind": "complex",
-          "doc": "Documentation deliverables provided to users.",
-          "type": "DocumentationAndTrainingDeliverables"
-        },
-        {
-          "name": "localization",
-          "kind": "complex",
-          "doc": "Documentation localization approach.",
-          "type": "DocumentationAndTrainingLocalization"
-        },
-        {
-          "name": "trainingContent",
-          "kind": "form",
-          "annotations": [
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            }
-          ],
-          "formFields": [
-            {
-              "name": "trainingMaterials",
-              "label": "Training Materials",
-              "hint": "Slides, workbooks, exercises",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "trainingFormat",
-              "label": "Training Format",
-              "hint": "In-person, virtual, self-paced",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "trainingDuration",
-              "label": "Training Duration",
-              "hint": "Duration per role/module",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "trainingSchedule",
-              "label": "Training Schedule",
-              "hint": "When training occurs",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "trainTheTrainer",
-              "label": "Train-the-Trainer",
-              "hint": "Train internal trainers",
-              "type": "bool",
-              "required": false
-            },
-            {
-              "name": "refresherTraining",
-              "label": "Refresher Training",
-              "hint": "Ongoing training approach",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "knowledgeTransferPlan",
-              "label": "Knowledge Transfer Plan",
-              "hint": "How knowledge is transferred",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "supportHandoff",
-              "label": "Support Handoff",
-              "hint": "Transition to support team",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "certificationProgram",
-              "label": "Certification Program",
-              "hint": "User certification if applicable",
-              "type": "String",
-              "required": false
-            }
-          ]
-        },
-        {
-          "name": "documentationNarrative",
-          "kind": "section",
-          "doc": "Documentation and training narrative.",
-          "contentType": "text",
-          "sectionType": "TextSection"
-        },
-        {
-          "name": "trainingModules",
-          "kind": "list",
-          "doc": "Training module entries.",
-          "sectionId": "TRMOEN-TRAI-LST",
-          "sectionIdPattern": "TRMOEN-TRAI-xxx",
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "TRMOEN-TRAI-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "TRMOEN-TRAI-xxx"
-              }
-            }
-          ],
-          "elementType": "TrainingModuleEntry",
           "elementIsComplex": true
         }
       ]
@@ -83009,7 +82825,7 @@
     "InformationForUseRequirements": {
       "name": "InformationForUseRequirements",
       "sectionId": "IFUR",
-      "doc": "Information-for-Use (user documentation) requirements.\n\nPublic anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation\n*quality criteria* cross-map lives in SBP.14\n(`DocumentationQualityCriteria`).\n\nNote: [DocumentationAndTraining] is re-homed here whole for IP-6; the\ndoc/training field-split (separating the documentation half from the\ntraining half) is deferred to IP-8.",
+      "doc": "Information-for-Use (user documentation) requirements.\n\nPublic anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation\n*quality criteria* cross-map lives in SBP.14\n(`DocumentationQualityCriteria`).\n\nHolds the documentation half of the former `DocumentationAndTraining`,\nsplit out in L34C-7 ([UserDocumentationRequirements]). The training half\nre-homed to [TrainingEnablementRequirements].",
       "annotations": [
         {
           "name": "SectionId",
@@ -83034,10 +82850,10 @@
           "contentType": "description"
         },
         {
-          "name": "documentationAndTraining",
+          "name": "userDocumentation",
           "kind": "complex",
-          "doc": "Documentation (and, until the IP-8 split, training) requirements,\nre-homed from MLAR.",
-          "type": "DocumentationAndTraining"
+          "doc": "User documentation requirements (doc half of the former DOANTR).",
+          "type": "UserDocumentationRequirements"
         }
       ]
     },
@@ -186385,6 +186201,149 @@
         }
       ]
     },
+    "TrainingDeliverableRequirements": {
+      "name": "TrainingDeliverableRequirements",
+      "sectionId": "TRMAT",
+      "doc": "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterials`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
+      "mapsTo": "D12TransitionRolloutPlan",
+      "detailedIn": "D12TransitionRolloutPlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TRMAT"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan",
+            "id": "TRP-TRN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "trainingContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "trainingMaterials",
+              "label": "Training Materials",
+              "hint": "Slides, workbooks, exercises",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "trainingFormat",
+              "label": "Training Format",
+              "hint": "In-person, virtual, self-paced",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "trainingDuration",
+              "label": "Training Duration",
+              "hint": "Duration per role/module",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "trainingSchedule",
+              "label": "Training Schedule",
+              "hint": "When training occurs",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "trainTheTrainer",
+              "label": "Train-the-Trainer",
+              "hint": "Train internal trainers",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "refresherTraining",
+              "label": "Refresher Training",
+              "hint": "Ongoing training approach",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "knowledgeTransferPlan",
+              "label": "Knowledge Transfer Plan",
+              "hint": "How knowledge is transferred",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "supportHandoff",
+              "label": "Support Handoff",
+              "hint": "Transition to support team",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "certificationProgram",
+              "label": "Certification Program",
+              "hint": "User certification if applicable",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "trainingNarrative",
+          "kind": "section",
+          "doc": "Training narrative.",
+          "contentType": "text",
+          "sectionType": "TextSection"
+        },
+        {
+          "name": "trainingModules",
+          "kind": "list",
+          "doc": "Training module entries.",
+          "sectionId": "TRMOEN-TRAI-LST",
+          "sectionIdPattern": "TRMOEN-TRAI-xxx",
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TRMOEN-TRAI-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "TRMOEN-TRAI-xxx"
+              }
+            }
+          ],
+          "elementType": "TrainingModuleEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "TrainingDeliverables": {
       "name": "TrainingDeliverables",
       "sectionId": "TRDLV",
@@ -186440,7 +186399,7 @@
     "TrainingEnablementRequirements": {
       "name": "TrainingEnablementRequirements",
       "sectionId": "TREQ",
-      "doc": "Training & Enablement requirements.\n\nPublic anchor: ISO 29148 transition requirements; PMBOK transition. The\ntraining-materials *delivery* and rollout sequencing re-home to SBP.15; the\ndetailed training-module catalogue currently lives inside\n[DocumentationAndTraining] (re-homed under [InformationForUseRequirements])\npending the IP-8 doc/training split.",
+      "doc": "Training & Enablement requirements.\n\nPublic anchor: ISO 29148 transition requirements; PMBOK transition. The\ntraining-materials *delivery* and rollout sequencing re-home to SBP.15.\nThe detailed training-material content and module catalogue is the training\nhalf of the former `DocumentationAndTraining`, split out in L34C-7 and\nre-homed here as [TrainingDeliverableRequirements].",
       "annotations": [
         {
           "name": "SectionId",
@@ -186491,6 +186450,12 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "trainingDeliverables",
+          "kind": "complex",
+          "doc": "Training deliverable requirements (training half of the former DOANTR).",
+          "type": "TrainingDeliverableRequirements"
         }
       ]
     },
@@ -194592,6 +194557,96 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "UserDocumentationRequirements": {
+      "name": "UserDocumentationRequirements",
+      "sectionId": "DOANTR",
+      "doc": "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.",
+      "mapsTo": "D12TransitionRolloutPlan",
+      "detailedIn": "D12TransitionRolloutPlan",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DOANTR"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan",
+            "id": "TRP-DOC"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "documentationContent",
+          "kind": "form",
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "documentationFormat",
+              "label": "Documentation Format",
+              "hint": "HTML, PDF, in-app, wiki",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "documentationPlatform",
+              "label": "Documentation Platform",
+              "hint": "GitBook, Notion, custom, Confluence",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "documentationVersioning",
+              "label": "Documentation Versioning",
+              "hint": "How docs are versioned with releases",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "deliverables",
+          "kind": "complex",
+          "doc": "Documentation deliverables provided to users.",
+          "type": "DocumentationAndTrainingDeliverables"
+        },
+        {
+          "name": "localization",
+          "kind": "complex",
+          "doc": "Documentation localization approach.",
+          "type": "DocumentationAndTrainingLocalization"
+        },
+        {
+          "name": "documentationNarrative",
+          "kind": "section",
+          "doc": "Documentation narrative.",
+          "contentType": "text",
+          "sectionType": "TextSection"
         }
       ]
     },

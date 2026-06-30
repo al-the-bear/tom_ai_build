@@ -953,7 +953,6 @@ typedef struct { SomNode node; } DocumentControl;
 typedef struct { SomNode node; } DocumentHeader;
 typedef struct { SomNode node; } DocumentRelationships;
 typedef struct { SomNode node; } DocumentRelevantSections;
-typedef struct { SomNode node; } DocumentationAndTraining;
 typedef struct { SomNode node; } DocumentationAndTrainingDeliverables;
 typedef struct { SomNode node; } DocumentationAndTrainingLocalization;
 typedef struct { SomNode node; } DocumentationDeliverables;
@@ -2872,6 +2871,7 @@ typedef struct { SomNode node; } TrainingAssessment;
 typedef struct { SomNode node; } TrainingAssessmentEffectiveness;
 typedef struct { SomNode node; } TrainingAssessmentImprovement;
 typedef struct { SomNode node; } TrainingAssessmentReporting;
+typedef struct { SomNode node; } TrainingDeliverableRequirements;
 typedef struct { SomNode node; } TrainingDeliverables;
 typedef struct { SomNode node; } TrainingEnablementRequirements;
 typedef struct { SomNode node; } TrainingMaterials;
@@ -2988,6 +2988,7 @@ typedef struct { SomNode node; } UserCategoryEntry;
 typedef struct { SomNode node; } UserCategoryEntryImportance;
 typedef struct { SomNode node; } UserCategoryEntryUsage;
 typedef struct { SomNode node; } UserCategoryRoleEntry;
+typedef struct { SomNode node; } UserDocumentationRequirements;
 typedef struct { SomNode node; } UserGroupImpactEntry;
 typedef struct { SomNode node; } UserGrowthProjections;
 typedef struct { SomNode node; } UserGrowthProjectionsForecast;
@@ -3895,9 +3896,7 @@ typedef struct { SomNode node; } DocCorrectnessQualityVerificationContentForm;
 typedef struct { SomNode node; } DocumentHeaderContentForm;
 typedef struct { SomNode node; } DocumentRelevantSectionsContentForm;
 typedef struct { SomNode node; } DocumentationAndTrainingDeliverablesContentForm;
-typedef struct { SomNode node; } DocumentationAndTrainingDocumentationContentForm;
 typedef struct { SomNode node; } DocumentationAndTrainingLocalizationContentForm;
-typedef struct { SomNode node; } DocumentationAndTrainingTrainingContentForm;
 typedef struct { SomNode node; } DocumentationQualityCriteriaDocumentationOverviewContentForm;
 typedef struct { SomNode node; } DocumentationStandardsArchitectureContentForm;
 typedef struct { SomNode node; } DocumentationStandardsCodeDocsContentForm;
@@ -5552,6 +5551,7 @@ typedef struct { SomNode node; } TrainingAssessmentContentForm;
 typedef struct { SomNode node; } TrainingAssessmentEffectivenessContentForm;
 typedef struct { SomNode node; } TrainingAssessmentImprovementContentForm;
 typedef struct { SomNode node; } TrainingAssessmentReportingContentForm;
+typedef struct { SomNode node; } TrainingDeliverableRequirementsTrainingContentForm;
 typedef struct { SomNode node; } TrainingEnablementRequirementsContentForm;
 typedef struct { SomNode node; } TrainingMaterialsContentForm;
 typedef struct { SomNode node; } TrainingMaterialsKnowledgeContentForm;
@@ -5662,6 +5662,7 @@ typedef struct { SomNode node; } UserCategoryEntryContentForm;
 typedef struct { SomNode node; } UserCategoryEntryImportanceContentForm;
 typedef struct { SomNode node; } UserCategoryEntryUsageContentForm;
 typedef struct { SomNode node; } UserCategoryRoleEntryContentForm;
+typedef struct { SomNode node; } UserDocumentationRequirementsDocumentationContentForm;
 typedef struct { SomNode node; } UserGroupImpactEntryContentForm;
 typedef struct { SomNode node; } UserGrowthProjectionsContentForm;
 typedef struct { SomNode node; } UserGrowthProjectionsForecastContentForm;
@@ -11883,8 +11884,12 @@ DocumentHeader d12_transition_rollout_plan_header(const D12TransitionRolloutPlan
 LocalizationProcess d12_transition_rollout_plan_localization_process(const D12TransitionRolloutPlan *self);
 // Translation process.
 TranslationProcess d12_transition_rollout_plan_translation_process(const D12TransitionRolloutPlan *self);
-// Documentation and training.
-DocumentationAndTraining d12_transition_rollout_plan_documentation_and_training(const D12TransitionRolloutPlan *self);
+// User documentation requirements (doc half of the former DOANTR;
+// split in L34C-7).
+UserDocumentationRequirements d12_transition_rollout_plan_user_documentation(const D12TransitionRolloutPlan *self);
+// Training deliverable requirements (training half of the former DOANTR;
+// split in L34C-7).
+TrainingDeliverableRequirements d12_transition_rollout_plan_training_deliverables(const D12TransitionRolloutPlan *self);
 // Rollout plan.
 RolloutPlan d12_transition_rollout_plan_rollout_plan(const D12TransitionRolloutPlan *self);
 // Migration plan.
@@ -14641,24 +14646,6 @@ DocumentRelevantSectionsContentForm document_relevant_sections_content(const Doc
 // Individual relevant section entries.
 // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
 SomList document_relevant_sections_sections(const DocumentRelevantSections *self);
-
-// 10.12.3. Documentation and Training.
-//
-// End-user documentation and training materials.
-// Binds a DocumentationAndTraining facade to a document and a path (path copied).
-void documentation_and_training_init(DocumentationAndTraining *self, SpecDocument *doc, const char *path);
-void documentation_and_training_free(DocumentationAndTraining *self);
-DocumentationAndTrainingDocumentationContentForm documentation_and_training_documentation_content(const DocumentationAndTraining *self);
-// Documentation deliverables provided to users.
-DocumentationAndTrainingDeliverables documentation_and_training_deliverables(const DocumentationAndTraining *self);
-// Documentation localization approach.
-DocumentationAndTrainingLocalization documentation_and_training_localization(const DocumentationAndTraining *self);
-DocumentationAndTrainingTrainingContentForm documentation_and_training_training_content(const DocumentationAndTraining *self);
-// Documentation and training narrative.
-// (skipped: documentationNarrative has no target type)
-// Training module entries.
-// Returns the list view; element type: TrainingModuleEntry (construct from item paths).
-SomList documentation_and_training_training_modules(const DocumentationAndTraining *self);
 
 // Documentation deliverables provided to users.
 // Binds a DocumentationAndTrainingDeliverables facade to a document and a path (path copied).
@@ -17881,17 +17868,16 @@ SomList information_architecture_global_entry_points(const InformationArchitectu
 // *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
-// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-// doc/training field-split (separating the documentation half from the
-// training half) is deferred to IP-8.
+// Holds the documentation half of the former `DocumentationAndTraining`,
+// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+// re-homed to [TrainingEnablementRequirements].
 // Binds a InformationForUseRequirements facade to a document and a path (path copied).
 void information_for_use_requirements_init(InformationForUseRequirements *self, SpecDocument *doc, const char *path);
 void information_for_use_requirements_free(InformationForUseRequirements *self);
 char *information_for_use_requirements_content(const InformationForUseRequirements *self);
 void information_for_use_requirements_set_content(InformationForUseRequirements *self, const char *value);
-// Documentation (and, until the IP-8 split, training) requirements,
-// re-homed from MLAR.
-DocumentationAndTraining information_for_use_requirements_documentation_and_training(const InformationForUseRequirements *self);
+// User documentation requirements (doc half of the former DOANTR).
+UserDocumentationRequirements information_for_use_requirements_user_documentation(const InformationForUseRequirements *self);
 
 // Infrastructure as Code requirements.
 // Binds a InfrastructureAsCode facade to a document and a path (path copied).
@@ -32384,6 +32370,25 @@ void training_assessment_reporting_init(TrainingAssessmentReporting *self, SpecD
 void training_assessment_reporting_free(TrainingAssessmentReporting *self);
 TrainingAssessmentReportingContentForm training_assessment_reporting_content(const TrainingAssessmentReporting *self);
 
+// 10.12.3b. Training Deliverable Requirements.
+//
+// End-user training materials and module catalogue. The training half of the
+// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// content in one D12 subsection rather than fragmenting it across a new id.
+// Binds a TrainingDeliverableRequirements facade to a document and a path (path copied).
+void training_deliverable_requirements_init(TrainingDeliverableRequirements *self, SpecDocument *doc, const char *path);
+void training_deliverable_requirements_free(TrainingDeliverableRequirements *self);
+TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirements_training_content(const TrainingDeliverableRequirements *self);
+// Training narrative.
+// (skipped: trainingNarrative has no target type)
+// Training module entries.
+// Returns the list view; element type: TrainingModuleEntry (construct from item paths).
+SomList training_deliverable_requirements_training_modules(const TrainingDeliverableRequirements *self);
+
 // 14.1.3. Training Deliverables.
 // Binds a TrainingDeliverables facade to a document and a path (path copied).
 void training_deliverables_init(TrainingDeliverables *self, SpecDocument *doc, const char *path);
@@ -32397,15 +32402,17 @@ SomList training_deliverables_items(const TrainingDeliverables *self);
 // Training & Enablement requirements.
 //
 // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-// detailed training-module catalogue currently lives inside
-// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-// pending the IP-8 doc/training split.
+// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The detailed training-material content and module catalogue is the training
+// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+// re-homed here as [TrainingDeliverableRequirements].
 // Binds a TrainingEnablementRequirements facade to a document and a path (path copied).
 void training_enablement_requirements_init(TrainingEnablementRequirements *self, SpecDocument *doc, const char *path);
 void training_enablement_requirements_free(TrainingEnablementRequirements *self);
 // Training & enablement requirement form.
 TrainingEnablementRequirementsContentForm training_enablement_requirements_content(const TrainingEnablementRequirements *self);
+// Training deliverable requirements (training half of the former DOANTR).
+TrainingDeliverableRequirements training_enablement_requirements_training_deliverables(const TrainingEnablementRequirements *self);
 
 // Training materials and resources.
 // Binds a TrainingMaterials facade to a document and a path (path copied).
@@ -33431,6 +33438,25 @@ UserCategoryEntryUsageContentForm user_category_entry_usage_content(const UserCa
 void user_category_role_entry_init(UserCategoryRoleEntry *self, SpecDocument *doc, const char *path);
 void user_category_role_entry_free(UserCategoryRoleEntry *self);
 UserCategoryRoleEntryContentForm user_category_role_entry_content(const UserCategoryRoleEntry *self);
+
+// 10.12.3. User Documentation Requirements.
+//
+// End-user documentation deliverables. The documentation half of the former
+// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+// `TRP-DOC` D12 detail subsection.
+// Binds a UserDocumentationRequirements facade to a document and a path (path copied).
+void user_documentation_requirements_init(UserDocumentationRequirements *self, SpecDocument *doc, const char *path);
+void user_documentation_requirements_free(UserDocumentationRequirements *self);
+UserDocumentationRequirementsDocumentationContentForm user_documentation_requirements_documentation_content(const UserDocumentationRequirements *self);
+// Documentation deliverables provided to users.
+DocumentationAndTrainingDeliverables user_documentation_requirements_deliverables(const UserDocumentationRequirements *self);
+// Documentation localization approach.
+DocumentationAndTrainingLocalization user_documentation_requirements_localization(const UserDocumentationRequirements *self);
+// Documentation narrative.
+// (skipped: documentationNarrative has no target type)
 
 // User group impact entry.
 // Binds a UserGroupImpactEntry facade to a document and a path (path copied).
@@ -43930,16 +43956,6 @@ void documentation_and_training_deliverables_content_form_set_faq(DocumentationA
 char *documentation_and_training_deliverables_content_form_release_notes(const DocumentationAndTrainingDeliverablesContentForm *self);
 void documentation_and_training_deliverables_content_form_set_release_notes(DocumentationAndTrainingDeliverablesContentForm *self, const char *value);
 
-// DocumentationAndTrainingDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
-void documentation_and_training_documentation_content_form_init(DocumentationAndTrainingDocumentationContentForm *self, SpecDocument *doc, const char *path);
-void documentation_and_training_documentation_content_form_free(DocumentationAndTrainingDocumentationContentForm *self);
-char *documentation_and_training_documentation_content_form_documentation_format(const DocumentationAndTrainingDocumentationContentForm *self);
-void documentation_and_training_documentation_content_form_set_documentation_format(DocumentationAndTrainingDocumentationContentForm *self, const char *value);
-char *documentation_and_training_documentation_content_form_documentation_platform(const DocumentationAndTrainingDocumentationContentForm *self);
-void documentation_and_training_documentation_content_form_set_documentation_platform(DocumentationAndTrainingDocumentationContentForm *self, const char *value);
-char *documentation_and_training_documentation_content_form_documentation_versioning(const DocumentationAndTrainingDocumentationContentForm *self);
-void documentation_and_training_documentation_content_form_set_documentation_versioning(DocumentationAndTrainingDocumentationContentForm *self, const char *value);
-
 // DocumentationAndTrainingLocalizationContentForm is the generated form facade for the `content` @Form section.
 void documentation_and_training_localization_content_form_init(DocumentationAndTrainingLocalizationContentForm *self, SpecDocument *doc, const char *path);
 void documentation_and_training_localization_content_form_free(DocumentationAndTrainingLocalizationContentForm *self);
@@ -43947,28 +43963,6 @@ char *documentation_and_training_localization_content_form_documentation_languag
 void documentation_and_training_localization_content_form_set_documentation_languages(DocumentationAndTrainingLocalizationContentForm *self, const char *value);
 char *documentation_and_training_localization_content_form_documentation_translation(const DocumentationAndTrainingLocalizationContentForm *self);
 void documentation_and_training_localization_content_form_set_documentation_translation(DocumentationAndTrainingLocalizationContentForm *self, const char *value);
-
-// DocumentationAndTrainingTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
-void documentation_and_training_training_content_form_init(DocumentationAndTrainingTrainingContentForm *self, SpecDocument *doc, const char *path);
-void documentation_and_training_training_content_form_free(DocumentationAndTrainingTrainingContentForm *self);
-char *documentation_and_training_training_content_form_training_materials(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_training_materials(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_training_format(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_training_format(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_training_duration(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_training_duration(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_training_schedule(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_training_schedule(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_train_the_trainer(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_train_the_trainer(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_refresher_training(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_refresher_training(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_knowledge_transfer_plan(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_knowledge_transfer_plan(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_support_handoff(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_support_handoff(DocumentationAndTrainingTrainingContentForm *self, const char *value);
-char *documentation_and_training_training_content_form_certification_program(const DocumentationAndTrainingTrainingContentForm *self);
-void documentation_and_training_training_content_form_set_certification_program(DocumentationAndTrainingTrainingContentForm *self, const char *value);
 
 // DocumentationQualityCriteriaDocumentationOverviewContentForm is the generated form facade for the `documentationOverviewContent` @Form section.
 void documentation_quality_criteria_documentation_overview_content_form_init(DocumentationQualityCriteriaDocumentationOverviewContentForm *self, SpecDocument *doc, const char *path);
@@ -64806,6 +64800,28 @@ void training_assessment_reporting_content_form_set_reporting_dashboard(Training
 char *training_assessment_reporting_content_form_management_visibility(const TrainingAssessmentReportingContentForm *self);
 void training_assessment_reporting_content_form_set_management_visibility(TrainingAssessmentReportingContentForm *self, const char *value);
 
+// TrainingDeliverableRequirementsTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
+void training_deliverable_requirements_training_content_form_init(TrainingDeliverableRequirementsTrainingContentForm *self, SpecDocument *doc, const char *path);
+void training_deliverable_requirements_training_content_form_free(TrainingDeliverableRequirementsTrainingContentForm *self);
+char *training_deliverable_requirements_training_content_form_training_materials(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_training_materials(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_training_format(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_training_format(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_training_duration(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_training_duration(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_training_schedule(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_training_schedule(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_train_the_trainer(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_train_the_trainer(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_refresher_training(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_refresher_training(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_knowledge_transfer_plan(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_knowledge_transfer_plan(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_support_handoff(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_support_handoff(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+char *training_deliverable_requirements_training_content_form_certification_program(const TrainingDeliverableRequirementsTrainingContentForm *self);
+void training_deliverable_requirements_training_content_form_set_certification_program(TrainingDeliverableRequirementsTrainingContentForm *self, const char *value);
+
 // TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
 void training_enablement_requirements_content_form_init(TrainingEnablementRequirementsContentForm *self, SpecDocument *doc, const char *path);
 void training_enablement_requirements_content_form_free(TrainingEnablementRequirementsContentForm *self);
@@ -66255,6 +66271,16 @@ char *user_category_role_entry_content_form_collaborators(const UserCategoryRole
 void user_category_role_entry_content_form_set_collaborators(UserCategoryRoleEntryContentForm *self, const char *value);
 char *user_category_role_entry_content_form_performance_metrics(const UserCategoryRoleEntryContentForm *self);
 void user_category_role_entry_content_form_set_performance_metrics(UserCategoryRoleEntryContentForm *self, const char *value);
+
+// UserDocumentationRequirementsDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
+void user_documentation_requirements_documentation_content_form_init(UserDocumentationRequirementsDocumentationContentForm *self, SpecDocument *doc, const char *path);
+void user_documentation_requirements_documentation_content_form_free(UserDocumentationRequirementsDocumentationContentForm *self);
+char *user_documentation_requirements_documentation_content_form_documentation_format(const UserDocumentationRequirementsDocumentationContentForm *self);
+void user_documentation_requirements_documentation_content_form_set_documentation_format(UserDocumentationRequirementsDocumentationContentForm *self, const char *value);
+char *user_documentation_requirements_documentation_content_form_documentation_platform(const UserDocumentationRequirementsDocumentationContentForm *self);
+void user_documentation_requirements_documentation_content_form_set_documentation_platform(UserDocumentationRequirementsDocumentationContentForm *self, const char *value);
+char *user_documentation_requirements_documentation_content_form_documentation_versioning(const UserDocumentationRequirementsDocumentationContentForm *self);
+void user_documentation_requirements_documentation_content_form_set_documentation_versioning(UserDocumentationRequirementsDocumentationContentForm *self, const char *value);
 
 // UserGroupImpactEntryContentForm is the generated form facade for the `content` @Form section.
 void user_group_impact_entry_content_form_init(UserGroupImpactEntryContentForm *self, SpecDocument *doc, const char *path);

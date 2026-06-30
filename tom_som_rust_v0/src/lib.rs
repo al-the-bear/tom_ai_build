@@ -15650,9 +15650,16 @@ impl D12TransitionRolloutPlan {
         TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
     }
 
-    /// Documentation and training.
-    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
-        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
+    /// User documentation requirements (doc half of the former DOANTR;
+    /// split in L34C-7).
+    pub fn user_documentation(&self) -> UserDocumentationRequirements {
+        UserDocumentationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "userDocumentation"))
+    }
+
+    /// Training deliverable requirements (training half of the former DOANTR;
+    /// split in L34C-7).
+    pub fn training_deliverables(&self) -> TrainingDeliverableRequirements {
+        TrainingDeliverableRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingDeliverables"))
     }
 
     /// Rollout plan.
@@ -22770,50 +22777,6 @@ impl DocumentRelevantSections {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESEEN-SECT-LST"),
             Box::new(|d, p| RelevantSectionEntry::new(d, p)),
-        )
-    }
-}
-
-/// 10.12.3. Documentation and Training.
-///
-/// End-user documentation and training materials.
-pub struct DocumentationAndTraining {
-    pub node: som::SomNode,
-}
-
-impl DocumentationAndTraining {
-    /// Binds a DocumentationAndTraining facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocumentationAndTraining {
-        DocumentationAndTraining { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn documentation_content(&self) -> DocumentationAndTrainingDocumentationContentForm {
-        DocumentationAndTrainingDocumentationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationContent"))
-    }
-
-    /// Documentation deliverables provided to users.
-    pub fn deliverables(&self) -> DocumentationAndTrainingDeliverables {
-        DocumentationAndTrainingDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliverables"))
-    }
-
-    /// Documentation localization approach.
-    pub fn localization(&self) -> DocumentationAndTrainingLocalization {
-        DocumentationAndTrainingLocalization::new(self.node.doc(), format!("{}/{}", self.node.path(), "localization"))
-    }
-
-    pub fn training_content(&self) -> DocumentationAndTrainingTrainingContentForm {
-        DocumentationAndTrainingTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingContent"))
-    }
-
-    // Documentation and training narrative.
-    // (skipped: documentationNarrative has no target type)
-
-    /// Training module entries.
-    pub fn training_modules(&self) -> som::SomList<TrainingModuleEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "TRMOEN-TRAI-LST"),
-            Box::new(|d, p| TrainingModuleEntry::new(d, p)),
         )
     }
 }
@@ -31022,9 +30985,9 @@ impl InformationArchitecture {
 /// *quality criteria* cross-map lives in SBP.14
 /// (`DocumentationQualityCriteria`).
 ///
-/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-/// doc/training field-split (separating the documentation half from the
-/// training half) is deferred to IP-8.
+/// Holds the documentation half of the former `DocumentationAndTraining`,
+/// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+/// re-homed to [TrainingEnablementRequirements].
 pub struct InformationForUseRequirements {
     pub node: som::SomNode,
 }
@@ -31044,10 +31007,9 @@ impl InformationForUseRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Documentation (and, until the IP-8 split, training) requirements,
-    /// re-homed from MLAR.
-    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
-        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
+    /// User documentation requirements (doc half of the former DOANTR).
+    pub fn user_documentation(&self) -> UserDocumentationRequirements {
+        UserDocumentationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "userDocumentation"))
     }
 }
 
@@ -67982,6 +67944,42 @@ impl TrainingAssessmentReporting {
     }
 }
 
+/// 10.12.3b. Training Deliverable Requirements.
+///
+/// End-user training materials and module catalogue. The training half of the
+/// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+/// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+/// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+/// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+/// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+/// content in one D12 subsection rather than fragmenting it across a new id.
+pub struct TrainingDeliverableRequirements {
+    pub node: som::SomNode,
+}
+
+impl TrainingDeliverableRequirements {
+    /// Binds a TrainingDeliverableRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TrainingDeliverableRequirements {
+        TrainingDeliverableRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn training_content(&self) -> TrainingDeliverableRequirementsTrainingContentForm {
+        TrainingDeliverableRequirementsTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingContent"))
+    }
+
+    // Training narrative.
+    // (skipped: trainingNarrative has no target type)
+
+    /// Training module entries.
+    pub fn training_modules(&self) -> som::SomList<TrainingModuleEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "TRMOEN-TRAI-LST"),
+            Box::new(|d, p| TrainingModuleEntry::new(d, p)),
+        )
+    }
+}
+
 /// 14.1.3. Training Deliverables.
 pub struct TrainingDeliverables {
     pub node: som::SomNode,
@@ -68015,10 +68013,10 @@ impl TrainingDeliverables {
 /// Training & Enablement requirements.
 ///
 /// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-/// detailed training-module catalogue currently lives inside
-/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-/// pending the IP-8 doc/training split.
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+/// The detailed training-material content and module catalogue is the training
+/// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+/// re-homed here as [TrainingDeliverableRequirements].
 pub struct TrainingEnablementRequirements {
     pub node: som::SomNode,
 }
@@ -68032,6 +68030,11 @@ impl TrainingEnablementRequirements {
     /// Training & enablement requirement form.
     pub fn content(&self) -> TrainingEnablementRequirementsContentForm {
         TrainingEnablementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Training deliverable requirements (training half of the former DOANTR).
+    pub fn training_deliverables(&self) -> TrainingDeliverableRequirements {
+        TrainingDeliverableRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingDeliverables"))
     }
 }
 
@@ -70670,6 +70673,42 @@ impl UserCategoryRoleEntry {
     pub fn content(&self) -> UserCategoryRoleEntryContentForm {
         UserCategoryRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+}
+
+/// 10.12.3. User Documentation Requirements.
+///
+/// End-user documentation deliverables. The documentation half of the former
+/// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+/// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+/// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+/// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+/// `TRP-DOC` D12 detail subsection.
+pub struct UserDocumentationRequirements {
+    pub node: som::SomNode,
+}
+
+impl UserDocumentationRequirements {
+    /// Binds a UserDocumentationRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserDocumentationRequirements {
+        UserDocumentationRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn documentation_content(&self) -> UserDocumentationRequirementsDocumentationContentForm {
+        UserDocumentationRequirementsDocumentationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationContent"))
+    }
+
+    /// Documentation deliverables provided to users.
+    pub fn deliverables(&self) -> DocumentationAndTrainingDeliverables {
+        DocumentationAndTrainingDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliverables"))
+    }
+
+    /// Documentation localization approach.
+    pub fn localization(&self) -> DocumentationAndTrainingLocalization {
+        DocumentationAndTrainingLocalization::new(self.node.doc(), format!("{}/{}", self.node.path(), "localization"))
+    }
+
+    // Documentation narrative.
+    // (skipped: documentationNarrative has no target type)
 }
 
 /// User group impact entry.
@@ -111156,45 +111195,6 @@ impl DocumentationAndTrainingDeliverablesContentForm {
     }
 }
 
-/// DocumentationAndTrainingDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
-pub struct DocumentationAndTrainingDocumentationContentForm {
-    pub node: som::SomNode,
-}
-
-impl DocumentationAndTrainingDocumentationContentForm {
-    /// Binds a DocumentationAndTrainingDocumentationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocumentationAndTrainingDocumentationContentForm {
-        DocumentationAndTrainingDocumentationContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn documentation_format(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "documentationFormat")
-    }
-
-    pub fn set_documentation_format(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "documentationFormat", value);
-    }
-
-    pub fn documentation_platform(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "documentationPlatform")
-    }
-
-    pub fn set_documentation_platform(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "documentationPlatform", value);
-    }
-
-    pub fn documentation_versioning(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "documentationVersioning")
-    }
-
-    pub fn set_documentation_versioning(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "documentationVersioning", value);
-    }
-}
-
 /// DocumentationAndTrainingLocalizationContentForm is the generated form facade for the `content` @Form section.
 pub struct DocumentationAndTrainingLocalizationContentForm {
     pub node: som::SomNode,
@@ -111222,99 +111222,6 @@ impl DocumentationAndTrainingLocalizationContentForm {
     pub fn set_documentation_translation(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "documentationTranslation", value);
-    }
-}
-
-/// DocumentationAndTrainingTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
-pub struct DocumentationAndTrainingTrainingContentForm {
-    pub node: som::SomNode,
-}
-
-impl DocumentationAndTrainingTrainingContentForm {
-    /// Binds a DocumentationAndTrainingTrainingContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DocumentationAndTrainingTrainingContentForm {
-        DocumentationAndTrainingTrainingContentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn training_materials(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingMaterials")
-    }
-
-    pub fn set_training_materials(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingMaterials", value);
-    }
-
-    pub fn training_format(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingFormat")
-    }
-
-    pub fn set_training_format(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingFormat", value);
-    }
-
-    pub fn training_duration(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingDuration")
-    }
-
-    pub fn set_training_duration(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingDuration", value);
-    }
-
-    pub fn training_schedule(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingSchedule")
-    }
-
-    pub fn set_training_schedule(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingSchedule", value);
-    }
-
-    pub fn train_the_trainer(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainTheTrainer")
-    }
-
-    pub fn set_train_the_trainer(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainTheTrainer", value);
-    }
-
-    pub fn refresher_training(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "refresherTraining")
-    }
-
-    pub fn set_refresher_training(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "refresherTraining", value);
-    }
-
-    pub fn knowledge_transfer_plan(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "knowledgeTransferPlan")
-    }
-
-    pub fn set_knowledge_transfer_plan(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "knowledgeTransferPlan", value);
-    }
-
-    pub fn support_handoff(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "supportHandoff")
-    }
-
-    pub fn set_support_handoff(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "supportHandoff", value);
-    }
-
-    pub fn certification_program(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "certificationProgram")
-    }
-
-    pub fn set_certification_program(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "certificationProgram", value);
     }
 }
 
@@ -195156,6 +195063,99 @@ impl TrainingAssessmentReportingContentForm {
     }
 }
 
+/// TrainingDeliverableRequirementsTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
+pub struct TrainingDeliverableRequirementsTrainingContentForm {
+    pub node: som::SomNode,
+}
+
+impl TrainingDeliverableRequirementsTrainingContentForm {
+    /// Binds a TrainingDeliverableRequirementsTrainingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TrainingDeliverableRequirementsTrainingContentForm {
+        TrainingDeliverableRequirementsTrainingContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn training_materials(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trainingMaterials")
+    }
+
+    pub fn set_training_materials(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trainingMaterials", value);
+    }
+
+    pub fn training_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trainingFormat")
+    }
+
+    pub fn set_training_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trainingFormat", value);
+    }
+
+    pub fn training_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trainingDuration")
+    }
+
+    pub fn set_training_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trainingDuration", value);
+    }
+
+    pub fn training_schedule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trainingSchedule")
+    }
+
+    pub fn set_training_schedule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trainingSchedule", value);
+    }
+
+    pub fn train_the_trainer(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trainTheTrainer")
+    }
+
+    pub fn set_train_the_trainer(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trainTheTrainer", value);
+    }
+
+    pub fn refresher_training(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refresherTraining")
+    }
+
+    pub fn set_refresher_training(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refresherTraining", value);
+    }
+
+    pub fn knowledge_transfer_plan(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "knowledgeTransferPlan")
+    }
+
+    pub fn set_knowledge_transfer_plan(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "knowledgeTransferPlan", value);
+    }
+
+    pub fn support_handoff(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "supportHandoff")
+    }
+
+    pub fn set_support_handoff(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "supportHandoff", value);
+    }
+
+    pub fn certification_program(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificationProgram")
+    }
+
+    pub fn set_certification_program(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificationProgram", value);
+    }
+}
+
 /// TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
 pub struct TrainingEnablementRequirementsContentForm {
     pub node: som::SomNode,
@@ -201018,6 +201018,45 @@ impl UserCategoryRoleEntryContentForm {
     pub fn set_performance_metrics(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "performanceMetrics", value);
+    }
+}
+
+/// UserDocumentationRequirementsDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
+pub struct UserDocumentationRequirementsDocumentationContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserDocumentationRequirementsDocumentationContentForm {
+    /// Binds a UserDocumentationRequirementsDocumentationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserDocumentationRequirementsDocumentationContentForm {
+        UserDocumentationRequirementsDocumentationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn documentation_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "documentationFormat")
+    }
+
+    pub fn set_documentation_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "documentationFormat", value);
+    }
+
+    pub fn documentation_platform(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "documentationPlatform")
+    }
+
+    pub fn set_documentation_platform(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "documentationPlatform", value);
+    }
+
+    pub fn documentation_versioning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "documentationVersioning")
+    }
+
+    pub fn set_documentation_versioning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "documentationVersioning", value);
     }
 }
 

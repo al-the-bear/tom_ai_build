@@ -14098,9 +14098,16 @@ func (x *D12TransitionRolloutPlan) TranslationProcess() *TranslationProcess {
 	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
 }
 
-// Documentation and training.
-func (x *D12TransitionRolloutPlan) DocumentationAndTraining() *DocumentationAndTraining {
-	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
+// User documentation requirements (doc half of the former DOANTR;
+// split in L34C-7).
+func (x *D12TransitionRolloutPlan) UserDocumentation() *UserDocumentationRequirements {
+	return NewUserDocumentationRequirements(x.Doc(), x.Path() + "/userDocumentation")
+}
+
+// Training deliverable requirements (training half of the former DOANTR;
+// split in L34C-7).
+func (x *D12TransitionRolloutPlan) TrainingDeliverables() *TrainingDeliverableRequirements {
+	return NewTrainingDeliverableRequirements(x.Doc(), x.Path() + "/trainingDeliverables")
 }
 
 // Rollout plan.
@@ -20474,46 +20481,6 @@ func (x *DocumentRelevantSections) Content() *DocumentRelevantSectionsContentFor
 func (x *DocumentRelevantSections) Sections() *som.SomList[*RelevantSectionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESEEN-SECT-LST", func(d *som.SpecDocument, p string) *RelevantSectionEntry {
 		return NewRelevantSectionEntry(d, p)
-	})
-}
-
-// 10.12.3. Documentation and Training.
-//
-// End-user documentation and training materials.
-type DocumentationAndTraining struct {
-	som.SomNode
-}
-
-// NewDocumentationAndTraining binds a DocumentationAndTraining facade to a document and a path.
-func NewDocumentationAndTraining(doc *som.SpecDocument, path string) *DocumentationAndTraining {
-	return &DocumentationAndTraining{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DocumentationAndTraining) DocumentationContent() *DocumentationAndTrainingDocumentationContentForm {
-	return NewDocumentationAndTrainingDocumentationContentForm(x.Doc(), x.Path() + "/documentationContent")
-}
-
-// Documentation deliverables provided to users.
-func (x *DocumentationAndTraining) Deliverables() *DocumentationAndTrainingDeliverables {
-	return NewDocumentationAndTrainingDeliverables(x.Doc(), x.Path() + "/deliverables")
-}
-
-// Documentation localization approach.
-func (x *DocumentationAndTraining) Localization() *DocumentationAndTrainingLocalization {
-	return NewDocumentationAndTrainingLocalization(x.Doc(), x.Path() + "/localization")
-}
-
-func (x *DocumentationAndTraining) TrainingContent() *DocumentationAndTrainingTrainingContentForm {
-	return NewDocumentationAndTrainingTrainingContentForm(x.Doc(), x.Path() + "/trainingContent")
-}
-
-// Documentation and training narrative.
-// (skipped: documentationNarrative has no target type)
-
-// Training module entries.
-func (x *DocumentationAndTraining) TrainingModules() *som.SomList[*TrainingModuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/TRMOEN-TRAI-LST", func(d *som.SpecDocument, p string) *TrainingModuleEntry {
-		return NewTrainingModuleEntry(d, p)
 	})
 }
 
@@ -27853,9 +27820,9 @@ func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*GlobalEntryP
 // *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
-// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-// doc/training field-split (separating the documentation half from the
-// training half) is deferred to IP-8.
+// Holds the documentation half of the former `DocumentationAndTraining`,
+// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+// re-homed to [TrainingEnablementRequirements].
 type InformationForUseRequirements struct {
 	som.SomNode
 }
@@ -27873,10 +27840,9 @@ func (x *InformationForUseRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Documentation (and, until the IP-8 split, training) requirements,
-// re-homed from MLAR.
-func (x *InformationForUseRequirements) DocumentationAndTraining() *DocumentationAndTraining {
-	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
+// User documentation requirements (doc half of the former DOANTR).
+func (x *InformationForUseRequirements) UserDocumentation() *UserDocumentationRequirements {
+	return NewUserDocumentationRequirements(x.Doc(), x.Path() + "/userDocumentation")
 }
 
 // Infrastructure as Code requirements.
@@ -60863,6 +60829,38 @@ func (x *TrainingAssessmentReporting) Content() *TrainingAssessmentReportingCont
 	return NewTrainingAssessmentReportingContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 10.12.3b. Training Deliverable Requirements.
+//
+// End-user training materials and module catalogue. The training half of the
+// former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+// half in L34C-7 (SR-29). Logically re-homed under SBP.9
+// `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+// (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+// content in one D12 subsection rather than fragmenting it across a new id.
+type TrainingDeliverableRequirements struct {
+	som.SomNode
+}
+
+// NewTrainingDeliverableRequirements binds a TrainingDeliverableRequirements facade to a document and a path.
+func NewTrainingDeliverableRequirements(doc *som.SpecDocument, path string) *TrainingDeliverableRequirements {
+	return &TrainingDeliverableRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TrainingDeliverableRequirements) TrainingContent() *TrainingDeliverableRequirementsTrainingContentForm {
+	return NewTrainingDeliverableRequirementsTrainingContentForm(x.Doc(), x.Path() + "/trainingContent")
+}
+
+// Training narrative.
+// (skipped: trainingNarrative has no target type)
+
+// Training module entries.
+func (x *TrainingDeliverableRequirements) TrainingModules() *som.SomList[*TrainingModuleEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/TRMOEN-TRAI-LST", func(d *som.SpecDocument, p string) *TrainingModuleEntry {
+		return NewTrainingModuleEntry(d, p)
+	})
+}
+
 // 14.1.3. Training Deliverables.
 type TrainingDeliverables struct {
 	som.SomNode
@@ -60891,10 +60889,10 @@ func (x *TrainingDeliverables) Items() *som.SomList[*DeliverableEntry] {
 // Training & Enablement requirements.
 //
 // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-// detailed training-module catalogue currently lives inside
-// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-// pending the IP-8 doc/training split.
+// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The detailed training-material content and module catalogue is the training
+// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+// re-homed here as [TrainingDeliverableRequirements].
 type TrainingEnablementRequirements struct {
 	som.SomNode
 }
@@ -60907,6 +60905,11 @@ func NewTrainingEnablementRequirements(doc *som.SpecDocument, path string) *Trai
 // Training & enablement requirement form.
 func (x *TrainingEnablementRequirements) Content() *TrainingEnablementRequirementsContentForm {
 	return NewTrainingEnablementRequirementsContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Training deliverable requirements (training half of the former DOANTR).
+func (x *TrainingEnablementRequirements) TrainingDeliverables() *TrainingDeliverableRequirements {
+	return NewTrainingDeliverableRequirements(x.Doc(), x.Path() + "/trainingDeliverables")
 }
 
 // Training materials and resources.
@@ -63248,6 +63251,40 @@ func NewUserCategoryRoleEntry(doc *som.SpecDocument, path string) *UserCategoryR
 func (x *UserCategoryRoleEntry) Content() *UserCategoryRoleEntryContentForm {
 	return NewUserCategoryRoleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
+
+// 10.12.3. User Documentation Requirements.
+//
+// End-user documentation deliverables. The documentation half of the former
+// `DocumentationAndTraining` (`DOANTR`); split from its training half in
+// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+// `TRP-DOC` D12 detail subsection.
+type UserDocumentationRequirements struct {
+	som.SomNode
+}
+
+// NewUserDocumentationRequirements binds a UserDocumentationRequirements facade to a document and a path.
+func NewUserDocumentationRequirements(doc *som.SpecDocument, path string) *UserDocumentationRequirements {
+	return &UserDocumentationRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserDocumentationRequirements) DocumentationContent() *UserDocumentationRequirementsDocumentationContentForm {
+	return NewUserDocumentationRequirementsDocumentationContentForm(x.Doc(), x.Path() + "/documentationContent")
+}
+
+// Documentation deliverables provided to users.
+func (x *UserDocumentationRequirements) Deliverables() *DocumentationAndTrainingDeliverables {
+	return NewDocumentationAndTrainingDeliverables(x.Doc(), x.Path() + "/deliverables")
+}
+
+// Documentation localization approach.
+func (x *UserDocumentationRequirements) Localization() *DocumentationAndTrainingLocalization {
+	return NewDocumentationAndTrainingLocalization(x.Doc(), x.Path() + "/localization")
+}
+
+// Documentation narrative.
+// (skipped: documentationNarrative has no target type)
 
 // User group impact entry.
 type UserGroupImpactEntry struct {
@@ -98699,40 +98736,6 @@ func (x *DocumentationAndTrainingDeliverablesContentForm) SetReleaseNotes(value 
 	x.Doc().SetFormField(x.Path(), "releaseNotes", value)
 }
 
-// DocumentationAndTrainingDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
-type DocumentationAndTrainingDocumentationContentForm struct {
-	som.SomNode
-}
-
-// NewDocumentationAndTrainingDocumentationContentForm binds a DocumentationAndTrainingDocumentationContentForm facade to a document and a path.
-func NewDocumentationAndTrainingDocumentationContentForm(doc *som.SpecDocument, path string) *DocumentationAndTrainingDocumentationContentForm {
-	return &DocumentationAndTrainingDocumentationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) DocumentationFormat() string {
-	return x.Doc().FormFieldOr(x.Path(), "documentationFormat")
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) SetDocumentationFormat(value string) {
-	x.Doc().SetFormField(x.Path(), "documentationFormat", value)
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) DocumentationPlatform() string {
-	return x.Doc().FormFieldOr(x.Path(), "documentationPlatform")
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) SetDocumentationPlatform(value string) {
-	x.Doc().SetFormField(x.Path(), "documentationPlatform", value)
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) DocumentationVersioning() string {
-	return x.Doc().FormFieldOr(x.Path(), "documentationVersioning")
-}
-
-func (x *DocumentationAndTrainingDocumentationContentForm) SetDocumentationVersioning(value string) {
-	x.Doc().SetFormField(x.Path(), "documentationVersioning", value)
-}
-
 // DocumentationAndTrainingLocalizationContentForm is the generated form facade for the `content` @Form section.
 type DocumentationAndTrainingLocalizationContentForm struct {
 	som.SomNode
@@ -98757,88 +98760,6 @@ func (x *DocumentationAndTrainingLocalizationContentForm) DocumentationTranslati
 
 func (x *DocumentationAndTrainingLocalizationContentForm) SetDocumentationTranslation(value string) {
 	x.Doc().SetFormField(x.Path(), "documentationTranslation", value)
-}
-
-// DocumentationAndTrainingTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
-type DocumentationAndTrainingTrainingContentForm struct {
-	som.SomNode
-}
-
-// NewDocumentationAndTrainingTrainingContentForm binds a DocumentationAndTrainingTrainingContentForm facade to a document and a path.
-func NewDocumentationAndTrainingTrainingContentForm(doc *som.SpecDocument, path string) *DocumentationAndTrainingTrainingContentForm {
-	return &DocumentationAndTrainingTrainingContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) TrainingMaterials() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingMaterials")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetTrainingMaterials(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingMaterials", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) TrainingFormat() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingFormat")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetTrainingFormat(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingFormat", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) TrainingDuration() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingDuration")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetTrainingDuration(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingDuration", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) TrainingSchedule() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingSchedule")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetTrainingSchedule(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingSchedule", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) TrainTheTrainer() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainTheTrainer")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetTrainTheTrainer(value string) {
-	x.Doc().SetFormField(x.Path(), "trainTheTrainer", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) RefresherTraining() string {
-	return x.Doc().FormFieldOr(x.Path(), "refresherTraining")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetRefresherTraining(value string) {
-	x.Doc().SetFormField(x.Path(), "refresherTraining", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) KnowledgeTransferPlan() string {
-	return x.Doc().FormFieldOr(x.Path(), "knowledgeTransferPlan")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetKnowledgeTransferPlan(value string) {
-	x.Doc().SetFormField(x.Path(), "knowledgeTransferPlan", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SupportHandoff() string {
-	return x.Doc().FormFieldOr(x.Path(), "supportHandoff")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetSupportHandoff(value string) {
-	x.Doc().SetFormField(x.Path(), "supportHandoff", value)
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) CertificationProgram() string {
-	return x.Doc().FormFieldOr(x.Path(), "certificationProgram")
-}
-
-func (x *DocumentationAndTrainingTrainingContentForm) SetCertificationProgram(value string) {
-	x.Doc().SetFormField(x.Path(), "certificationProgram", value)
 }
 
 // DocumentationQualityCriteriaDocumentationOverviewContentForm is the generated form facade for the `documentationOverviewContent` @Form section.
@@ -172261,6 +172182,88 @@ func (x *TrainingAssessmentReportingContentForm) SetManagementVisibility(value s
 	x.Doc().SetFormField(x.Path(), "managementVisibility", value)
 }
 
+// TrainingDeliverableRequirementsTrainingContentForm is the generated form facade for the `trainingContent` @Form section.
+type TrainingDeliverableRequirementsTrainingContentForm struct {
+	som.SomNode
+}
+
+// NewTrainingDeliverableRequirementsTrainingContentForm binds a TrainingDeliverableRequirementsTrainingContentForm facade to a document and a path.
+func NewTrainingDeliverableRequirementsTrainingContentForm(doc *som.SpecDocument, path string) *TrainingDeliverableRequirementsTrainingContentForm {
+	return &TrainingDeliverableRequirementsTrainingContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) TrainingMaterials() string {
+	return x.Doc().FormFieldOr(x.Path(), "trainingMaterials")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetTrainingMaterials(value string) {
+	x.Doc().SetFormField(x.Path(), "trainingMaterials", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) TrainingFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "trainingFormat")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetTrainingFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "trainingFormat", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) TrainingDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "trainingDuration")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetTrainingDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "trainingDuration", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) TrainingSchedule() string {
+	return x.Doc().FormFieldOr(x.Path(), "trainingSchedule")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetTrainingSchedule(value string) {
+	x.Doc().SetFormField(x.Path(), "trainingSchedule", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) TrainTheTrainer() string {
+	return x.Doc().FormFieldOr(x.Path(), "trainTheTrainer")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetTrainTheTrainer(value string) {
+	x.Doc().SetFormField(x.Path(), "trainTheTrainer", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) RefresherTraining() string {
+	return x.Doc().FormFieldOr(x.Path(), "refresherTraining")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetRefresherTraining(value string) {
+	x.Doc().SetFormField(x.Path(), "refresherTraining", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) KnowledgeTransferPlan() string {
+	return x.Doc().FormFieldOr(x.Path(), "knowledgeTransferPlan")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetKnowledgeTransferPlan(value string) {
+	x.Doc().SetFormField(x.Path(), "knowledgeTransferPlan", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SupportHandoff() string {
+	return x.Doc().FormFieldOr(x.Path(), "supportHandoff")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetSupportHandoff(value string) {
+	x.Doc().SetFormField(x.Path(), "supportHandoff", value)
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) CertificationProgram() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificationProgram")
+}
+
+func (x *TrainingDeliverableRequirementsTrainingContentForm) SetCertificationProgram(value string) {
+	x.Doc().SetFormField(x.Path(), "certificationProgram", value)
+}
+
 // TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
 type TrainingEnablementRequirementsContentForm struct {
 	som.SomNode
@@ -177399,6 +177402,40 @@ func (x *UserCategoryRoleEntryContentForm) PerformanceMetrics() string {
 
 func (x *UserCategoryRoleEntryContentForm) SetPerformanceMetrics(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceMetrics", value)
+}
+
+// UserDocumentationRequirementsDocumentationContentForm is the generated form facade for the `documentationContent` @Form section.
+type UserDocumentationRequirementsDocumentationContentForm struct {
+	som.SomNode
+}
+
+// NewUserDocumentationRequirementsDocumentationContentForm binds a UserDocumentationRequirementsDocumentationContentForm facade to a document and a path.
+func NewUserDocumentationRequirementsDocumentationContentForm(doc *som.SpecDocument, path string) *UserDocumentationRequirementsDocumentationContentForm {
+	return &UserDocumentationRequirementsDocumentationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) DocumentationFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "documentationFormat")
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) SetDocumentationFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "documentationFormat", value)
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) DocumentationPlatform() string {
+	return x.Doc().FormFieldOr(x.Path(), "documentationPlatform")
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) SetDocumentationPlatform(value string) {
+	x.Doc().SetFormField(x.Path(), "documentationPlatform", value)
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) DocumentationVersioning() string {
+	return x.Doc().FormFieldOr(x.Path(), "documentationVersioning")
+}
+
+func (x *UserDocumentationRequirementsDocumentationContentForm) SetDocumentationVersioning(value string) {
+	x.Doc().SetFormField(x.Path(), "documentationVersioning", value)
 }
 
 // UserGroupImpactEntryContentForm is the generated form facade for the `content` @Form section.

@@ -4182,7 +4182,7 @@ section-types:
     description: Zone requirements.
   DOANTR:
     prefix: doantr
-    description: 10.12.3. Documentation and Training.
+    description: 10.12.3. User Documentation Requirements.
   DOCHQU:
     prefix: dochqu
     description: 11.5.4. Documentation changeability quality.
@@ -8371,6 +8371,9 @@ section-types:
   TRDLV:
     prefix: trdlv
     description: 14.1.3. Training Deliverables.
+  TRMAT:
+    prefix: trmat
+    description: 10.12.3b. Training Deliverable Requirements.
   TRMIL:
     prefix: trmil
     description: A transition milestone entry (form).

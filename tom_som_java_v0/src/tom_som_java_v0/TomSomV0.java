@@ -12102,9 +12102,16 @@ public final class TomSomV0 {
       return new TranslationProcess(doc, path + "/translationProcess");
     }
 
-    // Documentation and training.
-    public DocumentationAndTraining documentationAndTraining() {
-      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
+    // User documentation requirements (doc half of the former DOANTR;
+    // split in L34C-7).
+    public UserDocumentationRequirements userDocumentation() {
+      return new UserDocumentationRequirements(doc, path + "/userDocumentation");
+    }
+
+    // Training deliverable requirements (training half of the former DOANTR;
+    // split in L34C-7).
+    public TrainingDeliverableRequirements trainingDeliverables() {
+      return new TrainingDeliverableRequirements(doc, path + "/trainingDeliverables");
     }
 
     // Rollout plan.
@@ -17522,41 +17529,6 @@ public final class TomSomV0 {
     // Individual relevant section entries.
     public SomList<RelevantSectionEntry> sections() {
       return new SomList<>(doc, path + "/RESEEN-SECT-LST", (d, p) -> new RelevantSectionEntry(d, p));
-    }
-  }
-
-  // 10.12.3. Documentation and Training.
-  //
-  // End-user documentation and training materials.
-  public static final class DocumentationAndTraining extends SomNode {
-    public DocumentationAndTraining(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DocumentationAndTrainingDocumentationContentForm documentationContent() {
-      return new DocumentationAndTrainingDocumentationContentForm(doc, path + "/documentationContent");
-    }
-
-    // Documentation deliverables provided to users.
-    public DocumentationAndTrainingDeliverables deliverables() {
-      return new DocumentationAndTrainingDeliverables(doc, path + "/deliverables");
-    }
-
-    // Documentation localization approach.
-    public DocumentationAndTrainingLocalization localization() {
-      return new DocumentationAndTrainingLocalization(doc, path + "/localization");
-    }
-
-    public DocumentationAndTrainingTrainingContentForm trainingContent() {
-      return new DocumentationAndTrainingTrainingContentForm(doc, path + "/trainingContent");
-    }
-
-    // Documentation and training narrative.
-    // (skipped: documentationNarrative has no target type)
-
-    // Training module entries.
-    public SomList<TrainingModuleEntry> trainingModules() {
-      return new SomList<>(doc, path + "/TRMOEN-TRAI-LST", (d, p) -> new TrainingModuleEntry(d, p));
     }
   }
 
@@ -23795,9 +23767,9 @@ public final class TomSomV0 {
   // *quality criteria* cross-map lives in SBP.14
   // (`DocumentationQualityCriteria`).
   //
-  // Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-  // doc/training field-split (separating the documentation half from the
-  // training half) is deferred to IP-8.
+  // Holds the documentation half of the former `DocumentationAndTraining`,
+  // split out in L34C-7 ([UserDocumentationRequirements]). The training half
+  // re-homed to [TrainingEnablementRequirements].
   public static final class InformationForUseRequirements extends SomNode {
     public InformationForUseRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -23812,10 +23784,9 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Documentation (and, until the IP-8 split, training) requirements,
-    // re-homed from MLAR.
-    public DocumentationAndTraining documentationAndTraining() {
-      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
+    // User documentation requirements (doc half of the former DOANTR).
+    public UserDocumentationRequirements userDocumentation() {
+      return new UserDocumentationRequirements(doc, path + "/userDocumentation");
     }
   }
 
@@ -51742,6 +51713,33 @@ public final class TomSomV0 {
     }
   }
 
+  // 10.12.3b. Training Deliverable Requirements.
+  //
+  // End-user training materials and module catalogue. The training half of the
+  // former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+  // half in L34C-7 (SR-29). Logically re-homed under SBP.9
+  // `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+  // file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+  // (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+  // content in one D12 subsection rather than fragmenting it across a new id.
+  public static final class TrainingDeliverableRequirements extends SomNode {
+    public TrainingDeliverableRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public TrainingDeliverableRequirementsTrainingContentForm trainingContent() {
+      return new TrainingDeliverableRequirementsTrainingContentForm(doc, path + "/trainingContent");
+    }
+
+    // Training narrative.
+    // (skipped: trainingNarrative has no target type)
+
+    // Training module entries.
+    public SomList<TrainingModuleEntry> trainingModules() {
+      return new SomList<>(doc, path + "/TRMOEN-TRAI-LST", (d, p) -> new TrainingModuleEntry(d, p));
+    }
+  }
+
   // 14.1.3. Training Deliverables.
   public static final class TrainingDeliverables extends SomNode {
     public TrainingDeliverables(SpecDocument doc, String path) {
@@ -51766,10 +51764,10 @@ public final class TomSomV0 {
   // Training & Enablement requirements.
   //
   // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-  // training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-  // detailed training-module catalogue currently lives inside
-  // [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-  // pending the IP-8 doc/training split.
+  // training-materials *delivery* and rollout sequencing re-home to SBP.15.
+  // The detailed training-material content and module catalogue is the training
+  // half of the former `DocumentationAndTraining`, split out in L34C-7 and
+  // re-homed here as [TrainingDeliverableRequirements].
   public static final class TrainingEnablementRequirements extends SomNode {
     public TrainingEnablementRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -51778,6 +51776,11 @@ public final class TomSomV0 {
     // Training & enablement requirement form.
     public TrainingEnablementRequirementsContentForm content() {
       return new TrainingEnablementRequirementsContentForm(doc, path + "/content");
+    }
+
+    // Training deliverable requirements (training half of the former DOANTR).
+    public TrainingDeliverableRequirements trainingDeliverables() {
+      return new TrainingDeliverableRequirements(doc, path + "/trainingDeliverables");
     }
   }
 
@@ -53726,6 +53729,37 @@ public final class TomSomV0 {
     public UserCategoryRoleEntryContentForm content() {
       return new UserCategoryRoleEntryContentForm(doc, path + "/content");
     }
+  }
+
+  // 10.12.3. User Documentation Requirements.
+  //
+  // End-user documentation deliverables. The documentation half of the former
+  // `DocumentationAndTraining` (`DOANTR`); split from its training half in
+  // L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+  // (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+  // sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+  // `TRP-DOC` D12 detail subsection.
+  public static final class UserDocumentationRequirements extends SomNode {
+    public UserDocumentationRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public UserDocumentationRequirementsDocumentationContentForm documentationContent() {
+      return new UserDocumentationRequirementsDocumentationContentForm(doc, path + "/documentationContent");
+    }
+
+    // Documentation deliverables provided to users.
+    public DocumentationAndTrainingDeliverables deliverables() {
+      return new DocumentationAndTrainingDeliverables(doc, path + "/deliverables");
+    }
+
+    // Documentation localization approach.
+    public DocumentationAndTrainingLocalization localization() {
+      return new DocumentationAndTrainingLocalization(doc, path + "/localization");
+    }
+
+    // Documentation narrative.
+    // (skipped: documentationNarrative has no target type)
   }
 
   // User group impact entry.
@@ -89573,40 +89607,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `documentationContent` @Form section.
-  public static final class DocumentationAndTrainingDocumentationContentForm extends SomNode {
-    public DocumentationAndTrainingDocumentationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String documentationFormat() {
-      String v = doc.formField(path, "documentationFormat");
-      return v == null ? "" : v;
-    }
-
-    public void documentationFormat(String value) {
-      doc.setFormField(path, "documentationFormat", value);
-    }
-
-    public String documentationPlatform() {
-      String v = doc.formField(path, "documentationPlatform");
-      return v == null ? "" : v;
-    }
-
-    public void documentationPlatform(String value) {
-      doc.setFormField(path, "documentationPlatform", value);
-    }
-
-    public String documentationVersioning() {
-      String v = doc.formField(path, "documentationVersioning");
-      return v == null ? "" : v;
-    }
-
-    public void documentationVersioning(String value) {
-      doc.setFormField(path, "documentationVersioning", value);
-    }
-  }
-
   // Generated form facade for the `content` @Form section.
   public static final class DocumentationAndTrainingLocalizationContentForm extends SomNode {
     public DocumentationAndTrainingLocalizationContentForm(SpecDocument doc, String path) {
@@ -89629,94 +89629,6 @@ public final class TomSomV0 {
 
     public void documentationTranslation(String value) {
       doc.setFormField(path, "documentationTranslation", value);
-    }
-  }
-
-  // Generated form facade for the `trainingContent` @Form section.
-  public static final class DocumentationAndTrainingTrainingContentForm extends SomNode {
-    public DocumentationAndTrainingTrainingContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String trainingMaterials() {
-      String v = doc.formField(path, "trainingMaterials");
-      return v == null ? "" : v;
-    }
-
-    public void trainingMaterials(String value) {
-      doc.setFormField(path, "trainingMaterials", value);
-    }
-
-    public String trainingFormat() {
-      String v = doc.formField(path, "trainingFormat");
-      return v == null ? "" : v;
-    }
-
-    public void trainingFormat(String value) {
-      doc.setFormField(path, "trainingFormat", value);
-    }
-
-    public String trainingDuration() {
-      String v = doc.formField(path, "trainingDuration");
-      return v == null ? "" : v;
-    }
-
-    public void trainingDuration(String value) {
-      doc.setFormField(path, "trainingDuration", value);
-    }
-
-    public String trainingSchedule() {
-      String v = doc.formField(path, "trainingSchedule");
-      return v == null ? "" : v;
-    }
-
-    public void trainingSchedule(String value) {
-      doc.setFormField(path, "trainingSchedule", value);
-    }
-
-    public String trainTheTrainer() {
-      String v = doc.formField(path, "trainTheTrainer");
-      return v == null ? "" : v;
-    }
-
-    public void trainTheTrainer(String value) {
-      doc.setFormField(path, "trainTheTrainer", value);
-    }
-
-    public String refresherTraining() {
-      String v = doc.formField(path, "refresherTraining");
-      return v == null ? "" : v;
-    }
-
-    public void refresherTraining(String value) {
-      doc.setFormField(path, "refresherTraining", value);
-    }
-
-    public String knowledgeTransferPlan() {
-      String v = doc.formField(path, "knowledgeTransferPlan");
-      return v == null ? "" : v;
-    }
-
-    public void knowledgeTransferPlan(String value) {
-      doc.setFormField(path, "knowledgeTransferPlan", value);
-    }
-
-    public String supportHandoff() {
-      String v = doc.formField(path, "supportHandoff");
-      return v == null ? "" : v;
-    }
-
-    public void supportHandoff(String value) {
-      doc.setFormField(path, "supportHandoff", value);
-    }
-
-    public String certificationProgram() {
-      String v = doc.formField(path, "certificationProgram");
-      return v == null ? "" : v;
-    }
-
-    public void certificationProgram(String value) {
-      doc.setFormField(path, "certificationProgram", value);
     }
   }
 
@@ -165288,6 +165200,94 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated form facade for the `trainingContent` @Form section.
+  public static final class TrainingDeliverableRequirementsTrainingContentForm extends SomNode {
+    public TrainingDeliverableRequirementsTrainingContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String trainingMaterials() {
+      String v = doc.formField(path, "trainingMaterials");
+      return v == null ? "" : v;
+    }
+
+    public void trainingMaterials(String value) {
+      doc.setFormField(path, "trainingMaterials", value);
+    }
+
+    public String trainingFormat() {
+      String v = doc.formField(path, "trainingFormat");
+      return v == null ? "" : v;
+    }
+
+    public void trainingFormat(String value) {
+      doc.setFormField(path, "trainingFormat", value);
+    }
+
+    public String trainingDuration() {
+      String v = doc.formField(path, "trainingDuration");
+      return v == null ? "" : v;
+    }
+
+    public void trainingDuration(String value) {
+      doc.setFormField(path, "trainingDuration", value);
+    }
+
+    public String trainingSchedule() {
+      String v = doc.formField(path, "trainingSchedule");
+      return v == null ? "" : v;
+    }
+
+    public void trainingSchedule(String value) {
+      doc.setFormField(path, "trainingSchedule", value);
+    }
+
+    public String trainTheTrainer() {
+      String v = doc.formField(path, "trainTheTrainer");
+      return v == null ? "" : v;
+    }
+
+    public void trainTheTrainer(String value) {
+      doc.setFormField(path, "trainTheTrainer", value);
+    }
+
+    public String refresherTraining() {
+      String v = doc.formField(path, "refresherTraining");
+      return v == null ? "" : v;
+    }
+
+    public void refresherTraining(String value) {
+      doc.setFormField(path, "refresherTraining", value);
+    }
+
+    public String knowledgeTransferPlan() {
+      String v = doc.formField(path, "knowledgeTransferPlan");
+      return v == null ? "" : v;
+    }
+
+    public void knowledgeTransferPlan(String value) {
+      doc.setFormField(path, "knowledgeTransferPlan", value);
+    }
+
+    public String supportHandoff() {
+      String v = doc.formField(path, "supportHandoff");
+      return v == null ? "" : v;
+    }
+
+    public void supportHandoff(String value) {
+      doc.setFormField(path, "supportHandoff", value);
+    }
+
+    public String certificationProgram() {
+      String v = doc.formField(path, "certificationProgram");
+      return v == null ? "" : v;
+    }
+
+    public void certificationProgram(String value) {
+      doc.setFormField(path, "certificationProgram", value);
+    }
+  }
+
   // Generated form facade for the `content` @Form section.
   public static final class TrainingEnablementRequirementsContentForm extends SomNode {
     public TrainingEnablementRequirementsContentForm(SpecDocument doc, String path) {
@@ -170600,6 +170600,40 @@ public final class TomSomV0 {
 
     public void performanceMetrics(String value) {
       doc.setFormField(path, "performanceMetrics", value);
+    }
+  }
+
+  // Generated form facade for the `documentationContent` @Form section.
+  public static final class UserDocumentationRequirementsDocumentationContentForm extends SomNode {
+    public UserDocumentationRequirementsDocumentationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String documentationFormat() {
+      String v = doc.formField(path, "documentationFormat");
+      return v == null ? "" : v;
+    }
+
+    public void documentationFormat(String value) {
+      doc.setFormField(path, "documentationFormat", value);
+    }
+
+    public String documentationPlatform() {
+      String v = doc.formField(path, "documentationPlatform");
+      return v == null ? "" : v;
+    }
+
+    public void documentationPlatform(String value) {
+      doc.setFormField(path, "documentationPlatform", value);
+    }
+
+    public String documentationVersioning() {
+      String v = doc.formField(path, "documentationVersioning");
+      return v == null ? "" : v;
+    }
+
+    public void documentationVersioning(String value) {
+      doc.setFormField(path, "documentationVersioning", value);
     }
   }
 

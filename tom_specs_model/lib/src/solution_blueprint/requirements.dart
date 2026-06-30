@@ -20,7 +20,8 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import 'experience_and_interface_design.dart'
     show
-        DocumentationAndTraining,
+        UserDocumentationRequirements,
+        TrainingDeliverableRequirements,
         MultiLanguageAndRolloutLocaleHandling,
         TranslationRequirements;
 
@@ -72,27 +73,27 @@ class LocalizationTranslationRequirements {
 /// *quality criteria* cross-map lives in SBP.14
 /// (`DocumentationQualityCriteria`).
 ///
-/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-/// doc/training field-split (separating the documentation half from the
-/// training half) is deferred to IP-8.
+/// Holds the documentation half of the former `DocumentationAndTraining`,
+/// split out in L34C-7 ([UserDocumentationRequirements]). The training half
+/// re-homed to [TrainingEnablementRequirements].
 @SectionId('IFUR')
 class InformationForUseRequirements {
   @ContentType('description', 'User documentation requirements: deliverables, '
       'formats, platforms, versioning, and documentation localization.')
   String? content;
 
-  /// Documentation (and, until the IP-8 split, training) requirements,
-  /// re-homed from MLAR.
-  DocumentationAndTraining documentationAndTraining = DocumentationAndTraining();
+  /// User documentation requirements (doc half of the former DOANTR).
+  UserDocumentationRequirements userDocumentation =
+      UserDocumentationRequirements();
 }
 
 /// Training & Enablement requirements.
 ///
 /// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-/// detailed training-module catalogue currently lives inside
-/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-/// pending the IP-8 doc/training split.
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+/// The detailed training-material content and module catalogue is the training
+/// half of the former `DocumentationAndTraining`, split out in L34C-7 and
+/// re-homed here as [TrainingDeliverableRequirements].
 @SectionId('TREQ')
 class TrainingEnablementRequirements {
   /// Training & enablement requirement form.
@@ -106,4 +107,8 @@ class TrainingEnablementRequirements {
         hint: 'Refresher and continuous-enablement expectations'),
   ])
   String? content;
+
+  /// Training deliverable requirements (training half of the former DOANTR).
+  TrainingDeliverableRequirements trainingDeliverables =
+      TrainingDeliverableRequirements();
 }

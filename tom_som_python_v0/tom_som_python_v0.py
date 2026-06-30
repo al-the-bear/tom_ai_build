@@ -10952,10 +10952,17 @@ class D12TransitionRolloutPlan(SomNode):
     def translationProcess(self):
         return TranslationProcess(self.doc, f"{self.path}/translationProcess")
 
-    # Documentation and training.
+    # User documentation requirements (doc half of the former DOANTR;
+    # split in L34C-7).
     @property
-    def documentationAndTraining(self):
-        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
+    def userDocumentation(self):
+        return UserDocumentationRequirements(self.doc, f"{self.path}/userDocumentation")
+
+    # Training deliverable requirements (training half of the former DOANTR;
+    # split in L34C-7).
+    @property
+    def trainingDeliverables(self):
+        return TrainingDeliverableRequirements(self.doc, f"{self.path}/trainingDeliverables")
 
     # Rollout plan.
     @property
@@ -15815,42 +15822,6 @@ class DocumentRelevantSections(SomNode):
     @property
     def sections(self):
         return SomList(self.doc, f"{self.path}/RESEEN-SECT-LST", lambda d, p: RelevantSectionEntry(d, p))
-
-class DocumentationAndTraining(SomNode):
-    """10.12.3. Documentation and Training.
-    
-    End-user documentation and training materials.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def documentationContent(self):
-        return DocumentationAndTrainingDocumentationContentForm(self.doc, f"{self.path}/documentationContent")
-
-    # Documentation deliverables provided to users.
-    @property
-    def deliverables(self):
-        return DocumentationAndTrainingDeliverables(self.doc, f"{self.path}/deliverables")
-
-    # Documentation localization approach.
-    @property
-    def localization(self):
-        return DocumentationAndTrainingLocalization(self.doc, f"{self.path}/localization")
-
-    @property
-    def trainingContent(self):
-        return DocumentationAndTrainingTrainingContentForm(self.doc, f"{self.path}/trainingContent")
-
-    # Documentation and training narrative.
-    @property
-    def documentationNarrative(self):
-        return None  # (skipped: no target type)
-
-    # Training module entries.
-    @property
-    def trainingModules(self):
-        return SomList(self.doc, f"{self.path}/TRMOEN-TRAI-LST", lambda d, p: TrainingModuleEntry(d, p))
 
 class DocumentationAndTrainingDeliverables(SomNode):
     """Documentation deliverables provided to users."""
@@ -21484,9 +21455,9 @@ class InformationForUseRequirements(SomNode):
     *quality criteria* cross-map lives in SBP.14
     (`DocumentationQualityCriteria`).
     
-    Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
-    doc/training field-split (separating the documentation half from the
-    training half) is deferred to IP-8.
+    Holds the documentation half of the former `DocumentationAndTraining`,
+    split out in L34C-7 ([UserDocumentationRequirements]). The training half
+    re-homed to [TrainingEnablementRequirements].
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -21499,11 +21470,10 @@ class InformationForUseRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Documentation (and, until the IP-8 split, training) requirements,
-    # re-homed from MLAR.
+    # User documentation requirements (doc half of the former DOANTR).
     @property
-    def documentationAndTraining(self):
-        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
+    def userDocumentation(self):
+        return UserDocumentationRequirements(self.doc, f"{self.path}/userDocumentation")
 
 class InfrastructureAsCode(SomNode):
     """Infrastructure as Code requirements."""
@@ -46707,6 +46677,34 @@ class TrainingAssessmentReporting(SomNode):
     def content(self):
         return TrainingAssessmentReportingContentForm(self.doc, f"{self.path}/content")
 
+class TrainingDeliverableRequirements(SomNode):
+    """10.12.3b. Training Deliverable Requirements.
+    
+    End-user training materials and module catalogue. The training half of the
+    former `DocumentationAndTraining` (`DOANTR`); split from its documentation
+    half in L34C-7 (SR-29). Logically re-homed under SBP.9
+    `TrainingEnablementRequirements` (`TREQ`) while physically staying in this
+    file. Maps to D12 under the existing training detail subsection `TRP-TRN`
+    (shared with SBP.15 `RolloutTrainingMaterials`), grouping all training
+    content in one D12 subsection rather than fragmenting it across a new id.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def trainingContent(self):
+        return TrainingDeliverableRequirementsTrainingContentForm(self.doc, f"{self.path}/trainingContent")
+
+    # Training narrative.
+    @property
+    def trainingNarrative(self):
+        return None  # (skipped: no target type)
+
+    # Training module entries.
+    @property
+    def trainingModules(self):
+        return SomList(self.doc, f"{self.path}/TRMOEN-TRAI-LST", lambda d, p: TrainingModuleEntry(d, p))
+
 class TrainingDeliverables(SomNode):
     """14.1.3. Training Deliverables."""
     def __init__(self, doc, path):
@@ -46729,10 +46727,10 @@ class TrainingEnablementRequirements(SomNode):
     """Training & Enablement requirements.
     
     Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-    training-materials *delivery* and rollout sequencing re-home to SBP.15; the
-    detailed training-module catalogue currently lives inside
-    [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
-    pending the IP-8 doc/training split.
+    training-materials *delivery* and rollout sequencing re-home to SBP.15.
+    The detailed training-material content and module catalogue is the training
+    half of the former `DocumentationAndTraining`, split out in L34C-7 and
+    re-homed here as [TrainingDeliverableRequirements].
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -46741,6 +46739,11 @@ class TrainingEnablementRequirements(SomNode):
     @property
     def content(self):
         return TrainingEnablementRequirementsContentForm(self.doc, f"{self.path}/content")
+
+    # Training deliverable requirements (training half of the former DOANTR).
+    @property
+    def trainingDeliverables(self):
+        return TrainingDeliverableRequirements(self.doc, f"{self.path}/trainingDeliverables")
 
 class TrainingMaterials(SomNode):
     """Training materials and resources."""
@@ -48492,6 +48495,38 @@ class UserCategoryRoleEntry(SomNode):
     @property
     def content(self):
         return UserCategoryRoleEntryContentForm(self.doc, f"{self.path}/content")
+
+class UserDocumentationRequirements(SomNode):
+    """10.12.3. User Documentation Requirements.
+    
+    End-user documentation deliverables. The documentation half of the former
+    `DocumentationAndTraining` (`DOANTR`); split from its training half in
+    L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
+    (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
+    sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
+    `TRP-DOC` D12 detail subsection.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def documentationContent(self):
+        return UserDocumentationRequirementsDocumentationContentForm(self.doc, f"{self.path}/documentationContent")
+
+    # Documentation deliverables provided to users.
+    @property
+    def deliverables(self):
+        return DocumentationAndTrainingDeliverables(self.doc, f"{self.path}/deliverables")
+
+    # Documentation localization approach.
+    @property
+    def localization(self):
+        return DocumentationAndTrainingLocalization(self.doc, f"{self.path}/localization")
+
+    # Documentation narrative.
+    @property
+    def documentationNarrative(self):
+        return None  # (skipped: no target type)
 
 class UserGroupImpactEntry(SomNode):
     """User group impact entry."""
@@ -80202,36 +80237,6 @@ class DocumentationAndTrainingDeliverablesContentForm(SomNode):
     def releaseNotes(self, value):
         self.doc.set_form_field(self.path, "releaseNotes", value)
 
-class DocumentationAndTrainingDocumentationContentForm(SomNode):
-    """Generated form facade for the `documentationContent` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def documentationFormat(self):
-        return self.doc.form_field(self.path, "documentationFormat") or ""
-
-    @documentationFormat.setter
-    def documentationFormat(self, value):
-        self.doc.set_form_field(self.path, "documentationFormat", value)
-
-    @property
-    def documentationPlatform(self):
-        return self.doc.form_field(self.path, "documentationPlatform") or ""
-
-    @documentationPlatform.setter
-    def documentationPlatform(self, value):
-        self.doc.set_form_field(self.path, "documentationPlatform", value)
-
-    @property
-    def documentationVersioning(self):
-        return self.doc.form_field(self.path, "documentationVersioning") or ""
-
-    @documentationVersioning.setter
-    def documentationVersioning(self, value):
-        self.doc.set_form_field(self.path, "documentationVersioning", value)
-
 class DocumentationAndTrainingLocalizationContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -80253,84 +80258,6 @@ class DocumentationAndTrainingLocalizationContentForm(SomNode):
     @documentationTranslation.setter
     def documentationTranslation(self, value):
         self.doc.set_form_field(self.path, "documentationTranslation", value)
-
-class DocumentationAndTrainingTrainingContentForm(SomNode):
-    """Generated form facade for the `trainingContent` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def trainingMaterials(self):
-        return self.doc.form_field(self.path, "trainingMaterials") or ""
-
-    @trainingMaterials.setter
-    def trainingMaterials(self, value):
-        self.doc.set_form_field(self.path, "trainingMaterials", value)
-
-    @property
-    def trainingFormat(self):
-        return self.doc.form_field(self.path, "trainingFormat") or ""
-
-    @trainingFormat.setter
-    def trainingFormat(self, value):
-        self.doc.set_form_field(self.path, "trainingFormat", value)
-
-    @property
-    def trainingDuration(self):
-        return self.doc.form_field(self.path, "trainingDuration") or ""
-
-    @trainingDuration.setter
-    def trainingDuration(self, value):
-        self.doc.set_form_field(self.path, "trainingDuration", value)
-
-    @property
-    def trainingSchedule(self):
-        return self.doc.form_field(self.path, "trainingSchedule") or ""
-
-    @trainingSchedule.setter
-    def trainingSchedule(self, value):
-        self.doc.set_form_field(self.path, "trainingSchedule", value)
-
-    @property
-    def trainTheTrainer(self):
-        return self.doc.form_field(self.path, "trainTheTrainer") or ""
-
-    @trainTheTrainer.setter
-    def trainTheTrainer(self, value):
-        self.doc.set_form_field(self.path, "trainTheTrainer", value)
-
-    @property
-    def refresherTraining(self):
-        return self.doc.form_field(self.path, "refresherTraining") or ""
-
-    @refresherTraining.setter
-    def refresherTraining(self, value):
-        self.doc.set_form_field(self.path, "refresherTraining", value)
-
-    @property
-    def knowledgeTransferPlan(self):
-        return self.doc.form_field(self.path, "knowledgeTransferPlan") or ""
-
-    @knowledgeTransferPlan.setter
-    def knowledgeTransferPlan(self, value):
-        self.doc.set_form_field(self.path, "knowledgeTransferPlan", value)
-
-    @property
-    def supportHandoff(self):
-        return self.doc.form_field(self.path, "supportHandoff") or ""
-
-    @supportHandoff.setter
-    def supportHandoff(self, value):
-        self.doc.set_form_field(self.path, "supportHandoff", value)
-
-    @property
-    def certificationProgram(self):
-        return self.doc.form_field(self.path, "certificationProgram") or ""
-
-    @certificationProgram.setter
-    def certificationProgram(self, value):
-        self.doc.set_form_field(self.path, "certificationProgram", value)
 
 class DocumentationQualityCriteriaDocumentationOverviewContentForm(SomNode):
     """Generated form facade for the `documentationOverviewContent` @Form section."""
@@ -147136,6 +147063,84 @@ class TrainingAssessmentReportingContentForm(SomNode):
     def managementVisibility(self, value):
         self.doc.set_form_field(self.path, "managementVisibility", value)
 
+class TrainingDeliverableRequirementsTrainingContentForm(SomNode):
+    """Generated form facade for the `trainingContent` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def trainingMaterials(self):
+        return self.doc.form_field(self.path, "trainingMaterials") or ""
+
+    @trainingMaterials.setter
+    def trainingMaterials(self, value):
+        self.doc.set_form_field(self.path, "trainingMaterials", value)
+
+    @property
+    def trainingFormat(self):
+        return self.doc.form_field(self.path, "trainingFormat") or ""
+
+    @trainingFormat.setter
+    def trainingFormat(self, value):
+        self.doc.set_form_field(self.path, "trainingFormat", value)
+
+    @property
+    def trainingDuration(self):
+        return self.doc.form_field(self.path, "trainingDuration") or ""
+
+    @trainingDuration.setter
+    def trainingDuration(self, value):
+        self.doc.set_form_field(self.path, "trainingDuration", value)
+
+    @property
+    def trainingSchedule(self):
+        return self.doc.form_field(self.path, "trainingSchedule") or ""
+
+    @trainingSchedule.setter
+    def trainingSchedule(self, value):
+        self.doc.set_form_field(self.path, "trainingSchedule", value)
+
+    @property
+    def trainTheTrainer(self):
+        return self.doc.form_field(self.path, "trainTheTrainer") or ""
+
+    @trainTheTrainer.setter
+    def trainTheTrainer(self, value):
+        self.doc.set_form_field(self.path, "trainTheTrainer", value)
+
+    @property
+    def refresherTraining(self):
+        return self.doc.form_field(self.path, "refresherTraining") or ""
+
+    @refresherTraining.setter
+    def refresherTraining(self, value):
+        self.doc.set_form_field(self.path, "refresherTraining", value)
+
+    @property
+    def knowledgeTransferPlan(self):
+        return self.doc.form_field(self.path, "knowledgeTransferPlan") or ""
+
+    @knowledgeTransferPlan.setter
+    def knowledgeTransferPlan(self, value):
+        self.doc.set_form_field(self.path, "knowledgeTransferPlan", value)
+
+    @property
+    def supportHandoff(self):
+        return self.doc.form_field(self.path, "supportHandoff") or ""
+
+    @supportHandoff.setter
+    def supportHandoff(self, value):
+        self.doc.set_form_field(self.path, "supportHandoff", value)
+
+    @property
+    def certificationProgram(self):
+        return self.doc.form_field(self.path, "certificationProgram") or ""
+
+    @certificationProgram.setter
+    def certificationProgram(self, value):
+        self.doc.set_form_field(self.path, "certificationProgram", value)
+
 class TrainingEnablementRequirementsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -151835,6 +151840,36 @@ class UserCategoryRoleEntryContentForm(SomNode):
     @performanceMetrics.setter
     def performanceMetrics(self, value):
         self.doc.set_form_field(self.path, "performanceMetrics", value)
+
+class UserDocumentationRequirementsDocumentationContentForm(SomNode):
+    """Generated form facade for the `documentationContent` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def documentationFormat(self):
+        return self.doc.form_field(self.path, "documentationFormat") or ""
+
+    @documentationFormat.setter
+    def documentationFormat(self, value):
+        self.doc.set_form_field(self.path, "documentationFormat", value)
+
+    @property
+    def documentationPlatform(self):
+        return self.doc.form_field(self.path, "documentationPlatform") or ""
+
+    @documentationPlatform.setter
+    def documentationPlatform(self, value):
+        self.doc.set_form_field(self.path, "documentationPlatform", value)
+
+    @property
+    def documentationVersioning(self):
+        return self.doc.form_field(self.path, "documentationVersioning") or ""
+
+    @documentationVersioning.setter
+    def documentationVersioning(self, value):
+        self.doc.set_form_field(self.path, "documentationVersioning", value)
 
 class UserGroupImpactEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

@@ -6446,8 +6446,11 @@ LocalizationProcess D12TransitionRolloutPlan::localizationProcess() const {
 TranslationProcess D12TransitionRolloutPlan::translationProcess() const {
   return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
 }
-DocumentationAndTraining D12TransitionRolloutPlan::documentationAndTraining() const {
-  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
+UserDocumentationRequirements D12TransitionRolloutPlan::userDocumentation() const {
+  return UserDocumentationRequirements(doc(), som::joinPath(path(), "userDocumentation"));
+}
+TrainingDeliverableRequirements D12TransitionRolloutPlan::trainingDeliverables() const {
+  return TrainingDeliverableRequirements(doc(), som::joinPath(path(), "trainingDeliverables"));
 }
 RolloutPlan D12TransitionRolloutPlan::rolloutPlan() const {
   return RolloutPlan(doc(), som::joinPath(path(), "rolloutPlan"));
@@ -9394,24 +9397,6 @@ DocumentRelevantSectionsContentForm DocumentRelevantSections::content() const {
 }
 som::SomList DocumentRelevantSections::sections() const {
   return som::SomList(doc(), som::joinPath(path(), "RESEEN-SECT-LST"));
-}
-
-DocumentationAndTraining::DocumentationAndTraining(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DocumentationAndTrainingDocumentationContentForm DocumentationAndTraining::documentationContent() const {
-  return DocumentationAndTrainingDocumentationContentForm(doc(), som::joinPath(path(), "documentationContent"));
-}
-DocumentationAndTrainingDeliverables DocumentationAndTraining::deliverables() const {
-  return DocumentationAndTrainingDeliverables(doc(), som::joinPath(path(), "deliverables"));
-}
-DocumentationAndTrainingLocalization DocumentationAndTraining::localization() const {
-  return DocumentationAndTrainingLocalization(doc(), som::joinPath(path(), "localization"));
-}
-DocumentationAndTrainingTrainingContentForm DocumentationAndTraining::trainingContent() const {
-  return DocumentationAndTrainingTrainingContentForm(doc(), som::joinPath(path(), "trainingContent"));
-}
-som::SomList DocumentationAndTraining::trainingModules() const {
-  return som::SomList(doc(), som::joinPath(path(), "TRMOEN-TRAI-LST"));
 }
 
 DocumentationAndTrainingDeliverables::DocumentationAndTrainingDeliverables(som::SpecDocument& doc, std::string path)
@@ -12749,8 +12734,8 @@ std::string InformationForUseRequirements::content() const {
 void InformationForUseRequirements::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
-DocumentationAndTraining InformationForUseRequirements::documentationAndTraining() const {
-  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
+UserDocumentationRequirements InformationForUseRequirements::userDocumentation() const {
+  return UserDocumentationRequirements(doc(), som::joinPath(path(), "userDocumentation"));
 }
 
 InfrastructureAsCode::InfrastructureAsCode(som::SpecDocument& doc, std::string path)
@@ -27639,6 +27624,15 @@ TrainingAssessmentReportingContentForm TrainingAssessmentReporting::content() co
   return TrainingAssessmentReportingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+TrainingDeliverableRequirements::TrainingDeliverableRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+TrainingDeliverableRequirementsTrainingContentForm TrainingDeliverableRequirements::trainingContent() const {
+  return TrainingDeliverableRequirementsTrainingContentForm(doc(), som::joinPath(path(), "trainingContent"));
+}
+som::SomList TrainingDeliverableRequirements::trainingModules() const {
+  return som::SomList(doc(), som::joinPath(path(), "TRMOEN-TRAI-LST"));
+}
+
 TrainingDeliverables::TrainingDeliverables(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TrainingDeliverables::content() const {
@@ -27655,6 +27649,9 @@ TrainingEnablementRequirements::TrainingEnablementRequirements(som::SpecDocument
     : som::SomNode(doc, std::move(path)) {}
 TrainingEnablementRequirementsContentForm TrainingEnablementRequirements::content() const {
   return TrainingEnablementRequirementsContentForm(doc(), som::joinPath(path(), "content"));
+}
+TrainingDeliverableRequirements TrainingEnablementRequirements::trainingDeliverables() const {
+  return TrainingDeliverableRequirements(doc(), som::joinPath(path(), "trainingDeliverables"));
 }
 
 TrainingMaterials::TrainingMaterials(som::SpecDocument& doc, std::string path)
@@ -28702,6 +28699,18 @@ UserCategoryRoleEntry::UserCategoryRoleEntry(som::SpecDocument& doc, std::string
     : som::SomNode(doc, std::move(path)) {}
 UserCategoryRoleEntryContentForm UserCategoryRoleEntry::content() const {
   return UserCategoryRoleEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+UserDocumentationRequirements::UserDocumentationRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+UserDocumentationRequirementsDocumentationContentForm UserDocumentationRequirements::documentationContent() const {
+  return UserDocumentationRequirementsDocumentationContentForm(doc(), som::joinPath(path(), "documentationContent"));
+}
+DocumentationAndTrainingDeliverables UserDocumentationRequirements::deliverables() const {
+  return DocumentationAndTrainingDeliverables(doc(), som::joinPath(path(), "deliverables"));
+}
+DocumentationAndTrainingLocalization UserDocumentationRequirements::localization() const {
+  return DocumentationAndTrainingLocalization(doc(), som::joinPath(path(), "localization"));
 }
 
 UserGroupImpactEntry::UserGroupImpactEntry(som::SpecDocument& doc, std::string path)
@@ -51006,27 +51015,6 @@ void DocumentationAndTrainingDeliverablesContentForm::setReleaseNotes(const std:
   doc().setFormField(path(), "releaseNotes", value);
 }
 
-DocumentationAndTrainingDocumentationContentForm::DocumentationAndTrainingDocumentationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DocumentationAndTrainingDocumentationContentForm::documentationFormat() const {
-  return doc().formField(path(), "documentationFormat");
-}
-void DocumentationAndTrainingDocumentationContentForm::setDocumentationFormat(const std::string& value) {
-  doc().setFormField(path(), "documentationFormat", value);
-}
-std::string DocumentationAndTrainingDocumentationContentForm::documentationPlatform() const {
-  return doc().formField(path(), "documentationPlatform");
-}
-void DocumentationAndTrainingDocumentationContentForm::setDocumentationPlatform(const std::string& value) {
-  doc().setFormField(path(), "documentationPlatform", value);
-}
-std::string DocumentationAndTrainingDocumentationContentForm::documentationVersioning() const {
-  return doc().formField(path(), "documentationVersioning");
-}
-void DocumentationAndTrainingDocumentationContentForm::setDocumentationVersioning(const std::string& value) {
-  doc().setFormField(path(), "documentationVersioning", value);
-}
-
 DocumentationAndTrainingLocalizationContentForm::DocumentationAndTrainingLocalizationContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DocumentationAndTrainingLocalizationContentForm::documentationLanguages() const {
@@ -51040,63 +51028,6 @@ std::string DocumentationAndTrainingLocalizationContentForm::documentationTransl
 }
 void DocumentationAndTrainingLocalizationContentForm::setDocumentationTranslation(const std::string& value) {
   doc().setFormField(path(), "documentationTranslation", value);
-}
-
-DocumentationAndTrainingTrainingContentForm::DocumentationAndTrainingTrainingContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DocumentationAndTrainingTrainingContentForm::trainingMaterials() const {
-  return doc().formField(path(), "trainingMaterials");
-}
-void DocumentationAndTrainingTrainingContentForm::setTrainingMaterials(const std::string& value) {
-  doc().setFormField(path(), "trainingMaterials", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::trainingFormat() const {
-  return doc().formField(path(), "trainingFormat");
-}
-void DocumentationAndTrainingTrainingContentForm::setTrainingFormat(const std::string& value) {
-  doc().setFormField(path(), "trainingFormat", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::trainingDuration() const {
-  return doc().formField(path(), "trainingDuration");
-}
-void DocumentationAndTrainingTrainingContentForm::setTrainingDuration(const std::string& value) {
-  doc().setFormField(path(), "trainingDuration", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::trainingSchedule() const {
-  return doc().formField(path(), "trainingSchedule");
-}
-void DocumentationAndTrainingTrainingContentForm::setTrainingSchedule(const std::string& value) {
-  doc().setFormField(path(), "trainingSchedule", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::trainTheTrainer() const {
-  return doc().formField(path(), "trainTheTrainer");
-}
-void DocumentationAndTrainingTrainingContentForm::setTrainTheTrainer(const std::string& value) {
-  doc().setFormField(path(), "trainTheTrainer", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::refresherTraining() const {
-  return doc().formField(path(), "refresherTraining");
-}
-void DocumentationAndTrainingTrainingContentForm::setRefresherTraining(const std::string& value) {
-  doc().setFormField(path(), "refresherTraining", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::knowledgeTransferPlan() const {
-  return doc().formField(path(), "knowledgeTransferPlan");
-}
-void DocumentationAndTrainingTrainingContentForm::setKnowledgeTransferPlan(const std::string& value) {
-  doc().setFormField(path(), "knowledgeTransferPlan", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::supportHandoff() const {
-  return doc().formField(path(), "supportHandoff");
-}
-void DocumentationAndTrainingTrainingContentForm::setSupportHandoff(const std::string& value) {
-  doc().setFormField(path(), "supportHandoff", value);
-}
-std::string DocumentationAndTrainingTrainingContentForm::certificationProgram() const {
-  return doc().formField(path(), "certificationProgram");
-}
-void DocumentationAndTrainingTrainingContentForm::setCertificationProgram(const std::string& value) {
-  doc().setFormField(path(), "certificationProgram", value);
 }
 
 DocumentationQualityCriteriaDocumentationOverviewContentForm::DocumentationQualityCriteriaDocumentationOverviewContentForm(som::SpecDocument& doc, std::string path)
@@ -98721,6 +98652,63 @@ void TrainingAssessmentReportingContentForm::setManagementVisibility(const std::
   doc().setFormField(path(), "managementVisibility", value);
 }
 
+TrainingDeliverableRequirementsTrainingContentForm::TrainingDeliverableRequirementsTrainingContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TrainingDeliverableRequirementsTrainingContentForm::trainingMaterials() const {
+  return doc().formField(path(), "trainingMaterials");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setTrainingMaterials(const std::string& value) {
+  doc().setFormField(path(), "trainingMaterials", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::trainingFormat() const {
+  return doc().formField(path(), "trainingFormat");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setTrainingFormat(const std::string& value) {
+  doc().setFormField(path(), "trainingFormat", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::trainingDuration() const {
+  return doc().formField(path(), "trainingDuration");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setTrainingDuration(const std::string& value) {
+  doc().setFormField(path(), "trainingDuration", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::trainingSchedule() const {
+  return doc().formField(path(), "trainingSchedule");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setTrainingSchedule(const std::string& value) {
+  doc().setFormField(path(), "trainingSchedule", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::trainTheTrainer() const {
+  return doc().formField(path(), "trainTheTrainer");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setTrainTheTrainer(const std::string& value) {
+  doc().setFormField(path(), "trainTheTrainer", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::refresherTraining() const {
+  return doc().formField(path(), "refresherTraining");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setRefresherTraining(const std::string& value) {
+  doc().setFormField(path(), "refresherTraining", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::knowledgeTransferPlan() const {
+  return doc().formField(path(), "knowledgeTransferPlan");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setKnowledgeTransferPlan(const std::string& value) {
+  doc().setFormField(path(), "knowledgeTransferPlan", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::supportHandoff() const {
+  return doc().formField(path(), "supportHandoff");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setSupportHandoff(const std::string& value) {
+  doc().setFormField(path(), "supportHandoff", value);
+}
+std::string TrainingDeliverableRequirementsTrainingContentForm::certificationProgram() const {
+  return doc().formField(path(), "certificationProgram");
+}
+void TrainingDeliverableRequirementsTrainingContentForm::setCertificationProgram(const std::string& value) {
+  doc().setFormField(path(), "certificationProgram", value);
+}
+
 TrainingEnablementRequirementsContentForm::TrainingEnablementRequirementsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TrainingEnablementRequirementsContentForm::targetAudiences() const {
@@ -102079,6 +102067,27 @@ std::string UserCategoryRoleEntryContentForm::performanceMetrics() const {
 }
 void UserCategoryRoleEntryContentForm::setPerformanceMetrics(const std::string& value) {
   doc().setFormField(path(), "performanceMetrics", value);
+}
+
+UserDocumentationRequirementsDocumentationContentForm::UserDocumentationRequirementsDocumentationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserDocumentationRequirementsDocumentationContentForm::documentationFormat() const {
+  return doc().formField(path(), "documentationFormat");
+}
+void UserDocumentationRequirementsDocumentationContentForm::setDocumentationFormat(const std::string& value) {
+  doc().setFormField(path(), "documentationFormat", value);
+}
+std::string UserDocumentationRequirementsDocumentationContentForm::documentationPlatform() const {
+  return doc().formField(path(), "documentationPlatform");
+}
+void UserDocumentationRequirementsDocumentationContentForm::setDocumentationPlatform(const std::string& value) {
+  doc().setFormField(path(), "documentationPlatform", value);
+}
+std::string UserDocumentationRequirementsDocumentationContentForm::documentationVersioning() const {
+  return doc().formField(path(), "documentationVersioning");
+}
+void UserDocumentationRequirementsDocumentationContentForm::setDocumentationVersioning(const std::string& value) {
+  doc().setFormField(path(), "documentationVersioning", value);
 }
 
 UserGroupImpactEntryContentForm::UserGroupImpactEntryContentForm(som::SpecDocument& doc, std::string path)
