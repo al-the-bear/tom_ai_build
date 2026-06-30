@@ -1723,8 +1723,8 @@ on specific systems or personnel.
   OperationalPainPointsSummary categorySummary = OperationalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEM-LST')
-  @SectionIdPattern('PAPE-ITEM-xxx')
+  @SectionId('OPPAPO-ITEM-LST')
+  @SectionIdPattern('OPPAPO-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 
@@ -1763,8 +1763,8 @@ and competitive positioning concerns.
   BusinessPainPointsSummary categorySummary = BusinessPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEM-LST')
-  @SectionIdPattern('PAPE-ITEM-xxx')
+  @SectionId('BUPAPO-ITEM-LST')
+  @SectionIdPattern('BUPAPO-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 
@@ -1806,8 +1806,8 @@ integration complexity, and team capability constraints.
   TechnicalPainPointsSummary categorySummary = TechnicalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEM-LST')
-  @SectionIdPattern('PAPE-ITEM-xxx')
+  @SectionId('TEPAPO-ITEM-LST')
+  @SectionIdPattern('TEPAPO-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 

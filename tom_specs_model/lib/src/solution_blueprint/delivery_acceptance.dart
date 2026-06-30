@@ -78,8 +78,8 @@ configuration files, deployment artifacts. Define for each:
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEM-LST')
-  @SectionIdPattern('DLVEN-ITEM-xxx')
+  @SectionId('SWDLV-ITEM-LST')
+  @SectionIdPattern('SWDLV-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -95,8 +95,8 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEM-LST')
-  @SectionIdPattern('DLVEN-ITEM-xxx')
+  @SectionId('DCDLV-ITEM-LST')
+  @SectionIdPattern('DCDLV-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -112,8 +112,8 @@ assessment criteria, and ongoing refresh schedule.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEM-LST')
-  @SectionIdPattern('DLVEN-ITEM-xxx')
+  @SectionId('TRDLV-ITEM-LST')
+  @SectionIdPattern('TRDLV-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -129,8 +129,8 @@ response times, coverage period, and handover criteria.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEM-LST')
-  @SectionIdPattern('DLVEN-ITEM-xxx')
+  @SectionId('SPDLV-ITEM-LST')
+  @SectionIdPattern('SPDLV-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 

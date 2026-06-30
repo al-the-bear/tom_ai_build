@@ -2800,7 +2800,7 @@ BusinessPainPointsSummary BusinessPainPoints::categorySummary() const {
   return BusinessPainPointsSummary(doc(), som::joinPath(path(), "categorySummary"));
 }
 som::SomList BusinessPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "BUPAPO-ITEM-LST"));
 }
 
 BusinessPainPointsSummary::BusinessPainPointsSummary(som::SpecDocument& doc, std::string path)
@@ -9624,7 +9624,7 @@ void DocumentationDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList DocumentationDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "DCDLV-ITEM-LST"));
 }
 
 DocumentationQualityCriteria::DocumentationQualityCriteria(som::SpecDocument& doc, std::string path)
@@ -17169,7 +17169,7 @@ OperationalPainPointsSummary OperationalPainPoints::categorySummary() const {
   return OperationalPainPointsSummary(doc(), som::joinPath(path(), "categorySummary"));
 }
 som::SomList OperationalPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "OPPAPO-ITEM-LST"));
 }
 
 OperationalPainPointsSummary::OperationalPainPointsSummary(som::SpecDocument& doc, std::string path)
@@ -24222,7 +24222,7 @@ void SoftwareDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SoftwareDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "SWDLV-ITEM-LST"));
 }
 
 SoftwareDesignRequirements::SoftwareDesignRequirements(som::SpecDocument& doc, std::string path)
@@ -25491,7 +25491,7 @@ void SupportDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SupportDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "SPDLV-ITEM-LST"));
 }
 
 SupportedLocaleEntry::SupportedLocaleEntry(som::SpecDocument& doc, std::string path)
@@ -27012,7 +27012,7 @@ TechnicalPainPointsSummary TechnicalPainPoints::categorySummary() const {
   return TechnicalPainPointsSummary(doc(), som::joinPath(path(), "categorySummary"));
 }
 som::SomList TechnicalPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "TEPAPO-ITEM-LST"));
 }
 
 TechnicalPainPointsSummary::TechnicalPainPointsSummary(som::SpecDocument& doc, std::string path)
@@ -27912,7 +27912,7 @@ void TrainingDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList TrainingDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "TRDLV-ITEM-LST"));
 }
 
 TrainingEnablementRequirements::TrainingEnablementRequirements(som::SpecDocument& doc, std::string path)

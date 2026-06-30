@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-29T15:57:59.666021Z",
+  "generatedAt": "2026-06-30T14:02:17.681604Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.0.0+5.67662f0",
+  "modelVersionLabel": "1.0.0+7.1f49ac3",
   "classCount": 3104,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
@@ -122,7 +122,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-CRI"
+            "id": "QAP-CRI"
           }
         }
       ],
@@ -188,7 +188,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-ACC"
+            "id": "QAP-ACC"
           }
         }
       ],
@@ -491,7 +491,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-PRO"
+            "id": "QAP-PRO"
           }
         }
       ],
@@ -1742,7 +1742,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-ACC"
+            "id": "XDS-ACC"
           }
         }
       ],
@@ -3506,7 +3506,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-ACT"
+            "id": "ISC-ACT"
           }
         }
       ],
@@ -3739,7 +3739,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-DIA"
+            "id": "ISC-DIA"
           }
         }
       ],
@@ -10373,7 +10373,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-AUD"
+            "id": "SAS-AUD"
           }
         }
       ],
@@ -14340,7 +14340,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-BAS"
+            "id": "ATS-BAS"
           }
         },
         {
@@ -14954,7 +14954,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-ASS"
+            "id": "IIS-ASS"
           }
         }
       ],
@@ -15003,7 +15003,7 @@
     "BoundaryInteractionPatterns": {
       "name": "BoundaryInteractionPatterns",
       "sectionId": "BOINPA",
-      "doc": "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers BSI-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.",
+      "doc": "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.",
       "detailedIn": "D07IntegrationInterfaceSpecification",
       "annotations": [
         {
@@ -15022,7 +15022,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-PAT"
+            "id": "IIS-PAT"
           }
         }
       ],
@@ -15587,7 +15587,7 @@
             {
               "name": "breakpointId",
               "label": "Breakpoint ID",
-              "hint": "Unique identifier (e.g., BP-MOBILE)",
+              "hint": "Unique identifier (e.g., TOM-MOBILE)",
               "type": "String",
               "required": true
             },
@@ -18685,19 +18685,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "BUPAPO-ITEM-LST",
+          "sectionIdPattern": "BUPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "BUPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "BUPAPO-ITEM-xxx"
               }
             }
           ],
@@ -28178,7 +28178,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-COM"
+            "id": "ATS-COM"
           }
         },
         {
@@ -29265,7 +29265,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-CMP"
+            "id": "SAS-CMP"
           }
         }
       ],
@@ -34363,7 +34363,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-COM"
+            "id": "ATS-COM"
           }
         }
       ],
@@ -37924,7 +37924,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-ERR"
+            "id": "IIS-ERR"
           }
         }
       ],
@@ -37967,7 +37967,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-OPE"
+            "id": "IIS-OPE"
           }
         }
       ],
@@ -38340,7 +38340,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-CRO"
+            "id": "TOM-CRO"
           }
         }
       ],
@@ -38638,7 +38638,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-PRO"
+            "id": "CLA-PRO"
           }
         }
       ],
@@ -38854,7 +38854,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-DAT"
+            "id": "CLA-DAT"
           }
         }
       ],
@@ -39082,7 +39082,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-MET"
+            "id": "CLA-MET"
           }
         }
       ],
@@ -39190,7 +39190,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-RIS"
+            "id": "CLA-RIS"
           }
         }
       ],
@@ -39720,7 +39720,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-CUT"
+            "id": "TRP-CUT"
           }
         }
       ],
@@ -42912,7 +42912,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D03InformationModel",
-            "id": "BDM-CLA"
+            "id": "IFM-CLA"
           }
         }
       ],
@@ -43567,7 +43567,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D03InformationModel",
-            "id": "BDM-DIC"
+            "id": "IFM-DIC"
           }
         }
       ],
@@ -46211,7 +46211,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-MIG"
+            "id": "DRM-MIG"
           }
         }
       ],
@@ -51427,7 +51427,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-DEC"
+            "id": "DRM-DEC"
           }
         }
       ],
@@ -51694,7 +51694,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-DEF"
+            "id": "QAP-DEF"
           }
         }
       ],
@@ -57347,7 +57347,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-VIS"
+            "id": "XDS-VIS"
           }
         }
       ],
@@ -57696,7 +57696,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-DET"
+            "id": "TOM-DET"
           }
         }
       ],
@@ -61637,7 +61637,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-DOC"
+            "id": "TRP-DOC"
           }
         }
       ],
@@ -61943,19 +61943,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "DCDLV-ITEM-LST",
+          "sectionIdPattern": "DCDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "DCDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "DCDLV-ITEM-xxx"
               }
             }
           ],
@@ -61986,7 +61986,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-DOC"
+            "id": "QAP-DOC"
           }
         }
       ],
@@ -64629,7 +64629,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-E2E"
+            "id": "ISC-E2E"
           }
         }
       ],
@@ -65557,7 +65557,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D03InformationModel",
-            "id": "BDM-REL"
+            "id": "IFM-REL"
           }
         }
       ],
@@ -67729,7 +67729,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-ERR"
+            "id": "XDS-ERR"
           }
         }
       ],
@@ -70015,7 +70015,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-SYS"
+            "id": "CLA-SYS"
           }
         }
       ],
@@ -70998,7 +70998,7 @@
             {
               "name": "relatedDataEntities",
               "label": "Related Data Entities",
-              "hint": "BDM entity references included in export",
+              "hint": "IFM entity references included in export",
               "type": "String",
               "required": false
             },
@@ -72157,7 +72157,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-INT"
+            "id": "IIS-INT"
           }
         }
       ],
@@ -74525,7 +74525,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-FEA"
+            "id": "DRM-FEA"
           }
         }
       ],
@@ -78795,7 +78795,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-FUN"
+            "id": "RSP-FUN"
           }
         },
         {
@@ -80830,7 +80830,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-HAR"
+            "id": "ATS-HAR"
           }
         },
         {
@@ -81250,7 +81250,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-HLP"
+            "id": "XDS-HLP"
           }
         }
       ],
@@ -82196,13 +82196,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-IDE"
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "IDAUT"
+            "id": "SAS-IDE"
           }
         }
       ],
@@ -86117,7 +86111,7 @@
     "InitialDevelopmentFlow": {
       "name": "InitialDevelopmentFlow",
       "sectionId": "INDEFL",
-      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers PPP-IDV content the mapping calls out\nas \"new in PPP\".",
+      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".",
       "detailedIn": "D11DeliveryRoadmap",
       "annotations": [
         {
@@ -86136,7 +86130,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-IDV"
+            "id": "DRM-IDV"
           }
         }
       ],
@@ -86144,12 +86138,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where PPP-UPG takes over)\n",
+          "help": "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where DRM-UPG takes over)\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where PPP-UPG takes over)\n"
+                "guidance": "Describes how the initial-development phases hand off to each other:\ndependencies, parallel work streams, and synchronization points.\n\n**What to capture:**\n- Phase dependency graph (which phase must end before another begins)\n- Parallelization opportunities (work streams that can proceed concurrently)\n- Synchronization points / integration checkpoints\n- Shared artifact touchpoints (same document updated in multiple phases)\n- Team coordination model during the initial build\n- Transition criteria to post-development (where DRM-UPG takes over)\n"
               }
             }
           ],
@@ -87657,7 +87651,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D03InformationModel",
-            "id": "BDM-CON"
+            "id": "IFM-CON"
           }
         }
       ],
@@ -87848,7 +87842,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-INT"
+            "id": "ISC-INT"
           }
         }
       ],
@@ -88336,7 +88330,7 @@
     "InteractionDependencyAnalysis": {
       "name": "InteractionDependencyAnalysis",
       "sectionId": "INDEAN",
-      "doc": "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers BSI-DEP.",
+      "doc": "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.",
       "detailedIn": "D07IntegrationInterfaceSpecification",
       "annotations": [
         {
@@ -88355,7 +88349,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-DEP"
+            "id": "IIS-DEP"
           }
         }
       ],
@@ -88593,7 +88587,7 @@
             },
             {
               "name": "processReference",
-              "label": "Process Reference — BP-xxx",
+              "label": "Process Reference — TOM-xxx",
               "type": "String",
               "required": false
             },
@@ -89222,7 +89216,7 @@
     "InteractionTestingStrategy": {
       "name": "InteractionTestingStrategy",
       "sectionId": "INTES1",
-      "doc": "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers BSI-TST.",
+      "doc": "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.",
       "detailedIn": "D07IntegrationInterfaceSpecification",
       "annotations": [
         {
@@ -89241,7 +89235,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-TST"
+            "id": "IIS-TST"
           }
         }
       ],
@@ -89289,7 +89283,7 @@
           "formFields": [
             {
               "name": "relatedProcess",
-              "label": "Related Process — BP-xxx",
+              "label": "Related Process — TOM-xxx",
               "type": "String",
               "required": false
             },
@@ -89301,7 +89295,7 @@
             },
             {
               "name": "relatedUseCase",
-              "label": "Related Use Case — UC-xxx in UC document",
+              "label": "Related Use Case — ISC-xxx in ISC document",
               "type": "String",
               "required": false
             },
@@ -94501,7 +94495,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-SCE"
+            "id": "ISC-SCE"
           }
         }
       ],
@@ -94694,7 +94688,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-KNO"
+            "id": "TRP-KNO"
           }
         }
       ],
@@ -94831,7 +94825,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-LCS"
+            "id": "XDS-LCS"
           }
         }
       ],
@@ -96743,7 +96737,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-LOC"
+            "id": "TRP-LOC"
           }
         }
       ],
@@ -101692,7 +101686,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-MIG"
+            "id": "CLA-MIG"
           }
         }
       ],
@@ -102058,7 +102052,7 @@
     "MigrationInteractions": {
       "name": "MigrationInteractions",
       "sectionId": "MIIN",
-      "doc": "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers BSI-MIG.",
+      "doc": "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.",
       "detailedIn": "D07IntegrationInterfaceSpecification",
       "annotations": [
         {
@@ -102077,7 +102071,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-MIG"
+            "id": "IIS-MIG"
           }
         }
       ],
@@ -103373,7 +103367,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-MIG"
+            "id": "TRP-MIG"
           }
         }
       ],
@@ -114508,19 +114502,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "OPPAPO-ITEM-LST",
+          "sectionIdPattern": "OPPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "OPPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "OPPAPO-ITEM-xxx"
               }
             }
           ],
@@ -114615,7 +114609,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-OPE"
+            "id": "QAP-OPE"
           }
         }
       ],
@@ -114735,7 +114729,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-OPE"
+            "id": "ATS-OPE"
           }
         },
         {
@@ -116491,7 +116485,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-ORG"
+            "id": "RSP-ORG"
           }
         },
         {
@@ -117269,7 +117263,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-OUT"
+            "id": "IIS-OUT"
           }
         }
       ],
@@ -118471,7 +118465,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-PAI"
+            "id": "CLA-PAI"
           }
         }
       ],
@@ -120304,12 +120298,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (UC-xxx) via related requirements\n",
+          "help": "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (ISC-xxx) via related requirements\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (UC-xxx) via related requirements\n"
+                "guidance": "## Persona Scenarios (10.1.3.n.3)\n\nKey usage scenarios for this persona — maps personas to screens/flows.\n\n### Form Fields Guide\n**scenarioName**: Action-oriented (\"Approve Pending Orders\")\n**frequency**: Daily/Weekly/Monthly/Occasional\n**urgency**: Time-sensitive nature\n**context**: Where/when this occurs\n**requiredScreens**: SCR-INV references needed\n**successMetric**: Measurable outcome\n\n### Traceability\nScenarios link to:\n- Screen Inventory (SCR-INV) via requiredScreens\n- Screen Flow (SCF) via navigation paths\n- Use Cases (ISC-xxx) via related requirements\n"
               }
             }
           ],
@@ -120758,7 +120752,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-GAT"
+            "id": "DRM-GAT"
           }
         }
       ],
@@ -121215,7 +121209,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-PIL"
+            "id": "TRP-PIL"
           }
         }
       ],
@@ -122718,7 +122712,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-PRI"
+            "id": "XDS-PRI"
           }
         }
       ],
@@ -124576,7 +124570,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-CAT"
+            "id": "TOM-CAT"
           }
         }
       ],
@@ -125507,7 +125501,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-PRI"
+            "id": "TOM-PRI"
           }
         }
       ],
@@ -125872,7 +125866,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-EXC"
+            "id": "TOM-EXC"
           }
         }
       ],
@@ -126035,7 +126029,7 @@
           "formFields": [
             {
               "name": "processId",
-              "label": "Process ID (e.g., BP-001)",
+              "label": "Process ID (e.g., TOM-001)",
               "type": "String",
               "required": true
             },
@@ -126419,7 +126413,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-IMP"
+            "id": "TOM-IMP"
           }
         }
       ],
@@ -127351,7 +127345,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-MET"
+            "id": "TOM-MET"
           }
         }
       ],
@@ -127483,7 +127477,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-FLO"
+            "id": "TOM-FLO"
           }
         }
       ],
@@ -127916,7 +127910,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-REL"
+            "id": "TOM-REL"
           }
         }
       ],
@@ -128519,12 +128513,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n",
+          "help": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (TOM-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n"
+                "guidance": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (TOM-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n"
               }
             }
           ],
@@ -128613,7 +128607,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-OVE"
+            "id": "ISC-OVE"
           }
         }
       ],
@@ -128656,7 +128650,7 @@
             },
             {
               "name": "useCaseNamingConvention",
-              "label": "Use Case Naming Convention — UC-xxx pattern",
+              "label": "Use Case Naming Convention — ISC-xxx pattern",
               "type": "String",
               "required": false
             },
@@ -129096,7 +129090,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D02TargetOperatingModel",
-            "id": "BP-VIS"
+            "id": "TOM-VIS"
           }
         }
       ],
@@ -130438,7 +130432,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-PRO"
+            "id": "XDS-PRO"
           }
         }
       ],
@@ -132020,7 +132014,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-FRA"
+            "id": "QAP-FRA"
           }
         }
       ],
@@ -133293,7 +133287,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-PRI"
+            "id": "QAP-PRI"
           }
         }
       ],
@@ -137093,7 +137087,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment",
-            "id": "CS-INV"
+            "id": "CLA-INV"
           }
         }
       ],
@@ -139242,21 +139236,21 @@
             {
               "name": "relatedUseCases",
               "label": "Related Use Cases",
-              "hint": "UC references this report serves",
+              "hint": "ISC references this report serves",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedBusinessProcesses",
               "label": "Related Business Processes",
-              "hint": "BP references where this report is used",
+              "hint": "TOM references where this report is used",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedDataEntities",
               "label": "Related Data Entities",
-              "hint": "BDM entity references used as data sources",
+              "hint": "IFM entity references used as data sources",
               "type": "String",
               "required": false
             }
@@ -140836,7 +140830,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-COV"
+            "id": "RSP-COV"
           }
         }
       ],
@@ -141057,7 +141051,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-REL"
+            "id": "RSP-REL"
           }
         }
       ],
@@ -142543,7 +142537,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-RES"
+            "id": "SAS-RES"
           }
         }
       ],
@@ -143752,7 +143746,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-RES"
+            "id": "XDS-RES"
           }
         }
       ],
@@ -148230,7 +148224,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-ROL"
+            "id": "SAS-ROL"
           }
         }
       ],
@@ -148736,7 +148730,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-PLN"
+            "id": "TRP-PLN"
           }
         }
       ],
@@ -148779,7 +148773,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-TRN"
+            "id": "TRP-TRN"
           }
         }
       ],
@@ -152491,13 +152485,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-SCR"
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SCRDZ"
+            "id": "XDS-SCR"
           }
         }
       ],
@@ -153936,28 +153924,28 @@
             {
               "name": "relatedUseCases",
               "label": "Related Use Cases",
-              "hint": "UC references this screen serves",
+              "hint": "ISC references this screen serves",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "RC references this screen satisfies",
+              "hint": "RSP references this screen satisfies",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedBusinessProcesses",
               "label": "Related Business Processes",
-              "hint": "BP references where this screen appears",
+              "hint": "TOM references where this screen appears",
               "type": "String",
               "required": false
             },
             {
               "name": "dataEntities",
               "label": "Data Entities",
-              "hint": "BDM entity references displayed/edited",
+              "hint": "IFM entity references displayed/edited",
               "type": "String",
               "required": false
             },
@@ -154344,7 +154332,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-SCF"
+            "id": "XDS-SCF"
           }
         }
       ],
@@ -157349,7 +157337,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-SEC"
+            "id": "RSP-SEC"
           }
         },
         {
@@ -158730,7 +158718,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-SEN"
+            "id": "SAS-SEN"
           }
         }
       ],
@@ -162276,7 +162264,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-SIG"
+            "id": "QAP-SIG"
           }
         }
       ],
@@ -163587,19 +163575,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "SWDLV-ITEM-LST",
+          "sectionIdPattern": "SWDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "SWDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "SWDLV-ITEM-xxx"
               }
             }
           ],
@@ -163625,7 +163613,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-SOF"
+            "id": "ATS-SOF"
           }
         },
         {
@@ -166556,7 +166544,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-STA"
+            "id": "DRM-STA"
           }
         }
       ],
@@ -169560,7 +169548,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-STR"
+            "id": "DRM-STR"
           }
         }
       ],
@@ -170398,7 +170386,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-STA"
+            "id": "ATS-STA"
           }
         },
         {
@@ -172538,19 +172526,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "SPDLV-ITEM-LST",
+          "sectionIdPattern": "SPDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "SPDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "SPDLV-ITEM-xxx"
               }
             }
           ],
@@ -172757,7 +172745,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-ARC"
+            "id": "ATS-ARC"
           }
         }
       ],
@@ -172841,13 +172829,13 @@
         {
           "name": "systemLandscapeInventory",
           "kind": "complex",
-          "doc": "4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.",
+          "doc": "4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.",
           "type": "SystemLandscapeInventory"
         },
         {
           "name": "boundaryInteractionPatterns",
           "kind": "list",
-          "doc": "4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.",
+          "doc": "4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.",
           "sectionId": "BOINPA-BOUN-LST",
           "sectionIdPattern": "BOINPA-BOUN-xxx",
           "annotations": [
@@ -172870,19 +172858,19 @@
         {
           "name": "interactionTestingStrategy",
           "kind": "complex",
-          "doc": "4.5.6. Interaction Testing Strategy. Covers BSI-TST.",
+          "doc": "4.5.6. Interaction Testing Strategy. Covers IIS-TST.",
           "type": "InteractionTestingStrategy"
         },
         {
           "name": "interactionDependencyAnalysis",
           "kind": "complex",
-          "doc": "4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.",
+          "doc": "4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.",
           "type": "InteractionDependencyAnalysis"
         },
         {
           "name": "migrationInteractions",
           "kind": "list",
-          "doc": "4.5.8. Migration Interactions. Covers BSI-MIG.",
+          "doc": "4.5.8. Migration Interactions. Covers IIS-MIG.",
           "sectionId": "MIIN-MIGR-LST",
           "sectionIdPattern": "MIIN-MIGR-xxx",
           "annotations": [
@@ -175926,7 +175914,7 @@
     "SystemLandscapeInventory": {
       "name": "SystemLandscapeInventory",
       "sectionId": "SYLAIN",
-      "doc": "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering BSI-LAN-INV content.",
+      "doc": "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.",
       "detailedIn": "D07IntegrationInterfaceSpecification",
       "annotations": [
         {
@@ -175945,7 +175933,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification",
-            "id": "BSI-INV"
+            "id": "IIS-INV"
           }
         }
       ],
@@ -176327,7 +176315,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-SYS"
+            "id": "ATS-SYS"
           }
         },
         {
@@ -177715,13 +177703,13 @@
         {
           "name": "initialDevelopmentFlow",
           "kind": "complex",
-          "doc": "13.7. Initial Development Flow. Covers PPP-IDV.",
+          "doc": "13.7. Initial Development Flow. Covers DRM-IDV.",
           "type": "InitialDevelopmentFlow"
         },
         {
           "name": "upgradeCycleFramework",
           "kind": "complex",
-          "doc": "13.8. Upgrade Cycle Framework. Covers PPP-UPG.",
+          "doc": "13.8. Upgrade Cycle Framework. Covers DRM-UPG.",
           "type": "UpgradeCycleFramework"
         }
       ]
@@ -180929,7 +180917,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-TEC"
+            "id": "ATS-TEC"
           }
         }
       ],
@@ -182109,19 +182097,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "TEPAPO-ITEM-LST",
+          "sectionIdPattern": "TEPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "TEPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "TEPAPO-ITEM-xxx"
               }
             }
           ],
@@ -182230,7 +182218,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-TEC"
+            "id": "QAP-TEC"
           }
         }
       ],
@@ -182715,7 +182703,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D04RequirementsSpecification",
-            "id": "RC-TEC"
+            "id": "RSP-TEC"
           }
         },
         {
@@ -182837,7 +182825,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-SEC"
+            "id": "ATS-SEC"
           }
         },
         {
@@ -184094,7 +184082,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-TST"
+            "id": "QAP-TST"
           }
         }
       ],
@@ -188534,19 +188522,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "TRDLV-ITEM-LST",
+          "sectionIdPattern": "TRDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "TRDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "TRDLV-ITEM-xxx"
               }
             }
           ],
@@ -191204,7 +191192,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-TRA"
+            "id": "TRP-TRA"
           }
         }
       ],
@@ -191536,7 +191524,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification",
-            "id": "TR-REQ"
+            "id": "ATS-REQ"
           }
         }
       ],
@@ -194534,7 +194522,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-COM"
+            "id": "XDS-COM"
           }
         }
       ],
@@ -194908,7 +194896,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap",
-            "id": "PPP-UPG"
+            "id": "DRM-UPG"
           }
         }
       ],
@@ -195429,7 +195417,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D05InteractionScenarios",
-            "id": "UC-TRC"
+            "id": "ISC-TRC"
           }
         }
       ],
@@ -195472,7 +195460,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-UAT"
+            "id": "QAP-UAT"
           }
         }
       ],
@@ -196100,7 +196088,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-USA"
+            "id": "SAS-USA"
           }
         }
       ],
@@ -197711,7 +197699,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
-            "id": "AC-USE"
+            "id": "SAS-USE"
           }
         }
       ],
@@ -197772,7 +197760,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-DOC"
+            "id": "TRP-DOC"
           }
         }
       ],
@@ -198438,7 +198426,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-USE"
+            "id": "QAP-USE"
           }
         }
       ],
@@ -199156,7 +199144,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D03InformationModel",
-            "id": "BDM-VAL"
+            "id": "IFM-VAL"
           }
         }
       ],
@@ -201102,7 +201090,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan",
-            "id": "SR-WAR"
+            "id": "TRP-WAR"
           }
         }
       ],
@@ -201416,7 +201404,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan",
-            "id": "BQP-WAR"
+            "id": "QAP-WAR"
           }
         }
       ],
@@ -202063,7 +202051,7 @@
           "name": "SecondLevelSectionId",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification",
-            "id": "UP-WIR"
+            "id": "XDS-WIR"
           }
         }
       ],

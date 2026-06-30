@@ -6909,7 +6909,7 @@ impl BusinessPainPoints {
     pub fn items(&self) -> som::SomList<PainPointEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "PAPE-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "BUPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
         )
     }
@@ -23350,7 +23350,7 @@ impl DocumentationDeliverables {
     pub fn items(&self) -> som::SomList<DeliverableEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DLVEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "DCDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
         )
     }
@@ -42058,7 +42058,7 @@ impl OperationalPainPoints {
     pub fn items(&self) -> som::SomList<PainPointEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "PAPE-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "OPPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
         )
     }
@@ -59581,7 +59581,7 @@ impl SoftwareDeliverables {
     pub fn items(&self) -> som::SomList<DeliverableEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DLVEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "SWDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
         )
     }
@@ -62748,7 +62748,7 @@ impl SupportDeliverables {
     pub fn items(&self) -> som::SomList<DeliverableEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DLVEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "SPDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
         )
     }
@@ -66429,7 +66429,7 @@ impl TechnicalPainPoints {
     pub fn items(&self) -> som::SomList<PainPointEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "PAPE-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "TEPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
         )
     }
@@ -68658,7 +68658,7 @@ impl TrainingDeliverables {
     pub fn items(&self) -> som::SomList<DeliverableEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DLVEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "TRDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
         )
     }

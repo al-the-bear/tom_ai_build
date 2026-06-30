@@ -8,6 +8,12 @@ section-types:
       pattern: ^repsdep_depe_lst-\d+$
       error-message: ID must match repsdep_depe_lst-NNN
     description: Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+  BUPAPO-ITEM-LST:
+    prefix: bupapo_item_lst
+    pattern-check-id:
+      pattern: ^bupapo_item_lst-\d+$
+      error-message: ID must match bupapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   CUBIPR-PROC-LST:
     prefix: cubipr_proc_lst
     min-count-in-document: 1
@@ -66,6 +72,12 @@ section-types:
       pattern: ^miriin_indi_lst-\d+$
       error-message: ID must match miriin_indi_lst-NNN
     description: Risk indicators and monitoring.
+  OPPAPO-ITEM-LST:
+    prefix: oppapo_item_lst
+    pattern-check-id:
+      pattern: ^oppapo_item_lst-\d+$
+      error-message: ID must match oppapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   PAPOR1-RELA-LST:
     prefix: papor1_rela_lst
     pattern-check-id:
@@ -132,6 +144,12 @@ section-types:
       pattern: ^sytore_syst_lst-\d+$
       error-message: ID must match sytore_syst_lst-NNN
     description: Contains 0+× SystemToReplaceEntry.
+  TEPAPO-ITEM-LST:
+    prefix: tepapo_item_lst
+    pattern-check-id:
+      pattern: ^tepapo_item_lst-\d+$
+      error-message: ID must match tepapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   WOBURU-BUSI-LST:
     prefix: woburu_busi_lst
     pattern-check-id:
@@ -393,12 +411,6 @@ section-types:
       pattern: ^gape_item_lst-\d+$
       error-message: ID must match gape_item_lst-NNN
     description: Contains 0+× Gap.
-  PAPE-ITEM-LST:
-    prefix: pape_item_lst
-    pattern-check-id:
-      pattern: ^pape_item_lst-\d+$
-      error-message: ID must match pape_item_lst-NNN
-    description: Contains 0+× PainPoint.
   SBPE-SUPP-LST:
     prefix: sbpe_supp_lst
     pattern-check-id:

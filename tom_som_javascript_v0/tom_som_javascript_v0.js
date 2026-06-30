@@ -5319,7 +5319,7 @@ class BusinessPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items() {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d, p) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/BUPAPO-ITEM-LST", (d, p) => new PainPointEntry(d, p));
   }
 }
 
@@ -17934,7 +17934,7 @@ class DocumentationDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items() {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/DCDLV-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
   }
 }
 
@@ -32167,7 +32167,7 @@ class OperationalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items() {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d, p) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/OPPAPO-ITEM-LST", (d, p) => new PainPointEntry(d, p));
   }
 }
 
@@ -45388,7 +45388,7 @@ class SoftwareDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items() {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/SWDLV-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
   }
 }
 
@@ -47798,7 +47798,7 @@ class SupportDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items() {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/SPDLV-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
   }
 }
 
@@ -50640,7 +50640,7 @@ class TechnicalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items() {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d, p) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/TEPAPO-ITEM-LST", (d, p) => new PainPointEntry(d, p));
   }
 }
 
@@ -52365,7 +52365,7 @@ class TrainingDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items() {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/TRDLV-ITEM-LST", (d, p) => new DeliverableEntry(d, p));
   }
 }
 

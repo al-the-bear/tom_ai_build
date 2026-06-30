@@ -116,6 +116,12 @@ section-types:
       pattern: ^bucoen_busi_lst-\d+$
       error-message: ID must match bucoen_busi_lst-NNN
     description: Business logic components.
+  BUPAPO-ITEM-LST:
+    prefix: bupapo_item_lst
+    pattern-check-id:
+      pattern: ^bupapo_item_lst-\d+$
+      error-message: ID must match bupapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   CHAROL-CHAN-LST:
     prefix: charol_chan_lst
     pattern-check-id:
@@ -528,6 +534,12 @@ section-types:
       pattern: ^naviit_item_lst-\d+$
       error-message: ID must match naviit_item_lst-NNN
     description: Contains 0+× NavigationItem.
+  OPPAPO-ITEM-LST:
+    prefix: oppapo_item_lst
+    pattern-check-id:
+      pattern: ^oppapo_item_lst-\d+$
+      error-message: ID must match oppapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   OSCOEN-OSCO-LST:
     prefix: oscoen_osco_lst
     pattern-check-id:
@@ -909,6 +921,12 @@ section-types:
       pattern: ^tegots_item_lst-\d+$
       error-message: ID must match tegots_item_lst-NNN
     description: Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
+  TEPAPO-ITEM-LST:
+    prefix: tepapo_item_lst
+    pattern-check-id:
+      pattern: ^tepapo_item_lst-\d+$
+      error-message: ID must match tepapo_item_lst-NNN
+    description: Contains 0+× PainPoint.
   TESCNO-NOTE-LST:
     prefix: tescno_note_lst
     pattern-check-id:
@@ -1205,6 +1223,12 @@ section-types:
       pattern: ^dcaut_deci_lst-\d+$
       error-message: ID must match dcaut_deci_lst-NNN
     description: Decision authority matrix.
+  DCDLV-ITEM-LST:
+    prefix: dcdlv_item_lst
+    pattern-check-id:
+      pattern: ^dcdlv_item_lst-\d+$
+      error-message: ID must match dcdlv_item_lst-NNN
+    description: Contains 0+× Deliverable.
   DCLSE-ITEM-LST:
     prefix: dclse_item_lst
     pattern-check-id:
@@ -1257,12 +1281,6 @@ section-types:
       pattern: ^dlvdp_depe_lst-\d+$
       error-message: ID must match dlvdp_depe_lst-NNN
     description: Dependencies.
-  DLVEN-ITEM-LST:
-    prefix: dlven_item_lst
-    pattern-check-id:
-      pattern: ^dlven_item_lst-\d+$
-      error-message: ID must match dlven_item_lst-NNN
-    description: Contains 0+× Deliverable.
   DOCTL-APRV-LST:
     prefix: doctl_aprv_lst
     pattern-check-id:
@@ -2228,6 +2246,12 @@ section-types:
       pattern: ^shlib_shar_lst-\d+$
       error-message: ID must match shlib_shar_lst-NNN
     description: Shared libraries and common code.
+  SPDLV-ITEM-LST:
+    prefix: spdlv_item_lst
+    pattern-check-id:
+      pattern: ^spdlv_item_lst-\d+$
+      error-message: ID must match spdlv_item_lst-NNN
+    description: Contains 0+× Deliverable.
   STAGE-STAG-LST:
     prefix: stage_stag_lst
     min-count-in-document: 1
@@ -2272,6 +2296,12 @@ section-types:
       pattern: ^susst_subs_lst-\d+$
       error-message: ID must match susst_subs_lst-NNN
     description: Sub-stages and Milestones — contains 0+× SubStage.
+  SWDLV-ITEM-LST:
+    prefix: swdlv_item_lst
+    pattern-check-id:
+      pattern: ^swdlv_item_lst-\d+$
+      error-message: ID must match swdlv_item_lst-NNN
+    description: Contains 0+× Deliverable.
   SYSTE-WORK-LST:
     prefix: syste_work_lst
     pattern-check-id:
@@ -2326,6 +2356,12 @@ section-types:
       pattern: ^tpstk_stak_lst-\d+$
       error-message: ID must match tpstk_stak_lst-NNN
     description: Stakeholder engagement for this phase.
+  TRDLV-ITEM-LST:
+    prefix: trdlv_item_lst
+    pattern-check-id:
+      pattern: ^trdlv_item_lst-\d+$
+      error-message: ID must match trdlv_item_lst-NNN
+    description: Contains 0+× Deliverable.
   TRMIL-MILE-LST:
     prefix: trmil_mile_lst
     pattern-check-id:
@@ -2960,12 +2996,6 @@ section-types:
       pattern: ^ouce_orga_lst-\d+$
       error-message: ID must match ouce_orga_lst-NNN
     description: Add one entry per organizational unit that uses or is affected by the system.
-  PAPE-ITEM-LST:
-    prefix: pape_item_lst
-    pattern-check-id:
-      pattern: ^pape_item_lst-\d+$
-      error-message: ID must match pape_item_lst-NNN
-    description: Contains 0+× PainPoint.
   PGRE-ITEM-LST:
     prefix: pgre_item_lst
     pattern-check-id:

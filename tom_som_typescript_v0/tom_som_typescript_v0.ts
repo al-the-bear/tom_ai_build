@@ -5231,7 +5231,7 @@ export class BusinessPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/BUPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
   }
 }
 
@@ -17740,7 +17740,7 @@ export class DocumentationDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/DCDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
   }
 }
 
@@ -31787,7 +31787,7 @@ export class OperationalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/OPPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
   }
 }
 
@@ -44862,7 +44862,7 @@ export class SoftwareDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/SWDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
   }
 }
 
@@ -47238,7 +47238,7 @@ export class SupportDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/SPDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
   }
 }
 
@@ -50044,7 +50044,7 @@ export class TechnicalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/TEPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p));
   }
 }
 
@@ -51743,7 +51743,7 @@ export class TrainingDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
+    return new SomList(this.doc, this.path + "/TRDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
   }
 }
 

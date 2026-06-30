@@ -4790,7 +4790,7 @@ class BusinessPainPoints(SomNode):
     # Contains 0+× PainPoint.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/PAPE-ITEM-LST", lambda d, p: PainPointEntry(d, p))
+        return SomList(self.doc, f"{self.path}/BUPAPO-ITEM-LST", lambda d, p: PainPointEntry(d, p))
 
 class BusinessPainPointsSummary(SomNode):
     """Summary specific to business pain points."""
@@ -16194,7 +16194,7 @@ class DocumentationDeliverables(SomNode):
     # Contains 0+× Deliverable.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
+        return SomList(self.doc, f"{self.path}/DCDLV-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class DocumentationQualityCriteria(SomNode):
     """11.5. Documentation Quality Criteria.
@@ -28969,7 +28969,7 @@ class OperationalPainPoints(SomNode):
     # Contains 0+× PainPoint.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/PAPE-ITEM-LST", lambda d, p: PainPointEntry(d, p))
+        return SomList(self.doc, f"{self.path}/OPPAPO-ITEM-LST", lambda d, p: PainPointEntry(d, p))
 
 class OperationalPainPointsSummary(SomNode):
     """Summary specific to operational pain points."""
@@ -40833,7 +40833,7 @@ class SoftwareDeliverables(SomNode):
     # Contains 0+× Deliverable.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
+        return SomList(self.doc, f"{self.path}/SWDLV-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class SoftwareDesignRequirements(SomNode):
     """8.2. Software Design Requirements."""
@@ -43008,7 +43008,7 @@ class SupportDeliverables(SomNode):
     # Contains 0+× Deliverable.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
+        return SomList(self.doc, f"{self.path}/SPDLV-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class SupportedLocaleEntry(SomNode):
     """A supported locale entry."""
@@ -45603,7 +45603,7 @@ class TechnicalPainPoints(SomNode):
     # Contains 0+× PainPoint.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/PAPE-ITEM-LST", lambda d, p: PainPointEntry(d, p))
+        return SomList(self.doc, f"{self.path}/TEPAPO-ITEM-LST", lambda d, p: PainPointEntry(d, p))
 
 class TechnicalPainPointsSummary(SomNode):
     """Summary specific to technical pain points."""
@@ -47150,7 +47150,7 @@ class TrainingDeliverables(SomNode):
     # Contains 0+× Deliverable.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
+        return SomList(self.doc, f"{self.path}/TRDLV-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class TrainingEnablementRequirements(SomNode):
     """Training & Enablement requirements.

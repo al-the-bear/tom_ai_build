@@ -18685,19 +18685,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "BUPAPO-ITEM-LST",
+          "sectionIdPattern": "BUPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "BUPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "BUPAPO-ITEM-xxx"
               }
             }
           ],
@@ -61943,19 +61943,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "DCDLV-ITEM-LST",
+          "sectionIdPattern": "DCDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "DCDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "DCDLV-ITEM-xxx"
               }
             }
           ],
@@ -82197,12 +82197,6 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification",
             "id": "SAS-IDE"
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "IDAUT"
           }
         }
       ],
@@ -114508,19 +114502,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "OPPAPO-ITEM-LST",
+          "sectionIdPattern": "OPPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "OPPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "OPPAPO-ITEM-xxx"
               }
             }
           ],
@@ -152493,12 +152487,6 @@
             "documentClass": "D09ExperienceDesignSpecification",
             "id": "XDS-SCR"
           }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SCRDZ"
-          }
         }
       ],
       "fields": [
@@ -163587,19 +163575,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "SWDLV-ITEM-LST",
+          "sectionIdPattern": "SWDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "SWDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "SWDLV-ITEM-xxx"
               }
             }
           ],
@@ -172538,19 +172526,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "SPDLV-ITEM-LST",
+          "sectionIdPattern": "SPDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "SPDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "SPDLV-ITEM-xxx"
               }
             }
           ],
@@ -182109,19 +182097,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
-          "sectionId": "PAPE-ITEM-LST",
-          "sectionIdPattern": "PAPE-ITEM-xxx",
+          "sectionId": "TEPAPO-ITEM-LST",
+          "sectionIdPattern": "TEPAPO-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "PAPE-ITEM-LST"
+                "id": "TEPAPO-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "PAPE-ITEM-xxx"
+                "pattern": "TEPAPO-ITEM-xxx"
               }
             }
           ],
@@ -188534,19 +188522,19 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
-          "sectionId": "DLVEN-ITEM-LST",
-          "sectionIdPattern": "DLVEN-ITEM-xxx",
+          "sectionId": "TRDLV-ITEM-LST",
+          "sectionIdPattern": "TRDLV-ITEM-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "DLVEN-ITEM-LST"
+                "id": "TRDLV-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "DLVEN-ITEM-xxx"
+                "pattern": "TRDLV-ITEM-xxx"
               }
             }
           ],

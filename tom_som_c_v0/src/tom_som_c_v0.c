@@ -6427,7 +6427,7 @@ BusinessPainPointsSummary business_pain_points_category_summary(const BusinessPa
   return out;
 }
 SomList business_pain_points_items(const BusinessPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "BUPAPO-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -22082,7 +22082,7 @@ void documentation_deliverables_set_content(DocumentationDeliverables *self, con
   free(path);
 }
 SomList documentation_deliverables_items(const DocumentationDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DCDLV-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -39469,7 +39469,7 @@ OperationalPainPointsSummary operational_pain_points_category_summary(const Oper
   return out;
 }
 SomList operational_pain_points_items(const OperationalPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "OPPAPO-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -55690,7 +55690,7 @@ void software_deliverables_set_content(SoftwareDeliverables *self, const char *v
   free(path);
 }
 SomList software_deliverables_items(const SoftwareDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "SWDLV-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -58601,7 +58601,7 @@ void support_deliverables_set_content(SupportDeliverables *self, const char *val
   free(path);
 }
 SomList support_deliverables_items(const SupportDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "SPDLV-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -62106,7 +62106,7 @@ TechnicalPainPointsSummary technical_pain_points_category_summary(const Technica
   return out;
 }
 SomList technical_pain_points_items(const TechnicalPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "TEPAPO-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -64182,7 +64182,7 @@ void training_deliverables_set_content(TrainingDeliverables *self, const char *v
   free(path);
 }
 SomList training_deliverables_items(const TrainingDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "TRDLV-ITEM-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);

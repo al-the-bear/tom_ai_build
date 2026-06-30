@@ -3310,7 +3310,7 @@ class BusinessPainPoints extends SomNode {
   BusinessPainPointsSummary get categorySummary => BusinessPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/PAPE-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/BUPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
 }
 
 /// Summary specific to business pain points.
@@ -11203,7 +11203,7 @@ class DocumentationDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DCDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
 /// 11.5. Documentation Quality Criteria.
@@ -20111,7 +20111,7 @@ class OperationalPainPoints extends SomNode {
   OperationalPainPointsSummary get categorySummary => OperationalPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/PAPE-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/OPPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
 }
 
 /// Summary specific to operational pain points.
@@ -28366,7 +28366,7 @@ class SoftwareDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SWDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
 /// 8.2. Software Design Requirements.
@@ -29871,7 +29871,7 @@ class SupportDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SPDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
 /// A supported locale entry.
@@ -31641,7 +31641,7 @@ class TechnicalPainPoints extends SomNode {
   TechnicalPainPointsSummary get categorySummary => TechnicalPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/PAPE-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/TEPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
 }
 
 /// Summary specific to technical pain points.
@@ -32728,7 +32728,7 @@ class TrainingDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/TRDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
 /// Training & Enablement requirements.

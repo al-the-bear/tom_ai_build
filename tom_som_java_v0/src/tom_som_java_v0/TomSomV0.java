@@ -5277,7 +5277,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
+      return new SomList<>(doc, path + "/BUPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
     }
   }
 
@@ -17948,7 +17948,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
+      return new SomList<>(doc, path + "/DCDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
     }
   }
 
@@ -32104,7 +32104,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
+      return new SomList<>(doc, path + "/OPPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
     }
   }
 
@@ -45297,7 +45297,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
+      return new SomList<>(doc, path + "/SWDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
     }
   }
 
@@ -47698,7 +47698,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
+      return new SomList<>(doc, path + "/SPDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
     }
   }
 
@@ -50526,7 +50526,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
+      return new SomList<>(doc, path + "/TEPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p));
     }
   }
 
@@ -52237,7 +52237,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
+      return new SomList<>(doc, path + "/TRDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
     }
   }
 

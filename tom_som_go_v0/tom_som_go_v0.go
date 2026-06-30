@@ -6190,7 +6190,7 @@ func (x *BusinessPainPoints) CategorySummary() *BusinessPainPointsSummary {
 
 // Contains 0+× PainPoint.
 func (x *BusinessPainPoints) Items() *som.SomList[*PainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PAPE-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/BUPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
 	})
 }
@@ -20989,7 +20989,7 @@ func (x *DocumentationDeliverables) SetContent(value string) {
 
 // Contains 0+× Deliverable.
 func (x *DocumentationDeliverables) Items() *som.SomList[*DeliverableEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DLVEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/DCDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
 	})
 }
@@ -37714,7 +37714,7 @@ func (x *OperationalPainPoints) CategorySummary() *OperationalPainPointsSummary 
 
 // Contains 0+× PainPoint.
 func (x *OperationalPainPoints) Items() *som.SomList[*PainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PAPE-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/OPPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
 	})
 }
@@ -53331,7 +53331,7 @@ func (x *SoftwareDeliverables) SetContent(value string) {
 
 // Contains 0+× Deliverable.
 func (x *SoftwareDeliverables) Items() *som.SomList[*DeliverableEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DLVEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/SWDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
 	})
 }
@@ -56155,7 +56155,7 @@ func (x *SupportDeliverables) SetContent(value string) {
 
 // Contains 0+× Deliverable.
 func (x *SupportDeliverables) Items() *som.SomList[*DeliverableEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DLVEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/SPDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
 	})
 }
@@ -59456,7 +59456,7 @@ func (x *TechnicalPainPoints) CategorySummary() *TechnicalPainPointsSummary {
 
 // Contains 0+× PainPoint.
 func (x *TechnicalPainPoints) Items() *som.SomList[*PainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PAPE-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/TEPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
 	})
 }
@@ -61463,7 +61463,7 @@ func (x *TrainingDeliverables) SetContent(value string) {
 
 // Contains 0+× Deliverable.
 func (x *TrainingDeliverables) Items() *som.SomList[*DeliverableEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DLVEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/TRDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
 	})
 }
