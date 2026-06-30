@@ -8,8 +8,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-import 'components.dart';
-import 'technical_framework.dart';
+import 'architecture_and_technology.dart';
+import 'components_and_dependencies.dart';
 
 /// SBP.11 Solution Architecture & Technology.
 @StandardReferences(

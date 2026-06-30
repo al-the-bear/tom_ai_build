@@ -7,9 +7,10 @@ library;
 
 
 export 'administrative.dart';
+export 'architecture_and_technology.dart';
 export 'assumptions_constraints_dependencies.dart';
 export 'business_process_model.dart';
-export 'components.dart';
+export 'components_and_dependencies.dart';
 export 'current_landscape.dart';
 export 'delivery_acceptance.dart';
 export 'delivery_transition_and_rollout.dart';
@@ -29,7 +30,6 @@ export 'system_rollout.dart';
 export 'system_stage_plan.dart';
 export 'target_operating_model.dart';
 export 'target_organization.dart';
-export 'technical_framework.dart';
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
