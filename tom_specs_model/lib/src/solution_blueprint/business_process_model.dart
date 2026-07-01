@@ -10,6 +10,15 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../document_stubs.dart';
 
 /// 6. Target Business Process Model.
+@StandardReferences(
+  [
+    'BPMN 2.0 — business process model & notation',
+    'APQC PCF — Process Classification Framework',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Defines the complete target business process landscape the system will '
+  'support, spanning process descriptions and actor interactions.',
+)
 @SectionId('TBPM')
 @Comment('Seeds → TOM, ISC')
 class TargetBusinessProcessModel {
@@ -58,6 +67,14 @@ interactions that seed use case development.
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
 /// in the TOM (Target Operating Model) document.
+@StandardReferences(
+  [
+    'BPMN 2.0 — business process model & notation',
+    'APQC PCF — Process Classification Framework',
+  ],
+  'Captures the target business processes the system will support, at the level '
+  'of catalog, vision and design principles.',
+)
 @SectionId('BPDSC')
 @Comment('Seeds → TOM')
 @MapsTo(D02TargetOperatingModel)
@@ -104,8 +121,14 @@ TOM (Target Operating Model) document.
   ProcessRelationships processRelationships = ProcessRelationships();
 
   /// 6.1.7. Detailed Process Workflows.
+  @StandardReferences(
+    ['BPMN 2.0 — process flow / activities'],
+    'The set of detailed, step-level workflows expanded from each catalogued '
+    'process.',
+  )
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
+  @ContentHelp('Add one entry per detailed process workflow.')
   @SerializationOrder(7)
   List<DetailedProcessWorkflow> detailedWorkflows = [];
 
@@ -118,8 +141,17 @@ TOM (Target Operating Model) document.
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
   /// 6.1.10. Process Metrics and KPIs.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — performance efficiency',
+      'Six Sigma / Lean — process improvement',
+    ],
+    'The measurable KPIs and metrics used to gauge each process\'s performance '
+    'and improvement.',
+  )
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
+  @ContentHelp('Add one entry per process metric or KPI.')
   @SerializationOrder(10)
   List<ProcessMetric> processMetricsAndKpis = [];
 }
@@ -127,6 +159,14 @@ TOM (Target Operating Model) document.
 /// 6.1.1. Process Vision.
 ///
 /// The overall vision for how business processes will work with the new system.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state / process analysis',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Articulates the target-state vision, narrative and success criteria that '
+  'guide the process transformation.',
+)
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-VIS')
@@ -140,8 +180,14 @@ class ProcessVision {
   TextSection visionNarrative = TextSection();
 
   /// Expected improvements over current state.
+  @StandardReferences(
+    ['Six Sigma / Lean — process improvement'],
+    'The set of anticipated improvements the target processes deliver over the '
+    'current state.',
+  )
   @SectionId('EXIPR-EXPE-LST')
   @SectionIdPattern('EXIPR-EXPE-xxx')
+  @ContentHelp('Add one entry per expected improvement.')
   @SerializationOrder(2)
   List<ExpectedImprovements> expectedImprovements = [];
 
@@ -151,74 +197,118 @@ class ProcessVision {
 }
 
 /// Process vision overview.
+@StandardReferences(
+  ['BABOK v3 — future-state / process analysis'],
+  'Summarises the overarching process vision, strategic alignment and '
+  'transformation theme in a single form.',
+)
 @SectionId('PVOVW')
 class ProcessVisionOverview {
   @Form([
     Field('visionStatement', String,
-        'Vision Statement — concise statement of process future state'),
+        'Vision Statement — concise statement of process future state',
+        hint: 'One or two sentences describing the future-state process'),
     Field('strategicAlignment', String,
-        'Strategic Alignment — how processes support business strategy'),
+        'Strategic Alignment — how processes support business strategy',
+        hint: 'Link processes to strategic goals'),
     Field('transformationTheme', String,
-        'Transformation Theme — overall transformation approach'),
+        'Transformation Theme — overall transformation approach',
+        hint: 'The unifying theme of the change (e.g. digital, automation)'),
     Field('targetMaturityLevel', String,
-        'Target Maturity Level — CMMI or similar maturity target'),
-    Field('timeHorizon', String, 'Time Horizon — when full vision is realized'),
+        'Target Maturity Level — CMMI or similar maturity target',
+        hint: 'Desired maturity level to reach'),
+    Field('timeHorizon', String, 'Time Horizon — when full vision is realized',
+        hint: 'Timeframe for achieving the vision'),
     Field('keyEnabler', String,
-        'Key Enablers — technology, skills, culture changes needed'),
+        'Key Enablers — technology, skills, culture changes needed',
+        hint: 'What must be in place to enable the vision'),
     Field('changeScope', String,
-        'Change Scope — breadth and depth of process change'),
+        'Change Scope — breadth and depth of process change',
+        hint: 'How wide and deep the change reaches'),
     Field('stakeholderImpact', String,
-        'Stakeholder Impact — who is affected and how'),
+        'Stakeholder Impact — who is affected and how',
+        hint: 'Groups affected and the nature of impact'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Expected improvements from process transformation.
+@StandardReferences(
+  ['Six Sigma / Lean — process improvement'],
+  'Details a single expected improvement across efficiency, quality, cost and '
+  'experience dimensions.',
+)
 @SectionId('EXIPR')
 class ExpectedImprovements {
   @Form([
     Field('efficiencyGains', String,
-        'Efficiency Gains — throughput, cycle time improvements'),
+        'Efficiency Gains — throughput, cycle time improvements',
+        hint: 'Expected gains in speed or throughput'),
     Field('qualityImprovements', String,
-        'Quality Improvements — error reduction, consistency'),
-    Field('costReduction', String, 'Cost Reduction — operating cost savings'),
+        'Quality Improvements — error reduction, consistency',
+        hint: 'Expected reduction in errors or defects'),
+    Field('costReduction', String, 'Cost Reduction — operating cost savings',
+        hint: 'Expected operating cost savings'),
     Field('automationRate', String,
-        'Automation Rate — percentage of automated steps'),
+        'Automation Rate — percentage of automated steps',
+        hint: 'Target share of steps automated'),
     Field('customerExperience', String,
-        'Customer Experience — CX improvements'),
+        'Customer Experience — CX improvements',
+        hint: 'Expected customer-facing benefits'),
     Field('employeeExperience', String,
-        'Employee Experience — EX improvements'),
+        'Employee Experience — EX improvements',
+        hint: 'Expected benefits for staff'),
     Field('complianceImprovement', String,
-        'Compliance Improvement — regulatory/audit benefits'),
+        'Compliance Improvement — regulatory/audit benefits',
+        hint: 'Expected regulatory or audit benefits'),
     Field('visibilityGains', String,
-        'Visibility Gains — monitoring, reporting improvements'),
+        'Visibility Gains — monitoring, reporting improvements',
+        hint: 'Expected monitoring or reporting gains'),
     Field('flexibilityGains', String,
-        'Flexibility Gains — adaptability to change'),
+        'Flexibility Gains — adaptability to change',
+        hint: 'Expected improvement in adaptability'),
     Field('integrationBenefits', String,
-        'Integration Benefits — data flow, system integration'),
+        'Integration Benefits — data flow, system integration',
+        hint: 'Expected integration or data-flow benefits'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Success criteria for process transformation.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'BABOK v3 — future-state / process analysis',
+  ],
+  'Defines the measurable criteria that determine whether the process '
+  'transformation is deemed successful.',
+)
 @SectionId('PRSUC')
 class ProcessSuccessCriteria {
   @Form([
-    Field('kpiTargets', String, 'KPI Targets — measurable success indicators'),
-    Field('timeToValue', String, 'Time to Value — when benefits are realized'),
+    Field('kpiTargets', String, 'KPI Targets — measurable success indicators',
+        hint: 'Concrete KPI values that signal success'),
+    Field('timeToValue', String, 'Time to Value — when benefits are realized',
+        hint: 'How soon benefits should appear'),
     Field('adoptionTargets', String,
-        'Adoption Targets — user adoption expectations'),
-    Field('qualityTargets', String, 'Quality Targets — defect/error rates'),
+        'Adoption Targets — user adoption expectations',
+        hint: 'Expected user adoption levels'),
+    Field('qualityTargets', String, 'Quality Targets — defect/error rates',
+        hint: 'Target defect or error rates'),
     Field('performanceTargets', String,
-        'Performance Targets — response time, throughput'),
+        'Performance Targets — response time, throughput',
+        hint: 'Target response time or throughput'),
     Field('userSatisfaction', String,
-        'User Satisfaction — NPS, satisfaction scores'),
+        'User Satisfaction — NPS, satisfaction scores',
+        hint: 'Target satisfaction or NPS scores'),
     Field('businessOutcomes', String,
-        'Business Outcomes — revenue, market share impact'),
+        'Business Outcomes — revenue, market share impact',
+        hint: 'Expected business-level outcomes'),
     Field('measurementApproach', String,
-        'Measurement Approach — how success is measured'),
+        'Measurement Approach — how success is measured',
+        hint: 'How and when success is measured'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -227,6 +317,14 @@ class ProcessSuccessCriteria {
 /// 6.1.2. Design Principles.
 ///
 /// Principles that guide process design decisions.
+@StandardReferences(
+  [
+    'BPM CBOK — business process management body of knowledge',
+    'ISO 9001:2015 §4.4 — process approach',
+  ],
+  'States the guiding principles that shape how target processes are designed '
+  'and where trade-offs are resolved.',
+)
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-PRI')
@@ -236,46 +334,76 @@ class ProcessDesignPrinciples {
   DesignPrinciplesOverview overview = DesignPrinciplesOverview();
 
   /// Contains 0+× Design Principle.
+  @StandardReferences(
+    ['BPM CBOK — business process management body of knowledge'],
+    'The set of individual design principles governing process design '
+    'decisions.',
+  )
   @SectionId('PDPEN-PRIN-LST')
   @SectionIdPattern('PDPEN-PRIN-xxx')
+  @ContentHelp('Add one entry per process design principle.')
   @SerializationOrder(1)
   List<ProcessDesignPrincipleEntry> principles = [];
 }
 
 /// Design principles overview.
+@StandardReferences(
+  ['BPM CBOK — business process management body of knowledge'],
+  'Summarises the overall philosophy and precedence rules governing the set of '
+  'process design principles.',
+)
 @SectionId('DPOVW')
 class DesignPrinciplesOverview {
   @Form([
     Field('principlePhilosophy', String,
-        'Principle Philosophy — overall approach to process design'),
+        'Principle Philosophy — overall approach to process design',
+        hint: 'The guiding philosophy behind the principles'),
     Field('priorityOrder', String,
-        'Priority Order — how to resolve principle conflicts'),
+        'Priority Order — how to resolve principle conflicts',
+        hint: 'How competing principles are ranked'),
     Field('exceptionHandling', String,
-        'Exception Handling — how deviations are managed'),
+        'Exception Handling — how deviations are managed',
+        hint: 'How deviations from principles are handled'),
     Field('continuousImprovement', String,
-        'Continuous Improvement — how processes evolve'),
+        'Continuous Improvement — how processes evolve',
+        hint: 'How principles adapt over time'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process design principle entry (form).
+@StandardReferences(
+  ['BPM CBOK — business process management body of knowledge'],
+  'Defines a single process design principle with its rationale, implications '
+  'and trade-offs.',
+)
 @SectionId('PDPEN')
 class ProcessDesignPrincipleEntry {
   @Form([
-    Field('principleId', String, 'Principle ID', required: true),
-    Field('principleName', String, 'Principle Name', required: true),
+    Field('principleId', String, 'Principle ID', required: true,
+        hint: 'Unique identifier for the principle'),
+    Field('principleName', String, 'Principle Name', required: true,
+        hint: 'Short descriptive name'),
     Field('category', String,
-        'Category — efficiency, quality, compliance, user experience'),
-    Field('statement', String, 'Statement — the principle statement'),
-    Field('rationale', String, 'Rationale — why this principle matters'),
+        'Category — efficiency, quality, compliance, user experience',
+        hint: 'The dimension this principle addresses'),
+    Field('statement', String, 'Statement — the principle statement',
+        hint: 'The principle expressed as a directive'),
+    Field('rationale', String, 'Rationale — why this principle matters',
+        hint: 'Why the principle is important'),
     Field('implications', String,
-        'Implications — what this means for process design'),
-    Field('examples', String, 'Examples — how this principle applies'),
-    Field('tradeoffs', String, 'Trade-offs — what is sacrificed'),
-    Field('priority', String, 'Priority — high, medium, low'),
+        'Implications — what this means for process design',
+        hint: 'Design consequences of applying it'),
+    Field('examples', String, 'Examples — how this principle applies',
+        hint: 'Concrete examples of the principle in use'),
+    Field('tradeoffs', String, 'Trade-offs — what is sacrificed',
+        hint: 'What is given up to follow the principle'),
+    Field('priority', String, 'Priority — high, medium, low',
+        hint: 'Relative importance of the principle'),
     Field('applicability', String,
-        'Applicability — all processes or specific types'),
+        'Applicability — all processes or specific types',
+        hint: 'Which processes the principle applies to'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -284,6 +412,14 @@ class ProcessDesignPrincipleEntry {
 /// 6.1.3. Process Catalog.
 ///
 /// Container for business process definitions.
+@StandardReferences(
+  [
+    'APQC PCF — Process Classification Framework',
+    'BPMN 2.0 — business process model & notation',
+  ],
+  'Holds the complete catalog of business process definitions together with '
+  'their classification scheme.',
+)
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CAT')
@@ -297,53 +433,87 @@ class ProcessCatalog {
   ProcessClassification classification = ProcessClassification();
 
   /// Contains 1+× Business Process.
+  @StandardReferences(
+    ['APQC PCF — Process Classification Framework'],
+    'The catalogued set of business processes the system will support.',
+  )
   @SectionId('BPREN-PROC-LST')
   @SectionIdPattern('BPREN-PROC-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per business process.')
   @SerializationOrder(2)
   List<BusinessProcessEntry> processes = [];
 }
 
 /// Process catalog overview.
+@StandardReferences(
+  ['APQC PCF — Process Classification Framework'],
+  'Summarises the scope, conventions and governance that frame the process '
+  'catalog as a whole.',
+)
 @SectionId('PCOVW')
 class ProcessCatalogOverview {
   @Form([
-    Field('totalProcessCount', int, 'Total Process Count'),
+    Field('totalProcessCount', int, 'Total Process Count',
+        hint: 'Number of processes in the catalog'),
     Field('scopeStatement', String,
-        'Scope Statement — what processes are in scope'),
+        'Scope Statement — what processes are in scope',
+        hint: 'What the catalog does and does not cover'),
     Field('classificationFramework', String,
-        'Classification Framework — APQC PCF, custom'),
+        'Classification Framework — APQC PCF, custom',
+        hint: 'Framework used to classify processes'),
     Field('namingConvention', String,
-        'Naming Convention — process naming standards'),
-    Field('idConvention', String, 'ID Convention — process ID standards'),
+        'Naming Convention — process naming standards',
+        hint: 'Rules for naming processes'),
+    Field('idConvention', String, 'ID Convention — process ID standards',
+        hint: 'Rules for assigning process IDs'),
     Field('processOwnership', String,
-        'Process Ownership — how ownership is assigned'),
+        'Process Ownership — how ownership is assigned',
+        hint: 'How process owners are determined'),
     Field('governanceModel', String,
-        'Governance Model — change control, approval'),
+        'Governance Model — change control, approval',
+        hint: 'How process changes are controlled'),
     Field('versioningApproach', String,
-        'Versioning Approach — how process versions are managed'),
+        'Versioning Approach — how process versions are managed',
+        hint: 'How process versions are tracked'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process classification scheme.
+@StandardReferences(
+  [
+    'APQC PCF — process hierarchy',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Defines the classification hierarchy used to organise processes into '
+  'categories, groups and specific processes.',
+)
 @SectionId('PRCCL')
 class ProcessClassification {
   @Form([
     Field('level1Categories', String,
-        'Level 1 Categories — operating, management, support'),
+        'Level 1 Categories — operating, management, support',
+        hint: 'Top-level process categories'),
     Field('level2Breakdown', String,
-        'Level 2 Breakdown — major process groups'),
-    Field('level3Detail', String, 'Level 3 Detail — specific processes'),
+        'Level 2 Breakdown — major process groups',
+        hint: 'Major process groups within each category'),
+    Field('level3Detail', String, 'Level 3 Detail — specific processes',
+        hint: 'Specific processes at the detailed level'),
     Field('crossFunctional', String,
-        'Cross-Functional — which processes span functions'),
+        'Cross-Functional — which processes span functions',
+        hint: 'Processes that cross organisational boundaries'),
     Field('customerFacing', String,
-        'Customer-Facing — which processes touch customers'),
-    Field('valueDriving', String, 'Value-Driving — which are core value chain'),
-    Field('supportProcesses', String, 'Support Processes — enabling processes'),
+        'Customer-Facing — which processes touch customers',
+        hint: 'Processes with direct customer contact'),
+    Field('valueDriving', String, 'Value-Driving — which are core value chain',
+        hint: 'Processes central to the value chain'),
+    Field('supportProcesses', String, 'Support Processes — enabling processes',
+        hint: 'Enabling or support processes'),
     Field('managementProcesses', String,
-        'Management Processes — governance, strategy'),
+        'Management Processes — governance, strategy',
+        hint: 'Governance and strategic processes'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -352,6 +522,14 @@ class ProcessClassification {
 /// A business process entry.
 ///
 /// Comprehensive business process definition following BPMN 2.0 concepts.
+@StandardReferences(
+  [
+    'BPMN 2.0 — business process model & notation',
+    'APQC PCF — Process Classification Framework',
+  ],
+  'Defines a single business process end to end, covering its identity, '
+  'triggers, inputs/outputs, roles, performance and controls.',
+)
 @SectionId('BPREN')
 class BusinessProcessEntry {
   /// Process identification.
@@ -396,13 +574,21 @@ class BusinessProcessEntry {
 }
 
 /// Process identification.
+@StandardReferences(
+  ['APQC PCF — process hierarchy'],
+  'Identifies a process by ID, name and hierarchy level, plus its '
+  'classification, definition and governance metadata.',
+)
 @SectionId('PRIDN')
 class ProcessIdentification {
   @Form([
-    Field('processId', String, 'Process ID (e.g., TOM-001)', required: true),
-    Field('processName', String, 'Process Name', required: true),
+    Field('processId', String, 'Process ID (e.g., TOM-001)', required: true,
+        hint: 'Unique process identifier'),
+    Field('processName', String, 'Process Name', required: true,
+        hint: 'Descriptive name of the process'),
     Field('processLevel', String,
-        'Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)'),
+        'Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)',
+        hint: 'Level in the process hierarchy'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -424,56 +610,90 @@ class ProcessIdentification {
 }
 
 /// Position in the process hierarchy and taxonomy.
+@StandardReferences(
+  ['APQC PCF — process hierarchy'],
+  'Places the process within the taxonomy by parent, category and type.',
+)
 @SectionId('PICLS')
 class ProcessIdentificationClassification {
   @Form([
     Field('parentProcess', String,
-        'Parent Process — higher-level process this belongs to'),
+        'Parent Process — higher-level process this belongs to',
+        hint: 'The higher-level process this rolls up to'),
     Field('processCategory', String,
-        'Process Category — operating, management, support'),
-    Field('processType', String, 'Process Type — core, enabling, strategic'),
+        'Process Category — operating, management, support',
+        hint: 'The category the process falls into'),
+    Field('processType', String, 'Process Type — core, enabling, strategic',
+        hint: 'The functional type of the process'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Narrative description, purpose, and scope.
+@StandardReferences(
+  ['BPM CBOK — business process management body of knowledge'],
+  'Describes the process in narrative form, stating what it does, why it '
+  'exists and where its boundaries lie.',
+)
 @SectionId('PIDEF')
 class ProcessIdentificationDefinition {
   @Form([
-    Field('description', String, 'Description — what the process does'),
-    Field('purpose', String, 'Purpose — why the process exists'),
-    Field('scope', String, 'Scope — boundaries of the process'),
+    Field('description', String, 'Description — what the process does',
+        hint: 'What the process actually does'),
+    Field('purpose', String, 'Purpose — why the process exists',
+        hint: 'Why the process exists'),
+    Field('scope', String, 'Scope — boundaries of the process',
+        hint: 'Where the process starts and ends'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Ownership and lifecycle metadata.
+@StandardReferences(
+  ['ISO 9001:2015 §4.4 — process approach'],
+  'Records ownership and lifecycle metadata such as owner, manager, effective '
+  'date, version and status.',
+)
 @SectionId('PIGOV')
 class ProcessIdentificationGovernance {
   @Form([
-    Field('processOwner', String, 'Process Owner — accountable role/person'),
+    Field('processOwner', String, 'Process Owner — accountable role/person',
+        hint: 'Role or person accountable for the process'),
     Field('processManager', String,
-        'Process Manager — day-to-day responsibility'),
-    Field('effectiveDate', String, 'Effective Date — when process is active'),
-    Field('version', String, 'Version — process version'),
-    Field('status', String, 'Status — draft, approved, active, retired'),
+        'Process Manager — day-to-day responsibility',
+        hint: 'Role responsible for daily operation'),
+    Field('effectiveDate', String, 'Effective Date — when process is active',
+        hint: 'Date the process becomes active'),
+    Field('version', String, 'Version — process version',
+        hint: 'Current version of the process'),
+    Field('status', String, 'Status — draft, approved, active, retired',
+        hint: 'Lifecycle status of the process'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process characteristics.
+@StandardReferences(
+  ['BPM CBOK — business process management body of knowledge'],
+  'Profiles the process by intrinsic characteristics such as complexity, '
+  'frequency, duration and variability.',
+)
 @SectionId('PRCHR')
 class ProcessCharacteristics {
   @Form([
-    Field('complexity', String, 'Complexity — low, medium, high, very high'),
-    Field('frequency', String, 'Frequency — how often the process runs'),
+    Field('complexity', String, 'Complexity — low, medium, high, very high',
+        hint: 'Overall complexity level of the process'),
+    Field('frequency', String, 'Frequency — how often the process runs',
+        hint: 'How often the process executes'),
     Field('averageDuration', String,
-        'Average Duration — typical end-to-end time'),
+        'Average Duration — typical end-to-end time',
+        hint: 'Typical end-to-end duration'),
     Field('variability', String,
-        'Variability — how much process varies by case'),
+        'Variability — how much process varies by case',
+        hint: 'How much the process differs case to case'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -489,35 +709,61 @@ class ProcessCharacteristics {
 }
 
 /// Operational characteristics and automation level.
+@StandardReferences(
+  [
+    'BPM CBOK — business process management body of knowledge',
+    'Six Sigma / Lean — process improvement',
+  ],
+  'Profiles the operational side of the process, including criticality and how '
+  'much of it runs automatically.',
+)
 @SectionId('PCOPS')
 class ProcessCharacteristicsOperations {
   @Form([
-    Field('criticality', String, 'Criticality — business criticality level'),
+    Field('criticality', String, 'Criticality — business criticality level',
+        hint: 'How business-critical the process is'),
     Field('automationLevel', String,
-        'Automation Level — percentage automated'),
+        'Automation Level — percentage automated',
+        hint: 'Share of the process that is automated'),
     Field('straightThroughRate', String,
-        'Straight-Through Rate — percentage without human intervention'),
+        'Straight-Through Rate — percentage without human intervention',
+        hint: 'Share completed with no human touch'),
     Field('exceptionRate', String,
-        'Exception Rate — percentage requiring manual handling'),
+        'Exception Rate — percentage requiring manual handling',
+        hint: 'Share needing manual intervention'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Demand and business value profile.
+@StandardReferences(
+  ['BPM CBOK — business process management body of knowledge'],
+  'Profiles the demand pattern and business value the process carries, from '
+  'volume to cost drivers.',
+)
 @SectionId('PCBIZ')
 class ProcessCharacteristicsBusiness {
   @Form([
-    Field('volumeEstimate', String, 'Volume Estimate — cases per period'),
-    Field('seasonality', String, 'Seasonality — peaks and troughs'),
-    Field('valueAdded', String, 'Value Added — value contributed'),
-    Field('costDriver', String, 'Cost Driver — main cost factors'),
+    Field('volumeEstimate', String, 'Volume Estimate — cases per period',
+        hint: 'Expected number of cases per period'),
+    Field('seasonality', String, 'Seasonality — peaks and troughs',
+        hint: 'Seasonal demand variation'),
+    Field('valueAdded', String, 'Value Added — value contributed',
+        hint: 'Value the process contributes'),
+    Field('costDriver', String, 'Cost Driver — main cost factors',
+        hint: 'Main factors that drive process cost'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process triggers and events.
+@StandardReferences(
+  ['BPMN 2.0 — events (start/end/intermediate)'],
+  'Captures how the process starts and ends, listing its triggers (start '
+  'events) and end events (outcomes).',
+)
 @SectionId('PRTRG')
 class ProcessTriggers {
   /// Main trigger overview.
@@ -525,76 +771,130 @@ class ProcessTriggers {
   TriggerOverview overview = TriggerOverview();
 
   /// Contains 0+× process trigger.
+  @StandardReferences(
+    ['BPMN 2.0 — events (start/end/intermediate)'],
+    'The set of trigger (start-event) definitions that can initiate the '
+    'process.',
+  )
   @SectionId('PTREN-TRIG-LST')
   @SectionIdPattern('PTREN-TRIG-xxx')
+  @ContentHelp('Add one entry per process trigger.')
   @SerializationOrder(1)
   List<ProcessTriggerEntry> triggers = [];
 
   /// Process end events (outcomes).
+  @StandardReferences(
+    ['BPMN 2.0 — events (start/end/intermediate)'],
+    'The set of end-event definitions describing the possible outcomes at which '
+    'the process terminates.',
+  )
   @SectionId('PEEVT-ENDE-LST')
   @SectionIdPattern('PEEVT-ENDE-xxx')
+  @ContentHelp('Add one entry per process end event.')
   @SerializationOrder(2)
   List<ProcessEndEventEntry> endEvents = [];
 }
 
 /// Trigger overview.
+@StandardReferences(
+  ['BPMN 2.0 — events (start/end/intermediate)'],
+  'Summarises how the process is typically triggered, including its primary '
+  'trigger, channel and frequency.',
+)
 @SectionId('TGOVW')
 class TriggerOverview {
   @Form([
-    Field('primaryTrigger', String, 'Primary Trigger — main way process starts'),
+    Field('primaryTrigger', String, 'Primary Trigger — main way process starts',
+        hint: 'The most common way the process starts'),
     Field('triggerChannel', String,
-        'Trigger Channel — UI, API, event, schedule'),
-    Field('triggerFrequency', String, 'Trigger Frequency — how often triggered'),
+        'Trigger Channel — UI, API, event, schedule',
+        hint: 'Channel through which triggers arrive'),
+    Field('triggerFrequency', String, 'Trigger Frequency — how often triggered',
+        hint: 'How often the process is triggered'),
     Field('peakTriggerTime', String,
-        'Peak Trigger Time — when most triggers occur'),
+        'Peak Trigger Time — when most triggers occur',
+        hint: 'When trigger volume peaks'),
     Field('preTriggerState', String,
-        'Pre-Trigger State — system state before trigger'),
+        'Pre-Trigger State — system state before trigger',
+        hint: 'System state expected before triggering'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process trigger entry.
+@StandardReferences(
+  ['BPMN 2.0 — events (start/end/intermediate)'],
+  'Defines a single trigger (start event) that can initiate the process, with '
+  'its type, source and conditions.',
+)
 @SectionId('PTREN')
 class ProcessTriggerEntry {
   @Form([
-    Field('triggerId', String, 'Trigger ID', required: true),
-    Field('triggerName', String, 'Trigger Name', required: true),
+    Field('triggerId', String, 'Trigger ID', required: true,
+        hint: 'Unique identifier for the trigger'),
+    Field('triggerName', String, 'Trigger Name', required: true,
+        hint: 'Descriptive name of the trigger'),
     Field('triggerType', String,
-        'Trigger Type — user action, system event, timer, message, signal'),
-    Field('triggerSource', String, 'Trigger Source — where trigger originates'),
-    Field('triggerCondition', String, 'Trigger Condition — when trigger fires'),
-    Field('triggerData', String, 'Trigger Data — data provided with trigger'),
-    Field('priority', String, 'Priority — processing priority'),
+        'Trigger Type — user action, system event, timer, message, signal',
+        hint: 'BPMN start-event type of the trigger'),
+    Field('triggerSource', String, 'Trigger Source — where trigger originates',
+        hint: 'Where the trigger originates'),
+    Field('triggerCondition', String, 'Trigger Condition — when trigger fires',
+        hint: 'Condition under which the trigger fires'),
+    Field('triggerData', String, 'Trigger Data — data provided with trigger',
+        hint: 'Data carried by the trigger'),
+    Field('priority', String, 'Priority — processing priority',
+        hint: 'Processing priority of this trigger'),
     Field('validationRules', String,
-        'Validation Rules — checks before process starts'),
-    Field('frequency', String, 'Frequency — expected occurrence rate'),
+        'Validation Rules — checks before process starts',
+        hint: 'Checks applied before the process starts'),
+    Field('frequency', String, 'Frequency — expected occurrence rate',
+        hint: 'Expected occurrence rate of the trigger'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process end event entry.
+@StandardReferences(
+  ['BPMN 2.0 — events (start/end/intermediate)'],
+  'Defines a single end event (outcome) at which the process terminates, with '
+  'its type, post-condition and follow-on action.',
+)
 @SectionId('PEEVT')
 class ProcessEndEventEntry {
   @Form([
-    Field('endEventId', String, 'End Event ID', required: true),
-    Field('endEventName', String, 'End Event Name', required: true),
+    Field('endEventId', String, 'End Event ID', required: true,
+        hint: 'Unique identifier for the end event'),
+    Field('endEventName', String, 'End Event Name', required: true,
+        hint: 'Descriptive name of the end event'),
     Field('endEventType', String,
-        'End Event Type — success, error, cancellation, timeout'),
-    Field('outcome', String, 'Outcome — what this end state means'),
-    Field('probability', String, 'Probability — how often this end occurs'),
+        'End Event Type — success, error, cancellation, timeout',
+        hint: 'BPMN end-event type'),
+    Field('outcome', String, 'Outcome — what this end state means',
+        hint: 'What reaching this end state means'),
+    Field('probability', String, 'Probability — how often this end occurs',
+        hint: 'How often this outcome occurs'),
     Field('postCondition', String,
-        'Post-Condition — system state after this end'),
+        'Post-Condition — system state after this end',
+        hint: 'System state after this end event'),
     Field('notificationAction', String,
-        'Notification Action — who/what is notified'),
-    Field('followOnAction', String, 'Follow-On Action — what happens next'),
+        'Notification Action — who/what is notified',
+        hint: 'Who or what is notified at this end'),
+    Field('followOnAction', String, 'Follow-On Action — what happens next',
+        hint: 'What happens after this end event'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process inputs and outputs.
+@StandardReferences(
+  ['BPMN 2.0 — data objects & artifacts'],
+  'Captures the data the process consumes and produces, listing its inputs and '
+  'outputs as data objects.',
+)
 @SectionId('PRINOU')
 class ProcessInputsOutputs {
   /// Inputs overview.
@@ -602,79 +902,135 @@ class ProcessInputsOutputs {
   InputsOutputsOverview overview = InputsOutputsOverview();
 
   /// Contains 0+× process input.
+  @StandardReferences(
+    ['BPMN 2.0 — data objects & artifacts'],
+    'The set of data inputs the process consumes.',
+  )
   @SectionId('PCINP-INPU-LST')
   @SectionIdPattern('PCINP-INPU-xxx')
+  @ContentHelp('Add one entry per process input.')
   @SerializationOrder(1)
   List<ProcessInputEntry> inputs = [];
 
   /// Contains 0+× process output.
+  @StandardReferences(
+    ['BPMN 2.0 — data objects & artifacts'],
+    'The set of data outputs the process produces.',
+  )
   @SectionId('PCOUT-OUTP-LST')
   @SectionIdPattern('PCOUT-OUTP-xxx')
+  @ContentHelp('Add one entry per process output.')
   @SerializationOrder(2)
   List<ProcessOutputEntry> outputs = [];
 }
 
 /// Inputs/outputs overview.
+@StandardReferences(
+  ['BPMN 2.0 — data objects & artifacts'],
+  'Summarises the inputs, outputs and overall data flow of the process at a '
+  'glance.',
+)
 @SectionId('INOUOV')
 class InputsOutputsOverview {
   @Form([
-    Field('inputSummary', String, 'Input Summary — overview of required inputs'),
+    Field('inputSummary', String, 'Input Summary — overview of required inputs',
+        hint: 'High-level overview of required inputs'),
     Field('outputSummary', String,
-        'Output Summary — overview of produced outputs'),
+        'Output Summary — overview of produced outputs',
+        hint: 'High-level overview of produced outputs'),
     Field('dataFlowSummary', String,
-        'Data Flow Summary — how data moves through process'),
+        'Data Flow Summary — how data moves through process',
+        hint: 'How data flows through the process'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process input entry.
+@StandardReferences(
+  ['BPMN 2.0 — data objects & artifacts'],
+  'Defines a single data input the process consumes, with its type, source, '
+  'format and validation.',
+)
 @SectionId('PCINP')
 class ProcessInputEntry {
   @Form([
-    Field('inputId', String, 'Input ID', required: true),
-    Field('inputName', String, 'Input Name', required: true),
+    Field('inputId', String, 'Input ID', required: true,
+        hint: 'Unique identifier for the input'),
+    Field('inputName', String, 'Input Name', required: true,
+        hint: 'Descriptive name of the input'),
     Field('inputType', String,
-        'Input Type — data, document, authorization, resource'),
-    Field('source', String, 'Source — where input comes from'),
-    Field('format', String, 'Format — data format, file type'),
-    Field('required', String, 'Required — mandatory or optional'),
-    Field('validationRules', String, 'Validation Rules — input quality checks'),
-    Field('defaultValue', String, 'Default Value — if input not provided'),
-    Field('exampleValue', String, 'Example Value — sample input'),
+        'Input Type — data, document, authorization, resource',
+        hint: 'Kind of input consumed'),
+    Field('source', String, 'Source — where input comes from',
+        hint: 'Where the input originates'),
+    Field('format', String, 'Format — data format, file type',
+        hint: 'Data format or file type'),
+    Field('required', String, 'Required — mandatory or optional',
+        hint: 'Whether the input is mandatory'),
+    Field('validationRules', String, 'Validation Rules — input quality checks',
+        hint: 'Quality checks applied to the input'),
+    Field('defaultValue', String, 'Default Value — if input not provided',
+        hint: 'Value used when input is absent'),
+    Field('exampleValue', String, 'Example Value — sample input',
+        hint: 'A sample value for the input'),
     Field('securityClassification', String,
-        'Security Classification — sensitivity level'),
+        'Security Classification — sensitivity level',
+        hint: 'Sensitivity level of the input'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process output entry.
+@StandardReferences(
+  ['BPMN 2.0 — data objects & artifacts'],
+  'Defines a single data output the process produces, with its type, '
+  'destination, quality and retention.',
+)
 @SectionId('PCOUT')
 class ProcessOutputEntry {
   @Form([
-    Field('outputId', String, 'Output ID', required: true),
-    Field('outputName', String, 'Output Name', required: true),
+    Field('outputId', String, 'Output ID', required: true,
+        hint: 'Unique identifier for the output'),
+    Field('outputName', String, 'Output Name', required: true,
+        hint: 'Descriptive name of the output'),
     Field('outputType', String,
-        'Output Type — data, document, notification, state change'),
-    Field('destination', String, 'Destination — where output goes'),
-    Field('format', String, 'Format — data format, file type'),
+        'Output Type — data, document, notification, state change',
+        hint: 'Kind of output produced'),
+    Field('destination', String, 'Destination — where output goes',
+        hint: 'Where the output is sent'),
+    Field('format', String, 'Format — data format, file type',
+        hint: 'Data format or file type'),
     Field('qualityStandard', String,
-        'Quality Standard — output quality requirements'),
+        'Quality Standard — output quality requirements',
+        hint: 'Quality requirements for the output'),
     Field('timingRequirement', String,
-        'Timing Requirement — when output must be available'),
+        'Timing Requirement — when output must be available',
+        hint: 'When the output must be ready'),
     Field('retentionPeriod', String,
-        'Retention Period — how long output is kept'),
+        'Retention Period — how long output is kept',
+        hint: 'How long the output is retained'),
     Field('securityClassification', String,
-        'Security Classification — sensitivity level'),
+        'Security Classification — sensitivity level',
+        hint: 'Sensitivity level of the output'),
     Field('dependentProcesses', String,
-        'Dependent Processes — processes that need this output'),
+        'Dependent Processes — processes that need this output',
+        hint: 'Processes that consume this output'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process roles and responsibilities.
+@StandardReferences(
+  [
+    'RACI — responsibility assignment',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Captures the roles that participate in the process and how responsibility is '
+  'assigned across them.',
+)
 @SectionId('PRRO')
 class ProcessRoles {
   /// Roles overview.
@@ -682,36 +1038,61 @@ class ProcessRoles {
   ProcessRolesOverview overview = ProcessRolesOverview();
 
   /// Contains 0+× process role.
+  @StandardReferences(
+    ['RACI — responsibility assignment'],
+    'The set of role definitions participating in the process and their RACI '
+    'assignments.',
+  )
   @SectionId('PCROL-ROLE-LST')
   @SectionIdPattern('PCROL-ROLE-xxx')
+  @ContentHelp('Add one entry per process role.')
   @SerializationOrder(1)
   List<ProcessRoleEntry> roles = [];
 }
 
 /// Process roles overview.
+@StandardReferences(
+  ['RACI — responsibility assignment'],
+  'Summarises the key roles in the process and their RACI relationships at a '
+  'glance.',
+)
 @SectionId('PRROOV')
 class ProcessRolesOverview {
   @Form([
-    Field('primaryActor', String, 'Primary Actor — main role executing'),
-    Field('processOwner', String, 'Process Owner — accountable for outcomes'),
-    Field('supportRoles', String, 'Support Roles — assisting roles'),
-    Field('escalationPath', String, 'Escalation Path — who handles issues'),
+    Field('primaryActor', String, 'Primary Actor — main role executing',
+        hint: 'The main role that executes the process'),
+    Field('processOwner', String, 'Process Owner — accountable for outcomes',
+        hint: 'Role accountable for process outcomes'),
+    Field('supportRoles', String, 'Support Roles — assisting roles',
+        hint: 'Roles that assist the process'),
+    Field('escalationPath', String, 'Escalation Path — who handles issues',
+        hint: 'Who issues are escalated to'),
     Field('raciSummary', String,
-        'RACI Summary — responsibility assignment overview'),
+        'RACI Summary — responsibility assignment overview',
+        hint: 'Overview of the RACI assignments'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process role entry.
+@StandardReferences(
+  ['RACI — responsibility assignment'],
+  'Defines a single role in the process, its RACI type and its '
+  'responsibilities, execution and coordination detail.',
+)
 @SectionId('PCROL')
 class ProcessRoleEntry {
   @Form([
-    Field('roleId', String, 'Role ID', required: true),
-    Field('roleName', String, 'Role Name', required: true),
+    Field('roleId', String, 'Role ID', required: true,
+        hint: 'Unique identifier for the role'),
+    Field('roleName', String, 'Role Name', required: true,
+        hint: 'Descriptive name of the role'),
     Field('raciType', String,
-        'RACI Type — Responsible, Accountable, Consulted, Informed'),
-    Field('responsibilities', String, 'Responsibilities — what this role does'),
+        'RACI Type — Responsible, Accountable, Consulted, Informed',
+        hint: 'The RACI assignment for this role'),
+    Field('responsibilities', String, 'Responsibilities — what this role does',
+        hint: 'What this role is responsible for'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -727,33 +1108,65 @@ class ProcessRoleEntry {
 }
 
 /// Process participation and authority.
+@StandardReferences(
+  [
+    'RACI — responsibility assignment',
+    'BPMN 2.0 — business process model & notation',
+  ],
+  'Describes how a role participates in the process and what decisions it is '
+  'authorised to make.',
+)
 @SectionId('PREE')
 class ProcessRoleEntryExecution {
   @Form([
-    Field('stepsInvolved', String, 'Steps Involved — which process steps'),
+    Field('stepsInvolved', String, 'Steps Involved — which process steps',
+        hint: 'List the steps this role performs'),
     Field('decisionAuthority', String,
-        'Decision Authority — what decisions can be made'),
-    Field('skillsRequired', String, 'Skills Required — competencies needed'),
-    Field('systemAccess', String, 'System Access — required system permissions'),
+        'Decision Authority — what decisions can be made',
+        hint: 'State the decisions this role may make'),
+    Field('skillsRequired', String, 'Skills Required — competencies needed',
+        hint: 'List the competencies the role needs'),
+    Field('systemAccess', String, 'System Access — required system permissions',
+        hint: 'Name the system permissions required'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Access, coverage, and handoff expectations.
+@StandardReferences(
+  [
+    'RACI — responsibility assignment',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Captures when a role must be available, who covers it, and how work is '
+  'handed off to and from it.',
+)
 @SectionId('PREC')
 class ProcessRoleEntryCoordination {
   @Form([
-    Field('availability', String, 'Availability — when role must be available'),
-    Field('backupRole', String, 'Backup Role — who covers absence'),
-    Field('handoffTo', String, 'Handoff To — roles this passes work to'),
-    Field('handoffFrom', String, 'Handoff From — roles this receives work from'),
+    Field('availability', String, 'Availability — when role must be available',
+        hint: 'Describe required availability windows'),
+    Field('backupRole', String, 'Backup Role — who covers absence',
+        hint: 'Name the role that covers absences'),
+    Field('handoffTo', String, 'Handoff To — roles this passes work to',
+        hint: 'List downstream roles receiving work'),
+    Field('handoffFrom', String, 'Handoff From — roles this receives work from',
+        hint: 'List upstream roles supplying work'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process performance metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'BPM CBOK — process performance',
+  ],
+  'Groups the performance targets, KPIs, and service level agreements used to '
+  'measure how well this process performs.',
+)
 @SectionId('PP')
 class ProcessPerformance {
   /// Performance overview.
@@ -761,50 +1174,91 @@ class ProcessPerformance {
   ProcessPerformanceOverview overview = ProcessPerformanceOverview();
 
   /// Contains 0+× performance metric.
+  @StandardReferences(
+    ['ISO/IEC 25010 — performance efficiency'],
+    'The set of KPIs tracked for this process.',
+  )
   @SectionId('PCKPI-KPIS-LST')
   @SectionIdPattern('PCKPI-KPIS-xxx')
+  @ContentHelp('Add one entry per KPI tracked for this process.')
   @SerializationOrder(1)
   List<ProcessKpiEntry> kpis = [];
 
   /// Service Level Agreements.
+  @StandardReferences(
+    [
+      'ITIL 4 — service level management',
+      'ISO/IEC 25010 — performance efficiency',
+    ],
+    'The set of service level agreements committed for this process.',
+  )
   @SectionId('PCSLA-SLAS-LST')
   @SectionIdPattern('PCSLA-SLAS-xxx')
+  @ContentHelp('Add one entry per service level agreement for this process.')
   @SerializationOrder(2)
   List<ProcessSlaEntry> slas = [];
 }
 
 /// Process performance overview.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'BPM CBOK — process performance',
+  ],
+  'Summarises the top-level performance targets and monitoring approach for '
+  'the process.',
+)
 @SectionId('PRPEOV')
 class ProcessPerformanceOverview {
   @Form([
     Field('targetCycleTime', String,
-        'Target Cycle Time — expected end-to-end duration'),
+        'Target Cycle Time — expected end-to-end duration',
+        hint: 'Give the expected end-to-end duration'),
     Field('targetThroughput', String,
-        'Target Throughput — expected cases per period'),
+        'Target Throughput — expected cases per period',
+        hint: 'Give the expected cases per period'),
     Field('targetQuality', String,
-        'Target Quality — error rate, first-time-right'),
-    Field('targetCost', String, 'Target Cost — cost per transaction'),
+        'Target Quality — error rate, first-time-right',
+        hint: 'State the target error/first-time-right rate'),
+    Field('targetCost', String, 'Target Cost — cost per transaction',
+        hint: 'Give the target cost per transaction'),
     Field('targetCustomerSat', String,
-        'Target Customer Satisfaction — CSAT/NPS target'),
+        'Target Customer Satisfaction — CSAT/NPS target',
+        hint: 'Give the CSAT/NPS satisfaction target'),
     Field('monitoringFrequency', String,
-        'Monitoring Frequency — how often metrics reviewed'),
+        'Monitoring Frequency — how often metrics reviewed',
+        hint: 'State how often metrics are reviewed'),
     Field('dashboardLocation', String,
-        'Dashboard Location — where metrics are visible'),
-    Field('improvementGoals', String, 'Improvement Goals — targets for next period'),
+        'Dashboard Location — where metrics are visible',
+        hint: 'Name where the metrics dashboard lives'),
+    Field('improvementGoals', String, 'Improvement Goals — targets for next period',
+        hint: 'State improvement targets for next period'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process KPI entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'BPM CBOK — process performance',
+  ],
+  'Defines a single key performance indicator used to measure how well this '
+  'process meets its targets.',
+)
 @SectionId('PCKPI')
 class ProcessKpiEntry {
   @Form([
-    Field('kpiId', String, 'KPI ID', required: true),
-    Field('kpiName', String, 'KPI Name', required: true),
+    Field('kpiId', String, 'KPI ID', required: true,
+        hint: 'Unique identifier for the KPI'),
+    Field('kpiName', String, 'KPI Name', required: true,
+        hint: 'Short human-readable KPI name'),
     Field('category', String,
-        'Category — time, quality, cost, volume, satisfaction'),
-    Field('definition', String, 'Definition — how KPI is calculated'),
+        'Category — time, quality, cost, volume, satisfaction',
+        hint: 'Classify the KPI dimension'),
+    Field('definition', String, 'Definition — how KPI is calculated',
+        hint: 'Describe the calculation formula'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -819,57 +1273,104 @@ class ProcessKpiEntry {
 }
 
 /// Measurement targets and thresholds.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency'],
+  'Specifies the unit, target value, thresholds, and data source used to '
+  'measure a KPI.',
+)
 @SectionId('PKEM')
 class ProcessKpiEntryMeasurement {
   @Form([
-    Field('unit', String, 'Unit — measurement unit'),
-    Field('targetValue', String, 'Target Value — target'),
-    Field('thresholds', String, 'Thresholds — green/yellow/red boundaries'),
-    Field('dataSource', String, 'Data Source — where data comes from'),
+    Field('unit', String, 'Unit — measurement unit',
+        hint: 'State the unit of measurement'),
+    Field('targetValue', String, 'Target Value — target',
+        hint: 'Give the target value to achieve'),
+    Field('thresholds', String, 'Thresholds — green/yellow/red boundaries',
+        hint: 'Define the RAG threshold boundaries'),
+    Field('dataSource', String, 'Data Source — where data comes from',
+        hint: 'Name the source of the data'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Reporting ownership and improvement use.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'RACI — responsibility assignment',
+  ],
+  'Captures how often a KPI is calculated and reported, who owns it, and how '
+  'it can be improved.',
+)
 @SectionId('PKEO')
 class ProcessKpiEntryOperations {
   @Form([
     Field('calculationFrequency', String,
-        'Calculation Frequency — how often measured'),
+        'Calculation Frequency — how often measured',
+        hint: 'State how often the KPI is calculated'),
     Field('reportingFrequency', String,
-        'Reporting Frequency — how often reported'),
-    Field('owner', String, 'Owner — who is accountable'),
+        'Reporting Frequency — how often reported',
+        hint: 'State how often the KPI is reported'),
+    Field('owner', String, 'Owner — who is accountable',
+        hint: 'Name the accountable owner'),
     Field('improvementLever', String,
-        'Improvement Lever — how to improve this KPI'),
+        'Improvement Lever — how to improve this KPI',
+        hint: 'Describe how to move the KPI'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process SLA entry.
+@StandardReferences(
+  [
+    'ITIL 4 — service level management',
+    'ISO/IEC 25010 — performance efficiency',
+  ],
+  'Defines a single service level agreement, its target, measurement, and '
+  'breach consequences for the process.',
+)
 @SectionId('PCSLA')
 class ProcessSlaEntry {
   @Form([
-    Field('slaId', String, 'SLA ID', required: true),
-    Field('slaName', String, 'SLA Name', required: true),
+    Field('slaId', String, 'SLA ID', required: true,
+        hint: 'Unique identifier for the SLA'),
+    Field('slaName', String, 'SLA Name', required: true,
+        hint: 'Short human-readable SLA name'),
     Field('serviceDescription', String,
-        'Service Description — what is promised'),
-    Field('targetLevel', String, 'Target Level — commitment'),
+        'Service Description — what is promised',
+        hint: 'Describe the promised service'),
+    Field('targetLevel', String, 'Target Level — commitment',
+        hint: 'State the committed target level'),
     Field('measurementMethod', String,
-        'Measurement Method — how compliance measured'),
-    Field('reportingPeriod', String, 'Reporting Period — measurement window'),
-    Field('penaltyClause', String, 'Penalty Clause — consequence of breach'),
+        'Measurement Method — how compliance measured',
+        hint: 'Describe how compliance is measured'),
+    Field('reportingPeriod', String, 'Reporting Period — measurement window',
+        hint: 'Give the measurement window'),
+    Field('penaltyClause', String, 'Penalty Clause — consequence of breach',
+        hint: 'State the consequence of a breach'),
     Field('escalationProcedure', String,
-        'Escalation Procedure — when SLA at risk'),
-    Field('exclusions', String, 'Exclusions — what is not covered'),
-    Field('reviewFrequency', String, 'Review Frequency — when SLA is reviewed'),
+        'Escalation Procedure — when SLA at risk',
+        hint: 'Describe escalation when at risk'),
+    Field('exclusions', String, 'Exclusions — what is not covered',
+        hint: 'List what the SLA excludes'),
+    Field('reviewFrequency', String, 'Review Frequency — when SLA is reviewed',
+        hint: 'State how often the SLA is reviewed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process controls and compliance.
+@StandardReferences(
+  [
+    'BPMN 2.0 — gateways / decision points',
+    'ISO 9001:2015 §4.4 — process approach',
+  ],
+  'Groups the control framework and individual controls that keep the process '
+  'compliant and manage its risks.',
+)
 @SectionId('PRCO')
 class ProcessControls {
   /// Controls overview.
@@ -877,44 +1378,77 @@ class ProcessControls {
   ProcessControlsOverview overview = ProcessControlsOverview();
 
   /// Contains 0+× process control.
+  @StandardReferences(
+    ['BPMN 2.0 — gateways / decision points'],
+    'The set of controls applied to this process.',
+  )
   @SectionId('PCCTL-CONT-LST')
   @SectionIdPattern('PCCTL-CONT-xxx')
+  @ContentHelp('Add one entry per control applied to this process.')
   @SerializationOrder(1)
   List<ProcessControlEntry> controls = [];
 }
 
 /// Process controls overview.
+@StandardReferences(
+  [
+    'BPMN 2.0 — gateways / decision points',
+    'ISO 9001:2015 §4.4 — process approach',
+  ],
+  'Summarises the control framework, risk level, and compliance requirements '
+  'governing the process.',
+)
 @SectionId('PRCOOV')
 class ProcessControlsOverview {
   @Form([
     Field('controlFramework', String,
-        'Control Framework — COSO, COBIT, custom'),
-    Field('riskLevel', String, 'Risk Level — inherent risk'),
+        'Control Framework — COSO, COBIT, custom',
+        hint: 'Name the governing control framework'),
+    Field('riskLevel', String, 'Risk Level — inherent risk',
+        hint: 'State the inherent risk level'),
     Field('complianceRequirements', String,
-        'Compliance Requirements — regulations, standards'),
-    Field('auditFrequency', String, 'Audit Frequency — when audited'),
+        'Compliance Requirements — regulations, standards',
+        hint: 'List applicable regulations/standards'),
+    Field('auditFrequency', String, 'Audit Frequency — when audited',
+        hint: 'State how often the process is audited'),
     Field('segregationOfDuties', String,
-        'Segregation of Duties — duty separation rules'),
-    Field('approvalMatrix', String, 'Approval Matrix — who approves what'),
+        'Segregation of Duties — duty separation rules',
+        hint: 'Describe duty separation rules'),
+    Field('approvalMatrix', String, 'Approval Matrix — who approves what',
+        hint: 'Define who approves which actions'),
     Field('documentationRequirements', String,
-        'Documentation Requirements — what must be recorded'),
+        'Documentation Requirements — what must be recorded',
+        hint: 'List what must be documented'),
     Field('retentionRequirements', String,
-        'Retention Requirements — how long to keep records'),
+        'Retention Requirements — how long to keep records',
+        hint: 'State record retention periods'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process control entry.
+@StandardReferences(
+  [
+    'BPMN 2.0 — gateways / decision points',
+    'ISO 9001:2015 §4.4 — process approach',
+  ],
+  'Defines a single control point applied to the process, including its type '
+  'and category.',
+)
 @SectionId('PCCTL')
 class ProcessControlEntry {
   @Form([
-    Field('controlId', String, 'Control ID', required: true),
-    Field('controlName', String, 'Control Name', required: true),
+    Field('controlId', String, 'Control ID', required: true,
+        hint: 'Unique identifier for the control'),
+    Field('controlName', String, 'Control Name', required: true,
+        hint: 'Short human-readable control name'),
     Field('controlType', String,
-        'Control Type — preventive, detective, corrective'),
+        'Control Type — preventive, detective, corrective',
+        hint: 'Classify the control type'),
     Field('controlCategory', String,
-        'Control Category — authorization, validation, reconciliation'),
+        'Control Category — authorization, validation, reconciliation',
+        hint: 'Classify the control category'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -930,46 +1464,81 @@ class ProcessControlEntry {
 }
 
 /// Control operation and ownership.
+@StandardReferences(
+  [
+    'BPMN 2.0 — gateways / decision points',
+    'RACI — responsibility assignment',
+  ],
+  'Describes how a control operates, what risk it addresses, and who owns it.',
+)
 @SectionId('PCEO')
 class ProcessControlEntryOperation {
   @Form([
     Field('controlDescription', String,
-        'Control Description — what the control does'),
-    Field('riskAddressed', String, 'Risk Addressed — what risk is mitigated'),
-    Field('controlOwner', String, 'Control Owner — who is responsible'),
-    Field('frequency', String, 'Frequency — how often control operates'),
+        'Control Description — what the control does',
+        hint: 'Describe what the control does'),
+    Field('riskAddressed', String, 'Risk Addressed — what risk is mitigated',
+        hint: 'State the risk it mitigates'),
+    Field('controlOwner', String, 'Control Owner — who is responsible',
+        hint: 'Name the responsible owner'),
+    Field('frequency', String, 'Frequency — how often control operates',
+        hint: 'State how often the control runs'),
     Field('automation', String,
-        'Automation — manual, semi-automated, fully automated'),
+        'Automation — manual, semi-automated, fully automated',
+        hint: 'State the automation level'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Evidence, testing, and failure handling.
+@StandardReferences(
+  [
+    'BPMN 2.0 — gateways / decision points',
+    'ISO 9001:2015 §4.4 — process approach',
+  ],
+  'Captures the evidence a control produces, how it is tested, and what '
+  'happens when it fails.',
+)
 @SectionId('PCEV')
 class ProcessControlEntryVerification {
   @Form([
     Field('evidenceProduced', String,
-        'Evidence Produced — what documentation is created'),
-    Field('testingApproach', String, 'Testing Approach — how control is tested'),
+        'Evidence Produced — what documentation is created',
+        hint: 'Describe the evidence generated'),
+    Field('testingApproach', String, 'Testing Approach — how control is tested',
+        hint: 'Describe how the control is tested'),
     Field('failureAction', String,
-        'Failure Action — what happens if control fails'),
+        'Failure Action — what happens if control fails',
+        hint: 'State the action on control failure'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process technology support.
+@StandardReferences(
+  [
+    'BPM CBOK — business process management body of knowledge',
+    'BPMN 2.0 — business process model & notation',
+  ],
+  'Describes the systems, integrations, and automation tooling that support '
+  'the execution of this process.',
+)
 @SectionId('PRTE')
 class ProcessTechnology {
   @Form([
     Field('primarySystem', String,
-        'Primary System — main system supporting process'),
+        'Primary System — main system supporting process',
+        hint: 'Name the main supporting system'),
     Field('supportingSystems', String,
-        'Supporting Systems — other systems involved'),
-    Field('integrations', String, 'Integrations — system integrations required'),
+        'Supporting Systems — other systems involved',
+        hint: 'List other systems involved'),
+    Field('integrations', String, 'Integrations — system integrations required',
+        hint: 'List required system integrations'),
     Field('automationTools', String,
-        'Automation Tools — RPA, workflow, rules engines'),
+        'Automation Tools — RPA, workflow, rules engines',
+        hint: 'List automation tools used'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -984,36 +1553,66 @@ class ProcessTechnology {
 }
 
 /// Data, reporting, and document tooling.
+@StandardReferences(
+  [
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Captures the data stores, reporting, communication, and document tooling '
+  'the process relies on.',
+)
 @SectionId('PRTEIN')
 class ProcessTechnologyInformation {
   @Form([
   Field('dataRepositories', String,
-    'Data Repositories — databases, data stores'),
-  Field('reportingTools', String, 'Reporting Tools — BI, dashboards'),
+    'Data Repositories — databases, data stores',
+    hint: 'List the databases and data stores'),
+  Field('reportingTools', String, 'Reporting Tools — BI, dashboards',
+    hint: 'List BI and dashboard tools'),
   Field('communicationTools', String,
-    'Communication Tools — email, notifications'),
+    'Communication Tools — email, notifications',
+    hint: 'List communication/notification tools'),
   Field('documentManagement', String,
-    'Document Management — document storage'),
+    'Document Management — document storage',
+    hint: 'Name the document storage system'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Access channel and analytics capabilities.
+@StandardReferences(
+  [
+    'BPM CBOK — business process management body of knowledge',
+    'ISO/IEC 25010 — performance efficiency',
+  ],
+  'Captures the access channels and analytics capabilities available for the '
+  'process, such as mobile, offline, and process mining.',
+)
 @SectionId('PRTEEX')
 class ProcessTechnologyExperience {
   @Form([
-  Field('mobileCapability', String, 'Mobile Capability — mobile access needs'),
+  Field('mobileCapability', String, 'Mobile Capability — mobile access needs',
+    hint: 'State mobile access requirements'),
   Field('offlineCapability', String,
-    'Offline Capability — offline operation needs'),
+    'Offline Capability — offline operation needs',
+    hint: 'State offline operation requirements'),
   Field('analyticsCapability', String,
-    'Analytics Capability — process mining, analytics'),
+    'Analytics Capability — process mining, analytics',
+    hint: 'State analytics/process mining needs'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process exceptions and error handling.
+@StandardReferences(
+  [
+    'BPMN 2.0 — exceptions / error events',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Groups the exception-handling philosophy and the individual exception '
+  'scenarios that can occur during the process.',
+)
 @SectionId('PREX')
 class ProcessExceptions {
   /// Exceptions overview.
@@ -1021,41 +1620,72 @@ class ProcessExceptions {
   ProcessExceptionsOverview overview = ProcessExceptionsOverview();
 
   /// Contains 0+× exception scenario.
+  @StandardReferences(
+    ['BPMN 2.0 — exceptions / error events'],
+    'The set of exception scenarios handled by this process.',
+  )
   @SectionId('PCEXC-EXCE-LST')
   @SectionIdPattern('PCEXC-EXCE-xxx')
+  @ContentHelp('Add one entry per exception scenario for this process.')
   @SerializationOrder(1)
   List<ProcessExceptionEntry> exceptions = [];
 }
 
 /// Process exceptions overview.
+@StandardReferences(
+  [
+    'BPMN 2.0 — exceptions / error events',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Summarises how exceptions are handled overall, including routing, SLAs, and '
+  'root-cause practices.',
+)
 @SectionId('PREXOV')
 class ProcessExceptionsOverview {
   @Form([
     Field('exceptionPhilosophy', String,
-        'Exception Philosophy — how exceptions are handled'),
-    Field('exceptionRate', String, 'Exception Rate — expected percentage'),
-    Field('exceptionRouting', String, 'Exception Routing — where exceptions go'),
-    Field('resolutionSla', String, 'Resolution SLA — time to resolve exceptions'),
-    Field('escalationPath', String, 'Escalation Path — who handles escalations'),
+        'Exception Philosophy — how exceptions are handled',
+        hint: 'State the overall exception approach'),
+    Field('exceptionRate', String, 'Exception Rate — expected percentage',
+        hint: 'Give the expected exception rate'),
+    Field('exceptionRouting', String, 'Exception Routing — where exceptions go',
+        hint: 'State where exceptions are routed'),
+    Field('resolutionSla', String, 'Resolution SLA — time to resolve exceptions',
+        hint: 'Give the exception resolution SLA'),
+    Field('escalationPath', String, 'Escalation Path — who handles escalations',
+        hint: 'Name who handles escalations'),
     Field('rootCauseAnalysis', String,
-        'Root Cause Analysis — how causes are identified'),
+        'Root Cause Analysis — how causes are identified',
+        hint: 'Describe root-cause analysis approach'),
     Field('continuousImprovement', String,
-        'Continuous Improvement — how exceptions drive change'),
+        'Continuous Improvement — how exceptions drive change',
+        hint: 'Describe how exceptions drive change'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process exception entry.
+@StandardReferences(
+  [
+    'BPMN 2.0 — exceptions / error events',
+  ],
+  'Defines a single exception scenario, its type, and the condition that '
+  'triggers it.',
+)
 @SectionId('PCEXC')
 class ProcessExceptionEntry {
   @Form([
-    Field('exceptionId', String, 'Exception ID', required: true),
-    Field('exceptionName', String, 'Exception Name', required: true),
+    Field('exceptionId', String, 'Exception ID', required: true,
+        hint: 'Unique identifier for the exception'),
+    Field('exceptionName', String, 'Exception Name', required: true,
+        hint: 'Short human-readable exception name'),
     Field('exceptionType', String,
-        'Exception Type — data error, system error, business rule, timeout'),
+        'Exception Type — data error, system error, business rule, timeout',
+        hint: 'Classify the exception type'),
     Field('triggerCondition', String,
-        'Trigger Condition — what causes this exception'),
+        'Trigger Condition — what causes this exception',
+        hint: 'Describe what triggers the exception'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1071,27 +1701,48 @@ class ProcessExceptionEntry {
 }
 
 /// Likelihood, impact, and detection.
+@StandardReferences(
+  [
+    'BPMN 2.0 — exceptions / error events',
+  ],
+  'Assesses how likely an exception is, its impact, and how it is detected.',
+)
 @SectionId('PEEA')
 class ProcessExceptionEntryAssessment {
   @Form([
-    Field('probability', String, 'Probability — how often this occurs'),
-    Field('impact', String, 'Impact — effect on process/business'),
+    Field('probability', String, 'Probability — how often this occurs',
+        hint: 'State how likely the exception is'),
+    Field('impact', String, 'Impact — effect on process/business',
+        hint: 'Describe the impact if it occurs'),
     Field('detectionMethod', String,
-        'Detection Method — how exception is detected'),
+        'Detection Method — how exception is detected',
+        hint: 'Describe how it is detected'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Resolution and prevention approach.
+@StandardReferences(
+  [
+    'BPMN 2.0 — exceptions / error events',
+  ],
+  'Defines how an exception is resolved and prevented, including owner, SLA, '
+  'and workarounds.',
+)
 @SectionId('PEER')
 class ProcessExceptionEntryResponse {
   @Form([
-    Field('resolutionSteps', String, 'Resolution Steps — how to resolve'),
-    Field('resolutionOwner', String, 'Resolution Owner — who resolves'),
-    Field('resolutionSla', String, 'Resolution SLA — time to resolve'),
-    Field('preventionStrategy', String, 'Prevention Strategy — how to prevent'),
-    Field('workArounds', String, 'Workarounds — temporary solutions'),
+    Field('resolutionSteps', String, 'Resolution Steps — how to resolve',
+        hint: 'Describe the steps to resolve it'),
+    Field('resolutionOwner', String, 'Resolution Owner — who resolves',
+        hint: 'Name who resolves the exception'),
+    Field('resolutionSla', String, 'Resolution SLA — time to resolve',
+        hint: 'Give the resolution SLA'),
+    Field('preventionStrategy', String, 'Prevention Strategy — how to prevent',
+        hint: 'Describe how to prevent recurrence'),
+    Field('workArounds', String, 'Workarounds — temporary solutions',
+        hint: 'List temporary workarounds'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1100,6 +1751,14 @@ class ProcessExceptionEntryResponse {
 /// 6.1.4. Process Overview Diagram.
 ///
 /// High-level process flow diagram showing main processes and relationships.
+@StandardReferences(
+  [
+    'BPMN 2.0 — collaboration/choreography diagrams',
+    'BPMN 2.0 — business process model & notation',
+  ],
+  'Provides the high-level diagrams that show the main processes and how they '
+  'relate to one another.',
+)
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-FLO')
@@ -1122,15 +1781,27 @@ class ProcessOverviewDiagram {
 }
 
 /// Process diagram overview.
+@StandardReferences(
+  [
+    'BPMN 2.0 — collaboration/choreography diagrams',
+  ],
+  'Explains the purpose, scope, notation, and legend needed to read the '
+  'process overview diagrams.',
+)
 @SectionId('PRDIOV')
 class ProcessDiagramOverview {
   @Form([
-    Field('diagramPurpose', String, 'Diagram Purpose — what the diagram shows'),
-    Field('diagramScope', String, 'Diagram Scope — what is included/excluded'),
-    Field('notation', String, 'Notation — BPMN, flowchart, swimlane'),
+    Field('diagramPurpose', String, 'Diagram Purpose — what the diagram shows',
+        hint: 'State what the diagram conveys'),
+    Field('diagramScope', String, 'Diagram Scope — what is included/excluded',
+        hint: 'State what is in and out of scope'),
+    Field('notation', String, 'Notation — BPMN, flowchart, swimlane',
+        hint: 'Name the diagram notation used'),
     Field('readingGuide', String,
-        'Reading Guide — how to interpret the diagram'),
-    Field('legend', String, 'Legend — symbol meanings'),
+        'Reading Guide — how to interpret the diagram',
+        hint: 'Explain how to read the diagram'),
+    Field('legend', String, 'Legend — symbol meanings',
+        hint: 'Define the symbols used'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1139,6 +1810,14 @@ class ProcessDiagramOverview {
 /// 6.1.5. Improvement Summary.
 ///
 /// Summary of expected improvements over current processes.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Summarises the expected improvements over the current processes, including '
+  'the individual improvements and their business case.',
+)
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-IMP')
@@ -1148,8 +1827,13 @@ class ProcessImprovementSummary {
   ImprovementOverview overview = ImprovementOverview();
 
   /// Contains 0+× improvement item.
+  @StandardReferences(
+    ['Six Sigma / Lean — process improvement'],
+    'The set of process improvements planned in this summary.',
+  )
   @SectionId('PCIMV-IMPR-LST')
   @SectionIdPattern('PCIMV-IMPR-xxx')
+  @ContentHelp('Add one entry per planned process improvement.')
   @SerializationOrder(1)
   List<ProcessImprovementEntry> improvements = [];
 
@@ -1159,31 +1843,54 @@ class ProcessImprovementSummary {
 }
 
 /// Improvement overview.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+  ],
+  'Describes the overall improvement theme, baseline and target dates, and how '
+  'benefits will be realised.',
+)
 @SectionId('IMOV')
 class ImprovementOverview {
   @Form([
     Field('improvementTheme', String,
-        'Improvement Theme — overall improvement approach'),
-    Field('baselineDate', String, 'Baseline Date — when current state measured'),
-    Field('targetDate', String, 'Target Date — when improvements achieved'),
+        'Improvement Theme — overall improvement approach',
+        hint: 'State the overall improvement theme'),
+    Field('baselineDate', String, 'Baseline Date — when current state measured',
+        hint: 'Give the baseline measurement date'),
+    Field('targetDate', String, 'Target Date — when improvements achieved',
+        hint: 'Give the target achievement date'),
     Field('benefitRealizationPlan', String,
-        'Benefit Realization Plan — how benefits are tracked'),
+        'Benefit Realization Plan — how benefits are tracked',
+        hint: 'Describe how benefits are tracked'),
     Field('changeEnablers', String,
-        'Change Enablers — what makes improvement possible'),
+        'Change Enablers — what makes improvement possible',
+        hint: 'List what enables the improvement'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A process improvement entry.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+  ],
+  'Defines a single planned improvement, its category, and the current-state '
+  'baseline it improves upon.',
+)
 @SectionId('PCIMV')
 class ProcessImprovementEntry {
   @Form([
-    Field('improvementId', String, 'Improvement ID', required: true),
-    Field('improvementName', String, 'Improvement Name', required: true),
+    Field('improvementId', String, 'Improvement ID', required: true,
+        hint: 'Unique identifier for the improvement'),
+    Field('improvementName', String, 'Improvement Name', required: true,
+        hint: 'Short human-readable improvement name'),
     Field('category', String,
-        'Category — efficiency, quality, cost, experience'),
-    Field('currentState', String, 'Current State — baseline measurement'),
+        'Category — efficiency, quality, cost, experience',
+        hint: 'Classify the improvement category'),
+    Field('currentState', String, 'Current State — baseline measurement',
+        hint: 'Give the current-state baseline'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1198,51 +1905,96 @@ class ProcessImprovementEntry {
 }
 
 /// Target outcome and value case.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+  ],
+  'Captures the target state, expected gain, and monetary value of an '
+  'improvement.',
+)
 @SectionId('PIEB')
 class ProcessImprovementEntryBenefits {
   @Form([
-    Field('targetState', String, 'Target State — target measurement'),
+    Field('targetState', String, 'Target State — target measurement',
+        hint: 'Give the target-state measurement'),
     Field('improvementPercent', String,
-        'Improvement Percent — expected improvement'),
-    Field('monetaryBenefit', String, 'Monetary Benefit — financial value'),
-    Field('beneficiaries', String, 'Beneficiaries — who benefits'),
+        'Improvement Percent — expected improvement',
+        hint: 'Give the expected percent gain'),
+    Field('monetaryBenefit', String, 'Monetary Benefit — financial value',
+        hint: 'Give the financial value'),
+    Field('beneficiaries', String, 'Beneficiaries — who benefits',
+        hint: 'Name who benefits from it'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Enablers, dependencies, and verification.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+  ],
+  'Captures the enablers, dependencies, risks, and verification method for an '
+  'improvement.',
+)
 @SectionId('PIED')
 class ProcessImprovementEntryDelivery {
   @Form([
-    Field('enablers', String, 'Enablers — what makes this possible'),
-    Field('dependencies', String, 'Dependencies — what must happen first'),
-    Field('risks', String, 'Risks — what could go wrong'),
+    Field('enablers', String, 'Enablers — what makes this possible',
+        hint: 'List what enables the improvement'),
+    Field('dependencies', String, 'Dependencies — what must happen first',
+        hint: 'List prerequisites for delivery'),
+    Field('risks', String, 'Risks — what could go wrong',
+        hint: 'List delivery risks'),
     Field('measurementMethod', String,
-        'Measurement Method — how improvement is verified'),
+        'Measurement Method — how improvement is verified',
+        hint: 'Describe how the gain is verified'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Improvement business case.
+@StandardReferences(
+  [
+    'Six Sigma / Lean — process improvement',
+    'BPM CBOK — business process management body of knowledge',
+  ],
+  'Summarises the financial business case for the improvements, including '
+  'investment, benefits, and return metrics.',
+)
 @SectionId('IMBUCA')
 class ImprovementBusinessCase {
   @Form([
-    Field('totalInvestment', String, 'Total Investment — cost of transformation'),
-    Field('annualBenefits', String, 'Annual Benefits — yearly value delivered'),
-    Field('paybackPeriod', String, 'Payback Period — time to break even'),
-    Field('roi', String, 'ROI — return on investment'),
-    Field('npv', String, 'NPV — net present value'),
+    Field('totalInvestment', String, 'Total Investment — cost of transformation',
+        hint: 'Give the total investment cost'),
+    Field('annualBenefits', String, 'Annual Benefits — yearly value delivered',
+        hint: 'Give the yearly value delivered'),
+    Field('paybackPeriod', String, 'Payback Period — time to break even',
+        hint: 'Give the time to break even'),
+    Field('roi', String, 'ROI — return on investment',
+        hint: 'Give the return on investment'),
+    Field('npv', String, 'NPV — net present value',
+        hint: 'Give the net present value'),
     Field('intangibleBenefits', String,
-        'Intangible Benefits — non-financial value'),
-    Field('riskAdjustment', String, 'Risk Adjustment — confidence factor'),
+        'Intangible Benefits — non-financial value',
+        hint: 'List non-financial benefits'),
+    Field('riskAdjustment', String, 'Risk Adjustment — confidence factor',
+        hint: 'State the confidence/risk factor'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Process relationships and dependencies (supplementary section).
+@StandardReferences(
+  [
+    'APQC PCF — process hierarchy',
+    'BPMN 2.0 — process collaboration',
+  ],
+  'Maps the dependencies, data flows, and sequencing between this process and '
+  'other processes.',
+)
 @SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-REL')
@@ -1268,28 +2020,52 @@ design and identifying optimization opportunities.
   String? content;
 
   /// Contains 0+× process relationship.
+  @StandardReferences(
+    [
+      'APQC PCF — process hierarchy',
+      'BPMN 2.0 — process collaboration',
+    ],
+    'The set of relationships between this process and other processes.',
+  )
   @SectionId('PCRLT-RELA-LST')
   @SectionIdPattern('PCRLT-RELA-xxx')
+  @ContentHelp('Add one entry per relationship to another process.')
   @SerializationOrder(1)
   List<ProcessRelationshipEntry> relationships = [];
 }
 
 /// A process relationship entry.
+@StandardReferences(
+  [
+    'APQC PCF — process hierarchy',
+    'BPMN 2.0 — process collaboration',
+  ],
+  'Defines a single relationship between two processes, including type, data '
+  'exchanged, and timing dependency.',
+)
 @SectionId('PCRLT')
 class ProcessRelationshipEntry {
   @Form([
-    Field('relationshipId', String, 'Relationship ID'),
-    Field('sourceProcess', String, 'Source Process'),
-    Field('targetProcess', String, 'Target Process'),
+    Field('relationshipId', String, 'Relationship ID',
+        hint: 'Unique identifier for the relationship'),
+    Field('sourceProcess', String, 'Source Process',
+        hint: 'Name the source process'),
+    Field('targetProcess', String, 'Target Process',
+        hint: 'Name the target process'),
     Field('relationshipType', String,
-        'Relationship Type — triggers, feeds, depends on, parallel with'),
+        'Relationship Type — triggers, feeds, depends on, parallel with',
+        hint: 'Classify the relationship type'),
     Field('dataExchanged', String,
-        'Data Exchanged — what flows between processes'),
+        'Data Exchanged — what flows between processes',
+        hint: 'State what data flows between them'),
     Field('timingDependency', String,
-        'Timing Dependency — must complete before, can run parallel'),
+        'Timing Dependency — must complete before, can run parallel',
+        hint: 'State the timing dependency'),
     Field('frequencyOfInteraction', String,
-        'Frequency of Interaction — how often they interact'),
-    Field('criticality', String, 'Criticality — how critical is this relationship'),
+        'Frequency of Interaction — how often they interact',
+        hint: 'State how often they interact'),
+    Field('criticality', String, 'Criticality — how critical is this relationship',
+        hint: 'State how critical the relationship is'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1414,6 +2190,13 @@ class ActorRelationshipDiagram {
 ///
 /// Per-process workflow detail beyond the catalog overview.
 ///.
+@StandardReferences(
+  [
+    'BPMN 2.0 — process flow / activities & sequence flows',
+    'APQC PCF — process hierarchy',
+  ],
+  'Captures the step-by-step target workflow for a single catalogued process.',
+)
 @SectionId('DEPRWO')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-DET')
@@ -1443,6 +2226,13 @@ actor responsibility.
 ///
 /// Hand-offs, shared data, and coordination patterns between processes.
 ///.
+@StandardReferences(
+  [
+    'BPM CBOK — process architecture / interdependencies',
+    'APQC PCF — process interactions',
+  ],
+  'Analyses how catalogued processes interact, share data, and coordinate across boundaries.',
+)
 @SectionId('CRPRAN')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CRO')
@@ -1470,6 +2260,13 @@ exchanged, synchronization points, and conflicts.
 ///
 /// Exception flows, escalation paths, and compensation logic. Covers
 ///
+@StandardReferences(
+  [
+    'BPMN 2.0 — error / exception events',
+    'ISO 9001:2015 §8.7 — control of nonconforming outputs',
+  ],
+  'Defines how the target processes detect, escalate, and recover from exceptions that interrupt normal flow.',
+)
 @SectionId('PREXHA')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-EXC')
@@ -2614,6 +3411,13 @@ class ScenarioValidation {
 /// 6.1.10. Process Metrics and KPIs.
 ///
 /// Process-level KPIs, SLAs, and measurement strategy.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'Six Sigma / Lean — process metrics',
+  ],
+  'Defines the KPIs, SLAs, and measurement strategy used to gauge each target process in production.',
+)
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-MET')

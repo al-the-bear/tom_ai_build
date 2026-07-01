@@ -14,85 +14,85 @@ section-types:
     pattern-check-id:
       pattern: ^bpren_proc_lst-\d+$
       error-message: ID must match bpren_proc_lst-NNN
-    description: Contains 1+× Business Process.
+    description: Add one entry per business process.
   EXIPR-EXPE-LST:
     prefix: exipr_expe_lst
     pattern-check-id:
       pattern: ^exipr_expe_lst-\d+$
       error-message: ID must match exipr_expe_lst-NNN
-    description: Expected improvements over current state.
+    description: Add one entry per expected improvement.
   PCCTL-CONT-LST:
     prefix: pcctl_cont_lst
     pattern-check-id:
       pattern: ^pcctl_cont_lst-\d+$
       error-message: ID must match pcctl_cont_lst-NNN
-    description: Contains 0+× process control.
+    description: Add one entry per control applied to this process.
   PCEXC-EXCE-LST:
     prefix: pcexc_exce_lst
     pattern-check-id:
       pattern: ^pcexc_exce_lst-\d+$
       error-message: ID must match pcexc_exce_lst-NNN
-    description: Contains 0+× exception scenario.
+    description: Add one entry per exception scenario for this process.
   PCIMV-IMPR-LST:
     prefix: pcimv_impr_lst
     pattern-check-id:
       pattern: ^pcimv_impr_lst-\d+$
       error-message: ID must match pcimv_impr_lst-NNN
-    description: Contains 0+× improvement item.
+    description: Add one entry per planned process improvement.
   PCINP-INPU-LST:
     prefix: pcinp_inpu_lst
     pattern-check-id:
       pattern: ^pcinp_inpu_lst-\d+$
       error-message: ID must match pcinp_inpu_lst-NNN
-    description: Contains 0+× process input.
+    description: Add one entry per process input.
   PCKPI-KPIS-LST:
     prefix: pckpi_kpis_lst
     pattern-check-id:
       pattern: ^pckpi_kpis_lst-\d+$
       error-message: ID must match pckpi_kpis_lst-NNN
-    description: Contains 0+× performance metric.
+    description: Add one entry per KPI tracked for this process.
   PCOUT-OUTP-LST:
     prefix: pcout_outp_lst
     pattern-check-id:
       pattern: ^pcout_outp_lst-\d+$
       error-message: ID must match pcout_outp_lst-NNN
-    description: Contains 0+× process output.
+    description: Add one entry per process output.
   PCRLT-RELA-LST:
     prefix: pcrlt_rela_lst
     pattern-check-id:
       pattern: ^pcrlt_rela_lst-\d+$
       error-message: ID must match pcrlt_rela_lst-NNN
-    description: Contains 0+× process relationship.
+    description: Add one entry per relationship to another process.
   PCROL-ROLE-LST:
     prefix: pcrol_role_lst
     pattern-check-id:
       pattern: ^pcrol_role_lst-\d+$
       error-message: ID must match pcrol_role_lst-NNN
-    description: Contains 0+× process role.
+    description: Add one entry per process role.
   PCSLA-SLAS-LST:
     prefix: pcsla_slas_lst
     pattern-check-id:
       pattern: ^pcsla_slas_lst-\d+$
       error-message: ID must match pcsla_slas_lst-NNN
-    description: Service Level Agreements.
+    description: Add one entry per service level agreement for this process.
   PDPEN-PRIN-LST:
     prefix: pdpen_prin_lst
     pattern-check-id:
       pattern: ^pdpen_prin_lst-\d+$
       error-message: ID must match pdpen_prin_lst-NNN
-    description: Contains 0+× Design Principle.
+    description: Add one entry per process design principle.
   PEEVT-ENDE-LST:
     prefix: peevt_ende_lst
     pattern-check-id:
       pattern: ^peevt_ende_lst-\d+$
       error-message: ID must match peevt_ende_lst-NNN
-    description: Process end events (outcomes).
+    description: Add one entry per process end event.
   PTREN-TRIG-LST:
     prefix: ptren_trig_lst
     pattern-check-id:
       pattern: ^ptren_trig_lst-\d+$
       error-message: ID must match ptren_trig_lst-NNN
-    description: Contains 0+× process trigger.
+    description: Add one entry per process trigger.
   PMAK-PROC-LST:
     prefix: pmak_proc_lst
     pattern-check-id:

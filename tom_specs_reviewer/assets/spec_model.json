@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T00:06:35.386059Z",
+  "generatedAt": "2026-07-01T00:31:05.543486Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -24184,7 +24184,24 @@
       "sectionId": "BPDSC",
       "doc": "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
       "mapsTo": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — business process model & notation",
+          "APQC PCF — Process Classification Framework"
+        ],
+        "connotation": "Captures the target business processes the system will support, at the level of catalog, vision and design principles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — business process model & notation",
+              "APQC PCF — Process Classification Framework"
+            ],
+            "connotation": "Captures the target business processes the system will support, at the level of catalog, vision and design principles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -24320,10 +24337,26 @@
           "name": "detailedWorkflows",
           "kind": "list",
           "doc": "6.1.7. Detailed Process Workflows.",
+          "help": "Add one entry per detailed process workflow.",
           "sectionId": "DEPRWO-DETA-LST",
           "sectionIdPattern": "DEPRWO-DETA-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — process flow / activities"
+            ],
+            "connotation": "The set of detailed, step-level workflows expanded from each catalogued process."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — process flow / activities"
+                ],
+                "connotation": "The set of detailed, step-level workflows expanded from each catalogued process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24334,6 +24367,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEPRWO-DETA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per detailed process workflow."
               }
             },
             {
@@ -24380,10 +24419,28 @@
           "name": "processMetricsAndKpis",
           "kind": "list",
           "doc": "6.1.10. Process Metrics and KPIs.",
+          "help": "Add one entry per process metric or KPI.",
           "sectionId": "PMAK-PROC-LST",
           "sectionIdPattern": "PMAK-PROC-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "The measurable KPIs and metrics used to gauge each process's performance and improvement."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010 — performance efficiency",
+                  "Six Sigma / Lean — process improvement"
+                ],
+                "connotation": "The measurable KPIs and metrics used to gauge each process's performance and improvement."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24394,6 +24451,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PMAK-PROC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process metric or KPI."
               }
             },
             {
@@ -24412,7 +24475,24 @@
       "name": "BusinessProcessEntry",
       "sectionId": "BPREN",
       "doc": "A business process entry.\n\nComprehensive business process definition following BPMN 2.0 concepts.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — business process model & notation",
+          "APQC PCF — Process Classification Framework"
+        ],
+        "connotation": "Defines a single business process end to end, covering its identity, triggers, inputs/outputs, roles, performance and controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — business process model & notation",
+              "APQC PCF — Process Classification Framework"
+            ],
+            "connotation": "Defines a single business process end to end, covering its identity, triggers, inputs/outputs, roles, performance and controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -49838,7 +49918,24 @@
       "sectionId": "CRPRAN",
       "doc": "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — process architecture / interdependencies",
+          "APQC PCF — process interactions"
+        ],
+        "connotation": "Analyses how catalogued processes interact, share data, and coordinate across boundaries."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — process architecture / interdependencies",
+              "APQC PCF — process interactions"
+            ],
+            "connotation": "Analyses how catalogued processes interact, share data, and coordinate across boundaries."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75946,7 +76043,22 @@
       "name": "DesignPrinciplesOverview",
       "sectionId": "DPOVW",
       "doc": "Design principles overview.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Summarises the overall philosophy and precedence rules governing the set of process design principles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Summarises the overall philosophy and precedence rules governing the set of process design principles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75977,24 +76089,28 @@
             {
               "name": "principlePhilosophy",
               "label": "Principle Philosophy — overall approach to process design",
+              "hint": "The guiding philosophy behind the principles",
               "type": "String",
               "required": false
             },
             {
               "name": "priorityOrder",
               "label": "Priority Order — how to resolve principle conflicts",
+              "hint": "How competing principles are ranked",
               "type": "String",
               "required": false
             },
             {
               "name": "exceptionHandling",
               "label": "Exception Handling — how deviations are managed",
+              "hint": "How deviations from principles are handled",
               "type": "String",
               "required": false
             },
             {
               "name": "continuousImprovement",
               "label": "Continuous Improvement — how processes evolve",
+              "hint": "How principles adapt over time",
               "type": "String",
               "required": false
             }
@@ -76468,7 +76584,24 @@
       "sectionId": "DEPRWO",
       "doc": "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — process flow / activities & sequence flows",
+          "APQC PCF — process hierarchy"
+        ],
+        "connotation": "Captures the step-by-step target workflow for a single catalogued process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — process flow / activities & sequence flows",
+              "APQC PCF — process hierarchy"
+            ],
+            "connotation": "Captures the step-by-step target workflow for a single catalogued process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92960,7 +93093,22 @@
       "name": "ExpectedImprovements",
       "sectionId": "EXIPR",
       "doc": "Expected improvements from process transformation.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Details a single expected improvement across efficiency, quality, cost and experience dimensions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Details a single expected improvement across efficiency, quality, cost and experience dimensions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92991,60 +93139,70 @@
             {
               "name": "efficiencyGains",
               "label": "Efficiency Gains — throughput, cycle time improvements",
+              "hint": "Expected gains in speed or throughput",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityImprovements",
               "label": "Quality Improvements — error reduction, consistency",
+              "hint": "Expected reduction in errors or defects",
               "type": "String",
               "required": false
             },
             {
               "name": "costReduction",
               "label": "Cost Reduction — operating cost savings",
+              "hint": "Expected operating cost savings",
               "type": "String",
               "required": false
             },
             {
               "name": "automationRate",
               "label": "Automation Rate — percentage of automated steps",
+              "hint": "Target share of steps automated",
               "type": "String",
               "required": false
             },
             {
               "name": "customerExperience",
               "label": "Customer Experience — CX improvements",
+              "hint": "Expected customer-facing benefits",
               "type": "String",
               "required": false
             },
             {
               "name": "employeeExperience",
               "label": "Employee Experience — EX improvements",
+              "hint": "Expected benefits for staff",
               "type": "String",
               "required": false
             },
             {
               "name": "complianceImprovement",
               "label": "Compliance Improvement — regulatory/audit benefits",
+              "hint": "Expected regulatory or audit benefits",
               "type": "String",
               "required": false
             },
             {
               "name": "visibilityGains",
               "label": "Visibility Gains — monitoring, reporting improvements",
+              "hint": "Expected monitoring or reporting gains",
               "type": "String",
               "required": false
             },
             {
               "name": "flexibilityGains",
               "label": "Flexibility Gains — adaptability to change",
+              "hint": "Expected improvement in adaptability",
               "type": "String",
               "required": false
             },
             {
               "name": "integrationBenefits",
               "label": "Integration Benefits — data flow, system integration",
+              "hint": "Expected integration or data-flow benefits",
               "type": "String",
               "required": false
             }
@@ -110635,7 +110793,24 @@
       "name": "ImprovementBusinessCase",
       "sectionId": "IMBUCA",
       "doc": "Improvement business case.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Summarises the financial business case for the improvements, including investment, benefits, and return metrics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Summarises the financial business case for the improvements, including investment, benefits, and return metrics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -110666,42 +110841,49 @@
             {
               "name": "totalInvestment",
               "label": "Total Investment — cost of transformation",
+              "hint": "Give the total investment cost",
               "type": "String",
               "required": false
             },
             {
               "name": "annualBenefits",
               "label": "Annual Benefits — yearly value delivered",
+              "hint": "Give the yearly value delivered",
               "type": "String",
               "required": false
             },
             {
               "name": "paybackPeriod",
               "label": "Payback Period — time to break even",
+              "hint": "Give the time to break even",
               "type": "String",
               "required": false
             },
             {
               "name": "roi",
               "label": "ROI — return on investment",
+              "hint": "Give the return on investment",
               "type": "String",
               "required": false
             },
             {
               "name": "npv",
               "label": "NPV — net present value",
+              "hint": "Give the net present value",
               "type": "String",
               "required": false
             },
             {
               "name": "intangibleBenefits",
               "label": "Intangible Benefits — non-financial value",
+              "hint": "List non-financial benefits",
               "type": "String",
               "required": false
             },
             {
               "name": "riskAdjustment",
               "label": "Risk Adjustment — confidence factor",
+              "hint": "State the confidence/risk factor",
               "type": "String",
               "required": false
             }
@@ -110713,7 +110895,22 @@
       "name": "ImprovementOverview",
       "sectionId": "IMOV",
       "doc": "Improvement overview.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Describes the overall improvement theme, baseline and target dates, and how benefits will be realised."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Describes the overall improvement theme, baseline and target dates, and how benefits will be realised."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -110744,30 +110941,35 @@
             {
               "name": "improvementTheme",
               "label": "Improvement Theme — overall improvement approach",
+              "hint": "State the overall improvement theme",
               "type": "String",
               "required": false
             },
             {
               "name": "baselineDate",
               "label": "Baseline Date — when current state measured",
+              "hint": "Give the baseline measurement date",
               "type": "String",
               "required": false
             },
             {
               "name": "targetDate",
               "label": "Target Date — when improvements achieved",
+              "hint": "Give the target achievement date",
               "type": "String",
               "required": false
             },
             {
               "name": "benefitRealizationPlan",
               "label": "Benefit Realization Plan — how benefits are tracked",
+              "hint": "Describe how benefits are tracked",
               "type": "String",
               "required": false
             },
             {
               "name": "changeEnablers",
               "label": "Change Enablers — what makes improvement possible",
+              "hint": "List what enables the improvement",
               "type": "String",
               "required": false
             }
@@ -114434,7 +114636,22 @@
       "name": "InputsOutputsOverview",
       "sectionId": "INOUOV",
       "doc": "Inputs/outputs overview.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — data objects & artifacts"
+        ],
+        "connotation": "Summarises the inputs, outputs and overall data flow of the process at a glance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "Summarises the inputs, outputs and overall data flow of the process at a glance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114465,18 +114682,21 @@
             {
               "name": "inputSummary",
               "label": "Input Summary — overview of required inputs",
+              "hint": "High-level overview of required inputs",
               "type": "String",
               "required": false
             },
             {
               "name": "outputSummary",
               "label": "Output Summary — overview of produced outputs",
+              "hint": "High-level overview of produced outputs",
               "type": "String",
               "required": false
             },
             {
               "name": "dataFlowSummary",
               "label": "Data Flow Summary — how data moves through process",
+              "hint": "How data flows through the process",
               "type": "String",
               "required": false
             }
@@ -166556,7 +166776,24 @@
       "sectionId": "PRCAT",
       "doc": "6.1.3. Process Catalog.\n\nContainer for business process definitions.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — Process Classification Framework",
+          "BPMN 2.0 — business process model & notation"
+        ],
+        "connotation": "Holds the complete catalog of business process definitions together with their classification scheme."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — Process Classification Framework",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "Holds the complete catalog of business process definitions together with their classification scheme."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166612,10 +166849,26 @@
           "name": "processes",
           "kind": "list",
           "doc": "Contains 1+× Business Process.",
+          "help": "Add one entry per business process.",
           "sectionId": "BPREN-PROC-LST",
           "sectionIdPattern": "BPREN-PROC-xxx",
+          "standardReferences": {
+            "standards": [
+              "APQC PCF — Process Classification Framework"
+            ],
+            "connotation": "The catalogued set of business processes the system will support."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "APQC PCF — Process Classification Framework"
+                ],
+                "connotation": "The catalogued set of business processes the system will support."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -166635,6 +166888,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business process."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -166651,7 +166910,22 @@
       "name": "ProcessCatalogOverview",
       "sectionId": "PCOVW",
       "doc": "Process catalog overview.",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — Process Classification Framework"
+        ],
+        "connotation": "Summarises the scope, conventions and governance that frame the process catalog as a whole."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — Process Classification Framework"
+            ],
+            "connotation": "Summarises the scope, conventions and governance that frame the process catalog as a whole."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166682,48 +166956,56 @@
             {
               "name": "totalProcessCount",
               "label": "Total Process Count",
+              "hint": "Number of processes in the catalog",
               "type": "int",
               "required": false
             },
             {
               "name": "scopeStatement",
               "label": "Scope Statement — what processes are in scope",
+              "hint": "What the catalog does and does not cover",
               "type": "String",
               "required": false
             },
             {
               "name": "classificationFramework",
               "label": "Classification Framework — APQC PCF, custom",
+              "hint": "Framework used to classify processes",
               "type": "String",
               "required": false
             },
             {
               "name": "namingConvention",
               "label": "Naming Convention — process naming standards",
+              "hint": "Rules for naming processes",
               "type": "String",
               "required": false
             },
             {
               "name": "idConvention",
               "label": "ID Convention — process ID standards",
+              "hint": "Rules for assigning process IDs",
               "type": "String",
               "required": false
             },
             {
               "name": "processOwnership",
               "label": "Process Ownership — how ownership is assigned",
+              "hint": "How process owners are determined",
               "type": "String",
               "required": false
             },
             {
               "name": "governanceModel",
               "label": "Governance Model — change control, approval",
+              "hint": "How process changes are controlled",
               "type": "String",
               "required": false
             },
             {
               "name": "versioningApproach",
               "label": "Versioning Approach — how process versions are managed",
+              "hint": "How process versions are tracked",
               "type": "String",
               "required": false
             }
@@ -166735,7 +167017,22 @@
       "name": "ProcessCharacteristics",
       "sectionId": "PRCHR",
       "doc": "Process characteristics.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Profiles the process by intrinsic characteristics such as complexity, frequency, duration and variability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Profiles the process by intrinsic characteristics such as complexity, frequency, duration and variability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166766,24 +167063,28 @@
             {
               "name": "complexity",
               "label": "Complexity — low, medium, high, very high",
+              "hint": "Overall complexity level of the process",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — how often the process runs",
+              "hint": "How often the process executes",
               "type": "String",
               "required": false
             },
             {
               "name": "averageDuration",
               "label": "Average Duration — typical end-to-end time",
+              "hint": "Typical end-to-end duration",
               "type": "String",
               "required": false
             },
             {
               "name": "variability",
               "label": "Variability — how much process varies by case",
+              "hint": "How much the process differs case to case",
               "type": "String",
               "required": false
             }
@@ -166825,7 +167126,22 @@
       "name": "ProcessCharacteristicsBusiness",
       "sectionId": "PCBIZ",
       "doc": "Demand and business value profile.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Profiles the demand pattern and business value the process carries, from volume to cost drivers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Profiles the demand pattern and business value the process carries, from volume to cost drivers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166856,24 +167172,28 @@
             {
               "name": "volumeEstimate",
               "label": "Volume Estimate — cases per period",
+              "hint": "Expected number of cases per period",
               "type": "String",
               "required": false
             },
             {
               "name": "seasonality",
               "label": "Seasonality — peaks and troughs",
+              "hint": "Seasonal demand variation",
               "type": "String",
               "required": false
             },
             {
               "name": "valueAdded",
               "label": "Value Added — value contributed",
+              "hint": "Value the process contributes",
               "type": "String",
               "required": false
             },
             {
               "name": "costDriver",
               "label": "Cost Driver — main cost factors",
+              "hint": "Main factors that drive process cost",
               "type": "String",
               "required": false
             }
@@ -166885,7 +167205,24 @@
       "name": "ProcessCharacteristicsOperations",
       "sectionId": "PCOPS",
       "doc": "Operational characteristics and automation level.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge",
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Profiles the operational side of the process, including criticality and how much of it runs automatically."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge",
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Profiles the operational side of the process, including criticality and how much of it runs automatically."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166916,24 +167253,28 @@
             {
               "name": "criticality",
               "label": "Criticality — business criticality level",
+              "hint": "How business-critical the process is",
               "type": "String",
               "required": false
             },
             {
               "name": "automationLevel",
               "label": "Automation Level — percentage automated",
+              "hint": "Share of the process that is automated",
               "type": "String",
               "required": false
             },
             {
               "name": "straightThroughRate",
               "label": "Straight-Through Rate — percentage without human intervention",
+              "hint": "Share completed with no human touch",
               "type": "String",
               "required": false
             },
             {
               "name": "exceptionRate",
               "label": "Exception Rate — percentage requiring manual handling",
+              "hint": "Share needing manual intervention",
               "type": "String",
               "required": false
             }
@@ -166945,7 +167286,24 @@
       "name": "ProcessClassification",
       "sectionId": "PRCCL",
       "doc": "Process classification scheme.",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — process hierarchy",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Defines the classification hierarchy used to organise processes into categories, groups and specific processes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — process hierarchy",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Defines the classification hierarchy used to organise processes into categories, groups and specific processes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -166976,48 +167334,56 @@
             {
               "name": "level1Categories",
               "label": "Level 1 Categories — operating, management, support",
+              "hint": "Top-level process categories",
               "type": "String",
               "required": false
             },
             {
               "name": "level2Breakdown",
               "label": "Level 2 Breakdown — major process groups",
+              "hint": "Major process groups within each category",
               "type": "String",
               "required": false
             },
             {
               "name": "level3Detail",
               "label": "Level 3 Detail — specific processes",
+              "hint": "Specific processes at the detailed level",
               "type": "String",
               "required": false
             },
             {
               "name": "crossFunctional",
               "label": "Cross-Functional — which processes span functions",
+              "hint": "Processes that cross organisational boundaries",
               "type": "String",
               "required": false
             },
             {
               "name": "customerFacing",
               "label": "Customer-Facing — which processes touch customers",
+              "hint": "Processes with direct customer contact",
               "type": "String",
               "required": false
             },
             {
               "name": "valueDriving",
               "label": "Value-Driving — which are core value chain",
+              "hint": "Processes central to the value chain",
               "type": "String",
               "required": false
             },
             {
               "name": "supportProcesses",
               "label": "Support Processes — enabling processes",
+              "hint": "Enabling or support processes",
               "type": "String",
               "required": false
             },
             {
               "name": "managementProcesses",
               "label": "Management Processes — governance, strategy",
+              "hint": "Governance and strategic processes",
               "type": "String",
               "required": false
             }
@@ -167123,7 +167489,24 @@
       "name": "ProcessControlEntry",
       "sectionId": "PCCTL",
       "doc": "A process control entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — gateways / decision points",
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "Defines a single control point applied to the process, including its type and category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points",
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "Defines a single control point applied to the process, including its type and category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167154,24 +167537,28 @@
             {
               "name": "controlId",
               "label": "Control ID",
+              "hint": "Unique identifier for the control",
               "type": "String",
               "required": true
             },
             {
               "name": "controlName",
               "label": "Control Name",
+              "hint": "Short human-readable control name",
               "type": "String",
               "required": true
             },
             {
               "name": "controlType",
               "label": "Control Type — preventive, detective, corrective",
+              "hint": "Classify the control type",
               "type": "String",
               "required": false
             },
             {
               "name": "controlCategory",
               "label": "Control Category — authorization, validation, reconciliation",
+              "hint": "Classify the control category",
               "type": "String",
               "required": false
             }
@@ -167213,7 +167600,24 @@
       "name": "ProcessControlEntryOperation",
       "sectionId": "PCEO",
       "doc": "Control operation and ownership.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — gateways / decision points",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Describes how a control operates, what risk it addresses, and who owns it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Describes how a control operates, what risk it addresses, and who owns it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167244,30 +167648,35 @@
             {
               "name": "controlDescription",
               "label": "Control Description — what the control does",
+              "hint": "Describe what the control does",
               "type": "String",
               "required": false
             },
             {
               "name": "riskAddressed",
               "label": "Risk Addressed — what risk is mitigated",
+              "hint": "State the risk it mitigates",
               "type": "String",
               "required": false
             },
             {
               "name": "controlOwner",
               "label": "Control Owner — who is responsible",
+              "hint": "Name the responsible owner",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — how often control operates",
+              "hint": "State how often the control runs",
               "type": "String",
               "required": false
             },
             {
               "name": "automation",
               "label": "Automation — manual, semi-automated, fully automated",
+              "hint": "State the automation level",
               "type": "String",
               "required": false
             }
@@ -167279,7 +167688,24 @@
       "name": "ProcessControlEntryVerification",
       "sectionId": "PCEV",
       "doc": "Evidence, testing, and failure handling.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — gateways / decision points",
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "Captures the evidence a control produces, how it is tested, and what happens when it fails."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points",
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "Captures the evidence a control produces, how it is tested, and what happens when it fails."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167310,18 +167736,21 @@
             {
               "name": "evidenceProduced",
               "label": "Evidence Produced — what documentation is created",
+              "hint": "Describe the evidence generated",
               "type": "String",
               "required": false
             },
             {
               "name": "testingApproach",
               "label": "Testing Approach — how control is tested",
+              "hint": "Describe how the control is tested",
               "type": "String",
               "required": false
             },
             {
               "name": "failureAction",
               "label": "Failure Action — what happens if control fails",
+              "hint": "State the action on control failure",
               "type": "String",
               "required": false
             }
@@ -167333,7 +167762,24 @@
       "name": "ProcessControls",
       "sectionId": "PRCO",
       "doc": "Process controls and compliance.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — gateways / decision points",
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "Groups the control framework and individual controls that keep the process compliant and manage its risks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points",
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "Groups the control framework and individual controls that keep the process compliant and manage its risks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167361,10 +167807,26 @@
           "name": "controls",
           "kind": "list",
           "doc": "Contains 0+× process control.",
+          "help": "Add one entry per control applied to this process.",
           "sectionId": "PCCTL-CONT-LST",
           "sectionIdPattern": "PCCTL-CONT-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points"
+            ],
+            "connotation": "The set of controls applied to this process."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — gateways / decision points"
+                ],
+                "connotation": "The set of controls applied to this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -167375,6 +167837,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCCTL-CONT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per control applied to this process."
               }
             },
             {
@@ -167393,7 +167861,24 @@
       "name": "ProcessControlsOverview",
       "sectionId": "PRCOOV",
       "doc": "Process controls overview.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — gateways / decision points",
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "Summarises the control framework, risk level, and compliance requirements governing the process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — gateways / decision points",
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "Summarises the control framework, risk level, and compliance requirements governing the process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167424,48 +167909,56 @@
             {
               "name": "controlFramework",
               "label": "Control Framework — COSO, COBIT, custom",
+              "hint": "Name the governing control framework",
               "type": "String",
               "required": false
             },
             {
               "name": "riskLevel",
               "label": "Risk Level — inherent risk",
+              "hint": "State the inherent risk level",
               "type": "String",
               "required": false
             },
             {
               "name": "complianceRequirements",
               "label": "Compliance Requirements — regulations, standards",
+              "hint": "List applicable regulations/standards",
               "type": "String",
               "required": false
             },
             {
               "name": "auditFrequency",
               "label": "Audit Frequency — when audited",
+              "hint": "State how often the process is audited",
               "type": "String",
               "required": false
             },
             {
               "name": "segregationOfDuties",
               "label": "Segregation of Duties — duty separation rules",
+              "hint": "Describe duty separation rules",
               "type": "String",
               "required": false
             },
             {
               "name": "approvalMatrix",
               "label": "Approval Matrix — who approves what",
+              "hint": "Define who approves which actions",
               "type": "String",
               "required": false
             },
             {
               "name": "documentationRequirements",
               "label": "Documentation Requirements — what must be recorded",
+              "hint": "List what must be documented",
               "type": "String",
               "required": false
             },
             {
               "name": "retentionRequirements",
               "label": "Retention Requirements — how long to keep records",
+              "hint": "State record retention periods",
               "type": "String",
               "required": false
             }
@@ -167581,7 +168074,22 @@
       "name": "ProcessDesignPrincipleEntry",
       "sectionId": "PDPEN",
       "doc": "A process design principle entry (form).",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Defines a single process design principle with its rationale, implications and trade-offs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Defines a single process design principle with its rationale, implications and trade-offs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167612,60 +168120,70 @@
             {
               "name": "principleId",
               "label": "Principle ID",
+              "hint": "Unique identifier for the principle",
               "type": "String",
               "required": true
             },
             {
               "name": "principleName",
               "label": "Principle Name",
+              "hint": "Short descriptive name",
               "type": "String",
               "required": true
             },
             {
               "name": "category",
               "label": "Category — efficiency, quality, compliance, user experience",
+              "hint": "The dimension this principle addresses",
               "type": "String",
               "required": false
             },
             {
               "name": "statement",
               "label": "Statement — the principle statement",
+              "hint": "The principle expressed as a directive",
               "type": "String",
               "required": false
             },
             {
               "name": "rationale",
               "label": "Rationale — why this principle matters",
+              "hint": "Why the principle is important",
               "type": "String",
               "required": false
             },
             {
               "name": "implications",
               "label": "Implications — what this means for process design",
+              "hint": "Design consequences of applying it",
               "type": "String",
               "required": false
             },
             {
               "name": "examples",
               "label": "Examples — how this principle applies",
+              "hint": "Concrete examples of the principle in use",
               "type": "String",
               "required": false
             },
             {
               "name": "tradeoffs",
               "label": "Trade-offs — what is sacrificed",
+              "hint": "What is given up to follow the principle",
               "type": "String",
               "required": false
             },
             {
               "name": "priority",
               "label": "Priority — high, medium, low",
+              "hint": "Relative importance of the principle",
               "type": "String",
               "required": false
             },
             {
               "name": "applicability",
               "label": "Applicability — all processes or specific types",
+              "hint": "Which processes the principle applies to",
               "type": "String",
               "required": false
             }
@@ -167678,7 +168196,24 @@
       "sectionId": "PDPRI",
       "doc": "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge",
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "States the guiding principles that shape how target processes are designed and where trade-offs are resolved."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge",
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "States the guiding principles that shape how target processes are designed and where trade-offs are resolved."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167719,10 +168254,26 @@
           "name": "principles",
           "kind": "list",
           "doc": "Contains 0+× Design Principle.",
+          "help": "Add one entry per process design principle.",
           "sectionId": "PDPEN-PRIN-LST",
           "sectionIdPattern": "PDPEN-PRIN-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "The set of individual design principles governing process design decisions."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPM CBOK — business process management body of knowledge"
+                ],
+                "connotation": "The set of individual design principles governing process design decisions."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -167733,6 +168284,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PDPEN-PRIN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process design principle."
               }
             },
             {
@@ -167751,7 +168308,22 @@
       "name": "ProcessDiagramOverview",
       "sectionId": "PRDIOV",
       "doc": "Process diagram overview.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — collaboration/choreography diagrams"
+        ],
+        "connotation": "Explains the purpose, scope, notation, and legend needed to read the process overview diagrams."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — collaboration/choreography diagrams"
+            ],
+            "connotation": "Explains the purpose, scope, notation, and legend needed to read the process overview diagrams."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167782,30 +168354,35 @@
             {
               "name": "diagramPurpose",
               "label": "Diagram Purpose — what the diagram shows",
+              "hint": "State what the diagram conveys",
               "type": "String",
               "required": false
             },
             {
               "name": "diagramScope",
               "label": "Diagram Scope — what is included/excluded",
+              "hint": "State what is in and out of scope",
               "type": "String",
               "required": false
             },
             {
               "name": "notation",
               "label": "Notation — BPMN, flowchart, swimlane",
+              "hint": "Name the diagram notation used",
               "type": "String",
               "required": false
             },
             {
               "name": "readingGuide",
               "label": "Reading Guide — how to interpret the diagram",
+              "hint": "Explain how to read the diagram",
               "type": "String",
               "required": false
             },
             {
               "name": "legend",
               "label": "Legend — symbol meanings",
+              "hint": "Define the symbols used",
               "type": "String",
               "required": false
             }
@@ -167817,7 +168394,22 @@
       "name": "ProcessEndEventEntry",
       "sectionId": "PEEVT",
       "doc": "A process end event entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — events (start/end/intermediate)"
+        ],
+        "connotation": "Defines a single end event (outcome) at which the process terminates, with its type, post-condition and follow-on action."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "Defines a single end event (outcome) at which the process terminates, with its type, post-condition and follow-on action."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167848,48 +168440,56 @@
             {
               "name": "endEventId",
               "label": "End Event ID",
+              "hint": "Unique identifier for the end event",
               "type": "String",
               "required": true
             },
             {
               "name": "endEventName",
               "label": "End Event Name",
+              "hint": "Descriptive name of the end event",
               "type": "String",
               "required": true
             },
             {
               "name": "endEventType",
               "label": "End Event Type — success, error, cancellation, timeout",
+              "hint": "BPMN end-event type",
               "type": "String",
               "required": false
             },
             {
               "name": "outcome",
               "label": "Outcome — what this end state means",
+              "hint": "What reaching this end state means",
               "type": "String",
               "required": false
             },
             {
               "name": "probability",
               "label": "Probability — how often this end occurs",
+              "hint": "How often this outcome occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "postCondition",
               "label": "Post-Condition — system state after this end",
+              "hint": "System state after this end event",
               "type": "String",
               "required": false
             },
             {
               "name": "notificationAction",
               "label": "Notification Action — who/what is notified",
+              "hint": "Who or what is notified at this end",
               "type": "String",
               "required": false
             },
             {
               "name": "followOnAction",
               "label": "Follow-On Action — what happens next",
+              "hint": "What happens after this end event",
               "type": "String",
               "required": false
             }
@@ -167901,7 +168501,22 @@
       "name": "ProcessExceptionEntry",
       "sectionId": "PCEXC",
       "doc": "A process exception entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — exceptions / error events"
+        ],
+        "connotation": "Defines a single exception scenario, its type, and the condition that triggers it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events"
+            ],
+            "connotation": "Defines a single exception scenario, its type, and the condition that triggers it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167932,24 +168547,28 @@
             {
               "name": "exceptionId",
               "label": "Exception ID",
+              "hint": "Unique identifier for the exception",
               "type": "String",
               "required": true
             },
             {
               "name": "exceptionName",
               "label": "Exception Name",
+              "hint": "Short human-readable exception name",
               "type": "String",
               "required": true
             },
             {
               "name": "exceptionType",
               "label": "Exception Type — data error, system error, business rule, timeout",
+              "hint": "Classify the exception type",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerCondition",
               "label": "Trigger Condition — what causes this exception",
+              "hint": "Describe what triggers the exception",
               "type": "String",
               "required": false
             }
@@ -167991,7 +168610,22 @@
       "name": "ProcessExceptionEntryAssessment",
       "sectionId": "PEEA",
       "doc": "Likelihood, impact, and detection.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — exceptions / error events"
+        ],
+        "connotation": "Assesses how likely an exception is, its impact, and how it is detected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events"
+            ],
+            "connotation": "Assesses how likely an exception is, its impact, and how it is detected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168022,18 +168656,21 @@
             {
               "name": "probability",
               "label": "Probability — how often this occurs",
+              "hint": "State how likely the exception is",
               "type": "String",
               "required": false
             },
             {
               "name": "impact",
               "label": "Impact — effect on process/business",
+              "hint": "Describe the impact if it occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "detectionMethod",
               "label": "Detection Method — how exception is detected",
+              "hint": "Describe how it is detected",
               "type": "String",
               "required": false
             }
@@ -168045,7 +168682,22 @@
       "name": "ProcessExceptionEntryResponse",
       "sectionId": "PEER",
       "doc": "Resolution and prevention approach.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — exceptions / error events"
+        ],
+        "connotation": "Defines how an exception is resolved and prevented, including owner, SLA, and workarounds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events"
+            ],
+            "connotation": "Defines how an exception is resolved and prevented, including owner, SLA, and workarounds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168076,30 +168728,35 @@
             {
               "name": "resolutionSteps",
               "label": "Resolution Steps — how to resolve",
+              "hint": "Describe the steps to resolve it",
               "type": "String",
               "required": false
             },
             {
               "name": "resolutionOwner",
               "label": "Resolution Owner — who resolves",
+              "hint": "Name who resolves the exception",
               "type": "String",
               "required": false
             },
             {
               "name": "resolutionSla",
               "label": "Resolution SLA — time to resolve",
+              "hint": "Give the resolution SLA",
               "type": "String",
               "required": false
             },
             {
               "name": "preventionStrategy",
               "label": "Prevention Strategy — how to prevent",
+              "hint": "Describe how to prevent recurrence",
               "type": "String",
               "required": false
             },
             {
               "name": "workArounds",
               "label": "Workarounds — temporary solutions",
+              "hint": "List temporary workarounds",
               "type": "String",
               "required": false
             }
@@ -168112,7 +168769,24 @@
       "sectionId": "PREXHA",
       "doc": "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — error / exception events",
+          "ISO 9001:2015 §8.7 — control of nonconforming outputs"
+        ],
+        "connotation": "Defines how the target processes detect, escalate, and recover from exceptions that interrupt normal flow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — error / exception events",
+              "ISO 9001:2015 §8.7 — control of nonconforming outputs"
+            ],
+            "connotation": "Defines how the target processes detect, escalate, and recover from exceptions that interrupt normal flow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168161,7 +168835,24 @@
       "name": "ProcessExceptions",
       "sectionId": "PREX",
       "doc": "Process exceptions and error handling.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — exceptions / error events",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Groups the exception-handling philosophy and the individual exception scenarios that can occur during the process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Groups the exception-handling philosophy and the individual exception scenarios that can occur during the process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168189,10 +168880,26 @@
           "name": "exceptions",
           "kind": "list",
           "doc": "Contains 0+× exception scenario.",
+          "help": "Add one entry per exception scenario for this process.",
           "sectionId": "PCEXC-EXCE-LST",
           "sectionIdPattern": "PCEXC-EXCE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events"
+            ],
+            "connotation": "The set of exception scenarios handled by this process."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — exceptions / error events"
+                ],
+                "connotation": "The set of exception scenarios handled by this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -168203,6 +168910,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCEXC-EXCE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per exception scenario for this process."
               }
             },
             {
@@ -168221,7 +168934,24 @@
       "name": "ProcessExceptionsOverview",
       "sectionId": "PREXOV",
       "doc": "Process exceptions overview.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — exceptions / error events",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Summarises how exceptions are handled overall, including routing, SLAs, and root-cause practices."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — exceptions / error events",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Summarises how exceptions are handled overall, including routing, SLAs, and root-cause practices."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168252,42 +168982,49 @@
             {
               "name": "exceptionPhilosophy",
               "label": "Exception Philosophy — how exceptions are handled",
+              "hint": "State the overall exception approach",
               "type": "String",
               "required": false
             },
             {
               "name": "exceptionRate",
               "label": "Exception Rate — expected percentage",
+              "hint": "Give the expected exception rate",
               "type": "String",
               "required": false
             },
             {
               "name": "exceptionRouting",
               "label": "Exception Routing — where exceptions go",
+              "hint": "State where exceptions are routed",
               "type": "String",
               "required": false
             },
             {
               "name": "resolutionSla",
               "label": "Resolution SLA — time to resolve exceptions",
+              "hint": "Give the exception resolution SLA",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationPath",
               "label": "Escalation Path — who handles escalations",
+              "hint": "Name who handles escalations",
               "type": "String",
               "required": false
             },
             {
               "name": "rootCauseAnalysis",
               "label": "Root Cause Analysis — how causes are identified",
+              "hint": "Describe root-cause analysis approach",
               "type": "String",
               "required": false
             },
             {
               "name": "continuousImprovement",
               "label": "Continuous Improvement — how exceptions drive change",
+              "hint": "Describe how exceptions drive change",
               "type": "String",
               "required": false
             }
@@ -168299,7 +169036,22 @@
       "name": "ProcessIdentification",
       "sectionId": "PRIDN",
       "doc": "Process identification.",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — process hierarchy"
+        ],
+        "connotation": "Identifies a process by ID, name and hierarchy level, plus its classification, definition and governance metadata."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — process hierarchy"
+            ],
+            "connotation": "Identifies a process by ID, name and hierarchy level, plus its classification, definition and governance metadata."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168330,18 +169082,21 @@
             {
               "name": "processId",
               "label": "Process ID (e.g., TOM-001)",
+              "hint": "Unique process identifier",
               "type": "String",
               "required": true
             },
             {
               "name": "processName",
               "label": "Process Name",
+              "hint": "Descriptive name of the process",
               "type": "String",
               "required": true
             },
             {
               "name": "processLevel",
               "label": "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)",
+              "hint": "Level in the process hierarchy",
               "type": "String",
               "required": false
             }
@@ -168398,7 +169153,22 @@
       "name": "ProcessIdentificationClassification",
       "sectionId": "PICLS",
       "doc": "Position in the process hierarchy and taxonomy.",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — process hierarchy"
+        ],
+        "connotation": "Places the process within the taxonomy by parent, category and type."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — process hierarchy"
+            ],
+            "connotation": "Places the process within the taxonomy by parent, category and type."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168429,18 +169199,21 @@
             {
               "name": "parentProcess",
               "label": "Parent Process — higher-level process this belongs to",
+              "hint": "The higher-level process this rolls up to",
               "type": "String",
               "required": false
             },
             {
               "name": "processCategory",
               "label": "Process Category — operating, management, support",
+              "hint": "The category the process falls into",
               "type": "String",
               "required": false
             },
             {
               "name": "processType",
               "label": "Process Type — core, enabling, strategic",
+              "hint": "The functional type of the process",
               "type": "String",
               "required": false
             }
@@ -168452,7 +169225,22 @@
       "name": "ProcessIdentificationDefinition",
       "sectionId": "PIDEF",
       "doc": "Narrative description, purpose, and scope.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Describes the process in narrative form, stating what it does, why it exists and where its boundaries lie."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Describes the process in narrative form, stating what it does, why it exists and where its boundaries lie."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168483,18 +169271,21 @@
             {
               "name": "description",
               "label": "Description — what the process does",
+              "hint": "What the process actually does",
               "type": "String",
               "required": false
             },
             {
               "name": "purpose",
               "label": "Purpose — why the process exists",
+              "hint": "Why the process exists",
               "type": "String",
               "required": false
             },
             {
               "name": "scope",
               "label": "Scope — boundaries of the process",
+              "hint": "Where the process starts and ends",
               "type": "String",
               "required": false
             }
@@ -168506,7 +169297,22 @@
       "name": "ProcessIdentificationGovernance",
       "sectionId": "PIGOV",
       "doc": "Ownership and lifecycle metadata.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001:2015 §4.4 — process approach"
+        ],
+        "connotation": "Records ownership and lifecycle metadata such as owner, manager, effective date, version and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001:2015 §4.4 — process approach"
+            ],
+            "connotation": "Records ownership and lifecycle metadata such as owner, manager, effective date, version and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168537,30 +169343,35 @@
             {
               "name": "processOwner",
               "label": "Process Owner — accountable role/person",
+              "hint": "Role or person accountable for the process",
               "type": "String",
               "required": false
             },
             {
               "name": "processManager",
               "label": "Process Manager — day-to-day responsibility",
+              "hint": "Role responsible for daily operation",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date — when process is active",
+              "hint": "Date the process becomes active",
               "type": "String",
               "required": false
             },
             {
               "name": "version",
               "label": "Version — process version",
+              "hint": "Current version of the process",
               "type": "String",
               "required": false
             },
             {
               "name": "status",
               "label": "Status — draft, approved, active, retired",
+              "hint": "Lifecycle status of the process",
               "type": "String",
               "required": false
             }
@@ -168572,7 +169383,22 @@
       "name": "ProcessImprovementEntry",
       "sectionId": "PCIMV",
       "doc": "A process improvement entry.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Defines a single planned improvement, its category, and the current-state baseline it improves upon."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Defines a single planned improvement, its category, and the current-state baseline it improves upon."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168603,24 +169429,28 @@
             {
               "name": "improvementId",
               "label": "Improvement ID",
+              "hint": "Unique identifier for the improvement",
               "type": "String",
               "required": true
             },
             {
               "name": "improvementName",
               "label": "Improvement Name",
+              "hint": "Short human-readable improvement name",
               "type": "String",
               "required": true
             },
             {
               "name": "category",
               "label": "Category — efficiency, quality, cost, experience",
+              "hint": "Classify the improvement category",
               "type": "String",
               "required": false
             },
             {
               "name": "currentState",
               "label": "Current State — baseline measurement",
+              "hint": "Give the current-state baseline",
               "type": "String",
               "required": false
             }
@@ -168662,7 +169492,22 @@
       "name": "ProcessImprovementEntryBenefits",
       "sectionId": "PIEB",
       "doc": "Target outcome and value case.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Captures the target state, expected gain, and monetary value of an improvement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Captures the target state, expected gain, and monetary value of an improvement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168693,24 +169538,28 @@
             {
               "name": "targetState",
               "label": "Target State — target measurement",
+              "hint": "Give the target-state measurement",
               "type": "String",
               "required": false
             },
             {
               "name": "improvementPercent",
               "label": "Improvement Percent — expected improvement",
+              "hint": "Give the expected percent gain",
               "type": "String",
               "required": false
             },
             {
               "name": "monetaryBenefit",
               "label": "Monetary Benefit — financial value",
+              "hint": "Give the financial value",
               "type": "String",
               "required": false
             },
             {
               "name": "beneficiaries",
               "label": "Beneficiaries — who benefits",
+              "hint": "Name who benefits from it",
               "type": "String",
               "required": false
             }
@@ -168722,7 +169571,22 @@
       "name": "ProcessImprovementEntryDelivery",
       "sectionId": "PIED",
       "doc": "Enablers, dependencies, and verification.",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement"
+        ],
+        "connotation": "Captures the enablers, dependencies, risks, and verification method for an improvement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "Captures the enablers, dependencies, risks, and verification method for an improvement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168753,24 +169617,28 @@
             {
               "name": "enablers",
               "label": "Enablers — what makes this possible",
+              "hint": "List what enables the improvement",
               "type": "String",
               "required": false
             },
             {
               "name": "dependencies",
               "label": "Dependencies — what must happen first",
+              "hint": "List prerequisites for delivery",
               "type": "String",
               "required": false
             },
             {
               "name": "risks",
               "label": "Risks — what could go wrong",
+              "hint": "List delivery risks",
               "type": "String",
               "required": false
             },
             {
               "name": "measurementMethod",
               "label": "Measurement Method — how improvement is verified",
+              "hint": "Describe how the gain is verified",
               "type": "String",
               "required": false
             }
@@ -168783,7 +169651,24 @@
       "sectionId": "PRIMSU",
       "doc": "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "Six Sigma / Lean — process improvement",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Summarises the expected improvements over the current processes, including the individual improvements and their business case."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Six Sigma / Lean — process improvement",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Summarises the expected improvements over the current processes, including the individual improvements and their business case."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168824,10 +169709,26 @@
           "name": "improvements",
           "kind": "list",
           "doc": "Contains 0+× improvement item.",
+          "help": "Add one entry per planned process improvement.",
           "sectionId": "PCIMV-IMPR-LST",
           "sectionIdPattern": "PCIMV-IMPR-xxx",
+          "standardReferences": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "The set of process improvements planned in this summary."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Six Sigma / Lean — process improvement"
+                ],
+                "connotation": "The set of process improvements planned in this summary."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -168838,6 +169739,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCIMV-IMPR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per planned process improvement."
               }
             },
             {
@@ -168871,7 +169778,22 @@
       "name": "ProcessInputEntry",
       "sectionId": "PCINP",
       "doc": "A process input entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — data objects & artifacts"
+        ],
+        "connotation": "Defines a single data input the process consumes, with its type, source, format and validation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "Defines a single data input the process consumes, with its type, source, format and validation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168902,60 +169824,70 @@
             {
               "name": "inputId",
               "label": "Input ID",
+              "hint": "Unique identifier for the input",
               "type": "String",
               "required": true
             },
             {
               "name": "inputName",
               "label": "Input Name",
+              "hint": "Descriptive name of the input",
               "type": "String",
               "required": true
             },
             {
               "name": "inputType",
               "label": "Input Type — data, document, authorization, resource",
+              "hint": "Kind of input consumed",
               "type": "String",
               "required": false
             },
             {
               "name": "source",
               "label": "Source — where input comes from",
+              "hint": "Where the input originates",
               "type": "String",
               "required": false
             },
             {
               "name": "format",
               "label": "Format — data format, file type",
+              "hint": "Data format or file type",
               "type": "String",
               "required": false
             },
             {
               "name": "required",
               "label": "Required — mandatory or optional",
+              "hint": "Whether the input is mandatory",
               "type": "String",
               "required": false
             },
             {
               "name": "validationRules",
               "label": "Validation Rules — input quality checks",
+              "hint": "Quality checks applied to the input",
               "type": "String",
               "required": false
             },
             {
               "name": "defaultValue",
               "label": "Default Value — if input not provided",
+              "hint": "Value used when input is absent",
               "type": "String",
               "required": false
             },
             {
               "name": "exampleValue",
               "label": "Example Value — sample input",
+              "hint": "A sample value for the input",
               "type": "String",
               "required": false
             },
             {
               "name": "securityClassification",
               "label": "Security Classification — sensitivity level",
+              "hint": "Sensitivity level of the input",
               "type": "String",
               "required": false
             }
@@ -168967,7 +169899,22 @@
       "name": "ProcessInputsOutputs",
       "sectionId": "PRINOU",
       "doc": "Process inputs and outputs.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — data objects & artifacts"
+        ],
+        "connotation": "Captures the data the process consumes and produces, listing its inputs and outputs as data objects."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "Captures the data the process consumes and produces, listing its inputs and outputs as data objects."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168995,10 +169942,26 @@
           "name": "inputs",
           "kind": "list",
           "doc": "Contains 0+× process input.",
+          "help": "Add one entry per process input.",
           "sectionId": "PCINP-INPU-LST",
           "sectionIdPattern": "PCINP-INPU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "The set of data inputs the process consumes."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — data objects & artifacts"
+                ],
+                "connotation": "The set of data inputs the process consumes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -169009,6 +169972,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCINP-INPU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process input."
               }
             },
             {
@@ -169025,10 +169994,26 @@
           "name": "outputs",
           "kind": "list",
           "doc": "Contains 0+× process output.",
+          "help": "Add one entry per process output.",
           "sectionId": "PCOUT-OUTP-LST",
           "sectionIdPattern": "PCOUT-OUTP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "The set of data outputs the process produces."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — data objects & artifacts"
+                ],
+                "connotation": "The set of data outputs the process produces."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -169039,6 +170024,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCOUT-OUTP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process output."
               }
             },
             {
@@ -169189,7 +170180,24 @@
       "name": "ProcessKpiEntry",
       "sectionId": "PCKPI",
       "doc": "A process KPI entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "BPM CBOK — process performance"
+        ],
+        "connotation": "Defines a single key performance indicator used to measure how well this process meets its targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "BPM CBOK — process performance"
+            ],
+            "connotation": "Defines a single key performance indicator used to measure how well this process meets its targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169220,24 +170228,28 @@
             {
               "name": "kpiId",
               "label": "KPI ID",
+              "hint": "Unique identifier for the KPI",
               "type": "String",
               "required": true
             },
             {
               "name": "kpiName",
               "label": "KPI Name",
+              "hint": "Short human-readable KPI name",
               "type": "String",
               "required": true
             },
             {
               "name": "category",
               "label": "Category — time, quality, cost, volume, satisfaction",
+              "hint": "Classify the KPI dimension",
               "type": "String",
               "required": false
             },
             {
               "name": "definition",
               "label": "Definition — how KPI is calculated",
+              "hint": "Describe the calculation formula",
               "type": "String",
               "required": false
             }
@@ -169279,7 +170291,22 @@
       "name": "ProcessKpiEntryMeasurement",
       "sectionId": "PKEM",
       "doc": "Measurement targets and thresholds.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency"
+        ],
+        "connotation": "Specifies the unit, target value, thresholds, and data source used to measure a KPI."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "Specifies the unit, target value, thresholds, and data source used to measure a KPI."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169310,24 +170337,28 @@
             {
               "name": "unit",
               "label": "Unit — measurement unit",
+              "hint": "State the unit of measurement",
               "type": "String",
               "required": false
             },
             {
               "name": "targetValue",
               "label": "Target Value — target",
+              "hint": "Give the target value to achieve",
               "type": "String",
               "required": false
             },
             {
               "name": "thresholds",
               "label": "Thresholds — green/yellow/red boundaries",
+              "hint": "Define the RAG threshold boundaries",
               "type": "String",
               "required": false
             },
             {
               "name": "dataSource",
               "label": "Data Source — where data comes from",
+              "hint": "Name the source of the data",
               "type": "String",
               "required": false
             }
@@ -169339,7 +170370,24 @@
       "name": "ProcessKpiEntryOperations",
       "sectionId": "PKEO",
       "doc": "Reporting ownership and improvement use.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Captures how often a KPI is calculated and reported, who owns it, and how it can be improved."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Captures how often a KPI is calculated and reported, who owns it, and how it can be improved."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169370,24 +170418,28 @@
             {
               "name": "calculationFrequency",
               "label": "Calculation Frequency — how often measured",
+              "hint": "State how often the KPI is calculated",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingFrequency",
               "label": "Reporting Frequency — how often reported",
+              "hint": "State how often the KPI is reported",
               "type": "String",
               "required": false
             },
             {
               "name": "owner",
               "label": "Owner — who is accountable",
+              "hint": "Name the accountable owner",
               "type": "String",
               "required": false
             },
             {
               "name": "improvementLever",
               "label": "Improvement Lever — how to improve this KPI",
+              "hint": "Describe how to move the KPI",
               "type": "String",
               "required": false
             }
@@ -169400,7 +170452,24 @@
       "sectionId": "PMAK",
       "doc": "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "Six Sigma / Lean — process metrics"
+        ],
+        "connotation": "Defines the KPIs, SLAs, and measurement strategy used to gauge each target process in production."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "Six Sigma / Lean — process metrics"
+            ],
+            "connotation": "Defines the KPIs, SLAs, and measurement strategy used to gauge each target process in production."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170298,7 +171367,22 @@
       "name": "ProcessOutputEntry",
       "sectionId": "PCOUT",
       "doc": "A process output entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — data objects & artifacts"
+        ],
+        "connotation": "Defines a single data output the process produces, with its type, destination, quality and retention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — data objects & artifacts"
+            ],
+            "connotation": "Defines a single data output the process produces, with its type, destination, quality and retention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170329,60 +171413,70 @@
             {
               "name": "outputId",
               "label": "Output ID",
+              "hint": "Unique identifier for the output",
               "type": "String",
               "required": true
             },
             {
               "name": "outputName",
               "label": "Output Name",
+              "hint": "Descriptive name of the output",
               "type": "String",
               "required": true
             },
             {
               "name": "outputType",
               "label": "Output Type — data, document, notification, state change",
+              "hint": "Kind of output produced",
               "type": "String",
               "required": false
             },
             {
               "name": "destination",
               "label": "Destination — where output goes",
+              "hint": "Where the output is sent",
               "type": "String",
               "required": false
             },
             {
               "name": "format",
               "label": "Format — data format, file type",
+              "hint": "Data format or file type",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityStandard",
               "label": "Quality Standard — output quality requirements",
+              "hint": "Quality requirements for the output",
               "type": "String",
               "required": false
             },
             {
               "name": "timingRequirement",
               "label": "Timing Requirement — when output must be available",
+              "hint": "When the output must be ready",
               "type": "String",
               "required": false
             },
             {
               "name": "retentionPeriod",
               "label": "Retention Period — how long output is kept",
+              "hint": "How long the output is retained",
               "type": "String",
               "required": false
             },
             {
               "name": "securityClassification",
               "label": "Security Classification — sensitivity level",
+              "hint": "Sensitivity level of the output",
               "type": "String",
               "required": false
             },
             {
               "name": "dependentProcesses",
               "label": "Dependent Processes — processes that need this output",
+              "hint": "Processes that consume this output",
               "type": "String",
               "required": false
             }
@@ -170395,7 +171489,24 @@
       "sectionId": "PROVDI",
       "doc": "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — collaboration/choreography diagrams",
+          "BPMN 2.0 — business process model & notation"
+        ],
+        "connotation": "Provides the high-level diagrams that show the main processes and how they relate to one another."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — collaboration/choreography diagrams",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "Provides the high-level diagrams that show the main processes and how they relate to one another."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170596,7 +171707,24 @@
       "name": "ProcessPerformance",
       "sectionId": "PP",
       "doc": "Process performance metrics.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "BPM CBOK — process performance"
+        ],
+        "connotation": "Groups the performance targets, KPIs, and service level agreements used to measure how well this process performs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "BPM CBOK — process performance"
+            ],
+            "connotation": "Groups the performance targets, KPIs, and service level agreements used to measure how well this process performs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170624,10 +171752,26 @@
           "name": "kpis",
           "kind": "list",
           "doc": "Contains 0+× performance metric.",
+          "help": "Add one entry per KPI tracked for this process.",
           "sectionId": "PCKPI-KPIS-LST",
           "sectionIdPattern": "PCKPI-KPIS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "The set of KPIs tracked for this process."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010 — performance efficiency"
+                ],
+                "connotation": "The set of KPIs tracked for this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -170638,6 +171782,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCKPI-KPIS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per KPI tracked for this process."
               }
             },
             {
@@ -170654,10 +171804,28 @@
           "name": "slas",
           "kind": "list",
           "doc": "Service Level Agreements.",
+          "help": "Add one entry per service level agreement for this process.",
           "sectionId": "PCSLA-SLAS-LST",
           "sectionIdPattern": "PCSLA-SLAS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ITIL 4 — service level management",
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "The set of service level agreements committed for this process."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ITIL 4 — service level management",
+                  "ISO/IEC 25010 — performance efficiency"
+                ],
+                "connotation": "The set of service level agreements committed for this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -170668,6 +171836,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCSLA-SLAS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per service level agreement for this process."
               }
             },
             {
@@ -170686,7 +171860,24 @@
       "name": "ProcessPerformanceOverview",
       "sectionId": "PRPEOV",
       "doc": "Process performance overview.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "BPM CBOK — process performance"
+        ],
+        "connotation": "Summarises the top-level performance targets and monitoring approach for the process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "BPM CBOK — process performance"
+            ],
+            "connotation": "Summarises the top-level performance targets and monitoring approach for the process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170717,48 +171908,56 @@
             {
               "name": "targetCycleTime",
               "label": "Target Cycle Time — expected end-to-end duration",
+              "hint": "Give the expected end-to-end duration",
               "type": "String",
               "required": false
             },
             {
               "name": "targetThroughput",
               "label": "Target Throughput — expected cases per period",
+              "hint": "Give the expected cases per period",
               "type": "String",
               "required": false
             },
             {
               "name": "targetQuality",
               "label": "Target Quality — error rate, first-time-right",
+              "hint": "State the target error/first-time-right rate",
               "type": "String",
               "required": false
             },
             {
               "name": "targetCost",
               "label": "Target Cost — cost per transaction",
+              "hint": "Give the target cost per transaction",
               "type": "String",
               "required": false
             },
             {
               "name": "targetCustomerSat",
               "label": "Target Customer Satisfaction — CSAT/NPS target",
+              "hint": "Give the CSAT/NPS satisfaction target",
               "type": "String",
               "required": false
             },
             {
               "name": "monitoringFrequency",
               "label": "Monitoring Frequency — how often metrics reviewed",
+              "hint": "State how often metrics are reviewed",
               "type": "String",
               "required": false
             },
             {
               "name": "dashboardLocation",
               "label": "Dashboard Location — where metrics are visible",
+              "hint": "Name where the metrics dashboard lives",
               "type": "String",
               "required": false
             },
             {
               "name": "improvementGoals",
               "label": "Improvement Goals — targets for next period",
+              "hint": "State improvement targets for next period",
               "type": "String",
               "required": false
             }
@@ -170932,7 +172131,24 @@
       "name": "ProcessRelationshipEntry",
       "sectionId": "PCRLT",
       "doc": "A process relationship entry.",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — process hierarchy",
+          "BPMN 2.0 — process collaboration"
+        ],
+        "connotation": "Defines a single relationship between two processes, including type, data exchanged, and timing dependency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — process hierarchy",
+              "BPMN 2.0 — process collaboration"
+            ],
+            "connotation": "Defines a single relationship between two processes, including type, data exchanged, and timing dependency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170963,48 +172179,56 @@
             {
               "name": "relationshipId",
               "label": "Relationship ID",
+              "hint": "Unique identifier for the relationship",
               "type": "String",
               "required": false
             },
             {
               "name": "sourceProcess",
               "label": "Source Process",
+              "hint": "Name the source process",
               "type": "String",
               "required": false
             },
             {
               "name": "targetProcess",
               "label": "Target Process",
+              "hint": "Name the target process",
               "type": "String",
               "required": false
             },
             {
               "name": "relationshipType",
               "label": "Relationship Type — triggers, feeds, depends on, parallel with",
+              "hint": "Classify the relationship type",
               "type": "String",
               "required": false
             },
             {
               "name": "dataExchanged",
               "label": "Data Exchanged — what flows between processes",
+              "hint": "State what data flows between them",
               "type": "String",
               "required": false
             },
             {
               "name": "timingDependency",
               "label": "Timing Dependency — must complete before, can run parallel",
+              "hint": "State the timing dependency",
               "type": "String",
               "required": false
             },
             {
               "name": "frequencyOfInteraction",
               "label": "Frequency of Interaction — how often they interact",
+              "hint": "State how often they interact",
               "type": "String",
               "required": false
             },
             {
               "name": "criticality",
               "label": "Criticality — how critical is this relationship",
+              "hint": "State how critical the relationship is",
               "type": "String",
               "required": false
             }
@@ -171017,7 +172241,24 @@
       "sectionId": "PR",
       "doc": "Process relationships and dependencies (supplementary section).",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "APQC PCF — process hierarchy",
+          "BPMN 2.0 — process collaboration"
+        ],
+        "connotation": "Maps the dependencies, data flows, and sequencing between this process and other processes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "APQC PCF — process hierarchy",
+              "BPMN 2.0 — process collaboration"
+            ],
+            "connotation": "Maps the dependencies, data flows, and sequencing between this process and other processes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171064,10 +172305,28 @@
           "name": "relationships",
           "kind": "list",
           "doc": "Contains 0+× process relationship.",
+          "help": "Add one entry per relationship to another process.",
           "sectionId": "PCRLT-RELA-LST",
           "sectionIdPattern": "PCRLT-RELA-xxx",
+          "standardReferences": {
+            "standards": [
+              "APQC PCF — process hierarchy",
+              "BPMN 2.0 — process collaboration"
+            ],
+            "connotation": "The set of relationships between this process and other processes."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "APQC PCF — process hierarchy",
+                  "BPMN 2.0 — process collaboration"
+                ],
+                "connotation": "The set of relationships between this process and other processes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -171078,6 +172337,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCRLT-RELA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per relationship to another process."
               }
             },
             {
@@ -171096,7 +172361,22 @@
       "name": "ProcessRoleEntry",
       "sectionId": "PCROL",
       "doc": "A process role entry.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Defines a single role in the process, its RACI type and its responsibilities, execution and coordination detail."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Defines a single role in the process, its RACI type and its responsibilities, execution and coordination detail."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171127,24 +172407,28 @@
             {
               "name": "roleId",
               "label": "Role ID",
+              "hint": "Unique identifier for the role",
               "type": "String",
               "required": true
             },
             {
               "name": "roleName",
               "label": "Role Name",
+              "hint": "Descriptive name of the role",
               "type": "String",
               "required": true
             },
             {
               "name": "raciType",
               "label": "RACI Type — Responsible, Accountable, Consulted, Informed",
+              "hint": "The RACI assignment for this role",
               "type": "String",
               "required": false
             },
             {
               "name": "responsibilities",
               "label": "Responsibilities — what this role does",
+              "hint": "What this role is responsible for",
               "type": "String",
               "required": false
             }
@@ -171186,7 +172470,24 @@
       "name": "ProcessRoleEntryCoordination",
       "sectionId": "PREC",
       "doc": "Access, coverage, and handoff expectations.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Captures when a role must be available, who covers it, and how work is handed off to and from it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Captures when a role must be available, who covers it, and how work is handed off to and from it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171217,24 +172518,28 @@
             {
               "name": "availability",
               "label": "Availability — when role must be available",
+              "hint": "Describe required availability windows",
               "type": "String",
               "required": false
             },
             {
               "name": "backupRole",
               "label": "Backup Role — who covers absence",
+              "hint": "Name the role that covers absences",
               "type": "String",
               "required": false
             },
             {
               "name": "handoffTo",
               "label": "Handoff To — roles this passes work to",
+              "hint": "List downstream roles receiving work",
               "type": "String",
               "required": false
             },
             {
               "name": "handoffFrom",
               "label": "Handoff From — roles this receives work from",
+              "hint": "List upstream roles supplying work",
               "type": "String",
               "required": false
             }
@@ -171246,7 +172551,24 @@
       "name": "ProcessRoleEntryExecution",
       "sectionId": "PREE",
       "doc": "Process participation and authority.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment",
+          "BPMN 2.0 — business process model & notation"
+        ],
+        "connotation": "Describes how a role participates in the process and what decisions it is authorised to make."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "Describes how a role participates in the process and what decisions it is authorised to make."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171277,24 +172599,28 @@
             {
               "name": "stepsInvolved",
               "label": "Steps Involved — which process steps",
+              "hint": "List the steps this role performs",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionAuthority",
               "label": "Decision Authority — what decisions can be made",
+              "hint": "State the decisions this role may make",
               "type": "String",
               "required": false
             },
             {
               "name": "skillsRequired",
               "label": "Skills Required — competencies needed",
+              "hint": "List the competencies the role needs",
               "type": "String",
               "required": false
             },
             {
               "name": "systemAccess",
               "label": "System Access — required system permissions",
+              "hint": "Name the system permissions required",
               "type": "String",
               "required": false
             }
@@ -171306,7 +172632,24 @@
       "name": "ProcessRoles",
       "sectionId": "PRRO",
       "doc": "Process roles and responsibilities.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Captures the roles that participate in the process and how responsibility is assigned across them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Captures the roles that participate in the process and how responsibility is assigned across them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171334,10 +172677,26 @@
           "name": "roles",
           "kind": "list",
           "doc": "Contains 0+× process role.",
+          "help": "Add one entry per process role.",
           "sectionId": "PCROL-ROLE-LST",
           "sectionIdPattern": "PCROL-ROLE-xxx",
+          "standardReferences": {
+            "standards": [
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "The set of role definitions participating in the process and their RACI assignments."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RACI — responsibility assignment"
+                ],
+                "connotation": "The set of role definitions participating in the process and their RACI assignments."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -171348,6 +172707,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PCROL-ROLE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process role."
               }
             },
             {
@@ -171366,7 +172731,22 @@
       "name": "ProcessRolesOverview",
       "sectionId": "PRROOV",
       "doc": "Process roles overview.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Summarises the key roles in the process and their RACI relationships at a glance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Summarises the key roles in the process and their RACI relationships at a glance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171397,30 +172777,35 @@
             {
               "name": "primaryActor",
               "label": "Primary Actor — main role executing",
+              "hint": "The main role that executes the process",
               "type": "String",
               "required": false
             },
             {
               "name": "processOwner",
               "label": "Process Owner — accountable for outcomes",
+              "hint": "Role accountable for process outcomes",
               "type": "String",
               "required": false
             },
             {
               "name": "supportRoles",
               "label": "Support Roles — assisting roles",
+              "hint": "Roles that assist the process",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationPath",
               "label": "Escalation Path — who handles issues",
+              "hint": "Who issues are escalated to",
               "type": "String",
               "required": false
             },
             {
               "name": "raciSummary",
               "label": "RACI Summary — responsibility assignment overview",
+              "hint": "Overview of the RACI assignments",
               "type": "String",
               "required": false
             }
@@ -171708,7 +173093,24 @@
       "name": "ProcessSlaEntry",
       "sectionId": "PCSLA",
       "doc": "A process SLA entry.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — service level management",
+          "ISO/IEC 25010 — performance efficiency"
+        ],
+        "connotation": "Defines a single service level agreement, its target, measurement, and breach consequences for the process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — service level management",
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "Defines a single service level agreement, its target, measurement, and breach consequences for the process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171739,60 +173141,70 @@
             {
               "name": "slaId",
               "label": "SLA ID",
+              "hint": "Unique identifier for the SLA",
               "type": "String",
               "required": true
             },
             {
               "name": "slaName",
               "label": "SLA Name",
+              "hint": "Short human-readable SLA name",
               "type": "String",
               "required": true
             },
             {
               "name": "serviceDescription",
               "label": "Service Description — what is promised",
+              "hint": "Describe the promised service",
               "type": "String",
               "required": false
             },
             {
               "name": "targetLevel",
               "label": "Target Level — commitment",
+              "hint": "State the committed target level",
               "type": "String",
               "required": false
             },
             {
               "name": "measurementMethod",
               "label": "Measurement Method — how compliance measured",
+              "hint": "Describe how compliance is measured",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingPeriod",
               "label": "Reporting Period — measurement window",
+              "hint": "Give the measurement window",
               "type": "String",
               "required": false
             },
             {
               "name": "penaltyClause",
               "label": "Penalty Clause — consequence of breach",
+              "hint": "State the consequence of a breach",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationProcedure",
               "label": "Escalation Procedure — when SLA at risk",
+              "hint": "Describe escalation when at risk",
               "type": "String",
               "required": false
             },
             {
               "name": "exclusions",
               "label": "Exclusions — what is not covered",
+              "hint": "List what the SLA excludes",
               "type": "String",
               "required": false
             },
             {
               "name": "reviewFrequency",
               "label": "Review Frequency — when SLA is reviewed",
+              "hint": "State how often the SLA is reviewed",
               "type": "String",
               "required": false
             }
@@ -172071,7 +173483,24 @@
       "name": "ProcessSuccessCriteria",
       "sectionId": "PRSUC",
       "doc": "Success criteria for process transformation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "BABOK v3 — future-state / process analysis"
+        ],
+        "connotation": "Defines the measurable criteria that determine whether the process transformation is deemed successful."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "BABOK v3 — future-state / process analysis"
+            ],
+            "connotation": "Defines the measurable criteria that determine whether the process transformation is deemed successful."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172102,48 +173531,56 @@
             {
               "name": "kpiTargets",
               "label": "KPI Targets — measurable success indicators",
+              "hint": "Concrete KPI values that signal success",
               "type": "String",
               "required": false
             },
             {
               "name": "timeToValue",
               "label": "Time to Value — when benefits are realized",
+              "hint": "How soon benefits should appear",
               "type": "String",
               "required": false
             },
             {
               "name": "adoptionTargets",
               "label": "Adoption Targets — user adoption expectations",
+              "hint": "Expected user adoption levels",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityTargets",
               "label": "Quality Targets — defect/error rates",
+              "hint": "Target defect or error rates",
               "type": "String",
               "required": false
             },
             {
               "name": "performanceTargets",
               "label": "Performance Targets — response time, throughput",
+              "hint": "Target response time or throughput",
               "type": "String",
               "required": false
             },
             {
               "name": "userSatisfaction",
               "label": "User Satisfaction — NPS, satisfaction scores",
+              "hint": "Target satisfaction or NPS scores",
               "type": "String",
               "required": false
             },
             {
               "name": "businessOutcomes",
               "label": "Business Outcomes — revenue, market share impact",
+              "hint": "Expected business-level outcomes",
               "type": "String",
               "required": false
             },
             {
               "name": "measurementApproach",
               "label": "Measurement Approach — how success is measured",
+              "hint": "How and when success is measured",
               "type": "String",
               "required": false
             }
@@ -172155,7 +173592,24 @@
       "name": "ProcessTechnology",
       "sectionId": "PRTE",
       "doc": "Process technology support.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge",
+          "BPMN 2.0 — business process model & notation"
+        ],
+        "connotation": "Describes the systems, integrations, and automation tooling that support the execution of this process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "Describes the systems, integrations, and automation tooling that support the execution of this process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172186,24 +173640,28 @@
             {
               "name": "primarySystem",
               "label": "Primary System — main system supporting process",
+              "hint": "Name the main supporting system",
               "type": "String",
               "required": false
             },
             {
               "name": "supportingSystems",
               "label": "Supporting Systems — other systems involved",
+              "hint": "List other systems involved",
               "type": "String",
               "required": false
             },
             {
               "name": "integrations",
               "label": "Integrations — system integrations required",
+              "hint": "List required system integrations",
               "type": "String",
               "required": false
             },
             {
               "name": "automationTools",
               "label": "Automation Tools — RPA, workflow, rules engines",
+              "hint": "List automation tools used",
               "type": "String",
               "required": false
             }
@@ -172245,7 +173703,24 @@
       "name": "ProcessTechnologyExperience",
       "sectionId": "PRTEEX",
       "doc": "Access channel and analytics capabilities.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge",
+          "ISO/IEC 25010 — performance efficiency"
+        ],
+        "connotation": "Captures the access channels and analytics capabilities available for the process, such as mobile, offline, and process mining."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge",
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "Captures the access channels and analytics capabilities available for the process, such as mobile, offline, and process mining."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172276,18 +173751,21 @@
             {
               "name": "mobileCapability",
               "label": "Mobile Capability — mobile access needs",
+              "hint": "State mobile access requirements",
               "type": "String",
               "required": false
             },
             {
               "name": "offlineCapability",
               "label": "Offline Capability — offline operation needs",
+              "hint": "State offline operation requirements",
               "type": "String",
               "required": false
             },
             {
               "name": "analyticsCapability",
               "label": "Analytics Capability — process mining, analytics",
+              "hint": "State analytics/process mining needs",
               "type": "String",
               "required": false
             }
@@ -172299,7 +173777,22 @@
       "name": "ProcessTechnologyInformation",
       "sectionId": "PRTEIN",
       "doc": "Data, reporting, and document tooling.",
+      "standardReferences": {
+        "standards": [
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Captures the data stores, reporting, communication, and document tooling the process relies on."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Captures the data stores, reporting, communication, and document tooling the process relies on."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172330,24 +173823,28 @@
             {
               "name": "dataRepositories",
               "label": "Data Repositories — databases, data stores",
+              "hint": "List the databases and data stores",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingTools",
               "label": "Reporting Tools — BI, dashboards",
+              "hint": "List BI and dashboard tools",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationTools",
               "label": "Communication Tools — email, notifications",
+              "hint": "List communication/notification tools",
               "type": "String",
               "required": false
             },
             {
               "name": "documentManagement",
               "label": "Document Management — document storage",
+              "hint": "Name the document storage system",
               "type": "String",
               "required": false
             }
@@ -172359,7 +173856,22 @@
       "name": "ProcessTriggerEntry",
       "sectionId": "PTREN",
       "doc": "A process trigger entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — events (start/end/intermediate)"
+        ],
+        "connotation": "Defines a single trigger (start event) that can initiate the process, with its type, source and conditions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "Defines a single trigger (start event) that can initiate the process, with its type, source and conditions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172390,54 +173902,63 @@
             {
               "name": "triggerId",
               "label": "Trigger ID",
+              "hint": "Unique identifier for the trigger",
               "type": "String",
               "required": true
             },
             {
               "name": "triggerName",
               "label": "Trigger Name",
+              "hint": "Descriptive name of the trigger",
               "type": "String",
               "required": true
             },
             {
               "name": "triggerType",
               "label": "Trigger Type — user action, system event, timer, message, signal",
+              "hint": "BPMN start-event type of the trigger",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerSource",
               "label": "Trigger Source — where trigger originates",
+              "hint": "Where the trigger originates",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerCondition",
               "label": "Trigger Condition — when trigger fires",
+              "hint": "Condition under which the trigger fires",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerData",
               "label": "Trigger Data — data provided with trigger",
+              "hint": "Data carried by the trigger",
               "type": "String",
               "required": false
             },
             {
               "name": "priority",
               "label": "Priority — processing priority",
+              "hint": "Processing priority of this trigger",
               "type": "String",
               "required": false
             },
             {
               "name": "validationRules",
               "label": "Validation Rules — checks before process starts",
+              "hint": "Checks applied before the process starts",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — expected occurrence rate",
+              "hint": "Expected occurrence rate of the trigger",
               "type": "String",
               "required": false
             }
@@ -172449,7 +173970,22 @@
       "name": "ProcessTriggers",
       "sectionId": "PRTRG",
       "doc": "Process triggers and events.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — events (start/end/intermediate)"
+        ],
+        "connotation": "Captures how the process starts and ends, listing its triggers (start events) and end events (outcomes)."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "Captures how the process starts and ends, listing its triggers (start events) and end events (outcomes)."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172477,10 +174013,26 @@
           "name": "triggers",
           "kind": "list",
           "doc": "Contains 0+× process trigger.",
+          "help": "Add one entry per process trigger.",
           "sectionId": "PTREN-TRIG-LST",
           "sectionIdPattern": "PTREN-TRIG-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "The set of trigger (start-event) definitions that can initiate the process."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — events (start/end/intermediate)"
+                ],
+                "connotation": "The set of trigger (start-event) definitions that can initiate the process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -172491,6 +174043,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PTREN-TRIG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process trigger."
               }
             },
             {
@@ -172507,10 +174065,26 @@
           "name": "endEvents",
           "kind": "list",
           "doc": "Process end events (outcomes).",
+          "help": "Add one entry per process end event.",
           "sectionId": "PEEVT-ENDE-LST",
           "sectionIdPattern": "PEEVT-ENDE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "The set of end-event definitions describing the possible outcomes at which the process terminates."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — events (start/end/intermediate)"
+                ],
+                "connotation": "The set of end-event definitions describing the possible outcomes at which the process terminates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -172521,6 +174095,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PEEVT-ENDE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process end event."
               }
             },
             {
@@ -172540,7 +174120,24 @@
       "sectionId": "PRVIZ",
       "doc": "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.",
       "detailedIn": "D02TargetOperatingModel",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — future-state / process analysis",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Articulates the target-state vision, narrative and success criteria that guide the process transformation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — future-state / process analysis",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Articulates the target-state vision, narrative and success criteria that guide the process transformation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172597,10 +174194,26 @@
           "name": "expectedImprovements",
           "kind": "list",
           "doc": "Expected improvements over current state.",
+          "help": "Add one entry per expected improvement.",
           "sectionId": "EXIPR-EXPE-LST",
           "sectionIdPattern": "EXIPR-EXPE-xxx",
+          "standardReferences": {
+            "standards": [
+              "Six Sigma / Lean — process improvement"
+            ],
+            "connotation": "The set of anticipated improvements the target processes deliver over the current state."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Six Sigma / Lean — process improvement"
+                ],
+                "connotation": "The set of anticipated improvements the target processes deliver over the current state."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -172611,6 +174224,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXIPR-EXPE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per expected improvement."
               }
             },
             {
@@ -172644,7 +174263,22 @@
       "name": "ProcessVisionOverview",
       "sectionId": "PVOVW",
       "doc": "Process vision overview.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — future-state / process analysis"
+        ],
+        "connotation": "Summarises the overarching process vision, strategic alignment and transformation theme in a single form."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — future-state / process analysis"
+            ],
+            "connotation": "Summarises the overarching process vision, strategic alignment and transformation theme in a single form."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172675,48 +174309,56 @@
             {
               "name": "visionStatement",
               "label": "Vision Statement — concise statement of process future state",
+              "hint": "One or two sentences describing the future-state process",
               "type": "String",
               "required": false
             },
             {
               "name": "strategicAlignment",
               "label": "Strategic Alignment — how processes support business strategy",
+              "hint": "Link processes to strategic goals",
               "type": "String",
               "required": false
             },
             {
               "name": "transformationTheme",
               "label": "Transformation Theme — overall transformation approach",
+              "hint": "The unifying theme of the change (e.g. digital, automation)",
               "type": "String",
               "required": false
             },
             {
               "name": "targetMaturityLevel",
               "label": "Target Maturity Level — CMMI or similar maturity target",
+              "hint": "Desired maturity level to reach",
               "type": "String",
               "required": false
             },
             {
               "name": "timeHorizon",
               "label": "Time Horizon — when full vision is realized",
+              "hint": "Timeframe for achieving the vision",
               "type": "String",
               "required": false
             },
             {
               "name": "keyEnabler",
               "label": "Key Enablers — technology, skills, culture changes needed",
+              "hint": "What must be in place to enable the vision",
               "type": "String",
               "required": false
             },
             {
               "name": "changeScope",
               "label": "Change Scope — breadth and depth of process change",
+              "hint": "How wide and deep the change reaches",
               "type": "String",
               "required": false
             },
             {
               "name": "stakeholderImpact",
               "label": "Stakeholder Impact — who is affected and how",
+              "hint": "Groups affected and the nature of impact",
               "type": "String",
               "required": false
             }
@@ -241586,7 +243228,26 @@
       "name": "TargetBusinessProcessModel",
       "sectionId": "TBPM",
       "doc": "6. Target Business Process Model.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — business process model & notation",
+          "APQC PCF — Process Classification Framework",
+          "BPM CBOK — business process management body of knowledge"
+        ],
+        "connotation": "Defines the complete target business process landscape the system will support, spanning process descriptions and actor interactions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — business process model & notation",
+              "APQC PCF — Process Classification Framework",
+              "BPM CBOK — business process management body of knowledge"
+            ],
+            "connotation": "Defines the complete target business process landscape the system will support, spanning process descriptions and actor interactions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -259206,7 +260867,22 @@
       "name": "TriggerOverview",
       "sectionId": "TGOVW",
       "doc": "Trigger overview.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — events (start/end/intermediate)"
+        ],
+        "connotation": "Summarises how the process is typically triggered, including its primary trigger, channel and frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — events (start/end/intermediate)"
+            ],
+            "connotation": "Summarises how the process is typically triggered, including its primary trigger, channel and frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -259237,30 +260913,35 @@
             {
               "name": "primaryTrigger",
               "label": "Primary Trigger — main way process starts",
+              "hint": "The most common way the process starts",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerChannel",
               "label": "Trigger Channel — UI, API, event, schedule",
+              "hint": "Channel through which triggers arrive",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerFrequency",
               "label": "Trigger Frequency — how often triggered",
+              "hint": "How often the process is triggered",
               "type": "String",
               "required": false
             },
             {
               "name": "peakTriggerTime",
               "label": "Peak Trigger Time — when most triggers occur",
+              "hint": "When trigger volume peaks",
               "type": "String",
               "required": false
             },
             {
               "name": "preTriggerState",
               "label": "Pre-Trigger State — system state before trigger",
+              "hint": "System state expected before triggering",
               "type": "String",
               "required": false
             }
