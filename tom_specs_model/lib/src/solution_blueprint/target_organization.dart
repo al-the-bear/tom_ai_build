@@ -1784,6 +1784,16 @@ class TransitionRiskEntryResponse {
 /// Documents new and changed roles resulting from the system introduction,
 /// following HR best practices and job analysis methodologies (O*NET, SHRM).
 /// Includes competency frameworks, staffing projections, and recruitment planning.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+    'SHRM — HR best practices (job design, staffing, workforce planning)',
+    'CIPD — competency frameworks and people management',
+  ],
+  'Documents the new, changed, and removed roles that result from introducing '
+  'the system, together with the staffing plan and competency framework needed '
+  'to fill them.',
+)
 @SectionId('JDAS')
 class JobDescriptionsAndStaffing {
   /// Overview of the job architecture and role design approach.
@@ -1791,20 +1801,38 @@ class JobDescriptionsAndStaffing {
   JobDescriptionsOverview overview = JobDescriptionsOverview();
 
   /// 5.2.1. New Roles — contains 0+× New Role.
+  @StandardReferences(
+    ['O*NET — occupational job analysis (tasks, skills, knowledge)'],
+    'The set of brand-new roles the system introduces, each defined through '
+    'job analysis (tasks, skills, and knowledge requirements).',
+  )
   @SectionId('NWROL-NEWR-LST')
   @SectionIdPattern('NWROL-NEWR-xxx')
+  @ContentHelp('Add one entry per new role being created.')
   @SerializationOrder(1)
   List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles — contains 0+× Changed Role.
+  @StandardReferences(
+    ['SHRM — HR best practices (job design, staffing, workforce planning)'],
+    'The set of existing roles whose responsibilities, skills, or grading '
+    'change as a result of the system introduction.',
+  )
   @SectionId('CHAROL-CHAN-LST')
   @SectionIdPattern('CHAROL-CHAN-xxx')
+  @ContentHelp('Add one entry per existing role whose definition changes.')
   @SerializationOrder(2)
   List<ChangedRoleEntry> changedRoles = [];
 
   /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
+  @StandardReferences(
+    ['SHRM — HR best practices (job design, staffing, workforce planning)'],
+    'The set of roles being eliminated by the system introduction, with the '
+    'rationale and people-impact for each.',
+  )
   @SectionId('REMROL-REMO-LST')
   @SectionIdPattern('REMROL-REMO-xxx')
+  @ContentHelp('Add one entry per role being eliminated.')
   @SerializationOrder(3)
   List<RemovedRoleEntry> removedRoles = [];
 
@@ -1818,32 +1846,58 @@ class JobDescriptionsAndStaffing {
 }
 
 /// Overview of job descriptions and staffing approach.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (job design, staffing, workforce planning)',
+    'CIPD — competency frameworks and people management',
+  ],
+  'Summarises the overall approach to designing roles — the job architecture, '
+  'competency model, grading, net headcount impact, and the HR/legal '
+  'considerations that govern the role changes.',
+)
 @SectionId('JODEOV')
 class JobDescriptionsOverview {
   @Form([
     Field('roleDesignApproach', String,
-        'Role Design Approach — methodology for defining roles'),
+        'Role Design Approach — methodology for defining roles',
+        hint: 'Methodology used to define and structure roles'),
     Field('jobArchitectureModel', String,
-        'Job Architecture Model — job families, levels, career paths'),
+        'Job Architecture Model — job families, levels, career paths',
+        hint: 'Job families, levels, and career paths'),
     Field('competencyModel', String,
-        'Competency Model — framework for defining skills/competencies'),
+        'Competency Model — framework for defining skills/competencies',
+        hint: 'Framework used to define skills and competencies'),
     Field('gradingStructure', String,
-        'Grading Structure — how roles are graded/leveled'),
+        'Grading Structure — how roles are graded/leveled',
+        hint: 'How roles are graded or leveled'),
     Field('totalRoleImpact', String,
-        'Total Role Impact — summary of new/changed/removed roles'),
+        'Total Role Impact — summary of new/changed/removed roles',
+        hint: 'Summary count of new, changed, and removed roles'),
     Field('totalFteChange', String,
-        'Total FTE Change — net headcount impact'),
-    Field('hrPartner', String, 'HR Partner — HR contact for role changes'),
+        'Total FTE Change — net headcount impact',
+        hint: 'Net headcount impact across all role changes'),
+    Field('hrPartner', String, 'HR Partner — HR contact for role changes',
+        hint: 'HR contact responsible for these role changes'),
     Field('unionConsiderations', String,
-        'Union/Works Council Considerations — labor relations impact'),
+        'Union/Works Council Considerations — labor relations impact',
+        hint: 'Labor relations and works council impact'),
     Field('legalRequirements', String,
-        'Legal Requirements — employment law considerations'),
+        'Legal Requirements — employment law considerations',
+        hint: 'Employment law considerations affecting role changes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// 5.2.4. Staffing Plan.
+@StandardReferences(
+  [
+    'PMBOK — resource management (acquire/develop/manage team)',
+    'SHRM — HR best practices (job design, staffing, workforce planning)',
+  ],
+  'Sets out how the roles will actually be staffed — the sourcing strategy, '
+  'budget, individual position entries, and recruitment timeline.',
+)
 @SectionId('STPL')
 class StaffingPlan {
   /// Staffing plan overview.
@@ -1855,8 +1909,14 @@ class StaffingPlan {
   StaffingBudget budget = StaffingBudget();
 
   /// Contains 0+× Staffing entry.
+  @StandardReferences(
+    ['PMBOK — resource management (acquire/develop/manage team)'],
+    'The set of individual staffing positions to be filled, each with its '
+    'role, capacity, sourcing, budget, and timeline.',
+  )
   @SectionId('STFE-ITEM-LST')
   @SectionIdPattern('STFE-ITEM-xxx')
+  @ContentHelp('Add one entry per staffing position to be filled.')
   @SerializationOrder(2)
   List<StaffingEntry> items = [];
 
@@ -1866,6 +1926,15 @@ class StaffingPlan {
 }
 
 /// Staffing plan overview.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (job design, staffing, workforce planning)',
+    'PMBOK — resource management (acquire/develop/manage team)',
+  ],
+  'Describes the overall staffing strategy — how positions will be sourced, '
+  'selected, onboarded, and retained, plus geographic, diversity, and '
+  'compliance constraints.',
+)
 @SectionId('STPLOV')
 class StaffingPlanOverview {
   @Form([
@@ -1909,6 +1978,11 @@ class StaffingPlanOverview {
 }
 
 /// Staffing budget details.
+@StandardReferences(
+  ['PMBOK — cost/resource budgeting'],
+  'Captures the overall financial envelope for staffing — total budget, '
+  'salary and benefits costs, and the currency in which they are expressed.',
+)
 @SectionId('STBU')
 class StaffingBudget {
   @Form([
@@ -1934,6 +2008,11 @@ class StaffingBudget {
 }
 
 /// Recruitment and enablement cost categories.
+@StandardReferences(
+  ['PMBOK — cost/resource budgeting'],
+  'Breaks the staffing budget into the cost categories that enable hiring — '
+  'recruitment, training, relocation, and contingency.',
+)
 @SectionId('STBUAL')
 class StaffingBudgetAllocations {
   @Form([
@@ -1951,6 +2030,14 @@ class StaffingBudgetAllocations {
 }
 
 /// Budget ownership and approval controls.
+@StandardReferences(
+  [
+    'PMBOK — cost/resource budgeting',
+    'RACI — responsibility assignment',
+  ],
+  'Defines who owns the staffing budget, who must approve spend, and how the '
+  'budget aligns to the fiscal timeline.',
+)
 @SectionId('STBUGO')
 class StaffingBudgetGovernance {
   @Form([
@@ -1969,6 +2056,14 @@ class StaffingBudgetGovernance {
 ///
 /// Represents one staffing position including role, competency requirements,
 /// sourcing method, budget, timeline, and approval status.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+    'PMBOK — resource management (acquire/develop/manage team)',
+  ],
+  'Represents a single staffing position to be filled, capturing its role, '
+  'organization, capacity, recruitment workflow, and ownership.',
+)
 @SectionId('STFE')
 class StaffingEntry {
   @Form([
@@ -2000,6 +2095,11 @@ class StaffingEntry {
 }
 
 /// Organization and employment placement.
+@StandardReferences(
+  ['SHRM — HR best practices (job design, staffing, workforce planning)'],
+  'Places the staffing position within the organization — the department, '
+  'location, and employment type under which it is hired.',
+)
 @SectionId('STENOR')
 class StaffingEntryOrganization {
   @Form([
@@ -2015,6 +2115,14 @@ class StaffingEntryOrganization {
 }
 
 /// Capacity and competency requirements.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+    'ISO 9001 — competence, awareness & resourcing',
+  ],
+  'Quantifies the capacity needed for the position — FTE, headcount, required '
+  'skills, and whether it backfills an existing person.',
+)
 @SectionId('STENCA')
 class StaffingEntryCapacity {
   @Form([
@@ -2034,6 +2142,11 @@ class StaffingEntryCapacity {
 }
 
 /// Recruitment workflow and urgency.
+@StandardReferences(
+  ['SHRM — talent acquisition / time-to-fill'],
+  'Tracks the recruitment workflow for the position — approval, sourcing '
+  'method, current status, target start date, and urgency.',
+)
 @SectionId('STENRE')
 class StaffingEntryRecruitment {
   @Form([
@@ -2054,6 +2167,14 @@ class StaffingEntryRecruitment {
 }
 
 /// Ownership and compensation details.
+@StandardReferences(
+  [
+    'RACI — responsibility assignment',
+    'SHRM — HR best practices (job design, staffing, workforce planning)',
+  ],
+  'Identifies who owns the position — hiring manager and recruiter — together '
+  'with its salary range and any special notes.',
+)
 @SectionId('STENOW')
 class StaffingEntryOwnership {
   @Form([
@@ -2071,6 +2192,15 @@ class StaffingEntryOwnership {
 }
 
 /// Recruitment timeline.
+@StandardReferences(
+  [
+    'SHRM — talent acquisition / time-to-fill',
+    'PMBOK — resource management (acquire/develop/manage team)',
+  ],
+  'Lays out the schedule for hiring — start and end dates, critical hires, '
+  'hiring and onboarding waves, lead-time assumptions, and external '
+  'dependencies that gate fill dates.',
+)
 @SectionId('RETI')
 class RecruitmentTimeline {
   @Form([
@@ -2095,6 +2225,15 @@ class RecruitmentTimeline {
 }
 
 /// 5.2.5. Competency Framework.
+@StandardReferences(
+  [
+    'CIPD — competency frameworks',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Defines the competency framework that underpins hiring and development — '
+  'the core, technical, and leadership competencies the target organization '
+  'requires.',
+)
 @SectionId('COFR')
 class CompetencyFramework {
   /// Framework overview.
@@ -2102,64 +2241,118 @@ class CompetencyFramework {
   CompetencyFrameworkOverview overview = CompetencyFrameworkOverview();
 
   /// Core competencies required across all roles.
+  @StandardReferences(
+    ['CIPD — competency frameworks'],
+    'The set of core competencies expected of every role across the target '
+    'organization.',
+  )
   @SectionId('COMPE-CORE-LST')
   @SectionIdPattern('COMPE-CORE-xxx')
+  @ContentHelp('Add one entry per core competency required across all roles.')
   @SerializationOrder(1)
   List<CompetencyEntry> coreCompetencies = [];
 
   /// Technical/functional competencies by role family.
+  @StandardReferences(
+    [
+      'CIPD — competency frameworks',
+      'ISO 9001 §7.2 — competence',
+    ],
+    'The set of technical or functional competencies specific to particular '
+    'role families.',
+  )
   @SectionId('COMPE-TECH-LST')
   @SectionIdPattern('COMPE-TECH-xxx')
+  @ContentHelp('Add one entry per technical or functional competency.')
   @SerializationOrder(2)
   List<CompetencyEntry> technicalCompetencies = [];
 
   /// Leadership competencies for management roles.
+  @StandardReferences(
+    ['CIPD — competency frameworks'],
+    'The set of leadership competencies expected of management and supervisory '
+    'roles.',
+  )
   @SectionId('COMPE-LEAD-LST')
   @SectionIdPattern('COMPE-LEAD-xxx')
+  @ContentHelp('Add one entry per leadership competency for management roles.')
   @SerializationOrder(3)
   List<CompetencyEntry> leadershipCompetencies = [];
 }
 
 /// Competency framework overview.
+@StandardReferences(
+  [
+    'CIPD — competency frameworks',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Summarises the competency framework — its purpose, the model it is based '
+  'on, the proficiency scale, how competencies are assessed, and how gaps are '
+  'developed.',
+)
 @SectionId('COFROV')
 class CompetencyFrameworkOverview {
   @Form([
     Field('frameworkPurpose', String,
-        'Framework Purpose — how competencies guide hiring/development'),
+        'Framework Purpose — how competencies guide hiring/development',
+        hint: 'How the framework guides hiring and development'),
     Field('competencyModel', String,
-        'Competency Model — model name/source (SHRM, custom, etc.)'),
+        'Competency Model — model name/source (SHRM, custom, etc.)',
+        hint: 'Model name or source — e.g. SHRM, CIPD, custom'),
     Field('proficiencyLevels', String,
-        'Proficiency Levels — scale used (1-5, Novice to Expert, etc.)'),
+        'Proficiency Levels — scale used (1-5, Novice to Expert, etc.)',
+        hint: 'Scale used — e.g. 1-5, Novice to Expert'),
     Field('assessmentMethod', String,
-        'Assessment Method — how competencies are measured'),
+        'Assessment Method — how competencies are measured',
+        hint: 'How competencies are measured'),
     Field('developmentApproach', String,
-        'Development Approach — how gaps are addressed'),
+        'Development Approach — how gaps are addressed',
+        hint: 'How competency gaps are addressed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A competency entry (form).
+@StandardReferences(
+  [
+    'CIPD — competency frameworks',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Represents a single competency in the framework, defining its category, '
+  'behavioral indicators, proficiency levels, applicable roles, and how it is '
+  'developed and assessed.',
+)
 @SectionId('COMPE')
 class CompetencyEntry {
   @Form([
-    Field('competencyId', String, 'Competency ID', required: true),
-    Field('competencyName', String, 'Competency Name', required: true),
+    Field('competencyId', String, 'Competency ID',
+        hint: 'Unique identifier for this competency', required: true),
+    Field('competencyName', String, 'Competency Name',
+        hint: 'Short name of the competency', required: true),
     Field('category', String,
-        'Category — Core, Technical, Leadership, Behavioral'),
-    Field('description', String, 'Description'),
+        'Category — Core, Technical, Leadership, Behavioral',
+        hint: 'Core / Technical / Leadership / Behavioral'),
+    Field('description', String, 'Description',
+        hint: 'What this competency means in practice'),
     Field('behavioralIndicators', String,
-        'Behavioral Indicators — observable behaviors'),
+        'Behavioral Indicators — observable behaviors',
+        hint: 'Observable behaviors that demonstrate the competency'),
     Field('proficiencyLevels', String,
-        'Proficiency Levels — what each level looks like'),
+        'Proficiency Levels — what each level looks like',
+        hint: 'What each proficiency level looks like'),
     Field('applicableRoles', String,
-        'Applicable Roles — which roles need this competency'),
+        'Applicable Roles — which roles need this competency',
+        hint: 'Which roles require this competency'),
     Field('requiredLevel', String,
-        'Required Level — minimum proficiency for the role'),
+        'Required Level — minimum proficiency for the role',
+        hint: 'Minimum proficiency level required for the role'),
     Field('developmentResources', String,
-        'Development Resources — training, coaching, experiences'),
+        'Development Resources — training, coaching, experiences',
+        hint: 'Training, coaching, or experiences that build it'),
     Field('assessmentTools', String,
-        'Assessment Tools — tests, interviews, simulations'),
+        'Assessment Tools — tests, interviews, simulations',
+        hint: 'Tests, interviews, or simulations used to assess it'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2169,6 +2362,14 @@ class CompetencyEntry {
 ///
 /// Comprehensive new role definition following HR job analysis best practices.
 /// Includes competencies, responsibilities, system access, and success metrics.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+    'SHRM — HR best practices (job design, role definition)',
+  ],
+  'Defines a brand-new role end to end — identity, organizational placement, '
+  'responsibilities, qualifications, access, performance and onboarding.',
+)
 @SectionId('NRE')
 class NewRoleEntry {
   /// Role identification and overview.
@@ -2201,59 +2402,112 @@ class NewRoleEntry {
 }
 
 /// New role identification.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (job design, role definition)',
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+  ],
+  'Identifies the new role and records the business case that justifies '
+  'creating it.',
+)
 @SectionId('NEROID')
 class NewRoleIdentification {
   @Form([
-    Field('roleId', String, 'Role ID (e.g., NR-001)', required: true),
-    Field('roleTitle', String, 'Role Title', required: true),
-    Field('roleFamily', String, 'Job Family'),
-    Field('jobLevel', String, 'Job Level/Grade'),
-    Field('rolePurpose', String, 'Role Purpose — why this role exists'),
+    Field('roleId', String, 'Role ID (e.g., NR-001)', required: true,
+        hint: 'Unique identifier for this new role'),
+    Field('roleTitle', String, 'Role Title', required: true,
+        hint: 'Official job title for the role'),
+    Field('roleFamily', String, 'Job Family',
+        hint: 'Broader job family or category this role belongs to'),
+    Field('jobLevel', String, 'Job Level/Grade',
+        hint: 'Seniority level or pay grade'),
+    Field('rolePurpose', String, 'Role Purpose — why this role exists',
+        hint: 'Core mission the role fulfils'),
     Field('roleJustification', String,
-        'Role Justification — business case for new role'),
-    Field('effectiveDate', String, 'Effective Date'),
+        'Role Justification — business case for new role',
+        hint: 'Why creating this role is needed now'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'When the role becomes active'),
     Field('roleStatus', String,
-        'Role Status — draft, approved, posted, filled'),
+        'Role Status — draft, approved, posted, filled',
+        hint: 'Current lifecycle stage of the role'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role organizational positioning.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (organizational roles)',
+    'PMBOK — resource management (roles & responsibilities)',
+  ],
+  'Places the role within the organization — its reporting lines, team, '
+  'location and the network of people it works with.',
+)
 @SectionId('NEROOR')
 class NewRoleOrganization {
   @Form([
-    Field('department', String, 'Department'),
-    Field('division', String, 'Division/Business Unit'),
-    Field('team', String, 'Team — immediate team'),
-    Field('location', String, 'Location — primary work location'),
+    Field('department', String, 'Department',
+        hint: 'Department the role sits in'),
+    Field('division', String, 'Division/Business Unit',
+        hint: 'Division or business unit'),
+    Field('team', String, 'Team — immediate team',
+        hint: 'Immediate team the role joins'),
+    Field('location', String, 'Location — primary work location',
+        hint: 'Primary physical or office location'),
     Field('workModel', String,
-        'Work Model — on-site, remote, hybrid'),
-    Field('reportsTo', String, 'Reports To — direct manager title'),
-    Field('directReports', String, 'Direct Reports — roles reporting to this'),
+        'Work Model — on-site, remote, hybrid',
+        hint: 'On-site, remote, or hybrid arrangement'),
+    Field('reportsTo', String, 'Reports To — direct manager title',
+        hint: 'Title of the direct manager'),
+    Field('directReports', String, 'Direct Reports — roles reporting to this',
+        hint: 'Roles that report into this one'),
     Field('matrixRelationships', String,
-        'Matrix Relationships — dotted-line reporting'),
+        'Matrix Relationships — dotted-line reporting',
+        hint: 'Dotted-line or matrix reporting links'),
     Field('keyStakeholders', String,
-        'Key Stakeholders — internal/external contacts'),
+        'Key Stakeholders — internal/external contacts',
+        hint: 'Important internal/external contacts'),
     Field('collaborationScope', String,
-        'Collaboration Scope — teams/departments interacted with'),
+        'Collaboration Scope — teams/departments interacted with',
+        hint: 'Teams or departments regularly interacted with'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role responsibilities.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks, skills, knowledge)',
+    'RACI — responsibility assignment',
+  ],
+  'Breaks the role down into its primary and secondary responsibilities and '
+  'the decision-making authority that comes with it.',
+)
 @SectionId('NERORE')
 class NewRoleResponsibilities {
   /// Primary responsibilities (key accountabilities).
+  @StandardReferences(
+    ['O*NET — task statements (core duties)'],
+    'The set of primary duties that define the core accountabilities of the '
+    'role.',
+  )
   @SectionId('RSPDT-PRIM-LST')
   @SectionIdPattern('RSPDT-PRIM-xxx')
+  @ContentHelp('Add one entry per primary responsibility.')
   @SerializationOrder(0)
   List<ResponsibilityDetailEntry> primaryResponsibilities = [];
 
   /// Secondary responsibilities (supporting duties).
+  @StandardReferences(
+    ['O*NET — supplemental task statements'],
+    'Supporting duties the role performs beyond its core accountabilities.',
+  )
   @SectionId('RSPDT-SECO-LST')
   @SectionIdPattern('RSPDT-SECO-xxx')
+  @ContentHelp('Add one entry per secondary responsibility.')
   @SerializationOrder(1)
   List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
 
@@ -2263,60 +2517,104 @@ class NewRoleResponsibilities {
 }
 
 /// Detailed responsibility entry (form).
+@StandardReferences(
+  [
+    'O*NET — task statements (tasks, deliverables)',
+    'RACI — responsibility assignment',
+  ],
+  'Describes a single responsibility in detail — its deliverables, time '
+  'allocation, frequency and quality standards.',
+)
 @SectionId('RSPDT')
 class ResponsibilityDetailEntry {
   @Form([
-    Field('responsibilityId', String, 'Responsibility ID'),
-    Field('responsibility', String, 'Responsibility', required: true),
-    Field('description', String, 'Description — detailed explanation'),
+    Field('responsibilityId', String, 'Responsibility ID',
+        hint: 'Unique identifier for this responsibility'),
+    Field('responsibility', String, 'Responsibility', required: true,
+        hint: 'Short statement of the duty'),
+    Field('description', String, 'Description — detailed explanation',
+        hint: 'Detailed explanation of what is done'),
     Field('timeAllocation', String,
-        'Time Allocation — percentage of time spent'),
-    Field('frequency', String, 'Frequency — daily, weekly, monthly, ad-hoc'),
-    Field('deliverables', String, 'Deliverables — outputs expected'),
-    Field('qualityStandards', String, 'Quality Standards — success criteria'),
+        'Time Allocation — percentage of time spent',
+        hint: 'Approximate share of working time'),
+    Field('frequency', String, 'Frequency — daily, weekly, monthly, ad-hoc',
+        hint: 'How often the duty is performed'),
+    Field('deliverables', String, 'Deliverables — outputs expected',
+        hint: 'Tangible outputs the duty produces'),
+    Field('qualityStandards', String, 'Quality Standards — success criteria',
+        hint: 'Criteria that define success'),
     Field('relatedProcesses', String,
-        'Related Processes — business processes involved'),
-    Field('toolsUsed', String, 'Tools Used — systems/applications'),
+        'Related Processes — business processes involved',
+        hint: 'Business processes this duty touches'),
+    Field('toolsUsed', String, 'Tools Used — systems/applications',
+        hint: 'Systems or applications used'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Role decision-making authority.
+@StandardReferences(
+  [
+    'RACI — accountable/responsible',
+    'PMBOK — resource management (roles & responsibilities)',
+  ],
+  'Defines the decisions the role can make on its own — approval, budget, '
+  'hiring, policy and contract authority — and when escalation is required.',
+)
 @SectionId('RODEAU')
 class RoleDecisionAuthority {
   @Form([
     Field('approvalAuthority', String,
-        'Approval Authority — what can be approved without escalation'),
+        'Approval Authority — what can be approved without escalation',
+        hint: 'What may be approved without escalating'),
     Field('budgetAuthority', String,
-        'Budget Authority — spending limits'),
+        'Budget Authority — spending limits',
+        hint: 'Spending limits the role can authorize'),
     Field('hiringAuthority', String,
-        'Hiring Authority — ability to hire/terminate'),
+        'Hiring Authority — ability to hire/terminate',
+        hint: 'Authority to hire or terminate staff'),
     Field('policyAuthority', String,
-        'Policy Authority — ability to set/change policies'),
+        'Policy Authority — ability to set/change policies',
+        hint: 'Authority to set or change policies'),
     Field('contractAuthority', String,
-        'Contract Authority — signing limits for agreements'),
+        'Contract Authority — signing limits for agreements',
+        hint: 'Signing limits for agreements'),
     Field('exceptionAuthority', String,
-        'Exception Authority — ability to grant exceptions'),
+        'Exception Authority — ability to grant exceptions',
+        hint: 'Authority to grant exceptions to rules'),
     Field('escalationRequired', String,
-        'Escalation Required — when must escalate'),
+        'Escalation Required — when must escalate',
+        hint: 'Situations that must be escalated'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role qualifications and competencies.
+@StandardReferences(
+  [
+    'ISO 9001 §7.2 — competence',
+    'CIPD — competency frameworks and people management',
+  ],
+  'Captures what a candidate must bring to the role — education, experience, '
+  'credentials, screening and the required competencies.',
+)
 @SectionId('NEROQU')
 class NewRoleQualifications {
   @Form([
     Field('education', String,
-        'Education — minimum education requirement'),
+        'Education — minimum education requirement',
+        hint: 'Minimum education level required'),
     Field('preferredEducation', String,
-        'Preferred Education — ideal education'),
+        'Preferred Education — ideal education',
+        hint: 'Ideal but non-mandatory education'),
     Field('experience', String,
-        'Experience — years and type of experience required'),
+        'Experience — years and type of experience required',
+        hint: 'Years and type of experience required'),
     Field('preferredExperience', String,
-        'Preferred Experience — ideal experience'),
+        'Preferred Experience — ideal experience',
+        hint: 'Ideal but non-mandatory experience'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2332,139 +2630,237 @@ class NewRoleQualifications {
       NewRoleQualificationsScreening();
 
   /// Contains 0+× required competency.
+  @StandardReferences(
+    [
+      'CIPD — competency frameworks and people management',
+      'ISO 9001 §7.2 — competence',
+    ],
+    'The competencies a candidate must demonstrate to be qualified for the '
+    'role.',
+  )
   @SectionId('ROLCP-REQU-LST')
   @SectionIdPattern('ROLCP-REQU-xxx')
+  @ContentHelp('Add one entry per required competency.')
   @SerializationOrder(3)
   List<RoleCompetencyEntry> requiredCompetencies = [];
 }
 
 /// Credential and mobility requirements.
+@StandardReferences(
+  [
+    'ISO 9001 §7.2 — competence',
+    'SHRM — HR best practices (job design, role definition)',
+  ],
+  'Records the formal credentials, language abilities and travel/mobility '
+  'requirements a candidate must hold.',
+)
 @SectionId('NRQC')
 class NewRoleQualificationsCredentials {
   @Form([
     Field('certifications', String,
-        'Certifications — required certifications'),
+        'Certifications — required certifications',
+        hint: 'Certifications that are required'),
     Field('licensure', String,
-        'Licensure — professional licenses needed'),
+        'Licensure — professional licenses needed',
+        hint: 'Professional licenses needed'),
     Field('languageRequirements', String,
-        'Language Requirements — languages needed'),
+        'Language Requirements — languages needed',
+        hint: 'Languages the role requires'),
     Field('travelRequirements', String,
-        'Travel Requirements — percentage, destinations'),
+        'Travel Requirements — percentage, destinations',
+        hint: 'Expected travel frequency and destinations'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Screening and clearance requirements.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (job design, role definition)',
+    'ISO/IEC 27001 — access control / least privilege',
+  ],
+  'Captures pre-employment screening needs — physical requirements, '
+  'background checks and any security clearance.',
+)
 @SectionId('NRQS')
 class NewRoleQualificationsScreening {
   @Form([
     Field('physicalRequirements', String,
-        'Physical Requirements — if applicable'),
+        'Physical Requirements — if applicable',
+        hint: 'Physical demands of the role, if any'),
     Field('backgroundCheck', String,
-        'Background Check — type required'),
+        'Background Check — type required',
+        hint: 'Type of background check required'),
     Field('securityClearance', String,
-        'Security Clearance — if required'),
+        'Security Clearance — if required',
+        hint: 'Security clearance level needed, if any'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Role competency entry (form).
+@StandardReferences(
+  [
+    'CIPD — competency frameworks and people management',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Describes a single competency the role needs — its type, required and '
+  'preferred proficiency, and how it is assessed.',
+)
 @SectionId('ROLCP')
 class RoleCompetencyEntry {
   @Form([
-    Field('competencyId', String, 'Competency ID'),
-    Field('competencyName', String, 'Competency Name', required: true),
+    Field('competencyId', String, 'Competency ID',
+        hint: 'Unique identifier for this competency'),
+    Field('competencyName', String, 'Competency Name', required: true,
+        hint: 'Name of the competency'),
     Field('competencyType', String,
-        'Competency Type — Core, Technical, Leadership'),
+        'Competency Type — Core, Technical, Leadership',
+        hint: 'Category such as core, technical or leadership'),
     Field('requiredLevel', String,
-        'Required Level — minimum proficiency'),
-    Field('preferredLevel', String, 'Preferred Level — ideal proficiency'),
+        'Required Level — minimum proficiency',
+        hint: 'Minimum proficiency that is mandatory'),
+    Field('preferredLevel', String, 'Preferred Level — ideal proficiency',
+        hint: 'Ideal proficiency level'),
     Field('assessmentMethod', String,
-        'Assessment Method — how evaluated during hiring'),
+        'Assessment Method — how evaluated during hiring',
+        hint: 'How the competency is evaluated when hiring'),
     Field('developmentPriority', String,
-        'Development Priority — if gap exists'),
+        'Development Priority — if gap exists',
+        hint: 'Priority for developing this if a gap exists'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role system access requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — access control / least privilege',
+    'SHRM — HR best practices (job design, role definition)',
+  ],
+  'Specifies the systems, data and tools the role needs and how that access '
+  'is granted, applying least-privilege principles.',
+)
 @SectionId('NRSA')
 class NewRoleSystemAccess {
   @Form([
     Field('primarySystems', String,
-        'Primary Systems — main applications used daily'),
+        'Primary Systems — main applications used daily',
+        hint: 'Main applications used every day'),
     Field('secondarySystems', String,
-        'Secondary Systems — occasionally used applications'),
+        'Secondary Systems — occasionally used applications',
+        hint: 'Applications used occasionally'),
     Field('dataAccess', String,
-        'Data Access — data domains accessible'),
+        'Data Access — data domains accessible',
+        hint: 'Data domains the role may access'),
     Field('securityRole', String,
-        'Security Role — role in access control system'),
+        'Security Role — role in access control system',
+        hint: 'Role assigned in the access control system'),
     Field('privilegedAccess', String,
-        'Privileged Access — admin/elevated rights needed'),
+        'Privileged Access — admin/elevated rights needed',
+        hint: 'Any admin or elevated rights required'),
     Field('mobileAccess', String,
-        'Mobile Access — mobile app/device requirements'),
+        'Mobile Access — mobile app/device requirements',
+        hint: 'Mobile app or device requirements'),
     Field('remoteAccessTools', String,
-        'Remote Access Tools — VPN, virtual desktop'),
+        'Remote Access Tools — VPN, virtual desktop',
+        hint: 'Remote access such as VPN or virtual desktop'),
     Field('communicationTools', String,
-        'Communication Tools — email, chat, video'),
+        'Communication Tools — email, chat, video',
+        hint: 'Email, chat and video tools needed'),
     Field('reportingTools', String,
-        'Reporting Tools — BI, dashboards, analytics'),
+        'Reporting Tools — BI, dashboards, analytics',
+        hint: 'BI, dashboard or analytics tools needed'),
     Field('accessProvisioning', String,
-        'Access Provisioning — how access is granted'),
+        'Access Provisioning — how access is granted',
+        hint: 'How and when access is provisioned'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role performance metrics.
+@StandardReferences(
+  [
+    'SHRM — performance management',
+    'CIPD — competency frameworks and people management',
+  ],
+  'Defines how success in the role is measured — objectives, KPIs, review '
+  'cadence, milestones and the path to advancement.',
+)
 @SectionId('NEROPE')
 class NewRolePerformance {
   @Form([
     Field('performanceObjectives', String,
-        'Performance Objectives — key goals'),
-    Field('kpis', String, 'KPIs — quantitative metrics'),
+        'Performance Objectives — key goals',
+        hint: 'Key goals the role is expected to achieve'),
+    Field('kpis', String, 'KPIs — quantitative metrics',
+        hint: 'Quantitative metrics used to gauge success'),
     Field('qualitativeMetrics', String,
-        'Qualitative Metrics — behavioral/quality measures'),
+        'Qualitative Metrics — behavioral/quality measures',
+        hint: 'Behavioral or quality-based measures'),
     Field('reviewFrequency', String,
-        'Review Frequency — performance review cadence'),
+        'Review Frequency — performance review cadence',
+        hint: 'How often performance is reviewed'),
     Field('probationPeriod', String,
-        'Probation Period — initial review period'),
+        'Probation Period — initial review period',
+        hint: 'Length of the initial probation period'),
     Field('successMilestones', String,
-        'Success Milestones — 30/60/90 day goals'),
+        'Success Milestones — 30/60/90 day goals',
+        hint: 'Early milestones such as 30/60/90 day goals'),
     Field('careerPath', String,
-        'Career Path — typical progression from this role'),
+        'Career Path — typical progression from this role',
+        hint: 'Typical progression from this role'),
     Field('promotionCriteria', String,
-        'Promotion Criteria — requirements for advancement'),
+        'Promotion Criteria — requirements for advancement',
+        hint: 'Requirements for advancement'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// New role onboarding plan.
+@StandardReferences(
+  [
+    'SHRM — onboarding',
+    'CIPD — competency frameworks and people management',
+  ],
+  'Lays out how a new hire is brought up to speed — orientation, training, '
+  'mentoring, shadowing, check-ins and ramp-up expectations.',
+)
 @SectionId('NEROON')
 class NewRoleOnboarding {
   @Form([
     Field('onboardingDuration', String,
-        'Onboarding Duration — weeks to full productivity'),
+        'Onboarding Duration — weeks to full productivity',
+        hint: 'Time expected to reach full productivity'),
     Field('orientationTopics', String,
-        'Orientation Topics — company/department intro'),
+        'Orientation Topics — company/department intro',
+        hint: 'Company and department introduction topics'),
     Field('requiredTraining', String,
-        'Required Training — mandatory courses'),
+        'Required Training — mandatory courses',
+        hint: 'Mandatory training courses'),
     Field('systemTraining', String,
-        'System Training — application-specific training'),
+        'System Training — application-specific training',
+        hint: 'Application-specific training needed'),
     Field('processTraining', String,
-        'Process Training — business process training'),
+        'Process Training — business process training',
+        hint: 'Training on relevant business processes'),
     Field('mentorAssignment', String,
-        'Mentor Assignment — buddy/mentor program'),
+        'Mentor Assignment — buddy/mentor program',
+        hint: 'Buddy or mentor assigned to the new hire'),
     Field('shadowingPlan', String,
-        'Shadowing Plan — observation opportunities'),
+        'Shadowing Plan — observation opportunities',
+        hint: 'Opportunities to observe experienced staff'),
     Field('checkpointMeetings', String,
-        'Checkpoint Meetings — scheduled check-ins'),
+        'Checkpoint Meetings — scheduled check-ins',
+        hint: 'Scheduled check-in meetings'),
     Field('rampUpExpectations', String,
-        'Ramp-Up Expectations — productivity expectations over time'),
+        'Ramp-Up Expectations — productivity expectations over time',
+        hint: 'Productivity expectations over the ramp-up period'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2474,6 +2870,16 @@ class NewRoleOnboarding {
 ///
 /// Documents modifications to existing roles with impact assessment,
 /// transition planning, and incumbent management.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (role change management, workforce transition)',
+    'O*NET — occupational job analysis (tasks, skills)',
+    'ADKAR / Kotter — change management',
+  ],
+  'Captures a single existing role that is being modified — what changes in '
+  'its responsibilities, competencies, access, and how affected incumbents '
+  'are transitioned.',
+)
 @SectionId('CHAROL')
 class ChangedRoleEntry {
   /// Changed role identification.
@@ -2502,14 +2908,26 @@ class ChangedRoleEntry {
 }
 
 /// Changed role identification.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (role change management)',
+    'O*NET — occupational job analysis (tasks, skills)',
+  ],
+  'Identifies the role being changed and the rationale for the change, '
+  'including any title or placement adjustment.',
+)
 @SectionId('CHROID')
 class ChangedRoleIdentification {
   @Form([
-    Field('roleId', String, 'Role ID (e.g., CR-001)', required: true),
-    Field('roleTitle', String, 'Current Role Title', required: true),
-    Field('newRoleTitle', String, 'New Role Title — if title changes'),
+    Field('roleId', String, 'Role ID (e.g., CR-001)', required: true,
+        hint: 'Unique identifier for this changed role'),
+    Field('roleTitle', String, 'Current Role Title', required: true,
+        hint: 'The role title before the change'),
+    Field('newRoleTitle', String, 'New Role Title — if title changes',
+        hint: 'The role title after the change, if it differs'),
     Field('changeRationale', String,
-        'Change Rationale — why this role is changing'),
+        'Change Rationale — why this role is changing',
+        hint: 'The business reason driving this role change'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2526,51 +2944,98 @@ class ChangedRoleIdentification {
 }
 
 /// Current and future organizational placement.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (organizational roles)',
+    'SHRM — HR best practices (role change management)',
+  ],
+  'Records where the role sits in the organization today and where it will '
+  'sit after the change — department and job-level moves.',
+)
 @SectionId('CRIS')
 class ChangedRoleIdentificationStructure {
     @Form([
-        Field('currentDepartment', String, 'Current Department'),
-        Field('newDepartment', String, 'New Department — if moving'),
-        Field('currentJobLevel', String, 'Current Job Level'),
-        Field('newJobLevel', String, 'New Job Level — if changing'),
+        Field('currentDepartment', String, 'Current Department',
+            hint: 'Department the role currently reports into'),
+        Field('newDepartment', String, 'New Department — if moving',
+            hint: 'Department the role will move to, if it changes'),
+        Field('currentJobLevel', String, 'Current Job Level',
+            hint: 'Job grade or level before the change'),
+        Field('newJobLevel', String, 'New Job Level — if changing',
+            hint: 'Job grade or level after the change, if it differs'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Change implementation state and affected population.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (workforce transition)',
+    'ADKAR / Kotter — change management',
+  ],
+  'Tracks the kind of change, its rollout state, the effective date, and how '
+  'many incumbents are affected.',
+)
 @SectionId('CRIT')
 class ChangedRoleIdentificationTransition {
     @Form([
         Field('changeType', String,
-                'Change Type — expanded, reduced, restructured, upgraded, downgraded'),
-        Field('effectiveDate', String, 'Effective Date'),
+                'Change Type — expanded, reduced, restructured, upgraded, downgraded',
+            hint: 'Nature of the change to the role'),
+        Field('effectiveDate', String, 'Effective Date',
+            hint: 'Date the role change takes effect'),
         Field('changeStatus', String,
-                'Change Status — proposed, approved, communicated, implemented'),
-        Field('incumbentCount', int, 'Incumbent Count — people in this role'),
+                'Change Status — proposed, approved, communicated, implemented',
+            hint: 'Current stage of the change rollout'),
+        Field('incumbentCount', int, 'Incumbent Count — people in this role',
+            hint: 'Number of people currently holding the role'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Changed role responsibilities.
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks)',
+    'RACI — responsibility assignment',
+  ],
+  'Groups the responsibility changes for the role — those added, removed, and '
+  'modified — plus a net-impact summary.',
+)
 @SectionId('CHRORE')
 class ChangedRoleResponsibilities {
   /// Responsibilities being added.
+  @StandardReferences(
+    ['O*NET — task statements'],
+    'The duties newly assigned to this role as part of the change.',
+  )
   @SectionId('RSPCH-ADDE-LST')
   @SectionIdPattern('RSPCH-ADDE-xxx')
+  @ContentHelp('Add one entry per responsibility being added to the role.')
   @SerializationOrder(0)
   List<ResponsibilityChangeEntry> addedResponsibilities = [];
 
   /// Responsibilities being removed.
+  @StandardReferences(
+    ['O*NET — task statements'],
+    'The duties removed from this role as part of the change.',
+  )
   @SectionId('RSPCH-REMO-LST')
   @SectionIdPattern('RSPCH-REMO-xxx')
+  @ContentHelp('Add one entry per responsibility being removed from the role.')
   @SerializationOrder(1)
   List<ResponsibilityChangeEntry> removedResponsibilities = [];
 
   /// Responsibilities being modified.
+  @StandardReferences(
+    ['O*NET — task statements'],
+    'The duties whose scope or nature changes within this role.',
+  )
   @SectionId('RSPCH-MODI-LST')
   @SectionIdPattern('RSPCH-MODI-xxx')
+  @ContentHelp('Add one entry per responsibility being modified in the role.')
   @SerializationOrder(2)
   List<ResponsibilityChangeEntry> modifiedResponsibilities = [];
 
@@ -2580,63 +3045,118 @@ class ChangedRoleResponsibilities {
 }
 
 /// Responsibility change entry (form).
+@StandardReferences(
+  [
+    'O*NET — task statements',
+    'SHRM — HR best practices (role change management)',
+  ],
+  'A single responsibility being added, removed, or modified, with its '
+  'current/future state, impact, and how it is transitioned.',
+)
 @SectionId('RSPCH')
 class ResponsibilityChangeEntry {
   @Form([
-    Field('responsibility', String, 'Responsibility', required: true),
-    Field('changeType', String, 'Change Type — add, remove, modify'),
-    Field('currentState', String, 'Current State — how done today'),
-    Field('futureState', String, 'Future State — how done after change'),
-    Field('reason', String, 'Reason — why this change'),
-    Field('impactLevel', String, 'Impact Level — high, medium, low'),
-    Field('trainingNeeded', String, 'Training Needed'),
-    Field('toolsAffected', String, 'Tools Affected — systems involved'),
+    Field('responsibility', String, 'Responsibility', required: true,
+        hint: 'The responsibility affected by this change'),
+    Field('changeType', String, 'Change Type — add, remove, modify',
+        hint: 'Whether this responsibility is added, removed, or modified'),
+    Field('currentState', String, 'Current State — how done today',
+        hint: 'How this responsibility is handled before the change'),
+    Field('futureState', String, 'Future State — how done after change',
+        hint: 'How this responsibility will be handled after the change'),
+    Field('reason', String, 'Reason — why this change',
+        hint: 'The reason this responsibility is changing'),
+    Field('impactLevel', String, 'Impact Level — high, medium, low',
+        hint: 'How significant the impact of this change is'),
+    Field('trainingNeeded', String, 'Training Needed',
+        hint: 'Training required to perform the changed responsibility'),
+    Field('toolsAffected', String, 'Tools Affected — systems involved',
+        hint: 'Systems or tools impacted by this change'),
     Field('transitionApproach', String,
-        'Transition Approach — how responsibility is handed over'),
+        'Transition Approach — how responsibility is handed over',
+        hint: 'How the responsibility is transferred or phased in'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Summary of responsibility impact.
+@StandardReferences(
+  [
+    'SHRM — HR best practices (role change management)',
+    'O*NET — occupational job analysis',
+  ],
+  'Summarizes the aggregate effect of the responsibility changes on the '
+  'role — workload, complexity, scope, authority, classification, and pay.',
+)
 @SectionId('REIMSU')
 class ResponsibilityImpactSummary {
   @Form([
     Field('netTimeImpact', String,
-        'Net Time Impact — increase/decrease in workload'),
+        'Net Time Impact — increase/decrease in workload',
+        hint: 'Overall change in time or workload for the role'),
     Field('complexityChange', String,
-        'Complexity Change — simpler, same, more complex'),
+        'Complexity Change — simpler, same, more complex',
+        hint: 'Whether the role becomes simpler or more complex'),
     Field('scopeChange', String,
-        'Scope Change — narrower, same, broader'),
+        'Scope Change — narrower, same, broader',
+        hint: 'Whether the scope of the role narrows or broadens'),
     Field('authorityChange', String,
-        'Authority Change — less, same, more'),
+        'Authority Change — less, same, more',
+        hint: 'Whether the role gains or loses authority'),
     Field('classificationImpact', String,
-        'Classification Impact — should job grade change'),
+        'Classification Impact — should job grade change',
+        hint: 'Whether the job grade or classification should change'),
     Field('compensationImpact', String,
-        'Compensation Impact — salary implications'),
+        'Compensation Impact — salary implications',
+        hint: 'Salary or compensation implications of the change'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Changed role competency requirements.
+@StandardReferences(
+  [
+    'CIPD — competency frameworks and people management',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Groups how the competency requirements of the role change — competencies '
+  'newly required, no longer required, or shifted in proficiency level.',
+)
 @SectionId('CHROCO')
 class ChangedRoleCompetencies {
   /// New competencies required.
+  @StandardReferences(
+    ['CIPD — competency frameworks and people management'],
+    'Competencies that become required for the role after the change.',
+  )
   @SectionId('ROLCP-NEWC-LST')
   @SectionIdPattern('ROLCP-NEWC-xxx')
+  @ContentHelp('Add one entry per competency newly required by the role.')
   @SerializationOrder(0)
   List<RoleCompetencyEntry> newCompetencies = [];
 
   /// Competencies no longer required.
+  @StandardReferences(
+    ['CIPD — competency frameworks and people management'],
+    'Competencies that are no longer required by the role after the change.',
+  )
   @SectionId('ROLCP-REMO-LST')
   @SectionIdPattern('ROLCP-REMO-xxx')
+  @ContentHelp('Add one entry per competency no longer required by the role.')
   @SerializationOrder(1)
   List<RoleCompetencyEntry> removedCompetencies = [];
 
   /// Competencies with changed proficiency levels.
+  @StandardReferences(
+    ['CIPD — competency frameworks and people management'],
+    'Competencies retained by the role but at a different required '
+    'proficiency level.',
+  )
   @SectionId('COLVCH-CHAN-LST')
   @SectionIdPattern('COLVCH-CHAN-xxx')
+  @ContentHelp('Add one entry per competency whose required level changes.')
   @SerializationOrder(2)
   List<CompetencyLevelChangeEntry> changedLevels = [];
 
@@ -2646,99 +3166,170 @@ class ChangedRoleCompetencies {
 }
 
 /// Competency level change entry.
+@StandardReferences(
+  [
+    'CIPD — competency frameworks and people management',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'A single competency whose required proficiency level changes, with the '
+  'reason, development path, and timeframe to reach the new level.',
+)
 @SectionId('COLVCH')
 class CompetencyLevelChangeEntry {
   @Form([
-    Field('competencyName', String, 'Competency Name', required: true),
-    Field('currentLevel', String, 'Current Required Level'),
-    Field('newLevel', String, 'New Required Level'),
-    Field('reason', String, 'Reason — why level is changing'),
+    Field('competencyName', String, 'Competency Name', required: true,
+        hint: 'The competency whose required level is changing'),
+    Field('currentLevel', String, 'Current Required Level',
+        hint: 'Proficiency level required before the change'),
+    Field('newLevel', String, 'New Required Level',
+        hint: 'Proficiency level required after the change'),
+    Field('reason', String, 'Reason — why level is changing',
+        hint: 'Why the required proficiency level is changing'),
     Field('developmentPath', String,
-        'Development Path — how to close gap'),
-    Field('timeframe', String, 'Timeframe — when level needed'),
+        'Development Path — how to close gap',
+        hint: 'How incumbents can reach the new proficiency level'),
+    Field('timeframe', String, 'Timeframe — when level needed',
+        hint: 'When the new proficiency level must be reached'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Competency gap assessment.
+@StandardReferences(
+  [
+    'CIPD — competency gap analysis',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Assesses the overall competency gap for the changed role and the strategy, '
+  'timeline, and interim measures to close it.',
+)
 @SectionId('COGAAS')
 class CompetencyGapAssessment {
   @Form([
     Field('overallGapSeverity', String,
-        'Overall Gap Severity — critical, significant, moderate, minor'),
+        'Overall Gap Severity — critical, significant, moderate, minor',
+        hint: 'How severe the overall competency gap is'),
     Field('criticalGaps', String,
-        'Critical Gaps — competencies where gap is most severe'),
+        'Critical Gaps — competencies where gap is most severe',
+        hint: 'The competencies with the largest or most urgent gaps'),
     Field('developmentStrategy', String,
-        'Development Strategy — training, coaching, hiring'),
+        'Development Strategy — training, coaching, hiring',
+        hint: 'The approach chosen to close the competency gaps'),
     Field('developmentTimeline', String,
-        'Development Timeline — when gaps will be closed'),
+        'Development Timeline — when gaps will be closed',
+        hint: 'When the competency gaps are expected to be closed'),
     Field('interimMeasures', String,
-        'Interim Measures — how to manage until gaps closed'),
+        'Interim Measures — how to manage until gaps closed',
+        hint: 'How the role is covered until the gaps are closed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Changed role system access.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — access control / least privilege',
+    'SHRM — HR best practices (role change management)',
+  ],
+  'Records how the role\'s system and data access rights change — access '
+  'added, removed, or re-permissioned — and when the change takes effect.',
+)
 @SectionId('CRSA')
 class ChangedRoleSystemAccess {
   @Form([
     Field('newSystemAccess', String,
-        'New System Access — additional systems needed'),
+        'New System Access — additional systems needed',
+        hint: 'Systems the role newly needs access to'),
     Field('removedSystemAccess', String,
-        'Removed System Access — systems no longer needed'),
+        'Removed System Access — systems no longer needed',
+        hint: 'Systems the role no longer needs access to'),
     Field('changedPermissions', String,
-        'Changed Permissions — modified access levels'),
+        'Changed Permissions — modified access levels',
+        hint: 'Permission or access-level changes on existing systems'),
     Field('securityRoleChanges', String,
-        'Security Role Changes — updated security roles'),
+        'Security Role Changes — updated security roles',
+        hint: 'Security roles or groups reassigned to the role'),
     Field('dataAccessChanges', String,
-        'Data Access Changes — modified data domains'),
+        'Data Access Changes — modified data domains',
+        hint: 'Changes to which data domains the role can access'),
     Field('trainingOnNewSystems', String,
-        'Training on New Systems — training required'),
+        'Training on New Systems — training required',
+        hint: 'Training needed for the newly accessible systems'),
     Field('accessTransitionDate', String,
-        'Access Transition Date — when access changes'),
+        'Access Transition Date — when access changes',
+        hint: 'Date the access changes take effect'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Impact on current role incumbents.
+@StandardReferences(
+  [
+    'SHRM — change impact / employee relations',
+    'ADKAR / Kotter — change management',
+  ],
+  'Assesses how the role change affects the people currently in it — their '
+  'readiness, retention risk, individual plans, support, and acceptance.',
+)
 @SectionId('CRII')
 class ChangedRoleIncumbentImpact {
   @Form([
-    Field('incumbentCount', int, 'Incumbent Count — people affected'),
+    Field('incumbentCount', int, 'Incumbent Count — people affected',
+        hint: 'Number of current incumbents affected by the change'),
     Field('impactAssessment', String,
-        'Impact Assessment — how incumbents are affected'),
+        'Impact Assessment — how incumbents are affected',
+        hint: 'How the change affects the current incumbents'),
     Field('competencyGapAnalysis', String,
-        'Competency Gap Analysis — where incumbents have gaps'),
+        'Competency Gap Analysis — where incumbents have gaps',
+        hint: 'Where current incumbents fall short of new requirements'),
     Field('readinessAssessment', String,
-        'Readiness Assessment — incumbent preparedness'),
+        'Readiness Assessment — incumbent preparedness',
+        hint: 'How prepared incumbents are for the changed role'),
     Field('retentionRisk', String,
-        'Retention Risk — flight risk due to changes'),
+        'Retention Risk — flight risk due to changes',
+        hint: 'Risk of losing incumbents because of the change'),
     Field('individualTransitionPlans', String,
-        'Individual Transition Plans — personalized plans'),
+        'Individual Transition Plans — personalized plans',
+        hint: 'Personalized transition plans for affected incumbents'),
     Field('supportProvided', String,
-        'Support Provided — coaching, mentoring, training'),
+        'Support Provided — coaching, mentoring, training',
+        hint: 'Support offered to help incumbents adapt'),
     Field('alternativePaths', String,
-        'Alternative Paths — if incumbent cannot adapt'),
+        'Alternative Paths — if incumbent cannot adapt',
+        hint: 'Options for incumbents who cannot adapt to the change'),
     Field('communicationApproach', String,
-        'Communication Approach — how changes are communicated'),
+        'Communication Approach — how changes are communicated',
+        hint: 'How the change is communicated to incumbents'),
     Field('changeAcceptanceStatus', String,
-        'Change Acceptance Status — incumbent reactions'),
+        'Change Acceptance Status — incumbent reactions',
+        hint: 'How incumbents are responding to the change'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Changed role transition planning.
+@StandardReferences(
+  [
+    'ADKAR / Kotter — change management',
+    'PMBOK — resource management (roles & responsibilities)',
+  ],
+  'Plans the timeline over which the role change is rolled out, including any '
+  'parallel period, and links to training and support plans.',
+)
 @SectionId('CHROTR')
 class ChangedRoleTransition {
   @Form([
-    Field('transitionStart', String, 'Transition Start Date'),
-    Field('transitionEnd', String, 'Transition End Date'),
+    Field('transitionStart', String, 'Transition Start Date',
+        hint: 'Date the role transition begins'),
+    Field('transitionEnd', String, 'Transition End Date',
+        hint: 'Date the role transition completes'),
     Field('parallelPeriod', String,
-        'Parallel Period — overlap of old/new ways'),
+        'Parallel Period — overlap of old/new ways',
+        hint: 'Period where old and new ways of working overlap'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2753,34 +3344,58 @@ class ChangedRoleTransition {
 }
 
 /// Training preparation for the transition.
+@StandardReferences(
+  [
+    'CIPD — competency frameworks and people management',
+    'ISO 9001 §7.2 — competence',
+  ],
+  'Details the training that prepares incumbents for the changed role — its '
+  'schedule, duration, format, and hands-on practice opportunities.',
+)
 @SectionId('CRTT')
 class ChangedRoleTransitionTraining {
   @Form([
     Field('trainingSchedule', String,
-        'Training Schedule — when training occurs'),
+        'Training Schedule — when training occurs',
+        hint: 'When the transition training takes place'),
     Field('trainingDuration', String,
-        'Training Duration — hours/days of training'),
+        'Training Duration — hours/days of training',
+        hint: 'Total length of the transition training'),
     Field('trainingFormat', String,
-        'Training Format — classroom, online, OJT'),
+        'Training Format — classroom, online, OJT',
+        hint: 'The delivery format of the training'),
     Field('practiceOpportunities', String,
-        'Practice Opportunities — sandbox, pilot'),
+        'Practice Opportunities — sandbox, pilot',
+        hint: 'Hands-on opportunities to practice the new role'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Support expectations and success checkpoints.
+@StandardReferences(
+  [
+    'ADKAR / Kotter — change management',
+    'SHRM — HR best practices (workforce transition)',
+  ],
+  'Sets out the support available during the transition, adjusted performance '
+  'expectations, milestones, and the criteria for a successful transition.',
+)
 @SectionId('CRTS')
 class ChangedRoleTransitionSupport {
   @Form([
     Field('supportDuringTransition', String,
-        'Support During Transition — help available'),
+        'Support During Transition — help available',
+        hint: 'Help available to incumbents during the transition'),
     Field('performanceExpectations', String,
-        'Performance Expectations — adjusted goals during transition'),
+        'Performance Expectations — adjusted goals during transition',
+        hint: 'Adjusted performance goals during the transition'),
     Field('transitionMilestones', String,
-        'Transition Milestones — key checkpoints'),
+        'Transition Milestones — key checkpoints',
+        hint: 'Key checkpoints marking transition progress'),
     Field('successCriteria', String,
-        'Success Criteria — how successful transition is measured'),
+        'Success Criteria — how successful transition is measured',
+        hint: 'How a successful transition is measured'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2789,16 +3404,30 @@ class ChangedRoleTransitionSupport {
 /// A removed role entry (form).
 ///
 /// Documents roles being eliminated with transition planning for incumbents.
+@StandardReferences(
+  [
+    'SHRM — workforce reduction / redeployment',
+    'ADKAR / Kotter — change management',
+  ],
+  'Captures a role being eliminated — the reason, effective date, and affected '
+  'population — plus transition, governance, and continuity planning.',
+)
 @SectionId('REMROL')
 class RemovedRoleEntry {
   @Form([
-    Field('roleId', String, 'Role ID', required: true),
-    Field('roleTitle', String, 'Role Title', required: true),
-    Field('department', String, 'Department'),
+    Field('roleId', String, 'Role ID', required: true,
+        hint: 'Unique identifier for the role being removed'),
+    Field('roleTitle', String, 'Role Title', required: true,
+        hint: 'Title of the role being removed'),
+    Field('department', String, 'Department',
+        hint: 'Department the removed role belongs to'),
     Field('removalReason', String,
-        'Removal Reason — automation, restructuring, outsourcing, redundancy'),
-    Field('effectiveDate', String, 'Effective Date'),
-    Field('incumbentCount', int, 'Incumbent Count — people affected'),
+        'Removal Reason — automation, restructuring, outsourcing, redundancy',
+        hint: 'Why the role is being eliminated'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'Date the role removal takes effect'),
+    Field('incumbentCount', int, 'Incumbent Count — people affected',
+        hint: 'Number of people currently in the role being removed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2817,65 +3446,118 @@ class RemovedRoleEntry {
 }
 
 /// Incumbent transition planning.
+@StandardReferences(
+  [
+    'SHRM — workforce reduction / redeployment',
+    'ADKAR / Kotter — change management',
+  ],
+  'Plans what happens to the people in a removed role — redeployment, '
+  'reassignment options, support, and severance.',
+)
 @SectionId('RRET')
 class RemovedRoleEntryTransition {
   @Form([
     Field('incumbentDisposition', String,
-        'Incumbent Disposition — redeployment, separation, retraining'),
+        'Incumbent Disposition — redeployment, separation, retraining',
+        hint: 'What happens to incumbents of the removed role'),
     Field('reassignmentOptions', String,
-        'Reassignment Options — alternative roles available'),
+        'Reassignment Options — alternative roles available',
+        hint: 'Alternative roles available to affected incumbents'),
     Field('transitionSupport', String,
-        'Transition Support — outplacement, retraining'),
+        'Transition Support — outplacement, retraining',
+        hint: 'Support provided to incumbents during the transition'),
     Field('severanceConsiderations', String,
-        'Severance Considerations — if applicable'),
+        'Severance Considerations — if applicable',
+        hint: 'Severance arrangements where separation applies'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Legal and communication considerations.
+@StandardReferences(
+  [
+    'SHRM — workforce reduction / redeployment',
+    'ISO 21500 — project management (organizational roles)',
+  ],
+  'Covers the legal and communication considerations of removing a role — '
+  'employment law, works-council or union obligations, and how the removal '
+  'is communicated.',
+)
 @SectionId('RREG')
 class RemovedRoleEntryGovernance {
   @Form([
     Field('legalConsiderations', String,
-        'Legal Considerations — employment law, union agreements'),
+        'Legal Considerations — employment law, union agreements',
+        hint: 'Employment-law, works-council, or union obligations'),
     Field('communicationPlan', String,
-        'Communication Plan — how removal is communicated'),
+        'Communication Plan — how removal is communicated',
+        hint: 'How the role removal is communicated to stakeholders'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Work continuity.
+@StandardReferences(
+  [
+    'SHRM — workforce reduction / redeployment',
+    'PMBOK — resource management (roles & responsibilities)',
+  ],
+  'Ensures the work of a removed role continues — how institutional knowledge '
+  'is captured and where its responsibilities are reassigned.',
+)
 @SectionId('RREC')
 class RemovedRoleEntryContinuity {
   @Form([
     Field('knowledgeTransfer', String,
-        'Knowledge Transfer — preserving institutional knowledge'),
+        'Knowledge Transfer — preserving institutional knowledge',
+        hint: 'How the role\'s institutional knowledge is preserved'),
     Field('workReassignment', String,
-        'Work Reassignment — where responsibilities go'),
+        'Work Reassignment — where responsibilities go',
+        hint: 'Where the removed role\'s responsibilities are reassigned'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A responsibility entry (form).
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (tasks)',
+    'RACI — responsibility assignment',
+  ],
+  'A single responsibility of a role, with a short description of what it '
+  'entails.',
+)
 @SectionId('ROREEN')
 class RoleResponsibilityEntry {
   @Form([
-    Field('responsibility', String, 'Responsibility'),
-    Field('description', String, 'Short description'),
+    Field('responsibility', String, 'Responsibility',
+        hint: 'The responsibility assigned to the role'),
+    Field('description', String, 'Short description',
+        hint: 'A brief description of the responsibility'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A skill entry (form).
+@StandardReferences(
+  [
+    'O*NET — occupational job analysis (skills)',
+    'CIPD — competency frameworks and people management',
+  ],
+  'A single skill required by a role, together with the proficiency level '
+  'expected.',
+)
 @SectionId('SKEN')
 class SkillEntry {
   @Form([
-    Field('skillName', String, 'Skill Name'),
-    Field('proficiencyLevel', String, 'Proficiency Level'),
+    Field('skillName', String, 'Skill Name',
+        hint: 'The name of the required skill'),
+    Field('proficiencyLevel', String, 'Proficiency Level',
+        hint: 'The proficiency level expected for this skill'),
   ])
   @SerializationOrder(0)
   String? content;

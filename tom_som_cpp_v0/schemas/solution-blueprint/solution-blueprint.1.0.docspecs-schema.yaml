@@ -133,7 +133,7 @@ section-types:
     pattern-check-id:
       pattern: ^charol_chan_lst-\d+$
       error-message: ID must match charol_chan_lst-NNN
-    description: 5.2.2. Changed Roles — contains 0+× Changed Role.
+    description: Add one entry per existing role whose definition changes.
   CHIMCR-ITEM-LST:
     prefix: chimcr_item_lst
     pattern-check-id:
@@ -163,7 +163,7 @@ section-types:
     pattern-check-id:
       pattern: ^colvch_chan_lst-\d+$
       error-message: ID must match colvch_chan_lst-NNN
-    description: Competencies with changed proficiency levels.
+    description: Add one entry per competency whose required level changes.
   COREEN-RESP-LST:
     prefix: coreen_resp_lst
     pattern-check-id:
@@ -672,7 +672,7 @@ section-types:
     pattern-check-id:
       pattern: ^remrol_remo_lst-\d+$
       error-message: ID must match remrol_remo_lst-NNN
-    description: 5.2.3. Removed Roles — contains 0+× role being eliminated.
+    description: Add one entry per role being eliminated.
   REPPHS-PHAS-LST:
     prefix: repphs_phas_lst
     pattern-check-id:
@@ -1103,19 +1103,19 @@ section-types:
     pattern-check-id:
       pattern: ^compe_core_lst-\d+$
       error-message: ID must match compe_core_lst-NNN
-    description: Core competencies required across all roles.
+    description: Add one entry per core competency required across all roles.
   COMPE-LEAD-LST:
     prefix: compe_lead_lst
     pattern-check-id:
       pattern: ^compe_lead_lst-\d+$
       error-message: ID must match compe_lead_lst-NNN
-    description: Leadership competencies for management roles.
+    description: Add one entry per leadership competency for management roles.
   COMPE-TECH-LST:
     prefix: compe_tech_lst
     pattern-check-id:
       pattern: ^compe_tech_lst-\d+$
       error-message: ID must match compe_tech_lst-NNN
-    description: Technical/functional competencies by role family.
+    description: Add one entry per technical or functional competency.
   COMPL-COMP-LST:
     prefix: compl_comp_lst
     pattern-check-id:
@@ -1635,7 +1635,7 @@ section-types:
     pattern-check-id:
       pattern: ^nwrol_newr_lst-\d+$
       error-message: ID must match nwrol_newr_lst-NNN
-    description: 5.2.1. New Roles — contains 0+× New Role.
+    description: Add one entry per new role being created.
   OBINV-INVA-LST:
     prefix: obinv_inva_lst
     pattern-check-id:
@@ -1972,19 +1972,19 @@ section-types:
     pattern-check-id:
       pattern: ^rolcp_newc_lst-\d+$
       error-message: ID must match rolcp_newc_lst-NNN
-    description: New competencies required.
+    description: Add one entry per competency newly required by the role.
   ROLCP-REMO-LST:
     prefix: rolcp_remo_lst
     pattern-check-id:
       pattern: ^rolcp_remo_lst-\d+$
       error-message: ID must match rolcp_remo_lst-NNN
-    description: Competencies no longer required.
+    description: Add one entry per competency no longer required by the role.
   ROLCP-REQU-LST:
     prefix: rolcp_requ_lst
     pattern-check-id:
       pattern: ^rolcp_requ_lst-\d+$
       error-message: ID must match rolcp_requ_lst-NNN
-    description: Contains 0+× required competency.
+    description: Add one entry per required competency.
   RQDEP-ITEM-LST:
     prefix: rqdep_item_lst
     pattern-check-id:
@@ -2008,31 +2008,31 @@ section-types:
     pattern-check-id:
       pattern: ^rspch_adde_lst-\d+$
       error-message: ID must match rspch_adde_lst-NNN
-    description: Responsibilities being added.
+    description: Add one entry per responsibility being added to the role.
   RSPCH-MODI-LST:
     prefix: rspch_modi_lst
     pattern-check-id:
       pattern: ^rspch_modi_lst-\d+$
       error-message: ID must match rspch_modi_lst-NNN
-    description: Responsibilities being modified.
+    description: Add one entry per responsibility being modified in the role.
   RSPCH-REMO-LST:
     prefix: rspch_remo_lst
     pattern-check-id:
       pattern: ^rspch_remo_lst-\d+$
       error-message: ID must match rspch_remo_lst-NNN
-    description: Responsibilities being removed.
+    description: Add one entry per responsibility being removed from the role.
   RSPDT-PRIM-LST:
     prefix: rspdt_prim_lst
     pattern-check-id:
       pattern: ^rspdt_prim_lst-\d+$
       error-message: ID must match rspdt_prim_lst-NNN
-    description: Primary responsibilities (key accountabilities).
+    description: Add one entry per primary responsibility.
   RSPDT-SECO-LST:
     prefix: rspdt_seco_lst
     pattern-check-id:
       pattern: ^rspdt_seco_lst-\d+$
       error-message: ID must match rspdt_seco_lst-NNN
-    description: Secondary responsibilities (supporting duties).
+    description: Add one entry per secondary responsibility.
   RVCRI-REVI-LST:
     prefix: rvcri_revi_lst
     pattern-check-id:
@@ -3020,7 +3020,7 @@ section-types:
     pattern-check-id:
       pattern: ^stfe_item_lst-\d+$
       error-message: ID must match stfe_item_lst-NNN
-    description: Contains 0+× Staffing entry.
+    description: Add one entry per staffing position to be filled.
   STRE-RESO-LST:
     prefix: stre_reso_lst
     pattern-check-id:

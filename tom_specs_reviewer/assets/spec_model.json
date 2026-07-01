@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T23:43:50.402628Z",
+  "generatedAt": "2026-07-01T00:06:35.386059Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -29786,7 +29786,24 @@
       "name": "ChangedRoleCompetencies",
       "sectionId": "CHROCO",
       "doc": "Changed role competency requirements.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks and people management",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Groups how the competency requirements of the role change — competencies newly required, no longer required, or shifted in proficiency level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks and people management",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Groups how the competency requirements of the role change — competencies newly required, no longer required, or shifted in proficiency level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -29799,10 +29816,26 @@
           "name": "newCompetencies",
           "kind": "list",
           "doc": "New competencies required.",
+          "help": "Add one entry per competency newly required by the role.",
           "sectionId": "ROLCP-NEWC-LST",
           "sectionIdPattern": "ROLCP-NEWC-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Competencies that become required for the role after the change."
+          },
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks and people management"
+                ],
+                "connotation": "Competencies that become required for the role after the change."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -29813,6 +29846,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLCP-NEWC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per competency newly required by the role."
               }
             },
             {
@@ -29829,10 +29868,26 @@
           "name": "removedCompetencies",
           "kind": "list",
           "doc": "Competencies no longer required.",
+          "help": "Add one entry per competency no longer required by the role.",
           "sectionId": "ROLCP-REMO-LST",
           "sectionIdPattern": "ROLCP-REMO-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Competencies that are no longer required by the role after the change."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks and people management"
+                ],
+                "connotation": "Competencies that are no longer required by the role after the change."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -29843,6 +29898,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLCP-REMO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per competency no longer required by the role."
               }
             },
             {
@@ -29859,10 +29920,26 @@
           "name": "changedLevels",
           "kind": "list",
           "doc": "Competencies with changed proficiency levels.",
+          "help": "Add one entry per competency whose required level changes.",
           "sectionId": "COLVCH-CHAN-LST",
           "sectionIdPattern": "COLVCH-CHAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Competencies retained by the role but at a different required proficiency level."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks and people management"
+                ],
+                "connotation": "Competencies retained by the role but at a different required proficiency level."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -29873,6 +29950,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COLVCH-CHAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per competency whose required level changes."
               }
             },
             {
@@ -29906,7 +29989,26 @@
       "name": "ChangedRoleEntry",
       "sectionId": "CHAROL",
       "doc": "A changed role entry (form).\n\nDocuments modifications to existing roles with impact assessment,\ntransition planning, and incumbent management.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (role change management, workforce transition)",
+          "O*NET — occupational job analysis (tasks, skills)",
+          "ADKAR / Kotter — change management"
+        ],
+        "connotation": "Captures a single existing role that is being modified — what changes in its responsibilities, competencies, access, and how affected incumbents are transitioned."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (role change management, workforce transition)",
+              "O*NET — occupational job analysis (tasks, skills)",
+              "ADKAR / Kotter — change management"
+            ],
+            "connotation": "Captures a single existing role that is being modified — what changes in its responsibilities, competencies, access, and how affected incumbents are transitioned."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30011,7 +30113,24 @@
       "name": "ChangedRoleIdentification",
       "sectionId": "CHROID",
       "doc": "Changed role identification.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (role change management)",
+          "O*NET — occupational job analysis (tasks, skills)"
+        ],
+        "connotation": "Identifies the role being changed and the rationale for the change, including any title or placement adjustment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (role change management)",
+              "O*NET — occupational job analysis (tasks, skills)"
+            ],
+            "connotation": "Identifies the role being changed and the rationale for the change, including any title or placement adjustment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30042,24 +30161,28 @@
             {
               "name": "roleId",
               "label": "Role ID (e.g., CR-001)",
+              "hint": "Unique identifier for this changed role",
               "type": "String",
               "required": true
             },
             {
               "name": "roleTitle",
               "label": "Current Role Title",
+              "hint": "The role title before the change",
               "type": "String",
               "required": true
             },
             {
               "name": "newRoleTitle",
               "label": "New Role Title — if title changes",
+              "hint": "The role title after the change, if it differs",
               "type": "String",
               "required": false
             },
             {
               "name": "changeRationale",
               "label": "Change Rationale — why this role is changing",
+              "hint": "The business reason driving this role change",
               "type": "String",
               "required": false
             }
@@ -30101,7 +30224,24 @@
       "name": "ChangedRoleIdentificationStructure",
       "sectionId": "CRIS",
       "doc": "Current and future organizational placement.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — project management (organizational roles)",
+          "SHRM — HR best practices (role change management)"
+        ],
+        "connotation": "Records where the role sits in the organization today and where it will sit after the change — department and job-level moves."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — project management (organizational roles)",
+              "SHRM — HR best practices (role change management)"
+            ],
+            "connotation": "Records where the role sits in the organization today and where it will sit after the change — department and job-level moves."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30132,24 +30272,28 @@
             {
               "name": "currentDepartment",
               "label": "Current Department",
+              "hint": "Department the role currently reports into",
               "type": "String",
               "required": false
             },
             {
               "name": "newDepartment",
               "label": "New Department — if moving",
+              "hint": "Department the role will move to, if it changes",
               "type": "String",
               "required": false
             },
             {
               "name": "currentJobLevel",
               "label": "Current Job Level",
+              "hint": "Job grade or level before the change",
               "type": "String",
               "required": false
             },
             {
               "name": "newJobLevel",
               "label": "New Job Level — if changing",
+              "hint": "Job grade or level after the change, if it differs",
               "type": "String",
               "required": false
             }
@@ -30161,7 +30305,24 @@
       "name": "ChangedRoleIdentificationTransition",
       "sectionId": "CRIT",
       "doc": "Change implementation state and affected population.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (workforce transition)",
+          "ADKAR / Kotter — change management"
+        ],
+        "connotation": "Tracks the kind of change, its rollout state, the effective date, and how many incumbents are affected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (workforce transition)",
+              "ADKAR / Kotter — change management"
+            ],
+            "connotation": "Tracks the kind of change, its rollout state, the effective date, and how many incumbents are affected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30192,24 +30353,28 @@
             {
               "name": "changeType",
               "label": "Change Type — expanded, reduced, restructured, upgraded, downgraded",
+              "hint": "Nature of the change to the role",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date",
+              "hint": "Date the role change takes effect",
               "type": "String",
               "required": false
             },
             {
               "name": "changeStatus",
               "label": "Change Status — proposed, approved, communicated, implemented",
+              "hint": "Current stage of the change rollout",
               "type": "String",
               "required": false
             },
             {
               "name": "incumbentCount",
               "label": "Incumbent Count — people in this role",
+              "hint": "Number of people currently holding the role",
               "type": "int",
               "required": false
             }
@@ -30221,7 +30386,24 @@
       "name": "ChangedRoleIncumbentImpact",
       "sectionId": "CRII",
       "doc": "Impact on current role incumbents.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — change impact / employee relations",
+          "ADKAR / Kotter — change management"
+        ],
+        "connotation": "Assesses how the role change affects the people currently in it — their readiness, retention risk, individual plans, support, and acceptance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — change impact / employee relations",
+              "ADKAR / Kotter — change management"
+            ],
+            "connotation": "Assesses how the role change affects the people currently in it — their readiness, retention risk, individual plans, support, and acceptance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30252,60 +30434,70 @@
             {
               "name": "incumbentCount",
               "label": "Incumbent Count — people affected",
+              "hint": "Number of current incumbents affected by the change",
               "type": "int",
               "required": false
             },
             {
               "name": "impactAssessment",
               "label": "Impact Assessment — how incumbents are affected",
+              "hint": "How the change affects the current incumbents",
               "type": "String",
               "required": false
             },
             {
               "name": "competencyGapAnalysis",
               "label": "Competency Gap Analysis — where incumbents have gaps",
+              "hint": "Where current incumbents fall short of new requirements",
               "type": "String",
               "required": false
             },
             {
               "name": "readinessAssessment",
               "label": "Readiness Assessment — incumbent preparedness",
+              "hint": "How prepared incumbents are for the changed role",
               "type": "String",
               "required": false
             },
             {
               "name": "retentionRisk",
               "label": "Retention Risk — flight risk due to changes",
+              "hint": "Risk of losing incumbents because of the change",
               "type": "String",
               "required": false
             },
             {
               "name": "individualTransitionPlans",
               "label": "Individual Transition Plans — personalized plans",
+              "hint": "Personalized transition plans for affected incumbents",
               "type": "String",
               "required": false
             },
             {
               "name": "supportProvided",
               "label": "Support Provided — coaching, mentoring, training",
+              "hint": "Support offered to help incumbents adapt",
               "type": "String",
               "required": false
             },
             {
               "name": "alternativePaths",
               "label": "Alternative Paths — if incumbent cannot adapt",
+              "hint": "Options for incumbents who cannot adapt to the change",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationApproach",
               "label": "Communication Approach — how changes are communicated",
+              "hint": "How the change is communicated to incumbents",
               "type": "String",
               "required": false
             },
             {
               "name": "changeAcceptanceStatus",
               "label": "Change Acceptance Status — incumbent reactions",
+              "hint": "How incumbents are responding to the change",
               "type": "String",
               "required": false
             }
@@ -30317,7 +30509,24 @@
       "name": "ChangedRoleResponsibilities",
       "sectionId": "CHRORE",
       "doc": "Changed role responsibilities.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks)",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Groups the responsibility changes for the role — those added, removed, and modified — plus a net-impact summary."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks)",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Groups the responsibility changes for the role — those added, removed, and modified — plus a net-impact summary."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30330,10 +30539,26 @@
           "name": "addedResponsibilities",
           "kind": "list",
           "doc": "Responsibilities being added.",
+          "help": "Add one entry per responsibility being added to the role.",
           "sectionId": "RSPCH-ADDE-LST",
           "sectionIdPattern": "RSPCH-ADDE-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — task statements"
+            ],
+            "connotation": "The duties newly assigned to this role as part of the change."
+          },
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — task statements"
+                ],
+                "connotation": "The duties newly assigned to this role as part of the change."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -30344,6 +30569,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPCH-ADDE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility being added to the role."
               }
             },
             {
@@ -30360,10 +30591,26 @@
           "name": "removedResponsibilities",
           "kind": "list",
           "doc": "Responsibilities being removed.",
+          "help": "Add one entry per responsibility being removed from the role.",
           "sectionId": "RSPCH-REMO-LST",
           "sectionIdPattern": "RSPCH-REMO-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — task statements"
+            ],
+            "connotation": "The duties removed from this role as part of the change."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — task statements"
+                ],
+                "connotation": "The duties removed from this role as part of the change."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -30374,6 +30621,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPCH-REMO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility being removed from the role."
               }
             },
             {
@@ -30390,10 +30643,26 @@
           "name": "modifiedResponsibilities",
           "kind": "list",
           "doc": "Responsibilities being modified.",
+          "help": "Add one entry per responsibility being modified in the role.",
           "sectionId": "RSPCH-MODI-LST",
           "sectionIdPattern": "RSPCH-MODI-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — task statements"
+            ],
+            "connotation": "The duties whose scope or nature changes within this role."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — task statements"
+                ],
+                "connotation": "The duties whose scope or nature changes within this role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -30404,6 +30673,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPCH-MODI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility being modified in the role."
               }
             },
             {
@@ -30437,7 +30712,24 @@
       "name": "ChangedRoleSystemAccess",
       "sectionId": "CRSA",
       "doc": "Changed role system access.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — access control / least privilege",
+          "SHRM — HR best practices (role change management)"
+        ],
+        "connotation": "Records how the role's system and data access rights change — access added, removed, or re-permissioned — and when the change takes effect."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — access control / least privilege",
+              "SHRM — HR best practices (role change management)"
+            ],
+            "connotation": "Records how the role's system and data access rights change — access added, removed, or re-permissioned — and when the change takes effect."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30468,42 +30760,49 @@
             {
               "name": "newSystemAccess",
               "label": "New System Access — additional systems needed",
+              "hint": "Systems the role newly needs access to",
               "type": "String",
               "required": false
             },
             {
               "name": "removedSystemAccess",
               "label": "Removed System Access — systems no longer needed",
+              "hint": "Systems the role no longer needs access to",
               "type": "String",
               "required": false
             },
             {
               "name": "changedPermissions",
               "label": "Changed Permissions — modified access levels",
+              "hint": "Permission or access-level changes on existing systems",
               "type": "String",
               "required": false
             },
             {
               "name": "securityRoleChanges",
               "label": "Security Role Changes — updated security roles",
+              "hint": "Security roles or groups reassigned to the role",
               "type": "String",
               "required": false
             },
             {
               "name": "dataAccessChanges",
               "label": "Data Access Changes — modified data domains",
+              "hint": "Changes to which data domains the role can access",
               "type": "String",
               "required": false
             },
             {
               "name": "trainingOnNewSystems",
               "label": "Training on New Systems — training required",
+              "hint": "Training needed for the newly accessible systems",
               "type": "String",
               "required": false
             },
             {
               "name": "accessTransitionDate",
               "label": "Access Transition Date — when access changes",
+              "hint": "Date the access changes take effect",
               "type": "String",
               "required": false
             }
@@ -30515,7 +30814,24 @@
       "name": "ChangedRoleTransition",
       "sectionId": "CHROTR",
       "doc": "Changed role transition planning.",
+      "standardReferences": {
+        "standards": [
+          "ADKAR / Kotter — change management",
+          "PMBOK — resource management (roles & responsibilities)"
+        ],
+        "connotation": "Plans the timeline over which the role change is rolled out, including any parallel period, and links to training and support plans."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADKAR / Kotter — change management",
+              "PMBOK — resource management (roles & responsibilities)"
+            ],
+            "connotation": "Plans the timeline over which the role change is rolled out, including any parallel period, and links to training and support plans."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30546,18 +30862,21 @@
             {
               "name": "transitionStart",
               "label": "Transition Start Date",
+              "hint": "Date the role transition begins",
               "type": "String",
               "required": false
             },
             {
               "name": "transitionEnd",
               "label": "Transition End Date",
+              "hint": "Date the role transition completes",
               "type": "String",
               "required": false
             },
             {
               "name": "parallelPeriod",
               "label": "Parallel Period — overlap of old/new ways",
+              "hint": "Period where old and new ways of working overlap",
               "type": "String",
               "required": false
             }
@@ -30599,7 +30918,24 @@
       "name": "ChangedRoleTransitionSupport",
       "sectionId": "CRTS",
       "doc": "Support expectations and success checkpoints.",
+      "standardReferences": {
+        "standards": [
+          "ADKAR / Kotter — change management",
+          "SHRM — HR best practices (workforce transition)"
+        ],
+        "connotation": "Sets out the support available during the transition, adjusted performance expectations, milestones, and the criteria for a successful transition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADKAR / Kotter — change management",
+              "SHRM — HR best practices (workforce transition)"
+            ],
+            "connotation": "Sets out the support available during the transition, adjusted performance expectations, milestones, and the criteria for a successful transition."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30630,24 +30966,28 @@
             {
               "name": "supportDuringTransition",
               "label": "Support During Transition — help available",
+              "hint": "Help available to incumbents during the transition",
               "type": "String",
               "required": false
             },
             {
               "name": "performanceExpectations",
               "label": "Performance Expectations — adjusted goals during transition",
+              "hint": "Adjusted performance goals during the transition",
               "type": "String",
               "required": false
             },
             {
               "name": "transitionMilestones",
               "label": "Transition Milestones — key checkpoints",
+              "hint": "Key checkpoints marking transition progress",
               "type": "String",
               "required": false
             },
             {
               "name": "successCriteria",
               "label": "Success Criteria — how successful transition is measured",
+              "hint": "How a successful transition is measured",
               "type": "String",
               "required": false
             }
@@ -30659,7 +30999,24 @@
       "name": "ChangedRoleTransitionTraining",
       "sectionId": "CRTT",
       "doc": "Training preparation for the transition.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks and people management",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Details the training that prepares incumbents for the changed role — its schedule, duration, format, and hands-on practice opportunities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks and people management",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Details the training that prepares incumbents for the changed role — its schedule, duration, format, and hands-on practice opportunities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30690,24 +31047,28 @@
             {
               "name": "trainingSchedule",
               "label": "Training Schedule — when training occurs",
+              "hint": "When the transition training takes place",
               "type": "String",
               "required": false
             },
             {
               "name": "trainingDuration",
               "label": "Training Duration — hours/days of training",
+              "hint": "Total length of the transition training",
               "type": "String",
               "required": false
             },
             {
               "name": "trainingFormat",
               "label": "Training Format — classroom, online, OJT",
+              "hint": "The delivery format of the training",
               "type": "String",
               "required": false
             },
             {
               "name": "practiceOpportunities",
               "label": "Practice Opportunities — sandbox, pilot",
+              "hint": "Hands-on opportunities to practice the new role",
               "type": "String",
               "required": false
             }
@@ -37685,7 +38046,24 @@
       "name": "CompetencyEntry",
       "sectionId": "COMPE",
       "doc": "A competency entry (form).",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Represents a single competency in the framework, defining its category, behavioral indicators, proficiency levels, applicable roles, and how it is developed and assessed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Represents a single competency in the framework, defining its category, behavioral indicators, proficiency levels, applicable roles, and how it is developed and assessed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37716,60 +38094,70 @@
             {
               "name": "competencyId",
               "label": "Competency ID",
+              "hint": "Unique identifier for this competency",
               "type": "String",
               "required": true
             },
             {
               "name": "competencyName",
               "label": "Competency Name",
+              "hint": "Short name of the competency",
               "type": "String",
               "required": true
             },
             {
               "name": "category",
               "label": "Category — Core, Technical, Leadership, Behavioral",
+              "hint": "Core / Technical / Leadership / Behavioral",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Description",
+              "hint": "What this competency means in practice",
               "type": "String",
               "required": false
             },
             {
               "name": "behavioralIndicators",
               "label": "Behavioral Indicators — observable behaviors",
+              "hint": "Observable behaviors that demonstrate the competency",
               "type": "String",
               "required": false
             },
             {
               "name": "proficiencyLevels",
               "label": "Proficiency Levels — what each level looks like",
+              "hint": "What each proficiency level looks like",
               "type": "String",
               "required": false
             },
             {
               "name": "applicableRoles",
               "label": "Applicable Roles — which roles need this competency",
+              "hint": "Which roles require this competency",
               "type": "String",
               "required": false
             },
             {
               "name": "requiredLevel",
               "label": "Required Level — minimum proficiency for the role",
+              "hint": "Minimum proficiency level required for the role",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentResources",
               "label": "Development Resources — training, coaching, experiences",
+              "hint": "Training, coaching, or experiences that build it",
               "type": "String",
               "required": false
             },
             {
               "name": "assessmentTools",
               "label": "Assessment Tools — tests, interviews, simulations",
+              "hint": "Tests, interviews, or simulations used to assess it",
               "type": "String",
               "required": false
             }
@@ -37781,7 +38169,24 @@
       "name": "CompetencyFramework",
       "sectionId": "COFR",
       "doc": "5.2.5. Competency Framework.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Defines the competency framework that underpins hiring and development — the core, technical, and leadership competencies the target organization requires."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Defines the competency framework that underpins hiring and development — the core, technical, and leadership competencies the target organization requires."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37809,10 +38214,26 @@
           "name": "coreCompetencies",
           "kind": "list",
           "doc": "Core competencies required across all roles.",
+          "help": "Add one entry per core competency required across all roles.",
           "sectionId": "COMPE-CORE-LST",
           "sectionIdPattern": "COMPE-CORE-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks"
+            ],
+            "connotation": "The set of core competencies expected of every role across the target organization."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks"
+                ],
+                "connotation": "The set of core competencies expected of every role across the target organization."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -37823,6 +38244,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COMPE-CORE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per core competency required across all roles."
               }
             },
             {
@@ -37839,10 +38266,28 @@
           "name": "technicalCompetencies",
           "kind": "list",
           "doc": "Technical/functional competencies by role family.",
+          "help": "Add one entry per technical or functional competency.",
           "sectionId": "COMPE-TECH-LST",
           "sectionIdPattern": "COMPE-TECH-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "The set of technical or functional competencies specific to particular role families."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks",
+                  "ISO 9001 §7.2 — competence"
+                ],
+                "connotation": "The set of technical or functional competencies specific to particular role families."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -37853,6 +38298,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COMPE-TECH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per technical or functional competency."
               }
             },
             {
@@ -37869,10 +38320,26 @@
           "name": "leadershipCompetencies",
           "kind": "list",
           "doc": "Leadership competencies for management roles.",
+          "help": "Add one entry per leadership competency for management roles.",
           "sectionId": "COMPE-LEAD-LST",
           "sectionIdPattern": "COMPE-LEAD-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks"
+            ],
+            "connotation": "The set of leadership competencies expected of management and supervisory roles."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks"
+                ],
+                "connotation": "The set of leadership competencies expected of management and supervisory roles."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -37883,6 +38350,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COMPE-LEAD-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per leadership competency for management roles."
               }
             },
             {
@@ -37901,7 +38374,24 @@
       "name": "CompetencyFrameworkOverview",
       "sectionId": "COFROV",
       "doc": "Competency framework overview.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Summarises the competency framework — its purpose, the model it is based on, the proficiency scale, how competencies are assessed, and how gaps are developed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Summarises the competency framework — its purpose, the model it is based on, the proficiency scale, how competencies are assessed, and how gaps are developed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37932,30 +38422,35 @@
             {
               "name": "frameworkPurpose",
               "label": "Framework Purpose — how competencies guide hiring/development",
+              "hint": "How the framework guides hiring and development",
               "type": "String",
               "required": false
             },
             {
               "name": "competencyModel",
               "label": "Competency Model — model name/source (SHRM, custom, etc.)",
+              "hint": "Model name or source — e.g. SHRM, CIPD, custom",
               "type": "String",
               "required": false
             },
             {
               "name": "proficiencyLevels",
               "label": "Proficiency Levels — scale used (1-5, Novice to Expert, etc.)",
+              "hint": "Scale used — e.g. 1-5, Novice to Expert",
               "type": "String",
               "required": false
             },
             {
               "name": "assessmentMethod",
               "label": "Assessment Method — how competencies are measured",
+              "hint": "How competencies are measured",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentApproach",
               "label": "Development Approach — how gaps are addressed",
+              "hint": "How competency gaps are addressed",
               "type": "String",
               "required": false
             }
@@ -37967,7 +38462,24 @@
       "name": "CompetencyGapAssessment",
       "sectionId": "COGAAS",
       "doc": "Competency gap assessment.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency gap analysis",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Assesses the overall competency gap for the changed role and the strategy, timeline, and interim measures to close it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency gap analysis",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Assesses the overall competency gap for the changed role and the strategy, timeline, and interim measures to close it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37998,30 +38510,35 @@
             {
               "name": "overallGapSeverity",
               "label": "Overall Gap Severity — critical, significant, moderate, minor",
+              "hint": "How severe the overall competency gap is",
               "type": "String",
               "required": false
             },
             {
               "name": "criticalGaps",
               "label": "Critical Gaps — competencies where gap is most severe",
+              "hint": "The competencies with the largest or most urgent gaps",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentStrategy",
               "label": "Development Strategy — training, coaching, hiring",
+              "hint": "The approach chosen to close the competency gaps",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentTimeline",
               "label": "Development Timeline — when gaps will be closed",
+              "hint": "When the competency gaps are expected to be closed",
               "type": "String",
               "required": false
             },
             {
               "name": "interimMeasures",
               "label": "Interim Measures — how to manage until gaps closed",
+              "hint": "How the role is covered until the gaps are closed",
               "type": "String",
               "required": false
             }
@@ -38033,7 +38550,24 @@
       "name": "CompetencyLevelChangeEntry",
       "sectionId": "COLVCH",
       "doc": "Competency level change entry.",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks and people management",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "A single competency whose required proficiency level changes, with the reason, development path, and timeframe to reach the new level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks and people management",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "A single competency whose required proficiency level changes, with the reason, development path, and timeframe to reach the new level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -38064,36 +38598,42 @@
             {
               "name": "competencyName",
               "label": "Competency Name",
+              "hint": "The competency whose required level is changing",
               "type": "String",
               "required": true
             },
             {
               "name": "currentLevel",
               "label": "Current Required Level",
+              "hint": "Proficiency level required before the change",
               "type": "String",
               "required": false
             },
             {
               "name": "newLevel",
               "label": "New Required Level",
+              "hint": "Proficiency level required after the change",
               "type": "String",
               "required": false
             },
             {
               "name": "reason",
               "label": "Reason — why level is changing",
+              "hint": "Why the required proficiency level is changing",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentPath",
               "label": "Development Path — how to close gap",
+              "hint": "How incumbents can reach the new proficiency level",
               "type": "String",
               "required": false
             },
             {
               "name": "timeframe",
               "label": "Timeframe — when level needed",
+              "hint": "When the new proficiency level must be reached",
               "type": "String",
               "required": false
             }
@@ -123668,7 +124208,26 @@
       "name": "JobDescriptionsAndStaffing",
       "sectionId": "JDAS",
       "doc": "5.2. Job Descriptions and Staffing Plans.\n\nDocuments new and changed roles resulting from the system introduction,\nfollowing HR best practices and job analysis methodologies (O*NET, SHRM).\nIncludes competency frameworks, staffing projections, and recruitment planning.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks, skills, knowledge)",
+          "SHRM — HR best practices (job design, staffing, workforce planning)",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "Documents the new, changed, and removed roles that result from introducing the system, together with the staffing plan and competency framework needed to fill them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)",
+              "SHRM — HR best practices (job design, staffing, workforce planning)",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Documents the new, changed, and removed roles that result from introducing the system, together with the staffing plan and competency framework needed to fill them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123696,10 +124255,26 @@
           "name": "newRoles",
           "kind": "list",
           "doc": "5.2.1. New Roles — contains 0+× New Role.",
+          "help": "Add one entry per new role being created.",
           "sectionId": "NWROL-NEWR-LST",
           "sectionIdPattern": "NWROL-NEWR-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)"
+            ],
+            "connotation": "The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements)."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — occupational job analysis (tasks, skills, knowledge)"
+                ],
+                "connotation": "The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements)."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -123710,6 +124285,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "NWROL-NEWR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per new role being created."
               }
             },
             {
@@ -123726,10 +124307,26 @@
           "name": "changedRoles",
           "kind": "list",
           "doc": "5.2.2. Changed Roles — contains 0+× Changed Role.",
+          "help": "Add one entry per existing role whose definition changes.",
           "sectionId": "CHAROL-CHAN-LST",
           "sectionIdPattern": "CHAROL-CHAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "SHRM — HR best practices (job design, staffing, workforce planning)"
+            ],
+            "connotation": "The set of existing roles whose responsibilities, skills, or grading change as a result of the system introduction."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SHRM — HR best practices (job design, staffing, workforce planning)"
+                ],
+                "connotation": "The set of existing roles whose responsibilities, skills, or grading change as a result of the system introduction."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -123740,6 +124337,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHAROL-CHAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per existing role whose definition changes."
               }
             },
             {
@@ -123756,10 +124359,26 @@
           "name": "removedRoles",
           "kind": "list",
           "doc": "5.2.3. Removed Roles — contains 0+× role being eliminated.",
+          "help": "Add one entry per role being eliminated.",
           "sectionId": "REMROL-REMO-LST",
           "sectionIdPattern": "REMROL-REMO-xxx",
+          "standardReferences": {
+            "standards": [
+              "SHRM — HR best practices (job design, staffing, workforce planning)"
+            ],
+            "connotation": "The set of roles being eliminated by the system introduction, with the rationale and people-impact for each."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SHRM — HR best practices (job design, staffing, workforce planning)"
+                ],
+                "connotation": "The set of roles being eliminated by the system introduction, with the rationale and people-impact for each."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -123770,6 +124389,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REMROL-REMO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per role being eliminated."
               }
             },
             {
@@ -123818,7 +124443,24 @@
       "name": "JobDescriptionsOverview",
       "sectionId": "JODEOV",
       "doc": "Overview of job descriptions and staffing approach.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (job design, staffing, workforce planning)",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "Summarises the overall approach to designing roles — the job architecture, competency model, grading, net headcount impact, and the HR/legal considerations that govern the role changes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (job design, staffing, workforce planning)",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Summarises the overall approach to designing roles — the job architecture, competency model, grading, net headcount impact, and the HR/legal considerations that govern the role changes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123849,54 +124491,63 @@
             {
               "name": "roleDesignApproach",
               "label": "Role Design Approach — methodology for defining roles",
+              "hint": "Methodology used to define and structure roles",
               "type": "String",
               "required": false
             },
             {
               "name": "jobArchitectureModel",
               "label": "Job Architecture Model — job families, levels, career paths",
+              "hint": "Job families, levels, and career paths",
               "type": "String",
               "required": false
             },
             {
               "name": "competencyModel",
               "label": "Competency Model — framework for defining skills/competencies",
+              "hint": "Framework used to define skills and competencies",
               "type": "String",
               "required": false
             },
             {
               "name": "gradingStructure",
               "label": "Grading Structure — how roles are graded/leveled",
+              "hint": "How roles are graded or leveled",
               "type": "String",
               "required": false
             },
             {
               "name": "totalRoleImpact",
               "label": "Total Role Impact — summary of new/changed/removed roles",
+              "hint": "Summary count of new, changed, and removed roles",
               "type": "String",
               "required": false
             },
             {
               "name": "totalFteChange",
               "label": "Total FTE Change — net headcount impact",
+              "hint": "Net headcount impact across all role changes",
               "type": "String",
               "required": false
             },
             {
               "name": "hrPartner",
               "label": "HR Partner — HR contact for role changes",
+              "hint": "HR contact responsible for these role changes",
               "type": "String",
               "required": false
             },
             {
               "name": "unionConsiderations",
               "label": "Union/Works Council Considerations — labor relations impact",
+              "hint": "Labor relations and works council impact",
               "type": "String",
               "required": false
             },
             {
               "name": "legalRequirements",
               "label": "Legal Requirements — employment law considerations",
+              "hint": "Employment law considerations affecting role changes",
               "type": "String",
               "required": false
             }
@@ -148212,7 +148863,24 @@
       "name": "NewRoleEntry",
       "sectionId": "NRE",
       "doc": "A new role entry (form).\n\nComprehensive new role definition following HR job analysis best practices.\nIncludes competencies, responsibilities, system access, and success metrics.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks, skills, knowledge)",
+          "SHRM — HR best practices (job design, role definition)"
+        ],
+        "connotation": "Defines a brand-new role end to end — identity, organizational placement, responsibilities, qualifications, access, performance and onboarding."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)",
+              "SHRM — HR best practices (job design, role definition)"
+            ],
+            "connotation": "Defines a brand-new role end to end — identity, organizational placement, responsibilities, qualifications, access, performance and onboarding."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148332,7 +149000,24 @@
       "name": "NewRoleIdentification",
       "sectionId": "NEROID",
       "doc": "New role identification.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (job design, role definition)",
+          "O*NET — occupational job analysis (tasks, skills, knowledge)"
+        ],
+        "connotation": "Identifies the new role and records the business case that justifies creating it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (job design, role definition)",
+              "O*NET — occupational job analysis (tasks, skills, knowledge)"
+            ],
+            "connotation": "Identifies the new role and records the business case that justifies creating it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148363,48 +149048,56 @@
             {
               "name": "roleId",
               "label": "Role ID (e.g., NR-001)",
+              "hint": "Unique identifier for this new role",
               "type": "String",
               "required": true
             },
             {
               "name": "roleTitle",
               "label": "Role Title",
+              "hint": "Official job title for the role",
               "type": "String",
               "required": true
             },
             {
               "name": "roleFamily",
               "label": "Job Family",
+              "hint": "Broader job family or category this role belongs to",
               "type": "String",
               "required": false
             },
             {
               "name": "jobLevel",
               "label": "Job Level/Grade",
+              "hint": "Seniority level or pay grade",
               "type": "String",
               "required": false
             },
             {
               "name": "rolePurpose",
               "label": "Role Purpose — why this role exists",
+              "hint": "Core mission the role fulfils",
               "type": "String",
               "required": false
             },
             {
               "name": "roleJustification",
               "label": "Role Justification — business case for new role",
+              "hint": "Why creating this role is needed now",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date",
+              "hint": "When the role becomes active",
               "type": "String",
               "required": false
             },
             {
               "name": "roleStatus",
               "label": "Role Status — draft, approved, posted, filled",
+              "hint": "Current lifecycle stage of the role",
               "type": "String",
               "required": false
             }
@@ -148416,7 +149109,24 @@
       "name": "NewRoleOnboarding",
       "sectionId": "NEROON",
       "doc": "New role onboarding plan.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — onboarding",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "Lays out how a new hire is brought up to speed — orientation, training, mentoring, shadowing, check-ins and ramp-up expectations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — onboarding",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Lays out how a new hire is brought up to speed — orientation, training, mentoring, shadowing, check-ins and ramp-up expectations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148447,54 +149157,63 @@
             {
               "name": "onboardingDuration",
               "label": "Onboarding Duration — weeks to full productivity",
+              "hint": "Time expected to reach full productivity",
               "type": "String",
               "required": false
             },
             {
               "name": "orientationTopics",
               "label": "Orientation Topics — company/department intro",
+              "hint": "Company and department introduction topics",
               "type": "String",
               "required": false
             },
             {
               "name": "requiredTraining",
               "label": "Required Training — mandatory courses",
+              "hint": "Mandatory training courses",
               "type": "String",
               "required": false
             },
             {
               "name": "systemTraining",
               "label": "System Training — application-specific training",
+              "hint": "Application-specific training needed",
               "type": "String",
               "required": false
             },
             {
               "name": "processTraining",
               "label": "Process Training — business process training",
+              "hint": "Training on relevant business processes",
               "type": "String",
               "required": false
             },
             {
               "name": "mentorAssignment",
               "label": "Mentor Assignment — buddy/mentor program",
+              "hint": "Buddy or mentor assigned to the new hire",
               "type": "String",
               "required": false
             },
             {
               "name": "shadowingPlan",
               "label": "Shadowing Plan — observation opportunities",
+              "hint": "Opportunities to observe experienced staff",
               "type": "String",
               "required": false
             },
             {
               "name": "checkpointMeetings",
               "label": "Checkpoint Meetings — scheduled check-ins",
+              "hint": "Scheduled check-in meetings",
               "type": "String",
               "required": false
             },
             {
               "name": "rampUpExpectations",
               "label": "Ramp-Up Expectations — productivity expectations over time",
+              "hint": "Productivity expectations over the ramp-up period",
               "type": "String",
               "required": false
             }
@@ -148506,7 +149225,24 @@
       "name": "NewRoleOrganization",
       "sectionId": "NEROOR",
       "doc": "New role organizational positioning.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — project management (organizational roles)",
+          "PMBOK — resource management (roles & responsibilities)"
+        ],
+        "connotation": "Places the role within the organization — its reporting lines, team, location and the network of people it works with."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — project management (organizational roles)",
+              "PMBOK — resource management (roles & responsibilities)"
+            ],
+            "connotation": "Places the role within the organization — its reporting lines, team, location and the network of people it works with."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148537,60 +149273,70 @@
             {
               "name": "department",
               "label": "Department",
+              "hint": "Department the role sits in",
               "type": "String",
               "required": false
             },
             {
               "name": "division",
               "label": "Division/Business Unit",
+              "hint": "Division or business unit",
               "type": "String",
               "required": false
             },
             {
               "name": "team",
               "label": "Team — immediate team",
+              "hint": "Immediate team the role joins",
               "type": "String",
               "required": false
             },
             {
               "name": "location",
               "label": "Location — primary work location",
+              "hint": "Primary physical or office location",
               "type": "String",
               "required": false
             },
             {
               "name": "workModel",
               "label": "Work Model — on-site, remote, hybrid",
+              "hint": "On-site, remote, or hybrid arrangement",
               "type": "String",
               "required": false
             },
             {
               "name": "reportsTo",
               "label": "Reports To — direct manager title",
+              "hint": "Title of the direct manager",
               "type": "String",
               "required": false
             },
             {
               "name": "directReports",
               "label": "Direct Reports — roles reporting to this",
+              "hint": "Roles that report into this one",
               "type": "String",
               "required": false
             },
             {
               "name": "matrixRelationships",
               "label": "Matrix Relationships — dotted-line reporting",
+              "hint": "Dotted-line or matrix reporting links",
               "type": "String",
               "required": false
             },
             {
               "name": "keyStakeholders",
               "label": "Key Stakeholders — internal/external contacts",
+              "hint": "Important internal/external contacts",
               "type": "String",
               "required": false
             },
             {
               "name": "collaborationScope",
               "label": "Collaboration Scope — teams/departments interacted with",
+              "hint": "Teams or departments regularly interacted with",
               "type": "String",
               "required": false
             }
@@ -148602,7 +149348,24 @@
       "name": "NewRolePerformance",
       "sectionId": "NEROPE",
       "doc": "New role performance metrics.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — performance management",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "Defines how success in the role is measured — objectives, KPIs, review cadence, milestones and the path to advancement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — performance management",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Defines how success in the role is measured — objectives, KPIs, review cadence, milestones and the path to advancement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148633,48 +149396,56 @@
             {
               "name": "performanceObjectives",
               "label": "Performance Objectives — key goals",
+              "hint": "Key goals the role is expected to achieve",
               "type": "String",
               "required": false
             },
             {
               "name": "kpis",
               "label": "KPIs — quantitative metrics",
+              "hint": "Quantitative metrics used to gauge success",
               "type": "String",
               "required": false
             },
             {
               "name": "qualitativeMetrics",
               "label": "Qualitative Metrics — behavioral/quality measures",
+              "hint": "Behavioral or quality-based measures",
               "type": "String",
               "required": false
             },
             {
               "name": "reviewFrequency",
               "label": "Review Frequency — performance review cadence",
+              "hint": "How often performance is reviewed",
               "type": "String",
               "required": false
             },
             {
               "name": "probationPeriod",
               "label": "Probation Period — initial review period",
+              "hint": "Length of the initial probation period",
               "type": "String",
               "required": false
             },
             {
               "name": "successMilestones",
               "label": "Success Milestones — 30/60/90 day goals",
+              "hint": "Early milestones such as 30/60/90 day goals",
               "type": "String",
               "required": false
             },
             {
               "name": "careerPath",
               "label": "Career Path — typical progression from this role",
+              "hint": "Typical progression from this role",
               "type": "String",
               "required": false
             },
             {
               "name": "promotionCriteria",
               "label": "Promotion Criteria — requirements for advancement",
+              "hint": "Requirements for advancement",
               "type": "String",
               "required": false
             }
@@ -148686,7 +149457,24 @@
       "name": "NewRoleQualifications",
       "sectionId": "NEROQU",
       "doc": "New role qualifications and competencies.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001 §7.2 — competence",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "Captures what a candidate must bring to the role — education, experience, credentials, screening and the required competencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001 §7.2 — competence",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "Captures what a candidate must bring to the role — education, experience, credentials, screening and the required competencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148717,24 +149505,28 @@
             {
               "name": "education",
               "label": "Education — minimum education requirement",
+              "hint": "Minimum education level required",
               "type": "String",
               "required": false
             },
             {
               "name": "preferredEducation",
               "label": "Preferred Education — ideal education",
+              "hint": "Ideal but non-mandatory education",
               "type": "String",
               "required": false
             },
             {
               "name": "experience",
               "label": "Experience — years and type of experience required",
+              "hint": "Years and type of experience required",
               "type": "String",
               "required": false
             },
             {
               "name": "preferredExperience",
               "label": "Preferred Experience — ideal experience",
+              "hint": "Ideal but non-mandatory experience",
               "type": "String",
               "required": false
             }
@@ -148774,10 +149566,28 @@
           "name": "requiredCompetencies",
           "kind": "list",
           "doc": "Contains 0+× required competency.",
+          "help": "Add one entry per required competency.",
           "sectionId": "ROLCP-REQU-LST",
           "sectionIdPattern": "ROLCP-REQU-xxx",
+          "standardReferences": {
+            "standards": [
+              "CIPD — competency frameworks and people management",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "The competencies a candidate must demonstrate to be qualified for the role."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CIPD — competency frameworks and people management",
+                  "ISO 9001 §7.2 — competence"
+                ],
+                "connotation": "The competencies a candidate must demonstrate to be qualified for the role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -148788,6 +149598,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLCP-REQU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per required competency."
               }
             },
             {
@@ -148806,7 +149622,24 @@
       "name": "NewRoleQualificationsCredentials",
       "sectionId": "NRQC",
       "doc": "Credential and mobility requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9001 §7.2 — competence",
+          "SHRM — HR best practices (job design, role definition)"
+        ],
+        "connotation": "Records the formal credentials, language abilities and travel/mobility requirements a candidate must hold."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9001 §7.2 — competence",
+              "SHRM — HR best practices (job design, role definition)"
+            ],
+            "connotation": "Records the formal credentials, language abilities and travel/mobility requirements a candidate must hold."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148837,24 +149670,28 @@
             {
               "name": "certifications",
               "label": "Certifications — required certifications",
+              "hint": "Certifications that are required",
               "type": "String",
               "required": false
             },
             {
               "name": "licensure",
               "label": "Licensure — professional licenses needed",
+              "hint": "Professional licenses needed",
               "type": "String",
               "required": false
             },
             {
               "name": "languageRequirements",
               "label": "Language Requirements — languages needed",
+              "hint": "Languages the role requires",
               "type": "String",
               "required": false
             },
             {
               "name": "travelRequirements",
               "label": "Travel Requirements — percentage, destinations",
+              "hint": "Expected travel frequency and destinations",
               "type": "String",
               "required": false
             }
@@ -148866,7 +149703,24 @@
       "name": "NewRoleQualificationsScreening",
       "sectionId": "NRQS",
       "doc": "Screening and clearance requirements.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (job design, role definition)",
+          "ISO/IEC 27001 — access control / least privilege"
+        ],
+        "connotation": "Captures pre-employment screening needs — physical requirements, background checks and any security clearance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (job design, role definition)",
+              "ISO/IEC 27001 — access control / least privilege"
+            ],
+            "connotation": "Captures pre-employment screening needs — physical requirements, background checks and any security clearance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148897,18 +149751,21 @@
             {
               "name": "physicalRequirements",
               "label": "Physical Requirements — if applicable",
+              "hint": "Physical demands of the role, if any",
               "type": "String",
               "required": false
             },
             {
               "name": "backgroundCheck",
               "label": "Background Check — type required",
+              "hint": "Type of background check required",
               "type": "String",
               "required": false
             },
             {
               "name": "securityClearance",
               "label": "Security Clearance — if required",
+              "hint": "Security clearance level needed, if any",
               "type": "String",
               "required": false
             }
@@ -148920,7 +149777,24 @@
       "name": "NewRoleResponsibilities",
       "sectionId": "NERORE",
       "doc": "New role responsibilities.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks, skills, knowledge)",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Breaks the role down into its primary and secondary responsibilities and the decision-making authority that comes with it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Breaks the role down into its primary and secondary responsibilities and the decision-making authority that comes with it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148933,10 +149807,26 @@
           "name": "primaryResponsibilities",
           "kind": "list",
           "doc": "Primary responsibilities (key accountabilities).",
+          "help": "Add one entry per primary responsibility.",
           "sectionId": "RSPDT-PRIM-LST",
           "sectionIdPattern": "RSPDT-PRIM-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — task statements (core duties)"
+            ],
+            "connotation": "The set of primary duties that define the core accountabilities of the role."
+          },
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — task statements (core duties)"
+                ],
+                "connotation": "The set of primary duties that define the core accountabilities of the role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -148947,6 +149837,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPDT-PRIM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per primary responsibility."
               }
             },
             {
@@ -148963,10 +149859,26 @@
           "name": "secondaryResponsibilities",
           "kind": "list",
           "doc": "Secondary responsibilities (supporting duties).",
+          "help": "Add one entry per secondary responsibility.",
           "sectionId": "RSPDT-SECO-LST",
           "sectionIdPattern": "RSPDT-SECO-xxx",
+          "standardReferences": {
+            "standards": [
+              "O*NET — supplemental task statements"
+            ],
+            "connotation": "Supporting duties the role performs beyond its core accountabilities."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "O*NET — supplemental task statements"
+                ],
+                "connotation": "Supporting duties the role performs beyond its core accountabilities."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -148977,6 +149889,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPDT-SECO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per secondary responsibility."
               }
             },
             {
@@ -149010,7 +149928,24 @@
       "name": "NewRoleSystemAccess",
       "sectionId": "NRSA",
       "doc": "New role system access requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — access control / least privilege",
+          "SHRM — HR best practices (job design, role definition)"
+        ],
+        "connotation": "Specifies the systems, data and tools the role needs and how that access is granted, applying least-privilege principles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — access control / least privilege",
+              "SHRM — HR best practices (job design, role definition)"
+            ],
+            "connotation": "Specifies the systems, data and tools the role needs and how that access is granted, applying least-privilege principles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149041,60 +149976,70 @@
             {
               "name": "primarySystems",
               "label": "Primary Systems — main applications used daily",
+              "hint": "Main applications used every day",
               "type": "String",
               "required": false
             },
             {
               "name": "secondarySystems",
               "label": "Secondary Systems — occasionally used applications",
+              "hint": "Applications used occasionally",
               "type": "String",
               "required": false
             },
             {
               "name": "dataAccess",
               "label": "Data Access — data domains accessible",
+              "hint": "Data domains the role may access",
               "type": "String",
               "required": false
             },
             {
               "name": "securityRole",
               "label": "Security Role — role in access control system",
+              "hint": "Role assigned in the access control system",
               "type": "String",
               "required": false
             },
             {
               "name": "privilegedAccess",
               "label": "Privileged Access — admin/elevated rights needed",
+              "hint": "Any admin or elevated rights required",
               "type": "String",
               "required": false
             },
             {
               "name": "mobileAccess",
               "label": "Mobile Access — mobile app/device requirements",
+              "hint": "Mobile app or device requirements",
               "type": "String",
               "required": false
             },
             {
               "name": "remoteAccessTools",
               "label": "Remote Access Tools — VPN, virtual desktop",
+              "hint": "Remote access such as VPN or virtual desktop",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationTools",
               "label": "Communication Tools — email, chat, video",
+              "hint": "Email, chat and video tools needed",
               "type": "String",
               "required": false
             },
             {
               "name": "reportingTools",
               "label": "Reporting Tools — BI, dashboards, analytics",
+              "hint": "BI, dashboard or analytics tools needed",
               "type": "String",
               "required": false
             },
             {
               "name": "accessProvisioning",
               "label": "Access Provisioning — how access is granted",
+              "hint": "How and when access is provisioned",
               "type": "String",
               "required": false
             }
@@ -179562,7 +180507,24 @@
       "name": "RecruitmentTimeline",
       "sectionId": "RETI",
       "doc": "Recruitment timeline.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — talent acquisition / time-to-fill",
+          "PMBOK — resource management (acquire/develop/manage team)"
+        ],
+        "connotation": "Lays out the schedule for hiring — start and end dates, critical hires, hiring and onboarding waves, lead-time assumptions, and external dependencies that gate fill dates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — talent acquisition / time-to-fill",
+              "PMBOK — resource management (acquire/develop/manage team)"
+            ],
+            "connotation": "Lays out the schedule for hiring — start and end dates, critical hires, hiring and onboarding waves, lead-time assumptions, and external dependencies that gate fill dates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182397,7 +183359,24 @@
       "name": "RemovedRoleEntry",
       "sectionId": "REMROL",
       "doc": "A removed role entry (form).\n\nDocuments roles being eliminated with transition planning for incumbents.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — workforce reduction / redeployment",
+          "ADKAR / Kotter — change management"
+        ],
+        "connotation": "Captures a role being eliminated — the reason, effective date, and affected population — plus transition, governance, and continuity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — workforce reduction / redeployment",
+              "ADKAR / Kotter — change management"
+            ],
+            "connotation": "Captures a role being eliminated — the reason, effective date, and affected population — plus transition, governance, and continuity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182428,36 +183407,42 @@
             {
               "name": "roleId",
               "label": "Role ID",
+              "hint": "Unique identifier for the role being removed",
               "type": "String",
               "required": true
             },
             {
               "name": "roleTitle",
               "label": "Role Title",
+              "hint": "Title of the role being removed",
               "type": "String",
               "required": true
             },
             {
               "name": "department",
               "label": "Department",
+              "hint": "Department the removed role belongs to",
               "type": "String",
               "required": false
             },
             {
               "name": "removalReason",
               "label": "Removal Reason — automation, restructuring, outsourcing, redundancy",
+              "hint": "Why the role is being eliminated",
               "type": "String",
               "required": false
             },
             {
               "name": "effectiveDate",
               "label": "Effective Date",
+              "hint": "Date the role removal takes effect",
               "type": "String",
               "required": false
             },
             {
               "name": "incumbentCount",
               "label": "Incumbent Count — people affected",
+              "hint": "Number of people currently in the role being removed",
               "type": "int",
               "required": false
             }
@@ -182514,7 +183499,24 @@
       "name": "RemovedRoleEntryContinuity",
       "sectionId": "RREC",
       "doc": "Work continuity.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — workforce reduction / redeployment",
+          "PMBOK — resource management (roles & responsibilities)"
+        ],
+        "connotation": "Ensures the work of a removed role continues — how institutional knowledge is captured and where its responsibilities are reassigned."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — workforce reduction / redeployment",
+              "PMBOK — resource management (roles & responsibilities)"
+            ],
+            "connotation": "Ensures the work of a removed role continues — how institutional knowledge is captured and where its responsibilities are reassigned."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182545,12 +183547,14 @@
             {
               "name": "knowledgeTransfer",
               "label": "Knowledge Transfer — preserving institutional knowledge",
+              "hint": "How the role's institutional knowledge is preserved",
               "type": "String",
               "required": false
             },
             {
               "name": "workReassignment",
               "label": "Work Reassignment — where responsibilities go",
+              "hint": "Where the removed role's responsibilities are reassigned",
               "type": "String",
               "required": false
             }
@@ -182562,7 +183566,24 @@
       "name": "RemovedRoleEntryGovernance",
       "sectionId": "RREG",
       "doc": "Legal and communication considerations.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — workforce reduction / redeployment",
+          "ISO 21500 — project management (organizational roles)"
+        ],
+        "connotation": "Covers the legal and communication considerations of removing a role — employment law, works-council or union obligations, and how the removal is communicated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — workforce reduction / redeployment",
+              "ISO 21500 — project management (organizational roles)"
+            ],
+            "connotation": "Covers the legal and communication considerations of removing a role — employment law, works-council or union obligations, and how the removal is communicated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182593,12 +183614,14 @@
             {
               "name": "legalConsiderations",
               "label": "Legal Considerations — employment law, union agreements",
+              "hint": "Employment-law, works-council, or union obligations",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationPlan",
               "label": "Communication Plan — how removal is communicated",
+              "hint": "How the role removal is communicated to stakeholders",
               "type": "String",
               "required": false
             }
@@ -182610,7 +183633,24 @@
       "name": "RemovedRoleEntryTransition",
       "sectionId": "RRET",
       "doc": "Incumbent transition planning.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — workforce reduction / redeployment",
+          "ADKAR / Kotter — change management"
+        ],
+        "connotation": "Plans what happens to the people in a removed role — redeployment, reassignment options, support, and severance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — workforce reduction / redeployment",
+              "ADKAR / Kotter — change management"
+            ],
+            "connotation": "Plans what happens to the people in a removed role — redeployment, reassignment options, support, and severance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182641,24 +183681,28 @@
             {
               "name": "incumbentDisposition",
               "label": "Incumbent Disposition — redeployment, separation, retraining",
+              "hint": "What happens to incumbents of the removed role",
               "type": "String",
               "required": false
             },
             {
               "name": "reassignmentOptions",
               "label": "Reassignment Options — alternative roles available",
+              "hint": "Alternative roles available to affected incumbents",
               "type": "String",
               "required": false
             },
             {
               "name": "transitionSupport",
               "label": "Transition Support — outplacement, retraining",
+              "hint": "Support provided to incumbents during the transition",
               "type": "String",
               "required": false
             },
             {
               "name": "severanceConsiderations",
               "label": "Severance Considerations — if applicable",
+              "hint": "Severance arrangements where separation applies",
               "type": "String",
               "required": false
             }
@@ -190287,7 +191331,24 @@
       "name": "ResponsibilityChangeEntry",
       "sectionId": "RSPCH",
       "doc": "Responsibility change entry (form).",
+      "standardReferences": {
+        "standards": [
+          "O*NET — task statements",
+          "SHRM — HR best practices (role change management)"
+        ],
+        "connotation": "A single responsibility being added, removed, or modified, with its current/future state, impact, and how it is transitioned."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — task statements",
+              "SHRM — HR best practices (role change management)"
+            ],
+            "connotation": "A single responsibility being added, removed, or modified, with its current/future state, impact, and how it is transitioned."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -190318,54 +191379,63 @@
             {
               "name": "responsibility",
               "label": "Responsibility",
+              "hint": "The responsibility affected by this change",
               "type": "String",
               "required": true
             },
             {
               "name": "changeType",
               "label": "Change Type — add, remove, modify",
+              "hint": "Whether this responsibility is added, removed, or modified",
               "type": "String",
               "required": false
             },
             {
               "name": "currentState",
               "label": "Current State — how done today",
+              "hint": "How this responsibility is handled before the change",
               "type": "String",
               "required": false
             },
             {
               "name": "futureState",
               "label": "Future State — how done after change",
+              "hint": "How this responsibility will be handled after the change",
               "type": "String",
               "required": false
             },
             {
               "name": "reason",
               "label": "Reason — why this change",
+              "hint": "The reason this responsibility is changing",
               "type": "String",
               "required": false
             },
             {
               "name": "impactLevel",
               "label": "Impact Level — high, medium, low",
+              "hint": "How significant the impact of this change is",
               "type": "String",
               "required": false
             },
             {
               "name": "trainingNeeded",
               "label": "Training Needed",
+              "hint": "Training required to perform the changed responsibility",
               "type": "String",
               "required": false
             },
             {
               "name": "toolsAffected",
               "label": "Tools Affected — systems involved",
+              "hint": "Systems or tools impacted by this change",
               "type": "String",
               "required": false
             },
             {
               "name": "transitionApproach",
               "label": "Transition Approach — how responsibility is handed over",
+              "hint": "How the responsibility is transferred or phased in",
               "type": "String",
               "required": false
             }
@@ -190465,7 +191535,24 @@
       "name": "ResponsibilityDetailEntry",
       "sectionId": "RSPDT",
       "doc": "Detailed responsibility entry (form).",
+      "standardReferences": {
+        "standards": [
+          "O*NET — task statements (tasks, deliverables)",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Describes a single responsibility in detail — its deliverables, time allocation, frequency and quality standards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — task statements (tasks, deliverables)",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Describes a single responsibility in detail — its deliverables, time allocation, frequency and quality standards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -190496,54 +191583,63 @@
             {
               "name": "responsibilityId",
               "label": "Responsibility ID",
+              "hint": "Unique identifier for this responsibility",
               "type": "String",
               "required": false
             },
             {
               "name": "responsibility",
               "label": "Responsibility",
+              "hint": "Short statement of the duty",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Description — detailed explanation",
+              "hint": "Detailed explanation of what is done",
               "type": "String",
               "required": false
             },
             {
               "name": "timeAllocation",
               "label": "Time Allocation — percentage of time spent",
+              "hint": "Approximate share of working time",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — daily, weekly, monthly, ad-hoc",
+              "hint": "How often the duty is performed",
               "type": "String",
               "required": false
             },
             {
               "name": "deliverables",
               "label": "Deliverables — outputs expected",
+              "hint": "Tangible outputs the duty produces",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityStandards",
               "label": "Quality Standards — success criteria",
+              "hint": "Criteria that define success",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedProcesses",
               "label": "Related Processes — business processes involved",
+              "hint": "Business processes this duty touches",
               "type": "String",
               "required": false
             },
             {
               "name": "toolsUsed",
               "label": "Tools Used — systems/applications",
+              "hint": "Systems or applications used",
               "type": "String",
               "required": false
             }
@@ -191002,7 +192098,24 @@
       "name": "ResponsibilityImpactSummary",
       "sectionId": "REIMSU",
       "doc": "Summary of responsibility impact.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (role change management)",
+          "O*NET — occupational job analysis"
+        ],
+        "connotation": "Summarizes the aggregate effect of the responsibility changes on the role — workload, complexity, scope, authority, classification, and pay."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (role change management)",
+              "O*NET — occupational job analysis"
+            ],
+            "connotation": "Summarizes the aggregate effect of the responsibility changes on the role — workload, complexity, scope, authority, classification, and pay."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -191033,36 +192146,42 @@
             {
               "name": "netTimeImpact",
               "label": "Net Time Impact — increase/decrease in workload",
+              "hint": "Overall change in time or workload for the role",
               "type": "String",
               "required": false
             },
             {
               "name": "complexityChange",
               "label": "Complexity Change — simpler, same, more complex",
+              "hint": "Whether the role becomes simpler or more complex",
               "type": "String",
               "required": false
             },
             {
               "name": "scopeChange",
               "label": "Scope Change — narrower, same, broader",
+              "hint": "Whether the scope of the role narrows or broadens",
               "type": "String",
               "required": false
             },
             {
               "name": "authorityChange",
               "label": "Authority Change — less, same, more",
+              "hint": "Whether the role gains or loses authority",
               "type": "String",
               "required": false
             },
             {
               "name": "classificationImpact",
               "label": "Classification Impact — should job grade change",
+              "hint": "Whether the job grade or classification should change",
               "type": "String",
               "required": false
             },
             {
               "name": "compensationImpact",
               "label": "Compensation Impact — salary implications",
+              "hint": "Salary or compensation implications of the change",
               "type": "String",
               "required": false
             }
@@ -197307,7 +198426,24 @@
       "name": "RoleCompetencyEntry",
       "sectionId": "ROLCP",
       "doc": "Role competency entry (form).",
+      "standardReferences": {
+        "standards": [
+          "CIPD — competency frameworks and people management",
+          "ISO 9001 §7.2 — competence"
+        ],
+        "connotation": "Describes a single competency the role needs — its type, required and preferred proficiency, and how it is assessed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIPD — competency frameworks and people management",
+              "ISO 9001 §7.2 — competence"
+            ],
+            "connotation": "Describes a single competency the role needs — its type, required and preferred proficiency, and how it is assessed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -197338,42 +198474,49 @@
             {
               "name": "competencyId",
               "label": "Competency ID",
+              "hint": "Unique identifier for this competency",
               "type": "String",
               "required": false
             },
             {
               "name": "competencyName",
               "label": "Competency Name",
+              "hint": "Name of the competency",
               "type": "String",
               "required": true
             },
             {
               "name": "competencyType",
               "label": "Competency Type — Core, Technical, Leadership",
+              "hint": "Category such as core, technical or leadership",
               "type": "String",
               "required": false
             },
             {
               "name": "requiredLevel",
               "label": "Required Level — minimum proficiency",
+              "hint": "Minimum proficiency that is mandatory",
               "type": "String",
               "required": false
             },
             {
               "name": "preferredLevel",
               "label": "Preferred Level — ideal proficiency",
+              "hint": "Ideal proficiency level",
               "type": "String",
               "required": false
             },
             {
               "name": "assessmentMethod",
               "label": "Assessment Method — how evaluated during hiring",
+              "hint": "How the competency is evaluated when hiring",
               "type": "String",
               "required": false
             },
             {
               "name": "developmentPriority",
               "label": "Development Priority — if gap exists",
+              "hint": "Priority for developing this if a gap exists",
               "type": "String",
               "required": false
             }
@@ -197449,7 +198592,24 @@
       "name": "RoleDecisionAuthority",
       "sectionId": "RODEAU",
       "doc": "Role decision-making authority.",
+      "standardReferences": {
+        "standards": [
+          "RACI — accountable/responsible",
+          "PMBOK — resource management (roles & responsibilities)"
+        ],
+        "connotation": "Defines the decisions the role can make on its own — approval, budget, hiring, policy and contract authority — and when escalation is required."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — accountable/responsible",
+              "PMBOK — resource management (roles & responsibilities)"
+            ],
+            "connotation": "Defines the decisions the role can make on its own — approval, budget, hiring, policy and contract authority — and when escalation is required."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -197480,42 +198640,49 @@
             {
               "name": "approvalAuthority",
               "label": "Approval Authority — what can be approved without escalation",
+              "hint": "What may be approved without escalating",
               "type": "String",
               "required": false
             },
             {
               "name": "budgetAuthority",
               "label": "Budget Authority — spending limits",
+              "hint": "Spending limits the role can authorize",
               "type": "String",
               "required": false
             },
             {
               "name": "hiringAuthority",
               "label": "Hiring Authority — ability to hire/terminate",
+              "hint": "Authority to hire or terminate staff",
               "type": "String",
               "required": false
             },
             {
               "name": "policyAuthority",
               "label": "Policy Authority — ability to set/change policies",
+              "hint": "Authority to set or change policies",
               "type": "String",
               "required": false
             },
             {
               "name": "contractAuthority",
               "label": "Contract Authority — signing limits for agreements",
+              "hint": "Signing limits for agreements",
               "type": "String",
               "required": false
             },
             {
               "name": "exceptionAuthority",
               "label": "Exception Authority — ability to grant exceptions",
+              "hint": "Authority to grant exceptions to rules",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationRequired",
               "label": "Escalation Required — when must escalate",
+              "hint": "Situations that must be escalated",
               "type": "String",
               "required": false
             }
@@ -198116,7 +199283,24 @@
       "name": "RoleResponsibilityEntry",
       "sectionId": "ROREEN",
       "doc": "A responsibility entry (form).",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks)",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "A single responsibility of a role, with a short description of what it entails."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks)",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "A single responsibility of a role, with a short description of what it entails."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -198147,12 +199331,14 @@
             {
               "name": "responsibility",
               "label": "Responsibility",
+              "hint": "The responsibility assigned to the role",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "A brief description of the responsibility",
               "type": "String",
               "required": false
             }
@@ -217467,7 +218653,24 @@
       "name": "SkillEntry",
       "sectionId": "SKEN",
       "doc": "A skill entry (form).",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (skills)",
+          "CIPD — competency frameworks and people management"
+        ],
+        "connotation": "A single skill required by a role, together with the proficiency level expected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (skills)",
+              "CIPD — competency frameworks and people management"
+            ],
+            "connotation": "A single skill required by a role, together with the proficiency level expected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217498,12 +218701,14 @@
             {
               "name": "skillName",
               "label": "Skill Name",
+              "hint": "The name of the required skill",
               "type": "String",
               "required": false
             },
             {
               "name": "proficiencyLevel",
               "label": "Proficiency Level",
+              "hint": "The proficiency level expected for this skill",
               "type": "String",
               "required": false
             }
@@ -219174,7 +220379,22 @@
       "name": "StaffingBudget",
       "sectionId": "STBU",
       "doc": "Staffing budget details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — cost/resource budgeting"
+        ],
+        "connotation": "Captures the overall financial envelope for staffing — total budget, salary and benefits costs, and the currency in which they are expressed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — cost/resource budgeting"
+            ],
+            "connotation": "Captures the overall financial envelope for staffing — total budget, salary and benefits costs, and the currency in which they are expressed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219268,7 +220488,22 @@
       "name": "StaffingBudgetAllocations",
       "sectionId": "STBUAL",
       "doc": "Recruitment and enablement cost categories.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — cost/resource budgeting"
+        ],
+        "connotation": "Breaks the staffing budget into the cost categories that enable hiring — recruitment, training, relocation, and contingency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — cost/resource budgeting"
+            ],
+            "connotation": "Breaks the staffing budget into the cost categories that enable hiring — recruitment, training, relocation, and contingency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219332,7 +220567,24 @@
       "name": "StaffingBudgetGovernance",
       "sectionId": "STBUGO",
       "doc": "Budget ownership and approval controls.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — cost/resource budgeting",
+          "RACI — responsibility assignment"
+        ],
+        "connotation": "Defines who owns the staffing budget, who must approve spend, and how the budget aligns to the fiscal timeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — cost/resource budgeting",
+              "RACI — responsibility assignment"
+            ],
+            "connotation": "Defines who owns the staffing budget, who must approve spend, and how the budget aligns to the fiscal timeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219389,7 +220641,24 @@
       "name": "StaffingEntry",
       "sectionId": "STFE",
       "doc": "A staffing entry (form).\n\nRepresents one staffing position including role, competency requirements,\nsourcing method, budget, timeline, and approval status.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks, skills, knowledge)",
+          "PMBOK — resource management (acquire/develop/manage team)"
+        ],
+        "connotation": "Represents a single staffing position to be filled, capturing its role, organization, capacity, recruitment workflow, and ownership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)",
+              "PMBOK — resource management (acquire/develop/manage team)"
+            ],
+            "connotation": "Represents a single staffing position to be filled, capturing its role, organization, capacity, recruitment workflow, and ownership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219506,7 +220775,24 @@
       "name": "StaffingEntryCapacity",
       "sectionId": "STENCA",
       "doc": "Capacity and competency requirements.",
+      "standardReferences": {
+        "standards": [
+          "O*NET — occupational job analysis (tasks, skills, knowledge)",
+          "ISO 9001 — competence, awareness & resourcing"
+        ],
+        "connotation": "Quantifies the capacity needed for the position — FTE, headcount, required skills, and whether it backfills an existing person."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "O*NET — occupational job analysis (tasks, skills, knowledge)",
+              "ISO 9001 — competence, awareness & resourcing"
+            ],
+            "connotation": "Quantifies the capacity needed for the position — FTE, headcount, required skills, and whether it backfills an existing person."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219570,7 +220856,22 @@
       "name": "StaffingEntryOrganization",
       "sectionId": "STENOR",
       "doc": "Organization and employment placement.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (job design, staffing, workforce planning)"
+        ],
+        "connotation": "Places the staffing position within the organization — the department, location, and employment type under which it is hired."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (job design, staffing, workforce planning)"
+            ],
+            "connotation": "Places the staffing position within the organization — the department, location, and employment type under which it is hired."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219627,7 +220928,24 @@
       "name": "StaffingEntryOwnership",
       "sectionId": "STENOW",
       "doc": "Ownership and compensation details.",
+      "standardReferences": {
+        "standards": [
+          "RACI — responsibility assignment",
+          "SHRM — HR best practices (job design, staffing, workforce planning)"
+        ],
+        "connotation": "Identifies who owns the position — hiring manager and recruiter — together with its salary range and any special notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI — responsibility assignment",
+              "SHRM — HR best practices (job design, staffing, workforce planning)"
+            ],
+            "connotation": "Identifies who owns the position — hiring manager and recruiter — together with its salary range and any special notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219691,7 +221009,22 @@
       "name": "StaffingEntryRecruitment",
       "sectionId": "STENRE",
       "doc": "Recruitment workflow and urgency.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — talent acquisition / time-to-fill"
+        ],
+        "connotation": "Tracks the recruitment workflow for the position — approval, sourcing method, current status, target start date, and urgency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — talent acquisition / time-to-fill"
+            ],
+            "connotation": "Tracks the recruitment workflow for the position — approval, sourcing method, current status, target start date, and urgency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219762,7 +221095,24 @@
       "name": "StaffingPlan",
       "sectionId": "STPL",
       "doc": "5.2.4. Staffing Plan.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — resource management (acquire/develop/manage team)",
+          "SHRM — HR best practices (job design, staffing, workforce planning)"
+        ],
+        "connotation": "Sets out how the roles will actually be staffed — the sourcing strategy, budget, individual position entries, and recruitment timeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — resource management (acquire/develop/manage team)",
+              "SHRM — HR best practices (job design, staffing, workforce planning)"
+            ],
+            "connotation": "Sets out how the roles will actually be staffed — the sourcing strategy, budget, individual position entries, and recruitment timeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219805,10 +221155,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Staffing entry.",
+          "help": "Add one entry per staffing position to be filled.",
           "sectionId": "STFE-ITEM-LST",
           "sectionIdPattern": "STFE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — resource management (acquire/develop/manage team)"
+            ],
+            "connotation": "The set of individual staffing positions to be filled, each with its role, capacity, sourcing, budget, and timeline."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — resource management (acquire/develop/manage team)"
+                ],
+                "connotation": "The set of individual staffing positions to be filled, each with its role, capacity, sourcing, budget, and timeline."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -219819,6 +221185,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STFE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per staffing position to be filled."
               }
             },
             {
@@ -219852,7 +221224,24 @@
       "name": "StaffingPlanOverview",
       "sectionId": "STPLOV",
       "doc": "Staffing plan overview.",
+      "standardReferences": {
+        "standards": [
+          "SHRM — HR best practices (job design, staffing, workforce planning)",
+          "PMBOK — resource management (acquire/develop/manage team)"
+        ],
+        "connotation": "Describes the overall staffing strategy — how positions will be sourced, selected, onboarded, and retained, plus geographic, diversity, and compliance constraints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SHRM — HR best practices (job design, staffing, workforce planning)",
+              "PMBOK — resource management (acquire/develop/manage team)"
+            ],
+            "connotation": "Describes the overall staffing strategy — how positions will be sourced, selected, onboarded, and retained, plus geographic, diversity, and compliance constraints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
