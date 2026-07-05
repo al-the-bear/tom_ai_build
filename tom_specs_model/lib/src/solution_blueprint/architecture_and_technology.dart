@@ -30062,6 +30062,14 @@ class SecurityAuditEntryFollowUp {
 ///
 /// Class named `SystemArchitectureSpec` to avoid colliding with any other
 /// architecture-related identifier in the model.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description of software-intensive systems',
+    'arc42 — software architecture documentation template',
+    'C4 model — context, container, component, and code diagrams',
+  ],
+  'Describes the detailed internal system architecture: layering, package structure, adopted design patterns, and architectural drivers and trade-offs.',
+)
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-ARC')
@@ -30085,6 +30093,13 @@ drivers / trade-offs.
 }
 
 /// A single maintenance procedure entry.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1 — service management: change and release management',
+    'ITIL 4 — change enablement and service maintenance practices',
+  ],
+  'Records a single maintenance procedure to be performed on the deployed system.',
+)
 @SectionId('MAINT')
 class MaintenanceProcedureEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')

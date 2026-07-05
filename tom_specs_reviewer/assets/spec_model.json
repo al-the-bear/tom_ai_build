@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T14:19:20.421415Z",
+  "generatedAt": "2026-07-05T14:28:21.772213Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -146480,7 +146480,24 @@
       "name": "MaintenanceProcedureEntry",
       "sectionId": "MAINT",
       "doc": "A single maintenance procedure entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1 — service management: change and release management",
+          "ITIL 4 — change enablement and service maintenance practices"
+        ],
+        "connotation": "Records a single maintenance procedure to be performed on the deployed system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1 — service management: change and release management",
+              "ITIL 4 — change enablement and service maintenance practices"
+            ],
+            "connotation": "Records a single maintenance procedure to be performed on the deployed system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253932,7 +253949,26 @@
       "sectionId": "SYARSP",
       "doc": "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description of software-intensive systems",
+          "arc42 — software architecture documentation template",
+          "C4 model — context, container, component, and code diagrams"
+        ],
+        "connotation": "Describes the detailed internal system architecture: layering, package structure, adopted design patterns, and architectural drivers and trade-offs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description of software-intensive systems",
+              "arc42 — software architecture documentation template",
+              "C4 model — context, container, component, and code diagrams"
+            ],
+            "connotation": "Describes the detailed internal system architecture: layering, package structure, adopted design patterns, and architectural drivers and trade-offs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
