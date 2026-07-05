@@ -13,6 +13,13 @@ import '../document_stubs.dart';
 /// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, their dependencies, and rationale are documented for stakeholders',
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, licenses, and provenance',
+  ],
+  'Captures the components and dependencies chapter governing external and standard component selection and dependency management.',
+)
 @SectionId('COMP')
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
@@ -52,8 +59,15 @@ Each component should specify:
     ComponentStrategy strategy = ComponentStrategy();
 
     /// 12.2. Component Catalog — contains 0+× Component.
+    @StandardReferences(
+      [
+        'ISO/IEC 5962:2021 — the SPDX specification records each cataloged component in the software bill of materials with identity and version metadata',
+      ],
+      'Lists the individual components cataloged for the system.',
+    )
     @SectionId('CMPNT-COMP-LST')
     @SectionIdPattern('CMPNT-COMP-xxx')
+    @ContentHelp('Add one entry per cataloged component.')
     @SerializationOrder(2)
     List<ComponentEntry> componentCatalog = [];
 
@@ -83,6 +97,13 @@ Each component should specify:
 /// Overall component strategy: build-vs-buy philosophy, preferred vendors,
 /// technology stack alignment, governance, evaluation cadence, and portfolio
 /// management.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how component choices and their rationale are documented for stakeholders',
+  ],
+  'Captures the component strategy governing build-versus-buy philosophy, technology alignment, governance, portfolio, policies, and planning.',
+)
 @SectionId('CMSTR')
 class ComponentStrategy {
     @Form([
@@ -121,8 +142,15 @@ class ComponentStrategy {
     ComponentStrategyPlanning planning = ComponentStrategyPlanning();
 
     /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
+    @StandardReferences(
+      [
+        'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+      ],
+      'Lists the reuse goals defined for the component strategy.',
+    )
     @SectionId('RGUSE-REUS-LST')
     @SectionIdPattern('RGUSE-REUS-xxx')
+    @ContentHelp('Add one entry per reuse goal.')
     @SerializationOrder(6)
     List<ReuseGoalEntry> reuseGoals = [];
 
@@ -132,6 +160,12 @@ class ComponentStrategy {
 }
 
 /// Vendor preferences and exceptions.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme for procured components',
+  ],
+  'Holds the vendor preferences and exceptions including preferred and prohibited vendors and the stack deviation process.',
+)
 @SectionId('CSVND')
 class ComponentStrategyVendors {
     @Form([
@@ -150,6 +184,12 @@ class ComponentStrategyVendors {
 }
 
 /// Governance and evaluation process.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how component choices and their rationale are documented for stakeholders',
+  ],
+  'Holds the governance model, review cadence, and evaluation cadence for component decisions.',
+)
 @SectionId('CSGOV')
 class ComponentStrategyGovernance {
     @Form([
@@ -168,6 +208,12 @@ class ComponentStrategyGovernance {
 }
 
 /// Portfolio management settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Holds the portfolio management settings including catalog visibility, registry URL, overlap limits, and consolidation targets.',
+)
 @SectionId('CSPRT')
 class ComponentStrategyPortfolio {
     @Form([
@@ -188,6 +234,12 @@ class ComponentStrategyPortfolio {
 }
 
 /// Policy and baseline requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme for procured components',
+  ],
+  'Holds the policy and baseline requirements including open-source policy, security and compliance baselines, and sunset policy.',
+)
 @SectionId('CSPOL')
 class ComponentStrategyPolicies {
     @Form([
@@ -213,6 +265,12 @@ class ComponentStrategyPolicies {
 }
 
 /// Budget and pilot planning.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Holds the budget and pilot planning for the component strategy including the pilot process and portfolio budget.',
+)
 @SectionId('CSPLN')
 class ComponentStrategyPlanning {
     @Form([
@@ -231,6 +289,12 @@ class ComponentStrategyPlanning {
 ///
 /// Defines a specific reuse target: what to reuse, why, at what percentage,
 /// how to measure, and who owns the goal.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Defines a single reuse goal covering what to reuse, why, at what percentage, how to measure, and who owns it.',
+)
 @SectionId('RGUSE')
 class ReuseGoalEntry {
   @Form([
@@ -264,6 +328,12 @@ class ReuseGoalEntry {
 }
 
 /// Measurement and scope.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Holds the measurement and scope for a reuse goal including target and current percentages and measurement method.',
+)
 @SectionId('RGUMS')
 class ReuseGoalEntryMeasurement {
   @Form([
@@ -284,6 +354,12 @@ class ReuseGoalEntryMeasurement {
 }
 
 /// Governance and ownership.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Holds the governance and ownership for a reuse goal including priority, target date, and owner.',
+)
 @SectionId('RGUGV')
 class ReuseGoalEntryGovernance {
   @Form([
@@ -299,6 +375,12 @@ class ReuseGoalEntryGovernance {
 }
 
 /// Delivery support and assets.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics including reusability that guide build-versus-buy strategy',
+  ],
+  'Holds the delivery support for a reuse goal including blockers, enablers, and reusable assets.',
+)
 @SectionId('RGENB')
 class ReuseGoalEntryEnablement {
   @Form([
@@ -318,6 +400,12 @@ class ReuseGoalEntryEnablement {
 ///
 /// Container for component evaluation criteria used when assessing
 /// candidate components for adoption.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+  ],
+  'Container for the component evaluation criteria used when assessing candidate components for adoption.',
+)
 @SectionId('EVCRI')
 class EvaluationCriteria {
   @ContentHelp('''
@@ -345,8 +433,15 @@ Each criterion includes:
   String? content;
 
   /// Contains 0+× EvaluationCriterion.
+  @StandardReferences(
+    [
+      'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+    ],
+    'Lists the evaluation criteria used to assess candidate components.',
+  )
   @SectionId('EVCEN-ITEM-LST')
   @SectionIdPattern('EVCEN-ITEM-xxx')
+  @ContentHelp('Add one entry per evaluation criterion.')
   @SerializationOrder(1)
   List<EvaluationCriterionEntry> items = [];
 }
@@ -355,6 +450,12 @@ Each criterion includes:
 ///
 /// Defines one criterion for evaluating candidate components: scoring scale,
 /// threshold, evidence requirements, and evaluation method.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+  ],
+  'Defines a single evaluation criterion used when assessing candidate components for adoption.',
+)
 @SectionId('EVCEN')
 class EvaluationCriterionEntry {
   @Form([
@@ -386,6 +487,12 @@ class EvaluationCriterionEntry {
 }
 
 /// Scoring settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+  ],
+  'Holds the scoring settings for a criterion including weight, scoring scale, minimum threshold, and eliminatory flag.',
+)
 @SectionId('EVCES')
 class EvaluationCriterionEntryScoring {
   @Form([
@@ -404,6 +511,12 @@ class EvaluationCriterionEntryScoring {
 }
 
 /// Evaluation process.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+  ],
+  'Holds the evaluation process for a criterion including evidence required, evaluation method, evaluator role, and duration.',
+)
 @SectionId('EVCEP')
 class EvaluationCriterionEntryProcess {
   @Form([
@@ -424,6 +537,12 @@ class EvaluationCriterionEntryProcess {
 }
 
 /// Scoring guidelines and scope.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the software product quality evaluation process defines how evaluation criteria are established and applied',
+  ],
+  'Holds the scoring guidelines describing low, mid, and high scores and the component categories a criterion applies to.',
+)
 @SectionId('EVCEG')
 class EvaluationCriterionEntryGuidelines {
   @Form([
@@ -450,6 +569,12 @@ class EvaluationCriterionEntryGuidelines {
 /// Describes a single external or standard component planned for use:
 /// vendor assessment, maturity, security, cost, deployment model, licensing,
 /// interfaces, and responsibilities.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses',
+  ],
+  'Captures the catalog entry describing one component including identity, vendor, and support profile.',
+)
 @SectionId('CMPNT')
 class ComponentEntry {
   @Form([
@@ -496,14 +621,28 @@ class ComponentEntry {
   ComponentRisk risk = ComponentRisk();
 
   /// Documentation.
+  @StandardReferences(
+    [
+      'ISO/IEC 5962:2021 — the SPDX specification records component documentation and provenance metadata in the software bill of materials',
+    ],
+    'Lists the documentation artifacts associated with the component.',
+  )
   @SectionId('CODO-DOCS-LST')
   @SectionIdPattern('CODO-DOCS-xxx')
+  @ContentHelp('Add one entry per component document.')
   @SerializationOrder(9)
   List<ComponentDocs> docs = [];
 
   /// Interfaces — contains 0+× ComponentInterface.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+    ],
+    'Lists the interfaces exposed or consumed by the component.',
+  )
   @SectionId('CMIF-INTE-LST')
   @SectionIdPattern('CMIF-INTE-xxx')
+  @ContentHelp('Add one entry per component interface.')
   @SerializationOrder(10)
   List<ComponentInterfaceEntry> interfaces = [];
 
@@ -516,13 +655,26 @@ class ComponentEntry {
   TextSection usageRights = TextSection();
 
   /// Responsibilities (form).
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the product quality model frames the functional responsibilities a component is accountable for within the system',
+    ],
+    'Lists the responsibilities assigned to the component.',
+  )
   @SectionId('COREEN-RESP-LST')
   @SectionIdPattern('COREEN-RESP-xxx')
+  @ContentHelp('Add one entry per component responsibility.')
   @SerializationOrder(13)
   List<ComponentResponsibilitiesEntry> responsibilities = [];
 }
 
 /// Vendor for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses',
+  ],
+  'Captures the version, business purpose, vendor identity, and vendor stability for a component.',
+)
 @SectionId('CMPVD')
 class ComponentVendor {
   @Form([
@@ -540,6 +692,12 @@ class ComponentVendor {
 }
 
 /// Maturity for component.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames maintainability characteristics such as component maturity and modifiability',
+  ],
+  'Captures the maturity level, community health, and release cadence of a component.',
+)
 @SectionId('CMPMT')
 class ComponentMaturity {
   @Form([
@@ -555,6 +713,12 @@ class ComponentMaturity {
 }
 
 /// Support for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification records component support and security tracking metadata in the software bill of materials',
+  ],
+  'Captures the support model, support tier, and security advisory source for a component.',
+)
 @SectionId('CMPSP')
 class ComponentSupport {
   @Form([
@@ -570,6 +734,12 @@ class ComponentSupport {
 }
 
 /// Performance for component.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames performance efficiency characteristics such as throughput, latency, and scalability limits',
+  ],
+  'Captures the performance benchmarks and scalability ceiling of a component.',
+)
 @SectionId('CMPPF')
 class ComponentPerformance {
   @Form([
@@ -583,6 +753,12 @@ class ComponentPerformance {
 }
 
 /// Deployment for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification captures component deployment and resource metadata in the software bill of materials',
+  ],
+  'Captures the deployment model and resource footprint of a component.',
+)
 @SectionId('CMPDP')
 class ComponentDeployment {
   @Form([
@@ -596,6 +772,12 @@ class ComponentDeployment {
 }
 
 /// Cost for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification catalogs component identity and metadata against which total cost of ownership is tracked in the software bill of materials',
+  ],
+  'Captures the first-year and ongoing total cost of ownership for a component.',
+)
 @SectionId('COCO')
 class ComponentCost {
   @Form([
@@ -609,6 +791,12 @@ class ComponentCost {
 }
 
 /// Compliance for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification records component compliance certifications alongside identity and licensing in the software bill of materials',
+  ],
+  'Captures the compliance certifications and training requirements associated with a component.',
+)
 @SectionId('CC')
 class ComponentCompliance {
   @Form([
@@ -622,6 +810,12 @@ class ComponentCompliance {
 }
 
 /// Risk for component.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how a component fits into the system through its replacement difficulty, lock-in, and integration relationships',
+  ],
+  'Captures the replacement difficulty, lock-in factors, and integration complexity of a component within the system.',
+)
 @SectionId('CORI')
 class ComponentRisk {
   @Form([
@@ -637,6 +831,12 @@ class ComponentRisk {
 }
 
 /// Docs for component.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification captures component documentation quality, links, and provenance in the software bill of materials',
+  ],
+  'Captures the documentation quality, links, and approval status recorded for a component.',
+)
 @SectionId('CODO')
 class ComponentDocs {
   @Form([
@@ -657,6 +857,13 @@ class ComponentDocs {
 ///
 /// Describes one interface exposed or consumed by a component: protocol,
 /// authentication, data format, rate limits, versioning, SLA, monitoring.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures one interface exposed or consumed by a component covering protocol, authentication, data format, rate limits, versioning, SLA, and monitoring.',
+)
 @SectionId('CMIF')
 class ComponentInterfaceEntry {
   @Form([
@@ -693,6 +900,12 @@ class ComponentInterfaceEntry {
 }
 
 /// Network configuration for component interface.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+  ],
+  'Captures network configuration for a component interface covering the default port, base path or endpoint, and rate limit.',
+)
 @SectionId('CIEN')
 class ComponentInterfaceEntryNetwork {
   @Form([
@@ -708,6 +921,12 @@ class ComponentInterfaceEntryNetwork {
 }
 
 /// Security settings for component interface.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+  ],
+  'Captures security settings for a component interface covering authentication method, authorization model, and TLS requirement.',
+)
 @SectionId('CIES')
 class ComponentInterfaceEntrySecurity {
   @Form([
@@ -723,6 +942,13 @@ class ComponentInterfaceEntrySecurity {
 }
 
 /// Data format configuration for component interface.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures data format configuration for a component interface covering request and response formats, versioning scheme, current API version, and backward compatibility policy.',
+)
 @SectionId('CIED')
 class ComponentInterfaceEntryData {
   @Form([
@@ -742,6 +968,13 @@ class ComponentInterfaceEntryData {
 }
 
 /// SLA and monitoring for component interface.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+  ],
+  'Captures SLA and monitoring for a component interface covering availability, P99 latency, health check endpoint, and metrics endpoint.',
+)
 @SectionId('COINENSL')
 class ComponentInterfaceEntrySla {
   @Form([
@@ -759,6 +992,12 @@ class ComponentInterfaceEntrySla {
 }
 
 /// Operations and documentation for component interface.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders',
+  ],
+  'Captures operations and documentation for a component interface covering the recommended retry policy, documentation URL, and description.',
+)
 @SectionId('CIEO')
 class ComponentInterfaceEntryOperations {
   @Form([
@@ -777,6 +1016,13 @@ class ComponentInterfaceEntryOperations {
 ///
 /// Detailed licensing information: model, cost, compliance, open-source
 /// obligations, audit requirements, geographic restrictions, usage metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses',
+  ],
+  'Captures the component licensing model covering license model, name, contract term, costs, usage rights, compliance restrictions, capacity rules, and termination terms.',
+)
 @SectionId('COLIEN')
 class ComponentLicensingEntry {
   @Form([
@@ -815,6 +1061,12 @@ class ComponentLicensingEntry {
 }
 
 /// Cost and renewal details.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+  ],
+  'Captures cost and renewal details for a component license covering initial cost, recurring cost, renewal date, and auto-renewal terms.',
+)
 @SectionId('CLEC')
 class ComponentLicensingEntryCosts {
   @Form([
@@ -832,6 +1084,13 @@ class ComponentLicensingEntryCosts {
 }
 
 /// Usage rights and obligations.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses',
+  ],
+  'Captures usage rights and obligations for a component license covering redistribution rights, sublicensing, open-source obligations, and copyleft scope.',
+)
 @SectionId('CLER')
 class ComponentLicensingEntryRights {
   @Form([
@@ -852,6 +1111,12 @@ class ComponentLicensingEntryRights {
 }
 
 /// Compliance restrictions.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+  ],
+  'Captures compliance restrictions for a component license covering vendor audit rights, geographic restrictions, and export control classification.',
+)
 @SectionId('COLIENCO')
 class ComponentLicensingEntryCompliance {
   @Form([
@@ -869,6 +1134,12 @@ class ComponentLicensingEntryCompliance {
 }
 
 /// Metering and capacity rules.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+  ],
+  'Captures metering and capacity rules for a component license covering the usage metric tracked, licensed capacity, and overage policy.',
+)
 @SectionId('COLIENCA')
 class ComponentLicensingEntryCapacity {
   @Form([
@@ -886,6 +1157,12 @@ class ComponentLicensingEntryCapacity {
 }
 
 /// Contract termination terms.
+@StandardReferences(
+  [
+    'ISO/IEC 5230:2020 — the OpenChain standard specifies the key requirements of a quality open-source license compliance programme',
+  ],
+  'Captures contract termination terms for a component license covering early termination penalties and data export rights.',
+)
 @SectionId('COMLICENTCON')
 class ComponentLicensingEntryContract {
   @Form([
@@ -900,6 +1177,12 @@ class ComponentLicensingEntryContract {
 ///
 /// Who owns and maintains this component: primary/backup owners, SLA targets,
 /// patch response time, security vulnerability handling, budget allocation.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures component responsibilities covering primary and backup ownership, escalation path, vendor support, SLA targets, security operations, and governance.',
+)
 @SectionId('COREEN')
 class ComponentResponsibilitiesEntry {
   @Form([
@@ -935,6 +1218,12 @@ class ComponentResponsibilitiesEntry {
 }
 
 /// Vendor support details.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses',
+  ],
+  'Captures vendor support details for a component covering the support contact and support hours.',
+)
 @SectionId('CRES')
 class ComponentResponsibilitiesEntrySupport {
   @Form([
@@ -949,6 +1238,12 @@ class ComponentResponsibilitiesEntrySupport {
 }
 
 /// SLA commitments.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures SLA commitments for a component covering uptime target, critical issue response time, and critical issue resolution time.',
+)
 @SectionId('COREENSL')
 class ComponentResponsibilitiesEntrySla {
   @Form([
@@ -964,6 +1259,12 @@ class ComponentResponsibilitiesEntrySla {
 }
 
 /// Security and update operations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures security and update operations for a component covering patch cadence, vulnerability handling, scan frequency, update strategy, change approval, and monitoring ownership.',
+)
 @SectionId('CREO')
 class ComponentResponsibilitiesEntryOperations {
   @Form([
@@ -987,6 +1288,12 @@ class ComponentResponsibilitiesEntryOperations {
 }
 
 /// Governance and planning.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model frames compatibility and maintainability characteristics relevant to component integration',
+  ],
+  'Captures governance and planning for a component covering knowledge base location, annual budget, review frequency, and capacity planning ownership.',
+)
 @SectionId('CREG')
 class ComponentResponsibilitiesEntryGovernance {
   @Form([
@@ -1013,6 +1320,13 @@ class ComponentResponsibilitiesEntryGovernance {
 ///
 /// Runtime dependencies between components: required services, startup order,
 /// health-check dependencies, failover behavior, and version constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how system elements and their dependency relationships are documented',
+  ],
+  'Captures the runtime dependency graph governing required services, startup order, health checks, failover behavior, and version constraints.',
+)
 @SectionId('RUDE')
 class RuntimeDependencies {
   @ContentHelp('''
@@ -1040,8 +1354,15 @@ strategy, and fallback alternatives.
   String? content;
 
   /// Contains 0+× Runtime Dependency.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+    ],
+    'Holds the list of runtime dependency entries governing startup order, health checks, and failover.',
+  )
   @SectionId('RNDEP-ITEM-LST')
   @SectionIdPattern('RNDEP-ITEM-xxx')
+  @ContentHelp('Add one entry per runtime dependency.')
   @SerializationOrder(1)
   List<RuntimeDependencyEntry> items = [];
 }
@@ -1050,6 +1371,13 @@ strategy, and fallback alternatives.
 ///
 /// Maintenance dependencies: version compatibility matrix, coordinated
 /// update sequences, and breaking-change handling.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability',
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, and provenance',
+  ],
+  'Captures the maintenance dependency graph governing the version compatibility matrix, coordinated update sequences, and breaking-change handling.',
+)
 @SectionId('MADE')
 class MaintenanceDependencies {
   @ContentHelp('''
@@ -1076,8 +1404,15 @@ Maintenance relationships and update coordination.
   String? content;
 
   /// Contains 0+× Maintenance Dependency.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability',
+    ],
+    'Holds the list of maintenance dependency entries governing version compatibility and coordinated updates.',
+  )
   @SectionId('MNDEP-ITEM-LST')
   @SectionIdPattern('MNDEP-ITEM-xxx')
+  @ContentHelp('Add one entry per maintenance dependency.')
   @SerializationOrder(1)
   List<MaintenanceDependencyEntry> items = [];
 }
@@ -1086,6 +1421,13 @@ Maintenance relationships and update coordination.
 ///
 /// Documents one runtime dependency: startup order, health checks,
 /// failover, data flow, latency tolerance, and caching strategy.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+    'ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how system elements and their dependency relationships are documented',
+  ],
+  'Documents one runtime dependency covering startup order, health checks, failover, data flow, latency tolerance, and caching strategy.',
+)
 @SectionId('RNDEP')
 class RuntimeDependencyEntry {
   @Form([
@@ -1126,6 +1468,12 @@ class RuntimeDependencyEntry {
 }
 
 /// Versioning and business criticality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+  ],
+  'Captures the version constraint, criticality, and purpose that classify one runtime dependency.',
+)
 @SectionId('RDEC')
 class RuntimeDependencyEntryClassification {
   @Form([
@@ -1142,6 +1490,12 @@ class RuntimeDependencyEntryClassification {
 }
 
 /// Startup and health behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+  ],
+  'Captures startup order, startup timeout, and health-check method and interval for one runtime dependency.',
+)
 @SectionId('RDES')
 class RuntimeDependencyEntryStartup {
   @Form([
@@ -1160,6 +1514,12 @@ class RuntimeDependencyEntryStartup {
 }
 
 /// Resilience behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+  ],
+  'Captures failover behavior, fallback alternatives, and caching strategy for one runtime dependency.',
+)
 @SectionId('RDER')
 class RuntimeDependencyEntryResilience {
   @Form([
@@ -1178,6 +1538,12 @@ class RuntimeDependencyEntryResilience {
 }
 
 /// Data flow and network characteristics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+  ],
+  'Captures the data flow direction, network requirement, and latency tolerance for one runtime dependency.',
+)
 @SectionId('RDEI')
 class RuntimeDependencyEntryIntegration {
   @Form([
@@ -1195,6 +1561,12 @@ class RuntimeDependencyEntryIntegration {
 }
 
 /// Compatibility and transitive risk notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines reliability sub-characteristics such as availability, fault tolerance, and recoverability',
+  ],
+  'Captures transitive dependency risk and compatibility notes for one runtime dependency.',
+)
 @SectionId('RUDEENRI')
 class RuntimeDependencyEntryRisk {
   @Form([
@@ -1213,6 +1585,13 @@ class RuntimeDependencyEntryRisk {
 ///
 /// Documents one maintenance dependency: coordinated update sequences,
 /// version compatibility, and breaking-change handling.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability',
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, and provenance',
+  ],
+  'Documents one maintenance dependency covering coordinated update sequences, version compatibility, and breaking-change handling.',
+)
 @SectionId('MNDEP')
 class MaintenanceDependencyEntry {
   @Form([
@@ -1244,6 +1623,12 @@ class MaintenanceDependencyEntry {
 }
 
 /// Classification and purpose.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability',
+  ],
+  'Captures the dependency type, criticality, and purpose that classify one maintenance dependency.',
+)
 @SectionId('MDEC')
 class MaintenanceDependencyEntryClassification {
   @Form([
@@ -1260,6 +1645,12 @@ class MaintenanceDependencyEntryClassification {
 }
 
 /// Update coordination.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines maintainability sub-characteristics such as modularity, modifiability, and testability',
+  ],
+  'Captures update strategy, frequency, coordinated update sequence, and breaking-change policy for one maintenance dependency.',
+)
 @SectionId('MDEU')
 class MaintenanceDependencyEntryUpdate {
   @Form([
@@ -1281,6 +1672,12 @@ class MaintenanceDependencyEntryUpdate {
 }
 
 /// Risk and fallback planning.
+@StandardReferences(
+  [
+    'ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, and provenance',
+  ],
+  'Captures compatibility notes, alternatives, transitive dependency risk, and security patch SLA for one maintenance dependency.',
+)
 @SectionId('MDER')
 class MaintenanceDependencyEntryRisk {
   @Form([
@@ -1308,6 +1705,13 @@ class MaintenanceDependencyEntryRisk {
 ///
 /// Component risk assessment: identified risks with probability/impact,
 /// monitoring, mitigation strategies, and contingency plans.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Captures the component-level risk assessment governing risk identification, monitoring, mitigation, and contingency planning.',
+)
 @SectionId('CORIAS')
 class ComponentRiskAssessment {
   @ContentHelp('''
@@ -1336,8 +1740,15 @@ Each risk includes:
   String? content;
 
   /// 12.6.1. Component Risks — contains 0+× Risk.
+  @StandardReferences(
+    [
+      'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+    ],
+    'Lists the individual component risk entries identified for the component.',
+  )
   @SectionId('CMRS-RISK-LST')
   @SectionIdPattern('CMRS-RISK-xxx')
+  @ContentHelp('Add one entry per component risk.')
   @SerializationOrder(1)
   List<ComponentRiskEntry> risks = [];
 
@@ -1349,6 +1760,12 @@ Each risk includes:
 /// 12.6.2. Contingency Plans.
 ///
 /// Container for contingency plans addressing critical component risks.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Contains the contingency plans that respond to critical component risk events.',
+)
 @SectionId('CONPLA')
 class ContingencyPlans {
   @ContentHelp('''
@@ -1375,8 +1792,15 @@ Document tools, access, and backups required to execute.
   String? content;
 
   /// Contains 0+× ContingencyPlan.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+    ],
+    'Lists the contingency plan entries defined for critical component risks.',
+  )
   @SectionId('COPL-ITEM-LST')
   @SectionIdPattern('COPL-ITEM-xxx')
+  @ContentHelp('Add one entry per contingency plan.')
   @SerializationOrder(1)
   List<ContingencyPlanEntry> items = [];
 }
@@ -1385,6 +1809,13 @@ Document tools, access, and backups required to execute.
 ///
 /// Describes one contingency plan for a component risk: trigger conditions,
 /// immediate/recovery actions, RTO/RPO, communication, testing frequency.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+  ],
+  'Describes a single contingency plan entry for a component risk, spanning references, actions, responsibility, communication, and testing.',
+)
 @SectionId('COPL')
 class ContingencyPlanEntry {
   @Form([
@@ -1422,6 +1853,12 @@ class ContingencyPlanEntry {
 }
 
 /// Reference links for contingency plan.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Holds the reference links tying a contingency plan to its associated risk and component.',
+)
 @SectionId('CPER')
 class ContingencyPlanEntryReferences {
   @Form([
@@ -1435,6 +1872,12 @@ class ContingencyPlanEntryReferences {
 }
 
 /// Action steps for contingency plan.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Defines the action steps for a contingency plan, covering trigger detection, immediate containment actions, and recovery actions.',
+)
 @SectionId('CPEA')
 class ContingencyPlanEntryActions {
   @Form([
@@ -1450,6 +1893,12 @@ class ContingencyPlanEntryActions {
 }
 
 /// Responsibility and recovery targets for contingency plan.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Records responsibility assignments and recovery targets for a contingency plan, including the responsible party, support teams, RTO, and RPO.',
+)
 @SectionId('COPLENRE')
 class ContingencyPlanEntryResponsibility {
   @Form([
@@ -1467,6 +1916,12 @@ class ContingencyPlanEntryResponsibility {
 }
 
 /// Communication plans for contingency.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Holds the communication plans for a contingency, covering internal notification order and external customer messaging.',
+)
 @SectionId('CPEC')
 class ContingencyPlanEntryCommunication {
   @Form([
@@ -1480,6 +1935,12 @@ class ContingencyPlanEntryCommunication {
 }
 
 /// Testing and resources for contingency plan.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Captures testing cadence and execution resources for a contingency plan, including test frequency, last test result, dependencies, and fallback plan.',
+)
 @SectionId('CPET')
 class ContingencyPlanEntryTesting {
   @Form([
@@ -1508,6 +1969,13 @@ class ContingencyPlanEntryTesting {
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Documents a single component risk entry spanning description, assessment, detection, mitigation, and governance.',
+)
 @SectionId('CMRS')
 class ComponentRiskEntry {
   @Form([
@@ -1543,6 +2011,12 @@ class ComponentRiskEntry {
 }
 
 /// Risk description and categorization.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+  ],
+  'Provides the description and categorization of a component risk, including the risk scenario and its risk category.',
+)
 @SectionId('CRED')
 class ComponentRiskEntryDescription {
   @Form([
@@ -1556,6 +2030,12 @@ class ComponentRiskEntryDescription {
 }
 
 /// Risk assessment for component risk.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+  ],
+  'Records the assessment of a component risk, including probability, business impact, risk score, and risk trend.',
+)
 @SectionId('CREA')
 class ComponentRiskEntryAssessment {
   @Form([
@@ -1573,6 +2053,12 @@ class ComponentRiskEntryAssessment {
 }
 
 /// Detection and monitoring for component risk.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+  ],
+  'Describes how a component risk is detected and monitored, covering detection methods, early warning indicators, and monitoring mechanisms.',
+)
 @SectionId('CORIENDE')
 class ComponentRiskEntryDetection {
   @Form([
@@ -1588,6 +2074,13 @@ class ComponentRiskEntryDetection {
 }
 
 /// Mitigation strategy for component risk.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+    'ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities',
+  ],
+  'Holds the mitigation strategy for a component risk, including status, cost, residual risk level, and the contingency trigger.',
+)
 @SectionId('CREM')
 class ComponentRiskEntryMitigation {
   @Form([
@@ -1607,6 +2100,12 @@ class ComponentRiskEntryMitigation {
 }
 
 /// Governance and ownership for component risk.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk',
+  ],
+  'Captures governance and ownership assignments for a component risk, including the risk owner, review frequency, and acceptance criteria.',
+)
 @SectionId('CORIENGO')
 class ComponentRiskEntryGovernance {
   @Form([

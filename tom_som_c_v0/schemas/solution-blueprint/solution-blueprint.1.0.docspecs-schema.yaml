@@ -169,7 +169,7 @@ section-types:
     pattern-check-id:
       pattern: ^coreen_resp_lst-\d+$
       error-message: ID must match coreen_resp_lst-NNN
-    description: Responsibilities (form).
+    description: Add one entry per component responsibility.
   COSTEN-CODI-LST:
     prefix: costen_codi_lst
     pattern-check-id:
@@ -1085,7 +1085,7 @@ section-types:
     pattern-check-id:
       pattern: ^cmpnt_comp_lst-\d+$
       error-message: ID must match cmpnt_comp_lst-NNN
-    description: 12.2. Component Catalog — contains 0+× Component.
+    description: Add one entry per cataloged component.
   COMMB-MEMB-LST:
     prefix: commb_memb_lst
     min-count-in-document: 1
@@ -1298,7 +1298,7 @@ section-types:
     pattern-check-id:
       pattern: ^evcen_item_lst-\d+$
       error-message: ID must match evcen_item_lst-NNN
-    description: Contains 0+× EvaluationCriterion.
+    description: Add one entry per evaluation criterion.
   EXIPR-EXPE-LST:
     prefix: exipr_expe_lst
     pattern-check-id:
@@ -1583,7 +1583,7 @@ section-types:
     pattern-check-id:
       pattern: ^mndep_item_lst-\d+$
       error-message: ID must match mndep_item_lst-NNN
-    description: Contains 0+× Maintenance Dependency.
+    description: Add one entry per maintenance dependency.
   MNSST-STEP-LST:
     prefix: mnsst_step_lst
     min-count-in-document: 1
@@ -1937,7 +1937,7 @@ section-types:
     pattern-check-id:
       pattern: ^rguse_reus_lst-\d+$
       error-message: ID must match rguse_reus_lst-NNN
-    description: 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
+    description: Add one entry per reuse goal.
   RISKB-RISK-LST:
     prefix: riskb_risk_lst
     pattern-check-id:
@@ -1973,7 +1973,7 @@ section-types:
     pattern-check-id:
       pattern: ^rndep_item_lst-\d+$
       error-message: ID must match rndep_item_lst-NNN
-    description: Contains 0+× Runtime Dependency.
+    description: Add one entry per runtime dependency.
   ROLCP-NEWC-LST:
     prefix: rolcp_newc_lst
     pattern-check-id:
@@ -2555,7 +2555,7 @@ section-types:
     pattern-check-id:
       pattern: ^cmif_inte_lst-\d+$
       error-message: ID must match cmif_inte_lst-NNN
-    description: Interfaces — contains 0+× ComponentInterface.
+    description: Add one entry per component interface.
   CMPR-PROP-LST:
     prefix: cmpr_prop_lst
     pattern-check-id:
@@ -2567,7 +2567,7 @@ section-types:
     pattern-check-id:
       pattern: ^cmrs_risk_lst-\d+$
       error-message: ID must match cmrs_risk_lst-NNN
-    description: 12.6.1. Component Risks — contains 0+× Risk.
+    description: Add one entry per component risk.
   CMSL-SLOT-LST:
     prefix: cmsl_slot_lst
     pattern-check-id:
@@ -2591,7 +2591,7 @@ section-types:
     pattern-check-id:
       pattern: ^codo_docs_lst-\d+$
       error-message: ID must match codo_docs_lst-NNN
-    description: Documentation.
+    description: Add one entry per component document.
   COEQ-PRIM-LST:
     prefix: coeq_prim_lst
     pattern-check-id:
@@ -2615,7 +2615,7 @@ section-types:
     pattern-check-id:
       pattern: ^copl_item_lst-\d+$
       error-message: ID must match copl_item_lst-NNN
-    description: Contains 0+× ContingencyPlan.
+    description: Add one entry per contingency plan.
   COTY-COMM-LST:
     prefix: coty_comm_lst
     pattern-check-id:
