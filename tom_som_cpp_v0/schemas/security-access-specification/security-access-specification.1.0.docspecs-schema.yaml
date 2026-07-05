@@ -7,19 +7,19 @@ section-types:
     pattern-check-id:
       pattern: ^reskref_reso_lst-\d+$
       error-message: ID must match reskref_reso_lst-NNN
-    description: Contains 0+× ResourceKeyReference.
+    description: Add one entry per resource reference.
   ROLDSCP-DATA-LST:
     prefix: roldscp_data_lst
     pattern-check-id:
       pattern: ^roldscp_data_lst-\d+$
       error-message: ID must match roldscp_data_lst-NNN
-    description: Contains 0+× RoleDataScope.
+    description: Add one entry per data scope.
   ROLPERM-DIRE-LST:
     prefix: rolperm_dire_lst
     pattern-check-id:
       pattern: ^rolperm_dire_lst-\d+$
       error-message: ID must match rolperm_dire_lst-NNN
-    description: Contains 0+× RolePermission.
+    description: Add one entry per direct permission.
   COCHEN-COMM-LST:
     prefix: cochen_comm_lst
     pattern-check-id:
@@ -37,7 +37,7 @@ section-types:
     pattern-check-id:
       pattern: ^enrefe_enti_lst-\d+$
       error-message: ID must match enrefe_enti_lst-NNN
-    description: Contains 0+× EntitlementReference.
+    description: Add one entry per entitlement reference.
   IDPRDE-DETA-LST:
     prefix: idprde_deta_lst
     pattern-check-id:
@@ -61,37 +61,37 @@ section-types:
     pattern-check-id:
       pattern: ^reskey_reso_lst-\d+$
       error-message: ID must match reskey_reso_lst-NNN
-    description: 9.4.5. Resource Keys — contains 0+× Resource Key.
+    description: Add one entry per protected resource.
   ROLEXC-MUTU-LST:
     prefix: rolexc_mutu_lst
     pattern-check-id:
       pattern: ^rolexc_mutu_lst-\d+$
       error-message: ID must match rolexc_mutu_lst-NNN
-    description: Contains 0+× RoleExclusion.
+    description: Add one entry per mutually exclusive role.
   ROLHLD-TYPI-LST:
     prefix: rolhld_typi_lst
     pattern-check-id:
       pattern: ^rolhld_typi_lst-\d+$
       error-message: ID must match rolhld_typi_lst-NNN
-    description: Contains 0+× RoleHolder.
+    description: Add one entry per typical role holder.
   ROLREF-CONT-LST:
     prefix: rolref_cont_lst
     pattern-check-id:
       pattern: ^rolref_cont_lst-\d+$
       error-message: ID must match rolref_cont_lst-NNN
-    description: Contains 0+× RoleReference.
+    description: Add one entry per contained role.
   RSPREF-RESP-LST:
     prefix: rspref_resp_lst
     pattern-check-id:
       pattern: ^rspref_resp_lst-\d+$
       error-message: ID must match rspref_resp_lst-NNN
-    description: Contains 0+× ResponsibilityReference.
+    description: Add one entry per responsibility reference.
   GBRLX-GLOB-LST:
     prefix: gbrlx_glob_lst
     pattern-check-id:
       pattern: ^gbrlx_glob_lst-\d+$
       error-message: ID must match gbrlx_glob_lst-NNN
-    description: Contains 0+× GlobalRoleExclusion.
+    description: Add one entry per global role exclusion.
   IDTAM-ATTR-LST:
     prefix: idtam_attr_lst
     pattern-check-id:
@@ -127,13 +127,13 @@ section-types:
     pattern-check-id:
       pattern: ^rlcmb_comb_lst-\d+$
       error-message: ID must match rlcmb_comb_lst-NNN
-    description: Contains 0+× RoleCombinationConstraint.
+    description: Add one entry per role combination rule.
   RLINH-INHE-LST:
     prefix: rlinh_inhe_lst
     pattern-check-id:
       pattern: ^rlinh_inhe_lst-\d+$
       error-message: ID must match rlinh_inhe_lst-NNN
-    description: Contains 0+× RoleInheritanceRule.
+    description: Add one entry per role inheritance relationship.
   SACLC-SERV-LST:
     prefix: saclc_serv_lst
     pattern-check-id:
@@ -175,14 +175,14 @@ section-types:
     pattern-check-id:
       pattern: ^azgr_grou_lst-\d+$
       error-message: ID must match azgr_grou_lst-NNN
-    description: 9.4.2. Authorization Groups — contains 0+× Group.
+    description: Add one entry per authorization group.
   AZRO-ROLE-LST:
     prefix: azro_role_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^azro_role_lst-\d+$
       error-message: ID must match azro_role_lst-NNN
-    description: 9.4.3. Role Definitions — contains 1+× Role.
+    description: Add one entry per authorization role.
   SEVT-CUST-LST:
     prefix: sevt_cust_lst
     pattern-check-id:
@@ -194,14 +194,14 @@ section-types:
     pattern-check-id:
       pattern: ^tncs_tena_lst-\d+$
       error-message: ID must match tncs_tena_lst-NNN
-    description: Contains 0+× TenantCustomization.
+    description: Add one entry per tenant.
   ENT-ENTI-LST:
     prefix: ent_enti_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^ent_enti_lst-\d+$
       error-message: ID must match ent_enti_lst-NNN
-    description: 9.4.4. Entitlements — contains 1+× Entitlement.
+    description: Add one entry per entitlement.
   AUROENST:
     prefix: auroenst
     description: Data access and role status flags.

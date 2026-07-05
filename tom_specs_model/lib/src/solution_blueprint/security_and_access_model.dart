@@ -4416,6 +4416,14 @@ class SessionLifecycleMonitoring {
 }
 
 /// 9.3. Resource Protection.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'OWASP API Security Top 10 — 2023 edition',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+  ],
+  'Ensures authenticated and authorized users can only access the specific data, API, and file resources they are entitled to.',
+)
 @SectionId('RESPRO')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-RES')
@@ -4469,6 +4477,14 @@ can only access the specific resources they are entitled to.
 /// security, row-level security, column-level security, tenant data isolation,
 /// and data masking for production and non-production environments.
 /// Aligned with OWASP Database Security Cheat Sheet and least-privilege principles.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.5.12 classification of information',
+  ],
+  'Covers data-level protection including database access, row and column-level security, tenant isolation, and masking.',
+)
 @SectionId('DALESE')
 class DataLevelSecurity {
   @ContentHelp('''
@@ -4587,6 +4603,14 @@ within databases and data stores.
       hint:
           'DamEnabled | NativeAudit | None — database activity monitoring tool usage'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines how database accounts, credentials, and privileged access are controlled and how queries are protected from injection.',
+)
 @SectionId('DAP')
 class DatabaseAccessPolicy {
   @SerializationOrder(0)
@@ -4637,6 +4661,13 @@ class DatabaseAccessPolicy {
       hint:
           'AutomatedTests | PenetrationTesting | Both — how RLS enforcement is verified'),
 ])
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+  ],
+  'Defines how data access is restricted at the row level so users can only see records they are authorized to view.',
+)
 @SectionId('RLSP')
 class RowLevelSecurityPolicy {
   @SerializationOrder(0)
@@ -4683,6 +4714,14 @@ class RowLevelSecurityPolicy {
       hint:
           'None | SelectedColumns | AllSensitive | AlwaysEncrypted — column-level encryption approach'),
 ])
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'ISO/IEC 27001:2022 — control A.5.12 classification of information',
+  ],
+  'Defines how access to specific data columns or fields is restricted by role, sensitivity classification, or regulation.',
+)
 @SectionId('CLSP')
 class ColumnLevelSecurityPolicy {
   @SerializationOrder(0)
@@ -4732,6 +4771,14 @@ class ColumnLevelSecurityPolicy {
       hint:
           'ReadOnly | CachedLocally | Replicated — how tenants access shared/global reference data'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.8.10 information deletion',
+  ],
+  'Defines how each tenant data is isolated, exported, and removed so that one tenant cannot access another tenant records.',
+)
 @SectionId('TDIP')
 class TenantDataIsolationPolicy {
   @SerializationOrder(0)
@@ -4792,6 +4839,14 @@ class TenantDataIsolationPolicy {
       hint:
           'MaskedCopy | SyntheticData | SubsetExtract | SeedData — strategy for development/test environments'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.11 data masking',
+    'NIST SP 800-53 — control SC-28 protection of information at rest',
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+  ],
+  'Defines how sensitive data is masked or obfuscated for non-production, reporting, and limited-access scenarios.',
+)
 @SectionId('DMP')
 class DataMaskingPolicy {
   @SerializationOrder(0)
@@ -4844,6 +4899,14 @@ class DataMaskingPolicy {
       hint:
           'Duration data access logs are retained (e.g., 90d, 1y, 7y)'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.15 logging',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'ISO/IEC 27001:2022 — control A.8.16 monitoring activities',
+  ],
+  'Defines how data access events are logged, monitored, and reviewed to detect unauthorized access and support compliance.',
+)
 @SectionId('DAAP')
 class DataAccessAuditPolicy {
   @SerializationOrder(0)
@@ -4864,6 +4927,14 @@ class DataAccessAuditPolicy {
 /// authorization, request validation, CORS policy, input sanitization,
 /// abuse prevention, and security monitoring. Aligned with OWASP API
 /// Security Top 10 (2023) and OWASP REST Security Cheat Sheet.
+@StandardReferences(
+  [
+    'OWASP API Security Top 10 — 2023 edition',
+    'OWASP ASVS 4.0 — V13 API and web service verification',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Covers end-to-end API security including authentication, authorization, request validation, CORS, abuse prevention, and monitoring.',
+)
 @SectionId('APSE')
 class ApiSecurity {
   @ContentHelp('''
@@ -5008,6 +5079,14 @@ public-facing APIs, internal microservices, and webhooks.
   Field('notes', String, 'Notes',
       hint: 'Additional API authentication notes'),
 ])
+@StandardReferences(
+  [
+    'OAuth 2.0 — RFC 6749 authorization framework',
+    'OWASP API Security Top 10 — 2023 edition',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines how API callers authenticate, including credential types, token formats, and webhook signature verification.',
+)
 @SectionId('AAP')
 class ApiAuthenticationPolicy {
   @SerializationOrder(0)
@@ -5084,6 +5163,14 @@ class ApiAuthenticationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional API authorization notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP API Security Top 10 — 2023 edition',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'OWASP ASVS 4.0 — V13 API and web service verification',
+  ],
+  'Defines object-level, function-level, and property-level authorization and controls against privilege escalation.',
+)
 @SectionId('APAUPO')
 class ApiAuthorizationPolicy {
   @SerializationOrder(0)
@@ -5159,6 +5246,14 @@ class ApiAuthorizationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional request validation notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V13 API and web service verification',
+    'OWASP API Security Top 10 — 2023 edition',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines input validation, schema enforcement, size limits, and content-type verification for all API requests.',
+)
 @SectionId('ARVP')
 class ApiRequestValidationPolicy {
   @SerializationOrder(0)
@@ -5219,6 +5314,14 @@ class ApiRequestValidationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional CORS security notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V13 API and web service verification',
+    'OWASP API Security Top 10 — 2023 edition',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines CORS configuration and security response headers that govern cross-origin access to the API.',
+)
 @SectionId('APCOSE')
 class ApiCorsSecurity {
   @SerializationOrder(0)
@@ -5288,6 +5391,14 @@ class ApiCorsSecurity {
   Field('notes', String, 'Notes',
       hint: 'Additional abuse protection notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP API Security Top 10 — 2023 edition',
+    'OWASP ASVS 4.0 — V13 API and web service verification',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines rate limiting, bot detection, brute-force prevention, and business-flow protection against API abuse.',
+)
 @SectionId('APABPR')
 class ApiAbuseProtection {
   @SerializationOrder(0)
@@ -5359,6 +5470,14 @@ class ApiAbuseProtection {
   Field('notes', String, 'Notes',
       hint: 'Additional API security monitoring notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP API Security Top 10 — 2023 edition',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+  ],
+  'Defines API access logging, anomaly detection, inventory management, and compliance reporting for API security.',
+)
 @SectionId('APSEMO')
 class ApiSecurityMonitoring {
   @SerializationOrder(0)
@@ -5379,6 +5498,14 @@ class ApiSecurityMonitoring {
 /// validation, storage encryption, access control on file resources, content
 /// scanning, download protection, and storage lifecycle management.
 /// Aligned with OWASP File Upload Cheat Sheet and defense-in-depth principles.
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V12 file and resources verification',
+    'ISO/IEC 27001:2022 — control A.8.10 information deletion',
+    'NIST SP 800-53 — control SC-28 protection of information at rest',
+  ],
+  'Covers end-to-end file and storage security including upload validation, encryption, access control, scanning, and lifecycle.',
+)
 @SectionId('FASS')
 class FileAndStorageSecurity {
   @ContentHelp('''
@@ -5534,6 +5661,14 @@ and all stored media.
   Field('notes', String, 'Notes',
       hint: 'Additional file upload validation notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V12 file and resources verification',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+    'OWASP API Security Top 10 — 2023 edition',
+  ],
+  'Defines how uploaded files are validated for type, size, and content before acceptance to prevent malicious uploads.',
+)
 @SectionId('FUVP')
 class FileUploadValidationPolicy {
   @SerializationOrder(0)
@@ -5597,6 +5732,14 @@ class FileUploadValidationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional storage encryption notes'),
 ])
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control SC-28 protection of information at rest',
+    'ISO/IEC 27001:2022 — control A.5.33 protection of records',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+  ],
+  'Defines how files and storage volumes are encrypted at rest and in transit, including key management scope.',
+)
 @SectionId('STENPO')
 class StorageEncryptionPolicy {
   @SerializationOrder(0)
@@ -5674,6 +5817,14 @@ class StorageEncryptionPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional file access control notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+    'OWASP ASVS 4.0 — V12 file and resources verification',
+  ],
+  'Defines who may access stored files and how access is enforced through permissions and time-limited direct links.',
+)
 @SectionId('FACP')
 class FileAccessControlPolicy {
   @SerializationOrder(0)
@@ -5743,6 +5894,14 @@ class FileAccessControlPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional content scanning notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V12 file and resources verification',
+    'ISO/IEC 27001:2022 — control A.8.26 application security requirements',
+    'NIST SP 800-53 — control SC-28 protection of information at rest',
+  ],
+  'Defines how uploaded and stored files are scanned for malware, sensitive data, and policy-violating content.',
+)
 @SectionId('COSCPO')
 class ContentScanningPolicy {
   @SerializationOrder(0)
@@ -5802,6 +5961,14 @@ class ContentScanningPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional file download security notes'),
 ])
+@StandardReferences(
+  [
+    'OWASP ASVS 4.0 — V12 file and resources verification',
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST SP 800-53 — control AC-3 access enforcement',
+  ],
+  'Defines how file downloads are protected through authentication, rate limiting, content disposition, and audit logging.',
+)
 @SectionId('FDSP')
 class FileDownloadSecurityPolicy {
   @SerializationOrder(0)
@@ -5879,6 +6046,14 @@ class FileDownloadSecurityPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional storage lifecycle notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.33 protection of records',
+    'ISO/IEC 27001:2022 — control A.8.10 information deletion',
+    'NIST SP 800-53 — control SC-28 protection of information at rest',
+  ],
+  'Defines retention, archiving, versioning, backup, and secure deletion rules across the lifecycle of stored files.',
+)
 @SectionId('STLIPO')
 class StorageLifecyclePolicy {
   @SerializationOrder(0)
@@ -5899,6 +6074,14 @@ class StorageLifecyclePolicy {
 /// or hybrid. Covers access control model selection, permission granularity
 /// (function-level, data-level, field-level), permission composition strategy,
 /// access constraints, and evaluation behavior.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'NIST SP 800-162 — attribute-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Describes the authorization model used by the system such as RBAC, ABAC, ReBAC, or a hybrid.',
+)
 @SectionId('AUMO')
 class AuthorizationModel {
   @ContentHelp('''
@@ -6018,6 +6201,13 @@ Define the authorization model that governs who can do what in the system.
   Field('notes', String, 'Notes',
       hint: 'Additional access control model selection notes'),
 ])
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'NIST SP 800-162 — attribute-based access control',
+  ],
+  'Defines the primary access control paradigm such as RBAC or ABAC and the rationale for the choice.',
+)
 @SectionId('ACMS')
 class AccessControlModelSelection {
   @SerializationOrder(0)
@@ -6072,6 +6262,13 @@ class AccessControlModelSelection {
   Field('notes', String, 'Notes',
       hint: 'Additional permission granularity notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+    'NIST SP 800-53 — control AC-6 least privilege',
+  ],
+  'Defines the levels at which permissions can be specified from function-level through field-level control.',
+)
 @SectionId('PEGRPO')
 class PermissionGranularityPolicy {
   @SerializationOrder(0)
@@ -6128,6 +6325,13 @@ class PermissionGranularityPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional permission composition notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+    'NIST SP 800-53 — control AC-6 least privilege',
+  ],
+  'Defines how permissions from multiple sources combine into an effective permission set.',
+)
 @SectionId('PECOST')
 class PermissionCompositionStrategy {
   @SerializationOrder(0)
@@ -6188,6 +6392,14 @@ class PermissionCompositionStrategy {
   Field('notes', String, 'Notes',
       hint: 'Additional access constraint notes'),
 ])
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-6 least privilege',
+    'NIST SP 800-53 — control AC-5 separation of duties',
+    'NIST SP 800-162 — attribute-based access control',
+  ],
+  'Defines constraints that restrict access beyond basic role or attribute assignments.',
+)
 @SectionId('ACCOPO')
 class AccessConstraintPolicies {
   @SerializationOrder(0)
@@ -6245,6 +6457,13 @@ class AccessConstraintPolicies {
   Field('notes', String, 'Notes',
       hint: 'Additional permission evaluation behavior notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+    'NIST SP 800-53 — control AC-6 least privilege',
+  ],
+  'Defines how the system evaluates and enforces access control decisions at runtime.',
+)
 @SectionId('PEEVBE')
 class PermissionEvaluationBehavior {
   @SerializationOrder(0)
@@ -6258,6 +6477,13 @@ class PermissionEvaluationBehavior {
 /// 9.4. User Authorization.
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines the complete user authorization structure of groups, roles, entitlements, and resource keys.',
+)
 @SectionId('USAU')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-USA')
@@ -6298,28 +6524,48 @@ Aligned with Tom Core authorization model.
   AuthorizationModel authorizationModel = AuthorizationModel();
 
   /// 9.4.2. Authorization Groups — contains 0+× Group.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — role and group membership assignment'],
+    'The catalog of authorization groups that organize users for role assignment.',
+  )
   @SectionId('AZGR-GROU-LST')
   @SectionIdPattern('AZGR-GROU-xxx')
+  @ContentHelp('Add one entry per authorization group.')
   @SerializationOrder(2)
   List<AuthorizationGroupEntry> groups = [];
 
   /// 9.4.3. Role Definitions — contains 1+× Role.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — role-based access control'],
+    'The catalog of authorization roles that bundle entitlements for assignment.',
+  )
   @SectionId('AZRO-ROLE-LST')
   @SectionIdPattern('AZRO-ROLE-xxx')
+  @ContentHelp('Add one entry per authorization role.')
   @Min(1)
   @SerializationOrder(3)
   List<AuthorizationRoleEntry> roleDefinitions = [];
 
   /// 9.4.4. Entitlements — contains 1+× Entitlement.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — permissions assigned to roles'],
+    'The catalog of entitlements representing atomic permissions.',
+  )
   @SectionId('ENT-ENTI-LST')
   @SectionIdPattern('ENT-ENTI-xxx')
+  @ContentHelp('Add one entry per entitlement.')
   @Min(1)
   @SerializationOrder(4)
   List<EntitlementEntry> entitlements = [];
 
   /// 9.4.5. Resource Keys — contains 0+× Resource Key.
+  @StandardReferences(
+    ['ISO/IEC 27001:2022 — control A.5.15 access control'],
+    'The catalog of protected resources identified by resource keys.',
+  )
   @SectionId('RESKEY-RESO-LST')
   @SectionIdPattern('RESKEY-RESO-xxx')
+  @ContentHelp('Add one entry per protected resource.')
   @SerializationOrder(5)
   List<ResourceKeyEntry> resourceKeys = [];
 
@@ -6341,6 +6587,13 @@ Aligned with Tom Core authorization model.
 /// Defines the role hierarchy: inheritance rules, mutual exclusions,
 /// role combination constraints, hierarchy depth, and role certification
 /// policies. Aligns with NIST hierarchical RBAC model.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines the role hierarchy including inheritance rules, mutual exclusions, and role certification policies.',
+)
 @SectionId('ROHI')
 class RoleHierarchy {
   @ContentHelp('''
@@ -6384,20 +6637,35 @@ simplifies administration and ensures consistent access control.
   RoleHierarchyPolicy hierarchyPolicy = RoleHierarchyPolicy();
 
   /// Contains 0+× RoleInheritanceRule.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance'],
+    'The catalog of role inheritance relationships between parent and child roles.',
+  )
   @SectionId('RLINH-INHE-LST')
   @SectionIdPattern('RLINH-INHE-xxx')
+  @ContentHelp('Add one entry per role inheritance relationship.')
   @SerializationOrder(2)
   List<RoleInheritanceRuleEntry> inheritanceRules = [];
 
   /// Contains 0+× RoleCombinationConstraint.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty'],
+    'The catalog of role combination rules that govern which roles can coexist.',
+  )
   @SectionId('RLCMB-COMB-LST')
   @SectionIdPattern('RLCMB-COMB-xxx')
+  @ContentHelp('Add one entry per role combination rule.')
   @SerializationOrder(3)
   List<RoleCombinationConstraintEntry> combinationConstraints = [];
 
   /// Contains 0+× GlobalRoleExclusion.
+  @StandardReferences(
+    ['NIST SP 800-53 — control AC-5 separation of duties'],
+    'The catalog of global role exclusions enforcing separation of duties.',
+  )
   @SectionId('GBRLX-GLOB-LST')
   @SectionIdPattern('GBRLX-GLOB-xxx')
+  @ContentHelp('Add one entry per global role exclusion.')
   @SerializationOrder(4)
   List<GlobalRoleExclusionEntry> globalExclusions = [];
 
@@ -6458,6 +6726,13 @@ simplifies administration and ensures consistent access control.
   Field('notes', String, 'Notes',
       hint: 'Additional role hierarchy policy notes'),
 ])
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines the global settings governing how the role hierarchy is structured and how inheritance works.',
+)
 @SectionId('ROHIPO')
 class RoleHierarchyPolicy {
   @SerializationOrder(0)
@@ -6472,6 +6747,12 @@ class RoleHierarchyPolicy {
 ///
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
+  ],
+  'Defines one parent-child inheritance relationship between two roles.',
+)
 @SectionId('RLINH')
 class RoleInheritanceRuleEntry {
   @Form([
@@ -6506,6 +6787,13 @@ class RoleInheritanceRuleEntry {
 ///
 /// Defines rules about which roles can or cannot be combined — supports
 /// separation of duties, prerequisite roles, and co-requisite roles.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty',
+    'NIST SP 800-53 — control AC-5 separation of duties',
+  ],
+  'Defines a rule about which roles can or cannot be combined for a single user.',
+)
 @SectionId('RLCMB')
 class RoleCombinationConstraintEntry {
   @Form([
@@ -6543,6 +6831,13 @@ class RoleCombinationConstraintEntry {
 ///
 /// Defines system-wide mutual exclusion rules that apply across all users,
 /// independent of individual role definitions.
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-5 separation of duties',
+    'NIST RBAC INCITS 359-2012 — constrained RBAC and mutual exclusion',
+  ],
+  'Defines a system-wide mutual exclusion rule that applies across all users for separation of duties.',
+)
 @SectionId('GBRLX')
 class GlobalRoleExclusionEntry {
   @Form([
@@ -6605,6 +6900,13 @@ class GlobalRoleExclusionEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional role certification notes'),
 ])
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-6 least privilege',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines how roles and role assignments are periodically reviewed and certified to prevent privilege creep.',
+)
 @SectionId('ROCEPO')
 class RoleCertificationPolicy {
   @SerializationOrder(0)
@@ -6628,6 +6930,13 @@ class RoleCertificationPolicy {
 /// how tenant boundaries are enforced at the authorization layer.
 /// Complements TenantDataIsolationPolicy which covers
 /// data-level isolation; this section focuses on authorization-level isolation.
+@StandardReferences(
+  [
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+    'ISO/IEC 27001:2022 — control A.5.23 cloud service use',
+  ],
+  'Describes how multi-tenant authorization is structured and isolated at the authorization layer.',
+)
 @SectionId('TEIS')
 class TenantIsolation {
   @ContentHelp('''
@@ -6675,8 +6984,13 @@ Complements data-level tenant isolation.
   CrossTenantAccessPolicy crossTenantAccessPolicy = CrossTenantAccessPolicy();
 
   /// Contains 0+× TenantCustomization.
+  @StandardReferences(
+    ['ISO/IEC 27017 — cloud multi-tenancy isolation controls'],
+    'The catalog of tenant-specific authorization customizations.',
+  )
   @SectionId('TNCS-TENA-LST')
   @SectionIdPattern('TNCS-TENA-xxx')
+  @ContentHelp('Add one entry per tenant.')
   @SerializationOrder(3)
   List<TenantCustomizationEntry> tenantCustomizations = [];
 
@@ -6733,6 +7047,13 @@ Complements data-level tenant isolation.
   Field('notes', String, 'Notes',
       hint: 'Additional tenant context policy notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+    'NIST SP 800-53 — control SC-2 separation of system functions',
+  ],
+  'Defines how the tenant context is established, validated, and propagated through authorization decisions.',
+)
 @SectionId('TECOPO')
 class TenantContextPolicy {
   @SerializationOrder(0)
@@ -6784,6 +7105,13 @@ class TenantContextPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional cross-tenant access policy notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+    'NIST SP 800-53 — control AC-6 least privilege',
+  ],
+  'Defines whether and how access across tenant boundaries is permitted and governed.',
+)
 @SectionId('CTAP')
 class CrossTenantAccessPolicy {
   @SerializationOrder(0)
@@ -6799,6 +7127,13 @@ class CrossTenantAccessPolicy {
 /// Describes a specific area where tenants can customize their authorization
 /// model — custom roles, permissions, policies, or workflows. Covers scoping,
 /// inheritance from global defaults, and approval requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+    'ISO/IEC 27001:2022 — control A.5.23 cloud service use',
+  ],
+  'Describes one area where a tenant can customize its authorization model beyond platform defaults.',
+)
 @SectionId('TNCS')
 class TenantCustomizationEntry {
   @Form([
@@ -6889,6 +7224,13 @@ class TenantCustomizationEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional tenant onboarding/offboarding notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.23 cloud service use',
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+  ],
+  'Defines how authorization resources are provisioned on tenant onboarding and cleaned up on offboarding.',
+)
 @SectionId('TEONPO')
 class TenantOnboardingPolicy {
   @SerializationOrder(0)
@@ -6947,6 +7289,13 @@ class TenantOnboardingPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional tenant boundary enforcement notes'),
 ])
+@StandardReferences(
+  [
+    'ISO/IEC 27017 — cloud multi-tenancy isolation controls',
+    'NIST SP 800-53 — control SC-2 separation of system functions',
+  ],
+  'Defines how authorization boundaries between tenants are enforced at runtime across the architectural layers.',
+)
 @SectionId('TBEP')
 class TenantBoundaryEnforcementPolicy {
   @SerializationOrder(0)
@@ -6958,28 +7307,52 @@ class TenantBoundaryEnforcementPolicy {
 }
 
 /// An authorization group entry (form).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role and group membership assignment',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines an authorization group that bundles roles for assignment to users.',
+)
 @SectionId('AZGR')
 class AuthorizationGroupEntry {
   @Form([
-    Field('groupName', String, 'Group Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('membershipCriteria', String, 'Membership Criteria'),
+    Field('groupName', String, 'Group Name',
+        hint: 'Unique name of the authorization group (e.g. Finance Managers)',
+        required: true),
+    Field('description', String, 'Short description',
+        hint: 'Purpose of the group and the access it confers'),
+    Field('membershipCriteria', String, 'Membership Criteria',
+        hint:
+            'Rule or attribute condition determining who belongs to this group '
+            '(e.g. department = Finance)'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× RoleReference.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — roles assigned to groups'],
+    'The catalog of roles contained within this authorization group.',
+  )
   @SectionId('ROLREF-CONT-LST')
   @SectionIdPattern('ROLREF-CONT-xxx')
+  @ContentHelp('Add one entry per contained role.')
   @SerializationOrder(1)
   List<RoleReferenceEntry> containedRoles = [];
 }
 
 /// A role reference entry (form).
+@StandardReferences(
+  ['NIST RBAC INCITS 359-2012 — role identification'],
+  'References a single authorization role by name from a group or assignment.',
+)
 @SectionId('ROLREF')
 class RoleReferenceEntry {
   @Form([
-    Field('roleName', String, 'Role Name', required: true),
+    Field('roleName', String, 'Role Name',
+        hint: 'Name of an existing authorization role being referenced',
+        required: true),
   ])
   @SerializationOrder(0)
   String? content;
@@ -6990,11 +7363,21 @@ class RoleReferenceEntry {
 /// Defines a single authorization role with its category, scope, permission
 /// assignments, activation rules, provisioning, and review requirements.
 /// Aligns with NIST RBAC model (core + hierarchical + constrained).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — core, hierarchical, and constrained RBAC',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines a single authorization role with its category, scope, permissions, and lifecycle controls.',
+)
 @SectionId('AZRO')
 class AuthorizationRoleEntry {
   @Form([
-    Field('roleName', String, 'Role Name', required: true),
-    Field('description', String, 'Short description'),
+    Field('roleName', String, 'Role Name',
+        hint: 'Unique name of the authorization role (e.g. FinanceApprover)',
+        required: true),
+    Field('description', String, 'Short description',
+        hint: 'Purpose of the role and the access it grants'),
     Field('roleCategory', String, 'Role Category',
         hint:
             'Business | Technical | Administrative | System | Compliance | '
@@ -7021,43 +7404,86 @@ class AuthorizationRoleEntry {
   AuthorizationRoleEntryStatus status = AuthorizationRoleEntryStatus();
 
   /// Contains 0+× ResponsibilityReference.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — roles map to organizational responsibilities'],
+    'The catalog of business responsibilities this role fulfils.',
+  )
   @SectionId('RSPREF-RESP-LST')
   @SectionIdPattern('RSPREF-RESP-xxx')
+  @ContentHelp('Add one entry per responsibility reference.')
   @SerializationOrder(5)
   List<ResponsibilityReferenceEntry> responsibilities = [];
 
   /// Contains 0+× EntitlementReference.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — permissions granted through roles'],
+    'The catalog of entitlements granted by this role.',
+  )
   @SectionId('ENREFE-ENTI-LST')
   @SectionIdPattern('ENREFE-ENTI-xxx')
+  @ContentHelp('Add one entry per entitlement reference.')
   @SerializationOrder(6)
   List<EntitlementReferenceEntry> entitlementReferences = [];
 
   /// Contains 0+× RolePermission.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — permission-to-role assignment'],
+    'The catalog of permissions assigned directly to this role.',
+  )
   @SectionId('ROLPERM-DIRE-LST')
   @SectionIdPattern('ROLPERM-DIRE-xxx')
+  @ContentHelp('Add one entry per direct permission.')
   @SerializationOrder(7)
   List<RolePermissionEntry> directPermissions = [];
 
   /// Contains 0+× RoleDataScope.
+  @StandardReferences(
+    [
+      'NIST SP 800-162 — attribute-based access control constraints',
+      'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    ],
+    'The catalog of data scopes that constrain this role access.',
+  )
   @SectionId('ROLDSCP-DATA-LST')
   @SectionIdPattern('ROLDSCP-DATA-xxx')
+  @ContentHelp('Add one entry per data scope.')
   @SerializationOrder(8)
   List<RoleDataScopeEntry> dataScopes = [];
 
   /// Contains 0+× RoleExclusion.
+  @StandardReferences(
+    [
+      'NIST RBAC INCITS 359-2012 — static and dynamic separation of duty',
+      'NIST SP 800-53 — control AC-5 separation of duties',
+    ],
+    'The catalog of roles that cannot be held together with this role.',
+  )
   @SectionId('ROLEXC-MUTU-LST')
   @SectionIdPattern('ROLEXC-MUTU-xxx')
+  @ContentHelp('Add one entry per mutually exclusive role.')
   @SerializationOrder(9)
   List<RoleExclusionEntry> mutualExclusions = [];
 
   /// Contains 0+× RoleHolder.
+  @StandardReferences(
+    ['NIST RBAC INCITS 359-2012 — user-to-role assignment'],
+    'The catalog of user types that typically hold this role.',
+  )
   @SectionId('ROLHLD-TYPI-LST')
   @SectionIdPattern('ROLHLD-TYPI-xxx')
+  @ContentHelp('Add one entry per typical role holder.')
   @SerializationOrder(10)
   List<RoleHolderEntry> typicalHolders = [];
 }
 
 /// Scope and inheritance metadata.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Scope and inheritance metadata for an authorization role.',
+)
 @SectionId('ARES')
 class AuthorizationRoleEntryStructure {
     @Form([
@@ -7079,6 +7505,13 @@ class AuthorizationRoleEntryStructure {
 }
 
 /// Risk and activation controls.
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-6 least privilege',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Risk and activation controls governing an authorization role.',
+)
 @SectionId('AREG')
 class AuthorizationRoleEntryGovernance {
     @Form([
@@ -7110,6 +7543,13 @@ class AuthorizationRoleEntryGovernance {
 }
 
 /// Provisioning and review settings.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.18 access rights provisioning and review',
+    'NIST SP 800-53 — control AC-2 account management',
+  ],
+  'Provisioning and review settings for an authorization role.',
+)
 @SectionId('AREL')
 class AuthorizationRoleEntryLifecycle {
     @Form([
@@ -7127,6 +7567,13 @@ class AuthorizationRoleEntryLifecycle {
 }
 
 /// Data access and role status flags.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Captures the data access scope and status flags of an authorization role.',
+)
 @SectionId('AUROENST')
 class AuthorizationRoleEntryStatus {
     @Form([
@@ -7147,11 +7594,18 @@ class AuthorizationRoleEntryStatus {
 }
 
 /// A responsibility reference entry (form).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'References a responsibility associated with a role.',
+)
 @SectionId('RSPREF')
 class ResponsibilityReferenceEntry {
   @Form([
-    Field('responsibility', String, 'Responsibility', required: true),
-    Field('description', String, 'Short description'),
+    Field('responsibility', String, 'Responsibility', required: true, hint: 'Name of the responsibility.'),
+    Field('description', String, 'Short description', hint: 'Brief description.'),
     Field('scope', String, 'Scope',
         hint:
             'Specific area or context where this responsibility applies '
@@ -7166,10 +7620,17 @@ class ResponsibilityReferenceEntry {
 }
 
 /// An entitlement reference entry (form).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'References an entitlement granted to a role.',
+)
 @SectionId('ENREFE')
 class EntitlementReferenceEntry {
   @Form([
-    Field('entitlementName', String, 'Entitlement Name', required: true),
+    Field('entitlementName', String, 'Entitlement Name', required: true, hint: 'Name of the entitlement.'),
     Field('grantType', String, 'Grant Type',
         hint:
             'Full | ReadOnly | Conditional | TimeLimited — type of access '
@@ -7192,6 +7653,13 @@ class EntitlementReferenceEntry {
 /// Captures direct permission assignments that complement or override
 /// entitlement-based access — useful when fine-grained per-role permissions
 /// are needed beyond what entitlements provide.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines a permission assigned directly to a role.',
+)
 @SectionId('ROLPERM')
 class RolePermissionEntry {
   @Form([
@@ -7221,6 +7689,13 @@ class RolePermissionEntry {
 ///
 /// Specifies what data categories the role can access and at what level —
 /// supports horizontal access control and data-level security.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+  ],
+  'Specifies which data categories a role may access and at what level.',
+)
 @SectionId('ROLDSCP')
 class RoleDataScopeEntry {
   @Form([
@@ -7247,10 +7722,17 @@ class RoleDataScopeEntry {
 }
 
 /// A role exclusion entry (form).
+@StandardReferences(
+  [
+    'NIST SP 800-53 — control AC-5 separation of duties',
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+  ],
+  'Declares a role that must not be held together with this one to enforce separation of duties.',
+)
 @SectionId('ROLEXC')
 class RoleExclusionEntry {
   @Form([
-    Field('excludedRole', String, 'Excluded Role', required: true),
+    Field('excludedRole', String, 'Excluded Role', required: true, hint: 'Role that must not be held together with this one.'),
     Field('reason', String, 'Reason',
         hint: 'Business reason for the mutual exclusion (separation of duties)'),
     Field('exclusionType', String, 'Exclusion Type',
@@ -7267,11 +7749,18 @@ class RoleExclusionEntry {
 }
 
 /// A role holder entry (form).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Describes the population of users expected to hold a role.',
+)
 @SectionId('ROLHLD')
 class RoleHolderEntry {
   @Form([
-    Field('holderDescription', String, 'Holder Description', required: true),
-    Field('department', String, 'Department'),
+    Field('holderDescription', String, 'Holder Description', required: true, hint: 'Description of the role holder.'),
+    Field('department', String, 'Department', hint: 'Department of the role holder.'),
     Field('organizationalUnit', String, 'Organizational Unit',
         hint: 'Specific organizational unit or team'),
     Field('estimatedCount', int, 'Estimated Count',
@@ -7286,42 +7775,71 @@ class RoleHolderEntry {
 }
 
 /// An entitlement entry (form).
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'Defines an entitlement that grants a bundle of access rights.',
+)
 @SectionId('ENT')
 class EntitlementEntry {
   @Form([
-    Field('entitlementName', String, 'Entitlement Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('accessType', String, 'Access Type'),
-    Field('conditions', String, 'Conditions'),
+    Field('entitlementName', String, 'Entitlement Name', required: true, hint: 'Name of the entitlement.'),
+    Field('description', String, 'Short description', hint: 'Brief description.'),
+    Field('accessType', String, 'Access Type', hint: 'Type of access granted.'),
+    Field('conditions', String, 'Conditions', hint: 'Conditions under which the entitlement applies.'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ResourceKeyReference.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+      'NIST RBAC INCITS 359-2012 — role-based access control',
+    ],
+    'The catalog of resource key references for this entitlement.',
+  )
   @SectionId('RESKREF-RESO-LST')
   @SectionIdPattern('RESKREF-RESO-xxx')
+  @ContentHelp('Add one entry per resource reference.')
   @SerializationOrder(1)
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
 }
 
 /// A resource key reference entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+  ],
+  'References a protected resource by its unique resource key.',
+)
 @SectionId('RESKREF')
 class ResourceKeyReferenceEntry {
   @Form([
-    Field('resourceKey', String, 'Resource Key', required: true),
+    Field('resourceKey', String, 'Resource Key', required: true, hint: 'Unique key of the referenced resource.'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A resource key entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
+    'NIST RBAC INCITS 359-2012 — role-based access control',
+  ],
+  'Defines a protected resource identified by a unique resource key.',
+)
 @SectionId('RESKEY')
 class ResourceKeyEntry {
   @Form([
-    Field('resourceKey', String, 'Resource Key', required: true),
-    Field('resourceType', String, 'Resource Type'),
-    Field('description', String, 'Short description'),
-    Field('protectionLevel', String, 'Protection Level'),
+    Field('resourceKey', String, 'Resource Key', required: true, hint: 'Unique key of the resource.'),
+    Field('resourceType', String, 'Resource Type', hint: 'Type of the resource.'),
+    Field('description', String, 'Short description', hint: 'Brief description.'),
+    Field('protectionLevel', String, 'Protection Level', hint: 'Protection level required for the resource.'),
   ])
   @SerializationOrder(0)
   String? content;

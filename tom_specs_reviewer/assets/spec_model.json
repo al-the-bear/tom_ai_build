@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T15:01:01.965909Z",
+  "generatedAt": "2026-07-05T15:29:02.190607Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -1571,11 +1571,30 @@
       "name": "AccessConstraintPolicies",
       "sectionId": "ACCOPO",
       "doc": "Access Constraint Policies (form).\n\nDefines constraints that restrict access beyond basic role/attribute\nassignments — separation of duties, temporal, environmental, and\nrisk-adaptive constraints.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-6 least privilege",
+          "NIST SP 800-53 — control AC-5 separation of duties",
+          "NIST SP 800-162 — attribute-based access control"
+        ],
+        "connotation": "Defines constraints that restrict access beyond basic role or attribute assignments."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-6 least privilege",
+              "NIST SP 800-53 — control AC-5 separation of duties",
+              "NIST SP 800-162 — attribute-based access control"
+            ],
+            "connotation": "Defines constraints that restrict access beyond basic role or attribute assignments."
           }
         },
         {
@@ -1622,11 +1641,28 @@
       "name": "AccessControlModelSelection",
       "sectionId": "ACMS",
       "doc": "Access Control Model Selection (form).\n\nDefines the primary access control paradigm — RBAC, ABAC, ReBAC, or a\ncombination — and the rationale for the choice.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "NIST SP 800-162 — attribute-based access control"
+        ],
+        "connotation": "Defines the primary access control paradigm such as RBAC or ABAC and the rationale for the choice."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "NIST SP 800-162 — attribute-based access control"
+            ],
+            "connotation": "Defines the primary access control paradigm such as RBAC or ABAC and the rationale for the choice."
           }
         },
         {
@@ -9515,11 +9551,30 @@
       "name": "ApiAbuseProtection",
       "sectionId": "APABPR",
       "doc": "API abuse protection — rate limiting, bot detection, brute force\nprevention, and business flow protection from a security perspective.\n\nFocuses on the security policy aspects of abuse prevention. Complements\nrate-limiting configuration in the technical framework with security-\nspecific rules and threat response actions.",
+      "standardReferences": {
+        "standards": [
+          "OWASP API Security Top 10 — 2023 edition",
+          "OWASP ASVS 4.0 — V13 API and web service verification",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines rate limiting, bot detection, brute-force prevention, and business-flow protection against API abuse."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP API Security Top 10 — 2023 edition",
+              "OWASP ASVS 4.0 — V13 API and web service verification",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines rate limiting, bot detection, brute-force prevention, and business-flow protection against API abuse."
           }
         },
         {
@@ -9566,11 +9621,30 @@
       "name": "ApiAuthenticationPolicy",
       "sectionId": "AAP",
       "doc": "API authentication policy — how API consumers prove their identity.\n\nCovers API keys, OAuth2 flows, JWT validation, mutual TLS, webhook\nsignature verification, and service-to-service authentication.",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 — RFC 6749 authorization framework",
+          "OWASP API Security Top 10 — 2023 edition",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines how API callers authenticate, including credential types, token formats, and webhook signature verification."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 — RFC 6749 authorization framework",
+              "OWASP API Security Top 10 — 2023 edition",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines how API callers authenticate, including credential types, token formats, and webhook signature verification."
           }
         },
         {
@@ -9617,11 +9691,30 @@
       "name": "ApiAuthorizationPolicy",
       "sectionId": "APAUPO",
       "doc": "API authorization policy — how API access decisions are made.\n\nCovers object-level, function-level, and property-level authorization,\nscope definitions, delegation controls, and protection against privilege\nescalation. Aligned with OWASP API1/API3/API5 (Broken Authorization).",
+      "standardReferences": {
+        "standards": [
+          "OWASP API Security Top 10 — 2023 edition",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "OWASP ASVS 4.0 — V13 API and web service verification"
+        ],
+        "connotation": "Defines object-level, function-level, and property-level authorization and controls against privilege escalation."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP API Security Top 10 — 2023 edition",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "OWASP ASVS 4.0 — V13 API and web service verification"
+            ],
+            "connotation": "Defines object-level, function-level, and property-level authorization and controls against privilege escalation."
           }
         },
         {
@@ -10105,11 +10198,30 @@
       "name": "ApiCorsSecurity",
       "sectionId": "APCOSE",
       "doc": "API CORS security — Cross-Origin Resource Sharing policy from a security\nperspective.\n\nDefines allowed origins, methods, headers, credential handling, and\nsecurity headers returned with API responses. Aligned with OWASP CORS\nguidance and Content Security Policy best practices.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V13 API and web service verification",
+          "OWASP API Security Top 10 — 2023 edition",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines CORS configuration and security response headers that govern cross-origin access to the API."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V13 API and web service verification",
+              "OWASP API Security Top 10 — 2023 edition",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines CORS configuration and security response headers that govern cross-origin access to the API."
           }
         },
         {
@@ -10224,11 +10336,30 @@
       "name": "ApiRequestValidationPolicy",
       "sectionId": "ARVP",
       "doc": "API request validation policy — input validation, schema enforcement,\nand content type verification for all API requests.\n\nCovers schema validation, parameter typing, size limits, content type\nenforcement, and structured payload validation. Aligned with OWASP\nInput Validation Cheat Sheet.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V13 API and web service verification",
+          "OWASP API Security Top 10 — 2023 edition",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines input validation, schema enforcement, size limits, and content-type verification for all API requests."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V13 API and web service verification",
+              "OWASP API Security Top 10 — 2023 edition",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines input validation, schema enforcement, size limits, and content-type verification for all API requests."
           }
         },
         {
@@ -10275,7 +10406,26 @@
       "name": "ApiSecurity",
       "sectionId": "APSE",
       "doc": "9.3.2. API Security.\n\nComprehensive API security specification covering authentication,\nauthorization, request validation, CORS policy, input sanitization,\nabuse prevention, and security monitoring. Aligned with OWASP API\nSecurity Top 10 (2023) and OWASP REST Security Cheat Sheet.",
+      "standardReferences": {
+        "standards": [
+          "OWASP API Security Top 10 — 2023 edition",
+          "OWASP ASVS 4.0 — V13 API and web service verification",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Covers end-to-end API security including authentication, authorization, request validation, CORS, abuse prevention, and monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP API Security Top 10 — 2023 edition",
+              "OWASP ASVS 4.0 — V13 API and web service verification",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Covers end-to-end API security including authentication, authorization, request validation, CORS, abuse prevention, and monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10417,11 +10567,30 @@
       "name": "ApiSecurityMonitoring",
       "sectionId": "APSEMO",
       "doc": "API security monitoring — logging, anomaly detection, inventory\nmanagement, and compliance reporting for API security.\n\nCovers API access logging, error monitoring, authentication failure\ntracking, deprecated endpoint usage, and data exfiltration detection.\nAligned with OWASP API9 (Improper Inventory Management) and OWASP\nAPI10 (Unsafe Consumption of APIs).",
+      "standardReferences": {
+        "standards": [
+          "OWASP API Security Top 10 — 2023 edition",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+          "NIST SP 800-53 — control AC-3 access enforcement"
+        ],
+        "connotation": "Defines API access logging, anomaly detection, inventory management, and compliance reporting for API security."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP API Security Top 10 — 2023 edition",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+              "NIST SP 800-53 — control AC-3 access enforcement"
+            ],
+            "connotation": "Defines API access logging, anomaly detection, inventory management, and compliance reporting for API security."
           }
         },
         {
@@ -16855,7 +17024,24 @@
       "name": "AuthorizationGroupEntry",
       "sectionId": "AZGR",
       "doc": "An authorization group entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role and group membership assignment",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines an authorization group that bundles roles for assignment to users."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role and group membership assignment",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines an authorization group that bundles roles for assignment to users."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16886,18 +17072,21 @@
             {
               "name": "groupName",
               "label": "Group Name",
+              "hint": "Unique name of the authorization group (e.g. Finance Managers)",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Purpose of the group and the access it confers",
               "type": "String",
               "required": false
             },
             {
               "name": "membershipCriteria",
               "label": "Membership Criteria",
+              "hint": "Rule or attribute condition determining who belongs to this group (e.g. department = Finance)",
               "type": "String",
               "required": false
             }
@@ -16907,10 +17096,26 @@
           "name": "containedRoles",
           "kind": "list",
           "doc": "Contains 0+× RoleReference.",
+          "help": "Add one entry per contained role.",
           "sectionId": "ROLREF-CONT-LST",
           "sectionIdPattern": "ROLREF-CONT-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — roles assigned to groups"
+            ],
+            "connotation": "The catalog of roles contained within this authorization group."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — roles assigned to groups"
+                ],
+                "connotation": "The catalog of roles contained within this authorization group."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -16921,6 +17126,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLREF-CONT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per contained role."
               }
             },
             {
@@ -16939,7 +17150,26 @@
       "name": "AuthorizationModel",
       "sectionId": "AUMO",
       "doc": "9.4.1. Authorization Model.\n\nDescribes the authorization model used by the system — RBAC, ABAC, ReBAC,\nor hybrid. Covers access control model selection, permission granularity\n(function-level, data-level, field-level), permission composition strategy,\naccess constraints, and evaluation behavior.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "NIST SP 800-162 — attribute-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Describes the authorization model used by the system such as RBAC, ABAC, ReBAC, or a hybrid."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "NIST SP 800-162 — attribute-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Describes the authorization model used by the system such as RBAC, ABAC, ReBAC, or a hybrid."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17066,7 +17296,24 @@
       "name": "AuthorizationRoleEntry",
       "sectionId": "AZRO",
       "doc": "An authorization role entry (form).\n\nDefines a single authorization role with its category, scope, permission\nassignments, activation rules, provisioning, and review requirements.\nAligns with NIST RBAC model (core + hierarchical + constrained).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — core, hierarchical, and constrained RBAC",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines a single authorization role with its category, scope, permissions, and lifecycle controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — core, hierarchical, and constrained RBAC",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines a single authorization role with its category, scope, permissions, and lifecycle controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17097,12 +17344,14 @@
             {
               "name": "roleName",
               "label": "Role Name",
+              "hint": "Unique name of the authorization role (e.g. FinanceApprover)",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Purpose of the role and the access it grants",
               "type": "String",
               "required": false
             },
@@ -17179,10 +17428,26 @@
           "name": "responsibilities",
           "kind": "list",
           "doc": "Contains 0+× ResponsibilityReference.",
+          "help": "Add one entry per responsibility reference.",
           "sectionId": "RSPREF-RESP-LST",
           "sectionIdPattern": "RSPREF-RESP-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — roles map to organizational responsibilities"
+            ],
+            "connotation": "The catalog of business responsibilities this role fulfils."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — roles map to organizational responsibilities"
+                ],
+                "connotation": "The catalog of business responsibilities this role fulfils."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17193,6 +17458,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RSPREF-RESP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsibility reference."
               }
             },
             {
@@ -17209,10 +17480,26 @@
           "name": "entitlementReferences",
           "kind": "list",
           "doc": "Contains 0+× EntitlementReference.",
+          "help": "Add one entry per entitlement reference.",
           "sectionId": "ENREFE-ENTI-LST",
           "sectionIdPattern": "ENREFE-ENTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — permissions granted through roles"
+            ],
+            "connotation": "The catalog of entitlements granted by this role."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — permissions granted through roles"
+                ],
+                "connotation": "The catalog of entitlements granted by this role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17223,6 +17510,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENREFE-ENTI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entitlement reference."
               }
             },
             {
@@ -17239,10 +17532,26 @@
           "name": "directPermissions",
           "kind": "list",
           "doc": "Contains 0+× RolePermission.",
+          "help": "Add one entry per direct permission.",
           "sectionId": "ROLPERM-DIRE-LST",
           "sectionIdPattern": "ROLPERM-DIRE-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — permission-to-role assignment"
+            ],
+            "connotation": "The catalog of permissions assigned directly to this role."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — permission-to-role assignment"
+                ],
+                "connotation": "The catalog of permissions assigned directly to this role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17253,6 +17562,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLPERM-DIRE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per direct permission."
               }
             },
             {
@@ -17269,10 +17584,28 @@
           "name": "dataScopes",
           "kind": "list",
           "doc": "Contains 0+× RoleDataScope.",
+          "help": "Add one entry per data scope.",
           "sectionId": "ROLDSCP-DATA-LST",
           "sectionIdPattern": "ROLDSCP-DATA-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-162 — attribute-based access control constraints",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+            ],
+            "connotation": "The catalog of data scopes that constrain this role access."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-162 — attribute-based access control constraints",
+                  "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+                ],
+                "connotation": "The catalog of data scopes that constrain this role access."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17283,6 +17616,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLDSCP-DATA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data scope."
               }
             },
             {
@@ -17299,10 +17638,28 @@
           "name": "mutualExclusions",
           "kind": "list",
           "doc": "Contains 0+× RoleExclusion.",
+          "help": "Add one entry per mutually exclusive role.",
           "sectionId": "ROLEXC-MUTU-LST",
           "sectionIdPattern": "ROLEXC-MUTU-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — static and dynamic separation of duty",
+              "NIST SP 800-53 — control AC-5 separation of duties"
+            ],
+            "connotation": "The catalog of roles that cannot be held together with this role."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — static and dynamic separation of duty",
+                  "NIST SP 800-53 — control AC-5 separation of duties"
+                ],
+                "connotation": "The catalog of roles that cannot be held together with this role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17313,6 +17670,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLEXC-MUTU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per mutually exclusive role."
               }
             },
             {
@@ -17329,10 +17692,26 @@
           "name": "typicalHolders",
           "kind": "list",
           "doc": "Contains 0+× RoleHolder.",
+          "help": "Add one entry per typical role holder.",
           "sectionId": "ROLHLD-TYPI-LST",
           "sectionIdPattern": "ROLHLD-TYPI-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — user-to-role assignment"
+            ],
+            "connotation": "The catalog of user types that typically hold this role."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — user-to-role assignment"
+                ],
+                "connotation": "The catalog of user types that typically hold this role."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -17343,6 +17722,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ROLHLD-TYPI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per typical role holder."
               }
             },
             {
@@ -17361,7 +17746,24 @@
       "name": "AuthorizationRoleEntryGovernance",
       "sectionId": "AREG",
       "doc": "Risk and activation controls.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-6 least privilege",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Risk and activation controls governing an authorization role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-6 least privilege",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Risk and activation controls governing an authorization role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17439,7 +17841,24 @@
       "name": "AuthorizationRoleEntryLifecycle",
       "sectionId": "AREL",
       "doc": "Provisioning and review settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights provisioning and review",
+          "NIST SP 800-53 — control AC-2 account management"
+        ],
+        "connotation": "Provisioning and review settings for an authorization role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights provisioning and review",
+              "NIST SP 800-53 — control AC-2 account management"
+            ],
+            "connotation": "Provisioning and review settings for an authorization role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17489,7 +17908,24 @@
       "name": "AuthorizationRoleEntryStatus",
       "sectionId": "AUROENST",
       "doc": "Data access and role status flags.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Captures the data access scope and status flags of an authorization role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Captures the data access scope and status flags of an authorization role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17553,7 +17989,24 @@
       "name": "AuthorizationRoleEntryStructure",
       "sectionId": "ARES",
       "doc": "Scope and inheritance metadata.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Scope and inheritance metadata for an authorization role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Scope and inheritance metadata for an authorization role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -41423,11 +41876,30 @@
       "name": "ColumnLevelSecurityPolicy",
       "sectionId": "CLSP",
       "doc": "Column-level security policy (form).\n\nDefines how access to specific data columns or fields is restricted\nbased on user roles, sensitivity classification, or regulatory requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "ISO/IEC 27001:2022 — control A.5.12 classification of information"
+        ],
+        "connotation": "Defines how access to specific data columns or fields is restricted by role, sensitivity classification, or regulation."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "ISO/IEC 27001:2022 — control A.5.12 classification of information"
+            ],
+            "connotation": "Defines how access to specific data columns or fields is restricted by role, sensitivity classification, or regulation."
           }
         },
         {
@@ -54361,11 +54833,30 @@
       "name": "ContentScanningPolicy",
       "sectionId": "COSCPO",
       "doc": "Content scanning policy — how uploaded and stored files are scanned for\nmalicious content, policy violations, and compliance risks.\n\nCovers antivirus scanning, malware detection, content disarm and\nreconstruct (CDR), data loss prevention, and content moderation.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V12 file and resources verification",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+          "NIST SP 800-53 — control SC-28 protection of information at rest"
+        ],
+        "connotation": "Defines how uploaded and stored files are scanned for malware, sensitive data, and policy-violating content."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V12 file and resources verification",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+              "NIST SP 800-53 — control SC-28 protection of information at rest"
+            ],
+            "connotation": "Defines how uploaded and stored files are scanned for malware, sensitive data, and policy-violating content."
           }
         },
         {
@@ -56662,11 +57153,28 @@
       "name": "CrossTenantAccessPolicy",
       "sectionId": "CTAP",
       "doc": "Cross-Tenant Access Policy (form).\n\nDefines whether and how cross-tenant access is permitted, what\nauthorization mechanisms govern it, resource sharing models, and\naudit/review requirements. Aligns with OWASP: Preventing Cross-Tenant\nData Access and IDOR Prevention.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+          "NIST SP 800-53 — control AC-6 least privilege"
+        ],
+        "connotation": "Defines whether and how access across tenant boundaries is permitted and governed."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+              "NIST SP 800-53 — control AC-6 least privilege"
+            ],
+            "connotation": "Defines whether and how access across tenant boundaries is permitted and governed."
           }
         },
         {
@@ -62992,11 +63500,30 @@
       "name": "DataAccessAuditPolicy",
       "sectionId": "DAAP",
       "doc": "Data access audit policy (form).\n\nDefines how data access events are monitored, logged, and reviewed\nto detect unauthorized access and support compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.15 logging",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.8.16 monitoring activities"
+        ],
+        "connotation": "Defines how data access events are logged, monitored, and reviewed to detect unauthorized access and support compliance."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.15 logging",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.8.16 monitoring activities"
+            ],
+            "connotation": "Defines how data access events are logged, monitored, and reviewed to detect unauthorized access and support compliance."
           }
         },
         {
@@ -69016,7 +69543,26 @@
       "name": "DataLevelSecurity",
       "sectionId": "DALESE",
       "doc": "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments.\nAligned with OWASP Database Security Cheat Sheet and least-privilege principles.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.5.12 classification of information"
+        ],
+        "connotation": "Covers data-level protection including database access, row and column-level security, tenant isolation, and masking."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.5.12 classification of information"
+            ],
+            "connotation": "Covers data-level protection including database access, row and column-level security, tenant isolation, and masking."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69158,11 +69704,30 @@
       "name": "DataMaskingPolicy",
       "sectionId": "DMP",
       "doc": "Data masking policy (form).\n\nDefines how sensitive data is masked or obfuscated for non-production\nenvironments, reporting, and limited-access scenarios. Covers both\nstatic masking (data copies) and dynamic masking (runtime filtering).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.11 data masking",
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+        ],
+        "connotation": "Defines how sensitive data is masked or obfuscated for non-production, reporting, and limited-access scenarios."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.11 data masking",
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+            ],
+            "connotation": "Defines how sensitive data is masked or obfuscated for non-production, reporting, and limited-access scenarios."
           }
         },
         {
@@ -74989,11 +75554,30 @@
       "name": "DatabaseAccessPolicy",
       "sectionId": "DAP",
       "doc": "Database access policy (form).\n\nDefines how application and administrative accounts access the database,\nincluding connection security, credential management, and privilege\nassignment following the principle of least privilege.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines how database accounts, credentials, and privileged access are controlled and how queries are protected from injection."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines how database accounts, credentials, and privileged access are controlled and how queries are protected from injection."
           }
         },
         {
@@ -96613,7 +97197,24 @@
       "name": "EntitlementEntry",
       "sectionId": "ENT",
       "doc": "An entitlement entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines an entitlement that grants a bundle of access rights."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines an entitlement that grants a bundle of access rights."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96644,24 +97245,28 @@
             {
               "name": "entitlementName",
               "label": "Entitlement Name",
+              "hint": "Name of the entitlement.",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Brief description.",
               "type": "String",
               "required": false
             },
             {
               "name": "accessType",
               "label": "Access Type",
+              "hint": "Type of access granted.",
               "type": "String",
               "required": false
             },
             {
               "name": "conditions",
               "label": "Conditions",
+              "hint": "Conditions under which the entitlement applies.",
               "type": "String",
               "required": false
             }
@@ -96671,10 +97276,28 @@
           "name": "resourceKeyReferences",
           "kind": "list",
           "doc": "Contains 0+× ResourceKeyReference.",
+          "help": "Add one entry per resource reference.",
           "sectionId": "RESKREF-RESO-LST",
           "sectionIdPattern": "RESKREF-RESO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST RBAC INCITS 359-2012 — role-based access control"
+            ],
+            "connotation": "The catalog of resource key references for this entitlement."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+                  "NIST RBAC INCITS 359-2012 — role-based access control"
+                ],
+                "connotation": "The catalog of resource key references for this entitlement."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -96685,6 +97308,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESKREF-RESO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per resource reference."
               }
             },
             {
@@ -96703,7 +97332,24 @@
       "name": "EntitlementReferenceEntry",
       "sectionId": "ENREFE",
       "doc": "An entitlement reference entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "References an entitlement granted to a role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "References an entitlement granted to a role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96734,6 +97380,7 @@
             {
               "name": "entitlementName",
               "label": "Entitlement Name",
+              "hint": "Name of the entitlement.",
               "type": "String",
               "required": true
             },
@@ -112374,11 +113021,30 @@
       "name": "FileAccessControlPolicy",
       "sectionId": "FACP",
       "doc": "File access control policy — who can access, modify, share, and delete\nfiles, and how access decisions are enforced.\n\nCovers authentication requirements, authorization model, sharing controls,\nstorage location isolation, filesystem permissions, and temporary access.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "OWASP ASVS 4.0 — V12 file and resources verification"
+        ],
+        "connotation": "Defines who may access stored files and how access is enforced through permissions and time-limited direct links."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "OWASP ASVS 4.0 — V12 file and resources verification"
+            ],
+            "connotation": "Defines who may access stored files and how access is enforced through permissions and time-limited direct links."
           }
         },
         {
@@ -112425,7 +113091,26 @@
       "name": "FileAndStorageSecurity",
       "sectionId": "FASS",
       "doc": "9.3.3. File and Storage Security.\n\nComprehensive file and storage security specification covering upload\nvalidation, storage encryption, access control on file resources, content\nscanning, download protection, and storage lifecycle management.\nAligned with OWASP File Upload Cheat Sheet and defense-in-depth principles.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V12 file and resources verification",
+          "ISO/IEC 27001:2022 — control A.8.10 information deletion",
+          "NIST SP 800-53 — control SC-28 protection of information at rest"
+        ],
+        "connotation": "Covers end-to-end file and storage security including upload validation, encryption, access control, scanning, and lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V12 file and resources verification",
+              "ISO/IEC 27001:2022 — control A.8.10 information deletion",
+              "NIST SP 800-53 — control SC-28 protection of information at rest"
+            ],
+            "connotation": "Covers end-to-end file and storage security including upload validation, encryption, access control, scanning, and lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112567,11 +113252,30 @@
       "name": "FileDownloadSecurityPolicy",
       "sectionId": "FDSP",
       "doc": "File download security policy — how file downloads are protected,\nincluding rate limiting, access logging, and content disposition.\n\nCovers download authentication, bandwidth protection, content disposition\nheaders, hot-link prevention, and download audit logging.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V12 file and resources verification",
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST SP 800-53 — control AC-3 access enforcement"
+        ],
+        "connotation": "Defines how file downloads are protected through authentication, rate limiting, content disposition, and audit logging."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V12 file and resources verification",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST SP 800-53 — control AC-3 access enforcement"
+            ],
+            "connotation": "Defines how file downloads are protected through authentication, rate limiting, content disposition, and audit logging."
           }
         },
         {
@@ -112669,11 +113373,30 @@
       "name": "FileUploadValidationPolicy",
       "sectionId": "FUVP",
       "doc": "File upload validation policy — how uploaded files are validated before\nacceptance.\n\nCovers extension validation, content-type verification, file signature\nvalidation, filename safety, size limits, and structural validation.\nAligned with OWASP File Upload Cheat Sheet defense-in-depth approach.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS 4.0 — V12 file and resources verification",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+          "OWASP API Security Top 10 — 2023 edition"
+        ],
+        "connotation": "Defines how uploaded files are validated for type, size, and content before acceptance to prevent malicious uploads."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS 4.0 — V12 file and resources verification",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements",
+              "OWASP API Security Top 10 — 2023 edition"
+            ],
+            "connotation": "Defines how uploaded files are validated for type, size, and content before acceptance to prevent malicious uploads."
           }
         },
         {
@@ -117489,7 +118212,24 @@
       "name": "GlobalRoleExclusionEntry",
       "sectionId": "GBRLX",
       "doc": "A global role exclusion entry (form).\n\nDefines system-wide mutual exclusion rules that apply across all users,\nindependent of individual role definitions.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-5 separation of duties",
+          "NIST RBAC INCITS 359-2012 — constrained RBAC and mutual exclusion"
+        ],
+        "connotation": "Defines a system-wide mutual exclusion rule that applies across all users for separation of duties."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-5 separation of duties",
+              "NIST RBAC INCITS 359-2012 — constrained RBAC and mutual exclusion"
+            ],
+            "connotation": "Defines a system-wide mutual exclusion rule that applies across all users for separation of duties."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177634,11 +178374,28 @@
       "name": "PermissionCompositionStrategy",
       "sectionId": "PECOST",
       "doc": "Permission Composition Strategy (form).\n\nDefines how permissions from multiple sources (roles, groups, attributes)\nare combined to produce an effective permission set.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.15 access control",
+          "NIST SP 800-53 — control AC-6 least privilege"
+        ],
+        "connotation": "Defines how permissions from multiple sources combine into an effective permission set."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.15 access control",
+              "NIST SP 800-53 — control AC-6 least privilege"
+            ],
+            "connotation": "Defines how permissions from multiple sources combine into an effective permission set."
           }
         },
         {
@@ -177685,11 +178442,28 @@
       "name": "PermissionEvaluationBehavior",
       "sectionId": "PEEVBE",
       "doc": "Permission Evaluation Behavior (form).\n\nDefines how the system evaluates and enforces access control decisions\nat runtime — server-side checks, caching, failure handling, and testing.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.15 access control",
+          "NIST SP 800-53 — control AC-6 least privilege"
+        ],
+        "connotation": "Defines how the system evaluates and enforces access control decisions at runtime."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.15 access control",
+              "NIST SP 800-53 — control AC-6 least privilege"
+            ],
+            "connotation": "Defines how the system evaluates and enforces access control decisions at runtime."
           }
         },
         {
@@ -177736,11 +178510,28 @@
       "name": "PermissionGranularityPolicy",
       "sectionId": "PEGRPO",
       "doc": "Permission Granularity Policy (form).\n\nDefines the levels at which permissions can be specified — from coarse\nfunction-level through fine-grained field-level control.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.15 access control",
+          "NIST SP 800-53 — control AC-6 least privilege"
+        ],
+        "connotation": "Defines the levels at which permissions can be specified from function-level through field-level control."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.15 access control",
+              "NIST SP 800-53 — control AC-6 least privilege"
+            ],
+            "connotation": "Defines the levels at which permissions can be specified from function-level through field-level control."
           }
         },
         {
@@ -211487,7 +212278,24 @@
       "name": "ResourceKeyEntry",
       "sectionId": "RESKEY",
       "doc": "A resource key entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST RBAC INCITS 359-2012 — role-based access control"
+        ],
+        "connotation": "Defines a protected resource identified by a unique resource key."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST RBAC INCITS 359-2012 — role-based access control"
+            ],
+            "connotation": "Defines a protected resource identified by a unique resource key."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -211518,24 +212326,28 @@
             {
               "name": "resourceKey",
               "label": "Resource Key",
+              "hint": "Unique key of the resource.",
               "type": "String",
               "required": true
             },
             {
               "name": "resourceType",
               "label": "Resource Type",
+              "hint": "Type of the resource.",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Brief description.",
               "type": "String",
               "required": false
             },
             {
               "name": "protectionLevel",
               "label": "Protection Level",
+              "hint": "Protection level required for the resource.",
               "type": "String",
               "required": false
             }
@@ -211547,7 +212359,24 @@
       "name": "ResourceKeyReferenceEntry",
       "sectionId": "RESKREF",
       "doc": "A resource key reference entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST RBAC INCITS 359-2012 — role-based access control"
+        ],
+        "connotation": "References a protected resource by its unique resource key."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST RBAC INCITS 359-2012 — role-based access control"
+            ],
+            "connotation": "References a protected resource by its unique resource key."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -211578,6 +212407,7 @@
             {
               "name": "resourceKey",
               "label": "Resource Key",
+              "hint": "Unique key of the referenced resource.",
               "type": "String",
               "required": true
             }
@@ -211590,7 +212420,26 @@
       "sectionId": "RESPRO",
       "doc": "9.3. Resource Protection.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "OWASP API Security Top 10 — 2023 edition",
+          "NIST SP 800-53 — control AC-3 access enforcement"
+        ],
+        "connotation": "Ensures authenticated and authorized users can only access the specific data, API, and file resources they are entitled to."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "OWASP API Security Top 10 — 2023 edition",
+              "NIST SP 800-53 — control AC-3 access enforcement"
+            ],
+            "connotation": "Ensures authenticated and authorized users can only access the specific data, API, and file resources they are entitled to."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212765,7 +213614,24 @@
       "name": "ResponsibilityReferenceEntry",
       "sectionId": "RSPREF",
       "doc": "A responsibility reference entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "References a responsibility associated with a role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "References a responsibility associated with a role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212796,12 +213662,14 @@
             {
               "name": "responsibility",
               "label": "Responsibility",
+              "hint": "Name of the responsibility.",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Brief description.",
               "type": "String",
               "required": false
             },
@@ -219105,11 +219973,28 @@
       "name": "RoleCertificationPolicy",
       "sectionId": "ROCEPO",
       "doc": "Role Certification Policy (form).\n\nDefines how roles and role assignments are periodically reviewed and\ncertified to prevent privilege creep and ensure continued appropriateness.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-6 least privilege",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines how roles and role assignments are periodically reviewed and certified to prevent privilege creep."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-6 least privilege",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines how roles and role assignments are periodically reviewed and certified to prevent privilege creep."
           }
         },
         {
@@ -219156,7 +220041,24 @@
       "name": "RoleCombinationConstraintEntry",
       "sectionId": "RLCMB",
       "doc": "A role combination constraint entry (form).\n\nDefines rules about which roles can or cannot be combined — supports\nseparation of duties, prerequisite roles, and co-requisite roles.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty",
+          "NIST SP 800-53 — control AC-5 separation of duties"
+        ],
+        "connotation": "Defines a rule about which roles can or cannot be combined for a single user."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty",
+              "NIST SP 800-53 — control AC-5 separation of duties"
+            ],
+            "connotation": "Defines a rule about which roles can or cannot be combined for a single user."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219343,7 +220245,24 @@
       "name": "RoleDataScopeEntry",
       "sectionId": "ROLDSCP",
       "doc": "A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+        ],
+        "connotation": "Specifies which data categories a role may access and at what level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+            ],
+            "connotation": "Specifies which data categories a role may access and at what level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219509,7 +220428,24 @@
       "name": "RoleExclusionEntry",
       "sectionId": "ROLEXC",
       "doc": "A role exclusion entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-5 separation of duties",
+          "NIST RBAC INCITS 359-2012 — role-based access control"
+        ],
+        "connotation": "Declares a role that must not be held together with this one to enforce separation of duties."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-5 separation of duties",
+              "NIST RBAC INCITS 359-2012 — role-based access control"
+            ],
+            "connotation": "Declares a role that must not be held together with this one to enforce separation of duties."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219540,6 +220476,7 @@
             {
               "name": "excludedRole",
               "label": "Excluded Role",
+              "hint": "Role that must not be held together with this one.",
               "type": "String",
               "required": true
             },
@@ -219572,7 +220509,24 @@
       "name": "RoleHierarchy",
       "sectionId": "ROHI",
       "doc": "9.4.6. Role Hierarchy.\n\nDefines the role hierarchy: inheritance rules, mutual exclusions,\nrole combination constraints, hierarchy depth, and role certification\npolicies. Aligns with NIST hierarchical RBAC model.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines the role hierarchy including inheritance rules, mutual exclusions, and role certification policies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines the role hierarchy including inheritance rules, mutual exclusions, and role certification policies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219621,10 +220575,26 @@
           "name": "inheritanceRules",
           "kind": "list",
           "doc": "Contains 0+× RoleInheritanceRule.",
+          "help": "Add one entry per role inheritance relationship.",
           "sectionId": "RLINH-INHE-LST",
           "sectionIdPattern": "RLINH-INHE-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance"
+            ],
+            "connotation": "The catalog of role inheritance relationships between parent and child roles."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance"
+                ],
+                "connotation": "The catalog of role inheritance relationships between parent and child roles."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -219635,6 +220605,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RLINH-INHE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per role inheritance relationship."
               }
             },
             {
@@ -219651,10 +220627,26 @@
           "name": "combinationConstraints",
           "kind": "list",
           "doc": "Contains 0+× RoleCombinationConstraint.",
+          "help": "Add one entry per role combination rule.",
           "sectionId": "RLCMB-COMB-LST",
           "sectionIdPattern": "RLCMB-COMB-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty"
+            ],
+            "connotation": "The catalog of role combination rules that govern which roles can coexist."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty"
+                ],
+                "connotation": "The catalog of role combination rules that govern which roles can coexist."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -219665,6 +220657,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RLCMB-COMB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per role combination rule."
               }
             },
             {
@@ -219681,10 +220679,26 @@
           "name": "globalExclusions",
           "kind": "list",
           "doc": "Contains 0+× GlobalRoleExclusion.",
+          "help": "Add one entry per global role exclusion.",
           "sectionId": "GBRLX-GLOB-LST",
           "sectionIdPattern": "GBRLX-GLOB-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-53 — control AC-5 separation of duties"
+            ],
+            "connotation": "The catalog of global role exclusions enforcing separation of duties."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-53 — control AC-5 separation of duties"
+                ],
+                "connotation": "The catalog of global role exclusions enforcing separation of duties."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -219695,6 +220709,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "GBRLX-GLOB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per global role exclusion."
               }
             },
             {
@@ -219744,11 +220764,28 @@
       "name": "RoleHierarchyPolicy",
       "sectionId": "ROHIPO",
       "doc": "Role Hierarchy Policy (form).\n\nGlobal settings governing how the role hierarchy is structured and\nhow inheritance, depth, and activation constraints work.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines the global settings governing how the role hierarchy is structured and how inheritance works."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines the global settings governing how the role hierarchy is structured and how inheritance works."
           }
         },
         {
@@ -219795,7 +220832,24 @@
       "name": "RoleHolderEntry",
       "sectionId": "ROLHLD",
       "doc": "A role holder entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Describes the population of users expected to hold a role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Describes the population of users expected to hold a role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219826,12 +220880,14 @@
             {
               "name": "holderDescription",
               "label": "Holder Description",
+              "hint": "Description of the role holder.",
               "type": "String",
               "required": true
             },
             {
               "name": "department",
               "label": "Department",
+              "hint": "Department of the role holder.",
               "type": "String",
               "required": false
             },
@@ -219864,7 +220920,22 @@
       "name": "RoleInheritanceRuleEntry",
       "sectionId": "RLINH",
       "doc": "A role inheritance rule entry (form).\n\nDefines a specific parent-child inheritance relationship between two roles,\nincluding what is inherited and any restrictions.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance"
+        ],
+        "connotation": "Defines one parent-child inheritance relationship between two roles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance"
+            ],
+            "connotation": "Defines one parent-child inheritance relationship between two roles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219992,7 +221063,24 @@
       "name": "RolePermissionEntry",
       "sectionId": "ROLPERM",
       "doc": "A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines a permission assigned directly to a role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines a permission assigned directly to a role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220056,7 +221144,22 @@
       "name": "RoleReferenceEntry",
       "sectionId": "ROLREF",
       "doc": "A role reference entry (form).",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role identification"
+        ],
+        "connotation": "References a single authorization role by name from a group or assignment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role identification"
+            ],
+            "connotation": "References a single authorization role by name from a group or assignment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220087,6 +221190,7 @@
             {
               "name": "roleName",
               "label": "Role Name",
+              "hint": "Name of an existing authorization role being referenced",
               "type": "String",
               "required": true
             }
@@ -220784,11 +221888,28 @@
       "name": "RowLevelSecurityPolicy",
       "sectionId": "RLSP",
       "doc": "Row-level security policy (form).\n\nDefines how data access is restricted at the row level, ensuring users\ncan only access data rows they are authorized to see. Covers tenant-based\nfiltering, user-scoped access, and hierarchical data visibility.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+        ],
+        "connotation": "Defines how data access is restricted at the row level so users can only see records they are authorized to view."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction"
+            ],
+            "connotation": "Defines how data access is restricted at the row level so users can only see records they are authorized to view."
           }
         },
         {
@@ -252977,11 +254098,30 @@
       "name": "StorageEncryptionPolicy",
       "sectionId": "STENPO",
       "doc": "Storage encryption policy — how files and storage volumes are encrypted\nat rest and in transit to/from storage.\n\nCovers server-side encryption, client-side encryption, key management\nfor file storage, and encryption scope for different storage tiers.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.5.33 protection of records",
+          "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+        ],
+        "connotation": "Defines how files and storage volumes are encrypted at rest and in transit, including key management scope."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.5.33 protection of records",
+              "ISO/IEC 27001:2022 — control A.8.26 application security requirements"
+            ],
+            "connotation": "Defines how files and storage volumes are encrypted at rest and in transit, including key management scope."
           }
         },
         {
@@ -253028,11 +254168,30 @@
       "name": "StorageLifecyclePolicy",
       "sectionId": "STLIPO",
       "doc": "Storage lifecycle policy — retention, archiving, versioning, and\nsecure deletion of stored files.\n\nCovers retention rules, archival tiers, versioning, backup schedules,\nsecure deletion methods, and compliance-driven retention requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.33 protection of records",
+          "ISO/IEC 27001:2022 — control A.8.10 information deletion",
+          "NIST SP 800-53 — control SC-28 protection of information at rest"
+        ],
+        "connotation": "Defines retention, archiving, versioning, backup, and secure deletion rules across the lifecycle of stored files."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.33 protection of records",
+              "ISO/IEC 27001:2022 — control A.8.10 information deletion",
+              "NIST SP 800-53 — control SC-28 protection of information at rest"
+            ],
+            "connotation": "Defines retention, archiving, versioning, backup, and secure deletion rules across the lifecycle of stored files."
           }
         },
         {
@@ -271498,11 +272657,28 @@
       "name": "TenantBoundaryEnforcementPolicy",
       "sectionId": "TBEP",
       "doc": "Tenant Boundary Enforcement Policy (form).\n\nDefines how authorization boundaries between tenants are enforced at\nruntime — covering enforcement layers, filtering strategies, escalation\nprevention, shared service authorization, multi-tenant user support,\nand authorization caching per tenant.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+          "NIST SP 800-53 — control SC-2 separation of system functions"
+        ],
+        "connotation": "Defines how authorization boundaries between tenants are enforced at runtime across the architectural layers."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+              "NIST SP 800-53 — control SC-2 separation of system functions"
+            ],
+            "connotation": "Defines how authorization boundaries between tenants are enforced at runtime across the architectural layers."
           }
         },
         {
@@ -271549,11 +272725,28 @@
       "name": "TenantContextPolicy",
       "sectionId": "TECOPO",
       "doc": "Tenant Context Policy (form).\n\nDefines how the tenant context is established, validated, and propagated\nthroughout authorization decisions. Covers context resolution, immutability,\ncross-service propagation, and behavior when tenant context is missing.\nAligns with OWASP Multi-Tenant Security: Tenant Identification & Context\nManagement.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+          "NIST SP 800-53 — control SC-2 separation of system functions"
+        ],
+        "connotation": "Defines how the tenant context is established, validated, and propagated through authorization decisions."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+              "NIST SP 800-53 — control SC-2 separation of system functions"
+            ],
+            "connotation": "Defines how the tenant context is established, validated, and propagated through authorization decisions."
           }
         },
         {
@@ -271600,7 +272793,24 @@
       "name": "TenantCustomizationEntry",
       "sectionId": "TNCS",
       "doc": "A tenant customization entry (form).\n\nDescribes a specific area where tenants can customize their authorization\nmodel — custom roles, permissions, policies, or workflows. Covers scoping,\ninheritance from global defaults, and approval requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+          "ISO/IEC 27001:2022 — control A.5.23 cloud service use"
+        ],
+        "connotation": "Describes one area where a tenant can customize its authorization model beyond platform defaults."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+              "ISO/IEC 27001:2022 — control A.5.23 cloud service use"
+            ],
+            "connotation": "Describes one area where a tenant can customize its authorization model beyond platform defaults."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -271699,11 +272909,30 @@
       "name": "TenantDataIsolationPolicy",
       "sectionId": "TDIP",
       "doc": "Tenant data isolation policy (form).\n\nDefines the multi-tenant data separation strategy, ensuring tenant\ndata is logically or physically isolated and cannot leak between tenants.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+          "NIST SP 800-53 — control AC-3 access enforcement",
+          "ISO/IEC 27001:2022 — control A.8.10 information deletion"
+        ],
+        "connotation": "Defines how each tenant data is isolated, exported, and removed so that one tenant cannot access another tenant records."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
+              "NIST SP 800-53 — control AC-3 access enforcement",
+              "ISO/IEC 27001:2022 — control A.8.10 information deletion"
+            ],
+            "connotation": "Defines how each tenant data is isolated, exported, and removed so that one tenant cannot access another tenant records."
           }
         },
         {
@@ -271750,7 +272979,24 @@
       "name": "TenantIsolation",
       "sectionId": "TEIS",
       "doc": "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+          "ISO/IEC 27001:2022 — control A.5.23 cloud service use"
+        ],
+        "connotation": "Describes how multi-tenant authorization is structured and isolated at the authorization layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls",
+              "ISO/IEC 27001:2022 — control A.5.23 cloud service use"
+            ],
+            "connotation": "Describes how multi-tenant authorization is structured and isolated at the authorization layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -271814,10 +273060,26 @@
           "name": "tenantCustomizations",
           "kind": "list",
           "doc": "Contains 0+× TenantCustomization.",
+          "help": "Add one entry per tenant.",
           "sectionId": "TNCS-TENA-LST",
           "sectionIdPattern": "TNCS-TENA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls"
+            ],
+            "connotation": "The catalog of tenant-specific authorization customizations."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27017 — cloud multi-tenancy isolation controls"
+                ],
+                "connotation": "The catalog of tenant-specific authorization customizations."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -271828,6 +273090,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TNCS-TENA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per tenant."
               }
             },
             {
@@ -271892,11 +273160,28 @@
       "name": "TenantOnboardingPolicy",
       "sectionId": "TEONPO",
       "doc": "Tenant Onboarding Policy (form).\n\nDefines how authorization resources are provisioned when a new tenant is\ncreated and how they are cleaned up when a tenant is offboarded. Covers\ninitial role templates, admin provisioning, permission sets, data retention,\nand offboarding approval workflows.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.23 cloud service use",
+          "ISO/IEC 27017 — cloud multi-tenancy isolation controls"
+        ],
+        "connotation": "Defines how authorization resources are provisioned on tenant onboarding and cleaned up on offboarding."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.23 cloud service use",
+              "ISO/IEC 27017 — cloud multi-tenancy isolation controls"
+            ],
+            "connotation": "Defines how authorization resources are provisioned on tenant onboarding and cleaned up on offboarding."
           }
         },
         {
@@ -289617,7 +290902,24 @@
       "sectionId": "USAU",
       "doc": "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — role-based access control",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "Defines the complete user authorization structure of groups, roles, entitlements, and resource keys."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "Defines the complete user authorization structure of groups, roles, entitlements, and resource keys."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -289679,10 +290981,26 @@
           "name": "groups",
           "kind": "list",
           "doc": "9.4.2. Authorization Groups — contains 0+× Group.",
+          "help": "Add one entry per authorization group.",
           "sectionId": "AZGR-GROU-LST",
           "sectionIdPattern": "AZGR-GROU-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role and group membership assignment"
+            ],
+            "connotation": "The catalog of authorization groups that organize users for role assignment."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — role and group membership assignment"
+                ],
+                "connotation": "The catalog of authorization groups that organize users for role assignment."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -289693,6 +291011,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AZGR-GROU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per authorization group."
               }
             },
             {
@@ -289709,10 +291033,26 @@
           "name": "roleDefinitions",
           "kind": "list",
           "doc": "9.4.3. Role Definitions — contains 1+× Role.",
+          "help": "Add one entry per authorization role.",
           "sectionId": "AZRO-ROLE-LST",
           "sectionIdPattern": "AZRO-ROLE-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — role-based access control"
+            ],
+            "connotation": "The catalog of authorization roles that bundle entitlements for assignment."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — role-based access control"
+                ],
+                "connotation": "The catalog of authorization roles that bundle entitlements for assignment."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -289723,6 +291063,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AZRO-ROLE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per authorization role."
               }
             },
             {
@@ -289746,10 +291092,26 @@
           "name": "entitlements",
           "kind": "list",
           "doc": "9.4.4. Entitlements — contains 1+× Entitlement.",
+          "help": "Add one entry per entitlement.",
           "sectionId": "ENT-ENTI-LST",
           "sectionIdPattern": "ENT-ENTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — permissions assigned to roles"
+            ],
+            "connotation": "The catalog of entitlements representing atomic permissions."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC INCITS 359-2012 — permissions assigned to roles"
+                ],
+                "connotation": "The catalog of entitlements representing atomic permissions."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -289760,6 +291122,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENT-ENTI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entitlement."
               }
             },
             {
@@ -289783,10 +291151,26 @@
           "name": "resourceKeys",
           "kind": "list",
           "doc": "9.4.5. Resource Keys — contains 0+× Resource Key.",
+          "help": "Add one entry per protected resource.",
           "sectionId": "RESKEY-RESO-LST",
           "sectionIdPattern": "RESKEY-RESO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "The catalog of protected resources identified by resource keys."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001:2022 — control A.5.15 access control"
+                ],
+                "connotation": "The catalog of protected resources identified by resource keys."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -289797,6 +291181,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESKEY-RESO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per protected resource."
               }
             },
             {
