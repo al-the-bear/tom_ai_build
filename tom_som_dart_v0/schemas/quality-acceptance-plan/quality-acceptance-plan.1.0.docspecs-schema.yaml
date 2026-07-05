@@ -31,7 +31,7 @@ section-types:
     pattern-check-id:
       pattern: ^categ_cate_lst-\d+$
       error-message: ID must match categ_cate_lst-NNN
-    description: Quality dependencies map.
+    description: Add one entry per category dependency.
   DACEN-ITEM-LST:
     prefix: dacen_item_lst
     pattern-check-id:
@@ -43,7 +43,7 @@ section-types:
     pattern-check-id:
       pattern: ^qcate_qual_lst-\d+$
       error-message: ID must match qcate_qual_lst-NNN
-    description: 11.1.2. Quality Categories — contains 0+× QualityCategory.
+    description: Add one entry per quality category.
   QGCHK-ITEM-LST:
     prefix: qgchk_item_lst
     pattern-check-id:
@@ -73,7 +73,7 @@ section-types:
     pattern-check-id:
       pattern: ^slae_slae_lst-\d+$
       error-message: ID must match slae_slae_lst-NNN
-    description: Service Level Agreement entries.
+    description: Add one entry per service level agreement.
   TODE-ITEM-LST:
     prefix: tode_item_lst
     pattern-check-id:

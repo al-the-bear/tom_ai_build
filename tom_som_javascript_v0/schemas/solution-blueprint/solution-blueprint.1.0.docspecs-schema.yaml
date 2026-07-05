@@ -1041,7 +1041,7 @@ section-types:
     pattern-check-id:
       pattern: ^attri_attr_lst-\d+$
       error-message: ID must match attri_attr_lst-NNN
-    description: Quality attribute interdependencies.
+    description: Add one entry per quality attribute interdependency.
   BEHAV-BEHA-LST:
     prefix: behav_beha_lst
     pattern-check-id:
@@ -1073,7 +1073,7 @@ section-types:
     pattern-check-id:
       pattern: ^categ_cate_lst-\d+$
       error-message: ID must match categ_cate_lst-NNN
-    description: Quality dependencies map.
+    description: Add one entry per category dependency.
   CHANG-CHAN-LST:
     prefix: chang_chan_lst
     pattern-check-id:
@@ -1834,7 +1834,7 @@ section-types:
     pattern-check-id:
       pattern: ^qcate_qual_lst-\d+$
       error-message: ID must match qcate_qual_lst-NNN
-    description: 11.1.2. Quality Categories — contains 0+× QualityCategory.
+    description: Add one entry per quality category.
   QGAED-DETA-LST:
     prefix: qgaed_deta_lst
     pattern-check-id:
@@ -2987,7 +2987,7 @@ section-types:
     pattern-check-id:
       pattern: ^slae_slae_lst-\d+$
       error-message: ID must match slae_slae_lst-NNN
-    description: Service Level Agreement entries.
+    description: Add one entry per service level agreement.
   SLEN-SLOS-LST:
     prefix: slen_slos_lst
     pattern-check-id:

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T18:25:39.177415Z",
+  "generatedAt": "2026-07-05T18:59:00.925703Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -15289,7 +15289,22 @@
       "name": "AttributeInterdependencyEntry",
       "sectionId": "ATTRI",
       "doc": "A single attribute interdependency entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly"
+        ],
+        "connotation": "A single attribute-interdependency entry describing how two quality attributes interact or trade off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly"
+            ],
+            "connotation": "A single attribute-interdependency entry describing how two quality attributes interact or trade off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18351,7 +18366,22 @@
       "name": "Availability",
       "sectionId": "AVQU",
       "doc": "11.4.1. Availability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use"
+        ],
+        "connotation": "This section describes the availability quality of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use"
+            ],
+            "connotation": "This section describes the availability quality of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18484,7 +18514,22 @@
       "name": "AvailabilityDegradedMode",
       "sectionId": "AQDM",
       "doc": "Degraded-mode behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — fault tolerance is the degree to which a system operates as intended despite the presence of faults, including in a degraded mode"
+        ],
+        "connotation": "This section describes degraded-mode behavior when the system operates with reduced capability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — fault tolerance is the degree to which a system operates as intended despite the presence of faults, including in a degraded mode"
+            ],
+            "connotation": "This section describes degraded-mode behavior when the system operates with reduced capability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18541,7 +18586,22 @@
       "name": "AvailabilityMaintenance",
       "sectionId": "AVQUMA",
       "doc": "Maintenance window policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — availability accounts for planned maintenance windows during which the system may be unavailable"
+        ],
+        "connotation": "This section describes the maintenance window policy affecting availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — availability accounts for planned maintenance windows during which the system may be unavailable"
+            ],
+            "connotation": "This section describes the maintenance window policy affecting availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18605,7 +18665,22 @@
       "name": "AvailabilityOperatingHours",
       "sectionId": "AQOH",
       "doc": "Operating-hour expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — availability is specified over the operating hours during which the system must be accessible"
+        ],
+        "connotation": "This section describes the operating-hour expectations for availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — availability is specified over the operating hours during which the system must be accessible"
+            ],
+            "connotation": "This section describes the operating-hour expectations for availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18662,7 +18737,22 @@
       "name": "AvailabilityVerification",
       "sectionId": "AVQUVE",
       "doc": "Monitoring and reporting.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — quality measures quantify availability so that targets can be verified"
+        ],
+        "connotation": "This section describes monitoring and reporting used to verify availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — quality measures quantify availability so that targets can be verified"
+            ],
+            "connotation": "This section describes monitoring and reporting used to verify availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -30644,7 +30734,22 @@
       "name": "CategoryDependencyEntry",
       "sectionId": "CATEG",
       "doc": "A single category dependency entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs"
+        ],
+        "connotation": "A single category-dependency entry describing how one quality category depends on another."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs"
+            ],
+            "connotation": "A single category-dependency entry describing how one quality category depends on another."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44185,7 +44290,22 @@
       "sectionId": "CMPT",
       "doc": "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — compatibility is the degree to which a product, system, or component can exchange information with other products, systems, or components, or perform its required functions while sharing the same common environment and resources"
+        ],
+        "connotation": "This section captures the compatibility characteristic including co-existence and interoperability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — compatibility is the degree to which a product, system, or component can exchange information with other products, systems, or components, or perform its required functions while sharing the same common environment and resources"
+            ],
+            "connotation": "This section captures the compatibility characteristic including co-existence and interoperability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57185,7 +57305,22 @@
       "name": "Correctness",
       "sectionId": "COQU",
       "doc": "11.2.3. Correctness quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users"
+        ],
+        "connotation": "This section captures the functional correctness quality group of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users"
+            ],
+            "connotation": "This section captures the functional correctness quality group of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57303,7 +57438,22 @@
       "name": "CorrectnessAccuracy",
       "sectionId": "COQUAC",
       "doc": "Accuracy and auditability requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users under specified conditions"
+        ],
+        "connotation": "This section captures accuracy targets and auditability requirements for correct results."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users under specified conditions"
+            ],
+            "connotation": "This section captures accuracy targets and auditability requirements for correct results."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57360,7 +57510,22 @@
       "name": "CorrectnessIntegrity",
       "sectionId": "COQUIN",
       "doc": "Data integrity expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional correctness is the degree to which a product provides the correct results with the needed degree of precision"
+        ],
+        "connotation": "This section captures data integrity expectations that support correct results."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional correctness is the degree to which a product provides the correct results with the needed degree of precision"
+            ],
+            "connotation": "This section captures data integrity expectations that support correct results."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57417,7 +57582,22 @@
       "name": "CorrectnessVerification",
       "sectionId": "COQUVE",
       "doc": "Verification and regression approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the functional suitability of the system and software product"
+        ],
+        "connotation": "This section captures how functional suitability is verified through defined quality measures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the functional suitability of the system and software product"
+            ],
+            "connotation": "This section captures how functional suitability is verified through defined quality measures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -97005,7 +97185,22 @@
       "name": "Efficiency",
       "sectionId": "EFQU",
       "doc": "11.3.1. Efficiency quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — performance efficiency represents the performance relative to the amount of resources used under stated conditions"
+        ],
+        "connotation": "This section captures efficiency quality including response time, throughput, and resource targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — performance efficiency represents the performance relative to the amount of resources used under stated conditions"
+            ],
+            "connotation": "This section captures efficiency quality including response time, throughput, and resource targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -97123,7 +97318,22 @@
       "name": "EfficiencyResources",
       "sectionId": "EFQURE",
       "doc": "Resource utilization constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — resource utilization is the degree to which the amounts and types of resources used by a product or system meet requirements"
+        ],
+        "connotation": "This section captures resource utilization constraints for CPU, memory, storage, and network."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — resource utilization is the degree to which the amounts and types of resources used by a product or system meet requirements"
+            ],
+            "connotation": "This section captures resource utilization constraints for CPU, memory, storage, and network."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -97187,7 +97397,24 @@
       "name": "EfficiencyThroughput",
       "sectionId": "EFQUTH",
       "doc": "Throughput and scale targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements",
+          "ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements"
+        ],
+        "connotation": "This section captures throughput, capacity, and scalability targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements",
+              "ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements"
+            ],
+            "connotation": "This section captures throughput, capacity, and scalability targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -97244,7 +97471,22 @@
       "name": "EfficiencyVerification",
       "sectionId": "EFQUVE",
       "doc": "Performance validation and SLA commitments.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product"
+        ],
+        "connotation": "This section captures verification of performance efficiency through load testing and SLA commitments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product"
+            ],
+            "connotation": "This section captures verification of performance efficiency through load testing and SLA commitments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116259,7 +116501,22 @@
       "name": "Flexibility",
       "sectionId": "FLQU",
       "doc": "11.3.3. Flexibility quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in requirements, contexts of use, or system environments"
+        ],
+        "connotation": "This section captures flexibility quality including component architecture and adaptability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in requirements, contexts of use, or system environments"
+            ],
+            "connotation": "This section captures flexibility quality including component architecture and adaptability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116378,7 +116635,22 @@
       "sectionId": "FLXC",
       "doc": "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in its requirements, contexts of use, or system environment"
+        ],
+        "connotation": "This section captures the flexibility characteristic including adaptability and portability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in its requirements, contexts of use, or system environment"
+            ],
+            "connotation": "This section captures the flexibility characteristic including adaptability and portability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116494,7 +116766,22 @@
       "name": "FlexibilityDeployment",
       "sectionId": "FLQUDE",
       "doc": "Distribution and configurability model.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — installability is the degree of effectiveness and efficiency with which a product can be successfully installed or uninstalled in a specified environment"
+        ],
+        "connotation": "This section captures deployment, distribution, and installability characteristics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — installability is the degree of effectiveness and efficiency with which a product can be successfully installed or uninstalled in a specified environment"
+            ],
+            "connotation": "This section captures deployment, distribution, and installability characteristics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116551,7 +116838,22 @@
       "name": "FlexibilityExtensibility",
       "sectionId": "FLQUEX",
       "doc": "Extensibility and verification expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted or extended for evolving requirements and environments"
+        ],
+        "connotation": "This section captures extensibility expectations and how flexibility is verified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted or extended for evolving requirements and environments"
+            ],
+            "connotation": "This section captures extensibility expectations and how flexibility is verified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116608,7 +116910,22 @@
       "name": "FlexibilityModularity",
       "sectionId": "FLQUMO",
       "doc": "Modularity and reuse goals.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments"
+        ],
+        "connotation": "This section captures modularity and reuse goals supporting modifiability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments"
+            ],
+            "connotation": "This section captures modularity and reuse goals supporting modifiability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118243,7 +118560,22 @@
       "name": "FunctionalCompleteness",
       "sectionId": "FNCOQ",
       "doc": "11.2.2. Functional completeness quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives"
+        ],
+        "connotation": "This section captures the functional completeness quality of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives"
+            ],
+            "connotation": "This section captures the functional completeness quality of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -119439,7 +119771,22 @@
       "sectionId": "FNSU",
       "doc": "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional suitability is the degree to which a product or system provides functions that meet stated and implied needs when used under specified conditions"
+        ],
+        "connotation": "This section captures the functional suitability characteristic of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional suitability is the degree to which a product or system provides functions that meet stated and implied needs when used under specified conditions"
+            ],
+            "connotation": "This section captures the functional suitability characteristic of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -132917,7 +133264,22 @@
       "sectionId": "INCP",
       "doc": "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — interaction capability is the degree to which a product or system can be interacted with by specified users to exchange information through the user interface to complete specified tasks"
+        ],
+        "connotation": "This section captures the interaction capability characteristic of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — interaction capability is the degree to which a product or system can be interacted with by specified users to exchange information through the user interface to complete specified tasks"
+            ],
+            "connotation": "This section captures the interaction capability characteristic of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140511,7 +140873,24 @@
       "name": "ItSecurityOperations",
       "sectionId": "ISOQ",
       "doc": "11.4.4. IT Security Operations quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — information-security controls are operated so confidentiality, integrity, and availability are protected in production",
+          "ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations"
+        ],
+        "connotation": "This section describes the IT security operations quality of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — information-security controls are operated so confidentiality, integrity, and availability are protected in production",
+              "ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations"
+            ],
+            "connotation": "This section describes the IT security operations quality of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140549,6 +140928,7 @@
             {
               "name": "drPlanRequired",
               "label": "DR Plan Required",
+              "hint": "Whether a disaster recovery plan is required",
               "type": "bool",
               "required": false
             },
@@ -140643,7 +141023,22 @@
       "name": "ItSecurityOperationsAccess",
       "sectionId": "ISOQA",
       "doc": "Access protection controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry"
+        ],
+        "connotation": "This section defines access protection controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry"
+            ],
+            "connotation": "This section defines access protection controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140700,7 +141095,22 @@
       "name": "ItSecurityOperationsIncident",
       "sectionId": "ISOQI",
       "doc": "Incident handling and reporting.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27035-1:2023 — information-security incidents are detected, reported, and responded to in a managed way"
+        ],
+        "connotation": "This section captures how security incidents are handled and reported."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27035-1:2023 — information-security incidents are detected, reported, and responded to in a managed way"
+            ],
+            "connotation": "This section captures how security incidents are handled and reported."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140764,7 +141174,24 @@
       "name": "ItSecurityOperationsRecovery",
       "sectionId": "ISOQR",
       "doc": "Disaster recovery planning details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability re-establishes the desired state after a security incident or failure",
+          "ISO/IEC 27031:2011 — ICT readiness supports continuity and recovery of operations after disruption"
+        ],
+        "connotation": "This section describes disaster recovery planning details."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability re-establishes the desired state after a security incident or failure",
+              "ISO/IEC 27031:2011 — ICT readiness supports continuity and recovery of operations after disruption"
+            ],
+            "connotation": "This section describes disaster recovery planning details."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140828,7 +141255,22 @@
       "name": "ItSecurityOperationsTesting",
       "sectionId": "ISOQT",
       "doc": "Penetration testing and remediation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — security controls are tested and evaluated so their effectiveness is confirmed"
+        ],
+        "connotation": "This section covers penetration testing and remediation of findings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — security controls are tested and evaluated so their effectiveness is confirmed"
+            ],
+            "connotation": "This section covers penetration testing and remediation of findings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140880,6 +141322,7 @@
             {
               "name": "bugBountyProgram",
               "label": "Bug Bounty Program",
+              "hint": "Whether a bug bounty program is in place",
               "type": "bool",
               "required": false
             }
@@ -149796,7 +150239,22 @@
       "name": "Maintainability",
       "sectionId": "MAQU",
       "doc": "11.3.5. Maintainability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product or system can be modified to correct, improve, extend, or adapt it"
+        ],
+        "connotation": "This section captures the core maintainability quality expectations of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product or system can be modified to correct, improve, extend, or adapt it"
+            ],
+            "connotation": "This section captures the core maintainability quality expectations of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149922,7 +150380,22 @@
       "name": "MaintainabilityAnalyzability",
       "sectionId": "MAQUAN",
       "doc": "Analyzability requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — analysability is the degree of effectiveness and efficiency with which it is possible to assess the impact of an intended change, to diagnose deficiencies or causes of failures, or to identify parts to be modified"
+        ],
+        "connotation": "This section captures analyzability requirements for the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — analysability is the degree of effectiveness and efficiency with which it is possible to assess the impact of an intended change, to diagnose deficiencies or causes of failures, or to identify parts to be modified"
+            ],
+            "connotation": "This section captures analyzability requirements for the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149979,7 +150452,22 @@
       "name": "MaintainabilityChangeability",
       "sectionId": "MAQUCH",
       "doc": "Changeability requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — modifiability is the degree to which a product can be effectively and efficiently modified without introducing defects or degrading existing product quality"
+        ],
+        "connotation": "This section captures changeability and modifiability requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — modifiability is the degree to which a product can be effectively and efficiently modified without introducing defects or degrading existing product quality"
+            ],
+            "connotation": "This section captures changeability and modifiability requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -150044,7 +150532,22 @@
       "sectionId": "MNTC",
       "doc": "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product can be modified to correct, improve, extend, or adapt it"
+        ],
+        "connotation": "This section captures the core maintainability quality expectations of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product can be modified to correct, improve, extend, or adapt it"
+            ],
+            "connotation": "This section captures the core maintainability quality expectations of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -150145,7 +150648,22 @@
       "name": "MaintainabilityGovernance",
       "sectionId": "MAQUGO",
       "doc": "Extensibility and verification requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — modularity is the degree to which a system is composed of discrete components such that a change to one component has minimal impact on other components"
+        ],
+        "connotation": "This section captures maintainability governance through modularity and extensibility."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — modularity is the degree to which a system is composed of discrete components such that a change to one component has minimal impact on other components"
+            ],
+            "connotation": "This section captures maintainability governance through modularity and extensibility."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -150209,7 +150727,22 @@
       "name": "MaintainabilityTestability",
       "sectionId": "MAQUTE",
       "doc": "Testability requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — testability is the degree of effectiveness and efficiency with which test criteria can be established for a system and tests performed to determine whether those criteria have been met"
+        ],
+        "connotation": "This section captures testability requirements for the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — testability is the degree of effectiveness and efficiency with which test criteria can be established for a system and tests performed to determine whether those criteria have been met"
+            ],
+            "connotation": "This section captures testability requirements for the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162185,7 +162718,22 @@
       "name": "MonitoringAlerting",
       "sectionId": "MOQUAL",
       "doc": "Alerting strategy and channels.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — alerting notifies responsible parties when monitored thresholds are breached"
+        ],
+        "connotation": "This section describes the alerting strategy and notification channels for monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — alerting notifies responsible parties when monitored thresholds are breached"
+            ],
+            "connotation": "This section describes the alerting strategy and notification channels for monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162514,7 +163062,22 @@
       "name": "MonitoringAutomation",
       "sectionId": "MOQUAU",
       "doc": "Alert automation capabilities.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — monitoring is automated so conditions are detected without manual inspection"
+        ],
+        "connotation": "This section describes alert automation and self-healing capabilities for monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — monitoring is automated so conditions are detected without manual inspection"
+            ],
+            "connotation": "This section describes alert automation and self-healing capabilities for monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162571,7 +163134,22 @@
       "name": "MonitoringCoverage",
       "sectionId": "MOQUCO",
       "doc": "Component monitoring coverage.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — monitoring coverage is defined so the health of services and components is observed"
+        ],
+        "connotation": "This section describes the component and infrastructure coverage of monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — monitoring coverage is defined so the health of services and components is observed"
+            ],
+            "connotation": "This section describes the component and infrastructure coverage of monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163240,7 +163818,22 @@
       "name": "MonitoringOperations",
       "sectionId": "MOQUOP",
       "doc": "Planning and observability settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — operational monitoring feeds the day-to-day running and support of the service"
+        ],
+        "connotation": "This section describes planning and observability settings for operational monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — operational monitoring feeds the day-to-day running and support of the service"
+            ],
+            "connotation": "This section describes planning and observability settings for operational monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -173694,7 +174287,22 @@
       "name": "OperationalMonitoring",
       "sectionId": "MOQU",
       "doc": "11.4.3. Monitoring quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system"
+        ],
+        "connotation": "This section describes operational monitoring quality of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system"
+            ],
+            "connotation": "This section describes operational monitoring quality of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -181415,7 +182023,22 @@
       "sectionId": "PEEF",
       "doc": "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — performance efficiency is the degree to which a product performs its functions within specified time and throughput parameters and is efficient in the use of resources under stated conditions"
+        ],
+        "connotation": "This section captures the performance efficiency characteristic of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — performance efficiency is the degree to which a product performs its functions within specified time and throughput parameters and is efficient in the use of resources under stated conditions"
+            ],
+            "connotation": "This section captures the performance efficiency characteristic of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -185394,7 +186017,22 @@
       "name": "Portability",
       "sectionId": "POQU",
       "doc": "11.3.2. Portability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — flexibility includes adaptability, installability, and replaceability, describing the degree to which a product can be transferred and adapted across environments"
+        ],
+        "connotation": "This section captures portability quality across platforms and environments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — flexibility includes adaptability, installability, and replaceability, describing the degree to which a product can be transferred and adapted across environments"
+            ],
+            "connotation": "This section captures portability quality across platforms and environments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200912,7 +201550,22 @@
       "name": "QualityCategoryEntry",
       "sectionId": "QCATE",
       "doc": "A quality category entry (form).\n\nDefines a quality category with its attributes, weight, and relationship\nto other categories.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — each quality category groups related quality characteristics against which requirements are defined and evaluated"
+        ],
+        "connotation": "Captures a single quality category with its attributes, weight, and relationships."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — each quality category groups related quality characteristics against which requirements are defined and evaluated"
+            ],
+            "connotation": "Captures a single quality category with its attributes, weight, and relationships."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201052,7 +201705,22 @@
       "name": "QualityCategoryEntryDefinition",
       "sectionId": "QCADF",
       "doc": "Description and priority context.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured"
+        ],
+        "connotation": "Captures the definition, scope, and priority context of this quality category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured"
+            ],
+            "connotation": "Captures the definition, scope, and priority context of this quality category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201116,7 +201784,22 @@
       "name": "QualityCategoryEntryGovernance",
       "sectionId": "QCAGV",
       "doc": "Governance ownership.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — ownership and governance of each quality category are assigned to ensure the associated requirements are maintained"
+        ],
+        "connotation": "Captures the ownership and governance responsibilities for this quality category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — ownership and governance of each quality category are assigned to ensure the associated requirements are maintained"
+            ],
+            "connotation": "Captures the ownership and governance responsibilities for this quality category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201173,7 +201856,22 @@
       "name": "QualityCategoryEntryMetrics",
       "sectionId": "QCAMT",
       "doc": "Measurement targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — quality measures and measurement functions are defined to quantify each quality characteristic during evaluation"
+        ],
+        "connotation": "Captures the metrics and target values used to measure this quality category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — quality measures and measurement functions are defined to quantify each quality characteristic during evaluation"
+            ],
+            "connotation": "Captures the metrics and target values used to measure this quality category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201237,7 +201935,22 @@
       "name": "QualityCategoryEntryRelationships",
       "sectionId": "QCARL",
       "doc": "Category relationships.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use"
+        ],
+        "connotation": "Captures how this quality category relates to and depends on other categories."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use"
+            ],
+            "connotation": "Captures how this quality category relates to and depends on other categories."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201295,7 +202008,22 @@
       "sectionId": "QLFWK",
       "doc": "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the quality framework defines the characteristics, sub-characteristics, and measurement approach used to specify and evaluate product quality"
+        ],
+        "connotation": "Captures the overall quality framework defining objectives, categories, and structure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the quality framework defines the characteristics, sub-characteristics, and measurement approach used to specify and evaluate product quality"
+            ],
+            "connotation": "Captures the overall quality framework defining objectives, categories, and structure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201454,10 +202182,26 @@
           "name": "qualityCategories",
           "kind": "list",
           "doc": "11.1.2. Quality Categories — contains 0+× QualityCategory.",
+          "help": "Add one entry per quality category.",
           "sectionId": "QCATE-QUAL-LST",
           "sectionIdPattern": "QCATE-QUAL-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010:2023 — product quality is organised into characteristics and sub-characteristics that form the categories against which quality is specified and evaluated"
+            ],
+            "connotation": "Lists the quality categories against which requirements are specified and evaluated."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010:2023 — product quality is organised into characteristics and sub-characteristics that form the categories against which quality is specified and evaluated"
+                ],
+                "connotation": "Lists the quality categories against which requirements are specified and evaluated."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -201468,6 +202212,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "QCATE-QUAL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per quality category."
               }
             },
             {
@@ -201484,10 +202234,26 @@
           "name": "categoryDependencies",
           "kind": "list",
           "doc": "Quality dependencies map.",
+          "help": "Add one entry per category dependency.",
           "sectionId": "CATEG-CATE-LST",
           "sectionIdPattern": "CATEG-CATE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"
+            ],
+            "connotation": "Lists dependencies between quality categories used to reason about trade-offs."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"
+                ],
+                "connotation": "Lists dependencies between quality categories used to reason about trade-offs."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -201498,6 +202264,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CATEG-CATE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per category dependency."
               }
             },
             {
@@ -201516,7 +202288,22 @@
       "name": "QualityFrameworkObjectives",
       "sectionId": "QFOBJ",
       "doc": "Quality objective structure and alignment.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets"
+        ],
+        "connotation": "Captures the structure and business alignment of the quality objectives."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets"
+            ],
+            "connotation": "Captures the structure and business alignment of the quality objectives."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201573,7 +202360,22 @@
       "name": "QualityFrameworkTradeOffs",
       "sectionId": "QFTRD",
       "doc": "Trade-off priorities and decision authority.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified"
+        ],
+        "connotation": "Captures the trade-off priorities and decision authority between quality attributes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified"
+            ],
+            "connotation": "Captures the trade-off priorities and decision authority between quality attributes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201611,6 +202413,7 @@
             {
               "name": "secondaryQualityAttribute",
               "label": "Secondary Quality Attribute",
+              "hint": "Attribute yielded when the primary attribute takes precedence",
               "type": "String",
               "required": false
             },
@@ -201636,7 +202439,24 @@
       "name": "QualityFrameworkVerification",
       "sectionId": "QFVER",
       "doc": "Verification and defect handling approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality",
+          "ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels"
+        ],
+        "connotation": "Captures how quality is verified and how defects are classified and handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality",
+              "ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels"
+            ],
+            "connotation": "Captures how quality is verified and how defects are classified and handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203019,7 +203839,22 @@
       "name": "QualityGoalsBaseline",
       "sectionId": "SQGBS",
       "doc": "Baseline and target settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement"
+        ],
+        "connotation": "Captures the quality baseline and target settings used as a reference for improvement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement"
+            ],
+            "connotation": "Captures the quality baseline and target settings used as a reference for improvement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203057,6 +203892,7 @@
             {
               "name": "qualityBaselineVersion",
               "label": "Baseline Version",
+              "hint": "Version identifier of the quality baseline snapshot",
               "type": "String",
               "required": false
             },
@@ -203082,7 +203918,22 @@
       "name": "QualityGoalsGovernance",
       "sectionId": "SQGGV",
       "doc": "Governance board and escalation details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system"
+        ],
+        "connotation": "Captures the governance board and escalation path for quality decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system"
+            ],
+            "connotation": "Captures the governance board and escalation path for quality decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203139,7 +203990,22 @@
       "name": "QualityGoalsMeasurement",
       "sectionId": "SQGMS",
       "doc": "Measurement and reporting approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product"
+        ],
+        "connotation": "Captures how quality is measured, reported, and tracked over time."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product"
+            ],
+            "connotation": "Captures how quality is measured, reported, and tracked over time."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203210,7 +204076,22 @@
       "name": "QualityGoalsResources",
       "sectionId": "SQGRS",
       "doc": "Quality resources and enablement.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified"
+        ],
+        "connotation": "Captures the resources, budget, and enablement assigned to achieve quality goals."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified"
+            ],
+            "connotation": "Captures the resources, budget, and enablement assigned to achieve quality goals."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208030,7 +208911,22 @@
       "name": "Reliability",
       "sectionId": "REQU",
       "doc": "11.3.6. Reliability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reliability is the degree to which a system, product, or component performs specified functions under specified conditions for a specified period of time"
+        ],
+        "connotation": "This section captures the core reliability quality expectations of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reliability is the degree to which a system, product, or component performs specified functions under specified conditions for a specified period of time"
+            ],
+            "connotation": "This section captures the core reliability quality expectations of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208164,7 +209060,22 @@
       "sectionId": "RELC",
       "doc": "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reliability is the degree to which a system performs specified functions under specified conditions for a specified period of time"
+        ],
+        "connotation": "This section describes the reliability characteristic of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reliability is the degree to which a system performs specified functions under specified conditions for a specified period of time"
+            ],
+            "connotation": "This section describes the reliability characteristic of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208338,7 +209249,22 @@
       "name": "ReliabilityDurability",
       "sectionId": "REQUDU",
       "doc": "Data durability requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — faultlessness is the degree to which a system, product, or component performs specified functions without fault under normal operation"
+        ],
+        "connotation": "This section captures data durability and faultlessness expectations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — faultlessness is the degree to which a system, product, or component performs specified functions without fault under normal operation"
+            ],
+            "connotation": "This section captures data durability and faultlessness expectations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208402,7 +209328,22 @@
       "name": "ReliabilityFailover",
       "sectionId": "REQUFA",
       "doc": "Failover requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — fault tolerance is the degree to which a system, product, or component operates as intended despite the presence of hardware or software faults"
+        ],
+        "connotation": "This section captures failover and fault tolerance requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — fault tolerance is the degree to which a system, product, or component operates as intended despite the presence of hardware or software faults"
+            ],
+            "connotation": "This section captures failover and fault tolerance requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208459,7 +209400,22 @@
       "name": "ReliabilityRecovery",
       "sectionId": "REQURE",
       "doc": "Recovery objectives.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability is the degree to which, in the event of an interruption or a failure, a product can recover the data directly affected and re-establish the desired state of the system"
+        ],
+        "connotation": "This section captures recovery objectives and recoverability targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability is the degree to which, in the event of an interruption or a failure, a product can recover the data directly affected and re-establish the desired state of the system"
+            ],
+            "connotation": "This section captures recovery objectives and recoverability targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208523,7 +209479,22 @@
       "name": "ReliabilityVerification",
       "sectionId": "REQUVE",
       "doc": "Verification and learning.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the reliability characteristics of the system and software product"
+        ],
+        "connotation": "This section captures how reliability is verified and how learning is fed back."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the reliability characteristics of the system and software product"
+            ],
+            "connotation": "This section captures how reliability is verified and how learning is fed back."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -237058,7 +238029,22 @@
       "name": "Security",
       "sectionId": "SEQU",
       "doc": "11.3.4. Security quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — security is the degree to which a product or system protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization"
+        ],
+        "connotation": "This section captures the core security quality expectations of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — security is the degree to which a product or system protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization"
+            ],
+            "connotation": "This section captures the core security quality expectations of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -237954,7 +238940,22 @@
       "name": "SecurityAuthentication",
       "sectionId": "SEQUAU",
       "doc": "Authentication controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed"
+        ],
+        "connotation": "This section captures authentication controls and proof of identity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed"
+            ],
+            "connotation": "This section captures authentication controls and proof of identity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -238018,7 +239019,22 @@
       "name": "SecurityAuthorization",
       "sectionId": "SEQUA1",
       "doc": "Authorization controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access"
+        ],
+        "connotation": "This section captures authorization controls and confidentiality of access."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access"
+            ],
+            "connotation": "This section captures authorization controls and confidentiality of access."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -238515,7 +239531,22 @@
       "sectionId": "SECC",
       "doc": "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — security is the degree to which a product protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization"
+        ],
+        "connotation": "This section captures the core security quality expectations of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — security is the degree to which a product protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization"
+            ],
+            "connotation": "This section captures the core security quality expectations of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -238981,7 +240012,24 @@
       "name": "SecurityCompliance",
       "sectionId": "SEQUCO",
       "doc": "Compliance and verification settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — accountability is the degree to which the actions of an entity can be traced uniquely to the entity",
+          "ISO/IEC 27001:2022 — an information security management system establishes controls to meet security requirements"
+        ],
+        "connotation": "This section captures security compliance, accountability, and verification settings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — accountability is the degree to which the actions of an entity can be traced uniquely to the entity",
+              "ISO/IEC 27001:2022 — an information security management system establishes controls to meet security requirements"
+            ],
+            "connotation": "This section captures security compliance, accountability, and verification settings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -242286,7 +243334,22 @@
       "name": "SecurityVulnerability",
       "sectionId": "SEQUVU",
       "doc": "Vulnerability management expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — resistance is the degree to which the product sustains operations while under attack from a malicious actor"
+        ],
+        "connotation": "This section captures vulnerability management and resistance expectations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — resistance is the degree to which the product sustains operations while under attack from a malicious actor"
+            ],
+            "connotation": "This section captures vulnerability management and resistance expectations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -245264,7 +246327,22 @@
       "name": "ServiceLevel",
       "sectionId": "SELEQU",
       "doc": "11.4.2. Service level quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver"
+        ],
+        "connotation": "This section describes the service level quality of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver"
+            ],
+            "connotation": "This section describes the service level quality of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -245410,10 +246488,26 @@
           "name": "slaEntries",
           "kind": "list",
           "doc": "Service Level Agreement entries.",
+          "help": "Add one entry per service level agreement.",
           "sectionId": "SLAE-SLAE-LST",
           "sectionIdPattern": "SLAE-SLAE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — service level agreements record the agreed targets between provider and customer"
+            ],
+            "connotation": "This list holds the service level agreement entries for the solution."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 20000-1:2018 — service level agreements record the agreed targets between provider and customer"
+                ],
+                "connotation": "This list holds the service level agreement entries for the solution."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -245424,6 +246518,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SLAE-SLAE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per service level agreement."
               }
             },
             {
@@ -245442,7 +246542,22 @@
       "name": "ServiceLevelAgreementEntry",
       "sectionId": "SLAE",
       "doc": "A service level agreement entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured"
+        ],
+        "connotation": "This section describes a single service level agreement entry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured"
+            ],
+            "connotation": "This section describes a single service level agreement entry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -245473,18 +246588,21 @@
             {
               "name": "slaId",
               "label": "SLA ID",
+              "hint": "SLA-001, unique identifier",
               "type": "String",
               "required": false
             },
             {
               "name": "slaName",
               "label": "SLA Name",
+              "hint": "Uptime SLA, Response Time SLA",
               "type": "String",
               "required": true
             },
             {
               "name": "slaDescription",
               "label": "Description",
+              "hint": "What this SLA covers",
               "type": "String",
               "required": false
             },
@@ -245505,12 +246623,14 @@
             {
               "name": "slaMeasurementMethod",
               "label": "Measurement Method",
+              "hint": "How the metric is measured",
               "type": "String",
               "required": false
             },
             {
               "name": "slaReportingFrequency",
               "label": "Reporting Frequency",
+              "hint": "Monthly, quarterly",
               "type": "String",
               "required": false
             },
@@ -245536,7 +246656,22 @@
       "name": "ServiceLevelEscalation",
       "sectionId": "SLQE",
       "doc": "Escalation rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — escalation procedures are defined so unmet targets are raised in a timely way"
+        ],
+        "connotation": "This section describes escalation rules for service level management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — escalation procedures are defined so unmet targets are raised in a timely way"
+            ],
+            "connotation": "This section describes escalation rules for service level management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -245934,7 +247069,22 @@
       "name": "ServiceLevelOnCall",
       "sectionId": "SLQOC",
       "doc": "On-call support expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — on-call and support-coverage arrangements underpin the agreed service levels"
+        ],
+        "connotation": "This section describes on-call and support-coverage expectations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — on-call and support-coverage arrangements underpin the agreed service levels"
+            ],
+            "connotation": "This section describes on-call and support-coverage expectations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -245991,7 +247141,22 @@
       "name": "ServiceLevelResolution",
       "sectionId": "SLQR1",
       "doc": "Resolution targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — resolution-time targets are set and monitored for service requests and incidents"
+        ],
+        "connotation": "This section describes resolution-time targets for service requests and incidents."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — resolution-time targets are set and monitored for service requests and incidents"
+            ],
+            "connotation": "This section describes resolution-time targets for service requests and incidents."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246055,7 +247220,22 @@
       "name": "ServiceLevelResponse",
       "sectionId": "SLQR",
       "doc": "Remaining response targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management"
+        ],
+        "connotation": "This section describes remaining response-time targets for service levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management"
+            ],
+            "connotation": "This section describes remaining response-time targets for service levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246105,7 +247285,22 @@
       "name": "ServiceLevelRestoration",
       "sectionId": "SLQR2",
       "doc": "Restoration and communication priorities.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability re-establishes service and restores data after an interruption or failure"
+        ],
+        "connotation": "This section describes restoration and communication priorities during service outages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability re-establishes service and restores data after an interruption or failure"
+            ],
+            "connotation": "This section describes restoration and communication priorities during service outages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -269645,7 +270840,24 @@
       "sectionId": "SYQG",
       "doc": "11. System Quality Goals. Seeds → QAP.\n\nQuality goals selected from standard quality criteria and operationalized\nfor project-specific acceptance testing. Provides governing structure for\nall quality attributes and acceptance criteria. Seeds the QAP (Quality &\nAcceptance Plan) document where quality goals are expanded into measurable\ntargets, verification methods, and acceptance criteria.",
       "mapsTo": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the system-and-software product quality model organises product quality into eight characteristics and their sub-characteristics",
+          "ISO/IEC 25000:2014 — the SQuaRE series provides a coherent framework for specifying and evaluating software product quality requirements"
+        ],
+        "connotation": "Captures the system quality goals governing all quality attributes and acceptance criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the system-and-software product quality model organises product quality into eight characteristics and their sub-characteristics",
+              "ISO/IEC 25000:2014 — the SQuaRE series provides a coherent framework for specifying and evaluating software product quality requirements"
+            ],
+            "connotation": "Captures the system quality goals governing all quality attributes and acceptance criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -269841,10 +271053,26 @@
           "name": "attributeInterdependencies",
           "kind": "list",
           "doc": "Quality attribute interdependencies.",
+          "help": "Add one entry per quality attribute interdependency.",
           "sectionId": "ATTRI-ATTR-LST",
           "sectionIdPattern": "ATTRI-ATTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"
+            ],
+            "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"
+                ],
+                "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -269855,6 +271083,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ATTRI-ATTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per quality attribute interdependency."
               }
             },
             {
@@ -296449,7 +297683,22 @@
       "name": "Usability",
       "sectionId": "USAQL",
       "doc": "11.2.1. Usability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement"
+        ],
+        "connotation": "This section captures the usability quality group of the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement"
+            ],
+            "connotation": "This section captures the usability quality group of the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -296597,7 +297846,22 @@
       "name": "UsabilityClarity",
       "sectionId": "USACL",
       "doc": "Clarity and complexity constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — self-descriptiveness is the degree to which a product presents appropriate information, where needed by the user, to make the product immediately obvious without excessive interactions with the product or other resources"
+        ],
+        "connotation": "This section captures clarity and complexity constraints supporting self-descriptiveness."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — self-descriptiveness is the degree to which a product presents appropriate information, where needed by the user, to make the product immediately obvious without excessive interactions with the product or other resources"
+            ],
+            "connotation": "This section captures clarity and complexity constraints supporting self-descriptiveness."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -296661,7 +297925,22 @@
       "name": "UsabilityInteraction",
       "sectionId": "USAIN",
       "doc": "Interaction control settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — user engagement is the degree to which the user interface presents functions and information in an inviting and motivating manner encouraging continued interaction"
+        ],
+        "connotation": "This section captures interaction control settings that shape user engagement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — user engagement is the degree to which the user interface presents functions and information in an inviting and motivating manner encouraging continued interaction"
+            ],
+            "connotation": "This section captures interaction control settings that shape user engagement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -296711,7 +297990,22 @@
       "name": "UsabilityLearnability",
       "sectionId": "USALN",
       "doc": "Learnability and onboarding expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — learnability is the degree to which a product or system can be used by specified users to achieve specified goals of learning to use the product with effectiveness, efficiency, freedom from risk, and satisfaction"
+        ],
+        "connotation": "This section captures learnability and onboarding expectations for the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — learnability is the degree to which a product or system can be used by specified users to achieve specified goals of learning to use the product with effectiveness, efficiency, freedom from risk, and satisfaction"
+            ],
+            "connotation": "This section captures learnability and onboarding expectations for the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -296761,7 +298055,22 @@
       "name": "UsabilityOperability",
       "sectionId": "USAOP",
       "doc": "Operability verification and ergonomics goals.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — operability is the degree to which a product or system has attributes that make it easy to operate and control"
+        ],
+        "connotation": "This section captures operability verification and ergonomics goals for the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — operability is the degree to which a product or system has attributes that make it easy to operate and control"
+            ],
+            "connotation": "This section captures operability verification and ergonomics goals for the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -296818,7 +298127,22 @@
       "name": "UsabilityPerformance",
       "sectionId": "USAPR",
       "doc": "Perceived and measured responsiveness targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — inclusivity is the degree to which a product can be used by people with the widest range of characteristics and capabilities to achieve specified goals in a specified context of use"
+        ],
+        "connotation": "This section captures perceived and measured responsiveness targets for usability performance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — inclusivity is the degree to which a product can be used by people with the widest range of characteristics and capabilities to achieve specified goals in a specified context of use"
+            ],
+            "connotation": "This section captures perceived and measured responsiveness targets for usability performance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

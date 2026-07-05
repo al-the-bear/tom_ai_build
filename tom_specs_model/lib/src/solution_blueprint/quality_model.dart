@@ -18,6 +18,13 @@ import 'delivery_scope_and_acceptance.dart';
 /// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
 /// Acceptance Plan) document where quality goals are expanded into measurable
 /// targets, verification methods, and acceptance criteria.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the system-and-software product quality model organises product quality into eight characteristics and their sub-characteristics',
+    'ISO/IEC 25000:2014 — the SQuaRE series provides a coherent framework for specifying and evaluating software product quality requirements',
+  ],
+  'Captures the system quality goals governing all quality attributes and acceptance criteria.',
+)
 @SectionId('SYQG')
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
@@ -68,8 +75,15 @@ class SystemQualityGoals {
   TextSection qaStrategy = TextSection();
 
   /// Quality attribute interdependencies.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs',
+    ],
+    'Lists interdependencies between quality attributes used to manage trade-offs.',
+  )
   @SectionId('ATTRI-ATTR-LST')
   @SectionIdPattern('ATTRI-ATTR-xxx')
+  @ContentHelp('Add one entry per quality attribute interdependency.')
   @SerializationOrder(8)
   List<AttributeInterdependencyEntry> attributeInterdependencies = [];
 
@@ -143,6 +157,12 @@ class SystemQualityGoals {
 }
 
 /// Governance board and escalation details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system',
+  ],
+  'Captures the governance board and escalation path for quality decisions.',
+)
 @SectionId('SQGGV')
 class QualityGoalsGovernance {
     @Form([
@@ -158,12 +178,19 @@ class QualityGoalsGovernance {
 }
 
 /// Baseline and target settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement',
+  ],
+  'Captures the quality baseline and target settings used as a reference for improvement.',
+)
 @SectionId('SQGBS')
 class QualityGoalsBaseline {
     @Form([
         Field('qualityBaselineDate', String, 'Quality Baseline Date',
                 hint: 'When quality targets were baselined'),
-        Field('qualityBaselineVersion', String, 'Baseline Version'),
+        Field('qualityBaselineVersion', String, 'Baseline Version',
+            hint: 'Version identifier of the quality baseline snapshot'),
         Field('overallQualityTargetLevel', String, 'Overall Quality Target Level',
                 hint: 'High, production-grade, MVP-acceptable'),
         Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
@@ -174,6 +201,12 @@ class QualityGoalsBaseline {
 }
 
 /// Measurement and reporting approach.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product',
+  ],
+  'Captures how quality is measured, reported, and tracked over time.',
+)
 @SectionId('SQGMS')
 class QualityGoalsMeasurement {
     @Form([
@@ -193,6 +226,12 @@ class QualityGoalsMeasurement {
 }
 
 /// Quality resources and enablement.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified',
+  ],
+  'Captures the resources, budget, and enablement assigned to achieve quality goals.',
+)
 @SectionId('SQGRS')
 class QualityGoalsResources {
     @Form([
@@ -213,6 +252,12 @@ class QualityGoalsResources {
 ///
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the quality framework defines the characteristics, sub-characteristics, and measurement approach used to specify and evaluate product quality',
+  ],
+  'Captures the overall quality framework defining objectives, categories, and structure.',
+)
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FRA')
@@ -258,19 +303,39 @@ class QualityFramework {
   TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — product quality is organised into characteristics and sub-characteristics that form the categories against which quality is specified and evaluated',
+    ],
+    'Lists the quality categories against which requirements are specified and evaluated.',
+  )
   @SectionId('QCATE-QUAL-LST')
   @SectionIdPattern('QCATE-QUAL-xxx')
+  @ContentHelp('Add one entry per quality category.')
   @SerializationOrder(6)
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs',
+    ],
+    'Lists dependencies between quality categories used to reason about trade-offs.',
+  )
   @SectionId('CATEG-CATE-LST')
   @SectionIdPattern('CATEG-CATE-xxx')
+  @ContentHelp('Add one entry per category dependency.')
   @SerializationOrder(7)
   List<CategoryDependencyEntry> categoryDependencies = [];
 }
 
 /// Quality objective structure and alignment.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets',
+  ],
+  'Captures the structure and business alignment of the quality objectives.',
+)
 @SectionId('QFOBJ')
 class QualityFrameworkObjectives {
     @Form([
@@ -286,12 +351,19 @@ class QualityFrameworkObjectives {
 }
 
 /// Trade-off priorities and decision authority.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified',
+  ],
+  'Captures the trade-off priorities and decision authority between quality attributes.',
+)
 @SectionId('QFTRD')
 class QualityFrameworkTradeOffs {
     @Form([
         Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
                 hint: 'Most important attribute when trade-offs required'),
-        Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute'),
+        Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute',
+                hint: 'Attribute yielded when the primary attribute takes precedence'),
         Field('tradeOffApproach', String, 'Trade-off Approach',
                 hint: 'How conflicts between attributes are resolved'),
         Field('qualityCompromiseAuthority', String, 'Compromise Authority',
@@ -302,6 +374,13 @@ class QualityFrameworkTradeOffs {
 }
 
 /// Verification and defect handling approach.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality',
+    'ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels',
+  ],
+  'Captures how quality is verified and how defects are classified and handled.',
+)
 @SectionId('QFVER')
 class QualityFrameworkVerification {
     @Form([
@@ -322,6 +401,12 @@ class QualityFrameworkVerification {
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — each quality category groups related quality characteristics against which requirements are defined and evaluated',
+  ],
+  'Captures a single quality category with its attributes, weight, and relationships.',
+)
 @SectionId('QCATE')
 class QualityCategoryEntry {
   @Form([
@@ -361,6 +446,12 @@ class QualityCategoryEntry {
 }
 
 /// Description and priority context.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured',
+  ],
+  'Captures the definition, scope, and priority context of this quality category.',
+)
 @SectionId('QCADF')
 class QualityCategoryEntryDefinition {
   @Form([
@@ -378,6 +469,12 @@ class QualityCategoryEntryDefinition {
 }
 
 /// Category relationships.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use',
+  ],
+  'Captures how this quality category relates to and depends on other categories.',
+)
 @SectionId('QCARL')
 class QualityCategoryEntryRelationships {
   @Form([
@@ -393,6 +490,12 @@ class QualityCategoryEntryRelationships {
 }
 
 /// Governance ownership.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — ownership and governance of each quality category are assigned to ensure the associated requirements are maintained',
+  ],
+  'Captures the ownership and governance responsibilities for this quality category.',
+)
 @SectionId('QCAGV')
 class QualityCategoryEntryGovernance {
   @Form([
@@ -408,6 +511,12 @@ class QualityCategoryEntryGovernance {
 }
 
 /// Measurement targets.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — quality measures and measurement functions are defined to quantify each quality characteristic during evaluation',
+  ],
+  'Captures the metrics and target values used to measure this quality category.',
+)
 @SectionId('QCAMT')
 class QualityCategoryEntryMetrics {
   @Form([
@@ -429,6 +538,12 @@ class QualityCategoryEntryMetrics {
 /// Degree to which the product provides functions that meet stated and implied
 /// needs — functional completeness and correctness. Re-homes the former
 /// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional suitability is the degree to which a product or system provides functions that meet stated and implied needs when used under specified conditions',
+  ],
+  'This section captures the functional suitability characteristic of the solution.',
+)
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FSU')
@@ -470,6 +585,12 @@ class FunctionalSuitabilityCharacteristic {
 /// and satisfactorily by users. Re-homes the former user-bucket usability leaf
 /// under the 25010:2023 spine (L34C-8). The dissolved user-quality overview
 /// form is preserved here so no authored content is lost.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — interaction capability is the degree to which a product or system can be interacted with by specified users to exchange information through the user interface to complete specified tasks',
+  ],
+  'This section captures the interaction capability characteristic of the solution.',
+)
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ICP')
@@ -506,6 +627,12 @@ class InteractionCapabilityCharacteristic {
 }
 
 /// 11.2.1. Usability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement',
+  ],
+  'This section captures the usability quality group of the solution.',
+)
 @SectionId('USAQL')
 class Usability {
   @Form([
@@ -545,6 +672,12 @@ class Usability {
 }
 
 /// Operability verification and ergonomics goals.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — operability is the degree to which a product or system has attributes that make it easy to operate and control',
+  ],
+  'This section captures operability verification and ergonomics goals for the solution.',
+)
 @SectionId('USAOP')
 class UsabilityOperability {
   @Form([
@@ -560,6 +693,12 @@ class UsabilityOperability {
 }
 
 /// Learnability and onboarding expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — learnability is the degree to which a product or system can be used by specified users to achieve specified goals of learning to use the product with effectiveness, efficiency, freedom from risk, and satisfaction',
+  ],
+  'This section captures learnability and onboarding expectations for the solution.',
+)
 @SectionId('USALN')
 class UsabilityLearnability {
   @Form([
@@ -573,6 +712,12 @@ class UsabilityLearnability {
 }
 
 /// Clarity and complexity constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — self-descriptiveness is the degree to which a product presents appropriate information, where needed by the user, to make the product immediately obvious without excessive interactions with the product or other resources',
+  ],
+  'This section captures clarity and complexity constraints supporting self-descriptiveness.',
+)
 @SectionId('USACL')
 class UsabilityClarity {
   @Form([
@@ -590,6 +735,12 @@ class UsabilityClarity {
 }
 
 /// Interaction control settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — user engagement is the degree to which the user interface presents functions and information in an inviting and motivating manner encouraging continued interaction',
+  ],
+  'This section captures interaction control settings that shape user engagement.',
+)
 @SectionId('USAIN')
 class UsabilityInteraction {
   @Form([
@@ -603,6 +754,12 @@ class UsabilityInteraction {
 }
 
 /// Perceived and measured responsiveness targets.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — inclusivity is the degree to which a product can be used by people with the widest range of characteristics and capabilities to achieve specified goals in a specified context of use',
+  ],
+  'This section captures perceived and measured responsiveness targets for usability performance.',
+)
 @SectionId('USAPR')
 class UsabilityPerformance {
   @Form([
@@ -620,6 +777,12 @@ class UsabilityPerformance {
 }
 
 /// 11.2.2. Functional completeness quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives',
+  ],
+  'This section captures the functional completeness quality of the solution.',
+)
 @SectionId('FNCOQ')
 class FunctionalCompleteness {
   @Form([
@@ -654,6 +817,12 @@ class FunctionalCompleteness {
 }
 
 /// 11.2.3. Correctness quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users',
+  ],
+  'This section captures the functional correctness quality group of the solution.',
+)
 @SectionId('COQU')
 class Correctness {
   @Form([
@@ -686,6 +855,12 @@ class Correctness {
 }
 
 /// Data integrity expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional correctness is the degree to which a product provides the correct results with the needed degree of precision',
+  ],
+  'This section captures data integrity expectations that support correct results.',
+)
 @SectionId('COQUIN')
 class CorrectnessIntegrity {
   @Form([
@@ -701,6 +876,12 @@ class CorrectnessIntegrity {
 }
 
 /// Accuracy and auditability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users under specified conditions',
+  ],
+  'This section captures accuracy targets and auditability requirements for correct results.',
+)
 @SectionId('COQUAC')
 class CorrectnessAccuracy {
   @Form([
@@ -716,6 +897,12 @@ class CorrectnessAccuracy {
 }
 
 /// Verification and regression approach.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the functional suitability of the system and software product',
+  ],
+  'This section captures how functional suitability is verified through defined quality measures.',
+)
 @SectionId('COQUVE')
 class CorrectnessVerification {
   @Form([
@@ -736,6 +923,12 @@ class CorrectnessVerification {
 /// conditions. Re-homes the former technical-bucket efficiency leaf under the
 /// 25010:2023 spine (L34C-8). The dissolved technical-quality overview form is
 /// preserved here so no authored content is lost.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — performance efficiency is the degree to which a product performs its functions within specified time and throughput parameters and is efficient in the use of resources under stated conditions',
+  ],
+  'This section captures the performance efficiency characteristic of the solution.',
+)
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PEF')
@@ -775,6 +968,12 @@ class PerformanceEfficiencyCharacteristic {
 /// share the same environment and resources (co-existence + interoperability).
 /// Introduced by the 25010:2023 regroup (L34C-8); modelled as an overview
 /// pending project-specific compatibility leaves.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — compatibility is the degree to which a product, system, or component can exchange information with other products, systems, or components, or perform its required functions while sharing the same common environment and resources',
+  ],
+  'This section captures the compatibility characteristic including co-existence and interoperability.',
+)
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CMP')
@@ -800,6 +999,12 @@ class CompatibilityCharacteristic {
 /// contexts of use, or system environment (adaptability, scalability,
 /// installability, replaceability). Re-homes the former technical-bucket
 /// flexibility and portability leaves under the 25010:2023 spine (L34C-8).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in its requirements, contexts of use, or system environment',
+  ],
+  'This section captures the flexibility characteristic including adaptability and portability.',
+)
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FLX')
@@ -833,6 +1038,12 @@ class FlexibilityCharacteristic {
 /// Degree to which the product protects information and data. Re-homes the
 /// former technical-bucket security leaf and the operations-bucket IT-security
 /// operations leaf under the 25010:2023 spine (L34C-8).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — security is the degree to which a product protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization',
+  ],
+  'This section captures the core security quality expectations of the solution.',
+)
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SEC')
@@ -866,6 +1077,12 @@ class SecurityCharacteristic {
 /// Degree of effectiveness and efficiency with which the product can be
 /// modified. Re-homes the former technical-bucket maintainability leaf under
 /// the 25010:2023 spine (L34C-8).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product can be modified to correct, improve, extend, or adapt it',
+  ],
+  'This section captures the core maintainability quality expectations of the solution.',
+)
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-MNT')
@@ -890,6 +1107,12 @@ class MaintainabilityCharacteristic {
 }
 
 /// 11.3.1. Efficiency quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — performance efficiency represents the performance relative to the amount of resources used under stated conditions',
+  ],
+  'This section captures efficiency quality including response time, throughput, and resource targets.',
+)
 @SectionId('EFQU')
 class Efficiency {
   @Form([
@@ -923,6 +1146,13 @@ class Efficiency {
 }
 
 /// Throughput and scale targets.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements',
+    'ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements',
+  ],
+  'This section captures throughput, capacity, and scalability targets.',
+)
 @SectionId('EFQUTH')
 class EfficiencyThroughput {
   @Form([
@@ -938,6 +1168,12 @@ class EfficiencyThroughput {
 }
 
 /// Resource utilization constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — resource utilization is the degree to which the amounts and types of resources used by a product or system meet requirements',
+  ],
+  'This section captures resource utilization constraints for CPU, memory, storage, and network.',
+)
 @SectionId('EFQURE')
 class EfficiencyResources {
   @Form([
@@ -955,6 +1191,12 @@ class EfficiencyResources {
 }
 
 /// Performance validation and SLA commitments.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product',
+  ],
+  'This section captures verification of performance efficiency through load testing and SLA commitments.',
+)
 @SectionId('EFQUVE')
 class EfficiencyVerification {
   @Form([
@@ -972,6 +1214,12 @@ class EfficiencyVerification {
 }
 
 /// 11.3.2. Portability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — flexibility includes adaptability, installability, and replaceability, describing the degree to which a product can be transferred and adapted across environments',
+  ],
+  'This section captures portability quality across platforms and environments.',
+)
 @SectionId('POQU')
 class Portability {
   @Form([
@@ -1009,6 +1257,12 @@ class Portability {
 }
 
 /// 11.3.3. Flexibility quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — flexibility is the degree to which a product can be adapted to changes in requirements, contexts of use, or system environments',
+  ],
+  'This section captures flexibility quality including component architecture and adaptability.',
+)
 @SectionId('FLQU')
 class Flexibility {
   @Form([
@@ -1041,6 +1295,12 @@ class Flexibility {
 }
 
 /// Modularity and reuse goals.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments',
+  ],
+  'This section captures modularity and reuse goals supporting modifiability.',
+)
 @SectionId('FLQUMO')
 class FlexibilityModularity {
   @Form([
@@ -1056,6 +1316,12 @@ class FlexibilityModularity {
 }
 
 /// Distribution and configurability model.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — installability is the degree of effectiveness and efficiency with which a product can be successfully installed or uninstalled in a specified environment',
+  ],
+  'This section captures deployment, distribution, and installability characteristics.',
+)
 @SectionId('FLQUDE')
 class FlexibilityDeployment {
   @Form([
@@ -1071,6 +1337,12 @@ class FlexibilityDeployment {
 }
 
 /// Extensibility and verification expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted or extended for evolving requirements and environments',
+  ],
+  'This section captures extensibility expectations and how flexibility is verified.',
+)
 @SectionId('FLQUEX')
 class FlexibilityExtensibility {
   @Form([
@@ -1086,6 +1358,12 @@ class FlexibilityExtensibility {
 }
 
 /// 11.3.4. Security quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — security is the degree to which a product or system protects information and data so that persons or other products have the degree of data access appropriate to their types and levels of authorization',
+  ],
+  'This section captures the core security quality expectations of the solution.',
+)
 @SectionId('SEQU')
 class Security {
   @Form([
@@ -1124,6 +1402,12 @@ class Security {
 }
 
 /// Authentication controls.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed',
+  ],
+  'This section captures authentication controls and proof of identity.',
+)
 @SectionId('SEQUAU')
 class SecurityAuthentication {
   @Form([
@@ -1141,6 +1425,12 @@ class SecurityAuthentication {
 }
 
 /// Authorization controls.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access',
+  ],
+  'This section captures authorization controls and confidentiality of access.',
+)
 @SectionId('SEQUA1')
 class SecurityAuthorization {
   @Form([
@@ -1156,6 +1446,12 @@ class SecurityAuthorization {
 }
 
 /// Vulnerability management expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — resistance is the degree to which the product sustains operations while under attack from a malicious actor',
+  ],
+  'This section captures vulnerability management and resistance expectations.',
+)
 @SectionId('SEQUVU')
 class SecurityVulnerability {
   @Form([
@@ -1171,6 +1467,13 @@ class SecurityVulnerability {
 }
 
 /// Compliance and verification settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — accountability is the degree to which the actions of an entity can be traced uniquely to the entity',
+    'ISO/IEC 27001:2022 — an information security management system establishes controls to meet security requirements',
+  ],
+  'This section captures security compliance, accountability, and verification settings.',
+)
 @SectionId('SEQUCO')
 class SecurityCompliance {
   @Form([
@@ -1188,6 +1491,12 @@ class SecurityCompliance {
 }
 
 /// 11.3.5. Maintainability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — maintainability is the degree of effectiveness and efficiency with which a product or system can be modified to correct, improve, extend, or adapt it',
+  ],
+  'This section captures the core maintainability quality expectations of the solution.',
+)
 @SectionId('MAQU')
 class Maintainability {
   @Form([
@@ -1225,6 +1534,12 @@ class Maintainability {
 }
 
 /// Analyzability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — analysability is the degree of effectiveness and efficiency with which it is possible to assess the impact of an intended change, to diagnose deficiencies or causes of failures, or to identify parts to be modified',
+  ],
+  'This section captures analyzability requirements for the solution.',
+)
 @SectionId('MAQUAN')
 class MaintainabilityAnalyzability {
   @Form([
@@ -1240,6 +1555,12 @@ class MaintainabilityAnalyzability {
 }
 
 /// Changeability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — modifiability is the degree to which a product can be effectively and efficiently modified without introducing defects or degrading existing product quality',
+  ],
+  'This section captures changeability and modifiability requirements.',
+)
 @SectionId('MAQUCH')
 class MaintainabilityChangeability {
   @Form([
@@ -1257,6 +1578,12 @@ class MaintainabilityChangeability {
 }
 
 /// Testability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — testability is the degree of effectiveness and efficiency with which test criteria can be established for a system and tests performed to determine whether those criteria have been met',
+  ],
+  'This section captures testability requirements for the solution.',
+)
 @SectionId('MAQUTE')
 class MaintainabilityTestability {
   @Form([
@@ -1272,6 +1599,12 @@ class MaintainabilityTestability {
 }
 
 /// Extensibility and verification requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — modularity is the degree to which a system is composed of discrete components such that a change to one component has minimal impact on other components',
+  ],
+  'This section captures maintainability governance through modularity and extensibility.',
+)
 @SectionId('MAQUGO')
 class MaintainabilityGovernance {
   @Form([
@@ -1289,6 +1622,12 @@ class MaintainabilityGovernance {
 }
 
 /// 11.3.6. Reliability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reliability is the degree to which a system, product, or component performs specified functions under specified conditions for a specified period of time',
+  ],
+  'This section captures the core reliability quality expectations of the solution.',
+)
 @SectionId('REQU')
 class Reliability {
   @Form([
@@ -1325,6 +1664,12 @@ class Reliability {
 }
 
 /// Recovery objectives.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability is the degree to which, in the event of an interruption or a failure, a product can recover the data directly affected and re-establish the desired state of the system',
+  ],
+  'This section captures recovery objectives and recoverability targets.',
+)
 @SectionId('REQURE')
 class ReliabilityRecovery {
   @Form([
@@ -1342,6 +1687,12 @@ class ReliabilityRecovery {
 }
 
 /// Failover requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system, product, or component operates as intended despite the presence of hardware or software faults',
+  ],
+  'This section captures failover and fault tolerance requirements.',
+)
 @SectionId('REQUFA')
 class ReliabilityFailover {
   @Form([
@@ -1357,6 +1708,12 @@ class ReliabilityFailover {
 }
 
 /// Data durability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — faultlessness is the degree to which a system, product, or component performs specified functions without fault under normal operation',
+  ],
+  'This section captures data durability and faultlessness expectations.',
+)
 @SectionId('REQUDU')
 class ReliabilityDurability {
   @Form([
@@ -1374,6 +1731,12 @@ class ReliabilityDurability {
 }
 
 /// Verification and learning.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the reliability characteristics of the system and software product',
+  ],
+  'This section captures how reliability is verified and how learning is fed back.',
+)
 @SectionId('REQUVE')
 class ReliabilityVerification {
   @Form([
@@ -1394,6 +1757,12 @@ class ReliabilityVerification {
 /// leaf and the operations-bucket availability, service-level and monitoring
 /// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
 /// overview form is preserved here so no authored content is lost.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reliability is the degree to which a system performs specified functions under specified conditions for a specified period of time',
+  ],
+  'This section describes the reliability characteristic of the solution.',
+)
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-REL')
@@ -1442,6 +1811,12 @@ class ReliabilityCharacteristic {
 }
 
 /// 11.4.1. Availability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use',
+  ],
+  'This section describes the availability quality of the solution.',
+)
 @SectionId('AVQU')
 class Availability {
   @Form([
@@ -1481,6 +1856,12 @@ class Availability {
 }
 
 /// Operating-hour expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — availability is specified over the operating hours during which the system must be accessible',
+  ],
+  'This section describes the operating-hour expectations for availability.',
+)
 @SectionId('AQOH')
 class AvailabilityOperatingHours {
   @Form([
@@ -1496,6 +1877,12 @@ class AvailabilityOperatingHours {
 }
 
 /// Maintenance window policy.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — availability accounts for planned maintenance windows during which the system may be unavailable',
+  ],
+  'This section describes the maintenance window policy affecting availability.',
+)
 @SectionId('AVQUMA')
 class AvailabilityMaintenance {
   @Form([
@@ -1513,6 +1900,12 @@ class AvailabilityMaintenance {
 }
 
 /// Degraded-mode behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system operates as intended despite the presence of faults, including in a degraded mode',
+  ],
+  'This section describes degraded-mode behavior when the system operates with reduced capability.',
+)
 @SectionId('AQDM')
 class AvailabilityDegradedMode {
   @Form([
@@ -1528,6 +1921,12 @@ class AvailabilityDegradedMode {
 }
 
 /// Monitoring and reporting.
+@StandardReferences(
+  [
+    'ISO/IEC 25023:2016 — quality measures quantify availability so that targets can be verified',
+  ],
+  'This section describes monitoring and reporting used to verify availability.',
+)
 @SectionId('AVQUVE')
 class AvailabilityVerification {
   @Form([
@@ -1541,6 +1940,12 @@ class AvailabilityVerification {
 }
 
 /// 11.4.2. Service level quality.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver',
+  ],
+  'This section describes the service level quality of the solution.',
+)
 @SectionId('SELEQU')
 class ServiceLevel {
   @Form([
@@ -1580,13 +1985,26 @@ class ServiceLevel {
   TextSection narrative = TextSection();
 
   /// Service Level Agreement entries.
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — service level agreements record the agreed targets between provider and customer',
+    ],
+    'This list holds the service level agreement entries for the solution.',
+  )
   @SectionId('SLAE-SLAE-LST')
   @SectionIdPattern('SLAE-SLAE-xxx')
+  @ContentHelp('Add one entry per service level agreement.')
   @SerializationOrder(7)
   List<ServiceLevelAgreementEntry> slaEntries = [];
 }
 
 /// Remaining response targets.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management',
+  ],
+  'This section describes remaining response-time targets for service levels.',
+)
 @SectionId('SLQR')
 class ServiceLevelResponse {
     @Form([
@@ -1600,6 +2018,12 @@ class ServiceLevelResponse {
 }
 
 /// Resolution targets.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — resolution-time targets are set and monitored for service requests and incidents',
+  ],
+  'This section describes resolution-time targets for service requests and incidents.',
+)
 @SectionId('SLQR1')
 class ServiceLevelResolution {
     @Form([
@@ -1617,6 +2041,12 @@ class ServiceLevelResolution {
 }
 
 /// Escalation rules.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — escalation procedures are defined so unmet targets are raised in a timely way',
+  ],
+  'This section describes escalation rules for service level management.',
+)
 @SectionId('SLQE')
 class ServiceLevelEscalation {
     @Form([
@@ -1632,6 +2062,12 @@ class ServiceLevelEscalation {
 }
 
 /// On-call support expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — on-call and support-coverage arrangements underpin the agreed service levels',
+  ],
+  'This section describes on-call and support-coverage expectations.',
+)
 @SectionId('SLQOC')
 class ServiceLevelOnCall {
     @Form([
@@ -1647,6 +2083,12 @@ class ServiceLevelOnCall {
 }
 
 /// Restoration and communication priorities.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability re-establishes service and restores data after an interruption or failure',
+  ],
+  'This section describes restoration and communication priorities during service outages.',
+)
 @SectionId('SLQR2')
 class ServiceLevelRestoration {
     @Form([
@@ -1660,18 +2102,29 @@ class ServiceLevelRestoration {
 }
 
 /// A service level agreement entry.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured',
+  ],
+  'This section describes a single service level agreement entry.',
+)
 @SectionId('SLAE')
 class ServiceLevelAgreementEntry {
   @Form([
-    Field('slaId', String, 'SLA ID'),
-    Field('slaName', String, 'SLA Name', required: true),
-    Field('slaDescription', String, 'Description'),
+    Field('slaId', String, 'SLA ID',
+        hint: 'SLA-001, unique identifier'),
+    Field('slaName', String, 'SLA Name',
+        hint: 'Uptime SLA, Response Time SLA', required: true),
+    Field('slaDescription', String, 'Description',
+        hint: 'What this SLA covers'),
     Field('slaMetric', String, 'Metric',
         hint: 'What is measured'),
     Field('slaTarget', String, 'Target',
         hint: 'Target value'),
-    Field('slaMeasurementMethod', String, 'Measurement Method'),
-    Field('slaReportingFrequency', String, 'Reporting Frequency'),
+    Field('slaMeasurementMethod', String, 'Measurement Method',
+        hint: 'How the metric is measured'),
+    Field('slaReportingFrequency', String, 'Reporting Frequency',
+        hint: 'Monthly, quarterly'),
     Field('slaPenalty', String, 'Penalty',
         hint: 'Consequence of missing SLA'),
     Field('slaExclusions', String, 'Exclusions',
@@ -1682,6 +2135,12 @@ class ServiceLevelAgreementEntry {
 }
 
 /// 11.4.3. Monitoring quality.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system',
+  ],
+  'This section describes operational monitoring quality of the solution.',
+)
 @SectionId('MOQU')
 class OperationalMonitoring {
   @Form([
@@ -1717,6 +2176,12 @@ class OperationalMonitoring {
 }
 
 /// Component monitoring coverage.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — monitoring coverage is defined so the health of services and components is observed',
+  ],
+  'This section describes the component and infrastructure coverage of monitoring.',
+)
 @SectionId('MOQUCO')
 class MonitoringCoverage {
   @Form([
@@ -1734,6 +2199,12 @@ class MonitoringCoverage {
 }
 
 /// Alert automation capabilities.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — monitoring is automated so conditions are detected without manual inspection',
+  ],
+  'This section describes alert automation and self-healing capabilities for monitoring.',
+)
 @SectionId('MOQUAU')
 class MonitoringAutomation {
   @Form([
@@ -1749,6 +2220,12 @@ class MonitoringAutomation {
 }
 
 /// Alerting strategy and channels.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — alerting notifies responsible parties when monitored thresholds are breached',
+  ],
+  'This section describes the alerting strategy and notification channels for monitoring.',
+)
 @SectionId('MOQUAL')
 class MonitoringAlerting {
   @Form([
@@ -1766,6 +2243,12 @@ class MonitoringAlerting {
 }
 
 /// Planning and observability settings.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — operational monitoring feeds the day-to-day running and support of the service',
+  ],
+  'This section describes planning and observability settings for operational monitoring.',
+)
 @SectionId('MOQUOP')
 class MonitoringOperations {
   @Form([
@@ -1785,12 +2268,20 @@ class MonitoringOperations {
 }
 
 /// 11.4.4. IT Security Operations quality.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — information-security controls are operated so confidentiality, integrity, and availability are protected in production',
+    'ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations',
+  ],
+  'This section describes the IT security operations quality of the solution.',
+)
 @SectionId('ISOQ')
 class ItSecurityOperations {
   @Form([
     Field('accessControlModel', String, 'Access Control Model',
         hint: 'RBAC, ABAC, zero-trust'),
-    Field('drPlanRequired', bool, 'DR Plan Required'),
+    Field('drPlanRequired', bool, 'DR Plan Required',
+        hint: 'Whether a disaster recovery plan is required'),
     Field('incidentResponsePlan', String, 'Incident Response Plan',
         hint: 'NIST, custom'),
   ])
@@ -1823,6 +2314,12 @@ class ItSecurityOperations {
 }
 
 /// Access protection controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry',
+  ],
+  'This section defines access protection controls.',
+)
 @SectionId('ISOQA')
 class ItSecurityOperationsAccess {
   @Form([
@@ -1838,6 +2335,13 @@ class ItSecurityOperationsAccess {
 }
 
 /// Disaster recovery planning details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability re-establishes the desired state after a security incident or failure',
+    'ISO/IEC 27031:2011 — ICT readiness supports continuity and recovery of operations after disruption',
+  ],
+  'This section describes disaster recovery planning details.',
+)
 @SectionId('ISOQR')
 class ItSecurityOperationsRecovery {
   @Form([
@@ -1855,6 +2359,12 @@ class ItSecurityOperationsRecovery {
 }
 
 /// Penetration testing and remediation.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — security controls are tested and evaluated so their effectiveness is confirmed',
+  ],
+  'This section covers penetration testing and remediation of findings.',
+)
 @SectionId('ISOQT')
 class ItSecurityOperationsTesting {
   @Form([
@@ -1864,13 +2374,20 @@ class ItSecurityOperationsTesting {
         hint: 'Annual, per-release'),
     Field('vulnerabilitySlaResolution', String, 'Vulnerability SLA',
         hint: 'Resolution timeframes by severity'),
-    Field('bugBountyProgram', bool, 'Bug Bounty Program'),
+    Field('bugBountyProgram', bool, 'Bug Bounty Program',
+        hint: 'Whether a bug bounty program is in place'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Incident handling and reporting.
+@StandardReferences(
+  [
+    'ISO/IEC 27035-1:2023 — information-security incidents are detected, reported, and responded to in a managed way',
+  ],
+  'This section captures how security incidents are handled and reported.',
+)
 @SectionId('ISOQI')
 class ItSecurityOperationsIncident {
   @Form([
@@ -2852,6 +3369,12 @@ quality-goal sections; this section integrates them.
 }
 
 /// A single category dependency entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs',
+  ],
+  'A single category-dependency entry describing how one quality category depends on another.',
+)
 @SectionId('CATEG')
 class CategoryDependencyEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -2860,6 +3383,12 @@ class CategoryDependencyEntry {
 }
 
 /// A single attribute interdependency entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly',
+  ],
+  'A single attribute-interdependency entry describing how two quality attributes interact or trade off.',
+)
 @SectionId('ATTRI')
 class AttributeInterdependencyEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
