@@ -16724,6 +16724,13 @@ protection is critical for business continuity and compliance.
 - Cross-region restore drills
 - Documented recovery procedures
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Describes the overall backup, recovery, and disaster recovery strategy for the system.',
+)
 @SectionId('BARS')
 class BackupAndRecoverySection {
   @ContentHelp('''
@@ -16755,8 +16762,13 @@ Provide an overview of backup and recovery strategy.
   BackupDataClassification dataClassification = BackupDataClassification();
 
   /// Backup policies by data type.
+  @StandardReferences(
+    ['ISO/IEC 27031 — ICT business continuity / disaster recovery'],
+    'The backup policies the system applies.',
+  )
   @SectionId('BAPOEN-BACK-LST')
   @SectionIdPattern('BAPOEN-BACK-xxx')
+  @ContentHelp('Add one entry per backup policy.')
   @SerializationOrder(3)
   List<BackupPolicyEntry> backupPolicies = [];
 
@@ -16786,6 +16798,13 @@ Provide an overview of backup and recovery strategy.
 }
 
 /// Data classification for backup purposes.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Classifies data by criticality to drive backup priority and protection levels.',
+)
 @SectionId('BADACL')
 class BackupDataClassification {
   @Form([
@@ -16813,6 +16832,13 @@ class BackupDataClassification {
 }
 
 /// Included data categories for backup planning.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Lists the data categories, such as databases, files, and configuration, that are backed up.',
+)
 @SectionId('BDCC')
 class BackupDataClassificationCategories {
   @Form([
@@ -16832,6 +16858,13 @@ class BackupDataClassificationCategories {
 }
 
 /// Exclusions and regeneration rules for backup planning.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Identifies data excluded from backup and how ephemeral or cache data is regenerated.',
+)
 @SectionId('BDCE')
 class BackupDataClassificationExclusions {
   @Form([
@@ -16849,6 +16882,13 @@ class BackupDataClassificationExclusions {
 }
 
 /// Backup policy entry.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Defines a single backup policy covering type, schedule, retention, and storage for a data scope.',
+)
 @SectionId('BPE')
 class BackupPolicyEntry {
   @Form([
@@ -16880,6 +16920,13 @@ class BackupPolicyEntry {
 }
 
 /// Backup type configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Defines the backup type and the frequency of full, incremental, and differential backups.',
+)
 @SectionId('BPET')
 class BackupPolicyEntryType {
   @Form([
@@ -16897,6 +16944,13 @@ class BackupPolicyEntryType {
 }
 
 /// Schedule settings for backup policy.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Defines the backup window, maximum duration, and timezone for scheduled backups.',
+)
 @SectionId('BPES')
 class BackupPolicyEntrySchedule {
   @Form([
@@ -16912,6 +16966,13 @@ class BackupPolicyEntrySchedule {
 }
 
 /// Retention policies for backup.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Defines how long daily, weekly, monthly, and yearly backups are retained.',
+)
 @SectionId('BPER')
 class BackupPolicyEntryRetention {
   @Form([
@@ -16931,6 +16992,13 @@ class BackupPolicyEntryRetention {
 }
 
 /// Storage configuration for backup policy.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes where backups are stored, plus off-site replication, encryption, and compression.',
+)
 @SectionId('BAPOENST')
 class BackupPolicyEntryStorage {
   @Form([
@@ -16952,6 +17020,13 @@ class BackupPolicyEntryStorage {
 }
 
 /// RPO and RTO requirements.
+@StandardReferences(
+  [
+    'ISO 22301 — business continuity management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Captures the overall recovery point and recovery time objectives for the system.',
+)
 @SectionId('RPRTRE')
 class RpoRtoRequirements {
   @Form([
@@ -16977,6 +17052,13 @@ class RpoRtoRequirements {
 }
 
 /// Tier-based targets.
+@StandardReferences(
+  [
+    'ISO 22301 — business continuity management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Defines RPO and RTO targets per data-criticality tier.',
+)
 @SectionId('RRRBT')
 class RpoRtoRequirementsByTier {
   @Form([
@@ -17002,6 +17084,13 @@ class RpoRtoRequirementsByTier {
 }
 
 /// System-specific recovery targets.
+@StandardReferences(
+  [
+    'ISO 22301 — business continuity management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Defines per-system RPO and RTO targets for databases and applications.',
+)
 @SectionId('RRRS')
 class RpoRtoRequirementsSystems {
   @Form([
@@ -17019,6 +17108,13 @@ class RpoRtoRequirementsSystems {
 }
 
 /// Degraded-mode guidance.
+@StandardReferences(
+  [
+    'ISO 22301 — business continuity management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Describes whether partial restoration and minimal functionality are acceptable during recovery.',
+)
 @SectionId('RRRD')
 class RpoRtoRequirementsDegraded {
   @Form([
@@ -17034,6 +17130,13 @@ class RpoRtoRequirementsDegraded {
 }
 
 /// Backup infrastructure requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Captures the primary backup storage, type, and capacity required by the system.',
+)
 @SectionId('BAIN')
 class BackupInfrastructure {
   @Form([
@@ -17065,6 +17168,13 @@ class BackupInfrastructure {
 }
 
 /// Performance and secondary storage.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes secondary storage, geographic separation, and cross-region replication for backups.',
+)
 @SectionId('BAINST')
 class BackupInfrastructureStorage {
   @Form([
@@ -17084,6 +17194,13 @@ class BackupInfrastructureStorage {
 }
 
 /// Backup software configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes the backup software, agent model, and deduplication configuration.',
+)
 @SectionId('BAINSO')
 class BackupInfrastructureSoftware {
   @Form([
@@ -17101,6 +17218,13 @@ class BackupInfrastructureSoftware {
 }
 
 /// Network requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes the dedicated network, bandwidth, and in-transit encryption for backup traffic.',
+)
 @SectionId('BAINNE')
 class BackupInfrastructureNetwork {
   @Form([
@@ -17116,6 +17240,13 @@ class BackupInfrastructureNetwork {
 }
 
 /// Security controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes access control, encryption, key management, and immutability for backups.',
+)
 @SectionId('BAINSE')
 class BackupInfrastructureSecurity {
   @Form([
@@ -17135,6 +17266,13 @@ class BackupInfrastructureSecurity {
 }
 
 /// Recovery procedures.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes the granular, volume, system, and bare-metal recovery procedures.',
+)
 @SectionId('RP')
 class RecoveryProcedures {
   @Form([
@@ -17168,6 +17306,13 @@ class RecoveryProcedures {
 }
 
 /// Database recovery behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes database restore, point-in-time, and transaction-log recovery behavior.',
+)
 @SectionId('REPRDA')
 class RecoveryProceduresDatabase {
   @Form([
@@ -17183,6 +17328,13 @@ class RecoveryProceduresDatabase {
 }
 
 /// Application recovery behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes how application, configuration, and state are restored during recovery.',
+)
 @SectionId('REPRAP')
 class RecoveryProceduresApplication {
   @Form([
@@ -17198,6 +17350,13 @@ class RecoveryProceduresApplication {
 }
 
 /// Recovery automation.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes automated recovery, recovery scripts, and where runbooks are stored.',
+)
 @SectionId('REPRAU')
 class RecoveryProceduresAutomation {
   @Form([
@@ -17213,6 +17372,13 @@ class RecoveryProceduresAutomation {
 }
 
 /// Validation after recovery.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes the sanity and service checks that confirm data integrity after a restore.',
+)
 @SectionId('REPRVA')
 class RecoveryProceduresValidation {
   @Form([
@@ -17230,6 +17396,13 @@ class RecoveryProceduresValidation {
 }
 
 /// Disaster recovery requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Captures the overall disaster recovery strategy, site, and provider for the system.',
+)
 @SectionId('DIRERE')
 class DisasterRecoveryRequirements {
   @Form([
@@ -17265,6 +17438,13 @@ class DisasterRecoveryRequirements {
 }
 
 /// Failover execution.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Defines the failover type, trigger threshold, and duration for switching to the DR site.',
+)
 @SectionId('DRRF')
 class DisasterRecoveryRequirementsFailover {
   @Form([
@@ -17280,6 +17460,13 @@ class DisasterRecoveryRequirementsFailover {
 }
 
 /// Failback procedure.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Describes returning from the DR site to primary and re-synchronizing data after failback.',
+)
 @SectionId('DIREREFA')
 class DisasterRecoveryRequirementsFailback {
   @Form([
@@ -17295,6 +17482,13 @@ class DisasterRecoveryRequirementsFailback {
 }
 
 /// Replication requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Specifies the replication method, acceptable lag, and bandwidth for the DR site.',
+)
 @SectionId('DRRR')
 class DisasterRecoveryRequirementsReplication {
   @Form([
@@ -17310,6 +17504,13 @@ class DisasterRecoveryRequirementsReplication {
 }
 
 /// Continuity and coordination.
+@StandardReferences(
+  [
+    'ISO 22301 — business continuity management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Links disaster recovery to the business continuity plan, communication, and escalation.',
+)
 @SectionId('DRRC')
 class DisasterRecoveryRequirementsContinuity {
   @Form([
@@ -17329,6 +17530,13 @@ class DisasterRecoveryRequirementsContinuity {
 }
 
 /// Backup verification and testing.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes how backup integrity is verified and recoverability is regularly tested.',
+)
 @SectionId('BAVE')
 class BackupVerification {
   @Form([
@@ -17359,6 +17567,13 @@ class BackupVerification {
 }
 
 /// Recovery testing.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO 22301 — business continuity management',
+  ],
+  'Defines the schedule and scope of recovery tests and disaster-recovery drills.',
+)
 @SectionId('BAVERE')
 class BackupVerificationRecovery {
   @Form([
@@ -17376,6 +17591,13 @@ class BackupVerificationRecovery {
 }
 
 /// Test environment constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines the isolated environment and data handling used for recovery testing.',
+)
 @SectionId('BAVEEN')
 class BackupVerificationEnvironment {
   @Form([
@@ -17391,6 +17613,13 @@ class BackupVerificationEnvironment {
 }
 
 /// Documentation and follow-up.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ITIL 4 — IT service management',
+  ],
+  'Records how verification test results are documented, signed off, and remediated.',
+)
 @SectionId('BAVEDO')
 class BackupVerificationDocumentation {
   @Form([
@@ -17408,6 +17637,13 @@ class BackupVerificationDocumentation {
 }
 
 /// Backup compliance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Captures regulatory, retention, and data-residency compliance requirements for backups.',
+)
 @SectionId('BACO')
 class BackupCompliance {
   @Form([
@@ -17437,6 +17673,13 @@ class BackupCompliance {
 }
 
 /// Audit controls.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — IT service management system',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes audit trails, access logging, and change management for backup operations.',
+)
 @SectionId('BACOAU')
 class BackupComplianceAudit {
   @Form([
@@ -17454,6 +17697,13 @@ class BackupComplianceAudit {
 }
 
 /// Reporting obligations.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — IT service management system',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Defines the compliance reporting produced from backup operations and who receives it.',
+)
 @SectionId('BACOR1')
 class BackupComplianceReporting {
   @Form([
@@ -17469,6 +17719,13 @@ class BackupComplianceReporting {
 }
 
 /// Legal hold support.
+@StandardReferences(
+  [
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes legal hold and eDiscovery support so backups can be preserved for litigation.',
+)
 @SectionId('BCLH')
 class BackupComplianceLegalHold {
   @Form([
@@ -17528,6 +17785,14 @@ procedures. Reliable deployments enable fast iteration and reduce risk.
 - GitOps workflow with ArgoCD, Flux
 - Environment promotion pipeline
 ''')
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Google SRE — site reliability engineering',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback.',
+)
 @SectionId('DSS')
 class DeploymentStrategySection {
   @ContentHelp('''
@@ -17588,6 +17853,13 @@ Provide an overview of deployment strategy and pipeline.
 }
 
 /// Deployment model requirements.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Describes the deployment model — containerized, VM-based, or serverless — and its orchestration platform.',
+)
 @SectionId('DEMORE')
 class DeploymentModelRequirements {
   @Form([
@@ -17625,6 +17897,13 @@ class DeploymentModelRequirements {
 }
 
 /// Container image policies.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Defines container image policies: registry, security scanning on push, tagging strategy, and approved base images.',
+)
 @SectionId('DMRC')
 class DeploymentModelRequirementsContainer {
   @Form([
@@ -17642,6 +17921,13 @@ class DeploymentModelRequirementsContainer {
 }
 
 /// Resource allocation.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines CPU/memory resource requirements, scaling configuration, and replica counts for deployed workloads.',
+)
 @SectionId('DMRR')
 class DeploymentModelRequirementsResources {
   @Form([
@@ -17657,6 +17943,13 @@ class DeploymentModelRequirementsResources {
 }
 
 /// Networking configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines the deployment networking: service discovery, ingress configuration, and load balancing.',
+)
 @SectionId('DMRN')
 class DeploymentModelRequirementsNetworking {
   @Form([
@@ -17672,6 +17965,13 @@ class DeploymentModelRequirementsNetworking {
 }
 
 /// Storage configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines persistent-storage requirements and storage classes for deployed workloads.',
+)
 @SectionId('DMRS')
 class DeploymentModelRequirementsStorage {
   @Form([
@@ -17687,6 +17987,13 @@ class DeploymentModelRequirementsStorage {
 }
 
 /// Environment strategy.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Describes the environment tiers, their parity with production, and their isolation.',
+)
 @SectionId('ENST')
 class EnvironmentStrategy {
   @Form([
@@ -17722,6 +18029,13 @@ class EnvironmentStrategy {
 }
 
 /// Development environment setup.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines the development and local environment setup and the strategy for development data.',
+)
 @SectionId('ENSTDE')
 class EnvironmentStrategyDevelopment {
   @Form([
@@ -17737,6 +18051,13 @@ class EnvironmentStrategyDevelopment {
 }
 
 /// Test environment setup.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines the test, integration, and performance environments used to validate changes before release.',
+)
 @SectionId('ENSTTE')
 class EnvironmentStrategyTesting {
   @Form([
@@ -17752,6 +18073,13 @@ class EnvironmentStrategyTesting {
 }
 
 /// Staging configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines the pre-production staging environment, its parity with production, and how its data is refreshed.',
+)
 @SectionId('ENSTST')
 class EnvironmentStrategyStaging {
   @Form([
@@ -17767,6 +18095,13 @@ class EnvironmentStrategyStaging {
 }
 
 /// Production configuration.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines the production environment configuration, including multi-region and active-active deployment topology.',
+)
 @SectionId('ENSTPR')
 class EnvironmentStrategyProduction {
   @Form([
@@ -17782,6 +18117,13 @@ class EnvironmentStrategyProduction {
 }
 
 /// Ephemeral environment strategy.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines ephemeral per-PR or per-feature environments and their auto-cleanup lifecycle.',
+)
 @SectionId('ENSTEP')
 class EnvironmentStrategyEphemeral {
   @Form([
@@ -17797,6 +18139,13 @@ class EnvironmentStrategyEphemeral {
 }
 
 /// CI/CD pipeline requirements.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes the CI/CD pipeline platform and pipeline-as-code approach that automates build, test, and deployment.',
+)
 @SectionId('CCPR')
 class CiCdPipelineRequirements {
   @Form([
@@ -17830,6 +18179,13 @@ class CiCdPipelineRequirements {
 }
 
 /// Build stage settings.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'DORA metrics — DevOps performance',
+  ],
+  'Defines the build stage: triggers, compile/test/lint/scan steps, dependency caching, and produced artifacts.',
+)
 @SectionId('CCPRB')
 class CiCdPipelineRequirementsBuild {
   @Form([
@@ -17847,6 +18203,13 @@ class CiCdPipelineRequirementsBuild {
 }
 
 /// Quality gate settings.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Defines pipeline quality gates: code-quality checks, test-coverage thresholds, security scans, and manual approval gates.',
+)
 @SectionId('CCPRQ')
 class CiCdPipelineRequirementsQuality {
   @Form([
@@ -17864,6 +18227,13 @@ class CiCdPipelineRequirementsQuality {
 }
 
 /// Deployment stage settings.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'DORA metrics — DevOps performance',
+  ],
+  'Defines the ordered deployment stages, auto-deploy behavior per environment, and the production deployment gate.',
+)
 @SectionId('CCPRD')
 class CiCdPipelineRequirementsDeployment {
   @Form([
@@ -17881,6 +18251,13 @@ class CiCdPipelineRequirementsDeployment {
 }
 
 /// Notification and escalation settings.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines pipeline notifications and the escalation path when a build or deployment fails.',
+)
 @SectionId('CCPRN')
 class CiCdPipelineRequirementsNotifications {
   @Form([
@@ -17896,6 +18273,13 @@ class CiCdPipelineRequirementsNotifications {
 }
 
 /// Release strategy.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes the release methodology, frequency, and schedule for delivering new versions to production.',
+)
 @SectionId('REST')
 class ReleaseStrategy {
   @Form([
@@ -17927,6 +18311,13 @@ class ReleaseStrategy {
 }
 
 /// Blue-green deployment configuration.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back.',
+)
 @SectionId('RSBG')
 class ReleaseStrategyBlueGreen {
   @Form([
@@ -17946,6 +18337,13 @@ class ReleaseStrategyBlueGreen {
 }
 
 /// Canary deployment configuration.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria.',
+)
 @SectionId('RESTCA')
 class ReleaseStrategyCanary {
   @Form([
@@ -17967,6 +18365,13 @@ class ReleaseStrategyCanary {
 }
 
 /// Feature flags configuration.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.',
+)
 @SectionId('RSFF')
 class ReleaseStrategyFeatureFlags {
   @Form([
@@ -17982,6 +18387,13 @@ class ReleaseStrategyFeatureFlags {
 }
 
 /// Release management configuration.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines release management practices: release notes, changelog generation, and release approval.',
+)
 @SectionId('RESTMA')
 class ReleaseStrategyManagement {
   @Form([
@@ -17999,6 +18411,13 @@ class ReleaseStrategyManagement {
 }
 
 /// Rollback strategy.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Describes the overall rollback strategy for reverting a failed deployment safely.',
+)
 @SectionId('ROST')
 class RollbackStrategy {
   @Form([
@@ -18032,6 +18451,13 @@ class RollbackStrategy {
 }
 
 /// Trigger and timing conditions.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'DORA metrics — DevOps performance',
+  ],
+  'Defines what triggers a rollback and the target time to complete it (time-to-restore).',
+)
 @SectionId('ROSTTR')
 class RollbackStrategyTriggers {
   @Form([
@@ -18045,6 +18471,13 @@ class RollbackStrategyTriggers {
 }
 
 /// Health-based rollback thresholds.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'DORA metrics — DevOps performance',
+  ],
+  'Defines health signal thresholds — error rate, latency, and health-check failures — that trigger an automatic rollback.',
+)
 @SectionId('ROSTHE')
 class RollbackStrategyHealth {
   @Form([
@@ -18062,6 +18495,13 @@ class RollbackStrategyHealth {
 }
 
 /// Rollback target and artifact retention.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines which version a rollback targets and how many prior artifacts are retained for rollback.',
+)
 @SectionId('ROSTTA')
 class RollbackStrategyTargets {
   @Form([
@@ -18077,6 +18517,13 @@ class RollbackStrategyTargets {
 }
 
 /// Data rollback safeguards.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines safeguards for rolling back data and database migrations while preserving backward compatibility.',
+)
 @SectionId('ROSTDA')
 class RollbackStrategyData {
   @Form([
@@ -18092,6 +18539,13 @@ class RollbackStrategyData {
 }
 
 /// Manual procedure and follow-up.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Defines the manual rollback procedure, validation of a successful rollback, and post-rollback follow-up actions.',
+)
 @SectionId('ROSTOP')
 class RollbackStrategyOperations {
   @Form([
@@ -18109,6 +18563,13 @@ class RollbackStrategyOperations {
 }
 
 /// Configuration management.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Describes how application configuration and secrets are stored, versioned, and audited across environments.',
+)
 @SectionId('CM')
 class ConfigurationManagement {
   @Form([
@@ -18146,6 +18607,13 @@ class ConfigurationManagement {
 }
 
 /// Environment-configuration rules.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines how configuration differs per environment through inheritance and override patterns, with validation.',
+)
 @SectionId('COMAEN')
 class ConfigurationManagementEnvironment {
   @Form([
@@ -18161,6 +18629,13 @@ class ConfigurationManagementEnvironment {
 }
 
 /// Configuration injection rules.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines how configuration is injected into running apps and how they reload it dynamically at runtime.',
+)
 @SectionId('COMAIN')
 class ConfigurationManagementInjection {
   @Form([
@@ -18176,6 +18651,13 @@ class ConfigurationManagementInjection {
 }
 
 /// Feature-configuration rules.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Defines feature-toggle, experiment, and per-tenant configuration rules that vary runtime behavior.',
+)
 @SectionId('COMAFE')
 class ConfigurationManagementFeatures {
   @Form([
@@ -18191,6 +18673,13 @@ class ConfigurationManagementFeatures {
 }
 
 /// Security controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines security controls over configuration, including secret rotation and access control for who may manage config.',
+)
 @SectionId('COMASE')
 class ConfigurationManagementSecurity {
   @Form([
@@ -18206,6 +18695,13 @@ class ConfigurationManagementSecurity {
 }
 
 /// Infrastructure as Code requirements.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Describes the Infrastructure-as-Code tooling, repository, and reusable-module strategy for provisioning environments.',
+)
 @SectionId('INASCO')
 class InfrastructureAsCode {
   @Form([
@@ -18239,6 +18735,13 @@ class InfrastructureAsCode {
 }
 
 /// State management.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native ops',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines how infrastructure state is stored, locked against concurrent changes, and separated per environment.',
+)
 @SectionId('IACS')
 class InfrastructureAsCodeState {
   @Form([
@@ -18254,6 +18757,13 @@ class InfrastructureAsCodeState {
 }
 
 /// Execution governance.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Governs how infrastructure plans are reviewed, approved, and applied through the CI/CD pipeline.',
+)
 @SectionId('IACE')
 class InfrastructureAsCodeExecution {
   @Form([
@@ -18269,6 +18779,13 @@ class InfrastructureAsCodeExecution {
 }
 
 /// Drift detection settings.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines how manual drift from the desired infrastructure state is detected, remediated, and reconciled on a schedule.',
+)
 @SectionId('IACD')
 class InfrastructureAsCodeDrift {
   @Form([
@@ -18284,6 +18801,13 @@ class InfrastructureAsCodeDrift {
 }
 
 /// Security and policy controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'Twelve-Factor App — cloud-native ops',
+  ],
+  'Defines security and policy-as-code controls for infrastructure code, including sensitive-value handling and compliance checks.',
+)
 @SectionId('INASCOSE')
 class InfrastructureAsCodeSecurity {
   @Form([
@@ -18301,6 +18825,13 @@ class InfrastructureAsCodeSecurity {
 }
 
 /// Deployment security requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'CI/CD — continuous delivery pipelines',
+  ],
+  'Describes the security requirements applied to the deployment pipeline and its runtime.',
+)
 @SectionId('DESE')
 class DeploymentSecurity {
   @Form([
@@ -18330,6 +18861,13 @@ class DeploymentSecurity {
 }
 
 /// Supply-chain security.
+@StandardReferences(
+  [
+    'CI/CD — continuous delivery pipelines',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Covers supply-chain integrity for the delivery pipeline: signed artifacts, image signatures, SBOM generation, and provenance attestation.',
+)
 @SectionId('DSSC')
 class DeploymentSecuritySupplyChain {
   @Form([
@@ -18347,6 +18885,13 @@ class DeploymentSecuritySupplyChain {
 }
 
 /// Runtime security.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'Google SRE — site reliability engineering',
+  ],
+  'Defines runtime security hardening for deployed workloads such as pod security policies, network policies, and immutable containers.',
+)
 @SectionId('DESERU')
 class DeploymentSecurityRuntime {
   @Form([
@@ -18364,6 +18909,13 @@ class DeploymentSecurityRuntime {
 }
 
 /// Access control and audit.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Governs who may approve deployments, break-glass emergency access, and audit logging of all deployments.',
+)
 @SectionId('DESEAC')
 class DeploymentSecurityAccess {
   @Form([
@@ -18427,6 +18979,14 @@ Effective monitoring enables rapid issue detection and resolution.
 - Postmortem process
 - Runbook integration
 ''')
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes the monitoring, alerting, logging, and observability requirements for the system.',
+)
 @SectionId('MAAS')
 class MonitoringAndAlertingSection {
   @ContentHelp('''
@@ -18475,8 +19035,13 @@ Provide an overview of monitoring and observability strategy.
   AlertingRequirements alerting = AlertingRequirements();
 
   /// Alert definitions.
+  @StandardReferences(
+    ['Prometheus / Grafana — metrics & alerting'],
+    'The alert definitions the system applies.',
+  )
   @SectionId('ALDEEN-ALER-LST')
   @SectionIdPattern('ALDEEN-ALER-xxx')
+  @ContentHelp('Add one entry per alert definition.')
   @SerializationOrder(7)
   List<AlertDefinitionEntry> alertDefinitions = [];
 
@@ -18499,6 +19064,13 @@ Provide an overview of monitoring and observability strategy.
 }
 
 /// Monitoring infrastructure requirements.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes the monitoring infrastructure platform and its metrics, logging, and tracing backends.',
+)
 @SectionId('MOIN')
 class MonitoringInfrastructure {
   @Form([
@@ -18530,6 +19102,13 @@ class MonitoringInfrastructure {
 }
 
 /// Deployment model.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes the monitoring deployment model including hosting, data retention, and HA.',
+)
 @SectionId('MOINDE')
 class MonitoringInfrastructureDeployment {
   @Form([
@@ -18547,6 +19126,13 @@ class MonitoringInfrastructureDeployment {
 }
 
 /// Collection model.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes the metrics collection model including frequency and agent-based versus agentless collection.',
+)
 @SectionId('MOINCO')
 class MonitoringInfrastructureCollection {
   @Form([
@@ -18562,6 +19148,13 @@ class MonitoringInfrastructureCollection {
 }
 
 /// Access and privacy controls.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes access control, data privacy, and multi-tenant isolation for monitoring.',
+)
 @SectionId('MOINAC')
 class MonitoringInfrastructureAccess {
   @Form([
@@ -18579,6 +19172,13 @@ class MonitoringInfrastructureAccess {
 }
 
 /// Metrics collection requirements.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes metrics collection requirements for CPU, memory, disk, and network.',
+)
 @SectionId('MECORE')
 class MetricsCollectionRequirements {
   @Form([
@@ -18616,6 +19216,13 @@ class MetricsCollectionRequirements {
 }
 
 /// Container and cluster metrics.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes container, pod, node, and cluster-level metrics to collect.',
+)
 @SectionId('MCRC')
 class MetricsCollectionRequirementsContainer {
   @Form([
@@ -18633,6 +19240,13 @@ class MetricsCollectionRequirementsContainer {
 }
 
 /// Application metrics.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes application metrics such as request rate, error rate, and saturation.',
+)
 @SectionId('MCRA')
 class MetricsCollectionRequirementsApplication {
   @Form([
@@ -18648,6 +19262,13 @@ class MetricsCollectionRequirementsApplication {
 }
 
 /// Business metrics.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes business metrics such as KPIs, user activity, and transaction volume.',
+)
 @SectionId('MCRB')
 class MetricsCollectionRequirementsBusiness {
   @Form([
@@ -18663,6 +19284,13 @@ class MetricsCollectionRequirementsBusiness {
 }
 
 /// Custom metrics settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes custom application-specific metrics and their naming conventions.',
+)
 @SectionId('MECORECU')
 class MetricsCollectionRequirementsCustom {
   @Form([
@@ -18678,6 +19306,13 @@ class MetricsCollectionRequirementsCustom {
 }
 
 /// Application performance monitoring.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes the application performance monitoring platform, instrumentation, and sampling.',
+)
 @SectionId('APPEMO')
 class ApplicationPerformanceMonitoring {
   @Form([
@@ -18713,6 +19348,13 @@ class ApplicationPerformanceMonitoring {
 }
 
 /// Tracing settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes distributed tracing settings including trace context, span collection, and retention.',
+)
 @SectionId('APMT')
 class ApplicationPerformanceMonitoringTracing {
   @Form([
@@ -18730,6 +19372,13 @@ class ApplicationPerformanceMonitoringTracing {
 }
 
 /// Profiling settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes continuous CPU and memory profiling settings and acceptable overhead.',
+)
 @SectionId('APMP')
 class ApplicationPerformanceMonitoringProfiling {
   @Form([
@@ -18747,6 +19396,13 @@ class ApplicationPerformanceMonitoringProfiling {
 }
 
 /// Error tracking settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes error tracking settings such as grouping, source mapping, and error context.',
+)
 @SectionId('APME')
 class ApplicationPerformanceMonitoringErrors {
   @Form([
@@ -18764,6 +19420,13 @@ class ApplicationPerformanceMonitoringErrors {
 }
 
 /// User and synthetic monitoring settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes real-user monitoring and synthetic monitoring settings.',
+)
 @SectionId('APMUS')
 class ApplicationPerformanceMonitoringUserSignals {
   @Form([
@@ -18779,6 +19442,13 @@ class ApplicationPerformanceMonitoringUserSignals {
 }
 
 /// Log management requirements.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes log management requirements: sources, format, levels, and required fields.',
+)
 @SectionId('LOMARE')
 class LogManagementRequirements {
   @Form([
@@ -18816,6 +19486,13 @@ class LogManagementRequirements {
 }
 
 /// Collection method.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes the log collection method, shipping pipeline, and buffering strategy.',
+)
 @SectionId('LMRC')
 class LogManagementRequirementsCollection {
   @Form([
@@ -18831,6 +19508,13 @@ class LogManagementRequirementsCollection {
 }
 
 /// Storage settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes log storage settings including retention, cold storage, and compression.',
+)
 @SectionId('LMRS')
 class LogManagementRequirementsStorage {
   @Form([
@@ -18846,6 +19530,13 @@ class LogManagementRequirementsStorage {
 }
 
 /// Search and analysis.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability / metrics / tracing',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes log search, analytics, and anomaly detection capabilities.',
+)
 @SectionId('LMRA')
 class LogManagementRequirementsAnalysis {
   @Form([
@@ -18861,6 +19552,13 @@ class LogManagementRequirementsAnalysis {
 }
 
 /// Compliance settings.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — IT service management system',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes logging compliance controls such as PII handling, audit logs, and immutability.',
+)
 @SectionId('LOMARECO')
 class LogManagementRequirementsCompliance {
   @Form([
@@ -18878,6 +19576,13 @@ class LogManagementRequirementsCompliance {
 }
 
 /// Alerting requirements.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes alerting requirements including channels, routing, and response automation.',
+)
 @SectionId('ALRE')
 class AlertingRequirements {
   @Form([
@@ -18911,6 +19616,13 @@ class AlertingRequirements {
 }
 
 /// Routing rules.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes how alerts are routed by team, service, and severity.',
+)
 @SectionId('ALRERO')
 class AlertingRequirementsRouting {
   @Form([
@@ -18928,6 +19640,13 @@ class AlertingRequirementsRouting {
 }
 
 /// De-duplication behavior.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes alert de-duplication, grouping, and flapping detection to reduce noise.',
+)
 @SectionId('ALREDE')
 class AlertingRequirementsDeduplication {
   @Form([
@@ -18943,6 +19662,13 @@ class AlertingRequirementsDeduplication {
 }
 
 /// Suppression rules.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes alert suppression via maintenance windows, dependency-based rules, and manual overrides.',
+)
 @SectionId('ALRESU')
 class AlertingRequirementsSuppression {
   @Form([
@@ -18958,6 +19684,13 @@ class AlertingRequirementsSuppression {
 }
 
 /// Response automation.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes alert response automation such as auto-remediation, runbook links, and acknowledgment.',
+)
 @SectionId('ALRERE')
 class AlertingRequirementsResponse {
   @Form([
@@ -18975,6 +19708,13 @@ class AlertingRequirementsResponse {
 }
 
 /// Alert definition entry.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes a single alert definition including its name, severity, and priority.',
+)
 @SectionId('ALEDEFENT')
 class AlertDefinitionEntry {
   @Form([
@@ -19005,6 +19745,13 @@ class AlertDefinitionEntry {
 }
 
 /// Trigger conditions.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes alert trigger conditions: metric, comparison, threshold, and evaluation window.',
+)
 @SectionId('ADEC')
 class AlertDefinitionEntryCondition {
   @Form([
@@ -19024,6 +19771,13 @@ class AlertDefinitionEntryCondition {
 }
 
 /// Recovery conditions.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes recovery thresholds, recovery duration, and auto-resolve behavior for alerts.',
+)
 @SectionId('ADER')
 class AlertDefinitionEntryRecovery {
   @Form([
@@ -19039,6 +19793,13 @@ class AlertDefinitionEntryRecovery {
 }
 
 /// Notification details.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes alert notification channel, escalation policy, and runbook linkage.',
+)
 @SectionId('ADEN')
 class AlertDefinitionEntryNotification {
   @Form([
@@ -19056,6 +19817,13 @@ class AlertDefinitionEntryNotification {
 }
 
 /// Dashboard requirements.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes the dashboard platform, dashboards-as-code approach, and storage location.',
+)
 @SectionId('DARE')
 class DashboardRequirements {
   @Form([
@@ -19087,6 +19855,13 @@ class DashboardRequirements {
 }
 
 /// Standard dashboards.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes the standard set of dashboards for system, service, infrastructure, and business views.',
+)
 @SectionId('DAREST')
 class DashboardRequirementsStandard {
   @Form([
@@ -19104,6 +19879,13 @@ class DashboardRequirementsStandard {
 }
 
 /// Access controls.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes access controls for public, internal, and edit permissions on dashboards.',
+)
 @SectionId('DAREAC')
 class DashboardRequirementsAccess {
   @Form([
@@ -19119,6 +19901,13 @@ class DashboardRequirementsAccess {
 }
 
 /// Feature requirements.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes dashboard features such as drill-down, annotations, templating, and alert integration.',
+)
 @SectionId('DAREFE')
 class DashboardRequirementsFeatures {
   @Form([
@@ -19136,6 +19925,13 @@ class DashboardRequirementsFeatures {
 }
 
 /// Mobile support and notes.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'OpenTelemetry — observability / metrics / tracing',
+  ],
+  'Describes mobile access to dashboards and additional dashboard notes.',
+)
 @SectionId('DAREMO')
 class DashboardRequirementsMobile {
   @Form([
@@ -19149,6 +19945,14 @@ class DashboardRequirementsMobile {
 }
 
 /// On-call procedures.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes on-call tooling, rotation, coverage, and escalation procedures.',
+)
 @SectionId('ONCAPR')
 class OnCallProcedures {
   @Form([
@@ -19183,6 +19987,13 @@ class OnCallProcedures {
 }
 
 /// Team coverage.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes which teams participate in on-call and how escalation flows between them.',
+)
 @SectionId('OCPT')
 class OnCallProceduresTeams {
   @Form([
@@ -19198,6 +20009,13 @@ class OnCallProceduresTeams {
 }
 
 /// Response SLAs.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes on-call response SLAs for acknowledgment, response, and resolution.',
+)
 @SectionId('OCPS')
 class OnCallProceduresSlas {
   @Form([
@@ -19213,6 +20031,13 @@ class OnCallProceduresSlas {
 }
 
 /// Escalation rules.
+@StandardReferences(
+  [
+    'Prometheus / Grafana — metrics & alerting',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes on-call escalation timeouts, escalation path, and executive escalation.',
+)
 @SectionId('OCPE')
 class OnCallProceduresEscalation {
   @Form([
@@ -19228,6 +20053,13 @@ class OnCallProceduresEscalation {
 }
 
 /// Documentation requirements.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes on-call documentation such as runbooks, incident and communication templates.',
+)
 @SectionId('OCPD')
 class OnCallProceduresDocumentation {
   @Form([
@@ -19245,6 +20077,14 @@ class OnCallProceduresDocumentation {
 }
 
 /// Incident management requirements.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes the incident management process, severity definitions, and commander role.',
+)
 @SectionId('INMARE')
 class IncidentManagementRequirements {
   @Form([
@@ -19280,6 +20120,13 @@ class IncidentManagementRequirements {
 }
 
 /// Communication requirements.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes internal, external, and status-page communication during incidents.',
+)
 @SectionId('IMRC')
 class IncidentManagementRequirementsCommunication {
   @Form([
@@ -19297,6 +20144,13 @@ class IncidentManagementRequirementsCommunication {
 }
 
 /// War room setup.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'Google SRE — site reliability engineering',
+  ],
+  'Describes the incident war room, bridge call, and chat channel setup.',
+)
 @SectionId('IMRWR')
 class IncidentManagementRequirementsWarRoom {
   @Form([
@@ -19312,6 +20166,13 @@ class IncidentManagementRequirementsWarRoom {
 }
 
 /// Post-incident expectations.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes post-incident expectations including blameless post-mortems and action item tracking.',
+)
 @SectionId('IMRPI')
 class IncidentManagementRequirementsPostIncident {
   @Form([
@@ -19329,6 +20190,13 @@ class IncidentManagementRequirementsPostIncident {
 }
 
 /// Metrics and notes.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes incident metrics such as MTTR and MTBF targets.',
+)
 @SectionId('IMRM')
 class IncidentManagementRequirementsMetrics {
   @Form([
@@ -19344,6 +20212,13 @@ class IncidentManagementRequirementsMetrics {
 }
 
 /// SLA monitoring requirements.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes SLA monitoring for availability, performance, and error rate targets.',
+)
 @SectionId('SLMORE')
 class SlaMonitoringRequirements {
   @Form([
@@ -19379,6 +20254,13 @@ class SlaMonitoringRequirements {
 }
 
 /// Monitoring mechanics.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'Prometheus / Grafana — metrics & alerting',
+  ],
+  'Describes how SLAs are tracked, reported, and how breaches and burn rate are alerted.',
+)
 @SectionId('SLMOREMO')
 class SlaMonitoringRequirementsMonitoring {
   @Form([
@@ -19396,6 +20278,13 @@ class SlaMonitoringRequirementsMonitoring {
 }
 
 /// Error-budget policy.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'DORA metrics — DevOps performance',
+  ],
+  'Describes the error-budget policy, exhaustion action, and reset period.',
+)
 @SectionId('SMREB')
 class SlaMonitoringRequirementsErrorBudget {
   @Form([
@@ -19411,6 +20300,13 @@ class SlaMonitoringRequirementsErrorBudget {
 }
 
 /// Customer-specific SLA rules.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes customer-specific SLA tiers, exclusions, and credit policy.',
+)
 @SectionId('SLMORECU')
 class SlaMonitoringRequirementsCustomer {
   @Form([
@@ -19426,6 +20322,13 @@ class SlaMonitoringRequirementsCustomer {
 }
 
 /// Reporting and review.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — IT service management',
+  ],
+  'Describes SLA reporting recipients, review cadence, and related notes.',
+)
 @SectionId('SLMORERE')
 class SlaMonitoringRequirementsReporting {
   @Form([
@@ -19482,6 +20385,13 @@ disruption while enabling necessary system updates.
 - Database migration strategies
 - Feature flags for gradual rollout
 ''')
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes the maintenance window requirements for the system, including scheduling, communication, and change management.',
+)
 @SectionId('MWS')
 class MaintenanceWindowsSection {
   @ContentHelp('''
@@ -19514,8 +20424,13 @@ Provide an overview of maintenance strategy and policies.
       ScheduledMaintenancePolicy();
 
   /// Maintenance window definitions.
+  @StandardReferences(
+    ['ITIL 4 — change management'],
+    'The maintenance windows the system schedules.',
+  )
   @SectionId('MAWIEN-MAIN-LST')
   @SectionIdPattern('MAWIEN-MAIN-xxx')
+  @ContentHelp('Add one entry per maintenance window.')
   @SerializationOrder(3)
   List<MaintenanceWindowEntry> maintenanceWindows = [];
 
@@ -19539,6 +20454,13 @@ Provide an overview of maintenance strategy and policies.
 }
 
 /// Scheduled maintenance policy.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the overall policy governing scheduled maintenance, including its scheduling, duration, notice, and approval.',
+)
 @SectionId('SCMAPO')
 class ScheduledMaintenancePolicy {
   @Form([
@@ -19573,6 +20495,13 @@ class ScheduledMaintenancePolicy {
 }
 
 /// Scheduling preferences.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the preferred days, times, frequency, and blackout periods for scheduled maintenance.',
+)
 @SectionId('SMPS')
 class ScheduledMaintenancePolicyScheduling {
   @Form([
@@ -19592,6 +20521,13 @@ class ScheduledMaintenancePolicyScheduling {
 }
 
 /// Duration constraints.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the maximum and typical duration constraints for scheduled maintenance windows.',
+)
 @SectionId('SMPD')
 class ScheduledMaintenancePolicyDuration {
   @Form([
@@ -19607,6 +20543,13 @@ class ScheduledMaintenancePolicyDuration {
 }
 
 /// Notice requirements.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the advance notice periods and channels for scheduled maintenance.',
+)
 @SectionId('SMPN')
 class ScheduledMaintenancePolicyNotice {
   @Form([
@@ -19622,6 +20565,13 @@ class ScheduledMaintenancePolicyNotice {
 }
 
 /// Approval requirements.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines who must approve scheduled maintenance and the approval requirements.',
+)
 @SectionId('SMPA')
 class ScheduledMaintenancePolicyApproval {
   @Form([
@@ -19637,6 +20587,13 @@ class ScheduledMaintenancePolicyApproval {
 }
 
 /// Maintenance window entry.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines a single scheduled maintenance window with its schedule, scope, impact, and rollback.',
+)
 @SectionId('MWE')
 class MaintenanceWindowEntry {
   @Form([
@@ -19670,6 +20627,13 @@ class MaintenanceWindowEntry {
 }
 
 /// Schedule details.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes the frequency, timing, and duration of a maintenance window.',
+)
 @SectionId('MWES')
 class MaintenanceWindowEntrySchedule {
   @Form([
@@ -19689,6 +20653,13 @@ class MaintenanceWindowEntrySchedule {
 }
 
 /// Scope details.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes the systems, services, and regions in scope for a maintenance window.',
+)
 @SectionId('MAWIENSC')
 class MaintenanceWindowEntryScope {
   @Form([
@@ -19704,6 +20675,13 @@ class MaintenanceWindowEntryScope {
 }
 
 /// Impact details.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes the user and service impact of a maintenance window.',
+)
 @SectionId('MWEI')
 class MaintenanceWindowEntryImpact {
   @Form([
@@ -19721,6 +20699,13 @@ class MaintenanceWindowEntryImpact {
 }
 
 /// Rollback details.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — change management',
+  ],
+  'Describes the rollback plan and decision point for a maintenance window.',
+)
 @SectionId('MWER')
 class MaintenanceWindowEntryRollback {
   @Form([
@@ -19736,6 +20721,13 @@ class MaintenanceWindowEntryRollback {
 }
 
 /// Emergency maintenance procedures.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Defines the procedures for unplanned emergency maintenance such as urgent security patches.',
+)
 @SectionId('EMMAPR')
 class EmergencyMaintenanceProcedures {
   @Form([
@@ -19766,6 +20758,13 @@ class EmergencyMaintenanceProcedures {
 }
 
 /// Approval and documentation workflow for emergency maintenance.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the approval and documentation workflow for emergency maintenance work.',
+)
 @SectionId('EMPG')
 class EmergencyMaintenanceProceduresGovernance {
   @Form([
@@ -19781,6 +20780,13 @@ class EmergencyMaintenanceProceduresGovernance {
 }
 
 /// Notification and stakeholder handling for emergency maintenance.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes how stakeholders are notified when emergency maintenance is required.',
+)
 @SectionId('EMPC')
 class EmergencyMaintenanceProceduresCommunication {
   @Form([
@@ -19796,6 +20802,13 @@ class EmergencyMaintenanceProceduresCommunication {
 }
 
 /// Execution and follow-up details for emergency maintenance.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — change management',
+  ],
+  'Describes how emergency maintenance is executed and reviewed afterward.',
+)
 @SectionId('EMPE')
 class EmergencyMaintenanceProceduresExecution {
   @Form([
@@ -19813,6 +20826,13 @@ class EmergencyMaintenanceProceduresExecution {
 }
 
 /// Change management for maintenance.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the change management process governing maintenance changes.',
+)
 @SectionId('MACHMA')
 class MaintenanceChangeManagement {
   @Form([
@@ -19848,6 +20868,13 @@ class MaintenanceChangeManagement {
 }
 
 /// CAB cadence and documentation prerequisites.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the change advisory board cadence and governance prerequisites for maintenance changes.',
+)
 @SectionId('MCMG')
 class MaintenanceChangeManagementGovernance {
   @Form([
@@ -19859,6 +20886,13 @@ class MaintenanceChangeManagementGovernance {
 }
 
 /// Required assessments and rollback planning.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the impact/risk assessments and rollback plans required to document a maintenance change.',
+)
 @SectionId('MCMD')
 class MaintenanceChangeManagementDocumentation {
   @Form([
@@ -19876,6 +20910,13 @@ class MaintenanceChangeManagementDocumentation {
 }
 
 /// Testing and sign-off requirements.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the testing and sign-off required before a maintenance change proceeds.',
+)
 @SectionId('MCMT')
 class MaintenanceChangeManagementTesting {
   @Form([
@@ -19891,6 +20932,13 @@ class MaintenanceChangeManagementTesting {
 }
 
 /// Logging and audit trail expectations.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Defines the change logging and audit trail kept for maintenance changes.',
+)
 @SectionId('MCMA')
 class MaintenanceChangeManagementAudit {
   @Form([
@@ -19906,6 +20954,13 @@ class MaintenanceChangeManagementAudit {
 }
 
 /// User impact and communication.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes how maintenance affects users and how it is communicated to them.',
+)
 @SectionId('MAUSIM')
 class MaintenanceUserImpact {
   @Form([
@@ -19938,6 +20993,13 @@ class MaintenanceUserImpact {
 }
 
 /// Communication during maintenance.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes what users are shown and told while maintenance is in progress.',
+)
 @SectionId('MUID')
 class MaintenanceUserImpactDuring {
   @Form([
@@ -19955,6 +21017,13 @@ class MaintenanceUserImpactDuring {
 }
 
 /// Graceful-degradation strategy.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ISO/IEC 27031 — ICT business continuity / disaster recovery',
+  ],
+  'Defines how partial service is preserved during maintenance to reduce user impact.',
+)
 @SectionId('MUIGD')
 class MaintenanceUserImpactGracefulDegradation {
   @Form([
@@ -19970,6 +21039,13 @@ class MaintenanceUserImpactGracefulDegradation {
 }
 
 /// Post-maintenance communication.
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Describes how completion of maintenance is communicated to users afterward.',
+)
 @SectionId('MUIP')
 class MaintenanceUserImpactPost {
   @Form([
@@ -19987,6 +21063,13 @@ class MaintenanceUserImpactPost {
 }
 
 /// Post-maintenance validation.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — change management',
+  ],
+  'Defines the validation performed after maintenance to confirm the system is fully functional.',
+)
 @SectionId('POMAVA')
 class PostMaintenanceValidation {
   @Form([
@@ -20014,6 +21097,13 @@ class PostMaintenanceValidation {
 }
 
 /// Monitoring requirements after maintenance.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering',
+    'ITIL 4 — change management',
+  ],
+  'Describes the heightened monitoring required after a maintenance window to confirm system health.',
+)
 @SectionId('PMVM')
 class PostMaintenanceValidationMonitoring {
   @Form([
@@ -20031,6 +21121,13 @@ class PostMaintenanceValidationMonitoring {
 }
 
 /// Sign-off and reporting expectations.
+@StandardReferences(
+  [
+    'ITIL 4 — change management',
+    'ISO/IEC 20000 — IT service management system',
+  ],
+  'Captures the sign-off and reporting expectations that close out a maintenance window.',
+)
 @SectionId('PMVC')
 class PostMaintenanceValidationClosure {
   @Form([

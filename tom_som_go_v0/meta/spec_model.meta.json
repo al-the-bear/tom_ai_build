@@ -6635,7 +6635,24 @@
       "name": "AlertDefinitionEntry",
       "sectionId": "ALEDEFENT",
       "doc": "Alert definition entry.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes a single alert definition including its name, severity, and priority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes a single alert definition including its name, severity, and priority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -6744,7 +6761,24 @@
       "name": "AlertDefinitionEntryCondition",
       "sectionId": "ADEC",
       "doc": "Trigger conditions.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes alert trigger conditions: metric, comparison, threshold, and evaluation window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes alert trigger conditions: metric, comparison, threshold, and evaluation window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -6815,7 +6849,24 @@
       "name": "AlertDefinitionEntryNotification",
       "sectionId": "ADEN",
       "doc": "Notification details.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes alert notification channel, escalation policy, and runbook linkage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes alert notification channel, escalation policy, and runbook linkage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -6879,7 +6930,24 @@
       "name": "AlertDefinitionEntryRecovery",
       "sectionId": "ADER",
       "doc": "Recovery conditions.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes recovery thresholds, recovery duration, and auto-resolve behavior for alerts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes recovery thresholds, recovery duration, and auto-resolve behavior for alerts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8128,7 +8196,24 @@
       "name": "AlertingRequirements",
       "sectionId": "ALRE",
       "doc": "Alerting requirements.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes alerting requirements including channels, routing, and response automation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes alerting requirements including channels, routing, and response automation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8245,7 +8330,24 @@
       "name": "AlertingRequirementsDeduplication",
       "sectionId": "ALREDE",
       "doc": "De-duplication behavior.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes alert de-duplication, grouping, and flapping detection to reduce noise."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes alert de-duplication, grouping, and flapping detection to reduce noise."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8302,7 +8404,24 @@
       "name": "AlertingRequirementsResponse",
       "sectionId": "ALRERE",
       "doc": "Response automation.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes alert response automation such as auto-remediation, runbook links, and acknowledgment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes alert response automation such as auto-remediation, runbook links, and acknowledgment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8366,7 +8485,24 @@
       "name": "AlertingRequirementsRouting",
       "sectionId": "ALRERO",
       "doc": "Routing rules.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes how alerts are routed by team, service, and severity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes how alerts are routed by team, service, and severity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8430,7 +8566,24 @@
       "name": "AlertingRequirementsSuppression",
       "sectionId": "ALRESU",
       "doc": "Suppression rules.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes alert suppression via maintenance windows, dependency-based rules, and manual overrides."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes alert suppression via maintenance windows, dependency-based rules, and manual overrides."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10817,7 +10970,24 @@
       "name": "ApplicationPerformanceMonitoring",
       "sectionId": "APPEMO",
       "doc": "Application performance monitoring.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes the application performance monitoring platform, instrumentation, and sampling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes the application performance monitoring platform, instrumentation, and sampling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10934,7 +11104,24 @@
       "name": "ApplicationPerformanceMonitoringErrors",
       "sectionId": "APME",
       "doc": "Error tracking settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes error tracking settings such as grouping, source mapping, and error context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes error tracking settings such as grouping, source mapping, and error context."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10998,7 +11185,24 @@
       "name": "ApplicationPerformanceMonitoringProfiling",
       "sectionId": "APMP",
       "doc": "Profiling settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes continuous CPU and memory profiling settings and acceptable overhead."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes continuous CPU and memory profiling settings and acceptable overhead."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11062,7 +11266,24 @@
       "name": "ApplicationPerformanceMonitoringTracing",
       "sectionId": "APMT",
       "doc": "Tracing settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes distributed tracing settings including trace context, span collection, and retention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes distributed tracing settings including trace context, span collection, and retention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11126,7 +11347,24 @@
       "name": "ApplicationPerformanceMonitoringUserSignals",
       "sectionId": "APMUS",
       "doc": "User and synthetic monitoring settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes real-user monitoring and synthetic monitoring settings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes real-user monitoring and synthetic monitoring settings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16708,11 +16946,28 @@
       "sectionId": "BARS",
       "doc": "8.5.1. Backup and Recovery.\n\nBackup frequency, retention period, recovery point objective (RPO),\nrecovery time objective (RTO), and backup verification procedures.",
       "help": "Specify backup, recovery, and disaster recovery requirements. Data\nprotection is critical for business continuity and compliance.\n\n**Backup Strategy**:\n- **Full Backups**: Complete data copy, longer duration, periodic\n- **Incremental**: Changes since last backup, faster, continuous\n- **Differential**: Changes since last full, balance of both\n- **Snapshot**: Point-in-time copy, instant, storage overhead\n\n**RPO and RTO Definitions**:\n- **RPO (Recovery Point Objective)**: Maximum acceptable data loss\n  (e.g., 1 hour RPO = backups every hour)\n- **RTO (Recovery Time Objective)**: Maximum acceptable downtime\n  (e.g., 4 hour RTO = must restore within 4 hours)\n\n**Backup Requirements by Data Type**:\n- Database: Transaction logs, consistent snapshots\n- File storage: Object versioning, cross-region replication\n- Configuration: Version control, secrets backup\n- Application state: Stateful service backups\n\n**Disaster Recovery Tiers**:\n- **Tier 1**: Active-active, instant failover, highest cost\n- **Tier 2**: Hot standby, minutes to failover\n- **Tier 3**: Warm standby, hours to failover\n- **Tier 4**: Cold standby, days to recover\n\n**Backup Verification**:\n- Regular restore testing\n- Backup integrity validation\n- Cross-region restore drills\n- Documented recovery procedures\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Describes the overall backup, recovery, and disaster recovery strategy for the system."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify backup, recovery, and disaster recovery requirements. Data\nprotection is critical for business continuity and compliance.\n\n**Backup Strategy**:\n- **Full Backups**: Complete data copy, longer duration, periodic\n- **Incremental**: Changes since last backup, faster, continuous\n- **Differential**: Changes since last full, balance of both\n- **Snapshot**: Point-in-time copy, instant, storage overhead\n\n**RPO and RTO Definitions**:\n- **RPO (Recovery Point Objective)**: Maximum acceptable data loss\n  (e.g., 1 hour RPO = backups every hour)\n- **RTO (Recovery Time Objective)**: Maximum acceptable downtime\n  (e.g., 4 hour RTO = must restore within 4 hours)\n\n**Backup Requirements by Data Type**:\n- Database: Transaction logs, consistent snapshots\n- File storage: Object versioning, cross-region replication\n- Configuration: Version control, secrets backup\n- Application state: Stateful service backups\n\n**Disaster Recovery Tiers**:\n- **Tier 1**: Active-active, instant failover, highest cost\n- **Tier 2**: Hot standby, minutes to failover\n- **Tier 3**: Warm standby, hours to failover\n- **Tier 4**: Cold standby, days to recover\n\n**Backup Verification**:\n- Regular restore testing\n- Backup integrity validation\n- Cross-region restore drills\n- Documented recovery procedures\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Describes the overall backup, recovery, and disaster recovery strategy for the system."
           }
         },
         {
@@ -16779,10 +17034,26 @@
           "name": "backupPolicies",
           "kind": "list",
           "doc": "Backup policies by data type.",
+          "help": "Add one entry per backup policy.",
           "sectionId": "BAPOEN-BACK-LST",
           "sectionIdPattern": "BAPOEN-BACK-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "The backup policies the system applies."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+                ],
+                "connotation": "The backup policies the system applies."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -16793,6 +17064,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BAPOEN-BACK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per backup policy."
               }
             },
             {
@@ -16901,7 +17178,24 @@
       "name": "BackupCompliance",
       "sectionId": "BACO",
       "doc": "Backup compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Captures regulatory, retention, and data-residency compliance requirements for backups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Captures regulatory, retention, and data-residency compliance requirements for backups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17010,7 +17304,24 @@
       "name": "BackupComplianceAudit",
       "sectionId": "BACOAU",
       "doc": "Audit controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — IT service management system",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes audit trails, access logging, and change management for backup operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — IT service management system",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes audit trails, access logging, and change management for backup operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17074,7 +17385,24 @@
       "name": "BackupComplianceLegalHold",
       "sectionId": "BCLH",
       "doc": "Legal hold support.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes legal hold and eDiscovery support so backups can be preserved for litigation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes legal hold and eDiscovery support so backups can be preserved for litigation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17138,7 +17466,24 @@
       "name": "BackupComplianceReporting",
       "sectionId": "BACOR1",
       "doc": "Reporting obligations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — IT service management system",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Defines the compliance reporting produced from backup operations and who receives it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — IT service management system",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Defines the compliance reporting produced from backup operations and who receives it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17195,7 +17540,24 @@
       "name": "BackupDataClassification",
       "sectionId": "BADACL",
       "doc": "Data classification for backup purposes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Classifies data by criticality to drive backup priority and protection levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Classifies data by criticality to drive backup priority and protection levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17289,7 +17651,24 @@
       "name": "BackupDataClassificationCategories",
       "sectionId": "BDCC",
       "doc": "Included data categories for backup planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Lists the data categories, such as databases, files, and configuration, that are backed up."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Lists the data categories, such as databases, files, and configuration, that are backed up."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17360,7 +17739,24 @@
       "name": "BackupDataClassificationExclusions",
       "sectionId": "BDCE",
       "doc": "Exclusions and regeneration rules for backup planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Identifies data excluded from backup and how ephemeral or cache data is regenerated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Identifies data excluded from backup and how ephemeral or cache data is regenerated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17475,7 +17871,24 @@
       "name": "BackupInfrastructure",
       "sectionId": "BAIN",
       "doc": "Backup infrastructure requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Captures the primary backup storage, type, and capacity required by the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Captures the primary backup storage, type, and capacity required by the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17592,7 +18005,24 @@
       "name": "BackupInfrastructureNetwork",
       "sectionId": "BAINNE",
       "doc": "Network requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes the dedicated network, bandwidth, and in-transit encryption for backup traffic."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes the dedicated network, bandwidth, and in-transit encryption for backup traffic."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17649,7 +18079,24 @@
       "name": "BackupInfrastructureSecurity",
       "sectionId": "BAINSE",
       "doc": "Security controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes access control, encryption, key management, and immutability for backups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes access control, encryption, key management, and immutability for backups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17720,7 +18167,24 @@
       "name": "BackupInfrastructureSoftware",
       "sectionId": "BAINSO",
       "doc": "Backup software configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes the backup software, agent model, and deduplication configuration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes the backup software, agent model, and deduplication configuration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17784,7 +18248,24 @@
       "name": "BackupInfrastructureStorage",
       "sectionId": "BAINST",
       "doc": "Performance and secondary storage.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes secondary storage, geographic separation, and cross-region replication for backups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes secondary storage, geographic separation, and cross-region replication for backups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17855,7 +18336,24 @@
       "name": "BackupPolicyEntry",
       "sectionId": "BPE",
       "doc": "Backup policy entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Defines a single backup policy covering type, schedule, retention, and storage for a data scope."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Defines a single backup policy covering type, schedule, retention, and storage for a data scope."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -17972,7 +18470,24 @@
       "name": "BackupPolicyEntryRetention",
       "sectionId": "BPER",
       "doc": "Retention policies for backup.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Defines how long daily, weekly, monthly, and yearly backups are retained."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Defines how long daily, weekly, monthly, and yearly backups are retained."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18043,7 +18558,24 @@
       "name": "BackupPolicyEntrySchedule",
       "sectionId": "BPES",
       "doc": "Schedule settings for backup policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Defines the backup window, maximum duration, and timezone for scheduled backups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Defines the backup window, maximum duration, and timezone for scheduled backups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18100,7 +18632,24 @@
       "name": "BackupPolicyEntryStorage",
       "sectionId": "BAPOENST",
       "doc": "Storage configuration for backup policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes where backups are stored, plus off-site replication, encryption, and compression."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes where backups are stored, plus off-site replication, encryption, and compression."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18178,7 +18727,24 @@
       "name": "BackupPolicyEntryType",
       "sectionId": "BPET",
       "doc": "Backup type configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Defines the backup type and the frequency of full, incremental, and differential backups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Defines the backup type and the frequency of full, incremental, and differential backups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18242,7 +18808,24 @@
       "name": "BackupVerification",
       "sectionId": "BAVE",
       "doc": "Backup verification and testing.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes how backup integrity is verified and recoverability is regularly tested."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes how backup integrity is verified and recoverability is regularly tested."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18351,7 +18934,24 @@
       "name": "BackupVerificationDocumentation",
       "sectionId": "BAVEDO",
       "doc": "Documentation and follow-up.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Records how verification test results are documented, signed off, and remediated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Records how verification test results are documented, signed off, and remediated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18415,7 +19015,24 @@
       "name": "BackupVerificationEnvironment",
       "sectionId": "BAVEEN",
       "doc": "Test environment constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines the isolated environment and data handling used for recovery testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines the isolated environment and data handling used for recovery testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -18472,7 +19089,24 @@
       "name": "BackupVerificationRecovery",
       "sectionId": "BAVERE",
       "doc": "Recovery testing.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Defines the schedule and scope of recovery tests and disaster-recovery drills."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Defines the schedule and scope of recovery tests and disaster-recovery drills."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34035,7 +34669,24 @@
       "name": "CiCdPipelineRequirements",
       "sectionId": "CCPR",
       "doc": "CI/CD pipeline requirements.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes the CI/CD pipeline platform and pipeline-as-code approach that automates build, test, and deployment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes the CI/CD pipeline platform and pipeline-as-code approach that automates build, test, and deployment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34152,7 +34803,24 @@
       "name": "CiCdPipelineRequirementsBuild",
       "sectionId": "CCPRB",
       "doc": "Build stage settings.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Defines the build stage: triggers, compile/test/lint/scan steps, dependency caching, and produced artifacts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Defines the build stage: triggers, compile/test/lint/scan steps, dependency caching, and produced artifacts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34216,7 +34884,24 @@
       "name": "CiCdPipelineRequirementsDeployment",
       "sectionId": "CCPRD",
       "doc": "Deployment stage settings.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Defines the ordered deployment stages, auto-deploy behavior per environment, and the production deployment gate."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Defines the ordered deployment stages, auto-deploy behavior per environment, and the production deployment gate."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34280,7 +34965,24 @@
       "name": "CiCdPipelineRequirementsNotifications",
       "sectionId": "CCPRN",
       "doc": "Notification and escalation settings.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines pipeline notifications and the escalation path when a build or deployment fails."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines pipeline notifications and the escalation path when a build or deployment fails."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -34337,7 +35039,24 @@
       "name": "CiCdPipelineRequirementsQuality",
       "sectionId": "CCPRQ",
       "doc": "Quality gate settings.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Defines pipeline quality gates: code-quality checks, test-coverage thresholds, security scans, and manual approval gates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Defines pipeline quality gates: code-quality checks, test-coverage thresholds, security scans, and manual approval gates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50676,7 +51395,24 @@
       "name": "ConfigurationManagement",
       "sectionId": "CM",
       "doc": "Configuration management.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Describes how application configuration and secrets are stored, versioned, and audited across environments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Describes how application configuration and secrets are stored, versioned, and audited across environments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50800,7 +51536,24 @@
       "name": "ConfigurationManagementEnvironment",
       "sectionId": "COMAEN",
       "doc": "Environment-configuration rules.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines how configuration differs per environment through inheritance and override patterns, with validation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines how configuration differs per environment through inheritance and override patterns, with validation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50857,7 +51610,24 @@
       "name": "ConfigurationManagementFeatures",
       "sectionId": "COMAFE",
       "doc": "Feature-configuration rules.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines feature-toggle, experiment, and per-tenant configuration rules that vary runtime behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines feature-toggle, experiment, and per-tenant configuration rules that vary runtime behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50914,7 +51684,24 @@
       "name": "ConfigurationManagementInjection",
       "sectionId": "COMAIN",
       "doc": "Configuration injection rules.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines how configuration is injected into running apps and how they reload it dynamically at runtime."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines how configuration is injected into running apps and how they reload it dynamically at runtime."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50971,7 +51758,24 @@
       "name": "ConfigurationManagementSecurity",
       "sectionId": "COMASE",
       "doc": "Security controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines security controls over configuration, including secret rotation and access control for who may manage config."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines security controls over configuration, including secret rotation and access control for who may manage config."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59813,7 +60617,24 @@
       "name": "DashboardRequirements",
       "sectionId": "DARE",
       "doc": "Dashboard requirements.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes the dashboard platform, dashboards-as-code approach, and storage location."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes the dashboard platform, dashboards-as-code approach, and storage location."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59930,7 +60751,24 @@
       "name": "DashboardRequirementsAccess",
       "sectionId": "DAREAC",
       "doc": "Access controls.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes access controls for public, internal, and edit permissions on dashboards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes access controls for public, internal, and edit permissions on dashboards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59987,7 +60825,24 @@
       "name": "DashboardRequirementsFeatures",
       "sectionId": "DAREFE",
       "doc": "Feature requirements.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes dashboard features such as drill-down, annotations, templating, and alert integration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes dashboard features such as drill-down, annotations, templating, and alert integration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60051,7 +60906,24 @@
       "name": "DashboardRequirementsMobile",
       "sectionId": "DAREMO",
       "doc": "Mobile support and notes.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes mobile access to dashboards and additional dashboard notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes mobile access to dashboards and additional dashboard notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60101,7 +60973,24 @@
       "name": "DashboardRequirementsStandard",
       "sectionId": "DAREST",
       "doc": "Standard dashboards.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes the standard set of dashboards for system, service, infrastructure, and business views."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes the standard set of dashboards for system, service, infrastructure, and business views."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78495,7 +79384,24 @@
       "name": "DeploymentModelRequirements",
       "sectionId": "DEMORE",
       "doc": "Deployment model requirements.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Describes the deployment model — containerized, VM-based, or serverless — and its orchestration platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Describes the deployment model — containerized, VM-based, or serverless — and its orchestration platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78619,7 +79525,24 @@
       "name": "DeploymentModelRequirementsContainer",
       "sectionId": "DMRC",
       "doc": "Container image policies.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Defines container image policies: registry, security scanning on push, tagging strategy, and approved base images."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Defines container image policies: registry, security scanning on push, tagging strategy, and approved base images."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78683,7 +79606,24 @@
       "name": "DeploymentModelRequirementsNetworking",
       "sectionId": "DMRN",
       "doc": "Networking configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines the deployment networking: service discovery, ingress configuration, and load balancing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines the deployment networking: service discovery, ingress configuration, and load balancing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78740,7 +79680,24 @@
       "name": "DeploymentModelRequirementsResources",
       "sectionId": "DMRR",
       "doc": "Resource allocation.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines CPU/memory resource requirements, scaling configuration, and replica counts for deployed workloads."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines CPU/memory resource requirements, scaling configuration, and replica counts for deployed workloads."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78797,7 +79754,24 @@
       "name": "DeploymentModelRequirementsStorage",
       "sectionId": "DMRS",
       "doc": "Storage configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines persistent-storage requirements and storage classes for deployed workloads."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines persistent-storage requirements and storage classes for deployed workloads."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78854,7 +79828,24 @@
       "name": "DeploymentSecurity",
       "sectionId": "DESE",
       "doc": "Deployment security requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Describes the security requirements applied to the deployment pipeline and its runtime."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Describes the security requirements applied to the deployment pipeline and its runtime."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78963,7 +79954,24 @@
       "name": "DeploymentSecurityAccess",
       "sectionId": "DESEAC",
       "doc": "Access control and audit.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Governs who may approve deployments, break-glass emergency access, and audit logging of all deployments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Governs who may approve deployments, break-glass emergency access, and audit logging of all deployments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79027,7 +80035,24 @@
       "name": "DeploymentSecurityRuntime",
       "sectionId": "DESERU",
       "doc": "Runtime security.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines runtime security hardening for deployed workloads such as pod security policies, network policies, and immutable containers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines runtime security hardening for deployed workloads such as pod security policies, network policies, and immutable containers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79091,7 +80116,24 @@
       "name": "DeploymentSecuritySupplyChain",
       "sectionId": "DSSC",
       "doc": "Supply-chain security.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Covers supply-chain integrity for the delivery pipeline: signed artifacts, image signatures, SBOM generation, and provenance attestation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Covers supply-chain integrity for the delivery pipeline: signed artifacts, image signatures, SBOM generation, and provenance attestation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79156,11 +80198,30 @@
       "sectionId": "DSS",
       "doc": "8.5.2. Deployment Strategy.\n\nDeployment model (containerized, VM-based, serverless), deployment pipeline,\nrollback strategy, and canary/blue-green deployment requirements.",
       "help": "Specify deployment model, CI/CD pipeline, release strategy, and rollback\nprocedures. Reliable deployments enable fast iteration and reduce risk.\n\n**Deployment Models**:\n- **Containerized**: Docker, Kubernetes orchestration\n- **VM-Based**: Traditional server deployment, AMI/image-based\n- **Serverless**: Function deployment, managed scaling\n- **Hybrid**: Mix of models for different components\n\n**CI/CD Pipeline Stages**:\n1. **Build**: Compile, lint, unit tests\n2. **Test**: Integration tests, security scans\n3. **Package**: Container image, artifact creation\n4. **Deploy to Staging**: Automated deployment, smoke tests\n5. **QA/Acceptance**: Manual or automated acceptance\n6. **Deploy to Production**: Gated deployment, monitoring\n\n**Release Strategies**:\n- **Rolling**: Gradual instance replacement\n- **Blue-Green**: Two identical environments, instant switch\n- **Canary**: Small percentage rollout, gradual increase\n- **Feature Flags**: Runtime feature toggling\n\n**Rollback Strategy**:\n- Automatic rollback on health check failure\n- Manual rollback procedures and triggers\n- Database migration rollback plan\n- Configuration rollback\n\n**Infrastructure as Code**:\n- Terraform, Pulumi, CloudFormation, ARM templates\n- GitOps workflow with ArgoCD, Flux\n- Environment promotion pipeline\n",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Google SRE — site reliability engineering",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify deployment model, CI/CD pipeline, release strategy, and rollback\nprocedures. Reliable deployments enable fast iteration and reduce risk.\n\n**Deployment Models**:\n- **Containerized**: Docker, Kubernetes orchestration\n- **VM-Based**: Traditional server deployment, AMI/image-based\n- **Serverless**: Function deployment, managed scaling\n- **Hybrid**: Mix of models for different components\n\n**CI/CD Pipeline Stages**:\n1. **Build**: Compile, lint, unit tests\n2. **Test**: Integration tests, security scans\n3. **Package**: Container image, artifact creation\n4. **Deploy to Staging**: Automated deployment, smoke tests\n5. **QA/Acceptance**: Manual or automated acceptance\n6. **Deploy to Production**: Gated deployment, monitoring\n\n**Release Strategies**:\n- **Rolling**: Gradual instance replacement\n- **Blue-Green**: Two identical environments, instant switch\n- **Canary**: Small percentage rollout, gradual increase\n- **Feature Flags**: Runtime feature toggling\n\n**Rollback Strategy**:\n- Automatic rollback on health check failure\n- Manual rollback procedures and triggers\n- Database migration rollback plan\n- Configuration rollback\n\n**Infrastructure as Code**:\n- Terraform, Pulumi, CloudFormation, ARM templates\n- GitOps workflow with ArgoCD, Flux\n- Environment promotion pipeline\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Google SRE — site reliability engineering",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback."
           }
         },
         {
@@ -84204,7 +85265,24 @@
       "name": "DisasterRecoveryRequirements",
       "sectionId": "DIRERE",
       "doc": "Disaster recovery requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Captures the overall disaster recovery strategy, site, and provider for the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Captures the overall disaster recovery strategy, site, and provider for the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84321,7 +85399,24 @@
       "name": "DisasterRecoveryRequirementsContinuity",
       "sectionId": "DRRC",
       "doc": "Continuity and coordination.",
+      "standardReferences": {
+        "standards": [
+          "ISO 22301 — business continuity management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Links disaster recovery to the business continuity plan, communication, and escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 22301 — business continuity management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Links disaster recovery to the business continuity plan, communication, and escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84392,7 +85487,24 @@
       "name": "DisasterRecoveryRequirementsFailback",
       "sectionId": "DIREREFA",
       "doc": "Failback procedure.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Describes returning from the DR site to primary and re-synchronizing data after failback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Describes returning from the DR site to primary and re-synchronizing data after failback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84449,7 +85561,24 @@
       "name": "DisasterRecoveryRequirementsFailover",
       "sectionId": "DRRF",
       "doc": "Failover execution.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Defines the failover type, trigger threshold, and duration for switching to the DR site."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Defines the failover type, trigger threshold, and duration for switching to the DR site."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84506,7 +85635,24 @@
       "name": "DisasterRecoveryRequirementsReplication",
       "sectionId": "DRRR",
       "doc": "Replication requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ISO 22301 — business continuity management"
+        ],
+        "connotation": "Specifies the replication method, acceptable lag, and bandwidth for the DR site."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ISO 22301 — business continuity management"
+            ],
+            "connotation": "Specifies the replication method, acceptable lag, and bandwidth for the DR site."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91624,7 +92770,24 @@
       "name": "EmergencyMaintenanceProcedures",
       "sectionId": "EMMAPR",
       "doc": "Emergency maintenance procedures.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Defines the procedures for unplanned emergency maintenance such as urgent security patches."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Defines the procedures for unplanned emergency maintenance such as urgent security patches."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91726,7 +92889,24 @@
       "name": "EmergencyMaintenanceProceduresCommunication",
       "sectionId": "EMPC",
       "doc": "Notification and stakeholder handling for emergency maintenance.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes how stakeholders are notified when emergency maintenance is required."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes how stakeholders are notified when emergency maintenance is required."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91783,7 +92963,24 @@
       "name": "EmergencyMaintenanceProceduresExecution",
       "sectionId": "EMPE",
       "doc": "Execution and follow-up details for emergency maintenance.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — change management"
+        ],
+        "connotation": "Describes how emergency maintenance is executed and reviewed afterward."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — change management"
+            ],
+            "connotation": "Describes how emergency maintenance is executed and reviewed afterward."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91847,7 +93044,24 @@
       "name": "EmergencyMaintenanceProceduresGovernance",
       "sectionId": "EMPG",
       "doc": "Approval and documentation workflow for emergency maintenance.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the approval and documentation workflow for emergency maintenance work."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the approval and documentation workflow for emergency maintenance work."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95574,7 +96788,24 @@
       "name": "EnvironmentStrategy",
       "sectionId": "ENST",
       "doc": "Environment strategy.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Describes the environment tiers, their parity with production, and their isolation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Describes the environment tiers, their parity with production, and their isolation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95706,7 +96937,24 @@
       "name": "EnvironmentStrategyDevelopment",
       "sectionId": "ENSTDE",
       "doc": "Development environment setup.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines the development and local environment setup and the strategy for development data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines the development and local environment setup and the strategy for development data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95763,7 +97011,24 @@
       "name": "EnvironmentStrategyEphemeral",
       "sectionId": "ENSTEP",
       "doc": "Ephemeral environment strategy.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines ephemeral per-PR or per-feature environments and their auto-cleanup lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines ephemeral per-PR or per-feature environments and their auto-cleanup lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95820,7 +97085,24 @@
       "name": "EnvironmentStrategyProduction",
       "sectionId": "ENSTPR",
       "doc": "Production configuration.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines the production environment configuration, including multi-region and active-active deployment topology."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines the production environment configuration, including multi-region and active-active deployment topology."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95877,7 +97159,24 @@
       "name": "EnvironmentStrategyStaging",
       "sectionId": "ENSTST",
       "doc": "Staging configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines the pre-production staging environment, its parity with production, and how its data is refreshed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines the pre-production staging environment, its parity with production, and how its data is refreshed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95934,7 +97233,24 @@
       "name": "EnvironmentStrategyTesting",
       "sectionId": "ENSTTE",
       "doc": "Test environment setup.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines the test, integration, and performance environments used to validate changes before release."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines the test, integration, and performance environments used to validate changes before release."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118712,7 +120028,26 @@
       "name": "IncidentManagementRequirements",
       "sectionId": "INMARE",
       "doc": "Incident management requirements.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes the incident management process, severity definitions, and commander role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes the incident management process, severity definitions, and commander role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118829,7 +120164,24 @@
       "name": "IncidentManagementRequirementsCommunication",
       "sectionId": "IMRC",
       "doc": "Communication requirements.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes internal, external, and status-page communication during incidents."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes internal, external, and status-page communication during incidents."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118893,7 +120245,24 @@
       "name": "IncidentManagementRequirementsMetrics",
       "sectionId": "IMRM",
       "doc": "Metrics and notes.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes incident metrics such as MTTR and MTBF targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes incident metrics such as MTTR and MTBF targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118950,7 +120319,24 @@
       "name": "IncidentManagementRequirementsPostIncident",
       "sectionId": "IMRPI",
       "doc": "Post-incident expectations.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes post-incident expectations including blameless post-mortems and action item tracking."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes post-incident expectations including blameless post-mortems and action item tracking."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -119014,7 +120400,24 @@
       "name": "IncidentManagementRequirementsWarRoom",
       "sectionId": "IMRWR",
       "doc": "War room setup.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes the incident war room, bridge call, and chat channel setup."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes the incident war room, bridge call, and chat channel setup."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120639,7 +122042,24 @@
       "name": "InfrastructureAsCode",
       "sectionId": "INASCO",
       "doc": "Infrastructure as Code requirements.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Describes the Infrastructure-as-Code tooling, repository, and reusable-module strategy for provisioning environments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Describes the Infrastructure-as-Code tooling, repository, and reusable-module strategy for provisioning environments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120763,7 +122183,24 @@
       "name": "InfrastructureAsCodeDrift",
       "sectionId": "IACD",
       "doc": "Drift detection settings.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines how manual drift from the desired infrastructure state is detected, remediated, and reconciled on a schedule."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines how manual drift from the desired infrastructure state is detected, remediated, and reconciled on a schedule."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120820,7 +122257,24 @@
       "name": "InfrastructureAsCodeExecution",
       "sectionId": "IACE",
       "doc": "Execution governance.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Governs how infrastructure plans are reviewed, approved, and applied through the CI/CD pipeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Governs how infrastructure plans are reviewed, approved, and applied through the CI/CD pipeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120877,7 +122331,24 @@
       "name": "InfrastructureAsCodeSecurity",
       "sectionId": "INASCOSE",
       "doc": "Security and policy controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines security and policy-as-code controls for infrastructure code, including sensitive-value handling and compliance checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines security and policy-as-code controls for infrastructure code, including sensitive-value handling and compliance checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120941,7 +122412,24 @@
       "name": "InfrastructureAsCodeState",
       "sectionId": "IACS",
       "doc": "State management.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native ops",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines how infrastructure state is stored, locked against concurrent changes, and separated per environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native ops",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines how infrastructure state is stored, locked against concurrent changes, and separated per environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -139691,7 +141179,24 @@
       "name": "LogManagementRequirements",
       "sectionId": "LOMARE",
       "doc": "Log management requirements.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes log management requirements: sources, format, levels, and required fields."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes log management requirements: sources, format, levels, and required fields."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -139815,7 +141320,24 @@
       "name": "LogManagementRequirementsAnalysis",
       "sectionId": "LMRA",
       "doc": "Search and analysis.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes log search, analytics, and anomaly detection capabilities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes log search, analytics, and anomaly detection capabilities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -139872,7 +141394,24 @@
       "name": "LogManagementRequirementsCollection",
       "sectionId": "LMRC",
       "doc": "Collection method.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes the log collection method, shipping pipeline, and buffering strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes the log collection method, shipping pipeline, and buffering strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -139929,7 +141468,24 @@
       "name": "LogManagementRequirementsCompliance",
       "sectionId": "LOMARECO",
       "doc": "Compliance settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — IT service management system",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes logging compliance controls such as PII handling, audit logs, and immutability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — IT service management system",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes logging compliance controls such as PII handling, audit logs, and immutability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -139993,7 +141549,24 @@
       "name": "LogManagementRequirementsStorage",
       "sectionId": "LMRS",
       "doc": "Storage settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes log storage settings including retention, cold storage, and compression."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes log storage settings including retention, cold storage, and compression."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141375,7 +142948,24 @@
       "name": "MaintenanceChangeManagement",
       "sectionId": "MACHMA",
       "doc": "Change management for maintenance.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the change management process governing maintenance changes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the change management process governing maintenance changes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141492,7 +143082,24 @@
       "name": "MaintenanceChangeManagementAudit",
       "sectionId": "MCMA",
       "doc": "Logging and audit trail expectations.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the change logging and audit trail kept for maintenance changes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the change logging and audit trail kept for maintenance changes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141549,7 +143156,24 @@
       "name": "MaintenanceChangeManagementDocumentation",
       "sectionId": "MCMD",
       "doc": "Required assessments and rollback planning.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the impact/risk assessments and rollback plans required to document a maintenance change."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the impact/risk assessments and rollback plans required to document a maintenance change."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141613,7 +143237,24 @@
       "name": "MaintenanceChangeManagementGovernance",
       "sectionId": "MCMG",
       "doc": "CAB cadence and documentation prerequisites.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the change advisory board cadence and governance prerequisites for maintenance changes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the change advisory board cadence and governance prerequisites for maintenance changes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141656,7 +143297,24 @@
       "name": "MaintenanceChangeManagementTesting",
       "sectionId": "MCMT",
       "doc": "Testing and sign-off requirements.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the testing and sign-off required before a maintenance change proceeds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the testing and sign-off required before a maintenance change proceeds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142109,7 +143767,24 @@
       "name": "MaintenanceUserImpact",
       "sectionId": "MAUSIM",
       "doc": "User impact and communication.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes how maintenance affects users and how it is communicated to them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes how maintenance affects users and how it is communicated to them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142225,7 +143900,24 @@
       "name": "MaintenanceUserImpactDuring",
       "sectionId": "MUID",
       "doc": "Communication during maintenance.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes what users are shown and told while maintenance is in progress."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes what users are shown and told while maintenance is in progress."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142289,7 +143981,24 @@
       "name": "MaintenanceUserImpactGracefulDegradation",
       "sectionId": "MUIGD",
       "doc": "Graceful-degradation strategy.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Defines how partial service is preserved during maintenance to reduce user impact."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Defines how partial service is preserved during maintenance to reduce user impact."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142346,7 +144055,24 @@
       "name": "MaintenanceUserImpactPost",
       "sectionId": "MUIP",
       "doc": "Post-maintenance communication.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes how completion of maintenance is communicated to users afterward."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes how completion of maintenance is communicated to users afterward."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142410,7 +144136,24 @@
       "name": "MaintenanceWindowEntry",
       "sectionId": "MWE",
       "doc": "Maintenance window entry.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines a single scheduled maintenance window with its schedule, scope, impact, and rollback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines a single scheduled maintenance window with its schedule, scope, impact, and rollback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142534,7 +144277,24 @@
       "name": "MaintenanceWindowEntryImpact",
       "sectionId": "MWEI",
       "doc": "Impact details.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes the user and service impact of a maintenance window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes the user and service impact of a maintenance window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142598,7 +144358,24 @@
       "name": "MaintenanceWindowEntryRollback",
       "sectionId": "MWER",
       "doc": "Rollback details.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — change management"
+        ],
+        "connotation": "Describes the rollback plan and decision point for a maintenance window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — change management"
+            ],
+            "connotation": "Describes the rollback plan and decision point for a maintenance window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142655,7 +144432,24 @@
       "name": "MaintenanceWindowEntrySchedule",
       "sectionId": "MWES",
       "doc": "Schedule details.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes the frequency, timing, and duration of a maintenance window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes the frequency, timing, and duration of a maintenance window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142726,7 +144520,24 @@
       "name": "MaintenanceWindowEntryScope",
       "sectionId": "MAWIENSC",
       "doc": "Scope details.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes the systems, services, and regions in scope for a maintenance window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes the systems, services, and regions in scope for a maintenance window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -142784,11 +144595,28 @@
       "sectionId": "MWS",
       "doc": "8.5.4. Maintenance Windows.\n\nMaintenance window requirements: frequency, duration, notification period,\nand impact on users.",
       "help": "Specify maintenance window requirements including scheduling, duration,\ncommunication, and change management. Planned maintenance minimizes\ndisruption while enabling necessary system updates.\n\n**Maintenance Categories**:\n- **Routine**: Regular patching, updates, housekeeping\n- **Scheduled**: Planned changes requiring downtime\n- **Emergency**: Unplanned urgent changes (security patches)\n- **Zero-Downtime**: Changes without user impact\n\n**Maintenance Window Scheduling**:\n- Preferred days and times (low-traffic periods)\n- Maximum frequency (weekly, monthly, quarterly)\n- Maximum duration limits\n- Blackout periods (year-end, high-traffic events)\n\n**User Communication**:\n- Notification lead time (24h, 72h, 1 week)\n- Communication channels (email, in-app, status page)\n- Status page updates during maintenance\n- Post-maintenance notification\n\n**Change Management**:\n- Change approval process\n- Risk assessment for changes\n- Rollback criteria and procedures\n- Post-change validation\n\n**Zero-Downtime Strategies**:\n- Blue-green deployment\n- Rolling updates\n- Database migration strategies\n- Feature flags for gradual rollout\n",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes the maintenance window requirements for the system, including scheduling, communication, and change management."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify maintenance window requirements including scheduling, duration,\ncommunication, and change management. Planned maintenance minimizes\ndisruption while enabling necessary system updates.\n\n**Maintenance Categories**:\n- **Routine**: Regular patching, updates, housekeeping\n- **Scheduled**: Planned changes requiring downtime\n- **Emergency**: Unplanned urgent changes (security patches)\n- **Zero-Downtime**: Changes without user impact\n\n**Maintenance Window Scheduling**:\n- Preferred days and times (low-traffic periods)\n- Maximum frequency (weekly, monthly, quarterly)\n- Maximum duration limits\n- Blackout periods (year-end, high-traffic events)\n\n**User Communication**:\n- Notification lead time (24h, 72h, 1 week)\n- Communication channels (email, in-app, status page)\n- Status page updates during maintenance\n- Post-maintenance notification\n\n**Change Management**:\n- Change approval process\n- Risk assessment for changes\n- Rollback criteria and procedures\n- Post-change validation\n\n**Zero-Downtime Strategies**:\n- Blue-green deployment\n- Rolling updates\n- Database migration strategies\n- Feature flags for gradual rollout\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes the maintenance window requirements for the system, including scheduling, communication, and change management."
           }
         },
         {
@@ -142855,10 +144683,26 @@
           "name": "maintenanceWindows",
           "kind": "list",
           "doc": "Maintenance window definitions.",
+          "help": "Add one entry per maintenance window.",
           "sectionId": "MAWIEN-MAIN-LST",
           "sectionIdPattern": "MAWIEN-MAIN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ITIL 4 — change management"
+            ],
+            "connotation": "The maintenance windows the system schedules."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ITIL 4 — change management"
+                ],
+                "connotation": "The maintenance windows the system schedules."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -142869,6 +144713,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MAWIEN-MAIN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per maintenance window."
               }
             },
             {
@@ -144475,7 +146325,24 @@
       "name": "MetricsCollectionRequirements",
       "sectionId": "MECORE",
       "doc": "Metrics collection requirements.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes metrics collection requirements for CPU, memory, disk, and network."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes metrics collection requirements for CPU, memory, disk, and network."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144599,7 +146466,24 @@
       "name": "MetricsCollectionRequirementsApplication",
       "sectionId": "MCRA",
       "doc": "Application metrics.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes application metrics such as request rate, error rate, and saturation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes application metrics such as request rate, error rate, and saturation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144656,7 +146540,24 @@
       "name": "MetricsCollectionRequirementsBusiness",
       "sectionId": "MCRB",
       "doc": "Business metrics.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes business metrics such as KPIs, user activity, and transaction volume."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes business metrics such as KPIs, user activity, and transaction volume."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144713,7 +146614,24 @@
       "name": "MetricsCollectionRequirementsContainer",
       "sectionId": "MCRC",
       "doc": "Container and cluster metrics.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes container, pod, node, and cluster-level metrics to collect."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes container, pod, node, and cluster-level metrics to collect."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144777,7 +146695,24 @@
       "name": "MetricsCollectionRequirementsCustom",
       "sectionId": "MECORECU",
       "doc": "Custom metrics settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes custom application-specific metrics and their naming conventions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes custom application-specific metrics and their naming conventions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152706,11 +154641,30 @@
       "sectionId": "MAAS",
       "doc": "8.5.3. Monitoring and Alerting.\n\nMonitoring requirements: metrics to collect, alert thresholds, dashboard\nrequirements, on-call procedures, and escalation paths.",
       "help": "Specify monitoring, alerting, logging, and observability requirements.\nEffective monitoring enables rapid issue detection and resolution.\n\n**Three Pillars of Observability**:\n- **Metrics**: Quantitative measurements (latency, throughput, errors)\n- **Logs**: Discrete events with context\n- **Traces**: Request flow across services\n\n**Monitoring Infrastructure**:\n- Metrics: Prometheus, Datadog, CloudWatch, New Relic\n- Logging: ELK Stack, Splunk, CloudWatch Logs, Loki\n- Tracing: Jaeger, Zipkin, AWS X-Ray, Honeycomb\n- APM: Datadog APM, New Relic APM, Dynatrace\n\n**Key Metrics**:\n- **SLIs (Service Level Indicators)**: Latency, availability, error rate\n- **SLOs (Service Level Objectives)**: Targets for SLIs\n- **Error Budgets**: Acceptable error margin\n- **Golden Signals**: Latency, traffic, errors, saturation\n\n**Alerting Requirements**:\n- Alert severity levels and response times\n- Notification channels (PagerDuty, Slack, email)\n- Alert routing and escalation\n- Alert fatigue prevention\n\n**Dashboards and Visualization**:\n- Operational dashboards for on-call\n- Business metrics dashboards\n- Real-time vs. historical views\n- SLO tracking dashboards\n\n**Incident Management**:\n- On-call rotation and coverage\n- Incident response procedures\n- Postmortem process\n- Runbook integration\n",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes the monitoring, alerting, logging, and observability requirements for the system."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify monitoring, alerting, logging, and observability requirements.\nEffective monitoring enables rapid issue detection and resolution.\n\n**Three Pillars of Observability**:\n- **Metrics**: Quantitative measurements (latency, throughput, errors)\n- **Logs**: Discrete events with context\n- **Traces**: Request flow across services\n\n**Monitoring Infrastructure**:\n- Metrics: Prometheus, Datadog, CloudWatch, New Relic\n- Logging: ELK Stack, Splunk, CloudWatch Logs, Loki\n- Tracing: Jaeger, Zipkin, AWS X-Ray, Honeycomb\n- APM: Datadog APM, New Relic APM, Dynatrace\n\n**Key Metrics**:\n- **SLIs (Service Level Indicators)**: Latency, availability, error rate\n- **SLOs (Service Level Objectives)**: Targets for SLIs\n- **Error Budgets**: Acceptable error margin\n- **Golden Signals**: Latency, traffic, errors, saturation\n\n**Alerting Requirements**:\n- Alert severity levels and response times\n- Notification channels (PagerDuty, Slack, email)\n- Alert routing and escalation\n- Alert fatigue prevention\n\n**Dashboards and Visualization**:\n- Operational dashboards for on-call\n- Business metrics dashboards\n- Real-time vs. historical views\n- SLO tracking dashboards\n\n**Incident Management**:\n- On-call rotation and coverage\n- Incident response procedures\n- Postmortem process\n- Runbook integration\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes the monitoring, alerting, logging, and observability requirements for the system."
           }
         },
         {
@@ -152837,10 +154791,26 @@
           "name": "alertDefinitions",
           "kind": "list",
           "doc": "Alert definitions.",
+          "help": "Add one entry per alert definition.",
           "sectionId": "ALDEEN-ALER-LST",
           "sectionIdPattern": "ALDEEN-ALER-xxx",
+          "standardReferences": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "The alert definitions the system applies."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Prometheus / Grafana — metrics & alerting"
+                ],
+                "connotation": "The alert definitions the system applies."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -152851,6 +154821,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ALDEEN-ALER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per alert definition."
               }
             },
             {
@@ -153232,7 +155208,24 @@
       "name": "MonitoringInfrastructure",
       "sectionId": "MOIN",
       "doc": "Monitoring infrastructure requirements.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes the monitoring infrastructure platform and its metrics, logging, and tracing backends."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes the monitoring infrastructure platform and its metrics, logging, and tracing backends."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -153341,7 +155334,24 @@
       "name": "MonitoringInfrastructureAccess",
       "sectionId": "MOINAC",
       "doc": "Access and privacy controls.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes access control, data privacy, and multi-tenant isolation for monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes access control, data privacy, and multi-tenant isolation for monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -153405,7 +155415,24 @@
       "name": "MonitoringInfrastructureCollection",
       "sectionId": "MOINCO",
       "doc": "Collection model.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability / metrics / tracing",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes the metrics collection model including frequency and agent-based versus agentless collection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability / metrics / tracing",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes the metrics collection model including frequency and agent-based versus agentless collection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -153462,7 +155489,24 @@
       "name": "MonitoringInfrastructureDeployment",
       "sectionId": "MOINDE",
       "doc": "Deployment model.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "OpenTelemetry — observability / metrics / tracing"
+        ],
+        "connotation": "Describes the monitoring deployment model including hosting, data retention, and HA."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "OpenTelemetry — observability / metrics / tracing"
+            ],
+            "connotation": "Describes the monitoring deployment model including hosting, data retention, and HA."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161738,7 +163782,26 @@
       "name": "OnCallProcedures",
       "sectionId": "ONCAPR",
       "doc": "On-call procedures.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes on-call tooling, rotation, coverage, and escalation procedures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes on-call tooling, rotation, coverage, and escalation procedures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161862,7 +163925,24 @@
       "name": "OnCallProceduresDocumentation",
       "sectionId": "OCPD",
       "doc": "Documentation requirements.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes on-call documentation such as runbooks, incident and communication templates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes on-call documentation such as runbooks, incident and communication templates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161926,7 +164006,24 @@
       "name": "OnCallProceduresEscalation",
       "sectionId": "OCPE",
       "doc": "Escalation rules.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus / Grafana — metrics & alerting",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes on-call escalation timeouts, escalation path, and executive escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus / Grafana — metrics & alerting",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes on-call escalation timeouts, escalation path, and executive escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161983,7 +164080,24 @@
       "name": "OnCallProceduresSlas",
       "sectionId": "OCPS",
       "doc": "Response SLAs.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes on-call response SLAs for acknowledgment, response, and resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes on-call response SLAs for acknowledgment, response, and resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162040,7 +164154,24 @@
       "name": "OnCallProceduresTeams",
       "sectionId": "OCPT",
       "doc": "Team coverage.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes which teams participate in on-call and how escalation flows between them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes which teams participate in on-call and how escalation flows between them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174526,7 +176657,24 @@
       "name": "PostMaintenanceValidation",
       "sectionId": "POMAVA",
       "doc": "Post-maintenance validation.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — change management"
+        ],
+        "connotation": "Defines the validation performed after maintenance to confirm the system is fully functional."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — change management"
+            ],
+            "connotation": "Defines the validation performed after maintenance to confirm the system is fully functional."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174620,7 +176768,24 @@
       "name": "PostMaintenanceValidationClosure",
       "sectionId": "PMVC",
       "doc": "Sign-off and reporting expectations.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Captures the sign-off and reporting expectations that close out a maintenance window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Captures the sign-off and reporting expectations that close out a maintenance window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174684,7 +176849,24 @@
       "name": "PostMaintenanceValidationMonitoring",
       "sectionId": "PMVM",
       "doc": "Monitoring requirements after maintenance.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — change management"
+        ],
+        "connotation": "Describes the heightened monitoring required after a maintenance window to confirm system health."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — change management"
+            ],
+            "connotation": "Describes the heightened monitoring required after a maintenance window to confirm system health."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193025,7 +195207,24 @@
       "name": "RecoveryProcedures",
       "sectionId": "RP",
       "doc": "Recovery procedures.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes the granular, volume, system, and bare-metal recovery procedures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes the granular, volume, system, and bare-metal recovery procedures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193149,7 +195348,24 @@
       "name": "RecoveryProceduresApplication",
       "sectionId": "REPRAP",
       "doc": "Application recovery behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes how application, configuration, and state are restored during recovery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes how application, configuration, and state are restored during recovery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193206,7 +195422,24 @@
       "name": "RecoveryProceduresAutomation",
       "sectionId": "REPRAU",
       "doc": "Recovery automation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes automated recovery, recovery scripts, and where runbooks are stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes automated recovery, recovery scripts, and where runbooks are stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193263,7 +195496,24 @@
       "name": "RecoveryProceduresDatabase",
       "sectionId": "REPRDA",
       "doc": "Database recovery behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes database restore, point-in-time, and transaction-log recovery behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes database restore, point-in-time, and transaction-log recovery behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193320,7 +195570,24 @@
       "name": "RecoveryProceduresValidation",
       "sectionId": "REPRVA",
       "doc": "Validation after recovery.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Describes the sanity and service checks that confirm data integrity after a restore."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Describes the sanity and service checks that confirm data integrity after a restore."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -195298,7 +197565,24 @@
       "name": "ReleaseStrategy",
       "sectionId": "REST",
       "doc": "Release strategy.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes the release methodology, frequency, and schedule for delivering new versions to production."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes the release methodology, frequency, and schedule for delivering new versions to production."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -195415,7 +197699,24 @@
       "name": "ReleaseStrategyBlueGreen",
       "sectionId": "RSBG",
       "doc": "Blue-green deployment configuration.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines blue-green deployment: traffic switching, warmup period, and retention of the old (green) version for fast switch-back."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -195486,7 +197787,24 @@
       "name": "ReleaseStrategyCanary",
       "sectionId": "RESTCA",
       "doc": "Canary deployment configuration.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines canary deployment: initial traffic percentage, ramp-up steps, health metrics, and auto-rollback criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -195564,7 +197882,24 @@
       "name": "ReleaseStrategyFeatureFlags",
       "sectionId": "RSFF",
       "doc": "Feature flags configuration.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Twelve-Factor App — cloud-native ops"
+        ],
+        "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Twelve-Factor App — cloud-native ops"
+            ],
+            "connotation": "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -195621,7 +197956,24 @@
       "name": "ReleaseStrategyManagement",
       "sectionId": "RESTMA",
       "doc": "Release management configuration.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines release management practices: release notes, changelog generation, and release approval."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines release management practices: release notes, changelog generation, and release approval."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212776,7 +215128,24 @@
       "name": "RollbackStrategy",
       "sectionId": "ROST",
       "doc": "Rollback strategy.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Describes the overall rollback strategy for reverting a failed deployment safely."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Describes the overall rollback strategy for reverting a failed deployment safely."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212901,7 +215270,24 @@
       "name": "RollbackStrategyData",
       "sectionId": "ROSTDA",
       "doc": "Data rollback safeguards.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "CI/CD — continuous delivery pipelines"
+        ],
+        "connotation": "Defines safeguards for rolling back data and database migrations while preserving backward compatibility."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "CI/CD — continuous delivery pipelines"
+            ],
+            "connotation": "Defines safeguards for rolling back data and database migrations while preserving backward compatibility."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212958,7 +215344,24 @@
       "name": "RollbackStrategyHealth",
       "sectionId": "ROSTHE",
       "doc": "Health-based rollback thresholds.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Defines health signal thresholds — error rate, latency, and health-check failures — that trigger an automatic rollback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Defines health signal thresholds — error rate, latency, and health-check failures — that trigger an automatic rollback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213022,7 +215425,24 @@
       "name": "RollbackStrategyOperations",
       "sectionId": "ROSTOP",
       "doc": "Manual procedure and follow-up.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Defines the manual rollback procedure, validation of a successful rollback, and post-rollback follow-up actions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Defines the manual rollback procedure, validation of a successful rollback, and post-rollback follow-up actions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213086,7 +215506,24 @@
       "name": "RollbackStrategyTargets",
       "sectionId": "ROSTTA",
       "doc": "Rollback target and artifact retention.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous delivery pipelines",
+          "Google SRE — site reliability engineering"
+        ],
+        "connotation": "Defines which version a rollback targets and how many prior artifacts are retained for rollback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous delivery pipelines",
+              "Google SRE — site reliability engineering"
+            ],
+            "connotation": "Defines which version a rollback targets and how many prior artifacts are retained for rollback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213143,7 +215580,24 @@
       "name": "RollbackStrategyTriggers",
       "sectionId": "ROSTTR",
       "doc": "Trigger and timing conditions.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Defines what triggers a rollback and the target time to complete it (time-to-restore)."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Defines what triggers a rollback and the target time to complete it (time-to-restore)."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213344,7 +215798,24 @@
       "name": "RpoRtoRequirements",
       "sectionId": "RPRTRE",
       "doc": "RPO and RTO requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 22301 — business continuity management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Captures the overall recovery point and recovery time objectives for the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 22301 — business continuity management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Captures the overall recovery point and recovery time objectives for the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213439,7 +215910,24 @@
       "name": "RpoRtoRequirementsByTier",
       "sectionId": "RRRBT",
       "doc": "Tier-based targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO 22301 — business continuity management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Defines RPO and RTO targets per data-criticality tier."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 22301 — business continuity management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Defines RPO and RTO targets per data-criticality tier."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213531,7 +216019,24 @@
       "name": "RpoRtoRequirementsDegraded",
       "sectionId": "RRRD",
       "doc": "Degraded-mode guidance.",
+      "standardReferences": {
+        "standards": [
+          "ISO 22301 — business continuity management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Describes whether partial restoration and minimal functionality are acceptable during recovery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 22301 — business continuity management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Describes whether partial restoration and minimal functionality are acceptable during recovery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213588,7 +216093,24 @@
       "name": "RpoRtoRequirementsSystems",
       "sectionId": "RRRS",
       "doc": "System-specific recovery targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO 22301 — business continuity management",
+          "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+        ],
+        "connotation": "Defines per-system RPO and RTO targets for databases and applications."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 22301 — business continuity management",
+              "ISO/IEC 27031 — ICT business continuity / disaster recovery"
+            ],
+            "connotation": "Defines per-system RPO and RTO targets for databases and applications."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217352,7 +219874,24 @@
       "name": "ScheduledMaintenancePolicy",
       "sectionId": "SCMAPO",
       "doc": "Scheduled maintenance policy.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the overall policy governing scheduled maintenance, including its scheduling, duration, notice, and approval."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the overall policy governing scheduled maintenance, including its scheduling, duration, notice, and approval."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217469,7 +220008,24 @@
       "name": "ScheduledMaintenancePolicyApproval",
       "sectionId": "SMPA",
       "doc": "Approval requirements.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines who must approve scheduled maintenance and the approval requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines who must approve scheduled maintenance and the approval requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217526,7 +220082,24 @@
       "name": "ScheduledMaintenancePolicyDuration",
       "sectionId": "SMPD",
       "doc": "Duration constraints.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the maximum and typical duration constraints for scheduled maintenance windows."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the maximum and typical duration constraints for scheduled maintenance windows."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217583,7 +220156,24 @@
       "name": "ScheduledMaintenancePolicyNotice",
       "sectionId": "SMPN",
       "doc": "Notice requirements.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the advance notice periods and channels for scheduled maintenance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the advance notice periods and channels for scheduled maintenance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217640,7 +220230,24 @@
       "name": "ScheduledMaintenancePolicyScheduling",
       "sectionId": "SMPS",
       "doc": "Scheduling preferences.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Defines the preferred days, times, frequency, and blackout periods for scheduled maintenance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Defines the preferred days, times, frequency, and blackout periods for scheduled maintenance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233565,7 +236172,24 @@
       "name": "SlaMonitoringRequirements",
       "sectionId": "SLMORE",
       "doc": "SLA monitoring requirements.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes SLA monitoring for availability, performance, and error rate targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes SLA monitoring for availability, performance, and error rate targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233682,7 +236306,24 @@
       "name": "SlaMonitoringRequirementsCustomer",
       "sectionId": "SLMORECU",
       "doc": "Customer-specific SLA rules.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — IT service management",
+          "ISO/IEC 20000 — IT service management system"
+        ],
+        "connotation": "Describes customer-specific SLA tiers, exclusions, and credit policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — IT service management",
+              "ISO/IEC 20000 — IT service management system"
+            ],
+            "connotation": "Describes customer-specific SLA tiers, exclusions, and credit policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233739,7 +236380,24 @@
       "name": "SlaMonitoringRequirementsErrorBudget",
       "sectionId": "SMREB",
       "doc": "Error-budget policy.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "DORA metrics — DevOps performance"
+        ],
+        "connotation": "Describes the error-budget policy, exhaustion action, and reset period."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "DORA metrics — DevOps performance"
+            ],
+            "connotation": "Describes the error-budget policy, exhaustion action, and reset period."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233796,7 +236454,24 @@
       "name": "SlaMonitoringRequirementsMonitoring",
       "sectionId": "SLMOREMO",
       "doc": "Monitoring mechanics.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "Prometheus / Grafana — metrics & alerting"
+        ],
+        "connotation": "Describes how SLAs are tracked, reported, and how breaches and burn rate are alerted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "Prometheus / Grafana — metrics & alerting"
+            ],
+            "connotation": "Describes how SLAs are tracked, reported, and how breaches and burn rate are alerted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233860,7 +236535,24 @@
       "name": "SlaMonitoringRequirementsReporting",
       "sectionId": "SLMORERE",
       "doc": "Reporting and review.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering",
+          "ITIL 4 — IT service management"
+        ],
+        "connotation": "Describes SLA reporting recipients, review cadence, and related notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering",
+              "ITIL 4 — IT service management"
+            ],
+            "connotation": "Describes SLA reporting recipients, review cadence, and related notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

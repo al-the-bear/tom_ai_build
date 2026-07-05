@@ -49,7 +49,7 @@ section-types:
     pattern-check-id:
       pattern: ^aldeen_aler_lst-\d+$
       error-message: ID must match aldeen_aler_lst-NNN
-    description: Alert definitions.
+    description: Add one entry per alert definition.
   ALRUEN-ALER-LST:
     prefix: alruen_aler_lst
     pattern-check-id:
@@ -73,7 +73,7 @@ section-types:
     pattern-check-id:
       pattern: ^bapoen_back_lst-\d+$
       error-message: ID must match bapoen_back_lst-NNN
-    description: Backup policies by data type.
+    description: Add one entry per backup policy.
   BIOBAT-ATTR-LST:
     prefix: biobat_attr_lst
     pattern-check-id:
@@ -456,7 +456,7 @@ section-types:
     pattern-check-id:
       pattern: ^mawien_main_lst-\d+$
       error-message: ID must match mawien_main_lst-NNN
-    description: Maintenance window definitions.
+    description: Add one entry per maintenance window.
   MEBAEN-ENTR-LST:
     prefix: mebaen_entr_lst
     pattern-check-id:
