@@ -2180,6 +2180,13 @@ Overall content organization and navigation structure.
 // ---------------------------------------------------------------------------
 
 /// 10.3. Screen Flow Structure.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application',
+    'ISO 9241-110:2020 — conformity with user expectations keeps screen flow predictable',
+  ],
+  'The screen-flow structure describing how screens connect and how users move between them.',
+)
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -2221,6 +2228,13 @@ Screen flow drives:
 ///
 /// Comprehensive navigation structure: primary, secondary, utility, contextual
 /// navigation, deep linking, navigation guards, and platform adaptation.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application',
+    'ISO 9241-110:2020 — conformity with user expectations keeps the navigation model predictable',
+  ],
+  'The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards.',
+)
 @SectionId('NAMO')
 class NavigationModel {
   @ContentHelp('''
@@ -2287,6 +2301,13 @@ Navigation model generates:
 /// 10.3.1.1. Navigation Overview.
 ///
 /// Overall navigation strategy, routing approach, and design decisions.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — an overall navigation strategy shapes how users move through the application',
+    'ISO 9241-110:2020 — conformity with user expectations depends on a coherent navigation approach',
+  ],
+  'The overall navigation strategy, routing approach, and landing-screen decisions.',
+)
 @SectionId('NAOV')
 class NavigationOverview {
   @Form([
@@ -2320,6 +2341,14 @@ class NavigationOverview {
 /// 10.3.1.2. Navigation Hierarchy.
 ///
 /// Full navigation tree: groups and items forming the app's navigation structure.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — the navigation structure reflects the information architecture as a hierarchy',
+    'ISO 9241-14:1997 — hierarchical menu structure arranges destinations into nested levels',
+    'ISO 9241-13:1998 — a consistent hierarchy supports wayfinding through the application',
+  ],
+  'The full navigation tree of groups and items forming the application navigation structure.',
+)
 @SectionId('NAHI')
 class NavigationHierarchy {
   @ContentHelp('''
@@ -2352,8 +2381,16 @@ Full navigation tree: groups and items.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGroup.
+  @StandardReferences(
+    [
+      'ISO 9241-151:2008 — navigation is organised into logical groups of related destinations',
+      'ISO 9241-14:1997 — the top level of a menu hierarchy is a set of named groups',
+    ],
+    'The collection of navigation-group entries.',
+  )
   @SectionId('NAVGRP-GROU-LST')
   @SectionIdPattern('NAVGRP-GROU-xxx')
+  @ContentHelp('Add one entry per navigation group.')
   @SerializationOrder(2)
   List<NavigationGroupEntry> groups = [];
 }
@@ -2361,6 +2398,13 @@ Full navigation tree: groups and items.
 /// A navigation group entry (form).
 ///
 /// Logical grouping of navigation items (e.g., "Sales", "Administration").
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — related destinations are organised into logical navigation groups',
+    'ISO 9241-14:1997 — a menu group collects related options under a common heading',
+  ],
+  'A logical grouping of related navigation items.',
+)
 @SectionId('NAVGRP')
 class NavigationGroupEntry {
   @Form([
@@ -2389,13 +2433,28 @@ class NavigationGroupEntry {
   NavigationGroupEntryStructure structure = NavigationGroupEntryStructure();
 
   /// Contains 0+× NavigationItem.
+  @StandardReferences(
+    [
+      'ISO 9241-14:1997 — a menu group lists the discrete options it contains',
+      'ISO 9241-151:2008 — navigation items enumerate the destinations reachable within a group',
+    ],
+    'The collection of navigation-item entries within a group.',
+  )
   @SectionId('NAVIIT-ITEM-LST')
   @SectionIdPattern('NAVIIT-ITEM-xxx')
+  @ContentHelp('Add one entry per navigation item in this group.')
   @SerializationOrder(4)
   List<NavigationItemEntry> items = [];
 }
 
 /// Display and expansion behavior.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy',
+    'ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups',
+  ],
+  'Display order and expansion behavior for a navigation group.',
+)
 @SectionId('NGED')
 class NavigationGroupEntryDisplay {
   @Form([
@@ -2413,6 +2472,13 @@ class NavigationGroupEntryDisplay {
 }
 
 /// Access-control settings.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context',
+    'ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility',
+  ],
+  'Access-control settings such as required roles and permission behavior for a navigation group.',
+)
 @SectionId('NGEA')
 class NavigationGroupEntryAccess {
   @Form([
@@ -2428,6 +2494,13 @@ class NavigationGroupEntryAccess {
 }
 
 /// Badge and hierarchy settings.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels',
+    'ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups',
+  ],
+  'Badge aggregation and hierarchy placement settings for a navigation group.',
+)
 @SectionId('NGES')
 class NavigationGroupEntryStructure {
   @Form([
@@ -2449,6 +2522,13 @@ class NavigationGroupEntryStructure {
 /// A navigation item entry (form).
 ///
 /// A single navigable destination within a group.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — each navigation item represents a distinct destination in the information architecture',
+    'ISO 9241-14:1997 — menu options correspond to discrete, selectable destinations',
+  ],
+  'A single navigable destination within a navigation group.',
+)
 @SectionId('NAVIIT')
 class NavigationItemEntry {
   @Form([
@@ -2484,6 +2564,13 @@ class NavigationItemEntry {
 }
 
 /// Display properties for navigation item.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — clear labels and icons help users recognise navigation destinations',
+    'ISO/IEC 25010:2023 — appropriateness recognisability improves with meaningful item labels and icons',
+  ],
+  'Display properties such as labels, icons, and descriptions for a navigation item.',
+)
 @SectionId('NIED')
 class NavigationItemEntryDisplay {
   @Form([
@@ -2501,6 +2588,13 @@ class NavigationItemEntryDisplay {
 }
 
 /// Routing configuration for navigation item.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — routes map navigation destinations onto the underlying information architecture',
+    'ISO 9241-110:2020 — conformity with user expectations depends on predictable target routing',
+  ],
+  'Routing configuration such as target screen, route parameters, and ordering for a navigation item.',
+)
 @SectionId('NIER')
 class NavigationItemEntryRouting {
   @Form([
@@ -2518,6 +2612,13 @@ class NavigationItemEntryRouting {
 }
 
 /// Access control for navigation item.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context',
+    'ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility',
+  ],
+  'Access-control settings such as roles, permissions, and visibility conditions for a navigation item.',
+)
 @SectionId('NIEA')
 class NavigationItemEntryAccess {
   @Form([
@@ -2537,6 +2638,13 @@ class NavigationItemEntryAccess {
 }
 
 /// Badge configuration for navigation item.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance',
+    'ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible',
+  ],
+  'Badge configuration such as type, source, and color for a navigation item.',
+)
 @SectionId('NIEB')
 class NavigationItemEntryBadge {
   @Form([
@@ -2552,6 +2660,13 @@ class NavigationItemEntryBadge {
 }
 
 /// Interaction settings for navigation item.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — supports rapid menu selection through accelerators and shortcuts',
+    'ISO/IEC 25010:2023 — operability improves when destinations respond to search and keyboard input',
+  ],
+  'Interaction settings such as keyboard shortcuts, search keywords, and open behavior for a navigation item.',
+)
 @SectionId('NIEI')
 class NavigationItemEntryInteraction {
   @Form([
@@ -2575,6 +2690,13 @@ class NavigationItemEntryInteraction {
 /// 10.3.1.3. Primary Navigation.
 ///
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — provides guidance on navigation and the structure of links in the interface',
+    'ISO 9241-110:2020 — conformity with user expectations makes navigation predictable and consistent',
+  ],
+  'The primary-navigation configuration defining the top-level entry points across platforms.',
+)
 @SectionId('PRNA')
 class PrimaryNavigation {
   @Form([
@@ -2606,6 +2728,13 @@ class PrimaryNavigation {
 }
 
 /// Drawer and rail behavior.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — a menu panel presenting the top-level navigation options',
+    'ISO 9241-110:2020 — controllability lets the user open and dismiss the navigation drawer',
+  ],
+  'The drawer and rail behavior for primary navigation, including width, header, and footer.',
+)
 @SectionId('PRNADR')
 class PrimaryNavigationDrawer {
   @Form([
@@ -2623,6 +2752,13 @@ class PrimaryNavigationDrawer {
 }
 
 /// Bottom navigation rules.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — a bounded menu of top-level navigation options for the interface',
+    'ISO/IEC 25010:2023 — a small, labelled option set supports operability and learnability',
+  ],
+  'The bottom-navigation rules limiting and styling the primary entry points on compact layouts.',
+)
 @SectionId('PNBN')
 class PrimaryNavigationBottomNav {
   @Form([
@@ -2638,6 +2774,13 @@ class PrimaryNavigationBottomNav {
 }
 
 /// Sidebar sizing and selection behavior.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — sidebar menus present the top-level navigation options',
+    'ISO 9241-110:2020 — self-descriptiveness makes the selected sidebar item clearly recognisable',
+  ],
+  'The sidebar sizing and selected-item styling for primary navigation.',
+)
 @SectionId('PRNASI')
 class PrimaryNavigationSidebar {
   @Form([
@@ -2661,6 +2804,13 @@ class PrimaryNavigationSidebar {
 /// 10.3.1.4. Secondary Navigation.
 ///
 /// In-page navigation: tab bars, segmented controls.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — in-page navigation links related content within a single screen',
+    'ISO 9241-143:2012 — tab bars and segmented controls group selectable in-page views',
+  ],
+  'The secondary-navigation configuration providing in-page tab bars and segmented controls.',
+)
 @SectionId('SENA')
 class SecondaryNavigation {
   @ContentHelp('''
@@ -2694,8 +2844,15 @@ Tab bars map to `TomTabBar` with:
   TextSection overview = TextSection();
 
   /// Contains 0+× TabBarDefinition.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars',
+    ],
+    'The collection of tab-bar definitions used for in-page secondary navigation.',
+  )
   @SectionId('TBDE-TABB-LST')
   @SectionIdPattern('TBDE-TABB-xxx')
+  @ContentHelp('Add one entry per tab bar or segmented control.')
   @SerializationOrder(2)
   List<TabBarDefinitionEntry> tabBars = [];
 }
@@ -2703,6 +2860,13 @@ Tab bars map to `TomTabBar` with:
 /// A tab bar definition entry (form).
 ///
 /// Defines a tab bar or segmented control on a specific screen.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — a grouped set of selectable controls forming a tab bar',
+    'ISO 9241-151:2008 — in-page navigation structures link the user to related content',
+  ],
+  'A tab bar or segmented control definition bound to a specific host screen.',
+)
 @SectionId('TABADEEN')
 class TabBarDefinitionEntry {
   @Form([
@@ -2727,14 +2891,28 @@ class TabBarDefinitionEntry {
   TabBarDefinitionEntryLoading loading = TabBarDefinitionEntryLoading();
 
   /// Contains 1+× TabItem.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar',
+    ],
+    'The collection of individual tab items belonging to this tab bar.',
+  )
   @SectionId('TAITEN-TABS-LST')
   @SectionIdPattern('TAITEN-TABS-xxx')
+  @ContentHelp('Add one entry per tab item in the tab bar.')
   @Min(1)
   @SerializationOrder(3)
   List<TabItemEntry> tabs = [];
 }
 
 /// Position and selection behavior.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — the arrangement and default selection of grouped tab controls',
+    'ISO 9241-110:2020 — conformity with user expectations makes tab selection predictable',
+  ],
+  'The positioning and default-selection behavior of a tab bar.',
+)
 @SectionId('TBDEB')
 class TabBarDefinitionEntryBehavior {
     @Form([
@@ -2752,6 +2930,13 @@ class TabBarDefinitionEntryBehavior {
 }
 
 /// Visibility and loading profile.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — controlled loading of navigation content supports responsive interaction',
+    'ISO 9241-110:2020 — controllability lets the user govern how and when content is presented',
+  ],
+  'The visibility and loading behavior governing when and how tab content is shown.',
+)
 @SectionId('TBDEL')
 class TabBarDefinitionEntryLoading {
     @Form([
@@ -2767,6 +2952,13 @@ class TabBarDefinitionEntryLoading {
 }
 
 /// A tab item entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — a single selectable control within a grouped set of tab entries',
+    'ISO 9241-13:1998 — labels and icons guide the user toward the intended content',
+  ],
+  'A single tab item defining its label, icon, target content, and visibility rules.',
+)
 @SectionId('TIE')
 class TabItemEntry {
   @Form([
@@ -2802,6 +2994,13 @@ class TabItemEntry {
 /// 10.3.1.5. Utility Navigation.
 ///
 /// Always-visible utility items: user menu, notifications, help, settings.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues describe persistent utility menus for help, settings, and account access',
+    'ISO 9241-151:2008 — navigation aids provide consistent entry points to cross-cutting functions',
+  ],
+  'The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu.',
+)
 @SectionId('UTNA')
 class UtilityNavigation {
   @ContentHelp('''
@@ -2831,8 +3030,16 @@ Dropdown/popup menus have nested items with:
   String? content;
 
   /// Contains 0+× UtilityNavigationItem.
+  @StandardReferences(
+    [
+      'ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points',
+      'ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions',
+    ],
+    'The collection of utility navigation items shown persistently in the app bar or drawer.',
+  )
   @SectionId('UNIE-ITEM-LST')
   @SectionIdPattern('UNIE-ITEM-xxx')
+  @ContentHelp('Add one entry per utility navigation item.')
   @SerializationOrder(1)
   List<UtilityNavigationItemEntry> items = [];
 }
@@ -2841,6 +3048,13 @@ Dropdown/popup menus have nested items with:
 ///
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues cover persistent utility entry points such as user and help menus',
+    'ISO 9241-13:1998 — user guidance uses recognisable icons and labels for always-visible controls',
+  ],
+  'A single persistent utility element in the app bar, such as the user avatar or notifications bell.',
+)
 @SectionId('UTNAITEN')
 class UtilityNavigationItemEntry {
   @Form([
@@ -2867,14 +3081,28 @@ class UtilityNavigationItemEntry {
       UtilityNavigationItemEntryBehavior();
 
     /// Contains 0+× UtilityMenuItem.
+    @StandardReferences(
+      [
+        'ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown',
+      ],
+      'The collection of nested menu item entries belonging to a utility navigation item.',
+    )
     @SectionId('UMIE-MENU-LST')
     @SectionIdPattern('UMIE-MENU-xxx')
+    @ContentHelp('Add one entry per utility menu item.')
     @SerializationOrder(3)
     List<UtilityMenuItemEntry> menuItems = [];
 }
 
 
 /// Ordering, rendering, and access rules.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options',
+    'ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles',
+  ],
+  'The display order, widget rendering, and access rules governing a utility navigation item.',
+)
 @SectionId('UNIED')
 class UtilityNavigationItemEntryDisplay {
   @Form([
@@ -2892,6 +3120,13 @@ class UtilityNavigationItemEntryDisplay {
 }
 
 /// Badge and interaction behavior.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet',
+    'ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting',
+  ],
+  'The badge display and interaction behavior triggered when a utility navigation item is used.',
+)
 @SectionId('UNIEB')
 class UtilityNavigationItemEntryBehavior {
   @Form([
@@ -2911,10 +3146,18 @@ class UtilityNavigationItemEntryBehavior {
 /// A utility menu item entry (form).
 ///
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues structure selectable options within utility and popup menus',
+    'ISO 9241-13:1998 — user guidance labels and icons help users recognise each option',
+  ],
+  'A single entry within a utility popup or dropdown menu, such as a user-menu option.',
+)
 @SectionId('UTMEITEN')
 class UtilityMenuItemEntry {
   @Form([
-    Field('menuItemId', String, 'Menu Item ID', required: true),
+    Field('menuItemId', String, 'Menu Item ID', required: true,
+        hint: 'Unique identifier, e.g., menu-item-logout'),
     Field('label', String, 'Label Resource', required: true,
         hint: 'Display text'),
     Field('icon', String, 'Icon Resource',
@@ -2935,6 +3178,13 @@ class UtilityMenuItemEntry {
 }
 
 /// Routing and action references.
+@StandardReferences(
+  [
+    'ISO 9241-14:1997 — menu dialogues associate each option with a defined action or destination',
+    'ISO 9241-151:2008 — links direct users to further interface locations in a predictable way',
+  ],
+  'The routing target and action reference invoked when a utility menu item is selected.',
+)
 @SectionId('UMIEA')
 class UtilityMenuItemEntryAction {
   @Form([
@@ -2950,6 +3200,13 @@ class UtilityMenuItemEntryAction {
 }
 
 /// Visibility and confirmation behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions',
+    'ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions',
+  ],
+  'The visibility conditions, permission checks, and confirmation behavior for a utility menu item.',
+)
 @SectionId('UMIEB')
 class UtilityMenuItemEntryBehavior {
   @Form([
@@ -2973,6 +3230,13 @@ class UtilityMenuItemEntryBehavior {
 /// 10.3.1.6. Contextual Navigation.
 ///
 /// Breadcrumbs, back navigation, related links.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance provides wayfinding and contextual cues for the current location',
+    'ISO 9241-151:2008 — navigation and links help users orient within the information architecture',
+  ],
+  'The contextual-navigation configuration for breadcrumbs, back navigation, and related links.',
+)
 @SectionId('CONA')
 class ContextualNavigation {
   @ContentHelp('''
@@ -3012,6 +3276,13 @@ Breadcrumbs, back navigation, related links.
 }
 
 /// 10.3.1.6.1. Breadcrumb Configuration.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance covers wayfinding cues that help users know their location',
+    'ISO 9241-151:2008 — supports orientation within the information architecture through navigation aids',
+  ],
+  'The breadcrumb-trail configuration governing visibility, collapse behavior, and styling of location crumbs.',
+)
 @SectionId('BRCO')
 class BreadcrumbConfiguration {
   @Form([
@@ -3047,6 +3318,13 @@ class BreadcrumbConfiguration {
 /// 10.3.1.7. Deep Linking.
 ///
 /// External entry points, URL patterns, share links.
+@StandardReferences(
+  [
+    'IETF RFC 3986 — defines the URI syntax used for external, shareable deep-link URLs',
+    'ISO 9241-151:2008 — provides guidance on links and addressability in web user interfaces',
+  ],
+  'The deep-linking configuration for external entry points, URL patterns, and shareable links.',
+)
 @SectionId('DELI')
 class DeepLinking {
   @ContentHelp('''
@@ -3076,17 +3354,33 @@ External entry points and shareable URLs.
   TextSection strategy = TextSection();
 
   /// Contains 0+× DeepLinkPattern.
+  @StandardReferences(
+    [
+      'IETF RFC 3986 — the URI syntax underpins each addressable deep-link URL pattern',
+      'ISO 9241-151:2008 — supports predictable addressing of interface locations by links',
+    ],
+    'The collection of deep-link pattern entries defining external entry points into the application.',
+  )
   @SectionId('DELNPT-PATT-LST')
   @SectionIdPattern('DELNPT-PATT-xxx')
+  @ContentHelp('Add one entry per deep-link URL pattern.')
   @SerializationOrder(2)
   List<DeepLinkPatternEntry> patterns = [];
 }
 
 /// A deep link pattern entry (form).
+@StandardReferences(
+  [
+    'IETF RFC 3986 — defines the URI syntax that deep-link patterns follow for addressable resources',
+    'ISO 9241-151:2008 — supports predictable addressing of interface locations through links',
+  ],
+  'A single deep-link pattern mapping an external URL to a target screen with its access rules.',
+)
 @SectionId('DELNPT')
 class DeepLinkPatternEntry {
   @Form([
-    Field('patternId', String, 'Pattern ID', required: true),
+    Field('patternId', String, 'Pattern ID', required: true,
+        hint: 'Unique identifier, e.g., pattern-order-detail'),
     Field('urlPattern', String, 'URL Pattern', required: true,
         hint: 'Route pattern, e.g., /orders/:orderId'),
     Field('targetScreenId', String, 'Target Screen ID',
@@ -3113,6 +3407,13 @@ class DeepLinkPatternEntry {
 /// 10.3.1.8. Navigation Guards.
 ///
 /// Route guards: unsaved changes, authentication redirects, permission checks.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — Annex A access-control measures enforce authorization before navigation proceeds',
+    'ISO 9241-110:2020 — use-error tolerance protects users from losing unsaved work during transitions',
+  ],
+  'The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions.',
+)
 @SectionId('NAGU')
 class NavigationGuards {
   @ContentHelp('''
@@ -3146,13 +3447,28 @@ Guards integrate with `TomRouter` middleware.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGuard.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001:2022 — Annex A access-control measures gate protected routes behind guard evaluation',
+      'ISO 9241-110:2020 — controllability keeps the user in charge of transitions the guards mediate',
+    ],
+    'The collection of route-guard rules protecting navigation across the application.',
+  )
   @SectionId('NAVGRD-GUAR-LST')
   @SectionIdPattern('NAVGRD-GUAR-xxx')
+  @ContentHelp('Add one entry per navigation guard rule.')
   @SerializationOrder(2)
   List<NavigationGuardEntry> guards = [];
 }
 
 /// A navigation guard entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — Annex A access-control measures restrict navigation to authorized users and contexts',
+    'ISO 9241-110:2020 — use-error tolerance guards the user against unintended or unsafe transitions',
+  ],
+  'A single route-guard rule that intercepts navigation for authentication, permission, or unsaved-change checks.',
+)
 @SectionId('NAVGRD')
 class NavigationGuardEntry {
   @Form([
@@ -3180,6 +3496,13 @@ class NavigationGuardEntry {
 }
 
 /// Covered routes and dialog resources.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work',
+    'ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation',
+  ],
+  'The routes covered by a guard together with the dialog resources shown when it intervenes.',
+)
 @SectionId('NAGUENDI')
 class NavigationGuardEntryDialog {
   @Form([
@@ -3199,6 +3522,13 @@ class NavigationGuardEntryDialog {
 }
 
 /// Redirect routing and evaluation priority.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability lets users initiate and direct navigation, including redirected routes',
+    'ISO/IEC 25010:2023 — operability covers how predictably guards steer the interaction flow',
+  ],
+  'The redirect target and evaluation priority applied when a navigation guard blocks a route.',
+)
 @SectionId('NGER')
 class NavigationGuardEntryRouting {
   @Form([
@@ -3216,6 +3546,14 @@ class NavigationGuardEntryRouting {
 // ---------------------------------------------------------------------------
 
 /// 10.4. Print Layout.
+@StandardReferences(
+  [
+    'ISO 216:2007 — specifies trimmed sizes of writing paper and certain classes of printed matter',
+    'W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output',
+    'ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output',
+  ],
+  'The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output.',
+)
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -3253,26 +3591,57 @@ class PrintAndExportLayout {
   PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports — contains 0+× Report.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26514:2022 — designs and develops report information for use',
+      'ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content',
+    ],
+    'The collection of report entries available for printing.',
+  )
   @SectionId('REEN-REPO-LST')
   @SectionIdPattern('REEN-REPO-xxx')
+  @ContentHelp('Add one entry per report.')
   @SerializationOrder(6)
   List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats — contains 0+× Export Format.
+  @StandardReferences(
+    [
+      'ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option',
+      'ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks',
+    ],
+    'The collection of export formats in which printed reports can be produced.',
+  )
   @SectionId('EXFOEN-EXPO-LST')
   @SectionIdPattern('EXFOEN-EXPO-xxx')
+  @ContentHelp('Add one entry per export format.')
   @SerializationOrder(7)
   List<ExportFormatEntry> exportFormats = [];
 
   /// 10.4.3. Export Templates — contains 0+× Export
   /// Template.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use',
+      'ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output',
+    ],
+    'The collection of reusable export templates available for producing formatted output.',
+  )
   @SectionId('EXTEEN-EXPO-LST')
   @SectionIdPattern('EXTEEN-EXPO-xxx')
+  @ContentHelp('Add one entry per export template.')
   @SerializationOrder(8)
   List<ExportTemplateEntry> exportTemplates = [];
 }
 
 /// Page margins and setup.
+@StandardReferences(
+  [
+    'ISO 216:2007 — specifies trimmed sizes of writing paper such as A4 and A3 used to define the printable page',
+    'W3C CSS Paged Media Level 3 — describes page boxes and the margins that surround printed content',
+  ],
+  'The default page margins and setup governing the printable area of each report page.',
+)
 @SectionId('PLPS')
 class PrintLayoutPageSetup {
   @Form([
@@ -3290,6 +3659,13 @@ class PrintLayoutPageSetup {
 }
 
 /// Branding configuration.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — provides guidance on the visual presentation of information including colour and typography',
+    'ISO/IEC 25010:2023 — defines appropriateness recognisability as the degree to which output suits the intended purpose',
+  ],
+  'The branding configuration setting logo, colours, fonts and base sizing applied to printed reports.',
+)
 @SectionId('PRLABR')
 class PrintLayoutBranding {
   @Form([
@@ -3309,6 +3685,13 @@ class PrintLayoutBranding {
 }
 
 /// Watermark and confidentiality.
+@StandardReferences(
+  [
+    'W3C CSS Paged Media Level 3 — describes overlaid content and page-box decoration for printed output',
+    'ISO 9241-125:2017 — provides guidance on the visual presentation of overlaid textual information',
+  ],
+  'The watermark and confidentiality marking applied across printed pages to signal document sensitivity.',
+)
 @SectionId('PRLAWA')
 class PrintLayoutWatermark {
   @Form([
@@ -3328,6 +3711,13 @@ class PrintLayoutWatermark {
 }
 
 /// Header and footer settings.
+@StandardReferences(
+  [
+    'W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages',
+    'ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations',
+  ],
+  'The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output.',
+)
 @SectionId('PLHF')
 class PrintLayoutHeaderFooter {
   @Form([
@@ -3351,6 +3741,13 @@ class PrintLayoutHeaderFooter {
 }
 
 /// Archive and batch settings.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle',
+    'ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives',
+  ],
+  'The archival and batch-generation settings governing how printed reports are retained and produced in bulk.',
+)
 @SectionId('PRLAAR')
 class PrintLayoutArchive {
   @Form([
@@ -3372,6 +3769,13 @@ class PrintLayoutArchive {
 // ---------------------------------------------------------------------------
 
 /// A report entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — designs and develops information for use as a report',
+    'ISO 9241-125:2017 — presentation of information organises the report layout',
+  ],
+  'A single report definition describing its data source layout sections and output.',
+)
 @SectionId('REPENT')
 class ReportEntry {
   @Form([
@@ -3430,37 +3834,81 @@ class ReportEntry {
   ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
+  @StandardReferences(
+    [
+      'ISO 9241-125:2017 — presentation of information groups related content in sections',
+      'ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units',
+    ],
+    'The collection of report-section entries composing the body of the report.',
+  )
   @SectionId('RESEE1-SECT-LST')
   @SectionIdPattern('RESEE1-SECT-xxx')
+  @ContentHelp('Add one entry per report section.')
   @SerializationOrder(12)
   List<ReportSectionEntry> sections = [];
 
   /// Contains 0+× Report Filter.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data',
+    ],
+    'The collection of filters that restrict the data included in the report.',
+  )
   @SectionId('REFIEN-FILT-LST')
   @SectionIdPattern('REFIEN-FILT-xxx')
+  @ContentHelp('Add one entry per report data filter.')
   @SerializationOrder(13)
   List<ReportFilterEntry> filters = [];
 
   /// Contains 0+× Report Schedule.
+  @StandardReferences(
+    [
+      'ISO 8601-1:2019 — expresses the dates and times at which the report is generated',
+      'ISO/IEC 25010:2023 — functional suitability supports scheduled report production',
+    ],
+    'The collection of schedules controlling automated generation of the report.',
+  )
   @SectionId('RESCEN-SCHE-LST')
   @SectionIdPattern('RESCEN-SCHE-xxx')
+  @ContentHelp('Add one entry per report generation schedule.')
   @SerializationOrder(14)
   List<ReportScheduleEntry> schedules = [];
 
   /// Contains 0+× Report Distribution.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience',
+    ],
+    'The collection of distribution channels through which the report is delivered.',
+  )
   @SectionId('REDIEN-DIST-LST')
   @SectionIdPattern('REDIEN-DIST-xxx')
+  @ContentHelp('Add one entry per report distribution channel.')
   @SerializationOrder(15)
   List<ReportDistributionEntry> distributions = [];
 
   /// Contains 0+× Recipient.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information',
+    ],
+    'The collection of recipients who receive the generated report.',
+  )
   @SectionId('REREEN-RECI-LST')
   @SectionIdPattern('REREEN-RECI-xxx')
+  @ContentHelp('Add one entry per report recipient.')
   @SerializationOrder(16)
   List<ReportRecipientEntry> recipients = [];
 }
 
 /// Report identity and context.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — identifies and describes information for use as a report',
+    'ISO/IEC/IEEE 29148:2018 — traces the report to the requirements it satisfies',
+  ],
+  'Identity and context describing the report purpose category and related references.',
+)
 @SectionId('REID')
 class ReportIdentity {
   @Form([
@@ -3480,6 +3928,13 @@ class ReportIdentity {
 }
 
 /// Report data source configuration.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — specifies the data-source requirements feeding the report',
+    'ISO/IEC 25010:2023 — functional suitability ties report output to its source data',
+  ],
+  'Data source configuration covering source scope currency and generation trigger.',
+)
 @SectionId('REDASO')
 class ReportDataSource {
   @Form([
@@ -3497,6 +3952,13 @@ class ReportDataSource {
 }
 
 /// Report output format options.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — produces information for use in multiple output formats',
+    'ISO 216 — standard paper sizes govern the page size of rendered output',
+  ],
+  'Output format options covering file format interactivity page size and orientation.',
+)
 @SectionId('REFO')
 class ReportFormat {
   @Form([
@@ -3514,6 +3976,13 @@ class ReportFormat {
 }
 
 /// Report page layout settings.
+@StandardReferences(
+  [
+    'ISO 216 — standard paper sizes constrain report page dimensions and margins',
+    'W3C CSS Paged Media — sets page margin boxes for printed output',
+  ],
+  'Page layout settings covering top bottom left and right margins of the report.',
+)
 @SectionId('RELA')
 class ReportLayout {
   @Form([
@@ -3527,6 +3996,13 @@ class ReportLayout {
 }
 
 /// Report header and footer templates.
+@StandardReferences(
+  [
+    'W3C CSS Paged Media — defines page header and footer margin content',
+    'ISO/IEC/IEEE 26514:2022 — designs recurring page elements for information for use',
+  ],
+  'Header footer and cover-page templates applied to each report page.',
+)
 @SectionId('REHEFO')
 class ReportHeaderFooter {
   @Form([
@@ -3546,6 +4022,13 @@ class ReportHeaderFooter {
 }
 
 /// Report sorting and grouping.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — presentation of information groups related content for comprehension',
+    'ISO 9241-112:2017 — presentation of tabular data orders and aggregates rows',
+  ],
+  'Sorting and grouping settings covering default order group-by and subtotal display.',
+)
 @SectionId('REGR')
 class ReportGrouping {
   @Form([
@@ -3565,6 +4048,13 @@ class ReportGrouping {
 }
 
 /// Report conditional formatting.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — presentation of information uses visual coding to emphasise content',
+    'ISO 9241-112:2017 — presentation of tabular data highlights values by condition',
+  ],
+  'Conditional formatting rules governing highlighting of report values.',
+)
 @SectionId('RF')
 class ReportFormatting {
   @Form([
@@ -3578,6 +4068,13 @@ class ReportFormatting {
 }
 
 /// Report interactivity and parameters.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — appropriateness recognisability supports interactive report navigation',
+    'ISO 9241-125:2017 — presentation of information enables drill-down exploration of content',
+  ],
+  'Interactivity settings covering drill-down targets parameter forms and empty-data handling.',
+)
 @SectionId('REIN')
 class ReportInteractivity {
   @Form([
@@ -3595,6 +4092,13 @@ class ReportInteractivity {
 }
 
 /// Report pagination settings.
+@StandardReferences(
+  [
+    'W3C CSS Paged Media — controls page breaks and pagination of rendered content',
+    'ISO 216 — standard paper sizes frame the pagination of printed reports',
+  ],
+  'Pagination settings covering row limits page-break style and rows per page.',
+)
 @SectionId('REPA')
 class ReportPagination {
   @Form([
@@ -3610,6 +4114,13 @@ class ReportPagination {
 }
 
 /// Report security and access.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties',
+    'ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information',
+  ],
+  'Security settings covering access levels roles and data-level restrictions for the report.',
+)
 @SectionId('RESE')
 class ReportSecurity {
   @Form([
@@ -3629,6 +4140,13 @@ class ReportSecurity {
 }
 
 /// Report lifecycle and archiving.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information',
+    'ISO/IEC 25010:2023 — functional suitability supports controlled report distribution',
+  ],
+  'Lifecycle settings covering retention signature approval and archiving of the report.',
+)
 @SectionId('RELI')
 class ReportLifecycle {
   @Form([
@@ -3646,6 +4164,13 @@ class ReportLifecycle {
 }
 
 /// A section within a report (form).
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — presentation of information groups related content into sections',
+    'ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units',
+  ],
+  'A single section within a report describing its data layout sorting and content.',
+)
 @SectionId('RSE')
 class ReportSectionEntry {
   @Form([
@@ -3676,19 +4201,40 @@ class ReportSectionEntry {
   ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
+  @StandardReferences(
+    [
+      'ISO 9241-112:2017 — presentation of information organises tabular data into columns',
+    ],
+    'The collection of column entries defining the tabular layout of this report section.',
+  )
   @SectionId('RECOE1-COLU-LST')
   @SectionIdPattern('RECOE1-COLU-xxx')
+  @ContentHelp('Add one entry per column in the section table.')
   @SerializationOrder(5)
   List<ReportColumnEntry> columns = [];
 
   /// Contains 0+× Report Chart.
+  @StandardReferences(
+    [
+      'ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form',
+    ],
+    'The collection of chart entries rendered within this report section.',
+  )
   @SectionId('RECHEN-CHAR-LST')
   @SectionIdPattern('RECHEN-CHAR-xxx')
+  @ContentHelp('Add one entry per chart shown in the section.')
   @SerializationOrder(6)
   List<ReportChartEntry> charts = [];
 }
 
 /// Data source configuration.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information relates displayed content to its data source',
+    'ISO/IEC 25010:2023 — functional suitability requires the section data source to be defined',
+  ],
+  'Data source and scope configuration for a report section.',
+)
 @SectionId('RESEDA')
 class ReportSectionData {
   @Form([
@@ -3707,6 +4253,12 @@ class ReportSectionData {
 }
 
 /// Layout and page settings.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information governs page layout and grouping',
+  ],
+  'Layout and page settings for a report section such as page breaks and orientation.',
+)
 @SectionId('RESELA')
 class ReportSectionLayout {
   @Form([
@@ -3732,6 +4284,13 @@ class ReportSectionLayout {
 }
 
 /// Sorting and grouping.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information supports grouping of related data',
+    'ISO/IEC 25010:2023 — functional suitability supports sorting and grouping of section rows',
+  ],
+  'Sorting and grouping settings for a report section such as sort field and group subtotals.',
+)
 @SectionId('RESESO')
 class ReportSectionSorting {
   @Form([
@@ -3749,6 +4308,13 @@ class ReportSectionSorting {
 }
 
 /// Aggregation and limits.
+@StandardReferences(
+  [
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+    'ISO/IEC 25010:2023 — functional suitability supports section totals and row limits',
+  ],
+  'Aggregation and row-limit settings for a report section such as totals and overflow behaviour.',
+)
 @SectionId('RESEAG')
 class ReportSectionAggregation {
   @Form([
@@ -3767,6 +4333,13 @@ class ReportSectionAggregation {
 
 /// A column in a tabular report section
 /// (form).
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information organises data into tabular columns',
+    'ISO 9241-13:1998 — user guidance covers column header labels',
+  ],
+  'A single column definition within a tabular report section.',
+)
 @SectionId('REPCOLENT')
 class ReportColumnEntry {
   @Form([
@@ -3802,6 +4375,13 @@ class ReportColumnEntry {
 }
 
 /// Data source and type.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information relates displayed data to its source field',
+    'ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined',
+  ],
+  'Data source field and data type binding for a report column.',
+)
 @SectionId('RCDS')
 class ReportColumnDataSource {
   @Form([
@@ -3815,6 +4395,13 @@ class ReportColumnDataSource {
 }
 
 /// Display formatting.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting',
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+  ],
+  'Display formatting settings for a report column such as width, alignment and value formats.',
+)
 @SectionId('RECOFO')
 class ReportColumnFormatting {
   @Form([
@@ -3841,6 +4428,13 @@ class ReportColumnFormatting {
 }
 
 /// Aggregation settings.
+@StandardReferences(
+  [
+    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+    'ISO/IEC 25010:2023 — functional suitability supports summing and averaging of column values',
+  ],
+  'Aggregation settings for a report column such as sum, average and conditional formatting.',
+)
 @SectionId('RECOAG')
 class ReportColumnAggregation {
   @Form([
@@ -3858,6 +4452,12 @@ class ReportColumnAggregation {
 }
 
 /// Interaction options.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional suitability supports sorting and filtering by a column',
+  ],
+  'Interaction options for a report column such as sortable and filterable behaviour.',
+)
 @SectionId('RECOIN')
 class ReportColumnInteraction {
   @Form([
@@ -3871,6 +4471,12 @@ class ReportColumnInteraction {
 }
 
 /// Visibility and layout.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information governs column visibility and layout',
+  ],
+  'Visibility and layout settings for a report column such as word wrap and truncation.',
+)
 @SectionId('RECOLA')
 class ReportColumnLayout {
   @Form([
@@ -3888,6 +4494,13 @@ class ReportColumnLayout {
 
 /// A chart/visualization in a report
 /// (form).
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information guides layout of a chart',
+    'ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts',
+  ],
+  'A single chart definition describing how report data is visualised.',
+)
 @SectionId('REPCHAENT')
 class ReportChartEntry {
   @Form([
@@ -3902,8 +4515,15 @@ class ReportChartEntry {
   String? content;
 
   /// Axes configuration.
+  @StandardReferences(
+    [
+      'ISO 9241-112:2017 — presentation of information organises displayed data along axes',
+    ],
+    'The collection of axis configurations for the chart.',
+  )
   @SectionId('RECHAX-AXES-LST')
   @SectionIdPattern('RECHAX-AXES-xxx')
+  @ContentHelp('Add one entry per chart axis configuration.')
   @SerializationOrder(1)
   List<ReportChartAxes> axes = [];
 
@@ -3925,6 +4545,13 @@ class ReportChartEntry {
 }
 
 /// Axes for report chart.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information organises displayed data along axes',
+    'ISO 8601-1:2019 — representation of dates and times informs axis value formatting',
+  ],
+  'Axis configuration mapping data fields to chart X-axis and Y-axis dimensions.',
+)
 @SectionId('RECHAX')
 class ReportChartAxes {
   @Form([
@@ -3954,6 +4581,13 @@ class ReportChartAxes {
 }
 
 /// Series for report chart.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — do not use colour as the only visual means of conveying information',
+    'ISO 9241-13:1998 — user guidance covers legends and their placement',
+  ],
+  'Series, colour and legend settings that split chart data into distinguishable groups.',
+)
 @SectionId('RECHSE')
 class ReportChartSeries {
   @Form([
@@ -3971,6 +4605,13 @@ class ReportChartSeries {
 }
 
 /// Display for report chart.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance covers data labels and informational messages',
+    'ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of displayed values',
+  ],
+  'Display settings for a report chart such as data labels and threshold lines.',
+)
 @SectionId('RECHDI')
 class ReportChartDisplay {
   @Form([
@@ -3992,6 +4633,13 @@ class ReportChartDisplay {
 }
 
 /// Interaction for report chart.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional suitability supports interactive drill-down and navigation from charts',
+    'ISO 9241-13:1998 — user guidance covers tooltips and feedback on chart elements',
+  ],
+  'Interaction settings for a report chart such as tooltips and drill-down.',
+)
 @SectionId('RECHIN')
 class ReportChartInteraction {
   @Form([
@@ -4006,6 +4654,12 @@ class ReportChartInteraction {
 }
 
 /// Layout for report chart.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information governs sizing and placement of content',
+  ],
+  'Width and height layout settings for a report chart.',
+)
 @SectionId('RECHLA')
 class ReportChartLayout {
   @Form([
@@ -4023,6 +4677,13 @@ class ReportChartLayout {
 // ---------------------------------------------------------------------------
 
 /// A filter parameter for a report (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — captures the requirement for a report filter parameter',
+    'ISO 9241-110:2020 — represents the filter as a controllable parameter in the report interface',
+  ],
+  'A single report-filter entry defining one parameter by which report content is filtered.',
+)
 @SectionId('RFE')
 class ReportFilterEntry {
   @Form([
@@ -4051,6 +4712,13 @@ class ReportFilterEntry {
 }
 
 /// Input and value configuration for a report filter.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter',
+    'ISO 9241-110:2020 — matches the input control to the filter data the user provides',
+  ],
+  'The data type, input control, and value source that configure how a report filter accepts input.',
+)
 @SectionId('RFEI')
 class ReportFilterEntryInput {
   @Form([
@@ -4078,6 +4746,13 @@ class ReportFilterEntryInput {
 }
 
 /// Scope and validation behavior for a report filter.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — specifies the required and validation constraints on a filter parameter',
+    'ISO 9241-110:2020 — supports error prevention through filter validation and dependency rules',
+  ],
+  'The scope, requiredness, and validation rules that govern how a report filter behaves.',
+)
 @SectionId('RFEB')
 class ReportFilterEntryBehavior {
   @Form([
@@ -4101,6 +4776,13 @@ class ReportFilterEntryBehavior {
 }
 
 /// Presentation options for a report filter.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — presents filter controls in a form that suits the user task',
+    'ISO/IEC/IEEE 26514:2022 — designs how filter parameters are shown to the user',
+  ],
+  'The presentation options that control how a report filter appears to and is remembered for the user.',
+)
 @SectionId('RFEP')
 class ReportFilterEntryPresentation {
   @Form([
@@ -4118,6 +4800,13 @@ class ReportFilterEntryPresentation {
 
 /// Scheduling rules for report generation
 /// (form).
+@StandardReferences(
+  [
+    'ISO 8601-1:2019 — represents dates, times, and recurrence for scheduling in an unambiguous form',
+    'ISO/IEC/IEEE 29148:2018 — captures the requirement for when and how often a report runs',
+  ],
+  'A single report-schedule entry defining when and how often a report is generated.',
+)
 @SectionId('REPSCHENT')
 class ReportScheduleEntry {
   @Form([
@@ -4151,6 +4840,13 @@ class ReportScheduleEntry {
 }
 
 /// Timing configuration for report schedule.
+@StandardReferences(
+  [
+    'ISO 8601-1:2019 — represents start dates, end dates, and generation windows in an unambiguous form',
+    'ISO/IEC 25010:2023 — reliability of running generation within the configured time window and timeout',
+  ],
+  'The cron expression, timezone, and window that determine exactly when a report is generated.',
+)
 @SectionId('RSET')
 class ReportScheduleEntryTiming {
   @Form([
@@ -4172,6 +4868,12 @@ class ReportScheduleEntryTiming {
 }
 
 /// Retry configuration for report schedule.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reliability and recoverability of a scheduled run through retry on failure',
+  ],
+  'The retry policy that governs re-attempts when a scheduled report run fails.',
+)
 @SectionId('RSER')
 class ReportScheduleEntryRetry {
   @Form([
@@ -4186,6 +4888,13 @@ class ReportScheduleEntryRetry {
 }
 
 /// Notification settings for report schedule.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — communications management notifies stakeholders on completion and failure events',
+    'ISO/IEC 25010:2023 — reliability requires alerting on generation failure of a scheduled run',
+  ],
+  'The completion and failure notifications sent to interested parties for a scheduled run.',
+)
 @SectionId('RSEN')
 class ReportScheduleEntryNotifications {
   @Form([
@@ -4203,6 +4912,13 @@ class ReportScheduleEntryNotifications {
 }
 
 /// Output configuration for report schedule.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — specifies the output content and destination required from a scheduled run',
+    'ISO/IEC 25010:2023 — reliability of producing the scheduled output at the requested priority',
+  ],
+  'The format, destination, and priority applied to the output of a scheduled report run.',
+)
 @SectionId('RSEO')
 class ReportScheduleEntryOutput {
   @Form([
@@ -4223,6 +4939,13 @@ class ReportScheduleEntryOutput {
 }
 
 /// Distribution channel configuration (form).
+@StandardReferences(
+  [
+    'ISO 21502:2020 — communications management plans the channels by which information reaches stakeholders',
+    'ISO/IEC/IEEE 29148:2018 — captures the distribution requirements for report output',
+  ],
+  'A single distribution-channel entry defining how a report is delivered over one channel.',
+)
 @SectionId('RDE')
 class ReportDistributionEntry {
   @Form([
@@ -4255,6 +4978,13 @@ class ReportDistributionEntry {
 }
 
 /// Recipient and format settings for report distribution.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — communications management distributes information to the identified stakeholders',
+    'ISO/IEC 27001:2022 — access control governs which roles and lists may receive the report',
+  ],
+  'The recipient sourcing and per-channel format that determine who receives the distribution and in what form.',
+)
 @SectionId('REDIENRE')
 class ReportDistributionEntryRecipients {
   @Form([
@@ -4273,6 +5003,13 @@ class ReportDistributionEntryRecipients {
 }
 
 /// Message and attachment content for report distribution.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — designs the message and attachment content delivered to users',
+    'IETF RFC 5322 — defines the subject and body of the email message carrying the report',
+  ],
+  'The subject, body, and attachment templates that shape the delivered report message.',
+)
 @SectionId('REDIENCO')
 class ReportDistributionEntryContent {
   @Form([
@@ -4292,6 +5029,13 @@ class ReportDistributionEntryContent {
 }
 
 /// Delivery conditions and lifecycle settings for report distribution.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reliability of scheduled delivery under conditional and timed sending rules',
+    'ISO/IEC 27001:2022 — protects distributed output through compression and password encryption controls',
+  ],
+  'The conditions, security, and timing that govern whether and when a report is distributed.',
+)
 @SectionId('RDED')
 class ReportDistributionEntryDelivery {
   @Form([
@@ -4320,6 +5064,14 @@ class ReportDistributionEntryDelivery {
 }
 
 /// A recipient entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — identifies the audience that receives information for use',
+    'ISO 21502:2020 — communications management plans stakeholder information distribution',
+    'IETF RFC 5322 — addresses recipients where the reference is an email address',
+  ],
+  'A single report-recipient entry identifying who receives a report and how they are referenced.',
+)
 @SectionId('RRE')
 class ReportRecipientEntry {
   @Form([
@@ -4350,6 +5102,13 @@ class ReportRecipientEntry {
 }
 
 /// Recipient business context.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — access control determines the data scope a recipient is permitted to receive',
+    'ISO 21502:2020 — communications management identifies stakeholders by business role',
+  ],
+  'The business role and data-scope restriction that qualify what a recipient is entitled to see.',
+)
 @SectionId('REREENCO')
 class ReportRecipientEntryContext {
   @Form([
@@ -4364,6 +5123,13 @@ class ReportRecipientEntryContext {
 }
 
 /// Delivery preferences.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — describes how information for use is delivered to recipients in their preferred form',
+    'ISO 21502:2020 — communications management adapts channel and format to stakeholder preferences',
+  ],
+  'The per-recipient preferences for channel, format, locale, and schedule of report delivery.',
+)
 @SectionId('RRED')
 class ReportRecipientEntryDelivery {
   @Form([
@@ -4385,6 +5151,13 @@ class ReportRecipientEntryDelivery {
 }
 
 /// Lifecycle settings.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — communications management plans stakeholder information distribution over time',
+    'ISO 8601-1:2019 — represents the effective-from and effective-to dates in an unambiguous form',
+  ],
+  'The activation window that governs when a recipient starts and stops receiving reports.',
+)
 @SectionId('RREL')
 class ReportRecipientEntryLifecycle {
   @Form([
@@ -4405,6 +5178,14 @@ class ReportRecipientEntryLifecycle {
 // ---------------------------------------------------------------------------
 
 /// An export format entry (form).
+@StandardReferences(
+  [
+    'IETF RFC 4180 — the comma-separated format defines a common interchange for tabular data',
+    'ISO 32000-2:2020 — PDF defines a page-oriented portable document format for output',
+    'ISO/IEC 25010:2023 — portability is the degree of transferability across environments',
+  ],
+  'A single export-format definition describing how report output is rendered, delimited, sized, and secured.',
+)
 @SectionId('EFE')
 class ExportFormatEntry {
   @Form([
@@ -4435,8 +5216,16 @@ class ExportFormatEntry {
   ExportDataFormat dataFormat = ExportDataFormat();
 
   /// Size and splitting.
+  @StandardReferences(
+    [
+      'IETF RFC 4180 — a comma-separated file may be divided into multiple records or files to bound its size',
+      'ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements',
+    ],
+    'The collection of export size-and-splitting settings applied to this export format.',
+  )
   @SectionId('EXSISE-SIZE-LST')
   @SectionIdPattern('EXSISE-SIZE-xxx')
+  @ContentHelp('Add one entry per size-and-splitting setting.')
   @SerializationOrder(5)
   List<ExportSizeSettings> sizeSettings = [];
 
@@ -4453,13 +5242,28 @@ class ExportFormatEntry {
   ExportAccess access = ExportAccess();
 
   /// Contains 0+× Export Field Mapping.
+  @StandardReferences(
+    [
+      'IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line',
+      'ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data',
+    ],
+    'The collection of export field-mapping entries that bind source fields to output columns.',
+  )
   @SectionId('EFME-FIEL-LST')
   @SectionIdPattern('EFME-FIEL-xxx')
+  @ContentHelp('Add one entry per export field mapping.')
   @SerializationOrder(9)
   List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
 /// Export identity and data source.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional appropriateness ensures the exported data source matches the intended task',
+    'ISO/IEC 11179 — a data element is identified and described by its source and scope metadata',
+  ],
+  'Identity and data-source metadata describing the purpose, related entities, and scope of an export.',
+)
 @SectionId('EXID')
 class ExportIdentity {
   @Form([
@@ -4477,6 +5281,13 @@ class ExportIdentity {
 }
 
 /// Export file format settings.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — records are separated by a line break represented as CRLF in a comma-separated file',
+    'ISO/IEC 25010:2023 — interoperability requires a well-defined character encoding for the output file',
+  ],
+  'File-level settings such as naming pattern, character encoding, and line ending for the export output.',
+)
 @SectionId('EXFIFO')
 class ExportFileFormat {
   @Form([
@@ -4491,6 +5302,13 @@ class ExportFileFormat {
 }
 
 /// Export delimiter and quoting.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — fields are separated by commas and may be enclosed in double quotes, with an optional header line',
+    'ISO/IEC 25010:2023 — interoperability depends on the delimiter and quoting matching the consumer expectations',
+  ],
+  'Delimiter, quote character, and header-row settings that define the CSV structure of an export.',
+)
 @SectionId('EXDE')
 class ExportDelimiter {
   @Form([
@@ -4508,6 +5326,13 @@ class ExportDelimiter {
 }
 
 /// Export data formatting.
+@StandardReferences(
+  [
+    'ISO 8601-1:2019 — a standardized calendar and clock representation governs how dates and times are written',
+    'ISO/IEC 25010:2023 — interoperability requires numeric and boolean values to render in the expected form',
+  ],
+  'Formatting rules for dates, numbers, currency, boolean, and null values in exported data.',
+)
 @SectionId('EXDAFO')
 class ExportDataFormat {
   @Form([
@@ -4530,6 +5355,13 @@ class ExportDataFormat {
 }
 
 /// Export size settings.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — a comma-separated file is a sequence of records that may be split across multiple files',
+    'ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements',
+  ],
+  'Row limits and file-splitting settings that bound the size of generated export files.',
+)
 @SectionId('EXSISE')
 class ExportSizeSettings {
   @Form([
@@ -4545,6 +5377,13 @@ class ExportSizeSettings {
 }
 
 /// Export security settings.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — cryptographic controls protect confidentiality of exported information at rest and in transit',
+    'ISO/IEC 25010:2023 — confidentiality ensures exported data is accessible only to those authorized',
+  ],
+  'Compression and encryption settings that protect the confidentiality of export output.',
+)
 @SectionId('EXSE')
 class ExportSecurity {
   @Form([
@@ -4560,6 +5399,13 @@ class ExportSecurity {
 }
 
 /// Export output and scheduling.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — portability includes the ease of transferring output to a target environment',
+    'ISO 8601-1:2019 — a standardized time representation underpins scheduling of automated exports',
+  ],
+  'Output destination and scheduling settings that control where export files are delivered and when they run.',
+)
 @SectionId('EXOU')
 class ExportOutput {
   @Form([
@@ -4577,6 +5423,13 @@ class ExportOutput {
 }
 
 /// Export access and audit.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced',
+    'ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity',
+  ],
+  'Access levels, required roles, and audit-logging settings governing who may run an export.',
+)
 @SectionId('EXAC')
 class ExportAccess {
   @Form([
@@ -4595,6 +5448,13 @@ class ExportAccess {
 }
 
 /// A field mapping within an export (form).
+@StandardReferences(
+  [
+    'IETF RFC 4180 — each field in a record maps to a named column identified by the header line',
+    'ISO/IEC 25010:2023 — interoperability depends on correctly mapping source fields to target fields',
+  ],
+  'A single mapping that binds one source data field to one target field in the export output.',
+)
 @SectionId('EXFIMAEN')
 class ExportFieldMappingEntry {
   @Form([
@@ -4630,6 +5490,13 @@ class ExportFieldMappingEntry {
 }
 
 /// Ordering and formatting settings.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file',
+    'ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted',
+  ],
+  'Column ordering, data typing, and output format pattern applied to a mapped export field.',
+)
 @SectionId('EFMEF')
 class ExportFieldMappingEntryFormatting {
   @Form([
@@ -4647,6 +5514,13 @@ class ExportFieldMappingEntryFormatting {
 }
 
 /// Transformation rules.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — functional correctness requires transformed values to match the specified rules',
+    'IETF RFC 4180 — transformed field values are emitted as text within the record structure',
+  ],
+  'Value transformation and substitution rules applied to a mapped field before it is written to the export.',
+)
 @SectionId('EFMET')
 class ExportFieldMappingEntryTransformation {
   @Form([
@@ -4663,6 +5537,13 @@ class ExportFieldMappingEntryTransformation {
 }
 
 /// Inclusion and defaults.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters',
+    'ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output',
+  ],
+  'Inclusion conditions and default values determining whether and how a mapped field appears in the export.',
+)
 @SectionId('EFMEI')
 class ExportFieldMappingEntryInclusion {
   @Form([
@@ -4680,6 +5561,13 @@ class ExportFieldMappingEntryInclusion {
 }
 
 /// Fixed-width and quoting rules.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — fields containing special characters are enclosed in double quotes',
+    'ISO/IEC 25010:2023 — interoperability requires field layout to match the consuming system expectations',
+  ],
+  'Fixed-width padding and CSV quoting rules controlling how a mapped field is laid out in the output.',
+)
 @SectionId('EFMEL')
 class ExportFieldMappingEntryLayout {
   @Form([
@@ -4702,6 +5590,13 @@ class ExportFieldMappingEntryLayout {
 // ---------------------------------------------------------------------------
 
 /// A reusable export template (form).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reusability is the degree to which an asset can be used in more than one system',
+    'ISO/IEC 29500-1:2016 — Office Open XML supports document templates for repeatable output',
+  ],
+  'A reusable export template that bundles format, field, layout, and access settings for repeated exports.',
+)
 @SectionId('ETE')
 class ExportTemplateEntry {
   @Form([
@@ -4734,6 +5629,13 @@ class ExportTemplateEntry {
 }
 
 /// Format configuration for export template.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — a comma-separated file uses a delimiter and optional header line to structure records',
+    'ISO 8601-1:2019 — a standardized date representation governs the default date format for exported values',
+  ],
+  'Default format configuration such as encoding, delimiter, header, and value formatting for an export template.',
+)
 @SectionId('ETEF')
 class ExportTemplateEntryFormat {
   @Form([
@@ -4752,6 +5654,13 @@ class ExportTemplateEntryFormat {
 }
 
 /// Field and filter settings for export template.
+@StandardReferences(
+  [
+    'IETF RFC 4180 — a comma-separated file arranges records into fields selected for output',
+    'ISO/IEC 25010:2023 — functional appropriateness ensures the selected fields serve the intended task',
+  ],
+  'The selection, filtering, and default sorting of fields applied by an export template.',
+)
 @SectionId('EXTEENFI')
 class ExportTemplateEntryFields {
   @Form([
@@ -4769,6 +5678,14 @@ class ExportTemplateEntryFields {
 }
 
 /// Layout configuration for export template.
+@StandardReferences(
+  [
+    'ISO 32000-2:2020 — PDF describes page-level header and footer artifacts for printed output',
+    'ISO/IEC 29500-1:2016 — Office Open XML defines header and footer structures for documents',
+    'W3C CSS Paged Media — page margin boxes carry running headers and footers in paged rendering',
+  ],
+  'Layout configuration defining header, footer, branding, and compression for a rendered export template.',
+)
 @SectionId('ETEL')
 class ExportTemplateEntryLayout {
   @Form([
@@ -4786,6 +5703,13 @@ class ExportTemplateEntryLayout {
 }
 
 /// Access and metadata for export template.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts',
+    'ISO 8601-1:2019 — a standardized calendar representation supports template version dating',
+  ],
+  'Access-control and metadata settings governing who may use an export template and how it is versioned.',
+)
 @SectionId('ETEA')
 class ExportTemplateEntryAccess {
   @Form([

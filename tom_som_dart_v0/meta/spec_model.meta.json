@@ -23209,7 +23209,24 @@
       "name": "BreadcrumbConfiguration",
       "sectionId": "BRCO",
       "doc": "10.3.1.6.1. Breadcrumb Configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance covers wayfinding cues that help users know their location",
+          "ISO 9241-151:2008 — supports orientation within the information architecture through navigation aids"
+        ],
+        "connotation": "The breadcrumb-trail configuration governing visibility, collapse behavior, and styling of location crumbs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance covers wayfinding cues that help users know their location",
+              "ISO 9241-151:2008 — supports orientation within the information architecture through navigation aids"
+            ],
+            "connotation": "The breadcrumb-trail configuration governing visibility, collapse behavior, and styling of location crumbs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55609,7 +55626,24 @@
       "name": "ContextualNavigation",
       "sectionId": "CONA",
       "doc": "10.3.1.6. Contextual Navigation.\n\nBreadcrumbs, back navigation, related links.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance provides wayfinding and contextual cues for the current location",
+          "ISO 9241-151:2008 — navigation and links help users orient within the information architecture"
+        ],
+        "connotation": "The contextual-navigation configuration for breadcrumbs, back navigation, and related links."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance provides wayfinding and contextual cues for the current location",
+              "ISO 9241-151:2008 — navigation and links help users orient within the information architecture"
+            ],
+            "connotation": "The contextual-navigation configuration for breadcrumbs, back navigation, and related links."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78074,7 +78108,24 @@
       "name": "DeepLinkPatternEntry",
       "sectionId": "DELNPT",
       "doc": "A deep link pattern entry (form).",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 3986 — defines the URI syntax that deep-link patterns follow for addressable resources",
+          "ISO 9241-151:2008 — supports predictable addressing of interface locations through links"
+        ],
+        "connotation": "A single deep-link pattern mapping an external URL to a target screen with its access rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 3986 — defines the URI syntax that deep-link patterns follow for addressable resources",
+              "ISO 9241-151:2008 — supports predictable addressing of interface locations through links"
+            ],
+            "connotation": "A single deep-link pattern mapping an external URL to a target screen with its access rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78105,6 +78156,7 @@
             {
               "name": "patternId",
               "label": "Pattern ID",
+              "hint": "Unique identifier, e.g., pattern-order-detail",
               "type": "String",
               "required": true
             },
@@ -78165,7 +78217,24 @@
       "name": "DeepLinking",
       "sectionId": "DELI",
       "doc": "10.3.1.7. Deep Linking.\n\nExternal entry points, URL patterns, share links.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 3986 — defines the URI syntax used for external, shareable deep-link URLs",
+          "ISO 9241-151:2008 — provides guidance on links and addressability in web user interfaces"
+        ],
+        "connotation": "The deep-linking configuration for external entry points, URL patterns, and shareable links."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 3986 — defines the URI syntax used for external, shareable deep-link URLs",
+              "ISO 9241-151:2008 — provides guidance on links and addressability in web user interfaces"
+            ],
+            "connotation": "The deep-linking configuration for external entry points, URL patterns, and shareable links."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78215,10 +78284,28 @@
           "name": "patterns",
           "kind": "list",
           "doc": "Contains 0+× DeepLinkPattern.",
+          "help": "Add one entry per deep-link URL pattern.",
           "sectionId": "DELNPT-PATT-LST",
           "sectionIdPattern": "DELNPT-PATT-xxx",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 3986 — the URI syntax underpins each addressable deep-link URL pattern",
+              "ISO 9241-151:2008 — supports predictable addressing of interface locations by links"
+            ],
+            "connotation": "The collection of deep-link pattern entries defining external entry points into the application."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 3986 — the URI syntax underpins each addressable deep-link URL pattern",
+                  "ISO 9241-151:2008 — supports predictable addressing of interface locations by links"
+                ],
+                "connotation": "The collection of deep-link pattern entries defining external entry points into the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -78229,6 +78316,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DELNPT-PATT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per deep-link URL pattern."
               }
             },
             {
@@ -105420,7 +105513,24 @@
       "name": "ExportAccess",
       "sectionId": "EXAC",
       "doc": "Export access and audit.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced",
+          "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"
+        ],
+        "connotation": "Access levels, required roles, and audit-logging settings governing who may run an export."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced",
+              "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"
+            ],
+            "connotation": "Access levels, required roles, and audit-logging settings governing who may run an export."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105491,7 +105601,24 @@
       "name": "ExportDataFormat",
       "sectionId": "EXDAFO",
       "doc": "Export data formatting.",
+      "standardReferences": {
+        "standards": [
+          "ISO 8601-1:2019 — a standardized calendar and clock representation governs how dates and times are written",
+          "ISO/IEC 25010:2023 — interoperability requires numeric and boolean values to render in the expected form"
+        ],
+        "connotation": "Formatting rules for dates, numbers, currency, boolean, and null values in exported data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 8601-1:2019 — a standardized calendar and clock representation governs how dates and times are written",
+              "ISO/IEC 25010:2023 — interoperability requires numeric and boolean values to render in the expected form"
+            ],
+            "connotation": "Formatting rules for dates, numbers, currency, boolean, and null values in exported data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105576,7 +105703,24 @@
       "name": "ExportDelimiter",
       "sectionId": "EXDE",
       "doc": "Export delimiter and quoting.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — fields are separated by commas and may be enclosed in double quotes, with an optional header line",
+          "ISO/IEC 25010:2023 — interoperability depends on the delimiter and quoting matching the consumer expectations"
+        ],
+        "connotation": "Delimiter, quote character, and header-row settings that define the CSV structure of an export."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — fields are separated by commas and may be enclosed in double quotes, with an optional header line",
+              "ISO/IEC 25010:2023 — interoperability depends on the delimiter and quoting matching the consumer expectations"
+            ],
+            "connotation": "Delimiter, quote character, and header-row settings that define the CSV structure of an export."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105640,7 +105784,24 @@
       "name": "ExportFieldMappingEntry",
       "sectionId": "EXFIMAEN",
       "doc": "A field mapping within an export (form).",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — each field in a record maps to a named column identified by the header line",
+          "ISO/IEC 25010:2023 — interoperability depends on correctly mapping source fields to target fields"
+        ],
+        "connotation": "A single mapping that binds one source data field to one target field in the export output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — each field in a record maps to a named column identified by the header line",
+              "ISO/IEC 25010:2023 — interoperability depends on correctly mapping source fields to target fields"
+            ],
+            "connotation": "A single mapping that binds one source data field to one target field in the export output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105757,7 +105918,24 @@
       "name": "ExportFieldMappingEntryFormatting",
       "sectionId": "EFMEF",
       "doc": "Ordering and formatting settings.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file",
+          "ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted"
+        ],
+        "connotation": "Column ordering, data typing, and output format pattern applied to a mapped export field."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — the order of fields within each record is fixed and consistent across the file",
+              "ISO 8601-1:2019 — a standardized date representation governs how date-typed fields are formatted"
+            ],
+            "connotation": "Column ordering, data typing, and output format pattern applied to a mapped export field."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105814,7 +105992,24 @@
       "name": "ExportFieldMappingEntryInclusion",
       "sectionId": "EFMEI",
       "doc": "Inclusion and defaults.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters",
+          "ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output"
+        ],
+        "connotation": "Inclusion conditions and default values determining whether and how a mapped field appears in the export."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — a record is a sequence of fields where empty fields are represented by adjacent delimiters",
+              "ISO/IEC 25010:2023 — functional correctness ensures default and inclusion rules produce the expected output"
+            ],
+            "connotation": "Inclusion conditions and default values determining whether and how a mapped field appears in the export."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105878,7 +106073,24 @@
       "name": "ExportFieldMappingEntryLayout",
       "sectionId": "EFMEL",
       "doc": "Fixed-width and quoting rules.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — fields containing special characters are enclosed in double quotes",
+          "ISO/IEC 25010:2023 — interoperability requires field layout to match the consuming system expectations"
+        ],
+        "connotation": "Fixed-width padding and CSV quoting rules controlling how a mapped field is laid out in the output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — fields containing special characters are enclosed in double quotes",
+              "ISO/IEC 25010:2023 — interoperability requires field layout to match the consuming system expectations"
+            ],
+            "connotation": "Fixed-width padding and CSV quoting rules controlling how a mapped field is laid out in the output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105949,7 +106161,24 @@
       "name": "ExportFieldMappingEntryTransformation",
       "sectionId": "EFMET",
       "doc": "Transformation rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional correctness requires transformed values to match the specified rules",
+          "IETF RFC 4180 — transformed field values are emitted as text within the record structure"
+        ],
+        "connotation": "Value transformation and substitution rules applied to a mapped field before it is written to the export."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional correctness requires transformed values to match the specified rules",
+              "IETF RFC 4180 — transformed field values are emitted as text within the record structure"
+            ],
+            "connotation": "Value transformation and substitution rules applied to a mapped field before it is written to the export."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106006,7 +106235,24 @@
       "name": "ExportFileFormat",
       "sectionId": "EXFIFO",
       "doc": "Export file format settings.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — records are separated by a line break represented as CRLF in a comma-separated file",
+          "ISO/IEC 25010:2023 — interoperability requires a well-defined character encoding for the output file"
+        ],
+        "connotation": "File-level settings such as naming pattern, character encoding, and line ending for the export output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — records are separated by a line break represented as CRLF in a comma-separated file",
+              "ISO/IEC 25010:2023 — interoperability requires a well-defined character encoding for the output file"
+            ],
+            "connotation": "File-level settings such as naming pattern, character encoding, and line ending for the export output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106063,7 +106309,26 @@
       "name": "ExportFormatEntry",
       "sectionId": "EFE",
       "doc": "An export format entry (form).",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — the comma-separated format defines a common interchange for tabular data",
+          "ISO 32000-2:2020 — PDF defines a page-oriented portable document format for output",
+          "ISO/IEC 25010:2023 — portability is the degree of transferability across environments"
+        ],
+        "connotation": "A single export-format definition describing how report output is rendered, delimited, sized, and secured."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — the comma-separated format defines a common interchange for tabular data",
+              "ISO 32000-2:2020 — PDF defines a page-oriented portable document format for output",
+              "ISO/IEC 25010:2023 — portability is the degree of transferability across environments"
+            ],
+            "connotation": "A single export-format definition describing how report output is rendered, delimited, sized, and secured."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106178,10 +106443,28 @@
           "name": "sizeSettings",
           "kind": "list",
           "doc": "Size and splitting.",
+          "help": "Add one entry per size-and-splitting setting.",
           "sectionId": "EXSISE-SIZE-LST",
           "sectionIdPattern": "EXSISE-SIZE-xxx",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 4180 — a comma-separated file may be divided into multiple records or files to bound its size",
+              "ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements"
+            ],
+            "connotation": "The collection of export size-and-splitting settings applied to this export format."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 4180 — a comma-separated file may be divided into multiple records or files to bound its size",
+                  "ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements"
+                ],
+                "connotation": "The collection of export size-and-splitting settings applied to this export format."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -106192,6 +106475,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXSISE-SIZE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per size-and-splitting setting."
               }
             },
             {
@@ -106253,10 +106542,28 @@
           "name": "fieldMappings",
           "kind": "list",
           "doc": "Contains 0+× Export Field Mapping.",
+          "help": "Add one entry per export field mapping.",
           "sectionId": "EFME-FIEL-LST",
           "sectionIdPattern": "EFME-FIEL-xxx",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line",
+              "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"
+            ],
+            "connotation": "The collection of export field-mapping entries that bind source fields to output columns."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line",
+                  "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"
+                ],
+                "connotation": "The collection of export field-mapping entries that bind source fields to output columns."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -106267,6 +106574,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EFME-FIEL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per export field mapping."
               }
             },
             {
@@ -106285,7 +106598,24 @@
       "name": "ExportIdentity",
       "sectionId": "EXID",
       "doc": "Export identity and data source.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional appropriateness ensures the exported data source matches the intended task",
+          "ISO/IEC 11179 — a data element is identified and described by its source and scope metadata"
+        ],
+        "connotation": "Identity and data-source metadata describing the purpose, related entities, and scope of an export."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional appropriateness ensures the exported data source matches the intended task",
+              "ISO/IEC 11179 — a data element is identified and described by its source and scope metadata"
+            ],
+            "connotation": "Identity and data-source metadata describing the purpose, related entities, and scope of an export."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106349,7 +106679,24 @@
       "name": "ExportOutput",
       "sectionId": "EXOU",
       "doc": "Export output and scheduling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — portability includes the ease of transferring output to a target environment",
+          "ISO 8601-1:2019 — a standardized time representation underpins scheduling of automated exports"
+        ],
+        "connotation": "Output destination and scheduling settings that control where export files are delivered and when they run."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — portability includes the ease of transferring output to a target environment",
+              "ISO 8601-1:2019 — a standardized time representation underpins scheduling of automated exports"
+            ],
+            "connotation": "Output destination and scheduling settings that control where export files are delivered and when they run."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106413,7 +106760,24 @@
       "name": "ExportSecurity",
       "sectionId": "EXSE",
       "doc": "Export security settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — cryptographic controls protect confidentiality of exported information at rest and in transit",
+          "ISO/IEC 25010:2023 — confidentiality ensures exported data is accessible only to those authorized"
+        ],
+        "connotation": "Compression and encryption settings that protect the confidentiality of export output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — cryptographic controls protect confidentiality of exported information at rest and in transit",
+              "ISO/IEC 25010:2023 — confidentiality ensures exported data is accessible only to those authorized"
+            ],
+            "connotation": "Compression and encryption settings that protect the confidentiality of export output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106470,7 +106834,24 @@
       "name": "ExportSizeSettings",
       "sectionId": "EXSISE",
       "doc": "Export size settings.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — a comma-separated file is a sequence of records that may be split across multiple files",
+          "ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements"
+        ],
+        "connotation": "Row limits and file-splitting settings that bound the size of generated export files."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — a comma-separated file is a sequence of records that may be split across multiple files",
+              "ISO/IEC 25010:2023 — capacity is the degree to which limits on a product parameter meet requirements"
+            ],
+            "connotation": "Row limits and file-splitting settings that bound the size of generated export files."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106527,7 +106908,24 @@
       "name": "ExportTemplateEntry",
       "sectionId": "ETE",
       "doc": "A reusable export template (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reusability is the degree to which an asset can be used in more than one system",
+          "ISO/IEC 29500-1:2016 — Office Open XML supports document templates for repeatable output"
+        ],
+        "connotation": "A reusable export template that bundles format, field, layout, and access settings for repeated exports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reusability is the degree to which an asset can be used in more than one system",
+              "ISO/IEC 29500-1:2016 — Office Open XML supports document templates for repeatable output"
+            ],
+            "connotation": "A reusable export template that bundles format, field, layout, and access settings for repeated exports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106644,7 +107042,24 @@
       "name": "ExportTemplateEntryAccess",
       "sectionId": "ETEA",
       "doc": "Access and metadata for export template.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts",
+          "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"
+        ],
+        "connotation": "Access-control and metadata settings governing who may use an export template and how it is versioned."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts",
+              "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"
+            ],
+            "connotation": "Access-control and metadata settings governing who may use an export template and how it is versioned."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106715,7 +107130,24 @@
       "name": "ExportTemplateEntryFields",
       "sectionId": "EXTEENFI",
       "doc": "Field and filter settings for export template.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — a comma-separated file arranges records into fields selected for output",
+          "ISO/IEC 25010:2023 — functional appropriateness ensures the selected fields serve the intended task"
+        ],
+        "connotation": "The selection, filtering, and default sorting of fields applied by an export template."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — a comma-separated file arranges records into fields selected for output",
+              "ISO/IEC 25010:2023 — functional appropriateness ensures the selected fields serve the intended task"
+            ],
+            "connotation": "The selection, filtering, and default sorting of fields applied by an export template."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106779,7 +107211,24 @@
       "name": "ExportTemplateEntryFormat",
       "sectionId": "ETEF",
       "doc": "Format configuration for export template.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 4180 — a comma-separated file uses a delimiter and optional header line to structure records",
+          "ISO 8601-1:2019 — a standardized date representation governs the default date format for exported values"
+        ],
+        "connotation": "Default format configuration such as encoding, delimiter, header, and value formatting for an export template."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 4180 — a comma-separated file uses a delimiter and optional header line to structure records",
+              "ISO 8601-1:2019 — a standardized date representation governs the default date format for exported values"
+            ],
+            "connotation": "Default format configuration such as encoding, delimiter, header, and value formatting for an export template."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -106857,7 +107306,26 @@
       "name": "ExportTemplateEntryLayout",
       "sectionId": "ETEL",
       "doc": "Layout configuration for export template.",
+      "standardReferences": {
+        "standards": [
+          "ISO 32000-2:2020 — PDF describes page-level header and footer artifacts for printed output",
+          "ISO/IEC 29500-1:2016 — Office Open XML defines header and footer structures for documents",
+          "W3C CSS Paged Media — page margin boxes carry running headers and footers in paged rendering"
+        ],
+        "connotation": "Layout configuration defining header, footer, branding, and compression for a rendered export template."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 32000-2:2020 — PDF describes page-level header and footer artifacts for printed output",
+              "ISO/IEC 29500-1:2016 — Office Open XML defines header and footer structures for documents",
+              "W3C CSS Paged Media — page margin boxes carry running headers and footers in paged rendering"
+            ],
+            "connotation": "Layout configuration defining header, footer, branding, and compression for a rendered export template."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163120,7 +163588,24 @@
       "name": "NavigationGroupEntry",
       "sectionId": "NAVGRP",
       "doc": "A navigation group entry (form).\n\nLogical grouping of navigation items (e.g., \"Sales\", \"Administration\").",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — related destinations are organised into logical navigation groups",
+          "ISO 9241-14:1997 — a menu group collects related options under a common heading"
+        ],
+        "connotation": "A logical grouping of related navigation items."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — related destinations are organised into logical navigation groups",
+              "ISO 9241-14:1997 — a menu group collects related options under a common heading"
+            ],
+            "connotation": "A logical grouping of related navigation items."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163227,10 +163712,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× NavigationItem.",
+          "help": "Add one entry per navigation item in this group.",
           "sectionId": "NAVIIT-ITEM-LST",
           "sectionIdPattern": "NAVIIT-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-14:1997 — a menu group lists the discrete options it contains",
+              "ISO 9241-151:2008 — navigation items enumerate the destinations reachable within a group"
+            ],
+            "connotation": "The collection of navigation-item entries within a group."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-14:1997 — a menu group lists the discrete options it contains",
+                  "ISO 9241-151:2008 — navigation items enumerate the destinations reachable within a group"
+                ],
+                "connotation": "The collection of navigation-item entries within a group."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -163241,6 +163744,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "NAVIIT-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per navigation item in this group."
               }
             },
             {
@@ -163259,7 +163768,24 @@
       "name": "NavigationGroupEntryAccess",
       "sectionId": "NGEA",
       "doc": "Access-control settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context",
+          "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"
+        ],
+        "connotation": "Access-control settings such as required roles and permission behavior for a navigation group."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context",
+              "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"
+            ],
+            "connotation": "Access-control settings such as required roles and permission behavior for a navigation group."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163316,7 +163842,24 @@
       "name": "NavigationGroupEntryDisplay",
       "sectionId": "NGED",
       "doc": "Display and expansion behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy",
+          "ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups"
+        ],
+        "connotation": "Display order and expansion behavior for a navigation group."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy",
+              "ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups"
+            ],
+            "connotation": "Display order and expansion behavior for a navigation group."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163380,7 +163923,24 @@
       "name": "NavigationGroupEntryStructure",
       "sectionId": "NGES",
       "doc": "Badge and hierarchy settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels",
+          "ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups"
+        ],
+        "connotation": "Badge aggregation and hierarchy placement settings for a navigation group."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels",
+              "ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups"
+            ],
+            "connotation": "Badge aggregation and hierarchy placement settings for a navigation group."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163451,7 +164011,24 @@
       "name": "NavigationGuardEntry",
       "sectionId": "NAVGRD",
       "doc": "A navigation guard entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — Annex A access-control measures restrict navigation to authorized users and contexts",
+          "ISO 9241-110:2020 — use-error tolerance guards the user against unintended or unsafe transitions"
+        ],
+        "connotation": "A single route-guard rule that intercepts navigation for authentication, permission, or unsaved-change checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — Annex A access-control measures restrict navigation to authorized users and contexts",
+              "ISO 9241-110:2020 — use-error tolerance guards the user against unintended or unsafe transitions"
+            ],
+            "connotation": "A single route-guard rule that intercepts navigation for authentication, permission, or unsaved-change checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163545,7 +164122,24 @@
       "name": "NavigationGuardEntryDialog",
       "sectionId": "NAGUENDI",
       "doc": "Covered routes and dialog resources.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work",
+          "ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation"
+        ],
+        "connotation": "The routes covered by a guard together with the dialog resources shown when it intervenes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work",
+              "ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation"
+            ],
+            "connotation": "The routes covered by a guard together with the dialog resources shown when it intervenes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163616,7 +164210,24 @@
       "name": "NavigationGuardEntryRouting",
       "sectionId": "NGER",
       "doc": "Redirect routing and evaluation priority.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability lets users initiate and direct navigation, including redirected routes",
+          "ISO/IEC 25010:2023 — operability covers how predictably guards steer the interaction flow"
+        ],
+        "connotation": "The redirect target and evaluation priority applied when a navigation guard blocks a route."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability lets users initiate and direct navigation, including redirected routes",
+              "ISO/IEC 25010:2023 — operability covers how predictably guards steer the interaction flow"
+            ],
+            "connotation": "The redirect target and evaluation priority applied when a navigation guard blocks a route."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163666,7 +164277,24 @@
       "name": "NavigationGuards",
       "sectionId": "NAGU",
       "doc": "10.3.1.8. Navigation Guards.\n\nRoute guards: unsaved changes, authentication redirects, permission checks.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — Annex A access-control measures enforce authorization before navigation proceeds",
+          "ISO 9241-110:2020 — use-error tolerance protects users from losing unsaved work during transitions"
+        ],
+        "connotation": "The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — Annex A access-control measures enforce authorization before navigation proceeds",
+              "ISO 9241-110:2020 — use-error tolerance protects users from losing unsaved work during transitions"
+            ],
+            "connotation": "The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163716,10 +164344,28 @@
           "name": "guards",
           "kind": "list",
           "doc": "Contains 0+× NavigationGuard.",
+          "help": "Add one entry per navigation guard rule.",
           "sectionId": "NAVGRD-GUAR-LST",
           "sectionIdPattern": "NAVGRD-GUAR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001:2022 — Annex A access-control measures gate protected routes behind guard evaluation",
+              "ISO 9241-110:2020 — controllability keeps the user in charge of transitions the guards mediate"
+            ],
+            "connotation": "The collection of route-guard rules protecting navigation across the application."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001:2022 — Annex A access-control measures gate protected routes behind guard evaluation",
+                  "ISO 9241-110:2020 — controllability keeps the user in charge of transitions the guards mediate"
+                ],
+                "connotation": "The collection of route-guard rules protecting navigation across the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -163730,6 +164376,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "NAVGRD-GUAR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per navigation guard rule."
               }
             },
             {
@@ -163748,7 +164400,26 @@
       "name": "NavigationHierarchy",
       "sectionId": "NAHI",
       "doc": "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation structure.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — the navigation structure reflects the information architecture as a hierarchy",
+          "ISO 9241-14:1997 — hierarchical menu structure arranges destinations into nested levels",
+          "ISO 9241-13:1998 — a consistent hierarchy supports wayfinding through the application"
+        ],
+        "connotation": "The full navigation tree of groups and items forming the application navigation structure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — the navigation structure reflects the information architecture as a hierarchy",
+              "ISO 9241-14:1997 — hierarchical menu structure arranges destinations into nested levels",
+              "ISO 9241-13:1998 — a consistent hierarchy supports wayfinding through the application"
+            ],
+            "connotation": "The full navigation tree of groups and items forming the application navigation structure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163798,10 +164469,28 @@
           "name": "groups",
           "kind": "list",
           "doc": "Contains 0+× NavigationGroup.",
+          "help": "Add one entry per navigation group.",
           "sectionId": "NAVGRP-GROU-LST",
           "sectionIdPattern": "NAVGRP-GROU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation is organised into logical groups of related destinations",
+              "ISO 9241-14:1997 — the top level of a menu hierarchy is a set of named groups"
+            ],
+            "connotation": "The collection of navigation-group entries."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-151:2008 — navigation is organised into logical groups of related destinations",
+                  "ISO 9241-14:1997 — the top level of a menu hierarchy is a set of named groups"
+                ],
+                "connotation": "The collection of navigation-group entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -163812,6 +164501,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "NAVGRP-GROU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per navigation group."
               }
             },
             {
@@ -163830,7 +164525,24 @@
       "name": "NavigationItemEntry",
       "sectionId": "NAVIIT",
       "doc": "A navigation item entry (form).\n\nA single navigable destination within a group.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — each navigation item represents a distinct destination in the information architecture",
+          "ISO 9241-14:1997 — menu options correspond to discrete, selectable destinations"
+        ],
+        "connotation": "A single navigable destination within a navigation group."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — each navigation item represents a distinct destination in the information architecture",
+              "ISO 9241-14:1997 — menu options correspond to discrete, selectable destinations"
+            ],
+            "connotation": "A single navigable destination within a navigation group."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163962,7 +164674,24 @@
       "name": "NavigationItemEntryAccess",
       "sectionId": "NIEA",
       "doc": "Access control for navigation item.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context",
+          "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"
+        ],
+        "connotation": "Access-control settings such as roles, permissions, and visibility conditions for a navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context",
+              "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"
+            ],
+            "connotation": "Access-control settings such as roles, permissions, and visibility conditions for a navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164033,7 +164762,24 @@
       "name": "NavigationItemEntryBadge",
       "sectionId": "NIEB",
       "doc": "Badge configuration for navigation item.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance",
+          "ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible"
+        ],
+        "connotation": "Badge configuration such as type, source, and color for a navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance",
+              "ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible"
+            ],
+            "connotation": "Badge configuration such as type, source, and color for a navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164090,7 +164836,24 @@
       "name": "NavigationItemEntryDisplay",
       "sectionId": "NIED",
       "doc": "Display properties for navigation item.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — clear labels and icons help users recognise navigation destinations",
+          "ISO/IEC 25010:2023 — appropriateness recognisability improves with meaningful item labels and icons"
+        ],
+        "connotation": "Display properties such as labels, icons, and descriptions for a navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — clear labels and icons help users recognise navigation destinations",
+              "ISO/IEC 25010:2023 — appropriateness recognisability improves with meaningful item labels and icons"
+            ],
+            "connotation": "Display properties such as labels, icons, and descriptions for a navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164154,7 +164917,24 @@
       "name": "NavigationItemEntryInteraction",
       "sectionId": "NIEI",
       "doc": "Interaction settings for navigation item.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — supports rapid menu selection through accelerators and shortcuts",
+          "ISO/IEC 25010:2023 — operability improves when destinations respond to search and keyboard input"
+        ],
+        "connotation": "Interaction settings such as keyboard shortcuts, search keywords, and open behavior for a navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — supports rapid menu selection through accelerators and shortcuts",
+              "ISO/IEC 25010:2023 — operability improves when destinations respond to search and keyboard input"
+            ],
+            "connotation": "Interaction settings such as keyboard shortcuts, search keywords, and open behavior for a navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164218,7 +164998,24 @@
       "name": "NavigationItemEntryRouting",
       "sectionId": "NIER",
       "doc": "Routing configuration for navigation item.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — routes map navigation destinations onto the underlying information architecture",
+          "ISO 9241-110:2020 — conformity with user expectations depends on predictable target routing"
+        ],
+        "connotation": "Routing configuration such as target screen, route parameters, and ordering for a navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — routes map navigation destinations onto the underlying information architecture",
+              "ISO 9241-110:2020 — conformity with user expectations depends on predictable target routing"
+            ],
+            "connotation": "Routing configuration such as target screen, route parameters, and ordering for a navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164282,7 +165079,24 @@
       "name": "NavigationModel",
       "sectionId": "NAMO",
       "doc": "10.3.1. Navigation Model.\n\nComprehensive navigation structure: primary, secondary, utility, contextual\nnavigation, deep linking, navigation guards, and platform adaptation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application",
+          "ISO 9241-110:2020 — conformity with user expectations keeps the navigation model predictable"
+        ],
+        "connotation": "The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application",
+              "ISO 9241-110:2020 — conformity with user expectations keeps the navigation model predictable"
+            ],
+            "connotation": "The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164438,7 +165252,24 @@
       "name": "NavigationOverview",
       "sectionId": "NAOV",
       "doc": "10.3.1.1. Navigation Overview.\n\nOverall navigation strategy, routing approach, and design decisions.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — an overall navigation strategy shapes how users move through the application",
+          "ISO 9241-110:2020 — conformity with user expectations depends on a coherent navigation approach"
+        ],
+        "connotation": "The overall navigation strategy, routing approach, and landing-screen decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — an overall navigation strategy shapes how users move through the application",
+              "ISO 9241-110:2020 — conformity with user expectations depends on a coherent navigation approach"
+            ],
+            "connotation": "The overall navigation strategy, routing approach, and landing-screen decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183527,7 +184358,24 @@
       "name": "PrimaryNavigation",
       "sectionId": "PRNA",
       "doc": "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom nav.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — provides guidance on navigation and the structure of links in the interface",
+          "ISO 9241-110:2020 — conformity with user expectations makes navigation predictable and consistent"
+        ],
+        "connotation": "The primary-navigation configuration defining the top-level entry points across platforms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — provides guidance on navigation and the structure of links in the interface",
+              "ISO 9241-110:2020 — conformity with user expectations makes navigation predictable and consistent"
+            ],
+            "connotation": "The primary-navigation configuration defining the top-level entry points across platforms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183645,7 +184493,24 @@
       "name": "PrimaryNavigationBottomNav",
       "sectionId": "PNBN",
       "doc": "Bottom navigation rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — a bounded menu of top-level navigation options for the interface",
+          "ISO/IEC 25010:2023 — a small, labelled option set supports operability and learnability"
+        ],
+        "connotation": "The bottom-navigation rules limiting and styling the primary entry points on compact layouts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — a bounded menu of top-level navigation options for the interface",
+              "ISO/IEC 25010:2023 — a small, labelled option set supports operability and learnability"
+            ],
+            "connotation": "The bottom-navigation rules limiting and styling the primary entry points on compact layouts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183702,7 +184567,24 @@
       "name": "PrimaryNavigationDrawer",
       "sectionId": "PRNADR",
       "doc": "Drawer and rail behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — a menu panel presenting the top-level navigation options",
+          "ISO 9241-110:2020 — controllability lets the user open and dismiss the navigation drawer"
+        ],
+        "connotation": "The drawer and rail behavior for primary navigation, including width, header, and footer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — a menu panel presenting the top-level navigation options",
+              "ISO 9241-110:2020 — controllability lets the user open and dismiss the navigation drawer"
+            ],
+            "connotation": "The drawer and rail behavior for primary navigation, including width, header, and footer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183766,7 +184648,24 @@
       "name": "PrimaryNavigationSidebar",
       "sectionId": "PRNASI",
       "doc": "Sidebar sizing and selection behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — sidebar menus present the top-level navigation options",
+          "ISO 9241-110:2020 — self-descriptiveness makes the selected sidebar item clearly recognisable"
+        ],
+        "connotation": "The sidebar sizing and selected-item styling for primary navigation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — sidebar menus present the top-level navigation options",
+              "ISO 9241-110:2020 — self-descriptiveness makes the selected sidebar item clearly recognisable"
+            ],
+            "connotation": "The sidebar sizing and selected-item styling for primary navigation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183832,7 +184731,26 @@
       "doc": "10.4. Print Layout.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 216:2007 — specifies trimmed sizes of writing paper and certain classes of printed matter",
+          "W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output",
+          "ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output"
+        ],
+        "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 216:2007 — specifies trimmed sizes of writing paper and certain classes of printed matter",
+              "W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output",
+              "ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output"
+            ],
+            "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -183981,10 +184899,28 @@
           "name": "reports",
           "kind": "list",
           "doc": "10.4.1. Reports — contains 0+× Report.",
+          "help": "Add one entry per report.",
           "sectionId": "REEN-REPO-LST",
           "sectionIdPattern": "REEN-REPO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+            ],
+            "connotation": "The collection of report entries available for printing."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+                  "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+                ],
+                "connotation": "The collection of report entries available for printing."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -183995,6 +184931,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REEN-REPO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report."
               }
             },
             {
@@ -184011,10 +184953,28 @@
           "name": "exportFormats",
           "kind": "list",
           "doc": "10.4.2. Export Formats — contains 0+× Export Format.",
+          "help": "Add one entry per export format.",
           "sectionId": "EXFOEN-EXPO-LST",
           "sectionIdPattern": "EXFOEN-EXPO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option",
+              "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"
+            ],
+            "connotation": "The collection of export formats in which printed reports can be produced."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option",
+                  "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"
+                ],
+                "connotation": "The collection of export formats in which printed reports can be produced."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -184025,6 +184985,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXFOEN-EXPO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per export format."
               }
             },
             {
@@ -184041,10 +185007,28 @@
           "name": "exportTemplates",
           "kind": "list",
           "doc": "10.4.3. Export Templates — contains 0+× Export\nTemplate.",
+          "help": "Add one entry per export template.",
           "sectionId": "EXTEEN-EXPO-LST",
           "sectionIdPattern": "EXTEEN-EXPO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use",
+              "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"
+            ],
+            "connotation": "The collection of reusable export templates available for producing formatted output."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use",
+                  "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"
+                ],
+                "connotation": "The collection of reusable export templates available for producing formatted output."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -184055,6 +185039,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXTEEN-EXPO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per export template."
               }
             },
             {
@@ -184073,7 +185063,24 @@
       "name": "PrintLayoutArchive",
       "sectionId": "PRLAAR",
       "doc": "Archive and batch settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle",
+          "ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives"
+        ],
+        "connotation": "The archival and batch-generation settings governing how printed reports are retained and produced in bulk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle",
+              "ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives"
+            ],
+            "connotation": "The archival and batch-generation settings governing how printed reports are retained and produced in bulk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184137,7 +185144,24 @@
       "name": "PrintLayoutBranding",
       "sectionId": "PRLABR",
       "doc": "Branding configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — provides guidance on the visual presentation of information including colour and typography",
+          "ISO/IEC 25010:2023 — defines appropriateness recognisability as the degree to which output suits the intended purpose"
+        ],
+        "connotation": "The branding configuration setting logo, colours, fonts and base sizing applied to printed reports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of information including colour and typography",
+              "ISO/IEC 25010:2023 — defines appropriateness recognisability as the degree to which output suits the intended purpose"
+            ],
+            "connotation": "The branding configuration setting logo, colours, fonts and base sizing applied to printed reports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184208,7 +185232,24 @@
       "name": "PrintLayoutHeaderFooter",
       "sectionId": "PLHF",
       "doc": "Header and footer settings.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages",
+          "ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations"
+        ],
+        "connotation": "The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages",
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations"
+            ],
+            "connotation": "The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184293,7 +185334,24 @@
       "name": "PrintLayoutPageSetup",
       "sectionId": "PLPS",
       "doc": "Page margins and setup.",
+      "standardReferences": {
+        "standards": [
+          "ISO 216:2007 — specifies trimmed sizes of writing paper such as A4 and A3 used to define the printable page",
+          "W3C CSS Paged Media Level 3 — describes page boxes and the margins that surround printed content"
+        ],
+        "connotation": "The default page margins and setup governing the printable area of each report page."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 216:2007 — specifies trimmed sizes of writing paper such as A4 and A3 used to define the printable page",
+              "W3C CSS Paged Media Level 3 — describes page boxes and the margins that surround printed content"
+            ],
+            "connotation": "The default page margins and setup governing the printable area of each report page."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184357,7 +185415,24 @@
       "name": "PrintLayoutWatermark",
       "sectionId": "PRLAWA",
       "doc": "Watermark and confidentiality.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Paged Media Level 3 — describes overlaid content and page-box decoration for printed output",
+          "ISO 9241-125:2017 — provides guidance on the visual presentation of overlaid textual information"
+        ],
+        "connotation": "The watermark and confidentiality marking applied across printed pages to signal document sensitivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Paged Media Level 3 — describes overlaid content and page-box decoration for printed output",
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of overlaid textual information"
+            ],
+            "connotation": "The watermark and confidentiality marking applied across printed pages to signal document sensitivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206394,7 +207469,24 @@
       "name": "ReportChartAxes",
       "sectionId": "RECHAX",
       "doc": "Axes for report chart.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information organises displayed data along axes",
+          "ISO 8601-1:2019 — representation of dates and times informs axis value formatting"
+        ],
+        "connotation": "Axis configuration mapping data fields to chart X-axis and Y-axis dimensions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information organises displayed data along axes",
+              "ISO 8601-1:2019 — representation of dates and times informs axis value formatting"
+            ],
+            "connotation": "Axis configuration mapping data fields to chart X-axis and Y-axis dimensions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206507,7 +207599,24 @@
       "name": "ReportChartDisplay",
       "sectionId": "RECHDI",
       "doc": "Display for report chart.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance covers data labels and informational messages",
+          "ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of displayed values"
+        ],
+        "connotation": "Display settings for a report chart such as data labels and threshold lines."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance covers data labels and informational messages",
+              "ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of displayed values"
+            ],
+            "connotation": "Display settings for a report chart such as data labels and threshold lines."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206585,7 +207694,24 @@
       "name": "ReportChartEntry",
       "sectionId": "REPCHAENT",
       "doc": "A chart/visualization in a report\n(form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information guides layout of a chart",
+          "ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts"
+        ],
+        "connotation": "A single chart definition describing how report data is visualised."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information guides layout of a chart",
+              "ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts"
+            ],
+            "connotation": "A single chart definition describing how report data is visualised."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206640,10 +207766,26 @@
           "name": "axes",
           "kind": "list",
           "doc": "Axes configuration.",
+          "help": "Add one entry per chart axis configuration.",
           "sectionId": "RECHAX-AXES-LST",
           "sectionIdPattern": "RECHAX-AXES-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information organises displayed data along axes"
+            ],
+            "connotation": "The collection of axis configurations for the chart."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — presentation of information organises displayed data along axes"
+                ],
+                "connotation": "The collection of axis configurations for the chart."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -206654,6 +207796,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RECHAX-AXES-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per chart axis configuration."
               }
             },
             {
@@ -206732,7 +207880,24 @@
       "name": "ReportChartInteraction",
       "sectionId": "RECHIN",
       "doc": "Interaction for report chart.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional suitability supports interactive drill-down and navigation from charts",
+          "ISO 9241-13:1998 — user guidance covers tooltips and feedback on chart elements"
+        ],
+        "connotation": "Interaction settings for a report chart such as tooltips and drill-down."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional suitability supports interactive drill-down and navigation from charts",
+              "ISO 9241-13:1998 — user guidance covers tooltips and feedback on chart elements"
+            ],
+            "connotation": "Interaction settings for a report chart such as tooltips and drill-down."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206789,7 +207954,22 @@
       "name": "ReportChartLayout",
       "sectionId": "RECHLA",
       "doc": "Layout for report chart.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information governs sizing and placement of content"
+        ],
+        "connotation": "Width and height layout settings for a report chart."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs sizing and placement of content"
+            ],
+            "connotation": "Width and height layout settings for a report chart."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206839,7 +208019,24 @@
       "name": "ReportChartSeries",
       "sectionId": "RECHSE",
       "doc": "Series for report chart.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — do not use colour as the only visual means of conveying information",
+          "ISO 9241-13:1998 — user guidance covers legends and their placement"
+        ],
+        "connotation": "Series, colour and legend settings that split chart data into distinguishable groups."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — do not use colour as the only visual means of conveying information",
+              "ISO 9241-13:1998 — user guidance covers legends and their placement"
+            ],
+            "connotation": "Series, colour and legend settings that split chart data into distinguishable groups."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206903,7 +208100,24 @@
       "name": "ReportColumnAggregation",
       "sectionId": "RECOAG",
       "doc": "Aggregation settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+          "ISO/IEC 25010:2023 — functional suitability supports summing and averaging of column values"
+        ],
+        "connotation": "Aggregation settings for a report column such as sum, average and conditional formatting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+              "ISO/IEC 25010:2023 — functional suitability supports summing and averaging of column values"
+            ],
+            "connotation": "Aggregation settings for a report column such as sum, average and conditional formatting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206967,7 +208181,24 @@
       "name": "ReportColumnDataSource",
       "sectionId": "RCDS",
       "doc": "Data source and type.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information relates displayed data to its source field",
+          "ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined"
+        ],
+        "connotation": "Data source field and data type binding for a report column."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information relates displayed data to its source field",
+              "ISO/IEC 25010:2023 — functional suitability requires the column value data type to be defined"
+            ],
+            "connotation": "Data source field and data type binding for a report column."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207017,7 +208248,24 @@
       "name": "ReportColumnEntry",
       "sectionId": "REPCOLENT",
       "doc": "A column in a tabular report section\n(form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information organises data into tabular columns",
+          "ISO 9241-13:1998 — user guidance covers column header labels"
+        ],
+        "connotation": "A single column definition within a tabular report section."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information organises data into tabular columns",
+              "ISO 9241-13:1998 — user guidance covers column header labels"
+            ],
+            "connotation": "A single column definition within a tabular report section."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207149,7 +208397,24 @@
       "name": "ReportColumnFormatting",
       "sectionId": "RECOFO",
       "doc": "Display formatting.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting",
+          "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+        ],
+        "connotation": "Display formatting settings for a report column such as width, alignment and value formats."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs width alignment and formatting",
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols"
+            ],
+            "connotation": "Display formatting settings for a report column such as width, alignment and value formats."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207248,7 +208513,22 @@
       "name": "ReportColumnInteraction",
       "sectionId": "RECOIN",
       "doc": "Interaction options.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — functional suitability supports sorting and filtering by a column"
+        ],
+        "connotation": "Interaction options for a report column such as sortable and filterable behaviour."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — functional suitability supports sorting and filtering by a column"
+            ],
+            "connotation": "Interaction options for a report column such as sortable and filterable behaviour."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207298,7 +208578,22 @@
       "name": "ReportColumnLayout",
       "sectionId": "RECOLA",
       "doc": "Visibility and layout.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information governs column visibility and layout"
+        ],
+        "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs column visibility and layout"
+            ],
+            "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207369,7 +208664,24 @@
       "name": "ReportDataSource",
       "sectionId": "REDASO",
       "doc": "Report data source configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — specifies the data-source requirements feeding the report",
+          "ISO/IEC 25010:2023 — functional suitability ties report output to its source data"
+        ],
+        "connotation": "Data source configuration covering source scope currency and generation trigger."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — specifies the data-source requirements feeding the report",
+              "ISO/IEC 25010:2023 — functional suitability ties report output to its source data"
+            ],
+            "connotation": "Data source configuration covering source scope currency and generation trigger."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207433,7 +208745,24 @@
       "name": "ReportDistributionEntry",
       "sectionId": "RDE",
       "doc": "Distribution channel configuration (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — communications management plans the channels by which information reaches stakeholders",
+          "ISO/IEC/IEEE 29148:2018 — captures the distribution requirements for report output"
+        ],
+        "connotation": "A single distribution-channel entry defining how a report is delivered over one channel."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — communications management plans the channels by which information reaches stakeholders",
+              "ISO/IEC/IEEE 29148:2018 — captures the distribution requirements for report output"
+            ],
+            "connotation": "A single distribution-channel entry defining how a report is delivered over one channel."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207535,7 +208864,24 @@
       "name": "ReportDistributionEntryContent",
       "sectionId": "REDIENCO",
       "doc": "Message and attachment content for report distribution.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — designs the message and attachment content delivered to users",
+          "IETF RFC 5322 — defines the subject and body of the email message carrying the report"
+        ],
+        "connotation": "The subject, body, and attachment templates that shape the delivered report message."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs the message and attachment content delivered to users",
+              "IETF RFC 5322 — defines the subject and body of the email message carrying the report"
+            ],
+            "connotation": "The subject, body, and attachment templates that shape the delivered report message."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207599,7 +208945,24 @@
       "name": "ReportDistributionEntryDelivery",
       "sectionId": "RDED",
       "doc": "Delivery conditions and lifecycle settings for report distribution.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reliability of scheduled delivery under conditional and timed sending rules",
+          "ISO/IEC 27001:2022 — protects distributed output through compression and password encryption controls"
+        ],
+        "connotation": "The conditions, security, and timing that govern whether and when a report is distributed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reliability of scheduled delivery under conditional and timed sending rules",
+              "ISO/IEC 27001:2022 — protects distributed output through compression and password encryption controls"
+            ],
+            "connotation": "The conditions, security, and timing that govern whether and when a report is distributed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207698,7 +209061,24 @@
       "name": "ReportDistributionEntryRecipients",
       "sectionId": "REDIENRE",
       "doc": "Recipient and format settings for report distribution.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — communications management distributes information to the identified stakeholders",
+          "ISO/IEC 27001:2022 — access control governs which roles and lists may receive the report"
+        ],
+        "connotation": "The recipient sourcing and per-channel format that determine who receives the distribution and in what form."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — communications management distributes information to the identified stakeholders",
+              "ISO/IEC 27001:2022 — access control governs which roles and lists may receive the report"
+            ],
+            "connotation": "The recipient sourcing and per-channel format that determine who receives the distribution and in what form."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207762,7 +209142,24 @@
       "name": "ReportEntry",
       "sectionId": "REPENT",
       "doc": "A report entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — designs and develops information for use as a report",
+          "ISO 9241-125:2017 — presentation of information organises the report layout"
+        ],
+        "connotation": "A single report definition describing its data source layout sections and output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops information for use as a report",
+              "ISO 9241-125:2017 — presentation of information organises the report layout"
+            ],
+            "connotation": "A single report definition describing its data source layout sections and output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207982,10 +209379,28 @@
           "name": "sections",
           "kind": "list",
           "doc": "Contains 0+× Report Section.",
+          "help": "Add one entry per report section.",
           "sectionId": "RESEE1-SECT-LST",
           "sectionIdPattern": "RESEE1-SECT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information groups related content in sections",
+              "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"
+            ],
+            "connotation": "The collection of report-section entries composing the body of the report."
+          },
           "serializationOrder": 12,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-125:2017 — presentation of information groups related content in sections",
+                  "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"
+                ],
+                "connotation": "The collection of report-section entries composing the body of the report."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -207996,6 +209411,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESEE1-SECT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report section."
               }
             },
             {
@@ -208012,10 +209433,26 @@
           "name": "filters",
           "kind": "list",
           "doc": "Contains 0+× Report Filter.",
+          "help": "Add one entry per report data filter.",
           "sectionId": "REFIEN-FILT-LST",
           "sectionIdPattern": "REFIEN-FILT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"
+            ],
+            "connotation": "The collection of filters that restrict the data included in the report."
+          },
           "serializationOrder": 13,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"
+                ],
+                "connotation": "The collection of filters that restrict the data included in the report."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -208026,6 +209463,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REFIEN-FILT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report data filter."
               }
             },
             {
@@ -208042,10 +209485,28 @@
           "name": "schedules",
           "kind": "list",
           "doc": "Contains 0+× Report Schedule.",
+          "help": "Add one entry per report generation schedule.",
           "sectionId": "RESCEN-SCHE-LST",
           "sectionIdPattern": "RESCEN-SCHE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601-1:2019 — expresses the dates and times at which the report is generated",
+              "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"
+            ],
+            "connotation": "The collection of schedules controlling automated generation of the report."
+          },
           "serializationOrder": 14,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601-1:2019 — expresses the dates and times at which the report is generated",
+                  "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"
+                ],
+                "connotation": "The collection of schedules controlling automated generation of the report."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -208056,6 +209517,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESCEN-SCHE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report generation schedule."
               }
             },
             {
@@ -208072,10 +209539,26 @@
           "name": "distributions",
           "kind": "list",
           "doc": "Contains 0+× Report Distribution.",
+          "help": "Add one entry per report distribution channel.",
           "sectionId": "REDIEN-DIST-LST",
           "sectionIdPattern": "REDIEN-DIST-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"
+            ],
+            "connotation": "The collection of distribution channels through which the report is delivered."
+          },
           "serializationOrder": 15,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"
+                ],
+                "connotation": "The collection of distribution channels through which the report is delivered."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -208086,6 +209569,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REDIEN-DIST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report distribution channel."
               }
             },
             {
@@ -208102,10 +209591,26 @@
           "name": "recipients",
           "kind": "list",
           "doc": "Contains 0+× Recipient.",
+          "help": "Add one entry per report recipient.",
           "sectionId": "REREEN-RECI-LST",
           "sectionIdPattern": "REREEN-RECI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"
+            ],
+            "connotation": "The collection of recipients who receive the generated report."
+          },
           "serializationOrder": 16,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"
+                ],
+                "connotation": "The collection of recipients who receive the generated report."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -208116,6 +209621,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REREEN-RECI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report recipient."
               }
             },
             {
@@ -208134,7 +209645,24 @@
       "name": "ReportFilterEntry",
       "sectionId": "RFE",
       "doc": "A filter parameter for a report (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — captures the requirement for a report filter parameter",
+          "ISO 9241-110:2020 — represents the filter as a controllable parameter in the report interface"
+        ],
+        "connotation": "A single report-filter entry defining one parameter by which report content is filtered."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — captures the requirement for a report filter parameter",
+              "ISO 9241-110:2020 — represents the filter as a controllable parameter in the report interface"
+            ],
+            "connotation": "A single report-filter entry defining one parameter by which report content is filtered."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208236,7 +209764,24 @@
       "name": "ReportFilterEntryBehavior",
       "sectionId": "RFEB",
       "doc": "Scope and validation behavior for a report filter.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — specifies the required and validation constraints on a filter parameter",
+          "ISO 9241-110:2020 — supports error prevention through filter validation and dependency rules"
+        ],
+        "connotation": "The scope, requiredness, and validation rules that govern how a report filter behaves."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — specifies the required and validation constraints on a filter parameter",
+              "ISO 9241-110:2020 — supports error prevention through filter validation and dependency rules"
+            ],
+            "connotation": "The scope, requiredness, and validation rules that govern how a report filter behaves."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208314,7 +209859,24 @@
       "name": "ReportFilterEntryInput",
       "sectionId": "RFEI",
       "doc": "Input and value configuration for a report filter.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter",
+          "ISO 9241-110:2020 — matches the input control to the filter data the user provides"
+        ],
+        "connotation": "The data type, input control, and value source that configure how a report filter accepts input."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — specifies the input data type and value source for a filter parameter",
+              "ISO 9241-110:2020 — matches the input control to the filter data the user provides"
+            ],
+            "connotation": "The data type, input control, and value source that configure how a report filter accepts input."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208399,7 +209961,24 @@
       "name": "ReportFilterEntryPresentation",
       "sectionId": "RFEP",
       "doc": "Presentation options for a report filter.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — presents filter controls in a form that suits the user task",
+          "ISO/IEC/IEEE 26514:2022 — designs how filter parameters are shown to the user"
+        ],
+        "connotation": "The presentation options that control how a report filter appears to and is remembered for the user."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — presents filter controls in a form that suits the user task",
+              "ISO/IEC/IEEE 26514:2022 — designs how filter parameters are shown to the user"
+            ],
+            "connotation": "The presentation options that control how a report filter appears to and is remembered for the user."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208463,7 +210042,24 @@
       "name": "ReportFormat",
       "sectionId": "REFO",
       "doc": "Report output format options.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — produces information for use in multiple output formats",
+          "ISO 216 — standard paper sizes govern the page size of rendered output"
+        ],
+        "connotation": "Output format options covering file format interactivity page size and orientation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — produces information for use in multiple output formats",
+              "ISO 216 — standard paper sizes govern the page size of rendered output"
+            ],
+            "connotation": "Output format options covering file format interactivity page size and orientation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208527,7 +210123,24 @@
       "name": "ReportFormatting",
       "sectionId": "RF",
       "doc": "Report conditional formatting.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — presentation of information uses visual coding to emphasise content",
+          "ISO 9241-112:2017 — presentation of tabular data highlights values by condition"
+        ],
+        "connotation": "Conditional formatting rules governing highlighting of report values."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information uses visual coding to emphasise content",
+              "ISO 9241-112:2017 — presentation of tabular data highlights values by condition"
+            ],
+            "connotation": "Conditional formatting rules governing highlighting of report values."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208577,7 +210190,24 @@
       "name": "ReportGrouping",
       "sectionId": "REGR",
       "doc": "Report sorting and grouping.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — presentation of information groups related content for comprehension",
+          "ISO 9241-112:2017 — presentation of tabular data orders and aggregates rows"
+        ],
+        "connotation": "Sorting and grouping settings covering default order group-by and subtotal display."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information groups related content for comprehension",
+              "ISO 9241-112:2017 — presentation of tabular data orders and aggregates rows"
+            ],
+            "connotation": "Sorting and grouping settings covering default order group-by and subtotal display."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208648,7 +210278,24 @@
       "name": "ReportHeaderFooter",
       "sectionId": "REHEFO",
       "doc": "Report header and footer templates.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Paged Media — defines page header and footer margin content",
+          "ISO/IEC/IEEE 26514:2022 — designs recurring page elements for information for use"
+        ],
+        "connotation": "Header footer and cover-page templates applied to each report page."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Paged Media — defines page header and footer margin content",
+              "ISO/IEC/IEEE 26514:2022 — designs recurring page elements for information for use"
+            ],
+            "connotation": "Header footer and cover-page templates applied to each report page."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208719,7 +210366,24 @@
       "name": "ReportIdentity",
       "sectionId": "REID",
       "doc": "Report identity and context.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — identifies and describes information for use as a report",
+          "ISO/IEC/IEEE 29148:2018 — traces the report to the requirements it satisfies"
+        ],
+        "connotation": "Identity and context describing the report purpose category and related references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — identifies and describes information for use as a report",
+              "ISO/IEC/IEEE 29148:2018 — traces the report to the requirements it satisfies"
+            ],
+            "connotation": "Identity and context describing the report purpose category and related references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208790,7 +210454,24 @@
       "name": "ReportInteractivity",
       "sectionId": "REIN",
       "doc": "Report interactivity and parameters.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — appropriateness recognisability supports interactive report navigation",
+          "ISO 9241-125:2017 — presentation of information enables drill-down exploration of content"
+        ],
+        "connotation": "Interactivity settings covering drill-down targets parameter forms and empty-data handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — appropriateness recognisability supports interactive report navigation",
+              "ISO 9241-125:2017 — presentation of information enables drill-down exploration of content"
+            ],
+            "connotation": "Interactivity settings covering drill-down targets parameter forms and empty-data handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208854,7 +210535,24 @@
       "name": "ReportLayout",
       "sectionId": "RELA",
       "doc": "Report page layout settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 216 — standard paper sizes constrain report page dimensions and margins",
+          "W3C CSS Paged Media — sets page margin boxes for printed output"
+        ],
+        "connotation": "Page layout settings covering top bottom left and right margins of the report."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 216 — standard paper sizes constrain report page dimensions and margins",
+              "W3C CSS Paged Media — sets page margin boxes for printed output"
+            ],
+            "connotation": "Page layout settings covering top bottom left and right margins of the report."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208918,7 +210616,24 @@
       "name": "ReportLifecycle",
       "sectionId": "RELI",
       "doc": "Report lifecycle and archiving.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information",
+          "ISO/IEC 25010:2023 — functional suitability supports controlled report distribution"
+        ],
+        "connotation": "Lifecycle settings covering retention signature approval and archiving of the report."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information",
+              "ISO/IEC 25010:2023 — functional suitability supports controlled report distribution"
+            ],
+            "connotation": "Lifecycle settings covering retention signature approval and archiving of the report."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -208982,7 +210697,24 @@
       "name": "ReportPagination",
       "sectionId": "REPA",
       "doc": "Report pagination settings.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Paged Media — controls page breaks and pagination of rendered content",
+          "ISO 216 — standard paper sizes frame the pagination of printed reports"
+        ],
+        "connotation": "Pagination settings covering row limits page-break style and rows per page."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Paged Media — controls page breaks and pagination of rendered content",
+              "ISO 216 — standard paper sizes frame the pagination of printed reports"
+            ],
+            "connotation": "Pagination settings covering row limits page-break style and rows per page."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209039,7 +210771,26 @@
       "name": "ReportRecipientEntry",
       "sectionId": "RRE",
       "doc": "A recipient entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — identifies the audience that receives information for use",
+          "ISO 21502:2020 — communications management plans stakeholder information distribution",
+          "IETF RFC 5322 — addresses recipients where the reference is an email address"
+        ],
+        "connotation": "A single report-recipient entry identifying who receives a report and how they are referenced."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — identifies the audience that receives information for use",
+              "ISO 21502:2020 — communications management plans stakeholder information distribution",
+              "IETF RFC 5322 — addresses recipients where the reference is an email address"
+            ],
+            "connotation": "A single report-recipient entry identifying who receives a report and how they are referenced."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209148,7 +210899,24 @@
       "name": "ReportRecipientEntryContext",
       "sectionId": "REREENCO",
       "doc": "Recipient business context.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — access control determines the data scope a recipient is permitted to receive",
+          "ISO 21502:2020 — communications management identifies stakeholders by business role"
+        ],
+        "connotation": "The business role and data-scope restriction that qualify what a recipient is entitled to see."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — access control determines the data scope a recipient is permitted to receive",
+              "ISO 21502:2020 — communications management identifies stakeholders by business role"
+            ],
+            "connotation": "The business role and data-scope restriction that qualify what a recipient is entitled to see."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209198,7 +210966,24 @@
       "name": "ReportRecipientEntryDelivery",
       "sectionId": "RRED",
       "doc": "Delivery preferences.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — describes how information for use is delivered to recipients in their preferred form",
+          "ISO 21502:2020 — communications management adapts channel and format to stakeholder preferences"
+        ],
+        "connotation": "The per-recipient preferences for channel, format, locale, and schedule of report delivery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — describes how information for use is delivered to recipients in their preferred form",
+              "ISO 21502:2020 — communications management adapts channel and format to stakeholder preferences"
+            ],
+            "connotation": "The per-recipient preferences for channel, format, locale, and schedule of report delivery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209269,7 +211054,24 @@
       "name": "ReportRecipientEntryLifecycle",
       "sectionId": "RREL",
       "doc": "Lifecycle settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — communications management plans stakeholder information distribution over time",
+          "ISO 8601-1:2019 — represents the effective-from and effective-to dates in an unambiguous form"
+        ],
+        "connotation": "The activation window that governs when a recipient starts and stops receiving reports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — communications management plans stakeholder information distribution over time",
+              "ISO 8601-1:2019 — represents the effective-from and effective-to dates in an unambiguous form"
+            ],
+            "connotation": "The activation window that governs when a recipient starts and stops receiving reports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209333,7 +211135,24 @@
       "name": "ReportScheduleEntry",
       "sectionId": "REPSCHENT",
       "doc": "Scheduling rules for report generation\n(form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 8601-1:2019 — represents dates, times, and recurrence for scheduling in an unambiguous form",
+          "ISO/IEC/IEEE 29148:2018 — captures the requirement for when and how often a report runs"
+        ],
+        "connotation": "A single report-schedule entry defining when and how often a report is generated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 8601-1:2019 — represents dates, times, and recurrence for scheduling in an unambiguous form",
+              "ISO/IEC/IEEE 29148:2018 — captures the requirement for when and how often a report runs"
+            ],
+            "connotation": "A single report-schedule entry defining when and how often a report is generated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209450,7 +211269,24 @@
       "name": "ReportScheduleEntryNotifications",
       "sectionId": "RSEN",
       "doc": "Notification settings for report schedule.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — communications management notifies stakeholders on completion and failure events",
+          "ISO/IEC 25010:2023 — reliability requires alerting on generation failure of a scheduled run"
+        ],
+        "connotation": "The completion and failure notifications sent to interested parties for a scheduled run."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — communications management notifies stakeholders on completion and failure events",
+              "ISO/IEC 25010:2023 — reliability requires alerting on generation failure of a scheduled run"
+            ],
+            "connotation": "The completion and failure notifications sent to interested parties for a scheduled run."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209514,7 +211350,24 @@
       "name": "ReportScheduleEntryOutput",
       "sectionId": "RSEO",
       "doc": "Output configuration for report schedule.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — specifies the output content and destination required from a scheduled run",
+          "ISO/IEC 25010:2023 — reliability of producing the scheduled output at the requested priority"
+        ],
+        "connotation": "The format, destination, and priority applied to the output of a scheduled report run."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — specifies the output content and destination required from a scheduled run",
+              "ISO/IEC 25010:2023 — reliability of producing the scheduled output at the requested priority"
+            ],
+            "connotation": "The format, destination, and priority applied to the output of a scheduled report run."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209592,7 +211445,22 @@
       "name": "ReportScheduleEntryRetry",
       "sectionId": "RSER",
       "doc": "Retry configuration for report schedule.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — reliability and recoverability of a scheduled run through retry on failure"
+        ],
+        "connotation": "The retry policy that governs re-attempts when a scheduled report run fails."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — reliability and recoverability of a scheduled run through retry on failure"
+            ],
+            "connotation": "The retry policy that governs re-attempts when a scheduled report run fails."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209649,7 +211517,24 @@
       "name": "ReportScheduleEntryTiming",
       "sectionId": "RSET",
       "doc": "Timing configuration for report schedule.",
+      "standardReferences": {
+        "standards": [
+          "ISO 8601-1:2019 — represents start dates, end dates, and generation windows in an unambiguous form",
+          "ISO/IEC 25010:2023 — reliability of running generation within the configured time window and timeout"
+        ],
+        "connotation": "The cron expression, timezone, and window that determine exactly when a report is generated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 8601-1:2019 — represents start dates, end dates, and generation windows in an unambiguous form",
+              "ISO/IEC 25010:2023 — reliability of running generation within the configured time window and timeout"
+            ],
+            "connotation": "The cron expression, timezone, and window that determine exactly when a report is generated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209727,7 +211612,24 @@
       "name": "ReportSectionAggregation",
       "sectionId": "RESEAG",
       "doc": "Aggregation and limits.",
+      "standardReferences": {
+        "standards": [
+          "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+          "ISO/IEC 25010:2023 — functional suitability supports section totals and row limits"
+        ],
+        "connotation": "Aggregation and row-limit settings for a report section such as totals and overflow behaviour."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 80000-1:2022 — general principles for quantities units and their symbols",
+              "ISO/IEC 25010:2023 — functional suitability supports section totals and row limits"
+            ],
+            "connotation": "Aggregation and row-limit settings for a report section such as totals and overflow behaviour."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209791,7 +211693,24 @@
       "name": "ReportSectionData",
       "sectionId": "RESEDA",
       "doc": "Data source configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information relates displayed content to its data source",
+          "ISO/IEC 25010:2023 — functional suitability requires the section data source to be defined"
+        ],
+        "connotation": "Data source and scope configuration for a report section."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information relates displayed content to its data source",
+              "ISO/IEC 25010:2023 — functional suitability requires the section data source to be defined"
+            ],
+            "connotation": "Data source and scope configuration for a report section."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209862,7 +211781,24 @@
       "name": "ReportSectionEntry",
       "sectionId": "RSE",
       "doc": "A section within a report (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — presentation of information groups related content into sections",
+          "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"
+        ],
+        "connotation": "A single section within a report describing its data layout sorting and content."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information groups related content into sections",
+              "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"
+            ],
+            "connotation": "A single section within a report describing its data layout sorting and content."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -209977,10 +211913,26 @@
           "name": "columns",
           "kind": "list",
           "doc": "Contains 0+× Report Column.",
+          "help": "Add one entry per column in the section table.",
           "sectionId": "RECOE1-COLU-LST",
           "sectionIdPattern": "RECOE1-COLU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information organises tabular data into columns"
+            ],
+            "connotation": "The collection of column entries defining the tabular layout of this report section."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — presentation of information organises tabular data into columns"
+                ],
+                "connotation": "The collection of column entries defining the tabular layout of this report section."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -209991,6 +211943,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RECOE1-COLU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per column in the section table."
               }
             },
             {
@@ -210007,10 +211965,26 @@
           "name": "charts",
           "kind": "list",
           "doc": "Contains 0+× Report Chart.",
+          "help": "Add one entry per chart shown in the section.",
           "sectionId": "RECHEN-CHAR-LST",
           "sectionIdPattern": "RECHEN-CHAR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form"
+            ],
+            "connotation": "The collection of chart entries rendered within this report section."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form"
+                ],
+                "connotation": "The collection of chart entries rendered within this report section."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -210021,6 +211995,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RECHEN-CHAR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per chart shown in the section."
               }
             },
             {
@@ -210039,7 +212019,22 @@
       "name": "ReportSectionLayout",
       "sectionId": "RESELA",
       "doc": "Layout and page settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information governs page layout and grouping"
+        ],
+        "connotation": "Layout and page settings for a report section such as page breaks and orientation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs page layout and grouping"
+            ],
+            "connotation": "Layout and page settings for a report section such as page breaks and orientation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -210131,7 +212126,24 @@
       "name": "ReportSectionSorting",
       "sectionId": "RESESO",
       "doc": "Sorting and grouping.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information supports grouping of related data",
+          "ISO/IEC 25010:2023 — functional suitability supports sorting and grouping of section rows"
+        ],
+        "connotation": "Sorting and grouping settings for a report section such as sort field and group subtotals."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information supports grouping of related data",
+              "ISO/IEC 25010:2023 — functional suitability supports sorting and grouping of section rows"
+            ],
+            "connotation": "Sorting and grouping settings for a report section such as sort field and group subtotals."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -210195,7 +212207,24 @@
       "name": "ReportSecurity",
       "sectionId": "RESE",
       "doc": "Report security and access.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties",
+          "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"
+        ],
+        "connotation": "Security settings covering access levels roles and data-level restrictions for the report."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties",
+              "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"
+            ],
+            "connotation": "Security settings covering access levels roles and data-level restrictions for the report."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231587,7 +233616,24 @@
       "doc": "10.3. Screen Flow Structure.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application",
+          "ISO 9241-110:2020 — conformity with user expectations keeps screen flow predictable"
+        ],
+        "connotation": "The screen-flow structure describing how screens connect and how users move between them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — describes the conceptual structure and navigation of a web application",
+              "ISO 9241-110:2020 — conformity with user expectations keeps screen flow predictable"
+            ],
+            "connotation": "The screen-flow structure describing how screens connect and how users move between them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232608,7 +234654,24 @@
       "name": "SecondaryNavigation",
       "sectionId": "SENA",
       "doc": "10.3.1.4. Secondary Navigation.\n\nIn-page navigation: tab bars, segmented controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — in-page navigation links related content within a single screen",
+          "ISO 9241-143:2012 — tab bars and segmented controls group selectable in-page views"
+        ],
+        "connotation": "The secondary-navigation configuration providing in-page tab bars and segmented controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — in-page navigation links related content within a single screen",
+              "ISO 9241-143:2012 — tab bars and segmented controls group selectable in-page views"
+            ],
+            "connotation": "The secondary-navigation configuration providing in-page tab bars and segmented controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232658,10 +234721,26 @@
           "name": "tabBars",
           "kind": "list",
           "doc": "Contains 0+× TabBarDefinition.",
+          "help": "Add one entry per tab bar or segmented control.",
           "sectionId": "TBDE-TABB-LST",
           "sectionIdPattern": "TBDE-TABB-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"
+            ],
+            "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"
+                ],
+                "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -232672,6 +234751,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TBDE-TABB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per tab bar or segmented control."
               }
             },
             {
@@ -268627,7 +270712,24 @@
       "name": "TabBarDefinitionEntry",
       "sectionId": "TABADEEN",
       "doc": "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — a grouped set of selectable controls forming a tab bar",
+          "ISO 9241-151:2008 — in-page navigation structures link the user to related content"
+        ],
+        "connotation": "A tab bar or segmented control definition bound to a specific host screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — a grouped set of selectable controls forming a tab bar",
+              "ISO 9241-151:2008 — in-page navigation structures link the user to related content"
+            ],
+            "connotation": "A tab bar or segmented control definition bound to a specific host screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268719,10 +270821,26 @@
           "name": "tabs",
           "kind": "list",
           "doc": "Contains 1+× TabItem.",
+          "help": "Add one entry per tab item in the tab bar.",
           "sectionId": "TAITEN-TABS-LST",
           "sectionIdPattern": "TAITEN-TABS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar"
+            ],
+            "connotation": "The collection of individual tab items belonging to this tab bar."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar"
+                ],
+                "connotation": "The collection of individual tab items belonging to this tab bar."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -268733,6 +270851,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TAITEN-TABS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per tab item in the tab bar."
               }
             },
             {
@@ -268758,7 +270882,24 @@
       "name": "TabBarDefinitionEntryBehavior",
       "sectionId": "TBDEB",
       "doc": "Position and selection behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — the arrangement and default selection of grouped tab controls",
+          "ISO 9241-110:2020 — conformity with user expectations makes tab selection predictable"
+        ],
+        "connotation": "The positioning and default-selection behavior of a tab bar."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — the arrangement and default selection of grouped tab controls",
+              "ISO 9241-110:2020 — conformity with user expectations makes tab selection predictable"
+            ],
+            "connotation": "The positioning and default-selection behavior of a tab bar."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268822,7 +270963,24 @@
       "name": "TabBarDefinitionEntryLoading",
       "sectionId": "TBDEL",
       "doc": "Visibility and loading profile.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — controlled loading of navigation content supports responsive interaction",
+          "ISO 9241-110:2020 — controllability lets the user govern how and when content is presented"
+        ],
+        "connotation": "The visibility and loading behavior governing when and how tab content is shown."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — controlled loading of navigation content supports responsive interaction",
+              "ISO 9241-110:2020 — controllability lets the user govern how and when content is presented"
+            ],
+            "connotation": "The visibility and loading behavior governing when and how tab content is shown."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268879,7 +271037,24 @@
       "name": "TabItemEntry",
       "sectionId": "TIE",
       "doc": "A tab item entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — a single selectable control within a grouped set of tab entries",
+          "ISO 9241-13:1998 — labels and icons guide the user toward the intended content"
+        ],
+        "connotation": "A single tab item defining its label, icon, target content, and visibility rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — a single selectable control within a grouped set of tab entries",
+              "ISO 9241-13:1998 — labels and icons guide the user toward the intended content"
+            ],
+            "connotation": "A single tab item defining its label, icon, target content, and visibility rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297379,7 +299554,24 @@
       "name": "UtilityMenuItemEntry",
       "sectionId": "UTMEITEN",
       "doc": "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues structure selectable options within utility and popup menus",
+          "ISO 9241-13:1998 — user guidance labels and icons help users recognise each option"
+        ],
+        "connotation": "A single entry within a utility popup or dropdown menu, such as a user-menu option."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues structure selectable options within utility and popup menus",
+              "ISO 9241-13:1998 — user guidance labels and icons help users recognise each option"
+            ],
+            "connotation": "A single entry within a utility popup or dropdown menu, such as a user-menu option."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297410,6 +299602,7 @@
             {
               "name": "menuItemId",
               "label": "Menu Item ID",
+              "hint": "Unique identifier, e.g., menu-item-logout",
               "type": "String",
               "required": true
             },
@@ -297472,7 +299665,24 @@
       "name": "UtilityMenuItemEntryAction",
       "sectionId": "UMIEA",
       "doc": "Routing and action references.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues associate each option with a defined action or destination",
+          "ISO 9241-151:2008 — links direct users to further interface locations in a predictable way"
+        ],
+        "connotation": "The routing target and action reference invoked when a utility menu item is selected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues associate each option with a defined action or destination",
+              "ISO 9241-151:2008 — links direct users to further interface locations in a predictable way"
+            ],
+            "connotation": "The routing target and action reference invoked when a utility menu item is selected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297529,7 +299739,24 @@
       "name": "UtilityMenuItemEntryBehavior",
       "sectionId": "UMIEB",
       "doc": "Visibility and confirmation behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions",
+          "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"
+        ],
+        "connotation": "The visibility conditions, permission checks, and confirmation behavior for a utility menu item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions",
+              "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"
+            ],
+            "connotation": "The visibility conditions, permission checks, and confirmation behavior for a utility menu item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297593,7 +299820,24 @@
       "name": "UtilityNavigation",
       "sectionId": "UTNA",
       "doc": "10.3.1.5. Utility Navigation.\n\nAlways-visible utility items: user menu, notifications, help, settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues describe persistent utility menus for help, settings, and account access",
+          "ISO 9241-151:2008 — navigation aids provide consistent entry points to cross-cutting functions"
+        ],
+        "connotation": "The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues describe persistent utility menus for help, settings, and account access",
+              "ISO 9241-151:2008 — navigation aids provide consistent entry points to cross-cutting functions"
+            ],
+            "connotation": "The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297627,10 +299871,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× UtilityNavigationItem.",
+          "help": "Add one entry per utility navigation item.",
           "sectionId": "UNIE-ITEM-LST",
           "sectionIdPattern": "UNIE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points",
+              "ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions"
+            ],
+            "connotation": "The collection of utility navigation items shown persistently in the app bar or drawer."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points",
+                  "ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions"
+                ],
+                "connotation": "The collection of utility navigation items shown persistently in the app bar or drawer."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -297641,6 +299903,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UNIE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per utility navigation item."
               }
             },
             {
@@ -297659,7 +299927,24 @@
       "name": "UtilityNavigationItemEntry",
       "sectionId": "UTNAITEN",
       "doc": "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues cover persistent utility entry points such as user and help menus",
+          "ISO 9241-13:1998 — user guidance uses recognisable icons and labels for always-visible controls"
+        ],
+        "connotation": "A single persistent utility element in the app bar, such as the user avatar or notifications bell."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues cover persistent utility entry points such as user and help menus",
+              "ISO 9241-13:1998 — user guidance uses recognisable icons and labels for always-visible controls"
+            ],
+            "connotation": "A single persistent utility element in the app bar, such as the user avatar or notifications bell."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297751,10 +300036,26 @@
           "name": "menuItems",
           "kind": "list",
           "doc": "Contains 0+× UtilityMenuItem.",
+          "help": "Add one entry per utility menu item.",
           "sectionId": "UMIE-MENU-LST",
           "sectionIdPattern": "UMIE-MENU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"
+            ],
+            "connotation": "The collection of nested menu item entries belonging to a utility navigation item."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"
+                ],
+                "connotation": "The collection of nested menu item entries belonging to a utility navigation item."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -297765,6 +300066,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UMIE-MENU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per utility menu item."
               }
             },
             {
@@ -297783,7 +300090,24 @@
       "name": "UtilityNavigationItemEntryBehavior",
       "sectionId": "UNIEB",
       "doc": "Badge and interaction behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet",
+          "ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting"
+        ],
+        "connotation": "The badge display and interaction behavior triggered when a utility navigation item is used."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet",
+              "ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting"
+            ],
+            "connotation": "The badge display and interaction behavior triggered when a utility navigation item is used."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -297847,7 +300171,24 @@
       "name": "UtilityNavigationItemEntryDisplay",
       "sectionId": "UNIED",
       "doc": "Ordering, rendering, and access rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
+          "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
+        ],
+        "connotation": "The display order, widget rendering, and access rules governing a utility navigation item."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
+              "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
+            ],
+            "connotation": "The display order, widget rendering, and access rules governing a utility navigation item."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

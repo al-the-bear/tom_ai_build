@@ -257,7 +257,7 @@ section-types:
     pattern-check-id:
       pattern: ^delnpt_patt_lst-\d+$
       error-message: ID must match delnpt_patt_lst-NNN
-    description: Contains 0+× DeepLinkPattern.
+    description: Add one entry per deep-link URL pattern.
   DEMAEN-DECI-LST:
     prefix: demaen_deci_lst
     pattern-check-id:
@@ -317,7 +317,7 @@ section-types:
     pattern-check-id:
       pattern: ^exfoen_expo_lst-\d+$
       error-message: ID must match exfoen_expo_lst-NNN
-    description: 10.4.2. Export Formats — contains 0+× Export Format.
+    description: Add one entry per export format.
   EXINEN-INTE-LST:
     prefix: exinen_inte_lst
     pattern-check-id:
@@ -335,13 +335,13 @@ section-types:
     pattern-check-id:
       pattern: ^exsise_size_lst-\d+$
       error-message: ID must match exsise_size_lst-NNN
-    description: Size and splitting.
+    description: Add one entry per size-and-splitting setting.
   EXTEEN-EXPO-LST:
     prefix: exteen_expo_lst
     pattern-check-id:
       pattern: ^exteen_expo_lst-\d+$
       error-message: ID must match exteen_expo_lst-NNN
-    description: 10.4.3. Export Templates — contains 0+× Export
+    description: Add one entry per export template.
   FAMREF-COMP-LST:
     prefix: famref_comp_lst
     pattern-check-id:
@@ -498,19 +498,19 @@ section-types:
     pattern-check-id:
       pattern: ^navgrd_guar_lst-\d+$
       error-message: ID must match navgrd_guar_lst-NNN
-    description: Contains 0+× NavigationGuard.
+    description: Add one entry per navigation guard rule.
   NAVGRP-GROU-LST:
     prefix: navgrp_grou_lst
     pattern-check-id:
       pattern: ^navgrp_grou_lst-\d+$
       error-message: ID must match navgrp_grou_lst-NNN
-    description: Contains 0+× NavigationGroup.
+    description: Add one entry per navigation group.
   NAVIIT-ITEM-LST:
     prefix: naviit_item_lst
     pattern-check-id:
       pattern: ^naviit_item_lst-\d+$
       error-message: ID must match naviit_item_lst-NNN
-    description: Contains 0+× NavigationItem.
+    description: Add one entry per navigation item in this group.
   OPPAPO-ITEM-LST:
     prefix: oppapo_item_lst
     pattern-check-id:
@@ -624,19 +624,19 @@ section-types:
     pattern-check-id:
       pattern: ^rechax_axes_lst-\d+$
       error-message: ID must match rechax_axes_lst-NNN
-    description: Axes configuration.
+    description: Add one entry per chart axis configuration.
   RECHEN-CHAR-LST:
     prefix: rechen_char_lst
     pattern-check-id:
       pattern: ^rechen_char_lst-\d+$
       error-message: ID must match rechen_char_lst-NNN
-    description: Contains 0+× Report Chart.
+    description: Add one entry per chart shown in the section.
   RECOE1-COLU-LST:
     prefix: recoe1_colu_lst
     pattern-check-id:
       pattern: ^recoe1_colu_lst-\d+$
       error-message: ID must match recoe1_colu_lst-NNN
-    description: Contains 0+× Report Column.
+    description: Add one entry per column in the section table.
   RECOEN-REGU-LST:
     prefix: recoen_regu_lst
     pattern-check-id:
@@ -648,7 +648,7 @@ section-types:
     pattern-check-id:
       pattern: ^redien_dist_lst-\d+$
       error-message: ID must match redien_dist_lst-NNN
-    description: Contains 0+× Report Distribution.
+    description: Add one entry per report distribution channel.
   REDOEN-RELA-LST:
     prefix: redoen_rela_lst
     pattern-check-id:
@@ -660,7 +660,7 @@ section-types:
     pattern-check-id:
       pattern: ^refien_filt_lst-\d+$
       error-message: ID must match refien_filt_lst-NNN
-    description: Contains 0+× Report Filter.
+    description: Add one entry per report data filter.
   REFUDE-FUNC-LST:
     prefix: refude_func_lst
     pattern-check-id:
@@ -684,19 +684,19 @@ section-types:
     pattern-check-id:
       pattern: ^rereen_reci_lst-\d+$
       error-message: ID must match rereen_reci_lst-NNN
-    description: Contains 0+× Recipient.
+    description: Add one entry per report recipient.
   RESCEN-SCHE-LST:
     prefix: rescen_sche_lst
     pattern-check-id:
       pattern: ^rescen_sche_lst-\d+$
       error-message: ID must match rescen_sche_lst-NNN
-    description: Contains 0+× Report Schedule.
+    description: Add one entry per report generation schedule.
   RESEE1-SECT-LST:
     prefix: resee1_sect_lst
     pattern-check-id:
       pattern: ^resee1_sect_lst-\d+$
       error-message: ID must match resee1_sect_lst-NNN
-    description: Contains 0+× Report Section.
+    description: Add one entry per report section.
   RESEEN-SECT-LST:
     prefix: reseen_sect_lst
     pattern-check-id:
@@ -879,7 +879,7 @@ section-types:
     pattern-check-id:
       pattern: ^taiten_tabs_lst-\d+$
       error-message: ID must match taiten_tabs_lst-NNN
-    description: Contains 1+× TabItem.
+    description: Add one entry per tab item in the tab bar.
   TEDAVA-VARI-LST:
     prefix: tedava_vari_lst
     pattern-check-id:
@@ -2751,7 +2751,7 @@ section-types:
     pattern-check-id:
       pattern: ^efme_fiel_lst-\d+$
       error-message: ID must match efme_fiel_lst-NNN
-    description: Contains 0+× Export Field Mapping.
+    description: Add one entry per export field mapping.
   EPCE-PART-LST:
     prefix: epce_part_lst
     pattern-check-id:
@@ -2932,7 +2932,7 @@ section-types:
     pattern-check-id:
       pattern: ^reen_repo_lst-\d+$
       error-message: ID must match reen_repo_lst-NNN
-    description: 10.4.1. Reports — contains 0+× Report.
+    description: Add one entry per report.
   RERE-REQU-LST:
     prefix: rere_requ_lst
     pattern-check-id:
@@ -3077,7 +3077,7 @@ section-types:
     pattern-check-id:
       pattern: ^tbde_tabb_lst-\d+$
       error-message: ID must match tbde_tabb_lst-NNN
-    description: Contains 0+× TabBarDefinition.
+    description: Add one entry per tab bar or segmented control.
   TECN-ITEM-LST:
     prefix: tecn_item_lst
     pattern-check-id:
@@ -3161,13 +3161,13 @@ section-types:
     pattern-check-id:
       pattern: ^umie_menu_lst-\d+$
       error-message: ID must match umie_menu_lst-NNN
-    description: Contains 0+× UtilityMenuItem.
+    description: Add one entry per utility menu item.
   UNIE-ITEM-LST:
     prefix: unie_item_lst
     pattern-check-id:
       pattern: ^unie_item_lst-\d+$
       error-message: ID must match unie_item_lst-NNN
-    description: Contains 0+× UtilityNavigationItem.
+    description: Add one entry per utility navigation item.
   USCA-USER-LST:
     prefix: usca_user_lst
     min-count-in-document: 1
