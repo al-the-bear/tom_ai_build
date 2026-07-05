@@ -21145,6 +21145,14 @@ class PostMaintenanceValidationClosure {
 }
 
 /// 8.6. Communication Requirements.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'IETF RFC 8446 — TLS 1.3',
+    'ISO/IEC 7498 — OSI reference model',
+  ],
+  'Defines the network communication requirements: protocols, transport security, API conventions, and external connectivity.',
+)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
 @ContentHelp('''
@@ -21243,6 +21251,14 @@ Standardized protocols ensure interoperability and security.
 - Content negotiation (media type)
 - Deprecation and sunset policies
 ''')
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'IETF RFC 8446 — TLS 1.3',
+    'ISO/IEC 7498 — OSI reference model',
+  ],
+  'Specifies the communication protocols, security standards, and API conventions the system uses.',
+)
 @SectionId('PASS')
 class ProtocolsAndStandardsSection {
   @ContentHelp('''
@@ -21270,8 +21286,13 @@ Provide an overview of protocol and standards approach.
   TextSection overview = TextSection();
 
   /// Protocol catalog — contains 0+× Protocol.
+  @StandardReferences(
+    ['IETF RFC 9110 — HTTP semantics'],
+    'The communication protocols the system supports.',
+  )
   @SectionId('PREN-PROT-LST')
   @SectionIdPattern('PREN-PROT-xxx')
+  @ContentHelp('Add one entry per protocol.')
   @SerializationOrder(2)
   List<ProtocolEntry> protocols = [];
 
@@ -21301,6 +21322,13 @@ Provide an overview of protocol and standards approach.
 }
 
 /// A protocol or standard entry (form).
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'ISO/IEC 7498 — OSI reference model',
+  ],
+  'Describes a single communication protocol entry with its version and transport layer.',
+)
 @SectionId('PE')
 class ProtocolEntry {
   @Form([
@@ -21322,6 +21350,13 @@ class ProtocolEntry {
 }
 
 /// Authentication and serialization.
+@StandardReferences(
+  [
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+    'JSON / IETF RFC 8259 — data interchange format',
+  ],
+  'Defines the protocol authentication method, authorization scheme, and message serialization.',
+)
 @SectionId('PRAUSE')
 class ProtocolAuthSerialization {
   @Form([
@@ -21341,6 +21376,13 @@ class ProtocolAuthSerialization {
 }
 
 /// Performance settings.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'ISO/IEC 7498 — OSI reference model',
+  ],
+  'Defines protocol performance settings such as message size, pooling, and timeouts.',
+)
 @SectionId('PRPE')
 class ProtocolPerformance {
   @Form([
@@ -21360,6 +21402,13 @@ class ProtocolPerformance {
 }
 
 /// Reliability and delivery.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'ISO/IEC 7498 — OSI reference model',
+  ],
+  'Defines retry policy, idempotency, and delivery guarantees for the protocol.',
+)
 @SectionId('PRRE')
 class ProtocolReliability {
   @Form([
@@ -21375,6 +21424,12 @@ class ProtocolReliability {
 }
 
 /// Usage and notes.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Describes which components use the protocol and its directionality.',
+)
 @SectionId('PRUS')
 class ProtocolUsage {
   @Form([
@@ -21390,6 +21445,13 @@ class ProtocolUsage {
 }
 
 /// TLS/SSL requirements.
+@StandardReferences(
+  [
+    'IETF RFC 8446 — TLS 1.3',
+    'IETF RFC 5280 — X.509 PKI certificates',
+  ],
+  'Defines the minimum, preferred, and disabled TLS versions for transport security.',
+)
 @SectionId('TLRE')
 class TlsRequirements {
   @Form([
@@ -21422,6 +21484,12 @@ class TlsRequirements {
 }
 
 /// Cipher suite policy.
+@StandardReferences(
+  [
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Defines allowed and disabled cipher suites and key-exchange algorithms.',
+)
 @SectionId('TRCS')
 class TlsRequirementsCipherSuites {
   @Form([
@@ -21437,6 +21505,13 @@ class TlsRequirementsCipherSuites {
 }
 
 /// Certificate validation rules.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Defines certificate pinning, OCSP stapling, and mutual-TLS validation rules.',
+)
 @SectionId('TRCV')
 class TlsRequirementsCertificateValidation {
   @Form([
@@ -21452,6 +21527,12 @@ class TlsRequirementsCertificateValidation {
 }
 
 /// Termination and internal encryption.
+@StandardReferences(
+  [
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Defines where TLS is terminated and whether internal service-to-service traffic is encrypted.',
+)
 @SectionId('TLRETE')
 class TlsRequirementsTermination {
   @Form([
@@ -21465,6 +21546,13 @@ class TlsRequirementsTermination {
 }
 
 /// Compliance and HSTS settings.
+@StandardReferences(
+  [
+    'IETF RFC 8446 — TLS 1.3',
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines TLS compliance targets and HSTS enforcement settings.',
+)
 @SectionId('TLRECO')
 class TlsRequirementsCompliance {
   @Form([
@@ -21483,6 +21571,13 @@ class TlsRequirementsCompliance {
 }
 
 /// Certificate management.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Defines the certificate authority, type, and overall certificate management approach.',
+)
 @SectionId('CEMA')
 class CertificateManagement {
   @Form([
@@ -21513,6 +21608,12 @@ class CertificateManagement {
 }
 
 /// Key specifications.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+  ],
+  'Defines the key algorithm, length, and signature algorithm for certificates.',
+)
 @SectionId('CEMAKE')
 class CertificateManagementKeys {
   @Form([
@@ -21528,6 +21629,12 @@ class CertificateManagementKeys {
 }
 
 /// Lifecycle management.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+  ],
+  'Defines certificate validity, renewal, rotation, and revocation lifecycle.',
+)
 @SectionId('CEMALI')
 class CertificateManagementLifecycle {
   @Form([
@@ -21547,6 +21654,12 @@ class CertificateManagementLifecycle {
 }
 
 /// Storage and access controls.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+  ],
+  'Defines how certificates and private keys are stored, protected, and access-controlled.',
+)
 @SectionId('CEMAST')
 class CertificateManagementStorage {
   @Form([
@@ -21562,6 +21675,12 @@ class CertificateManagementStorage {
 }
 
 /// Monitoring rules.
+@StandardReferences(
+  [
+    'IETF RFC 5280 — X.509 PKI certificates',
+  ],
+  'Defines certificate expiry monitoring and alert thresholds.',
+)
 @SectionId('CEMAMO')
 class CertificateManagementMonitoring {
   @Form([
@@ -21577,6 +21696,13 @@ class CertificateManagementMonitoring {
 }
 
 /// API versioning strategy.
+@StandardReferences(
+  [
+    'SemVer — semantic versioning',
+    'OpenAPI Specification — REST API description',
+  ],
+  'Defines the overall API versioning scheme, format, and current version.',
+)
 @SectionId('APVEST')
 class ApiVersioningStrategy {
   @Form([
@@ -21607,6 +21733,13 @@ class ApiVersioningStrategy {
 }
 
 /// Supported versions and deprecation commitments.
+@StandardReferences(
+  [
+    'SemVer — semantic versioning',
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines supported API versions and their deprecation and sunset commitments.',
+)
 @SectionId('AVSS')
 class ApiVersioningStrategySupport {
   @Form([
@@ -21624,6 +21757,13 @@ class ApiVersioningStrategySupport {
 }
 
 /// Compatibility guarantees and migration expectations.
+@StandardReferences(
+  [
+    'SemVer — semantic versioning',
+    'OpenAPI Specification — REST API description',
+  ],
+  'Defines backward-compatibility guarantees, breaking-change policy, and migration guidance.',
+)
 @SectionId('AVSC')
 class ApiVersioningStrategyCompatibility {
   @Form([
@@ -21639,6 +21779,13 @@ class ApiVersioningStrategyCompatibility {
 }
 
 /// Documentation and client generation practices.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'AsyncAPI — event-driven API description',
+  ],
+  'Defines API documentation formats and client SDK generation practices.',
+)
 @SectionId('AVSD')
 class ApiVersioningStrategyDocumentation {
   @Form([
@@ -21656,6 +21803,13 @@ class ApiVersioningStrategyDocumentation {
 }
 
 /// Message format standards.
+@StandardReferences(
+  [
+    'JSON / IETF RFC 8259 — data interchange format',
+    'Protocol Buffers — binary serialization',
+  ],
+  'Defines the message serialization formats the system uses on the wire.',
+)
 @SectionId('MEFOST')
 class MessageFormatStandards {
   @Form([
@@ -21688,6 +21842,13 @@ class MessageFormatStandards {
 }
 
 /// Schema standards.
+@StandardReferences(
+  [
+    'JSON / IETF RFC 8259 — data interchange format',
+    'Protocol Buffers — binary serialization',
+  ],
+  'Defines schema definition, registry, evolution, and validation standards.',
+)
 @SectionId('MFSS')
 class MessageFormatStandardsSchema {
   @Form([
@@ -21705,6 +21866,12 @@ class MessageFormatStandardsSchema {
 }
 
 /// Field conventions.
+@StandardReferences(
+  [
+    'JSON / IETF RFC 8259 — data interchange format',
+  ],
+  'Defines field-level conventions for dates, encoding, nulls, enums, and naming.',
+)
 @SectionId('MFSC')
 class MessageFormatStandardsConventions {
   @Form([
@@ -21724,6 +21891,13 @@ class MessageFormatStandardsConventions {
 }
 
 /// Pagination and error envelopes.
+@StandardReferences(
+  [
+    'JSON / IETF RFC 8259 — data interchange format',
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines pagination formats and standardized error and response envelopes.',
+)
 @SectionId('MFSR')
 class MessageFormatStandardsResponses {
   @Form([
@@ -21739,6 +21913,13 @@ class MessageFormatStandardsResponses {
 }
 
 /// Compression and negotiation.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'JSON / IETF RFC 8259 — data interchange format',
+  ],
+  'Defines message compression algorithms and content negotiation behavior.',
+)
 @SectionId('MFST')
 class MessageFormatStandardsTransport {
   @Form([
@@ -21754,6 +21935,12 @@ class MessageFormatStandardsTransport {
 }
 
 /// Rate limiting and throttling.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines the rate limiting and throttling policy for API traffic.',
+)
 @SectionId('RALIPO')
 class RateLimitingPolicy {
   @Form([
@@ -21779,6 +21966,12 @@ class RateLimitingPolicy {
 }
 
 /// Rate-limit ceilings and burst handling.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines rate-limit ceilings, per-scope limits, and burst allowances.',
+)
 @SectionId('RLPL')
 class RateLimitingPolicyLimits {
   @Form([
@@ -21796,6 +21989,12 @@ class RateLimitingPolicyLimits {
 }
 
 /// Runtime response behavior when limits are exceeded.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines runtime throttling behavior and rate-limit response headers when limits are exceeded.',
+)
 @SectionId('RLPB')
 class RateLimitingPolicyBehavior {
   @Form([
@@ -21811,6 +22010,12 @@ class RateLimitingPolicyBehavior {
 }
 
 /// Quota management and exceptions.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines quota management, reset cadence, and exemptions from rate limits.',
+)
 @SectionId('RLPQ')
 class RateLimitingPolicyQuotas {
   @Form([
@@ -21828,6 +22033,13 @@ class RateLimitingPolicyQuotas {
 }
 
 /// Protocol compliance requirements.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Defines protocol-level compliance requirements such as CORS, CSP, and security headers.',
+)
 @SectionId('PRCORE')
 class ProtocolComplianceRequirements {
   @Form([
@@ -21860,6 +22072,12 @@ class ProtocolComplianceRequirements {
 }
 
 /// Caching requirements.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines HTTP caching and CDN integration requirements.',
+)
 @SectionId('PCRC')
 class ProtocolComplianceRequirementsCaching {
   @Form([
@@ -21873,6 +22091,12 @@ class ProtocolComplianceRequirementsCaching {
 }
 
 /// Request logging and trace propagation rules.
+@StandardReferences(
+  [
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines request logging and distributed trace-context propagation rules.',
+)
 @SectionId('PCRO')
 class ProtocolComplianceRequirementsObservability {
   @Form([
@@ -21888,6 +22112,13 @@ class ProtocolComplianceRequirementsObservability {
 }
 
 /// Webhook, event, and health endpoint standards.
+@StandardReferences(
+  [
+    'AsyncAPI — event-driven API description',
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Defines standards for webhooks, event streams, and health-check endpoints.',
+)
 @SectionId('PCRE')
 class ProtocolComplianceRequirementsEvents {
   @Form([
@@ -21942,6 +22173,14 @@ require careful security and reliability considerations.
 - Bulkhead isolation
 - Graceful degradation
 ''')
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Describes the external connectivity the system integrates with, including partners, cloud services, and third-party APIs.',
+)
 @SectionId('ECS')
 class ExternalConnectivitySection {
   @ContentHelp('''
@@ -21969,8 +22208,13 @@ Provide an overview of external connectivity landscape.
   TextSection overview = TextSection();
 
   /// External partner connections — contains 0+× ExternalPartnerConnection.
+  @StandardReferences(
+    ['Enterprise Integration Patterns — messaging & integration'],
+    'The external partner connections the system integrates with.',
+  )
   @SectionId('EPCE-PART-LST')
   @SectionIdPattern('EPCE-PART-xxx')
+  @ContentHelp('Add one entry per external partner connection.')
   @SerializationOrder(2)
   List<ExternalPartnerConnectionEntry> partnerConnections = [];
 
@@ -21996,6 +22240,14 @@ Provide an overview of external connectivity landscape.
 }
 
 /// An external partner connection entry (form).
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns — messaging & integration',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+    'OpenAPI Specification — REST API description',
+  ],
+  'Describes a single external partner integration the system connects to.',
+)
 @SectionId('EXPACOEN')
 class ExternalPartnerConnectionEntry {
   @Form([
@@ -22032,13 +22284,25 @@ class ExternalPartnerConnectionEntry {
       ExternalPartnerDataHandling();
 
   /// Operations and contacts.
+  @StandardReferences(
+    ['Enterprise Integration Patterns — messaging & integration'],
+    'The operational contacts and procedures for the partner connection.',
+  )
   @SectionId('EXPAOP-OPER-LST')
   @SectionIdPattern('EXPAOP-OPER-xxx')
+  @ContentHelp('Add one entry per operational contact.')
   @SerializationOrder(6)
   List<ExternalPartnerOperations> operations = [];
 }
 
 /// Protocol and endpoint.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'IETF RFC 9110 — HTTP semantics',
+  ],
+  'Describes the protocol, endpoint, and data format for the partner connection.',
+)
 @SectionId('EXPAPR')
 class ExternalPartnerProtocol {
   @Form([
@@ -22056,6 +22320,13 @@ class ExternalPartnerProtocol {
 }
 
 /// Authentication settings.
+@StandardReferences(
+  [
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Specifies the authentication method and credential management for the partner connection.',
+)
 @SectionId('EXPAAU')
 class ExternalPartnerAuthentication {
   @Form([
@@ -22071,6 +22342,12 @@ class ExternalPartnerAuthentication {
 }
 
 /// Network configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Describes network routing, IP whitelisting, and firewall rules for the partner connection.',
+)
 @SectionId('EXPANE')
 class ExternalPartnerNetwork {
   @Form([
@@ -22088,6 +22365,13 @@ class ExternalPartnerNetwork {
 }
 
 /// Reliability and SLA.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Captures SLA, latency, timeout, and retry expectations for the partner connection.',
+)
 @SectionId('EXPARE')
 class ExternalPartnerReliability {
   @Form([
@@ -22109,6 +22393,13 @@ class ExternalPartnerReliability {
 }
 
 /// Data handling.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Specifies data classification, encryption, and retention for partner data exchange.',
+)
 @SectionId('EPDH')
 class ExternalPartnerDataHandling {
   @Form([
@@ -22124,6 +22415,12 @@ class ExternalPartnerDataHandling {
 }
 
 /// Operations and contacts.
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Captures operational contacts and escalation processes for the partner integration.',
+)
 @SectionId('EXPAOP')
 class ExternalPartnerOperations {
   @Form([
@@ -22141,6 +22438,13 @@ class ExternalPartnerOperations {
 }
 
 /// Cloud service integrations.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Describes the cloud provider services the system integrates with.',
+)
 @SectionId('CLSEIN')
 class CloudServiceIntegrations {
   @Form([
@@ -22169,6 +22473,13 @@ class CloudServiceIntegrations {
 }
 
 /// Managed services catalog.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Catalogs the managed cloud services the system depends on, such as storage and identity.',
+)
 @SectionId('CSIS')
 class CloudServiceIntegrationsServices {
   @Form([
@@ -22192,6 +22503,12 @@ class CloudServiceIntegrationsServices {
 }
 
 /// Network connectivity.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Describes VPC peering, private endpoints, and transit routing for cloud connectivity.',
+)
 @SectionId('CSIN')
 class CloudServiceIntegrationsNetworking {
   @Form([
@@ -22207,6 +22524,12 @@ class CloudServiceIntegrationsNetworking {
 }
 
 /// Compliance and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Specifies data residency and compliance certifications for cloud service integrations.',
+)
 @SectionId('CSIC')
 class CloudServiceIntegrationsCompliance {
   @Form([
@@ -22222,6 +22545,14 @@ class CloudServiceIntegrationsCompliance {
 }
 
 /// Third-party API integrations.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Describes third-party API integrations the system consumes, including payment providers.',
+)
 @SectionId('TPAI')
 class ThirdPartyApiIntegrations {
   @Form([
@@ -22263,6 +22594,13 @@ class ThirdPartyApiIntegrations {
 }
 
 /// Analytics and monitoring providers.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Describes third-party analytics and error-tracking service providers the system consumes.',
+)
 @SectionId('TPAIA')
 class ThirdPartyApiIntegrationsAnalytics {
   @Form([
@@ -22276,6 +22614,13 @@ class ThirdPartyApiIntegrationsAnalytics {
 }
 
 /// Communication providers.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'Webhooks — HTTP callback delivery',
+  ],
+  'Describes third-party SMS, chat, and video conferencing communication providers.',
+)
 @SectionId('TPAIC')
 class ThirdPartyApiIntegrationsCommunication {
   @Form([
@@ -22291,6 +22636,13 @@ class ThirdPartyApiIntegrationsCommunication {
 }
 
 /// Mapping and location providers.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Describes third-party mapping and geocoding service providers the system consumes.',
+)
 @SectionId('TPAIL')
 class ThirdPartyApiIntegrationsLocation {
   @Form([
@@ -22304,6 +22656,13 @@ class ThirdPartyApiIntegrationsLocation {
 }
 
 /// Document and media providers.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Describes third-party document generation, media processing, and OCR providers.',
+)
 @SectionId('TPAIM')
 class ThirdPartyApiIntegrationsMedia {
   @Form([
@@ -22319,6 +22678,13 @@ class ThirdPartyApiIntegrationsMedia {
 }
 
 /// AI and translation providers.
+@StandardReferences(
+  [
+    'OpenAPI Specification — REST API description',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Describes third-party AI/ML and translation service providers the system consumes.',
+)
 @SectionId('THPAAPINAI')
 class ThirdPartyApiIntegrationsAi {
   @Form([
@@ -22332,6 +22698,13 @@ class ThirdPartyApiIntegrationsAi {
 }
 
 /// Compliance and fallback controls.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Defines API key management, usage monitoring, and fallback strategy for third-party APIs.',
+)
 @SectionId('TPAIO')
 class ThirdPartyApiIntegrationsOperations {
   @Form([
@@ -22349,6 +22722,13 @@ class ThirdPartyApiIntegrationsOperations {
 }
 
 /// Network security and access control.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'API Gateway pattern — edge routing & policy enforcement',
+  ],
+  'Defines network security policy and access control for external connectivity.',
+)
 @SectionId('NESEPO')
 class NetworkSecurityPolicy {
   @Form([
@@ -22385,6 +22765,12 @@ class NetworkSecurityPolicy {
 }
 
 /// Firewall rule details.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Specifies ingress and egress firewall rules governing external traffic.',
+)
 @SectionId('NSPF')
 class NetworkSecurityPolicyFirewall {
   @Form([
@@ -22398,6 +22784,12 @@ class NetworkSecurityPolicyFirewall {
 }
 
 /// IP management controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Defines IP allow-listing, deny-listing, and geo-blocking access controls.',
+)
 @SectionId('NSPIM')
 class NetworkSecurityPolicyIpManagement {
   @Form([
@@ -22415,6 +22807,13 @@ class NetworkSecurityPolicyIpManagement {
 }
 
 /// VPN configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Specifies VPN type, topology, and availability for secure external connectivity.',
+)
 @SectionId('NSPV')
 class NetworkSecurityPolicyVpn {
   @Form([
@@ -22432,6 +22831,13 @@ class NetworkSecurityPolicyVpn {
 }
 
 /// DDoS protections.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+    'API Gateway pattern — edge routing & policy enforcement',
+  ],
+  'Describes DDoS protection and edge rate limiting for external connectivity.',
+)
 @SectionId('NSPD')
 class NetworkSecurityPolicyDdos {
   @Form([
@@ -22445,6 +22851,12 @@ class NetworkSecurityPolicyDdos {
 }
 
 /// DNS controls and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Specifies DNS provider, DNSSEC, and private DNS controls for connectivity.',
+)
 @SectionId('NESEPODN')
 class NetworkSecurityPolicyDns {
   @Form([
@@ -22462,6 +22874,14 @@ class NetworkSecurityPolicyDns {
 }
 
 /// Service mesh and API gateway.
+@StandardReferences(
+  [
+    'API Gateway pattern — edge routing & policy enforcement',
+    'Service Mesh (Istio / Envoy) — service-to-service traffic management',
+    'OAuth 2.0 / IETF RFC 6749 — authorization framework',
+  ],
+  'Defines the API gateway and service mesh used for edge routing and traffic management.',
+)
 @SectionId('SMAG')
 class ServiceMeshAndGateway {
   @Form([
@@ -22488,6 +22908,13 @@ class ServiceMeshAndGateway {
 }
 
 /// Service mesh configuration.
+@StandardReferences(
+  [
+    'Service Mesh (Istio / Envoy) — service-to-service traffic management',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Describes the service mesh, sidecar proxy, traffic policy, and mTLS configuration.',
+)
 @SectionId('SMAGM')
 class ServiceMeshAndGatewayMesh {
   @Form([
@@ -22505,6 +22932,13 @@ class ServiceMeshAndGatewayMesh {
 }
 
 /// Load balancing and termination rules.
+@StandardReferences(
+  [
+    'Service Mesh (Istio / Envoy) — service-to-service traffic management',
+    'IETF RFC 8446 — TLS 1.3',
+  ],
+  'Specifies load balancing algorithms and SSL termination rules for traffic distribution.',
+)
 @SectionId('SMAGLB')
 class ServiceMeshAndGatewayLoadBalancing {
   @Form([
@@ -22524,6 +22958,13 @@ class ServiceMeshAndGatewayLoadBalancing {
 }
 
 /// Connectivity resilience requirements.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Captures failover, redundancy, and resilience requirements for external connectivity.',
+)
 @SectionId('CONRES')
 class ConnectivityResilience {
   @Form([
@@ -22553,6 +22994,12 @@ class ConnectivityResilience {
 }
 
 /// Circuit breaking and isolation strategy.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+  ],
+  'Defines circuit breaking, bulkhead isolation, and fallback behavior for downstream failures.',
+)
 @SectionId('COREP1')
 class ConnectivityResilienceProtection {
   @Form([
@@ -22568,6 +23015,13 @@ class ConnectivityResilienceProtection {
 }
 
 /// Offline and reconnection behavior.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+    'Enterprise Integration Patterns — messaging & integration',
+  ],
+  'Describes offline capability and reconnection behavior when connectivity is lost.',
+)
 @SectionId('COREOF')
 class ConnectivityResilienceOffline {
   @Form([
@@ -22583,6 +23037,13 @@ class ConnectivityResilienceOffline {
 }
 
 /// Monitoring and alerting expectations.
+@StandardReferences(
+  [
+    'Circuit Breaker / Resilience patterns — fault tolerance',
+    'ISO/IEC 27001 — information security controls',
+  ],
+  'Defines monitoring and alerting expectations for external connectivity health.',
+)
 @SectionId('COREOP')
 class ConnectivityResilienceOperations {
   @Form([

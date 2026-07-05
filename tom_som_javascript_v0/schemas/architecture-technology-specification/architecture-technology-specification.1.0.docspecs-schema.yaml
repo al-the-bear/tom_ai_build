@@ -103,7 +103,7 @@ section-types:
     pattern-check-id:
       pattern: ^expaop_oper_lst-\d+$
       error-message: ID must match expaop_oper_lst-NNN
-    description: Operations and contacts.
+    description: Add one entry per operational contact.
   FTRMOD-FEAT-LST:
     prefix: ftrmod_feat_lst
     pattern-check-id:
@@ -415,7 +415,7 @@ section-types:
     pattern-check-id:
       pattern: ^epce_part_lst-\d+$
       error-message: ID must match epce_part_lst-NNN
-    description: External partner connections — contains 0+× ExternalPartnerConnection.
+    description: Add one entry per external partner connection.
   ESCE-ENTE-LST:
     prefix: esce_ente_lst
     pattern-check-id:
@@ -445,7 +445,7 @@ section-types:
     pattern-check-id:
       pattern: ^pren_prot_lst-\d+$
       error-message: ID must match pren_prot_lst-NNN
-    description: Protocol catalog — contains 0+× Protocol.
+    description: Add one entry per protocol.
   SLEN-SLOS-LST:
     prefix: slen_slos_lst
     pattern-check-id:

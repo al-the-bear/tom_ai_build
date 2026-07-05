@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T12:55:30.430566Z",
+  "generatedAt": "2026-07-05T13:16:44.337551Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -9928,7 +9928,24 @@
       "name": "ApiVersioningStrategy",
       "sectionId": "APVEST",
       "doc": "API versioning strategy.",
+      "standardReferences": {
+        "standards": [
+          "SemVer — semantic versioning",
+          "OpenAPI Specification — REST API description"
+        ],
+        "connotation": "Defines the overall API versioning scheme, format, and current version."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SemVer — semantic versioning",
+              "OpenAPI Specification — REST API description"
+            ],
+            "connotation": "Defines the overall API versioning scheme, format, and current version."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10030,7 +10047,24 @@
       "name": "ApiVersioningStrategyCompatibility",
       "sectionId": "AVSC",
       "doc": "Compatibility guarantees and migration expectations.",
+      "standardReferences": {
+        "standards": [
+          "SemVer — semantic versioning",
+          "OpenAPI Specification — REST API description"
+        ],
+        "connotation": "Defines backward-compatibility guarantees, breaking-change policy, and migration guidance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SemVer — semantic versioning",
+              "OpenAPI Specification — REST API description"
+            ],
+            "connotation": "Defines backward-compatibility guarantees, breaking-change policy, and migration guidance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10087,7 +10121,24 @@
       "name": "ApiVersioningStrategyDocumentation",
       "sectionId": "AVSD",
       "doc": "Documentation and client generation practices.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "AsyncAPI — event-driven API description"
+        ],
+        "connotation": "Defines API documentation formats and client SDK generation practices."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "AsyncAPI — event-driven API description"
+            ],
+            "connotation": "Defines API documentation formats and client SDK generation practices."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10151,7 +10202,24 @@
       "name": "ApiVersioningStrategySupport",
       "sectionId": "AVSS",
       "doc": "Supported versions and deprecation commitments.",
+      "standardReferences": {
+        "standards": [
+          "SemVer — semantic versioning",
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines supported API versions and their deprecation and sunset commitments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SemVer — semantic versioning",
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines supported API versions and their deprecation and sunset commitments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28680,7 +28748,24 @@
       "name": "CertificateManagement",
       "sectionId": "CEMA",
       "doc": "Certificate management.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Defines the certificate authority, type, and overall certificate management approach."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Defines the certificate authority, type, and overall certificate management approach."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28790,7 +28875,22 @@
       "name": "CertificateManagementKeys",
       "sectionId": "CEMAKE",
       "doc": "Key specifications.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates"
+        ],
+        "connotation": "Defines the key algorithm, length, and signature algorithm for certificates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates"
+            ],
+            "connotation": "Defines the key algorithm, length, and signature algorithm for certificates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28847,7 +28947,22 @@
       "name": "CertificateManagementLifecycle",
       "sectionId": "CEMALI",
       "doc": "Lifecycle management.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates"
+        ],
+        "connotation": "Defines certificate validity, renewal, rotation, and revocation lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates"
+            ],
+            "connotation": "Defines certificate validity, renewal, rotation, and revocation lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28918,7 +29033,22 @@
       "name": "CertificateManagementMonitoring",
       "sectionId": "CEMAMO",
       "doc": "Monitoring rules.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates"
+        ],
+        "connotation": "Defines certificate expiry monitoring and alert thresholds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates"
+            ],
+            "connotation": "Defines certificate expiry monitoring and alert thresholds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -29026,7 +29156,22 @@
       "name": "CertificateManagementStorage",
       "sectionId": "CEMAST",
       "doc": "Storage and access controls.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates"
+        ],
+        "connotation": "Defines how certificates and private keys are stored, protected, and access-controlled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates"
+            ],
+            "connotation": "Defines how certificates and private keys are stored, protected, and access-controlled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37647,7 +37792,24 @@
       "name": "CloudServiceIntegrations",
       "sectionId": "CLSEIN",
       "doc": "Cloud service integrations.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Describes the cloud provider services the system integrates with."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Describes the cloud provider services the system integrates with."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37742,7 +37904,22 @@
       "name": "CloudServiceIntegrationsCompliance",
       "sectionId": "CSIC",
       "doc": "Compliance and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Specifies data residency and compliance certifications for cloud service integrations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Specifies data residency and compliance certifications for cloud service integrations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37799,7 +37976,22 @@
       "name": "CloudServiceIntegrationsNetworking",
       "sectionId": "CSIN",
       "doc": "Network connectivity.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Describes VPC peering, private endpoints, and transit routing for cloud connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Describes VPC peering, private endpoints, and transit routing for cloud connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37856,7 +38048,24 @@
       "name": "CloudServiceIntegrationsServices",
       "sectionId": "CSIS",
       "doc": "Managed services catalog.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Catalogs the managed cloud services the system depends on, such as storage and identity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Catalogs the managed cloud services the system depends on, such as storage and identity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -41488,7 +41697,26 @@
       "doc": "8.6. Communication Requirements.",
       "help": "Define network communication requirements including protocols, security,\nand external connectivity. Communication architecture affects performance,\nsecurity, and integration capabilities.\n\n**Subsections**:\n- **Protocols and Standards**: Communication protocols, TLS/SSL, API\n  versioning, certificate management, data formats\n- **External Connectivity**: Partner integrations, cloud services, third-\n  party APIs, service mesh, API gateway\n\n**Communication Patterns**:\n- **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)\n- **Asynchronous**: Message queues, event streaming (fire-and-forget)\n- **Real-time**: WebSocket, Server-Sent Events, WebRTC\n- **Batch**: File transfer, scheduled data exchange\n\n**Security Considerations**:\n- Transport security (TLS 1.2/1.3, certificate pinning)\n- API authentication (API keys, OAuth, mTLS)\n- Data encryption in transit and at rest\n- Rate limiting and throttling\n\n**Integration Standards**:\n- API design guidelines (REST, OpenAPI, AsyncAPI)\n- Data format standards (JSON, Protocol Buffers, Avro)\n- Error handling and response formats\n- Idempotency and retry handling\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "IETF RFC 8446 — TLS 1.3",
+          "ISO/IEC 7498 — OSI reference model"
+        ],
+        "connotation": "Defines the network communication requirements: protocols, transport security, API conventions, and external connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "IETF RFC 8446 — TLS 1.3",
+              "ISO/IEC 7498 — OSI reference model"
+            ],
+            "connotation": "Defines the network communication requirements: protocols, transport security, API conventions, and external connectivity."
+          }
+        },
         {
           "name": "DetailedIn",
           "arguments": {
@@ -51832,7 +52060,24 @@
       "name": "ConnectivityResilience",
       "sectionId": "CONRES",
       "doc": "Connectivity resilience requirements.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance",
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Captures failover, redundancy, and resilience requirements for external connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance",
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Captures failover, redundancy, and resilience requirements for external connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51934,7 +52179,24 @@
       "name": "ConnectivityResilienceOffline",
       "sectionId": "COREOF",
       "doc": "Offline and reconnection behavior.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance",
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Describes offline capability and reconnection behavior when connectivity is lost."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance",
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Describes offline capability and reconnection behavior when connectivity is lost."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51991,7 +52253,24 @@
       "name": "ConnectivityResilienceOperations",
       "sectionId": "COREOP",
       "doc": "Monitoring and alerting expectations.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Defines monitoring and alerting expectations for external connectivity health."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Defines monitoring and alerting expectations for external connectivity health."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -52048,7 +52327,22 @@
       "name": "ConnectivityResilienceProtection",
       "sectionId": "COREP1",
       "doc": "Circuit breaking and isolation strategy.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance"
+        ],
+        "connotation": "Defines circuit breaking, bulkhead isolation, and fallback behavior for downstream failures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance"
+            ],
+            "connotation": "Defines circuit breaking, bulkhead isolation, and fallback behavior for downstream failures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103797,11 +104091,30 @@
       "sectionId": "ECS",
       "doc": "8.6.2. External Connectivity.",
       "help": "Specify requirements for external connectivity including partner\nintegrations, cloud services, and third-party APIs. External connections\nrequire careful security and reliability considerations.\n\n**Partner Integrations**:\n- B2B connections (EDI, API, file exchange)\n- Partner onboarding process\n- SLA and support agreements\n- Data exchange formats and protocols\n- Security requirements (VPN, mTLS, IP whitelisting)\n\n**Cloud Service Integrations**:\n- Cloud provider services (storage, messaging, ML)\n- Multi-cloud considerations\n- Vendor lock-in mitigation\n- Cost management and optimization\n\n**Third-Party API Integrations**:\n- API consumption patterns and rate limits\n- Authentication and credential management\n- Error handling and fallback strategies\n- Dependency health monitoring\n- Vendor reliability and SLAs\n\n**Service Mesh and API Gateway**:\n- Traffic management (routing, load balancing)\n- Security (authentication, authorization)\n- Observability (tracing, logging, metrics)\n- Rate limiting and throttling\n\n**Resilience Patterns**:\n- Circuit breaker implementation\n- Retry with exponential backoff\n- Bulkhead isolation\n- Graceful degradation\n",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Describes the external connectivity the system integrates with, including partners, cloud services, and third-party APIs."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify requirements for external connectivity including partner\nintegrations, cloud services, and third-party APIs. External connections\nrequire careful security and reliability considerations.\n\n**Partner Integrations**:\n- B2B connections (EDI, API, file exchange)\n- Partner onboarding process\n- SLA and support agreements\n- Data exchange formats and protocols\n- Security requirements (VPN, mTLS, IP whitelisting)\n\n**Cloud Service Integrations**:\n- Cloud provider services (storage, messaging, ML)\n- Multi-cloud considerations\n- Vendor lock-in mitigation\n- Cost management and optimization\n\n**Third-Party API Integrations**:\n- API consumption patterns and rate limits\n- Authentication and credential management\n- Error handling and fallback strategies\n- Dependency health monitoring\n- Vendor reliability and SLAs\n\n**Service Mesh and API Gateway**:\n- Traffic management (routing, load balancing)\n- Security (authentication, authorization)\n- Observability (tracing, logging, metrics)\n- Rate limiting and throttling\n\n**Resilience Patterns**:\n- Circuit breaker implementation\n- Retry with exponential backoff\n- Bulkhead isolation\n- Graceful degradation\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Describes the external connectivity the system integrates with, including partners, cloud services, and third-party APIs."
           }
         },
         {
@@ -103853,10 +104166,26 @@
           "name": "partnerConnections",
           "kind": "list",
           "doc": "External partner connections — contains 0+× ExternalPartnerConnection.",
+          "help": "Add one entry per external partner connection.",
           "sectionId": "EPCE-PART-LST",
           "sectionIdPattern": "EPCE-PART-xxx",
+          "standardReferences": {
+            "standards": [
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "The external partner connections the system integrates with."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Enterprise Integration Patterns — messaging & integration"
+                ],
+                "connotation": "The external partner connections the system integrates with."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103867,6 +104196,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EPCE-PART-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per external partner connection."
               }
             },
             {
@@ -104797,7 +105132,24 @@
       "name": "ExternalPartnerAuthentication",
       "sectionId": "EXPAAU",
       "doc": "Authentication settings.",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Specifies the authentication method and credential management for the partner connection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Specifies the authentication method and credential management for the partner connection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104854,7 +105206,26 @@
       "name": "ExternalPartnerConnectionEntry",
       "sectionId": "EXPACOEN",
       "doc": "An external partner connection entry (form).",
+      "standardReferences": {
+        "standards": [
+          "Enterprise Integration Patterns — messaging & integration",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+          "OpenAPI Specification — REST API description"
+        ],
+        "connotation": "Describes a single external partner integration the system connects to."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Enterprise Integration Patterns — messaging & integration",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+              "OpenAPI Specification — REST API description"
+            ],
+            "connotation": "Describes a single external partner integration the system connects to."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104984,10 +105355,26 @@
           "name": "operations",
           "kind": "list",
           "doc": "Operations and contacts.",
+          "help": "Add one entry per operational contact.",
           "sectionId": "EXPAOP-OPER-LST",
           "sectionIdPattern": "EXPAOP-OPER-xxx",
+          "standardReferences": {
+            "standards": [
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "The operational contacts and procedures for the partner connection."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Enterprise Integration Patterns — messaging & integration"
+                ],
+                "connotation": "The operational contacts and procedures for the partner connection."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -104998,6 +105385,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXPAOP-OPER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per operational contact."
               }
             },
             {
@@ -105016,7 +105409,24 @@
       "name": "ExternalPartnerDataHandling",
       "sectionId": "EPDH",
       "doc": "Data handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Specifies data classification, encryption, and retention for partner data exchange."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Specifies data classification, encryption, and retention for partner data exchange."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105073,7 +105483,22 @@
       "name": "ExternalPartnerNetwork",
       "sectionId": "EXPANE",
       "doc": "Network configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Describes network routing, IP whitelisting, and firewall rules for the partner connection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Describes network routing, IP whitelisting, and firewall rules for the partner connection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105137,7 +105562,22 @@
       "name": "ExternalPartnerOperations",
       "sectionId": "EXPAOP",
       "doc": "Operations and contacts.",
+      "standardReferences": {
+        "standards": [
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Captures operational contacts and escalation processes for the partner integration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Captures operational contacts and escalation processes for the partner integration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105201,7 +105641,24 @@
       "name": "ExternalPartnerProtocol",
       "sectionId": "EXPAPR",
       "doc": "Protocol and endpoint.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Describes the protocol, endpoint, and data format for the partner connection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Describes the protocol, endpoint, and data format for the partner connection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105265,7 +105722,24 @@
       "name": "ExternalPartnerReliability",
       "sectionId": "EXPARE",
       "doc": "Reliability and SLA.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance",
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Captures SLA, latency, timeout, and retry expectations for the partner connection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance",
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Captures SLA, latency, timeout, and retry expectations for the partner connection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -145431,7 +145905,24 @@
       "name": "MessageFormatStandards",
       "sectionId": "MEFOST",
       "doc": "Message format standards.",
+      "standardReferences": {
+        "standards": [
+          "JSON / IETF RFC 8259 — data interchange format",
+          "Protocol Buffers — binary serialization"
+        ],
+        "connotation": "Defines the message serialization formats the system uses on the wire."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "JSON / IETF RFC 8259 — data interchange format",
+              "Protocol Buffers — binary serialization"
+            ],
+            "connotation": "Defines the message serialization formats the system uses on the wire."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -145541,7 +146032,22 @@
       "name": "MessageFormatStandardsConventions",
       "sectionId": "MFSC",
       "doc": "Field conventions.",
+      "standardReferences": {
+        "standards": [
+          "JSON / IETF RFC 8259 — data interchange format"
+        ],
+        "connotation": "Defines field-level conventions for dates, encoding, nulls, enums, and naming."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "JSON / IETF RFC 8259 — data interchange format"
+            ],
+            "connotation": "Defines field-level conventions for dates, encoding, nulls, enums, and naming."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -145612,7 +146118,24 @@
       "name": "MessageFormatStandardsResponses",
       "sectionId": "MFSR",
       "doc": "Pagination and error envelopes.",
+      "standardReferences": {
+        "standards": [
+          "JSON / IETF RFC 8259 — data interchange format",
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines pagination formats and standardized error and response envelopes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "JSON / IETF RFC 8259 — data interchange format",
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines pagination formats and standardized error and response envelopes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -145669,7 +146192,24 @@
       "name": "MessageFormatStandardsSchema",
       "sectionId": "MFSS",
       "doc": "Schema standards.",
+      "standardReferences": {
+        "standards": [
+          "JSON / IETF RFC 8259 — data interchange format",
+          "Protocol Buffers — binary serialization"
+        ],
+        "connotation": "Defines schema definition, registry, evolution, and validation standards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "JSON / IETF RFC 8259 — data interchange format",
+              "Protocol Buffers — binary serialization"
+            ],
+            "connotation": "Defines schema definition, registry, evolution, and validation standards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -145733,7 +146273,24 @@
       "name": "MessageFormatStandardsTransport",
       "sectionId": "MFST",
       "doc": "Compression and negotiation.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "JSON / IETF RFC 8259 — data interchange format"
+        ],
+        "connotation": "Defines message compression algorithms and content negotiation behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "JSON / IETF RFC 8259 — data interchange format"
+            ],
+            "connotation": "Defines message compression algorithms and content negotiation behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160543,7 +161100,24 @@
       "name": "NetworkSecurityPolicy",
       "sectionId": "NESEPO",
       "doc": "Network security and access control.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "API Gateway pattern — edge routing & policy enforcement"
+        ],
+        "connotation": "Defines network security policy and access control for external connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "API Gateway pattern — edge routing & policy enforcement"
+            ],
+            "connotation": "Defines network security policy and access control for external connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160675,7 +161249,24 @@
       "name": "NetworkSecurityPolicyDdos",
       "sectionId": "NSPD",
       "doc": "DDoS protections.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "API Gateway pattern — edge routing & policy enforcement"
+        ],
+        "connotation": "Describes DDoS protection and edge rate limiting for external connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "API Gateway pattern — edge routing & policy enforcement"
+            ],
+            "connotation": "Describes DDoS protection and edge rate limiting for external connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160725,7 +161316,22 @@
       "name": "NetworkSecurityPolicyDns",
       "sectionId": "NESEPODN",
       "doc": "DNS controls and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Specifies DNS provider, DNSSEC, and private DNS controls for connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Specifies DNS provider, DNSSEC, and private DNS controls for connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160789,7 +161395,22 @@
       "name": "NetworkSecurityPolicyFirewall",
       "sectionId": "NSPF",
       "doc": "Firewall rule details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Specifies ingress and egress firewall rules governing external traffic."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Specifies ingress and egress firewall rules governing external traffic."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160839,7 +161460,22 @@
       "name": "NetworkSecurityPolicyIpManagement",
       "sectionId": "NSPIM",
       "doc": "IP management controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls"
+        ],
+        "connotation": "Defines IP allow-listing, deny-listing, and geo-blocking access controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls"
+            ],
+            "connotation": "Defines IP allow-listing, deny-listing, and geo-blocking access controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160903,7 +161539,24 @@
       "name": "NetworkSecurityPolicyVpn",
       "sectionId": "NSPV",
       "doc": "VPN configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security controls",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Specifies VPN type, topology, and availability for secure external connectivity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security controls",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Specifies VPN type, topology, and availability for secure external connectivity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188607,7 +189260,24 @@
       "name": "ProtocolAuthSerialization",
       "sectionId": "PRAUSE",
       "doc": "Authentication and serialization.",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+          "JSON / IETF RFC 8259 — data interchange format"
+        ],
+        "connotation": "Defines the protocol authentication method, authorization scheme, and message serialization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+              "JSON / IETF RFC 8259 — data interchange format"
+            ],
+            "connotation": "Defines the protocol authentication method, authorization scheme, and message serialization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188678,7 +189348,24 @@
       "name": "ProtocolComplianceRequirements",
       "sectionId": "PRCORE",
       "doc": "Protocol compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Defines protocol-level compliance requirements such as CORS, CSP, and security headers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Defines protocol-level compliance requirements such as CORS, CSP, and security headers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188787,7 +189474,22 @@
       "name": "ProtocolComplianceRequirementsCaching",
       "sectionId": "PCRC",
       "doc": "Caching requirements.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines HTTP caching and CDN integration requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines HTTP caching and CDN integration requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188837,7 +189539,24 @@
       "name": "ProtocolComplianceRequirementsEvents",
       "sectionId": "PCRE",
       "doc": "Webhook, event, and health endpoint standards.",
+      "standardReferences": {
+        "standards": [
+          "AsyncAPI — event-driven API description",
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines standards for webhooks, event streams, and health-check endpoints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AsyncAPI — event-driven API description",
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines standards for webhooks, event streams, and health-check endpoints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188901,7 +189620,22 @@
       "name": "ProtocolComplianceRequirementsObservability",
       "sectionId": "PCRO",
       "doc": "Request logging and trace propagation rules.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines request logging and distributed trace-context propagation rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines request logging and distributed trace-context propagation rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -188958,7 +189692,24 @@
       "name": "ProtocolEntry",
       "sectionId": "PE",
       "doc": "A protocol or standard entry (form).",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "ISO/IEC 7498 — OSI reference model"
+        ],
+        "connotation": "Describes a single communication protocol entry with its version and transport layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "ISO/IEC 7498 — OSI reference model"
+            ],
+            "connotation": "Describes a single communication protocol entry with its version and transport layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189036,7 +189787,24 @@
       "name": "ProtocolPerformance",
       "sectionId": "PRPE",
       "doc": "Performance settings.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "ISO/IEC 7498 — OSI reference model"
+        ],
+        "connotation": "Defines protocol performance settings such as message size, pooling, and timeouts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "ISO/IEC 7498 — OSI reference model"
+            ],
+            "connotation": "Defines protocol performance settings such as message size, pooling, and timeouts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189107,7 +189875,24 @@
       "name": "ProtocolReliability",
       "sectionId": "PRRE",
       "doc": "Reliability and delivery.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "ISO/IEC 7498 — OSI reference model"
+        ],
+        "connotation": "Defines retry policy, idempotency, and delivery guarantees for the protocol."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "ISO/IEC 7498 — OSI reference model"
+            ],
+            "connotation": "Defines retry policy, idempotency, and delivery guarantees for the protocol."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189164,7 +189949,22 @@
       "name": "ProtocolUsage",
       "sectionId": "PRUS",
       "doc": "Usage and notes.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Describes which components use the protocol and its directionality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Describes which components use the protocol and its directionality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189222,11 +190022,30 @@
       "sectionId": "PASS",
       "doc": "8.6.1. Protocols and Standards.",
       "help": "Specify communication protocols, security standards, and API conventions.\nStandardized protocols ensure interoperability and security.\n\n**Network Protocols**:\n- **Application Layer**: HTTP/1.1, HTTP/2, HTTP/3 (QUIC), gRPC, WebSocket\n- **Transport**: TCP, UDP, QUIC\n- **Security**: TLS 1.2/1.3, DTLS, SSH\n\n**API Protocols**:\n- **REST**: Resource-based, HTTP verbs, JSON/XML\n- **GraphQL**: Query language, single endpoint, flexible queries\n- **gRPC**: Binary protocol, Protocol Buffers, streaming support\n- **WebSocket**: Full-duplex, real-time, persistent connection\n\n**TLS/SSL Requirements**:\n- Minimum TLS version (TLS 1.2 or 1.3)\n- Cipher suites (AEAD, perfect forward secrecy)\n- Certificate requirements (CA-signed, validity period)\n- Certificate pinning considerations\n\n**Certificate Management**:\n- Certificate lifecycle (issuance, renewal, revocation)\n- Automated certificate management (cert-manager, Let's Encrypt)\n- Certificate monitoring and alerting\n- Key rotation procedures\n\n**API Versioning Strategy**:\n- URL versioning (/v1/, /v2/)\n- Header versioning (Accept-Version)\n- Content negotiation (media type)\n- Deprecation and sunset policies\n",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics",
+          "IETF RFC 8446 — TLS 1.3",
+          "ISO/IEC 7498 — OSI reference model"
+        ],
+        "connotation": "Specifies the communication protocols, security standards, and API conventions the system uses."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify communication protocols, security standards, and API conventions.\nStandardized protocols ensure interoperability and security.\n\n**Network Protocols**:\n- **Application Layer**: HTTP/1.1, HTTP/2, HTTP/3 (QUIC), gRPC, WebSocket\n- **Transport**: TCP, UDP, QUIC\n- **Security**: TLS 1.2/1.3, DTLS, SSH\n\n**API Protocols**:\n- **REST**: Resource-based, HTTP verbs, JSON/XML\n- **GraphQL**: Query language, single endpoint, flexible queries\n- **gRPC**: Binary protocol, Protocol Buffers, streaming support\n- **WebSocket**: Full-duplex, real-time, persistent connection\n\n**TLS/SSL Requirements**:\n- Minimum TLS version (TLS 1.2 or 1.3)\n- Cipher suites (AEAD, perfect forward secrecy)\n- Certificate requirements (CA-signed, validity period)\n- Certificate pinning considerations\n\n**Certificate Management**:\n- Certificate lifecycle (issuance, renewal, revocation)\n- Automated certificate management (cert-manager, Let's Encrypt)\n- Certificate monitoring and alerting\n- Key rotation procedures\n\n**API Versioning Strategy**:\n- URL versioning (/v1/, /v2/)\n- Header versioning (Accept-Version)\n- Content negotiation (media type)\n- Deprecation and sunset policies\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics",
+              "IETF RFC 8446 — TLS 1.3",
+              "ISO/IEC 7498 — OSI reference model"
+            ],
+            "connotation": "Specifies the communication protocols, security standards, and API conventions the system uses."
           }
         },
         {
@@ -189278,10 +190097,26 @@
           "name": "protocols",
           "kind": "list",
           "doc": "Protocol catalog — contains 0+× Protocol.",
+          "help": "Add one entry per protocol.",
           "sectionId": "PREN-PROT-LST",
           "sectionIdPattern": "PREN-PROT-xxx",
+          "standardReferences": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "The communication protocols the system supports."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "IETF RFC 9110 — HTTP semantics"
+                ],
+                "connotation": "The communication protocols the system supports."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -189292,6 +190127,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PREN-PROT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per protocol."
               }
             },
             {
@@ -194407,7 +195248,22 @@
       "name": "RateLimitingPolicy",
       "sectionId": "RALIPO",
       "doc": "Rate limiting and throttling.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines the rate limiting and throttling policy for API traffic."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines the rate limiting and throttling policy for API traffic."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194502,7 +195358,22 @@
       "name": "RateLimitingPolicyBehavior",
       "sectionId": "RLPB",
       "doc": "Runtime response behavior when limits are exceeded.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines runtime throttling behavior and rate-limit response headers when limits are exceeded."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines runtime throttling behavior and rate-limit response headers when limits are exceeded."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194559,7 +195430,22 @@
       "name": "RateLimitingPolicyLimits",
       "sectionId": "RLPL",
       "doc": "Rate-limit ceilings and burst handling.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines rate-limit ceilings, per-scope limits, and burst allowances."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines rate-limit ceilings, per-scope limits, and burst allowances."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194623,7 +195509,22 @@
       "name": "RateLimitingPolicyQuotas",
       "sectionId": "RLPQ",
       "doc": "Quota management and exceptions.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines quota management, reset cadence, and exemptions from rate limits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines quota management, reset cadence, and exemptions from rate limits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232816,7 +233717,26 @@
       "name": "ServiceMeshAndGateway",
       "sectionId": "SMAG",
       "doc": "Service mesh and API gateway.",
+      "standardReferences": {
+        "standards": [
+          "API Gateway pattern — edge routing & policy enforcement",
+          "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Defines the API gateway and service mesh used for edge routing and traffic management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "API Gateway pattern — edge routing & policy enforcement",
+              "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Defines the API gateway and service mesh used for edge routing and traffic management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232910,7 +233830,24 @@
       "name": "ServiceMeshAndGatewayLoadBalancing",
       "sectionId": "SMAGLB",
       "doc": "Load balancing and termination rules.",
+      "standardReferences": {
+        "standards": [
+          "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Specifies load balancing algorithms and SSL termination rules for traffic distribution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Specifies load balancing algorithms and SSL termination rules for traffic distribution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232981,7 +233918,24 @@
       "name": "ServiceMeshAndGatewayMesh",
       "sectionId": "SMAGM",
       "doc": "Service mesh configuration.",
+      "standardReferences": {
+        "standards": [
+          "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Describes the service mesh, sidecar proxy, traffic policy, and mTLS configuration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Service Mesh (Istio / Envoy) — service-to-service traffic management",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Describes the service mesh, sidecar proxy, traffic policy, and mTLS configuration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266603,7 +267557,26 @@
       "name": "ThirdPartyApiIntegrations",
       "sectionId": "TPAI",
       "doc": "Third-party API integrations.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+          "Enterprise Integration Patterns — messaging & integration"
+        ],
+        "connotation": "Describes third-party API integrations the system consumes, including payment providers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework",
+              "Enterprise Integration Patterns — messaging & integration"
+            ],
+            "connotation": "Describes third-party API integrations the system consumes, including payment providers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266743,7 +267716,24 @@
       "name": "ThirdPartyApiIntegrationsAi",
       "sectionId": "THPAAPINAI",
       "doc": "AI and translation providers.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Describes third-party AI/ML and translation service providers the system consumes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Describes third-party AI/ML and translation service providers the system consumes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266793,7 +267783,24 @@
       "name": "ThirdPartyApiIntegrationsAnalytics",
       "sectionId": "TPAIA",
       "doc": "Analytics and monitoring providers.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Describes third-party analytics and error-tracking service providers the system consumes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Describes third-party analytics and error-tracking service providers the system consumes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266843,7 +267850,24 @@
       "name": "ThirdPartyApiIntegrationsCommunication",
       "sectionId": "TPAIC",
       "doc": "Communication providers.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "Webhooks — HTTP callback delivery"
+        ],
+        "connotation": "Describes third-party SMS, chat, and video conferencing communication providers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "Webhooks — HTTP callback delivery"
+            ],
+            "connotation": "Describes third-party SMS, chat, and video conferencing communication providers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266900,7 +267924,24 @@
       "name": "ThirdPartyApiIntegrationsLocation",
       "sectionId": "TPAIL",
       "doc": "Mapping and location providers.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Describes third-party mapping and geocoding service providers the system consumes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Describes third-party mapping and geocoding service providers the system consumes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -266950,7 +267991,24 @@
       "name": "ThirdPartyApiIntegrationsMedia",
       "sectionId": "TPAIM",
       "doc": "Document and media providers.",
+      "standardReferences": {
+        "standards": [
+          "OpenAPI Specification — REST API description",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Describes third-party document generation, media processing, and OCR providers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenAPI Specification — REST API description",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Describes third-party document generation, media processing, and OCR providers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -267007,7 +268065,24 @@
       "name": "ThirdPartyApiIntegrationsOperations",
       "sectionId": "TPAIO",
       "doc": "Compliance and fallback controls.",
+      "standardReferences": {
+        "standards": [
+          "Circuit Breaker / Resilience patterns — fault tolerance",
+          "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+        ],
+        "connotation": "Defines API key management, usage monitoring, and fallback strategy for third-party APIs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Circuit Breaker / Resilience patterns — fault tolerance",
+              "OAuth 2.0 / IETF RFC 6749 — authorization framework"
+            ],
+            "connotation": "Defines API key management, usage monitoring, and fallback strategy for third-party APIs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268380,7 +269455,24 @@
       "name": "TlsRequirements",
       "sectionId": "TLRE",
       "doc": "TLS/SSL requirements.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 8446 — TLS 1.3",
+          "IETF RFC 5280 — X.509 PKI certificates"
+        ],
+        "connotation": "Defines the minimum, preferred, and disabled TLS versions for transport security."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 8446 — TLS 1.3",
+              "IETF RFC 5280 — X.509 PKI certificates"
+            ],
+            "connotation": "Defines the minimum, preferred, and disabled TLS versions for transport security."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268497,7 +269589,24 @@
       "name": "TlsRequirementsCertificateValidation",
       "sectionId": "TRCV",
       "doc": "Certificate validation rules.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 5280 — X.509 PKI certificates",
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Defines certificate pinning, OCSP stapling, and mutual-TLS validation rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 5280 — X.509 PKI certificates",
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Defines certificate pinning, OCSP stapling, and mutual-TLS validation rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268554,7 +269663,22 @@
       "name": "TlsRequirementsCipherSuites",
       "sectionId": "TRCS",
       "doc": "Cipher suite policy.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Defines allowed and disabled cipher suites and key-exchange algorithms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Defines allowed and disabled cipher suites and key-exchange algorithms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268611,7 +269735,24 @@
       "name": "TlsRequirementsCompliance",
       "sectionId": "TLRECO",
       "doc": "Compliance and HSTS settings.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 8446 — TLS 1.3",
+          "IETF RFC 9110 — HTTP semantics"
+        ],
+        "connotation": "Defines TLS compliance targets and HSTS enforcement settings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 8446 — TLS 1.3",
+              "IETF RFC 9110 — HTTP semantics"
+            ],
+            "connotation": "Defines TLS compliance targets and HSTS enforcement settings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268682,7 +269823,22 @@
       "name": "TlsRequirementsTermination",
       "sectionId": "TLRETE",
       "doc": "Termination and internal encryption.",
+      "standardReferences": {
+        "standards": [
+          "IETF RFC 8446 — TLS 1.3"
+        ],
+        "connotation": "Defines where TLS is terminated and whether internal service-to-service traffic is encrypted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IETF RFC 8446 — TLS 1.3"
+            ],
+            "connotation": "Defines where TLS is terminated and whether internal service-to-service traffic is encrypted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
