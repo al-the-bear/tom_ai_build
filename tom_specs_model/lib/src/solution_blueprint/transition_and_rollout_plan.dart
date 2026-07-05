@@ -15,6 +15,13 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../document_stubs.dart';
 
 /// 15. System Rollout Concept. Seeds → TRP.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the transition process that installs and rolls a system into operational use',
+    'ITIL 4 2019 — the service management framework defines release management and deployment for service transition into live use',
+  ],
+  'Captures the executive rollout concept that sequences pilot, phased rollout, migration, enablement, cutover, knowledge transfer, and post-go-live support.',
+)
 @SectionId('ROLC')
 @Comment('Seeds → TRP')
 @MapsTo(D12TransitionRolloutPlan)
@@ -80,6 +87,13 @@ localization, translation, and documentation subtrees.
 /// Geographic and/or user-group rollout plan covering rollout-plan
 /// content: the sequencing of sites, countries, business units, and user
 /// cohorts across the go-live waves.
+@StandardReferences(
+  [
+    'ITIL 4 2019 — the service management framework defines release management, deployment models, and phased rollout waves',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames rollout sequencing, wave criteria, and stage gating',
+  ],
+  'Captures the rollout plan that sequences sites, business units, and user cohorts across go-live waves with entry and exit criteria.',
+)
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PLN')
@@ -114,6 +128,13 @@ pre-go-live to production.
 /// *strategy* (phasing, sequencing, data-migration approach) is owned by
 /// `DataMigrationStrategy` (`DRM`); reference it rather than restating the
 /// strategy here.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines the data-migration execution, validation, and reconciliation practices',
+    'ITIL 4 2019 — the service management framework defines change enablement and deployment for the migration cutover',
+  ],
+  'Captures the end-to-end migration runbook covering extract, transform, load windows, dress rehearsal, and fallback for moving data and users to the target.',
+)
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-MIG')
@@ -148,6 +169,13 @@ mapping. Focuses on the execution plan.
 /// localization) are owned by SBP.9 `InformationForUseRequirements`
 /// (`IFUR`); reference them via the shared `TRP-DOC` detail link rather
 /// than restating the requirements here.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — the standard for designing and developing user documentation defines the user-manual deliverables',
+    'ISO/IEC/IEEE 26511:2018 — the standard for managing user documentation defines the production, review, and maintenance process',
+  ],
+  'Captures the user-manual deliverables covering the document catalog, audiences, languages, delivery channels, and post-go-live maintenance.',
+)
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
@@ -183,6 +211,13 @@ the help-concept section).
 /// owned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them
 /// via the shared `TRP-TRN` detail link rather than restating the
 /// requirements here.
+@StandardReferences(
+  [
+    'ADDIE model 1975 — the instructional systems design framework defines analysis, design, development, implementation, and evaluation of training',
+    'ISO 21502:2020 — the guidance on project management defines training and enablement deliverables for handover',
+  ],
+  'Captures the training deliverables covering the course catalog per user category, delivery mechanism, train-the-trainer approach, and certification.',
+)
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
@@ -211,6 +246,13 @@ captures the catalog of training modules.
 /// 15.5. Pilot Plan.
 ///
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames pilot scoping, success criteria, and stage-gate decisions',
+    'ITIL 4 2019 — the service management framework defines piloting and early-life support ahead of full deployment',
+  ],
+  'Captures the pilot plan covering cohort selection, scope, success measures, feedback collection, and the exit decision that authorizes rollout.',
+)
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PIL')
@@ -240,6 +282,13 @@ success is measured, and the decision gate that authorizes rollout.
 ///
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
+@StandardReferences(
+  [
+    'ITIL 4 2019 — the service management framework defines deployment management and change enablement for the go-live cutover',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames go-live execution, go and no-go gates, and contingency planning',
+  ],
+  'Captures the cutover runbook that executes the go-live moment with a timed task checklist, communication touchpoints, gate criteria, and rollback triggers.',
+)
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-CUT')
@@ -270,6 +319,13 @@ waves — and than the Migration Plan — which covers data execution.
 ///
 /// Handover from delivery team to operations. Covers handover-agreement
 /// content.
+@StandardReferences(
+  [
+    'ITIL 4 2019 — the service management framework defines knowledge management and service-transition handover to operations',
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines the service-transition and knowledge-handover practices',
+  ],
+  'Captures the knowledge transfer from the delivery team to operations, covering the artifact catalog, handover sessions, readiness sign-off, and shadow period.',
+)
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-KNO')
@@ -297,6 +353,13 @@ Formal handover of system knowledge to operations and support teams.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// warranty content and feeds the TRP top-level on the same topic.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines warranty, support, and incident-response commitments',
+    'ITIL 4 2019 — the service management framework defines early-life support and the transition from warranty to business-as-usual',
+  ],
+  'Captures the post-acceptance warranty terms covering the warranty period scope, defect response times, support channels, and exit to routine operations.',
+)
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-WAR')
