@@ -326,18 +326,24 @@ class SomJavaScriptEmitter {
         break;
       case SpecFieldKind.list:
         _writeComment(b, f.doc, '  ');
+        // A pattern-bearing list passes its `@SectionIdPattern` so the facade
+        // can auto-generate section ids on `add` (AA1 criteria 3–5); a scalar
+        // list omits it (pattern-less, `add` ignores id args).
+        final patternArg = f.sectionIdPattern != null
+            ? ', "${_jstr(f.sectionIdPattern!)}"'
+            : '';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           b
             ..writeln('  get $acc() {')
             ..writeln('    return new SomList(this.doc, $childPath, '
-                '(d, p) => new $et(d, p));')
+                '(d, p) => new $et(d, p)$patternArg);')
             ..writeln('  }');
         } else {
           b
             ..writeln('  get $acc() {')
             ..writeln('    return new SomList(this.doc, $childPath, '
-                '(d, p) => new SomScalar(d, p));')
+                '(d, p) => new SomScalar(d, p)$patternArg);')
             ..writeln('  }');
         }
         break;

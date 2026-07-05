@@ -102,7 +102,7 @@ class SolutionBlueprint extends SomNode {
   }
 
   get risks() {
-    return new SomList(this.doc, this.path + "/risks", (d, p) => new Risk(d, p));
+    return new SomList(this.doc, this.path + "/risks", (d, p) => new Risk(d, p), "RISK-ITEM-xxx");
   }
 
   get tags() {

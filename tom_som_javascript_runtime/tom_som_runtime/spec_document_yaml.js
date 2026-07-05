@@ -154,7 +154,10 @@ function _writeHeader(b, modelVersion) {
   }
 }
 
-function _writeDocumentPass(b, doc) {
+function _writeDocumentPass(b, doc, order = null) {
+  const orderKeys = (m) =>
+    order === null ? _sortedStringKeys(m) : order.orderPaths(Object.keys(m).map((k) => String(k)));
+
   const content = doc.content;
   const forms = doc.forms;
   const lists = doc.lists;
@@ -166,20 +169,24 @@ function _writeDocumentPass(b, doc) {
 
   if (content && typeof content === 'object' && Object.keys(content).length > 0) {
     b.writeln('  content:');
-    for (const k of _sortedStringKeys(content)) {
+    for (const k of orderKeys(content)) {
       _writeScalar(b, 4, k, String(content[k]));
     }
   }
 
   if (forms && typeof forms === 'object' && Object.keys(forms).length > 0) {
     b.writeln('  forms:');
-    for (const k of _sortedStringKeys(forms)) {
+    for (const k of orderKeys(forms)) {
       const fields = forms[k];
       if (!fields || typeof fields !== 'object' || Object.keys(fields).length === 0) {
         continue;
       }
       b.writeln(`    ${_yamlKey(k)}:`);
-      for (const f of _sortedStringKeys(fields)) {
+      const fieldKeys =
+        order === null
+          ? _sortedStringKeys(fields)
+          : order.orderFormFields(k, Object.keys(fields).map((f) => String(f)));
+      for (const f of fieldKeys) {
         _writeScalar(b, 6, f, String(fields[f]));
       }
     }
@@ -187,7 +194,7 @@ function _writeDocumentPass(b, doc) {
 
   if (lists && typeof lists === 'object' && Object.keys(lists).length > 0) {
     b.writeln('  lists:');
-    for (const k of _sortedStringKeys(lists)) {
+    for (const k of orderKeys(lists)) {
       const spec = lists[k];
       if (!spec || typeof spec !== 'object') {
         continue;
@@ -210,11 +217,15 @@ function _writeDocumentPass(b, doc) {
 /**
  * Serializes `document` (a {@link SpecDocument}) to a header + `version:` (+
  * `modelVersion:`) + `document:` pass.
+ *
+ * When `order` (a {@link SpecSerializationOrder}) is supplied, members are
+ * emitted in `@SerializationOrder` order (AA1 criterion 7); otherwise keys stay
+ * alphabetical (the diff-stable default the editor relies on).
  */
-function encode(document, modelVersion = null) {
+function encode(document, modelVersion = null, order = null) {
   const b = new _Buffer();
   _writeHeader(b, modelVersion);
-  _writeDocumentPass(b, document.toJson());
+  _writeDocumentPass(b, document.toJson(), order);
   return b.toString();
 }
 

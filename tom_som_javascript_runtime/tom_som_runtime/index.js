@@ -36,6 +36,13 @@ const {
   SpecReflection,
 } = require('./spec_reflection');
 const {
+  encodeTwoLetterDate,
+  sectionIdPatternPrefix,
+  SpecSectionIdCollision,
+  generateListItemSectionId,
+} = require('./spec_section_id');
+const { SpecSerializationOrder } = require('./spec_serialization_order');
+const {
   SpecValidationCode,
   SpecValidationError,
   validateDocument,
@@ -80,6 +87,13 @@ module.exports = {
   SpecNodeKind,
   SpecResolution,
   SpecReflection,
+  // section-id derivation
+  encodeTwoLetterDate,
+  sectionIdPatternPrefix,
+  SpecSectionIdCollision,
+  generateListItemSectionId,
+  // serialization order
+  SpecSerializationOrder,
   // document
   SpecDocument,
   // validator

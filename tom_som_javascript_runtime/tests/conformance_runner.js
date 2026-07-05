@@ -36,6 +36,10 @@ const {
   SpecDocumentMarkdown,
   SpecModel,
   SpecReflection,
+  SpecSectionIdCollision,
+  SpecSerializationOrder,
+  encodeTwoLetterDate,
+  generateListItemSectionId,
   validateDocument,
   yamlDecode,
   yamlEncode,
@@ -267,6 +271,107 @@ function testOperations() {
   }
 }
 
+/** Whether `fn` throws {@link SpecSectionIdCollision} (criterion-5 guard). */
+function _raisesCollision(fn) {
+  try {
+    fn();
+    return false;
+  } catch (e) {
+    return e instanceof SpecSectionIdCollision;
+  }
+}
+
+/**
+ * AA1 criteria 3–6: date encoding (criterion 4), generated ids with within-day
+ * numbering (criteria 3 & 6), same-day reuse on last-item deletion, and
+ * unique-id enforcement on override — replayed from the shared corpus so every
+ * port reproduces the identical id semantics.
+ */
+function testSectionId() {
+  const cases = _readJson('section_id_cases.json');
+
+  // Criterion 4: the two-letter day code.
+  for (const c of cases.twoLetterDate) {
+    const got = encodeTwoLetterDate(c.month, c.day);
+    _check(`sectionId.twoLetterDate[${c.month}/${c.day}]`, got === c.expect, `${got} != ${c.expect}`);
+  }
+
+  // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+  for (const c of cases.generate) {
+    const got = generateListItemSectionId(c.pattern, c.month, c.day, c.existing);
+    _check(`sectionId.generate[${c.pattern}]`, got === c.expect, `${got} != ${c.expect}`);
+  }
+
+  // Criteria 5 & 6 at the document level: override keeps ids unique, deleting
+  // the last same-day item frees its number for reuse, deleting a middle one
+  // never renumbers the rest.
+  const doc = new SpecDocument();
+  const docOps = cases.documentOps;
+  for (let i = 0; i < docOps.length; i++) {
+    const s = docOps[i];
+    switch (s.op) {
+      case 'addGen': {
+        const genId = generateListItemSectionId(
+          s.pattern,
+          s.month,
+          s.day,
+          doc.listItemSectionIds(s.listPath),
+        );
+        _check(`sectionId.op[${i}].addGen.id`, genId === s.expectId, `${genId} != ${s.expectId}`);
+        const p = doc.addListItem(s.listPath, genId);
+        _check(`sectionId.op[${i}].addGen.path`, p === s.expectPath, `${p} != ${s.expectPath}`);
+        break;
+      }
+      case 'sectionIds': {
+        const got = doc.listItemSectionIds(s.listPath);
+        _check(`sectionId.op[${i}].sectionIds`, _deepEqual(got, s.expect), `${got} != ${s.expect}`);
+        break;
+      }
+      case 'removeListItem': {
+        const got = doc.removeListItem(s.itemPath);
+        _check(`sectionId.op[${i}].removeListItem`, got === Boolean(s.expect), String(got));
+        break;
+      }
+      case 'override':
+        doc.setItemSectionId(s.itemPath, s.id);
+        break;
+      case 'overrideThrows':
+        _check(
+          `sectionId.op[${i}].overrideThrows`,
+          _raisesCollision(() => doc.setItemSectionId(s.itemPath, s.id)),
+          '',
+        );
+        break;
+      case 'addExplicitThrows':
+        _check(
+          `sectionId.op[${i}].addExplicitThrows`,
+          _raisesCollision(() => doc.addListItem(s.listPath, s.id)),
+          '',
+        );
+        break;
+      default:
+        _check(`sectionId.op[${i}].unknown`, false, s.op);
+    }
+  }
+}
+
+/** AA1 criterion 7: members serialize in `@SerializationOrder`, not alphabetical. */
+function testSerializationOrder() {
+  const c = _readJson('serialization_order_cases.json');
+  const orderModel = SpecModel.fromJson(c.model);
+  const order = new SpecSerializationOrder(orderModel);
+
+  const gotPaths = order.orderPaths(c.contentPaths);
+  _check('serialOrder.orderPaths', _deepEqual(gotPaths, c.expectedOrder), `${gotPaths} != ${c.expectedOrder}`);
+
+  const gotFields = order.orderFormFields(c.formPath, c.formFields);
+  _check(
+    'serialOrder.orderFormFields',
+    _deepEqual(gotFields, c.expectedFormOrder),
+    `${gotFields} != ${c.expectedFormOrder}`,
+  );
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -283,6 +388,8 @@ function main() {
   testReflection(model);
   testValidation(model);
   testOperations();
+  testSectionId();
+  testSerializationOrder();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {
