@@ -175,7 +175,7 @@ section-types:
     pattern-check-id:
       pattern: ^costen_codi_lst-\d+$
       error-message: ID must match costen_codi_lst-NNN
-    description: Coding standards and style guidelines.
+    description: Add one entry per coding standard.
   COTORE-COMM-LST:
     prefix: cotore_comm_lst
     pattern-check-id:
@@ -245,7 +245,7 @@ section-types:
     pattern-check-id:
       pattern: ^decoen_deve_lst-\d+$
       error-message: ID must match decoen_deve_lst-NNN
-    description: Development conventions and best practices.
+    description: Add one entry per development convention.
   DEENEN-ENVI-LST:
     prefix: deenen_envi_lst
     pattern-check-id:
@@ -287,7 +287,7 @@ section-types:
     pattern-check-id:
       pattern: ^detaen_depl_lst-\d+$
       error-message: ID must match detaen_depl_lst-NNN
-    description: Deployment target specifications.
+    description: Add one entry per deployment target.
   DIREPR-PREF-LST:
     prefix: direpr_pref_lst
     pattern-check-id:
@@ -438,7 +438,7 @@ section-types:
     pattern-check-id:
       pattern: ^insten_indu_lst-\d+$
       error-message: ID must match insten_indu_lst-NNN
-    description: Industry standards compliance requirements.
+    description: Add one entry per industry standard.
   INSURE-INSU-LST:
     prefix: insure_insu_lst
     pattern-check-id:
@@ -1067,7 +1067,7 @@ section-types:
     pattern-check-id:
       pattern: ^btcen_buil_lst-\d+$
       error-message: ID must match btcen_buil_lst-NNN
-    description: Build toolchain requirements.
+    description: Add one entry per build tool.
   CATEG-CATE-LST:
     prefix: categ_cate_lst
     pattern-check-id:
@@ -1363,7 +1363,7 @@ section-types:
     pattern-check-id:
       pattern: ^fwren_fram_lst-\d+$
       error-message: ID must match fwren_fram_lst-NNN
-    description: Framework and library requirements.
+    description: Add one entry per framework or library.
   GBRLX-GLOB-LST:
     prefix: gbrlx_glob_lst
     pattern-check-id:
@@ -1790,7 +1790,7 @@ section-types:
     pattern-check-id:
       pattern: ^plgen_prog_lst-\d+$
       error-message: ID must match plgen_prog_lst-NNN
-    description: Programming language requirements.
+    description: Add one entry per programming language.
   PPGCE-CORR-LST:
     prefix: ppgce_corr_lst
     min-count-in-document: 1
@@ -2248,7 +2248,7 @@ section-types:
     pattern-check-id:
       pattern: ^tgplt_targ_lst-\d+$
       error-message: ID must match tgplt_targ_lst-NNN
-    description: "Target platforms (operating systems, runtimes, containers)."
+    description: Add one entry per target platform.
   TMMBE-MEMB-LST:
     prefix: tmmbe_memb_lst
     min-count-in-document: 1
@@ -2467,19 +2467,19 @@ section-types:
     pattern-check-id:
       pattern: ^arcm_comp_lst-\d+$
       error-message: ID must match arcm_comp_lst-NNN
-    description: Component/service catalog.
+    description: Add one entry per architecture component or service.
   ARDE-DECI-LST:
     prefix: arde_deci_lst
     pattern-check-id:
       pattern: ^arde_deci_lst-\d+$
       error-message: ID must match arde_deci_lst-NNN
-    description: Architecture decision records.
+    description: Add one entry per architecture decision record.
   ARPR-PRIN-LST:
     prefix: arpr_prin_lst
     pattern-check-id:
       pattern: ^arpr_prin_lst-\d+$
       error-message: ID must match arpr_prin_lst-NNN
-    description: Architecture principles guiding design decisions.
+    description: Add one entry per architecture principle.
   ATME-ITEM-LST:
     prefix: atme_item_lst
     pattern-check-id:
@@ -2733,7 +2733,7 @@ section-types:
     pattern-check-id:
       pattern: ^dspt_desi_lst-\d+$
       error-message: ID must match dspt_desi_lst-NNN
-    description: Required design patterns catalog.
+    description: Add one entry per design pattern.
   DSRC-ITEM-LST:
     prefix: dsrc_item_lst
     pattern-check-id:

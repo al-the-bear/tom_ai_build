@@ -34,6 +34,14 @@ Decisions must align with business requirements from the target-process
 sections and the system overview. Security requirements coordinate with
 the security and access model.
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+  ],
+  'Captures the technical framework: platform, language, architecture style and design patterns that found and constrain the target system.',
+)
 @SectionId('TECH')
 class TechnicalFrameworkConcept {
   @ContentHelp('''
@@ -119,6 +127,13 @@ be made early with careful stakeholder alignment.
 **Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),
 OWASP guidelines, IEEE 1471 architectural description.
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'Defines the foundational technical requirements — platform and language, architecture style, and design patterns and standards — that govern all development.',
+)
 @SectionId('BTREQ')
 class BasicTechnicalRequirements {
   @ContentHelp('''
@@ -189,6 +204,14 @@ foundation and constrain future development options.
 - Long-term support and vendor viability
 - Cross-platform requirements and code sharing
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'Semantic Versioning (SemVer) — version numbering',
+    'ISO/IEC 25010 — portability/compatibility',
+  ],
+  'Specifies the platform targets, programming languages, frameworks, build toolchain and deployment configurations that form the technical foundation.',
+)
 @SectionId('PLLNG')
 class PlatformAndLanguage {
   @ContentHelp('''
@@ -216,32 +239,72 @@ Provide a strategic overview of platform and technology selections.
   TextSection overview = TextSection();
 
   /// Target platforms (operating systems, runtimes, containers).
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture description',
+      'ISO/IEC 25010 — portability/compatibility',
+    ],
+    'The target platforms — operating systems, runtimes and containers — the system will run on.',
+  )
   @SectionId('TGPLT-TARG-LST')
   @SectionIdPattern('TGPLT-TARG-xxx')
+  @ContentHelp('Add one entry per target platform.')
   @SerializationOrder(2)
   List<TargetPlatformEntry> targetPlatforms = [];
 
   /// Programming language requirements.
+  @StandardReferences(
+    [
+      'language standard (ISO/ECMA/PEP) — programming language specification',
+      'Semantic Versioning (SemVer) — version numbering',
+    ],
+    'The programming languages, with version and SDK requirements, used to build the system.',
+  )
   @SectionId('PLGEN-PROG-LST')
   @SectionIdPattern('PLGEN-PROG-xxx')
+  @ContentHelp('Add one entry per programming language.')
   @SerializationOrder(3)
   List<ProgrammingLanguageEntry> programmingLanguages = [];
 
   /// Framework and library requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture description',
+      'Semantic Versioning (SemVer) — version numbering',
+    ],
+    'The frameworks and libraries, with versions and license constraints, the system depends on.',
+  )
   @SectionId('FWREN-FRAM-LST')
   @SectionIdPattern('FWREN-FRAM-xxx')
+  @ContentHelp('Add one entry per framework or library.')
   @SerializationOrder(4)
   List<FrameworkRequirementEntry> frameworks = [];
 
   /// Build toolchain requirements.
+  @StandardReferences(
+    [
+      'Twelve-Factor App — cloud-native methodology',
+      'ISO/IEC 12207 — software lifecycle processes',
+    ],
+    'The build tools and toolchain — build systems, compilers, bundlers and package managers — used to produce artifacts.',
+  )
   @SectionId('BTCEN-BUIL-LST')
   @SectionIdPattern('BTCEN-BUIL-xxx')
+  @ContentHelp('Add one entry per build tool.')
   @SerializationOrder(5)
   List<BuildToolchainEntry> buildToolchain = [];
 
   /// Deployment target specifications.
+  @StandardReferences(
+    [
+      'Twelve-Factor App — cloud-native methodology',
+      'ISO/IEC 12207 — software lifecycle processes',
+    ],
+    'The deployment targets — production, staging and distribution environments — the system is released to.',
+  )
   @SectionId('DETAEN-DEPL-LST')
   @SectionIdPattern('DETAEN-DEPL-xxx')
+  @ContentHelp('Add one entry per deployment target.')
   @SerializationOrder(6)
   List<DeploymentTargetEntry> deploymentTargets = [];
 
@@ -255,6 +318,13 @@ Provide a strategic overview of platform and technology selections.
 }
 
 /// Target platform entry (operating system, runtime, container).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — portability/compatibility',
+  ],
+  'A single target platform — operating system, runtime or container — with its version, architecture, requirements and lifecycle.',
+)
 @SectionId('TGPLT')
 class TargetPlatformEntry {
   @Form([
@@ -290,6 +360,10 @@ class TargetPlatformEntry {
 }
 
 /// Version requirements.
+@StandardReferences(
+  ['Semantic Versioning (SemVer) — version numbering'],
+  'The minimum, recommended and maximum supported versions of a target platform.',
+)
 @SectionId('TPEVR')
 class TargetPlatformEntryVersion {
   @Form([
@@ -305,6 +379,10 @@ class TargetPlatformEntryVersion {
 }
 
 /// Architecture details.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The processor architectures and bitness a target platform supports.',
+)
 @SectionId('TPEAR')
 class TargetPlatformEntryArchitecture {
   @Form([
@@ -317,6 +395,10 @@ class TargetPlatformEntryArchitecture {
 }
 
 /// Requirements and constraints.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The minimum memory, storage and OS features a target platform must provide.',
+)
 @SectionId('TPERQ')
 class TargetPlatformEntryRequirements {
   @Form([
@@ -332,6 +414,13 @@ class TargetPlatformEntryRequirements {
 }
 
 /// Lifecycle and compliance.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The justification, support scope, end-of-life date and certification requirements for a target platform.',
+)
 @SectionId('TPELC')
 class TargetPlatformEntryLifecycle {
   @Form([
@@ -351,6 +440,13 @@ class TargetPlatformEntryLifecycle {
 }
 
 /// Programming language requirement entry.
+@StandardReferences(
+  [
+    'language standard (ISO/ECMA/PEP) — programming language specification',
+    'Semantic Versioning (SemVer) — version numbering',
+  ],
+  'A single programming language with its variant, version, SDK, usage context, quality settings and justification.',
+)
 @SectionId('PLGEN')
 class ProgrammingLanguageEntry {
   @Form([
@@ -387,6 +483,10 @@ class ProgrammingLanguageEntry {
 }
 
 /// Version requirements for programming language.
+@StandardReferences(
+  ['Semantic Versioning (SemVer) — version numbering'],
+  'The recommended and maximum supported versions of a programming language.',
+)
 @SectionId('PLGVR')
 class ProgrammingLanguageEntryVersion {
   @Form([
@@ -400,6 +500,13 @@ class ProgrammingLanguageEntryVersion {
 }
 
 /// SDK configuration for programming language.
+@StandardReferences(
+  [
+    'Semantic Versioning (SemVer) — version numbering',
+    'language standard (ISO/ECMA/PEP) — programming language specification',
+  ],
+  'The SDK name and minimum/recommended versions for a programming language.',
+)
 @SectionId('PLGSK')
 class ProgrammingLanguageEntrySdk {
   @Form([
@@ -414,6 +521,13 @@ class ProgrammingLanguageEntrySdk {
 }
 
 /// Usage context for programming language.
+@StandardReferences(
+  [
+    'language standard (ISO/ECMA/PEP) — programming language specification',
+    'Domain-Driven Design — layered/hexagonal architecture',
+  ],
+  'Where and how a programming language is used — context, share of the codebase, primary status and required language features.',
+)
 @SectionId('PLGUS')
 class ProgrammingLanguageEntryUsage {
   @Form([
@@ -435,6 +549,13 @@ class ProgrammingLanguageEntryUsage {
 }
 
 /// Quality settings for programming language.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+    'language standard (ISO/ECMA/PEP) — programming language specification',
+  ],
+  'The linting, static analysis and code-style standards enforced for a programming language.',
+)
 @SectionId('PLGQU')
 class ProgrammingLanguageEntryQuality {
   @Form([
@@ -450,6 +571,13 @@ class ProgrammingLanguageEntryQuality {
 }
 
 /// Justification and notes for programming language.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The rationale for choosing a programming language, the alternatives considered and its migration path.',
+)
 @SectionId('PLGJT')
 class ProgrammingLanguageEntryJustification {
   @Form([
@@ -466,6 +594,13 @@ class ProgrammingLanguageEntryJustification {
 }
 
 /// Framework or library requirement entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'Semantic Versioning (SemVer) — version numbering',
+  ],
+  'A single framework or library with its identity, version, scope, compatibility, support status and justification.',
+)
 @SectionId('FRREEN')
 class FrameworkRequirementEntry {
   @Form([
@@ -505,6 +640,10 @@ class FrameworkRequirementEntry {
 }
 
 /// Identity details.
+@StandardReferences(
+  ['ISO/IEC/IEEE 42010 — architecture description'],
+  'The publisher and license identity of a framework or library.',
+)
 @SectionId('FWRID')
 class FrameworkIdentity {
   @Form([
@@ -516,6 +655,10 @@ class FrameworkIdentity {
 }
 
 /// Version requirements.
+@StandardReferences(
+  ['Semantic Versioning (SemVer) — version numbering'],
+  'The minimum, recommended and maximum versions and version constraint for a framework.',
+)
 @SectionId('FWRVR')
 class FrameworkVersion {
   @Form([
@@ -533,6 +676,13 @@ class FrameworkVersion {
 }
 
 /// Scope and plugins.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'Domain-Driven Design — layered/hexagonal architecture',
+  ],
+  'The usage scope, integration points and required/optional plugins of a framework in the architecture.',
+)
 @SectionId('FWRSC')
 class FrameworkScope {
   @Form([
@@ -552,6 +702,10 @@ class FrameworkScope {
 }
 
 /// Compatibility.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The compatibility, conflicts and deprecation warnings of a framework relative to others.',
+)
 @SectionId('FWRCP')
 class FrameworkCompatibility {
   @Form([
@@ -567,6 +721,10 @@ class FrameworkCompatibility {
 }
 
 /// Support status.
+@StandardReferences(
+  ['ISO/IEC 12207 — software lifecycle processes'],
+  'The support status, community size and documentation quality of a framework.',
+)
 @SectionId('FWRSP')
 class FrameworkSupport {
   @Form([
@@ -582,6 +740,13 @@ class FrameworkSupport {
 }
 
 /// Justification.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The rationale for selecting a framework, the alternatives considered and its risk assessment.',
+)
 @SectionId('FWRJT')
 class FrameworkJustification {
   @Form([
@@ -598,6 +763,13 @@ class FrameworkJustification {
 }
 
 /// Build toolchain requirement entry.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'A single build-toolchain tool with its versions, configuration, build profiles, integrations, outputs and operations.',
+)
 @SectionId('BTCEN')
 class BuildToolchainEntry {
   @Form([
@@ -640,6 +812,10 @@ class BuildToolchainEntry {
 }
 
 /// Version requirements.
+@StandardReferences(
+  ['Semantic Versioning (SemVer) — version numbering'],
+  'The minimum and recommended versions of a build-toolchain tool.',
+)
 @SectionId('BTCVR')
 class BuildToolchainEntryVersions {
   @Form([
@@ -653,6 +829,10 @@ class BuildToolchainEntryVersions {
 }
 
 /// Configuration and plugins.
+@StandardReferences(
+  ['Twelve-Factor App — cloud-native methodology'],
+  'The configuration file and required/optional plugins for a build-toolchain tool.',
+)
 @SectionId('BTCCF')
 class BuildToolchainEntryConfiguration {
   @Form([
@@ -668,6 +848,10 @@ class BuildToolchainEntryConfiguration {
 }
 
 /// Build profile settings.
+@StandardReferences(
+  ['Twelve-Factor App — cloud-native methodology'],
+  'The build profiles (debug, release, production) and default profile for a build-toolchain tool.',
+)
 @SectionId('BTEP')
 class BuildToolchainEntryProfiles {
   @Form([
@@ -681,6 +865,13 @@ class BuildToolchainEntryProfiles {
 }
 
 /// Integration touchpoints.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'The CI/CD and IDE integration points of a build-toolchain tool.',
+)
 @SectionId('BTEI')
 class BuildToolchainEntryIntegration {
   @Form([
@@ -694,6 +885,10 @@ class BuildToolchainEntryIntegration {
 }
 
 /// Output artifact settings.
+@StandardReferences(
+  ['ISO/IEC 12207 — software lifecycle processes'],
+  'The output artifacts produced by a build-toolchain tool and where they are stored.',
+)
 @SectionId('BTEO')
 class BuildToolchainEntryOutputs {
   @Form([
@@ -707,6 +902,13 @@ class BuildToolchainEntryOutputs {
 }
 
 /// Performance and rationale.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The caching strategy, parallelization and rationale governing a build-toolchain tool.',
+)
 @SectionId('BUTOENOP')
 class BuildToolchainEntryOperations {
   @Form([
@@ -723,6 +925,13 @@ class BuildToolchainEntryOperations {
 }
 
 /// Deployment target specification entry.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'A single deployment target with its platform, build output, requirements, process and compliance details.',
+)
 @SectionId('DEPTARENT')
 class DeploymentTargetEntry {
   @Form([
@@ -761,6 +970,10 @@ class DeploymentTargetEntry {
 }
 
 /// Platform specifics for deployment target.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The platform target and distribution channel of a deployment target.',
+)
 @SectionId('DTEP')
 class DeploymentTargetEntryPlatform {
   @Form([
@@ -774,6 +987,10 @@ class DeploymentTargetEntryPlatform {
 }
 
 /// Build output configuration for deployment target.
+@StandardReferences(
+  ['ISO/IEC 12207 — software lifecycle processes'],
+  'The artifact format, naming, signing, size limit and performance targets for a deployment target build output.',
+)
 @SectionId('DTEBO')
 class DeploymentTargetEntryBuildOutput {
   @Form([
@@ -793,6 +1010,10 @@ class DeploymentTargetEntryBuildOutput {
 }
 
 /// Platform requirements for deployment target.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The minimum OS version, target SDK, permissions and capabilities a deployment target requires.',
+)
 @SectionId('DTER')
 class DeploymentTargetEntryRequirements {
   @Form([
@@ -810,6 +1031,13 @@ class DeploymentTargetEntryRequirements {
 }
 
 /// Deployment process configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'The deployment method, rollback strategy and feature-flag support for a deployment target.',
+)
 @SectionId('DETAENPR')
 class DeploymentTargetEntryProcess {
   @Form([
@@ -825,6 +1053,10 @@ class DeploymentTargetEntryProcess {
 }
 
 /// Compliance and notes for deployment target.
+@StandardReferences(
+  ['ISO/IEC 12207 — software lifecycle processes'],
+  'The compliance, privacy, priority and launch-date details for a deployment target.',
+)
 @SectionId('DTEC')
 class DeploymentTargetEntryCompliance {
   @Form([
@@ -843,6 +1075,13 @@ class DeploymentTargetEntryCompliance {
 }
 
 /// Dependency management configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'Semantic Versioning (SemVer) — version numbering',
+  ],
+  'The dependency management strategy: package managers, registries, versioning, security, internal packages and operations.',
+)
 @SectionId('DEMA')
 class DependencyManagement {
   @Form([
@@ -876,6 +1115,10 @@ class DependencyManagement {
 }
 
 /// Versioning and update policy.
+@StandardReferences(
+  ['Semantic Versioning (SemVer) — version numbering'],
+  'The versioning, update and lockfile policies for managing dependencies.',
+)
 @SectionId('DEMAVE')
 class DependencyManagementVersioning {
   @Form([
@@ -891,6 +1134,13 @@ class DependencyManagementVersioning {
 }
 
 /// Security and trust controls.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+  ],
+  'The security scanning, license compliance and source-trust controls applied to dependencies.',
+)
 @SectionId('DEMASE')
 class DependencyManagementSecurity {
   @Form([
@@ -906,6 +1156,13 @@ class DependencyManagementSecurity {
 }
 
 /// Internal package and workspace strategy.
+@StandardReferences(
+  [
+    'Domain-Driven Design — layered/hexagonal architecture',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The internal package and monorepo/workspace strategy for managing dependencies.',
+)
 @SectionId('DEMAIN')
 class DependencyManagementInternal {
   @Form([
@@ -919,6 +1176,10 @@ class DependencyManagementInternal {
 }
 
 /// Caching and offline behavior.
+@StandardReferences(
+  ['Twelve-Factor App — cloud-native methodology'],
+  'The caching and offline-build behavior for managing dependencies.',
+)
 @SectionId('DEMAOP')
 class DependencyManagementOperations {
   @Form([
@@ -934,6 +1195,13 @@ class DependencyManagementOperations {
 }
 
 /// Runtime environment constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The runtime environment constraints: memory, CPU, storage, network, environment variables, dependencies and scaling.',
+)
 @SectionId('RUEN')
 class RuntimeEnvironment {
   @Form([
@@ -984,6 +1252,10 @@ class RuntimeEnvironment {
 }
 
 /// Memory limits.
+@StandardReferences(
+  ['ISO/IEC 25010 — product quality (maintainability/portability)'],
+  'The hard memory limits or caps for the runtime environment.',
+)
 @SectionId('RUENME')
 class RuntimeEnvironmentMemory {
   @Form([
@@ -995,6 +1267,10 @@ class RuntimeEnvironmentMemory {
 }
 
 /// CPU and graphics requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — portability/compatibility'],
+  'The required CPU architecture and GPU/graphics requirements of the runtime environment.',
+)
 @SectionId('RUENCP')
 class RuntimeEnvironmentCpu {
   @Form([
@@ -1008,6 +1284,10 @@ class RuntimeEnvironmentCpu {
 }
 
 /// Storage requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — product quality (maintainability/portability)'],
+  'The temporary space and storage type required by the runtime environment.',
+)
 @SectionId('RUENST')
 class RuntimeEnvironmentStorage {
   @Form([
@@ -1021,6 +1301,10 @@ class RuntimeEnvironmentStorage {
 }
 
 /// Network requirements.
+@StandardReferences(
+  ['Twelve-Factor App — cloud-native methodology'],
+  'The connectivity, bandwidth and latency requirements of the runtime environment.',
+)
 @SectionId('RUENNE')
 class RuntimeEnvironmentNetwork {
   @Form([
@@ -1036,6 +1320,10 @@ class RuntimeEnvironmentNetwork {
 }
 
 /// Environment variables.
+@StandardReferences(
+  ['Twelve-Factor App — cloud-native methodology'],
+  'The required and optional environment variables that configure the runtime environment.',
+)
 @SectionId('RUENVA')
 class RuntimeEnvironmentVariables {
   @Form([
@@ -1049,6 +1337,13 @@ class RuntimeEnvironmentVariables {
 }
 
 /// Runtime dependencies.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'Domain-Driven Design — layered/hexagonal architecture',
+  ],
+  'The system libraries and external services the runtime environment depends on.',
+)
 @SectionId('RUENDE')
 class RuntimeEnvironmentDependencies {
   @Form([
@@ -1062,6 +1357,13 @@ class RuntimeEnvironmentDependencies {
 }
 
 /// Scaling characteristics.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 25010 — product quality (maintainability/portability)',
+  ],
+  'The horizontal, vertical and auto-scaling characteristics of the runtime environment.',
+)
 @SectionId('RUENSC')
 class RuntimeEnvironmentScaling {
   @Form([
@@ -1077,6 +1379,10 @@ class RuntimeEnvironmentScaling {
 }
 
 /// Additional notes.
+@StandardReferences(
+  ['arc42 — architecture documentation template'],
+  'Additional free-form notes about the runtime environment.',
+)
 @SectionId('RUENNO')
 class RuntimeEnvironmentNotes {
   @Form([
@@ -1123,6 +1429,14 @@ scalability, team structure, and operational complexity.
 
 **Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'C4 model — software architecture diagrams',
+  ],
+  'The overall architecture style and structural organization chosen for the system.',
+)
 @SectionId('AS')
 class ArchitectureStyle {
   @ContentHelp('''
@@ -1150,8 +1464,16 @@ Provide the architectural vision and primary style selection rationale.
   ArchitectureOverview overview = ArchitectureOverview();
 
   /// Architecture principles guiding design decisions.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture description',
+      'ISO/IEC 25010 — architectural quality attributes',
+    ],
+    'The guiding architecture principles the design adheres to.',
+  )
   @SectionId('ARPR-PRIN-LST')
   @SectionIdPattern('ARPR-PRIN-xxx')
+  @ContentHelp('Add one entry per architecture principle.')
   @SerializationOrder(2)
   List<ArchitecturePrincipleEntry> principles = [];
 
@@ -1160,8 +1482,17 @@ Provide the architectural vision and primary style selection rationale.
   ComponentOrganization componentOrganization = ComponentOrganization();
 
   /// Component/service catalog.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture description',
+      'arc42 — architecture documentation template',
+      'C4 model — software architecture diagrams',
+    ],
+    'The catalog of components and services that make up the architecture.',
+  )
   @SectionId('ARCM-COMP-LST')
   @SectionIdPattern('ARCM-COMP-xxx')
+  @ContentHelp('Add one entry per architecture component or service.')
   @SerializationOrder(4)
   List<ArchitectureComponentEntry> components = [];
 
@@ -1186,13 +1517,29 @@ Provide the architectural vision and primary style selection rationale.
   DeploymentTopology deploymentTopology = DeploymentTopology();
 
   /// Architecture decision records.
+  @StandardReferences(
+    [
+      'ADR (Architecture Decision Records) — decision capture',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The recorded architecture decisions and their rationale.',
+  )
   @SectionId('ARDE-DECI-LST')
   @SectionIdPattern('ARDE-DECI-xxx')
+  @ContentHelp('Add one entry per architecture decision record.')
   @SerializationOrder(10)
   List<ArchitectureDecisionRecord> decisionRecords = [];
 }
 
 /// Architecture overview and primary style selection.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'C4 model — software architecture diagrams',
+  ],
+  'The high-level overview of the primary architecture style and its selection.',
+)
 @SectionId('AROV')
 class ArchitectureOverview {
   @Form([
@@ -1226,6 +1573,13 @@ class ArchitectureOverview {
 }
 
 /// Architecture drivers.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The business and technical drivers that justify the architecture choice.',
+)
 @SectionId('AROVDR')
 class ArchitectureOverviewDrivers {
   @Form([
@@ -1242,6 +1596,13 @@ class ArchitectureOverviewDrivers {
 }
 
 /// Trade-offs and alternatives.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The trade-offs accepted and the alternatives considered and rejected.',
+)
 @SectionId('AOTO')
 class ArchitectureOverviewTradeOffs {
   @Form([
@@ -1261,6 +1622,13 @@ class ArchitectureOverviewTradeOffs {
 }
 
 /// Evolution planning.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The planned evolution path and migration strategy for the architecture.',
+)
 @SectionId('AROVEV')
 class ArchitectureOverviewEvolution {
   @Form([
@@ -1274,6 +1642,13 @@ class ArchitectureOverviewEvolution {
 }
 
 /// Compliance considerations.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The compliance requirements and industry benchmarks that constrain the architecture.',
+)
 @SectionId('AROVCO')
 class ArchitectureOverviewCompliance {
   @Form([
@@ -1288,6 +1663,13 @@ class ArchitectureOverviewCompliance {
 }
 
 /// Architecture principle entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'A single architecture principle guiding design decisions.',
+)
 @SectionId('ARPR')
 class ArchitecturePrincipleEntry {
   @Form([
@@ -1314,6 +1696,13 @@ class ArchitecturePrincipleEntry {
 }
 
 /// Rationale and practical implications.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The rationale and practical implications of following this architecture principle.',
+)
 @SectionId('APEG')
 class ArchitecturePrincipleEntryGuidance {
   @Form([
@@ -1328,6 +1717,13 @@ class ArchitecturePrincipleEntryGuidance {
 }
 
 /// Enforcement and applicability context.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The enforcement level, mechanism, and applicable scope of this architecture principle.',
+)
 @SectionId('ARPRENGO')
 class ArchitecturePrincipleEntryGovernance {
   @Form([
@@ -1348,6 +1744,14 @@ class ArchitecturePrincipleEntryGovernance {
 }
 
 /// Component organization and boundaries.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'C4 model — software architecture diagrams',
+  ],
+  'How system components are organized and how their boundaries are defined.',
+)
 @SectionId('COOR')
 class ComponentOrganization {
   @Form([
@@ -1380,6 +1784,14 @@ class ComponentOrganization {
 }
 
 /// Layering rules.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'C4 model — software architecture diagrams',
+  ],
+  'The architectural layers and the allowed dependencies between them.',
+)
 @SectionId('COORLA')
 class ComponentOrganizationLayering {
   @Form([
@@ -1395,6 +1807,13 @@ class ComponentOrganizationLayering {
 }
 
 /// Domain boundaries.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / layered architecture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The domain boundaries, shared kernel, and anti-corruption layers between contexts.',
+)
 @SectionId('COORDO')
 class ComponentOrganizationDomain {
   @Form([
@@ -1410,6 +1829,13 @@ class ComponentOrganizationDomain {
 }
 
 /// Coupling guidance.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'Domain-Driven Design — bounded contexts / layered architecture',
+  ],
+  'The guidance on minimizing coupling and maximizing cohesion between components.',
+)
 @SectionId('COORCO')
 class ComponentOrganizationCoupling {
   @Form([
@@ -1423,6 +1849,13 @@ class ComponentOrganizationCoupling {
 }
 
 /// Dependency management rules.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The rules governing dependency direction, interface contracts, and versioning between components.',
+)
 @SectionId('COORDE')
 class ComponentOrganizationDependencies {
   @Form([
@@ -1439,6 +1872,14 @@ class ComponentOrganizationDependencies {
 }
 
 /// Architecture component/service entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+    'C4 model — software architecture diagrams',
+  ],
+  'A single component or service in the architecture and its defining attributes.',
+)
 @SectionId('ARCM')
 class ArchitectureComponentEntry {
   @Form([
@@ -1479,6 +1920,13 @@ class ArchitectureComponentEntry {
 }
 
 /// Purpose and ownership boundaries.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The purpose and responsibilities of a component and what it is not responsible for.',
+)
 @SectionId('ACEP')
 class ArchitectureComponentEntryPurpose {
   @Form([
@@ -1494,6 +1942,13 @@ class ArchitectureComponentEntryPurpose {
 }
 
 /// Public and private boundaries.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — software architecture diagrams',
+  ],
+  'The public interface and private implementation boundaries of a component.',
+)
 @SectionId('ACEB')
 class ArchitectureComponentEntryBoundaries {
   @Form([
@@ -1509,6 +1964,13 @@ class ArchitectureComponentEntryBoundaries {
 }
 
 /// Dependency relationships.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — software architecture diagrams',
+  ],
+  'The upstream, downstream, and external dependency relationships of a component.',
+)
 @SectionId('ACED')
 class ArchitectureComponentEntryDependencies {
   @Form([
@@ -1524,6 +1986,13 @@ class ArchitectureComponentEntryDependencies {
 }
 
 /// Technical delivery characteristics.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The technology stack, deployment unit, and scaling characteristics of a component.',
+)
 @SectionId('ACET')
 class ArchitectureComponentEntryTechnical {
   @Form([
@@ -1539,6 +2008,13 @@ class ArchitectureComponentEntryTechnical {
 }
 
 /// Team ownership and service expectations.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The team ownership and expected service level for a component.',
+)
 @SectionId('ACEO')
 class ArchitectureComponentEntryOwnership {
   @Form([
@@ -1553,6 +2029,13 @@ class ArchitectureComponentEntryOwnership {
 }
 
 /// Communication patterns between components.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The communication patterns and protocols used between components.',
+)
 @SectionId('COMPAT')
 class CommunicationPatterns {
   @Form([
@@ -1593,6 +2076,13 @@ class CommunicationPatterns {
 }
 
 /// Synchronous communication details.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The synchronous request-response patterns and API gateway details.',
+)
 @SectionId('COPASY')
 class CommunicationPatternsSynchronous {
   @Form([
@@ -1606,6 +2096,13 @@ class CommunicationPatternsSynchronous {
 }
 
 /// Asynchronous communication details.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'POSA — patterns of software architecture',
+  ],
+  'The asynchronous messaging protocols and event patterns used between components.',
+)
 @SectionId('COPAAS')
 class CommunicationPatternsAsynchronous {
   @Form([
@@ -1621,6 +2118,13 @@ class CommunicationPatternsAsynchronous {
 }
 
 /// Data exchange contracts.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The data contracts, schema evolution, and serialization used in component communication.',
+)
 @SectionId('CPDE')
 class CommunicationPatternsDataExchange {
   @Form([
@@ -1636,6 +2140,13 @@ class CommunicationPatternsDataExchange {
 }
 
 /// Reliability controls.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The reliability controls such as retries, circuit breakers, timeouts, and idempotency.',
+)
 @SectionId('COPARE')
 class CommunicationPatternsReliability {
   @Form([
@@ -1651,6 +2162,13 @@ class CommunicationPatternsReliability {
 }
 
 /// Observability settings.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The tracing, logging, and metrics settings for observing component communication.',
+)
 @SectionId('COPAOB')
 class CommunicationPatternsObservability {
   @Form([
@@ -1665,6 +2183,13 @@ class CommunicationPatternsObservability {
 }
 
 /// Data architecture decisions.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'Domain-Driven Design — bounded contexts / layered architecture',
+  ],
+  'The data strategy, ownership model, and governance that shape the data architecture.',
+)
 @SectionId('DAAR')
 class DataArchitecture {
   @Form([
@@ -1700,6 +2225,13 @@ class DataArchitecture {
 }
 
 /// Storage decisions.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The primary and secondary storage choices and storage topology.',
+)
 @SectionId('DAARST')
 class DataArchitectureStorage {
   @Form([
@@ -1715,6 +2247,13 @@ class DataArchitectureStorage {
 }
 
 /// Data access patterns.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The data access, query, and caching patterns used against the data stores.',
+)
 @SectionId('DAARAC')
 class DataArchitectureAccess {
   @Form([
@@ -1729,6 +2268,13 @@ class DataArchitectureAccess {
 }
 
 /// Consistency model and transactions.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The consistency model, transaction scope, and conflict resolution for data.',
+)
 @SectionId('DAARCO')
 class DataArchitectureConsistency {
   @Form([
@@ -1744,6 +2290,13 @@ class DataArchitectureConsistency {
 }
 
 /// Lifecycle controls.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The data retention, archiving, and recovery controls over the data lifecycle.',
+)
 @SectionId('DAARLI')
 class DataArchitectureLifecycle {
   @Form([
@@ -1759,6 +2312,13 @@ class DataArchitectureLifecycle {
 }
 
 /// Privacy and security controls.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The data classification, encryption, and access-control security controls.',
+)
 @SectionId('DAARSE')
 class DataArchitectureSecurity {
   @Form([
@@ -1775,6 +2335,13 @@ class DataArchitectureSecurity {
 }
 
 /// Scalability and performance architecture.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The scalability model, elasticity approach, and scaling triggers of the architecture.',
+)
 @SectionId('SCAR')
 class ScalabilityArchitecture {
   @Form([
@@ -1811,6 +2378,13 @@ class ScalabilityArchitecture {
 }
 
 /// Capacity planning assumptions.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The expected load, peak load, and growth projections used for capacity planning.',
+)
 @SectionId('SCARCA')
 class ScalabilityArchitectureCapacity {
   @Form([
@@ -1825,6 +2399,13 @@ class ScalabilityArchitectureCapacity {
 }
 
 /// Performance targets.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The response-time, throughput, and availability targets for the architecture.',
+)
 @SectionId('SCARTA')
 class ScalabilityArchitectureTargets {
   @Form([
@@ -1840,6 +2421,13 @@ class ScalabilityArchitectureTargets {
 }
 
 /// Performance patterns.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The caching, load-balancing, and queueing patterns used to meet performance goals.',
+)
 @SectionId('SCARPA')
 class ScalabilityArchitecturePatterns {
   @Form([
@@ -1855,6 +2443,13 @@ class ScalabilityArchitecturePatterns {
 }
 
 /// Resource optimization controls.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The connection pooling, resource limits, and graceful-degradation controls under load.',
+)
 @SectionId('SCAROP')
 class ScalabilityArchitectureOptimization {
   @Form([
@@ -1870,6 +2465,13 @@ class ScalabilityArchitectureOptimization {
 }
 
 /// Testing and benchmarks.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The performance and load testing approach and benchmarks the architecture must meet.',
+)
 @SectionId('SCARTE')
 class ScalabilityArchitectureTesting {
   @Form([
@@ -1886,6 +2488,13 @@ class ScalabilityArchitectureTesting {
 }
 
 /// Integration architecture with external systems.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The integration strategy, patterns, and API management for external systems.',
+)
 @SectionId('INAR')
 class IntegrationArchitecture {
   @Form([
@@ -1924,6 +2533,13 @@ class IntegrationArchitecture {
 }
 
 /// External system landscape.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The landscape of external systems, their integration types, and real-time needs.',
+)
 @SectionId('INARSY')
 class IntegrationArchitectureSystems {
   @Form([
@@ -1939,6 +2555,13 @@ class IntegrationArchitectureSystems {
 }
 
 /// Data exchange approach.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'POSA — patterns of software architecture',
+  ],
+  'The data transformation, master-data management, and synchronization across systems.',
+)
 @SectionId('INARDA')
 class IntegrationArchitectureData {
   @Form([
@@ -1954,6 +2577,13 @@ class IntegrationArchitectureData {
 }
 
 /// Security model for integrations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'REST / microservices — architectural style',
+  ],
+  'The authentication, authorization, and transport-security model for integrations.',
+)
 @SectionId('INARSE')
 class IntegrationArchitectureSecurity {
   @Form([
@@ -1969,6 +2599,13 @@ class IntegrationArchitectureSecurity {
 }
 
 /// Reliability controls.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The error handling, retry, and compensating-action controls for integration reliability.',
+)
 @SectionId('INARRE')
 class IntegrationArchitectureReliability {
   @Form([
@@ -1984,6 +2621,13 @@ class IntegrationArchitectureReliability {
 }
 
 /// Monitoring and SLA management.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 25010 — architectural quality attributes',
+  ],
+  'The monitoring and SLA management for external integrations.',
+)
 @SectionId('INAROP')
 class IntegrationArchitectureOperations {
   @Form([
@@ -1999,6 +2643,13 @@ class IntegrationArchitectureOperations {
 }
 
 /// Deployment topology and infrastructure.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The deployment topology, deployment model, and cloud providers for the system.',
+)
 @SectionId('DETO')
 class DeploymentTopology {
   @Form([
@@ -2038,6 +2689,13 @@ class DeploymentTopology {
 }
 
 /// Infrastructure layout.
+@StandardReferences(
+  [
+    'REST / microservices — architectural style',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'The compute model, network topology, and storage infrastructure layout.',
+)
 @SectionId('DETOIN')
 class DeploymentTopologyInfrastructure {
   @Form([
@@ -2053,6 +2711,13 @@ class DeploymentTopologyInfrastructure {
 }
 
 /// Environment layout.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'REST / microservices — architectural style',
+  ],
+  'The environments, their isolation, and per-environment configuration management.',
+)
 @SectionId('DETOEN')
 class DeploymentTopologyEnvironments {
   @Form([
@@ -2068,6 +2733,13 @@ class DeploymentTopologyEnvironments {
 }
 
 /// High-availability settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — architectural quality attributes',
+    'REST / microservices — architectural style',
+  ],
+  'The redundancy model, failover strategy, and disaster recovery for high availability.',
+)
 @SectionId('DETOAV')
 class DeploymentTopologyAvailability {
   @Form([
@@ -2083,6 +2755,13 @@ class DeploymentTopologyAvailability {
 }
 
 /// Geographic distribution.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'REST / microservices — architectural style',
+  ],
+  'The geographic distribution, data residency, and latency considerations for deployment.',
+)
 @SectionId('DETOGE')
 class DeploymentTopologyGeography {
   @Form([
@@ -2098,6 +2777,13 @@ class DeploymentTopologyGeography {
 }
 
 /// Infrastructure-as-code strategy.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'REST / microservices — architectural style',
+  ],
+  'The infrastructure-as-code approach, immutability, and versioning strategy.',
+)
 @SectionId('DTIAC')
 class DeploymentTopologyInfrastructureAsCode {
   @Form([
@@ -2114,6 +2800,13 @@ class DeploymentTopologyInfrastructureAsCode {
 }
 
 /// Architecture Decision Record (ADR) entry.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'A single architecture decision record capturing a decision, its status, and identity.',
+)
 @SectionId('ARDE')
 class ArchitectureDecisionRecord {
   @Form([
@@ -2152,6 +2845,13 @@ class ArchitectureDecisionRecord {
 }
 
 /// Decision context and constraints.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The context, problem, and constraints that prompted an architecture decision.',
+)
 @SectionId('ADRC')
 class ArchitectureDecisionRecordContext {
   @Form([
@@ -2167,6 +2867,13 @@ class ArchitectureDecisionRecordContext {
 }
 
 /// Decision outcome and rationale.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The decision made, its rationale, alternatives considered, and decision makers.',
+)
 @SectionId('ADRO')
 class ArchitectureDecisionRecordOutcome {
   @Form([
@@ -2184,6 +2891,13 @@ class ArchitectureDecisionRecordOutcome {
 }
 
 /// Consequences and review.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The positive and negative consequences of an architecture decision and its review date.',
+)
 @SectionId('ARDERECO')
 class ArchitectureDecisionRecordConsequences {
   @Form([
@@ -2202,6 +2916,13 @@ class ArchitectureDecisionRecordConsequences {
 }
 
 /// Related decision links.
+@StandardReferences(
+  [
+    'ADR (Architecture Decision Records) — decision capture',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'The links between an architecture decision and related, superseded, or superseding decisions.',
+)
 @SectionId('ADRR')
 class ArchitectureDecisionRecordRelations {
   @Form([
@@ -2252,6 +2973,14 @@ quality, maintainability, and team productivity.
 
 **Enforcement**: Linters, static analysis, automated checks in CI/CD.
 ''')
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+  ],
+  'Defines the design patterns, coding standards, development conventions, and industry standards the implementation must follow.',
+)
 @SectionId('DPAS')
 class DesignPatternsAndStandards {
   @ContentHelp('''
@@ -2279,26 +3008,59 @@ Provide an overview of the design patterns and standards approach.
   TextSection overview = TextSection();
 
   /// Required design patterns catalog.
+  @StandardReferences(
+    [
+      'GoF design patterns — reusable OO design',
+      'POSA — patterns of software architecture',
+      'Domain-Driven Design — tactical patterns (entities/aggregates/repositories)',
+    ],
+    'The design patterns the implementation is expected to apply.',
+  )
   @SectionId('DSPT-DESI-LST')
   @SectionIdPattern('DSPT-DESI-xxx')
+  @ContentHelp('Add one entry per design pattern.')
   @SerializationOrder(2)
   List<DesignPatternEntry> designPatterns = [];
 
   /// Coding standards and style guidelines.
+  @StandardReferences(
+    [
+      'coding standards (e.g. Effective Dart / language style guide)',
+      'SOLID principles — object-oriented design',
+    ],
+    'The coding standards and style guidelines the code must comply with.',
+  )
   @SectionId('COSTEN-CODI-LST')
   @SectionIdPattern('COSTEN-CODI-xxx')
+  @ContentHelp('Add one entry per coding standard.')
   @SerializationOrder(3)
   List<CodingStandardEntry> codingStandards = [];
 
   /// Development conventions and best practices.
+  @StandardReferences(
+    [
+      'coding standards (e.g. Effective Dart / language style guide)',
+      'SOLID principles — object-oriented design',
+    ],
+    'The development practices and workflow conventions the team must follow.',
+  )
   @SectionId('DECOEN-DEVE-LST')
   @SectionIdPattern('DECOEN-DEVE-xxx')
+  @ContentHelp('Add one entry per development convention.')
   @SerializationOrder(4)
   List<DevelopmentConventionEntry> developmentConventions = [];
 
   /// Industry standards compliance requirements.
+  @StandardReferences(
+    [
+      'industry standards compliance (ISO/IEC / W3C / IETF)',
+      'ISO/IEC 25010 — maintainability quality attributes',
+    ],
+    'The industry standards the system is required to comply with.',
+  )
   @SectionId('INSTEN-INDU-LST')
   @SectionIdPattern('INSTEN-INDU-xxx')
+  @ContentHelp('Add one entry per industry standard.')
   @SerializationOrder(5)
   List<IndustryStandardEntry> industryStandards = [];
 
@@ -2320,6 +3082,14 @@ Provide an overview of the design patterns and standards approach.
 }
 
 /// Design pattern entry — a specific design pattern to be used.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'POSA — patterns of software architecture',
+    'Domain-Driven Design — tactical patterns (entities/aggregates/repositories)',
+  ],
+  'A single design pattern the implementation is expected to apply.',
+)
 @SectionId('DSPT')
 class DesignPatternEntry {
   @Form([
@@ -2362,6 +3132,13 @@ class DesignPatternEntry {
 }
 
 /// Applicability guidance.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'POSA — patterns of software architecture',
+  ],
+  'Describes when a design pattern applies and when it should be avoided.',
+)
 @SectionId('DPEA')
 class DesignPatternEntryApplicability {
   @Form([
@@ -2375,6 +3152,13 @@ class DesignPatternEntryApplicability {
 }
 
 /// Structural composition.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'POSA — patterns of software architecture',
+  ],
+  'Describes the participants, collaborations, and variations of a design pattern.',
+)
 @SectionId('DEPAENST')
 class DesignPatternEntryStructure {
   @Form([
@@ -2390,6 +3174,13 @@ class DesignPatternEntryStructure {
 }
 
 /// Implementation guidance.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'Domain-Driven Design — tactical patterns (entities/aggregates/repositories)',
+  ],
+  'Describes how a design pattern is implemented within the project.',
+)
 @SectionId('DPEI')
 class DesignPatternEntryImplementation {
   @Form([
@@ -2405,6 +3196,13 @@ class DesignPatternEntryImplementation {
 }
 
 /// Architectural context.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'GoF design patterns — reusable OO design',
+  ],
+  'Describes where a design pattern applies in the architecture and related patterns.',
+)
 @SectionId('DEPAENCO')
 class DesignPatternEntryContext {
   @Form([
@@ -2418,6 +3216,13 @@ class DesignPatternEntryContext {
 }
 
 /// Enforcement and notes.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Describes how design-pattern compliance is enforced and verified.',
+)
 @SectionId('DPEE')
 class DesignPatternEntryEnforcement {
   @Form([
@@ -2432,6 +3237,13 @@ class DesignPatternEntryEnforcement {
 }
 
 /// Coding standard entry — a coding style or convention requirement.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'A single coding style or convention requirement the code must satisfy.',
+)
 @SectionId('CSE')
 class CodingStandardEntry {
   @Form([
@@ -2465,6 +3277,13 @@ class CodingStandardEntry {
 }
 
 /// Rule description.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'States a coding rule together with its rationale and examples.',
+)
 @SectionId('CSERD')
 class CodingStandardEntryRuleDetails {
   @Form([
@@ -2478,6 +3297,13 @@ class CodingStandardEntryRuleDetails {
 }
 
 /// Naming requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the naming conventions and prefix/suffix rules for identifiers.',
+)
 @SectionId('CSEN')
 class CodingStandardEntryNaming {
   @Form([
@@ -2491,6 +3317,13 @@ class CodingStandardEntryNaming {
 }
 
 /// Formatting requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines indentation, line-length, and bracing formatting rules for the code.',
+)
 @SectionId('CSEF')
 class CodingStandardEntryFormatting {
   @Form([
@@ -2505,6 +3338,13 @@ class CodingStandardEntryFormatting {
 }
 
 /// Enforcement details.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes how a coding standard is enforced via linters, severity, and CI checks.',
+)
 @SectionId('CSEE')
 class CodingStandardEntryEnforcement {
   @Form([
@@ -2523,6 +3363,13 @@ class CodingStandardEntryEnforcement {
 }
 
 /// Development convention entry — a development practice or workflow convention.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'A single development practice or workflow convention the team must follow.',
+)
 @SectionId('DCE')
 class DevelopmentConventionEntry {
   @Form([
@@ -2565,6 +3412,13 @@ class DevelopmentConventionEntry {
 }
 
 /// Background and workflow.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Explains the rationale and step-by-step workflow behind a development convention.',
+)
 @SectionId('DCEO')
 class DevelopmentConventionEntryOverview {
   @Form([
@@ -2578,6 +3432,13 @@ class DevelopmentConventionEntryOverview {
 }
 
 /// Version control requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines branching, commit, and pull-request requirements for version control.',
+)
 @SectionId('DCEVC')
 class DevelopmentConventionEntryVersionControl {
   @Form([
@@ -2595,6 +3456,13 @@ class DevelopmentConventionEntryVersionControl {
 }
 
 /// Code review expectations.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the code-review requirements and checklist the team applies.',
+)
 @SectionId('DCER')
 class DevelopmentConventionEntryReview {
   @Form([
@@ -2608,6 +3476,13 @@ class DevelopmentConventionEntryReview {
 }
 
 /// Automation integration.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes how a development convention integrates with CI/CD automation and triggers.',
+)
 @SectionId('DCEA')
 class DevelopmentConventionEntryAutomation {
   @Form([
@@ -2621,6 +3496,13 @@ class DevelopmentConventionEntryAutomation {
 }
 
 /// Enforcement and exceptions.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes how a development convention is enforced and which exceptions are allowed.',
+)
 @SectionId('DCEE')
 class DevelopmentConventionEntryEnforcement {
   @Form([
@@ -2637,6 +3519,13 @@ class DevelopmentConventionEntryEnforcement {
 }
 
 /// Industry standard entry — compliance with industry standards.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'A single industry standard the system is required to comply with.',
+)
 @SectionId('ISE')
 class IndustryStandardEntry {
   @Form([
@@ -2682,6 +3571,13 @@ class IndustryStandardEntry {
 }
 
 /// Scope details.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines which parts of the system an industry standard applies to.',
+)
 @SectionId('ISES')
 class IndustryStandardEntryScope {
   @Form([
@@ -2693,6 +3589,13 @@ class IndustryStandardEntryScope {
 }
 
 /// Requirement applicability.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Identifies which requirements of an industry standard apply and which are excluded.',
+)
 @SectionId('ISEC')
 class IndustryStandardEntryCompliance {
   @Form([
@@ -2706,6 +3609,13 @@ class IndustryStandardEntryCompliance {
 }
 
 /// Certification details.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Describes whether formal certification is required for an industry standard and its scope.',
+)
 @SectionId('INSTENCE')
 class IndustryStandardEntryCertification {
   @Form([
@@ -2723,6 +3633,13 @@ class IndustryStandardEntryCertification {
 }
 
 /// Verification settings.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines how compliance with an industry standard is audited and evidenced.',
+)
 @SectionId('ISEV')
 class IndustryStandardEntryVerification {
   @Form([
@@ -2738,6 +3655,13 @@ class IndustryStandardEntryVerification {
 }
 
 /// Reference metadata.
+@StandardReferences(
+  [
+    'industry standards compliance (ISO/IEC / W3C / IETF)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Holds reference links and notes for an industry standard.',
+)
 @SectionId('ISER')
 class IndustryStandardEntryReference {
   @Form([
@@ -2750,6 +3674,13 @@ class IndustryStandardEntryReference {
 }
 
 /// Code quality metrics and thresholds.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines the code-quality metrics and thresholds the codebase must meet.',
+)
 @SectionId('COQUME')
 class CodeQualityMetrics {
   @Form([
@@ -2787,6 +3718,13 @@ class CodeQualityMetrics {
 }
 
 /// Complexity limits.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines maximum complexity and length limits per method and class.',
+)
 @SectionId('CQMC')
 class CodeQualityMetricsComplexity {
   @Form([
@@ -2804,6 +3742,13 @@ class CodeQualityMetricsComplexity {
 }
 
 /// Coupling metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines acceptable afferent/efferent coupling and instability ranges.',
+)
 @SectionId('COQUMECO')
 class CodeQualityMetricsCoupling {
   @Form([
@@ -2819,6 +3764,13 @@ class CodeQualityMetricsCoupling {
 }
 
 /// Duplication thresholds.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines the maximum acceptable code duplication and detection block size.',
+)
 @SectionId('CQMD')
 class CodeQualityMetricsDuplication {
   @Form([
@@ -2832,6 +3784,13 @@ class CodeQualityMetricsDuplication {
 }
 
 /// Static analysis thresholds.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines allowed static-analysis warnings, critical issues, and technical-debt targets.',
+)
 @SectionId('CQMSA')
 class CodeQualityMetricsStaticAnalysis {
   @Form([
@@ -2847,6 +3806,13 @@ class CodeQualityMetricsStaticAnalysis {
 }
 
 /// Tooling and reporting.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines the tools, frequency, and trend monitoring used to measure code quality.',
+)
 @SectionId('CQMT')
 class CodeQualityMetricsTooling {
   @Form([
@@ -2863,6 +3829,13 @@ class CodeQualityMetricsTooling {
 }
 
 /// Documentation standards and requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines the documentation standards and requirements the codebase must follow.',
+)
 @SectionId('DOST')
 class DocumentationStandards {
   @Form([
@@ -2901,6 +3874,13 @@ class DocumentationStandards {
 }
 
 /// Code documentation requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines requirements for documenting return values and examples in code.',
+)
 @SectionId('DSCD')
 class DocumentationStandardsCodeDocs {
   @Form([
@@ -2914,6 +3894,13 @@ class DocumentationStandardsCodeDocs {
 }
 
 /// Content requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines minimum content, cross-referencing, and deprecation-notice requirements for docs.',
+)
 @SectionId('DOSTCO')
 class DocumentationStandardsContent {
   @Form([
@@ -2929,6 +3916,13 @@ class DocumentationStandardsContent {
 }
 
 /// Architecture documentation requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'coding standards (e.g. Effective Dart / language style guide)',
+  ],
+  'Defines the required architecture documentation, diagrams, and READMEs.',
+)
 @SectionId('DOSTAR')
 class DocumentationStandardsArchitecture {
   @Form([
@@ -2944,6 +3938,13 @@ class DocumentationStandardsArchitecture {
 }
 
 /// Changelog and versioning requirements.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines the changelog and versioning-scheme requirements for the project.',
+)
 @SectionId('DOSTVE')
 class DocumentationStandardsVersioning {
   @Form([
@@ -2959,6 +3960,13 @@ class DocumentationStandardsVersioning {
 }
 
 /// Review and publication settings.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines documentation review, generation tooling, and publishing requirements.',
+)
 @SectionId('DOSTPR')
 class DocumentationStandardsProcess {
   @Form([
@@ -2978,6 +3986,13 @@ class DocumentationStandardsProcess {
 }
 
 /// Error handling and exception patterns.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards.',
+)
 @SectionId('ERHAST')
 class ErrorHandlingStandards {
   @Form([
@@ -3018,6 +4033,13 @@ class ErrorHandlingStandards {
 }
 
 /// Exception type conventions.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the exception hierarchy, custom-exception policy, and naming conventions.',
+)
 @SectionId('EHSE')
 class ErrorHandlingStandardsExceptions {
   @Form([
@@ -3033,6 +4055,13 @@ class ErrorHandlingStandardsExceptions {
 }
 
 /// Handling pattern defaults.
+@StandardReferences(
+  [
+    'GoF design patterns — reusable OO design',
+    'POSA — patterns of software architecture',
+  ],
+  'Defines default handling patterns such as catch-all policy, retry, and circuit breaker.',
+)
 @SectionId('EHSP')
 class ErrorHandlingStandardsPatterns {
   @Form([
@@ -3048,6 +4077,13 @@ class ErrorHandlingStandardsPatterns {
 }
 
 /// Reporting standards.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines how errors are logged, tracked, and how sensitive data is handled in reports.',
+)
 @SectionId('EHSR')
 class ErrorHandlingStandardsReporting {
   @Form([
@@ -3063,6 +4099,13 @@ class ErrorHandlingStandardsReporting {
 }
 
 /// User-facing communication rules.
+@StandardReferences(
+  [
+    'coding standards (e.g. Effective Dart / language style guide)',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines standards for user-facing error messages, error codes, and localization.',
+)
 @SectionId('EHSUC')
 class ErrorHandlingStandardsUserCommunication {
   @Form([
@@ -3078,6 +4121,13 @@ class ErrorHandlingStandardsUserCommunication {
 }
 
 /// Recovery guidance.
+@StandardReferences(
+  [
+    'POSA — patterns of software architecture',
+    'GoF design patterns — reusable OO design',
+  ],
+  'Defines standard recovery strategies and compensating actions for partial failures.',
+)
 @SectionId('ERHASTRE')
 class ErrorHandlingStandardsRecovery {
   @Form([
@@ -3093,6 +4143,13 @@ class ErrorHandlingStandardsRecovery {
 }
 
 /// Testing standards and requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'xUnit / test patterns — automated testing',
+  ],
+  'Defines the testing standards and required test types for the implementation.',
+)
 @SectionId('TS')
 class TestingStandards {
   @Form([
@@ -3124,6 +4181,13 @@ class TestingStandards {
 }
 
 /// Additional test types and organization.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'xUnit / test patterns — automated testing',
+  ],
+  'Defines additional test types, naming conventions, and test-file organization.',
+)
 @SectionId('TESTOR')
 class TestingStandardsOrganization {
   @Form([
@@ -3141,6 +4205,13 @@ class TestingStandardsOrganization {
 }
 
 /// Preferred testing patterns.
+@StandardReferences(
+  [
+    'xUnit / test patterns — automated testing',
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'Defines preferred testing patterns such as Arrange-Act-Assert, Given-When-Then, and mocking strategy.',
+)
 @SectionId('TESTPA')
 class TestingStandardsPatterns {
   @Form([
@@ -3158,6 +4229,13 @@ class TestingStandardsPatterns {
 }
 
 /// Quality requirements for tests.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'xUnit / test patterns — automated testing',
+  ],
+  'Defines test-quality requirements such as isolation, determinism, and flaky-test policy.',
+)
 @SectionId('TESTQU')
 class TestingStandardsQuality {
   @Form([
@@ -3173,6 +4251,13 @@ class TestingStandardsQuality {
 }
 
 /// Testing tools and CI integration.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+    'xUnit / test patterns — automated testing',
+  ],
+  'Defines the testing frameworks, coverage tools, and CI test-execution approach.',
+)
 @SectionId('TESTTO')
 class TestingStandardsTooling {
   @Form([
@@ -3220,6 +4305,14 @@ productivity, and code maintainability.
 **Reference**: Clean Architecture (Uncle Bob), Domain-Driven Design,
 SOLID principles, Twelve-Factor App methodology.
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'SOLID principles — object-oriented design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Defines the software architecture, development environment, and component-reuse requirements.',
+)
 @SectionId('SDR')
 class SoftwareDesignRequirements {
   @ContentHelp('''

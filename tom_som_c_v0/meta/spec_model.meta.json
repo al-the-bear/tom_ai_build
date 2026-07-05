@@ -11396,7 +11396,26 @@
       "name": "ArchitectureComponentEntry",
       "sectionId": "ARCM",
       "doc": "Architecture component/service entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "A single component or service in the architecture and its defining attributes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "A single component or service in the architecture and its defining attributes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11528,7 +11547,24 @@
       "name": "ArchitectureComponentEntryBoundaries",
       "sectionId": "ACEB",
       "doc": "Public and private boundaries.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "The public interface and private implementation boundaries of a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The public interface and private implementation boundaries of a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11585,7 +11621,24 @@
       "name": "ArchitectureComponentEntryDependencies",
       "sectionId": "ACED",
       "doc": "Dependency relationships.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "The upstream, downstream, and external dependency relationships of a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The upstream, downstream, and external dependency relationships of a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11642,7 +11695,24 @@
       "name": "ArchitectureComponentEntryOwnership",
       "sectionId": "ACEO",
       "doc": "Team ownership and service expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The team ownership and expected service level for a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The team ownership and expected service level for a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11699,7 +11769,24 @@
       "name": "ArchitectureComponentEntryPurpose",
       "sectionId": "ACEP",
       "doc": "Purpose and ownership boundaries.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The purpose and responsibilities of a component and what it is not responsible for."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The purpose and responsibilities of a component and what it is not responsible for."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11756,7 +11843,24 @@
       "name": "ArchitectureComponentEntryTechnical",
       "sectionId": "ACET",
       "doc": "Technical delivery characteristics.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The technology stack, deployment unit, and scaling characteristics of a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The technology stack, deployment unit, and scaling characteristics of a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11813,7 +11917,24 @@
       "name": "ArchitectureDecisionRecord",
       "sectionId": "ARDE",
       "doc": "Architecture Decision Record (ADR) entry.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "A single architecture decision record capturing a decision, its status, and identity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "A single architecture decision record capturing a decision, its status, and identity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -11937,7 +12058,24 @@
       "name": "ArchitectureDecisionRecordConsequences",
       "sectionId": "ARDERECO",
       "doc": "Consequences and review.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The positive and negative consequences of an architecture decision and its review date."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The positive and negative consequences of an architecture decision and its review date."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12008,7 +12146,24 @@
       "name": "ArchitectureDecisionRecordContext",
       "sectionId": "ADRC",
       "doc": "Decision context and constraints.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The context, problem, and constraints that prompted an architecture decision."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The context, problem, and constraints that prompted an architecture decision."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12065,7 +12220,24 @@
       "name": "ArchitectureDecisionRecordOutcome",
       "sectionId": "ADRO",
       "doc": "Decision outcome and rationale.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The decision made, its rationale, alternatives considered, and decision makers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The decision made, its rationale, alternatives considered, and decision makers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12129,7 +12301,24 @@
       "name": "ArchitectureDecisionRecordRelations",
       "sectionId": "ADRR",
       "doc": "Related decision links.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The links between an architecture decision and related, superseded, or superseding decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The links between an architecture decision and related, superseded, or superseding decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12186,7 +12375,26 @@
       "name": "ArchitectureOverview",
       "sectionId": "AROV",
       "doc": "Architecture overview and primary style selection.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "The high-level overview of the primary architecture style and its selection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The high-level overview of the primary architecture style and its selection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12303,7 +12511,24 @@
       "name": "ArchitectureOverviewCompliance",
       "sectionId": "AROVCO",
       "doc": "Compliance considerations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The compliance requirements and industry benchmarks that constrain the architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The compliance requirements and industry benchmarks that constrain the architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12360,7 +12585,24 @@
       "name": "ArchitectureOverviewDrivers",
       "sectionId": "AROVDR",
       "doc": "Architecture drivers.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The business and technical drivers that justify the architecture choice."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The business and technical drivers that justify the architecture choice."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12417,7 +12659,24 @@
       "name": "ArchitectureOverviewEvolution",
       "sectionId": "AROVEV",
       "doc": "Evolution planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The planned evolution path and migration strategy for the architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The planned evolution path and migration strategy for the architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12467,7 +12726,24 @@
       "name": "ArchitectureOverviewTradeOffs",
       "sectionId": "AOTO",
       "doc": "Trade-offs and alternatives.",
+      "standardReferences": {
+        "standards": [
+          "ADR (Architecture Decision Records) — decision capture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The trade-offs accepted and the alternatives considered and rejected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The trade-offs accepted and the alternatives considered and rejected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12538,7 +12814,24 @@
       "name": "ArchitecturePrincipleEntry",
       "sectionId": "ARPR",
       "doc": "Architecture principle entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "A single architecture principle guiding design decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "A single architecture principle guiding design decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12625,7 +12918,24 @@
       "name": "ArchitecturePrincipleEntryGovernance",
       "sectionId": "ARPRENGO",
       "doc": "Enforcement and applicability context.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The enforcement level, mechanism, and applicable scope of this architecture principle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The enforcement level, mechanism, and applicable scope of this architecture principle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12703,7 +13013,24 @@
       "name": "ArchitecturePrincipleEntryGuidance",
       "sectionId": "APEG",
       "doc": "Rationale and practical implications.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The rationale and practical implications of following this architecture principle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The rationale and practical implications of following this architecture principle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12761,11 +13088,30 @@
       "sectionId": "AS",
       "doc": "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design decisions.",
       "help": "Define the system's architectural style and structural organization.\nArchitecture decisions have long-lasting impacts on maintainability,\nscalability, team structure, and operational complexity.\n\n**Architectural Styles**:\n- **Monolith**: Single deployable unit; simple operations, harder to scale\n  teams; suitable for small-medium applications\n- **Modular Monolith**: Monolith with internal module boundaries; clean\n  architecture within single deployment; migration path to microservices\n- **Microservices**: Independent services; team autonomy, operational\n  complexity; requires mature DevOps practices\n- **Event-Driven**: Loosely coupled via events; async communication,\n  eventual consistency; CQRS/Event Sourcing patterns\n- **Serverless**: FaaS (Functions as a Service); auto-scaling, cold starts,\n  vendor lock-in considerations\n- **Hybrid**: Combination of styles for different system parts\n\n**Architecture Artifacts**:\n- Component diagrams (C4 model: Context, Container, Component, Code)\n- Data flow diagrams and integration maps\n- Deployment topology and infrastructure architecture\n- Architecture Decision Records (ADRs)\n- Quality attribute scenarios (performance, security, availability)\n\n**Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "The overall architecture style and structural organization chosen for the system."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define the system's architectural style and structural organization.\nArchitecture decisions have long-lasting impacts on maintainability,\nscalability, team structure, and operational complexity.\n\n**Architectural Styles**:\n- **Monolith**: Single deployable unit; simple operations, harder to scale\n  teams; suitable for small-medium applications\n- **Modular Monolith**: Monolith with internal module boundaries; clean\n  architecture within single deployment; migration path to microservices\n- **Microservices**: Independent services; team autonomy, operational\n  complexity; requires mature DevOps practices\n- **Event-Driven**: Loosely coupled via events; async communication,\n  eventual consistency; CQRS/Event Sourcing patterns\n- **Serverless**: FaaS (Functions as a Service); auto-scaling, cold starts,\n  vendor lock-in considerations\n- **Hybrid**: Combination of styles for different system parts\n\n**Architecture Artifacts**:\n- Component diagrams (C4 model: Context, Container, Component, Code)\n- Data flow diagrams and integration maps\n- Deployment topology and infrastructure architecture\n- Architecture Decision Records (ADRs)\n- Quality attribute scenarios (performance, security, availability)\n\n**Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The overall architecture style and structural organization chosen for the system."
           }
         },
         {
@@ -12816,10 +13162,28 @@
           "name": "principles",
           "kind": "list",
           "doc": "Architecture principles guiding design decisions.",
+          "help": "Add one entry per architecture principle.",
           "sectionId": "ARPR-PRIN-LST",
           "sectionIdPattern": "ARPR-PRIN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The guiding architecture principles the design adheres to."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description",
+                  "ISO/IEC 25010 — architectural quality attributes"
+                ],
+                "connotation": "The guiding architecture principles the design adheres to."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -12830,6 +13194,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ARPR-PRIN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per architecture principle."
               }
             },
             {
@@ -12861,10 +13231,30 @@
           "name": "components",
           "kind": "list",
           "doc": "Component/service catalog.",
+          "help": "Add one entry per architecture component or service.",
           "sectionId": "ARCM-COMP-LST",
           "sectionIdPattern": "ARCM-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The catalog of components and services that make up the architecture."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description",
+                  "arc42 — architecture documentation template",
+                  "C4 model — software architecture diagrams"
+                ],
+                "connotation": "The catalog of components and services that make up the architecture."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -12875,6 +13265,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ARCM-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per architecture component or service."
               }
             },
             {
@@ -12966,10 +13362,28 @@
           "name": "decisionRecords",
           "kind": "list",
           "doc": "Architecture decision records.",
+          "help": "Add one entry per architecture decision record.",
           "sectionId": "ARDE-DECI-LST",
           "sectionIdPattern": "ARDE-DECI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ADR (Architecture Decision Records) — decision capture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The recorded architecture decisions and their rationale."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ADR (Architecture Decision Records) — decision capture",
+                  "ISO/IEC/IEEE 42010 — architecture description"
+                ],
+                "connotation": "The recorded architecture decisions and their rationale."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -12980,6 +13394,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ARDE-DECI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per architecture decision record."
               }
             },
             {
@@ -18662,6 +19082,13 @@
       "doc": "8.1. Basic Technical Requirements.",
       "help": "Define the foundational technical requirements that govern all system\ndevelopment. These decisions have far-reaching implications and should\nbe made early with careful stakeholder alignment.\n\n**Subsections**:\n- **Platform and Language**: Runtime environments, programming languages,\n  frameworks, build toolchain, deployment targets\n- **Architecture Style**: Monolith, microservices, serverless, or hybrid;\n  component organization; communication patterns; scalability approach\n- **Design Patterns and Standards**: Required patterns, coding standards,\n  industry compliance (ISO, OWASP, IEEE), quality metrics\n\n**Decision Criteria**:\n- Business requirements alignment (performance, availability, cost)\n- Team capabilities and hiring market\n- Ecosystem maturity and vendor support\n- Long-term maintainability and evolution\n- Regulatory and compliance requirements\n\n**Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),\nOWASP guidelines, IEEE 1471 architectural description.\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "Defines the foundational technical requirements — platform and language, architecture style, and design patterns and standards — that govern all development."
+      },
       "annotations": [
         {
           "name": "DetailedIn",
@@ -18680,6 +19107,16 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define the foundational technical requirements that govern all system\ndevelopment. These decisions have far-reaching implications and should\nbe made early with careful stakeholder alignment.\n\n**Subsections**:\n- **Platform and Language**: Runtime environments, programming languages,\n  frameworks, build toolchain, deployment targets\n- **Architecture Style**: Monolith, microservices, serverless, or hybrid;\n  component organization; communication patterns; scalability approach\n- **Design Patterns and Standards**: Required patterns, coding standards,\n  industry compliance (ISO, OWASP, IEEE), quality metrics\n\n**Decision Criteria**:\n- Business requirements alignment (performance, availability, cost)\n- Team capabilities and hiring market\n- Ecosystem maturity and vendor support\n- Long-term maintainability and evolution\n- Regulatory and compliance requirements\n\n**Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),\nOWASP guidelines, IEEE 1471 architectural description.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "Defines the foundational technical requirements — platform and language, architecture style, and design patterns and standards — that govern all development."
           }
         },
         {
@@ -21226,7 +21663,24 @@
       "name": "BuildToolchainEntry",
       "sectionId": "BTCEN",
       "doc": "Build toolchain requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "A single build-toolchain tool with its versions, configuration, build profiles, integrations, outputs and operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "A single build-toolchain tool with its versions, configuration, build profiles, integrations, outputs and operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21373,7 +21827,22 @@
       "name": "BuildToolchainEntryConfiguration",
       "sectionId": "BTCCF",
       "doc": "Configuration and plugins.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The configuration file and required/optional plugins for a build-toolchain tool."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The configuration file and required/optional plugins for a build-toolchain tool."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21430,7 +21899,24 @@
       "name": "BuildToolchainEntryIntegration",
       "sectionId": "BTEI",
       "doc": "Integration touchpoints.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The CI/CD and IDE integration points of a build-toolchain tool."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The CI/CD and IDE integration points of a build-toolchain tool."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21480,7 +21966,24 @@
       "name": "BuildToolchainEntryOperations",
       "sectionId": "BUTOENOP",
       "doc": "Performance and rationale.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (maintainability/portability)",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The caching strategy, parallelization and rationale governing a build-toolchain tool."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (maintainability/portability)",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The caching strategy, parallelization and rationale governing a build-toolchain tool."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21544,7 +22047,22 @@
       "name": "BuildToolchainEntryOutputs",
       "sectionId": "BTEO",
       "doc": "Output artifact settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The output artifacts produced by a build-toolchain tool and where they are stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The output artifacts produced by a build-toolchain tool and where they are stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21594,7 +22112,22 @@
       "name": "BuildToolchainEntryProfiles",
       "sectionId": "BTEP",
       "doc": "Build profile settings.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The build profiles (debug, release, production) and default profile for a build-toolchain tool."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The build profiles (debug, release, production) and default profile for a build-toolchain tool."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -21644,7 +22177,22 @@
       "name": "BuildToolchainEntryVersions",
       "sectionId": "BTCVR",
       "doc": "Version requirements.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The minimum and recommended versions of a build-toolchain tool."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The minimum and recommended versions of a build-toolchain tool."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35258,7 +35806,24 @@
       "name": "CodeQualityMetrics",
       "sectionId": "COQUME",
       "doc": "Code quality metrics and thresholds.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines the code-quality metrics and thresholds the codebase must meet."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines the code-quality metrics and thresholds the codebase must meet."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35390,7 +35955,24 @@
       "name": "CodeQualityMetricsComplexity",
       "sectionId": "CQMC",
       "doc": "Complexity limits.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines maximum complexity and length limits per method and class."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines maximum complexity and length limits per method and class."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35454,7 +36036,24 @@
       "name": "CodeQualityMetricsCoupling",
       "sectionId": "COQUMECO",
       "doc": "Coupling metrics.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines acceptable afferent/efferent coupling and instability ranges."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines acceptable afferent/efferent coupling and instability ranges."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35511,7 +36110,24 @@
       "name": "CodeQualityMetricsDuplication",
       "sectionId": "CQMD",
       "doc": "Duplication thresholds.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines the maximum acceptable code duplication and detection block size."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines the maximum acceptable code duplication and detection block size."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35561,7 +36177,24 @@
       "name": "CodeQualityMetricsStaticAnalysis",
       "sectionId": "CQMSA",
       "doc": "Static analysis thresholds.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines allowed static-analysis warnings, critical issues, and technical-debt targets."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines allowed static-analysis warnings, critical issues, and technical-debt targets."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -35618,7 +36251,24 @@
       "name": "CodeQualityMetricsTooling",
       "sectionId": "CQMT",
       "doc": "Tooling and reporting.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines the tools, frequency, and trend monitoring used to measure code quality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines the tools, frequency, and trend monitoring used to measure code quality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36055,7 +36705,24 @@
       "name": "CodingStandardEntry",
       "sectionId": "CSE",
       "doc": "Coding standard entry — a coding style or convention requirement.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "A single coding style or convention requirement the code must satisfy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "A single coding style or convention requirement the code must satisfy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36172,7 +36839,24 @@
       "name": "CodingStandardEntryEnforcement",
       "sectionId": "CSEE",
       "doc": "Enforcement details.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes how a coding standard is enforced via linters, severity, and CI checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes how a coding standard is enforced via linters, severity, and CI checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36243,7 +36927,24 @@
       "name": "CodingStandardEntryFormatting",
       "sectionId": "CSEF",
       "doc": "Formatting requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines indentation, line-length, and bracing formatting rules for the code."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines indentation, line-length, and bracing formatting rules for the code."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36300,7 +37001,24 @@
       "name": "CodingStandardEntryNaming",
       "sectionId": "CSEN",
       "doc": "Naming requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the naming conventions and prefix/suffix rules for identifiers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the naming conventions and prefix/suffix rules for identifiers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36350,7 +37068,24 @@
       "name": "CodingStandardEntryRuleDetails",
       "sectionId": "CSERD",
       "doc": "Rule description.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "States a coding rule together with its rationale and examples."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "States a coding rule together with its rationale and examples."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37867,7 +38602,24 @@
       "name": "CommunicationPatterns",
       "sectionId": "COMPAT",
       "doc": "Communication patterns between components.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The communication patterns and protocols used between components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The communication patterns and protocols used between components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -37999,7 +38751,24 @@
       "name": "CommunicationPatternsAsynchronous",
       "sectionId": "COPAAS",
       "doc": "Asynchronous communication details.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "POSA — patterns of software architecture"
+        ],
+        "connotation": "The asynchronous messaging protocols and event patterns used between components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "POSA — patterns of software architecture"
+            ],
+            "connotation": "The asynchronous messaging protocols and event patterns used between components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -38056,7 +38825,24 @@
       "name": "CommunicationPatternsDataExchange",
       "sectionId": "CPDE",
       "doc": "Data exchange contracts.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The data contracts, schema evolution, and serialization used in component communication."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The data contracts, schema evolution, and serialization used in component communication."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -38113,7 +38899,24 @@
       "name": "CommunicationPatternsObservability",
       "sectionId": "COPAOB",
       "doc": "Observability settings.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The tracing, logging, and metrics settings for observing component communication."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The tracing, logging, and metrics settings for observing component communication."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -38177,7 +38980,24 @@
       "name": "CommunicationPatternsReliability",
       "sectionId": "COPARE",
       "doc": "Reliability controls.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The reliability controls such as retries, circuit breakers, timeouts, and idempotency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The reliability controls such as retries, circuit breakers, timeouts, and idempotency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -38241,7 +39061,24 @@
       "name": "CommunicationPatternsSynchronous",
       "sectionId": "COPASY",
       "doc": "Synchronous communication details.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The synchronous request-response patterns and API gateway details."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The synchronous request-response patterns and API gateway details."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -43511,7 +44348,26 @@
       "name": "ComponentOrganization",
       "sectionId": "COOR",
       "doc": "Component organization and boundaries.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "How system components are organized and how their boundaries are defined."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "How system components are organized and how their boundaries are defined."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -43628,7 +44484,24 @@
       "name": "ComponentOrganizationCoupling",
       "sectionId": "COORCO",
       "doc": "Coupling guidance.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "Domain-Driven Design — bounded contexts / layered architecture"
+        ],
+        "connotation": "The guidance on minimizing coupling and maximizing cohesion between components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Domain-Driven Design — bounded contexts / layered architecture"
+            ],
+            "connotation": "The guidance on minimizing coupling and maximizing cohesion between components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -43678,7 +44551,24 @@
       "name": "ComponentOrganizationDependencies",
       "sectionId": "COORDE",
       "doc": "Dependency management rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The rules governing dependency direction, interface contracts, and versioning between components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The rules governing dependency direction, interface contracts, and versioning between components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -43742,7 +44632,24 @@
       "name": "ComponentOrganizationDomain",
       "sectionId": "COORDO",
       "doc": "Domain boundaries.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / layered architecture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The domain boundaries, shared kernel, and anti-corruption layers between contexts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / layered architecture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The domain boundaries, shared kernel, and anti-corruption layers between contexts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -43799,7 +44706,26 @@
       "name": "ComponentOrganizationLayering",
       "sectionId": "COORLA",
       "doc": "Layering rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "The architectural layers and the allowed dependencies between them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The architectural layers and the allowed dependencies between them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57234,7 +58160,24 @@
       "name": "DataArchitecture",
       "sectionId": "DAAR",
       "doc": "Data architecture decisions.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "Domain-Driven Design — bounded contexts / layered architecture"
+        ],
+        "connotation": "The data strategy, ownership model, and governance that shape the data architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Domain-Driven Design — bounded contexts / layered architecture"
+            ],
+            "connotation": "The data strategy, ownership model, and governance that shape the data architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57366,7 +58309,24 @@
       "name": "DataArchitectureAccess",
       "sectionId": "DAARAC",
       "doc": "Data access patterns.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The data access, query, and caching patterns used against the data stores."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The data access, query, and caching patterns used against the data stores."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57423,7 +58383,24 @@
       "name": "DataArchitectureConsistency",
       "sectionId": "DAARCO",
       "doc": "Consistency model and transactions.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The consistency model, transaction scope, and conflict resolution for data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The consistency model, transaction scope, and conflict resolution for data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57480,7 +58457,24 @@
       "name": "DataArchitectureLifecycle",
       "sectionId": "DAARLI",
       "doc": "Lifecycle controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The data retention, archiving, and recovery controls over the data lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The data retention, archiving, and recovery controls over the data lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57537,7 +58531,24 @@
       "name": "DataArchitectureSecurity",
       "sectionId": "DAARSE",
       "doc": "Privacy and security controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The data classification, encryption, and access-control security controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The data classification, encryption, and access-control security controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57601,7 +58612,24 @@
       "name": "DataArchitectureStorage",
       "sectionId": "DAARST",
       "doc": "Storage decisions.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The primary and secondary storage choices and storage topology."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The primary and secondary storage choices and storage topology."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73444,7 +74472,24 @@
       "name": "DependencyManagement",
       "sectionId": "DEMA",
       "doc": "Dependency management configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The dependency management strategy: package managers, registries, versioning, security, internal packages and operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The dependency management strategy: package managers, registries, versioning, security, internal packages and operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73561,7 +74606,24 @@
       "name": "DependencyManagementInternal",
       "sectionId": "DEMAIN",
       "doc": "Internal package and workspace strategy.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — layered/hexagonal architecture",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The internal package and monorepo/workspace strategy for managing dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — layered/hexagonal architecture",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The internal package and monorepo/workspace strategy for managing dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73611,7 +74673,22 @@
       "name": "DependencyManagementOperations",
       "sectionId": "DEMAOP",
       "doc": "Caching and offline behavior.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The caching and offline-build behavior for managing dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The caching and offline-build behavior for managing dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73668,7 +74745,24 @@
       "name": "DependencyManagementSecurity",
       "sectionId": "DEMASE",
       "doc": "Security and trust controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "ISO/IEC 25010 — product quality (maintainability/portability)"
+        ],
+        "connotation": "The security scanning, license compliance and source-trust controls applied to dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "ISO/IEC 25010 — product quality (maintainability/portability)"
+            ],
+            "connotation": "The security scanning, license compliance and source-trust controls applied to dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73725,7 +74819,22 @@
       "name": "DependencyManagementVersioning",
       "sectionId": "DEMAVE",
       "doc": "Versioning and update policy.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The versioning, update and lockfile policies for managing dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The versioning, update and lockfile policies for managing dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75535,7 +76644,24 @@
       "name": "DeploymentTargetEntry",
       "sectionId": "DEPTARENT",
       "doc": "Deployment target specification entry.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "A single deployment target with its platform, build output, requirements, process and compliance details."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "A single deployment target with its platform, build output, requirements, process and compliance details."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75667,7 +76793,22 @@
       "name": "DeploymentTargetEntryBuildOutput",
       "sectionId": "DTEBO",
       "doc": "Build output configuration for deployment target.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The artifact format, naming, signing, size limit and performance targets for a deployment target build output."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The artifact format, naming, signing, size limit and performance targets for a deployment target build output."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75738,7 +76879,22 @@
       "name": "DeploymentTargetEntryCompliance",
       "sectionId": "DTEC",
       "doc": "Compliance and notes for deployment target.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The compliance, privacy, priority and launch-date details for a deployment target."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The compliance, privacy, priority and launch-date details for a deployment target."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75809,7 +76965,22 @@
       "name": "DeploymentTargetEntryPlatform",
       "sectionId": "DTEP",
       "doc": "Platform specifics for deployment target.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The platform target and distribution channel of a deployment target."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The platform target and distribution channel of a deployment target."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75859,7 +77030,24 @@
       "name": "DeploymentTargetEntryProcess",
       "sectionId": "DETAENPR",
       "doc": "Deployment process configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The deployment method, rollback strategy and feature-flag support for a deployment target."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The deployment method, rollback strategy and feature-flag support for a deployment target."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75916,7 +77104,22 @@
       "name": "DeploymentTargetEntryRequirements",
       "sectionId": "DTER",
       "doc": "Platform requirements for deployment target.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The minimum OS version, target SDK, permissions and capabilities a deployment target requires."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The minimum OS version, target SDK, permissions and capabilities a deployment target requires."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75980,7 +77183,24 @@
       "name": "DeploymentTopology",
       "sectionId": "DETO",
       "doc": "Deployment topology and infrastructure.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The deployment topology, deployment model, and cloud providers for the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The deployment topology, deployment model, and cloud providers for the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76112,7 +77332,24 @@
       "name": "DeploymentTopologyAvailability",
       "sectionId": "DETOAV",
       "doc": "High-availability settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "REST / microservices — architectural style"
+        ],
+        "connotation": "The redundancy model, failover strategy, and disaster recovery for high availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "REST / microservices — architectural style"
+            ],
+            "connotation": "The redundancy model, failover strategy, and disaster recovery for high availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76169,7 +77406,24 @@
       "name": "DeploymentTopologyEnvironments",
       "sectionId": "DETOEN",
       "doc": "Environment layout.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "REST / microservices — architectural style"
+        ],
+        "connotation": "The environments, their isolation, and per-environment configuration management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "REST / microservices — architectural style"
+            ],
+            "connotation": "The environments, their isolation, and per-environment configuration management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76226,7 +77480,24 @@
       "name": "DeploymentTopologyGeography",
       "sectionId": "DETOGE",
       "doc": "Geographic distribution.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "REST / microservices — architectural style"
+        ],
+        "connotation": "The geographic distribution, data residency, and latency considerations for deployment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "REST / microservices — architectural style"
+            ],
+            "connotation": "The geographic distribution, data residency, and latency considerations for deployment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76283,7 +77554,24 @@
       "name": "DeploymentTopologyInfrastructure",
       "sectionId": "DETOIN",
       "doc": "Infrastructure layout.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The compute model, network topology, and storage infrastructure layout."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The compute model, network topology, and storage infrastructure layout."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76340,7 +77628,24 @@
       "name": "DeploymentTopologyInfrastructureAsCode",
       "sectionId": "DTIAC",
       "doc": "Infrastructure-as-code strategy.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "REST / microservices — architectural style"
+        ],
+        "connotation": "The infrastructure-as-code approach, immutability, and versioning strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "REST / microservices — architectural style"
+            ],
+            "connotation": "The infrastructure-as-code approach, immutability, and versioning strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76626,7 +77931,26 @@
       "name": "DesignPatternEntry",
       "sectionId": "DSPT",
       "doc": "Design pattern entry — a specific design pattern to be used.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "POSA — patterns of software architecture",
+          "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+        ],
+        "connotation": "A single design pattern the implementation is expected to apply."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "POSA — patterns of software architecture",
+              "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+            ],
+            "connotation": "A single design pattern the implementation is expected to apply."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76765,7 +78089,24 @@
       "name": "DesignPatternEntryApplicability",
       "sectionId": "DPEA",
       "doc": "Applicability guidance.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "POSA — patterns of software architecture"
+        ],
+        "connotation": "Describes when a design pattern applies and when it should be avoided."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "POSA — patterns of software architecture"
+            ],
+            "connotation": "Describes when a design pattern applies and when it should be avoided."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76815,7 +78156,24 @@
       "name": "DesignPatternEntryContext",
       "sectionId": "DEPAENCO",
       "doc": "Architectural context.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "GoF design patterns — reusable OO design"
+        ],
+        "connotation": "Describes where a design pattern applies in the architecture and related patterns."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "GoF design patterns — reusable OO design"
+            ],
+            "connotation": "Describes where a design pattern applies in the architecture and related patterns."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76865,7 +78223,24 @@
       "name": "DesignPatternEntryEnforcement",
       "sectionId": "DPEE",
       "doc": "Enforcement and notes.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Describes how design-pattern compliance is enforced and verified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Describes how design-pattern compliance is enforced and verified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76922,7 +78297,24 @@
       "name": "DesignPatternEntryImplementation",
       "sectionId": "DPEI",
       "doc": "Implementation guidance.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+        ],
+        "connotation": "Describes how a design pattern is implemented within the project."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+            ],
+            "connotation": "Describes how a design pattern is implemented within the project."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76979,7 +78371,24 @@
       "name": "DesignPatternEntryStructure",
       "sectionId": "DEPAENST",
       "doc": "Structural composition.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "POSA — patterns of software architecture"
+        ],
+        "connotation": "Describes the participants, collaborations, and variations of a design pattern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "POSA — patterns of software architecture"
+            ],
+            "connotation": "Describes the participants, collaborations, and variations of a design pattern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77037,11 +78446,30 @@
       "sectionId": "DPAS",
       "doc": "8.1.3. Design Patterns and Standards.\n\nRequired design patterns, coding standards, development conventions, and\napplicable industry standards (ISO, OWASP, IEEE).",
       "help": "Specify required design patterns, coding standards, development conventions,\nand industry standards compliance. Consistent patterns improve code\nquality, maintainability, and team productivity.\n\n**Design Patterns**:\n- **Creational**: Factory, Builder, Singleton, Dependency Injection\n- **Structural**: Adapter, Decorator, Facade, Proxy, Composite\n- **Behavioral**: Observer, Strategy, Command, State, Chain of Responsibility\n- **Architectural**: Repository, Unit of Work, CQRS, Event Sourcing\n- **Concurrency**: Thread Pool, Producer-Consumer, Async/Await patterns\n- **Integration**: API Gateway, Circuit Breaker, Retry, Bulkhead\n\n**Coding Standards**:\n- Language-specific style guides (PEP 8, Google Style, Airbnb)\n- Naming conventions and code organization\n- Documentation requirements (doc comments, README standards)\n- Testing requirements (unit, integration, e2e coverage targets)\n- Code review checklist and approval criteria\n\n**Industry Standards**:\n- **Security**: OWASP Top 10, OWASP ASVS, CWE\n- **Quality**: ISO/IEC 25010, CMMI\n- **Documentation**: IEEE 830, ISO/IEC 26514\n- **Process**: ISO 27001, SOC 2, GDPR, HIPAA\n\n**Enforcement**: Linters, static analysis, automated checks in CI/CD.\n",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "industry standards compliance (ISO/IEC / W3C / IETF)"
+        ],
+        "connotation": "Defines the design patterns, coding standards, development conventions, and industry standards the implementation must follow."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify required design patterns, coding standards, development conventions,\nand industry standards compliance. Consistent patterns improve code\nquality, maintainability, and team productivity.\n\n**Design Patterns**:\n- **Creational**: Factory, Builder, Singleton, Dependency Injection\n- **Structural**: Adapter, Decorator, Facade, Proxy, Composite\n- **Behavioral**: Observer, Strategy, Command, State, Chain of Responsibility\n- **Architectural**: Repository, Unit of Work, CQRS, Event Sourcing\n- **Concurrency**: Thread Pool, Producer-Consumer, Async/Await patterns\n- **Integration**: API Gateway, Circuit Breaker, Retry, Bulkhead\n\n**Coding Standards**:\n- Language-specific style guides (PEP 8, Google Style, Airbnb)\n- Naming conventions and code organization\n- Documentation requirements (doc comments, README standards)\n- Testing requirements (unit, integration, e2e coverage targets)\n- Code review checklist and approval criteria\n\n**Industry Standards**:\n- **Security**: OWASP Top 10, OWASP ASVS, CWE\n- **Quality**: ISO/IEC 25010, CMMI\n- **Documentation**: IEEE 830, ISO/IEC 26514\n- **Process**: ISO 27001, SOC 2, GDPR, HIPAA\n\n**Enforcement**: Linters, static analysis, automated checks in CI/CD.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "industry standards compliance (ISO/IEC / W3C / IETF)"
+            ],
+            "connotation": "Defines the design patterns, coding standards, development conventions, and industry standards the implementation must follow."
           }
         },
         {
@@ -77093,10 +78521,30 @@
           "name": "designPatterns",
           "kind": "list",
           "doc": "Required design patterns catalog.",
+          "help": "Add one entry per design pattern.",
           "sectionId": "DSPT-DESI-LST",
           "sectionIdPattern": "DSPT-DESI-xxx",
+          "standardReferences": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "POSA — patterns of software architecture",
+              "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+            ],
+            "connotation": "The design patterns the implementation is expected to apply."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "GoF design patterns — reusable OO design",
+                  "POSA — patterns of software architecture",
+                  "Domain-Driven Design — tactical patterns (entities/aggregates/repositories)"
+                ],
+                "connotation": "The design patterns the implementation is expected to apply."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77107,6 +78555,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DSPT-DESI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per design pattern."
               }
             },
             {
@@ -77123,10 +78577,28 @@
           "name": "codingStandards",
           "kind": "list",
           "doc": "Coding standards and style guidelines.",
+          "help": "Add one entry per coding standard.",
           "sectionId": "COSTEN-CODI-LST",
           "sectionIdPattern": "COSTEN-CODI-xxx",
+          "standardReferences": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "The coding standards and style guidelines the code must comply with."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "coding standards (e.g. Effective Dart / language style guide)",
+                  "SOLID principles — object-oriented design"
+                ],
+                "connotation": "The coding standards and style guidelines the code must comply with."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77137,6 +78609,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COSTEN-CODI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per coding standard."
               }
             },
             {
@@ -77153,10 +78631,28 @@
           "name": "developmentConventions",
           "kind": "list",
           "doc": "Development conventions and best practices.",
+          "help": "Add one entry per development convention.",
           "sectionId": "DECOEN-DEVE-LST",
           "sectionIdPattern": "DECOEN-DEVE-xxx",
+          "standardReferences": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "The development practices and workflow conventions the team must follow."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "coding standards (e.g. Effective Dart / language style guide)",
+                  "SOLID principles — object-oriented design"
+                ],
+                "connotation": "The development practices and workflow conventions the team must follow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77167,6 +78663,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DECOEN-DEVE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per development convention."
               }
             },
             {
@@ -77183,10 +78685,28 @@
           "name": "industryStandards",
           "kind": "list",
           "doc": "Industry standards compliance requirements.",
+          "help": "Add one entry per industry standard.",
           "sectionId": "INSTEN-INDU-LST",
           "sectionIdPattern": "INSTEN-INDU-xxx",
+          "standardReferences": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "The industry standards the system is required to comply with."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "industry standards compliance (ISO/IEC / W3C / IETF)",
+                  "ISO/IEC 25010 — maintainability quality attributes"
+                ],
+                "connotation": "The industry standards the system is required to comply with."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77197,6 +78717,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INSTEN-INDU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per industry standard."
               }
             },
             {
@@ -78472,7 +79998,24 @@
       "name": "DevelopmentConventionEntry",
       "sectionId": "DCE",
       "doc": "Development convention entry — a development practice or workflow convention.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "A single development practice or workflow convention the team must follow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "A single development practice or workflow convention the team must follow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78604,7 +80147,24 @@
       "name": "DevelopmentConventionEntryAutomation",
       "sectionId": "DCEA",
       "doc": "Automation integration.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes how a development convention integrates with CI/CD automation and triggers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes how a development convention integrates with CI/CD automation and triggers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78654,7 +80214,24 @@
       "name": "DevelopmentConventionEntryEnforcement",
       "sectionId": "DCEE",
       "doc": "Enforcement and exceptions.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes how a development convention is enforced and which exceptions are allowed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes how a development convention is enforced and which exceptions are allowed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78718,7 +80295,24 @@
       "name": "DevelopmentConventionEntryOverview",
       "sectionId": "DCEO",
       "doc": "Background and workflow.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Explains the rationale and step-by-step workflow behind a development convention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Explains the rationale and step-by-step workflow behind a development convention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78768,7 +80362,24 @@
       "name": "DevelopmentConventionEntryReview",
       "sectionId": "DCER",
       "doc": "Code review expectations.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the code-review requirements and checklist the team applies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the code-review requirements and checklist the team applies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -78818,7 +80429,24 @@
       "name": "DevelopmentConventionEntryVersionControl",
       "sectionId": "DCEVC",
       "doc": "Version control requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines branching, commit, and pull-request requirements for version control."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines branching, commit, and pull-request requirements for version control."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -83780,7 +85408,24 @@
       "name": "DocumentationStandards",
       "sectionId": "DOST",
       "doc": "Documentation standards and requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines the documentation standards and requirements the codebase must follow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines the documentation standards and requirements the codebase must follow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -83912,7 +85557,24 @@
       "name": "DocumentationStandardsArchitecture",
       "sectionId": "DOSTAR",
       "doc": "Architecture documentation requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "coding standards (e.g. Effective Dart / language style guide)"
+        ],
+        "connotation": "Defines the required architecture documentation, diagrams, and READMEs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "coding standards (e.g. Effective Dart / language style guide)"
+            ],
+            "connotation": "Defines the required architecture documentation, diagrams, and READMEs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -83969,7 +85631,24 @@
       "name": "DocumentationStandardsCodeDocs",
       "sectionId": "DSCD",
       "doc": "Code documentation requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines requirements for documenting return values and examples in code."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines requirements for documenting return values and examples in code."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84019,7 +85698,24 @@
       "name": "DocumentationStandardsContent",
       "sectionId": "DOSTCO",
       "doc": "Content requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines minimum content, cross-referencing, and deprecation-notice requirements for docs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines minimum content, cross-referencing, and deprecation-notice requirements for docs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84076,7 +85772,24 @@
       "name": "DocumentationStandardsProcess",
       "sectionId": "DOSTPR",
       "doc": "Review and publication settings.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines documentation review, generation tooling, and publishing requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines documentation review, generation tooling, and publishing requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84506,7 +86219,24 @@
       "name": "DocumentationStandardsVersioning",
       "sectionId": "DOSTVE",
       "doc": "Changelog and versioning requirements.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines the changelog and versioning-scheme requirements for the project."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines the changelog and versioning-scheme requirements for the project."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91918,7 +93648,24 @@
       "name": "ErrorHandlingStandards",
       "sectionId": "ERHAST",
       "doc": "Error handling and exception patterns.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92050,7 +93797,24 @@
       "name": "ErrorHandlingStandardsExceptions",
       "sectionId": "EHSE",
       "doc": "Exception type conventions.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the exception hierarchy, custom-exception policy, and naming conventions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the exception hierarchy, custom-exception policy, and naming conventions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92107,7 +93871,24 @@
       "name": "ErrorHandlingStandardsPatterns",
       "sectionId": "EHSP",
       "doc": "Handling pattern defaults.",
+      "standardReferences": {
+        "standards": [
+          "GoF design patterns — reusable OO design",
+          "POSA — patterns of software architecture"
+        ],
+        "connotation": "Defines default handling patterns such as catch-all policy, retry, and circuit breaker."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GoF design patterns — reusable OO design",
+              "POSA — patterns of software architecture"
+            ],
+            "connotation": "Defines default handling patterns such as catch-all policy, retry, and circuit breaker."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92164,7 +93945,24 @@
       "name": "ErrorHandlingStandardsRecovery",
       "sectionId": "ERHASTRE",
       "doc": "Recovery guidance.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "GoF design patterns — reusable OO design"
+        ],
+        "connotation": "Defines standard recovery strategies and compensating actions for partial failures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "GoF design patterns — reusable OO design"
+            ],
+            "connotation": "Defines standard recovery strategies and compensating actions for partial failures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92221,7 +94019,24 @@
       "name": "ErrorHandlingStandardsReporting",
       "sectionId": "EHSR",
       "doc": "Reporting standards.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines how errors are logged, tracked, and how sensitive data is handled in reports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines how errors are logged, tracked, and how sensitive data is handled in reports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92278,7 +94093,24 @@
       "name": "ErrorHandlingStandardsUserCommunication",
       "sectionId": "EHSUC",
       "doc": "User-facing communication rules.",
+      "standardReferences": {
+        "standards": [
+          "coding standards (e.g. Effective Dart / language style guide)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines standards for user-facing error messages, error codes, and localization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "coding standards (e.g. Effective Dart / language style guide)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines standards for user-facing error messages, error codes, and localization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103993,7 +105825,22 @@
       "name": "FrameworkCompatibility",
       "sectionId": "FWRCP",
       "doc": "Compatibility.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The compatibility, conflicts and deprecation warnings of a framework relative to others."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The compatibility, conflicts and deprecation warnings of a framework relative to others."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104050,7 +105897,22 @@
       "name": "FrameworkIdentity",
       "sectionId": "FWRID",
       "doc": "Identity details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The publisher and license identity of a framework or library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The publisher and license identity of a framework or library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104100,7 +105962,24 @@
       "name": "FrameworkJustification",
       "sectionId": "FWRJT",
       "doc": "Justification.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The rationale for selecting a framework, the alternatives considered and its risk assessment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The rationale for selecting a framework, the alternatives considered and its risk assessment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104164,7 +106043,24 @@
       "name": "FrameworkRequirementEntry",
       "sectionId": "FRREEN",
       "doc": "Framework or library requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "A single framework or library with its identity, version, scope, compatibility, support status and justification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "A single framework or library with its identity, version, scope, compatibility, support status and justification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104311,7 +106207,24 @@
       "name": "FrameworkScope",
       "sectionId": "FWRSC",
       "doc": "Scope and plugins.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "Domain-Driven Design — layered/hexagonal architecture"
+        ],
+        "connotation": "The usage scope, integration points and required/optional plugins of a framework in the architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Domain-Driven Design — layered/hexagonal architecture"
+            ],
+            "connotation": "The usage scope, integration points and required/optional plugins of a framework in the architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104382,7 +106295,22 @@
       "name": "FrameworkSupport",
       "sectionId": "FWRSP",
       "doc": "Support status.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "The support status, community size and documentation quality of a framework."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The support status, community size and documentation quality of a framework."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104439,7 +106367,22 @@
       "name": "FrameworkVersion",
       "sectionId": "FWRVR",
       "doc": "Version requirements.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The minimum, recommended and maximum versions and version constraint for a framework."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The minimum, recommended and maximum versions and version constraint for a framework."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113847,7 +115790,24 @@
       "name": "IndustryStandardEntry",
       "sectionId": "ISE",
       "doc": "Industry standard entry — compliance with industry standards.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "A single industry standard the system is required to comply with."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "A single industry standard the system is required to comply with."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114000,7 +115960,24 @@
       "name": "IndustryStandardEntryCertification",
       "sectionId": "INSTENCE",
       "doc": "Certification details.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Describes whether formal certification is required for an industry standard and its scope."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Describes whether formal certification is required for an industry standard and its scope."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114064,7 +116041,24 @@
       "name": "IndustryStandardEntryCompliance",
       "sectionId": "ISEC",
       "doc": "Requirement applicability.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Identifies which requirements of an industry standard apply and which are excluded."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Identifies which requirements of an industry standard apply and which are excluded."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114114,7 +116108,24 @@
       "name": "IndustryStandardEntryReference",
       "sectionId": "ISER",
       "doc": "Reference metadata.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Holds reference links and notes for an industry standard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Holds reference links and notes for an industry standard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114164,7 +116175,24 @@
       "name": "IndustryStandardEntryScope",
       "sectionId": "ISES",
       "doc": "Scope details.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines which parts of the system an industry standard applies to."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines which parts of the system an industry standard applies to."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114207,7 +116235,24 @@
       "name": "IndustryStandardEntryVerification",
       "sectionId": "ISEV",
       "doc": "Verification settings.",
+      "standardReferences": {
+        "standards": [
+          "industry standards compliance (ISO/IEC / W3C / IETF)",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines how compliance with an industry standard is audited and evidenced."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "industry standards compliance (ISO/IEC / W3C / IETF)",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines how compliance with an industry standard is audited and evidenced."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116834,7 +118879,24 @@
       "name": "IntegrationArchitecture",
       "sectionId": "INAR",
       "doc": "Integration architecture with external systems.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The integration strategy, patterns, and API management for external systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The integration strategy, patterns, and API management for external systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116966,7 +119028,24 @@
       "name": "IntegrationArchitectureData",
       "sectionId": "INARDA",
       "doc": "Data exchange approach.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "POSA — patterns of software architecture"
+        ],
+        "connotation": "The data transformation, master-data management, and synchronization across systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "POSA — patterns of software architecture"
+            ],
+            "connotation": "The data transformation, master-data management, and synchronization across systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117023,7 +119102,24 @@
       "name": "IntegrationArchitectureOperations",
       "sectionId": "INAROP",
       "doc": "Monitoring and SLA management.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The monitoring and SLA management for external integrations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The monitoring and SLA management for external integrations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117080,7 +119176,24 @@
       "name": "IntegrationArchitectureReliability",
       "sectionId": "INARRE",
       "doc": "Reliability controls.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The error handling, retry, and compensating-action controls for integration reliability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The error handling, retry, and compensating-action controls for integration reliability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117137,7 +119250,24 @@
       "name": "IntegrationArchitectureSecurity",
       "sectionId": "INARSE",
       "doc": "Security model for integrations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "REST / microservices — architectural style"
+        ],
+        "connotation": "The authentication, authorization, and transport-security model for integrations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "REST / microservices — architectural style"
+            ],
+            "connotation": "The authentication, authorization, and transport-security model for integrations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117194,7 +119324,24 @@
       "name": "IntegrationArchitectureSystems",
       "sectionId": "INARSY",
       "doc": "External system landscape.",
+      "standardReferences": {
+        "standards": [
+          "REST / microservices — architectural style",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The landscape of external systems, their integration types, and real-time needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "REST / microservices — architectural style",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The landscape of external systems, their integration types, and real-time needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165758,11 +167905,30 @@
       "sectionId": "PLLNG",
       "doc": "8.1.1. Platform and Language.\n\nRequired platforms (operating system, runtime), programming languages,\nand framework choices with minimum versions and justification.",
       "help": "Specify all platform targets, programming languages, frameworks, build\ntools, and deployment configurations. These choices define the technical\nfoundation and constrain future development options.\n\n**Coverage Areas**:\n- **Target Platforms**: OS (Linux, Windows, macOS), runtimes (Node.js,\n  JVM, .NET), containers (Docker, Kubernetes), cloud platforms (AWS,\n  Azure, GCP), mobile (iOS, Android), embedded systems\n- **Programming Languages**: Primary and secondary languages, version\n  requirements, SDK specifications, type safety requirements\n- **Frameworks**: UI frameworks (Flutter, React, Angular), backend\n  frameworks (Spring, Django, Express), testing frameworks, ORM/database\n- **Build Toolchain**: Build systems, code generators, bundlers, package\n  managers, CI/CD integration, artifact repositories\n- **Deployment Targets**: Production environments, staging, development,\n  edge deployment, app stores, container registries\n\n**Decision Factors**:\n- Performance requirements and benchmarks\n- Team expertise and learning curve\n- Ecosystem maturity and community support\n- License compatibility (MIT, Apache, GPL implications)\n- Long-term support and vendor viability\n- Cross-platform requirements and code sharing\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "Semantic Versioning (SemVer) — version numbering",
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "Specifies the platform targets, programming languages, frameworks, build toolchain and deployment configurations that form the technical foundation."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify all platform targets, programming languages, frameworks, build\ntools, and deployment configurations. These choices define the technical\nfoundation and constrain future development options.\n\n**Coverage Areas**:\n- **Target Platforms**: OS (Linux, Windows, macOS), runtimes (Node.js,\n  JVM, .NET), containers (Docker, Kubernetes), cloud platforms (AWS,\n  Azure, GCP), mobile (iOS, Android), embedded systems\n- **Programming Languages**: Primary and secondary languages, version\n  requirements, SDK specifications, type safety requirements\n- **Frameworks**: UI frameworks (Flutter, React, Angular), backend\n  frameworks (Spring, Django, Express), testing frameworks, ORM/database\n- **Build Toolchain**: Build systems, code generators, bundlers, package\n  managers, CI/CD integration, artifact repositories\n- **Deployment Targets**: Production environments, staging, development,\n  edge deployment, app stores, container registries\n\n**Decision Factors**:\n- Performance requirements and benchmarks\n- Team expertise and learning curve\n- Ecosystem maturity and community support\n- License compatibility (MIT, Apache, GPL implications)\n- Long-term support and vendor viability\n- Cross-platform requirements and code sharing\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Semantic Versioning (SemVer) — version numbering",
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "Specifies the platform targets, programming languages, frameworks, build toolchain and deployment configurations that form the technical foundation."
           }
         },
         {
@@ -165814,10 +167980,28 @@
           "name": "targetPlatforms",
           "kind": "list",
           "doc": "Target platforms (operating systems, runtimes, containers).",
+          "help": "Add one entry per target platform.",
           "sectionId": "TGPLT-TARG-LST",
           "sectionIdPattern": "TGPLT-TARG-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The target platforms — operating systems, runtimes and containers — the system will run on."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description",
+                  "ISO/IEC 25010 — portability/compatibility"
+                ],
+                "connotation": "The target platforms — operating systems, runtimes and containers — the system will run on."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165828,6 +168012,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TGPLT-TARG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per target platform."
               }
             },
             {
@@ -165844,10 +168034,28 @@
           "name": "programmingLanguages",
           "kind": "list",
           "doc": "Programming language requirements.",
+          "help": "Add one entry per programming language.",
           "sectionId": "PLGEN-PROG-LST",
           "sectionIdPattern": "PLGEN-PROG-xxx",
+          "standardReferences": {
+            "standards": [
+              "language standard (ISO/ECMA/PEP) — programming language specification",
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The programming languages, with version and SDK requirements, used to build the system."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "language standard (ISO/ECMA/PEP) — programming language specification",
+                  "Semantic Versioning (SemVer) — version numbering"
+                ],
+                "connotation": "The programming languages, with version and SDK requirements, used to build the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165858,6 +168066,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PLGEN-PROG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per programming language."
               }
             },
             {
@@ -165874,10 +168088,28 @@
           "name": "frameworks",
           "kind": "list",
           "doc": "Framework and library requirements.",
+          "help": "Add one entry per framework or library.",
           "sectionId": "FWREN-FRAM-LST",
           "sectionIdPattern": "FWREN-FRAM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The frameworks and libraries, with versions and license constraints, the system depends on."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description",
+                  "Semantic Versioning (SemVer) — version numbering"
+                ],
+                "connotation": "The frameworks and libraries, with versions and license constraints, the system depends on."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165888,6 +168120,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FWREN-FRAM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per framework or library."
               }
             },
             {
@@ -165904,10 +168142,28 @@
           "name": "buildToolchain",
           "kind": "list",
           "doc": "Build toolchain requirements.",
+          "help": "Add one entry per build tool.",
           "sectionId": "BTCEN-BUIL-LST",
           "sectionIdPattern": "BTCEN-BUIL-xxx",
+          "standardReferences": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The build tools and toolchain — build systems, compilers, bundlers and package managers — used to produce artifacts."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Twelve-Factor App — cloud-native methodology",
+                  "ISO/IEC 12207 — software lifecycle processes"
+                ],
+                "connotation": "The build tools and toolchain — build systems, compilers, bundlers and package managers — used to produce artifacts."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165918,6 +168174,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BTCEN-BUIL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per build tool."
               }
             },
             {
@@ -165934,10 +168196,28 @@
           "name": "deploymentTargets",
           "kind": "list",
           "doc": "Deployment target specifications.",
+          "help": "Add one entry per deployment target.",
           "sectionId": "DETAEN-DEPL-LST",
           "sectionIdPattern": "DETAEN-DEPL-xxx",
+          "standardReferences": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "The deployment targets — production, staging and distribution environments — the system is released to."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Twelve-Factor App — cloud-native methodology",
+                  "ISO/IEC 12207 — software lifecycle processes"
+                ],
+                "connotation": "The deployment targets — production, staging and distribution environments — the system is released to."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165948,6 +168228,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DETAEN-DEPL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per deployment target."
               }
             },
             {
@@ -177114,7 +179400,24 @@
       "name": "ProgrammingLanguageEntry",
       "sectionId": "PLGEN",
       "doc": "Programming language requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "language standard (ISO/ECMA/PEP) — programming language specification",
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "A single programming language with its variant, version, SDK, usage context, quality settings and justification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "language standard (ISO/ECMA/PEP) — programming language specification",
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "A single programming language with its variant, version, SDK, usage context, quality settings and justification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177246,7 +179549,24 @@
       "name": "ProgrammingLanguageEntryJustification",
       "sectionId": "PLGJT",
       "doc": "Justification and notes for programming language.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The rationale for choosing a programming language, the alternatives considered and its migration path."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The rationale for choosing a programming language, the alternatives considered and its migration path."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177310,7 +179630,24 @@
       "name": "ProgrammingLanguageEntryQuality",
       "sectionId": "PLGQU",
       "doc": "Quality settings for programming language.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (maintainability/portability)",
+          "language standard (ISO/ECMA/PEP) — programming language specification"
+        ],
+        "connotation": "The linting, static analysis and code-style standards enforced for a programming language."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (maintainability/portability)",
+              "language standard (ISO/ECMA/PEP) — programming language specification"
+            ],
+            "connotation": "The linting, static analysis and code-style standards enforced for a programming language."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177367,7 +179704,24 @@
       "name": "ProgrammingLanguageEntrySdk",
       "sectionId": "PLGSK",
       "doc": "SDK configuration for programming language.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering",
+          "language standard (ISO/ECMA/PEP) — programming language specification"
+        ],
+        "connotation": "The SDK name and minimum/recommended versions for a programming language."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering",
+              "language standard (ISO/ECMA/PEP) — programming language specification"
+            ],
+            "connotation": "The SDK name and minimum/recommended versions for a programming language."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177424,7 +179778,24 @@
       "name": "ProgrammingLanguageEntryUsage",
       "sectionId": "PLGUS",
       "doc": "Usage context for programming language.",
+      "standardReferences": {
+        "standards": [
+          "language standard (ISO/ECMA/PEP) — programming language specification",
+          "Domain-Driven Design — layered/hexagonal architecture"
+        ],
+        "connotation": "Where and how a programming language is used — context, share of the codebase, primary status and required language features."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "language standard (ISO/ECMA/PEP) — programming language specification",
+              "Domain-Driven Design — layered/hexagonal architecture"
+            ],
+            "connotation": "Where and how a programming language is used — context, share of the codebase, primary status and required language features."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -177502,7 +179873,22 @@
       "name": "ProgrammingLanguageEntryVersion",
       "sectionId": "PLGVR",
       "doc": "Version requirements for programming language.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The recommended and maximum supported versions of a programming language."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The recommended and maximum supported versions of a programming language."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205205,7 +207591,24 @@
       "name": "RuntimeEnvironment",
       "sectionId": "RUEN",
       "doc": "Runtime environment constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (maintainability/portability)",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The runtime environment constraints: memory, CPU, storage, network, environment variables, dependencies and scaling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (maintainability/portability)",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The runtime environment constraints: memory, CPU, storage, network, environment variables, dependencies and scaling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205389,7 +207792,22 @@
       "name": "RuntimeEnvironmentCpu",
       "sectionId": "RUENCP",
       "doc": "CPU and graphics requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The required CPU architecture and GPU/graphics requirements of the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The required CPU architecture and GPU/graphics requirements of the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205439,7 +207857,24 @@
       "name": "RuntimeEnvironmentDependencies",
       "sectionId": "RUENDE",
       "doc": "Runtime dependencies.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "Domain-Driven Design — layered/hexagonal architecture"
+        ],
+        "connotation": "The system libraries and external services the runtime environment depends on."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "Domain-Driven Design — layered/hexagonal architecture"
+            ],
+            "connotation": "The system libraries and external services the runtime environment depends on."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205489,7 +207924,22 @@
       "name": "RuntimeEnvironmentMemory",
       "sectionId": "RUENME",
       "doc": "Memory limits.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (maintainability/portability)"
+        ],
+        "connotation": "The hard memory limits or caps for the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (maintainability/portability)"
+            ],
+            "connotation": "The hard memory limits or caps for the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205532,7 +207982,22 @@
       "name": "RuntimeEnvironmentNetwork",
       "sectionId": "RUENNE",
       "doc": "Network requirements.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The connectivity, bandwidth and latency requirements of the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The connectivity, bandwidth and latency requirements of the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205589,7 +208054,22 @@
       "name": "RuntimeEnvironmentNotes",
       "sectionId": "RUENNO",
       "doc": "Additional notes.",
+      "standardReferences": {
+        "standards": [
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "Additional free-form notes about the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "Additional free-form notes about the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205632,7 +208112,24 @@
       "name": "RuntimeEnvironmentScaling",
       "sectionId": "RUENSC",
       "doc": "Scaling characteristics.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 25010 — product quality (maintainability/portability)"
+        ],
+        "connotation": "The horizontal, vertical and auto-scaling characteristics of the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 25010 — product quality (maintainability/portability)"
+            ],
+            "connotation": "The horizontal, vertical and auto-scaling characteristics of the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205689,7 +208186,22 @@
       "name": "RuntimeEnvironmentStorage",
       "sectionId": "RUENST",
       "doc": "Storage requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (maintainability/portability)"
+        ],
+        "connotation": "The temporary space and storage type required by the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (maintainability/portability)"
+            ],
+            "connotation": "The temporary space and storage type required by the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205739,7 +208251,22 @@
       "name": "RuntimeEnvironmentVariables",
       "sectionId": "RUENVA",
       "doc": "Environment variables.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The required and optional environment variables that configure the runtime environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The required and optional environment variables that configure the runtime environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205789,7 +208316,24 @@
       "name": "ScalabilityArchitecture",
       "sectionId": "SCAR",
       "doc": "Scalability and performance architecture.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The scalability model, elasticity approach, and scaling triggers of the architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The scalability model, elasticity approach, and scaling triggers of the architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205921,7 +208465,24 @@
       "name": "ScalabilityArchitectureCapacity",
       "sectionId": "SCARCA",
       "doc": "Capacity planning assumptions.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The expected load, peak load, and growth projections used for capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The expected load, peak load, and growth projections used for capacity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205978,7 +208539,24 @@
       "name": "ScalabilityArchitectureOptimization",
       "sectionId": "SCAROP",
       "doc": "Resource optimization controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "The connection pooling, resource limits, and graceful-degradation controls under load."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The connection pooling, resource limits, and graceful-degradation controls under load."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206035,7 +208613,24 @@
       "name": "ScalabilityArchitecturePatterns",
       "sectionId": "SCARPA",
       "doc": "Performance patterns.",
+      "standardReferences": {
+        "standards": [
+          "POSA — patterns of software architecture",
+          "ISO/IEC 25010 — architectural quality attributes"
+        ],
+        "connotation": "The caching, load-balancing, and queueing patterns used to meet performance goals."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "POSA — patterns of software architecture",
+              "ISO/IEC 25010 — architectural quality attributes"
+            ],
+            "connotation": "The caching, load-balancing, and queueing patterns used to meet performance goals."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206092,7 +208687,24 @@
       "name": "ScalabilityArchitectureTargets",
       "sectionId": "SCARTA",
       "doc": "Performance targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The response-time, throughput, and availability targets for the architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The response-time, throughput, and availability targets for the architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -206149,7 +208761,24 @@
       "name": "ScalabilityArchitectureTesting",
       "sectionId": "SCARTE",
       "doc": "Testing and benchmarks.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — architectural quality attributes",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The performance and load testing approach and benchmarks the architecture must meet."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — architectural quality attributes",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The performance and load testing approach and benchmarks the architecture must meet."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224215,6 +226844,14 @@
       "doc": "8.2. Software Design Requirements.",
       "help": "Define software architecture, development environment, and component\nreusability requirements. These decisions shape developer experience,\nproductivity, and code maintainability.\n\n**Subsections**:\n- **Layering and Module Structure**: Clean architecture, DDD bounded\n  contexts, package organization, dependency rules\n- **Development Environment**: IDEs, build tools, version control, CI/CD\n  pipelines, code review process, local development setup\n- **Reusable Components**: Shared libraries, UI components, business logic\n  extraction, component governance and discovery\n\n**Key Considerations**:\n- Developer productivity and fast feedback loops\n- Onboarding time for new team members\n- Code sharing and duplication prevention\n- Build and test execution performance\n- Local development parity with production\n\n**Reference**: Clean Architecture (Uncle Bob), Domain-Driven Design,\nSOLID principles, Twelve-Factor App methodology.\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "SOLID principles — object-oriented design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Defines the software architecture, development environment, and component-reuse requirements."
+      },
       "annotations": [
         {
           "name": "DetailedIn",
@@ -224233,6 +226870,17 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define software architecture, development environment, and component\nreusability requirements. These decisions shape developer experience,\nproductivity, and code maintainability.\n\n**Subsections**:\n- **Layering and Module Structure**: Clean architecture, DDD bounded\n  contexts, package organization, dependency rules\n- **Development Environment**: IDEs, build tools, version control, CI/CD\n  pipelines, code review process, local development setup\n- **Reusable Components**: Shared libraries, UI components, business logic\n  extraction, component governance and discovery\n\n**Key Considerations**:\n- Developer productivity and fast feedback loops\n- Onboarding time for new team members\n- Code sharing and duplication prevention\n- Build and test execution performance\n- Local development parity with production\n\n**Reference**: Clean Architecture (Uncle Bob), Domain-Driven Design,\nSOLID principles, Twelve-Factor App methodology.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "SOLID principles — object-oriented design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Defines the software architecture, development environment, and component-reuse requirements."
           }
         },
         {
@@ -246488,7 +249136,24 @@
       "name": "TargetPlatformEntry",
       "sectionId": "TGPLT",
       "doc": "Target platform entry (operating system, runtime, container).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "A single target platform — operating system, runtime or container — with its version, architecture, requirements and lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "A single target platform — operating system, runtime or container — with its version, architecture, requirements and lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246605,7 +249270,22 @@
       "name": "TargetPlatformEntryArchitecture",
       "sectionId": "TPEAR",
       "doc": "Architecture details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The processor architectures and bitness a target platform supports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The processor architectures and bitness a target platform supports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246655,7 +249335,24 @@
       "name": "TargetPlatformEntryLifecycle",
       "sectionId": "TPELC",
       "doc": "Lifecycle and compliance.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "The justification, support scope, end-of-life date and certification requirements for a target platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "The justification, support scope, end-of-life date and certification requirements for a target platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246726,7 +249423,22 @@
       "name": "TargetPlatformEntryRequirements",
       "sectionId": "TPERQ",
       "doc": "Requirements and constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — portability/compatibility"
+        ],
+        "connotation": "The minimum memory, storage and OS features a target platform must provide."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — portability/compatibility"
+            ],
+            "connotation": "The minimum memory, storage and OS features a target platform must provide."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246783,7 +249495,22 @@
       "name": "TargetPlatformEntryVersion",
       "sectionId": "TPEVR",
       "doc": "Version requirements.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — version numbering"
+        ],
+        "connotation": "The minimum, recommended and maximum supported versions of a target platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — version numbering"
+            ],
+            "connotation": "The minimum, recommended and maximum supported versions of a target platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -248981,6 +251708,14 @@
       "doc": "8. Technical Framework Concept. Seeds → ATS.",
       "help": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n",
       "mapsTo": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "arc42 — architecture documentation template",
+          "ISO/IEC 25010 — product quality (maintainability/portability)"
+        ],
+        "connotation": "Captures the technical framework: platform, language, architecture style and design patterns that found and constrain the target system."
+      },
       "annotations": [
         {
           "name": "Comment",
@@ -248998,6 +251733,17 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Describe the complete technical foundation for building and operating\nthe target system. This section seeds the Architecture & Technology\nSpecification (ATS) document where all technical decisions will be\nexpanded into detailed implementation specifications.\n\n**Purpose**: Establish technical constraints, architectural decisions,\nand infrastructure requirements that guide all development work.\n\n**Structure Overview**:\n- **Basic Technical Requirements**: Platform, architecture style, patterns\n- **Software Design**: Layering, development environment, reusable components\n- **Standard Software**: Compatibility, standards compliance\n- **Hardware**: Server, client, network infrastructure\n- **Operations**: Backup, deployment, monitoring, maintenance\n- **Communication**: Protocols, external connectivity\n- **System Operation**: Administration, health checks, capacity\n- **Security**: IT security standards, privacy, auditing\n\n**Integration Points**: All subsections feed into the ATS document.\nDecisions must align with business requirements from the target-process\nsections and the system overview. Security requirements coordinate with\nthe security and access model.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "arc42 — architecture documentation template",
+              "ISO/IEC 25010 — product quality (maintainability/portability)"
+            ],
+            "connotation": "Captures the technical framework: platform, language, architecture style and design patterns that found and constrain the target system."
           }
         },
         {
@@ -253051,7 +255797,24 @@
       "name": "TestingStandards",
       "sectionId": "TS",
       "doc": "Testing standards and requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing",
+          "xUnit / test patterns — automated testing"
+        ],
+        "connotation": "Defines the testing standards and required test types for the implementation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing",
+              "xUnit / test patterns — automated testing"
+            ],
+            "connotation": "Defines the testing standards and required test types for the implementation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253168,7 +255931,24 @@
       "name": "TestingStandardsOrganization",
       "sectionId": "TESTOR",
       "doc": "Additional test types and organization.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing",
+          "xUnit / test patterns — automated testing"
+        ],
+        "connotation": "Defines additional test types, naming conventions, and test-file organization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing",
+              "xUnit / test patterns — automated testing"
+            ],
+            "connotation": "Defines additional test types, naming conventions, and test-file organization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253232,7 +256012,24 @@
       "name": "TestingStandardsPatterns",
       "sectionId": "TESTPA",
       "doc": "Preferred testing patterns.",
+      "standardReferences": {
+        "standards": [
+          "xUnit / test patterns — automated testing",
+          "ISO/IEC/IEEE 29119 — software testing"
+        ],
+        "connotation": "Defines preferred testing patterns such as Arrange-Act-Assert, Given-When-Then, and mocking strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "xUnit / test patterns — automated testing",
+              "ISO/IEC/IEEE 29119 — software testing"
+            ],
+            "connotation": "Defines preferred testing patterns such as Arrange-Act-Assert, Given-When-Then, and mocking strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253296,7 +256093,24 @@
       "name": "TestingStandardsQuality",
       "sectionId": "TESTQU",
       "doc": "Quality requirements for tests.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing",
+          "xUnit / test patterns — automated testing"
+        ],
+        "connotation": "Defines test-quality requirements such as isolation, determinism, and flaky-test policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing",
+              "xUnit / test patterns — automated testing"
+            ],
+            "connotation": "Defines test-quality requirements such as isolation, determinism, and flaky-test policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253353,7 +256167,24 @@
       "name": "TestingStandardsTooling",
       "sectionId": "TESTTO",
       "doc": "Testing tools and CI integration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing",
+          "xUnit / test patterns — automated testing"
+        ],
+        "connotation": "Defines the testing frameworks, coverage tools, and CI test-execution approach."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing",
+              "xUnit / test patterns — automated testing"
+            ],
+            "connotation": "Defines the testing frameworks, coverage tools, and CI test-execution approach."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
