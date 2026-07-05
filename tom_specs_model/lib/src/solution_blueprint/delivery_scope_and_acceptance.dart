@@ -10,6 +10,13 @@ import '../document_stubs.dart';
 
 
 /// 14. Delivery Scope and Acceptance.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+  ],
+  'Captures the delivery scope and acceptance agreements defining what is delivered and how it is accepted.',
+)
 @SectionId('DLVA')
 class DeliveryScopeAndAcceptance {
   @ContentHelp('''
@@ -38,6 +45,13 @@ and contractually precise.
 }
 
 /// 14.1. Delivery and Service Scope.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+  ],
+  'Captures the overall delivery and service scope that enumerates what will be delivered and under what conditions.',
+)
 @SectionId('DLVSC')
 class DeliveryScope {
   @ContentHelp('''
@@ -72,6 +86,13 @@ commitments.
 }
 
 /// 14.1.1. Software Deliverables.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+  ],
+  'Captures the software deliverables covering application components, libraries, and deployment artifacts.',
+)
 @SectionId('SWDLV')
 class SoftwareDeliverables {
   @ContentHelp('''
@@ -87,13 +108,27 @@ configuration files, deployment artifacts. Define for each:
   String? content;
 
   /// Contains 0+× Deliverable.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+    ],
+    'Lists the individual software deliverables handed over as part of the delivery scope.',
+  )
   @SectionId('SWDLV-ITEM-LST')
   @SectionIdPattern('SWDLV-ITEM-xxx')
+  @ContentHelp('Add one entry per software deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.2. Documentation Deliverables.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+  ],
+  'Captures the documentation deliverables covering user, technical, and operations documents.',
+)
 @SectionId('DCDLV')
 class DocumentationDeliverables {
   @ContentHelp('''
@@ -106,13 +141,27 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
   String? content;
 
   /// Contains 0+× Deliverable.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products',
+    ],
+    'Lists the individual documentation deliverables handed over as part of the delivery scope.',
+  )
   @SectionId('DCDLV-ITEM-LST')
   @SectionIdPattern('DCDLV-ITEM-xxx')
+  @ContentHelp('Add one entry per documentation deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.3. Training Deliverables.
+@StandardReferences(
+  [
+    'ITIL 4 2019 — the service management framework defines service delivery, support, and training practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+  ],
+  'Captures the training deliverables covering sessions, materials, and train-the-trainer programs.',
+)
 @SectionId('TRDLV')
 class TrainingDeliverables {
   @ContentHelp('''
@@ -125,13 +174,28 @@ assessment criteria, and ongoing refresh schedule.
   String? content;
 
   /// Contains 0+× Deliverable.
+  @StandardReferences(
+    [
+      'ITIL 4 2019 — the service management framework defines service delivery, support, and training practices',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    ],
+    'Lists the individual training deliverables handed over as part of the delivery scope.',
+  )
   @SectionId('TRDLV-ITEM-LST')
   @SectionIdPattern('TRDLV-ITEM-xxx')
+  @ContentHelp('Add one entry per training deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.4. Support Deliverables.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments',
+    'ITIL 4 2019 — the service management framework defines service delivery, support, and training practices',
+  ],
+  'Captures the support deliverables covering transition support, warranty, and ongoing support commitments.',
+)
 @SectionId('SPDLV')
 class SupportDeliverables {
   @ContentHelp('''
@@ -144,8 +208,16 @@ response times, coverage period, and handover criteria.
   String? content;
 
   /// Contains 0+× Deliverable.
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments',
+      'ITIL 4 2019 — the service management framework defines service delivery, support, and training practices',
+    ],
+    'Lists the individual support deliverables handed over as part of the delivery scope.',
+  )
   @SectionId('SPDLV-ITEM-LST')
   @SectionIdPattern('SPDLV-ITEM-xxx')
+  @ContentHelp('Add one entry per support deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
@@ -155,6 +227,13 @@ response times, coverage period, and handover criteria.
 /// Represents a single deliverable item within any deliverable category.
 /// Captures identification, delivery logistics, quality requirements,
 /// ownership, and acceptance linkage.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+  ],
+  'Represents a single deliverable item with its identification, logistics, quality, ownership, and acceptance linkage.',
+)
 @SectionId('DLVEN')
 class DeliverableEntry {
   @Form([
@@ -189,8 +268,16 @@ class DeliverableEntry {
   DeliverableOwnership ownership = DeliverableOwnership();
 
   /// Dependencies.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+      'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    ],
+    'Lists the individual dependencies that condition the delivery of this deliverable.',
+  )
   @SectionId('DLVDP-DEPE-LST')
   @SectionIdPattern('DLVDP-DEPE-xxx')
+  @ContentHelp('Add one entry per delivery dependency.')
   @SerializationOrder(6)
   List<DeliverableDependencies> dependencies = [];
 
@@ -204,6 +291,13 @@ class DeliverableEntry {
 }
 
 /// Identity for deliverable.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+  ],
+  'Captures the identifying description and category of a deliverable.',
+)
 @SectionId('DLVID')
 class DeliverableIdentity {
   @Form([
@@ -217,6 +311,13 @@ class DeliverableIdentity {
 }
 
 /// Logistics for deliverable.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+  ],
+  'Captures the delivery format, mechanism, target environment, and scheduling logistics of a deliverable.',
+)
 @SectionId('DLVLOG')
 class DeliverableLogistics {
   @Form([
@@ -238,6 +339,13 @@ class DeliverableLogistics {
 }
 
 /// Version for deliverable.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+  ],
+  'Captures the version requirements, compatibility constraints, and backward-compatibility posture of a deliverable.',
+)
 @SectionId('DLVVR')
 class DeliverableVersion {
   @Form([
@@ -253,6 +361,13 @@ class DeliverableVersion {
 }
 
 /// Quality for deliverable.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model',
+    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+  ],
+  'Captures the quality standards, acceptance criteria, and verification methods applied to a deliverable.',
+)
 @SectionId('DLVQL')
 class DeliverableQuality {
   @Form([
@@ -270,6 +385,13 @@ class DeliverableQuality {
 }
 
 /// Ownership for deliverable.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+  ],
+  'Captures the ownership and responsibility roles for creating, reviewing, receiving, and maintaining a deliverable.',
+)
 @SectionId('DLVOW')
 class DeliverableOwnership {
   @Form([
@@ -287,6 +409,13 @@ class DeliverableOwnership {
 }
 
 /// Dependencies for deliverable.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+  ],
+  'Captures the dependencies and prerequisites that condition when a deliverable can be delivered.',
+)
 @SectionId('DLVDP')
 class DeliverableDependencies {
   @Form([
@@ -300,6 +429,13 @@ class DeliverableDependencies {
 }
 
 /// Legal for deliverable.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+  ],
+  'Captures the licensing terms, intellectual-property ownership, and third-party components of a deliverable.',
+)
 @SectionId('DLVLG')
 class DeliverableLegal {
   @Form([
@@ -315,6 +451,13 @@ class DeliverableLegal {
 }
 
 /// Documentation for deliverable.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+  ],
+  'Captures the documentation associated with a deliverable and its release-note requirements.',
+)
 @SectionId('DLVDC')
 class DeliverableDocumentation {
   @Form([
@@ -330,6 +473,13 @@ class DeliverableDocumentation {
 }
 
 /// 14.2. Acceptance Plan. Seeds → QAP.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model underpinning acceptance planning',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and project closure',
+  ],
+  'Captures the overall acceptance plan defining how project deliverables are formally accepted.',
+)
 @SectionId('ACPLN')
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
@@ -376,6 +526,13 @@ All criteria must be objectively measurable and verifiable.
 }
 
 /// 14.2.1. Acceptance Criteria.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and their entry and exit conditions',
+    'ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used as acceptance criteria',
+  ],
+  'Captures the formal acceptance criteria that delivered work must meet for project sign-off.',
+)
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CRI')
@@ -393,8 +550,16 @@ Each criterion must be:
   String? content;
 
   /// Contains 0+× DeliveryAcceptanceCriterion.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-criteria and test-item structures',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the list of acceptance criteria in the acceptance-test plan',
+    ],
+    'Lists the individual acceptance criteria that delivered work must satisfy.',
+  )
   @SectionId('DACEN-ITEM-LST')
   @SectionIdPattern('DACEN-ITEM-xxx')
+  @ContentHelp('Add one entry per acceptance criterion.')
   @SerializationOrder(1)
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
@@ -404,6 +569,13 @@ Each criterion must be:
 /// A single criterion that must be met for formal project acceptance.
 /// Aligned with IEEE 830 acceptance criteria structure and ISTQB
 /// acceptance test design.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test item and criterion structure',
+    'ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used to express acceptance criteria',
+  ],
+  'Captures a single acceptance criterion that delivered work must satisfy for formal acceptance.',
+)
 @SectionId('DACEN')
 class DeliveryAcceptanceCriterionEntry {
   @Form([
@@ -447,6 +619,13 @@ class DeliveryAcceptanceCriterionEntry {
 }
 
 /// Priority and description.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines prioritization and description of acceptance test items',
+    'ISO/IEC 25010:2023 — the product quality model defines quality characteristics that shape acceptance-criterion priority',
+  ],
+  'Captures the priority and detailed description that scope an acceptance criterion.',
+)
 @SectionId('DACED')
 class DeliveryAcceptanceCriterionEntryDefinition {
   @Form([
@@ -462,6 +641,13 @@ class DeliveryAcceptanceCriterionEntryDefinition {
 }
 
 /// Verification method and evidence.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines verification methods, thresholds, and evidence for acceptance criteria',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the procedures and evidence recorded for acceptance items',
+  ],
+  'Captures the verification method, thresholds, tools, and evidence required to confirm an acceptance criterion.',
+)
 @SectionId('DACEV')
 class DeliveryAcceptanceCriterionEntryVerification {
   @Form([
@@ -487,6 +673,13 @@ class DeliveryAcceptanceCriterionEntryVerification {
 }
 
 /// Traceability links.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria',
+    'IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents',
+  ],
+  'Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.',
+)
 @SectionId('DACET')
 class DeliveryAcceptanceCriterionEntryTraceability {
   @Form([
@@ -502,6 +695,13 @@ class DeliveryAcceptanceCriterionEntryTraceability {
 }
 
 /// Responsibility assignments.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the roles that verify and confirm acceptance criteria',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames responsibility assignments for deliverable acceptance',
+  ],
+  'Captures the verifier and approver responsible for confirming an acceptance criterion.',
+)
 @SectionId('DACEOW')
 class DeliveryAcceptanceCriterionEntryOwnership {
   @Form([
@@ -515,6 +715,13 @@ class DeliveryAcceptanceCriterionEntryOwnership {
 }
 
 /// Current status and notes.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-item status and result reporting for acceptance criteria',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and status records for acceptance items',
+  ],
+  'Captures the current pass or fail status and notes for an acceptance criterion.',
+)
 @SectionId('DACES')
 class DeliveryAcceptanceCriterionEntryStatus {
   @Form([
@@ -533,6 +740,13 @@ class DeliveryAcceptanceCriterionEntryStatus {
 /// Defines the formal acceptance workflow from test initiation through
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
 /// and decision criteria.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process, its entry and exit criteria, and roles',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the deliverable acceptance and closure process',
+  ],
+  'Captures the formal acceptance-process definition covering roles, timeline, decisions, and sign-off.',
+)
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRO')
@@ -583,13 +797,28 @@ class AcceptanceProcess {
   TextSection processNarrative = TextSection();
 
   /// Contains 0+× AcceptanceStep.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered steps of the acceptance-test process',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the sequence of steps leading to deliverable acceptance',
+    ],
+    'Lists the individual steps that make up the formal acceptance-process workflow.',
+  )
   @SectionId('ACST-STEP-LST')
   @SectionIdPattern('ACST-STEP-xxx')
+  @ContentHelp('Add one entry per acceptance-process step.')
   @SerializationOrder(8)
   List<AcceptanceStepEntry> steps = [];
 }
 
 /// Process overview.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process flow from initiation to sign-off',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the high-level deliverable acceptance workflow',
+  ],
+  'Captures the high-level description of the acceptance-process workflow from initiation through sign-off.',
+)
 @SectionId('ACPROV')
 class AcceptanceProcessOverview {
   @Form([
@@ -601,6 +830,13 @@ class AcceptanceProcessOverview {
 }
 
 /// Participants and governance.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines governance roles and responsibilities for deliverable acceptance',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames stakeholder roles and RACI assignments in acceptance',
+  ],
+  'Captures the acceptance board, reviewers, participants, and RACI matrix that govern the acceptance process.',
+)
 @SectionId('ACPRPA')
 class AcceptanceProcessParticipants {
   @Form([
@@ -620,6 +856,13 @@ class AcceptanceProcessParticipants {
 }
 
 /// Timeline and schedule.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines scheduling and milestones for deliverable acceptance and handover',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames acceptance windows and milestone timing',
+  ],
+  'Captures the planned duration, acceptance window, and milestones that schedule the acceptance process.',
+)
 @SectionId('ACPRTI')
 class AcceptanceProcessTimeline {
   @Form([
@@ -637,6 +880,13 @@ class AcceptanceProcessTimeline {
 }
 
 /// Decision framework.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions',
+  ],
+  'Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work.',
+)
 @SectionId('ACPRDE')
 class AcceptanceProcessDecision {
   @Form([
@@ -655,6 +905,13 @@ class AcceptanceProcessDecision {
 }
 
 /// Escalation.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines escalation and dispute resolution during deliverable acceptance',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames escalation paths and issue resolution',
+  ],
+  'Captures the escalation process, escalation levels, and dispute-resolution approach for acceptance decisions.',
+)
 @SectionId('ACPRES')
 class AcceptanceProcessEscalation {
   @Form([
@@ -670,6 +927,13 @@ class AcceptanceProcessEscalation {
 }
 
 /// Documentation.
+@StandardReferences(
+  [
+    'IEEE 829-2008 — the standard for software and system test documentation defines the acceptance-report and evidence documents',
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test documentation retained as acceptance evidence',
+  ],
+  'Captures the report templates, evidence package contents, and archival requirements for acceptance documentation.',
+)
 @SectionId('ACPRDO')
 class AcceptanceProcessDocumentation {
   @Form([
@@ -688,6 +952,13 @@ class AcceptanceProcessDocumentation {
 ///
 /// A single step in the formal acceptance workflow, with entry/exit
 /// conditions, responsible parties, and outputs.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process and its step structure',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the workflow steps that lead to deliverable acceptance',
+  ],
+  'Captures a single step in the formal acceptance workflow with its responsible role and description.',
+)
 @SectionId('ACST')
 class AcceptanceStepEntry {
   @Form([
@@ -714,6 +985,13 @@ class AcceptanceStepEntry {
 }
 
 /// Participants and execution flow.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry and exit criteria and activities for each test-process step',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames participant roles across acceptance activities',
+  ],
+  'Captures the participants, entry and exit criteria, and activities that make up an acceptance-process step.',
+)
 @SectionId('ASEF')
 class AcceptanceStepEntryFlow {
   @Form([
@@ -731,6 +1009,13 @@ class AcceptanceStepEntryFlow {
 }
 
 /// Exit outcomes and timing.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit conditions and step outputs within the test process',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames step outcomes and decisions during deliverable acceptance',
+  ],
+  'Captures the outputs, expected duration, and decision options that conclude an acceptance-process step.',
+)
 @SectionId('ASEO')
 class AcceptanceStepEntryOutcome {
   @Form([
@@ -753,6 +1038,13 @@ class AcceptanceStepEntryOutcome {
 /// governance, scheduling, defect management, reporting, non-functional
 /// acceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119
 /// test documentation structure and ISTQB best practices.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes, documentation, and techniques including acceptance testing',
+    'IEEE 829-2008 — the standard for software and system test documentation defines test plan, test case, test log, and acceptance-test documents',
+  ],
+  'Captures the full user-acceptance testing plan covering scope, environment, governance, execution, defects, reporting, and sign-off.',
+)
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-UAT')
@@ -819,19 +1111,40 @@ class UserAcceptanceTesting {
   TextSection uatOverview = TextSection();
 
   /// Contains 0+× UatTestCycle.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-cycle and level-test-plan structures',
+    ],
+    'Lists the acceptance test cycles executed during the UAT effort.',
+  )
   @SectionId('UATCY-TEST-LST')
   @SectionIdPattern('UATCY-TEST-xxx')
+  @ContentHelp('Add one entry per user-acceptance test cycle.')
   @SerializationOrder(13)
   List<UatTestCycleEntry> testCycles = [];
 
   /// Contains 0+× TestScenario.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures',
+    ],
+    'Lists the acceptance test scenarios covered by the UAT suite.',
+  )
   @SectionId('TSSC-TEST-LST')
   @SectionIdPattern('TSSC-TEST-xxx')
+  @ContentHelp('Add one entry per test scenario.')
   @SerializationOrder(14)
   List<TestScenarioEntry> testScenarios = [];
 }
 
 /// Scope and objectives for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the scope, features-to-be-tested, and test types',
+    'IEEE 829-2008 — the standard for software and system test documentation defines features and test types in a test plan',
+  ],
+  'Captures the scope summary, exclusions, and included test types for the acceptance test effort.',
+)
 @SectionId('UASC')
 class UatScope {
   @Form([
@@ -847,6 +1160,13 @@ class UatScope {
 }
 
 /// Environment for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-environment requirements and readiness',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the environmental-needs section of a test plan',
+  ],
+  'Captures the identity, access, configuration, refresh policy, and access control of the UAT environment.',
+)
 @SectionId('UAEN')
 class UatEnvironment {
   @Form([
@@ -866,6 +1186,13 @@ class UatEnvironment {
 }
 
 /// Test data for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-data management and requirements for test execution',
+    'IEEE 829-2008 — the standard for software and system test documentation defines test-data needs in the test plan',
+  ],
+  'Captures the test-data strategy, preparation, privacy compliance, and refresh cadence for acceptance testing.',
+)
 @SectionId('UATEDA')
 class UatTestData {
   @Form([
@@ -883,6 +1210,13 @@ class UatTestData {
 }
 
 /// Governance for UAT.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management defines governance, roles, and stakeholder responsibilities',
+    'IEEE 829-2008 — the standard for software and system test documentation defines responsibilities and staffing in a test plan',
+  ],
+  'Captures the ownership, tester roles, support team, RACI, escalation path, and communication plan governing acceptance testing.',
+)
 @SectionId('UAGO')
 class UatGovernance {
   @Form([
@@ -904,6 +1238,13 @@ class UatGovernance {
 }
 
 /// Schedule for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test scheduling and milestones within the test plan',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames scheduling and milestone planning',
+  ],
+  'Captures the planned dates, cycle count, cycle duration, and key milestones for the acceptance test effort.',
+)
 @SectionId('UASC1')
 class UatSchedule {
   @Form([
@@ -923,6 +1264,13 @@ class UatSchedule {
 }
 
 /// Criteria for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry, exit, and suspension-resumption criteria for test execution',
+    'IEEE 829-2008 — the standard for software and system test documentation defines suspension and resumption criteria in a test plan',
+  ],
+  'Captures the entry, exit, suspension, and resumption criteria that gate the acceptance test effort.',
+)
 @SectionId('UACR')
 class UatCriteria {
   @Form([
@@ -940,6 +1288,13 @@ class UatCriteria {
 }
 
 /// Defect management for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines incident and defect management within the test process',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the anomaly and defect report',
+  ],
+  'Captures the tools, severity levels, SLAs, thresholds, and triage process governing defects found during acceptance testing.',
+)
 @SectionId('UADEMA')
 class UatDefectManagement {
   @Form([
@@ -961,6 +1316,13 @@ class UatDefectManagement {
 }
 
 /// Reporting for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-status reporting and completion reports',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the test-summary and status reports',
+  ],
+  'Captures the status reporting, tracked metrics, and final-report contents for the acceptance test effort.',
+)
 @SectionId('UARE')
 class UatReporting {
   @Form([
@@ -978,6 +1340,13 @@ class UatReporting {
 }
 
 /// Non-functional acceptance for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the product quality model defines non-functional quality characteristics used as acceptance criteria',
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines non-functional test types and techniques',
+  ],
+  'Captures the accessibility, performance, security, and regression acceptance conditions for the delivered system.',
+)
 @SectionId('UANOFU')
 class UatNonFunctional {
   @Form([
@@ -995,6 +1364,13 @@ class UatNonFunctional {
 }
 
 /// Sign-off for UAT.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames formal deliverable validation and acceptance sign-off',
+    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and formal authorization',
+  ],
+  'Captures the authority, criteria, and conditional-acceptance policy governing formal UAT sign-off.',
+)
 @SectionId('UASIOF')
 class UatSignOff {
   @Form([
@@ -1010,6 +1386,13 @@ class UatSignOff {
 }
 
 /// Training and readiness for UAT.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines training and operational-readiness support activities',
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard frames tester readiness and preparation for test execution',
+  ],
+  'Captures the tester training and user-documentation readiness that prepare participants for acceptance testing.',
+)
 @SectionId('UATR')
 class UatTraining {
   @Form([
@@ -1027,6 +1410,13 @@ class UatTraining {
 /// Represents a distinct test execution round — e.g. Cycle 1 (initial),
 /// Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
 /// criteria, and focus areas per IEEE 829 Level Test Plan structure.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-cycle execution and the level test plan',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the level test plan structure',
+  ],
+  'Captures a distinct acceptance test execution round with its objective, dates, scope, and staffing.',
+)
 @SectionId('UATCY')
 class UatTestCycleEntry {
   @Form([
@@ -1055,6 +1445,13 @@ class UatTestCycleEntry {
 }
 
 /// Scope and pass criteria for this cycle.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines scope, entry and exit criteria for test execution',
+    'IEEE 829-2008 — the standard for software and system test documentation defines features-to-be-tested and pass criteria',
+  ],
+  'Captures the in-scope scenarios, focus areas, entry and exit criteria, and pass criterion for an acceptance test cycle.',
+)
 @SectionId('UTCES')
 class UatTestCycleEntryScope {
   @Form([
@@ -1075,6 +1472,13 @@ class UatTestCycleEntryScope {
 }
 
 /// Staffing and risk context.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines staffing and risk considerations for test execution',
+    'IEEE 829-2008 — the standard for software and system test documentation defines staffing and responsibilities in a test plan',
+  ],
+  'Captures the assigned testers and known risks for an acceptance test cycle.',
+)
 @SectionId('UTCEE')
 class UatTestCycleEntryExecution {
   @Form([
@@ -1093,6 +1497,13 @@ class UatTestCycleEntryExecution {
 /// process, or acceptance criterion. Includes full traceability, preconditions,
 /// execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 /// Level Test Case / Level Test Procedure structures.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the level test case and level test procedure',
+  ],
+  'Captures a business-level acceptance test scenario covering a user journey with traceability, setup, execution, and results.',
+)
 @SectionId('TSSC')
 class TestScenarioEntry {
   @Form([
@@ -1131,19 +1542,40 @@ class TestScenarioEntry {
   TestScenarioPostExecution postExecution = TestScenarioPostExecution();
 
   /// Notes.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks',
+    ],
+    'Lists the supplementary notes captured against this acceptance test scenario.',
+  )
   @SectionId('TESCNO-NOTE-LST')
   @SectionIdPattern('TESCNO-NOTE-xxx')
+  @ContentHelp('Add one entry per test-scenario note.')
   @SerializationOrder(7)
   List<TestScenarioNotes> notes = [];
 
   /// Contains 0+× UatTestStep for this scenario.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered test steps that make up a test procedure',
+    ],
+    'Lists the individual acceptance test steps that make up this scenario.',
+  )
   @SectionId('UATSST-TEST-LST')
   @SectionIdPattern('UATSST-TEST-xxx')
+  @ContentHelp('Add one entry per user-acceptance test step.')
   @SerializationOrder(8)
   List<UatTestStepEntry> testSteps = [];
 }
 
 /// Identification for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines identification and classification of test cases',
+    'IEEE 829-2008 — the standard for software and system test documentation defines test-case identifiers and descriptions',
+  ],
+  'Captures the descriptive identification, complexity, and category of an acceptance test scenario.',
+)
 @SectionId('TESCID')
 class TestScenarioIdentification {
   @Form([
@@ -1159,6 +1591,13 @@ class TestScenarioIdentification {
 }
 
 /// Business context for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions',
+    'ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables',
+  ],
+  'Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario.',
+)
 @SectionId('TESCBU')
 class TestScenarioBusiness {
   @Form([
@@ -1176,6 +1615,13 @@ class TestScenarioBusiness {
 }
 
 /// Traceability for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements',
+  ],
+  'Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.',
+)
 @SectionId('TESCTR')
 class TestScenarioTraceability {
   @Form([
@@ -1193,6 +1639,13 @@ class TestScenarioTraceability {
 }
 
 /// Setup for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case',
+    'IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records',
+  ],
+  'Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs.',
+)
 @SectionId('TESCSE')
 class TestScenarioSetup {
   @Form([
@@ -1210,6 +1663,13 @@ class TestScenarioSetup {
 }
 
 /// Execution for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-execution activity and expected results',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and acceptance criteria',
+  ],
+  'Captures the execution summary, expected result, and acceptance criteria for an acceptance test scenario.',
+)
 @SectionId('TESCEX')
 class TestScenarioExecution {
   @Form([
@@ -1229,6 +1689,13 @@ class TestScenarioExecution {
 }
 
 /// Post-execution for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines postconditions and result evaluation within a test case',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and result-capture records',
+  ],
+  'Captures postconditions, cleanup steps, and defect thresholds evaluated after an acceptance test scenario runs.',
+)
 @SectionId('TSPE')
 class TestScenarioPostExecution {
   @Form([
@@ -1244,6 +1711,12 @@ class TestScenarioPostExecution {
 }
 
 /// Notes for test scenario.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks',
+  ],
+  'Records assumptions, risks, and clarifying notes attached to an acceptance test scenario.',
+)
 @SectionId('TESCNO')
 class TestScenarioNotes {
   @Form([
@@ -1263,6 +1736,13 @@ class TestScenarioNotes {
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
 /// Level Test Procedure structure.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-procedure and test-step structures',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and its steps',
+  ],
+  'Captures a single fine-grained test step within an acceptance test scenario, including action, input data, and pass criteria.',
+)
 @SectionId('UATSST')
 class UatTestStepEntry {
   @Form([
@@ -1297,6 +1777,13 @@ class UatTestStepEntry {
 /// Defines how defects found during acceptance testing are classified,
 /// managed, resolved, and tracked. Covers severity classification,
 /// resolution timeframes, blocking thresholds, and post-fix verification.
+@StandardReferences(
+  [
+    'IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting',
+    'ITIL 4 2019 — the service management framework defines defect resolution as incident and problem management',
+  ],
+  'Captures the defect-resolution workflow that governs how acceptance-phase defects are classified, managed, resolved, and tracked.',
+)
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DEF')
@@ -1342,6 +1829,13 @@ class DefectResolution {
 }
 
 /// Classification refinement and SLA targets.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service-level and problem-management targets',
+    'ITIL 4 2019 — the service management framework defines defect-resolution service-level practices',
+  ],
+  'Captures the classification refinement and SLA targets including reclassification process and per-severity resolution times.',
+)
 @SectionId('DERESL')
 class DefectResolutionSla {
   @Form([
@@ -1365,6 +1859,13 @@ class DefectResolutionSla {
 }
 
 /// Acceptance thresholds and deferral rules.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames defect prioritization and deliverable acceptance thresholds',
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and test exit conditions',
+  ],
+  'Captures the acceptance thresholds and deferral rules including blocking thresholds, conditional-pass limits, and deferral policy.',
+)
 @SectionId('DERETH')
 class DefectResolutionThresholds {
   @Form([
@@ -1386,6 +1887,13 @@ class DefectResolutionThresholds {
 }
 
 /// Triage, retest, and escalation process.
+@StandardReferences(
+  [
+    'ITIL 4 2019 — the service management framework defines incident triage and defect-resolution practices',
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines problem management including triage and escalation',
+  ],
+  'Captures the defect triage, retest, and escalation process including tracking tools, triage cadence, and regression policy.',
+)
 @SectionId('DEREPR')
 class DefectResolutionProcess {
   @Form([
@@ -1411,6 +1919,13 @@ class DefectResolutionProcess {
 }
 
 /// Reporting and closure rules.
+@StandardReferences(
+  [
+    'IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting',
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes and documentation including defect reporting',
+  ],
+  'Captures the defect reporting and closure rules including reporting frequency, metrics tracked, and closure criteria.',
+)
 @SectionId('DERERE')
 class DefectResolutionReporting {
   @Form([
@@ -1438,6 +1953,13 @@ class DefectResolutionReporting {
 /// Formal sign-off process: who signs off (business acceptance board,
 /// technical acceptance board), what documents are signed, legal and
 /// contractual implications, and conditional acceptance handling.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance, closure, and sign-off',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process',
+  ],
+  'Captures the formal sign-off process including signatories, evidence, acceptance policies, contractual implications, and timeline.',
+)
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SIG')
@@ -1489,6 +2011,13 @@ class SignOffProcess {
 }
 
 /// Signatory and quorum governance.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance governance and closure',
+    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover roles',
+  ],
+  'Captures the signatory and quorum governance for sign-off including operational readiness roles and quorum requirements.',
+)
 @SectionId('SOPG')
 class SignOffProcessGovernance {
     @Form([
@@ -1505,6 +2034,13 @@ class SignOffProcessGovernance {
 }
 
 /// Evidence and checklist requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process and evidence',
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance evidence and closure',
+  ],
+  'Captures the evidence and checklist requirements for sign-off including document templates, required attachments, and pre-sign-off criteria.',
+)
 @SectionId('SOPE')
 class SignOffProcessEvidence {
     @Form([
@@ -1528,6 +2064,13 @@ class SignOffProcessEvidence {
 }
 
 /// Conditional or partial acceptance policies.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and rejection handling',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support and validation processes',
+  ],
+  'Captures the conditional and partial acceptance policies including rejection handling and outstanding-item action plans.',
+)
 @SectionId('SOPA')
 class SignOffProcessAcceptance {
     @Form([
@@ -1550,6 +2093,13 @@ class SignOffProcessAcceptance {
 }
 
 /// Legal and contractual consequences.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and contractual closure',
+    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance, handover, and closure',
+  ],
+  'Captures the legal and contractual consequences of sign-off including warranty activation, payment linkage, and contractual references.',
+)
 @SectionId('SOPC')
 class SignOffProcessContractual {
     @Form([
@@ -1574,6 +2124,13 @@ class SignOffProcessContractual {
 }
 
 /// Review timeline.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and closure timing',
+    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover timelines',
+  ],
+  'Captures the sign-off review timeline including deadlines, review period, and silent-acceptance policy.',
+)
 @SectionId('SOPT')
 class SignOffProcessTimeline {
     @Form([
@@ -1600,6 +2157,13 @@ class SignOffProcessTimeline {
 ///
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty, support, and problem management',
+    'ITIL 4 2019 — the service management framework defines warranty and support practices',
+  ],
+  'Captures the post-acceptance warranty terms including duration, scope, service levels, exclusions, and transition to support.',
+)
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-WAR')
@@ -1626,8 +2190,15 @@ class WarrantyTerms {
   WarrantyCoverage coverage = WarrantyCoverage();
 
   /// Service levels.
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments',
+    ],
+    'Lists the warranty service elements offered during the warranty period.',
+  )
   @SectionId('WASELE-SERV-LST')
   @SectionIdPattern('WASELE-SERV-xxx')
+  @ContentHelp('Add one entry per warranty service element.')
   @SerializationOrder(3)
   List<WarrantyServiceLevels> serviceLevels = [];
 
@@ -1653,6 +2224,13 @@ class WarrantyTerms {
 }
 
 /// Duration and activation.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty periods and commitments',
+    'ISO 21502:2020 — the guidance on project management defines deliverable handover timing and closure',
+  ],
+  'Captures the duration and activation details of the warranty including end date and extension policy.',
+)
 @SectionId('WADU')
 class WarrantyDuration {
   @Form([
@@ -1666,6 +2244,13 @@ class WarrantyDuration {
 }
 
 /// Scope of coverage.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries',
+    'ITIL 4 2019 — the service management framework defines warranty coverage and support scope',
+  ],
+  'Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty.',
+)
 @SectionId('WACO')
 class WarrantyCoverage {
   @Form([
@@ -1681,6 +2266,13 @@ class WarrantyCoverage {
 }
 
 /// Service levels.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including service levels',
+    'ITIL 4 2019 — the service management framework defines warranty and support service-level targets',
+  ],
+  'Captures the warranty service-level commitments including support hours, response times, resolution times, and escalation contacts.',
+)
 @SectionId('WASELE')
 class WarrantyServiceLevels {
   @Form([
@@ -1702,6 +2294,13 @@ class WarrantyServiceLevels {
 }
 
 /// Process for defect handling.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines problem and incident management for warranty defect handling',
+    'ITIL 4 2019 — the service management framework defines support and defect-resolution practices during warranty',
+  ],
+  'Captures the process for handling warranty defects including reporting channels, fix delivery, regression testing, and communication cadence.',
+)
 @SectionId('WAPR')
 class WarrantyProcess {
   @Form([
@@ -1719,6 +2318,13 @@ class WarrantyProcess {
 }
 
 /// Transition to support.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines the transition from warranty into ongoing service support',
+    'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure into operations',
+  ],
+  'Captures how the warranty period transitions into standard ongoing support including post-warranty terms and knowledge transfer.',
+)
 @SectionId('WATR')
 class WarrantyTransition {
   @Form([
@@ -1734,6 +2340,13 @@ class WarrantyTransition {
 }
 
 /// Financial terms.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including financial terms',
+    'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure including cost aspects',
+  ],
+  'Captures the financial terms of the warranty including cost, penalties for SLA breaches, and charging for out-of-scope work.',
+)
 @SectionId('WAFI')
 class WarrantyFinancial {
   @Form([

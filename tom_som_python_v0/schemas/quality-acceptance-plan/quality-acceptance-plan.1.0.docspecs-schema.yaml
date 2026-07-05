@@ -13,19 +13,19 @@ section-types:
     pattern-check-id:
       pattern: ^tescno_note_lst-\d+$
       error-message: ID must match tescno_note_lst-NNN
-    description: Notes.
+    description: Add one entry per test-scenario note.
   UATSST-TEST-LST:
     prefix: uatsst_test_lst
     pattern-check-id:
       pattern: ^uatsst_test_lst-\d+$
       error-message: ID must match uatsst_test_lst-NNN
-    description: Contains 0+× UatTestStep for this scenario.
+    description: Add one entry per user-acceptance test step.
   WASELE-SERV-LST:
     prefix: wasele_serv_lst
     pattern-check-id:
       pattern: ^wasele_serv_lst-\d+$
       error-message: ID must match wasele_serv_lst-NNN
-    description: Service levels.
+    description: Add one entry per warranty service element.
   CATEG-CATE-LST:
     prefix: categ_cate_lst
     pattern-check-id:
@@ -37,7 +37,7 @@ section-types:
     pattern-check-id:
       pattern: ^dacen_item_lst-\d+$
       error-message: ID must match dacen_item_lst-NNN
-    description: Contains 0+× DeliveryAcceptanceCriterion.
+    description: Add one entry per acceptance criterion.
   QCATE-QUAL-LST:
     prefix: qcate_qual_lst
     pattern-check-id:
@@ -61,13 +61,13 @@ section-types:
     pattern-check-id:
       pattern: ^uatcy_test_lst-\d+$
       error-message: ID must match uatcy_test_lst-NNN
-    description: Contains 0+× UatTestCycle.
+    description: Add one entry per user-acceptance test cycle.
   ACST-STEP-LST:
     prefix: acst_step_lst
     pattern-check-id:
       pattern: ^acst_step_lst-\d+$
       error-message: ID must match acst_step_lst-NNN
-    description: Contains 0+× AcceptanceStep.
+    description: Add one entry per acceptance-process step.
   SLAE-SLAE-LST:
     prefix: slae_slae_lst
     pattern-check-id:
@@ -85,7 +85,7 @@ section-types:
     pattern-check-id:
       pattern: ^tssc_test_lst-\d+$
       error-message: ID must match tssc_test_lst-NNN
-    description: Contains 0+× TestScenario.
+    description: Add one entry per test scenario.
   ACCRSU:
     prefix: accrsu
     description: 11.7. Acceptance Criteria Summary.

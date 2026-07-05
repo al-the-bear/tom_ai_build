@@ -105,7 +105,24 @@
       "sectionId": "ACRITL",
       "doc": "14.2.1. Acceptance Criteria.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and their entry and exit conditions",
+          "ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used as acceptance criteria"
+        ],
+        "connotation": "Captures the formal acceptance criteria that delivered work must meet for project sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and their entry and exit conditions",
+              "ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used as acceptance criteria"
+            ],
+            "connotation": "Captures the formal acceptance criteria that delivered work must meet for project sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152,10 +169,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DeliveryAcceptanceCriterion.",
+          "help": "Add one entry per acceptance criterion.",
           "sectionId": "DACEN-ITEM-LST",
           "sectionIdPattern": "DACEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-criteria and test-item structures",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the list of acceptance criteria in the acceptance-test plan"
+            ],
+            "connotation": "Lists the individual acceptance criteria that delivered work must satisfy."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-criteria and test-item structures",
+                  "IEEE 829-2008 — the standard for software and system test documentation defines the list of acceptance criteria in the acceptance-test plan"
+                ],
+                "connotation": "Lists the individual acceptance criteria that delivered work must satisfy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -166,6 +201,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DACEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per acceptance criterion."
               }
             },
             {
@@ -515,7 +556,24 @@
       "sectionId": "ACPLN",
       "doc": "14.2. Acceptance Plan. Seeds → QAP.",
       "mapsTo": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model underpinning acceptance planning",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and project closure"
+        ],
+        "connotation": "Captures the overall acceptance plan defining how project deliverables are formally accepted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model underpinning acceptance planning",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and project closure"
+            ],
+            "connotation": "Captures the overall acceptance plan defining how project deliverables are formally accepted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -654,7 +712,24 @@
       "sectionId": "ACPR1",
       "doc": "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process, its entry and exit criteria, and roles",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the deliverable acceptance and closure process"
+        ],
+        "connotation": "Captures the formal acceptance-process definition covering roles, timeline, decisions, and sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process, its entry and exit criteria, and roles",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the deliverable acceptance and closure process"
+            ],
+            "connotation": "Captures the formal acceptance-process definition covering roles, timeline, decisions, and sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -835,10 +910,28 @@
           "name": "steps",
           "kind": "list",
           "doc": "Contains 0+× AcceptanceStep.",
+          "help": "Add one entry per acceptance-process step.",
           "sectionId": "ACST-STEP-LST",
           "sectionIdPattern": "ACST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered steps of the acceptance-test process",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the sequence of steps leading to deliverable acceptance"
+            ],
+            "connotation": "Lists the individual steps that make up the formal acceptance-process workflow."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered steps of the acceptance-test process",
+                  "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the sequence of steps leading to deliverable acceptance"
+                ],
+                "connotation": "Lists the individual steps that make up the formal acceptance-process workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -849,6 +942,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ACST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per acceptance-process step."
               }
             },
             {
@@ -867,7 +966,24 @@
       "name": "AcceptanceProcessDecision",
       "sectionId": "ACPRDE",
       "doc": "Decision framework.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions"
+        ],
+        "connotation": "Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions"
+            ],
+            "connotation": "Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -931,7 +1047,24 @@
       "name": "AcceptanceProcessDocumentation",
       "sectionId": "ACPRDO",
       "doc": "Documentation.",
+      "standardReferences": {
+        "standards": [
+          "IEEE 829-2008 — the standard for software and system test documentation defines the acceptance-report and evidence documents",
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test documentation retained as acceptance evidence"
+        ],
+        "connotation": "Captures the report templates, evidence package contents, and archival requirements for acceptance documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IEEE 829-2008 — the standard for software and system test documentation defines the acceptance-report and evidence documents",
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test documentation retained as acceptance evidence"
+            ],
+            "connotation": "Captures the report templates, evidence package contents, and archival requirements for acceptance documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -988,7 +1121,24 @@
       "name": "AcceptanceProcessEscalation",
       "sectionId": "ACPRES",
       "doc": "Escalation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines escalation and dispute resolution during deliverable acceptance",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames escalation paths and issue resolution"
+        ],
+        "connotation": "Captures the escalation process, escalation levels, and dispute-resolution approach for acceptance decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines escalation and dispute resolution during deliverable acceptance",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames escalation paths and issue resolution"
+            ],
+            "connotation": "Captures the escalation process, escalation levels, and dispute-resolution approach for acceptance decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1045,7 +1195,24 @@
       "name": "AcceptanceProcessOverview",
       "sectionId": "ACPROV",
       "doc": "Process overview.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process flow from initiation to sign-off",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the high-level deliverable acceptance workflow"
+        ],
+        "connotation": "Captures the high-level description of the acceptance-process workflow from initiation through sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process flow from initiation to sign-off",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the high-level deliverable acceptance workflow"
+            ],
+            "connotation": "Captures the high-level description of the acceptance-process workflow from initiation through sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1088,7 +1255,24 @@
       "name": "AcceptanceProcessParticipants",
       "sectionId": "ACPRPA",
       "doc": "Participants and governance.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines governance roles and responsibilities for deliverable acceptance",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames stakeholder roles and RACI assignments in acceptance"
+        ],
+        "connotation": "Captures the acceptance board, reviewers, participants, and RACI matrix that govern the acceptance process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines governance roles and responsibilities for deliverable acceptance",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames stakeholder roles and RACI assignments in acceptance"
+            ],
+            "connotation": "Captures the acceptance board, reviewers, participants, and RACI matrix that govern the acceptance process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1159,7 +1343,24 @@
       "name": "AcceptanceProcessTimeline",
       "sectionId": "ACPRTI",
       "doc": "Timeline and schedule.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines scheduling and milestones for deliverable acceptance and handover",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames acceptance windows and milestone timing"
+        ],
+        "connotation": "Captures the planned duration, acceptance window, and milestones that schedule the acceptance process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines scheduling and milestones for deliverable acceptance and handover",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames acceptance windows and milestone timing"
+            ],
+            "connotation": "Captures the planned duration, acceptance window, and milestones that schedule the acceptance process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1223,7 +1424,24 @@
       "name": "AcceptanceStepEntry",
       "sectionId": "ACST",
       "doc": "An acceptance step entry (form).\n\nA single step in the formal acceptance workflow, with entry/exit\nconditions, responsible parties, and outputs.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process and its step structure",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the workflow steps that lead to deliverable acceptance"
+        ],
+        "connotation": "Captures a single step in the formal acceptance workflow with its responsible role and description."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process and its step structure",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the workflow steps that lead to deliverable acceptance"
+            ],
+            "connotation": "Captures a single step in the formal acceptance workflow with its responsible role and description."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1317,7 +1535,24 @@
       "name": "AcceptanceStepEntryFlow",
       "sectionId": "ASEF",
       "doc": "Participants and execution flow.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry and exit criteria and activities for each test-process step",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames participant roles across acceptance activities"
+        ],
+        "connotation": "Captures the participants, entry and exit criteria, and activities that make up an acceptance-process step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry and exit criteria and activities for each test-process step",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames participant roles across acceptance activities"
+            ],
+            "connotation": "Captures the participants, entry and exit criteria, and activities that make up an acceptance-process step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -1381,7 +1616,24 @@
       "name": "AcceptanceStepEntryOutcome",
       "sectionId": "ASEO",
       "doc": "Exit outcomes and timing.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit conditions and step outputs within the test process",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames step outcomes and decisions during deliverable acceptance"
+        ],
+        "connotation": "Captures the outputs, expected duration, and decision options that conclude an acceptance-process step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit conditions and step outputs within the test process",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames step outcomes and decisions during deliverable acceptance"
+            ],
+            "connotation": "Captures the outputs, expected duration, and decision options that conclude an acceptance-process step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80728,7 +80980,24 @@
       "sectionId": "DERE",
       "doc": "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting",
+          "ITIL 4 2019 — the service management framework defines defect resolution as incident and problem management"
+        ],
+        "connotation": "Captures the defect-resolution workflow that governs how acceptance-phase defects are classified, managed, resolved, and tracked."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting",
+              "ITIL 4 2019 — the service management framework defines defect resolution as incident and problem management"
+            ],
+            "connotation": "Captures the defect-resolution workflow that governs how acceptance-phase defects are classified, managed, resolved, and tracked."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80881,7 +81150,24 @@
       "name": "DefectResolutionProcess",
       "sectionId": "DEREPR",
       "doc": "Triage, retest, and escalation process.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 2019 — the service management framework defines incident triage and defect-resolution practices",
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines problem management including triage and escalation"
+        ],
+        "connotation": "Captures the defect triage, retest, and escalation process including tracking tools, triage cadence, and regression policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 2019 — the service management framework defines incident triage and defect-resolution practices",
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines problem management including triage and escalation"
+            ],
+            "connotation": "Captures the defect triage, retest, and escalation process including tracking tools, triage cadence, and regression policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80952,7 +81238,24 @@
       "name": "DefectResolutionReporting",
       "sectionId": "DERERE",
       "doc": "Reporting and closure rules.",
+      "standardReferences": {
+        "standards": [
+          "IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting",
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes and documentation including defect reporting"
+        ],
+        "connotation": "Captures the defect reporting and closure rules including reporting frequency, metrics tracked, and closure criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting",
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes and documentation including defect reporting"
+            ],
+            "connotation": "Captures the defect reporting and closure rules including reporting frequency, metrics tracked, and closure criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81009,7 +81312,24 @@
       "name": "DefectResolutionSla",
       "sectionId": "DERESL",
       "doc": "Classification refinement and SLA targets.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service-level and problem-management targets",
+          "ITIL 4 2019 — the service management framework defines defect-resolution service-level practices"
+        ],
+        "connotation": "Captures the classification refinement and SLA targets including reclassification process and per-severity resolution times."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service-level and problem-management targets",
+              "ITIL 4 2019 — the service management framework defines defect-resolution service-level practices"
+            ],
+            "connotation": "Captures the classification refinement and SLA targets including reclassification process and per-severity resolution times."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81087,7 +81407,24 @@
       "name": "DefectResolutionThresholds",
       "sectionId": "DERETH",
       "doc": "Acceptance thresholds and deferral rules.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames defect prioritization and deliverable acceptance thresholds",
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and test exit conditions"
+        ],
+        "connotation": "Captures the acceptance thresholds and deferral rules including blocking thresholds, conditional-pass limits, and deferral policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames defect prioritization and deliverable acceptance thresholds",
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and test exit conditions"
+            ],
+            "connotation": "Captures the acceptance thresholds and deferral rules including blocking thresholds, conditional-pass limits, and deferral policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81237,7 +81574,24 @@
       "name": "DeliverableDependencies",
       "sectionId": "DLVDP",
       "doc": "Dependencies for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+        ],
+        "connotation": "Captures the dependencies and prerequisites that condition when a deliverable can be delivered."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+            ],
+            "connotation": "Captures the dependencies and prerequisites that condition when a deliverable can be delivered."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81287,7 +81641,24 @@
       "name": "DeliverableDocumentation",
       "sectionId": "DLVDC",
       "doc": "Documentation for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+        ],
+        "connotation": "Captures the documentation associated with a deliverable and its release-note requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+            ],
+            "connotation": "Captures the documentation associated with a deliverable and its release-note requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81344,7 +81715,24 @@
       "name": "DeliverableEntry",
       "sectionId": "DLVEN",
       "doc": "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+          "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+        ],
+        "connotation": "Represents a single deliverable item with its identification, logistics, quality, ownership, and acceptance linkage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+              "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+            ],
+            "connotation": "Represents a single deliverable item with its identification, logistics, quality, ownership, and acceptance linkage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81474,10 +81862,28 @@
           "name": "dependencies",
           "kind": "list",
           "doc": "Dependencies.",
+          "help": "Add one entry per delivery dependency.",
           "sectionId": "DLVDP-DEPE-LST",
           "sectionIdPattern": "DLVDP-DEPE-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+            ],
+            "connotation": "Lists the individual dependencies that condition the delivery of this deliverable."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+                  "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+                ],
+                "connotation": "Lists the individual dependencies that condition the delivery of this deliverable."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -81488,6 +81894,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DLVDP-DEPE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per delivery dependency."
               }
             },
             {
@@ -81536,7 +81948,24 @@
       "name": "DeliverableIdentity",
       "sectionId": "DLVID",
       "doc": "Identity for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+        ],
+        "connotation": "Captures the identifying description and category of a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+            ],
+            "connotation": "Captures the identifying description and category of a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81586,7 +82015,24 @@
       "name": "DeliverableLegal",
       "sectionId": "DLVLG",
       "doc": "Legal for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+        ],
+        "connotation": "Captures the licensing terms, intellectual-property ownership, and third-party components of a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+            ],
+            "connotation": "Captures the licensing terms, intellectual-property ownership, and third-party components of a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81643,7 +82089,24 @@
       "name": "DeliverableLogistics",
       "sectionId": "DLVLOG",
       "doc": "Logistics for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+        ],
+        "connotation": "Captures the delivery format, mechanism, target environment, and scheduling logistics of a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+            ],
+            "connotation": "Captures the delivery format, mechanism, target environment, and scheduling logistics of a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81721,7 +82184,24 @@
       "name": "DeliverableOwnership",
       "sectionId": "DLVOW",
       "doc": "Ownership for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+        ],
+        "connotation": "Captures the ownership and responsibility roles for creating, reviewing, receiving, and maintaining a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+            ],
+            "connotation": "Captures the ownership and responsibility roles for creating, reviewing, receiving, and maintaining a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81785,7 +82265,24 @@
       "name": "DeliverableQuality",
       "sectionId": "DLVQL",
       "doc": "Quality for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model",
+          "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+        ],
+        "connotation": "Captures the quality standards, acceptance criteria, and verification methods applied to a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model",
+              "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+            ],
+            "connotation": "Captures the quality standards, acceptance criteria, and verification methods applied to a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81849,7 +82346,24 @@
       "name": "DeliverableVersion",
       "sectionId": "DLVVR",
       "doc": "Version for deliverable.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition",
+          "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+        ],
+        "connotation": "Captures the version requirements, compatibility constraints, and backward-compatibility posture of a deliverable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition",
+              "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+            ],
+            "connotation": "Captures the version requirements, compatibility constraints, and backward-compatibility posture of a deliverable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81906,7 +82420,24 @@
       "name": "DeliveryAcceptanceCriterionEntry",
       "sectionId": "DACEN",
       "doc": "An acceptance criterion entry (form).\n\nA single criterion that must be met for formal project acceptance.\nAligned with IEEE 830 acceptance criteria structure and ISTQB\nacceptance test design.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test item and criterion structure",
+          "ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used to express acceptance criteria"
+        ],
+        "connotation": "Captures a single acceptance criterion that delivered work must satisfy for formal acceptance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test item and criterion structure",
+              "ISO/IEC 25010:2023 — the product quality model defines the quality characteristics used to express acceptance criteria"
+            ],
+            "connotation": "Captures a single acceptance criterion that delivered work must satisfy for formal acceptance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82038,7 +82569,24 @@
       "name": "DeliveryAcceptanceCriterionEntryDefinition",
       "sectionId": "DACED",
       "doc": "Priority and description.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines prioritization and description of acceptance test items",
+          "ISO/IEC 25010:2023 — the product quality model defines quality characteristics that shape acceptance-criterion priority"
+        ],
+        "connotation": "Captures the priority and detailed description that scope an acceptance criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines prioritization and description of acceptance test items",
+              "ISO/IEC 25010:2023 — the product quality model defines quality characteristics that shape acceptance-criterion priority"
+            ],
+            "connotation": "Captures the priority and detailed description that scope an acceptance criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82088,7 +82636,24 @@
       "name": "DeliveryAcceptanceCriterionEntryOwnership",
       "sectionId": "DACEOW",
       "doc": "Responsibility assignments.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the roles that verify and confirm acceptance criteria",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames responsibility assignments for deliverable acceptance"
+        ],
+        "connotation": "Captures the verifier and approver responsible for confirming an acceptance criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the roles that verify and confirm acceptance criteria",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames responsibility assignments for deliverable acceptance"
+            ],
+            "connotation": "Captures the verifier and approver responsible for confirming an acceptance criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82138,7 +82703,24 @@
       "name": "DeliveryAcceptanceCriterionEntryStatus",
       "sectionId": "DACES",
       "doc": "Current status and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-item status and result reporting for acceptance criteria",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the test-log and status records for acceptance items"
+        ],
+        "connotation": "Captures the current pass or fail status and notes for an acceptance criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-item status and result reporting for acceptance criteria",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the test-log and status records for acceptance items"
+            ],
+            "connotation": "Captures the current pass or fail status and notes for an acceptance criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82188,7 +82770,24 @@
       "name": "DeliveryAcceptanceCriterionEntryTraceability",
       "sectionId": "DACET",
       "doc": "Traceability links.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria",
+          "IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents"
+        ],
+        "connotation": "Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria",
+              "IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents"
+            ],
+            "connotation": "Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82245,7 +82844,24 @@
       "name": "DeliveryAcceptanceCriterionEntryVerification",
       "sectionId": "DACEV",
       "doc": "Verification method and evidence.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines verification methods, thresholds, and evidence for acceptance criteria",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the procedures and evidence recorded for acceptance items"
+        ],
+        "connotation": "Captures the verification method, thresholds, tools, and evidence required to confirm an acceptance criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines verification methods, thresholds, and evidence for acceptance criteria",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the procedures and evidence recorded for acceptance items"
+            ],
+            "connotation": "Captures the verification method, thresholds, tools, and evidence required to confirm an acceptance criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82316,7 +82932,24 @@
       "name": "DeliveryScope",
       "sectionId": "DLVSC",
       "doc": "14.1. Delivery and Service Scope.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+        ],
+        "connotation": "Captures the overall delivery and service scope that enumerates what will be delivered and under what conditions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+            ],
+            "connotation": "Captures the overall delivery and service scope that enumerates what will be delivered and under what conditions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -82412,7 +83045,24 @@
       "name": "DeliveryScopeAndAcceptance",
       "sectionId": "DLVA",
       "doc": "14. Delivery Scope and Acceptance.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+          "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+        ],
+        "connotation": "Captures the delivery scope and acceptance agreements defining what is delivered and how it is accepted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover",
+              "ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover"
+            ],
+            "connotation": "Captures the delivery scope and acceptance agreements defining what is delivered and how it is accepted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95647,7 +96297,24 @@
       "name": "DocumentationDeliverables",
       "sectionId": "DCDLV",
       "doc": "14.1.2. Documentation Deliverables.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+        ],
+        "connotation": "Captures the documentation deliverables covering user, technical, and operations documents."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+            ],
+            "connotation": "Captures the documentation deliverables covering user, technical, and operations documents."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95681,10 +96348,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
+          "help": "Add one entry per documentation deliverable.",
           "sectionId": "DCDLV-ITEM-LST",
           "sectionIdPattern": "DCDLV-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products"
+            ],
+            "connotation": "Lists the individual documentation deliverables handed over as part of the delivery scope."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products"
+                ],
+                "connotation": "Lists the individual documentation deliverables handed over as part of the delivery scope."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -95695,6 +96378,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DCDLV-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per documentation deliverable."
               }
             },
             {
@@ -253376,7 +254065,24 @@
       "sectionId": "SIOFPR",
       "doc": "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance, closure, and sign-off",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process"
+        ],
+        "connotation": "Captures the formal sign-off process including signatories, evidence, acceptance policies, contractual implications, and timeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance, closure, and sign-off",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process"
+            ],
+            "connotation": "Captures the formal sign-off process including signatories, evidence, acceptance policies, contractual implications, and timeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253544,7 +254250,24 @@
       "name": "SignOffProcessAcceptance",
       "sectionId": "SOPA",
       "doc": "Conditional or partial acceptance policies.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and rejection handling",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support and validation processes"
+        ],
+        "connotation": "Captures the conditional and partial acceptance policies including rejection handling and outstanding-item action plans."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and rejection handling",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support and validation processes"
+            ],
+            "connotation": "Captures the conditional and partial acceptance policies including rejection handling and outstanding-item action plans."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253601,7 +254324,24 @@
       "name": "SignOffProcessContractual",
       "sectionId": "SOPC",
       "doc": "Legal and contractual consequences.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and contractual closure",
+          "ISO 21502:2020 — the guidance on project management defines deliverable acceptance, handover, and closure"
+        ],
+        "connotation": "Captures the legal and contractual consequences of sign-off including warranty activation, payment linkage, and contractual references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and contractual closure",
+              "ISO 21502:2020 — the guidance on project management defines deliverable acceptance, handover, and closure"
+            ],
+            "connotation": "Captures the legal and contractual consequences of sign-off including warranty activation, payment linkage, and contractual references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253665,7 +254405,24 @@
       "name": "SignOffProcessEvidence",
       "sectionId": "SOPE",
       "doc": "Evidence and checklist requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process and evidence",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance evidence and closure"
+        ],
+        "connotation": "Captures the evidence and checklist requirements for sign-off including document templates, required attachments, and pre-sign-off criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process and evidence",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance evidence and closure"
+            ],
+            "connotation": "Captures the evidence and checklist requirements for sign-off including document templates, required attachments, and pre-sign-off criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253729,7 +254486,24 @@
       "name": "SignOffProcessGovernance",
       "sectionId": "SOPG",
       "doc": "Signatory and quorum governance.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance governance and closure",
+          "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover roles"
+        ],
+        "connotation": "Captures the signatory and quorum governance for sign-off including operational readiness roles and quorum requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance governance and closure",
+              "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover roles"
+            ],
+            "connotation": "Captures the signatory and quorum governance for sign-off including operational readiness roles and quorum requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253779,7 +254553,24 @@
       "name": "SignOffProcessTimeline",
       "sectionId": "SOPT",
       "doc": "Review timeline.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and closure timing",
+          "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover timelines"
+        ],
+        "connotation": "Captures the sign-off review timeline including deadlines, review period, and silent-acceptance policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and closure timing",
+              "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover timelines"
+            ],
+            "connotation": "Captures the sign-off review timeline including deadlines, review period, and silent-acceptance policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -255296,7 +256087,24 @@
       "name": "SoftwareDeliverables",
       "sectionId": "SWDLV",
       "doc": "14.1.1. Software Deliverables.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition",
+          "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+        ],
+        "connotation": "Captures the software deliverables covering application components, libraries, and deployment artifacts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition",
+              "ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes"
+            ],
+            "connotation": "Captures the software deliverables covering application components, libraries, and deployment artifacts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -255330,10 +256138,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
+          "help": "Add one entry per software deliverable.",
           "sectionId": "SWDLV-ITEM-LST",
           "sectionIdPattern": "SWDLV-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+            ],
+            "connotation": "Lists the individual software deliverables handed over as part of the delivery scope."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"
+                ],
+                "connotation": "Lists the individual software deliverables handed over as part of the delivery scope."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -255344,6 +256168,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SWDLV-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per software deliverable."
               }
             },
             {
@@ -268693,7 +269523,24 @@
       "name": "SupportDeliverables",
       "sectionId": "SPDLV",
       "doc": "14.1.4. Support Deliverables.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments",
+          "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"
+        ],
+        "connotation": "Captures the support deliverables covering transition support, warranty, and ongoing support commitments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments",
+              "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"
+            ],
+            "connotation": "Captures the support deliverables covering transition support, warranty, and ongoing support commitments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -268727,10 +269574,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
+          "help": "Add one entry per support deliverable.",
           "sectionId": "SPDLV-ITEM-LST",
           "sectionIdPattern": "SPDLV-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments",
+              "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"
+            ],
+            "connotation": "Lists the individual support deliverables handed over as part of the delivery scope."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments",
+                  "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"
+                ],
+                "connotation": "Lists the individual support deliverables handed over as part of the delivery scope."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -268741,6 +269606,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SPDLV-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per support deliverable."
               }
             },
             {
@@ -285759,7 +286630,24 @@
       "name": "TestScenarioBusiness",
       "sectionId": "TESCBU",
       "doc": "Business context for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions",
+          "ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables"
+        ],
+        "connotation": "Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions",
+              "ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables"
+            ],
+            "connotation": "Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285823,7 +286711,24 @@
       "name": "TestScenarioEntry",
       "sectionId": "TSSC",
       "doc": "A test scenario entry (form).\n\nRepresents a business-level test case covering a user journey, business\nprocess, or acceptance criterion. Includes full traceability, preconditions,\nexecution metadata, and pass/fail criteria per ISTQB and IEEE 829\nLevel Test Case / Level Test Procedure structures.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the level test case and level test procedure"
+        ],
+        "connotation": "Captures a business-level acceptance test scenario covering a user journey with traceability, setup, execution, and results."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the level test case and level test procedure"
+            ],
+            "connotation": "Captures a business-level acceptance test scenario covering a user journey with traceability, setup, execution, and results."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285968,10 +286873,26 @@
           "name": "notes",
           "kind": "list",
           "doc": "Notes.",
+          "help": "Add one entry per test-scenario note.",
           "sectionId": "TESCNO-NOTE-LST",
           "sectionIdPattern": "TESCNO-NOTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks"
+            ],
+            "connotation": "Lists the supplementary notes captured against this acceptance test scenario."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks"
+                ],
+                "connotation": "Lists the supplementary notes captured against this acceptance test scenario."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -285982,6 +286903,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TESCNO-NOTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per test-scenario note."
               }
             },
             {
@@ -285998,10 +286925,26 @@
           "name": "testSteps",
           "kind": "list",
           "doc": "Contains 0+× UatTestStep for this scenario.",
+          "help": "Add one entry per user-acceptance test step.",
           "sectionId": "UATSST-TEST-LST",
           "sectionIdPattern": "UATSST-TEST-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered test steps that make up a test procedure"
+            ],
+            "connotation": "Lists the individual acceptance test steps that make up this scenario."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered test steps that make up a test procedure"
+                ],
+                "connotation": "Lists the individual acceptance test steps that make up this scenario."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -286012,6 +286955,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UATSST-TEST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user-acceptance test step."
               }
             },
             {
@@ -286030,7 +286979,24 @@
       "name": "TestScenarioExecution",
       "sectionId": "TESCEX",
       "doc": "Execution for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-execution activity and expected results",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and acceptance criteria"
+        ],
+        "connotation": "Captures the execution summary, expected result, and acceptance criteria for an acceptance test scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-execution activity and expected results",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and acceptance criteria"
+            ],
+            "connotation": "Captures the execution summary, expected result, and acceptance criteria for an acceptance test scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286101,7 +287067,24 @@
       "name": "TestScenarioIdentification",
       "sectionId": "TESCID",
       "doc": "Identification for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines identification and classification of test cases",
+          "IEEE 829-2008 — the standard for software and system test documentation defines test-case identifiers and descriptions"
+        ],
+        "connotation": "Captures the descriptive identification, complexity, and category of an acceptance test scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines identification and classification of test cases",
+              "IEEE 829-2008 — the standard for software and system test documentation defines test-case identifiers and descriptions"
+            ],
+            "connotation": "Captures the descriptive identification, complexity, and category of an acceptance test scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286158,7 +287141,22 @@
       "name": "TestScenarioNotes",
       "sectionId": "TESCNO",
       "doc": "Notes for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks"
+        ],
+        "connotation": "Records assumptions, risks, and clarifying notes attached to an acceptance test scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines supplementary test-case documentation such as assumptions and risks"
+            ],
+            "connotation": "Records assumptions, risks, and clarifying notes attached to an acceptance test scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286215,7 +287213,24 @@
       "name": "TestScenarioPostExecution",
       "sectionId": "TSPE",
       "doc": "Post-execution for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines postconditions and result evaluation within a test case",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the test-log and result-capture records"
+        ],
+        "connotation": "Captures postconditions, cleanup steps, and defect thresholds evaluated after an acceptance test scenario runs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines postconditions and result evaluation within a test case",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the test-log and result-capture records"
+            ],
+            "connotation": "Captures postconditions, cleanup steps, and defect thresholds evaluated after an acceptance test scenario runs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286272,7 +287287,24 @@
       "name": "TestScenarioSetup",
       "sectionId": "TESCSE",
       "doc": "Setup for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case",
+          "IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records"
+        ],
+        "connotation": "Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case",
+              "IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records"
+            ],
+            "connotation": "Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286336,7 +287368,24 @@
       "name": "TestScenarioTraceability",
       "sectionId": "TESCTR",
       "doc": "Traceability for test scenario.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements"
+        ],
+        "connotation": "Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements"
+            ],
+            "connotation": "Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293130,7 +294179,24 @@
       "name": "TrainingDeliverables",
       "sectionId": "TRDLV",
       "doc": "14.1.3. Training Deliverables.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+        ],
+        "connotation": "Captures the training deliverables covering sessions, materials, and train-the-trainer programs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+            ],
+            "connotation": "Captures the training deliverables covering sessions, materials, and train-the-trainer programs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293164,10 +294230,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Deliverable.",
+          "help": "Add one entry per training deliverable.",
           "sectionId": "TRDLV-ITEM-LST",
           "sectionIdPattern": "TRDLV-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+            ],
+            "connotation": "Lists the individual training deliverables handed over as part of the delivery scope."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices",
+                  "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"
+                ],
+                "connotation": "Lists the individual training deliverables handed over as part of the delivery scope."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293178,6 +294262,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TRDLV-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per training deliverable."
               }
             },
             {
@@ -299348,7 +300438,24 @@
       "name": "UatCriteria",
       "sectionId": "UACR",
       "doc": "Criteria for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry, exit, and suspension-resumption criteria for test execution",
+          "IEEE 829-2008 — the standard for software and system test documentation defines suspension and resumption criteria in a test plan"
+        ],
+        "connotation": "Captures the entry, exit, suspension, and resumption criteria that gate the acceptance test effort."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry, exit, and suspension-resumption criteria for test execution",
+              "IEEE 829-2008 — the standard for software and system test documentation defines suspension and resumption criteria in a test plan"
+            ],
+            "connotation": "Captures the entry, exit, suspension, and resumption criteria that gate the acceptance test effort."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299412,7 +300519,24 @@
       "name": "UatDefectManagement",
       "sectionId": "UADEMA",
       "doc": "Defect management for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines incident and defect management within the test process",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the anomaly and defect report"
+        ],
+        "connotation": "Captures the tools, severity levels, SLAs, thresholds, and triage process governing defects found during acceptance testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines incident and defect management within the test process",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the anomaly and defect report"
+            ],
+            "connotation": "Captures the tools, severity levels, SLAs, thresholds, and triage process governing defects found during acceptance testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299490,7 +300614,24 @@
       "name": "UatEnvironment",
       "sectionId": "UAEN",
       "doc": "Environment for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-environment requirements and readiness",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the environmental-needs section of a test plan"
+        ],
+        "connotation": "Captures the identity, access, configuration, refresh policy, and access control of the UAT environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-environment requirements and readiness",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the environmental-needs section of a test plan"
+            ],
+            "connotation": "Captures the identity, access, configuration, refresh policy, and access control of the UAT environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299561,7 +300702,24 @@
       "name": "UatGovernance",
       "sectionId": "UAGO",
       "doc": "Governance for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management defines governance, roles, and stakeholder responsibilities",
+          "IEEE 829-2008 — the standard for software and system test documentation defines responsibilities and staffing in a test plan"
+        ],
+        "connotation": "Captures the ownership, tester roles, support team, RACI, escalation path, and communication plan governing acceptance testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management defines governance, roles, and stakeholder responsibilities",
+              "IEEE 829-2008 — the standard for software and system test documentation defines responsibilities and staffing in a test plan"
+            ],
+            "connotation": "Captures the ownership, tester roles, support team, RACI, escalation path, and communication plan governing acceptance testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299639,7 +300797,24 @@
       "name": "UatNonFunctional",
       "sectionId": "UANOFU",
       "doc": "Non-functional acceptance for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the product quality model defines non-functional quality characteristics used as acceptance criteria",
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines non-functional test types and techniques"
+        ],
+        "connotation": "Captures the accessibility, performance, security, and regression acceptance conditions for the delivered system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the product quality model defines non-functional quality characteristics used as acceptance criteria",
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines non-functional test types and techniques"
+            ],
+            "connotation": "Captures the accessibility, performance, security, and regression acceptance conditions for the delivered system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299703,7 +300878,24 @@
       "name": "UatReporting",
       "sectionId": "UARE",
       "doc": "Reporting for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-status reporting and completion reports",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the test-summary and status reports"
+        ],
+        "connotation": "Captures the status reporting, tracked metrics, and final-report contents for the acceptance test effort."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-status reporting and completion reports",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the test-summary and status reports"
+            ],
+            "connotation": "Captures the status reporting, tracked metrics, and final-report contents for the acceptance test effort."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299767,7 +300959,24 @@
       "name": "UatSchedule",
       "sectionId": "UASC1",
       "doc": "Schedule for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test scheduling and milestones within the test plan",
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames scheduling and milestone planning"
+        ],
+        "connotation": "Captures the planned dates, cycle count, cycle duration, and key milestones for the acceptance test effort."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test scheduling and milestones within the test plan",
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames scheduling and milestone planning"
+            ],
+            "connotation": "Captures the planned dates, cycle count, cycle duration, and key milestones for the acceptance test effort."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299838,7 +301047,24 @@
       "name": "UatScope",
       "sectionId": "UASC",
       "doc": "Scope and objectives for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the scope, features-to-be-tested, and test types",
+          "IEEE 829-2008 — the standard for software and system test documentation defines features and test types in a test plan"
+        ],
+        "connotation": "Captures the scope summary, exclusions, and included test types for the acceptance test effort."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the scope, features-to-be-tested, and test types",
+              "IEEE 829-2008 — the standard for software and system test documentation defines features and test types in a test plan"
+            ],
+            "connotation": "Captures the scope summary, exclusions, and included test types for the acceptance test effort."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299895,7 +301121,24 @@
       "name": "UatSignOff",
       "sectionId": "UASIOF",
       "doc": "Sign-off for UAT.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames formal deliverable validation and acceptance sign-off",
+          "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and formal authorization"
+        ],
+        "connotation": "Captures the authority, criteria, and conditional-acceptance policy governing formal UAT sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames formal deliverable validation and acceptance sign-off",
+              "ISO 21502:2020 — the guidance on project management defines deliverable acceptance and formal authorization"
+            ],
+            "connotation": "Captures the authority, criteria, and conditional-acceptance policy governing formal UAT sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -299952,7 +301195,24 @@
       "name": "UatTestCycleEntry",
       "sectionId": "UATCY",
       "doc": "A UAT test cycle entry.\n\nRepresents a distinct test execution round — e.g. Cycle 1 (initial),\nCycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit\ncriteria, and focus areas per IEEE 829 Level Test Plan structure.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-cycle execution and the level test plan",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the level test plan structure"
+        ],
+        "connotation": "Captures a distinct acceptance test execution round with its objective, dates, scope, and staffing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-cycle execution and the level test plan",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the level test plan structure"
+            ],
+            "connotation": "Captures a distinct acceptance test execution round with its objective, dates, scope, and staffing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300046,7 +301306,24 @@
       "name": "UatTestCycleEntryExecution",
       "sectionId": "UTCEE",
       "doc": "Staffing and risk context.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines staffing and risk considerations for test execution",
+          "IEEE 829-2008 — the standard for software and system test documentation defines staffing and responsibilities in a test plan"
+        ],
+        "connotation": "Captures the assigned testers and known risks for an acceptance test cycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines staffing and risk considerations for test execution",
+              "IEEE 829-2008 — the standard for software and system test documentation defines staffing and responsibilities in a test plan"
+            ],
+            "connotation": "Captures the assigned testers and known risks for an acceptance test cycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300096,7 +301373,24 @@
       "name": "UatTestCycleEntryScope",
       "sectionId": "UTCES",
       "doc": "Scope and pass criteria for this cycle.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines scope, entry and exit criteria for test execution",
+          "IEEE 829-2008 — the standard for software and system test documentation defines features-to-be-tested and pass criteria"
+        ],
+        "connotation": "Captures the in-scope scenarios, focus areas, entry and exit criteria, and pass criterion for an acceptance test cycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines scope, entry and exit criteria for test execution",
+              "IEEE 829-2008 — the standard for software and system test documentation defines features-to-be-tested and pass criteria"
+            ],
+            "connotation": "Captures the in-scope scenarios, focus areas, entry and exit criteria, and pass criterion for an acceptance test cycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300167,7 +301461,24 @@
       "name": "UatTestData",
       "sectionId": "UATEDA",
       "doc": "Test data for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-data management and requirements for test execution",
+          "IEEE 829-2008 — the standard for software and system test documentation defines test-data needs in the test plan"
+        ],
+        "connotation": "Captures the test-data strategy, preparation, privacy compliance, and refresh cadence for acceptance testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-data management and requirements for test execution",
+              "IEEE 829-2008 — the standard for software and system test documentation defines test-data needs in the test plan"
+            ],
+            "connotation": "Captures the test-data strategy, preparation, privacy compliance, and refresh cadence for acceptance testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300231,7 +301542,24 @@
       "name": "UatTestStepEntry",
       "sectionId": "UATSST",
       "doc": "A UAT test step entry.\n\nIndividual step within a test scenario. Captures the action, input data,\nexpected result, and pass criteria at fine-grained level per IEEE 829\nLevel Test Procedure structure.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-procedure and test-step structures",
+          "IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and its steps"
+        ],
+        "connotation": "Captures a single fine-grained test step within an acceptance test scenario, including action, input data, and pass criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-procedure and test-step structures",
+              "IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and its steps"
+            ],
+            "connotation": "Captures a single fine-grained test step within an acceptance test scenario, including action, input data, and pass criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300316,7 +301644,24 @@
       "name": "UatTraining",
       "sectionId": "UATR",
       "doc": "Training and readiness for UAT.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines training and operational-readiness support activities",
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard frames tester readiness and preparation for test execution"
+        ],
+        "connotation": "Captures the tester training and user-documentation readiness that prepare participants for acceptance testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines training and operational-readiness support activities",
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard frames tester readiness and preparation for test execution"
+            ],
+            "connotation": "Captures the tester training and user-documentation readiness that prepare participants for acceptance testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -303148,7 +304493,24 @@
       "sectionId": "USACTE",
       "doc": "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes, documentation, and techniques including acceptance testing",
+          "IEEE 829-2008 — the standard for software and system test documentation defines test plan, test case, test log, and acceptance-test documents"
+        ],
+        "connotation": "Captures the full user-acceptance testing plan covering scope, environment, governance, execution, defects, reporting, and sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes, documentation, and techniques including acceptance testing",
+              "IEEE 829-2008 — the standard for software and system test documentation defines test plan, test case, test log, and acceptance-test documents"
+            ],
+            "connotation": "Captures the full user-acceptance testing plan covering scope, environment, governance, execution, defects, reporting, and sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -303404,10 +304766,26 @@
           "name": "testCycles",
           "kind": "list",
           "doc": "Contains 0+× UatTestCycle.",
+          "help": "Add one entry per user-acceptance test cycle.",
           "sectionId": "UATCY-TEST-LST",
           "sectionIdPattern": "UATCY-TEST-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-cycle and level-test-plan structures"
+            ],
+            "connotation": "Lists the acceptance test cycles executed during the UAT effort."
+          },
           "serializationOrder": 13,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-cycle and level-test-plan structures"
+                ],
+                "connotation": "Lists the acceptance test cycles executed during the UAT effort."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -303418,6 +304796,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UATCY-TEST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user-acceptance test cycle."
               }
             },
             {
@@ -303434,10 +304818,26 @@
           "name": "testScenarios",
           "kind": "list",
           "doc": "Contains 0+× TestScenario.",
+          "help": "Add one entry per test scenario.",
           "sectionId": "TSSC-TEST-LST",
           "sectionIdPattern": "TSSC-TEST-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures"
+            ],
+            "connotation": "Lists the acceptance test scenarios covered by the UAT suite."
+          },
           "serializationOrder": 14,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures"
+                ],
+                "connotation": "Lists the acceptance test scenarios covered by the UAT suite."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -303448,6 +304848,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TSSC-TEST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per test scenario."
               }
             },
             {
@@ -312703,7 +314109,24 @@
       "name": "WarrantyCoverage",
       "sectionId": "WACO",
       "doc": "Scope of coverage.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries",
+          "ITIL 4 2019 — the service management framework defines warranty coverage and support scope"
+        ],
+        "connotation": "Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries",
+              "ITIL 4 2019 — the service management framework defines warranty coverage and support scope"
+            ],
+            "connotation": "Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -312760,7 +314183,24 @@
       "name": "WarrantyDuration",
       "sectionId": "WADU",
       "doc": "Duration and activation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty periods and commitments",
+          "ISO 21502:2020 — the guidance on project management defines deliverable handover timing and closure"
+        ],
+        "connotation": "Captures the duration and activation details of the warranty including end date and extension policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty periods and commitments",
+              "ISO 21502:2020 — the guidance on project management defines deliverable handover timing and closure"
+            ],
+            "connotation": "Captures the duration and activation details of the warranty including end date and extension policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -312810,7 +314250,24 @@
       "name": "WarrantyFinancial",
       "sectionId": "WAFI",
       "doc": "Financial terms.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including financial terms",
+          "ISO 21502:2020 — the guidance on project management defines deliverable handover and closure including cost aspects"
+        ],
+        "connotation": "Captures the financial terms of the warranty including cost, penalties for SLA breaches, and charging for out-of-scope work."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including financial terms",
+              "ISO 21502:2020 — the guidance on project management defines deliverable handover and closure including cost aspects"
+            ],
+            "connotation": "Captures the financial terms of the warranty including cost, penalties for SLA breaches, and charging for out-of-scope work."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -312867,7 +314324,24 @@
       "name": "WarrantyProcess",
       "sectionId": "WAPR",
       "doc": "Process for defect handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines problem and incident management for warranty defect handling",
+          "ITIL 4 2019 — the service management framework defines support and defect-resolution practices during warranty"
+        ],
+        "connotation": "Captures the process for handling warranty defects including reporting channels, fix delivery, regression testing, and communication cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines problem and incident management for warranty defect handling",
+              "ITIL 4 2019 — the service management framework defines support and defect-resolution practices during warranty"
+            ],
+            "connotation": "Captures the process for handling warranty defects including reporting channels, fix delivery, regression testing, and communication cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -312931,7 +314405,24 @@
       "name": "WarrantyServiceLevels",
       "sectionId": "WASELE",
       "doc": "Service levels.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including service levels",
+          "ITIL 4 2019 — the service management framework defines warranty and support service-level targets"
+        ],
+        "connotation": "Captures the warranty service-level commitments including support hours, response times, resolution times, and escalation contacts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including service levels",
+              "ITIL 4 2019 — the service management framework defines warranty and support service-level targets"
+            ],
+            "connotation": "Captures the warranty service-level commitments including support hours, response times, resolution times, and escalation contacts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -313010,7 +314501,24 @@
       "sectionId": "WATE",
       "doc": "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty, support, and problem management",
+          "ITIL 4 2019 — the service management framework defines warranty and support practices"
+        ],
+        "connotation": "Captures the post-acceptance warranty terms including duration, scope, service levels, exclusions, and transition to support."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty, support, and problem management",
+              "ITIL 4 2019 — the service management framework defines warranty and support practices"
+            ],
+            "connotation": "Captures the post-acceptance warranty terms including duration, scope, service levels, exclusions, and transition to support."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -313108,10 +314616,26 @@
           "name": "serviceLevels",
           "kind": "list",
           "doc": "Service levels.",
+          "help": "Add one entry per warranty service element.",
           "sectionId": "WASELE-SERV-LST",
           "sectionIdPattern": "WASELE-SERV-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments"
+            ],
+            "connotation": "Lists the warranty service elements offered during the warranty period."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments"
+                ],
+                "connotation": "Lists the warranty service elements offered during the warranty period."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -313122,6 +314646,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WASELE-SERV-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per warranty service element."
               }
             },
             {
@@ -313208,7 +314738,24 @@
       "name": "WarrantyTransition",
       "sectionId": "WATR",
       "doc": "Transition to support.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — the IT service management standard defines the transition from warranty into ongoing service support",
+          "ISO 21502:2020 — the guidance on project management defines deliverable handover and closure into operations"
+        ],
+        "connotation": "Captures how the warranty period transitions into standard ongoing support including post-warranty terms and knowledge transfer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — the IT service management standard defines the transition from warranty into ongoing service support",
+              "ISO 21502:2020 — the guidance on project management defines deliverable handover and closure into operations"
+            ],
+            "connotation": "Captures how the warranty period transitions into standard ongoing support including post-warranty terms and knowledge transfer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
