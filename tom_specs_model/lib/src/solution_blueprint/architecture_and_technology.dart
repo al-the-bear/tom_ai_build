@@ -23059,6 +23059,14 @@ class ConnectivityResilienceOperations {
 }
 
 /// 8.7. System Operation and Monitoring.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'ISO/IEC 20000 — IT service management system',
+    'ITIL 4 — service operation and monitoring',
+  ],
+  'Defines runtime system operation and monitoring: administration, maintenance, health checks, alerting, metrics, dashboards, SLA/SLO tracking, and capacity planning.',
+)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SYS')
 @ContentHelp('''
@@ -23163,6 +23171,13 @@ improve system reliability.
 - Change management records
 - Incident postmortems
 ''')
+@StandardReferences(
+  [
+    'Google SRE — eliminating toil and operational procedures',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'System operation covers the day-to-day administration, maintenance, and user management the running system requires.',
+)
 @SectionId('SO')
 class SystemOperation {
   @ContentHelp('''
@@ -23191,8 +23206,13 @@ Provide an overview of system operation approach.
       AdministrationRequirementsSection();
 
   /// Maintenance Procedures.
+  @StandardReferences(
+    ['ITIL 4 — change enablement and maintenance windows'],
+    'The catalog of scheduled maintenance procedures the system requires.',
+  )
   @SectionId('MAINT-MAIN-LST')
   @SectionIdPattern('MAINT-MAIN-xxx')
+  @ContentHelp('Add one entry per maintenance procedure.')
   @SerializationOrder(2)
   List<MaintenanceProcedureEntry> maintenanceProcedures = [];
 }
@@ -23237,6 +23257,13 @@ tools reduce operational burden and error rates.
 - Scheduled maintenance scripts
 - Report generation
 ''')
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Administration requirements define the admin interfaces, configuration management, and user provisioning the system needs.',
+)
 @SectionId('ARS')
 class AdministrationRequirementsSection {
   @ContentHelp('''
@@ -23291,6 +23318,13 @@ Provide an overview of administration requirements.
 }
 
 /// Admin interface requirements.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'Admin interface requirements describe the portal through which operators manage the system.',
+)
 @SectionId('ADINRE')
 class AdminInterfaceRequirements {
   @Form([
@@ -23322,6 +23356,13 @@ class AdminInterfaceRequirements {
 }
 
 /// Dashboard widget requirements.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'Dashboard widget requirements define the at-a-glance status widgets on the admin landing page.',
+)
 @SectionId('AIRD')
 class AdminInterfaceRequirementsDashboard {
   @Form([
@@ -23341,6 +23382,13 @@ class AdminInterfaceRequirementsDashboard {
 }
 
 /// Data management tooling.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Data management tooling provides import, export, search, and audit-log viewing for administrators.',
+)
 @SectionId('ADINREDA')
 class AdminInterfaceRequirementsData {
   @Form([
@@ -23358,6 +23406,13 @@ class AdminInterfaceRequirementsData {
 }
 
 /// Operational controls.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'Operational controls let administrators toggle maintenance mode, feature flags, and caches.',
+)
 @SectionId('AIRO')
 class AdminInterfaceRequirementsOperations {
   @Form([
@@ -23375,6 +23430,13 @@ class AdminInterfaceRequirementsOperations {
 }
 
 /// System configuration management.
+@StandardReferences(
+  [
+    'ITIL 4 — service configuration management practice',
+    'ISO/IEC 20000 — configuration and change management',
+  ],
+  'System configuration management specifies how the system stores and controls its configuration.',
+)
 @SectionId('SYCOMA')
 class SystemConfigurationManagement {
   @Form([
@@ -23406,6 +23468,13 @@ class SystemConfigurationManagement {
 }
 
 /// Dynamic configuration and rollback behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — configuration and change management',
+    'ITIL 4 — change enablement and maintenance windows',
+  ],
+  'Dynamic configuration and rollback behavior describe how config changes are applied live and reverted.',
+)
 @SectionId('SCMD')
 class SystemConfigurationManagementDynamic {
   @Form([
@@ -23423,6 +23492,13 @@ class SystemConfigurationManagementDynamic {
 }
 
 /// Environment overrides and secrets handling.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Environment overrides and secrets handling govern per-environment configuration and credential storage.',
+)
 @SectionId('SCME')
 class SystemConfigurationManagementEnvironment {
   @Form([
@@ -23438,6 +23514,13 @@ class SystemConfigurationManagementEnvironment {
 }
 
 /// Validation, diffing, and audit controls.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — configuration and change management',
+    'ITIL 4 — service configuration management practice',
+  ],
+  'Validation, diffing, and audit controls ensure configuration changes are checked and traceable.',
+)
 @SectionId('SCMG')
 class SystemConfigurationManagementGovernance {
   @Form([
@@ -23455,6 +23538,13 @@ class SystemConfigurationManagementGovernance {
 }
 
 /// User provisioning and management tools.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'User provisioning and management tools cover how user accounts are created and managed across their lifecycle.',
+)
 @SectionId('USPRTO')
 class UserProvisioningTools {
   @Form([
@@ -23486,6 +23576,13 @@ class UserProvisioningTools {
 }
 
 /// Account lifecycle management.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Account lifecycle management defines how user accounts are activated, suspended, and offboarded.',
+)
 @SectionId('UPTL')
 class UserProvisioningToolsLifecycle {
   @Form([
@@ -23505,6 +23602,13 @@ class UserProvisioningToolsLifecycle {
 }
 
 /// Role management and reviews.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Role management and reviews control how roles are assigned and periodically recertified.',
+)
 @SectionId('UPTRM')
 class UserProvisioningToolsRoleManagement {
   @Form([
@@ -23520,6 +23624,13 @@ class UserProvisioningToolsRoleManagement {
 }
 
 /// Directory integration settings.
+@StandardReferences(
+  [
+    'CIS Controls — secure configuration and administration',
+    'ISO/IEC 27001 — operations security (A.12)',
+  ],
+  'Directory integration settings govern how user accounts synchronize with an external directory.',
+)
 @SectionId('UPTDI')
 class UserProvisioningToolsDirectoryIntegration {
   @Form([
@@ -23537,6 +23648,13 @@ class UserProvisioningToolsDirectoryIntegration {
 }
 
 /// Batch job management.
+@StandardReferences(
+  [
+    'Google SRE — eliminating toil and operational procedures',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'Batch job management specifies how scheduled and background jobs are defined and operated.',
+)
 @SectionId('BAJOMA')
 class BatchJobManagement {
   @Form([
@@ -23564,6 +23682,13 @@ class BatchJobManagement {
 }
 
 /// Supported job categories.
+@StandardReferences(
+  [
+    'Google SRE — eliminating toil and operational procedures',
+    'ITIL 4 — change enablement and maintenance windows',
+  ],
+  'Supported job categories catalog the kinds of scheduled work the system performs.',
+)
 @SectionId('BJMJT')
 class BatchJobManagementJobTypes {
   @Form([
@@ -23583,6 +23708,13 @@ class BatchJobManagementJobTypes {
 }
 
 /// Execution controls.
+@StandardReferences(
+  [
+    'Google SRE — eliminating toil and operational procedures',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'Execution controls define how batch jobs run, retry, and enforce timeouts.',
+)
 @SectionId('BJME')
 class BatchJobManagementExecution {
   @Form([
@@ -23602,6 +23734,13 @@ class BatchJobManagementExecution {
 }
 
 /// Monitoring and manual controls.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'Monitoring and manual controls track batch job health and allow operators to intervene.',
+)
 @SectionId('BJMM')
 class BatchJobManagementMonitoring {
   @Form([
@@ -23623,6 +23762,13 @@ class BatchJobManagementMonitoring {
 }
 
 /// Administration environment management.
+@StandardReferences(
+  [
+    'ITIL 4 — service configuration management practice',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'Administration environment management governs how environments are provisioned, seeded, and accessed.',
+)
 @SectionId('ADENMA')
 class AdminEnvironmentManagement {
   @Form([
@@ -23657,6 +23803,13 @@ class AdminEnvironmentManagement {
 }
 
 /// System diagnostic tools.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'System diagnostic tools give operators the means to inspect and troubleshoot the running system.',
+)
 @SectionId('SYDITO')
 class SystemDiagnosticTools {
   @Form([
@@ -23687,6 +23840,13 @@ class SystemDiagnosticTools {
 }
 
 /// Trace and dependency inspection tools.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'Trace and dependency inspection tools reveal how requests flow across services.',
+)
 @SectionId('SDTT')
 class SystemDiagnosticToolsTracing {
   @Form([
@@ -23702,6 +23862,13 @@ class SystemDiagnosticToolsTracing {
 }
 
 /// Log analysis capabilities.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — operations security (A.12)',
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+  ],
+  'Log analysis capabilities let operators search and correlate log data during diagnosis.',
+)
 @SectionId('SDTL')
 class SystemDiagnosticToolsLogs {
   @Form([
@@ -23717,6 +23884,13 @@ class SystemDiagnosticToolsLogs {
 }
 
 /// Self-service diagnostic entry points.
+@StandardReferences(
+  [
+    'AWS Well-Architected — operational excellence (runbooks, playbooks)',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'Self-service diagnostic entry points let operators inspect the system without escalation.',
+)
 @SectionId('SDTSS')
 class SystemDiagnosticToolsSelfService {
   @Form([
@@ -23735,6 +23909,14 @@ class SystemDiagnosticToolsSelfService {
 ///
 /// Comprehensive monitoring specification covering health checks, alerting,
 /// observability, dashboards, and SLA/SLO tracking.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and alerting (the four golden signals)',
+    'OpenTelemetry — observability signals',
+    'ITIL 4 — monitoring and event management practice',
+  ],
+  'The overall monitoring approach spanning health, alerting, and observability.',
+)
 @SectionId('MONITO')
 class Monitoring {
   // ─────────────────────────────────────────────────────────────────────────
@@ -23804,6 +23986,14 @@ class Monitoring {
 ///
 /// Comprehensive alerting rules, notification channels, and escalation
 /// policies.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and alerting (the four golden signals)',
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+    'Google SRE — being on-call and incident response',
+  ],
+  'The full alerting configuration covering rules, channels, and escalation.',
+)
 @SectionId('ALCO')
 class AlertingConfiguration {
   // ─────────────────────────────────────────────────────────────────────────
@@ -23844,8 +24034,13 @@ class AlertingConfiguration {
   AlertNotificationChannels notificationChannels = AlertNotificationChannels();
 
   /// Alert rules catalog.
+  @StandardReferences(
+    ['Prometheus — Alertmanager (routing, grouping, silencing)'],
+    'The catalog of alert rules the system evaluates.',
+  )
   @SectionId('ALRUEN-ALER-LST')
   @SectionIdPattern('ALRUEN-ALER-xxx')
+  @ContentHelp('Add one entry per alert rule.')
   @SerializationOrder(3)
   List<AlertRuleEntry> alertRules = [];
 
@@ -23854,8 +24049,13 @@ class AlertingConfiguration {
   AlertEscalationPolicies escalationPolicies = AlertEscalationPolicies();
 
   /// Alert suppression and maintenance windows.
+  @StandardReferences(
+    ['Prometheus — Alertmanager (routing, grouping, silencing)'],
+    'The catalog of alert suppression and maintenance window rules.',
+  )
   @SectionId('ALSURU-SUPP-LST')
   @SectionIdPattern('ALSURU-SUPP-xxx')
+  @ContentHelp('Add one entry per suppression or maintenance window.')
   @SerializationOrder(5)
   List<AlertSuppressionRules> suppressionRules = [];
 
@@ -23865,6 +24065,13 @@ class AlertingConfiguration {
 }
 
 /// Alert notification channels.
+@StandardReferences(
+  [
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+    'Google SRE — being on-call and incident response',
+  ],
+  'The channels through which alerts reach responders.',
+)
 @SectionId('ALNOCH')
 class AlertNotificationChannels {
   @Form([
@@ -23896,6 +24103,13 @@ class AlertNotificationChannels {
 }
 
 /// Secondary and escalation delivery methods.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'Google SRE — being on-call and incident response',
+  ],
+  'The secondary email, SMS, and voice delivery methods for alerts.',
+)
 @SectionId('ANCD')
 class AlertNotificationChannelsDelivery {
   @Form([
@@ -23911,6 +24125,13 @@ class AlertNotificationChannelsDelivery {
 }
 
 /// Severity-based channel routing.
+@StandardReferences(
+  [
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+    'ITIL 4 — monitoring and event management practice',
+  ],
+  'How alerts route to channels based on their severity level.',
+)
 @SectionId('ANCR')
 class AlertNotificationChannelsRouting {
   @Form([
@@ -23926,6 +24147,13 @@ class AlertNotificationChannelsRouting {
 }
 
 /// Message templates, enrichment, and grouping rules.
+@StandardReferences(
+  [
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+    'Google SRE — monitoring and alerting (the four golden signals)',
+  ],
+  'How alert messages are formatted, enriched, deduplicated, and grouped.',
+)
 @SectionId('ANCF')
 class AlertNotificationChannelsFormatting {
   @Form([
@@ -23937,19 +24165,29 @@ class AlertNotificationChannelsFormatting {
     hint: 'How duplicate alerts are suppressed'),
   Field('groupingRules', String, 'Grouping Rules',
     hint: 'How related alerts are grouped'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes', hint: 'Additional formatting notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// An alert rule entry.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and alerting (the four golden signals)',
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+  ],
+  'A single alert rule defining when and how the system pages responders.',
+)
 @SectionId('ALERULENT')
 class AlertRuleEntry {
   @Form([
-    Field('alertId', String, 'Alert ID', required: true),
-    Field('alertName', String, 'Alert Name', required: true),
-    Field('alertDescription', String, 'Alert Description'),
+    Field('alertId', String, 'Alert ID', required: true,
+        hint: 'Unique identifier for this alert rule'),
+    Field('alertName', String, 'Alert Name', required: true,
+        hint: 'Human-readable name for this alert'),
+    Field('alertDescription', String, 'Alert Description',
+        hint: 'What this alert detects and why it matters'),
     Field('severity', String, 'Severity',
         hint: 'Critical, Warning, Info'),
     Field('category', String, 'Category',
@@ -23972,6 +24210,13 @@ class AlertRuleEntry {
 }
 
 /// Trigger conditions.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and alerting (the four golden signals)',
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+  ],
+  'The metric, threshold, and window conditions that trigger this alert.',
+)
 @SectionId('ARET')
 class AlertRuleEntryTrigger {
   @Form([
@@ -23989,6 +24234,13 @@ class AlertRuleEntryTrigger {
 }
 
 /// Response actions.
+@StandardReferences(
+  [
+    'Google SRE — being on-call and incident response',
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+  ],
+  'The notification, runbook, and remediation actions taken when the alert fires.',
+)
 @SectionId('ARER')
 class AlertRuleEntryResponse {
   @Form([
@@ -24006,18 +24258,34 @@ class AlertRuleEntryResponse {
 }
 
 /// Ownership details.
+@StandardReferences(
+  [
+    'Google SRE — being on-call and incident response',
+    'ITIL 4 — monitoring and event management practice',
+  ],
+  'Which team and contact own responses to this alert rule.',
+)
 @SectionId('AREO')
 class AlertRuleEntryOwnership {
   @Form([
-    Field('ownerTeam', String, 'Owner Team'),
-    Field('primaryContact', String, 'Primary Contact'),
-    Field('notes', String, 'Notes'),
+    Field('ownerTeam', String, 'Owner Team',
+        hint: 'Team that owns this alert rule'),
+    Field('primaryContact', String, 'Primary Contact',
+        hint: 'Primary contact for this alert'),
+    Field('notes', String, 'Notes', hint: 'Additional ownership notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Alert escalation policies.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'Google SRE — being on-call and incident response',
+  ],
+  'How unacknowledged alerts escalate through responder levels.',
+)
 @SectionId('ALESPO')
 class AlertEscalationPolicies {
   @Form([
@@ -24048,6 +24316,13 @@ class AlertEscalationPolicies {
 }
 
 /// Management escalation path and timing thresholds.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'ISO/IEC 20000 — incident and service request management',
+  ],
+  'The timing thresholds that govern when alerts escalate between levels.',
+)
 @SectionId('AEPT')
 class AlertEscalationPoliciesTiming {
   @Form([
@@ -24065,6 +24340,13 @@ class AlertEscalationPoliciesTiming {
 }
 
 /// Escalation control behavior.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'ITIL 4 — monitoring and event management practice',
+  ],
+  'How acknowledgment and resolution control the escalation flow.',
+)
 @SectionId('AEPB')
 class AlertEscalationPoliciesBehavior {
   @Form([
@@ -24080,6 +24362,13 @@ class AlertEscalationPoliciesBehavior {
 }
 
 /// Schedule-specific policy variants.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'Google SRE — being on-call and incident response',
+  ],
+  'How escalation policies differ across business hours and off hours.',
+)
 @SectionId('AEPS')
 class AlertEscalationPoliciesSchedules {
   @Form([
@@ -24089,13 +24378,20 @@ class AlertEscalationPoliciesSchedules {
     hint: 'Escalation outside business hours'),
   Field('weekendHolidayPolicy', String, 'Weekend/Holiday Policy',
     hint: 'Escalation on weekends/holidays'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes', hint: 'Additional escalation schedule notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Alert suppression and maintenance windows.
+@StandardReferences(
+  [
+    'Prometheus — Alertmanager (routing, grouping, silencing)',
+    'Google SRE — monitoring and alerting (the four golden signals)',
+  ],
+  'How alerts are silenced or inhibited during maintenance windows.',
+)
 @SectionId('ALSURU')
 class AlertSuppressionRules {
   @Form([
@@ -24120,13 +24416,20 @@ class AlertSuppressionRules {
         hint: 'Log all suppression/silence actions'),
     Field('suppressionReview', String, 'Suppression Review',
         hint: 'Periodic review of active suppressions'),
-    Field('notes', String, 'Notes'),
+    Field('notes', String, 'Notes', hint: 'Additional suppression notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// On-call schedule configuration.
+@StandardReferences(
+  [
+    'Google SRE — being on-call and incident response',
+    'PagerDuty / on-call — escalation policy design',
+  ],
+  'How on-call rotations and duties are configured for the team.',
+)
 @SectionId('OCSC')
 class OnCallScheduleConfig {
   @Form([
@@ -24153,6 +24456,13 @@ class OnCallScheduleConfig {
 }
 
 /// Override and coverage handling.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'Google SRE — being on-call and incident response',
+  ],
+  'How on-call shift overrides and holiday coverage are managed.',
+)
 @SectionId('OCSCC')
 class OnCallScheduleConfigCoverage {
   @Form([
@@ -24168,6 +24478,13 @@ class OnCallScheduleConfigCoverage {
 }
 
 /// Compensation and tooling support.
+@StandardReferences(
+  [
+    'PagerDuty / on-call — escalation policy design',
+    'Google SRE — being on-call and incident response',
+  ],
+  'How on-call compensation and scheduling tooling are handled.',
+)
 @SectionId('OCSCO')
 class OnCallScheduleConfigOperations {
   @Form([
@@ -24179,7 +24496,7 @@ class OnCallScheduleConfigOperations {
     hint: 'PagerDuty, Opsgenie schedule'),
   Field('handoffProcess', String, 'Handoff Process',
     hint: 'On-call handoff procedure'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes', hint: 'Additional on-call operations notes'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -24193,6 +24510,14 @@ class OnCallScheduleConfigOperations {
 ///
 /// Comprehensive metrics collection, distributed tracing, and observability
 /// requirements.
+@StandardReferences(
+  [
+    'OpenTelemetry — metrics, traces, and logs',
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'The Twelve-Factor App — logs as event streams',
+  ],
+  'The overall metrics, tracing, and observability strategy for the system.',
+)
 @SectionId('MEANOB')
 class MetricsAndObservability {
   // ─────────────────────────────────────────────────────────────────────────
@@ -24200,9 +24525,12 @@ class MetricsAndObservability {
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
     // Pillars
-    Field('metricsEnabled', bool, 'Metrics Enabled'),
-    Field('logsEnabled', bool, 'Logs Enabled'),
-    Field('tracesEnabled', bool, 'Traces Enabled'),
+    Field('metricsEnabled', bool, 'Metrics Enabled',
+        hint: 'Whether metrics collection is enabled'),
+    Field('logsEnabled', bool, 'Logs Enabled',
+        hint: 'Whether log collection is enabled'),
+    Field('tracesEnabled', bool, 'Traces Enabled',
+        hint: 'Whether distributed tracing is enabled'),
     Field('profilesEnabled', bool, 'Profiles Enabled',
         hint: 'Continuous profiling'),
     // Standards
@@ -24244,13 +24572,25 @@ class MetricsAndObservability {
   DistributedTracingSpec distributedTracing = DistributedTracingSpec();
 
   /// Custom metrics catalog.
+  @StandardReferences(
+    ['Prometheus — metric types and exposition format'],
+    'The catalog of custom application metrics the system emits.',
+  )
   @SectionId('CUMEEN-CUST-LST')
   @SectionIdPattern('CUMEEN-CUST-xxx')
+  @ContentHelp('Add one entry per custom metric.')
   @SerializationOrder(6)
   List<CustomMetricEntry> customMetrics = [];
 }
 
 /// Application metrics specification.
+@StandardReferences(
+  [
+    'RED method — rate, errors, duration (service metrics)',
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+  ],
+  'Metrics that describe application request rate, errors, and duration.',
+)
 @SectionId('APMESP')
 class ApplicationMetricsSpec {
   @Form([
@@ -24280,6 +24620,13 @@ class ApplicationMetricsSpec {
 }
 
 /// USE metrics.
+@StandardReferences(
+  [
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'RED method — rate, errors, duration (service metrics)',
+  ],
+  'Utilization, saturation, and error metrics for service resources.',
+)
 @SectionId('AMSR')
 class ApplicationMetricsSpecResources {
   @Form([
@@ -24295,6 +24642,13 @@ class ApplicationMetricsSpecResources {
 }
 
 /// Application-specific metrics.
+@StandardReferences(
+  [
+    'RED method — rate, errors, duration (service metrics)',
+    'Prometheus — metric types and exposition format',
+  ],
+  'Application-level metrics for caches, databases, clients, and message queues.',
+)
 @SectionId('AMSA')
 class ApplicationMetricsSpecApplication {
   @Form([
@@ -24314,6 +24668,13 @@ class ApplicationMetricsSpecApplication {
 }
 
 /// Labeling guidance.
+@StandardReferences(
+  [
+    'Prometheus — metric types and exposition format',
+    'OpenTelemetry — metrics, traces, and logs',
+  ],
+  'Guidance on standard and custom labels applied to metrics and their cardinality.',
+)
 @SectionId('AMSL')
 class ApplicationMetricsSpecLabels {
   @Form([
@@ -24323,13 +24684,21 @@ class ApplicationMetricsSpecLabels {
         hint: 'Business-specific labels'),
     Field('labelCardinality', String, 'Label Cardinality',
         hint: 'Max cardinality guidelines'),
-    Field('notes', String, 'Notes'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional labeling notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Infrastructure metrics specification.
+@StandardReferences(
+  [
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'Prometheus — metric types and exposition format',
+  ],
+  'Metrics for compute, memory, disk, and network infrastructure resources.',
+)
 @SectionId('INMESP')
 class InfrastructureMetricsSpec {
   @Form([
@@ -24361,6 +24730,13 @@ class InfrastructureMetricsSpec {
 }
 
 /// Container and orchestration metrics.
+@StandardReferences(
+  [
+    'Prometheus — metric types and exposition format',
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+  ],
+  'Metrics for containers, pods, nodes, and deployments in the orchestrator.',
+)
 @SectionId('IMSK')
 class InfrastructureMetricsSpecKubernetes {
   @Form([
@@ -24378,6 +24754,13 @@ class InfrastructureMetricsSpecKubernetes {
 }
 
 /// Cloud-managed services and edge metrics.
+@StandardReferences(
+  [
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'Prometheus — metric types and exposition format',
+  ],
+  'Metrics from cloud provider managed services and edge infrastructure.',
+)
 @SectionId('IMSC')
 class InfrastructureMetricsSpecCloud {
   @Form([
@@ -24395,18 +24778,33 @@ class InfrastructureMetricsSpecCloud {
 }
 
 /// Cost attribution and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'Prometheus — metric types and exposition format',
+  ],
+  'How infrastructure cost is attributed and tracked as a metric.',
+)
 @SectionId('INMESPCO')
 class InfrastructureMetricsSpecCost {
   @Form([
   Field('costMetrics', bool, 'Cost Metrics',
     hint: 'Resource cost attribution'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional cost attribution notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Business metrics specification.
+@StandardReferences(
+  [
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'ISO/IEC 25010 — performance efficiency',
+  ],
+  'Metrics that measure business outcomes such as user activity and revenue.',
+)
 @SectionId('BUMESP')
 class BusinessMetricsSpec {
   @Form([
@@ -24441,6 +24839,13 @@ class BusinessMetricsSpec {
 }
 
 /// Transaction and revenue metrics.
+@StandardReferences(
+  [
+    'RED method — rate, errors, duration (service metrics)',
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+  ],
+  'Volume, value, and success rates of business transactions.',
+)
 @SectionId('BMST')
 class BusinessMetricsSpecTransactions {
   @Form([
@@ -24456,6 +24861,13 @@ class BusinessMetricsSpecTransactions {
 }
 
 /// Feature adoption and engagement metrics.
+@StandardReferences(
+  [
+    'RED method — rate, errors, duration (service metrics)',
+    'ISO/IEC 25010 — performance efficiency',
+  ],
+  'How widely and deeply product features are adopted and used.',
+)
 @SectionId('BMSFU')
 class BusinessMetricsSpecFeatureUsage {
   @Form([
@@ -24469,11 +24881,20 @@ class BusinessMetricsSpecFeatureUsage {
 }
 
 /// KPI and customer outcome metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+  ],
+  'Key performance indicators that track customer outcomes and satisfaction.',
+)
 @SectionId('BMSK')
 class BusinessMetricsSpecKpis {
   @Form([
-  Field('conversionRate', bool, 'Conversion Rate'),
-  Field('churnRate', bool, 'Churn Rate'),
+  Field('conversionRate', bool, 'Conversion Rate',
+    hint: 'Percentage of users who convert'),
+  Field('churnRate', bool, 'Churn Rate',
+    hint: 'Percentage of customers lost over time'),
   Field('customerSatisfaction', bool, 'Customer Satisfaction',
     hint: 'NPS, CSAT from feedback'),
   Field('slaCompliance', bool, 'SLA Compliance',
@@ -24484,18 +24905,33 @@ class BusinessMetricsSpecKpis {
 }
 
 /// Real-time dashboard and notes.
+@StandardReferences(
+  [
+    'Google SRE — the four golden signals (latency, traffic, errors, saturation)',
+    'RED method — rate, errors, duration (service metrics)',
+  ],
+  'Real-time operational dashboards that surface live business metrics.',
+)
 @SectionId('BMSO')
 class BusinessMetricsSpecOperations {
   @Form([
   Field('realTimeBusinessDashboard', bool, 'Real-Time Business Dashboard',
     hint: 'Live business metrics display'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional business operations notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Distributed tracing specification.
+@StandardReferences(
+  [
+    'W3C Trace Context — distributed trace propagation',
+    'OpenTelemetry — metrics, traces, and logs',
+  ],
+  'How requests are traced end to end across distributed services.',
+)
 @SectionId('DITRSP')
 class DistributedTracingSpec {
   @Form([
@@ -24524,6 +24960,13 @@ class DistributedTracingSpec {
 }
 
 /// Sampling strategy.
+@StandardReferences(
+  [
+    'OpenTelemetry — metrics, traces, and logs',
+    'W3C Trace Context — distributed trace propagation',
+  ],
+  'How the volume of collected traces is reduced through head and tail sampling.',
+)
 @SectionId('DTSS')
 class DistributedTracingSpecSampling {
   @Form([
@@ -24541,6 +24984,13 @@ class DistributedTracingSpecSampling {
 }
 
 /// Span metadata.
+@StandardReferences(
+  [
+    'OpenTelemetry — metrics, traces, and logs',
+    'W3C Trace Context — distributed trace propagation',
+  ],
+  'The attributes and naming conventions applied to trace spans.',
+)
 @SectionId('DITRSPSP')
 class DistributedTracingSpecSpans {
   @Form([
@@ -24556,6 +25006,13 @@ class DistributedTracingSpecSpans {
 }
 
 /// Correlation and retention.
+@StandardReferences(
+  [
+    'W3C Trace Context — distributed trace propagation',
+    'OpenTelemetry — metrics, traces, and logs',
+  ],
+  'How traces are correlated with logs and metrics and how long they are kept.',
+)
 @SectionId('DTSO')
 class DistributedTracingSpecOperations {
   @Form([
@@ -24567,13 +25024,21 @@ class DistributedTracingSpecOperations {
     hint: 'Custom context propagated across services'),
   Field('traceRetention', String, 'Trace Retention',
     hint: 'How long traces are stored'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional tracing correlation notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A custom metric entry.
+@StandardReferences(
+  [
+    'Prometheus — metric types and exposition format',
+    'OpenTelemetry — metrics, traces, and logs',
+  ],
+  'A single custom application metric with its type, unit, and labels.',
+)
 @SectionId('CUSMETENT')
 class CustomMetricEntry {
   @Form([
@@ -24581,7 +25046,8 @@ class CustomMetricEntry {
         hint: 'Full metric name (e.g., app_orders_total)'),
     Field('metricType', String, 'Metric Type',
         hint: 'Counter, gauge, histogram, summary'),
-    Field('metricDescription', String, 'Metric Description'),
+    Field('metricDescription', String, 'Metric Description',
+        hint: 'What this metric measures'),
     Field('unit', String, 'Unit',
         hint: 'seconds, bytes, requests, count'),
     Field('labels', String, 'Labels',
@@ -24592,7 +25058,8 @@ class CustomMetricEntry {
         hint: 'Whether alerts are based on this metric'),
     Field('dashboardInclusion', String, 'Dashboard Inclusion',
         hint: 'Which dashboards include this metric'),
-    Field('notes', String, 'Notes'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes for this custom metric'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -24605,6 +25072,13 @@ class CustomMetricEntry {
 /// 8.7.2.4. Monitoring Dashboards.
 ///
 /// Operational dashboards for system monitoring.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and dashboards (the four golden signals)',
+    'Grafana — dashboard and panel design',
+  ],
+  'Operational dashboards used to visualize and monitor the health of the system.',
+)
 @SectionId('MODA')
 class MonitoringDashboards {
   @Form([
@@ -24640,24 +25114,41 @@ class MonitoringDashboards {
   TextSection overviewNarrative = TextSection();
 
   /// Dashboard catalog.
+  @StandardReferences(
+    ['Grafana — dashboard and panel design'],
+    'The catalog of monitoring dashboards the system provides.',
+  )
   @SectionId('DAEN-DASH-LST')
   @SectionIdPattern('DAEN-DASH-xxx')
+  @ContentHelp('Add one entry per dashboard.')
   @SerializationOrder(2)
   List<DashboardEntry> dashboards = [];
 
   /// Dashboard template specifications.
+  @StandardReferences(
+    ['Grafana — dashboard and panel design'],
+    'The catalog of reusable dashboard templates the system provides.',
+  )
   @SectionId('DATE-DASH-LST')
   @SectionIdPattern('DATE-DASH-xxx')
+  @ContentHelp('Add one entry per dashboard template.')
   @SerializationOrder(3)
   List<DashboardTemplates> dashboardTemplates = [];
 }
 
 /// A dashboard entry.
+@StandardReferences(
+  [
+    'Grafana — dashboard and panel design',
+    'Google SRE — monitoring and dashboards (the four golden signals)',
+  ],
+  'A single monitoring dashboard entry describing its identity, category and audience.',
+)
 @SectionId('DASENT')
 class DashboardEntry {
   @Form([
-    Field('dashboardId', String, 'Dashboard ID', required: true),
-    Field('dashboardName', String, 'Dashboard Name', required: true),
+    Field('dashboardId', String, 'Dashboard ID', required: true, hint: 'Unique dashboard identifier'),
+    Field('dashboardName', String, 'Dashboard Name', required: true, hint: 'Human-readable dashboard name'),
     Field('dashboardCategory', String, 'Dashboard Category',
         hint: 'Executive, operational, service, infrastructure'),
     Field('targetAudience', String, 'Target Audience',
@@ -24676,10 +25167,17 @@ class DashboardEntry {
 }
 
 /// Refresh and data composition details.
+@StandardReferences(
+  [
+    'Grafana — dashboard and panel design',
+    'OpenTelemetry — observability signals',
+  ],
+  'Refresh cadence, time range and data source configuration for a monitoring dashboard.',
+)
 @SectionId('DAENCO')
 class DashboardEntryConfiguration {
   @Form([
-    Field('refreshInterval', String, 'Refresh Interval'),
+    Field('refreshInterval', String, 'Refresh Interval', hint: 'How often the dashboard refreshes'),
     Field('timeRangeDefault', String, 'Time Range Default',
         hint: 'Default time window'),
     Field('keyPanels', String, 'Key Panels',
@@ -24692,19 +25190,33 @@ class DashboardEntryConfiguration {
 }
 
 /// Alert ownership and notes.
+@StandardReferences(
+  [
+    'Google SRE — monitoring and dashboards (the four golden signals)',
+    'ISO/IEC 20000 — service reporting',
+  ],
+  'Ownership, alert integration and operational notes for a monitoring dashboard.',
+)
 @SectionId('DAENOP')
 class DashboardEntryOperations {
   @Form([
     Field('alertIntegration', String, 'Alert Integration',
         hint: 'Alerts displayed on dashboard'),
-    Field('ownerTeam', String, 'Owner Team'),
-    Field('notes', String, 'Notes'),
+    Field('ownerTeam', String, 'Owner Team', hint: 'Team that owns this dashboard'),
+    Field('notes', String, 'Notes', hint: 'Additional operational notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Dashboard templates specification.
+@StandardReferences(
+  [
+    'Grafana — dashboard and panel design',
+    'AWS Well-Architected — operational excellence (observability)',
+  ],
+  'Reusable dashboard templates that standardize layouts across services and infrastructure.',
+)
 @SectionId('DATE')
 class DashboardTemplates {
   @Form([
@@ -24727,7 +25239,7 @@ class DashboardTemplates {
         hint: 'How to create new templates'),
     Field('templateVersioning', String, 'Template Versioning',
         hint: 'How templates are versioned'),
-    Field('notes', String, 'Notes'),
+    Field('notes', String, 'Notes', hint: 'Additional template notes'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -24740,6 +25252,14 @@ class DashboardTemplates {
 /// 8.7.2.5. SLA and SLO Monitoring.
 ///
 /// Service Level Agreement and Service Level Objective tracking.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'ISO/IEC 20000 — service level management',
+    'ITIL 4 — service level management practice',
+  ],
+  'Tracks service level agreements and objectives together with their reporting.',
+)
 @SectionId('SASM')
 class SlaAndSloMonitoring {
   @Form([
@@ -24777,8 +25297,13 @@ class SlaAndSloMonitoring {
   ServiceLevelIndicators slis = ServiceLevelIndicators();
 
   /// SLO catalog.
+  @StandardReferences(
+    ['Google SRE — service level objectives (SLOs and SLIs)'],
+    'The catalog of service level objectives the system commits to.',
+  )
   @SectionId('SLEN-SLOS-LST')
   @SectionIdPattern('SLEN-SLOS-xxx')
+  @ContentHelp('Add one entry per SLO.')
   @SerializationOrder(3)
   List<SloEntry> slos = [];
 
@@ -24788,6 +25313,13 @@ class SlaAndSloMonitoring {
 }
 
 /// Service Level Indicators.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'The measurable service level indicators that drive the service level objectives.',
+)
 @SectionId('SELEIN')
 class ServiceLevelIndicators {
   @Form([
@@ -24815,6 +25347,13 @@ class ServiceLevelIndicators {
 }
 
 /// Latency and throughput indicators.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'ISO/IEC 25010 — reliability (availability, maturity)',
+  ],
+  'Service level indicators covering latency and throughput.',
+)
 @SectionId('SLIP')
 class ServiceLevelIndicatorsPerformance {
   @Form([
@@ -24830,6 +25369,13 @@ class ServiceLevelIndicatorsPerformance {
 }
 
 /// Error, correctness, and freshness indicators.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'ISO/IEC 25010 — reliability (availability, maturity)',
+  ],
+  'Service level indicators covering error rate, correctness, and data freshness.',
+)
 @SectionId('SLIQ')
 class ServiceLevelIndicatorsQuality {
   @Form([
@@ -24847,6 +25393,13 @@ class ServiceLevelIndicatorsQuality {
 }
 
 /// Measurement method and location.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'Describes how and where service level indicators are measured.',
+)
 @SectionId('SLIM')
 class ServiceLevelIndicatorsMeasurement {
   @Form([
@@ -24854,20 +25407,26 @@ class ServiceLevelIndicatorsMeasurement {
     hint: 'Synthetic, real user, logs'),
   Field('measurementLocation', String, 'Measurement Location',
     hint: 'Server-side, client-side, edge'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes', hint: 'Free-form measurement notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// An SLO entry.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+  ],
+  'A single service level objective the system commits to meeting.',
+)
 @SectionId('SE')
 class SloEntry {
   @Form([
-    Field('sloId', String, 'SLO ID', required: true),
-    Field('sloName', String, 'SLO Name', required: true),
-    Field('sloDescription', String, 'SLO Description'),
-    Field('serviceName', String, 'Service Name'),
+    Field('sloId', String, 'SLO ID', required: true, hint: 'Unique SLO identifier'),
+    Field('sloName', String, 'SLO Name', required: true, hint: 'Human-readable SLO name'),
+    Field('sloDescription', String, 'SLO Description', hint: 'What this SLO covers'),
+    Field('serviceName', String, 'Service Name', hint: 'Service the SLO applies to'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -24882,6 +25441,13 @@ class SloEntry {
 }
 
 /// Objective target and budget definition.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'Google SRE — error budgets',
+  ],
+  'Defines the target and derived error budget for a single service level objective.',
+)
 @SectionId('SLENTA')
 class SloEntryTarget {
   @Form([
@@ -24899,6 +25465,13 @@ class SloEntryTarget {
 }
 
 /// Alerting and ownership rules.
+@StandardReferences(
+  [
+    'Google SRE — service level objectives (SLOs and SLIs)',
+    'ITIL 4 — service level management practice',
+  ],
+  'Alerting thresholds and ownership assigned to a single service level objective.',
+)
 @SectionId('SLENOP')
 class SloEntryOperations {
   @Form([
@@ -24906,14 +25479,21 @@ class SloEntryOperations {
         hint: 'When to alert on burn rate'),
     Field('burnRateAlert', String, 'Burn Rate Alert',
         hint: 'Fast-burn, slow-burn alerts'),
-    Field('ownerTeam', String, 'Owner Team'),
-    Field('notes', String, 'Notes'),
+    Field('ownerTeam', String, 'Owner Team', hint: 'Team owning this SLO'),
+    Field('notes', String, 'Notes', hint: 'Free-form operational notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Error budget tracking.
+@StandardReferences(
+  [
+    'Google SRE — error budgets',
+    'Google SRE — service level objectives (SLOs and SLIs)',
+  ],
+  'Tracks the error budget derived from the service level objectives.',
+)
 @SectionId('ERBUTR')
 class ErrorBudgetTracking {
   @Form([
@@ -24941,6 +25521,13 @@ class ErrorBudgetTracking {
 }
 
 /// Burn-rate monitoring thresholds.
+@StandardReferences(
+  [
+    'Google SRE — error budgets',
+    'Google SRE — service level objectives (SLOs and SLIs)',
+  ],
+  'Thresholds that watch how quickly the error budget burns down.',
+)
 @SectionId('EBTM')
 class ErrorBudgetTrackingMonitoring {
   @Form([
@@ -24954,6 +25541,13 @@ class ErrorBudgetTrackingMonitoring {
 }
 
 /// Recovery policy and attribution rules.
+@StandardReferences(
+  [
+    'Google SRE — error budgets',
+    'ITIL 4 — service level management practice',
+  ],
+  'Recovery and attribution rules applied when the error budget is spent.',
+)
 @SectionId('EBTG')
 class ErrorBudgetTrackingGovernance {
   @Form([
@@ -24965,13 +25559,21 @@ class ErrorBudgetTrackingGovernance {
     hint: 'Regular error budget review'),
   Field('budgetAttribution', String, 'Budget Attribution',
     hint: 'Attribute budget spend to incidents'),
-  Field('notes', String, 'Notes'),
+  Field('notes', String, 'Notes', hint: 'Free-form governance notes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// 8.7.2.1. Health Checks and Diagnostics.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+    'AWS Well-Architected — reliability pillar (health checks)',
+  ],
+  'Defines the health check, diagnostics, troubleshooting, and self-healing requirements that enable rapid problem detection and automated remediation.',
+)
 @ContentHelp('''
 Specify health check, diagnostics, and troubleshooting requirements.
 Health checks enable rapid problem detection and automated remediation.
@@ -25057,6 +25659,14 @@ Provide an overview of health check and diagnostics strategy.
 }
 
 /// Health check endpoint requirements.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+    'The Twelve-Factor App — disposability (fast startup, graceful shutdown)',
+  ],
+  'Defines the liveness, readiness, startup, and deep-health endpoints the system exposes so orchestrators can probe its state.',
+)
 @SectionId('HECHEN')
 class HealthCheckEndpoints {
   @Form([
@@ -25090,6 +25700,13 @@ class HealthCheckEndpoints {
 }
 
 /// Response configuration.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Specifies the health check port, response format, and success/failure status codes returned by the endpoints.',
+)
 @SectionId('HCEC')
 class HealthCheckEndpointsConfiguration {
   @Form([
@@ -25107,6 +25724,13 @@ class HealthCheckEndpointsConfiguration {
 }
 
 /// Timing thresholds.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Defines the check interval, timeout, and failure/success thresholds that govern how probes decide a service is healthy or unhealthy.',
+)
 @SectionId('HCET')
 class HealthCheckEndpointsTiming {
   @Form([
@@ -25124,6 +25748,13 @@ class HealthCheckEndpointsTiming {
 }
 
 /// Response content settings.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Specifies what detail a health check response includes such as component status, version, uptime, and redaction of sensitive data.',
+)
 @SectionId('HECHENCO')
 class HealthCheckEndpointsContent {
   @Form([
@@ -25145,6 +25776,13 @@ class HealthCheckEndpointsContent {
 }
 
 /// Application diagnostics.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Defines the diagnostic endpoints (info, metrics, environment) and runtime introspection the application exposes for troubleshooting.',
+)
 @SectionId('APDI')
 class ApplicationDiagnostics {
   @Form([
@@ -25175,6 +25813,13 @@ class ApplicationDiagnostics {
 }
 
 /// On-demand profiling and slow-request tracing.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'Specifies on-demand CPU and memory profiling and per-request tracing used to diagnose slow or resource-heavy requests.',
+)
 @SectionId('APDIPE')
 class ApplicationDiagnosticsPerformance {
   @Form([
@@ -25192,6 +25837,13 @@ class ApplicationDiagnosticsPerformance {
 }
 
 /// Runtime queue and pool inspection.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Provides runtime inspection of connection pools, thread pools, and queue depth for diagnosing resource contention.',
+)
 @SectionId('APDIRU')
 class ApplicationDiagnosticsRuntime {
   @Form([
@@ -25207,6 +25859,13 @@ class ApplicationDiagnosticsRuntime {
 }
 
 /// Feature and resilience status indicators.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Exposes feature-flag, circuit-breaker, and cache-hit-ratio status indicators for runtime resilience visibility.',
+)
 @SectionId('ADFS')
 class ApplicationDiagnosticsFeatureStatus {
   @Form([
@@ -25224,6 +25883,13 @@ class ApplicationDiagnosticsFeatureStatus {
 }
 
 /// Log aggregation and analysis requirements.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Defines the log aggregation platform, format, levels, and analysis requirements for centralized logging.',
+)
 @SectionId('LOAGRE')
 class LogAggregationRequirements {
   @Form([
@@ -25256,6 +25922,13 @@ class LogAggregationRequirements {
 }
 
 /// Dynamic configuration and collection settings.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'The Twelve-Factor App — disposability (fast startup, graceful shutdown)',
+  ],
+  'Specifies dynamic log-level changes and the collection, shipping, buffering, and sampling settings for log ingestion.',
+)
 @SectionId('LARC')
 class LogAggregationRequirementsCollection {
   @Form([
@@ -25275,6 +25948,13 @@ class LogAggregationRequirementsCollection {
 }
 
 /// Retention and archival settings.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — service availability management',
+    'OpenTelemetry — observability signals',
+  ],
+  'Defines log retention periods, archival policy, and regulatory-compliance retention for aggregated logs.',
+)
 @SectionId('LARR')
 class LogAggregationRequirementsRetention {
   @Form([
@@ -25290,6 +25970,13 @@ class LogAggregationRequirementsRetention {
 }
 
 /// Search and analysis capabilities.
+@StandardReferences(
+  [
+    'OpenTelemetry — observability signals',
+    'Google SRE — health checking and monitoring',
+  ],
+  'Specifies log search, trace-correlation, saved queries, and log-based alerting used to analyze aggregated logs.',
+)
 @SectionId('LARA')
 class LogAggregationRequirementsAnalysis {
   @Form([
@@ -25311,6 +25998,13 @@ class LogAggregationRequirementsAnalysis {
 }
 
 /// Troubleshooting capabilities.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'OpenTelemetry — observability signals',
+  ],
+  'Defines the debugging, diagnostic-dump, and request-replay capabilities used to troubleshoot the running system.',
+)
 @SectionId('TRCA')
 class TroubleshootingCapabilities {
   @Form([
@@ -25341,6 +26035,13 @@ class TroubleshootingCapabilities {
 }
 
 /// Runbook and remediation support.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'AWS Well-Architected — reliability pillar (health checks)',
+  ],
+  'Defines runbook integration and automated remediation that link alerts to known-issue fixes and correlated incident timelines.',
+)
 @SectionId('TRCARU')
 class TroubleshootingCapabilitiesRunbooks {
   @Form([
@@ -25356,6 +26057,13 @@ class TroubleshootingCapabilitiesRunbooks {
 }
 
 /// Break-glass and diagnostic access controls.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'ISO/IEC 20000 — service availability management',
+  ],
+  'Specifies audited break-glass access and diagnostic tooling used to investigate incidents in production.',
+)
 @SectionId('TRCAAC')
 class TroubleshootingCapabilitiesAccess {
   @Form([
@@ -25371,6 +26079,13 @@ class TroubleshootingCapabilitiesAccess {
 }
 
 /// Incident communication and retrospective support.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'ISO/IEC 20000 — service availability management',
+  ],
+  'Defines incident communication tooling and the blameless-postmortem process that supports retrospective analysis.',
+)
 @SectionId('TRCACO')
 class TroubleshootingCapabilitiesCommunication {
   @Form([
@@ -25388,6 +26103,14 @@ class TroubleshootingCapabilitiesCommunication {
 }
 
 /// Dependency health monitoring.
+@StandardReferences(
+  [
+    'Kubernetes — liveness, readiness, and startup probes',
+    'Google SRE — health checking and monitoring',
+    'AWS Well-Architected — reliability pillar (health checks)',
+  ],
+  'Specifies how the system verifies the health of its downstream dependencies such as databases, caches, queues, and external services.',
+)
 @SectionId('DEHEMO')
 class DependencyHealthMonitoring {
   @Form([
@@ -25422,6 +26145,13 @@ class DependencyHealthMonitoring {
 }
 
 /// Cache subsystem checks.
+@StandardReferences(
+  [
+    'Google SRE — health checking and monitoring',
+    'OpenTelemetry — observability signals',
+  ],
+  'Specifies health checks for the cache subsystem including ping, memory, and eviction-rate monitoring.',
+)
 @SectionId('DHMC')
 class DependencyHealthMonitoringCache {
   @Form([
@@ -25435,6 +26165,13 @@ class DependencyHealthMonitoringCache {
 }
 
 /// Queue and dead-letter monitoring.
+@StandardReferences(
+  [
+    'Google SRE — health checking and monitoring',
+    'OpenTelemetry — observability signals',
+  ],
+  'Defines health monitoring of message queues including queue depth, consumer lag, and dead-letter-queue accumulation.',
+)
 @SectionId('DHMQ')
 class DependencyHealthMonitoringQueue {
   @Form([
@@ -25448,6 +26185,13 @@ class DependencyHealthMonitoringQueue {
 }
 
 /// External service and certificate checks.
+@StandardReferences(
+  [
+    'Google SRE — health checking and monitoring',
+    'ISO/IEC 20000 — service availability management',
+  ],
+  'Specifies connectivity, certificate-expiry, and DNS-resolution checks for the external service dependencies of the system.',
+)
 @SectionId('DHME')
 class DependencyHealthMonitoringExternal {
   @Form([
@@ -25463,6 +26207,13 @@ class DependencyHealthMonitoringExternal {
 }
 
 /// Thresholds and cascade protection settings.
+@StandardReferences(
+  [
+    'Google SRE — health checking and monitoring',
+    'AWS Well-Architected — reliability pillar (health checks)',
+  ],
+  'Defines the thresholds that mark a dependency degraded or unavailable and the cascade-protection settings that prevent one failure from spreading.',
+)
 @SectionId('DHMT')
 class DependencyHealthMonitoringThresholds {
   @Form([
@@ -25480,6 +26231,14 @@ class DependencyHealthMonitoringThresholds {
 }
 
 /// 8.7.3. Capacity Planning.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+  ],
+  'Defines the overall capacity planning approach covering growth projections, scaling triggers, baselines, and review cadence.',
+)
 @ContentHelp('''
 Specify capacity planning requirements including growth projections,
 scaling triggers, and resource management. Proactive capacity planning
@@ -25573,6 +26332,13 @@ Provide an overview of capacity planning approach.
 }
 
 /// User growth projections.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+  ],
+  'Establishes current user counts and growth projections that drive downstream capacity forecasts.',
+)
 @SectionId('USGRPR')
 class UserGrowthProjections {
   @Form([
@@ -25603,6 +26369,13 @@ class UserGrowthProjections {
 }
 
 /// Growth-rate assumptions and time-based projections.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Projects active user counts at 6 to 36 months from a stated growth rate to drive capacity forecasts.',
+)
 @SectionId('UGPF')
 class UserGrowthProjectionsForecast {
   @Form([
@@ -25622,6 +26395,13 @@ class UserGrowthProjectionsForecast {
 }
 
 /// User segmentation and geographic patterns.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Captures user segments, geographic distribution, and seasonal patterns that shape demand forecasts.',
+)
 @SectionId('UGPS')
 class UserGrowthProjectionsSegmentation {
   @Form([
@@ -25637,6 +26417,13 @@ class UserGrowthProjectionsSegmentation {
 }
 
 /// Capacity thresholds and planning notes.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Defines soft and hard user-capacity limits that trigger system review and scaling actions.',
+)
 @SectionId('UGPT')
 class UserGrowthProjectionsThresholds {
   @Form([
@@ -25652,6 +26439,13 @@ class UserGrowthProjectionsThresholds {
 }
 
 /// Data growth projections.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Projects data, database, and file-storage growth to drive storage capacity planning.',
+)
 @SectionId('DAGRPR')
 class DataGrowthProjections {
   @Form([
@@ -25685,6 +26479,13 @@ class DataGrowthProjections {
 }
 
 /// Growth-rate assumptions.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Captures data growth rate, volume per user, and transaction growth assumptions driving capacity forecasts.',
+)
 @SectionId('DGPG')
 class DataGrowthProjectionsGrowth {
   @Form([
@@ -25700,6 +26501,13 @@ class DataGrowthProjectionsGrowth {
 }
 
 /// Volume projections.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Projects total data volume at 6, 12, and 24 months to inform storage capacity planning.',
+)
 @SectionId('DGPP')
 class DataGrowthProjectionsProjections {
   @Form([
@@ -25715,6 +26523,13 @@ class DataGrowthProjectionsProjections {
 }
 
 /// Data lifecycle strategy.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — capacity management process',
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+  ],
+  'Defines retention, archival, cleanup, and compression policies that manage data-storage capacity over time.',
+)
 @SectionId('DGPL')
 class DataGrowthProjectionsLifecycle {
   @Form([
@@ -25732,6 +26547,13 @@ class DataGrowthProjectionsLifecycle {
 }
 
 /// Thresholds and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — capacity management process',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Defines storage alert thresholds and partitioning strategy that govern data-growth capacity limits.',
+)
 @SectionId('DGPT')
 class DataGrowthProjectionsThresholds {
   @Form([
@@ -25747,6 +26569,13 @@ class DataGrowthProjectionsThresholds {
 }
 
 /// Peak load patterns.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+  ],
+  'Describes daily, weekly, monthly, and yearly peak-load patterns that drive capacity provisioning.',
+)
 @SectionId('PELOPA')
 class PeakLoadPatterns {
   @Form([
@@ -25776,6 +26605,13 @@ class PeakLoadPatterns {
 }
 
 /// Peak metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Captures peak RPS, concurrent sessions, and response-time targets that define the workload capacity envelope.',
+)
 @SectionId('PLPM')
 class PeakLoadPatternsMetrics {
   @Form([
@@ -25793,6 +26629,13 @@ class PeakLoadPatternsMetrics {
 }
 
 /// Load multipliers.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+  ],
+  'Captures peak-to-average ratios, burst capacity, and graceful-degradation plans for extreme load.',
+)
 @SectionId('PLPC')
 class PeakLoadPatternsCapacity {
   @Form([
@@ -25808,6 +26651,13 @@ class PeakLoadPatternsCapacity {
 }
 
 /// Testing regime.
+@StandardReferences(
+  [
+    'Google SRE — site reliability engineering practices',
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+  ],
+  'Defines the load-testing cadence, tools, and benchmark baselines used to validate peak capacity.',
+)
 @SectionId('PLPT')
 class PeakLoadPatternsTesting {
   @Form([
@@ -25825,6 +26675,13 @@ class PeakLoadPatternsTesting {
 }
 
 /// Scaling triggers and thresholds.
+@StandardReferences(
+  [
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Defines the CPU thresholds and aggregate signals that trigger horizontal or vertical scaling of the system.',
+)
 @SectionId('STAT')
 class ScalingTriggersAndThresholds {
   @Form([
@@ -25857,6 +26714,13 @@ class ScalingTriggersAndThresholds {
 }
 
 /// Memory-based thresholds.
+@StandardReferences(
+  [
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+  ],
+  'Defines the memory-utilization thresholds that trigger scale-up and scale-down of the workload.',
+)
 @SectionId('STATM')
 class ScalingTriggersAndThresholdsMemory {
   @Form([
@@ -25870,6 +26734,13 @@ class ScalingTriggersAndThresholdsMemory {
 }
 
 /// Request-based thresholds.
+@StandardReferences(
+  [
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'Defines request-rate, latency, and queue-depth thresholds that trigger scaling of the workload.',
+)
 @SectionId('STATR')
 class ScalingTriggersAndThresholdsRequest {
   @Form([
@@ -25885,6 +26756,13 @@ class ScalingTriggersAndThresholdsRequest {
 }
 
 /// Scaling behavior.
+@StandardReferences(
+  [
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'Defines scaling cooldowns, min/max instance bounds, and step size that govern how the system scales.',
+)
 @SectionId('STATB')
 class ScalingTriggersAndThresholdsBehavior {
   @Form([
@@ -25902,6 +26780,13 @@ class ScalingTriggersAndThresholdsBehavior {
 }
 
 /// Scaling types and providers.
+@StandardReferences(
+  [
+    'The Twelve-Factor App — concurrency (scale out via the process model)',
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+  ],
+  'Selects horizontal versus vertical scaling, the auto-scaling provider, and scheduled scaling for known peaks.',
+)
 @SectionId('STATT')
 class ScalingTriggersAndThresholdsType {
   @Form([
@@ -25921,6 +26806,13 @@ class ScalingTriggersAndThresholdsType {
 }
 
 /// Resource capacity baselines.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Establishes normal CPU, memory, and instance-count baselines against which growth and scaling are measured.',
+)
 @SectionId('RECABA')
 class ResourceCapacityBaselines {
   @Form([
@@ -25954,6 +26846,13 @@ class ResourceCapacityBaselines {
 }
 
 /// Storage baselines.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Records normal storage IOPS and throughput as capacity baselines for the workload.',
+)
 @SectionId('RCBS')
 class ResourceCapacityBaselinesStorage {
   @Form([
@@ -25967,6 +26866,13 @@ class ResourceCapacityBaselinesStorage {
 }
 
 /// Network baselines.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Records normal network bandwidth and active connection counts as capacity baselines.',
+)
 @SectionId('RCBN')
 class ResourceCapacityBaselinesNetwork {
   @Form([
@@ -25980,6 +26886,13 @@ class ResourceCapacityBaselinesNetwork {
 }
 
 /// Database baselines.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (capacity, resource utilization)',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Records normal database connection-pool usage, query volume, and on-disk size as capacity baselines.',
+)
 @SectionId('RCBD')
 class ResourceCapacityBaselinesDatabase {
   @Form([
@@ -25996,6 +26909,13 @@ class ResourceCapacityBaselinesDatabase {
 }
 
 /// Cost baselines and notes.
+@StandardReferences(
+  [
+    'AWS Well-Architected — reliability pillar (workload scaling)',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Establishes baseline infrastructure cost, cost per user, and projected cost at target scale.',
+)
 @SectionId('RCBC')
 class ResourceCapacityBaselinesCost {
   @Form([
@@ -26013,6 +26933,13 @@ class ResourceCapacityBaselinesCost {
 }
 
 /// Capacity review process.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — capacity management process',
+    'ITIL 4 — capacity and performance management',
+  ],
+  'Defines the recurring review cadence, participants, and checklist that govern ongoing capacity management.',
+)
 @SectionId('CAREPR')
 class CapacityReviewProcess {
   @Form([
@@ -26042,6 +26969,13 @@ class CapacityReviewProcess {
 }
 
 /// Monitoring and forecasting inputs for capacity review.
+@StandardReferences(
+  [
+    'Google SRE — capacity planning and demand forecasting',
+    'ISO/IEC 20000 — capacity management process',
+  ],
+  'Captures the dashboards, trend analysis, and forecasting models that feed capacity review decisions.',
+)
 @SectionId('CAREPRMO')
 class CapacityReviewProcessMonitoring {
   @Form([
@@ -26057,6 +26991,13 @@ class CapacityReviewProcessMonitoring {
 }
 
 /// Escalation and emergency scaling decisions for capacity review.
+@StandardReferences(
+  [
+    'ITIL 4 — capacity and performance management',
+    'Google SRE — site reliability engineering practices',
+  ],
+  'Defines capacity alert thresholds, escalation procedures, and emergency scaling steps for the capacity review process.',
+)
 @SectionId('CRPE')
 class CapacityReviewProcessEscalation {
   @Form([
@@ -26072,6 +27013,13 @@ class CapacityReviewProcessEscalation {
 }
 
 /// Budgeting and rightsizing planning for capacity review.
+@StandardReferences(
+  [
+    'ISO/IEC 20000 — capacity management process',
+    'Google SRE — capacity planning and demand forecasting',
+  ],
+  'Captures budget integration, procurement lead time, and rightsizing decisions produced by the capacity review.',
+)
 @SectionId('CRPP')
 class CapacityReviewProcessPlanning {
   @Form([

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T13:16:44.337551Z",
+  "generatedAt": "2026-07-05T13:53:19.159373Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -5532,7 +5532,24 @@
       "name": "AdminEnvironmentManagement",
       "sectionId": "ADENMA",
       "doc": "Administration environment management.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — service configuration management practice",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "Administration environment management governs how environments are provisioned, seeded, and accessed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — service configuration management practice",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "Administration environment management governs how environments are provisioned, seeded, and accessed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5638,7 +5655,24 @@
       "name": "AdminInterfaceRequirements",
       "sectionId": "ADINRE",
       "doc": "Admin interface requirements.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "Admin interface requirements describe the portal through which operators manage the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "Admin interface requirements describe the portal through which operators manage the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5747,7 +5781,24 @@
       "name": "AdminInterfaceRequirementsDashboard",
       "sectionId": "AIRD",
       "doc": "Dashboard widget requirements.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "Dashboard widget requirements define the at-a-glance status widgets on the admin landing page."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "Dashboard widget requirements define the at-a-glance status widgets on the admin landing page."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5818,7 +5869,24 @@
       "name": "AdminInterfaceRequirementsData",
       "sectionId": "ADINREDA",
       "doc": "Data management tooling.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Data management tooling provides import, export, search, and audit-log viewing for administrators."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Data management tooling provides import, export, search, and audit-log viewing for administrators."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5882,7 +5950,24 @@
       "name": "AdminInterfaceRequirementsOperations",
       "sectionId": "AIRO",
       "doc": "Operational controls.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "Operational controls let administrators toggle maintenance mode, feature flags, and caches."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "Operational controls let administrators toggle maintenance mode, feature flags, and caches."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5947,11 +6032,28 @@
       "sectionId": "ARS",
       "doc": "8.7.1.1. Administration Requirements.",
       "help": "Specify system administration requirements including admin interfaces,\nconfiguration management, and user provisioning. Good administration\ntools reduce operational burden and error rates.\n\n**Admin Interface Requirements**:\n- Admin portal/dashboard functionality\n- Role-based access for admin functions\n- Audit logging of all admin actions\n- Bulk operations and batch processing\n- Search and reporting capabilities\n\n**Configuration Management**:\n- Centralized configuration store (Consul, etcd, Parameter Store)\n- Environment-specific configurations\n- Feature flags and toggles\n- Dynamic configuration refresh\n- Configuration versioning and rollback\n\n**User Provisioning**:\n- User lifecycle management (create, update, disable, delete)\n- Role and permission assignment\n- SCIM or directory synchronization\n- Service account management\n- Access review and certification\n\n**Secrets Management**:\n- Secrets storage (Vault, AWS Secrets Manager)\n- Secret rotation automation\n- Encryption key management\n- Service-to-service credentials\n- Developer access to secrets\n\n**Batch Operations**:\n- Batch user imports/exports\n- Bulk data operations\n- Scheduled maintenance scripts\n- Report generation\n",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Administration requirements define the admin interfaces, configuration management, and user provisioning the system needs."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify system administration requirements including admin interfaces,\nconfiguration management, and user provisioning. Good administration\ntools reduce operational burden and error rates.\n\n**Admin Interface Requirements**:\n- Admin portal/dashboard functionality\n- Role-based access for admin functions\n- Audit logging of all admin actions\n- Bulk operations and batch processing\n- Search and reporting capabilities\n\n**Configuration Management**:\n- Centralized configuration store (Consul, etcd, Parameter Store)\n- Environment-specific configurations\n- Feature flags and toggles\n- Dynamic configuration refresh\n- Configuration versioning and rollback\n\n**User Provisioning**:\n- User lifecycle management (create, update, disable, delete)\n- Role and permission assignment\n- SCIM or directory synchronization\n- Service account management\n- Access review and certification\n\n**Secrets Management**:\n- Secrets storage (Vault, AWS Secrets Manager)\n- Secret rotation automation\n- Encryption key management\n- Service-to-service credentials\n- Developer access to secrets\n\n**Batch Operations**:\n- Batch user imports/exports\n- Bulk data operations\n- Scheduled maintenance scripts\n- Report generation\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Administration requirements define the admin interfaces, configuration management, and user provisioning the system needs."
           }
         },
         {
@@ -7004,7 +7106,24 @@
       "name": "AlertEscalationPolicies",
       "sectionId": "ALESPO",
       "doc": "Alert escalation policies.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "How unacknowledged alerts escalate through responder levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "How unacknowledged alerts escalate through responder levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7106,7 +7225,24 @@
       "name": "AlertEscalationPoliciesBehavior",
       "sectionId": "AEPB",
       "doc": "Escalation control behavior.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "ITIL 4 — monitoring and event management practice"
+        ],
+        "connotation": "How acknowledgment and resolution control the escalation flow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "ITIL 4 — monitoring and event management practice"
+            ],
+            "connotation": "How acknowledgment and resolution control the escalation flow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7163,7 +7299,24 @@
       "name": "AlertEscalationPoliciesSchedules",
       "sectionId": "AEPS",
       "doc": "Schedule-specific policy variants.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "How escalation policies differ across business hours and off hours."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "How escalation policies differ across business hours and off hours."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7215,6 +7368,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional escalation schedule notes",
               "type": "String",
               "required": false
             }
@@ -7226,7 +7380,24 @@
       "name": "AlertEscalationPoliciesTiming",
       "sectionId": "AEPT",
       "doc": "Management escalation path and timing thresholds.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "ISO/IEC 20000 — incident and service request management"
+        ],
+        "connotation": "The timing thresholds that govern when alerts escalate between levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "ISO/IEC 20000 — incident and service request management"
+            ],
+            "connotation": "The timing thresholds that govern when alerts escalate between levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7290,7 +7461,24 @@
       "name": "AlertNotificationChannels",
       "sectionId": "ALNOCH",
       "doc": "Alert notification channels.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — Alertmanager (routing, grouping, silencing)",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "The channels through which alerts reach responders."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "The channels through which alerts reach responders."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7392,7 +7580,24 @@
       "name": "AlertNotificationChannelsDelivery",
       "sectionId": "ANCD",
       "doc": "Secondary and escalation delivery methods.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "The secondary email, SMS, and voice delivery methods for alerts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "The secondary email, SMS, and voice delivery methods for alerts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7449,7 +7654,24 @@
       "name": "AlertNotificationChannelsFormatting",
       "sectionId": "ANCF",
       "doc": "Message templates, enrichment, and grouping rules.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — Alertmanager (routing, grouping, silencing)",
+          "Google SRE — monitoring and alerting (the four golden signals)"
+        ],
+        "connotation": "How alert messages are formatted, enriched, deduplicated, and grouped."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)",
+              "Google SRE — monitoring and alerting (the four golden signals)"
+            ],
+            "connotation": "How alert messages are formatted, enriched, deduplicated, and grouped."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7508,6 +7730,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional formatting notes",
               "type": "String",
               "required": false
             }
@@ -7519,7 +7742,24 @@
       "name": "AlertNotificationChannelsRouting",
       "sectionId": "ANCR",
       "doc": "Severity-based channel routing.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — Alertmanager (routing, grouping, silencing)",
+          "ITIL 4 — monitoring and event management practice"
+        ],
+        "connotation": "How alerts route to channels based on their severity level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)",
+              "ITIL 4 — monitoring and event management practice"
+            ],
+            "connotation": "How alerts route to channels based on their severity level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7576,7 +7816,24 @@
       "name": "AlertRuleEntry",
       "sectionId": "ALERULENT",
       "doc": "An alert rule entry.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and alerting (the four golden signals)",
+          "Prometheus — Alertmanager (routing, grouping, silencing)"
+        ],
+        "connotation": "A single alert rule defining when and how the system pages responders."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and alerting (the four golden signals)",
+              "Prometheus — Alertmanager (routing, grouping, silencing)"
+            ],
+            "connotation": "A single alert rule defining when and how the system pages responders."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7607,18 +7864,21 @@
             {
               "name": "alertId",
               "label": "Alert ID",
+              "hint": "Unique identifier for this alert rule",
               "type": "String",
               "required": true
             },
             {
               "name": "alertName",
               "label": "Alert Name",
+              "hint": "Human-readable name for this alert",
               "type": "String",
               "required": true
             },
             {
               "name": "alertDescription",
               "label": "Alert Description",
+              "hint": "What this alert detects and why it matters",
               "type": "String",
               "required": false
             },
@@ -7689,7 +7949,24 @@
       "name": "AlertRuleEntryOwnership",
       "sectionId": "AREO",
       "doc": "Ownership details.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — being on-call and incident response",
+          "ITIL 4 — monitoring and event management practice"
+        ],
+        "connotation": "Which team and contact own responses to this alert rule."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — being on-call and incident response",
+              "ITIL 4 — monitoring and event management practice"
+            ],
+            "connotation": "Which team and contact own responses to this alert rule."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7720,18 +7997,21 @@
             {
               "name": "ownerTeam",
               "label": "Owner Team",
+              "hint": "Team that owns this alert rule",
               "type": "String",
               "required": false
             },
             {
               "name": "primaryContact",
               "label": "Primary Contact",
+              "hint": "Primary contact for this alert",
               "type": "String",
               "required": false
             },
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional ownership notes",
               "type": "String",
               "required": false
             }
@@ -7743,7 +8023,24 @@
       "name": "AlertRuleEntryResponse",
       "sectionId": "ARER",
       "doc": "Response actions.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — being on-call and incident response",
+          "Prometheus — Alertmanager (routing, grouping, silencing)"
+        ],
+        "connotation": "The notification, runbook, and remediation actions taken when the alert fires."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — being on-call and incident response",
+              "Prometheus — Alertmanager (routing, grouping, silencing)"
+            ],
+            "connotation": "The notification, runbook, and remediation actions taken when the alert fires."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7807,7 +8104,24 @@
       "name": "AlertRuleEntryTrigger",
       "sectionId": "ARET",
       "doc": "Trigger conditions.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and alerting (the four golden signals)",
+          "Prometheus — Alertmanager (routing, grouping, silencing)"
+        ],
+        "connotation": "The metric, threshold, and window conditions that trigger this alert."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and alerting (the four golden signals)",
+              "Prometheus — Alertmanager (routing, grouping, silencing)"
+            ],
+            "connotation": "The metric, threshold, and window conditions that trigger this alert."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7871,7 +8185,24 @@
       "name": "AlertSuppressionRules",
       "sectionId": "ALSURU",
       "doc": "Alert suppression and maintenance windows.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — Alertmanager (routing, grouping, silencing)",
+          "Google SRE — monitoring and alerting (the four golden signals)"
+        ],
+        "connotation": "How alerts are silenced or inhibited during maintenance windows."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)",
+              "Google SRE — monitoring and alerting (the four golden signals)"
+            ],
+            "connotation": "How alerts are silenced or inhibited during maintenance windows."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -7965,6 +8296,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional suppression notes",
               "type": "String",
               "required": false
             }
@@ -7976,7 +8308,26 @@
       "name": "AlertingConfiguration",
       "sectionId": "ALCO",
       "doc": "8.7.2.2. Alerting Configuration.\n\nComprehensive alerting rules, notification channels, and escalation\npolicies.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and alerting (the four golden signals)",
+          "Prometheus — Alertmanager (routing, grouping, silencing)",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "The full alerting configuration covering rules, channels, and escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and alerting (the four golden signals)",
+              "Prometheus — Alertmanager (routing, grouping, silencing)",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "The full alerting configuration covering rules, channels, and escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8104,10 +8455,26 @@
           "name": "alertRules",
           "kind": "list",
           "doc": "Alert rules catalog.",
+          "help": "Add one entry per alert rule.",
           "sectionId": "ALRUEN-ALER-LST",
           "sectionIdPattern": "ALRUEN-ALER-xxx",
+          "standardReferences": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)"
+            ],
+            "connotation": "The catalog of alert rules the system evaluates."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Prometheus — Alertmanager (routing, grouping, silencing)"
+                ],
+                "connotation": "The catalog of alert rules the system evaluates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -8118,6 +8485,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ALRUEN-ALER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per alert rule."
               }
             },
             {
@@ -8149,10 +8522,26 @@
           "name": "suppressionRules",
           "kind": "list",
           "doc": "Alert suppression and maintenance windows.",
+          "help": "Add one entry per suppression or maintenance window.",
           "sectionId": "ALSURU-SUPP-LST",
           "sectionIdPattern": "ALSURU-SUPP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Prometheus — Alertmanager (routing, grouping, silencing)"
+            ],
+            "connotation": "The catalog of alert suppression and maintenance window rules."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Prometheus — Alertmanager (routing, grouping, silencing)"
+                ],
+                "connotation": "The catalog of alert suppression and maintenance window rules."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -8163,6 +8552,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ALSURU-SUPP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per suppression or maintenance window."
               }
             },
             {
@@ -10458,7 +10853,24 @@
       "name": "ApplicationDiagnostics",
       "sectionId": "APDI",
       "doc": "Application diagnostics.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Defines the diagnostic endpoints (info, metrics, environment) and runtime introspection the application exposes for troubleshooting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Defines the diagnostic endpoints (info, metrics, environment) and runtime introspection the application exposes for troubleshooting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10560,7 +10972,24 @@
       "name": "ApplicationDiagnosticsFeatureStatus",
       "sectionId": "ADFS",
       "doc": "Feature and resilience status indicators.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Exposes feature-flag, circuit-breaker, and cache-hit-ratio status indicators for runtime resilience visibility."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Exposes feature-flag, circuit-breaker, and cache-hit-ratio status indicators for runtime resilience visibility."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10624,7 +11053,24 @@
       "name": "ApplicationDiagnosticsPerformance",
       "sectionId": "APDIPE",
       "doc": "On-demand profiling and slow-request tracing.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "Specifies on-demand CPU and memory profiling and per-request tracing used to diagnose slow or resource-heavy requests."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "Specifies on-demand CPU and memory profiling and per-request tracing used to diagnose slow or resource-heavy requests."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10688,7 +11134,24 @@
       "name": "ApplicationDiagnosticsRuntime",
       "sectionId": "APDIRU",
       "doc": "Runtime queue and pool inspection.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Provides runtime inspection of connection pools, thread pools, and queue depth for diagnosing resource contention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Provides runtime inspection of connection pools, thread pools, and queue depth for diagnosing resource contention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10745,7 +11208,24 @@
       "name": "ApplicationMetricsSpec",
       "sectionId": "APMESP",
       "doc": "Application metrics specification.",
+      "standardReferences": {
+        "standards": [
+          "RED method — rate, errors, duration (service metrics)",
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+        ],
+        "connotation": "Metrics that describe application request rate, errors, and duration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RED method — rate, errors, duration (service metrics)",
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+            ],
+            "connotation": "Metrics that describe application request rate, errors, and duration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10847,7 +11327,24 @@
       "name": "ApplicationMetricsSpecApplication",
       "sectionId": "AMSA",
       "doc": "Application-specific metrics.",
+      "standardReferences": {
+        "standards": [
+          "RED method — rate, errors, duration (service metrics)",
+          "Prometheus — metric types and exposition format"
+        ],
+        "connotation": "Application-level metrics for caches, databases, clients, and message queues."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RED method — rate, errors, duration (service metrics)",
+              "Prometheus — metric types and exposition format"
+            ],
+            "connotation": "Application-level metrics for caches, databases, clients, and message queues."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10918,7 +11415,24 @@
       "name": "ApplicationMetricsSpecLabels",
       "sectionId": "AMSL",
       "doc": "Labeling guidance.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — metric types and exposition format",
+          "OpenTelemetry — metrics, traces, and logs"
+        ],
+        "connotation": "Guidance on standard and custom labels applied to metrics and their cardinality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — metric types and exposition format",
+              "OpenTelemetry — metrics, traces, and logs"
+            ],
+            "connotation": "Guidance on standard and custom labels applied to metrics and their cardinality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10970,6 +11484,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional labeling notes",
               "type": "String",
               "required": false
             }
@@ -10981,7 +11496,24 @@
       "name": "ApplicationMetricsSpecResources",
       "sectionId": "AMSR",
       "doc": "USE metrics.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "RED method — rate, errors, duration (service metrics)"
+        ],
+        "connotation": "Utilization, saturation, and error metrics for service resources."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "RED method — rate, errors, duration (service metrics)"
+            ],
+            "connotation": "Utilization, saturation, and error metrics for service resources."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20221,7 +20753,24 @@
       "name": "BatchJobManagement",
       "sectionId": "BAJOMA",
       "doc": "Batch job management.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — eliminating toil and operational procedures",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "Batch job management specifies how scheduled and background jobs are defined and operated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "Batch job management specifies how scheduled and background jobs are defined and operated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20323,7 +20872,24 @@
       "name": "BatchJobManagementExecution",
       "sectionId": "BJME",
       "doc": "Execution controls.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — eliminating toil and operational procedures",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "Execution controls define how batch jobs run, retry, and enforce timeouts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "Execution controls define how batch jobs run, retry, and enforce timeouts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20394,7 +20960,24 @@
       "name": "BatchJobManagementJobTypes",
       "sectionId": "BJMJT",
       "doc": "Supported job categories.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — eliminating toil and operational procedures",
+          "ITIL 4 — change enablement and maintenance windows"
+        ],
+        "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "ITIL 4 — change enablement and maintenance windows"
+            ],
+            "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20465,7 +21048,24 @@
       "name": "BatchJobManagementMonitoring",
       "sectionId": "BJMM",
       "doc": "Monitoring and manual controls.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "Monitoring and manual controls track batch job health and allow operators to intervene."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "Monitoring and manual controls track batch job health and allow operators to intervene."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25302,7 +25902,24 @@
       "name": "BusinessMetricsSpec",
       "sectionId": "BUMESP",
       "doc": "Business metrics specification.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "ISO/IEC 25010 — performance efficiency"
+        ],
+        "connotation": "Metrics that measure business outcomes such as user activity and revenue."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "Metrics that measure business outcomes such as user activity and revenue."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25419,7 +26036,24 @@
       "name": "BusinessMetricsSpecFeatureUsage",
       "sectionId": "BMSFU",
       "doc": "Feature adoption and engagement metrics.",
+      "standardReferences": {
+        "standards": [
+          "RED method — rate, errors, duration (service metrics)",
+          "ISO/IEC 25010 — performance efficiency"
+        ],
+        "connotation": "How widely and deeply product features are adopted and used."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RED method — rate, errors, duration (service metrics)",
+              "ISO/IEC 25010 — performance efficiency"
+            ],
+            "connotation": "How widely and deeply product features are adopted and used."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25469,7 +26103,24 @@
       "name": "BusinessMetricsSpecKpis",
       "sectionId": "BMSK",
       "doc": "KPI and customer outcome metrics.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+        ],
+        "connotation": "Key performance indicators that track customer outcomes and satisfaction."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+            ],
+            "connotation": "Key performance indicators that track customer outcomes and satisfaction."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25500,12 +26151,14 @@
             {
               "name": "conversionRate",
               "label": "Conversion Rate",
+              "hint": "Percentage of users who convert",
               "type": "bool",
               "required": false
             },
             {
               "name": "churnRate",
               "label": "Churn Rate",
+              "hint": "Percentage of customers lost over time",
               "type": "bool",
               "required": false
             },
@@ -25531,7 +26184,24 @@
       "name": "BusinessMetricsSpecOperations",
       "sectionId": "BMSO",
       "doc": "Real-time dashboard and notes.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "RED method — rate, errors, duration (service metrics)"
+        ],
+        "connotation": "Real-time operational dashboards that surface live business metrics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "RED method — rate, errors, duration (service metrics)"
+            ],
+            "connotation": "Real-time operational dashboards that surface live business metrics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25569,6 +26239,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional business operations notes",
               "type": "String",
               "required": false
             }
@@ -25580,7 +26251,24 @@
       "name": "BusinessMetricsSpecTransactions",
       "sectionId": "BMST",
       "doc": "Transaction and revenue metrics.",
+      "standardReferences": {
+        "standards": [
+          "RED method — rate, errors, duration (service metrics)",
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+        ],
+        "connotation": "Volume, value, and success rates of business transactions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RED method — rate, errors, duration (service metrics)",
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+            ],
+            "connotation": "Volume, value, and success rates of business transactions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28133,7 +28821,26 @@
       "sectionId": "CPS",
       "doc": "8.7.3. Capacity Planning.",
       "help": "Specify capacity planning requirements including growth projections,\nscaling triggers, and resource management. Proactive capacity planning\nprevents performance degradation and outages.\n\n**Growth Projections**:\n- User growth forecasts (monthly, yearly)\n- Data volume growth estimates\n- Transaction/request volume projections\n- Storage growth calculations\n- Geographic expansion plans\n\n**Capacity Metrics**:\n- CPU utilization thresholds\n- Memory consumption patterns\n- Storage capacity and growth rate\n- Network bandwidth utilization\n- Database connection pools\n\n**Scaling Triggers**:\n- Auto-scaling metric thresholds\n- Manual scaling decision criteria\n- Lead time for capacity additions\n- Burst capacity requirements\n- Cost vs. performance trade-offs\n\n**Resource Baselines**:\n- Current resource utilization\n- Peak vs. average patterns\n- Seasonal variations\n- Performance benchmarks\n- Efficiency metrics\n\n**Capacity Review Process**:\n- Review frequency (monthly, quarterly)\n- Forecasting methodology\n- Budget allocation process\n- Capacity planning tools\n- Stakeholder reporting\n",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process",
+          "AWS Well-Architected — reliability pillar (workload scaling)"
+        ],
+        "connotation": "Defines the overall capacity planning approach covering growth projections, scaling triggers, baselines, and review cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process",
+              "AWS Well-Architected — reliability pillar (workload scaling)"
+            ],
+            "connotation": "Defines the overall capacity planning approach covering growth projections, scaling triggers, baselines, and review cadence."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -28281,7 +28988,24 @@
       "name": "CapacityReviewProcess",
       "sectionId": "CAREPR",
       "doc": "Capacity review process.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — capacity management process",
+          "ITIL 4 — capacity and performance management"
+        ],
+        "connotation": "Defines the recurring review cadence, participants, and checklist that govern ongoing capacity management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — capacity management process",
+              "ITIL 4 — capacity and performance management"
+            ],
+            "connotation": "Defines the recurring review cadence, participants, and checklist that govern ongoing capacity management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28383,7 +29107,24 @@
       "name": "CapacityReviewProcessEscalation",
       "sectionId": "CRPE",
       "doc": "Escalation and emergency scaling decisions for capacity review.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — capacity and performance management",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "Defines capacity alert thresholds, escalation procedures, and emergency scaling steps for the capacity review process."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — capacity and performance management",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "Defines capacity alert thresholds, escalation procedures, and emergency scaling steps for the capacity review process."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28440,7 +29181,24 @@
       "name": "CapacityReviewProcessMonitoring",
       "sectionId": "CAREPRMO",
       "doc": "Monitoring and forecasting inputs for capacity review.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Captures the dashboards, trend analysis, and forecasting models that feed capacity review decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Captures the dashboards, trend analysis, and forecasting models that feed capacity review decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -28497,7 +29255,24 @@
       "name": "CapacityReviewProcessPlanning",
       "sectionId": "CRPP",
       "doc": "Budgeting and rightsizing planning for capacity review.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — capacity management process",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Captures budget integration, procurement lead time, and rightsizing decisions produced by the capacity review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — capacity management process",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Captures budget integration, procurement lead time, and rightsizing decisions produced by the capacity review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57436,7 +58211,24 @@
       "name": "CustomMetricEntry",
       "sectionId": "CUSMETENT",
       "doc": "A custom metric entry.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — metric types and exposition format",
+          "OpenTelemetry — metrics, traces, and logs"
+        ],
+        "connotation": "A single custom application metric with its type, unit, and labels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — metric types and exposition format",
+              "OpenTelemetry — metrics, traces, and logs"
+            ],
+            "connotation": "A single custom application metric with its type, unit, and labels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57481,6 +58273,7 @@
             {
               "name": "metricDescription",
               "label": "Metric Description",
+              "hint": "What this metric measures",
               "type": "String",
               "required": false
             },
@@ -57522,6 +58315,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional notes for this custom metric",
               "type": "String",
               "required": false
             }
@@ -60701,7 +61495,24 @@
       "name": "DashboardEntry",
       "sectionId": "DASENT",
       "doc": "A dashboard entry.",
+      "standardReferences": {
+        "standards": [
+          "Grafana — dashboard and panel design",
+          "Google SRE — monitoring and dashboards (the four golden signals)"
+        ],
+        "connotation": "A single monitoring dashboard entry describing its identity, category and audience."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Grafana — dashboard and panel design",
+              "Google SRE — monitoring and dashboards (the four golden signals)"
+            ],
+            "connotation": "A single monitoring dashboard entry describing its identity, category and audience."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60732,12 +61543,14 @@
             {
               "name": "dashboardId",
               "label": "Dashboard ID",
+              "hint": "Unique dashboard identifier",
               "type": "String",
               "required": true
             },
             {
               "name": "dashboardName",
               "label": "Dashboard Name",
+              "hint": "Human-readable dashboard name",
               "type": "String",
               "required": true
             },
@@ -60793,7 +61606,24 @@
       "name": "DashboardEntryConfiguration",
       "sectionId": "DAENCO",
       "doc": "Refresh and data composition details.",
+      "standardReferences": {
+        "standards": [
+          "Grafana — dashboard and panel design",
+          "OpenTelemetry — observability signals"
+        ],
+        "connotation": "Refresh cadence, time range and data source configuration for a monitoring dashboard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Grafana — dashboard and panel design",
+              "OpenTelemetry — observability signals"
+            ],
+            "connotation": "Refresh cadence, time range and data source configuration for a monitoring dashboard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60824,6 +61654,7 @@
             {
               "name": "refreshInterval",
               "label": "Refresh Interval",
+              "hint": "How often the dashboard refreshes",
               "type": "String",
               "required": false
             },
@@ -60856,7 +61687,24 @@
       "name": "DashboardEntryOperations",
       "sectionId": "DAENOP",
       "doc": "Alert ownership and notes.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and dashboards (the four golden signals)",
+          "ISO/IEC 20000 — service reporting"
+        ],
+        "connotation": "Ownership, alert integration and operational notes for a monitoring dashboard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and dashboards (the four golden signals)",
+              "ISO/IEC 20000 — service reporting"
+            ],
+            "connotation": "Ownership, alert integration and operational notes for a monitoring dashboard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60894,12 +61742,14 @@
             {
               "name": "ownerTeam",
               "label": "Owner Team",
+              "hint": "Team that owns this dashboard",
               "type": "String",
               "required": false
             },
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional operational notes",
               "type": "String",
               "required": false
             }
@@ -61348,7 +62198,24 @@
       "name": "DashboardTemplates",
       "sectionId": "DATE",
       "doc": "Dashboard templates specification.",
+      "standardReferences": {
+        "standards": [
+          "Grafana — dashboard and panel design",
+          "AWS Well-Architected — operational excellence (observability)"
+        ],
+        "connotation": "Reusable dashboard templates that standardize layouts across services and infrastructure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Grafana — dashboard and panel design",
+              "AWS Well-Architected — operational excellence (observability)"
+            ],
+            "connotation": "Reusable dashboard templates that standardize layouts across services and infrastructure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61428,6 +62295,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional template notes",
               "type": "String",
               "required": false
             }
@@ -66099,7 +66967,24 @@
       "name": "DataGrowthProjections",
       "sectionId": "DAGRPR",
       "doc": "Data growth projections.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Projects data, database, and file-storage growth to drive storage capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Projects data, database, and file-storage growth to drive storage capacity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -66216,7 +67101,24 @@
       "name": "DataGrowthProjectionsGrowth",
       "sectionId": "DGPG",
       "doc": "Growth-rate assumptions.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Captures data growth rate, volume per user, and transaction growth assumptions driving capacity forecasts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Captures data growth rate, volume per user, and transaction growth assumptions driving capacity forecasts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -66273,7 +67175,24 @@
       "name": "DataGrowthProjectionsLifecycle",
       "sectionId": "DGPL",
       "doc": "Data lifecycle strategy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — capacity management process",
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+        ],
+        "connotation": "Defines retention, archival, cleanup, and compression policies that manage data-storage capacity over time."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — capacity management process",
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+            ],
+            "connotation": "Defines retention, archival, cleanup, and compression policies that manage data-storage capacity over time."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -66337,7 +67256,24 @@
       "name": "DataGrowthProjectionsProjections",
       "sectionId": "DGPP",
       "doc": "Volume projections.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Projects total data volume at 6, 12, and 24 months to inform storage capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Projects total data volume at 6, 12, and 24 months to inform storage capacity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -66394,7 +67330,24 @@
       "name": "DataGrowthProjectionsThresholds",
       "sectionId": "DGPT",
       "doc": "Thresholds and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — capacity management process",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Defines storage alert thresholds and partitioning strategy that govern data-growth capacity limits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — capacity management process",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Defines storage alert thresholds and partitioning strategy that govern data-growth capacity limits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77492,7 +78445,26 @@
       "name": "DependencyHealthMonitoring",
       "sectionId": "DEHEMO",
       "doc": "Dependency health monitoring.",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring",
+          "AWS Well-Architected — reliability pillar (health checks)"
+        ],
+        "connotation": "Specifies how the system verifies the health of its downstream dependencies such as databases, caches, queues, and external services."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring",
+              "AWS Well-Architected — reliability pillar (health checks)"
+            ],
+            "connotation": "Specifies how the system verifies the health of its downstream dependencies such as databases, caches, queues, and external services."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77609,7 +78581,24 @@
       "name": "DependencyHealthMonitoringCache",
       "sectionId": "DHMC",
       "doc": "Cache subsystem checks.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — health checking and monitoring",
+          "OpenTelemetry — observability signals"
+        ],
+        "connotation": "Specifies health checks for the cache subsystem including ping, memory, and eviction-rate monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — health checking and monitoring",
+              "OpenTelemetry — observability signals"
+            ],
+            "connotation": "Specifies health checks for the cache subsystem including ping, memory, and eviction-rate monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77659,7 +78648,24 @@
       "name": "DependencyHealthMonitoringExternal",
       "sectionId": "DHME",
       "doc": "External service and certificate checks.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — health checking and monitoring",
+          "ISO/IEC 20000 — service availability management"
+        ],
+        "connotation": "Specifies connectivity, certificate-expiry, and DNS-resolution checks for the external service dependencies of the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — health checking and monitoring",
+              "ISO/IEC 20000 — service availability management"
+            ],
+            "connotation": "Specifies connectivity, certificate-expiry, and DNS-resolution checks for the external service dependencies of the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77716,7 +78722,24 @@
       "name": "DependencyHealthMonitoringQueue",
       "sectionId": "DHMQ",
       "doc": "Queue and dead-letter monitoring.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — health checking and monitoring",
+          "OpenTelemetry — observability signals"
+        ],
+        "connotation": "Defines health monitoring of message queues including queue depth, consumer lag, and dead-letter-queue accumulation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — health checking and monitoring",
+              "OpenTelemetry — observability signals"
+            ],
+            "connotation": "Defines health monitoring of message queues including queue depth, consumer lag, and dead-letter-queue accumulation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77766,7 +78789,24 @@
       "name": "DependencyHealthMonitoringThresholds",
       "sectionId": "DHMT",
       "doc": "Thresholds and cascade protection settings.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — health checking and monitoring",
+          "AWS Well-Architected — reliability pillar (health checks)"
+        ],
+        "connotation": "Defines the thresholds that mark a dependency degraded or unavailable and the cascade-protection settings that prevent one failure from spreading."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — health checking and monitoring",
+              "AWS Well-Architected — reliability pillar (health checks)"
+            ],
+            "connotation": "Defines the thresholds that mark a dependency degraded or unavailable and the cascade-protection settings that prevent one failure from spreading."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -86787,7 +87827,24 @@
       "name": "DistributedTracingSpec",
       "sectionId": "DITRSP",
       "doc": "Distributed tracing specification.",
+      "standardReferences": {
+        "standards": [
+          "W3C Trace Context — distributed trace propagation",
+          "OpenTelemetry — metrics, traces, and logs"
+        ],
+        "connotation": "How requests are traced end to end across distributed services."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C Trace Context — distributed trace propagation",
+              "OpenTelemetry — metrics, traces, and logs"
+            ],
+            "connotation": "How requests are traced end to end across distributed services."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -86889,7 +87946,24 @@
       "name": "DistributedTracingSpecOperations",
       "sectionId": "DTSO",
       "doc": "Correlation and retention.",
+      "standardReferences": {
+        "standards": [
+          "W3C Trace Context — distributed trace propagation",
+          "OpenTelemetry — metrics, traces, and logs"
+        ],
+        "connotation": "How traces are correlated with logs and metrics and how long they are kept."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C Trace Context — distributed trace propagation",
+              "OpenTelemetry — metrics, traces, and logs"
+            ],
+            "connotation": "How traces are correlated with logs and metrics and how long they are kept."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -86948,6 +88022,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional tracing correlation notes",
               "type": "String",
               "required": false
             }
@@ -86959,7 +88034,24 @@
       "name": "DistributedTracingSpecSampling",
       "sectionId": "DTSS",
       "doc": "Sampling strategy.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — metrics, traces, and logs",
+          "W3C Trace Context — distributed trace propagation"
+        ],
+        "connotation": "How the volume of collected traces is reduced through head and tail sampling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — metrics, traces, and logs",
+              "W3C Trace Context — distributed trace propagation"
+            ],
+            "connotation": "How the volume of collected traces is reduced through head and tail sampling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87023,7 +88115,24 @@
       "name": "DistributedTracingSpecSpans",
       "sectionId": "DITRSPSP",
       "doc": "Span metadata.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — metrics, traces, and logs",
+          "W3C Trace Context — distributed trace propagation"
+        ],
+        "connotation": "The attributes and naming conventions applied to trace spans."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — metrics, traces, and logs",
+              "W3C Trace Context — distributed trace propagation"
+            ],
+            "connotation": "The attributes and naming conventions applied to trace spans."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -98043,7 +99152,24 @@
       "name": "ErrorBudgetTracking",
       "sectionId": "ERBUTR",
       "doc": "Error budget tracking.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — error budgets",
+          "Google SRE — service level objectives (SLOs and SLIs)"
+        ],
+        "connotation": "Tracks the error budget derived from the service level objectives."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — error budgets",
+              "Google SRE — service level objectives (SLOs and SLIs)"
+            ],
+            "connotation": "Tracks the error budget derived from the service level objectives."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -98137,7 +99263,24 @@
       "name": "ErrorBudgetTrackingGovernance",
       "sectionId": "EBTG",
       "doc": "Recovery policy and attribution rules.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — error budgets",
+          "ITIL 4 — service level management practice"
+        ],
+        "connotation": "Recovery and attribution rules applied when the error budget is spent."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — error budgets",
+              "ITIL 4 — service level management practice"
+            ],
+            "connotation": "Recovery and attribution rules applied when the error budget is spent."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -98196,6 +99339,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Free-form governance notes",
               "type": "String",
               "required": false
             }
@@ -98207,7 +99351,24 @@
       "name": "ErrorBudgetTrackingMonitoring",
       "sectionId": "EBTM",
       "doc": "Burn-rate monitoring thresholds.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — error budgets",
+          "Google SRE — service level objectives (SLOs and SLIs)"
+        ],
+        "connotation": "Thresholds that watch how quickly the error budget burns down."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — error budgets",
+              "Google SRE — service level objectives (SLOs and SLIs)"
+            ],
+            "connotation": "Thresholds that watch how quickly the error budget burns down."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117075,7 +118236,26 @@
       "name": "HealthCheckEndpoints",
       "sectionId": "HECHEN",
       "doc": "Health check endpoint requirements.",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring",
+          "The Twelve-Factor App — disposability (fast startup, graceful shutdown)"
+        ],
+        "connotation": "Defines the liveness, readiness, startup, and deep-health endpoints the system exposes so orchestrators can probe its state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring",
+              "The Twelve-Factor App — disposability (fast startup, graceful shutdown)"
+            ],
+            "connotation": "Defines the liveness, readiness, startup, and deep-health endpoints the system exposes so orchestrators can probe its state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117191,7 +118371,24 @@
       "name": "HealthCheckEndpointsConfiguration",
       "sectionId": "HCEC",
       "doc": "Response configuration.",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Specifies the health check port, response format, and success/failure status codes returned by the endpoints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Specifies the health check port, response format, and success/failure status codes returned by the endpoints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117255,7 +118452,24 @@
       "name": "HealthCheckEndpointsContent",
       "sectionId": "HECHENCO",
       "doc": "Response content settings.",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Specifies what detail a health check response includes such as component status, version, uptime, and redaction of sensitive data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Specifies what detail a health check response includes such as component status, version, uptime, and redaction of sensitive data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117333,7 +118547,24 @@
       "name": "HealthCheckEndpointsTiming",
       "sectionId": "HCET",
       "doc": "Timing thresholds.",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Defines the check interval, timeout, and failure/success thresholds that govern how probes decide a service is healthy or unhealthy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Defines the check interval, timeout, and failure/success thresholds that govern how probes decide a service is healthy or unhealthy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117398,7 +118629,26 @@
       "sectionId": "HCADS",
       "doc": "8.7.2.1. Health Checks and Diagnostics.",
       "help": "Specify health check, diagnostics, and troubleshooting requirements.\nHealth checks enable rapid problem detection and automated remediation.\n\n**Health Check Types**:\n- **Liveness**: Is the process alive? (restart if not)\n- **Readiness**: Is the service ready for traffic? (remove from LB if not)\n- **Startup**: Is the service still starting? (give more time)\n- **Deep Health**: Are all dependencies healthy?\n\n**Health Check Endpoints**:\n- Standard endpoints (/health, /ready, /live)\n- Response format (JSON with details)\n- Performance requirements (fast, non-blocking)\n- Authentication considerations\n\n**Diagnostics Capabilities**:\n- Real-time log access\n- Distributed tracing\n- Request/response capture (debug mode)\n- Performance profiling\n- Memory and CPU analysis\n\n**Troubleshooting Tools**:\n- Log search and filtering\n- Trace correlation\n- Error aggregation and analysis\n- Dependency graph visualization\n- Runbook integration\n\n**Self-Healing**:\n- Automatic restart on failure\n- Circuit breaker activation\n- Traffic rerouting\n- Resource scaling\n- Alerting and escalation\n",
+      "standardReferences": {
+        "standards": [
+          "Kubernetes — liveness, readiness, and startup probes",
+          "Google SRE — health checking and monitoring",
+          "AWS Well-Architected — reliability pillar (health checks)"
+        ],
+        "connotation": "Defines the health check, diagnostics, troubleshooting, and self-healing requirements that enable rapid problem detection and automated remediation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Kubernetes — liveness, readiness, and startup probes",
+              "Google SRE — health checking and monitoring",
+              "AWS Well-Architected — reliability pillar (health checks)"
+            ],
+            "connotation": "Defines the health check, diagnostics, troubleshooting, and self-healing requirements that enable rapid problem detection and automated remediation."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -123486,7 +124736,24 @@
       "name": "InfrastructureMetricsSpec",
       "sectionId": "INMESP",
       "doc": "Infrastructure metrics specification.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "Prometheus — metric types and exposition format"
+        ],
+        "connotation": "Metrics for compute, memory, disk, and network infrastructure resources."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "Prometheus — metric types and exposition format"
+            ],
+            "connotation": "Metrics for compute, memory, disk, and network infrastructure resources."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123595,7 +124862,24 @@
       "name": "InfrastructureMetricsSpecCloud",
       "sectionId": "IMSC",
       "doc": "Cloud-managed services and edge metrics.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "Prometheus — metric types and exposition format"
+        ],
+        "connotation": "Metrics from cloud provider managed services and edge infrastructure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "Prometheus — metric types and exposition format"
+            ],
+            "connotation": "Metrics from cloud provider managed services and edge infrastructure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123659,7 +124943,24 @@
       "name": "InfrastructureMetricsSpecCost",
       "sectionId": "INMESPCO",
       "doc": "Cost attribution and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "Prometheus — metric types and exposition format"
+        ],
+        "connotation": "How infrastructure cost is attributed and tracked as a metric."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "Prometheus — metric types and exposition format"
+            ],
+            "connotation": "How infrastructure cost is attributed and tracked as a metric."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123697,6 +124998,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional cost attribution notes",
               "type": "String",
               "required": false
             }
@@ -123708,7 +125010,24 @@
       "name": "InfrastructureMetricsSpecKubernetes",
       "sectionId": "IMSK",
       "doc": "Container and orchestration metrics.",
+      "standardReferences": {
+        "standards": [
+          "Prometheus — metric types and exposition format",
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+        ],
+        "connotation": "Metrics for containers, pods, nodes, and deployments in the orchestrator."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Prometheus — metric types and exposition format",
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)"
+            ],
+            "connotation": "Metrics for containers, pods, nodes, and deployments in the orchestrator."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141338,7 +142657,24 @@
       "name": "LogAggregationRequirements",
       "sectionId": "LOAGRE",
       "doc": "Log aggregation and analysis requirements.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Defines the log aggregation platform, format, levels, and analysis requirements for centralized logging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Defines the log aggregation platform, format, levels, and analysis requirements for centralized logging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141447,7 +142783,24 @@
       "name": "LogAggregationRequirementsAnalysis",
       "sectionId": "LARA",
       "doc": "Search and analysis capabilities.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "Google SRE — health checking and monitoring"
+        ],
+        "connotation": "Specifies log search, trace-correlation, saved queries, and log-based alerting used to analyze aggregated logs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "Google SRE — health checking and monitoring"
+            ],
+            "connotation": "Specifies log search, trace-correlation, saved queries, and log-based alerting used to analyze aggregated logs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141525,7 +142878,24 @@
       "name": "LogAggregationRequirementsCollection",
       "sectionId": "LARC",
       "doc": "Dynamic configuration and collection settings.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — observability signals",
+          "The Twelve-Factor App — disposability (fast startup, graceful shutdown)"
+        ],
+        "connotation": "Specifies dynamic log-level changes and the collection, shipping, buffering, and sampling settings for log ingestion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — observability signals",
+              "The Twelve-Factor App — disposability (fast startup, graceful shutdown)"
+            ],
+            "connotation": "Specifies dynamic log-level changes and the collection, shipping, buffering, and sampling settings for log ingestion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141596,7 +142966,24 @@
       "name": "LogAggregationRequirementsRetention",
       "sectionId": "LARR",
       "doc": "Retention and archival settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — service availability management",
+          "OpenTelemetry — observability signals"
+        ],
+        "connotation": "Defines log retention periods, archival policy, and regulatory-compliance retention for aggregated logs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — service availability management",
+              "OpenTelemetry — observability signals"
+            ],
+            "connotation": "Defines log retention periods, archival policy, and regulatory-compliance retention for aggregated logs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146468,7 +147855,26 @@
       "name": "MetricsAndObservability",
       "sectionId": "MEANOB",
       "doc": "8.7.2.3. Metrics and Observability.\n\nComprehensive metrics collection, distributed tracing, and observability\nrequirements.",
+      "standardReferences": {
+        "standards": [
+          "OpenTelemetry — metrics, traces, and logs",
+          "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+          "The Twelve-Factor App — logs as event streams"
+        ],
+        "connotation": "The overall metrics, tracing, and observability strategy for the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenTelemetry — metrics, traces, and logs",
+              "Google SRE — the four golden signals (latency, traffic, errors, saturation)",
+              "The Twelve-Factor App — logs as event streams"
+            ],
+            "connotation": "The overall metrics, tracing, and observability strategy for the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146499,18 +147905,21 @@
             {
               "name": "metricsEnabled",
               "label": "Metrics Enabled",
+              "hint": "Whether metrics collection is enabled",
               "type": "bool",
               "required": false
             },
             {
               "name": "logsEnabled",
               "label": "Logs Enabled",
+              "hint": "Whether log collection is enabled",
               "type": "bool",
               "required": false
             },
             {
               "name": "tracesEnabled",
               "label": "Traces Enabled",
+              "hint": "Whether distributed tracing is enabled",
               "type": "bool",
               "required": false
             },
@@ -146645,10 +148054,26 @@
           "name": "customMetrics",
           "kind": "list",
           "doc": "Custom metrics catalog.",
+          "help": "Add one entry per custom metric.",
           "sectionId": "CUMEEN-CUST-LST",
           "sectionIdPattern": "CUMEEN-CUST-xxx",
+          "standardReferences": {
+            "standards": [
+              "Prometheus — metric types and exposition format"
+            ],
+            "connotation": "The catalog of custom application metrics the system emits."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Prometheus — metric types and exposition format"
+                ],
+                "connotation": "The catalog of custom application metrics the system emits."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -146659,6 +148084,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CUMEEN-CUST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per custom metric."
               }
             },
             {
@@ -154929,7 +156360,26 @@
       "name": "Monitoring",
       "sectionId": "MONITO",
       "doc": "8.7.2. Monitoring.\n\nComprehensive monitoring specification covering health checks, alerting,\nobservability, dashboards, and SLA/SLO tracking.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and alerting (the four golden signals)",
+          "OpenTelemetry — observability signals",
+          "ITIL 4 — monitoring and event management practice"
+        ],
+        "connotation": "The overall monitoring approach spanning health, alerting, and observability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and alerting (the four golden signals)",
+              "OpenTelemetry — observability signals",
+              "ITIL 4 — monitoring and event management practice"
+            ],
+            "connotation": "The overall monitoring approach spanning health, alerting, and observability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -155583,7 +157033,24 @@
       "name": "MonitoringDashboards",
       "sectionId": "MODA",
       "doc": "8.7.2.4. Monitoring Dashboards.\n\nOperational dashboards for system monitoring.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — monitoring and dashboards (the four golden signals)",
+          "Grafana — dashboard and panel design"
+        ],
+        "connotation": "Operational dashboards used to visualize and monitor the health of the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — monitoring and dashboards (the four golden signals)",
+              "Grafana — dashboard and panel design"
+            ],
+            "connotation": "Operational dashboards used to visualize and monitor the health of the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -155703,10 +157170,26 @@
           "name": "dashboards",
           "kind": "list",
           "doc": "Dashboard catalog.",
+          "help": "Add one entry per dashboard.",
           "sectionId": "DAEN-DASH-LST",
           "sectionIdPattern": "DAEN-DASH-xxx",
+          "standardReferences": {
+            "standards": [
+              "Grafana — dashboard and panel design"
+            ],
+            "connotation": "The catalog of monitoring dashboards the system provides."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Grafana — dashboard and panel design"
+                ],
+                "connotation": "The catalog of monitoring dashboards the system provides."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -155717,6 +157200,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DAEN-DASH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per dashboard."
               }
             },
             {
@@ -155733,10 +157222,26 @@
           "name": "dashboardTemplates",
           "kind": "list",
           "doc": "Dashboard template specifications.",
+          "help": "Add one entry per dashboard template.",
           "sectionId": "DATE-DASH-LST",
           "sectionIdPattern": "DATE-DASH-xxx",
+          "standardReferences": {
+            "standards": [
+              "Grafana — dashboard and panel design"
+            ],
+            "connotation": "The catalog of reusable dashboard templates the system provides."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Grafana — dashboard and panel design"
+                ],
+                "connotation": "The catalog of reusable dashboard templates the system provides."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -155747,6 +157252,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DATE-DASH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per dashboard template."
               }
             },
             {
@@ -164881,7 +166392,24 @@
       "name": "OnCallScheduleConfig",
       "sectionId": "OCSC",
       "doc": "On-call schedule configuration.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — being on-call and incident response",
+          "PagerDuty / on-call — escalation policy design"
+        ],
+        "connotation": "How on-call rotations and duties are configured for the team."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — being on-call and incident response",
+              "PagerDuty / on-call — escalation policy design"
+            ],
+            "connotation": "How on-call rotations and duties are configured for the team."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164975,7 +166503,24 @@
       "name": "OnCallScheduleConfigCoverage",
       "sectionId": "OCSCC",
       "doc": "Override and coverage handling.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "How on-call shift overrides and holiday coverage are managed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "How on-call shift overrides and holiday coverage are managed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165032,7 +166577,24 @@
       "name": "OnCallScheduleConfigOperations",
       "sectionId": "OCSCO",
       "doc": "Compensation and tooling support.",
+      "standardReferences": {
+        "standards": [
+          "PagerDuty / on-call — escalation policy design",
+          "Google SRE — being on-call and incident response"
+        ],
+        "connotation": "How on-call compensation and scheduling tooling are handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PagerDuty / on-call — escalation policy design",
+              "Google SRE — being on-call and incident response"
+            ],
+            "connotation": "How on-call compensation and scheduling tooling are handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165091,6 +166653,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Additional on-call operations notes",
               "type": "String",
               "required": false
             }
@@ -172870,7 +174433,24 @@
       "name": "PeakLoadPatterns",
       "sectionId": "PELOPA",
       "doc": "Peak load patterns.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "AWS Well-Architected — reliability pillar (workload scaling)"
+        ],
+        "connotation": "Describes daily, weekly, monthly, and yearly peak-load patterns that drive capacity provisioning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "AWS Well-Architected — reliability pillar (workload scaling)"
+            ],
+            "connotation": "Describes daily, weekly, monthly, and yearly peak-load patterns that drive capacity provisioning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -172979,7 +174559,24 @@
       "name": "PeakLoadPatternsCapacity",
       "sectionId": "PLPC",
       "doc": "Load multipliers.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "AWS Well-Architected — reliability pillar (workload scaling)"
+        ],
+        "connotation": "Captures peak-to-average ratios, burst capacity, and graceful-degradation plans for extreme load."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "AWS Well-Architected — reliability pillar (workload scaling)"
+            ],
+            "connotation": "Captures peak-to-average ratios, burst capacity, and graceful-degradation plans for extreme load."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -173036,7 +174633,24 @@
       "name": "PeakLoadPatternsMetrics",
       "sectionId": "PLPM",
       "doc": "Peak metrics.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Captures peak RPS, concurrent sessions, and response-time targets that define the workload capacity envelope."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Captures peak RPS, concurrent sessions, and response-time targets that define the workload capacity envelope."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -173100,7 +174714,24 @@
       "name": "PeakLoadPatternsTesting",
       "sectionId": "PLPT",
       "doc": "Testing regime.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+        ],
+        "connotation": "Defines the load-testing cadence, tools, and benchmark baselines used to validate peak capacity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+            ],
+            "connotation": "Defines the load-testing cadence, tools, and benchmark baselines used to validate peak capacity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207013,7 +208644,24 @@
       "name": "ResourceCapacityBaselines",
       "sectionId": "RECABA",
       "doc": "Resource capacity baselines.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Establishes normal CPU, memory, and instance-count baselines against which growth and scaling are measured."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Establishes normal CPU, memory, and instance-count baselines against which growth and scaling are measured."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207130,7 +208778,24 @@
       "name": "ResourceCapacityBaselinesCost",
       "sectionId": "RCBC",
       "doc": "Cost baselines and notes.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — reliability pillar (workload scaling)",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Establishes baseline infrastructure cost, cost per user, and projected cost at target scale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — reliability pillar (workload scaling)",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Establishes baseline infrastructure cost, cost per user, and projected cost at target scale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207194,7 +208859,24 @@
       "name": "ResourceCapacityBaselinesDatabase",
       "sectionId": "RCBD",
       "doc": "Database baselines.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Records normal database connection-pool usage, query volume, and on-disk size as capacity baselines."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Records normal database connection-pool usage, query volume, and on-disk size as capacity baselines."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207251,7 +208933,24 @@
       "name": "ResourceCapacityBaselinesNetwork",
       "sectionId": "RCBN",
       "doc": "Network baselines.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Records normal network bandwidth and active connection counts as capacity baselines."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Records normal network bandwidth and active connection counts as capacity baselines."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -207301,7 +209000,24 @@
       "name": "ResourceCapacityBaselinesStorage",
       "sectionId": "RCBS",
       "doc": "Storage baselines.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Records normal storage IOPS and throughput as capacity baselines for the workload."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Records normal storage IOPS and throughput as capacity baselines for the workload."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219346,7 +221062,24 @@
       "name": "ScalingTriggersAndThresholds",
       "sectionId": "STAT",
       "doc": "Scaling triggers and thresholds.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — reliability pillar (workload scaling)",
+          "Google SRE — capacity planning and demand forecasting"
+        ],
+        "connotation": "Defines the CPU thresholds and aggregate signals that trigger horizontal or vertical scaling of the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — reliability pillar (workload scaling)",
+              "Google SRE — capacity planning and demand forecasting"
+            ],
+            "connotation": "Defines the CPU thresholds and aggregate signals that trigger horizontal or vertical scaling of the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219456,7 +221189,24 @@
       "name": "ScalingTriggersAndThresholdsBehavior",
       "sectionId": "STATB",
       "doc": "Scaling behavior.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — reliability pillar (workload scaling)",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "Defines scaling cooldowns, min/max instance bounds, and step size that govern how the system scales."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — reliability pillar (workload scaling)",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "Defines scaling cooldowns, min/max instance bounds, and step size that govern how the system scales."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219520,7 +221270,24 @@
       "name": "ScalingTriggersAndThresholdsMemory",
       "sectionId": "STATM",
       "doc": "Memory-based thresholds.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — reliability pillar (workload scaling)",
+          "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+        ],
+        "connotation": "Defines the memory-utilization thresholds that trigger scale-up and scale-down of the workload."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — reliability pillar (workload scaling)",
+              "ISO/IEC 25010 — performance efficiency (capacity, resource utilization)"
+            ],
+            "connotation": "Defines the memory-utilization thresholds that trigger scale-up and scale-down of the workload."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219570,7 +221337,24 @@
       "name": "ScalingTriggersAndThresholdsRequest",
       "sectionId": "STATR",
       "doc": "Request-based thresholds.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — reliability pillar (workload scaling)",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "Defines request-rate, latency, and queue-depth thresholds that trigger scaling of the workload."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — reliability pillar (workload scaling)",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "Defines request-rate, latency, and queue-depth thresholds that trigger scaling of the workload."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219627,7 +221411,24 @@
       "name": "ScalingTriggersAndThresholdsType",
       "sectionId": "STATT",
       "doc": "Scaling types and providers.",
+      "standardReferences": {
+        "standards": [
+          "The Twelve-Factor App — concurrency (scale out via the process model)",
+          "AWS Well-Architected — reliability pillar (workload scaling)"
+        ],
+        "connotation": "Selects horizontal versus vertical scaling, the auto-scaling provider, and scheduled scaling for known peaks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "The Twelve-Factor App — concurrency (scale out via the process model)",
+              "AWS Well-Architected — reliability pillar (workload scaling)"
+            ],
+            "connotation": "Selects horizontal versus vertical scaling, the auto-scaling provider, and scheduled scaling for known peaks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233224,7 +235025,24 @@
       "name": "ServiceLevelIndicators",
       "sectionId": "SELEIN",
       "doc": "Service Level Indicators.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "The measurable service level indicators that drive the service level objectives."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "The measurable service level indicators that drive the service level objectives."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233319,7 +235137,24 @@
       "name": "ServiceLevelIndicatorsMeasurement",
       "sectionId": "SLIM",
       "doc": "Measurement method and location.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "Google SRE — site reliability engineering practices"
+        ],
+        "connotation": "Describes how and where service level indicators are measured."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "Google SRE — site reliability engineering practices"
+            ],
+            "connotation": "Describes how and where service level indicators are measured."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233364,6 +235199,7 @@
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Free-form measurement notes",
               "type": "String",
               "required": false
             }
@@ -233375,7 +235211,24 @@
       "name": "ServiceLevelIndicatorsPerformance",
       "sectionId": "SLIP",
       "doc": "Latency and throughput indicators.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "ISO/IEC 25010 — reliability (availability, maturity)"
+        ],
+        "connotation": "Service level indicators covering latency and throughput."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "ISO/IEC 25010 — reliability (availability, maturity)"
+            ],
+            "connotation": "Service level indicators covering latency and throughput."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233432,7 +235285,24 @@
       "name": "ServiceLevelIndicatorsQuality",
       "sectionId": "SLIQ",
       "doc": "Error, correctness, and freshness indicators.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "ISO/IEC 25010 — reliability (availability, maturity)"
+        ],
+        "connotation": "Service level indicators covering error rate, correctness, and data freshness."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "ISO/IEC 25010 — reliability (availability, maturity)"
+            ],
+            "connotation": "Service level indicators covering error rate, correctness, and data freshness."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -236951,7 +238821,26 @@
       "name": "SlaAndSloMonitoring",
       "sectionId": "SASM",
       "doc": "8.7.2.5. SLA and SLO Monitoring.\n\nService Level Agreement and Service Level Objective tracking.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "ISO/IEC 20000 — service level management",
+          "ITIL 4 — service level management practice"
+        ],
+        "connotation": "Tracks service level agreements and objectives together with their reporting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "ISO/IEC 20000 — service level management",
+              "ITIL 4 — service level management practice"
+            ],
+            "connotation": "Tracks service level agreements and objectives together with their reporting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -237079,10 +238968,26 @@
           "name": "slos",
           "kind": "list",
           "doc": "SLO catalog.",
+          "help": "Add one entry per SLO.",
           "sectionId": "SLEN-SLOS-LST",
           "sectionIdPattern": "SLEN-SLOS-xxx",
+          "standardReferences": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)"
+            ],
+            "connotation": "The catalog of service level objectives the system commits to."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Google SRE — service level objectives (SLOs and SLIs)"
+                ],
+                "connotation": "The catalog of service level objectives the system commits to."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -237093,6 +238998,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SLEN-SLOS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per SLO."
               }
             },
             {
@@ -237563,7 +239474,22 @@
       "name": "SloEntry",
       "sectionId": "SE",
       "doc": "An SLO entry.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)"
+        ],
+        "connotation": "A single service level objective the system commits to meeting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)"
+            ],
+            "connotation": "A single service level objective the system commits to meeting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -237594,24 +239520,28 @@
             {
               "name": "sloId",
               "label": "SLO ID",
+              "hint": "Unique SLO identifier",
               "type": "String",
               "required": true
             },
             {
               "name": "sloName",
               "label": "SLO Name",
+              "hint": "Human-readable SLO name",
               "type": "String",
               "required": true
             },
             {
               "name": "sloDescription",
               "label": "SLO Description",
+              "hint": "What this SLO covers",
               "type": "String",
               "required": false
             },
             {
               "name": "serviceName",
               "label": "Service Name",
+              "hint": "Service the SLO applies to",
               "type": "String",
               "required": false
             }
@@ -237653,7 +239583,24 @@
       "name": "SloEntryOperations",
       "sectionId": "SLENOP",
       "doc": "Alerting and ownership rules.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "ITIL 4 — service level management practice"
+        ],
+        "connotation": "Alerting thresholds and ownership assigned to a single service level objective."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "ITIL 4 — service level management practice"
+            ],
+            "connotation": "Alerting thresholds and ownership assigned to a single service level objective."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -237698,12 +239645,14 @@
             {
               "name": "ownerTeam",
               "label": "Owner Team",
+              "hint": "Team owning this SLO",
               "type": "String",
               "required": false
             },
             {
               "name": "notes",
               "label": "Notes",
+              "hint": "Free-form operational notes",
               "type": "String",
               "required": false
             }
@@ -237715,7 +239664,24 @@
       "name": "SloEntryTarget",
       "sectionId": "SLENTA",
       "doc": "Objective target and budget definition.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — service level objectives (SLOs and SLIs)",
+          "Google SRE — error budgets"
+        ],
+        "connotation": "Defines the target and derived error budget for a single service level objective."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — service level objectives (SLOs and SLIs)",
+              "Google SRE — error budgets"
+            ],
+            "connotation": "Defines the target and derived error budget for a single service level objective."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -251383,7 +253349,24 @@
       "name": "SystemConfigurationManagement",
       "sectionId": "SYCOMA",
       "doc": "System configuration management.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — service configuration management practice",
+          "ISO/IEC 20000 — configuration and change management"
+        ],
+        "connotation": "System configuration management specifies how the system stores and controls its configuration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — service configuration management practice",
+              "ISO/IEC 20000 — configuration and change management"
+            ],
+            "connotation": "System configuration management specifies how the system stores and controls its configuration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -251485,7 +253468,24 @@
       "name": "SystemConfigurationManagementDynamic",
       "sectionId": "SCMD",
       "doc": "Dynamic configuration and rollback behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — configuration and change management",
+          "ITIL 4 — change enablement and maintenance windows"
+        ],
+        "connotation": "Dynamic configuration and rollback behavior describe how config changes are applied live and reverted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — configuration and change management",
+              "ITIL 4 — change enablement and maintenance windows"
+            ],
+            "connotation": "Dynamic configuration and rollback behavior describe how config changes are applied live and reverted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -251549,7 +253549,24 @@
       "name": "SystemConfigurationManagementEnvironment",
       "sectionId": "SCME",
       "doc": "Environment overrides and secrets handling.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Environment overrides and secrets handling govern per-environment configuration and credential storage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Environment overrides and secrets handling govern per-environment configuration and credential storage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -251606,7 +253623,24 @@
       "name": "SystemConfigurationManagementGovernance",
       "sectionId": "SCMG",
       "doc": "Validation, diffing, and audit controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000 — configuration and change management",
+          "ITIL 4 — service configuration management practice"
+        ],
+        "connotation": "Validation, diffing, and audit controls ensure configuration changes are checked and traceable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000 — configuration and change management",
+              "ITIL 4 — service configuration management practice"
+            ],
+            "connotation": "Validation, diffing, and audit controls ensure configuration changes are checked and traceable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253398,7 +255432,24 @@
       "name": "SystemDiagnosticTools",
       "sectionId": "SYDITO",
       "doc": "System diagnostic tools.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "System diagnostic tools give operators the means to inspect and troubleshoot the running system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "System diagnostic tools give operators the means to inspect and troubleshoot the running system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253507,7 +255558,24 @@
       "name": "SystemDiagnosticToolsLogs",
       "sectionId": "SDTL",
       "doc": "Log analysis capabilities.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — operations security (A.12)",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "Log analysis capabilities let operators search and correlate log data during diagnosis."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — operations security (A.12)",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "Log analysis capabilities let operators search and correlate log data during diagnosis."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253564,7 +255632,24 @@
       "name": "SystemDiagnosticToolsSelfService",
       "sectionId": "SDTSS",
       "doc": "Self-service diagnostic entry points.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "Self-service diagnostic entry points let operators inspect the system without escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "Self-service diagnostic entry points let operators inspect the system without escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253621,7 +255706,24 @@
       "name": "SystemDiagnosticToolsTracing",
       "sectionId": "SDTT",
       "doc": "Trace and dependency inspection tools.",
+      "standardReferences": {
+        "standards": [
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+          "Google SRE — eliminating toil and operational procedures"
+        ],
+        "connotation": "Trace and dependency inspection tools reveal how requests flow across services."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "Trace and dependency inspection tools reveal how requests flow across services."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -255871,11 +257973,28 @@
       "sectionId": "SO",
       "doc": "8.7.1. System Operation.",
       "help": "Specify day-to-day system operation requirements including administration,\nmaintenance, and user management. Efficient operations reduce toil and\nimprove system reliability.\n\n**Administration Areas**:\n- System configuration management\n- User provisioning and access control\n- Service lifecycle management\n- Log management and retention\n- Secret and credential management\n\n**Maintenance Procedures**:\n- Routine maintenance tasks\n- Patch management process\n- Database maintenance (vacuuming, indexing)\n- Storage management and cleanup\n- Certificate and key rotation\n\n**Operational Automation**:\n- Infrastructure as Code\n- Configuration management (Ansible, Chef, Puppet)\n- Scheduled jobs and batch processing\n- Auto-remediation and self-healing\n- Chatops and operational bots\n\n**Documentation Requirements**:\n- Runbooks for common operations\n- Troubleshooting guides\n- Architecture documentation\n- Change management records\n- Incident postmortems\n",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — eliminating toil and operational procedures",
+          "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+        ],
+        "connotation": "System operation covers the day-to-day administration, maintenance, and user management the running system requires."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify day-to-day system operation requirements including administration,\nmaintenance, and user management. Efficient operations reduce toil and\nimprove system reliability.\n\n**Administration Areas**:\n- System configuration management\n- User provisioning and access control\n- Service lifecycle management\n- Log management and retention\n- Secret and credential management\n\n**Maintenance Procedures**:\n- Routine maintenance tasks\n- Patch management process\n- Database maintenance (vacuuming, indexing)\n- Storage management and cleanup\n- Certificate and key rotation\n\n**Operational Automation**:\n- Infrastructure as Code\n- Configuration management (Ansible, Chef, Puppet)\n- Scheduled jobs and batch processing\n- Auto-remediation and self-healing\n- Chatops and operational bots\n\n**Documentation Requirements**:\n- Runbooks for common operations\n- Troubleshooting guides\n- Architecture documentation\n- Change management records\n- Incident postmortems\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "AWS Well-Architected — operational excellence (runbooks, playbooks)"
+            ],
+            "connotation": "System operation covers the day-to-day administration, maintenance, and user management the running system requires."
           }
         },
         {
@@ -255926,10 +258045,26 @@
           "name": "maintenanceProcedures",
           "kind": "list",
           "doc": "Maintenance Procedures.",
+          "help": "Add one entry per maintenance procedure.",
           "sectionId": "MAINT-MAIN-LST",
           "sectionIdPattern": "MAINT-MAIN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ITIL 4 — change enablement and maintenance windows"
+            ],
+            "connotation": "The catalog of scheduled maintenance procedures the system requires."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ITIL 4 — change enablement and maintenance windows"
+                ],
+                "connotation": "The catalog of scheduled maintenance procedures the system requires."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -255940,6 +258075,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MAINT-MAIN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per maintenance procedure."
               }
             },
             {
@@ -255960,7 +258101,26 @@
       "doc": "8.7. System Operation and Monitoring.",
       "help": "Define system operation, monitoring, and capacity planning requirements.\nDay-to-day operations ensure the system runs reliably and efficiently.\n\n**Subsections**:\n- **System Operation**: Administration, maintenance procedures, user\n  provisioning, configuration management\n- **Monitoring**: Health checks, runtime alerting, metrics, dashboards,\n  SLA/SLO tracking, on-call, incident management\n- **Capacity Planning**: Growth projections, scaling triggers, resource\n  baselines, capacity reviews\n\n**Ownership boundary**: This section is the single owner of *runtime*\noperational monitoring (runtime SRE). Release/DevOps deployment-pipeline\nobservability is owned by SBP.8.5 `OperationsRequirements`.\n\n**Operational Excellence**:\n- Runbook-driven operations\n- Automation-first approach\n- Self-healing capabilities\n- Proactive problem detection\n- Continuous improvement\n\n**Key Operational Concerns**:\n- System availability and uptime\n- Performance and response times\n- Resource utilization efficiency\n- Security posture maintenance\n- Compliance adherence\n\n**Reference**: AWS Well-Architected Operational Excellence pillar,\nGoogle SRE practices, Azure operational best practices.\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "ISO/IEC 20000 — IT service management system",
+          "ITIL 4 — service operation and monitoring"
+        ],
+        "connotation": "Defines runtime system operation and monitoring: administration, maintenance, health checks, alerting, metrics, dashboards, SLA/SLO tracking, and capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "ISO/IEC 20000 — IT service management system",
+              "ITIL 4 — service operation and monitoring"
+            ],
+            "connotation": "Defines runtime system operation and monitoring: administration, maintenance, health checks, alerting, metrics, dashboards, SLA/SLO tracking, and capacity planning."
+          }
+        },
         {
           "name": "DetailedIn",
           "arguments": {
@@ -278579,7 +280739,24 @@
       "name": "TroubleshootingCapabilities",
       "sectionId": "TRCA",
       "doc": "Troubleshooting capabilities.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "OpenTelemetry — observability signals"
+        ],
+        "connotation": "Defines the debugging, diagnostic-dump, and request-replay capabilities used to troubleshoot the running system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "OpenTelemetry — observability signals"
+            ],
+            "connotation": "Defines the debugging, diagnostic-dump, and request-replay capabilities used to troubleshoot the running system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -278681,7 +280858,24 @@
       "name": "TroubleshootingCapabilitiesAccess",
       "sectionId": "TRCAAC",
       "doc": "Break-glass and diagnostic access controls.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "ISO/IEC 20000 — service availability management"
+        ],
+        "connotation": "Specifies audited break-glass access and diagnostic tooling used to investigate incidents in production."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "ISO/IEC 20000 — service availability management"
+            ],
+            "connotation": "Specifies audited break-glass access and diagnostic tooling used to investigate incidents in production."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -278738,7 +280932,24 @@
       "name": "TroubleshootingCapabilitiesCommunication",
       "sectionId": "TRCACO",
       "doc": "Incident communication and retrospective support.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "ISO/IEC 20000 — service availability management"
+        ],
+        "connotation": "Defines incident communication tooling and the blameless-postmortem process that supports retrospective analysis."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "ISO/IEC 20000 — service availability management"
+            ],
+            "connotation": "Defines incident communication tooling and the blameless-postmortem process that supports retrospective analysis."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -278802,7 +281013,24 @@
       "name": "TroubleshootingCapabilitiesRunbooks",
       "sectionId": "TRCARU",
       "doc": "Runbook and remediation support.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — site reliability engineering practices",
+          "AWS Well-Architected — reliability pillar (health checks)"
+        ],
+        "connotation": "Defines runbook integration and automated remediation that link alerts to known-issue fixes and correlated incident timelines."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — site reliability engineering practices",
+              "AWS Well-Architected — reliability pillar (health checks)"
+            ],
+            "connotation": "Defines runbook integration and automated remediation that link alerts to known-issue fixes and correlated incident timelines."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285092,7 +287320,24 @@
       "name": "UserGrowthProjections",
       "sectionId": "USGRPR",
       "doc": "User growth projections.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "AWS Well-Architected — reliability pillar (workload scaling)"
+        ],
+        "connotation": "Establishes current user counts and growth projections that drive downstream capacity forecasts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "AWS Well-Architected — reliability pillar (workload scaling)"
+            ],
+            "connotation": "Establishes current user counts and growth projections that drive downstream capacity forecasts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285194,7 +287439,24 @@
       "name": "UserGrowthProjectionsForecast",
       "sectionId": "UGPF",
       "doc": "Growth-rate assumptions and time-based projections.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Projects active user counts at 6 to 36 months from a stated growth rate to drive capacity forecasts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Projects active user counts at 6 to 36 months from a stated growth rate to drive capacity forecasts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285265,7 +287527,24 @@
       "name": "UserGrowthProjectionsSegmentation",
       "sectionId": "UGPS",
       "doc": "User segmentation and geographic patterns.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Captures user segments, geographic distribution, and seasonal patterns that shape demand forecasts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Captures user segments, geographic distribution, and seasonal patterns that shape demand forecasts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285322,7 +287601,24 @@
       "name": "UserGrowthProjectionsThresholds",
       "sectionId": "UGPT",
       "doc": "Capacity thresholds and planning notes.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — capacity planning and demand forecasting",
+          "ISO/IEC 20000 — capacity management process"
+        ],
+        "connotation": "Defines soft and hard user-capacity limits that trigger system review and scaling actions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — capacity planning and demand forecasting",
+              "ISO/IEC 20000 — capacity management process"
+            ],
+            "connotation": "Defines soft and hard user-capacity limits that trigger system review and scaling actions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287246,7 +289542,24 @@
       "name": "UserProvisioningTools",
       "sectionId": "USPRTO",
       "doc": "User provisioning and management tools.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "User provisioning and management tools cover how user accounts are created and managed across their lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "User provisioning and management tools cover how user accounts are created and managed across their lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287355,7 +289668,24 @@
       "name": "UserProvisioningToolsDirectoryIntegration",
       "sectionId": "UPTDI",
       "doc": "Directory integration settings.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Directory integration settings govern how user accounts synchronize with an external directory."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Directory integration settings govern how user accounts synchronize with an external directory."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287419,7 +289749,24 @@
       "name": "UserProvisioningToolsLifecycle",
       "sectionId": "UPTL",
       "doc": "Account lifecycle management.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Account lifecycle management defines how user accounts are activated, suspended, and offboarded."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Account lifecycle management defines how user accounts are activated, suspended, and offboarded."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287490,7 +289837,24 @@
       "name": "UserProvisioningToolsRoleManagement",
       "sectionId": "UPTRM",
       "doc": "Role management and reviews.",
+      "standardReferences": {
+        "standards": [
+          "CIS Controls — secure configuration and administration",
+          "ISO/IEC 27001 — operations security (A.12)"
+        ],
+        "connotation": "Role management and reviews control how roles are assigned and periodically recertified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Controls — secure configuration and administration",
+              "ISO/IEC 27001 — operations security (A.12)"
+            ],
+            "connotation": "Role management and reviews control how roles are assigned and periodically recertified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

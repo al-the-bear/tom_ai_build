@@ -19,13 +19,13 @@ section-types:
     pattern-check-id:
       pattern: ^alruen_aler_lst-\d+$
       error-message: ID must match alruen_aler_lst-NNN
-    description: Alert rules catalog.
+    description: Add one entry per alert rule.
   ALSURU-SUPP-LST:
     prefix: alsuru_supp_lst
     pattern-check-id:
       pattern: ^alsuru_supp_lst-\d+$
       error-message: ID must match alsuru_supp_lst-NNN
-    description: Alert suppression and maintenance windows.
+    description: Add one entry per suppression or maintenance window.
   BAPOEN-BACK-LST:
     prefix: bapoen_back_lst
     pattern-check-id:
@@ -73,7 +73,7 @@ section-types:
     pattern-check-id:
       pattern: ^cumeen_cust_lst-\d+$
       error-message: ID must match cumeen_cust_lst-NNN
-    description: Custom metrics catalog.
+    description: Add one entry per custom metric.
   DACOEN-DATA-LST:
     prefix: dacoen_data_lst
     pattern-check-id:
@@ -283,7 +283,7 @@ section-types:
     pattern-check-id:
       pattern: ^maint_main_lst-\d+$
       error-message: ID must match maint_main_lst-NNN
-    description: Maintenance Procedures.
+    description: Add one entry per maintenance procedure.
   MNDEP-ITEM-LST:
     prefix: mndep_item_lst
     pattern-check-id:
@@ -397,13 +397,13 @@ section-types:
     pattern-check-id:
       pattern: ^daen_dash_lst-\d+$
       error-message: ID must match daen_dash_lst-NNN
-    description: Dashboard catalog.
+    description: Add one entry per dashboard.
   DATE-DASH-LST:
     prefix: date_dash_lst
     pattern-check-id:
       pattern: ^date_dash_lst-\d+$
       error-message: ID must match date_dash_lst-NNN
-    description: Dashboard template specifications.
+    description: Add one entry per dashboard template.
   DSPT-DESI-LST:
     prefix: dspt_desi_lst
     pattern-check-id:
@@ -451,7 +451,7 @@ section-types:
     pattern-check-id:
       pattern: ^slen_slos_lst-\d+$
       error-message: ID must match slen_slos_lst-NNN
-    description: SLO catalog.
+    description: Add one entry per SLO.
   SSCE-SECU-LST:
     prefix: ssce_secu_lst
     pattern-check-id:
