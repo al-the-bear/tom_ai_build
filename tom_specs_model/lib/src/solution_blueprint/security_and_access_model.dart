@@ -9841,6 +9841,14 @@ class RegulatoryAuditSupport {
 ///
 /// Role-to-permission assignment matrix covering
 /// Authorization Model.
+@StandardReferences(
+  [
+    'NIST RBAC INCITS 359-2012 — permission-to-role assignment',
+    'NIST SP 800-53 — control AC-6 least privilege',
+    'ISO/IEC 27001:2022 — control A.5.15 access control',
+  ],
+  'The authoritative role-to-permission assignment matrix for the authorization model.',
+)
 @SectionId('ROMA')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-ROL')
@@ -9872,6 +9880,14 @@ authorization model; this section captures the concrete assignment.
 /// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 /// authorization. Pulls the compliance references currently scattered
 /// across @ContentHelp strings into an explicit section.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — control A.5.36 compliance with policies rules and standards',
+    'SOC 2 — Trust Services Criteria CC6 logical and physical access controls',
+    'NIST SP 800-53 — security and privacy control catalog',
+  ],
+  'Explicit mapping of the access and authorization controls to the compliance frameworks the project must satisfy.',
+)
 @SectionId('CF')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-CMP')
@@ -9893,6 +9909,13 @@ compliance frameworks the project must satisfy.
 }
 
 /// A single mfa detail entry.
+@StandardReferences(
+  [
+    'NIST SP 800-63B — multi-factor authentication and authenticator requirements',
+    'ISO/IEC 27001:2022 — control A.8.5 secure authentication',
+  ],
+  'A single multi-factor authentication detail entry.',
+)
 @SectionId('MFADE')
 class MfaDetailEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -9901,6 +9924,13 @@ class MfaDetailEntry {
 }
 
 /// A single step up detail entry.
+@StandardReferences(
+  [
+    'NIST SP 800-63B — reauthentication and authenticator assurance levels',
+    'OWASP ASVS 4.0 — V2 authentication verification requirements',
+  ],
+  'A single step-up authentication detail entry.',
+)
 @SectionId('STEPU')
 class StepUpDetailEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')

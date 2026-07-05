@@ -45474,7 +45474,26 @@
       "sectionId": "CF",
       "doc": "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.36 compliance with policies rules and standards",
+          "SOC 2 — Trust Services Criteria CC6 logical and physical access controls",
+          "NIST SP 800-53 — security and privacy control catalog"
+        ],
+        "connotation": "Explicit mapping of the access and authorization controls to the compliance frameworks the project must satisfy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.36 compliance with policies rules and standards",
+              "SOC 2 — Trust Services Criteria CC6 logical and physical access controls",
+              "NIST SP 800-53 — security and privacy control catalog"
+            ],
+            "connotation": "Explicit mapping of the access and authorization controls to the compliance frameworks the project must satisfy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152544,7 +152563,24 @@
       "name": "MfaDetailEntry",
       "sectionId": "MFADE",
       "doc": "A single mfa detail entry.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — multi-factor authentication and authenticator requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "A single multi-factor authentication detail entry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — multi-factor authentication and authenticator requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "A single multi-factor authentication detail entry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -221599,7 +221635,26 @@
       "sectionId": "ROMA",
       "doc": "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC INCITS 359-2012 — permission-to-role assignment",
+          "NIST SP 800-53 — control AC-6 least privilege",
+          "ISO/IEC 27001:2022 — control A.5.15 access control"
+        ],
+        "connotation": "The authoritative role-to-permission assignment matrix for the authorization model."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC INCITS 359-2012 — permission-to-role assignment",
+              "NIST SP 800-53 — control AC-6 least privilege",
+              "ISO/IEC 27001:2022 — control A.5.15 access control"
+            ],
+            "connotation": "The authoritative role-to-permission assignment matrix for the authorization model."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254739,7 +254794,24 @@
       "name": "StepUpDetailEntry",
       "sectionId": "STEPU",
       "doc": "A single step up detail entry.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — reauthentication and authenticator assurance levels",
+          "OWASP ASVS 4.0 — V2 authentication verification requirements"
+        ],
+        "connotation": "A single step-up authentication detail entry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — reauthentication and authenticator assurance levels",
+              "OWASP ASVS 4.0 — V2 authentication verification requirements"
+            ],
+            "connotation": "A single step-up authentication detail entry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
