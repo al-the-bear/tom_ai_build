@@ -300,19 +300,25 @@ class SomPythonEmitter {
         break;
       case SpecFieldKind.list:
         _writeComment(b, f.doc, '    ');
+        // A pattern-bearing list passes its `@SectionIdPattern` so the facade
+        // can auto-generate section ids on `add` (AA1 criteria 3–5); a scalar
+        // list omits it (pattern-less, `add` ignores id args).
+        final patternArg = f.sectionIdPattern != null
+            ? ", pattern=\"${_pystr(f.sectionIdPattern!)}\""
+            : '';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           b
             ..writeln('    @property')
             ..writeln('    def $acc(self):')
             ..writeln('        return SomList(self.doc, $childPath, '
-                'lambda d, p: $et(d, p))');
+                'lambda d, p: $et(d, p)$patternArg)');
         } else {
           b
             ..writeln('    @property')
             ..writeln('    def $acc(self):')
             ..writeln('        return SomList(self.doc, $childPath, '
-                'lambda d, p: SomScalar(d, p))');
+                'lambda d, p: SomScalar(d, p)$patternArg)');
         }
         break;
       case SpecFieldKind.form:

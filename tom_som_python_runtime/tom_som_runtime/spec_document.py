@@ -14,11 +14,22 @@ Three sparse stores cover the writable field kinds:
 
 List item paths are ``"<list_path>-<seq>"`` where ``seq`` is a per-list
 monotonic counter that never reuses a number.
+
+Each list item also carries a **section id** (AA1 criteria 3–6): the
+document-semantic identity generated from the list field's
+``@SectionIdPattern``. This is distinct from the internal ``-<seq>`` path key:
+the seq path keeps nested values attached across edits (never renumbered), while
+the section id is what the document exposes and may be overridden
+(:meth:`set_item_section_id`, criterion 5) or reused same-day after the last
+item is deleted (criterion 6). Section ids live in ``_item_section_id``, keyed by
+the internal item path.
 """
 
 from __future__ import annotations
 
 from typing import Any, Iterable, Optional
+
+from .spec_section_id import SpecSectionIdCollision
 
 
 class SpecDocument:
@@ -27,6 +38,7 @@ class SpecDocument:
         self._form: dict[str, dict[str, str]] = {}
         self._list_items: dict[str, list[str]] = {}
         self._list_seq: dict[str, int] = {}
+        self._item_section_id: dict[str, str] = {}
 
     # --- content ------------------------------------------------------------
 
@@ -61,14 +73,74 @@ class SpecDocument:
     def list_items(self, list_path: str) -> list[str]:
         return list(self._list_items.get(list_path, []))
 
-    def add_list_item(self, list_path: str) -> str:
+    def add_list_item(self, list_path: str, section_id: Optional[str] = None) -> str:
         """Appends a new item to the list at *list_path* and returns its stable
-        path."""
+        path.
+
+        When *section_id* is given it becomes the item's section id after a
+        uniqueness check against the list's other items (AA1 criterion 5); a
+        collision raises :class:`SpecSectionIdCollision`. Section-id
+        *generation* from a ``@SectionIdPattern`` lives in the caller (it needs
+        the pattern); this layer only stores and guards uniqueness."""
+        if section_id is not None:
+            self._assert_section_id_free(list_path, section_id, None)
         seq = self._list_seq.get(list_path, 0) + 1
         self._list_seq[list_path] = seq
         item_path = f"{list_path}-{seq}"
         self._list_items.setdefault(list_path, []).append(item_path)
+        if section_id is not None:
+            self._item_section_id[item_path] = section_id
         return item_path
+
+    def item_section_id(self, item_path: str) -> Optional[str]:
+        """The section id assigned to the list item at *item_path*, or ``None``
+        if none has been set (AA1 criterion 1 read path)."""
+        return self._item_section_id.get(item_path)
+
+    def set_item_section_id(self, item_path: str, id: str) -> None:
+        """Overrides the section id of the list item at *item_path* (AA1
+        criterion 5).
+
+        Validates that the new *id* is unique among the *other* items of the
+        same owning list; a collision raises :class:`SpecSectionIdCollision`.
+        Assigning an id equal to the item's current id is a no-op. Raises
+        :class:`ValueError` if *item_path* is not a live list item."""
+        owning_list = self._owning_list_of(item_path)
+        if owning_list is None:
+            raise ValueError(f"{item_path!r} is not a live list item")
+        if self._item_section_id.get(item_path) == id:
+            return
+        self._assert_section_id_free(owning_list, id, item_path)
+        self._item_section_id[item_path] = id
+
+    def list_item_section_ids(self, list_path: str) -> list[str]:
+        """The section ids currently assigned within the list at *list_path*, in
+        item order (items without an id are skipped). Feeds both id generation
+        (``existing_ids``) and uniqueness checks."""
+        return [
+            self._item_section_id[item_path]
+            for item_path in self._list_items.get(list_path, [])
+            if item_path in self._item_section_id
+        ]
+
+    def _owning_list_of(self, item_path: str) -> Optional[str]:
+        """The internal ``_list_items`` entry that owns *item_path*, or
+        ``None``."""
+        for key, items in self._list_items.items():
+            if item_path in items:
+                return key
+        return None
+
+    def _assert_section_id_free(
+        self, list_path: str, id: str, except_item_path: Optional[str]
+    ) -> None:
+        """Raises :class:`SpecSectionIdCollision` if *id* is already used by an
+        item of *list_path* other than *except_item_path*."""
+        for item_path in self._list_items.get(list_path, []):
+            if item_path == except_item_path:
+                continue
+            if self._item_section_id.get(item_path) == id:
+                raise SpecSectionIdCollision(id, list_path)
 
     def remove_list_item(self, item_path: str) -> bool:
         """Removes the list item at *item_path* along with every value nested
@@ -95,7 +167,13 @@ class SpecDocument:
                 or key.startswith(f"{prefix}-")
             )
 
-        for store in (self._content, self._form, self._list_items, self._list_seq):
+        for store in (
+            self._content,
+            self._form,
+            self._list_items,
+            self._list_seq,
+            self._item_section_id,
+        ):
             for key in [k for k in store if is_under(k)]:
                 store.pop(key, None)
 
@@ -157,13 +235,21 @@ class SpecDocument:
                 for k in sorted(self._form)
             }
         if self._list_items:
-            out["lists"] = {
-                k: {
+            lists: dict[str, Any] = {}
+            for k in sorted(self._list_items):
+                entry: dict[str, Any] = {
                     "seq": self._list_seq.get(k, len(self._list_items[k])),
                     "items": list(self._list_items[k]),
                 }
-                for k in sorted(self._list_items)
-            }
+                ids = {
+                    item_path: self._item_section_id[item_path]
+                    for item_path in self._list_items[k]
+                    if item_path in self._item_section_id
+                }
+                if ids:
+                    entry["ids"] = ids
+                lists[k] = entry
+            out["lists"] = lists
         return out
 
     def load_json(self, json: dict[str, Any]) -> None:
@@ -173,6 +259,7 @@ class SpecDocument:
         self._form.clear()
         self._list_items.clear()
         self._list_seq.clear()
+        self._item_section_id.clear()
 
         content = json.get("content")
         if isinstance(content, dict):
@@ -203,3 +290,8 @@ class SpecDocument:
                         self._list_seq[str(k)] = int(seq)
                     else:
                         self._list_seq[str(k)] = len(item_list)
+                    ids = spec.get("ids")
+                    if isinstance(ids, dict):
+                        for item_path, id in ids.items():
+                            if id is not None:
+                                self._item_section_id[str(item_path)] = str(id)

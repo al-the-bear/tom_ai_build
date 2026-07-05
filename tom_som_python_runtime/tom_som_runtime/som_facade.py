@@ -13,11 +13,20 @@ document and a path; the generated subclasses only add typed accessors.
 
 from __future__ import annotations
 
-from typing import Callable, Generic, List, Optional, TypeVar
+import datetime as _dt
+from typing import Callable, Generic, List, Optional, TypeVar, Union
 
 from .spec_document import SpecDocument
+from .spec_section_id import (
+    SpecSectionIdCollision,
+    generate_list_item_section_id,
+)
 
 _T = TypeVar("_T")
+
+#: Anything carrying ``month``/``day`` — a :class:`datetime.date` or
+#: :class:`datetime.datetime` — accepted for section-id date derivation.
+_DateLike = Union[_dt.date, _dt.datetime]
 
 
 class SomNode:
@@ -32,6 +41,28 @@ class SomNode:
     def __init__(self, doc: SpecDocument, path: str) -> None:
         self.doc = doc
         self.path = path
+
+    @property
+    def spec_section_id(self) -> Optional[str]:
+        """This node's section id when it is a list item (AA1 criterion 1 read),
+        or ``None`` for non-list nodes (roots, complex/section children — their
+        id is the fixed ``@SectionId`` already embedded in :attr:`path`).
+
+        Named ``spec_section_id`` — a name the Python emitter never produces for
+        a model field accessor — so this structural accessor can never collide
+        with a typed field a generated subclass emits (mirrors the Dart
+        ``$sectionId`` collision-proofing, AA-2 decision AB-D1)."""
+        return self.doc.item_section_id(self.path)
+
+    @spec_section_id.setter
+    def spec_section_id(self, id: Optional[str]) -> None:
+        """Overrides this list item's section id (AA1 criterion 5): an arbitrary
+        suffix, validated unique within the owning list. Raises
+        :class:`SpecSectionIdCollision` on a duplicate, or :class:`ValueError`
+        if this node is not a live list item."""
+        if id is None:
+            return
+        self.doc.set_item_section_id(self.path, id)
 
 
 class SomScalar(SomNode):
@@ -65,10 +96,15 @@ class SomList(Generic[_T]):
         doc: SpecDocument,
         list_path: str,
         factory: Callable[[SpecDocument, str], _T],
+        pattern: Optional[str] = None,
     ) -> None:
         self.doc = doc
         self.list_path = list_path
         self._factory = factory
+        #: The list field's ``@SectionIdPattern`` (e.g. ``DACEN-ITEM-xxx``), or
+        #: ``None`` for a pattern-less (scalar) list. Drives section-id
+        #: generation on :meth:`add` (AA1 criteria 3–5).
+        self.pattern = pattern
 
     @property
     def length(self) -> int:
@@ -87,9 +123,40 @@ class SomList(Generic[_T]):
         """The element facade for the item at ``index``."""
         return self._factory(self.doc, self.doc.list_items(self.list_path)[index])
 
-    def add(self) -> _T:
-        """Appends a new item and returns its element facade."""
-        return self._factory(self.doc, self.doc.add_list_item(self.list_path))
+    @property
+    def section_ids(self) -> List[str]:
+        """The section ids currently assigned within this list, in item
+        order."""
+        return self.doc.list_item_section_ids(self.list_path)
+
+    def add(
+        self,
+        section_id: Optional[str] = None,
+        date: Optional[_DateLike] = None,
+    ) -> _T:
+        """Appends a new item and returns its element facade.
+
+        When the list has a :attr:`pattern`, the new item is assigned a section
+        id (AA1 criteria 3–5): *section_id* if given (an override, validated
+        unique — raises :class:`SpecSectionIdCollision` on a collision),
+        otherwise one generated from the pattern using *date* (defaulting to
+        today) for the two-letter-date component. A pattern-less list ignores
+        both arguments."""
+        if self.pattern is None:
+            return self._factory(self.doc, self.doc.add_list_item(self.list_path))
+        if section_id is not None:
+            id = section_id
+        else:
+            when = date or _dt.date.today()
+            id = generate_list_item_section_id(
+                self.pattern,
+                when.month,
+                when.day,
+                self.doc.list_item_section_ids(self.list_path),
+            )
+        return self._factory(
+            self.doc, self.doc.add_list_item(self.list_path, section_id=id)
+        )
 
     def remove_at(self, index: int) -> None:
         """Removes the item at ``index`` and every value nested beneath it."""

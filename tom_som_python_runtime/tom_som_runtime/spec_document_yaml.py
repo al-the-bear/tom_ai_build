@@ -21,6 +21,8 @@ import json
 from dataclasses import dataclass
 from typing import Any, Optional
 
+from .spec_serialization_order import SpecSerializationOrder
+
 try:  # PyYAML is the decode/self-verify parser, as `package:yaml` is in Dart.
     import yaml as _yaml
 except ImportError:  # pragma: no cover - surfaced clearly at call sites.
@@ -153,7 +155,16 @@ def _write_header(b: _Buffer, model_version: Optional[str]) -> None:
         b.writeln(f"modelVersion: {json.dumps(model_version, ensure_ascii=False)}")
 
 
-def _write_document_pass(b: _Buffer, doc: dict[str, Any]) -> None:
+def _write_document_pass(
+    b: _Buffer,
+    doc: dict[str, Any],
+    order: Optional[SpecSerializationOrder] = None,
+) -> None:
+    def order_keys(m: dict) -> list[str]:
+        if order is None:
+            return _sorted_string_keys(m)
+        return order.order_paths(str(k) for k in m.keys())
+
     content = doc.get("content")
     forms = doc.get("forms")
     lists = doc.get("lists")
@@ -164,22 +175,27 @@ def _write_document_pass(b: _Buffer, doc: dict[str, Any]) -> None:
 
     if isinstance(content, dict) and content:
         b.writeln("  content:")
-        for k in _sorted_string_keys(content):
+        for k in order_keys(content):
             _write_scalar(b, 4, k, str(content[k]))
 
     if isinstance(forms, dict) and forms:
         b.writeln("  forms:")
-        for k in _sorted_string_keys(forms):
+        for k in order_keys(forms):
             fields = forms[k]
             if not isinstance(fields, dict) or not fields:
                 continue
             b.writeln(f"    {_yaml_key(k)}:")
-            for f in _sorted_string_keys(fields):
+            field_keys = (
+                _sorted_string_keys(fields)
+                if order is None
+                else order.order_form_fields(k, (str(f) for f in fields.keys()))
+            )
+            for f in field_keys:
                 _write_scalar(b, 6, f, str(fields[f]))
 
     if isinstance(lists, dict) and lists:
         b.writeln("  lists:")
-        for k in _sorted_string_keys(lists):
+        for k in order_keys(lists):
             spec = lists[k]
             if not isinstance(spec, dict):
                 continue
@@ -194,12 +210,20 @@ def _write_document_pass(b: _Buffer, doc: dict[str, Any]) -> None:
                 b.writeln("      items: []")
 
 
-def encode(document: Any, model_version: Optional[str] = None) -> str:
+def encode(
+    document: Any,
+    model_version: Optional[str] = None,
+    order: Optional[SpecSerializationOrder] = None,
+) -> str:
     """Serializes *document* (a :class:`SpecDocument`) to a header + ``version:``
-    (+ ``modelVersion:``) + ``document:`` pass."""
+    (+ ``modelVersion:``) + ``document:`` pass.
+
+    When *order* is supplied, members are emitted in ``@SerializationOrder``
+    order (AA1 criterion 7); otherwise keys stay alphabetical (the diff-stable
+    default the editor relies on)."""
     b = _Buffer()
     _write_header(b, model_version)
-    _write_document_pass(b, document.to_json())
+    _write_document_pass(b, document.to_json(), order)
     return str(b)
 
 

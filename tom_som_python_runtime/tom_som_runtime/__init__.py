@@ -18,6 +18,13 @@ from .som_facade import (
     check_som_model_version,
 )
 from .spec_document import SpecDocument
+from .spec_section_id import (
+    SpecSectionIdCollision,
+    encode_two_letter_date,
+    generate_list_item_section_id,
+    section_id_pattern_prefix,
+)
+from .spec_serialization_order import SpecSerializationOrder
 from .spec_document_markdown import (
     SpecDocumentMarkdown,
     SpecMarkdownRejectReason,
@@ -81,11 +88,16 @@ __all__ = [
     "SpecReflection",
     "SpecResolution",
     "SpecRoot",
+    "SpecSectionIdCollision",
+    "SpecSerializationOrder",
     "SpecValidationCode",
     "SpecValidationError",
     "SpecYamlContents",
     "check_som_model_version",
+    "encode_two_letter_date",
+    "generate_list_item_section_id",
     "list_item_path",
+    "section_id_pattern_prefix",
     "spec_path_join",
     "spec_path_segments",
     "split_list_item_segment",

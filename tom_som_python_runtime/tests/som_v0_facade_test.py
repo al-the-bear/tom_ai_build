@@ -23,6 +23,7 @@ is absent (emitter package not checked out) the test skips cleanly.
 
 from __future__ import annotations
 
+import datetime as _dt
 import importlib.util
 import os
 import sys
@@ -43,7 +44,11 @@ _GOLDEN = os.path.normpath(
 
 sys.path.insert(0, _PKG_ROOT)
 
-from tom_som_runtime import SpecDocument, SomVersionError  # noqa: E402
+from tom_som_runtime import (  # noqa: E402
+    SomVersionError,
+    SpecDocument,
+    SpecSectionIdCollision,
+)
 
 _passed = 0
 _failed: list[str] = []
@@ -67,7 +72,7 @@ def _load_golden():
 
 def test_typed_generic_parity(mod) -> None:
     doc = SpecDocument()
-    pd = mod.ProjectDefinition(doc)
+    pd = mod.SolutionBlueprint(doc)
 
     # Typed write (content) → generic read.
     pd.vision = "A clear vision"
@@ -115,10 +120,78 @@ def test_typed_generic_parity(mod) -> None:
            str(doc.content(f"{item_path}/prob")))
 
 
+def test_section_ids(mod) -> None:
+    """AA1 criteria 3–6 through the typed facade: the generated `risks` list
+    carries the `RISK-ITEM-xxx` pattern, so `add` auto-generates section ids,
+    accepts unique overrides, and reuses freed same-day ids on last-item
+    deletion while never renumbering after a middle deletion."""
+    date = _dt.date(2026, 1, 2)  # month 1 → A, day 2 → B ⇒ "AB"
+
+    # Criteria 3, 4: generate an id from the pattern + two-letter date.
+    doc = SpecDocument()
+    root = mod.SolutionBlueprint(doc)
+    item = root.risks.add(date=date)
+    _check("secid.generate", item.spec_section_id == "RISK-ITEM-AB1",
+           str(item.spec_section_id))
+    # Visible both ways (typed id == generic store).
+    _check("secid.generate.generic",
+           doc.item_section_id(item.path) == "RISK-ITEM-AB1",
+           str(doc.item_section_id(item.path)))
+
+    # Criterion 5: an override is accepted and validated unique.
+    doc = SpecDocument()
+    root = mod.SolutionBlueprint(doc)
+    root.risks.add(section_id="RISK-ITEM-CUSTOM")
+    _check("secid.override.accept", root.risks.section_ids == ["RISK-ITEM-CUSTOM"],
+           str(root.risks.section_ids))
+    _check("secid.override.collision",
+           _raises_collision(lambda: root.risks.add(section_id="RISK-ITEM-CUSTOM")))
+
+    # Criterion 5: override via the structural node accessor.
+    doc = SpecDocument()
+    root = mod.SolutionBlueprint(doc)
+    item = root.risks.add(date=date)
+    item.spec_section_id = "RISK-ITEM-OVR"
+    _check("secid.node-override", root.risks.section_ids == ["RISK-ITEM-OVR"],
+           str(root.risks.section_ids))
+
+    # Criterion 6: delete-last then same-day add reuses the freed id.
+    doc = SpecDocument()
+    root = mod.SolutionBlueprint(doc)
+    root.risks.add(date=date)  # AB1
+    root.risks.add(date=date)  # AB2
+    root.risks.remove_at(1)    # delete last
+    reused = root.risks.add(date=date)
+    _check("secid.reuse-last", reused.spec_section_id == "RISK-ITEM-AB2",
+           str(reused.spec_section_id))
+
+    # Criterion 6: delete-middle keeps ids, numbering stays non-consecutive.
+    doc = SpecDocument()
+    root = mod.SolutionBlueprint(doc)
+    root.risks.add(date=date)  # AB1
+    root.risks.add(date=date)  # AB2
+    root.risks.add(date=date)  # AB3
+    root.risks.remove_at(1)    # delete AB2
+    _check("secid.delete-middle.keep",
+           root.risks.section_ids == ["RISK-ITEM-AB1", "RISK-ITEM-AB3"],
+           str(root.risks.section_ids))
+    nxt = root.risks.add(date=date)
+    _check("secid.delete-middle.next", nxt.spec_section_id == "RISK-ITEM-AB4",
+           str(nxt.spec_section_id))
+
+
+def _raises_collision(fn) -> bool:
+    try:
+        fn()
+        return False
+    except SpecSectionIdCollision:
+        return True
+
+
 def test_model_version(mod) -> None:
-    _check("version.classattr", mod.ProjectDefinition.model_version == "0.0",
-           mod.ProjectDefinition.model_version)
-    pd = mod.ProjectDefinition(SpecDocument())
+    _check("version.classattr", mod.SolutionBlueprint.model_version == "0.0",
+           mod.SolutionBlueprint.model_version)
+    pd = mod.SolutionBlueprint(SpecDocument())
     _check("version.accessor", pd.object_model_version == "0.0",
            pd.object_model_version)
 
@@ -126,22 +199,22 @@ def test_model_version(mod) -> None:
 def test_version_check(mod) -> None:
     # New / unstamped document → accepted.
     try:
-        mod.ProjectDefinition(SpecDocument())
-        mod.ProjectDefinition(SpecDocument(), document_version="0.0")
+        mod.SolutionBlueprint(SpecDocument())
+        mod.SolutionBlueprint(SpecDocument(), document_version="0.0")
         _check("version.editable", True)
     except SomVersionError as e:  # pragma: no cover
         _check("version.editable", False, str(e))
 
     # Newer minor → rejected.
     try:
-        mod.ProjectDefinition(SpecDocument(), document_version="0.1")
+        mod.SolutionBlueprint(SpecDocument(), document_version="0.1")
         _check("version.newer-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.newer-rejected", True)
 
     # Different major → rejected.
     try:
-        mod.ProjectDefinition(SpecDocument(), document_version="1.0")
+        mod.SolutionBlueprint(SpecDocument(), document_version="1.0")
         _check("version.cross-major-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.cross-major-rejected", True)
@@ -153,6 +226,7 @@ def main() -> int:
         return 0
     mod = _load_golden()
     test_typed_generic_parity(mod)
+    test_section_ids(mod)
     test_model_version(mod)
     test_version_check(mod)
 

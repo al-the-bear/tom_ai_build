@@ -98,11 +98,13 @@ class SpecField:
     enum_type: Optional[str] = None
     enum_values: list[str] = field(default_factory=list)
     type: Optional[str] = None
+    serialization_order: Optional[int] = None
     form_fields: list[FormFieldSpec] = field(default_factory=list)
     annotations: list[SpecAnnotation] = field(default_factory=list)
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "SpecField":
+        raw_order = j.get("serializationOrder")
         return SpecField(
             name=j["name"],
             kind=SpecFieldKind.parse(j["kind"]),
@@ -118,6 +120,7 @@ class SpecField:
             enum_type=j.get("enumType"),
             enum_values=[str(e) for e in (j.get("enumValues") or [])],
             type=j.get("type"),
+            serialization_order=int(raw_order) if raw_order is not None else None,
             form_fields=[
                 FormFieldSpec.from_json(e) for e in (j.get("formFields") or [])
             ],

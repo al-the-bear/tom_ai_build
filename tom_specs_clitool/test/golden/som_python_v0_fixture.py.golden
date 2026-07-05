@@ -90,7 +90,7 @@ class SolutionBlueprint(SomNode):
 
     @property
     def risks(self):
-        return SomList(self.doc, f"{self.path}/risks", lambda d, p: Risk(d, p))
+        return SomList(self.doc, f"{self.path}/risks", lambda d, p: Risk(d, p), pattern="RISK-ITEM-xxx")
 
     @property
     def tags(self):

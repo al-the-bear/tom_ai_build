@@ -38,6 +38,10 @@ from tom_som_runtime import (  # noqa: E402
     SpecModel,
     SpecNodeKind,
     SpecReflection,
+    SpecSectionIdCollision,
+    SpecSerializationOrder,
+    encode_two_letter_date,
+    generate_list_item_section_id,
     validate_document,
     yaml_decode,
     yaml_encode,
@@ -251,6 +255,87 @@ def test_operations() -> None:
             _check(f"op[{n}].unknown", False, kind)
 
 
+def test_section_id() -> None:
+    """AA1 criteria 3–6: two-letter-date encoding, list-item id generation
+    (within-day numbering), same-day reuse on last-item deletion, and unique-id
+    enforcement on override — replayed from the shared corpus so every port
+    reproduces the identical id semantics."""
+    cases = _read_json("section_id_cases.json")
+
+    # Criterion 4: the two-letter day code.
+    for c in cases["twoLetterDate"]:
+        got = encode_two_letter_date(c["month"], c["day"])
+        _check(f"sectionId.twoLetterDate[{c['month']}/{c['day']}]",
+               got == c["expect"], f"{got} != {c['expect']}")
+
+    # Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+    for c in cases["generate"]:
+        got = generate_list_item_section_id(
+            c["pattern"], c["month"], c["day"], list(c["existing"])
+        )
+        _check(f"sectionId.generate[{c['pattern']}]",
+               got == c["expect"], f"{got} != {c['expect']}")
+
+    # Criteria 5 & 6 at the document level: override keeps ids unique, deleting
+    # the last same-day item frees its number for reuse, deleting a middle one
+    # never renumbers the rest.
+    d = SpecDocument()
+    for i, s in enumerate(cases["documentOps"]):
+        op = s["op"]
+        if op == "addGen":
+            gen_id = generate_list_item_section_id(
+                s["pattern"], s["month"], s["day"],
+                d.list_item_section_ids(s["listPath"]),
+            )
+            _check(f"sectionId.op[{i}].addGen.id",
+                   gen_id == s["expectId"], f"{gen_id} != {s['expectId']}")
+            path = d.add_list_item(s["listPath"], section_id=gen_id)
+            _check(f"sectionId.op[{i}].addGen.path",
+                   path == s["expectPath"], f"{path} != {s['expectPath']}")
+        elif op == "sectionIds":
+            got = d.list_item_section_ids(s["listPath"])
+            _check(f"sectionId.op[{i}].sectionIds",
+                   got == s["expect"], f"{got} != {s['expect']}")
+        elif op == "removeListItem":
+            got = d.remove_list_item(s["itemPath"])
+            _check(f"sectionId.op[{i}].removeListItem", got == s["expect"])
+        elif op == "override":
+            d.set_item_section_id(s["itemPath"], s["id"])
+        elif op == "overrideThrows":
+            _check(f"sectionId.op[{i}].overrideThrows",
+                   _raises(lambda: d.set_item_section_id(s["itemPath"], s["id"])))
+        elif op == "addExplicitThrows":
+            _check(f"sectionId.op[{i}].addExplicitThrows",
+                   _raises(lambda: d.add_list_item(s["listPath"], section_id=s["id"])))
+        else:  # pragma: no cover
+            _check(f"sectionId.op[{i}].unknown", False, op)
+
+
+def _raises(fn) -> bool:
+    """Whether *fn* raises :class:`SpecSectionIdCollision` (the criterion-5
+    collision guard)."""
+    try:
+        fn()
+        return False
+    except SpecSectionIdCollision:
+        return True
+
+
+def test_serialization_order() -> None:
+    """AA1 criterion 7: members serialize in ``@SerializationOrder``, not
+    alphabetical."""
+    c = _read_json("serialization_order_cases.json")
+    order_model = SpecModel.from_json(c["model"])
+    order = SpecSerializationOrder(order_model)
+    got_paths = order.order_paths(list(c["contentPaths"]))
+    _check("serialOrder.orderPaths",
+           got_paths == c["expectedOrder"], f"{got_paths} != {c['expectedOrder']}")
+    got_fields = order.order_form_fields(c["formPath"], list(c["formFields"]))
+    _check("serialOrder.orderFormFields",
+           got_fields == c["expectedFormOrder"],
+           f"{got_fields} != {c['expectedFormOrder']}")
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -266,6 +351,8 @@ def main() -> int:
     test_reflection(model)
     test_validation(model)
     test_operations()
+    test_section_id()
+    test_serialization_order()
 
     total = _passed + len(_failed)
     if _failed:
