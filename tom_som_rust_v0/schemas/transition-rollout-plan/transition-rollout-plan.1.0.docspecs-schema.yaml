@@ -7,13 +7,13 @@ section-types:
     pattern-check-id:
       pattern: ^trmoen_trai_lst-\d+$
       error-message: ID must match trmoen_trai_lst-NNN
-    description: Training module entries.
+    description: Add one entry per training module.
   TRVEEN-VEND-LST:
     prefix: trveen_vend_lst
     pattern-check-id:
       pattern: ^trveen_vend_lst-\d+$
       error-message: ID must match trveen_vend_lst-NNN
-    description: Translation vendor entries.
+    description: Add one entry per translation vendor.
   CUTPRC:
     prefix: cutprc
     description: 15.6. Cutover Procedures.

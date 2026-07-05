@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T17:40:41.846207Z",
+  "generatedAt": "2026-07-05T18:10:09.927620Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -42207,7 +42207,26 @@
       "name": "ColorPaletteEntry",
       "sectionId": "COPA",
       "doc": "A color palette entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — colour is applied so that information remains legible and distinguishable",
+          "W3C WCAG 2.2 — SC 1.4.3 Contrast requires sufficient contrast between text and its background",
+          "Material Design — a colour system defines primary, secondary, and surface roles across the interface"
+        ],
+        "connotation": "A colour palette describing the colour set, variants, and contrast guidance used across the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — colour is applied so that information remains legible and distinguishable",
+              "W3C WCAG 2.2 — SC 1.4.3 Contrast requires sufficient contrast between text and its background",
+              "Material Design — a colour system defines primary, secondary, and surface roles across the interface"
+            ],
+            "connotation": "A colour palette describing the colour set, variants, and contrast guidance used across the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42294,6 +42313,7 @@
             {
               "name": "usageGuidelines",
               "label": "Usage Guidelines",
+              "hint": "When and where to apply this palette",
               "type": "String",
               "required": false
             }
@@ -46698,7 +46718,26 @@
       "name": "ComponentActionEntry",
       "sectionId": "CMAC",
       "doc": "A component action entry.\n\nDefines an action that can be triggered from the component.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — interactive controls trigger actions in a way that conforms to user expectations",
+          "W3C WAI-ARIA 1.2 — actionable elements expose roles and states to assistive technology",
+          "ISO 9241-161:2016 — command and button elements initiate user actions"
+        ],
+        "connotation": "The component action definition describing an operation that a user can trigger from a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — interactive controls trigger actions in a way that conforms to user expectations",
+              "W3C WAI-ARIA 1.2 — actionable elements expose roles and states to assistive technology",
+              "ISO 9241-161:2016 — command and button elements initiate user actions"
+            ],
+            "connotation": "The component action definition describing an operation that a user can trigger from a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -46791,7 +46830,26 @@
       "name": "ComponentActionEntryExecution",
       "sectionId": "CAEE",
       "doc": "Async execution and feedback behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — interactive actions provide feedback conforming to user expectations",
+          "ISO 9241-161:2016 — progress and status indicators communicate the outcome of an action",
+          "W3C WAI-ARIA 1.2 — live regions announce asynchronous action results to assistive technology"
+        ],
+        "connotation": "The action execution behavior describing asynchronous handling, error responses, and success feedback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — interactive actions provide feedback conforming to user expectations",
+              "ISO 9241-161:2016 — progress and status indicators communicate the outcome of an action",
+              "W3C WAI-ARIA 1.2 — live regions announce asynchronous action results to assistive technology"
+            ],
+            "connotation": "The action execution behavior describing asynchronous handling, error responses, and success feedback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -46829,12 +46887,14 @@
             {
               "name": "errorHandling",
               "label": "Error Handling",
+              "hint": "What happens when the action fails",
               "type": "String",
               "required": false
             },
             {
               "name": "successFeedback",
               "label": "Success Feedback",
+              "hint": "Confirmation shown on success",
               "type": "String",
               "required": false
             }
@@ -46846,7 +46906,26 @@
       "name": "ComponentActionEntryGovernance",
       "sectionId": "CAEG",
       "doc": "Authorization and confirmation behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — destructive or restricted actions request confirmation to prevent errors",
+          "ISO 9241-161:2016 — dialogs and prompts guard interactive actions that need approval",
+          "W3C WAI-ARIA 1.2 — confirmation dialogs use roles and properties accessible to assistive technology"
+        ],
+        "connotation": "The action governance definition describing authorization requirements and confirmation prompts for an action."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — destructive or restricted actions request confirmation to prevent errors",
+              "ISO 9241-161:2016 — dialogs and prompts guard interactive actions that need approval",
+              "W3C WAI-ARIA 1.2 — confirmation dialogs use roles and properties accessible to assistive technology"
+            ],
+            "connotation": "The action governance definition describing authorization requirements and confirmation prompts for an action."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -46898,12 +46977,14 @@
             {
               "name": "confirmationRequired",
               "label": "Confirmation Required",
+              "hint": "Whether a confirmation prompt is shown",
               "type": "bool",
               "required": false
             },
             {
               "name": "confirmationMessage",
               "label": "Confirmation Message",
+              "hint": "Text shown in the confirmation prompt",
               "type": "String",
               "required": false
             }
@@ -46915,7 +46996,26 @@
       "name": "ComponentApproach",
       "sectionId": "UCCA",
       "doc": "Component naming and documentation approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — interface elements are named and documented so they are used consistently",
+          "ISO 9241-110:2020 — consistency guides naming and documentation conventions",
+          "ISO/IEC 25010:2023 — clear naming and documentation support maintainability"
+        ],
+        "connotation": "The approach configuration describing component granularity, naming, and documentation practice."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — interface elements are named and documented so they are used consistently",
+              "ISO 9241-110:2020 — consistency guides naming and documentation conventions",
+              "ISO/IEC 25010:2023 — clear naming and documentation support maintainability"
+            ],
+            "connotation": "The approach configuration describing component granularity, naming, and documentation practice."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -47072,7 +47172,26 @@
       "name": "ComponentCustomization",
       "sectionId": "UICOCU",
       "doc": "Extension and theming boundaries.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — interface elements are catalogued so they are extended consistently",
+          "ISO 9241-110:2020 — consistency governs how components can be themed and adapted",
+          "ISO/IEC 25010:2023 — bounded extension points support maintainability and modularity"
+        ],
+        "connotation": "The customization configuration describing how components can be extended and themed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — interface elements are catalogued so they are extended consistently",
+              "ISO 9241-110:2020 — consistency governs how components can be themed and adapted",
+              "ISO/IEC 25010:2023 — bounded extension points support maintainability and modularity"
+            ],
+            "connotation": "The customization configuration describing how components can be extended and themed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -47541,7 +47660,26 @@
       "name": "ComponentFamilyEntry",
       "sectionId": "CMFA",
       "doc": "A component family entry.\n\nGroups related components by function (buttons, inputs, navigation, etc.).",
+      "standardReferences": {
+        "standards": [
+          "Atomic Design (Brad Frost) — components are organised into families based on shared composition and function",
+          "ISO/IEC 25010:2023 — grouping components into families supports modularity and reuse",
+          "Material Design — a design system organises components into consistent families"
+        ],
+        "connotation": "A grouping of related interface components that share function, patterns, and consistency rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Atomic Design (Brad Frost) — components are organised into families based on shared composition and function",
+              "ISO/IEC 25010:2023 — grouping components into families supports modularity and reuse",
+              "Material Design — a design system organises components into consistent families"
+            ],
+            "connotation": "A grouping of related interface components that share function, patterns, and consistency rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -47586,12 +47724,14 @@
             {
               "name": "familyDescription",
               "label": "Family Description",
+              "hint": "Purpose and scope of the family",
               "type": "String",
               "required": false
             },
             {
               "name": "componentCount",
               "label": "Component Count",
+              "hint": "Number of components in the family",
               "type": "int",
               "required": false
             },
@@ -47631,10 +47771,28 @@
           "name": "components",
           "kind": "list",
           "doc": "Components in this family.",
+          "help": "Add one entry per component in the family.",
           "sectionId": "FAMREF-COMP-LST",
           "sectionIdPattern": "FAMREF-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010:2023 — a reusable component family supports maintainability through modularity",
+              "Atomic Design (Brad Frost) — related components are collected into a shared family of interface parts"
+            ],
+            "connotation": "The collection of component references that make up this family."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010:2023 — a reusable component family supports maintainability through modularity",
+                  "Atomic Design (Brad Frost) — related components are collected into a shared family of interface parts"
+                ],
+                "connotation": "The collection of component references that make up this family."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -47645,6 +47803,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FAMREF-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component in the family."
               }
             },
             {
@@ -48538,7 +48702,26 @@
       "name": "ComponentLibrary",
       "sectionId": "COLI",
       "doc": "10.11.1. Component Library.\n\nDesign system and component catalog specification.",
+      "standardReferences": {
+        "standards": [
+          "Atomic Design (Brad Frost) — a component library composes atoms, molecules, and organisms",
+          "Material Design — a design system unifies tokens, colour, type, and spacing",
+          "ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse"
+        ],
+        "connotation": "The component-library configuration describing the design system and its shared foundations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Atomic Design (Brad Frost) — a component library composes atoms, molecules, and organisms",
+              "Material Design — a design system unifies tokens, colour, type, and spacing",
+              "ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse"
+            ],
+            "connotation": "The component-library configuration describing the design system and its shared foundations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48550,10 +48733,30 @@
         {
           "name": "designFoundations",
           "kind": "list",
+          "help": "Add one entry per design foundation.",
           "sectionId": "DESIG-DESI-LST",
           "sectionIdPattern": "DESIG-DESI-xxx",
+          "standardReferences": {
+            "standards": [
+              "Material Design — design tokens capture reusable values for the design system",
+              "W3C CSS — foundational style values are expressed as reusable declarations",
+              "ISO/IEC 25010:2023 — shared foundations support maintainability through reuse"
+            ],
+            "connotation": "The collection of design-foundation entries defining the base design tokens."
+          },
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Material Design — design tokens capture reusable values for the design system",
+                  "W3C CSS — foundational style values are expressed as reusable declarations",
+                  "ISO/IEC 25010:2023 — shared foundations support maintainability through reuse"
+                ],
+                "connotation": "The collection of design-foundation entries defining the base design tokens."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48564,6 +48767,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DESIG-DESI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per design foundation."
               }
             },
             {
@@ -48701,10 +48910,28 @@
           "name": "colorPalettes",
           "kind": "list",
           "doc": "Color palette specification.",
+          "help": "Add one entry per colour palette.",
           "sectionId": "COPA-COLO-LST",
           "sectionIdPattern": "COPA-COLO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable",
+              "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour"
+            ],
+            "connotation": "The collection of colour palette entries in the design system."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable",
+                  "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour"
+                ],
+                "connotation": "The collection of colour palette entries in the design system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48715,6 +48942,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COPA-COLO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per colour palette."
               }
             },
             {
@@ -48731,10 +48964,30 @@
           "name": "typographyStyles",
           "kind": "list",
           "doc": "Typography styles.",
+          "help": "Add one entry per typography style.",
           "sectionId": "TYST-TYPO-LST",
           "sectionIdPattern": "TYST-TYPO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — typography presents information so text stays legible",
+              "W3C CSS — text styles are declared through style rules",
+              "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"
+            ],
+            "connotation": "The collection of typography style entries in the library type scale."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — typography presents information so text stays legible",
+                  "W3C CSS — text styles are declared through style rules",
+                  "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"
+                ],
+                "connotation": "The collection of typography style entries in the library type scale."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48745,6 +48998,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TYST-TYPO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per typography style."
               }
             },
             {
@@ -48763,7 +49022,24 @@
       "name": "ComponentLibraryBorders",
       "sectionId": "COLIBO",
       "doc": "Borders and corners.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — borders present information so boundaries remain legible",
+          "W3C WCAG 2.2 — SC 1.4.11 Non-text Contrast requires sufficient contrast for graphical boundaries"
+        ],
+        "connotation": "The library-level configuration for border styles and corner radius scales."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — borders present information so boundaries remain legible",
+              "W3C WCAG 2.2 — SC 1.4.11 Non-text Contrast requires sufficient contrast for graphical boundaries"
+            ],
+            "connotation": "The library-level configuration for border styles and corner radius scales."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48801,6 +49077,7 @@
             {
               "name": "borderStyleDefaults",
               "label": "Border Style Defaults",
+              "hint": "Default border width, style, and colour (e.g., \"1px solid outline\")",
               "type": "String",
               "required": false
             }
@@ -48812,7 +49089,26 @@
       "name": "ComponentLibraryColors",
       "sectionId": "COLICO",
       "doc": "Color system.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable",
+          "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour",
+          "Material Design — the colour system organises roles and tokens across the palette"
+        ],
+        "connotation": "The library-level colour configuration covering the semantic palette and colour tokens."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable",
+              "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour",
+              "Material Design — the colour system organises roles and tokens across the palette"
+            ],
+            "connotation": "The library-level colour configuration covering the semantic palette and colour tokens."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48843,36 +49139,42 @@
             {
               "name": "secondaryColor",
               "label": "Secondary Color",
+              "hint": "Secondary brand colour hex value (e.g., \"#03DAC6\")",
               "type": "String",
               "required": false
             },
             {
               "name": "tertiaryColor",
               "label": "Tertiary Color",
+              "hint": "Tertiary accent colour hex value (e.g., \"#3700B3\")",
               "type": "String",
               "required": false
             },
             {
               "name": "errorColor",
               "label": "Error Color",
+              "hint": "Colour for error states (e.g., \"#B00020\")",
               "type": "String",
               "required": false
             },
             {
               "name": "warningColor",
               "label": "Warning Color",
+              "hint": "Colour for warning states (e.g., \"#FF9800\")",
               "type": "String",
               "required": false
             },
             {
               "name": "successColor",
               "label": "Success Color",
+              "hint": "Colour for success states (e.g., \"#4CAF50\")",
               "type": "String",
               "required": false
             },
             {
               "name": "infoColor",
               "label": "Info Color",
+              "hint": "Colour for informational states (e.g., \"#2196F3\")",
               "type": "String",
               "required": false
             },
@@ -48898,7 +49200,24 @@
       "name": "ComponentLibrarySpacing",
       "sectionId": "COLISP",
       "doc": "Spacing and elevation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — spacing arranges information so the layout stays clear and consistent",
+          "Material Design — spacing tokens define a coherent rhythm across the design system"
+        ],
+        "connotation": "The library-level configuration for spacing tokens and elevation levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — spacing arranges information so the layout stays clear and consistent",
+              "Material Design — spacing tokens define a coherent rhythm across the design system"
+            ],
+            "connotation": "The library-level configuration for spacing tokens and elevation levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48955,7 +49274,26 @@
       "name": "ComponentLibraryTypography",
       "sectionId": "COLITY",
       "doc": "Typography system.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — typography presents information so text stays legible",
+          "W3C CSS — font families and type scales are defined through style rules",
+          "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"
+        ],
+        "connotation": "The library-level typography configuration covering font families, scales, and size units."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — typography presents information so text stays legible",
+              "W3C CSS — font families and type scales are defined through style rules",
+              "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"
+            ],
+            "connotation": "The library-level typography configuration covering font families, scales, and size units."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48986,12 +49324,14 @@
             {
               "name": "fontFamilySecondary",
               "label": "Secondary Font Family",
+              "hint": "Secondary typeface for accents (e.g., \"Roboto Slab\")",
               "type": "String",
               "required": false
             },
             {
               "name": "fontFamilyMonospace",
               "label": "Monospace Font Family",
+              "hint": "Monospace typeface for code (e.g., \"JetBrains Mono\")",
               "type": "String",
               "required": false
             },
@@ -49017,7 +49357,26 @@
       "name": "ComponentLibraryVisuals",
       "sectionId": "COLIVI",
       "doc": "Icons and animation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — icons and motion are presented so information stays perceivable and legible",
+          "ISO 9241-125:2017 — visual elements are arranged consistently across the layout",
+          "Material Design — elevation and motion tokens give a coherent visual system"
+        ],
+        "connotation": "The library-level visual configuration covering icons, elevation, and animation values."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — icons and motion are presented so information stays perceivable and legible",
+              "ISO 9241-125:2017 — visual elements are arranged consistently across the layout",
+              "Material Design — elevation and motion tokens give a coherent visual system"
+            ],
+            "connotation": "The library-level visual configuration covering icons, elevation, and animation values."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50039,7 +50398,26 @@
       "name": "ComponentPropertyEntry",
       "sectionId": "CMPR",
       "doc": "A component property entry.\n\nDefines a configurable property of the component.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — component properties expose design-token values such as color, elevation, and shape",
+          "ISO/IEC 25010:2023 — configurable properties support modularity and reusability of a component library",
+          "W3C WAI-ARIA 1.2 — component properties describe characteristics exposed to assistive technology"
+        ],
+        "connotation": "The configurable property definition describing a settable attribute of a UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — component properties expose design-token values such as color, elevation, and shape",
+              "ISO/IEC 25010:2023 — configurable properties support modularity and reusability of a component library",
+              "W3C WAI-ARIA 1.2 — component properties describe characteristics exposed to assistive technology"
+            ],
+            "connotation": "The configurable property definition describing a settable attribute of a UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -50070,6 +50448,7 @@
             {
               "name": "propertyId",
               "label": "Property ID",
+              "hint": "Unique property identifier",
               "type": "String",
               "required": true
             },
@@ -50090,6 +50469,7 @@
             {
               "name": "defaultValue",
               "label": "Default Value",
+              "hint": "Value used when none is set",
               "type": "String",
               "required": false
             },
@@ -50103,18 +50483,21 @@
             {
               "name": "propertyDescription",
               "label": "Property Description",
+              "hint": "What this property controls",
               "type": "String",
               "required": false
             },
             {
               "name": "affectsAppearance",
               "label": "Affects Appearance",
+              "hint": "Changes the visual look",
               "type": "bool",
               "required": false
             },
             {
               "name": "affectsBehavior",
               "label": "Affects Behavior",
+              "hint": "Changes how the component behaves",
               "type": "bool",
               "required": false
             },
@@ -51519,7 +51902,24 @@
       "name": "ComponentSlotEntry",
       "sectionId": "CMSL",
       "doc": "A component slot entry.\n\nDefines a slot where child widgets can be placed.",
+      "standardReferences": {
+        "standards": [
+          "Atomic Design (Brad Frost) — slots compose atoms and molecules into larger organisms",
+          "ISO/IEC 25010:2023 — slot-based composition supports modularity and reusability"
+        ],
+        "connotation": "The component slot definition describing a placeholder where child content can be inserted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Atomic Design (Brad Frost) — slots compose atoms and molecules into larger organisms",
+              "ISO/IEC 25010:2023 — slot-based composition supports modularity and reusability"
+            ],
+            "connotation": "The component slot definition describing a placeholder where child content can be inserted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51550,6 +51950,7 @@
             {
               "name": "slotId",
               "label": "Slot ID",
+              "hint": "Unique slot identifier",
               "type": "String",
               "required": true
             },
@@ -51563,12 +51964,14 @@
             {
               "name": "slotDescription",
               "label": "Slot Description",
+              "hint": "Purpose of this slot",
               "type": "String",
               "required": false
             },
             {
               "name": "slotRequired",
               "label": "Slot Required",
+              "hint": "Whether content is mandatory",
               "type": "bool",
               "required": false
             },
@@ -51608,7 +52011,26 @@
       "name": "ComponentStateEntry",
       "sectionId": "COMSTAENT",
       "doc": "A component state entry.\n\nDefines a visual/functional state of the component.",
+      "standardReferences": {
+        "standards": [
+          "W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology",
+          "WCAG 2.2 — SC 2.4.7 Focus Visible ensures the active state of a component remains apparent",
+          "ISO 9241-161:2016 — interactive elements present a recognisable appearance for each state"
+        ],
+        "connotation": "The component state definition describing a distinct visual and functional state of a UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology",
+              "WCAG 2.2 — SC 2.4.7 Focus Visible ensures the active state of a component remains apparent",
+              "ISO 9241-161:2016 — interactive elements present a recognisable appearance for each state"
+            ],
+            "connotation": "The component state definition describing a distinct visual and functional state of a UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51653,6 +52075,7 @@
             {
               "name": "stateDescription",
               "label": "State Description",
+              "hint": "What this state represents",
               "type": "String",
               "required": false
             }
@@ -51725,7 +52148,26 @@
       "name": "ComponentStateEntryBehavior",
       "sectionId": "CSEB",
       "doc": "Behavior and accessibility changes in this state.",
+      "standardReferences": {
+        "standards": [
+          "W3C WAI-ARIA 1.2 — states such as disabled, pressed, and expanded are exposed to assistive technology",
+          "ISO 9241-110:2020 — interaction behavior in each state conforms to user expectations",
+          "ISO 9241-161:2016 — interactive elements adjust their available operations per state"
+        ],
+        "connotation": "The state behavior definition describing how interactions and accessibility change when a component is in this state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WAI-ARIA 1.2 — states such as disabled, pressed, and expanded are exposed to assistive technology",
+              "ISO 9241-110:2020 — interaction behavior in each state conforms to user expectations",
+              "ISO 9241-161:2016 — interactive elements adjust their available operations per state"
+            ],
+            "connotation": "The state behavior definition describing how interactions and accessibility change when a component is in this state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51775,7 +52217,26 @@
       "name": "ComponentStateEntryTransitions",
       "sectionId": "CSET",
       "doc": "Entry and exit transition rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — state transitions animate visual elements to keep users oriented",
+          "ISO 9241-110:2020 — transitions between states remain consistent and predictable",
+          "W3C WAI-ARIA 1.2 — state changes are communicated to assistive technology as they occur"
+        ],
+        "connotation": "The state transition definition describing what triggers entry into and exit from a component state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — state transitions animate visual elements to keep users oriented",
+              "ISO 9241-110:2020 — transitions between states remain consistent and predictable",
+              "W3C WAI-ARIA 1.2 — state changes are communicated to assistive technology as they occur"
+            ],
+            "connotation": "The state transition definition describing what triggers entry into and exit from a component state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51820,6 +52281,7 @@
             {
               "name": "transitionAnimation",
               "label": "Transition Animation",
+              "hint": "Animation played during the transition",
               "type": "String",
               "required": false
             }
@@ -51831,7 +52293,26 @@
       "name": "ComponentStateEntryVisual",
       "sectionId": "CSEV",
       "doc": "Visual appearance in this state.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — state changes alter the visual appearance of interactive elements",
+          "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires state indicators to stay perceivable",
+          "Material Design — state layers define color and opacity overlays for each component state"
+        ],
+        "connotation": "The state visual definition describing how a component appearance changes when it is in this state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — state changes alter the visual appearance of interactive elements",
+              "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires state indicators to stay perceivable",
+              "Material Design — state layers define color and opacity overlays for each component state"
+            ],
+            "connotation": "The state visual definition describing how a component appearance changes when it is in this state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51869,24 +52350,28 @@
             {
               "name": "colorOverrides",
               "label": "Color Overrides",
+              "hint": "Colors replaced in this state",
               "type": "String",
               "required": false
             },
             {
               "name": "opacityChange",
               "label": "Opacity Change",
+              "hint": "Opacity applied in this state",
               "type": "String",
               "required": false
             },
             {
               "name": "iconChange",
               "label": "Icon Change",
+              "hint": "Icon swapped in this state",
               "type": "String",
               "required": false
             },
             {
               "name": "textChange",
               "label": "Text Change",
+              "hint": "Label or text shown in this state",
               "type": "String",
               "required": false
             }
@@ -52431,7 +52916,26 @@
       "name": "ComponentVariantEntry",
       "sectionId": "CVE",
       "doc": "A component variant entry.\n\nDefines a variation of the component with different appearance or behavior.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — component variants provide named alternatives such as filled, outlined, and text",
+          "ISO/IEC 25010:2023 — component variants support modularity and reusability within a design system",
+          "W3C WAI-ARIA 1.2 — a variant preserves the accessible role while altering presentation"
+        ],
+        "connotation": "The component variant definition describing an alternative appearance or behavior of a component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — component variants provide named alternatives such as filled, outlined, and text",
+              "ISO/IEC 25010:2023 — component variants support modularity and reusability within a design system",
+              "W3C WAI-ARIA 1.2 — a variant preserves the accessible role while altering presentation"
+            ],
+            "connotation": "The component variant definition describing an alternative appearance or behavior of a component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -52462,6 +52966,7 @@
             {
               "name": "variantId",
               "label": "Variant ID",
+              "hint": "Unique variant identifier",
               "type": "String",
               "required": true
             },
@@ -52475,6 +52980,7 @@
             {
               "name": "variantDescription",
               "label": "Variant Description",
+              "hint": "What distinguishes this variant",
               "type": "String",
               "required": false
             },
@@ -52539,7 +53045,26 @@
       "name": "ComponentVariantEntryBehavior",
       "sectionId": "CVEB",
       "doc": "Behavioral and implementation notes.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — component variants may adjust behavior in addition to appearance",
+          "ISO/IEC 25010:2023 — variant behavior differences are captured to preserve modularity and reusability",
+          "ISO 9241-110:2020 — variant behavior remains consistent with user expectations"
+        ],
+        "connotation": "The variant behavior definition describing how a component variant differs in behavior and implementation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — component variants may adjust behavior in addition to appearance",
+              "ISO/IEC 25010:2023 — variant behavior differences are captured to preserve modularity and reusability",
+              "ISO 9241-110:2020 — variant behavior remains consistent with user expectations"
+            ],
+            "connotation": "The variant behavior definition describing how a component variant differs in behavior and implementation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -52570,6 +53095,7 @@
             {
               "name": "behaviorDifferences",
               "label": "Behavior Differences",
+              "hint": "How behavior differs from the base component",
               "type": "String",
               "required": false
             },
@@ -52602,7 +53128,26 @@
       "name": "ComponentVariantEntryVisual",
       "sectionId": "CVEV",
       "doc": "Visual styling details.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — variant visual styling covers color scheme, border, and elevation tokens",
+          "W3C CSS — color, border, and shadow properties define variant appearance",
+          "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires variant boundaries to remain distinguishable"
+        ],
+        "connotation": "The variant visual definition describing color scheme, border, and elevation styling of a component variant."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — variant visual styling covers color scheme, border, and elevation tokens",
+              "W3C CSS — color, border, and shadow properties define variant appearance",
+              "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires variant boundaries to remain distinguishable"
+            ],
+            "connotation": "The variant visual definition describing color scheme, border, and elevation styling of a component variant."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -52633,18 +53178,21 @@
             {
               "name": "colorSchemeVariant",
               "label": "Color Scheme Variant",
+              "hint": "Color palette applied to this variant",
               "type": "String",
               "required": false
             },
             {
               "name": "borderVariant",
               "label": "Border Variant",
+              "hint": "Border style for this variant",
               "type": "String",
               "required": false
             },
             {
               "name": "elevationVariant",
               "label": "Elevation Variant",
+              "hint": "Shadow or elevation level",
               "type": "String",
               "required": false
             }
@@ -52720,7 +53268,26 @@
       "name": "ComponentVisualLanguage",
       "sectionId": "UCVL",
       "doc": "Visual language and brand alignment.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — visual interface elements are catalogued so they are applied consistently",
+          "ISO 9241-110:2020 — consistency underpins a coherent visual language",
+          "ISO/IEC 25010:2023 — a shared visual language supports maintainability through reuse"
+        ],
+        "connotation": "The visual-language configuration describing brand alignment and motion principles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — visual interface elements are catalogued so they are applied consistently",
+              "ISO 9241-110:2020 — consistency underpins a coherent visual language",
+              "ISO/IEC 25010:2023 — a shared visual language supports maintainability through reuse"
+            ],
+            "connotation": "The visual-language configuration describing brand alignment and motion principles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93332,7 +93899,24 @@
       "name": "DocumentationAndTrainingDeliverables",
       "sectionId": "DATD",
       "doc": "Documentation deliverables provided to users.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514 — user documentation deliverables cover the required content set for software users",
+          "ISO 17100:2015 — documentation deliverables can be produced and revised through the translation process"
+        ],
+        "connotation": "The set of end-user documentation deliverables included with the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514 — user documentation deliverables cover the required content set for software users",
+              "ISO 17100:2015 — documentation deliverables can be produced and revised through the translation process"
+            ],
+            "connotation": "The set of end-user documentation deliverables included with the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93363,42 +93947,49 @@
             {
               "name": "userGuide",
               "label": "User Guide",
+              "hint": "Include a full user guide (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "quickStartGuide",
               "label": "Quick Start Guide",
+              "hint": "Include a quick start guide (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "onlineHelp",
               "label": "Online Help",
+              "hint": "Include online help pages (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "videoTutorials",
               "label": "Video Tutorials",
+              "hint": "Include video tutorials (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "contextualHelp",
               "label": "Contextual Help",
+              "hint": "Include in-context help hints (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "faq",
               "label": "FAQ",
+              "hint": "Include a frequently-asked-questions page (true or false)",
               "type": "bool",
               "required": false
             },
             {
               "name": "releaseNotes",
               "label": "Release Notes",
+              "hint": "Include per-release notes (true or false)",
               "type": "bool",
               "required": false
             }
@@ -93410,7 +94001,26 @@
       "name": "DocumentationAndTrainingLocalization",
       "sectionId": "DATL",
       "doc": "Documentation localization approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — the translation process governs producing documentation in additional languages",
+          "CLDR (Unicode Common Locale Data Repository) — locale data drives locale-appropriate documentation formatting",
+          "ISO 3166 — country and region codes identify each documentation locale"
+        ],
+        "connotation": "The approach for localizing and translating user documentation into supported languages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — the translation process governs producing documentation in additional languages",
+              "CLDR (Unicode Common Locale Data Repository) — locale data drives locale-appropriate documentation formatting",
+              "ISO 3166 — country and region codes identify each documentation locale"
+            ],
+            "connotation": "The approach for localizing and translating user documentation into supported languages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -111386,7 +111996,24 @@
       "name": "FamilyComponentRef",
       "sectionId": "FAMREF",
       "doc": "A component reference within a family.",
+      "standardReferences": {
+        "standards": [
+          "Atomic Design (Brad Frost) — components are composed and grouped into families of related interface parts",
+          "ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse"
+        ],
+        "connotation": "A reference identifying one component that belongs to a component family."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Atomic Design (Brad Frost) — components are composed and grouped into families of related interface parts",
+              "ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse"
+            ],
+            "connotation": "A reference identifying one component that belongs to a component family."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -111417,12 +112044,14 @@
             {
               "name": "componentId",
               "label": "Component ID",
+              "hint": "Identifier of the referenced component",
               "type": "String",
               "required": true
             },
             {
               "name": "componentName",
               "label": "Component Name",
+              "hint": "Name of the referenced component",
               "type": "String",
               "required": true
             },
@@ -143267,7 +143896,26 @@
       "doc": "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — language tags identify the languages offered in the picker",
+          "ISO 639 — language codes name the selectable languages",
+          "ISO 3166 — country and region codes name the selectable countries"
+        ],
+        "connotation": "The user-interface specification for how users select their language and country."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — language tags identify the languages offered in the picker",
+              "ISO 639 — language codes name the selectable languages",
+              "ISO 3166 — country and region codes name the selectable countries"
+            ],
+            "connotation": "The user-interface specification for how users select their language and country."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143449,7 +144097,24 @@
       "name": "LanguageCountrySelectionDefaults",
       "sectionId": "LCSD",
       "doc": "Default locale behavior.",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — the accepted language tags drive default-locale detection",
+          "ISO 3166 — country and region codes support geo-based default country detection"
+        ],
+        "connotation": "How the default language and country are determined, including auto-detection sources."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — the accepted language tags drive default-locale detection",
+              "ISO 3166 — country and region codes support geo-based default country detection"
+            ],
+            "connotation": "How the default language and country are determined, including auto-detection sources."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143506,7 +144171,24 @@
       "name": "LanguageCountrySelectionFallback",
       "sectionId": "LCSF",
       "doc": "Fallback behavior.",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — the lookup and filtering rules define fallback between language tags",
+          "CLDR (Unicode Common Locale Data Repository) — the locale inheritance chain guides fallback to a parent locale"
+        ],
+        "connotation": "The fallback behavior when a requested locale is unavailable or only partially supported."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — the lookup and filtering rules define fallback between language tags",
+              "CLDR (Unicode Common Locale Data Repository) — the locale inheritance chain guides fallback to a parent locale"
+            ],
+            "connotation": "The fallback behavior when a requested locale is unavailable or only partially supported."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143563,7 +144245,24 @@
       "name": "LanguageCountrySelectionPersistence",
       "sectionId": "LCSP",
       "doc": "Persistence rules.",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag",
+          "ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices"
+        ],
+        "connotation": "How the chosen language and country preference is stored and synchronized across sessions and devices."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag",
+              "ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices"
+            ],
+            "connotation": "How the chosen language and country preference is stored and synchronized across sessions and devices."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143620,7 +144319,24 @@
       "name": "LanguageCountrySelectionUx",
       "sectionId": "LCSU",
       "doc": "Switching UX behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — usability covers how the interface responds when the user switches language",
+          "WCAG 2.2 SC 3.1.2 — language of parts requires the interface to signal the active language after a switch"
+        ],
+        "connotation": "The user-experience behavior when switching language, including confirmation and content retention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — usability covers how the interface responds when the user switches language",
+              "WCAG 2.2 SC 3.1.2 — language of parts requires the interface to signal the active language after a switch"
+            ],
+            "connotation": "The user-experience behavior when switching language, including confirmation and content retention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146440,7 +147156,26 @@
       "name": "LocaleHandlingRequirements",
       "sectionId": "MLARLH",
       "doc": "Locale modeling and fallback behavior.",
+      "standardReferences": {
+        "standards": [
+          "W3C Internationalization / BCP 47 — language tags identify each locale and country variant",
+          "ISO 639 — language codes; ISO 3166 — country codes compose the locale identifier",
+          "ISO/IEC 25010:2023 — locale detection and fallback support portability adaptability"
+        ],
+        "connotation": "The locale format, country variants, detection, and fallback-chain behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C Internationalization / BCP 47 — language tags identify each locale and country variant",
+              "ISO 639 — language codes; ISO 3166 — country codes compose the locale identifier",
+              "ISO/IEC 25010:2023 — locale detection and fallback support portability adaptability"
+            ],
+            "connotation": "The locale format, country variants, detection, and fallback-chain behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146506,7 +147241,24 @@
       "doc": "Rollout sequencing by region and time.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "ISO 3166 — country and region codes define the geographic rollout order",
+          "ISO 8601 — the standard representation for the rollout timeline and schedule"
+        ],
+        "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 3166 — country and region codes define the geographic rollout order",
+              "ISO 8601 — the standard representation for the rollout timeline and schedule"
+            ],
+            "connotation": "The rollout strategy, timeline, and regional sequencing for locale availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146582,7 +147334,24 @@
       "name": "LocalizationDeployment",
       "sectionId": "LOPRDE",
       "doc": "Deployment settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — per-locale deployment and toggling contribute to portability adaptability",
+          "CLDR (Unicode Common Locale Data Repository) — locale identifiers select which locale package is deployed"
+        ],
+        "connotation": "The deployment, toggling, and per-locale customization settings for localized content."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — per-locale deployment and toggling contribute to portability adaptability",
+              "CLDR (Unicode Common Locale Data Repository) — locale identifiers select which locale package is deployed"
+            ],
+            "connotation": "The deployment, toggling, and per-locale customization settings for localized content."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146639,7 +147408,26 @@
       "name": "LocalizationFormatting",
       "sectionId": "LOPRFO",
       "doc": "Formatting rules.",
+      "standardReferences": {
+        "standards": [
+          "CLDR (Unicode Common Locale Data Repository) — locale data drives date, number, and currency formatting",
+          "ISO 8601 — the standard representation for dates and times per locale",
+          "ISO 4217 — currency codes underpin locale-specific currency formatting"
+        ],
+        "connotation": "The locale-specific formatting rules for dates, numbers, currency, addresses, and phone numbers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CLDR (Unicode Common Locale Data Repository) — locale data drives date, number, and currency formatting",
+              "ISO 8601 — the standard representation for dates and times per locale",
+              "ISO 4217 — currency codes underpin locale-specific currency formatting"
+            ],
+            "connotation": "The locale-specific formatting rules for dates, numbers, currency, addresses, and phone numbers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146712,7 +147500,26 @@
       "doc": "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "Unicode Standard / ISO/IEC 10646 — externalized strings are encoded and handled as Unicode text",
+          "ISO/IEC 25010:2023 — string externalization and content tagging support portability adaptability",
+          "ISO 17100:2015 — the identified localizable content feeds the translation process"
+        ],
+        "connotation": "The workflow for identifying, externalizing, and tagging content for localization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Unicode Standard / ISO/IEC 10646 — externalized strings are encoded and handled as Unicode text",
+              "ISO/IEC 25010:2023 — string externalization and content tagging support portability adaptability",
+              "ISO 17100:2015 — the identified localizable content feeds the translation process"
+            ],
+            "connotation": "The workflow for identifying, externalizing, and tagging content for localization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146872,7 +147679,24 @@
       "name": "LocalizationReview",
       "sectionId": "LOPRR1",
       "doc": "Review process.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — the revision and review steps define quality checks on localized content",
+          "ISO/IEC 25010:2023 — review supports usability of the adapted, localized product"
+        ],
+        "connotation": "The review workflow, stakeholder approval, and quality assurance for localized content."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — the revision and review steps define quality checks on localized content",
+              "ISO/IEC 25010:2023 — review supports usability of the adapted, localized product"
+            ],
+            "connotation": "The review workflow, stakeholder approval, and quality assurance for localized content."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163102,7 +163926,26 @@
       "name": "MultiLanguageSupport",
       "sectionId": "MLAR",
       "doc": "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — multi-language support contributes to portability through adaptability",
+          "W3C Internationalization / BCP 47 — language tags identify supported and primary languages",
+          "Unicode Standard / ISO/IEC 10646 — text handling and right-to-left support rely on Unicode"
+        ],
+        "connotation": "The multi-language support architecture covering supported languages, primary language, and locale handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — multi-language support contributes to portability through adaptability",
+              "W3C Internationalization / BCP 47 — language tags identify supported and primary languages",
+              "Unicode Standard / ISO/IEC 10646 — text handling and right-to-left support rely on Unicode"
+            ],
+            "connotation": "The multi-language support architecture covering supported languages, primary language, and locale handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163202,10 +164045,30 @@
           "name": "supportedLocales",
           "kind": "list",
           "doc": "Supported locale entries.",
+          "help": "Add one entry per supported locale.",
           "sectionId": "SULOEN-SUPP-LST",
           "sectionIdPattern": "SULOEN-SUPP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 639 — language codes identify each supported locale",
+              "ISO 3166 — country and region codes complete each locale identifier",
+              "W3C Internationalization / BCP 47 — language tags name the supported locales"
+            ],
+            "connotation": "The collection of locales the system supports."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 639 — language codes identify each supported locale",
+                  "ISO 3166 — country and region codes complete each locale identifier",
+                  "W3C Internationalization / BCP 47 — language tags name the supported locales"
+                ],
+                "connotation": "The collection of locales the system supports."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -163216,6 +164079,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SULOEN-SUPP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per supported locale."
               }
             },
             {
@@ -261819,7 +262688,26 @@
       "name": "SupportedLocaleEntry",
       "sectionId": "SUPLOCENT",
       "doc": "A supported locale entry.",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — language tags identify each supported locale",
+          "ISO 639 — language codes name the language of the locale",
+          "ISO 3166 — country and region codes identify the territory of the locale"
+        ],
+        "connotation": "A single locale the product supports, named by its language tag, language name, and region."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — language tags identify each supported locale",
+              "ISO 639 — language codes name the language of the locale",
+              "ISO 3166 — country and region codes identify the territory of the locale"
+            ],
+            "connotation": "A single locale the product supports, named by its language tag, language name, and region."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261913,7 +262801,26 @@
       "name": "SupportedLocaleEntryFormatting",
       "sectionId": "SLEF",
       "doc": "Formatting and direction rules for the locale.",
+      "standardReferences": {
+        "standards": [
+          "CLDR (Unicode Common Locale Data Repository) — supplies per-locale date, number, and currency formatting data",
+          "ISO 4217 — currency codes identify the default currency for a locale",
+          "ISO/IEC 25010:2023 — usability covers layout adaptation for right-to-left text direction"
+        ],
+        "connotation": "The text direction, date, number, and currency formatting rules that apply to a supported locale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CLDR (Unicode Common Locale Data Repository) — supplies per-locale date, number, and currency formatting data",
+              "ISO 4217 — currency codes identify the default currency for a locale",
+              "ISO/IEC 25010:2023 — usability covers layout adaptation for right-to-left text direction"
+            ],
+            "connotation": "The text direction, date, number, and currency formatting rules that apply to a supported locale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261977,7 +262884,24 @@
       "name": "SupportedLocaleEntryRollout",
       "sectionId": "SULOENRO",
       "doc": "Launch readiness and locale ownership.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — adaptability lets the product be rolled out to additional locales without rework",
+          "ISO 17100:2015 — the translation process assigns ownership and coverage for each target language"
+        ],
+        "connotation": "The launch phasing, translation coverage, and ownership assigned to a supported locale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — adaptability lets the product be rolled out to additional locales without rework",
+              "ISO 17100:2015 — the translation process assigns ownership and coverage for each target language"
+            ],
+            "connotation": "The launch phasing, translation coverage, and ownership assigned to a supported locale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285685,7 +286609,24 @@
       "doc": "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514 — training material forms part of the software user documentation set",
+          "ISO 17100:2015 — training deliverables can be translated for each supported language"
+        ],
+        "connotation": "The training deliverables, formats, schedule, and knowledge-transfer plan provided to end users."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514 — training material forms part of the software user documentation set",
+              "ISO 17100:2015 — training deliverables can be translated for each supported language"
+            ],
+            "connotation": "The training deliverables, formats, schedule, and knowledge-transfer plan provided to end users."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -285817,10 +286758,28 @@
           "name": "trainingModules",
           "kind": "list",
           "doc": "Training module entries.",
+          "help": "Add one entry per training module.",
           "sectionId": "TRMOEN-TRAI-LST",
           "sectionIdPattern": "TRMOEN-TRAI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set",
+              "ISO 17100:2015 — each training module can be localized through the translation process"
+            ],
+            "connotation": "The collection of training-module entries offered to end users."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set",
+                  "ISO 17100:2015 — each training module can be localized through the translation process"
+                ],
+                "connotation": "The collection of training-module entries offered to end users."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -285831,6 +286790,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TRMOEN-TRAI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per training module."
               }
             },
             {
@@ -286290,7 +287255,24 @@
       "name": "TrainingModuleEntry",
       "sectionId": "TME",
       "doc": "A training module entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — translation memory is a process asset maintained across localization work",
+          "CLDR (Unicode Common Locale Data Repository) — locale data underpins delivering training content per language"
+        ],
+        "connotation": "A single training module describing its audience, duration, delivery method, and assessment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — translation memory is a process asset maintained across localization work",
+              "CLDR (Unicode Common Locale Data Repository) — locale data underpins delivering training content per language"
+            ],
+            "connotation": "A single training module describing its audience, duration, delivery method, and assessment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -286321,12 +287303,14 @@
             {
               "name": "moduleId",
               "label": "Module ID",
+              "hint": "Unique identifier for the module",
               "type": "String",
               "required": true
             },
             {
               "name": "moduleName",
               "label": "Module Name",
+              "hint": "Descriptive title of the module",
               "type": "String",
               "required": true
             },
@@ -286340,6 +287324,7 @@
             {
               "name": "duration",
               "label": "Duration",
+              "hint": "Expected length (e.g., 2 hours, half day)",
               "type": "String",
               "required": false
             },
@@ -286353,18 +287338,21 @@
             {
               "name": "prerequisites",
               "label": "Prerequisites",
+              "hint": "Required prior knowledge or modules",
               "type": "String",
               "required": false
             },
             {
               "name": "learningObjectives",
               "label": "Learning Objectives",
+              "hint": "What learners will be able to do",
               "type": "String",
               "required": false
             },
             {
               "name": "assessmentMethod",
               "label": "Assessment Method",
+              "hint": "Quiz, exercise, certification",
               "type": "String",
               "required": false
             }
@@ -289927,7 +290915,24 @@
       "name": "TranslationOngoing",
       "sectionId": "TRPRON",
       "doc": "Ongoing localization operations.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work",
+          "ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations"
+        ],
+        "connotation": "The continuous localization and translation-memory maintenance operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work",
+              "ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations"
+            ],
+            "connotation": "The continuous localization and translation-memory maintenance operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -289979,7 +290984,24 @@
       "doc": "10.12.2. Translation Process.\n\nWorkflow for translating content.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — the translation process defines vendor qualification, translation, and revision steps",
+          "ISO 18587:2017 — machine-translation post-editing is a defined stage within the process"
+        ],
+        "connotation": "The overall translation process covering tooling, workflow, quality, terminology, and vendors."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — the translation process defines vendor qualification, translation, and revision steps",
+              "ISO 18587:2017 — machine-translation post-editing is a defined stage within the process"
+            ],
+            "connotation": "The overall translation process covering tooling, workflow, quality, terminology, and vendors."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290136,10 +291158,28 @@
           "name": "vendors",
           "kind": "list",
           "doc": "Translation vendor entries.",
+          "help": "Add one entry per translation vendor.",
           "sectionId": "TRVEEN-VEND-LST",
           "sectionIdPattern": "TRVEEN-VEND-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 17100:2015 — each listed translation vendor meets defined competence requirements",
+              "ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services"
+            ],
+            "connotation": "The collection of translation-vendor entries engaged for localization."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 17100:2015 — each listed translation vendor meets defined competence requirements",
+                  "ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services"
+                ],
+                "connotation": "The collection of translation-vendor entries engaged for localization."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -290150,6 +291190,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TRVEEN-VEND-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per translation vendor."
               }
             },
             {
@@ -290168,7 +291214,24 @@
       "name": "TranslationQuality",
       "sectionId": "TRPRQU",
       "doc": "Quality assurance.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — the revision step defines linguistic quality checks on translated content",
+          "ISO/IEC/IEEE 29119 — functional testing verifies that translated builds behave correctly"
+        ],
+        "connotation": "The linguistic and functional quality-assurance checks applied to translations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — the revision step defines linguistic quality checks on translated content",
+              "ISO/IEC/IEEE 29119 — functional testing verifies that translated builds behave correctly"
+            ],
+            "connotation": "The linguistic and functional quality-assurance checks applied to translations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290227,7 +291290,26 @@
       "doc": "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "BCP 47 (W3C Internationalization) — language tags drive locale loading and switching in the framework",
+          "ICU MessageFormat — the message-format standard underpins string externalization and translation",
+          "ISO/IEC 25010:2023 — adaptability requires externalizing strings so the product can be localized"
+        ],
+        "connotation": "The technical internationalization framework, string externalization format, and locale handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BCP 47 (W3C Internationalization) — language tags drive locale loading and switching in the framework",
+              "ICU MessageFormat — the message-format standard underpins string externalization and translation",
+              "ISO/IEC 25010:2023 — adaptability requires externalizing strings so the product can be localized"
+            ],
+            "connotation": "The technical internationalization framework, string externalization format, and locale handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290379,7 +291461,26 @@
       "name": "TranslationRequirementsFormatting",
       "sectionId": "TRREFO",
       "doc": "Locale-specific formatting rules.",
+      "standardReferences": {
+        "standards": [
+          "CLDR (Unicode Common Locale Data Repository) — supplies locale-specific date, number, and unit formatting data",
+          "ISO 8601 — defines date and time representation",
+          "ISO 4217 — defines currency codes for currency display"
+        ],
+        "connotation": "The date, number, currency, and measurement-unit formatting rules applied per locale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CLDR (Unicode Common Locale Data Repository) — supplies locale-specific date, number, and unit formatting data",
+              "ISO 8601 — defines date and time representation",
+              "ISO 4217 — defines currency codes for currency display"
+            ],
+            "connotation": "The date, number, currency, and measurement-unit formatting rules applied per locale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290443,7 +291544,24 @@
       "name": "TranslationRequirementsRtl",
       "sectionId": "TRRERT",
       "doc": "RTL and bidirectional support.",
+      "standardReferences": {
+        "standards": [
+          "Unicode Standard / ISO/IEC 10646 — the Unicode bidirectional algorithm governs mixed left-to-right and right-to-left text",
+          "ISO/IEC 25010:2023 — usability covers layout adaptation and mirroring for right-to-left languages"
+        ],
+        "connotation": "The right-to-left and bidirectional text support, including mirroring rules for the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Unicode Standard / ISO/IEC 10646 — the Unicode bidirectional algorithm governs mixed left-to-right and right-to-left text",
+              "ISO/IEC 25010:2023 — usability covers layout adaptation and mirroring for right-to-left languages"
+            ],
+            "connotation": "The right-to-left and bidirectional text support, including mirroring rules for the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290474,6 +291592,7 @@
             {
               "name": "rtlSupport",
               "label": "RTL Support",
+              "hint": "Whether right-to-left languages are supported",
               "type": "bool",
               "required": false
             },
@@ -290506,7 +291625,24 @@
       "name": "TranslationRequirementsTechnical",
       "sectionId": "TRRETE",
       "doc": "Technical text and font support.",
+      "standardReferences": {
+        "standards": [
+          "Unicode Standard / ISO/IEC 10646 — defines character encoding, normalization, and text handling across scripts",
+          "ISO/IEC 25010:2023 — usability covers font fallback and text direction handling for different scripts"
+        ],
+        "connotation": "The Unicode handling, font fallback, text direction, and keyboard support required across scripts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Unicode Standard / ISO/IEC 10646 — defines character encoding, normalization, and text handling across scripts",
+              "ISO/IEC 25010:2023 — usability covers font fallback and text direction handling for different scripts"
+            ],
+            "connotation": "The Unicode handling, font fallback, text direction, and keyboard support required across scripts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290570,7 +291706,24 @@
       "name": "TranslationRequirementsVariants",
       "sectionId": "TRREVA",
       "doc": "Pluralization and variants.",
+      "standardReferences": {
+        "standards": [
+          "ICU MessageFormat — expresses pluralization and gender selection for translated messages",
+          "CLDR (Unicode Common Locale Data Repository) — provides the plural rules for each language"
+        ],
+        "connotation": "The pluralization rules, gender handling, and contextual variants required for translated text."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ICU MessageFormat — expresses pluralization and gender selection for translated messages",
+              "CLDR (Unicode Common Locale Data Repository) — provides the plural rules for each language"
+            ],
+            "connotation": "The pluralization rules, gender handling, and contextual variants required for translated text."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290627,7 +291780,22 @@
       "name": "TranslationTerminology",
       "sectionId": "TRPRTE",
       "doc": "Terminology and voice management.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — terminology and style resources support consistent translation output"
+        ],
+        "connotation": "The glossary, style guide, and brand-voice management for translations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — terminology and style resources support consistent translation output"
+            ],
+            "connotation": "The glossary, style guide, and brand-voice management for translations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290684,7 +291852,24 @@
       "name": "TranslationVendorEntry",
       "sectionId": "TVE",
       "doc": "A translation vendor entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — a translation vendor meets the defined competence and qualification requirements",
+          "ISO 18587:2017 — a vendor may also provide post-editing of machine-translation output"
+        ],
+        "connotation": "A single translation-vendor entry describing its type, languages, specializations, and quality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — a translation vendor meets the defined competence and qualification requirements",
+              "ISO 18587:2017 — a vendor may also provide post-editing of machine-translation output"
+            ],
+            "connotation": "A single translation-vendor entry describing its type, languages, specializations, and quality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290715,6 +291900,7 @@
             {
               "name": "vendorName",
               "label": "Vendor Name",
+              "hint": "Legal or trading name of the translation vendor",
               "type": "String",
               "required": true
             },
@@ -290742,18 +291928,21 @@
             {
               "name": "turnaroundTime",
               "label": "Turnaround Time",
+              "hint": "Typical delivery time per job (e.g., 2 business days)",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityRating",
               "label": "Quality Rating",
+              "hint": "Assessed quality score or rating for the vendor",
               "type": "String",
               "required": false
             },
             {
               "name": "contactInfo",
               "label": "Contact Info",
+              "hint": "Primary contact name, email, or phone",
               "type": "String",
               "required": false
             }
@@ -290765,7 +291954,24 @@
       "name": "TranslationWorkflow",
       "sectionId": "TRPRWO",
       "doc": "Translation workflow.",
+      "standardReferences": {
+        "standards": [
+          "ISO 17100:2015 — the translation process sequences translation, revision, and in-country review steps",
+          "ISO 18587:2017 — machine-translation post-editing can be inserted into the workflow"
+        ],
+        "connotation": "The step-by-step translation workflow including review cycles and in-country review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 17100:2015 — the translation process sequences translation, revision, and in-country review steps",
+              "ISO 18587:2017 — machine-translation post-editing can be inserted into the workflow"
+            ],
+            "connotation": "The step-by-step translation workflow including review cycles and in-country review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -291545,7 +292751,26 @@
       "name": "TypographyStyleEntry",
       "sectionId": "TYST",
       "doc": "A typography style entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — text presentation such as size and weight is chosen so that information remains legible",
+          "W3C WCAG 2.2 — SC 1.4.4 Resize text and SC 1.4.12 Text Spacing keep text readable when scaled and respaced",
+          "Material Design — a type scale defines consistent typography roles across the interface"
+        ],
+        "connotation": "A single typography style describing font, size, weight, and spacing for a text role."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — text presentation such as size and weight is chosen so that information remains legible",
+              "W3C WCAG 2.2 — SC 1.4.4 Resize text and SC 1.4.12 Text Spacing keep text readable when scaled and respaced",
+              "Material Design — a type scale defines consistent typography roles across the interface"
+            ],
+            "connotation": "A single typography style describing font, size, weight, and spacing for a text role."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -291583,6 +292808,7 @@
             {
               "name": "fontFamily",
               "label": "Font Family",
+              "hint": "Typeface family name",
               "type": "String",
               "required": false
             },
@@ -291610,6 +292836,7 @@
             {
               "name": "letterSpacing",
               "label": "Letter Spacing",
+              "hint": "Spacing between characters",
               "type": "String",
               "required": false
             },
@@ -292778,7 +294005,26 @@
       "name": "UiComponentEntry",
       "sectionId": "UICOMENT",
       "doc": "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — visual user-interface elements are described with their appearance, behaviour, and interaction guidance",
+          "ISO/IEC 25010:2023 — a fully specified component supports maintainability and reusability across the interface",
+          "W3C WAI-ARIA 1.2 — roles, states, and properties make the component perceivable to assistive technology"
+        ],
+        "connotation": "The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — visual user-interface elements are described with their appearance, behaviour, and interaction guidance",
+              "ISO/IEC 25010:2023 — a fully specified component supports maintainability and reusability across the interface",
+              "W3C WAI-ARIA 1.2 — roles, states, and properties make the component perceivable to assistive technology"
+            ],
+            "connotation": "The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293012,24 +294258,28 @@
             {
               "name": "longPressBehavior",
               "label": "Long Press Behavior",
+              "hint": "What happens on long press",
               "type": "String",
               "required": false
             },
             {
               "name": "doubleTapBehavior",
               "label": "Double Tap Behavior",
+              "hint": "What happens on double tap",
               "type": "String",
               "required": false
             },
             {
               "name": "swipeBehavior",
               "label": "Swipe Behavior",
+              "hint": "What happens on swipe gestures",
               "type": "String",
               "required": false
             },
             {
               "name": "dragBehavior",
               "label": "Drag Behavior",
+              "hint": "What happens on drag gestures",
               "type": "String",
               "required": false
             },
@@ -293213,6 +294463,7 @@
             {
               "name": "colorContrastNotes",
               "label": "Color Contrast Notes",
+              "hint": "Contrast ratios and compliance notes",
               "type": "String",
               "required": false
             },
@@ -293352,18 +294603,21 @@
             {
               "name": "tooltipResource",
               "label": "Tooltip Resource",
+              "hint": "Resource key for tooltip text",
               "type": "String",
               "required": false
             },
             {
               "name": "placeholderResource",
               "label": "Placeholder Resource",
+              "hint": "Resource key for placeholder text",
               "type": "String",
               "required": false
             },
             {
               "name": "ariaLabelResource",
               "label": "ARIA Label Resource",
+              "hint": "Resource key for the ARIA label",
               "type": "String",
               "required": false
             },
@@ -293447,6 +294701,7 @@
             {
               "name": "undoRedoSupport",
               "label": "Undo/Redo Support",
+              "hint": "Whether edits can be undone and redone",
               "type": "String",
               "required": false
             }
@@ -293479,10 +294734,28 @@
           "name": "states",
           "kind": "list",
           "doc": "Contains 0+× ComponentState.",
+          "help": "Add one entry per component state.",
           "sectionId": "CMST-STAT-LST",
           "sectionIdPattern": "CMST-STAT-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology",
+              "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"
+            ],
+            "connotation": "The collection of component-state entries defining the visual and functional states of the component."
+          },
           "serializationOrder": 18,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology",
+                  "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"
+                ],
+                "connotation": "The collection of component-state entries defining the visual and functional states of the component."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293493,6 +294766,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMST-STAT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component state."
               }
             },
             {
@@ -293509,10 +294788,28 @@
           "name": "variants",
           "kind": "list",
           "doc": "Contains 0+× ComponentVariant.",
+          "help": "Add one entry per component variant.",
           "sectionId": "CMVN-VARI-LST",
           "sectionIdPattern": "CMVN-VARI-xxx",
+          "standardReferences": {
+            "standards": [
+              "Material Design — component variants define alternative appearances such as filled, outlined, and text styles",
+              "ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability"
+            ],
+            "connotation": "The collection of component-variant entries defining alternative configurations of the component."
+          },
           "serializationOrder": 19,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Material Design — component variants define alternative appearances such as filled, outlined, and text styles",
+                  "ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability"
+                ],
+                "connotation": "The collection of component-variant entries defining alternative configurations of the component."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293523,6 +294820,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMVN-VARI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component variant."
               }
             },
             {
@@ -293539,10 +294842,28 @@
           "name": "actions",
           "kind": "list",
           "doc": "Contains 0+× ComponentAction.",
+          "help": "Add one entry per component action.",
           "sectionId": "CMAC-ACTI-LST",
           "sectionIdPattern": "CMAC-ACTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — component actions conform with user expectations for interaction and controllability",
+              "W3C WAI-ARIA 1.2 — actionable elements expose their role and available operations to assistive technology"
+            ],
+            "connotation": "The collection of component-action entries defining operations the component can perform."
+          },
           "serializationOrder": 20,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — component actions conform with user expectations for interaction and controllability",
+                  "W3C WAI-ARIA 1.2 — actionable elements expose their role and available operations to assistive technology"
+                ],
+                "connotation": "The collection of component-action entries defining operations the component can perform."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293553,6 +294874,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMAC-ACTI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component action."
               }
             },
             {
@@ -293569,10 +294896,28 @@
           "name": "slots",
           "kind": "list",
           "doc": "Contains 0+× ComponentSlot.",
+          "help": "Add one entry per component slot.",
           "sectionId": "CMSL-SLOT-LST",
           "sectionIdPattern": "CMSL-SLOT-xxx",
+          "standardReferences": {
+            "standards": [
+              "Atomic Design (Brad Frost) — composition slots allow a component to host nested content in defined regions",
+              "ISO/IEC 25010:2023 — configurable slots support maintainability through modularity and reusability"
+            ],
+            "connotation": "The collection of component-slot entries defining named content regions of the component."
+          },
           "serializationOrder": 21,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Atomic Design (Brad Frost) — composition slots allow a component to host nested content in defined regions",
+                  "ISO/IEC 25010:2023 — configurable slots support maintainability through modularity and reusability"
+                ],
+                "connotation": "The collection of component-slot entries defining named content regions of the component."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293583,6 +294928,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMSL-SLOT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component slot."
               }
             },
             {
@@ -293599,10 +294950,28 @@
           "name": "properties",
           "kind": "list",
           "doc": "Contains 0+× ComponentProperty.",
+          "help": "Add one entry per component property.",
           "sectionId": "CMPR-PROP-LST",
           "sectionIdPattern": "CMPR-PROP-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C WAI-ARIA 1.2 — component properties such as label and description are exposed to assistive technology",
+              "ISO/IEC 25010:2023 — a well-defined set of component properties supports maintainability through modularity"
+            ],
+            "connotation": "The collection of component-property entries defining configurable properties of the component."
+          },
           "serializationOrder": 22,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C WAI-ARIA 1.2 — component properties such as label and description are exposed to assistive technology",
+                  "ISO/IEC 25010:2023 — a well-defined set of component properties supports maintainability through modularity"
+                ],
+                "connotation": "The collection of component-property entries defining configurable properties of the component."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -293613,6 +294982,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMPR-PROP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component property."
               }
             },
             {
@@ -293631,7 +295006,26 @@
       "name": "UiComponentEntryAnimation",
       "sectionId": "UCEA",
       "doc": "Animation behavior.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — motion specifications define entry, exit, and state-change animations for components",
+          "WCAG 2.2 — SC 2.3.3 Animation from Interactions allows motion effects to be reduced when requested",
+          "ISO 9241-161:2016 — animated feedback communicates changes in component state to users"
+        ],
+        "connotation": "The UI-component-entry animation definition describing entry, exit, transition, and feedback motion for one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — motion specifications define entry, exit, and state-change animations for components",
+              "WCAG 2.2 — SC 2.3.3 Animation from Interactions allows motion effects to be reduced when requested",
+              "ISO 9241-161:2016 — animated feedback communicates changes in component state to users"
+            ],
+            "connotation": "The UI-component-entry animation definition describing entry, exit, transition, and feedback motion for one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293662,12 +295056,14 @@
             {
               "name": "entryAnimation",
               "label": "Entry Animation",
+              "hint": "How the component appears",
               "type": "String",
               "required": false
             },
             {
               "name": "exitAnimation",
               "label": "Exit Animation",
+              "hint": "How the component disappears",
               "type": "String",
               "required": false
             },
@@ -293693,7 +295089,24 @@
       "name": "UiComponentEntryClassification",
       "sectionId": "UCEC",
       "doc": "Classification details.",
+      "standardReferences": {
+        "standards": [
+          "Atomic Design (Brad Frost) — classifying components as atoms, molecules, or organisms guides composition",
+          "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"
+        ],
+        "connotation": "The UI-component-entry classification definition describing atomic level, complexity, and reusability of one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Atomic Design (Brad Frost) — classifying components as atoms, molecules, or organisms guides composition",
+              "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"
+            ],
+            "connotation": "The UI-component-entry classification definition describing atomic level, complexity, and reusability of one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293750,7 +295163,26 @@
       "name": "UiComponentEntryDimensions",
       "sectionId": "UCED",
       "doc": "Visual dimensions.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — sizing of interface elements supports readable presentation of information",
+          "WCAG 2.2 — SC 1.4.10 Reflow requires components to remain usable across a range of dimensions",
+          "Material Design — layout and sizing guidance defines default and constraining dimensions for components"
+        ],
+        "connotation": "The UI-component-entry dimension definition describing default, minimum, and maximum sizing for one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — sizing of interface elements supports readable presentation of information",
+              "WCAG 2.2 — SC 1.4.10 Reflow requires components to remain usable across a range of dimensions",
+              "Material Design — layout and sizing guidance defines default and constraining dimensions for components"
+            ],
+            "connotation": "The UI-component-entry dimension definition describing default, minimum, and maximum sizing for one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293795,12 +295227,14 @@
             {
               "name": "minDimensions",
               "label": "Minimum Dimensions",
+              "hint": "Smallest allowed size",
               "type": "String",
               "required": false
             },
             {
               "name": "maxDimensions",
               "label": "Maximum Dimensions",
+              "hint": "Largest allowed size",
               "type": "String",
               "required": false
             }
@@ -293812,7 +295246,26 @@
       "name": "UiComponentEntryInputBehavior",
       "sectionId": "UCEIB",
       "doc": "Focus and keyboard behavior.",
+      "standardReferences": {
+        "standards": [
+          "WCAG 2.2 — SC 2.1.1 Keyboard and SC 2.4.7 Focus Visible ensure the component is operable and its focus is apparent",
+          "W3C WAI-ARIA 1.2 — keyboard interaction and focus management follow expected authoring patterns",
+          "ISO 9241-171:2008 — keyboard access supports users who cannot operate a pointing device"
+        ],
+        "connotation": "The UI-component-entry input-behaviour definition describing focus, keyboard navigation, and shortcut handling for one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "WCAG 2.2 — SC 2.1.1 Keyboard and SC 2.4.7 Focus Visible ensure the component is operable and its focus is apparent",
+              "W3C WAI-ARIA 1.2 — keyboard interaction and focus management follow expected authoring patterns",
+              "ISO 9241-171:2008 — keyboard access supports users who cannot operate a pointing device"
+            ],
+            "connotation": "The UI-component-entry input-behaviour definition describing focus, keyboard navigation, and shortcut handling for one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293857,6 +295310,7 @@
             {
               "name": "keyboardShortcuts",
               "label": "Keyboard Shortcuts",
+              "hint": "Key combinations the component handles",
               "type": "String",
               "required": false
             }
@@ -293868,7 +295322,24 @@
       "name": "UiComponentEntryPurpose",
       "sectionId": "UCEP",
       "doc": "Wrapper mapping and business purpose.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — components conform with user expectations by mapping to a clear purpose and business context",
+          "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"
+        ],
+        "connotation": "The UI-component-entry purpose definition describing the wrapper mapping, purpose, business context, and user goals of one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — components conform with user expectations by mapping to a clear purpose and business context",
+              "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"
+            ],
+            "connotation": "The UI-component-entry purpose definition describing the wrapper mapping, purpose, business context, and user goals of one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293932,7 +295403,24 @@
       "name": "UiComponentEntryScroll",
       "sectionId": "UICOENSC",
       "doc": "Scrolling behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — scrollable regions and sticky elements are presented so users can perceive content boundaries",
+          "ISO 9241-125:2017 — presentation of information remains legible as content scrolls within a component"
+        ],
+        "connotation": "The UI-component-entry scroll definition describing scrolling and sticky behaviour of one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — scrollable regions and sticky elements are presented so users can perceive content boundaries",
+              "ISO 9241-125:2017 — presentation of information remains legible as content scrolls within a component"
+            ],
+            "connotation": "The UI-component-entry scroll definition describing scrolling and sticky behaviour of one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293982,7 +295470,26 @@
       "name": "UiComponentEntrySpacing",
       "sectionId": "UCES",
       "doc": "Spacing rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — spacing between elements supports clear presentation of information",
+          "Material Design — spacing and layout guidance defines padding and margin rhythm for components",
+          "ISO 9241-161:2016 — consistent spacing helps users perceive grouping of interface elements"
+        ],
+        "connotation": "The UI-component-entry spacing definition describing internal padding, external margin, and content spacing for one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — spacing between elements supports clear presentation of information",
+              "Material Design — spacing and layout guidance defines padding and margin rhythm for components",
+              "ISO 9241-161:2016 — consistent spacing helps users perceive grouping of interface elements"
+            ],
+            "connotation": "The UI-component-entry spacing definition describing internal padding, external margin, and content spacing for one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -294013,12 +295520,14 @@
             {
               "name": "internalPadding",
               "label": "Internal Padding",
+              "hint": "Padding inside the component",
               "type": "String",
               "required": false
             },
             {
               "name": "externalMargin",
               "label": "External Margin",
+              "hint": "Margin around the component",
               "type": "String",
               "required": false
             },
@@ -294037,7 +295546,26 @@
       "name": "UiComponentEntrySurface",
       "sectionId": "UICOENSU",
       "doc": "Surface treatment.",
+      "standardReferences": {
+        "standards": [
+          "Material Design — surface, elevation, and shadow properties define the visual layering of components",
+          "ISO 9241-125:2017 — presentation of information relies on consistent surface treatment for legibility",
+          "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires component boundaries to remain distinguishable"
+        ],
+        "connotation": "The UI-component-entry surface definition describing border, corner, elevation, and shadow treatment for one catalog component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Material Design — surface, elevation, and shadow properties define the visual layering of components",
+              "ISO 9241-125:2017 — presentation of information relies on consistent surface treatment for legibility",
+              "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires component boundaries to remain distinguishable"
+            ],
+            "connotation": "The UI-component-entry surface definition describing border, corner, elevation, and shadow treatment for one catalog component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -294068,24 +295596,28 @@
             {
               "name": "borderStyle",
               "label": "Border Style",
+              "hint": "Solid, dashed, none",
               "type": "String",
               "required": false
             },
             {
               "name": "cornerRadius",
               "label": "Corner Radius",
+              "hint": "Rounding of component corners",
               "type": "String",
               "required": false
             },
             {
               "name": "elevation",
               "label": "Elevation",
+              "hint": "Depth or z-level of the surface",
               "type": "String",
               "required": false
             },
             {
               "name": "shadowStyle",
               "label": "Shadow Style",
+              "hint": "Drop shadow appearance",
               "type": "String",
               "required": false
             }
@@ -294099,7 +295631,26 @@
       "doc": "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — visual user-interface elements are catalogued so they are used consistently",
+          "ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse",
+          "ISO 9241-110:2020 — consistency principles govern the reuse of interface components"
+        ],
+        "connotation": "The UI-components configuration describing the catalog of reusable interface components and the design system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — visual user-interface elements are catalogued so they are used consistently",
+              "ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse",
+              "ISO 9241-110:2020 — consistency principles govern the reuse of interface components"
+            ],
+            "connotation": "The UI-components configuration describing the catalog of reusable interface components and the design system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -294156,6 +295707,7 @@
             {
               "name": "designSystemVersion",
               "label": "Design System Version",
+              "hint": "Semantic version of the design system (e.g., \"2.1.0\")",
               "type": "String",
               "required": false
             },
@@ -294239,10 +295791,28 @@
           "name": "componentSpecs",
           "kind": "list",
           "doc": "10.11.2. Component Specifications — contains 0+×.",
+          "help": "Add one entry per catalog component.",
           "sectionId": "UICOEN-COMP-LST",
           "sectionIdPattern": "UICOEN-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Atomic Design (Brad Frost) — each catalog component is specified as a composable building block",
+              "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"
+            ],
+            "connotation": "The collection of catalog component-specification entries."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Atomic Design (Brad Frost) — each catalog component is specified as a composable building block",
+                  "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"
+                ],
+                "connotation": "The collection of catalog component-specification entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -294253,6 +295823,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UICOEN-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per catalog component."
               }
             },
             {
@@ -294269,10 +295845,28 @@
           "name": "componentFamilies",
           "kind": "list",
           "doc": "10.11.3. Component Families — contains 0+×.",
+          "help": "Add one entry per component family.",
           "sectionId": "CMFA-COMP-LST",
           "sectionIdPattern": "CMFA-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Atomic Design (Brad Frost) — related components are grouped into families of shared composition",
+              "ISO/IEC 25010:2023 — component families support maintainability through modularity and reuse"
+            ],
+            "connotation": "The collection of component-family entries grouping related catalog components."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Atomic Design (Brad Frost) — related components are grouped into families of shared composition",
+                  "ISO/IEC 25010:2023 — component families support maintainability through modularity and reuse"
+                ],
+                "connotation": "The collection of component-family entries grouping related catalog components."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -294283,6 +295877,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CMFA-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per component family."
               }
             },
             {
@@ -297612,7 +299212,24 @@
       "doc": "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514 — user documentation design and format follow a defined content structure",
+          "ISO 17100:2015 — documentation can be localized through the translation process"
+        ],
+        "connotation": "The end-user documentation format, platform, versioning, and localization deliverables."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514 — user documentation design and format follow a defined content structure",
+              "ISO 17100:2015 — documentation can be localized through the translation process"
+            ],
+            "connotation": "The end-user documentation format, platform, versioning, and localization deliverables."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

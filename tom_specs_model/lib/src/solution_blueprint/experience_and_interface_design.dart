@@ -8150,6 +8150,14 @@ class ResponsiveScreenRuleEntry {
 /// Comprehensive UI component library specification covering design system,
 /// component catalog, and detailed per-component specifications. Supports
 /// Flutter-based implementation with Tom framework integration.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — visual user-interface elements are catalogued so they are used consistently',
+    'ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse',
+    'ISO 9241-110:2020 — consistency principles govern the reuse of interface components',
+  ],
+  'The UI-components configuration describing the catalog of reusable interface components and the design system.',
+)
 @SectionId('UICO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -8161,7 +8169,8 @@ class UiComponents {
   @Form([
     Field('designSystemName', String, 'Design System Name',
         hint: 'Name of the design system (e.g., "Acme Design System")'),
-    Field('designSystemVersion', String, 'Design System Version'),
+    Field('designSystemVersion', String, 'Design System Version',
+        hint: 'Semantic version of the design system (e.g., "2.1.0")'),
     Field('basedOnFramework', String, 'Based On Framework',
         hint: 'Material Design 3, Cupertino, Custom'),
     Field('tomFlutterUiIntegration', bool, 'Tom Flutter UI Integration',
@@ -8188,19 +8197,43 @@ class UiComponents {
   ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications — contains 0+×.
+  @StandardReferences(
+    [
+      'Atomic Design (Brad Frost) — each catalog component is specified as a composable building block',
+      'ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity',
+    ],
+    'The collection of catalog component-specification entries.',
+  )
   @SectionId('UICOEN-COMP-LST')
   @SectionIdPattern('UICOEN-COMP-xxx')
+  @ContentHelp('Add one entry per catalog component.')
   @SerializationOrder(5)
   List<UiComponentEntry> componentSpecs = [];
 
   /// 10.11.3. Component Families — contains 0+×.
+  @StandardReferences(
+    [
+      'Atomic Design (Brad Frost) — related components are grouped into families of shared composition',
+      'ISO/IEC 25010:2023 — component families support maintainability through modularity and reuse',
+    ],
+    'The collection of component-family entries grouping related catalog components.',
+  )
   @SectionId('CMFA-COMP-LST')
   @SectionIdPattern('CMFA-COMP-xxx')
+  @ContentHelp('Add one entry per component family.')
   @SerializationOrder(6)
   List<ComponentFamilyEntry> componentFamilies = [];
 }
 
 /// Visual language and brand alignment.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — visual interface elements are catalogued so they are applied consistently',
+    'ISO 9241-110:2020 — consistency underpins a coherent visual language',
+    'ISO/IEC 25010:2023 — a shared visual language supports maintainability through reuse',
+  ],
+  'The visual-language configuration describing brand alignment and motion principles.',
+)
 @SectionId('UCVL')
 class ComponentVisualLanguage {
     @Form([
@@ -8216,6 +8249,14 @@ class ComponentVisualLanguage {
 }
 
 /// Component naming and documentation approach.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — interface elements are named and documented so they are used consistently',
+    'ISO 9241-110:2020 — consistency guides naming and documentation conventions',
+    'ISO/IEC 25010:2023 — clear naming and documentation support maintainability',
+  ],
+  'The approach configuration describing component granularity, naming, and documentation practice.',
+)
 @SectionId('UCCA')
 class ComponentApproach {
     @Form([
@@ -8231,6 +8272,14 @@ class ComponentApproach {
 }
 
 /// Extension and theming boundaries.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — interface elements are catalogued so they are extended consistently',
+    'ISO 9241-110:2020 — consistency governs how components can be themed and adapted',
+    'ISO/IEC 25010:2023 — bounded extension points support maintainability and modularity',
+  ],
+  'The customization configuration describing how components can be extended and themed.',
+)
 @SectionId('UICOCU')
 class ComponentCustomization {
     @Form([
@@ -8248,10 +8297,27 @@ class ComponentCustomization {
 /// 10.11.1. Component Library.
 ///
 /// Design system and component catalog specification.
+@StandardReferences(
+  [
+    'Atomic Design (Brad Frost) — a component library composes atoms, molecules, and organisms',
+    'Material Design — a design system unifies tokens, colour, type, and spacing',
+    'ISO/IEC 25010:2023 — a shared component library supports maintainability through modularity and reuse',
+  ],
+  'The component-library configuration describing the design system and its shared foundations.',
+)
 @SectionId('COLI')
 class ComponentLibrary {
+  @StandardReferences(
+    [
+      'Material Design — design tokens capture reusable values for the design system',
+      'W3C CSS — foundational style values are expressed as reusable declarations',
+      'ISO/IEC 25010:2023 — shared foundations support maintainability through reuse',
+    ],
+    'The collection of design-foundation entries defining the base design tokens.',
+  )
   @SectionId('DESIG-DESI-LST')
   @SectionIdPattern('DESIG-DESI-xxx')
+  @ContentHelp('Add one entry per design foundation.')
   @SerializationOrder(0)
   List<DesignFoundationEntry> designFoundations = [];
 
@@ -8288,28 +8354,59 @@ class ComponentLibrary {
   TextSection designTokenCatalog = TextSection();
 
   /// Color palette specification.
+  @StandardReferences(
+    [
+      'ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable',
+      'W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour',
+    ],
+    'The collection of colour palette entries in the design system.',
+  )
   @SectionId('COPA-COLO-LST')
   @SectionIdPattern('COPA-COLO-xxx')
+  @ContentHelp('Add one entry per colour palette.')
   @SerializationOrder(8)
   List<ColorPaletteEntry> colorPalettes = [];
 
   /// Typography styles.
+  @StandardReferences(
+    [
+      'ISO 9241-112:2017 — typography presents information so text stays legible',
+      'W3C CSS — text styles are declared through style rules',
+      'W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled',
+    ],
+    'The collection of typography style entries in the library type scale.',
+  )
   @SectionId('TYST-TYPO-LST')
   @SectionIdPattern('TYST-TYPO-xxx')
+  @ContentHelp('Add one entry per typography style.')
   @SerializationOrder(9)
   List<TypographyStyleEntry> typographyStyles = [];
 }
 
 /// Color system.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable',
+    'W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour',
+    'Material Design — the colour system organises roles and tokens across the palette',
+  ],
+  'The library-level colour configuration covering the semantic palette and colour tokens.',
+)
 @SectionId('COLICO')
 class ComponentLibraryColors {
   @Form([
-    Field('secondaryColor', String, 'Secondary Color'),
-    Field('tertiaryColor', String, 'Tertiary Color'),
-    Field('errorColor', String, 'Error Color'),
-    Field('warningColor', String, 'Warning Color'),
-    Field('successColor', String, 'Success Color'),
-    Field('infoColor', String, 'Info Color'),
+    Field('secondaryColor', String, 'Secondary Color',
+        hint: 'Secondary brand colour hex value (e.g., "#03DAC6")'),
+    Field('tertiaryColor', String, 'Tertiary Color',
+        hint: 'Tertiary accent colour hex value (e.g., "#3700B3")'),
+    Field('errorColor', String, 'Error Color',
+        hint: 'Colour for error states (e.g., "#B00020")'),
+    Field('warningColor', String, 'Warning Color',
+        hint: 'Colour for warning states (e.g., "#FF9800")'),
+    Field('successColor', String, 'Success Color',
+        hint: 'Colour for success states (e.g., "#4CAF50")'),
+    Field('infoColor', String, 'Info Color',
+        hint: 'Colour for informational states (e.g., "#2196F3")'),
     Field('surfaceColors', String, 'Surface Colors',
         hint: 'Background, card, dialog surfaces'),
     Field('colorTokenFormat', String, 'Color Token Format',
@@ -8320,11 +8417,21 @@ class ComponentLibraryColors {
 }
 
 /// Typography system.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — typography presents information so text stays legible',
+    'W3C CSS — font families and type scales are defined through style rules',
+    'W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled',
+  ],
+  'The library-level typography configuration covering font families, scales, and size units.',
+)
 @SectionId('COLITY')
 class ComponentLibraryTypography {
   @Form([
-    Field('fontFamilySecondary', String, 'Secondary Font Family'),
-    Field('fontFamilyMonospace', String, 'Monospace Font Family'),
+    Field('fontFamilySecondary', String, 'Secondary Font Family',
+        hint: 'Secondary typeface for accents (e.g., "Roboto Slab")'),
+    Field('fontFamilyMonospace', String, 'Monospace Font Family',
+        hint: 'Monospace typeface for code (e.g., "JetBrains Mono")'),
     Field('typographyScale', String, 'Typography Scale',
         hint: 'Material type scale, custom scale'),
     Field('fontSizeUnit', String, 'Font Size Unit',
@@ -8335,6 +8442,13 @@ class ComponentLibraryTypography {
 }
 
 /// Spacing and elevation.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — spacing arranges information so the layout stays clear and consistent',
+    'Material Design — spacing tokens define a coherent rhythm across the design system',
+  ],
+  'The library-level configuration for spacing tokens and elevation levels.',
+)
 @SectionId('COLISP')
 class ComponentLibrarySpacing {
   @Form([
@@ -8350,18 +8464,34 @@ class ComponentLibrarySpacing {
 }
 
 /// Borders and corners.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — borders present information so boundaries remain legible',
+    'W3C WCAG 2.2 — SC 1.4.11 Non-text Contrast requires sufficient contrast for graphical boundaries',
+  ],
+  'The library-level configuration for border styles and corner radius scales.',
+)
 @SectionId('COLIBO')
 class ComponentLibraryBorders {
   @Form([
     Field('cornerRadiusScale', String, 'Corner Radius Scale',
         hint: 'Rounded levels: none, sm, md, lg, full'),
-    Field('borderStyleDefaults', String, 'Border Style Defaults'),
+    Field('borderStyleDefaults', String, 'Border Style Defaults',
+        hint: 'Default border width, style, and colour (e.g., "1px solid outline")'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Icons and animation.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — icons and motion are presented so information stays perceivable and legible',
+    'ISO 9241-125:2017 — visual elements are arranged consistently across the layout',
+    'Material Design — elevation and motion tokens give a coherent visual system',
+  ],
+  'The library-level visual configuration covering icons, elevation, and animation values.',
+)
 @SectionId('COLIVI')
 class ComponentLibraryVisuals {
   @Form([
@@ -8379,6 +8509,14 @@ class ComponentLibraryVisuals {
 }
 
 /// A color palette entry.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — colour is applied so that information remains legible and distinguishable',
+    'W3C WCAG 2.2 — SC 1.4.3 Contrast requires sufficient contrast between text and its background',
+    'Material Design — a colour system defines primary, secondary, and surface roles across the interface',
+  ],
+  'A colour palette describing the colour set, variants, and contrast guidance used across the interface.',
+)
 @SectionId('COPA')
 class ColorPaletteEntry {
   @Form([
@@ -8398,26 +8536,37 @@ class ColorPaletteEntry {
         hint: 'Default text color on this palette'),
     Field('wcagCompliance', String, 'WCAG Compliance',
         hint: 'Contrast compliance level'),
-    Field('usageGuidelines', String, 'Usage Guidelines'),
+    Field('usageGuidelines', String, 'Usage Guidelines',
+        hint: 'When and where to apply this palette'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A typography style entry.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — text presentation such as size and weight is chosen so that information remains legible',
+    'W3C WCAG 2.2 — SC 1.4.4 Resize text and SC 1.4.12 Text Spacing keep text readable when scaled and respaced',
+    'Material Design — a type scale defines consistent typography roles across the interface',
+  ],
+  'A single typography style describing font, size, weight, and spacing for a text role.',
+)
 @SectionId('TYST')
 class TypographyStyleEntry {
   @Form([
     Field('styleName', String, 'Style Name', required: true,
         hint: 'DisplayLarge, BodyMedium, LabelSmall'),
-    Field('fontFamily', String, 'Font Family'),
+    Field('fontFamily', String, 'Font Family',
+        hint: 'Typeface family name'),
     Field('fontSize', String, 'Font Size',
         hint: 'Size in logical pixels'),
     Field('fontWeight', String, 'Font Weight',
         hint: 'Normal, medium, semibold, bold'),
     Field('lineHeight', String, 'Line Height',
         hint: 'Line height multiplier'),
-    Field('letterSpacing', String, 'Letter Spacing'),
+    Field('letterSpacing', String, 'Letter Spacing',
+        hint: 'Spacing between characters'),
     Field('textDecoration', String, 'Text Decoration',
         hint: 'None, underline, strikethrough'),
     Field('useCase', String, 'Use Case',
@@ -8430,6 +8579,14 @@ class TypographyStyleEntry {
 /// A component family entry.
 ///
 /// Groups related components by function (buttons, inputs, navigation, etc.).
+@StandardReferences(
+  [
+    'Atomic Design (Brad Frost) — components are organised into families based on shared composition and function',
+    'ISO/IEC 25010:2023 — grouping components into families supports modularity and reuse',
+    'Material Design — a design system organises components into consistent families',
+  ],
+  'A grouping of related interface components that share function, patterns, and consistency rules.',
+)
 @SectionId('CMFA')
 class ComponentFamilyEntry {
   @Form([
@@ -8437,8 +8594,10 @@ class ComponentFamilyEntry {
         hint: 'Unique identifier (e.g., FAM-BTN)'),
     Field('familyName', String, 'Family Name', required: true,
         hint: 'Buttons, Inputs, Navigation, Tables'),
-    Field('familyDescription', String, 'Family Description'),
-    Field('componentCount', int, 'Component Count'),
+    Field('familyDescription', String, 'Family Description',
+        hint: 'Purpose and scope of the family'),
+    Field('componentCount', int, 'Component Count',
+        hint: 'Number of components in the family'),
     Field('sharedPatterns', String, 'Shared Patterns',
         hint: 'Common patterns across family'),
     Field('consistencyRules', String, 'Consistency Rules',
@@ -8452,18 +8611,35 @@ class ComponentFamilyEntry {
   TextSection familyNarrative = TextSection();
 
   /// Components in this family.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — a reusable component family supports maintainability through modularity',
+      'Atomic Design (Brad Frost) — related components are collected into a shared family of interface parts',
+    ],
+    'The collection of component references that make up this family.',
+  )
   @SectionId('FAMREF-COMP-LST')
   @SectionIdPattern('FAMREF-COMP-xxx')
+  @ContentHelp('Add one entry per component in the family.')
   @SerializationOrder(2)
   List<FamilyComponentRef> components = [];
 }
 
 /// A component reference within a family.
+@StandardReferences(
+  [
+    'Atomic Design (Brad Frost) — components are composed and grouped into families of related interface parts',
+    'ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse',
+  ],
+  'A reference identifying one component that belongs to a component family.',
+)
 @SectionId('FAMREF')
 class FamilyComponentRef {
   @Form([
-    Field('componentId', String, 'Component ID', required: true),
-    Field('componentName', String, 'Component Name', required: true),
+    Field('componentId', String, 'Component ID', required: true,
+        hint: 'Identifier of the referenced component'),
+    Field('componentName', String, 'Component Name', required: true,
+        hint: 'Name of the referenced component'),
     Field('familyRole', String, 'Family Role',
         hint: 'Primary, secondary, specialized'),
     Field('relationToOthers', String, 'Relation to Others',
@@ -8478,6 +8654,14 @@ class FamilyComponentRef {
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
 /// authorization, and data binding.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — visual user-interface elements are described with their appearance, behaviour, and interaction guidance',
+    'ISO/IEC 25010:2023 — a fully specified component supports maintainability and reusability across the interface',
+    'W3C WAI-ARIA 1.2 — roles, states, and properties make the component perceivable to assistive technology',
+  ],
+  'The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding.',
+)
 @SectionId('UICOMENT')
 class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
@@ -8545,10 +8729,14 @@ class UiComponentEntry {
   @Form([
     Field('tapBehavior', String, 'Tap Behavior',
         hint: 'What happens on tap/click'),
-    Field('longPressBehavior', String, 'Long Press Behavior'),
-    Field('doubleTapBehavior', String, 'Double Tap Behavior'),
-    Field('swipeBehavior', String, 'Swipe Behavior'),
-    Field('dragBehavior', String, 'Drag Behavior'),
+    Field('longPressBehavior', String, 'Long Press Behavior',
+        hint: 'What happens on long press'),
+    Field('doubleTapBehavior', String, 'Double Tap Behavior',
+        hint: 'What happens on double tap'),
+    Field('swipeBehavior', String, 'Swipe Behavior',
+        hint: 'What happens on swipe gestures'),
+    Field('dragBehavior', String, 'Drag Behavior',
+        hint: 'What happens on drag gestures'),
     Field('hoverBehavior', String, 'Hover Behavior'),
   ])
   @SerializationOrder(8)
@@ -8602,7 +8790,8 @@ class UiComponentEntry {
         hint: 'Tab order in context'),
     Field('ariaAttributes', String, 'ARIA Attributes',
         hint: 'Required ARIA attributes'),
-    Field('colorContrastNotes', String, 'Color Contrast Notes'),
+    Field('colorContrastNotes', String, 'Color Contrast Notes',
+        hint: 'Contrast ratios and compliance notes'),
     Field('motionSensitivity', String, 'Motion Sensitivity',
         hint: 'Reduced motion behavior'),
     Field('textScalingBehavior', String, 'Text Scaling Behavior',
@@ -8645,9 +8834,12 @@ class UiComponentEntry {
         hint: 'Resource key for hint text'),
     Field('errorResource', String, 'Error Resource',
         hint: 'Resource key for error messages'),
-    Field('tooltipResource', String, 'Tooltip Resource'),
-    Field('placeholderResource', String, 'Placeholder Resource'),
-    Field('ariaLabelResource', String, 'ARIA Label Resource'),
+    Field('tooltipResource', String, 'Tooltip Resource',
+        hint: 'Resource key for tooltip text'),
+    Field('placeholderResource', String, 'Placeholder Resource',
+        hint: 'Resource key for placeholder text'),
+    Field('ariaLabelResource', String, 'ARIA Label Resource',
+        hint: 'Resource key for the ARIA label'),
     Field('iconResource', String, 'Icon Resource',
         hint: 'Resource key for icon selection'),
     Field('resourceFallbacks', String, 'Resource Fallbacks',
@@ -8672,7 +8864,8 @@ class UiComponentEntry {
         hint: 'How validation errors are displayed'),
     Field('dirtyTracking', String, 'Dirty Tracking',
         hint: 'How dirty state is tracked'),
-    Field('undoRedoSupport', String, 'Undo/Redo Support'),
+    Field('undoRedoSupport', String, 'Undo/Redo Support',
+        hint: 'Whether edits can be undone and redone'),
   ])
   @SerializationOrder(16)
   String? dataBinding;
@@ -8684,37 +8877,84 @@ class UiComponentEntry {
   TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
+  @StandardReferences(
+    [
+      'W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology',
+      'ISO 9241-161:2016 — each interactive state is presented so users can recognise it',
+    ],
+    'The collection of component-state entries defining the visual and functional states of the component.',
+  )
   @SectionId('CMST-STAT-LST')
   @SectionIdPattern('CMST-STAT-xxx')
+  @ContentHelp('Add one entry per component state.')
   @SerializationOrder(18)
   List<ComponentStateEntry> states = [];
 
   /// Contains 0+× ComponentVariant.
+  @StandardReferences(
+    [
+      'Material Design — component variants define alternative appearances such as filled, outlined, and text styles',
+      'ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability',
+    ],
+    'The collection of component-variant entries defining alternative configurations of the component.',
+  )
   @SectionId('CMVN-VARI-LST')
   @SectionIdPattern('CMVN-VARI-xxx')
+  @ContentHelp('Add one entry per component variant.')
   @SerializationOrder(19)
   List<ComponentVariantEntry> variants = [];
 
   /// Contains 0+× ComponentAction.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — component actions conform with user expectations for interaction and controllability',
+      'W3C WAI-ARIA 1.2 — actionable elements expose their role and available operations to assistive technology',
+    ],
+    'The collection of component-action entries defining operations the component can perform.',
+  )
   @SectionId('CMAC-ACTI-LST')
   @SectionIdPattern('CMAC-ACTI-xxx')
+  @ContentHelp('Add one entry per component action.')
   @SerializationOrder(20)
   List<ComponentActionEntry> actions = [];
 
   /// Contains 0+× ComponentSlot.
+  @StandardReferences(
+    [
+      'Atomic Design (Brad Frost) — composition slots allow a component to host nested content in defined regions',
+      'ISO/IEC 25010:2023 — configurable slots support maintainability through modularity and reusability',
+    ],
+    'The collection of component-slot entries defining named content regions of the component.',
+  )
   @SectionId('CMSL-SLOT-LST')
   @SectionIdPattern('CMSL-SLOT-xxx')
+  @ContentHelp('Add one entry per component slot.')
   @SerializationOrder(21)
   List<ComponentSlotEntry> slots = [];
 
   /// Contains 0+× ComponentProperty.
+  @StandardReferences(
+    [
+      'W3C WAI-ARIA 1.2 — component properties such as label and description are exposed to assistive technology',
+      'ISO/IEC 25010:2023 — a well-defined set of component properties supports maintainability through modularity',
+    ],
+    'The collection of component-property entries defining configurable properties of the component.',
+  )
   @SectionId('CMPR-PROP-LST')
   @SectionIdPattern('CMPR-PROP-xxx')
+  @ContentHelp('Add one entry per component property.')
   @SerializationOrder(22)
   List<ComponentPropertyEntry> properties = [];
 }
 
 /// Wrapper mapping and business purpose.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — components conform with user expectations by mapping to a clear purpose and business context',
+    'ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability',
+  ],
+  'The UI-component-entry purpose definition describing the wrapper mapping, purpose, business context, and user goals of one catalog component.',
+)
 @SectionId('UCEP')
 class UiComponentEntryPurpose {
     @Form([
@@ -8732,6 +8972,13 @@ class UiComponentEntryPurpose {
 }
 
 /// Classification details.
+@StandardReferences(
+  [
+    'Atomic Design (Brad Frost) — classifying components as atoms, molecules, or organisms guides composition',
+    'ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability',
+  ],
+  'The UI-component-entry classification definition describing atomic level, complexity, and reusability of one catalog component.',
+)
 @SectionId('UCEC')
 class UiComponentEntryClassification {
     @Form([
@@ -8747,6 +8994,14 @@ class UiComponentEntryClassification {
 }
 
 /// Visual dimensions.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — sizing of interface elements supports readable presentation of information',
+    'WCAG 2.2 — SC 1.4.10 Reflow requires components to remain usable across a range of dimensions',
+    'Material Design — layout and sizing guidance defines default and constraining dimensions for components',
+  ],
+  'The UI-component-entry dimension definition describing default, minimum, and maximum sizing for one catalog component.',
+)
 @SectionId('UCED')
 class UiComponentEntryDimensions {
     @Form([
@@ -8754,19 +9009,31 @@ class UiComponentEntryDimensions {
                 hint: 'Default width or width behavior'),
         Field('defaultHeight', String, 'Default Height',
                 hint: 'Default height or height behavior'),
-        Field('minDimensions', String, 'Minimum Dimensions'),
-        Field('maxDimensions', String, 'Maximum Dimensions'),
+        Field('minDimensions', String, 'Minimum Dimensions',
+                hint: 'Smallest allowed size'),
+        Field('maxDimensions', String, 'Maximum Dimensions',
+                hint: 'Largest allowed size'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Spacing rules.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — spacing between elements supports clear presentation of information',
+    'Material Design — spacing and layout guidance defines padding and margin rhythm for components',
+    'ISO 9241-161:2016 — consistent spacing helps users perceive grouping of interface elements',
+  ],
+  'The UI-component-entry spacing definition describing internal padding, external margin, and content spacing for one catalog component.',
+)
 @SectionId('UCES')
 class UiComponentEntrySpacing {
     @Form([
-        Field('internalPadding', String, 'Internal Padding'),
-        Field('externalMargin', String, 'External Margin'),
+        Field('internalPadding', String, 'Internal Padding',
+                hint: 'Padding inside the component'),
+        Field('externalMargin', String, 'External Margin',
+                hint: 'Margin around the component'),
         Field('contentSpacing', String, 'Content Spacing',
                 hint: 'Spacing between internal elements'),
     ])
@@ -8775,19 +9042,39 @@ class UiComponentEntrySpacing {
 }
 
 /// Surface treatment.
+@StandardReferences(
+  [
+    'Material Design — surface, elevation, and shadow properties define the visual layering of components',
+    'ISO 9241-125:2017 — presentation of information relies on consistent surface treatment for legibility',
+    'WCAG 2.2 — SC 1.4.11 Non-text Contrast requires component boundaries to remain distinguishable',
+  ],
+  'The UI-component-entry surface definition describing border, corner, elevation, and shadow treatment for one catalog component.',
+)
 @SectionId('UICOENSU')
 class UiComponentEntrySurface {
     @Form([
-        Field('borderStyle', String, 'Border Style'),
-        Field('cornerRadius', String, 'Corner Radius'),
-        Field('elevation', String, 'Elevation'),
-        Field('shadowStyle', String, 'Shadow Style'),
+        Field('borderStyle', String, 'Border Style',
+                hint: 'Solid, dashed, none'),
+        Field('cornerRadius', String, 'Corner Radius',
+                hint: 'Rounding of component corners'),
+        Field('elevation', String, 'Elevation',
+                hint: 'Depth or z-level of the surface'),
+        Field('shadowStyle', String, 'Shadow Style',
+                hint: 'Drop shadow appearance'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Focus and keyboard behavior.
+@StandardReferences(
+  [
+    'WCAG 2.2 — SC 2.1.1 Keyboard and SC 2.4.7 Focus Visible ensure the component is operable and its focus is apparent',
+    'W3C WAI-ARIA 1.2 — keyboard interaction and focus management follow expected authoring patterns',
+    'ISO 9241-171:2008 — keyboard access supports users who cannot operate a pointing device',
+  ],
+  'The UI-component-entry input-behaviour definition describing focus, keyboard navigation, and shortcut handling for one catalog component.',
+)
 @SectionId('UCEIB')
 class UiComponentEntryInputBehavior {
     @Form([
@@ -8795,18 +9082,29 @@ class UiComponentEntryInputBehavior {
                 hint: 'Focus ring, highlight, navigation'),
         Field('keyboardNavigation', String, 'Keyboard Navigation',
                 hint: 'Tab order, arrow key behavior'),
-        Field('keyboardShortcuts', String, 'Keyboard Shortcuts'),
+        Field('keyboardShortcuts', String, 'Keyboard Shortcuts',
+                hint: 'Key combinations the component handles'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Animation behavior.
+@StandardReferences(
+  [
+    'Material Design — motion specifications define entry, exit, and state-change animations for components',
+    'WCAG 2.2 — SC 2.3.3 Animation from Interactions allows motion effects to be reduced when requested',
+    'ISO 9241-161:2016 — animated feedback communicates changes in component state to users',
+  ],
+  'The UI-component-entry animation definition describing entry, exit, transition, and feedback motion for one catalog component.',
+)
 @SectionId('UCEA')
 class UiComponentEntryAnimation {
     @Form([
-        Field('entryAnimation', String, 'Entry Animation'),
-        Field('exitAnimation', String, 'Exit Animation'),
+        Field('entryAnimation', String, 'Entry Animation',
+                hint: 'How the component appears'),
+        Field('exitAnimation', String, 'Exit Animation',
+                hint: 'How the component disappears'),
         Field('stateTransitions', String, 'State Transitions',
                 hint: 'Animation between states'),
         Field('feedbackAnimations', String, 'Feedback Animations',
@@ -8817,6 +9115,13 @@ class UiComponentEntryAnimation {
 }
 
 /// Scrolling behavior.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — scrollable regions and sticky elements are presented so users can perceive content boundaries',
+    'ISO 9241-125:2017 — presentation of information remains legible as content scrolls within a component',
+  ],
+  'The UI-component-entry scroll definition describing scrolling and sticky behaviour of one catalog component.',
+)
 @SectionId('UICOENSC')
 class UiComponentEntryScroll {
     @Form([
@@ -8832,6 +9137,14 @@ class UiComponentEntryScroll {
 /// A component state entry.
 ///
 /// Defines a visual/functional state of the component.
+@StandardReferences(
+  [
+    'W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology',
+    'WCAG 2.2 — SC 2.4.7 Focus Visible ensures the active state of a component remains apparent',
+    'ISO 9241-161:2016 — interactive elements present a recognisable appearance for each state',
+  ],
+  'The component state definition describing a distinct visual and functional state of a UI component.',
+)
 @SectionId('COMSTAENT')
 class ComponentStateEntry {
   @Form([
@@ -8839,7 +9152,8 @@ class ComponentStateEntry {
         hint: 'Unique state identifier'),
     Field('stateName', String, 'State Name', required: true,
         hint: 'Loading, Empty, Error, Disabled, etc.'),
-    Field('stateDescription', String, 'State Description'),
+    Field('stateDescription', String, 'State Description',
+        hint: 'What this state represents'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8863,21 +9177,41 @@ class ComponentStateEntry {
 }
 
 /// Visual appearance in this state.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — state changes alter the visual appearance of interactive elements',
+    'WCAG 2.2 — SC 1.4.11 Non-text Contrast requires state indicators to stay perceivable',
+    'Material Design — state layers define color and opacity overlays for each component state',
+  ],
+  'The state visual definition describing how a component appearance changes when it is in this state.',
+)
 @SectionId('CSEV')
 class ComponentStateEntryVisual {
     @Form([
         Field('visualChanges', String, 'Visual Changes',
                 hint: 'How appearance changes in this state'),
-        Field('colorOverrides', String, 'Color Overrides'),
-        Field('opacityChange', String, 'Opacity Change'),
-        Field('iconChange', String, 'Icon Change'),
-        Field('textChange', String, 'Text Change'),
+        Field('colorOverrides', String, 'Color Overrides',
+                hint: 'Colors replaced in this state'),
+        Field('opacityChange', String, 'Opacity Change',
+                hint: 'Opacity applied in this state'),
+        Field('iconChange', String, 'Icon Change',
+                hint: 'Icon swapped in this state'),
+        Field('textChange', String, 'Text Change',
+                hint: 'Label or text shown in this state'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Behavior and accessibility changes in this state.
+@StandardReferences(
+  [
+    'W3C WAI-ARIA 1.2 — states such as disabled, pressed, and expanded are exposed to assistive technology',
+    'ISO 9241-110:2020 — interaction behavior in each state conforms to user expectations',
+    'ISO 9241-161:2016 — interactive elements adjust their available operations per state',
+  ],
+  'The state behavior definition describing how interactions and accessibility change when a component is in this state.',
+)
 @SectionId('CSEB')
 class ComponentStateEntryBehavior {
     @Form([
@@ -8891,6 +9225,14 @@ class ComponentStateEntryBehavior {
 }
 
 /// Entry and exit transition rules.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — state transitions animate visual elements to keep users oriented',
+    'ISO 9241-110:2020 — transitions between states remain consistent and predictable',
+    'W3C WAI-ARIA 1.2 — state changes are communicated to assistive technology as they occur',
+  ],
+  'The state transition definition describing what triggers entry into and exit from a component state.',
+)
 @SectionId('CSET')
 class ComponentStateEntryTransitions {
     @Form([
@@ -8898,7 +9240,8 @@ class ComponentStateEntryTransitions {
                 hint: 'What causes entry to this state'),
         Field('exitTrigger', String, 'Exit Trigger',
                 hint: 'What causes exit from this state'),
-        Field('transitionAnimation', String, 'Transition Animation'),
+        Field('transitionAnimation', String, 'Transition Animation',
+                hint: 'Animation played during the transition'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -8907,13 +9250,23 @@ class ComponentStateEntryTransitions {
 /// A component variant entry.
 ///
 /// Defines a variation of the component with different appearance or behavior.
+@StandardReferences(
+  [
+    'Material Design — component variants provide named alternatives such as filled, outlined, and text',
+    'ISO/IEC 25010:2023 — component variants support modularity and reusability within a design system',
+    'W3C WAI-ARIA 1.2 — a variant preserves the accessible role while altering presentation',
+  ],
+  'The component variant definition describing an alternative appearance or behavior of a component.',
+)
 @SectionId('CVE')
 class ComponentVariantEntry {
   @Form([
-    Field('variantId', String, 'Variant ID', required: true),
+    Field('variantId', String, 'Variant ID', required: true,
+        hint: 'Unique variant identifier'),
     Field('variantName', String, 'Variant Name', required: true,
         hint: 'Filled, Outlined, Tonal, Text'),
-    Field('variantDescription', String, 'Variant Description'),
+    Field('variantDescription', String, 'Variant Description',
+        hint: 'What distinguishes this variant'),
     // Visual differentiation
     Field('visualDifferences', String, 'Visual Differences',
         hint: 'How variant looks different'),
@@ -8935,22 +9288,42 @@ class ComponentVariantEntry {
 }
 
 /// Visual styling details.
+@StandardReferences(
+  [
+    'Material Design — variant visual styling covers color scheme, border, and elevation tokens',
+    'W3C CSS — color, border, and shadow properties define variant appearance',
+    'WCAG 2.2 — SC 1.4.11 Non-text Contrast requires variant boundaries to remain distinguishable',
+  ],
+  'The variant visual definition describing color scheme, border, and elevation styling of a component variant.',
+)
 @SectionId('CVEV')
 class ComponentVariantEntryVisual {
     @Form([
-        Field('colorSchemeVariant', String, 'Color Scheme Variant'),
-        Field('borderVariant', String, 'Border Variant'),
-        Field('elevationVariant', String, 'Elevation Variant'),
+        Field('colorSchemeVariant', String, 'Color Scheme Variant',
+                hint: 'Color palette applied to this variant'),
+        Field('borderVariant', String, 'Border Variant',
+                hint: 'Border style for this variant'),
+        Field('elevationVariant', String, 'Elevation Variant',
+                hint: 'Shadow or elevation level'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Behavioral and implementation notes.
+@StandardReferences(
+  [
+    'Material Design — component variants may adjust behavior in addition to appearance',
+    'ISO/IEC 25010:2023 — variant behavior differences are captured to preserve modularity and reusability',
+    'ISO 9241-110:2020 — variant behavior remains consistent with user expectations',
+  ],
+  'The variant behavior definition describing how a component variant differs in behavior and implementation.',
+)
 @SectionId('CVEB')
 class ComponentVariantEntryBehavior {
     @Form([
-        Field('behaviorDifferences', String, 'Behavior Differences'),
+        Field('behaviorDifferences', String, 'Behavior Differences',
+                hint: 'How behavior differs from the base component'),
         Field('useCaseDifferences', String, 'Use Case Differences',
                 hint: 'When to use this variant'),
         Field('implementationNote', String, 'Implementation Note',
@@ -8965,6 +9338,14 @@ class ComponentVariantEntryBehavior {
 /// A component action entry.
 ///
 /// Defines an action that can be triggered from the component.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — interactive controls trigger actions in a way that conforms to user expectations',
+    'W3C WAI-ARIA 1.2 — actionable elements expose roles and states to assistive technology',
+    'ISO 9241-161:2016 — command and button elements initiate user actions',
+  ],
+  'The component action definition describing an operation that a user can trigger from a component.',
+)
 @SectionId('CMAC')
 class ComponentActionEntry {
   @Form([
@@ -8991,6 +9372,14 @@ class ComponentActionEntry {
 }
 
 /// Authorization and confirmation behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — destructive or restricted actions request confirmation to prevent errors',
+    'ISO 9241-161:2016 — dialogs and prompts guard interactive actions that need approval',
+    'W3C WAI-ARIA 1.2 — confirmation dialogs use roles and properties accessible to assistive technology',
+  ],
+  'The action governance definition describing authorization requirements and confirmation prompts for an action.',
+)
 @SectionId('CAEG')
 class ComponentActionEntryGovernance {
     @Form([
@@ -9000,21 +9389,33 @@ class ComponentActionEntryGovernance {
                 hint: 'Requires authorization'),
         Field('authPermission', String, 'Auth Permission',
                 hint: 'Required permission'),
-        Field('confirmationRequired', bool, 'Confirmation Required'),
-        Field('confirmationMessage', String, 'Confirmation Message'),
+        Field('confirmationRequired', bool, 'Confirmation Required',
+                hint: 'Whether a confirmation prompt is shown'),
+        Field('confirmationMessage', String, 'Confirmation Message',
+                hint: 'Text shown in the confirmation prompt'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Async execution and feedback behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — interactive actions provide feedback conforming to user expectations',
+    'ISO 9241-161:2016 — progress and status indicators communicate the outcome of an action',
+    'W3C WAI-ARIA 1.2 — live regions announce asynchronous action results to assistive technology',
+  ],
+  'The action execution behavior describing asynchronous handling, error responses, and success feedback.',
+)
 @SectionId('CAEE')
 class ComponentActionEntryExecution {
     @Form([
         Field('asyncBehavior', String, 'Async Behavior',
                 hint: 'Loading state during async'),
-        Field('errorHandling', String, 'Error Handling'),
-        Field('successFeedback', String, 'Success Feedback'),
+        Field('errorHandling', String, 'Error Handling',
+                hint: 'What happens when the action fails'),
+        Field('successFeedback', String, 'Success Feedback',
+                hint: 'Confirmation shown on success'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -9023,14 +9424,24 @@ class ComponentActionEntryExecution {
 /// A component slot entry.
 ///
 /// Defines a slot where child widgets can be placed.
+@StandardReferences(
+  [
+    'Atomic Design (Brad Frost) — slots compose atoms and molecules into larger organisms',
+    'ISO/IEC 25010:2023 — slot-based composition supports modularity and reusability',
+  ],
+  'The component slot definition describing a placeholder where child content can be inserted.',
+)
 @SectionId('CMSL')
 class ComponentSlotEntry {
   @Form([
-    Field('slotId', String, 'Slot ID', required: true),
+    Field('slotId', String, 'Slot ID', required: true,
+        hint: 'Unique slot identifier'),
     Field('slotName', String, 'Slot Name', required: true,
         hint: 'leading, trailing, title, content'),
-    Field('slotDescription', String, 'Slot Description'),
-    Field('slotRequired', bool, 'Slot Required'),
+    Field('slotDescription', String, 'Slot Description',
+        hint: 'Purpose of this slot'),
+    Field('slotRequired', bool, 'Slot Required',
+        hint: 'Whether content is mandatory'),
     Field('acceptedWidgets', String, 'Accepted Widgets',
         hint: 'Widget types allowed in slot'),
     Field('defaultContent', String, 'Default Content',
@@ -9047,20 +9458,33 @@ class ComponentSlotEntry {
 /// A component property entry.
 ///
 /// Defines a configurable property of the component.
+@StandardReferences(
+  [
+    'Material Design — component properties expose design-token values such as color, elevation, and shape',
+    'ISO/IEC 25010:2023 — configurable properties support modularity and reusability of a component library',
+    'W3C WAI-ARIA 1.2 — component properties describe characteristics exposed to assistive technology',
+  ],
+  'The configurable property definition describing a settable attribute of a UI component.',
+)
 @SectionId('CMPR')
 class ComponentPropertyEntry {
   @Form([
-    Field('propertyId', String, 'Property ID', required: true),
+    Field('propertyId', String, 'Property ID', required: true,
+        hint: 'Unique property identifier'),
     Field('propertyName', String, 'Property Name', required: true,
         hint: 'enabled, selected, elevation'),
     Field('propertyType', String, 'Property Type',
         hint: 'bool, String, Color, int'),
-    Field('defaultValue', String, 'Default Value'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Value used when none is set'),
     Field('allowedValues', String, 'Allowed Values',
         hint: 'Enum values or constraints'),
-    Field('propertyDescription', String, 'Property Description'),
-    Field('affectsAppearance', bool, 'Affects Appearance'),
-    Field('affectsBehavior', bool, 'Affects Behavior'),
+    Field('propertyDescription', String, 'Property Description',
+        hint: 'What this property controls'),
+    Field('affectsAppearance', bool, 'Affects Appearance',
+        hint: 'Changes the visual look'),
+    Field('affectsBehavior', bool, 'Affects Behavior',
+        hint: 'Changes how the component behaves'),
     Field('resourceResolvable', bool, 'Resource Resolvable',
         hint: 'Can be resolved from resources'),
     Field('authControlled', bool, 'Auth Controlled',
@@ -9081,6 +9505,14 @@ class ComponentPropertyEntry {
 /// concerns (i18n requirements, documentation, training) to SBP.9 and the
 /// execution-side concerns (localization/translation processes, rollout
 /// sequencing) to SBP.15; only the stay-put UX members remain here.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — multi-language support contributes to portability through adaptability',
+    'W3C Internationalization / BCP 47 — language tags identify supported and primary languages',
+    'Unicode Standard / ISO/IEC 10646 — text handling and right-to-left support rely on Unicode',
+  ],
+  'The multi-language support architecture covering supported languages, primary language, and locale handling.',
+)
 @SectionId('MLAR')
 class MultiLanguageSupport {
   // ─────────────────────────────────────────────────────────────────────────
@@ -9112,13 +9544,30 @@ class MultiLanguageSupport {
   LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
 
   /// Supported locale entries.
+  @StandardReferences(
+    [
+      'ISO 639 — language codes identify each supported locale',
+      'ISO 3166 — country and region codes complete each locale identifier',
+      'W3C Internationalization / BCP 47 — language tags name the supported locales',
+    ],
+    'The collection of locales the system supports.',
+  )
   @SectionId('SULOEN-SUPP-LST')
   @SectionIdPattern('SULOEN-SUPP-xxx')
+  @ContentHelp('Add one entry per supported locale.')
   @SerializationOrder(3)
   List<SupportedLocaleEntry> supportedLocales = [];
 }
 
 /// Locale modeling and fallback behavior.
+@StandardReferences(
+  [
+    'W3C Internationalization / BCP 47 — language tags identify each locale and country variant',
+    'ISO 639 — language codes; ISO 3166 — country codes compose the locale identifier',
+    'ISO/IEC 25010:2023 — locale detection and fallback support portability adaptability',
+  ],
+  'The locale format, country variants, detection, and fallback-chain behavior.',
+)
 @SectionId('MLARLH')
 class LocaleHandlingRequirements {
     @Form([
@@ -9136,6 +9585,13 @@ class LocaleHandlingRequirements {
 }
 
 /// Rollout sequencing by region and time.
+@StandardReferences(
+  [
+    'ISO 3166 — country and region codes define the geographic rollout order',
+    'ISO 8601 — the standard representation for the rollout timeline and schedule',
+  ],
+  'The rollout strategy, timeline, and regional sequencing for locale availability.',
+)
 @SectionId('LOCRP')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
@@ -9156,6 +9612,14 @@ class LocaleRolloutPlan {
 /// 10.12.1. Localization Process.
 ///
 /// Workflow for identifying and preparing content for localization.
+@StandardReferences(
+  [
+    'Unicode Standard / ISO/IEC 10646 — externalized strings are encoded and handled as Unicode text',
+    'ISO/IEC 25010:2023 — string externalization and content tagging support portability adaptability',
+    'ISO 17100:2015 — the identified localizable content feeds the translation process',
+  ],
+  'The workflow for identifying, externalizing, and tagging content for localization.',
+)
 @SectionId('LOPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
@@ -9196,6 +9660,13 @@ class LocalizationProcess {
 }
 
 /// Review process.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — the revision and review steps define quality checks on localized content',
+    'ISO/IEC 25010:2023 — review supports usability of the adapted, localized product',
+  ],
+  'The review workflow, stakeholder approval, and quality assurance for localized content.',
+)
 @SectionId('LOPRR1')
 class LocalizationReview {
     @Form([
@@ -9211,6 +9682,14 @@ class LocalizationReview {
 }
 
 /// Formatting rules.
+@StandardReferences(
+  [
+    'CLDR (Unicode Common Locale Data Repository) — locale data drives date, number, and currency formatting',
+    'ISO 8601 — the standard representation for dates and times per locale',
+    'ISO 4217 — currency codes underpin locale-specific currency formatting',
+  ],
+  'The locale-specific formatting rules for dates, numbers, currency, addresses, and phone numbers.',
+)
 @SectionId('LOPRFO')
 class LocalizationFormatting {
     @Form([
@@ -9230,6 +9709,13 @@ class LocalizationFormatting {
 }
 
 /// Deployment settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — per-locale deployment and toggling contribute to portability adaptability',
+    'CLDR (Unicode Common Locale Data Repository) — locale identifiers select which locale package is deployed',
+  ],
+  'The deployment, toggling, and per-locale customization settings for localized content.',
+)
 @SectionId('LOPRDE')
 class LocalizationDeployment {
     @Form([
@@ -9247,6 +9733,13 @@ class LocalizationDeployment {
 /// 10.12.2. Translation Process.
 ///
 /// Workflow for translating content.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — the translation process defines vendor qualification, translation, and revision steps',
+    'ISO 18587:2017 — machine-translation post-editing is a defined stage within the process',
+  ],
+  'The overall translation process covering tooling, workflow, quality, terminology, and vendors.',
+)
 @SectionId('TRPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
@@ -9287,13 +9780,28 @@ class TranslationProcess {
   TextSection translationNarrative = TextSection();
 
   /// Translation vendor entries.
+  @StandardReferences(
+    [
+      'ISO 17100:2015 — each listed translation vendor meets defined competence requirements',
+      'ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services',
+    ],
+    'The collection of translation-vendor entries engaged for localization.',
+  )
   @SectionId('TRVEEN-VEND-LST')
   @SectionIdPattern('TRVEEN-VEND-xxx')
+  @ContentHelp('Add one entry per translation vendor.')
   @SerializationOrder(6)
   List<TranslationVendorEntry> vendors = [];
 }
 
 /// Translation workflow.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — the translation process sequences translation, revision, and in-country review steps',
+    'ISO 18587:2017 — machine-translation post-editing can be inserted into the workflow',
+  ],
+  'The step-by-step translation workflow including review cycles and in-country review.',
+)
 @SectionId('TRPRWO')
 class TranslationWorkflow {
     @Form([
@@ -9311,6 +9819,13 @@ class TranslationWorkflow {
 }
 
 /// Quality assurance.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — the revision step defines linguistic quality checks on translated content',
+    'ISO/IEC/IEEE 29119 — functional testing verifies that translated builds behave correctly',
+  ],
+  'The linguistic and functional quality-assurance checks applied to translations.',
+)
 @SectionId('TRPRQU')
 class TranslationQuality {
     @Form([
@@ -9326,6 +9841,12 @@ class TranslationQuality {
 }
 
 /// Terminology and voice management.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — terminology and style resources support consistent translation output',
+  ],
+  'The glossary, style guide, and brand-voice management for translations.',
+)
 @SectionId('TRPRTE')
 class TranslationTerminology {
     @Form([
@@ -9341,6 +9862,13 @@ class TranslationTerminology {
 }
 
 /// Ongoing localization operations.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work',
+    'ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations',
+  ],
+  'The continuous localization and translation-memory maintenance operations.',
+)
 @SectionId('TRPRON')
 class TranslationOngoing {
     @Form([
@@ -9354,19 +9882,30 @@ class TranslationOngoing {
 }
 
 /// A translation vendor entry.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — a translation vendor meets the defined competence and qualification requirements',
+    'ISO 18587:2017 — a vendor may also provide post-editing of machine-translation output',
+  ],
+  'A single translation-vendor entry describing its type, languages, specializations, and quality.',
+)
 @SectionId('TVE')
 class TranslationVendorEntry {
   @Form([
-    Field('vendorName', String, 'Vendor Name', required: true),
+    Field('vendorName', String, 'Vendor Name', required: true,
+        hint: 'Legal or trading name of the translation vendor'),
     Field('vendorType', String, 'Vendor Type',
         hint: 'LSP, freelance, in-house'),
     Field('languages', String, 'Languages',
         hint: 'Languages handled by vendor'),
     Field('specializations', String, 'Specializations',
         hint: 'Technical, legal, marketing'),
-    Field('turnaroundTime', String, 'Turnaround Time'),
-    Field('qualityRating', String, 'Quality Rating'),
-    Field('contactInfo', String, 'Contact Info'),
+    Field('turnaroundTime', String, 'Turnaround Time',
+        hint: 'Typical delivery time per job (e.g., 2 business days)'),
+    Field('qualityRating', String, 'Quality Rating',
+        hint: 'Assessed quality score or rating for the vendor'),
+    Field('contactInfo', String, 'Contact Info',
+        hint: 'Primary contact name, email, or phone'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9380,6 +9919,13 @@ class TranslationVendorEntry {
 /// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
 /// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
 /// `TRP-DOC` D12 detail subsection.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514 — user documentation design and format follow a defined content structure',
+    'ISO 17100:2015 — documentation can be localized through the translation process',
+  ],
+  'The end-user documentation format, platform, versioning, and localization deliverables.',
+)
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
@@ -9420,6 +9966,13 @@ class UserDocumentationRequirements {
 /// file. Maps to D12 under the existing training detail subsection `TRP-TRN`
 /// (shared with SBP.15 `RolloutTrainingMaterial`), grouping all training
 /// content in one D12 subsection rather than fragmenting it across a new id.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514 — training material forms part of the software user documentation set',
+    'ISO 17100:2015 — training deliverables can be translated for each supported language',
+  ],
+  'The training deliverables, formats, schedule, and knowledge-transfer plan provided to end users.',
+)
 @SectionId('TRMAT')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
@@ -9456,29 +10009,59 @@ class TrainingDeliverableRequirements {
   TextSection trainingNarrative = TextSection();
 
   /// Training module entries.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set',
+      'ISO 17100:2015 — each training module can be localized through the translation process',
+    ],
+    'The collection of training-module entries offered to end users.',
+  )
   @SectionId('TRMOEN-TRAI-LST')
   @SectionIdPattern('TRMOEN-TRAI-xxx')
+  @ContentHelp('Add one entry per training module.')
   @SerializationOrder(2)
   List<TrainingModuleEntry> trainingModules = [];
 }
 
 /// Documentation deliverables provided to users.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514 — user documentation deliverables cover the required content set for software users',
+    'ISO 17100:2015 — documentation deliverables can be produced and revised through the translation process',
+  ],
+  'The set of end-user documentation deliverables included with the system.',
+)
 @SectionId('DATD')
 class DocumentationAndTrainingDeliverables {
     @Form([
-        Field('userGuide', bool, 'User Guide'),
-        Field('quickStartGuide', bool, 'Quick Start Guide'),
-        Field('onlineHelp', bool, 'Online Help'),
-        Field('videoTutorials', bool, 'Video Tutorials'),
-        Field('contextualHelp', bool, 'Contextual Help'),
-        Field('faq', bool, 'FAQ'),
-        Field('releaseNotes', bool, 'Release Notes'),
+        Field('userGuide', bool, 'User Guide',
+                hint: 'Include a full user guide (true or false)'),
+        Field('quickStartGuide', bool, 'Quick Start Guide',
+                hint: 'Include a quick start guide (true or false)'),
+        Field('onlineHelp', bool, 'Online Help',
+                hint: 'Include online help pages (true or false)'),
+        Field('videoTutorials', bool, 'Video Tutorials',
+                hint: 'Include video tutorials (true or false)'),
+        Field('contextualHelp', bool, 'Contextual Help',
+                hint: 'Include in-context help hints (true or false)'),
+        Field('faq', bool, 'FAQ',
+                hint: 'Include a frequently-asked-questions page (true or false)'),
+        Field('releaseNotes', bool, 'Release Notes',
+                hint: 'Include per-release notes (true or false)'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Documentation localization approach.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — the translation process governs producing documentation in additional languages',
+    'CLDR (Unicode Common Locale Data Repository) — locale data drives locale-appropriate documentation formatting',
+    'ISO 3166 — country and region codes identify each documentation locale',
+  ],
+  'The approach for localizing and translating user documentation into supported languages.',
+)
 @SectionId('DATL')
 class DocumentationAndTrainingLocalization {
     @Form([
@@ -9492,19 +10075,32 @@ class DocumentationAndTrainingLocalization {
 }
 
 /// A training module entry.
+@StandardReferences(
+  [
+    'ISO 17100:2015 — translation memory is a process asset maintained across localization work',
+    'CLDR (Unicode Common Locale Data Repository) — locale data underpins delivering training content per language',
+  ],
+  'A single training module describing its audience, duration, delivery method, and assessment.',
+)
 @SectionId('TME')
 class TrainingModuleEntry {
   @Form([
-    Field('moduleId', String, 'Module ID', required: true),
-    Field('moduleName', String, 'Module Name', required: true),
+    Field('moduleId', String, 'Module ID', required: true,
+        hint: 'Unique identifier for the module'),
+    Field('moduleName', String, 'Module Name', required: true,
+        hint: 'Descriptive title of the module'),
     Field('targetAudience', String, 'Target Audience',
         hint: 'End users, admins, power users'),
-    Field('duration', String, 'Duration'),
+    Field('duration', String, 'Duration',
+        hint: 'Expected length (e.g., 2 hours, half day)'),
     Field('deliveryMethod', String, 'Delivery Method',
         hint: 'In-person, virtual, self-paced'),
-    Field('prerequisites', String, 'Prerequisites'),
-    Field('learningObjectives', String, 'Learning Objectives'),
-    Field('assessmentMethod', String, 'Assessment Method'),
+    Field('prerequisites', String, 'Prerequisites',
+        hint: 'Required prior knowledge or modules'),
+    Field('learningObjectives', String, 'Learning Objectives',
+        hint: 'What learners will be able to do'),
+    Field('assessmentMethod', String, 'Assessment Method',
+        hint: 'Quiz, exercise, certification'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9513,6 +10109,14 @@ class TrainingModuleEntry {
 /// 10.12.4. Language and Country Selection.
 ///
 /// UI specification for language and country selection.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — language tags identify the languages offered in the picker',
+    'ISO 639 — language codes name the selectable languages',
+    'ISO 3166 — country and region codes name the selectable countries',
+  ],
+  'The user-interface specification for how users select their language and country.',
+)
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -9562,6 +10166,13 @@ class LanguageCountrySelection {
 }
 
 /// Default locale behavior.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — the accepted language tags drive default-locale detection',
+    'ISO 3166 — country and region codes support geo-based default country detection',
+  ],
+  'How the default language and country are determined, including auto-detection sources.',
+)
 @SectionId('LCSD')
 class LanguageCountrySelectionDefaults {
     @Form([
@@ -9577,6 +10188,13 @@ class LanguageCountrySelectionDefaults {
 }
 
 /// Persistence rules.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag',
+    'ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices',
+  ],
+  'How the chosen language and country preference is stored and synchronized across sessions and devices.',
+)
 @SectionId('LCSP')
 class LanguageCountrySelectionPersistence {
     @Form([
@@ -9592,6 +10210,13 @@ class LanguageCountrySelectionPersistence {
 }
 
 /// Fallback behavior.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — the lookup and filtering rules define fallback between language tags',
+    'CLDR (Unicode Common Locale Data Repository) — the locale inheritance chain guides fallback to a parent locale',
+  ],
+  'The fallback behavior when a requested locale is unavailable or only partially supported.',
+)
 @SectionId('LCSF')
 class LanguageCountrySelectionFallback {
     @Form([
@@ -9607,6 +10232,13 @@ class LanguageCountrySelectionFallback {
 }
 
 /// Switching UX behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — usability covers how the interface responds when the user switches language',
+    'WCAG 2.2 SC 3.1.2 — language of parts requires the interface to signal the active language after a switch',
+  ],
+  'The user-experience behavior when switching language, including confirmation and content retention.',
+)
 @SectionId('LCSU')
 class LanguageCountrySelectionUx {
     @Form([
@@ -9624,6 +10256,14 @@ class LanguageCountrySelectionUx {
 /// 10.12.5. Translation Handling Requirements.
 ///
 /// Technical requirements for internationalization framework.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — language tags drive locale loading and switching in the framework',
+    'ICU MessageFormat — the message-format standard underpins string externalization and translation',
+    'ISO/IEC 25010:2023 — adaptability requires externalizing strings so the product can be localized',
+  ],
+  'The technical internationalization framework, string externalization format, and locale handling.',
+)
 @SectionId('TRAREQ')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
@@ -9664,10 +10304,18 @@ class TranslationRequirements {
 }
 
 /// RTL and bidirectional support.
+@StandardReferences(
+  [
+    'Unicode Standard / ISO/IEC 10646 — the Unicode bidirectional algorithm governs mixed left-to-right and right-to-left text',
+    'ISO/IEC 25010:2023 — usability covers layout adaptation and mirroring for right-to-left languages',
+  ],
+  'The right-to-left and bidirectional text support, including mirroring rules for the interface.',
+)
 @SectionId('TRRERT')
 class TranslationRequirementsRtl {
   @Form([
-    Field('rtlSupport', bool, 'RTL Support'),
+    Field('rtlSupport', bool, 'RTL Support',
+        hint: 'Whether right-to-left languages are supported'),
     Field('rtlImplementation', String, 'RTL Implementation',
         hint: 'How RTL is implemented'),
     Field('bidirectionalText', String, 'Bidirectional Text',
@@ -9680,6 +10328,14 @@ class TranslationRequirementsRtl {
 }
 
 /// Locale-specific formatting rules.
+@StandardReferences(
+  [
+    'CLDR (Unicode Common Locale Data Repository) — supplies locale-specific date, number, and unit formatting data',
+    'ISO 8601 — defines date and time representation',
+    'ISO 4217 — defines currency codes for currency display',
+  ],
+  'The date, number, currency, and measurement-unit formatting rules applied per locale.',
+)
 @SectionId('TRREFO')
 class TranslationRequirementsFormatting {
   @Form([
@@ -9697,6 +10353,13 @@ class TranslationRequirementsFormatting {
 }
 
 /// Pluralization and variants.
+@StandardReferences(
+  [
+    'ICU MessageFormat — expresses pluralization and gender selection for translated messages',
+    'CLDR (Unicode Common Locale Data Repository) — provides the plural rules for each language',
+  ],
+  'The pluralization rules, gender handling, and contextual variants required for translated text.',
+)
 @SectionId('TRREVA')
 class TranslationRequirementsVariants {
   @Form([
@@ -9712,6 +10375,13 @@ class TranslationRequirementsVariants {
 }
 
 /// Technical text and font support.
+@StandardReferences(
+  [
+    'Unicode Standard / ISO/IEC 10646 — defines character encoding, normalization, and text handling across scripts',
+    'ISO/IEC 25010:2023 — usability covers font fallback and text direction handling for different scripts',
+  ],
+  'The Unicode handling, font fallback, text direction, and keyboard support required across scripts.',
+)
 @SectionId('TRRETE')
 class TranslationRequirementsTechnical {
   @Form([
@@ -9729,6 +10399,14 @@ class TranslationRequirementsTechnical {
 }
 
 /// A supported locale entry.
+@StandardReferences(
+  [
+    'BCP 47 (W3C Internationalization) — language tags identify each supported locale',
+    'ISO 639 — language codes name the language of the locale',
+    'ISO 3166 — country and region codes identify the territory of the locale',
+  ],
+  'A single locale the product supports, named by its language tag, language name, and region.',
+)
 @SectionId('SUPLOCENT')
 class SupportedLocaleEntry {
   @Form([
@@ -9754,6 +10432,14 @@ class SupportedLocaleEntry {
 }
 
 /// Formatting and direction rules for the locale.
+@StandardReferences(
+  [
+    'CLDR (Unicode Common Locale Data Repository) — supplies per-locale date, number, and currency formatting data',
+    'ISO 4217 — currency codes identify the default currency for a locale',
+    'ISO/IEC 25010:2023 — usability covers layout adaptation for right-to-left text direction',
+  ],
+  'The text direction, date, number, and currency formatting rules that apply to a supported locale.',
+)
 @SectionId('SLEF')
 class SupportedLocaleEntryFormatting {
   @Form([
@@ -9771,6 +10457,13 @@ class SupportedLocaleEntryFormatting {
 }
 
 /// Launch readiness and locale ownership.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — adaptability lets the product be rolled out to additional locales without rework',
+    'ISO 17100:2015 — the translation process assigns ownership and coverage for each target language',
+  ],
+  'The launch phasing, translation coverage, and ownership assigned to a supported locale.',
+)
 @SectionId('SULOENRO')
 class SupportedLocaleEntryRollout {
   @Form([

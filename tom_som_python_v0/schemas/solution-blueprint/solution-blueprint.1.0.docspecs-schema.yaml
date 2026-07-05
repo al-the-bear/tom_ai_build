@@ -347,7 +347,7 @@ section-types:
     pattern-check-id:
       pattern: ^famref_comp_lst-\d+$
       error-message: ID must match famref_comp_lst-NNN
-    description: Components in this family.
+    description: Add one entry per component in the family.
   FEDEEN-ITEM-LST:
     prefix: fedeen_item_lst
     pattern-check-id:
@@ -866,7 +866,7 @@ section-types:
     pattern-check-id:
       pattern: ^suloen_supp_lst-\d+$
       error-message: ID must match suloen_supp_lst-NNN
-    description: Supported locale entries.
+    description: Add one entry per supported locale.
   SYTORE-SYST-LST:
     prefix: sytore_syst_lst
     pattern-check-id:
@@ -933,7 +933,7 @@ section-types:
     pattern-check-id:
       pattern: ^trmoen_trai_lst-\d+$
       error-message: ID must match trmoen_trai_lst-NNN
-    description: Training module entries.
+    description: Add one entry per training module.
   TRSPRE-SUPP-LST:
     prefix: trspre_supp_lst
     pattern-check-id:
@@ -945,7 +945,7 @@ section-types:
     pattern-check-id:
       pattern: ^trveen_vend_lst-\d+$
       error-message: ID must match trveen_vend_lst-NNN
-    description: Translation vendor entries.
+    description: Add one entry per translation vendor.
   UATSST-TEST-LST:
     prefix: uatsst_test_lst
     pattern-check-id:
@@ -957,7 +957,7 @@ section-types:
     pattern-check-id:
       pattern: ^uicoen_comp_lst-\d+$
       error-message: ID must match uicoen_comp_lst-NNN
-    description: 10.11.2. Component Specifications — contains 0+×.
+    description: Add one entry per catalog component.
   VAMETE-MESS-LST:
     prefix: vamete_mess_lst
     pattern-check-id:
@@ -1201,6 +1201,7 @@ section-types:
     pattern-check-id:
       pattern: ^desig_desi_lst-\d+$
       error-message: ID must match desig_desi_lst-NNN
+    description: Add one entry per design foundation.
   DEVOP-DEVO-LST:
     prefix: devop_devo_lst
     pattern-check-id:
@@ -2542,13 +2543,13 @@ section-types:
     pattern-check-id:
       pattern: ^cmac_acti_lst-\d+$
       error-message: ID must match cmac_acti_lst-NNN
-    description: Contains 0+× ComponentAction.
+    description: Add one entry per component action.
   CMFA-COMP-LST:
     prefix: cmfa_comp_lst
     pattern-check-id:
       pattern: ^cmfa_comp_lst-\d+$
       error-message: ID must match cmfa_comp_lst-NNN
-    description: 10.11.3. Component Families — contains 0+×.
+    description: Add one entry per component family.
   CMIF-INTE-LST:
     prefix: cmif_inte_lst
     pattern-check-id:
@@ -2560,7 +2561,7 @@ section-types:
     pattern-check-id:
       pattern: ^cmpr_prop_lst-\d+$
       error-message: ID must match cmpr_prop_lst-NNN
-    description: Contains 0+× ComponentProperty.
+    description: Add one entry per component property.
   CMRS-RISK-LST:
     prefix: cmrs_risk_lst
     pattern-check-id:
@@ -2572,19 +2573,19 @@ section-types:
     pattern-check-id:
       pattern: ^cmsl_slot_lst-\d+$
       error-message: ID must match cmsl_slot_lst-NNN
-    description: Contains 0+× ComponentSlot.
+    description: Add one entry per component slot.
   CMST-STAT-LST:
     prefix: cmst_stat_lst
     pattern-check-id:
       pattern: ^cmst_stat_lst-\d+$
       error-message: ID must match cmst_stat_lst-NNN
-    description: Contains 0+× ComponentState.
+    description: Add one entry per component state.
   CMVN-VARI-LST:
     prefix: cmvn_vari_lst
     pattern-check-id:
       pattern: ^cmvn_vari_lst-\d+$
       error-message: ID must match cmvn_vari_lst-NNN
-    description: Contains 0+× ComponentVariant.
+    description: Add one entry per component variant.
   CODO-DOCS-LST:
     prefix: codo_docs_lst
     pattern-check-id:
@@ -2608,7 +2609,7 @@ section-types:
     pattern-check-id:
       pattern: ^copa_colo_lst-\d+$
       error-message: ID must match copa_colo_lst-NNN
-    description: Color palette specification.
+    description: Add one entry per colour palette.
   COPL-ITEM-LST:
     prefix: copl_item_lst
     pattern-check-id:
@@ -3149,7 +3150,7 @@ section-types:
     pattern-check-id:
       pattern: ^tyst_typo_lst-\d+$
       error-message: ID must match tyst_typo_lst-NNN
-    description: Typography styles.
+    description: Add one entry per typography style.
   UGIE-USER-LST:
     prefix: ugie_user_lst
     pattern-check-id:
