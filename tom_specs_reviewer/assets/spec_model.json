@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T13:53:19.159373Z",
+  "generatedAt": "2026-07-05T14:19:20.421415Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -12021,7 +12021,24 @@
       "name": "ApplicationSecurityRequirements",
       "sectionId": "APSERE",
       "doc": "Application security requirements (OWASP-based).",
+      "standardReferences": {
+        "standards": [
+          "OWASP Top 10 — web application security risks",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "The application-level security requirements derived from OWASP standards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP Top 10 — web application security risks",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "The application-level security requirements derived from OWASP standards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12123,7 +12140,24 @@
       "name": "ApplicationSecurityRequirementsApi",
       "sectionId": "ASRA",
       "doc": "API and browser-facing protections.",
+      "standardReferences": {
+        "standards": [
+          "OWASP Top 10 — web application security risks",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "Protections for APIs and browsers including API security standards, rate limiting, and content security policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP Top 10 — web application security risks",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "Protections for APIs and browsers including API security standards, rate limiting, and content security policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12187,7 +12221,24 @@
       "name": "ApplicationSecurityRequirementsControls",
       "sectionId": "ASRC",
       "doc": "Core protection controls.",
+      "standardReferences": {
+        "standards": [
+          "OWASP Top 10 — web application security risks",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "Core protections against sensitive data exposure, misconfiguration, CSRF, and SSRF, with the access-control model specified in SBP.12."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP Top 10 — web application security risks",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "Core protections against sensitive data exposure, misconfiguration, CSRF, and SSRF, with the access-control model specified in SBP.12."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -12258,7 +12309,24 @@
       "name": "ApplicationSecurityRequirementsValidation",
       "sectionId": "ASRV",
       "doc": "Input and output validation.",
+      "standardReferences": {
+        "standards": [
+          "OWASP Top 10 — web application security risks",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "Input validation, output encoding, and file upload security controls for the application."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP Top 10 — web application security risks",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "Input validation, output encoding, and file upload security controls for the application."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44025,7 +44093,26 @@
       "name": "ComplianceAuditSchedule",
       "sectionId": "COAUSC",
       "doc": "Compliance audit planning and scheduling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "ISO 19011 — auditing management systems (audit programme)",
+          "SOC 2 — trust services criteria (security, audit evidence)"
+        ],
+        "connotation": "Compliance audit planning and scheduling across internal and external audits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "ISO 19011 — auditing management systems (audit programme)",
+              "SOC 2 — trust services criteria (security, audit evidence)"
+            ],
+            "connotation": "Compliance audit planning and scheduling across internal and external audits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44127,7 +44214,24 @@
       "name": "ComplianceAuditScheduleExecution",
       "sectionId": "CASE",
       "doc": "Audit execution and evidence collection.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011 — auditing management systems (audit programme)",
+          "SOC 2 — trust services criteria (security, audit evidence)"
+        ],
+        "connotation": "Auditor qualifications, evidence collection, and interview process for the compliance audit schedule."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011 — auditing management systems (audit programme)",
+              "SOC 2 — trust services criteria (security, audit evidence)"
+            ],
+            "connotation": "Auditor qualifications, evidence collection, and interview process for the compliance audit schedule."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44184,7 +44288,24 @@
       "name": "ComplianceAuditSchedulePlanning",
       "sectionId": "CASP",
       "doc": "Annual planning and scoping rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "ISO 19011 — auditing management systems (audit programme)"
+        ],
+        "connotation": "Annual planning and scoping rules for the compliance audit schedule."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "ISO 19011 — auditing management systems (audit programme)"
+            ],
+            "connotation": "Annual planning and scoping rules for the compliance audit schedule."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44241,7 +44362,24 @@
       "name": "ComplianceAuditScheduleReporting",
       "sectionId": "CASR",
       "doc": "Reporting and remediation follow-up.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "SOC 2 — trust services criteria (security, audit evidence)"
+        ],
+        "connotation": "Reporting structure and remediation follow-up for the compliance audit schedule."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "SOC 2 — trust services criteria (security, audit evidence)"
+            ],
+            "connotation": "Reporting structure and remediation follow-up for the compliance audit schedule."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53174,7 +53312,26 @@
       "name": "ConsentManagementRequirements",
       "sectionId": "COMARE",
       "doc": "Consent collection, tracking and management requirements.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system",
+          "ISO/IEC 29100 — privacy framework"
+        ],
+        "connotation": "End-to-end consent lifecycle covering collection, storage, withdrawal, and granularity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system",
+              "ISO/IEC 29100 — privacy framework"
+            ],
+            "connotation": "End-to-end consent lifecycle covering collection, storage, withdrawal, and granularity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53313,7 +53470,24 @@
       "name": "ConsentManagementRequirementsCollection",
       "sectionId": "CMRC",
       "doc": "Collection requirements.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 29100 — privacy framework"
+        ],
+        "connotation": "Plain-language, double opt-in, and age-verification requirements for collecting consent."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 29100 — privacy framework"
+            ],
+            "connotation": "Plain-language, double opt-in, and age-verification requirements for collecting consent."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53370,7 +53544,24 @@
       "name": "ConsentManagementRequirementsCompliance",
       "sectionId": "COMARECO",
       "doc": "Compliance evidence and reporting.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Audit trails and reporting that evidence consent compliance for regulators."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Audit trails and reporting that evidence consent compliance for regulators."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53427,7 +53618,24 @@
       "name": "ConsentManagementRequirementsManagement",
       "sectionId": "CMRM",
       "doc": "Preference management workflow.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Self-service preference management and propagation of consent changes to downstream systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Self-service preference management and propagation of consent changes to downstream systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53484,7 +53692,24 @@
       "name": "ConsentManagementRequirementsStorage",
       "sectionId": "COMAREST",
       "doc": "Consent record storage rules.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — storage limitation and data minimisation (Article 5)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Versioning and retention of consent proof records after withdrawal."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — storage limitation and data minimisation (Article 5)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Versioning and retention of consent proof records after withdrawal."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -53534,7 +53759,24 @@
       "name": "ConsentManagementRequirementsTracking",
       "sectionId": "CMRT",
       "doc": "Cookie and tracking rules.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Consent rules for cookies, tracking pixels, and third-party sharing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Consent rules for cookies, tracking pixels, and third-party sharing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69639,7 +69881,26 @@
       "name": "DataProcessingAgreementRequirements",
       "sectionId": "DPAR",
       "doc": "Data processing agreement requirements.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system",
+          "ISO/IEC 27018 — protection of PII in public clouds"
+        ],
+        "connotation": "Defines processor obligations, purpose limitation, and audit rights for data processing agreements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system",
+              "ISO/IEC 27018 — protection of PII in public clouds"
+            ],
+            "connotation": "Defines processor obligations, purpose limitation, and audit rights for data processing agreements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69763,7 +70024,24 @@
       "name": "DataProcessingAgreementRequirementsHandling",
       "sectionId": "DPARH",
       "doc": "Data-handling details.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Defines retention, return on termination, and confidentiality obligations for processors."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Defines retention, return on termination, and confidentiality obligations for processors."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69820,7 +70098,24 @@
       "name": "DataProcessingAgreementRequirementsManagement",
       "sectionId": "DPARM",
       "doc": "Agreement-management details.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Defines how sub-processors are approved, monitored, and communicated to controllers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Defines how sub-processors are approved, monitored, and communicated to controllers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69870,7 +70165,24 @@
       "name": "DataProcessingAgreementRequirementsSecurity",
       "sectionId": "DPARS",
       "doc": "Security and audit details.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data breach notification (Articles 33-34)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Defines processor security measures, breach notification, and compliance certification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data breach notification (Articles 33-34)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Defines processor security measures, breach notification, and compliance certification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69927,7 +70239,24 @@
       "name": "DataProcessingAgreementRequirementsTransfers",
       "sectionId": "DPART",
       "doc": "International-transfer details.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27018 — protection of PII in public clouds"
+        ],
+        "connotation": "Defines contractual clauses and mechanisms for international personal data transfers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27018 — protection of PII in public clouds"
+            ],
+            "connotation": "Defines contractual clauses and mechanisms for international personal data transfers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69992,7 +70321,26 @@
       "sectionId": "DPAPS",
       "doc": "8.8.2. Data Protection and Privacy.\n\nComprehensive data protection and privacy requirements including\nGDPR compliance, data residency, consent management, data subject\nrights (erasure, portability, access), privacy impact assessments,\nand data processing agreements.",
       "help": "Specify data protection and privacy requirements including regulatory\ncompliance, data residency, consent management, and data subject rights.\nPrivacy compliance is mandatory in most jurisdictions.\n\n**Privacy Regulations**:\n- **GDPR** (EU): Consent, data minimization, right to erasure, DPO\n- **CCPA/CPRA** (California): Consumer rights, opt-out, data sales\n- **LGPD** (Brazil): Similar to GDPR, data protection officer\n- **PIPEDA** (Canada): Consent and purpose limitation\n- **Industry-specific**: HIPAA (health), FERPA (education), GLBA (finance)\n\n**Data Residency**:\n- Geographic data storage requirements\n- Cross-border data transfer mechanisms\n- Data localization requirements\n- Cloud region selection considerations\n- Data transfer impact assessments\n\n**Consent Management**:\n- Consent collection user experience\n- Granular consent options\n- Consent withdrawal mechanism\n- Consent record keeping\n- Cookie consent management\n\n**Data Subject Rights**:\n- **Right to Access**: Export user data in portable format\n- **Right to Rectification**: Update incorrect data\n- **Right to Erasure**: Delete all user data (right to be forgotten)\n- **Right to Portability**: Transfer data to another provider\n- **Right to Object**: Opt-out of processing\n\n**Privacy by Design**:\n- Data minimization\n- Purpose limitation\n- Privacy impact assessments (PIA/DPIA)\n- Privacy-preserving technologies\n",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Overall data protection and privacy strategy covering regulation, residency, consent, and data subject rights."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Overall data protection and privacy strategy covering regulation, residency, consent, and data subject rights."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -70155,7 +70503,26 @@
       "name": "DataProtectionClassification",
       "sectionId": "DAPRCL",
       "doc": "Data protection classification and handling rules.\n\nNamed DataProtectionClassification to avoid collision with\nDataClassification in information_and_data_model.dart.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27701 — privacy information management system",
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 29100 — privacy framework"
+        ],
+        "connotation": "Defines classification levels and personal data categories with their handling rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27701 — privacy information management system",
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 29100 — privacy framework"
+            ],
+            "connotation": "Defines classification levels and personal data categories with their handling rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70279,7 +70646,24 @@
       "name": "DataProtectionClassificationHandling",
       "sectionId": "DPCH",
       "doc": "Handling rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Defines encryption, access control, and logging requirements per classification level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Defines encryption, access control, and logging requirements per classification level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70343,7 +70727,24 @@
       "name": "DataProtectionClassificationIncident",
       "sectionId": "DPCI",
       "doc": "Incident handling.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data breach notification (Articles 33-34)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Maps data classification to breach severity and defines exfiltration-prevention controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data breach notification (Articles 33-34)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Maps data classification to breach severity and defines exfiltration-prevention controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70400,7 +70801,24 @@
       "name": "DataProtectionClassificationMasking",
       "sectionId": "DPCM",
       "doc": "Masking and de-identification rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "GDPR — data protection by design and by default (Article 25)"
+        ],
+        "connotation": "Defines masking, tokenization, and de-identification standards for personal data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "GDPR — data protection by design and by default (Article 25)"
+            ],
+            "connotation": "Defines masking, tokenization, and de-identification standards for personal data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70457,7 +70875,24 @@
       "name": "DataProtectionClassificationRetention",
       "sectionId": "DPCR",
       "doc": "Retention and disposal rules.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Defines retention periods, secure disposal, and exceptions per data category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Defines retention periods, secure disposal, and exceptions per data category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -71302,7 +71737,24 @@
       "name": "DataResidencyRequirements",
       "sectionId": "DARERE",
       "doc": "Data residency and sovereignty requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "GDPR — data protection by design and by default (Article 25)"
+        ],
+        "connotation": "Geographic residency of data storage and processing across allowed and prohibited regions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "GDPR — data protection by design and by default (Article 25)"
+            ],
+            "connotation": "Geographic residency of data storage and processing across allowed and prohibited regions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -71404,7 +71856,24 @@
       "name": "DataResidencyRequirementsReplication",
       "sectionId": "DARERERE",
       "doc": "Backup, replication, and CDN placement rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "GDPR — storage limitation and data minimisation (Article 5)"
+        ],
+        "connotation": "Geographic constraints on backups, cross-region replication, and CDN caching."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "GDPR — storage limitation and data minimisation (Article 5)"
+            ],
+            "connotation": "Geographic constraints on backups, cross-region replication, and CDN caching."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -71461,7 +71930,24 @@
       "name": "DataResidencyRequirementsSovereignty",
       "sectionId": "DRRS",
       "doc": "Governing regulation and sovereignty constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "GDPR — data protection by design and by default (Article 25)"
+        ],
+        "connotation": "Sovereignty laws, key location, and sovereign cloud provider constraints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "GDPR — data protection by design and by default (Article 25)"
+            ],
+            "connotation": "Sovereignty laws, key location, and sovereign cloud provider constraints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -71525,7 +72011,24 @@
       "name": "DataResidencyRequirementsVerification",
       "sectionId": "DRRV",
       "doc": "Verification and transparency requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27018 — protection of PII in public clouds",
+          "GDPR — data protection by design and by default (Article 25)"
+        ],
+        "connotation": "Verification, provider certifications, and transparency about where data is stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27018 — protection of PII in public clouds",
+              "GDPR — data protection by design and by default (Article 25)"
+            ],
+            "connotation": "Verification, provider certifications, and transparency about where data is stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -72846,7 +73349,26 @@
       "name": "DataSubjectRightsManagement",
       "sectionId": "DSRM",
       "doc": "Data subject rights management.\n\nCovers GDPR Articles 15–22: right of access, rectification, erasure,\nrestriction, portability, objection, and automated decision-making.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Handling of data subject requests for access, erasure, portability, and objection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Handling of data subject requests for access, erasure, portability, and objection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -72993,7 +73515,24 @@
       "name": "DataSubjectRightsManagementAccess",
       "sectionId": "DSRMA",
       "doc": "Access and rectification handling.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Defines access data format, rectification process, and propagation of corrections."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Defines access data format, rectification process, and propagation of corrections."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73050,7 +73589,24 @@
       "name": "DataSubjectRightsManagementAutomation",
       "sectionId": "DASURIMAAU",
       "doc": "Automated decision safeguards.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "NIST Privacy Framework — govern, control, communicate, protect"
+        ],
+        "connotation": "Defines safeguards and human review for automated decisions with significant effects."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "NIST Privacy Framework — govern, control, communicate, protect"
+            ],
+            "connotation": "Defines safeguards and human review for automated decisions with significant effects."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73100,7 +73656,24 @@
       "name": "DataSubjectRightsManagementErasure",
       "sectionId": "DSRME",
       "doc": "Erasure handling.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Defines erasure process, scope, exceptions, and verification across systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Defines erasure process, scope, exceptions, and verification across systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73164,7 +73737,24 @@
       "name": "DataSubjectRightsManagementOperations",
       "sectionId": "DSRMO",
       "doc": "Operational workflow and tracking.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Defines the end-to-end DSAR workflow, tracking, and completion metrics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Defines the end-to-end DSAR workflow, tracking, and completion metrics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73221,7 +73811,24 @@
       "name": "DataSubjectRightsManagementPortability",
       "sectionId": "DSRMP",
       "doc": "Portability handling.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Defines structured, machine-readable data export and direct-transfer support."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Defines structured, machine-readable data export and direct-transfer support."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -73278,7 +73885,24 @@
       "name": "DataSubjectRightsManagementRestriction",
       "sectionId": "DSRMR",
       "doc": "Restriction and objection handling.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights"
+        ],
+        "connotation": "Defines how processing restriction and objections to processing are handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights"
+            ],
+            "connotation": "Defines how processing restriction and objections to processing are handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79791,7 +80415,26 @@
       "name": "DependencyScanningRequirements",
       "sectionId": "DESCRE",
       "doc": "Dependency and supply-chain scanning requirements.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "NIST SP 800-53 — audit and accountability (AU) controls",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Dependency and supply-chain scanning requirements including SCA tooling and severity thresholds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "NIST SP 800-53 — audit and accountability (AU) controls",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Dependency and supply-chain scanning requirements including SCA tooling and severity thresholds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79915,7 +80558,24 @@
       "name": "DependencyScanningRequirementsLicensing",
       "sectionId": "DSRL",
       "doc": "License-compliance rules.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "ISO/IEC 27002 — logging and monitoring controls"
+        ],
+        "connotation": "License policy and automated license scanning rules for dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "ISO/IEC 27002 — logging and monitoring controls"
+            ],
+            "connotation": "License policy and automated license scanning rules for dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79965,7 +80625,24 @@
       "name": "DependencyScanningRequirementsSbom",
       "sectionId": "DSRS",
       "doc": "SBOM requirements.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Software bill of materials generation, update frequency, and distribution requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Software bill of materials generation, update frequency, and distribution requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80022,7 +80699,24 @@
       "name": "DependencyScanningRequirementsSupplyChain",
       "sectionId": "DSRSC",
       "doc": "Supply-chain security rules.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Supply-chain security rules covering dependency pinning, signature verification, and registry policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Supply-chain security rules covering dependency pinning, signature verification, and registry policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80086,7 +80780,24 @@
       "name": "DependencyScanningRequirementsVulnerabilities",
       "sectionId": "DSRV",
       "doc": "Vulnerability-management rules.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Vulnerability database sources, remediation SLAs, and exception handling for dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Vulnerability database sources, remediation SLAs, and exception handling for dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122198,7 +122909,24 @@
       "name": "IncidentResponsePlan",
       "sectionId": "INREPL",
       "doc": "Incident response plan.",
+      "standardReferences": {
+        "standards": [
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "ISO/IEC 27001 — information security management system"
+        ],
+        "connotation": "The overall plan for detecting, responding to, and recovering from security incidents."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "ISO/IEC 27001 — information security management system"
+            ],
+            "connotation": "The overall plan for detecting, responding to, and recovering from security incidents."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122300,7 +123028,24 @@
       "name": "IncidentResponsePlanCommunication",
       "sectionId": "IRPC",
       "doc": "Communication requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "ISO/IEC 27001 — information security management system"
+        ],
+        "connotation": "Notification, escalation, and external communication requirements during a security incident."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "ISO/IEC 27001 — information security management system"
+            ],
+            "connotation": "Notification, escalation, and external communication requirements during a security incident."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122364,7 +123109,24 @@
       "name": "IncidentResponsePlanPostIncident",
       "sectionId": "IRPPI",
       "doc": "Post-incident activities.",
+      "standardReferences": {
+        "standards": [
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "ISO/IEC 27001 — information security management system"
+        ],
+        "connotation": "Post-incident review and lessons-learned activities that feed findings back into prevention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "ISO/IEC 27001 — information security management system"
+            ],
+            "connotation": "Post-incident review and lessons-learned activities that feed findings back into prevention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122428,7 +123190,24 @@
       "name": "IncidentResponsePlanProcess",
       "sectionId": "IRPP",
       "doc": "Response process.",
+      "standardReferences": {
+        "standards": [
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The containment, eradication, and recovery procedures followed when responding to an incident."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The containment, eradication, and recovery procedures followed when responding to an incident."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125091,7 +125870,24 @@
       "name": "InfrastructureSecurityHardening",
       "sectionId": "INSEHA",
       "doc": "Infrastructure security hardening.",
+      "standardReferences": {
+        "standards": [
+          "CIS Benchmarks — secure configuration and hardening",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The baseline hardening of operating systems, networks, and access for the infrastructure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Benchmarks — secure configuration and hardening",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The baseline hardening of operating systems, networks, and access for the infrastructure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125200,7 +125996,24 @@
       "name": "InfrastructureSecurityHardeningAccess",
       "sectionId": "ISHA",
       "doc": "Access hardening.",
+      "standardReferences": {
+        "standards": [
+          "CIS Benchmarks — secure configuration and hardening",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "Hardening of infrastructure access through SSH policy, privileged access management, and service accounts, with the access-control model specified in SBP.12."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Benchmarks — secure configuration and hardening",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "Hardening of infrastructure access through SSH policy, privileged access management, and service accounts, with the access-control model specified in SBP.12."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125264,7 +126077,24 @@
       "name": "InfrastructureSecurityHardeningContainer",
       "sectionId": "ISHC",
       "doc": "Container security.",
+      "standardReferences": {
+        "standards": [
+          "CIS Benchmarks — secure configuration and hardening",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "Container and orchestration hardening covering base images, scanning, and runtime security."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Benchmarks — secure configuration and hardening",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "Container and orchestration hardening covering base images, scanning, and runtime security."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125328,7 +126158,24 @@
       "name": "InfrastructureSecurityHardeningNetwork",
       "sectionId": "ISHN",
       "doc": "Network hardening.",
+      "standardReferences": {
+        "standards": [
+          "CIS Benchmarks — secure configuration and hardening",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "Network-level hardening through segmentation, internal TLS, and DNS security policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CIS Benchmarks — secure configuration and hardening",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "Network-level hardening through segmentation, internal TLS, and DNS security policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -135911,7 +136758,26 @@
       "sectionId": "ISSS",
       "doc": "8.8.1. IT Security Standards.",
       "help": "Specify IT security standards including application security, infrastructure\nsecurity, vulnerability management, and security development practices.\nFollowing established standards reduces security risk systematically.\n\n**Application Security (OWASP)**:\n- OWASP Top 10 mitigation (injection, XSS, CSRF, etc.)\n- OWASP ASVS (Application Security Verification Standard)\n- Secure coding guidelines by language\n- Input validation and output encoding\n- Authentication and session management\n\n**Infrastructure Security**:\n- Server hardening (CIS Benchmarks)\n- Network security (firewall rules, segmentation)\n- Cloud security configuration (AWS/Azure/GCP best practices)\n- Container security (image scanning, runtime protection)\n- Endpoint security (device management, AV/EDR)\n\n**Security Development Lifecycle**:\n- Threat modeling during design\n- Security requirements in user stories\n- Security code review process\n- Security testing (SAST, DAST, IAST)\n- Secure deployment practices\n\n**Vulnerability Management**:\n- Vulnerability scanning frequency\n- CVE monitoring and response time\n- Patch management procedures\n- Risk-based prioritization\n- Vulnerability disclosure process\n\n**Incident Response**:\n- Incident detection mechanisms\n- Response playbooks\n- Communication templates\n- Recovery procedures\n- Postmortem process\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "The overall IT security standards section covering application, infrastructure, vulnerability, and incident response requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "The overall IT security standards section covering application, infrastructure, vulnerability, and incident response requirements."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -135967,10 +136833,26 @@
           "name": "standards",
           "kind": "list",
           "doc": "Security standards and frameworks — contains 0+× SecurityStandard.",
+          "help": "Add one entry per security standard.",
           "sectionId": "SESTEN-STAN-LST",
           "sectionIdPattern": "SESTEN-STAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system"
+            ],
+            "connotation": "The catalog of security standards and frameworks the system conforms to."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — information security management system"
+                ],
+                "connotation": "The catalog of security standards and frameworks the system conforms to."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -135981,6 +136863,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SESTEN-STAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per security standard."
               }
             },
             {
@@ -174795,7 +175683,26 @@
       "name": "PenetrationTestingRequirements",
       "sectionId": "PETERE",
       "doc": "Penetration testing requirements and schedule.",
+      "standardReferences": {
+        "standards": [
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "OWASP ASVS — verification and security testing requirements",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Penetration testing requirements covering scope, methodology, and scheduling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "OWASP ASVS — verification and security testing requirements",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Penetration testing requirements covering scope, methodology, and scheduling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174904,7 +175811,24 @@
       "name": "PenetrationTestingRequirementsExecution",
       "sectionId": "PTRE",
       "doc": "Execution rules.",
+      "standardReferences": {
+        "standards": [
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "OWASP ASVS — verification and security testing requirements"
+        ],
+        "connotation": "Execution rules for penetration testing including environment and rules of engagement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "OWASP ASVS — verification and security testing requirements"
+            ],
+            "connotation": "Execution rules for penetration testing including environment and rules of engagement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -174968,7 +175892,24 @@
       "name": "PenetrationTestingRequirementsReporting",
       "sectionId": "PTRR",
       "doc": "Reporting and remediation.",
+      "standardReferences": {
+        "standards": [
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Reporting format and remediation timelines for penetration testing findings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Reporting format and remediation timelines for penetration testing findings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -175039,7 +175980,24 @@
       "name": "PenetrationTestingRequirementsScheduling",
       "sectionId": "PTRS",
       "doc": "Frequency and scheduling.",
+      "standardReferences": {
+        "standards": [
+          "PCI DSS — logging, monitoring, and regular security testing",
+          "OWASP WSTG — web security testing guide (penetration testing)"
+        ],
+        "connotation": "Frequency, retesting, and trigger-based scheduling for penetration testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PCI DSS — logging, monitoring, and regular security testing",
+              "OWASP WSTG — web security testing guide (penetration testing)"
+            ],
+            "connotation": "Frequency, retesting, and trigger-based scheduling for penetration testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180355,7 +181313,26 @@
       "name": "PrivacyImpactAssessmentProcess",
       "sectionId": "PIAP",
       "doc": "Privacy impact assessment and DPIA process.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data protection by design and by default (Article 25)",
+          "ISO/IEC 29100 — privacy framework",
+          "NIST Privacy Framework — govern, control, communicate, protect"
+        ],
+        "connotation": "Defines DPIA thresholds, screening, and methodology for high-risk processing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data protection by design and by default (Article 25)",
+              "ISO/IEC 29100 — privacy framework",
+              "NIST Privacy Framework — govern, control, communicate, protect"
+            ],
+            "connotation": "Defines DPIA thresholds, screening, and methodology for high-risk processing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180464,7 +181441,24 @@
       "name": "PrivacyImpactAssessmentProcessAssessment",
       "sectionId": "PIAPA",
       "doc": "Assessment process inputs.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data protection by design and by default (Article 25)",
+          "NIST Privacy Framework — govern, control, communicate, protect"
+        ],
+        "connotation": "Defines DPIA stakeholders, data flow mapping, and risk assessment criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data protection by design and by default (Article 25)",
+              "NIST Privacy Framework — govern, control, communicate, protect"
+            ],
+            "connotation": "Defines DPIA stakeholders, data flow mapping, and risk assessment criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180521,7 +181515,26 @@
       "name": "PrivacyImpactAssessmentProcessMitigation",
       "sectionId": "PIAPM",
       "doc": "Mitigation measures.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data protection by design and by default (Article 25)",
+          "ISO/IEC 29100 — privacy framework",
+          "NIST Privacy Framework — govern, control, communicate, protect"
+        ],
+        "connotation": "Defines privacy-by-design, minimization, and de-identification measures that reduce risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data protection by design and by default (Article 25)",
+              "ISO/IEC 29100 — privacy framework",
+              "NIST Privacy Framework — govern, control, communicate, protect"
+            ],
+            "connotation": "Defines privacy-by-design, minimization, and de-identification measures that reduce risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180599,7 +181612,24 @@
       "name": "PrivacyImpactAssessmentProcessReview",
       "sectionId": "PIAPR",
       "doc": "Review and approval workflow.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data protection by design and by default (Article 25)",
+          "NIST Privacy Framework — govern, control, communicate, protect"
+        ],
+        "connotation": "Defines DPIA approval, supervisory consultation, and periodic review cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data protection by design and by default (Article 25)",
+              "NIST Privacy Framework — govern, control, communicate, protect"
+            ],
+            "connotation": "Defines DPIA approval, supervisory consultation, and periodic review cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180663,7 +181693,26 @@
       "name": "PrivacyRegulationCompliance",
       "sectionId": "PRRECO",
       "doc": "Privacy regulation compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "CCPA/CPRA — consumer privacy rights",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Applicable privacy regulations and the jurisdictions and authorities that govern processing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "CCPA/CPRA — consumer privacy rights",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Applicable privacy regulations and the jurisdictions and authorities that govern processing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180787,7 +181836,24 @@
       "name": "PrivacyRegulationComplianceDpo",
       "sectionId": "PRCD",
       "doc": "Data Protection Officer details.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Whether a Data Protection Officer is required and their contact and responsibilities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Whether a Data Protection Officer is required and their contact and responsibilities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180844,7 +181910,24 @@
       "name": "PrivacyRegulationComplianceGdpr",
       "sectionId": "PRCG",
       "doc": "GDPR-specific requirements.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Lawful basis, controller or processor role, and supervisory authority under GDPR."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Lawful basis, controller or processor role, and supervisory authority under GDPR."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180908,7 +181991,24 @@
       "name": "PrivacyRegulationComplianceRecords",
       "sectionId": "PRCR",
       "doc": "Records and documentation.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Records of processing activities, transparency notices, and staff training."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Records of processing activities, transparency notices, and staff training."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -180965,7 +182065,24 @@
       "name": "PrivacyRegulationComplianceTransfers",
       "sectionId": "PRCT",
       "doc": "Cross-border transfer controls.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — data subject rights and lawful processing (EU 2016/679)",
+          "ISO/IEC 27701 — privacy information management system"
+        ],
+        "connotation": "Cross-border transfer mechanisms and impact assessments for third-country processing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — data subject rights and lawful processing (EU 2016/679)",
+              "ISO/IEC 27701 — privacy information management system"
+            ],
+            "connotation": "Cross-border transfer mechanisms and impact assessments for third-country processing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227562,7 +228679,24 @@
       "name": "SecurityAuditEntry",
       "sectionId": "SAE",
       "doc": "A security audit requirement entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "ISO 19011 — auditing management systems (audit programme)"
+        ],
+        "connotation": "A single security audit requirement with its schedule, execution, and follow-up."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "ISO 19011 — auditing management systems (audit programme)"
+            ],
+            "connotation": "A single security audit requirement with its schedule, execution, and follow-up."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227671,7 +228805,24 @@
       "name": "SecurityAuditEntryExecution",
       "sectionId": "SAEE",
       "doc": "Scope, standards, and execution model.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011 — auditing management systems (audit programme)",
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+        ],
+        "connotation": "Scope, applicable standards, and execution model for a security audit requirement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011 — auditing management systems (audit programme)",
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+            ],
+            "connotation": "Scope, applicable standards, and execution model for a security audit requirement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227735,7 +228886,24 @@
       "name": "SecurityAuditEntryFollowUp",
       "sectionId": "SAEFU",
       "doc": "Deliverables, ownership, and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011 — auditing management systems (audit programme)",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Deliverables, ownership, and remediation follow-up for a security audit requirement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011 — auditing management systems (audit programme)",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Deliverables, ownership, and remediation follow-up for a security audit requirement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227799,7 +228967,24 @@
       "name": "SecurityAuditEntryScheduling",
       "sectionId": "SAES",
       "doc": "Audit schedule and cadence.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011 — auditing management systems (audit programme)",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Schedule and cadence for a security audit requirement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011 — auditing management systems (audit programme)",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Schedule and cadence for a security audit requirement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227850,7 +229035,26 @@
       "sectionId": "SARS",
       "doc": "8.8.3. Security Audit Requirements.\n\nComprehensive security audit requirements covering penetration testing,\nsecurity-focused code review, dependency scanning, security certifications,\ncompliance audit scheduling, and automated security testing integration.",
       "help": "Specify security audit requirements including penetration testing, code\nreview, dependency scanning, and compliance audits. Regular auditing\nvalidates security controls and identifies weaknesses.\n\n**Penetration Testing**:\n- Testing scope (external, internal, web, mobile, API)\n- Testing frequency (annual, quarterly, per release)\n- Testing methodology (OWASP, PTES, NIST)\n- Findings remediation timeline by severity\n- Re-testing requirements\n\n**Security Code Review**:\n- Code review checklist for security\n- Manual review requirements\n- SAST tool integration\n- High-risk code identification\n- Security review gates\n\n**Dependency Scanning**:\n- Software composition analysis (SCA)\n- CVE monitoring and alerting\n- License compliance scanning\n- Dependency update policy\n- Vulnerable dependency remediation\n\n**Security Certifications**:\n- **SOC 2 Type II**: Trust services criteria (security, availability, etc.)\n- **ISO 27001**: Information security management system\n- **FedRAMP**: US government cloud security\n- **Industry-specific**: HIPAA, PCI-DSS, HITRUST\n\n**Compliance Audits**:\n- Internal audit schedule\n- External audit requirements\n- Evidence collection and retention\n- Gap remediation tracking\n- Continuous compliance monitoring\n\n**Automated Security Testing**:\n- CI/CD security gates\n- Dynamic security testing (DAST)\n- Infrastructure security scanning\n- Compliance as code\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "OWASP ASVS — verification and security testing requirements",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Comprehensive security audit requirements spanning penetration testing, code review, scanning, and compliance audits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "OWASP ASVS — verification and security testing requirements",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Comprehensive security audit requirements spanning penetration testing, code review, scanning, and compliance audits."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -227996,10 +229200,26 @@
           "name": "auditEntries",
           "kind": "list",
           "doc": "Individual security audit requirement entries — contains 0+× SecurityAudit.",
+          "help": "Add one entry per security audit requirement.",
           "sectionId": "SEAUEN-AUDI-LST",
           "sectionIdPattern": "SEAUEN-AUDI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+            ],
+            "connotation": "The catalog of individual security audit requirements the system must satisfy."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+                ],
+                "connotation": "The catalog of individual security audit requirements the system must satisfy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -228010,6 +229230,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SEAUEN-AUDI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per security audit requirement."
               }
             },
             {
@@ -228149,7 +229375,26 @@
       "name": "SecurityCertificationRequirements",
       "sectionId": "SECERE",
       "doc": "Security certification and compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "SOC 2 — trust services criteria (security, audit evidence)",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Target security certifications and the compliance framework the system must satisfy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "SOC 2 — trust services criteria (security, audit evidence)",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Target security certifications and the compliance framework the system must satisfy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228266,7 +229511,24 @@
       "name": "SecurityCertificationRequirementsIndustry",
       "sectionId": "SECEREIN",
       "doc": "Industry-specific requirements.",
+      "standardReferences": {
+        "standards": [
+          "PCI DSS — logging, monitoring, and regular security testing",
+          "ISO/IEC 27002 — logging and monitoring controls"
+        ],
+        "connotation": "Industry-specific certification requirements such as PCI DSS, HIPAA, and sector regulations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PCI DSS — logging, monitoring, and regular security testing",
+              "ISO/IEC 27002 — logging and monitoring controls"
+            ],
+            "connotation": "Industry-specific certification requirements such as PCI DSS, HIPAA, and sector regulations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228323,7 +229585,24 @@
       "name": "SecurityCertificationRequirementsIso27001",
       "sectionId": "SCRI",
       "doc": "ISO 27001 requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "ISO/IEC 27002 — logging and monitoring controls"
+        ],
+        "connotation": "ISO 27001 controls, ISMS scope, and risk assessment methodology requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "ISO/IEC 27002 — logging and monitoring controls"
+            ],
+            "connotation": "ISO 27001 controls, ISMS scope, and risk assessment methodology requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228380,7 +229659,24 @@
       "name": "SecurityCertificationRequirementsMaintenance",
       "sectionId": "SCRM",
       "doc": "Maintenance and budget.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+          "SOC 2 — trust services criteria (security, audit evidence)"
+        ],
+        "connotation": "Recertification cycle, continuous monitoring, and budget for security certifications."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)",
+              "SOC 2 — trust services criteria (security, audit evidence)"
+            ],
+            "connotation": "Recertification cycle, continuous monitoring, and budget for security certifications."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228444,7 +229740,24 @@
       "name": "SecurityCertificationRequirementsSoc2",
       "sectionId": "SCRS",
       "doc": "SOC 2 requirements.",
+      "standardReferences": {
+        "standards": [
+          "SOC 2 — trust services criteria (security, audit evidence)",
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+        ],
+        "connotation": "SOC 2 trust services criteria, report type, and audit period requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOC 2 — trust services criteria (security, audit evidence)",
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+            ],
+            "connotation": "SOC 2 trust services criteria, report type, and audit period requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228618,7 +229931,26 @@
       "name": "SecurityCodeReviewPolicy",
       "sectionId": "SCRP",
       "doc": "Security-focused code review policy.\n\nDistinct from CodeReviewProcess (section 8.4) which covers general\ndevelopment code review. This section focuses specifically on\nsecurity-oriented review requirements.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+        ],
+        "connotation": "Security-focused code review policy covering triggers, scope, and methodology."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+            ],
+            "connotation": "Security-focused code review policy covering triggers, scope, and methodology."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228720,7 +230052,24 @@
       "name": "SecurityCodeReviewPolicyFindings",
       "sectionId": "SCRPF",
       "doc": "Finding management and residual risk handling.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+        ],
+        "connotation": "Finding classification, tracking, and residual-risk handling for security code review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "ISO/IEC 27001 — internal audit and management review (Clause 9)"
+            ],
+            "connotation": "Finding classification, tracking, and residual-risk handling for security code review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228784,7 +230133,24 @@
       "name": "SecurityCodeReviewPolicyProcess",
       "sectionId": "SCRPP",
       "doc": "Review process guidance for security-focused code review.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "OWASP WSTG — web security testing guide (penetration testing)"
+        ],
+        "connotation": "Process guidance for security-focused code review including checklists and threat modeling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "OWASP WSTG — web security testing guide (penetration testing)"
+            ],
+            "connotation": "Process guidance for security-focused code review including checklists and threat modeling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228841,7 +230207,24 @@
       "name": "SecurityCodeReviewPolicyReviewers",
       "sectionId": "SCRPR",
       "doc": "Reviewer qualification and independence rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 19011 — auditing management systems (audit programme)",
+          "OWASP ASVS — verification and security testing requirements"
+        ],
+        "connotation": "Reviewer qualification, independence, and rotation rules for security code review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 19011 — auditing management systems (audit programme)",
+              "OWASP ASVS — verification and security testing requirements"
+            ],
+            "connotation": "Reviewer qualification, independence, and rotation rules for security code review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229388,7 +230771,24 @@
       "name": "SecurityDevelopmentLifecycle",
       "sectionId": "SEDELI",
       "doc": "Security development lifecycle.",
+      "standardReferences": {
+        "standards": [
+          "OWASP SAMM — software assurance maturity model (secure SDLC)",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The integration of threat modeling and security controls across the software development lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP SAMM — software assurance maturity model (secure SDLC)",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The integration of threat modeling and security controls across the software development lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229497,7 +230897,24 @@
       "name": "SecurityDevelopmentLifecycleDevelopment",
       "sectionId": "SDLD",
       "doc": "Development-phase controls.",
+      "standardReferences": {
+        "standards": [
+          "OWASP SAMM — software assurance maturity model (secure SDLC)",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "The secure coding, static analysis, and dependency scanning controls applied during development."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP SAMM — software assurance maturity model (secure SDLC)",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "The secure coding, static analysis, and dependency scanning controls applied during development."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229568,7 +230985,24 @@
       "name": "SecurityDevelopmentLifecycleRelease",
       "sectionId": "SDLR",
       "doc": "Release-phase controls.",
+      "standardReferences": {
+        "standards": [
+          "OWASP SAMM — software assurance maturity model (secure SDLC)",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The security gates and change tracking applied before releasing software to production."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP SAMM — software assurance maturity model (secure SDLC)",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The security gates and change tracking applied before releasing software to production."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229625,7 +231059,24 @@
       "name": "SecurityDevelopmentLifecycleTesting",
       "sectionId": "SDLT",
       "doc": "Testing-phase controls.",
+      "standardReferences": {
+        "standards": [
+          "OWASP SAMM — software assurance maturity model (secure SDLC)",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "The dynamic, interactive, and manual security testing performed during the testing phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP SAMM — software assurance maturity model (secure SDLC)",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "The dynamic, interactive, and manual security testing performed during the testing phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231177,7 +232628,24 @@
       "name": "SecurityStandardEntry",
       "sectionId": "SSE",
       "doc": "A security standard entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "ISO/IEC 27002 — information security controls"
+        ],
+        "connotation": "A single security standard or framework the system conforms to, with its name, version, and issuing body."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "ISO/IEC 27002 — information security controls"
+            ],
+            "connotation": "A single security standard or framework the system conforms to, with its name, version, and issuing body."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231286,7 +232754,24 @@
       "name": "SecurityStandardEntryImplementation",
       "sectionId": "SSEI",
       "doc": "Implementation status and planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "ISO/IEC 27002 — information security controls"
+        ],
+        "connotation": "The implementation status, target compliance date, and gap analysis for a security standard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "ISO/IEC 27002 — information security controls"
+            ],
+            "connotation": "The implementation status, target compliance date, and gap analysis for a security standard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231350,7 +232835,24 @@
       "name": "SecurityStandardEntryScope",
       "sectionId": "SESTENSC",
       "doc": "Applicability and regulatory scope.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The applicability scope and regulatory drivers that make a security standard relevant."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The applicability scope and regulatory drivers that make a security standard relevant."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231407,7 +232909,24 @@
       "name": "SecurityStandardEntryVerification",
       "sectionId": "SSEV",
       "doc": "Verification and ownership.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover"
+        ],
+        "connotation": "The certification, assessment, and evidence requirements verifying conformance to a standard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover"
+            ],
+            "connotation": "The certification, assessment, and evidence requirements verifying conformance to a standard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231478,7 +232997,26 @@
       "name": "SecurityTestingAutomation",
       "sectionId": "SETEAU",
       "doc": "Automated security testing integration.\n\nRequirements for SAST, DAST, IAST, and fuzzing integration\ninto the CI/CD pipeline and development workflow.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "PCI DSS — logging, monitoring, and regular security testing",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Automated security testing integration covering SAST, DAST, IAST, and fuzzing in the pipeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "PCI DSS — logging, monitoring, and regular security testing",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Automated security testing integration covering SAST, DAST, IAST, and fuzzing in the pipeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231617,7 +233155,24 @@
       "name": "SecurityTestingAutomationDast",
       "sectionId": "STAD",
       "doc": "Dynamic analysis configuration.",
+      "standardReferences": {
+        "standards": [
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "OWASP ASVS — verification and security testing requirements"
+        ],
+        "connotation": "Dynamic application security testing configuration within automated security testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "OWASP ASVS — verification and security testing requirements"
+            ],
+            "connotation": "Dynamic application security testing configuration within automated security testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231674,7 +233229,24 @@
       "name": "SecurityTestingAutomationFuzzing",
       "sectionId": "STAF",
       "doc": "Fuzzing configuration.",
+      "standardReferences": {
+        "standards": [
+          "OWASP WSTG — web security testing guide (penetration testing)",
+          "OWASP ASVS — verification and security testing requirements"
+        ],
+        "connotation": "Fuzzing requirements and targets within automated security testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP WSTG — web security testing guide (penetration testing)",
+              "OWASP ASVS — verification and security testing requirements"
+            ],
+            "connotation": "Fuzzing requirements and targets within automated security testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231724,7 +233296,24 @@
       "name": "SecurityTestingAutomationGovernance",
       "sectionId": "STAG",
       "doc": "Governance and reporting.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "PCI DSS — logging, monitoring, and regular security testing"
+        ],
+        "connotation": "Governance and reporting for automated security testing, including false-positive triage and dashboards."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "PCI DSS — logging, monitoring, and regular security testing"
+            ],
+            "connotation": "Governance and reporting for automated security testing, including false-positive triage and dashboards."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231781,7 +233370,24 @@
       "name": "SecurityTestingAutomationIast",
       "sectionId": "STAI",
       "doc": "Interactive analysis configuration.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "OWASP WSTG — web security testing guide (penetration testing)"
+        ],
+        "connotation": "Interactive application security testing configuration within automated security testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "OWASP WSTG — web security testing guide (penetration testing)"
+            ],
+            "connotation": "Interactive application security testing configuration within automated security testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231831,7 +233437,24 @@
       "name": "SecurityTestingAutomationScanning",
       "sectionId": "STAS",
       "doc": "Container and IaC scanning.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS — verification and security testing requirements",
+          "NIST SP 800-53 — audit and accountability (AU) controls"
+        ],
+        "connotation": "Container image, infrastructure-as-code, and secrets scanning within automated security testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS — verification and security testing requirements",
+              "NIST SP 800-53 — audit and accountability (AU) controls"
+            ],
+            "connotation": "Container image, infrastructure-as-code, and secrets scanning within automated security testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -267463,7 +269086,26 @@
       "doc": "8.8. Security Requirements.",
       "help": "Define comprehensive security requirements including IT security standards,\ndata protection, privacy, and security auditing. Security is foundational\nand must be considered throughout the system lifecycle.\n\n**Subsections**:\n- **IT Security Standards**: OWASP compliance, infrastructure hardening,\n  vulnerability management, security development lifecycle\n- **Data Protection and Privacy**: GDPR/CCPA compliance, data residency,\n  consent management, data subject rights, encryption\n- **Security Audit Requirements**: Penetration testing, code review,\n  dependency scanning, certifications, compliance audits\n\n**Security Principles**:\n- Defense in depth\n- Least privilege\n- Zero trust architecture\n- Secure by default\n- Fail securely\n\n**Security Domains** (technical requirements and standards only):\n- Application security (OWASP Top 10, secure coding)\n- Infrastructure security (network, cloud, endpoints)\n- Data security (encryption, DLP)\n- Incident response (detection, response, recovery)\n\n**Ownership boundary**: This section owns *technical security\nrequirements and standards*. The identity and access-control **model**\n(authentication, authorization, roles, permissions) is owned by SBP.12\n`SecurityAndAccessModel` — reference it here, do not restate it.\n\n**Reference Frameworks**: NIST Cybersecurity Framework, ISO 27001,\nCIS Controls, OWASP ASVS, SOC 2 Trust Criteria.\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 — information security management system",
+          "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+          "OWASP ASVS — application security verification standard"
+        ],
+        "connotation": "Defines the technical security requirements: IT security standards, data protection and privacy, and security audit; the access-control model itself is specified in SBP.12 Security and Access and referenced here."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 — information security management system",
+              "NIST Cybersecurity Framework — identify, protect, detect, respond, recover",
+              "OWASP ASVS — application security verification standard"
+            ],
+            "connotation": "Defines the technical security requirements: IT security standards, data protection and privacy, and security audit; the access-control model itself is specified in SBP.12 Security and Access and referenced here."
+          }
+        },
         {
           "name": "DetailedIn",
           "arguments": {
@@ -293165,7 +294807,24 @@
       "name": "VulnerabilityManagementPolicy",
       "sectionId": "VUMAPO",
       "doc": "Vulnerability management policy.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-40 — enterprise patch and vulnerability management",
+          "CIS Controls — critical security controls"
+        ],
+        "connotation": "The program for scanning, classifying, and remediating security vulnerabilities across systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-40 — enterprise patch and vulnerability management",
+              "CIS Controls — critical security controls"
+            ],
+            "connotation": "The program for scanning, classifying, and remediating security vulnerabilities across systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293267,7 +294926,24 @@
       "name": "VulnerabilityManagementPolicyClassification",
       "sectionId": "VMPC",
       "doc": "Severity classification.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-40 — enterprise patch and vulnerability management",
+          "CIS Controls — critical security controls"
+        ],
+        "connotation": "The CVSS-based severity classification and patch SLA targets for each vulnerability level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-40 — enterprise patch and vulnerability management",
+              "CIS Controls — critical security controls"
+            ],
+            "connotation": "The CVSS-based severity classification and patch SLA targets for each vulnerability level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293338,7 +295014,24 @@
       "name": "VulnerabilityManagementPolicyProcess",
       "sectionId": "VMPP",
       "doc": "Remediation process.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-40 — enterprise patch and vulnerability management",
+          "NIST SP 800-53 — security and privacy controls"
+        ],
+        "connotation": "The remediation, risk-acceptance, and zero-day response workflow for tracked vulnerabilities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-40 — enterprise patch and vulnerability management",
+              "NIST SP 800-53 — security and privacy controls"
+            ],
+            "connotation": "The remediation, risk-acceptance, and zero-day response workflow for tracked vulnerabilities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -293402,7 +295095,24 @@
       "name": "VulnerabilityManagementPolicyReporting",
       "sectionId": "VMPR",
       "doc": "Reporting and disclosure.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-40 — enterprise patch and vulnerability management",
+          "OWASP SAMM — software assurance maturity model (secure SDLC)"
+        ],
+        "connotation": "How vulnerability findings are reported and how responsible disclosure is handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-40 — enterprise patch and vulnerability management",
+              "OWASP SAMM — software assurance maturity model (secure SDLC)"
+            ],
+            "connotation": "How vulnerability findings are reported and how responsible disclosure is handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

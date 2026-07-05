@@ -27037,6 +27037,14 @@ class CapacityReviewProcessPlanning {
 }
 
 /// 8.8. Security Requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'Defines the technical security requirements: IT security standards, data protection and privacy, and security audit; the access-control model itself is specified in SBP.12 Security and Access and referenced here.',
+)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SEC')
 @ContentHelp('''
@@ -27112,6 +27120,14 @@ Provide an overview of security approach and governance.
 }
 
 /// 8.8.1. IT Security Standards.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'The overall IT security standards section covering application, infrastructure, vulnerability, and incident response requirements.',
+)
 @ContentHelp('''
 Specify IT security standards including application security, infrastructure
 security, vulnerability management, and security development practices.
@@ -27179,8 +27195,13 @@ Provide an overview of IT security standards approach.
   TextSection overview = TextSection();
 
   /// Security standards and frameworks — contains 0+× SecurityStandard.
+  @StandardReferences(
+    ['ISO/IEC 27001 — information security management system'],
+    'The catalog of security standards and frameworks the system conforms to.',
+  )
   @SectionId('SESTEN-STAN-LST')
   @SectionIdPattern('SESTEN-STAN-xxx')
+  @ContentHelp('Add one entry per security standard.')
   @SerializationOrder(2)
   List<SecurityStandardEntry> standards = [];
 
@@ -27210,6 +27231,13 @@ Provide an overview of IT security standards approach.
 }
 
 /// A security standard entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'A single security standard or framework the system conforms to, with its name, version, and issuing body.',
+)
 @SectionId('SSE')
 class SecurityStandardEntry {
   @Form([
@@ -27241,6 +27269,13 @@ class SecurityStandardEntry {
 }
 
 /// Applicability and regulatory scope.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The applicability scope and regulatory drivers that make a security standard relevant.',
+)
 @SectionId('SESTENSC')
 class SecurityStandardEntryScope {
   @Form([
@@ -27256,6 +27291,13 @@ class SecurityStandardEntryScope {
 }
 
 /// Implementation status and planning.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'The implementation status, target compliance date, and gap analysis for a security standard.',
+)
 @SectionId('SSEI')
 class SecurityStandardEntryImplementation {
   @Form([
@@ -27273,6 +27315,13 @@ class SecurityStandardEntryImplementation {
 }
 
 /// Verification and ownership.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management system',
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+  ],
+  'The certification, assessment, and evidence requirements verifying conformance to a standard.',
+)
 @SectionId('SSEV')
 class SecurityStandardEntryVerification {
   @Form([
@@ -27292,6 +27341,13 @@ class SecurityStandardEntryVerification {
 }
 
 /// Application security requirements (OWASP-based).
+@StandardReferences(
+  [
+    'OWASP Top 10 — web application security risks',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'The application-level security requirements derived from OWASP standards.',
+)
 @SectionId('APSERE')
 class ApplicationSecurityRequirements {
   @Form([
@@ -27322,6 +27378,13 @@ class ApplicationSecurityRequirements {
 }
 
 /// Core protection controls.
+@StandardReferences(
+  [
+    'OWASP Top 10 — web application security risks',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'Core protections against sensitive data exposure, misconfiguration, CSRF, and SSRF, with the access-control model specified in SBP.12.',
+)
 @SectionId('ASRC')
 class ApplicationSecurityRequirementsControls {
   @Form([
@@ -27341,6 +27404,13 @@ class ApplicationSecurityRequirementsControls {
 }
 
 /// Input and output validation.
+@StandardReferences(
+  [
+    'OWASP Top 10 — web application security risks',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'Input validation, output encoding, and file upload security controls for the application.',
+)
 @SectionId('ASRV')
 class ApplicationSecurityRequirementsValidation {
   @Form([
@@ -27356,6 +27426,13 @@ class ApplicationSecurityRequirementsValidation {
 }
 
 /// API and browser-facing protections.
+@StandardReferences(
+  [
+    'OWASP Top 10 — web application security risks',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'Protections for APIs and browsers including API security standards, rate limiting, and content security policy.',
+)
 @SectionId('ASRA')
 class ApplicationSecurityRequirementsApi {
   @Form([
@@ -27373,6 +27450,13 @@ class ApplicationSecurityRequirementsApi {
 }
 
 /// Infrastructure security hardening.
+@StandardReferences(
+  [
+    'CIS Benchmarks — secure configuration and hardening',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The baseline hardening of operating systems, networks, and access for the infrastructure.',
+)
 @SectionId('INSEHA')
 class InfrastructureSecurityHardening {
   @Form([
@@ -27405,6 +27489,13 @@ class InfrastructureSecurityHardening {
 }
 
 /// Container security.
+@StandardReferences(
+  [
+    'CIS Benchmarks — secure configuration and hardening',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'Container and orchestration hardening covering base images, scanning, and runtime security.',
+)
 @SectionId('ISHC')
 class InfrastructureSecurityHardeningContainer {
   @Form([
@@ -27422,6 +27513,13 @@ class InfrastructureSecurityHardeningContainer {
 }
 
 /// Network hardening.
+@StandardReferences(
+  [
+    'CIS Benchmarks — secure configuration and hardening',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'Network-level hardening through segmentation, internal TLS, and DNS security policy.',
+)
 @SectionId('ISHN')
 class InfrastructureSecurityHardeningNetwork {
   @Form([
@@ -27437,6 +27535,13 @@ class InfrastructureSecurityHardeningNetwork {
 }
 
 /// Access hardening.
+@StandardReferences(
+  [
+    'CIS Benchmarks — secure configuration and hardening',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'Hardening of infrastructure access through SSH policy, privileged access management, and service accounts, with the access-control model specified in SBP.12.',
+)
 @SectionId('ISHA')
 class InfrastructureSecurityHardeningAccess {
   @Form([
@@ -27454,6 +27559,13 @@ class InfrastructureSecurityHardeningAccess {
 }
 
 /// Security development lifecycle.
+@StandardReferences(
+  [
+    'OWASP SAMM — software assurance maturity model (secure SDLC)',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The integration of threat modeling and security controls across the software development lifecycle.',
+)
 @SectionId('SEDELI')
 class SecurityDevelopmentLifecycle {
   @Form([
@@ -27486,6 +27598,13 @@ class SecurityDevelopmentLifecycle {
 }
 
 /// Development-phase controls.
+@StandardReferences(
+  [
+    'OWASP SAMM — software assurance maturity model (secure SDLC)',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'The secure coding, static analysis, and dependency scanning controls applied during development.',
+)
 @SectionId('SDLD')
 class SecurityDevelopmentLifecycleDevelopment {
   @Form([
@@ -27505,6 +27624,13 @@ class SecurityDevelopmentLifecycleDevelopment {
 }
 
 /// Testing-phase controls.
+@StandardReferences(
+  [
+    'OWASP SAMM — software assurance maturity model (secure SDLC)',
+    'OWASP ASVS — application security verification standard',
+  ],
+  'The dynamic, interactive, and manual security testing performed during the testing phase.',
+)
 @SectionId('SDLT')
 class SecurityDevelopmentLifecycleTesting {
   @Form([
@@ -27522,6 +27648,13 @@ class SecurityDevelopmentLifecycleTesting {
 }
 
 /// Release-phase controls.
+@StandardReferences(
+  [
+    'OWASP SAMM — software assurance maturity model (secure SDLC)',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The security gates and change tracking applied before releasing software to production.',
+)
 @SectionId('SDLR')
 class SecurityDevelopmentLifecycleRelease {
   @Form([
@@ -27537,6 +27670,13 @@ class SecurityDevelopmentLifecycleRelease {
 }
 
 /// Vulnerability management policy.
+@StandardReferences(
+  [
+    'NIST SP 800-40 — enterprise patch and vulnerability management',
+    'CIS Controls — critical security controls',
+  ],
+  'The program for scanning, classifying, and remediating security vulnerabilities across systems.',
+)
 @SectionId('VUMAPO')
 class VulnerabilityManagementPolicy {
   @Form([
@@ -27567,6 +27707,13 @@ class VulnerabilityManagementPolicy {
 }
 
 /// Severity classification.
+@StandardReferences(
+  [
+    'NIST SP 800-40 — enterprise patch and vulnerability management',
+    'CIS Controls — critical security controls',
+  ],
+  'The CVSS-based severity classification and patch SLA targets for each vulnerability level.',
+)
 @SectionId('VMPC')
 class VulnerabilityManagementPolicyClassification {
   @Form([
@@ -27586,6 +27733,13 @@ class VulnerabilityManagementPolicyClassification {
 }
 
 /// Remediation process.
+@StandardReferences(
+  [
+    'NIST SP 800-40 — enterprise patch and vulnerability management',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The remediation, risk-acceptance, and zero-day response workflow for tracked vulnerabilities.',
+)
 @SectionId('VMPP')
 class VulnerabilityManagementPolicyProcess {
   @Form([
@@ -27603,6 +27757,13 @@ class VulnerabilityManagementPolicyProcess {
 }
 
 /// Reporting and disclosure.
+@StandardReferences(
+  [
+    'NIST SP 800-40 — enterprise patch and vulnerability management',
+    'OWASP SAMM — software assurance maturity model (secure SDLC)',
+  ],
+  'How vulnerability findings are reported and how responsible disclosure is handled.',
+)
 @SectionId('VMPR')
 class VulnerabilityManagementPolicyReporting {
   @Form([
@@ -27618,6 +27779,13 @@ class VulnerabilityManagementPolicyReporting {
 }
 
 /// Incident response plan.
+@StandardReferences(
+  [
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'ISO/IEC 27001 — information security management system',
+  ],
+  'The overall plan for detecting, responding to, and recovering from security incidents.',
+)
 @SectionId('INREPL')
 class IncidentResponsePlan {
   @Form([
@@ -27647,6 +27815,13 @@ class IncidentResponsePlan {
 }
 
 /// Response process.
+@StandardReferences(
+  [
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'NIST SP 800-53 — security and privacy controls',
+  ],
+  'The containment, eradication, and recovery procedures followed when responding to an incident.',
+)
 @SectionId('IRPP')
 class IncidentResponsePlanProcess {
   @Form([
@@ -27664,6 +27839,13 @@ class IncidentResponsePlanProcess {
 }
 
 /// Communication requirements.
+@StandardReferences(
+  [
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'ISO/IEC 27001 — information security management system',
+  ],
+  'Notification, escalation, and external communication requirements during a security incident.',
+)
 @SectionId('IRPC')
 class IncidentResponsePlanCommunication {
   @Form([
@@ -27681,6 +27863,13 @@ class IncidentResponsePlanCommunication {
 }
 
 /// Post-incident activities.
+@StandardReferences(
+  [
+    'NIST Cybersecurity Framework — identify, protect, detect, respond, recover',
+    'ISO/IEC 27001 — information security management system',
+  ],
+  'Post-incident review and lessons-learned activities that feed findings back into prevention.',
+)
 @SectionId('IRPPI')
 class IncidentResponsePlanPostIncident {
   @Form([
@@ -27707,6 +27896,14 @@ class IncidentResponsePlanPostIncident {
 /// GDPR compliance, data residency, consent management, data subject
 /// rights (erasure, portability, access), privacy impact assessments,
 /// and data processing agreements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Overall data protection and privacy strategy covering regulation, residency, consent, and data subject rights.',
+)
 @ContentHelp('''
 Specify data protection and privacy requirements including regulatory
 compliance, data residency, consent management, and data subject rights.
@@ -27808,6 +28005,14 @@ Provide an overview of data protection and privacy strategy.
 }
 
 /// Privacy regulation compliance requirements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Applicable privacy regulations and the jurisdictions and authorities that govern processing.',
+)
 @SectionId('PRRECO')
 class PrivacyRegulationCompliance {
   @Form([
@@ -27844,6 +28049,13 @@ class PrivacyRegulationCompliance {
 }
 
 /// GDPR-specific requirements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Lawful basis, controller or processor role, and supervisory authority under GDPR.',
+)
 @SectionId('PRCG')
 class PrivacyRegulationComplianceGdpr {
   @Form([
@@ -27864,6 +28076,13 @@ class PrivacyRegulationComplianceGdpr {
 }
 
 /// Data Protection Officer details.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Whether a Data Protection Officer is required and their contact and responsibilities.',
+)
 @SectionId('PRCD')
 class PrivacyRegulationComplianceDpo {
   @Form([
@@ -27879,6 +28098,13 @@ class PrivacyRegulationComplianceDpo {
 }
 
 /// Records and documentation.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Records of processing activities, transparency notices, and staff training.',
+)
 @SectionId('PRCR')
 class PrivacyRegulationComplianceRecords {
   @Form([
@@ -27895,6 +28121,13 @@ class PrivacyRegulationComplianceRecords {
 }
 
 /// Cross-border transfer controls.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Cross-border transfer mechanisms and impact assessments for third-country processing.',
+)
 @SectionId('PRCT')
 class PrivacyRegulationComplianceTransfers {
   @Form([
@@ -27911,6 +28144,13 @@ class PrivacyRegulationComplianceTransfers {
 }
 
 /// Data residency and sovereignty requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'GDPR — data protection by design and by default (Article 25)',
+  ],
+  'Geographic residency of data storage and processing across allowed and prohibited regions.',
+)
 @SectionId('DARERE')
 class DataResidencyRequirements {
   @Form([
@@ -27942,6 +28182,13 @@ class DataResidencyRequirements {
 }
 
 /// Governing regulation and sovereignty constraints.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'GDPR — data protection by design and by default (Article 25)',
+  ],
+  'Sovereignty laws, key location, and sovereign cloud provider constraints.',
+)
 @SectionId('DRRS')
 class DataResidencyRequirementsSovereignty {
   @Form([
@@ -27962,6 +28209,13 @@ class DataResidencyRequirementsSovereignty {
 }
 
 /// Backup, replication, and CDN placement rules.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'GDPR — storage limitation and data minimisation (Article 5)',
+  ],
+  'Geographic constraints on backups, cross-region replication, and CDN caching.',
+)
 @SectionId('DARERERE')
 class DataResidencyRequirementsReplication {
   @Form([
@@ -27977,6 +28231,13 @@ class DataResidencyRequirementsReplication {
 }
 
 /// Verification and transparency requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'GDPR — data protection by design and by default (Article 25)',
+  ],
+  'Verification, provider certifications, and transparency about where data is stored.',
+)
 @SectionId('DRRV')
 class DataResidencyRequirementsVerification {
   @Form([
@@ -27995,6 +28256,14 @@ class DataResidencyRequirementsVerification {
 }
 
 /// Consent collection, tracking and management requirements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+    'ISO/IEC 29100 — privacy framework',
+  ],
+  'End-to-end consent lifecycle covering collection, storage, withdrawal, and granularity.',
+)
 @SectionId('COMARE')
 class ConsentManagementRequirements {
   @Form([
@@ -28042,6 +28311,13 @@ class ConsentManagementRequirements {
 }
 
 /// Collection requirements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 29100 — privacy framework',
+  ],
+  'Plain-language, double opt-in, and age-verification requirements for collecting consent.',
+)
 @SectionId('CMRC')
 class ConsentManagementRequirementsCollection {
   @Form([
@@ -28059,6 +28335,13 @@ class ConsentManagementRequirementsCollection {
 }
 
 /// Consent record storage rules.
+@StandardReferences(
+  [
+    'GDPR — storage limitation and data minimisation (Article 5)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Versioning and retention of consent proof records after withdrawal.',
+)
 @SectionId('COMAREST')
 class ConsentManagementRequirementsStorage {
   @Form([
@@ -28072,6 +28355,13 @@ class ConsentManagementRequirementsStorage {
 }
 
 /// Preference management workflow.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Self-service preference management and propagation of consent changes to downstream systems.',
+)
 @SectionId('CMRM')
 class ConsentManagementRequirementsManagement {
   @Form([
@@ -28088,6 +28378,13 @@ class ConsentManagementRequirementsManagement {
 }
 
 /// Cookie and tracking rules.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Consent rules for cookies, tracking pixels, and third-party sharing.',
+)
 @SectionId('CMRT')
 class ConsentManagementRequirementsTracking {
   @Form([
@@ -28105,6 +28402,13 @@ class ConsentManagementRequirementsTracking {
 }
 
 /// Compliance evidence and reporting.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Audit trails and reporting that evidence consent compliance for regulators.',
+)
 @SectionId('COMARECO')
 class ConsentManagementRequirementsCompliance {
   @Form([
@@ -28123,6 +28427,14 @@ class ConsentManagementRequirementsCompliance {
 ///
 /// Covers GDPR Articles 15–22: right of access, rectification, erasure,
 /// restriction, portability, objection, and automated decision-making.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Handling of data subject requests for access, erasure, portability, and objection.',
+)
 @SectionId('DSRM')
 class DataSubjectRightsManagement {
   @Form([
@@ -28171,6 +28483,13 @@ class DataSubjectRightsManagement {
 }
 
 /// Access and rectification handling.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Defines access data format, rectification process, and propagation of corrections.',
+)
 @SectionId('DSRMA')
 class DataSubjectRightsManagementAccess {
   @Form([
@@ -28188,6 +28507,13 @@ class DataSubjectRightsManagementAccess {
 }
 
 /// Erasure handling.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Defines erasure process, scope, exceptions, and verification across systems.',
+)
 @SectionId('DSRME')
 class DataSubjectRightsManagementErasure {
   @Form([
@@ -28207,6 +28533,13 @@ class DataSubjectRightsManagementErasure {
 }
 
 /// Portability handling.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Defines structured, machine-readable data export and direct-transfer support.',
+)
 @SectionId('DSRMP')
 class DataSubjectRightsManagementPortability {
   @Form([
@@ -28223,6 +28556,13 @@ class DataSubjectRightsManagementPortability {
 }
 
 /// Restriction and objection handling.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Defines how processing restriction and objections to processing are handled.',
+)
 @SectionId('DSRMR')
 class DataSubjectRightsManagementRestriction {
   @Form([
@@ -28237,6 +28577,13 @@ class DataSubjectRightsManagementRestriction {
 }
 
 /// Automated decision safeguards.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'NIST Privacy Framework — govern, control, communicate, protect',
+  ],
+  'Defines safeguards and human review for automated decisions with significant effects.',
+)
 @SectionId('DASURIMAAU')
 class DataSubjectRightsManagementAutomation {
   @Form([
@@ -28251,6 +28598,13 @@ class DataSubjectRightsManagementAutomation {
 }
 
 /// Operational workflow and tracking.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'CCPA/CPRA — consumer privacy rights',
+  ],
+  'Defines the end-to-end DSAR workflow, tracking, and completion metrics.',
+)
 @SectionId('DSRMO')
 class DataSubjectRightsManagementOperations {
   @Form([
@@ -28266,6 +28620,14 @@ class DataSubjectRightsManagementOperations {
 }
 
 /// Privacy impact assessment and DPIA process.
+@StandardReferences(
+  [
+    'GDPR — data protection by design and by default (Article 25)',
+    'ISO/IEC 29100 — privacy framework',
+    'NIST Privacy Framework — govern, control, communicate, protect',
+  ],
+  'Defines DPIA thresholds, screening, and methodology for high-risk processing.',
+)
 @SectionId('PIAP')
 class PrivacyImpactAssessmentProcess {
   @Form([
@@ -28302,6 +28664,13 @@ class PrivacyImpactAssessmentProcess {
 }
 
 /// Assessment process inputs.
+@StandardReferences(
+  [
+    'GDPR — data protection by design and by default (Article 25)',
+    'NIST Privacy Framework — govern, control, communicate, protect',
+  ],
+  'Defines DPIA stakeholders, data flow mapping, and risk assessment criteria.',
+)
 @SectionId('PIAPA')
 class PrivacyImpactAssessmentProcessAssessment {
   @Form([
@@ -28319,6 +28688,14 @@ class PrivacyImpactAssessmentProcessAssessment {
 }
 
 /// Mitigation measures.
+@StandardReferences(
+  [
+    'GDPR — data protection by design and by default (Article 25)',
+    'ISO/IEC 29100 — privacy framework',
+    'NIST Privacy Framework — govern, control, communicate, protect',
+  ],
+  'Defines privacy-by-design, minimization, and de-identification measures that reduce risk.',
+)
 @SectionId('PIAPM')
 class PrivacyImpactAssessmentProcessMitigation {
   @Form([
@@ -28347,6 +28724,13 @@ class PrivacyImpactAssessmentProcessMitigation {
 }
 
 /// Review and approval workflow.
+@StandardReferences(
+  [
+    'GDPR — data protection by design and by default (Article 25)',
+    'NIST Privacy Framework — govern, control, communicate, protect',
+  ],
+  'Defines DPIA approval, supervisory consultation, and periodic review cadence.',
+)
 @SectionId('PIAPR')
 class PrivacyImpactAssessmentProcessReview {
   @Form([
@@ -28364,6 +28748,14 @@ class PrivacyImpactAssessmentProcessReview {
 }
 
 /// Data processing agreement requirements.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+    'ISO/IEC 27018 — protection of PII in public clouds',
+  ],
+  'Defines processor obligations, purpose limitation, and audit rights for data processing agreements.',
+)
 @SectionId('DPAR')
 class DataProcessingAgreementRequirements {
   @Form([
@@ -28406,6 +28798,13 @@ class DataProcessingAgreementRequirements {
 }
 
 /// Agreement-management details.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Defines how sub-processors are approved, monitored, and communicated to controllers.',
+)
 @SectionId('DPARM')
 class DataProcessingAgreementRequirementsManagement {
   @Form([
@@ -28420,6 +28819,13 @@ class DataProcessingAgreementRequirementsManagement {
 }
 
 /// Data-handling details.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Defines retention, return on termination, and confidentiality obligations for processors.',
+)
 @SectionId('DPARH')
 class DataProcessingAgreementRequirementsHandling {
   @Form([
@@ -28436,6 +28842,13 @@ class DataProcessingAgreementRequirementsHandling {
 }
 
 /// Security and audit details.
+@StandardReferences(
+  [
+    'GDPR — data breach notification (Articles 33-34)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Defines processor security measures, breach notification, and compliance certification.',
+)
 @SectionId('DPARS')
 class DataProcessingAgreementRequirementsSecurity {
   @Form([
@@ -28453,6 +28866,13 @@ class DataProcessingAgreementRequirementsSecurity {
 }
 
 /// International-transfer details.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27018 — protection of PII in public clouds',
+  ],
+  'Defines contractual clauses and mechanisms for international personal data transfers.',
+)
 @SectionId('DPART')
 class DataProcessingAgreementRequirementsTransfers {
   @Form([
@@ -28474,6 +28894,14 @@ class DataProcessingAgreementRequirementsTransfers {
 ///
 /// Named DataProtectionClassification to avoid collision with
 /// DataClassification in information_and_data_model.dart.
+@StandardReferences(
+  [
+    'ISO/IEC 27701 — privacy information management system',
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 29100 — privacy framework',
+  ],
+  'Defines classification levels and personal data categories with their handling rules.',
+)
 @SectionId('DAPRCL')
 class DataProtectionClassification {
   @Form([
@@ -28515,6 +28943,13 @@ class DataProtectionClassification {
 }
 
 /// Handling rules.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Defines encryption, access control, and logging requirements per classification level.',
+)
 @SectionId('DPCH')
 class DataProtectionClassificationHandling {
   @Form([
@@ -28533,6 +28968,13 @@ class DataProtectionClassificationHandling {
 }
 
 /// Retention and disposal rules.
+@StandardReferences(
+  [
+    'GDPR — data subject rights and lawful processing (EU 2016/679)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Defines retention periods, secure disposal, and exceptions per data category.',
+)
 @SectionId('DPCR')
 class DataProtectionClassificationRetention {
   @Form([
@@ -28549,6 +28991,13 @@ class DataProtectionClassificationRetention {
 }
 
 /// Masking and de-identification rules.
+@StandardReferences(
+  [
+    'ISO/IEC 27018 — protection of PII in public clouds',
+    'GDPR — data protection by design and by default (Article 25)',
+  ],
+  'Defines masking, tokenization, and de-identification standards for personal data.',
+)
 @SectionId('DPCM')
 class DataProtectionClassificationMasking {
   @Form([
@@ -28564,6 +29013,13 @@ class DataProtectionClassificationMasking {
 }
 
 /// Incident handling.
+@StandardReferences(
+  [
+    'GDPR — data breach notification (Articles 33-34)',
+    'ISO/IEC 27701 — privacy information management system',
+  ],
+  'Maps data classification to breach severity and defines exfiltration-prevention controls.',
+)
 @SectionId('DPCI')
 class DataProtectionClassificationIncident {
   @Form([
@@ -28587,6 +29043,14 @@ class DataProtectionClassificationIncident {
 /// Comprehensive security audit requirements covering penetration testing,
 /// security-focused code review, dependency scanning, security certifications,
 /// compliance audit scheduling, and automated security testing integration.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'OWASP ASVS — verification and security testing requirements',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Comprehensive security audit requirements spanning penetration testing, code review, scanning, and compliance audits.',
+)
 @ContentHelp('''
 Specify security audit requirements including penetration testing, code
 review, dependency scanning, and compliance audits. Regular auditing
@@ -28687,13 +29151,26 @@ Provide an overview of security audit strategy.
       SecurityTestingAutomation();
 
   /// Individual security audit requirement entries — contains 0+× SecurityAudit.
+  @StandardReferences(
+    ['ISO/IEC 27001 — internal audit and management review (Clause 9)'],
+    'The catalog of individual security audit requirements the system must satisfy.',
+  )
   @SectionId('SEAUEN-AUDI-LST')
   @SectionIdPattern('SEAUEN-AUDI-xxx')
+  @ContentHelp('Add one entry per security audit requirement.')
   @SerializationOrder(8)
   List<SecurityAuditEntry> auditEntries = [];
 }
 
 /// Penetration testing requirements and schedule.
+@StandardReferences(
+  [
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'OWASP ASVS — verification and security testing requirements',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Penetration testing requirements covering scope, methodology, and scheduling.',
+)
 @SectionId('PETERE')
 class PenetrationTestingRequirements {
   @Form([
@@ -28729,6 +29206,13 @@ class PenetrationTestingRequirements {
 }
 
 /// Frequency and scheduling.
+@StandardReferences(
+  [
+    'PCI DSS — logging, monitoring, and regular security testing',
+    'OWASP WSTG — web security testing guide (penetration testing)',
+  ],
+  'Frequency, retesting, and trigger-based scheduling for penetration testing.',
+)
 @SectionId('PTRS')
 class PenetrationTestingRequirementsScheduling {
   @Form([
@@ -28746,6 +29230,13 @@ class PenetrationTestingRequirementsScheduling {
 }
 
 /// Execution rules.
+@StandardReferences(
+  [
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'OWASP ASVS — verification and security testing requirements',
+  ],
+  'Execution rules for penetration testing including environment and rules of engagement.',
+)
 @SectionId('PTRE')
 class PenetrationTestingRequirementsExecution {
   @Form([
@@ -28763,6 +29254,13 @@ class PenetrationTestingRequirementsExecution {
 }
 
 /// Reporting and remediation.
+@StandardReferences(
+  [
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Reporting format and remediation timelines for penetration testing findings.',
+)
 @SectionId('PTRR')
 class PenetrationTestingRequirementsReporting {
   @Form([
@@ -28788,6 +29286,14 @@ class PenetrationTestingRequirementsReporting {
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
 /// development code review. This section focuses specifically on
 /// security-oriented review requirements.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+  ],
+  'Security-focused code review policy covering triggers, scope, and methodology.',
+)
 @SectionId('SCRP')
 class SecurityCodeReviewPolicy {
   @Form([
@@ -28821,6 +29327,13 @@ class SecurityCodeReviewPolicy {
 }
 
 /// Reviewer qualification and independence rules.
+@StandardReferences(
+  [
+    'ISO 19011 — auditing management systems (audit programme)',
+    'OWASP ASVS — verification and security testing requirements',
+  ],
+  'Reviewer qualification, independence, and rotation rules for security code review.',
+)
 @SectionId('SCRPR')
 class SecurityCodeReviewPolicyReviewers {
   @Form([
@@ -28838,6 +29351,13 @@ class SecurityCodeReviewPolicyReviewers {
 }
 
 /// Review process guidance for security-focused code review.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'OWASP WSTG — web security testing guide (penetration testing)',
+  ],
+  'Process guidance for security-focused code review including checklists and threat modeling.',
+)
 @SectionId('SCRPP')
 class SecurityCodeReviewPolicyProcess {
   @Form([
@@ -28855,6 +29375,13 @@ class SecurityCodeReviewPolicyProcess {
 }
 
 /// Finding management and residual risk handling.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+  ],
+  'Finding classification, tracking, and residual-risk handling for security code review.',
+)
 @SectionId('SCRPF')
 class SecurityCodeReviewPolicyFindings {
   @Form([
@@ -28872,6 +29399,14 @@ class SecurityCodeReviewPolicyFindings {
 }
 
 /// Dependency and supply-chain scanning requirements.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Dependency and supply-chain scanning requirements including SCA tooling and severity thresholds.',
+)
 @SectionId('DESCRE')
 class DependencyScanningRequirements {
   @Form([
@@ -28912,6 +29447,13 @@ class DependencyScanningRequirements {
 }
 
 /// Vulnerability-management rules.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Vulnerability database sources, remediation SLAs, and exception handling for dependencies.',
+)
 @SectionId('DSRV')
 class DependencyScanningRequirementsVulnerabilities {
   @Form([
@@ -28927,6 +29469,13 @@ class DependencyScanningRequirementsVulnerabilities {
 }
 
 /// SBOM requirements.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Software bill of materials generation, update frequency, and distribution requirements.',
+)
 @SectionId('DSRS')
 class DependencyScanningRequirementsSbom {
   @Form([
@@ -28942,6 +29491,13 @@ class DependencyScanningRequirementsSbom {
 }
 
 /// License-compliance rules.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'ISO/IEC 27002 — logging and monitoring controls',
+  ],
+  'License policy and automated license scanning rules for dependencies.',
+)
 @SectionId('DSRL')
 class DependencyScanningRequirementsLicensing {
   @Form([
@@ -28956,6 +29512,13 @@ class DependencyScanningRequirementsLicensing {
 }
 
 /// Supply-chain security rules.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Supply-chain security rules covering dependency pinning, signature verification, and registry policy.',
+)
 @SectionId('DSRSC')
 class DependencyScanningRequirementsSupplyChain {
   @Form([
@@ -28973,6 +29536,14 @@ class DependencyScanningRequirementsSupplyChain {
 }
 
 /// Security certification and compliance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'SOC 2 — trust services criteria (security, audit evidence)',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Target security certifications and the compliance framework the system must satisfy.',
+)
 @SectionId('SECERE')
 class SecurityCertificationRequirements {
   @Form([
@@ -29010,6 +29581,13 @@ class SecurityCertificationRequirements {
 }
 
 /// ISO 27001 requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'ISO/IEC 27002 — logging and monitoring controls',
+  ],
+  'ISO 27001 controls, ISMS scope, and risk assessment methodology requirements.',
+)
 @SectionId('SCRI')
 class SecurityCertificationRequirementsIso27001 {
   @Form([
@@ -29025,6 +29603,13 @@ class SecurityCertificationRequirementsIso27001 {
 }
 
 /// SOC 2 requirements.
+@StandardReferences(
+  [
+    'SOC 2 — trust services criteria (security, audit evidence)',
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+  ],
+  'SOC 2 trust services criteria, report type, and audit period requirements.',
+)
 @SectionId('SCRS')
 class SecurityCertificationRequirementsSoc2 {
   @Form([
@@ -29040,6 +29625,13 @@ class SecurityCertificationRequirementsSoc2 {
 }
 
 /// Industry-specific requirements.
+@StandardReferences(
+  [
+    'PCI DSS — logging, monitoring, and regular security testing',
+    'ISO/IEC 27002 — logging and monitoring controls',
+  ],
+  'Industry-specific certification requirements such as PCI DSS, HIPAA, and sector regulations.',
+)
 @SectionId('SECEREIN')
 class SecurityCertificationRequirementsIndustry {
   @Form([
@@ -29055,6 +29647,13 @@ class SecurityCertificationRequirementsIndustry {
 }
 
 /// Maintenance and budget.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'SOC 2 — trust services criteria (security, audit evidence)',
+  ],
+  'Recertification cycle, continuous monitoring, and budget for security certifications.',
+)
 @SectionId('SCRM')
 class SecurityCertificationRequirementsMaintenance {
   @Form([
@@ -29072,6 +29671,14 @@ class SecurityCertificationRequirementsMaintenance {
 }
 
 /// Compliance audit planning and scheduling.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'ISO 19011 — auditing management systems (audit programme)',
+    'SOC 2 — trust services criteria (security, audit evidence)',
+  ],
+  'Compliance audit planning and scheduling across internal and external audits.',
+)
 @SectionId('COAUSC')
 class ComplianceAuditSchedule {
   @Form([
@@ -29105,6 +29712,13 @@ class ComplianceAuditSchedule {
 }
 
 /// Annual planning and scoping rules.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'ISO 19011 — auditing management systems (audit programme)',
+  ],
+  'Annual planning and scoping rules for the compliance audit schedule.',
+)
 @SectionId('CASP')
 class ComplianceAuditSchedulePlanning {
   @Form([
@@ -29121,6 +29735,13 @@ class ComplianceAuditSchedulePlanning {
 }
 
 /// Audit execution and evidence collection.
+@StandardReferences(
+  [
+    'ISO 19011 — auditing management systems (audit programme)',
+    'SOC 2 — trust services criteria (security, audit evidence)',
+  ],
+  'Auditor qualifications, evidence collection, and interview process for the compliance audit schedule.',
+)
 @SectionId('CASE')
 class ComplianceAuditScheduleExecution {
   @Form([
@@ -29136,6 +29757,13 @@ class ComplianceAuditScheduleExecution {
 }
 
 /// Reporting and remediation follow-up.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'SOC 2 — trust services criteria (security, audit evidence)',
+  ],
+  'Reporting structure and remediation follow-up for the compliance audit schedule.',
+)
 @SectionId('CASR')
 class ComplianceAuditScheduleReporting {
   @Form([
@@ -29158,6 +29786,14 @@ class ComplianceAuditScheduleReporting {
 ///
 /// Requirements for SAST, DAST, IAST, and fuzzing integration
 /// into the CI/CD pipeline and development workflow.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'PCI DSS — logging, monitoring, and regular security testing',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Automated security testing integration covering SAST, DAST, IAST, and fuzzing in the pipeline.',
+)
 @SectionId('SETEAU')
 class SecurityTestingAutomation {
   @Form([
@@ -29202,6 +29838,13 @@ class SecurityTestingAutomation {
 }
 
 /// Dynamic analysis configuration.
+@StandardReferences(
+  [
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'OWASP ASVS — verification and security testing requirements',
+  ],
+  'Dynamic application security testing configuration within automated security testing.',
+)
 @SectionId('STAD')
 class SecurityTestingAutomationDast {
   @Form([
@@ -29218,6 +29861,13 @@ class SecurityTestingAutomationDast {
 }
 
 /// Interactive analysis configuration.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'OWASP WSTG — web security testing guide (penetration testing)',
+  ],
+  'Interactive application security testing configuration within automated security testing.',
+)
 @SectionId('STAI')
 class SecurityTestingAutomationIast {
   @Form([
@@ -29232,6 +29882,13 @@ class SecurityTestingAutomationIast {
 }
 
 /// Fuzzing configuration.
+@StandardReferences(
+  [
+    'OWASP WSTG — web security testing guide (penetration testing)',
+    'OWASP ASVS — verification and security testing requirements',
+  ],
+  'Fuzzing requirements and targets within automated security testing.',
+)
 @SectionId('STAF')
 class SecurityTestingAutomationFuzzing {
   @Form([
@@ -29245,6 +29902,13 @@ class SecurityTestingAutomationFuzzing {
 }
 
 /// Container and IaC scanning.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Container image, infrastructure-as-code, and secrets scanning within automated security testing.',
+)
 @SectionId('STAS')
 class SecurityTestingAutomationScanning {
   @Form([
@@ -29260,6 +29924,13 @@ class SecurityTestingAutomationScanning {
 }
 
 /// Governance and reporting.
+@StandardReferences(
+  [
+    'OWASP ASVS — verification and security testing requirements',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Governance and reporting for automated security testing, including false-positive triage and dashboards.',
+)
 @SectionId('STAG')
 class SecurityTestingAutomationGovernance {
   @Form([
@@ -29275,6 +29946,13 @@ class SecurityTestingAutomationGovernance {
 }
 
 /// A security audit requirement entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+    'ISO 19011 — auditing management systems (audit programme)',
+  ],
+  'A single security audit requirement with its schedule, execution, and follow-up.',
+)
 @SectionId('SAE')
 class SecurityAuditEntry {
   @Form([
@@ -29306,6 +29984,13 @@ class SecurityAuditEntry {
 }
 
 /// Audit schedule and cadence.
+@StandardReferences(
+  [
+    'ISO 19011 — auditing management systems (audit programme)',
+    'PCI DSS — logging, monitoring, and regular security testing',
+  ],
+  'Schedule and cadence for a security audit requirement.',
+)
 @SectionId('SAES')
 class SecurityAuditEntryScheduling {
   @Form([
@@ -29319,6 +30004,13 @@ class SecurityAuditEntryScheduling {
 }
 
 /// Scope, standards, and execution model.
+@StandardReferences(
+  [
+    'ISO 19011 — auditing management systems (audit programme)',
+    'ISO/IEC 27001 — internal audit and management review (Clause 9)',
+  ],
+  'Scope, applicable standards, and execution model for a security audit requirement.',
+)
 @SectionId('SAEE')
 class SecurityAuditEntryExecution {
   @Form([
@@ -29336,6 +30028,13 @@ class SecurityAuditEntryExecution {
 }
 
 /// Deliverables, ownership, and notes.
+@StandardReferences(
+  [
+    'ISO 19011 — auditing management systems (audit programme)',
+    'NIST SP 800-53 — audit and accountability (AU) controls',
+  ],
+  'Deliverables, ownership, and remediation follow-up for a security audit requirement.',
+)
 @SectionId('SAEFU')
 class SecurityAuditEntryFollowUp {
   @Form([

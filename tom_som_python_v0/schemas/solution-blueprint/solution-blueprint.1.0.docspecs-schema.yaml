@@ -774,7 +774,7 @@ section-types:
     pattern-check-id:
       pattern: ^seauen_audi_lst-\d+$
       error-message: ID must match seauen_audi_lst-NNN
-    description: Individual security audit requirement entries — contains 0+× SecurityAudit.
+    description: Add one entry per security audit requirement.
   SEENEN-ENVI-LST:
     prefix: seenen_envi_lst
     pattern-check-id:
@@ -792,7 +792,7 @@ section-types:
     pattern-check-id:
       pattern: ^sesten_stan_lst-\d+$
       error-message: ID must match sesten_stan_lst-NNN
-    description: Security standards and frameworks — contains 0+× SecurityStandard.
+    description: Add one entry per security standard.
   SOLAEN-SOFT-LST:
     prefix: solaen_soft_lst
     pattern-check-id:
