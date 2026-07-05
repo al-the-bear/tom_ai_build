@@ -37,7 +37,7 @@ section-types:
     pattern-check-id:
       pattern: ^bocoen_boun_lst-\d+$
       error-message: ID must match bocoen_boun_lst-NNN
-    description: Bounded contexts (DDD) definitions.
+    description: Add one entry per bounded context.
   BRCOEN-BROW-LST:
     prefix: brcoen_brow_lst
     pattern-check-id:
@@ -55,7 +55,7 @@ section-types:
     pattern-check-id:
       pattern: ^bucoen_busi_lst-\d+$
       error-message: ID must match bucoen_busi_lst-NNN
-    description: Business logic components.
+    description: Add one entry per business component.
   COREEN-RESP-LST:
     prefix: coreen_resp_lst
     pattern-check-id:
@@ -91,7 +91,7 @@ section-types:
     pattern-check-id:
       pattern: ^deenen_envi_lst-\d+$
       error-message: ID must match deenen_envi_lst-NNN
-    description: Deployment environments.
+    description: Add one entry per deployment environment.
   DETAEN-DEPL-LST:
     prefix: detaen_depl_lst
     pattern-check-id:
@@ -109,13 +109,13 @@ section-types:
     pattern-check-id:
       pattern: ^ftrmod_feat_lst-\d+$
       error-message: ID must match ftrmod_feat_lst-NNN
-    description: Feature module definitions (vertical slices).
+    description: Add one entry per feature module.
   IDREEN-IDER-LST:
     prefix: idreen_ider_lst
     pattern-check-id:
       pattern: ^idreen_ider_lst-\d+$
       error-message: ID must match idreen_ider_lst-NNN
-    description: IDE and editor requirements.
+    description: Add one entry per IDE or editor.
   INCOE1-INTE-LST:
     prefix: incoe1_inte_lst
     pattern-check-id:
@@ -127,7 +127,7 @@ section-types:
     pattern-check-id:
       pattern: ^incoen_infr_lst-\d+$
       error-message: ID must match incoen_infr_lst-NNN
-    description: Infrastructure components.
+    description: Add one entry per infrastructure component.
   INSPEN-INTE-LST:
     prefix: inspen_inte_lst
     pattern-check-id:
@@ -169,13 +169,13 @@ section-types:
     pattern-check-id:
       pattern: ^pijoen_jobs_lst-\d+$
       error-message: ID must match pijoen_jobs_lst-NNN
-    description: Build jobs.
+    description: Add one entry per pipeline job.
   PISTEN-STAG-LST:
     prefix: pisten_stag_lst
     pattern-check-id:
       pattern: ^pisten_stag_lst-\d+$
       error-message: ID must match pisten_stag_lst-NNN
-    description: Pipeline stages.
+    description: Add one entry per pipeline stage.
   RECOEN-REGU-LST:
     prefix: recoen_regu_lst
     pattern-check-id:
@@ -187,7 +187,7 @@ section-types:
     pattern-check-id:
       pattern: ^ruicmp_uico_lst-\d+$
       error-message: ID must match ruicmp_uico_lst-NNN
-    description: UI component library entries.
+    description: Add one entry per UI component.
   SEAUEN-AUDI-LST:
     prefix: seauen_audi_lst
     pattern-check-id:
@@ -217,7 +217,7 @@ section-types:
     pattern-check-id:
       pattern: ^solaen_soft_lst-\d+$
       error-message: ID must match solaen_soft_lst-NNN
-    description: Software layer definitions.
+    description: Add one entry per software layer.
   TESTEN-TECH-LST:
     prefix: testen_tech_lst
     pattern-check-id:
@@ -229,7 +229,7 @@ section-types:
     pattern-check-id:
       pattern: ^thpali_thir_lst-\d+$
       error-message: ID must match thpali_thir_lst-NNN
-    description: Third-party frameworks and libraries.
+    description: Add one entry per third-party library.
   VPREEN-VPNR-LST:
     prefix: vpreen_vpnr_lst
     pattern-check-id:
@@ -295,7 +295,7 @@ section-types:
     pattern-check-id:
       pattern: ^moen1_modu_lst-\d+$
       error-message: ID must match moen1_modu_lst-NNN
-    description: Module catalog with dependency information.
+    description: Add one entry per module.
   OBSER-OBSE-LST:
     prefix: obser_obse_lst
     pattern-check-id:
@@ -331,13 +331,13 @@ section-types:
     pattern-check-id:
       pattern: ^shlcp_shar_lst-\d+$
       error-message: ID must match shlcp_shar_lst-NNN
-    description: Shared component library catalog.
+    description: Add one entry per shared library.
   SHLIB-SHAR-LST:
     prefix: shlib_shar_lst
     pattern-check-id:
       pattern: ^shlib_shar_lst-\d+$
       error-message: ID must match shlib_shar_lst-NNN
-    description: Shared libraries and common code.
+    description: Add one entry per shared library.
   TGPLT-TARG-LST:
     prefix: tgplt_targ_lst
     pattern-check-id:

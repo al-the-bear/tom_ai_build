@@ -4385,6 +4385,14 @@ enable independent development and testing.
 
 **Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.
 ''')
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the overall software layering approach and module structure of the system.',
+)
 @SectionId('LAMS')
 class LayeringAndModuleStructure {
   @ContentHelp('''
@@ -4412,8 +4420,13 @@ Provide an overview of the layering and modularization strategy.
   TextSection overview = TextSection();
 
   /// Software layer definitions.
+  @StandardReferences(
+    ['Clean Architecture — dependency rule / layering'],
+    'The software layers that make up the application.',
+  )
   @SectionId('SOLAEN-SOFT-LST')
   @SectionIdPattern('SOLAEN-SOFT-xxx')
+  @ContentHelp('Add one entry per software layer.')
   @SerializationOrder(2)
   List<SoftwareLayerEntry> softwareLayers = [];
 
@@ -4422,8 +4435,16 @@ Provide an overview of the layering and modularization strategy.
   LayerCommunicationRules layerCommunicationRules = LayerCommunicationRules();
 
   /// Bounded contexts (DDD) definitions.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts / modules',
+      'SOLID principles — object-oriented design',
+    ],
+    'The DDD bounded contexts that partition the application domain.',
+  )
   @SectionId('BOCOEN-BOUN-LST')
   @SectionIdPattern('BOCOEN-BOUN-xxx')
+  @ContentHelp('Add one entry per bounded context.')
   @SerializationOrder(4)
   List<BoundedContextEntry> boundedContexts = [];
 
@@ -4432,14 +4453,30 @@ Provide an overview of the layering and modularization strategy.
   PackageOrganization packageOrganization = PackageOrganization();
 
   /// Module catalog with dependency information.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts / modules',
+      'SOLID principles — object-oriented design',
+    ],
+    'The modules that make up the application and their dependency information.',
+  )
   @SectionId('MOEN1-MODU-LST')
   @SectionIdPattern('MOEN1-MODU-xxx')
+  @ContentHelp('Add one entry per module.')
   @SerializationOrder(6)
   List<ModuleEntry> modules = [];
 
   /// Shared libraries and common code.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts / modules',
+      'ISO/IEC 25010 — maintainability / modularity quality attributes',
+    ],
+    'The shared libraries and common code reused across the application.',
+  )
   @SectionId('SHLIB-SHAR-LST')
   @SectionIdPattern('SHLIB-SHAR-xxx')
+  @ContentHelp('Add one entry per shared library.')
   @SerializationOrder(7)
   List<SharedLibraryEntry> sharedLibraries = [];
 
@@ -4453,8 +4490,16 @@ Provide an overview of the layering and modularization strategy.
   CrossCuttingConcerns crossCuttingConcerns = CrossCuttingConcerns();
 
   /// Feature module definitions (vertical slices).
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts / modules',
+      'ISO/IEC 25010 — maintainability / modularity quality attributes',
+    ],
+    'The feature modules that make up the application as vertical slices.',
+  )
   @SectionId('FTRMOD-FEAT-LST')
   @SectionIdPattern('FTRMOD-FEAT-xxx')
+  @ContentHelp('Add one entry per feature module.')
   @SerializationOrder(10)
   List<FeatureModuleEntry> featureModules = [];
 
@@ -4465,6 +4510,13 @@ Provide an overview of the layering and modularization strategy.
 }
 
 /// Software layer entry — a horizontal layer in the architecture.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Describes a single horizontal software layer such as presentation, domain, or infrastructure.',
+)
 @SectionId('SLE')
 class SoftwareLayerEntry {
   @Form([
@@ -4500,6 +4552,13 @@ class SoftwareLayerEntry {
 }
 
 /// Responsibilities and constraints.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Defines the purpose, key responsibilities, and prohibitions of a software layer.',
+)
 @SectionId('SLER')
 class SoftwareLayerEntryResponsibilities {
   @Form([
@@ -4515,6 +4574,13 @@ class SoftwareLayerEntryResponsibilities {
 }
 
 /// Typical components and organization.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Describes the typical components, naming conventions, and folder structure of a software layer.',
+)
 @SectionId('SLEC')
 class SoftwareLayerEntryComponents {
   @Form([
@@ -4530,6 +4596,13 @@ class SoftwareLayerEntryComponents {
 }
 
 /// Dependency rules.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Defines the allowed, forbidden, and external dependencies of a software layer.',
+)
 @SectionId('SLED')
 class SoftwareLayerEntryDependencies {
   @Form([
@@ -4545,6 +4618,13 @@ class SoftwareLayerEntryDependencies {
 }
 
 /// Technology and testing notes.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the frameworks, implementation notes, and testing approach for a software layer.',
+)
 @SectionId('SLET')
 class SoftwareLayerEntryTechnology {
   @Form([
@@ -4561,6 +4641,13 @@ class SoftwareLayerEntryTechnology {
 }
 
 /// Layer communication rules and constraints.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Defines the direction, dependency rules, and abstraction principles that govern communication between layers.',
+)
 @SectionId('LACORU')
 class LayerCommunicationRules {
   @Form([
@@ -4590,6 +4677,13 @@ class LayerCommunicationRules {
 }
 
 /// Interface requirements between layers.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the interface, DTO, and mapping requirements at boundaries between layers.',
+)
 @SectionId('LCRI')
 class LayerCommunicationRulesInterfaces {
   @Form([
@@ -4605,6 +4699,13 @@ class LayerCommunicationRulesInterfaces {
 }
 
 /// Cross-layer event and exception flow.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Describes how events, exceptions, and logging context propagate across layers.',
+)
 @SectionId('LCRF')
 class LayerCommunicationRulesFlow {
   @Form([
@@ -4620,6 +4721,13 @@ class LayerCommunicationRulesFlow {
 }
 
 /// Boundary enforcement and validation rules.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'C4 model — software architecture diagrams',
+  ],
+  'Defines how layer boundaries and validation responsibilities are enforced and violations detected.',
+)
 @SectionId('LCRG')
 class LayerCommunicationRulesGovernance {
   @Form([
@@ -4637,6 +4745,13 @@ class LayerCommunicationRulesGovernance {
 }
 
 /// Bounded context entry — a DDD bounded context.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes a single DDD bounded context, its domain area, and owning team.',
+)
 @SectionId('BCE')
 class BoundedContextEntry {
   @Form([
@@ -4670,6 +4785,13 @@ class BoundedContextEntry {
 }
 
 /// Scope and language definitions.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context.',
+)
 @SectionId('BCES')
 class BoundedContextEntryScope {
   @Form([
@@ -4686,6 +4808,13 @@ class BoundedContextEntryScope {
 }
 
 /// Boundary relationships.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the boundary type and upstream/downstream relationships of a bounded context.',
+)
 @SectionId('BCEB')
 class BoundedContextEntryBoundaries {
   @Form([
@@ -4703,6 +4832,13 @@ class BoundedContextEntryBoundaries {
 }
 
 /// Implementation footprint.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Records the code location, schema, and published/consumed events that implement a bounded context.',
+)
 @SectionId('BCEI')
 class BoundedContextEntryImplementation {
   @Form([
@@ -4720,6 +4856,13 @@ class BoundedContextEntryImplementation {
 }
 
 /// Integration and notes.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the API endpoints and integration patterns through which a bounded context connects to others.',
+)
 @SectionId('BOCOENIN')
 class BoundedContextEntryIntegration {
   @Form([
@@ -4734,6 +4877,13 @@ class BoundedContextEntryIntegration {
 }
 
 /// Package organization and naming structure.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes the overall package organization, naming, and structure conventions.',
+)
 @SectionId('PAOR')
 class PackageOrganization {
   @Form([
@@ -4767,6 +4917,13 @@ class PackageOrganization {
 }
 
 /// Repository and directory structure.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes the repository and directory layout used to organize packages.',
+)
 @SectionId('PAORST')
 class PackageOrganizationStructure {
   @Form([
@@ -4782,6 +4939,13 @@ class PackageOrganizationStructure {
 }
 
 /// Package categorization.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Categorizes packages into core, feature, shared, and platform types.',
+)
 @SectionId('PAORTY')
 class PackageOrganizationTypes {
   @Form([
@@ -4799,6 +4963,13 @@ class PackageOrganizationTypes {
 }
 
 /// Dependency management rules.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Defines how internal and external package dependencies are managed and versioned.',
+)
 @SectionId('PAORDE')
 class PackageOrganizationDependencies {
   @Form([
@@ -4816,6 +4987,13 @@ class PackageOrganizationDependencies {
 }
 
 /// Documentation expectations.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Defines the documentation and dependency-diagram expectations for each package.',
+)
 @SectionId('PAORDO')
 class PackageOrganizationDocumentation {
   @Form([
@@ -4830,6 +5008,13 @@ class PackageOrganizationDocumentation {
 }
 
 /// Module entry — a discrete module or component.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes a single discrete module or component in the module catalog.',
+)
 @SectionId('MODENT')
 class ModuleEntry {
   @Form([
@@ -4864,6 +5049,13 @@ class ModuleEntry {
 }
 
 /// Purpose and API.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the purpose, functionality, public API, and entry points of a module.',
+)
 @SectionId('MOENDE')
 class ModuleEntryDescription {
   @Form([
@@ -4881,6 +5073,13 @@ class ModuleEntryDescription {
 }
 
 /// Dependency information.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Records the required, optional, external, and peer dependencies of a module.',
+)
 @SectionId('MOEND1')
 class ModuleEntryDependencies {
   @Form([
@@ -4898,6 +5097,13 @@ class ModuleEntryDependencies {
 }
 
 /// Ownership information.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Records which context, team, and maintainer own a module.',
+)
 @SectionId('MOENOW')
 class ModuleEntryOwnership {
   @Form([
@@ -4912,6 +5118,13 @@ class ModuleEntryOwnership {
 }
 
 /// Configuration settings.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the configuration options, feature flags, and environment variables of a module.',
+)
 @SectionId('MOENCO')
 class ModuleEntryConfiguration {
   @Form([
@@ -4927,6 +5140,13 @@ class ModuleEntryConfiguration {
 }
 
 /// Testing and notes.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the test-coverage and integration-testing expectations for a module.',
+)
 @SectionId('MOENTE')
 class ModuleEntryTesting {
   @Form([
@@ -4941,6 +5161,13 @@ class ModuleEntryTesting {
 }
 
 /// Shared library entry — a reusable library or utility.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes a single reusable shared library or utility available across the software.',
+)
 @SectionId('SHLIEN')
 class SharedLibraryEntry {
   @Form([
@@ -4967,6 +5194,13 @@ class SharedLibraryEntry {
 }
 
 /// Description and usage.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Captures the purpose, target consumers, and usage guidelines of a shared library.',
+)
 @SectionId('SHLIENDE')
 class SharedLibraryEntryDescription {
   @Form([
@@ -4982,6 +5216,13 @@ class SharedLibraryEntryDescription {
 }
 
 /// API details.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes the public classes, functions, and extension points exposed by a shared library.',
+)
 @SectionId('SLEA')
 class SharedLibraryEntryApi {
   @Form([
@@ -4997,6 +5238,13 @@ class SharedLibraryEntryApi {
 }
 
 /// Constraints and lifecycle.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Captures the compatibility, performance, thread-safety, and deprecation lifecycle of a shared library.',
+)
 @SectionId('SLEL')
 class SharedLibraryEntryLifecycle {
   @Form([
@@ -5017,6 +5265,13 @@ class SharedLibraryEntryLifecycle {
 }
 
 /// Dependency injection structure and configuration.
+@StandardReferences(
+  [
+    'SOLID principles — object-oriented design',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Describes the overall dependency-injection approach, framework, and scope management for the software.',
+)
 @SectionId('DEINST')
 class DependencyInjectionStructure {
   @Form([
@@ -5052,6 +5307,13 @@ class DependencyInjectionStructure {
 }
 
 /// Registration organization.
+@StandardReferences(
+  [
+    'SOLID principles — object-oriented design',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Describes how modules register their dependencies, in what order, and which are lazily initialized.',
+)
 @SectionId('DISR')
 class DependencyInjectionStructureRegistration {
   @Form([
@@ -5067,6 +5329,13 @@ class DependencyInjectionStructureRegistration {
 }
 
 /// Interface binding rules.
+@StandardReferences(
+  [
+    'SOLID principles — object-oriented design',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Defines when interfaces are bound to implementations and how they are swapped for testing.',
+)
 @SectionId('DISB')
 class DependencyInjectionStructureBinding {
   @Form([
@@ -5082,6 +5351,13 @@ class DependencyInjectionStructureBinding {
 }
 
 /// Environment-specific configuration.
+@StandardReferences(
+  [
+    'SOLID principles — object-oriented design',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Describes how dependency-injection registrations vary by environment, feature flag, and platform.',
+)
 @SectionId('DISC')
 class DependencyInjectionStructureConfiguration {
   @Form([
@@ -5097,6 +5373,13 @@ class DependencyInjectionStructureConfiguration {
 }
 
 /// Troubleshooting support.
+@StandardReferences(
+  [
+    'SOLID principles — object-oriented design',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Describes how dependency-injection problems such as circular dependencies are debugged and prevented.',
+)
 @SectionId('DIST')
 class DependencyInjectionStructureTroubleshooting {
   @Form([
@@ -5111,6 +5394,13 @@ class DependencyInjectionStructureTroubleshooting {
 }
 
 /// Cross-cutting concerns organization.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Organizes the cross-cutting concerns such as logging that span all layers of the software.',
+)
 @SectionId('CRCUCO')
 class CrossCuttingConcerns {
   @Form([
@@ -5146,6 +5436,13 @@ class CrossCuttingConcerns {
 }
 
 /// Error handling concerns.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the centralized error-handling, reporting, and user-notification cross-cutting concern.',
+)
 @SectionId('CCCE')
 class CrossCuttingConcernsErrors {
   @Form([
@@ -5161,6 +5458,13 @@ class CrossCuttingConcernsErrors {
 }
 
 /// Security concerns.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes how authentication and authorization flow across layers as a cross-cutting concern.',
+)
 @SectionId('CCCS')
 class CrossCuttingConcernsSecurity {
   @Form([
@@ -5176,6 +5480,13 @@ class CrossCuttingConcernsSecurity {
 }
 
 /// Caching approach.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the caching strategy and invalidation applied across layers as a cross-cutting concern.',
+)
 @SectionId('CCCC')
 class CrossCuttingConcernsCaching {
   @Form([
@@ -5191,6 +5502,13 @@ class CrossCuttingConcernsCaching {
 }
 
 /// Observability capabilities.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes the metrics, tracing, and health-check capabilities applied as a cross-cutting concern.',
+)
 @SectionId('CCCO')
 class CrossCuttingConcernsObservability {
   @Form([
@@ -5205,6 +5523,13 @@ class CrossCuttingConcernsObservability {
 }
 
 /// Other shared capabilities.
+@StandardReferences(
+  [
+    'Clean Architecture — dependency rule / layering',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures additional shared cross-cutting capabilities such as localization and validation.',
+)
 @SectionId('CRCUCOSH')
 class CrossCuttingConcernsShared {
   @Form([
@@ -5219,6 +5544,13 @@ class CrossCuttingConcernsShared {
 }
 
 /// Feature module entry — a vertical slice feature.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes a single feature module as a self-contained vertical slice of the application.',
+)
 @SectionId('FTRMOD')
 class FeatureModuleEntry {
   @Form([
@@ -5256,6 +5588,13 @@ class FeatureModuleEntry {
 }
 
 /// Purpose and value.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Captures the purpose, user stories, and business value delivered by a feature module.',
+)
 @SectionId('FMED')
 class FeatureModuleEntryDescription {
   @Form([
@@ -5270,6 +5609,13 @@ class FeatureModuleEntryDescription {
 }
 
 /// Structural scope.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'Clean Architecture — dependency rule / layering',
+  ],
+  'Describes the UI, domain, data, and API components that make up a feature module vertical slice.',
+)
 @SectionId('FMES')
 class FeatureModuleEntryStructure {
   @Form([
@@ -5287,6 +5633,13 @@ class FeatureModuleEntryStructure {
 }
 
 /// Dependencies.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Records the shared, feature, and external dependencies a feature module relies on.',
+)
 @SectionId('FEMOENDE')
 class FeatureModuleEntryDependencies {
   @Form([
@@ -5302,6 +5655,13 @@ class FeatureModuleEntryDependencies {
 }
 
 /// Feature configuration.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Defines the flags, options, and enablement criteria that configure a feature module.',
+)
 @SectionId('FMEC')
 class FeatureModuleEntryConfiguration {
   @Form([
@@ -5317,6 +5677,13 @@ class FeatureModuleEntryConfiguration {
 }
 
 /// Navigation and notes.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Captures the navigation routes and deep-linking behaviour exposed by a feature module.',
+)
 @SectionId('FMEN')
 class FeatureModuleEntryNavigation {
   @Form([
@@ -5331,6 +5698,13 @@ class FeatureModuleEntryNavigation {
 }
 
 /// Module versioning and compatibility strategy.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Describes the overall strategy for versioning modules and keeping them compatible.',
+)
 @SectionId('MOVEST')
 class ModuleVersioningStrategy {
   @Form([
@@ -5368,6 +5742,13 @@ class ModuleVersioningStrategy {
 }
 
 /// Compatibility policy.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+    'Domain-Driven Design — bounded contexts / modules',
+  ],
+  'Defines the backwards-compatibility guarantees and breaking-change handling for modules.',
+)
 @SectionId('MVSC')
 class ModuleVersioningStrategyCompatibility {
   @Form([
@@ -5383,6 +5764,13 @@ class ModuleVersioningStrategyCompatibility {
 }
 
 /// Release management process.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Domain-Driven Design — bounded contexts / modules',
+  ],
+  'Describes how module versions are released, labelled, and documented.',
+)
 @SectionId('MVSRM')
 class ModuleVersioningStrategyReleaseManagement {
   @Form([
@@ -5398,6 +5786,13 @@ class ModuleVersioningStrategyReleaseManagement {
 }
 
 /// Dependency versioning rules.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Defines how module dependency versions are specified, locked, and updated.',
+)
 @SectionId('MVSD')
 class ModuleVersioningStrategyDependencies {
   @Form([
@@ -5413,6 +5808,13 @@ class ModuleVersioningStrategyDependencies {
 }
 
 /// Cross-module coordination.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability / modularity quality attributes',
+  ],
+  'Captures how module versions are coordinated and constrained across the module set.',
+)
 @SectionId('MOVESTCO')
 class ModuleVersioningStrategyCoordination {
   @Form([
@@ -5469,6 +5871,13 @@ ensures consistent quality across the team.
 - Service stubbing and mocking
 - Hot reload and fast feedback loops
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow.',
+)
 @SectionId('DEEN')
 class DevelopmentEnvironment {
   @ContentHelp('''
@@ -5496,8 +5905,13 @@ Provide an overview of the development environment philosophy.
   TextSection overview = TextSection();
 
   /// IDE and editor requirements.
+  @StandardReferences(
+    ['Twelve-Factor App — cloud-native methodology'],
+    'The IDEs and editors required for the development environment.',
+  )
   @SectionId('IDREEN-IDER-LST')
   @SectionIdPattern('IDREEN-IDER-xxx')
+  @ContentHelp('Add one entry per IDE or editor.')
   @SerializationOrder(2)
   List<IdeRequirementEntry> ideRequirements = [];
 
@@ -5539,6 +5953,13 @@ Provide an overview of the development environment philosophy.
 }
 
 /// IDE requirement entry — a required IDE or editor.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Describes a single required IDE or editor including its name, version requirements, and platform.',
+)
 @SectionId('IRE')
 class IdeRequirementEntry {
   @Form([
@@ -5570,6 +5991,13 @@ class IdeRequirementEntry {
 }
 
 /// Extension and workspace configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures IDE extension and workspace configuration including required extensions and settings templates.',
+)
 @SectionId('IREC')
 class IdeRequirementEntryConfiguration {
   @Form([
@@ -5587,6 +6015,13 @@ class IdeRequirementEntryConfiguration {
 }
 
 /// Debugger, linting, and formatting integration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures IDE integration for debuggers, linters, format-on-save, and Git tooling.',
+)
 @SectionId('IREI')
 class IdeRequirementEntryIntegration {
   @Form([
@@ -5604,6 +6039,13 @@ class IdeRequirementEntryIntegration {
 }
 
 /// Shared team standardization settings.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures shared team IDE standardization settings including config location and sync mechanism.',
+)
 @SectionId('IRES')
 class IdeRequirementEntryStandardization {
   @Form([
@@ -5618,6 +6060,13 @@ class IdeRequirementEntryStandardization {
 }
 
 /// Build tools configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes build tools configuration including package manager, versions, and lockfile management.',
+)
 @SectionId('BUTOCO')
 class BuildToolsConfiguration {
   @Form([
@@ -5652,6 +6101,13 @@ class BuildToolsConfiguration {
 }
 
 /// Build system settings.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures build system settings including the build system, version, and build configuration files.',
+)
 @SectionId('BTCBS')
 class BuildToolsConfigurationBuildSystem {
   @Form([
@@ -5667,6 +6123,13 @@ class BuildToolsConfigurationBuildSystem {
 }
 
 /// Compilation settings.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures compilation settings including compiler/SDK version, compilation mode, and optimization level.',
+)
 @SectionId('BTCC')
 class BuildToolsConfigurationCompilation {
   @Form([
@@ -5682,6 +6145,13 @@ class BuildToolsConfigurationCompilation {
 }
 
 /// Script integration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures build script integration including build scripts, pre-commit hooks, and post-build actions.',
+)
 @SectionId('BTCS')
 class BuildToolsConfigurationScripts {
   @Form([
@@ -5697,6 +6167,13 @@ class BuildToolsConfigurationScripts {
 }
 
 /// Artifact management.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Semantic Versioning (SemVer) — build / release versioning',
+  ],
+  'Captures build artifact management including artifact location, naming, and cache policies.',
+)
 @SectionId('BTCA')
 class BuildToolsConfigurationArtifacts {
   @Form([
@@ -5713,6 +6190,13 @@ class BuildToolsConfigurationArtifacts {
 }
 
 /// Version control configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes version control configuration including the VCS system, version, and hosting platform.',
+)
 @SectionId('VECOCO')
 class VersionControlConfiguration {
   @Form([
@@ -5746,6 +6230,13 @@ class VersionControlConfiguration {
 }
 
 /// Repository structure settings.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures repository structure settings such as monorepo/polyrepo layout, submodule policy, and LFS usage.',
+)
 @SectionId('VCCR')
 class VersionControlConfigurationRepository {
   @Form([
@@ -5761,6 +6252,13 @@ class VersionControlConfigurationRepository {
 }
 
 /// Branching policy.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Semantic Versioning (SemVer) — build / release versioning',
+  ],
+  'Captures branching policy including branching strategy, branch naming, and hotfix workflow.',
+)
 @SectionId('VCCB')
 class VersionControlConfigurationBranching {
   @Form([
@@ -5780,6 +6278,13 @@ class VersionControlConfigurationBranching {
 }
 
 /// Commit and merge policy.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Semantic Versioning (SemVer) — build / release versioning',
+  ],
+  'Captures commit and merge policy including message format, commit signing, and squash/merge rules.',
+)
 @SectionId('VCCC')
 class VersionControlConfigurationCommits {
   @Form([
@@ -5795,6 +6300,13 @@ class VersionControlConfigurationCommits {
 }
 
 /// Tagging and file attribute settings.
+@StandardReferences(
+  [
+    'Semantic Versioning (SemVer) — build / release versioning',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures tagging conventions, tag signing, and file attribute settings for the repository.',
+)
 @SectionId('VCCM')
 class VersionControlConfigurationMetadata {
   @Form([
@@ -5813,6 +6325,13 @@ class VersionControlConfigurationMetadata {
 }
 
 /// CI/CD pipeline configuration.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes the CI/CD pipeline configuration including platform, config location, and secrets management.',
+)
 @SectionId('CCPC')
 class CiCdPipelineConfiguration {
   @Form([
@@ -5828,25 +6347,47 @@ class CiCdPipelineConfiguration {
   String? content;
 
   /// Pipeline stages.
+  @StandardReferences(
+    ['CI/CD — continuous integration / delivery pipelines'],
+    'The stages that make up the delivery pipeline.',
+  )
   @SectionId('PISTEN-STAG-LST')
   @SectionIdPattern('PISTEN-STAG-xxx')
+  @ContentHelp('Add one entry per pipeline stage.')
   @SerializationOrder(1)
   List<PipelineStageEntry> stages = [];
 
   /// Build jobs.
+  @StandardReferences(
+    ['CI/CD — continuous integration / delivery pipelines'],
+    'The build jobs that run within the delivery pipeline.',
+  )
   @SectionId('PIJOEN-JOBS-LST')
   @SectionIdPattern('PIJOEN-JOBS-xxx')
+  @ContentHelp('Add one entry per pipeline job.')
   @SerializationOrder(2)
   List<PipelineJobEntry> jobs = [];
 
   /// Deployment environments.
+  @StandardReferences(
+    ['CI/CD — continuous integration / delivery pipelines'],
+    'The deployment environments targeted by the pipeline.',
+  )
   @SectionId('DEENEN-ENVI-LST')
   @SectionIdPattern('DEENEN-ENVI-xxx')
+  @ContentHelp('Add one entry per deployment environment.')
   @SerializationOrder(3)
   List<DeploymentEnvironmentEntry> environments = [];
 }
 
 /// Pipeline stage entry.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes a single pipeline stage including its name, order, and purpose.',
+)
 @SectionId('PSE')
 class PipelineStageEntry {
   @Form([
@@ -5877,6 +6418,13 @@ class PipelineStageEntry {
 }
 
 /// Triggering conditions and approval gates.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline stage triggering conditions and manual approval gates.',
+)
 @SectionId('PSET')
 class PipelineStageEntryTrigger {
   @Form([
@@ -5892,6 +6440,13 @@ class PipelineStageEntryTrigger {
 }
 
 /// Execution environment and job strategy.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline stage execution including runner requirements, timeouts, and parallel job strategy.',
+)
 @SectionId('PSEE')
 class PipelineStageEntryExecution {
   @Form([
@@ -5907,6 +6462,13 @@ class PipelineStageEntryExecution {
 }
 
 /// Artifact flow between stages.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures artifact flow between pipeline stages including input and output artifacts.',
+)
 @SectionId('PSEA')
 class PipelineStageEntryArtifacts {
   @Form([
@@ -5920,6 +6482,13 @@ class PipelineStageEntryArtifacts {
 }
 
 /// Failure handling and retry behavior.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline stage failure behavior and retry policy.',
+)
 @SectionId('PSEF')
 class PipelineStageEntryFailure {
   @Form([
@@ -5934,6 +6503,13 @@ class PipelineStageEntryFailure {
 }
 
 /// Pipeline job entry.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes a single pipeline job including its name, parent stage, and purpose.',
+)
 @SectionId('PJE')
 class PipelineJobEntry {
   @Form([
@@ -5962,6 +6538,13 @@ class PipelineJobEntry {
 }
 
 /// Execution environment.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures the pipeline job execution environment including runner type, container image, and environment variables.',
+)
 @SectionId('PJEE')
 class PipelineJobEntryEnvironment {
     @Form([
@@ -5977,6 +6560,13 @@ class PipelineJobEntryEnvironment {
 }
 
 /// Job steps.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline job steps including setup, main, and cleanup steps.',
+)
 @SectionId('PJES')
 class PipelineJobEntrySteps {
     @Form([
@@ -5990,6 +6580,13 @@ class PipelineJobEntrySteps {
 }
 
 /// Job dependencies.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline job dependencies including upstream jobs, backing services, and caching.',
+)
 @SectionId('PJED')
 class PipelineJobEntryDependencies {
     @Form([
@@ -6002,6 +6599,13 @@ class PipelineJobEntryDependencies {
 }
 
 /// Outputs and notes.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures pipeline job outputs such as test reports, coverage reports, and artifacts.',
+)
 @SectionId('PJEO')
 class PipelineJobEntryOutputs {
     @Form([
@@ -6016,6 +6620,13 @@ class PipelineJobEntryOutputs {
 }
 
 /// Deployment environment entry.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Describes a single deployment environment including its name, type, and URL.',
+)
 @SectionId('DEE')
 class DeploymentEnvironmentEntry {
   @Form([
@@ -6051,6 +6662,13 @@ class DeploymentEnvironmentEntry {
 }
 
 /// Deployment method and rollback controls.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures the deployment method, deployment configuration, and rollback strategy for an environment.',
+)
 @SectionId('DEED')
 class DeploymentEnvironmentEntryDeployment {
   @Form([
@@ -6066,6 +6684,13 @@ class DeploymentEnvironmentEntryDeployment {
 }
 
 /// Approval and protection rules.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures deployment protection rules including required approvers and self-approval prevention.',
+)
 @SectionId('DEEP')
 class DeploymentEnvironmentEntryProtection {
   @Form([
@@ -6081,6 +6706,13 @@ class DeploymentEnvironmentEntryProtection {
 }
 
 /// Configuration and secrets sourcing.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures per-environment configuration source and secrets scoping.',
+)
 @SectionId('DEEC')
 class DeploymentEnvironmentEntryConfiguration {
   @Form([
@@ -6094,6 +6726,13 @@ class DeploymentEnvironmentEntryConfiguration {
 }
 
 /// Health verification and environment notes.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures deployment health verification via health check URLs and post-deployment checks.',
+)
 @SectionId('DEEM')
 class DeploymentEnvironmentEntryMonitoring {
   @Form([
@@ -6108,6 +6747,13 @@ class DeploymentEnvironmentEntryMonitoring {
 }
 
 /// Code review process configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Describes the code review process including PR requirements, templates, naming conventions, and draft PRs.',
+)
 @SectionId('COREPR')
 class CodeReviewProcess {
   @Form([
@@ -6139,6 +6785,13 @@ class CodeReviewProcess {
 }
 
 /// Reviewer requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures reviewer requirements including minimum reviewers, code owners, and reviewer assignment.',
+)
 @SectionId('CRPR')
 class CodeReviewProcessRequirements {
   @Form([
@@ -6154,6 +6807,13 @@ class CodeReviewProcessRequirements {
 }
 
 /// Review workflow.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures the review workflow including checklists, inline comments, suggestion format, and discussion resolution.',
+)
 @SectionId('CRPW')
 class CodeReviewProcessWorkflow {
   @Form([
@@ -6171,6 +6831,13 @@ class CodeReviewProcessWorkflow {
 }
 
 /// Automation requirements.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures review automation such as required automated checks, linting, tests, and coverage thresholds.',
+)
 @SectionId('CRPA')
 class CodeReviewProcessAutomation {
   @Form([
@@ -6187,6 +6854,13 @@ class CodeReviewProcessAutomation {
 }
 
 /// Merge policy.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures the merge policy including merge strategy, branch deletion, and required status checks.',
+)
 @SectionId('CRPM')
 class CodeReviewProcessMerge {
   @Form([
@@ -6203,6 +6877,13 @@ class CodeReviewProcessMerge {
 }
 
 /// Local development setup configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes the local development setup including system requirements, prerequisite software, and SDK versions.',
+)
 @SectionId('LODESE')
 class LocalDevelopmentSetup {
   @Form([
@@ -6240,6 +6921,13 @@ class LocalDevelopmentSetup {
 }
 
 /// Setup workflow.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures the local setup workflow including clone instructions, setup scripts, and configuration files.',
+)
 @SectionId('LDSW')
 class LocalDevelopmentSetupWorkflow {
   @Form([
@@ -6257,6 +6945,13 @@ class LocalDevelopmentSetupWorkflow {
 }
 
 /// Dependencies and local services.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures dependency installation and local backing services such as databases and Docker Compose.',
+)
 @SectionId('LDSD')
 class LocalDevelopmentSetupDependencies {
   @Form([
@@ -6272,6 +6967,13 @@ class LocalDevelopmentSetupDependencies {
 }
 
 /// Running configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures how the application is run locally including run commands, hot reload, and watch mode.',
+)
 @SectionId('LDSR')
 class LocalDevelopmentSetupRunning {
   @Form([
@@ -6287,6 +6989,13 @@ class LocalDevelopmentSetupRunning {
 }
 
 /// Test setup.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures local test setup including running tests locally, test databases, and mock services.',
+)
 @SectionId('LDST')
 class LocalDevelopmentSetupTesting {
   @Form([
@@ -6302,6 +7011,13 @@ class LocalDevelopmentSetupTesting {
 }
 
 /// Troubleshooting details.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures local-setup troubleshooting including common issues and support channels.',
+)
 @SectionId('LODESETR')
 class LocalDevelopmentSetupTroubleshooting {
   @Form([
@@ -6316,6 +7032,13 @@ class LocalDevelopmentSetupTroubleshooting {
 }
 
 /// Debugging configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes the debugging configuration including debugger tooling, launch configurations, and remote debugging.',
+)
 @SectionId('DECO')
 class DebuggingConfiguration {
   @Form([
@@ -6353,6 +7076,13 @@ class DebuggingConfiguration {
 }
 
 /// Breakpoint and watch setup.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures breakpoint types, log points, and standard watch expressions for debugging.',
+)
 @SectionId('DECOBR')
 class DebuggingConfigurationBreakpoints {
   @Form([
@@ -6367,6 +7097,13 @@ class DebuggingConfigurationBreakpoints {
 }
 
 /// Logging setup for debugging.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures debug logging configuration, log levels, and structured logging options.',
+)
 @SectionId('DECOLO')
 class DebuggingConfigurationLogging {
   @Form([
@@ -6382,6 +7119,13 @@ class DebuggingConfigurationLogging {
 }
 
 /// State and runtime inspection.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures state, network, and performance inspection tooling used during debugging.',
+)
 @SectionId('DECOIN')
 class DebuggingConfigurationInspection {
   @Form([
@@ -6397,6 +7141,13 @@ class DebuggingConfigurationInspection {
 }
 
 /// Flutter-specific tooling.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures Flutter-specific debugging tooling such as the widget inspector, DevTools features, and repaint rainbow.',
+)
 @SectionId('DECOFL')
 class DebuggingConfigurationFlutter {
   @Form([
@@ -6412,6 +7163,13 @@ class DebuggingConfigurationFlutter {
 }
 
 /// Error tracking details.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures development-time error tracking and local crash reporting setup.',
+)
 @SectionId('DECOER')
 class DebuggingConfigurationErrors {
   @Form([
@@ -6426,6 +7184,13 @@ class DebuggingConfigurationErrors {
 }
 
 /// Environment management configuration.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Describes environment management including environment types, naming, and per-environment purposes.',
+)
 @SectionId('ENMA')
 class EnvironmentManagement {
   @Form([
@@ -6458,6 +7223,13 @@ class EnvironmentManagement {
 }
 
 /// Configuration settings.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures the configuration method, config file formats, and configuration hierarchy across environments.',
+)
 @SectionId('ENMACO')
 class EnvironmentManagementConfiguration {
   @Form([
@@ -6473,6 +7245,13 @@ class EnvironmentManagementConfiguration {
 }
 
 /// Secrets handling.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures local secrets management, secrets templates, and never-commit rules per environment.',
+)
 @SectionId('ENMASE')
 class EnvironmentManagementSecrets {
   @Form([
@@ -6488,6 +7267,13 @@ class EnvironmentManagementSecrets {
 }
 
 /// Environment switching.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures the mechanism for switching environments, build flavor support, and runtime switching.',
+)
 @SectionId('ENMASW')
 class EnvironmentManagementSwitching {
   @Form([
@@ -6503,6 +7289,13 @@ class EnvironmentManagementSwitching {
 }
 
 /// Parity and notes.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures dev-prod parity, data seeding, and mocking strategy across environments.',
+)
 @SectionId('ENMAPA')
 class EnvironmentManagementParity {
   @Form([
@@ -6520,6 +7313,13 @@ class EnvironmentManagementParity {
 }
 
 /// Developer onboarding requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Describes developer onboarding requirements including guides, architecture overviews, and coding standards references.',
+)
 @SectionId('DEON')
 class DeveloperOnboarding {
   @Form([
@@ -6556,6 +7356,13 @@ class DeveloperOnboarding {
 }
 
 /// Setup expectations.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures onboarding setup expectations including estimated setup time and automated setup availability.',
+)
 @SectionId('DEONSE')
 class DeveloperOnboardingSetup {
   @Form([
@@ -6571,6 +7378,13 @@ class DeveloperOnboardingSetup {
 }
 
 /// Access provisioning.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures onboarding access provisioning such as required access, request processes, and VPN setup.',
+)
 @SectionId('DEONAC')
 class DeveloperOnboardingAccess {
   @Form([
@@ -6586,6 +7400,13 @@ class DeveloperOnboardingAccess {
 }
 
 /// Learning support.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures onboarding learning support including required reading, code walkthroughs, and pairing buddies.',
+)
 @SectionId('DEONLE')
 class DeveloperOnboardingLearning {
   @Form([
@@ -6601,6 +7422,13 @@ class DeveloperOnboardingLearning {
 }
 
 /// Early task expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 12207 — software lifecycle processes',
+    'Twelve-Factor App — cloud-native methodology',
+  ],
+  'Captures early-task expectations for new developers such as starter tasks, shadowing, and first-PR timing.',
+)
 @SectionId('DOFT')
 class DeveloperOnboardingFirstTasks {
   @Form([
@@ -6616,6 +7444,13 @@ class DeveloperOnboardingFirstTasks {
 }
 
 /// Completion verification.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native methodology',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures onboarding completion verification via checklists and defined completion criteria.',
+)
 @SectionId('DEONVE')
 class DeveloperOnboardingVerification {
   @Form([
@@ -6630,6 +7465,13 @@ class DeveloperOnboardingVerification {
 }
 
 /// Development quality gates and metrics.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Describes the development quality gates and metrics enforced across static analysis, linting, and formatting.',
+)
 @SectionId('DEQUGA')
 class DevelopmentQualityGates {
   @Form([
@@ -6670,6 +7512,13 @@ class DevelopmentQualityGates {
 }
 
 /// Coverage requirements.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures test coverage quality gates including minimum coverage thresholds and coverage exclusions.',
+)
 @SectionId('DQGC')
 class DevelopmentQualityGatesCoverage {
   @Form([
@@ -6685,6 +7534,13 @@ class DevelopmentQualityGatesCoverage {
 }
 
 /// Complexity thresholds.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures complexity quality gates such as cyclomatic complexity, file size, and function size limits.',
+)
 @SectionId('DEQUGACO')
 class DevelopmentQualityGatesComplexity {
   @Form([
@@ -6700,6 +7556,13 @@ class DevelopmentQualityGatesComplexity {
 }
 
 /// Security checks.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures security quality gates including dependency scanning, secrets scanning, and license compliance.',
+)
 @SectionId('DQGS')
 class DevelopmentQualityGatesSecurity {
   @Form([
@@ -6715,6 +7578,13 @@ class DevelopmentQualityGatesSecurity {
 }
 
 /// Documentation requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'CI/CD — continuous integration / delivery pipelines',
+  ],
+  'Captures documentation quality gates such as required API docs, changelog, and README updates.',
+)
 @SectionId('DQGD')
 class DevelopmentQualityGatesDocumentation {
   @Form([
@@ -6730,6 +7600,13 @@ class DevelopmentQualityGatesDocumentation {
 }
 
 /// Performance checks.
+@StandardReferences(
+  [
+    'CI/CD — continuous integration / delivery pipelines',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline.',
+)
 @SectionId('DQGP')
 class DevelopmentQualityGatesPerformance {
   @Form([
@@ -6785,6 +7662,13 @@ consistency, and accelerates development.
 - Usage examples and integration guides
 - Version compatibility matrix
 ''')
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — reusability / maintainability quality attributes',
+  ],
+  'Captures the overall strategy for creating, cataloguing, and governing reusable components across the system.',
+)
 @SectionId('RCS')
 class ReusableComponentsSection {
   @ContentHelp('''
@@ -6816,32 +7700,72 @@ Provide an overview of the reusability strategy and component library.
   ReusabilityPrinciples principles = ReusabilityPrinciples();
 
   /// Shared component library catalog.
+  @StandardReferences(
+    [
+      'DRY — reusable component design',
+      'Semantic Versioning (SemVer) — library versioning',
+    ],
+    'The shared libraries reused across the system.',
+  )
   @SectionId('SHLCP-SHAR-LST')
   @SectionIdPattern('SHLCP-SHAR-xxx')
+  @ContentHelp('Add one entry per shared library.')
   @SerializationOrder(3)
   List<SharedLibraryComponentEntry> sharedLibraries = [];
 
   /// UI component library entries.
+  @StandardReferences(
+    [
+      'DRY — reusable component design',
+      'SOLID principles — object-oriented design',
+    ],
+    'The reusable UI components shared across the system.',
+  )
   @SectionId('RUICMP-UICO-LST')
   @SectionIdPattern('RUICMP-UICO-xxx')
+  @ContentHelp('Add one entry per UI component.')
     @SerializationOrder(4)
     List<ReusableUiComponentEntry> uiComponents = [];
 
   /// Business logic components.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts / modules',
+      'ISO/IEC 25010 — reusability quality attributes',
+    ],
+    'The reusable business logic components shared across the system.',
+  )
   @SectionId('BUCOEN-BUSI-LST')
   @SectionIdPattern('BUCOEN-BUSI-xxx')
+  @ContentHelp('Add one entry per business component.')
   @SerializationOrder(5)
   List<BusinessComponentEntry> businessComponents = [];
 
   /// Infrastructure components.
+  @StandardReferences(
+    [
+      'DRY — reusable component design',
+      'ISO/IEC 25010 — maintainability quality attributes',
+    ],
+    'The reusable infrastructure components shared across the system.',
+  )
   @SectionId('INCOEN-INFR-LST')
   @SectionIdPattern('INCOEN-INFR-xxx')
+  @ContentHelp('Add one entry per infrastructure component.')
   @SerializationOrder(6)
   List<InfrastructureComponentEntry> infrastructureComponents = [];
 
   /// Third-party frameworks and libraries.
+  @StandardReferences(
+    [
+      'package management (pub / npm / Maven) — dependency management',
+      'Semantic Versioning (SemVer) — library versioning',
+    ],
+    'The third-party frameworks and libraries reused across the system.',
+  )
   @SectionId('THPALI-THIR-LST')
   @SectionIdPattern('THPALI-THIR-xxx')
+  @ContentHelp('Add one entry per third-party library.')
   @SerializationOrder(7)
   List<ThirdPartyLibraryEntry> thirdPartyLibraries = [];
 
@@ -6855,6 +7779,13 @@ Provide an overview of the reusability strategy and component library.
 }
 
 /// Reusability principles and guidelines.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the guiding principles and guidelines governing how reusable components are designed.',
+)
 @SectionId('REPR')
 class ReusabilityPrinciples {
   @Form([
@@ -6888,6 +7819,13 @@ class ReusabilityPrinciples {
 }
 
 /// Abstraction rules.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the abstraction level, interface standards, and dependency rules for reusable components.',
+)
 @SectionId('REPRAB')
 class ReusabilityPrinciplesAbstraction {
   @Form([
@@ -6903,6 +7841,13 @@ class ReusabilityPrinciplesAbstraction {
 }
 
 /// Quality expectations.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the documentation, testing, and code-review quality requirements for reusable components.',
+)
 @SectionId('REPRQU')
 class ReusabilityPrinciplesQuality {
   @Form([
@@ -6918,6 +7863,13 @@ class ReusabilityPrinciplesQuality {
 }
 
 /// Versioning policy.
+@StandardReferences(
+  [
+    'Semantic Versioning (SemVer) — library versioning',
+    'DRY — reusable component design',
+  ],
+  'Captures the versioning, breaking-change, and deprecation policies for reusable components.',
+)
 @SectionId('REPRVE')
 class ReusabilityPrinciplesVersioning {
   @Form([
@@ -6933,6 +7885,13 @@ class ReusabilityPrinciplesVersioning {
 }
 
 /// Ownership and contribution.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the ownership model and contribution process for reusable components.',
+)
 @SectionId('REPROW')
 class ReusabilityPrinciplesOwnership {
   @Form([
@@ -6947,6 +7906,14 @@ class ReusabilityPrinciplesOwnership {
 }
 
 /// Shared library component entry.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'Semantic Versioning (SemVer) — library versioning',
+    'package management (pub / npm / Maven) — dependency management',
+  ],
+  'Captures a shared library reused across the system, its type, and its version.',
+)
 @SectionId('SHLCP')
 class SharedLibraryComponentEntry {
   @Form([
@@ -6981,6 +7948,13 @@ class SharedLibraryComponentEntry {
 }
 
 /// Purpose and consumers for shared library component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures the package name, purpose, functionality, and target consumers of the shared library component.',
+)
 @SectionId('SLCED')
 class SharedLibraryComponentEntryDescription {
   @Form([
@@ -6999,6 +7973,13 @@ class SharedLibraryComponentEntryDescription {
 }
 
 /// Technical API details for shared library component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'package management (pub / npm / Maven) — dependency management',
+  ],
+  'Captures the public API, extension points, configuration, and dependencies of the shared library component.',
+)
 @SectionId('SLCET')
 class SharedLibraryComponentEntryTechnical {
   @Form([
@@ -7016,6 +7997,13 @@ class SharedLibraryComponentEntryTechnical {
 }
 
 /// Quality and documentation for shared library component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'package management (pub / npm / Maven) — dependency management',
+  ],
+  'Captures the test coverage, documentation, and examples location for the shared library component.',
+)
 @SectionId('SLCEQ')
 class SharedLibraryComponentEntryQuality {
   @Form([
@@ -7030,6 +8018,13 @@ class SharedLibraryComponentEntryQuality {
 }
 
 /// Ownership and lifecycle for shared library component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures the owner, maintainers, support channel, and maturity level of the shared library component.',
+)
 @SectionId('SLCEO')
 class SharedLibraryComponentEntryOwnership {
   @Form([
@@ -7047,6 +8042,13 @@ class SharedLibraryComponentEntryOwnership {
 }
 
 /// UI component entry — a reusable UI widget or pattern.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures a reusable UI widget or pattern, its category, and its purpose within the design system.',
+)
 @SectionId('RUCE')
 class ReusableUiComponentEntry {
   @Form([
@@ -7084,6 +8086,13 @@ class ReusableUiComponentEntry {
 }
 
 /// Description and use cases for UI component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the visual description, use cases, and anti-patterns for the UI component.',
+)
 @SectionId('RUCED')
 class ReusableUiComponentEntryDescription {
   @Form([
@@ -7100,6 +8109,13 @@ class ReusableUiComponentEntryDescription {
 }
 
 /// Design specifications for UI component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the design tokens, variants, states, and responsive behavior of the UI component.',
+)
 @SectionId('REUICOENDE')
 class ReusableUiComponentEntryDesign {
   @Form([
@@ -7117,6 +8133,13 @@ class ReusableUiComponentEntryDesign {
 }
 
 /// Interaction and accessibility for UI component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the interaction patterns, accessibility features, and animations of the UI component.',
+)
 @SectionId('RUCEI')
 class ReusableUiComponentEntryInteraction {
   @Form([
@@ -7132,6 +8155,13 @@ class ReusableUiComponentEntryInteraction {
 }
 
 /// Component API for UI component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the required/optional properties, callbacks, and slots forming the UI component API.',
+)
 @SectionId('RUCEA')
 class ReusableUiComponentEntryApi {
   @Form([
@@ -7149,6 +8179,13 @@ class ReusableUiComponentEntryApi {
 }
 
 /// Implementation details for UI component.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'SOLID principles — object-oriented design',
+  ],
+  'Captures the implementing widget class, example code, and demo references for the UI component.',
+)
 @SectionId('REUICOENIM')
 class ReusableUiComponentEntryImplementation {
   @Form([
@@ -7165,6 +8202,13 @@ class ReusableUiComponentEntryImplementation {
 }
 
 /// Business logic component entry.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — reusability quality attributes',
+  ],
+  'Captures a reusable business logic component such as a service, repository, use case, or validator.',
+)
 @SectionId('BUSCOMENT')
 class BusinessComponentEntry {
   @Form([
@@ -7203,6 +8247,13 @@ class BusinessComponentEntry {
 }
 
 /// Purpose and business rules.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — reusability quality attributes',
+  ],
+  'Captures the purpose, business rules, and capabilities of the business logic component.',
+)
 @SectionId('BCED')
 class BusinessComponentEntryDescription {
   @Form([
@@ -7218,6 +8269,13 @@ class BusinessComponentEntryDescription {
 }
 
 /// Public interface details.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the public interface, input/output types, and error handling of the business component.',
+)
 @SectionId('BUCOENIN')
 class BusinessComponentEntryInterface {
   @Form([
@@ -7233,6 +8291,13 @@ class BusinessComponentEntryInterface {
 }
 
 /// Dependency mapping.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the required services, data access, and external integrations of the business component.',
+)
 @SectionId('BUCOENDE')
 class BusinessComponentEntryDependencies {
   @Form([
@@ -7248,6 +8313,13 @@ class BusinessComponentEntryDependencies {
 }
 
 /// Testing details.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the test strategy, mockable interfaces, and test data requirements of the business component.',
+)
 @SectionId('BCET')
 class BusinessComponentEntryTesting {
   @Form([
@@ -7263,6 +8335,13 @@ class BusinessComponentEntryTesting {
 }
 
 /// Reuse and customization notes.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — reusability quality attributes',
+  ],
+  'Captures the reuse scenarios and customization points of the business logic component.',
+)
 @SectionId('BCER')
 class BusinessComponentEntryReuse {
   @Form([
@@ -7278,6 +8357,13 @@ class BusinessComponentEntryReuse {
 }
 
 /// Infrastructure component entry.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures a reusable infrastructure component such as logging, caching, messaging, or storage.',
+)
 @SectionId('INFCOMENT')
 class InfrastructureComponentEntry {
   @Form([
@@ -7317,6 +8403,13 @@ class InfrastructureComponentEntry {
 }
 
 /// Purpose and technology choices.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the purpose, capabilities, and technology stack of the infrastructure component.',
+)
 @SectionId('ICED')
 class InfrastructureComponentEntryDescription {
   @Form([
@@ -7332,6 +8425,13 @@ class InfrastructureComponentEntryDescription {
 }
 
 /// Configuration requirements.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the configuration options, environment variables, and secrets required by the infrastructure component.',
+)
 @SectionId('ICEC')
 class InfrastructureComponentEntryConfiguration {
   @Form([
@@ -7346,6 +8446,13 @@ class InfrastructureComponentEntryConfiguration {
 }
 
 /// Integration lifecycle.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the service interface and initialization/shutdown lifecycle of the infrastructure component.',
+)
 @SectionId('ICEI')
 class InfrastructureComponentEntryIntegration {
   @Form([
@@ -7361,6 +8468,13 @@ class InfrastructureComponentEntryIntegration {
 }
 
 /// Operational behavior.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the monitoring, health-check, and scalability operational behavior of the infrastructure component.',
+)
 @SectionId('ICEO')
 class InfrastructureComponentEntryOperations {
   @Form([
@@ -7376,6 +8490,13 @@ class InfrastructureComponentEntryOperations {
 }
 
 /// Resiliency behavior.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — reliability quality attributes',
+  ],
+  'Captures the failure handling, retry, and circuit-breaker resiliency behavior of the infrastructure component.',
+)
 @SectionId('ICER')
 class InfrastructureComponentEntryResiliency {
   @Form([
@@ -7393,6 +8514,13 @@ class InfrastructureComponentEntryResiliency {
 }
 
 /// Third-party library entry.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures a third-party framework or library, its source, version, and evaluation for reuse.',
+)
 @SectionId('THPALI')
 class ThirdPartyLibraryEntry {
   @Form([
@@ -7431,6 +8559,13 @@ class ThirdPartyLibraryEntry {
 }
 
 /// Evaluation and selection.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures the evaluation, alternatives considered, and rationale for selecting the third-party library.',
+)
 @SectionId('TPLEE')
 class ThirdPartyLibraryEntryEvaluation {
   @Form([
@@ -7446,6 +8581,13 @@ class ThirdPartyLibraryEntryEvaluation {
 }
 
 /// Licensing details.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures the license, compliance status, and attribution requirements of the third-party library.',
+)
 @SectionId('TPLEL')
 class ThirdPartyLibraryEntryLicense {
   @Form([
@@ -7461,6 +8603,13 @@ class ThirdPartyLibraryEntryLicense {
 }
 
 /// Risk profile.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures the maintenance, community, security, and lock-in risk profile of the third-party library.',
+)
 @SectionId('TPLER')
 class ThirdPartyLibraryEntryRisk {
   @Form([
@@ -7478,6 +8627,13 @@ class ThirdPartyLibraryEntryRisk {
 }
 
 /// Usage and upgrade strategy.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures where the third-party library is used and the strategy for wrapping and upgrading it.',
+)
 @SectionId('TPLEU')
 class ThirdPartyLibraryEntryUsage {
   @Form([
@@ -7493,6 +8649,13 @@ class ThirdPartyLibraryEntryUsage {
 }
 
 /// Monitoring and notes.
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures how updates and deprecations of the third-party library are monitored and handled.',
+)
 @SectionId('TPLEM')
 class ThirdPartyLibraryEntryMonitoring {
   @Form([
@@ -7507,6 +8670,13 @@ class ThirdPartyLibraryEntryMonitoring {
 }
 
 /// Component governance and maintenance policies.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the ownership model and governance policies for maintaining the shared component library.',
+)
 @SectionId('COGO')
 class ComponentGovernance {
   @Form([
@@ -7539,6 +8709,13 @@ class ComponentGovernance {
 }
 
 /// Contribution governance.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the contribution guidelines, review process, and acceptance criteria for shared components.',
+)
 @SectionId('COGOCO')
 class ComponentGovernanceContribution {
   @Form([
@@ -7554,6 +8731,13 @@ class ComponentGovernanceContribution {
 }
 
 /// Quality expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'Domain-Driven Design — bounded contexts / modules',
+  ],
+  'Captures the quality, testing, and documentation standards required of governed shared components.',
+)
 @SectionId('COGOQU')
 class ComponentGovernanceQuality {
   @Form([
@@ -7569,6 +8753,13 @@ class ComponentGovernanceQuality {
 }
 
 /// Lifecycle policies.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'Domain-Driven Design — bounded contexts / modules',
+  ],
+  'Captures the promotion, deprecation, and retirement policies governing the component lifecycle.',
+)
 @SectionId('COGOLI')
 class ComponentGovernanceLifecycle {
   @Form([
@@ -7584,6 +8775,13 @@ class ComponentGovernanceLifecycle {
 }
 
 /// Metrics and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — maintainability quality attributes',
+    'Domain-Driven Design — bounded contexts / modules',
+  ],
+  'Captures the metrics and success criteria used to measure component adoption and quality.',
+)
 @SectionId('COGOME')
 class ComponentGovernanceMetrics {
   @Form([
@@ -7600,6 +8798,13 @@ class ComponentGovernanceMetrics {
 }
 
 /// Component discovery and registry configuration.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — reusability quality attributes',
+  ],
+  'Captures the registry infrastructure enabling discovery, cataloguing, and reuse of shared components.',
+)
 @SectionId('CORE')
 class ComponentRegistry {
   @Form([
@@ -7632,6 +8837,13 @@ class ComponentRegistry {
 }
 
 /// Metadata requirements.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the metadata, tagging, and categorization requirements for components in the registry.',
+)
 @SectionId('COREME')
 class ComponentRegistryMetadata {
   @Form([
@@ -7647,6 +8859,13 @@ class ComponentRegistryMetadata {
 }
 
 /// Discovery workflow.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — reusability quality attributes',
+  ],
+  'Captures the workflow by which developers discover and are recommended existing reusable components.',
+)
 @SectionId('COREDI')
 class ComponentRegistryDiscovery {
   @Form([
@@ -7662,6 +8881,13 @@ class ComponentRegistryDiscovery {
 }
 
 /// Documentation requirements.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures the documentation standards and formats required for registered reusable components.',
+)
 @SectionId('COREDO')
 class ComponentRegistryDocumentation {
   @Form([
@@ -7677,6 +8903,13 @@ class ComponentRegistryDocumentation {
 }
 
 /// Update communication.
+@StandardReferences(
+  [
+    'DRY — reusable component design',
+    'ISO/IEC 25010 — maintainability quality attributes',
+  ],
+  'Captures how component updates and changes are communicated to consumers through the registry.',
+)
 @SectionId('COREUP')
 class ComponentRegistryUpdates {
   @Form([
@@ -7722,6 +8955,13 @@ often requires alignment with established platforms and protocols.
 - Training and documentation availability
 - Scalability and high-availability options
 ''')
+@StandardReferences(
+  [
+    'package management (pub / npm / Maven) — dependency management',
+    'Semantic Versioning (SemVer) — library versioning',
+  ],
+  'Captures requirements for standard, third-party, and commercial software and their compatibility with existing infrastructure.',
+)
 @SectionId('SSR')
 class StandardSoftwareRequirements {
   @ContentHelp('''

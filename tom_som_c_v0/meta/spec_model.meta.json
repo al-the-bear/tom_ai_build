@@ -20115,7 +20115,24 @@
       "name": "BoundedContextEntry",
       "sectionId": "BCE",
       "doc": "Bounded context entry — a DDD bounded context.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes a single DDD bounded context, its domain area, and owning team."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes a single DDD bounded context, its domain area, and owning team."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20232,7 +20249,24 @@
       "name": "BoundedContextEntryBoundaries",
       "sectionId": "BCEB",
       "doc": "Boundary relationships.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the boundary type and upstream/downstream relationships of a bounded context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the boundary type and upstream/downstream relationships of a bounded context."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20296,7 +20330,24 @@
       "name": "BoundedContextEntryImplementation",
       "sectionId": "BCEI",
       "doc": "Implementation footprint.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Records the code location, schema, and published/consumed events that implement a bounded context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Records the code location, schema, and published/consumed events that implement a bounded context."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20360,7 +20411,24 @@
       "name": "BoundedContextEntryIntegration",
       "sectionId": "BOCOENIN",
       "doc": "Integration and notes.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the API endpoints and integration patterns through which a bounded context connects to others."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the API endpoints and integration patterns through which a bounded context connects to others."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -20417,7 +20485,24 @@
       "name": "BoundedContextEntryScope",
       "sectionId": "BCES",
       "doc": "Scope and language definitions.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22242,7 +22327,24 @@
       "name": "BuildToolsConfiguration",
       "sectionId": "BUTOCO",
       "doc": "Build tools configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes build tools configuration including package manager, versions, and lockfile management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes build tools configuration including package manager, versions, and lockfile management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22359,7 +22461,24 @@
       "name": "BuildToolsConfigurationArtifacts",
       "sectionId": "BTCA",
       "doc": "Artifact management.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Semantic Versioning (SemVer) — build / release versioning"
+        ],
+        "connotation": "Captures build artifact management including artifact location, naming, and cache policies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Semantic Versioning (SemVer) — build / release versioning"
+            ],
+            "connotation": "Captures build artifact management including artifact location, naming, and cache policies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22423,7 +22542,24 @@
       "name": "BuildToolsConfigurationBuildSystem",
       "sectionId": "BTCBS",
       "doc": "Build system settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures build system settings including the build system, version, and build configuration files."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures build system settings including the build system, version, and build configuration files."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22480,7 +22616,24 @@
       "name": "BuildToolsConfigurationCompilation",
       "sectionId": "BTCC",
       "doc": "Compilation settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures compilation settings including compiler/SDK version, compilation mode, and optimization level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures compilation settings including compiler/SDK version, compilation mode, and optimization level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22537,7 +22690,24 @@
       "name": "BuildToolsConfigurationScripts",
       "sectionId": "BTCS",
       "doc": "Script integration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures build script integration including build scripts, pre-commit hooks, and post-build actions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures build script integration including build scripts, pre-commit hooks, and post-build actions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22594,7 +22764,24 @@
       "name": "BusinessComponentEntry",
       "sectionId": "BUSCOMENT",
       "doc": "Business logic component entry.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — reusability quality attributes"
+        ],
+        "connotation": "Captures a reusable business logic component such as a service, repository, use case, or validator."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "Captures a reusable business logic component such as a service, repository, use case, or validator."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22726,7 +22913,24 @@
       "name": "BusinessComponentEntryDependencies",
       "sectionId": "BUCOENDE",
       "doc": "Dependency mapping.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the required services, data access, and external integrations of the business component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the required services, data access, and external integrations of the business component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22783,7 +22987,24 @@
       "name": "BusinessComponentEntryDescription",
       "sectionId": "BCED",
       "doc": "Purpose and business rules.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — reusability quality attributes"
+        ],
+        "connotation": "Captures the purpose, business rules, and capabilities of the business logic component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "Captures the purpose, business rules, and capabilities of the business logic component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22840,7 +23061,24 @@
       "name": "BusinessComponentEntryInterface",
       "sectionId": "BUCOENIN",
       "doc": "Public interface details.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the public interface, input/output types, and error handling of the business component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the public interface, input/output types, and error handling of the business component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22904,7 +23142,24 @@
       "name": "BusinessComponentEntryReuse",
       "sectionId": "BCER",
       "doc": "Reuse and customization notes.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — reusability quality attributes"
+        ],
+        "connotation": "Captures the reuse scenarios and customization points of the business logic component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "Captures the reuse scenarios and customization points of the business logic component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -22961,7 +23216,24 @@
       "name": "BusinessComponentEntryTesting",
       "sectionId": "BCET",
       "doc": "Testing details.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the test strategy, mockable interfaces, and test data requirements of the business component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the test strategy, mockable interfaces, and test data requirements of the business component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -32964,7 +33236,24 @@
       "name": "CiCdPipelineConfiguration",
       "sectionId": "CCPC",
       "doc": "CI/CD pipeline configuration.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes the CI/CD pipeline configuration including platform, config location, and secrets management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes the CI/CD pipeline configuration including platform, config location, and secrets management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -33019,10 +33308,26 @@
           "name": "stages",
           "kind": "list",
           "doc": "Pipeline stages.",
+          "help": "Add one entry per pipeline stage.",
           "sectionId": "PISTEN-STAG-LST",
           "sectionIdPattern": "PISTEN-STAG-xxx",
+          "standardReferences": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "The stages that make up the delivery pipeline."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CI/CD — continuous integration / delivery pipelines"
+                ],
+                "connotation": "The stages that make up the delivery pipeline."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -33033,6 +33338,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PISTEN-STAG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per pipeline stage."
               }
             },
             {
@@ -33049,10 +33360,26 @@
           "name": "jobs",
           "kind": "list",
           "doc": "Build jobs.",
+          "help": "Add one entry per pipeline job.",
           "sectionId": "PIJOEN-JOBS-LST",
           "sectionIdPattern": "PIJOEN-JOBS-xxx",
+          "standardReferences": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "The build jobs that run within the delivery pipeline."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CI/CD — continuous integration / delivery pipelines"
+                ],
+                "connotation": "The build jobs that run within the delivery pipeline."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -33063,6 +33390,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PIJOEN-JOBS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per pipeline job."
               }
             },
             {
@@ -33079,10 +33412,26 @@
           "name": "environments",
           "kind": "list",
           "doc": "Deployment environments.",
+          "help": "Add one entry per deployment environment.",
           "sectionId": "DEENEN-ENVI-LST",
           "sectionIdPattern": "DEENEN-ENVI-xxx",
+          "standardReferences": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "The deployment environments targeted by the pipeline."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CI/CD — continuous integration / delivery pipelines"
+                ],
+                "connotation": "The deployment environments targeted by the pipeline."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -33093,6 +33442,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEENEN-ENVI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per deployment environment."
               }
             },
             {
@@ -36332,7 +36687,24 @@
       "name": "CodeReviewProcess",
       "sectionId": "COREPR",
       "doc": "Code review process configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Describes the code review process including PR requirements, templates, naming conventions, and draft PRs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Describes the code review process including PR requirements, templates, naming conventions, and draft PRs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36456,7 +36828,24 @@
       "name": "CodeReviewProcessAutomation",
       "sectionId": "CRPA",
       "doc": "Automation requirements.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures review automation such as required automated checks, linting, tests, and coverage thresholds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures review automation such as required automated checks, linting, tests, and coverage thresholds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36520,7 +36909,24 @@
       "name": "CodeReviewProcessMerge",
       "sectionId": "CRPM",
       "doc": "Merge policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures the merge policy including merge strategy, branch deletion, and required status checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures the merge policy including merge strategy, branch deletion, and required status checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36584,7 +36990,24 @@
       "name": "CodeReviewProcessRequirements",
       "sectionId": "CRPR",
       "doc": "Reviewer requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures reviewer requirements including minimum reviewers, code owners, and reviewer assignment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures reviewer requirements including minimum reviewers, code owners, and reviewer assignment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -36641,7 +37064,24 @@
       "name": "CodeReviewProcessWorkflow",
       "sectionId": "CRPW",
       "doc": "Review workflow.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures the review workflow including checklists, inline comments, suggestion format, and discussion resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures the review workflow including checklists, inline comments, suggestion format, and discussion resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42541,7 +42981,24 @@
       "name": "ComponentGovernance",
       "sectionId": "COGO",
       "doc": "Component governance and maintenance policies.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the ownership model and governance policies for maintaining the shared component library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the ownership model and governance policies for maintaining the shared component library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42658,7 +43115,24 @@
       "name": "ComponentGovernanceContribution",
       "sectionId": "COGOCO",
       "doc": "Contribution governance.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the contribution guidelines, review process, and acceptance criteria for shared components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the contribution guidelines, review process, and acceptance criteria for shared components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42715,7 +43189,24 @@
       "name": "ComponentGovernanceLifecycle",
       "sectionId": "COGOLI",
       "doc": "Lifecycle policies.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "Domain-Driven Design — bounded contexts / modules"
+        ],
+        "connotation": "Captures the promotion, deprecation, and retirement policies governing the component lifecycle."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "Domain-Driven Design — bounded contexts / modules"
+            ],
+            "connotation": "Captures the promotion, deprecation, and retirement policies governing the component lifecycle."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42772,7 +43263,24 @@
       "name": "ComponentGovernanceMetrics",
       "sectionId": "COGOME",
       "doc": "Metrics and notes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "Domain-Driven Design — bounded contexts / modules"
+        ],
+        "connotation": "Captures the metrics and success criteria used to measure component adoption and quality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "Domain-Driven Design — bounded contexts / modules"
+            ],
+            "connotation": "Captures the metrics and success criteria used to measure component adoption and quality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -42836,7 +43344,24 @@
       "name": "ComponentGovernanceQuality",
       "sectionId": "COGOQU",
       "doc": "Quality expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "Domain-Driven Design — bounded contexts / modules"
+        ],
+        "connotation": "Captures the quality, testing, and documentation standards required of governed shared components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "Domain-Driven Design — bounded contexts / modules"
+            ],
+            "connotation": "Captures the quality, testing, and documentation standards required of governed shared components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -44933,7 +45458,24 @@
       "name": "ComponentRegistry",
       "sectionId": "CORE",
       "doc": "Component discovery and registry configuration.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — reusability quality attributes"
+        ],
+        "connotation": "Captures the registry infrastructure enabling discovery, cataloguing, and reuse of shared components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "Captures the registry infrastructure enabling discovery, cataloguing, and reuse of shared components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -45050,7 +45592,24 @@
       "name": "ComponentRegistryDiscovery",
       "sectionId": "COREDI",
       "doc": "Discovery workflow.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — reusability quality attributes"
+        ],
+        "connotation": "Captures the workflow by which developers discover and are recommended existing reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "Captures the workflow by which developers discover and are recommended existing reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -45107,7 +45666,24 @@
       "name": "ComponentRegistryDocumentation",
       "sectionId": "COREDO",
       "doc": "Documentation requirements.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the documentation standards and formats required for registered reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the documentation standards and formats required for registered reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -45164,7 +45740,24 @@
       "name": "ComponentRegistryMetadata",
       "sectionId": "COREME",
       "doc": "Metadata requirements.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the metadata, tagging, and categorization requirements for components in the registry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the metadata, tagging, and categorization requirements for components in the registry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -45221,7 +45814,24 @@
       "name": "ComponentRegistryUpdates",
       "sectionId": "COREUP",
       "doc": "Update communication.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures how component updates and changes are communicated to consumers through the registry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures how component updates and changes are communicated to consumers through the registry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51372,7 +51982,24 @@
       "name": "CrossCuttingConcerns",
       "sectionId": "CRCUCO",
       "doc": "Cross-cutting concerns organization.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Organizes the cross-cutting concerns such as logging that span all layers of the software."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Organizes the cross-cutting concerns such as logging that span all layers of the software."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51504,7 +52131,24 @@
       "name": "CrossCuttingConcernsCaching",
       "sectionId": "CCCC",
       "doc": "Caching approach.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the caching strategy and invalidation applied across layers as a cross-cutting concern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the caching strategy and invalidation applied across layers as a cross-cutting concern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51561,7 +52205,24 @@
       "name": "CrossCuttingConcernsErrors",
       "sectionId": "CCCE",
       "doc": "Error handling concerns.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the centralized error-handling, reporting, and user-notification cross-cutting concern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the centralized error-handling, reporting, and user-notification cross-cutting concern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51618,7 +52279,24 @@
       "name": "CrossCuttingConcernsObservability",
       "sectionId": "CCCO",
       "doc": "Observability capabilities.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the metrics, tracing, and health-check capabilities applied as a cross-cutting concern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the metrics, tracing, and health-check capabilities applied as a cross-cutting concern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51675,7 +52353,24 @@
       "name": "CrossCuttingConcernsSecurity",
       "sectionId": "CCCS",
       "doc": "Security concerns.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes how authentication and authorization flow across layers as a cross-cutting concern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes how authentication and authorization flow across layers as a cross-cutting concern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -51732,7 +52427,24 @@
       "name": "CrossCuttingConcernsShared",
       "sectionId": "CRCUCOSH",
       "doc": "Other shared capabilities.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures additional shared cross-cutting capabilities such as localization and validation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures additional shared cross-cutting capabilities such as localization and validation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -69943,7 +70655,24 @@
       "name": "DebuggingConfiguration",
       "sectionId": "DECO",
       "doc": "Debugging configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes the debugging configuration including debugger tooling, launch configurations, and remote debugging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes the debugging configuration including debugger tooling, launch configurations, and remote debugging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70075,7 +70804,24 @@
       "name": "DebuggingConfigurationBreakpoints",
       "sectionId": "DECOBR",
       "doc": "Breakpoint and watch setup.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures breakpoint types, log points, and standard watch expressions for debugging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures breakpoint types, log points, and standard watch expressions for debugging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70132,7 +70878,24 @@
       "name": "DebuggingConfigurationErrors",
       "sectionId": "DECOER",
       "doc": "Error tracking details.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures development-time error tracking and local crash reporting setup."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures development-time error tracking and local crash reporting setup."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70189,7 +70952,24 @@
       "name": "DebuggingConfigurationFlutter",
       "sectionId": "DECOFL",
       "doc": "Flutter-specific tooling.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures Flutter-specific debugging tooling such as the widget inspector, DevTools features, and repaint rainbow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures Flutter-specific debugging tooling such as the widget inspector, DevTools features, and repaint rainbow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70246,7 +71026,24 @@
       "name": "DebuggingConfigurationInspection",
       "sectionId": "DECOIN",
       "doc": "State and runtime inspection.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures state, network, and performance inspection tooling used during debugging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures state, network, and performance inspection tooling used during debugging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -70303,7 +71100,24 @@
       "name": "DebuggingConfigurationLogging",
       "sectionId": "DECOLO",
       "doc": "Logging setup for debugging.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures debug logging configuration, log levels, and structured logging options."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures debug logging configuration, log levels, and structured logging options."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -74127,7 +74941,24 @@
       "name": "DependencyInjectionStructure",
       "sectionId": "DEINST",
       "doc": "Dependency injection structure and configuration.",
+      "standardReferences": {
+        "standards": [
+          "SOLID principles — object-oriented design",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Describes the overall dependency-injection approach, framework, and scope management for the software."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOLID principles — object-oriented design",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Describes the overall dependency-injection approach, framework, and scope management for the software."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -74244,7 +75075,24 @@
       "name": "DependencyInjectionStructureBinding",
       "sectionId": "DISB",
       "doc": "Interface binding rules.",
+      "standardReferences": {
+        "standards": [
+          "SOLID principles — object-oriented design",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Defines when interfaces are bound to implementations and how they are swapped for testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOLID principles — object-oriented design",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Defines when interfaces are bound to implementations and how they are swapped for testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -74301,7 +75149,24 @@
       "name": "DependencyInjectionStructureConfiguration",
       "sectionId": "DISC",
       "doc": "Environment-specific configuration.",
+      "standardReferences": {
+        "standards": [
+          "SOLID principles — object-oriented design",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Describes how dependency-injection registrations vary by environment, feature flag, and platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOLID principles — object-oriented design",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Describes how dependency-injection registrations vary by environment, feature flag, and platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -74358,7 +75223,24 @@
       "name": "DependencyInjectionStructureRegistration",
       "sectionId": "DISR",
       "doc": "Registration organization.",
+      "standardReferences": {
+        "standards": [
+          "SOLID principles — object-oriented design",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Describes how modules register their dependencies, in what order, and which are lazily initialized."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOLID principles — object-oriented design",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Describes how modules register their dependencies, in what order, and which are lazily initialized."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -74415,7 +75297,24 @@
       "name": "DependencyInjectionStructureTroubleshooting",
       "sectionId": "DIST",
       "doc": "Troubleshooting support.",
+      "standardReferences": {
+        "standards": [
+          "SOLID principles — object-oriented design",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Describes how dependency-injection problems such as circular dependencies are debugged and prevented."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOLID principles — object-oriented design",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Describes how dependency-injection problems such as circular dependencies are debugged and prevented."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75467,7 +76366,24 @@
       "name": "DeploymentEnvironmentEntry",
       "sectionId": "DEE",
       "doc": "Deployment environment entry.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Describes a single deployment environment including its name, type, and URL."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Describes a single deployment environment including its name, type, and URL."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75584,7 +76500,24 @@
       "name": "DeploymentEnvironmentEntryConfiguration",
       "sectionId": "DEEC",
       "doc": "Configuration and secrets sourcing.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures per-environment configuration source and secrets scoping."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures per-environment configuration source and secrets scoping."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75634,7 +76567,24 @@
       "name": "DeploymentEnvironmentEntryDeployment",
       "sectionId": "DEED",
       "doc": "Deployment method and rollback controls.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures the deployment method, deployment configuration, and rollback strategy for an environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures the deployment method, deployment configuration, and rollback strategy for an environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75691,7 +76641,24 @@
       "name": "DeploymentEnvironmentEntryMonitoring",
       "sectionId": "DEEM",
       "doc": "Health verification and environment notes.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures deployment health verification via health check URLs and post-deployment checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures deployment health verification via health check URLs and post-deployment checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -75748,7 +76715,24 @@
       "name": "DeploymentEnvironmentEntryProtection",
       "sectionId": "DEEP",
       "doc": "Approval and protection rules.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures deployment protection rules including required approvers and self-approval prevention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures deployment protection rules including required approvers and self-approval prevention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79581,7 +80565,24 @@
       "name": "DeveloperOnboarding",
       "sectionId": "DEON",
       "doc": "Developer onboarding requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes developer onboarding requirements including guides, architecture overviews, and coding standards references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes developer onboarding requirements including guides, architecture overviews, and coding standards references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79713,7 +80714,24 @@
       "name": "DeveloperOnboardingAccess",
       "sectionId": "DEONAC",
       "doc": "Access provisioning.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures onboarding access provisioning such as required access, request processes, and VPN setup."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures onboarding access provisioning such as required access, request processes, and VPN setup."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79770,7 +80788,24 @@
       "name": "DeveloperOnboardingFirstTasks",
       "sectionId": "DOFT",
       "doc": "Early task expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures early-task expectations for new developers such as starter tasks, shadowing, and first-PR timing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures early-task expectations for new developers such as starter tasks, shadowing, and first-PR timing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79827,7 +80862,24 @@
       "name": "DeveloperOnboardingLearning",
       "sectionId": "DEONLE",
       "doc": "Learning support.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures onboarding learning support including required reading, code walkthroughs, and pairing buddies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures onboarding learning support including required reading, code walkthroughs, and pairing buddies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79884,7 +80936,24 @@
       "name": "DeveloperOnboardingSetup",
       "sectionId": "DEONSE",
       "doc": "Setup expectations.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures onboarding setup expectations including estimated setup time and automated setup availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures onboarding setup expectations including estimated setup time and automated setup availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79941,7 +81010,24 @@
       "name": "DeveloperOnboardingVerification",
       "sectionId": "DEONVE",
       "doc": "Completion verification.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures onboarding completion verification via checklists and defined completion criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures onboarding completion verification via checklists and defined completion criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80511,11 +81597,28 @@
       "sectionId": "DEEN",
       "doc": "8.2.2. Development Environment.\n\nRequired IDEs, build tools, version control, CI/CD pipeline, code review\nprocess, and development workflow.",
       "help": "Specify development tools, workflows, and environment requirements.\nA well-defined development environment accelerates onboarding and\nensures consistent quality across the team.\n\n**IDE and Editor Requirements**:\n- Recommended/required IDEs (VS Code, IntelliJ, Android Studio)\n- Required extensions and plugins\n- Code formatting and linting configuration\n- Shared editor settings and configuration files\n\n**Build Tools and Automation**:\n- Build systems (Gradle, Maven, Make, Bazel, Melos)\n- Code generation and preprocessing\n- Dependency management and lockfiles\n- Build profiles (debug, release, profile)\n\n**Version Control**:\n- Git workflow (trunk-based, Gitflow, GitHub Flow)\n- Branch naming and commit message conventions\n- Pull request / merge request requirements\n- Code ownership and CODEOWNERS\n\n**CI/CD Pipeline**:\n- Pipeline stages and gates\n- Automated testing requirements\n- Quality gates and metrics thresholds\n- Deployment automation and approvals\n\n**Local Development**:\n- Docker Compose / local Kubernetes setup\n- Database seeding and test data\n- Service stubbing and mocking\n- Hot reload and fast feedback loops\n",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Specify development tools, workflows, and environment requirements.\nA well-defined development environment accelerates onboarding and\nensures consistent quality across the team.\n\n**IDE and Editor Requirements**:\n- Recommended/required IDEs (VS Code, IntelliJ, Android Studio)\n- Required extensions and plugins\n- Code formatting and linting configuration\n- Shared editor settings and configuration files\n\n**Build Tools and Automation**:\n- Build systems (Gradle, Maven, Make, Bazel, Melos)\n- Code generation and preprocessing\n- Dependency management and lockfiles\n- Build profiles (debug, release, profile)\n\n**Version Control**:\n- Git workflow (trunk-based, Gitflow, GitHub Flow)\n- Branch naming and commit message conventions\n- Pull request / merge request requirements\n- Code ownership and CODEOWNERS\n\n**CI/CD Pipeline**:\n- Pipeline stages and gates\n- Automated testing requirements\n- Quality gates and metrics thresholds\n- Deployment automation and approvals\n\n**Local Development**:\n- Docker Compose / local Kubernetes setup\n- Database seeding and test data\n- Service stubbing and mocking\n- Hot reload and fast feedback loops\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow."
           }
         },
         {
@@ -80567,10 +81670,26 @@
           "name": "ideRequirements",
           "kind": "list",
           "doc": "IDE and editor requirements.",
+          "help": "Add one entry per IDE or editor.",
           "sectionId": "IDREEN-IDER-LST",
           "sectionIdPattern": "IDREEN-IDER-xxx",
+          "standardReferences": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "The IDEs and editors required for the development environment."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Twelve-Factor App — cloud-native methodology"
+                ],
+                "connotation": "The IDEs and editors required for the development environment."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -80581,6 +81700,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDREEN-IDER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per IDE or editor."
               }
             },
             {
@@ -80734,7 +81859,24 @@
       "name": "DevelopmentQualityGates",
       "sectionId": "DEQUGA",
       "doc": "Development quality gates and metrics.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Describes the development quality gates and metrics enforced across static analysis, linting, and formatting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Describes the development quality gates and metrics enforced across static analysis, linting, and formatting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80866,7 +82008,24 @@
       "name": "DevelopmentQualityGatesComplexity",
       "sectionId": "DEQUGACO",
       "doc": "Complexity thresholds.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures complexity quality gates such as cyclomatic complexity, file size, and function size limits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures complexity quality gates such as cyclomatic complexity, file size, and function size limits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80923,7 +82082,24 @@
       "name": "DevelopmentQualityGatesCoverage",
       "sectionId": "DQGC",
       "doc": "Coverage requirements.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures test coverage quality gates including minimum coverage thresholds and coverage exclusions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures test coverage quality gates including minimum coverage thresholds and coverage exclusions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80980,7 +82156,24 @@
       "name": "DevelopmentQualityGatesDocumentation",
       "sectionId": "DQGD",
       "doc": "Documentation requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability quality attributes",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures documentation quality gates such as required API docs, changelog, and README updates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability quality attributes",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures documentation quality gates such as required API docs, changelog, and README updates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81037,7 +82230,24 @@
       "name": "DevelopmentQualityGatesPerformance",
       "sectionId": "DQGP",
       "doc": "Performance checks.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -81101,7 +82311,24 @@
       "name": "DevelopmentQualityGatesSecurity",
       "sectionId": "DQGS",
       "doc": "Security checks.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures security quality gates including dependency scanning, secrets scanning, and license compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures security quality gates including dependency scanning, secrets scanning, and license compliance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91529,7 +92756,24 @@
       "name": "EnvironmentManagement",
       "sectionId": "ENMA",
       "doc": "Environment management configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Describes environment management including environment types, naming, and per-environment purposes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Describes environment management including environment types, naming, and per-environment purposes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91646,7 +92890,24 @@
       "name": "EnvironmentManagementConfiguration",
       "sectionId": "ENMACO",
       "doc": "Configuration settings.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures the configuration method, config file formats, and configuration hierarchy across environments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures the configuration method, config file formats, and configuration hierarchy across environments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91703,7 +92964,24 @@
       "name": "EnvironmentManagementParity",
       "sectionId": "ENMAPA",
       "doc": "Parity and notes.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures dev-prod parity, data seeding, and mocking strategy across environments."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures dev-prod parity, data seeding, and mocking strategy across environments."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91767,7 +93045,24 @@
       "name": "EnvironmentManagementSecrets",
       "sectionId": "ENMASE",
       "doc": "Secrets handling.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures local secrets management, secrets templates, and never-commit rules per environment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures local secrets management, secrets templates, and never-commit rules per environment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91824,7 +93119,24 @@
       "name": "EnvironmentManagementSwitching",
       "sectionId": "ENMASW",
       "doc": "Environment switching.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "CI/CD — continuous integration / delivery pipelines"
+        ],
+        "connotation": "Captures the mechanism for switching environments, build flavor support, and runtime switching."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "CI/CD — continuous integration / delivery pipelines"
+            ],
+            "connotation": "Captures the mechanism for switching environments, build flavor support, and runtime switching."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102156,7 +103468,24 @@
       "name": "FeatureModuleEntry",
       "sectionId": "FTRMOD",
       "doc": "Feature module entry — a vertical slice feature.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes a single feature module as a self-contained vertical slice of the application."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes a single feature module as a self-contained vertical slice of the application."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102288,7 +103617,24 @@
       "name": "FeatureModuleEntryConfiguration",
       "sectionId": "FMEC",
       "doc": "Feature configuration.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Defines the flags, options, and enablement criteria that configure a feature module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Defines the flags, options, and enablement criteria that configure a feature module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102345,7 +103691,24 @@
       "name": "FeatureModuleEntryDependencies",
       "sectionId": "FEMOENDE",
       "doc": "Dependencies.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Records the shared, feature, and external dependencies a feature module relies on."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Records the shared, feature, and external dependencies a feature module relies on."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102402,7 +103765,24 @@
       "name": "FeatureModuleEntryDescription",
       "sectionId": "FMED",
       "doc": "Purpose and value.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Captures the purpose, user stories, and business value delivered by a feature module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Captures the purpose, user stories, and business value delivered by a feature module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102459,7 +103839,24 @@
       "name": "FeatureModuleEntryNavigation",
       "sectionId": "FMEN",
       "doc": "Navigation and notes.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Captures the navigation routes and deep-linking behaviour exposed by a feature module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Captures the navigation routes and deep-linking behaviour exposed by a feature module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102516,7 +103913,24 @@
       "name": "FeatureModuleEntryStructure",
       "sectionId": "FMES",
       "doc": "Structural scope.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "Clean Architecture — dependency rule / layering"
+        ],
+        "connotation": "Describes the UI, domain, data, and API components that make up a feature module vertical slice."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "Describes the UI, domain, data, and API components that make up a feature module vertical slice."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112319,7 +113733,24 @@
       "name": "IdeRequirementEntry",
       "sectionId": "IRE",
       "doc": "IDE requirement entry — a required IDE or editor.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Describes a single required IDE or editor including its name, version requirements, and platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Describes a single required IDE or editor including its name, version requirements, and platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112421,7 +113852,24 @@
       "name": "IdeRequirementEntryConfiguration",
       "sectionId": "IREC",
       "doc": "Extension and workspace configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures IDE extension and workspace configuration including required extensions and settings templates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures IDE extension and workspace configuration including required extensions and settings templates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112485,7 +113933,24 @@
       "name": "IdeRequirementEntryIntegration",
       "sectionId": "IREI",
       "doc": "Debugger, linting, and formatting integration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures IDE integration for debuggers, linters, format-on-save, and Git tooling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures IDE integration for debuggers, linters, format-on-save, and Git tooling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112549,7 +114014,24 @@
       "name": "IdeRequirementEntryStandardization",
       "sectionId": "IRES",
       "doc": "Shared team standardization settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures shared team IDE standardization settings including config location and sync mechanism."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures shared team IDE standardization settings including config location and sync mechanism."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116979,7 +118461,24 @@
       "name": "InfrastructureComponentEntry",
       "sectionId": "INFCOMENT",
       "doc": "Infrastructure component entry.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures a reusable infrastructure component such as logging, caching, messaging, or storage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures a reusable infrastructure component such as logging, caching, messaging, or storage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117111,7 +118610,24 @@
       "name": "InfrastructureComponentEntryConfiguration",
       "sectionId": "ICEC",
       "doc": "Configuration requirements.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the configuration options, environment variables, and secrets required by the infrastructure component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the configuration options, environment variables, and secrets required by the infrastructure component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117168,7 +118684,24 @@
       "name": "InfrastructureComponentEntryDescription",
       "sectionId": "ICED",
       "doc": "Purpose and technology choices.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the purpose, capabilities, and technology stack of the infrastructure component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the purpose, capabilities, and technology stack of the infrastructure component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117225,7 +118758,24 @@
       "name": "InfrastructureComponentEntryIntegration",
       "sectionId": "ICEI",
       "doc": "Integration lifecycle.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the service interface and initialization/shutdown lifecycle of the infrastructure component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the service interface and initialization/shutdown lifecycle of the infrastructure component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117282,7 +118832,24 @@
       "name": "InfrastructureComponentEntryOperations",
       "sectionId": "ICEO",
       "doc": "Operational behavior.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — maintainability quality attributes"
+        ],
+        "connotation": "Captures the monitoring, health-check, and scalability operational behavior of the infrastructure component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "Captures the monitoring, health-check, and scalability operational behavior of the infrastructure component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117339,7 +118906,24 @@
       "name": "InfrastructureComponentEntryResiliency",
       "sectionId": "ICER",
       "doc": "Resiliency behavior.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — reliability quality attributes"
+        ],
+        "connotation": "Captures the failure handling, retry, and circuit-breaker resiliency behavior of the infrastructure component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — reliability quality attributes"
+            ],
+            "connotation": "Captures the failure handling, retry, and circuit-breaker resiliency behavior of the infrastructure component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131488,7 +133072,24 @@
       "name": "LayerCommunicationRules",
       "sectionId": "LACORU",
       "doc": "Layer communication rules and constraints.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Defines the direction, dependency rules, and abstraction principles that govern communication between layers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Defines the direction, dependency rules, and abstraction principles that govern communication between layers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131590,7 +133191,24 @@
       "name": "LayerCommunicationRulesFlow",
       "sectionId": "LCRF",
       "doc": "Cross-layer event and exception flow.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Describes how events, exceptions, and logging context propagate across layers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Describes how events, exceptions, and logging context propagate across layers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131647,7 +133265,24 @@
       "name": "LayerCommunicationRulesGovernance",
       "sectionId": "LCRG",
       "doc": "Boundary enforcement and validation rules.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Defines how layer boundaries and validation responsibilities are enforced and violations detected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Defines how layer boundaries and validation responsibilities are enforced and violations detected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131711,7 +133346,24 @@
       "name": "LayerCommunicationRulesInterfaces",
       "sectionId": "LCRI",
       "doc": "Interface requirements between layers.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines the interface, DTO, and mapping requirements at boundaries between layers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines the interface, DTO, and mapping requirements at boundaries between layers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131769,11 +133421,30 @@
       "sectionId": "LAMS",
       "doc": "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access, infrastructure)\nand module structure (bounded contexts, packages, libraries).",
       "help": "Define software layering approach, module organization, and dependency\nmanagement rules. Clear boundaries prevent spaghetti architecture and\nenable independent development and testing.\n\n**Common Layering Approaches**:\n- **Clean Architecture**: Entities → Use Cases → Interface Adapters →\n  Frameworks & Drivers (dependencies point inward)\n- **Hexagonal (Ports & Adapters)**: Domain core with ports (interfaces)\n  and adapters (implementations)\n- **Onion Architecture**: Domain Model → Domain Services → Application\n  Services → Infrastructure\n- **Traditional N-Tier**: Presentation → Business Logic → Data Access\n\n**Module Organization**:\n- **By Feature/Domain**: Vertical slices containing all layers for a feature\n- **By Layer**: Horizontal separation (all controllers, all repositories)\n- **Bounded Contexts (DDD)**: Independent modules with clear context maps\n- **Package-by-Component**: Self-contained components with public APIs\n\n**Dependency Rules**:\n- Define allowed and forbidden dependencies between layers/modules\n- Enforce with architecture tests (ArchUnit, deptry, import linters)\n- Use interfaces/abstractions for cross-cutting concerns\n- Keep domain logic independent of frameworks\n\n**Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.\n",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "Captures the overall software layering approach and module structure of the system."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define software layering approach, module organization, and dependency\nmanagement rules. Clear boundaries prevent spaghetti architecture and\nenable independent development and testing.\n\n**Common Layering Approaches**:\n- **Clean Architecture**: Entities → Use Cases → Interface Adapters →\n  Frameworks & Drivers (dependencies point inward)\n- **Hexagonal (Ports & Adapters)**: Domain core with ports (interfaces)\n  and adapters (implementations)\n- **Onion Architecture**: Domain Model → Domain Services → Application\n  Services → Infrastructure\n- **Traditional N-Tier**: Presentation → Business Logic → Data Access\n\n**Module Organization**:\n- **By Feature/Domain**: Vertical slices containing all layers for a feature\n- **By Layer**: Horizontal separation (all controllers, all repositories)\n- **Bounded Contexts (DDD)**: Independent modules with clear context maps\n- **Package-by-Component**: Self-contained components with public APIs\n\n**Dependency Rules**:\n- Define allowed and forbidden dependencies between layers/modules\n- Enforce with architecture tests (ArchUnit, deptry, import linters)\n- Use interfaces/abstractions for cross-cutting concerns\n- Keep domain logic independent of frameworks\n\n**Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "Captures the overall software layering approach and module structure of the system."
           }
         },
         {
@@ -131825,10 +133496,26 @@
           "name": "softwareLayers",
           "kind": "list",
           "doc": "Software layer definitions.",
+          "help": "Add one entry per software layer.",
           "sectionId": "SOLAEN-SOFT-LST",
           "sectionIdPattern": "SOLAEN-SOFT-xxx",
+          "standardReferences": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering"
+            ],
+            "connotation": "The software layers that make up the application."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Clean Architecture — dependency rule / layering"
+                ],
+                "connotation": "The software layers that make up the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -131839,6 +133526,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SOLAEN-SOFT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per software layer."
               }
             },
             {
@@ -131870,10 +133563,28 @@
           "name": "boundedContexts",
           "kind": "list",
           "doc": "Bounded contexts (DDD) definitions.",
+          "help": "Add one entry per bounded context.",
           "sectionId": "BOCOEN-BOUN-LST",
           "sectionIdPattern": "BOCOEN-BOUN-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "The DDD bounded contexts that partition the application domain."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — bounded contexts / modules",
+                  "SOLID principles — object-oriented design"
+                ],
+                "connotation": "The DDD bounded contexts that partition the application domain."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -131884,6 +133595,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BOCOEN-BOUN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per bounded context."
               }
             },
             {
@@ -131915,10 +133632,28 @@
           "name": "modules",
           "kind": "list",
           "doc": "Module catalog with dependency information.",
+          "help": "Add one entry per module.",
           "sectionId": "MOEN1-MODU-LST",
           "sectionIdPattern": "MOEN1-MODU-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "The modules that make up the application and their dependency information."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — bounded contexts / modules",
+                  "SOLID principles — object-oriented design"
+                ],
+                "connotation": "The modules that make up the application and their dependency information."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -131929,6 +133664,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MOEN1-MODU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per module."
               }
             },
             {
@@ -131945,10 +133686,28 @@
           "name": "sharedLibraries",
           "kind": "list",
           "doc": "Shared libraries and common code.",
+          "help": "Add one entry per shared library.",
           "sectionId": "SHLIB-SHAR-LST",
           "sectionIdPattern": "SHLIB-SHAR-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "The shared libraries and common code reused across the application."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — bounded contexts / modules",
+                  "ISO/IEC 25010 — maintainability / modularity quality attributes"
+                ],
+                "connotation": "The shared libraries and common code reused across the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -131959,6 +133718,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SHLIB-SHAR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per shared library."
               }
             },
             {
@@ -132005,10 +133770,28 @@
           "name": "featureModules",
           "kind": "list",
           "doc": "Feature module definitions (vertical slices).",
+          "help": "Add one entry per feature module.",
           "sectionId": "FTRMOD-FEAT-LST",
           "sectionIdPattern": "FTRMOD-FEAT-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "The feature modules that make up the application as vertical slices."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — bounded contexts / modules",
+                  "ISO/IEC 25010 — maintainability / modularity quality attributes"
+                ],
+                "connotation": "The feature modules that make up the application as vertical slices."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -132019,6 +133802,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FTRMOD-FEAT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per feature module."
               }
             },
             {
@@ -133375,7 +135164,24 @@
       "name": "LocalDevelopmentSetup",
       "sectionId": "LODESE",
       "doc": "Local development setup configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes the local development setup including system requirements, prerequisite software, and SDK versions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes the local development setup including system requirements, prerequisite software, and SDK versions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -133507,7 +135313,24 @@
       "name": "LocalDevelopmentSetupDependencies",
       "sectionId": "LDSD",
       "doc": "Dependencies and local services.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures dependency installation and local backing services such as databases and Docker Compose."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures dependency installation and local backing services such as databases and Docker Compose."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -133564,7 +135387,24 @@
       "name": "LocalDevelopmentSetupRunning",
       "sectionId": "LDSR",
       "doc": "Running configuration.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures how the application is run locally including run commands, hot reload, and watch mode."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures how the application is run locally including run commands, hot reload, and watch mode."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -133621,7 +135461,24 @@
       "name": "LocalDevelopmentSetupTesting",
       "sectionId": "LDST",
       "doc": "Test setup.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures local test setup including running tests locally, test databases, and mock services."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures local test setup including running tests locally, test databases, and mock services."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -133678,7 +135535,24 @@
       "name": "LocalDevelopmentSetupTroubleshooting",
       "sectionId": "LODESETR",
       "doc": "Troubleshooting details.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — cloud-native methodology",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures local-setup troubleshooting including common issues and support channels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — cloud-native methodology",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures local-setup troubleshooting including common issues and support channels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -133735,7 +135609,24 @@
       "name": "LocalDevelopmentSetupWorkflow",
       "sectionId": "LDSW",
       "doc": "Setup workflow.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures the local setup workflow including clone instructions, setup scripts, and configuration files."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures the local setup workflow including clone instructions, setup scripts, and configuration files."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146375,7 +148266,24 @@
       "name": "ModuleEntry",
       "sectionId": "MODENT",
       "doc": "Module entry — a discrete module or component.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes a single discrete module or component in the module catalog."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes a single discrete module or component in the module catalog."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146507,7 +148415,24 @@
       "name": "ModuleEntryConfiguration",
       "sectionId": "MOENCO",
       "doc": "Configuration settings.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the configuration options, feature flags, and environment variables of a module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the configuration options, feature flags, and environment variables of a module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146564,7 +148489,24 @@
       "name": "ModuleEntryDependencies",
       "sectionId": "MOEND1",
       "doc": "Dependency information.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Records the required, optional, external, and peer dependencies of a module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Records the required, optional, external, and peer dependencies of a module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146628,7 +148570,24 @@
       "name": "ModuleEntryDescription",
       "sectionId": "MOENDE",
       "doc": "Purpose and API.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Describes the purpose, functionality, public API, and entry points of a module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Describes the purpose, functionality, public API, and entry points of a module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146692,7 +148651,24 @@
       "name": "ModuleEntryOwnership",
       "sectionId": "MOENOW",
       "doc": "Ownership information.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Records which context, team, and maintainer own a module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Records which context, team, and maintainer own a module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146749,7 +148725,24 @@
       "name": "ModuleEntryTesting",
       "sectionId": "MOENTE",
       "doc": "Testing and notes.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the test-coverage and integration-testing expectations for a module."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the test-coverage and integration-testing expectations for a module."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146806,7 +148799,24 @@
       "name": "ModuleVersioningStrategy",
       "sectionId": "MOVEST",
       "doc": "Module versioning and compatibility strategy.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes the overall strategy for versioning modules and keeping them compatible."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes the overall strategy for versioning modules and keeping them compatible."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146930,7 +148940,24 @@
       "name": "ModuleVersioningStrategyCompatibility",
       "sectionId": "MVSC",
       "doc": "Compatibility policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — maintainability / modularity quality attributes",
+          "Domain-Driven Design — bounded contexts / modules"
+        ],
+        "connotation": "Defines the backwards-compatibility guarantees and breaking-change handling for modules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — maintainability / modularity quality attributes",
+              "Domain-Driven Design — bounded contexts / modules"
+            ],
+            "connotation": "Defines the backwards-compatibility guarantees and breaking-change handling for modules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146987,7 +149014,24 @@
       "name": "ModuleVersioningStrategyCoordination",
       "sectionId": "MOVESTCO",
       "doc": "Cross-module coordination.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Captures how module versions are coordinated and constrained across the module set."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Captures how module versions are coordinated and constrained across the module set."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147044,7 +149088,24 @@
       "name": "ModuleVersioningStrategyDependencies",
       "sectionId": "MVSD",
       "doc": "Dependency versioning rules.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Defines how module dependency versions are specified, locked, and updated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Defines how module dependency versions are specified, locked, and updated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147101,7 +149162,24 @@
       "name": "ModuleVersioningStrategyReleaseManagement",
       "sectionId": "MVSRM",
       "doc": "Release management process.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Domain-Driven Design — bounded contexts / modules"
+        ],
+        "connotation": "Describes how module versions are released, labelled, and documented."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Domain-Driven Design — bounded contexts / modules"
+            ],
+            "connotation": "Describes how module versions are released, labelled, and documented."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162065,7 +164143,24 @@
       "name": "PackageOrganization",
       "sectionId": "PAOR",
       "doc": "Package organization and naming structure.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes the overall package organization, naming, and structure conventions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes the overall package organization, naming, and structure conventions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162182,7 +164277,24 @@
       "name": "PackageOrganizationDependencies",
       "sectionId": "PAORDE",
       "doc": "Dependency management rules.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Defines how internal and external package dependencies are managed and versioned."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Defines how internal and external package dependencies are managed and versioned."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162246,7 +164358,24 @@
       "name": "PackageOrganizationDocumentation",
       "sectionId": "PAORDO",
       "doc": "Documentation expectations.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Defines the documentation and dependency-diagram expectations for each package."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Defines the documentation and dependency-diagram expectations for each package."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162303,7 +164432,24 @@
       "name": "PackageOrganizationStructure",
       "sectionId": "PAORST",
       "doc": "Repository and directory structure.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes the repository and directory layout used to organize packages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes the repository and directory layout used to organize packages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -162360,7 +164506,24 @@
       "name": "PackageOrganizationTypes",
       "sectionId": "PAORTY",
       "doc": "Package categorization.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Categorizes packages into core, feature, shared, and platform types."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Categorizes packages into core, feature, shared, and platform types."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167214,7 +169377,24 @@
       "name": "PipelineJobEntry",
       "sectionId": "PJE",
       "doc": "Pipeline job entry.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes a single pipeline job including its name, parent stage, and purpose."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes a single pipeline job including its name, parent stage, and purpose."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167331,7 +169511,24 @@
       "name": "PipelineJobEntryDependencies",
       "sectionId": "PJED",
       "doc": "Job dependencies.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline job dependencies including upstream jobs, backing services, and caching."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline job dependencies including upstream jobs, backing services, and caching."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167388,7 +169585,24 @@
       "name": "PipelineJobEntryEnvironment",
       "sectionId": "PJEE",
       "doc": "Execution environment.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures the pipeline job execution environment including runner type, container image, and environment variables."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures the pipeline job execution environment including runner type, container image, and environment variables."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167445,7 +169659,24 @@
       "name": "PipelineJobEntryOutputs",
       "sectionId": "PJEO",
       "doc": "Outputs and notes.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline job outputs such as test reports, coverage reports, and artifacts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline job outputs such as test reports, coverage reports, and artifacts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167509,7 +169740,24 @@
       "name": "PipelineJobEntrySteps",
       "sectionId": "PJES",
       "doc": "Job steps.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline job steps including setup, main, and cleanup steps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline job steps including setup, main, and cleanup steps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167566,7 +169814,24 @@
       "name": "PipelineStageEntry",
       "sectionId": "PSE",
       "doc": "Pipeline stage entry.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes a single pipeline stage including its name, order, and purpose."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes a single pipeline stage including its name, order, and purpose."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167683,7 +169948,24 @@
       "name": "PipelineStageEntryArtifacts",
       "sectionId": "PSEA",
       "doc": "Artifact flow between stages.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures artifact flow between pipeline stages including input and output artifacts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures artifact flow between pipeline stages including input and output artifacts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167733,7 +170015,24 @@
       "name": "PipelineStageEntryExecution",
       "sectionId": "PSEE",
       "doc": "Execution environment and job strategy.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline stage execution including runner requirements, timeouts, and parallel job strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline stage execution including runner requirements, timeouts, and parallel job strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167790,7 +170089,24 @@
       "name": "PipelineStageEntryFailure",
       "sectionId": "PSEF",
       "doc": "Failure handling and retry behavior.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline stage failure behavior and retry policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline stage failure behavior and retry policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -167847,7 +170163,24 @@
       "name": "PipelineStageEntryTrigger",
       "sectionId": "PSET",
       "doc": "Triggering conditions and approval gates.",
+      "standardReferences": {
+        "standards": [
+          "CI/CD — continuous integration / delivery pipelines",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures pipeline stage triggering conditions and manual approval gates."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CI/CD — continuous integration / delivery pipelines",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures pipeline stage triggering conditions and manual approval gates."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200287,7 +202620,24 @@
       "name": "ReusabilityPrinciples",
       "sectionId": "REPR",
       "doc": "Reusability principles and guidelines.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the guiding principles and guidelines governing how reusable components are designed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the guiding principles and guidelines governing how reusable components are designed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200404,7 +202754,24 @@
       "name": "ReusabilityPrinciplesAbstraction",
       "sectionId": "REPRAB",
       "doc": "Abstraction rules.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the abstraction level, interface standards, and dependency rules for reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the abstraction level, interface standards, and dependency rules for reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200461,7 +202828,24 @@
       "name": "ReusabilityPrinciplesOwnership",
       "sectionId": "REPROW",
       "doc": "Ownership and contribution.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the ownership model and contribution process for reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the ownership model and contribution process for reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200518,7 +202902,24 @@
       "name": "ReusabilityPrinciplesQuality",
       "sectionId": "REPRQU",
       "doc": "Quality expectations.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the documentation, testing, and code-review quality requirements for reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the documentation, testing, and code-review quality requirements for reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200575,7 +202976,24 @@
       "name": "ReusabilityPrinciplesVersioning",
       "sectionId": "REPRVE",
       "doc": "Versioning policy.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — library versioning",
+          "DRY — reusable component design"
+        ],
+        "connotation": "Captures the versioning, breaking-change, and deprecation policies for reusable components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — library versioning",
+              "DRY — reusable component design"
+            ],
+            "connotation": "Captures the versioning, breaking-change, and deprecation policies for reusable components."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -200633,11 +203051,28 @@
       "sectionId": "RCS",
       "doc": "8.2.3. Reusable Components.\n\nComponents, libraries, or frameworks designed for reuse across projects\nor modules.",
       "help": "Define strategy for creating and managing reusable components across\nprojects and modules. Effective reuse reduces duplication, ensures\nconsistency, and accelerates development.\n\n**Component Categories**:\n- **UI Components**: Design system components, widgets, layouts, themes\n- **Business Logic**: Domain services, validation rules, calculations\n- **Infrastructure**: Logging, caching, HTTP clients, database access\n- **Utilities**: String manipulation, date handling, formatters\n- **Third-Party Wrappers**: Abstraction layers over external libraries\n\n**Reusability Principles**:\n- Extract when used 3+ times (Rule of Three)\n- Prefer composition over inheritance\n- Design for extension, closed for modification (Open/Closed)\n- Keep components focused (Single Responsibility)\n- Version independently when appropriate\n\n**Component Governance**:\n- Ownership and maintenance responsibilities\n- Contribution and review process\n- Deprecation and migration policies\n- Documentation requirements\n- Testing and quality standards\n\n**Discovery and Registry**:\n- Component catalog and documentation portal\n- Searchable API documentation\n- Usage examples and integration guides\n- Version compatibility matrix\n",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "ISO/IEC 25010 — reusability / maintainability quality attributes"
+        ],
+        "connotation": "Captures the overall strategy for creating, cataloguing, and governing reusable components across the system."
+      },
       "annotations": [
         {
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define strategy for creating and managing reusable components across\nprojects and modules. Effective reuse reduces duplication, ensures\nconsistency, and accelerates development.\n\n**Component Categories**:\n- **UI Components**: Design system components, widgets, layouts, themes\n- **Business Logic**: Domain services, validation rules, calculations\n- **Infrastructure**: Logging, caching, HTTP clients, database access\n- **Utilities**: String manipulation, date handling, formatters\n- **Third-Party Wrappers**: Abstraction layers over external libraries\n\n**Reusability Principles**:\n- Extract when used 3+ times (Rule of Three)\n- Prefer composition over inheritance\n- Design for extension, closed for modification (Open/Closed)\n- Keep components focused (Single Responsibility)\n- Version independently when appropriate\n\n**Component Governance**:\n- Ownership and maintenance responsibilities\n- Contribution and review process\n- Deprecation and migration policies\n- Documentation requirements\n- Testing and quality standards\n\n**Discovery and Registry**:\n- Component catalog and documentation portal\n- Searchable API documentation\n- Usage examples and integration guides\n- Version compatibility matrix\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — reusability / maintainability quality attributes"
+            ],
+            "connotation": "Captures the overall strategy for creating, cataloguing, and governing reusable components across the system."
           }
         },
         {
@@ -200704,10 +203139,28 @@
           "name": "sharedLibraries",
           "kind": "list",
           "doc": "Shared component library catalog.",
+          "help": "Add one entry per shared library.",
           "sectionId": "SHLCP-SHAR-LST",
           "sectionIdPattern": "SHLCP-SHAR-xxx",
+          "standardReferences": {
+            "standards": [
+              "DRY — reusable component design",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "The shared libraries reused across the system."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DRY — reusable component design",
+                  "Semantic Versioning (SemVer) — library versioning"
+                ],
+                "connotation": "The shared libraries reused across the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -200718,6 +203171,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SHLCP-SHAR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per shared library."
               }
             },
             {
@@ -200734,10 +203193,28 @@
           "name": "uiComponents",
           "kind": "list",
           "doc": "UI component library entries.",
+          "help": "Add one entry per UI component.",
           "sectionId": "RUICMP-UICO-LST",
           "sectionIdPattern": "RUICMP-UICO-xxx",
+          "standardReferences": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "The reusable UI components shared across the system."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DRY — reusable component design",
+                  "SOLID principles — object-oriented design"
+                ],
+                "connotation": "The reusable UI components shared across the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -200748,6 +203225,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RUICMP-UICO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per UI component."
               }
             },
             {
@@ -200764,10 +203247,28 @@
           "name": "businessComponents",
           "kind": "list",
           "doc": "Business logic components.",
+          "help": "Add one entry per business component.",
           "sectionId": "BUCOEN-BUSI-LST",
           "sectionIdPattern": "BUCOEN-BUSI-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — reusability quality attributes"
+            ],
+            "connotation": "The reusable business logic components shared across the system."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — bounded contexts / modules",
+                  "ISO/IEC 25010 — reusability quality attributes"
+                ],
+                "connotation": "The reusable business logic components shared across the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -200778,6 +203279,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BUCOEN-BUSI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business component."
               }
             },
             {
@@ -200794,10 +203301,28 @@
           "name": "infrastructureComponents",
           "kind": "list",
           "doc": "Infrastructure components.",
+          "help": "Add one entry per infrastructure component.",
           "sectionId": "INCOEN-INFR-LST",
           "sectionIdPattern": "INCOEN-INFR-xxx",
+          "standardReferences": {
+            "standards": [
+              "DRY — reusable component design",
+              "ISO/IEC 25010 — maintainability quality attributes"
+            ],
+            "connotation": "The reusable infrastructure components shared across the system."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DRY — reusable component design",
+                  "ISO/IEC 25010 — maintainability quality attributes"
+                ],
+                "connotation": "The reusable infrastructure components shared across the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -200808,6 +203333,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INCOEN-INFR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per infrastructure component."
               }
             },
             {
@@ -200824,10 +203355,28 @@
           "name": "thirdPartyLibraries",
           "kind": "list",
           "doc": "Third-party frameworks and libraries.",
+          "help": "Add one entry per third-party library.",
           "sectionId": "THPALI-THIR-LST",
           "sectionIdPattern": "THPALI-THIR-xxx",
+          "standardReferences": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "The third-party frameworks and libraries reused across the system."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "package management (pub / npm / Maven) — dependency management",
+                  "Semantic Versioning (SemVer) — library versioning"
+                ],
+                "connotation": "The third-party frameworks and libraries reused across the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -200838,6 +203387,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "THPALI-THIR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per third-party library."
               }
             },
             {
@@ -201172,7 +203727,24 @@
       "name": "ReusableUiComponentEntry",
       "sectionId": "RUCE",
       "doc": "UI component entry — a reusable UI widget or pattern.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures a reusable UI widget or pattern, its category, and its purpose within the design system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures a reusable UI widget or pattern, its category, and its purpose within the design system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201304,7 +203876,24 @@
       "name": "ReusableUiComponentEntryApi",
       "sectionId": "RUCEA",
       "doc": "Component API for UI component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the required/optional properties, callbacks, and slots forming the UI component API."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the required/optional properties, callbacks, and slots forming the UI component API."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201368,7 +203957,24 @@
       "name": "ReusableUiComponentEntryDescription",
       "sectionId": "RUCED",
       "doc": "Description and use cases for UI component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the visual description, use cases, and anti-patterns for the UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the visual description, use cases, and anti-patterns for the UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201432,7 +204038,24 @@
       "name": "ReusableUiComponentEntryDesign",
       "sectionId": "REUICOENDE",
       "doc": "Design specifications for UI component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the design tokens, variants, states, and responsive behavior of the UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the design tokens, variants, states, and responsive behavior of the UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201496,7 +204119,24 @@
       "name": "ReusableUiComponentEntryImplementation",
       "sectionId": "REUICOENIM",
       "doc": "Implementation details for UI component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the implementing widget class, example code, and demo references for the UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the implementing widget class, example code, and demo references for the UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -201560,7 +204200,24 @@
       "name": "ReusableUiComponentEntryInteraction",
       "sectionId": "RUCEI",
       "doc": "Interaction and accessibility for UI component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "SOLID principles — object-oriented design"
+        ],
+        "connotation": "Captures the interaction patterns, accessibility features, and animations of the UI component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "SOLID principles — object-oriented design"
+            ],
+            "connotation": "Captures the interaction patterns, accessibility features, and animations of the UI component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224391,7 +227048,26 @@
       "name": "SharedLibraryComponentEntry",
       "sectionId": "SHLCP",
       "doc": "Shared library component entry.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "Semantic Versioning (SemVer) — library versioning",
+          "package management (pub / npm / Maven) — dependency management"
+        ],
+        "connotation": "Captures a shared library reused across the system, its type, and its version."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "Semantic Versioning (SemVer) — library versioning",
+              "package management (pub / npm / Maven) — dependency management"
+            ],
+            "connotation": "Captures a shared library reused across the system, its type, and its version."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224508,7 +227184,24 @@
       "name": "SharedLibraryComponentEntryDescription",
       "sectionId": "SLCED",
       "doc": "Purpose and consumers for shared library component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures the package name, purpose, functionality, and target consumers of the shared library component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures the package name, purpose, functionality, and target consumers of the shared library component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224579,7 +227272,24 @@
       "name": "SharedLibraryComponentEntryOwnership",
       "sectionId": "SLCEO",
       "doc": "Ownership and lifecycle for shared library component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures the owner, maintainers, support channel, and maturity level of the shared library component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures the owner, maintainers, support channel, and maturity level of the shared library component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224657,7 +227367,24 @@
       "name": "SharedLibraryComponentEntryQuality",
       "sectionId": "SLCEQ",
       "doc": "Quality and documentation for shared library component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "package management (pub / npm / Maven) — dependency management"
+        ],
+        "connotation": "Captures the test coverage, documentation, and examples location for the shared library component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "package management (pub / npm / Maven) — dependency management"
+            ],
+            "connotation": "Captures the test coverage, documentation, and examples location for the shared library component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224714,7 +227441,24 @@
       "name": "SharedLibraryComponentEntryTechnical",
       "sectionId": "SLCET",
       "doc": "Technical API details for shared library component.",
+      "standardReferences": {
+        "standards": [
+          "DRY — reusable component design",
+          "package management (pub / npm / Maven) — dependency management"
+        ],
+        "connotation": "Captures the public API, extension points, configuration, and dependencies of the shared library component."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DRY — reusable component design",
+              "package management (pub / npm / Maven) — dependency management"
+            ],
+            "connotation": "Captures the public API, extension points, configuration, and dependencies of the shared library component."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224778,7 +227522,24 @@
       "name": "SharedLibraryEntry",
       "sectionId": "SHLIEN",
       "doc": "Shared library entry — a reusable library or utility.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes a single reusable shared library or utility available across the software."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes a single reusable shared library or utility available across the software."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224880,7 +227641,24 @@
       "name": "SharedLibraryEntryApi",
       "sectionId": "SLEA",
       "doc": "API details.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Describes the public classes, functions, and extension points exposed by a shared library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Describes the public classes, functions, and extension points exposed by a shared library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224937,7 +227715,24 @@
       "name": "SharedLibraryEntryDescription",
       "sectionId": "SHLIENDE",
       "doc": "Description and usage.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Captures the purpose, target consumers, and usage guidelines of a shared library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Captures the purpose, target consumers, and usage guidelines of a shared library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224994,7 +227789,24 @@
       "name": "SharedLibraryEntryLifecycle",
       "sectionId": "SLEL",
       "doc": "Constraints and lifecycle.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — bounded contexts / modules",
+          "ISO/IEC 25010 — maintainability / modularity quality attributes"
+        ],
+        "connotation": "Captures the compatibility, performance, thread-safety, and deprecation lifecycle of a shared library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — bounded contexts / modules",
+              "ISO/IEC 25010 — maintainability / modularity quality attributes"
+            ],
+            "connotation": "Captures the compatibility, performance, thread-safety, and deprecation lifecycle of a shared library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -226963,7 +229775,24 @@
       "name": "SoftwareLayerEntry",
       "sectionId": "SLE",
       "doc": "Software layer entry — a horizontal layer in the architecture.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Describes a single horizontal software layer such as presentation, domain, or infrastructure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Describes a single horizontal software layer such as presentation, domain, or infrastructure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227080,7 +229909,24 @@
       "name": "SoftwareLayerEntryComponents",
       "sectionId": "SLEC",
       "doc": "Typical components and organization.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Describes the typical components, naming conventions, and folder structure of a software layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Describes the typical components, naming conventions, and folder structure of a software layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227137,7 +229983,24 @@
       "name": "SoftwareLayerEntryDependencies",
       "sectionId": "SLED",
       "doc": "Dependency rules.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Defines the allowed, forbidden, and external dependencies of a software layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Defines the allowed, forbidden, and external dependencies of a software layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227194,7 +230057,24 @@
       "name": "SoftwareLayerEntryResponsibilities",
       "sectionId": "SLER",
       "doc": "Responsibilities and constraints.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "Defines the purpose, key responsibilities, and prohibitions of a software layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "Defines the purpose, key responsibilities, and prohibitions of a software layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227251,7 +230131,24 @@
       "name": "SoftwareLayerEntryTechnology",
       "sectionId": "SLET",
       "doc": "Technology and testing notes.",
+      "standardReferences": {
+        "standards": [
+          "Clean Architecture — dependency rule / layering",
+          "ISO/IEC/IEEE 42010 — architecture description"
+        ],
+        "connotation": "Captures the frameworks, implementation notes, and testing approach for a software layer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Clean Architecture — dependency rule / layering",
+              "ISO/IEC/IEEE 42010 — architecture description"
+            ],
+            "connotation": "Captures the frameworks, implementation notes, and testing approach for a software layer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -235721,6 +238618,13 @@
       "doc": "8.3. Standard Application Software Requirements.",
       "help": "Define requirements for standard software, third-party components, and\ncompatibility with existing IT infrastructure. Enterprise integration\noften requires alignment with established platforms and protocols.\n\n**Subsections**:\n- **Compatibility Requirements**: OS compatibility, browser support,\n  database compatibility, enterprise system integration\n- **Standards Compliance**: IT standards (ISO, IEEE, NIST), industry\n  protocols, regulatory requirements, certification needs\n\n**Evaluation Criteria for Commercial/Open-Source Software**:\n- Functional fit with requirements\n- Total cost of ownership (license, support, training)\n- Vendor stability and roadmap alignment\n- Community health and update frequency\n- Security track record and vulnerability response\n- Integration capabilities and API availability\n- Data portability and exit strategy\n\n**Enterprise Considerations**:\n- Existing enterprise licenses and preferred vendors\n- IT governance and procurement processes\n- Support agreements and SLAs\n- Training and documentation availability\n- Scalability and high-availability options\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures requirements for standard, third-party, and commercial software and their compatibility with existing infrastructure."
+      },
       "annotations": [
         {
           "name": "DetailedIn",
@@ -235739,6 +238643,16 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define requirements for standard software, third-party components, and\ncompatibility with existing IT infrastructure. Enterprise integration\noften requires alignment with established platforms and protocols.\n\n**Subsections**:\n- **Compatibility Requirements**: OS compatibility, browser support,\n  database compatibility, enterprise system integration\n- **Standards Compliance**: IT standards (ISO, IEEE, NIST), industry\n  protocols, regulatory requirements, certification needs\n\n**Evaluation Criteria for Commercial/Open-Source Software**:\n- Functional fit with requirements\n- Total cost of ownership (license, support, training)\n- Vendor stability and roadmap alignment\n- Community health and update frequency\n- Security track record and vulnerability response\n- Integration capabilities and API availability\n- Data portability and exit strategy\n\n**Enterprise Considerations**:\n- Existing enterprise licenses and preferred vendors\n- IT governance and procurement processes\n- Support agreements and SLAs\n- Training and documentation availability\n- Scalability and high-availability options\n"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures requirements for standard, third-party, and commercial software and their compatibility with existing infrastructure."
           }
         },
         {
@@ -257089,7 +260003,24 @@
       "name": "ThirdPartyLibraryEntry",
       "sectionId": "THPALI",
       "doc": "Third-party library entry.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures a third-party framework or library, its source, version, and evaluation for reuse."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures a third-party framework or library, its source, version, and evaluation for reuse."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257221,7 +260152,24 @@
       "name": "ThirdPartyLibraryEntryEvaluation",
       "sectionId": "TPLEE",
       "doc": "Evaluation and selection.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures the evaluation, alternatives considered, and rationale for selecting the third-party library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures the evaluation, alternatives considered, and rationale for selecting the third-party library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257285,7 +260233,24 @@
       "name": "ThirdPartyLibraryEntryLicense",
       "sectionId": "TPLEL",
       "doc": "Licensing details.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures the license, compliance status, and attribution requirements of the third-party library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures the license, compliance status, and attribution requirements of the third-party library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257342,7 +260307,24 @@
       "name": "ThirdPartyLibraryEntryMonitoring",
       "sectionId": "TPLEM",
       "doc": "Monitoring and notes.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures how updates and deprecations of the third-party library are monitored and handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures how updates and deprecations of the third-party library are monitored and handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257399,7 +260381,24 @@
       "name": "ThirdPartyLibraryEntryRisk",
       "sectionId": "TPLER",
       "doc": "Risk profile.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures the maintenance, community, security, and lock-in risk profile of the third-party library."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures the maintenance, community, security, and lock-in risk profile of the third-party library."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257463,7 +260462,24 @@
       "name": "ThirdPartyLibraryEntryUsage",
       "sectionId": "TPLEU",
       "doc": "Usage and upgrade strategy.",
+      "standardReferences": {
+        "standards": [
+          "package management (pub / npm / Maven) — dependency management",
+          "Semantic Versioning (SemVer) — library versioning"
+        ],
+        "connotation": "Captures where the third-party library is used and the strategy for wrapping and upgrading it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "package management (pub / npm / Maven) — dependency management",
+              "Semantic Versioning (SemVer) — library versioning"
+            ],
+            "connotation": "Captures where the third-party library is used and the strategy for wrapping and upgrading it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -277698,7 +280714,24 @@
       "name": "VersionControlConfiguration",
       "sectionId": "VECOCO",
       "doc": "Version control configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Describes version control configuration including the VCS system, version, and hosting platform."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Describes version control configuration including the VCS system, version, and hosting platform."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -277815,7 +280848,24 @@
       "name": "VersionControlConfigurationBranching",
       "sectionId": "VCCB",
       "doc": "Branching policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Semantic Versioning (SemVer) — build / release versioning"
+        ],
+        "connotation": "Captures branching policy including branching strategy, branch naming, and hotfix workflow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Semantic Versioning (SemVer) — build / release versioning"
+            ],
+            "connotation": "Captures branching policy including branching strategy, branch naming, and hotfix workflow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -277886,7 +280936,24 @@
       "name": "VersionControlConfigurationCommits",
       "sectionId": "VCCC",
       "doc": "Commit and merge policy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Semantic Versioning (SemVer) — build / release versioning"
+        ],
+        "connotation": "Captures commit and merge policy including message format, commit signing, and squash/merge rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Semantic Versioning (SemVer) — build / release versioning"
+            ],
+            "connotation": "Captures commit and merge policy including message format, commit signing, and squash/merge rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -277943,7 +281010,24 @@
       "name": "VersionControlConfigurationMetadata",
       "sectionId": "VCCM",
       "doc": "Tagging and file attribute settings.",
+      "standardReferences": {
+        "standards": [
+          "Semantic Versioning (SemVer) — build / release versioning",
+          "ISO/IEC 12207 — software lifecycle processes"
+        ],
+        "connotation": "Captures tagging conventions, tag signing, and file attribute settings for the repository."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Semantic Versioning (SemVer) — build / release versioning",
+              "ISO/IEC 12207 — software lifecycle processes"
+            ],
+            "connotation": "Captures tagging conventions, tag signing, and file attribute settings for the repository."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -278014,7 +281098,24 @@
       "name": "VersionControlConfigurationRepository",
       "sectionId": "VCCR",
       "doc": "Repository structure settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 12207 — software lifecycle processes",
+          "Twelve-Factor App — cloud-native methodology"
+        ],
+        "connotation": "Captures repository structure settings such as monorepo/polyrepo layout, submodule policy, and LFS usage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 12207 — software lifecycle processes",
+              "Twelve-Factor App — cloud-native methodology"
+            ],
+            "connotation": "Captures repository structure settings such as monorepo/polyrepo layout, submodule policy, and LFS usage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
