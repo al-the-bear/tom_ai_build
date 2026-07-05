@@ -79295,7 +79295,24 @@
       "name": "DecisionOptionEntry",
       "sectionId": "DOE",
       "doc": "A decision option entry (form).\n\nOne of the available options for a decision point, with full\nimpact analysis, feasibility assessment, and trade-off evaluation.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+        ],
+        "connotation": "Represents a single available option for a decision point together with its selection flags, impact, feasibility, and trade-offs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Represents a single available option for a decision point together with its selection flags, impact, feasibility, and trade-offs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79412,7 +79429,24 @@
       "name": "DecisionOptionEntryFeasibility",
       "sectionId": "DOEF",
       "doc": "Feasibility assessment.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+        ],
+        "connotation": "Records the technical and organizational feasibility assessment of a decision option along with the key factors shaping that judgment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Records the technical and organizational feasibility assessment of a decision option along with the key factors shaping that judgment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79469,7 +79503,24 @@
       "name": "DecisionOptionEntryImpact",
       "sectionId": "DOEI",
       "doc": "Impact analysis.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+        ],
+        "connotation": "Captures the cost, schedule, quality, risk, scope, and resource impact of a single decision option."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Captures the cost, schedule, quality, risk, scope, and resource impact of a single decision option."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79547,7 +79598,24 @@
       "name": "DecisionOptionEntrySelection",
       "sectionId": "DOES",
       "doc": "Recommendation flags.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+        ],
+        "connotation": "Marks whether a decision option is the default fallback and whether the analysis team recommends it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Marks whether a decision option is the default fallback and whether the analysis team recommends it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79597,7 +79665,24 @@
       "name": "DecisionOptionEntryTradeOffs",
       "sectionId": "DOETO",
       "doc": "Trade-offs and reversibility.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+        ],
+        "connotation": "Captures the advantages, disadvantages, assumptions, downstream implications, and reversibility that distinguish one decision option from another."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Captures the advantages, disadvantages, assumptions, downstream implications, and reversibility that distinguish one decision option from another."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79668,7 +79753,24 @@
       "name": "DecisionPointEntry",
       "sectionId": "DPE",
       "doc": "A decision point entry (form).\n\nA single formal decision point with defined timing, criteria,\nauthority, available options with impact analysis, and recording\nof the actual decision and its rationale.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+        ],
+        "connotation": "Represents a single formal decision point with its identity, category, context, stakeholders, criteria, and resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Represents a single formal decision point with its identity, category, context, stakeholders, criteria, and resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79785,7 +79887,24 @@
       "name": "DecisionPointEntryContext",
       "sectionId": "DPEC",
       "doc": "Context and timing for decision point.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+        ],
+        "connotation": "Captures the description, stage, timing, deadline, and trigger event that place a decision point within the delivery timeline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Captures the description, stage, timing, deadline, and trigger event that place a decision point within the delivery timeline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79856,7 +79975,24 @@
       "name": "DecisionPointEntryCriteria",
       "sectionId": "DEPOENCR",
       "doc": "Criteria and inputs for decision point.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "COBIT 2019 — the governance of enterprise IT framework defines decision rights and accountability structures"
+        ],
+        "connotation": "Captures the criteria, required inputs, constraint factors, and delay risk that govern how this decision point is resolved."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "COBIT 2019 — the governance of enterprise IT framework defines decision rights and accountability structures"
+            ],
+            "connotation": "Captures the criteria, required inputs, constraint factors, and delay risk that govern how this decision point is resolved."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -79920,7 +80056,24 @@
       "name": "DecisionPointEntryResolution",
       "sectionId": "DPER",
       "doc": "Resolution details for decision point.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+        ],
+        "connotation": "Records the outcome of a decision point including the selected option, rationale, decision record reference, and revisit date."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Records the outcome of a decision point including the selected option, rationale, decision record reference, and revisit date."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80019,10 +80172,28 @@
           "name": "options",
           "kind": "list",
           "doc": "Contains 0+× DecisionOptionEntry.",
+          "help": "Add one entry per decision option.",
           "sectionId": "DEOPEN-OPTI-LST",
           "sectionIdPattern": "DEOPEN-OPTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+            ],
+            "connotation": "Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+                  "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"
+                ],
+                "connotation": "Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -80033,6 +80204,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEOPEN-OPTI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per decision option."
               }
             },
             {
@@ -80051,7 +80228,24 @@
       "name": "DecisionPointEntryStakeholders",
       "sectionId": "DPES",
       "doc": "Stakeholder assignments for decision point.",
+      "standardReferences": {
+        "standards": [
+          "COBIT 2019 — the governance of enterprise IT framework defines decision rights and accountability structures",
+          "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+        ],
+        "connotation": "Assigns the decision authority, driver, contributors, and informed parties for a decision point using a DACI-style responsibility model."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "COBIT 2019 — the governance of enterprise IT framework defines decision rights and accountability structures",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Assigns the decision authority, driver, contributors, and informed parties for a decision point using a DACI-style responsibility model."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80116,7 +80310,24 @@
       "sectionId": "DEPO",
       "doc": "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+          "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+        ],
+        "connotation": "Captures the key decision points in the stage plan including the decision framework, categories, recording method, and review cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Captures the key decision points in the stage plan including the decision framework, categories, recording method, and review cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -80228,10 +80439,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DecisionPointEntry.",
+          "help": "Add one entry per decision point.",
           "sectionId": "DEPOEN-ITEM-LST",
           "sectionIdPattern": "DEPOEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+              "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+            ],
+            "connotation": "Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions",
+                  "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"
+                ],
+                "connotation": "Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -80242,6 +80471,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEPOEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per decision point."
               }
             },
             {
@@ -132510,7 +132745,24 @@
       "sectionId": "INDEFL",
       "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_system_creation.md`). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines development-phase dependencies, transitions, and integration points",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers phase sequencing, parallelization, and synchronization during delivery"
+        ],
+        "connotation": "Describes how the initial-development phases hand off to each other including dependencies, parallel work streams, and synchronization points."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines development-phase dependencies, transitions, and integration points",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers phase sequencing, parallelization, and synchronization during delivery"
+            ],
+            "connotation": "Describes how the initial-development phases hand off to each other including dependencies, parallel work streams, and synchronization points."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144314,7 +144566,24 @@
       "name": "KeyAssumptionEntry",
       "sectionId": "KEYAS",
       "doc": "A single key assumption entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions that underpin the delivery approach",
+          "ISO 21502:2020 — the guidance on project management defines assumption identification and management within the project life-cycle"
+        ],
+        "connotation": "Captures a single key assumption on which the delivery staging plan depends."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions that underpin the delivery approach",
+              "ISO 21502:2020 — the guidance on project management defines assumption identification and management within the project life-cycle"
+            ],
+            "connotation": "Captures a single key assumption on which the delivery staging plan depends."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186296,7 +186565,24 @@
       "name": "PhaseGateAuthority",
       "sectionId": "PHGAAU",
       "doc": "Authority and participants.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Captures the decision authority and participants for a phase gate including mandatory, advisory, and external attendees."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Captures the decision authority and participants for a phase gate including mandatory, advisory, and external attendees."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186360,7 +186646,24 @@
       "name": "PhaseGateEntry",
       "sectionId": "PHGAEN",
       "doc": "Entry conditions.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Captures the entry conditions that must be met before a phase gate review can proceed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Captures the entry conditions that must be met before a phase gate review can proceed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186410,7 +186713,24 @@
       "name": "PhaseGateEvidence",
       "sectionId": "PHGAEV",
       "doc": "Evidence.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+        ],
+        "connotation": "Captures the evidence presented at a phase gate including required artifacts, their format, and where they are stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+            ],
+            "connotation": "Captures the evidence presented at a phase gate including required artifacts, their format, and where they are stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186467,7 +186787,24 @@
       "name": "PhaseGateExit",
       "sectionId": "PHGAEX",
       "doc": "Exit conditions and outcome.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186552,7 +186889,24 @@
       "name": "PhaseGateIdentity",
       "sectionId": "PHGAID",
       "doc": "Gate identity.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Captures the identity of a phase gate including its descriptive purpose and position within the stage sequence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Captures the identity of a phase gate including its descriptive purpose and position within the stage sequence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186602,7 +186956,24 @@
       "name": "PhaseGateReviewEntry",
       "sectionId": "PHGAREEN",
       "doc": "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Defines a single phase gate with its identity, authority, schedule, entry and exit conditions, evidence, and review criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Defines a single phase gate with its identity, authority, schedule, entry and exit conditions, evidence, and review criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186770,10 +187141,28 @@
           "name": "reviewCriteria",
           "kind": "list",
           "doc": "Contains 0+× ReviewCriterionEntry.",
+          "help": "Add one entry per review criterion.",
           "sectionId": "RVCRI-REVI-LST",
           "sectionIdPattern": "RVCRI-REVI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+            ],
+            "connotation": "Lists the review criteria evaluated at this phase gate, each with its own weight, evidence linkage, and result."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+                  "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+                ],
+                "connotation": "Lists the review criteria evaluated at this phase gate, each with its own weight, evidence linkage, and result."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -186784,6 +187173,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RVCRI-REVI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per review criterion."
               }
             },
             {
@@ -186803,7 +187198,24 @@
       "sectionId": "PHGARE",
       "doc": "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Defines the phase gate review process covering what is reviewed at each gate, who participates, the required evidence, and the possible outcomes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Defines the phase gate review process covering what is reviewed at each gate, who participates, the required evidence, and the possible outcomes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -186931,10 +187343,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PhaseGateReviewEntry.",
+          "help": "Add one entry per phase gate review.",
           "sectionId": "PGRE-ITEM-LST",
           "sectionIdPattern": "PGRE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+                  "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+                ],
+                "connotation": "Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -186945,6 +187375,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PGRE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per phase gate review."
               }
             },
             {
@@ -186963,7 +187399,24 @@
       "name": "PhaseGateReviewsOutcomes",
       "sectionId": "PGRO",
       "doc": "Gate decision outcomes and follow-up rules.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Defines the possible gate decision outcomes and their follow-up rules including conditional proceed, rework, and cancel handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Defines the possible gate decision outcomes and their follow-up rules including conditional proceed, rework, and cancel handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -187027,7 +187480,24 @@
       "name": "PhaseGateReviewsPreparation",
       "sectionId": "PGRP",
       "doc": "Standard participants and evidence package.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Defines the standard participants and evidence package expected at every phase gate review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Defines the standard participants and evidence package expected at every phase gate review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -187091,7 +187561,24 @@
       "name": "PhaseGateSchedule",
       "sectionId": "PHGASC",
       "doc": "Schedule.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+          "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+        ],
+        "connotation": "Captures the schedule for a phase gate review including its planned date, preparation lead time, and expected duration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls",
+              "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"
+            ],
+            "connotation": "Captures the schedule for a phase gate review including its planned date, preparation lead time, and expected duration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -226057,7 +226544,24 @@
       "name": "ReviewCriterionEntry",
       "sectionId": "RVCRI",
       "doc": "A review criterion entry (form).\n\nA single criterion evaluated at a phase gate, with weight,\nevidence linkage, and assessment result.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+        ],
+        "connotation": "Defines a single criterion evaluated at a phase gate together with its category, weight, evidence linkage, and result."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+            ],
+            "connotation": "Defines a single criterion evaluated at a phase gate together with its category, weight, evidence linkage, and result."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -226151,7 +226655,24 @@
       "name": "ReviewCriterionEntryAssessment",
       "sectionId": "RCEA",
       "doc": "How this criterion is measured and weighted.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+        ],
+        "connotation": "Defines how a review criterion is measured and weighted, including its threshold, mandatory status, and required evidence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+            ],
+            "connotation": "Defines how a review criterion is measured and weighted, including its threshold, mandatory status, and required evidence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -226222,7 +226743,24 @@
       "name": "ReviewCriterionEntryResult",
       "sectionId": "RCER",
       "doc": "Post-review result and remediation status.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+        ],
+        "connotation": "Captures the post-review result for a criterion together with reviewer notes and any required remediation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes"
+            ],
+            "connotation": "Captures the post-review result for a criterion together with reviewer notes and any required remediation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257296,7 +257834,24 @@
       "sectionId": "STGO",
       "doc": "13.6. Governance.\n\nGovernance framework for stage transitions, phase gate reviews,\nand key decision points. Covers governance structure, authority\nmodel, escalation paths, compliance requirements, and the\nceremonies that control stage advancement. Aligns with PMBOK\ngovernance gates, SAFe Program Increment boundaries, PRINCE2\nstage gates, and TOGAF architecture governance.",
       "mapsTo": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines project governance, roles, and decision authority",
+          "COBIT 2019 — the governance of enterprise IT framework defines the governance model, roles, and accountability structures"
+        ],
+        "connotation": "This section is the stage governance root, capturing the governance structure, authority model, escalation paths, cadence, compliance, metrics, and transition rules that control stage advancement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines project governance, roles, and decision authority",
+              "COBIT 2019 — the governance of enterprise IT framework defines the governance model, roles, and accountability structures"
+            ],
+            "connotation": "This section is the stage governance root, capturing the governance structure, authority model, escalation paths, cadence, compliance, metrics, and transition rules that control stage advancement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257517,7 +258072,24 @@
       "name": "StageGovernanceAuthority",
       "sectionId": "STGOAU",
       "doc": "Authority and oversight.",
+      "standardReferences": {
+        "standards": [
+          "COBIT 2019 — the governance of enterprise IT framework defines governance roles, board structures, and accountability",
+          "ISO/IEC 38500:2015 — the governance of IT standard defines responsibility and delegated authority for the governing body"
+        ],
+        "connotation": "This section captures governance authority and oversight including the board name, chair, members, quorum, and delegated authority threshold."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "COBIT 2019 — the governance of enterprise IT framework defines governance roles, board structures, and accountability",
+              "ISO/IEC 38500:2015 — the governance of IT standard defines responsibility and delegated authority for the governing body"
+            ],
+            "connotation": "This section captures governance authority and oversight including the board name, chair, members, quorum, and delegated authority threshold."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257588,7 +258160,24 @@
       "name": "StageGovernanceCadence",
       "sectionId": "STGOCA",
       "doc": "Meeting cadence and process.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance defines communication and meeting cadence within the project life-cycle",
+          "ISO 21502:2020 — the guidance on project management defines governance meeting practices and information distribution"
+        ],
+        "connotation": "This section captures governance meeting cadence and process including frequency, duration, format, agenda template, and minutes distribution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance defines communication and meeting cadence within the project life-cycle",
+              "ISO 21502:2020 — the guidance on project management defines governance meeting practices and information distribution"
+            ],
+            "connotation": "This section captures governance meeting cadence and process including frequency, duration, format, agenda template, and minutes distribution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257659,7 +258248,24 @@
       "name": "StageGovernanceCompliance",
       "sectionId": "STGOCO",
       "doc": "Compliance and audit requirements.",
+      "standardReferences": {
+        "standards": [
+          "COBIT 2019 — the governance of enterprise IT framework defines compliance, audit, and accountability structures",
+          "ISO/IEC 38500:2015 — the governance of IT standard defines conformance and compliance responsibilities for the organization"
+        ],
+        "connotation": "This section captures compliance and audit requirements including compliance obligations, audit trail, retention policy, and external audit integration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "COBIT 2019 — the governance of enterprise IT framework defines compliance, audit, and accountability structures",
+              "ISO/IEC 38500:2015 — the governance of IT standard defines conformance and compliance responsibilities for the organization"
+            ],
+            "connotation": "This section captures compliance and audit requirements including compliance obligations, audit trail, retention policy, and external audit integration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257723,7 +258329,24 @@
       "name": "StageGovernanceEscalation",
       "sectionId": "STGOES",
       "doc": "Escalation paths and triggers.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance defines escalation paths and decision authority within project governance",
+          "PRINCE2 2017 — the managing successful projects method defines management-by-exception and escalation to higher authority"
+        ],
+        "connotation": "This section captures escalation paths and triggers including the escalation route, triggering conditions, and escalation timeframe."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance defines escalation paths and decision authority within project governance",
+              "PRINCE2 2017 — the managing successful projects method defines management-by-exception and escalation to higher authority"
+            ],
+            "connotation": "This section captures escalation paths and triggers including the escalation route, triggering conditions, and escalation timeframe."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257780,7 +258403,24 @@
       "name": "StageGovernanceMetrics",
       "sectionId": "STGOME",
       "doc": "Metrics and reporting.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance defines performance measurement and reporting to inform governance decisions",
+          "ISO 21502:2020 — the guidance on project management defines monitoring and reporting practices across the project life-cycle"
+        ],
+        "connotation": "This section captures governance metrics and reporting including KPIs, reporting frequency, and dashboard location."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance defines performance measurement and reporting to inform governance decisions",
+              "ISO 21502:2020 — the guidance on project management defines monitoring and reporting practices across the project life-cycle"
+            ],
+            "connotation": "This section captures governance metrics and reporting including KPIs, reporting frequency, and dashboard location."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257837,7 +258477,24 @@
       "name": "StageGovernanceModel",
       "sectionId": "STGOMO",
       "doc": "Governance model details.",
+      "standardReferences": {
+        "standards": [
+          "COBIT 2019 — the governance of enterprise IT framework defines the governance model separating governance from management",
+          "ISO/IEC 38500:2015 — the governance of IT standard defines governance principles that shape the governance model"
+        ],
+        "connotation": "This section captures the governance model details including reference to the formal governance charter document."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "COBIT 2019 — the governance of enterprise IT framework defines the governance model separating governance from management",
+              "ISO/IEC 38500:2015 — the governance of IT standard defines governance principles that shape the governance model"
+            ],
+            "connotation": "This section captures the governance model details including reference to the formal governance charter document."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257880,7 +258537,24 @@
       "name": "StageGovernanceTransition",
       "sectionId": "STGOTR",
       "doc": "Stage transition rules.",
+      "standardReferences": {
+        "standards": [
+          "PRINCE2 2017 — the managing successful projects method defines stage-boundary controls and criteria for moving between management stages",
+          "ISO 21502:2020 — the guidance on project management defines governance controls governing transitions within the project life-cycle"
+        ],
+        "connotation": "This section captures stage transition rules including advancement policy, conditional advancement, rollback, and emergency bypass procedures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PRINCE2 2017 — the managing successful projects method defines stage-boundary controls and criteria for moving between management stages",
+              "ISO 21502:2020 — the guidance on project management defines governance controls governing transitions within the project life-cycle"
+            ],
+            "connotation": "This section captures stage transition rules including advancement policy, conditional advancement, rollback, and emergency bypass procedures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -263742,7 +264416,24 @@
       "name": "StagingStrategyConstraintEntry",
       "sectionId": "STAGI",
       "doc": "A single constraint entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions and constraints that bound delivery staging",
+          "ISO 21502:2020 — the guidance on project management defines constraint identification and management within the project life-cycle"
+        ],
+        "connotation": "Captures a single staging constraint that bounds how the delivery plan may be structured."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions and constraints that bound delivery staging",
+              "ISO 21502:2020 — the guidance on project management defines constraint identification and management within the project life-cycle"
+            ],
+            "connotation": "Captures a single staging constraint that bounds how the delivery plan may be structured."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -301572,7 +302263,24 @@
       "sectionId": "UPCYFR",
       "doc": "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `_ai/quests/tom_specs/tom_system_upgrade.md`.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 14764:2022 — the software maintenance standard defines corrective, adaptive, perfective, and emergency modification categories that structure upgrade cycles",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the maintenance process governing post-development upgrades"
+        ],
+        "connotation": "Governs the post-development upgrade cycle including cadence, change classification, gates, regression expectations, and rollout differences."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 14764:2022 — the software maintenance standard defines corrective, adaptive, perfective, and emergency modification categories that structure upgrade cycles",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the maintenance process governing post-development upgrades"
+            ],
+            "connotation": "Governs the post-development upgrade cycle including cadence, change classification, gates, regression expectations, and rollout differences."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

@@ -7,13 +7,13 @@ section-types:
     pattern-check-id:
       pattern: ^deopen_opti_lst-\d+$
       error-message: ID must match deopen_opti_lst-NNN
-    description: Contains 0+× DecisionOptionEntry.
+    description: Add one entry per decision option.
   DEPOEN-ITEM-LST:
     prefix: depoen_item_lst
     pattern-check-id:
       pattern: ^depoen_item_lst-\d+$
       error-message: ID must match depoen_item_lst-NNN
-    description: Contains 0+× DecisionPointEntry.
+    description: Add one entry per decision point.
   FEDEEN-ITEM-LST:
     prefix: fedeen_item_lst
     pattern-check-id:
@@ -107,7 +107,7 @@ section-types:
     pattern-check-id:
       pattern: ^rvcri_revi_lst-\d+$
       error-message: ID must match rvcri_revi_lst-NNN
-    description: Contains 0+× ReviewCriterionEntry.
+    description: Add one entry per review criterion.
   STAGE-STAG-LST:
     prefix: stage_stag_lst
     min-count-in-document: 1
@@ -168,7 +168,7 @@ section-types:
     pattern-check-id:
       pattern: ^pgre_item_lst-\d+$
       error-message: ID must match pgre_item_lst-NNN
-    description: Contains 0+× PhaseGateReviewEntry.
+    description: Add one entry per phase gate review.
   STDE-DEPE-LST:
     prefix: stde_depe_lst
     pattern-check-id:
