@@ -39,6 +39,8 @@ void main() {
   final reflectionCases = _reflectionCases(model);
   final validationCases = _validationCases(model);
   final operationsCases = _operationsScript();
+  final sectionIdCases = _sectionIdCases();
+  final serializationOrderCase = _serializationOrderCase();
 
   setUpAll(() {
     if (!update) return;
@@ -53,6 +55,9 @@ void main() {
     write('reflection_cases.json', '${enc.convert(reflectionCases)}\n');
     write('validation_cases.json', '${enc.convert(validationCases)}\n');
     write('operations_cases.json', '${enc.convert(operationsCases)}\n');
+    write('section_id_cases.json', '${enc.convert(sectionIdCases)}\n');
+    write('serialization_order_cases.json',
+        '${enc.convert(serializationOrderCase)}\n');
   });
 
   String read(String name) =>
@@ -187,6 +192,79 @@ void main() {
           fail('unknown op ${s['op']}');
       }
     }
+  });
+
+  // AA1 criteria 3–6: two-letter-date encoding, list-item id generation
+  // (within-day numbering), same-day reuse on last-item deletion, and unique-id
+  // enforcement on override. Pinned as a language-agnostic corpus file so every
+  // port reproduces the identical id semantics.
+  test('section-id cases match the committed expectations', () {
+    final cases =
+        jsonDecode(read('section_id_cases.json')) as Map<String, dynamic>;
+
+    // Criterion 4: the two-letter day code.
+    for (final c in (cases['twoLetterDate'] as List).cast<Map>()) {
+      final date = DateTime(2026, c['month'] as int, c['day'] as int);
+      expect(encodeTwoLetterDate(date), c['expect'],
+          reason: 'twoLetterDate ${c['month']}/${c['day']}');
+    }
+
+    // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+    for (final c in (cases['generate'] as List).cast<Map>()) {
+      final date = DateTime(2026, c['month'] as int, c['day'] as int);
+      final existing = (c['existing'] as List).cast<String>();
+      expect(generateListItemSectionId(c['pattern'] as String, date, existing),
+          c['expect'],
+          reason: 'generate ${c['pattern']} over $existing');
+    }
+
+    // Criteria 5 & 6 at the document level: override keeps ids unique, deleting
+    // the last same-day item frees its number for reuse, deleting a middle one
+    // never renumbers the rest.
+    final d = SpecDocument();
+    for (final s in (cases['documentOps'] as List).cast<Map>()) {
+      switch (s['op']) {
+        case 'addGen':
+          final date = DateTime(2026, s['month'] as int, s['day'] as int);
+          final id = generateListItemSectionId(s['pattern'] as String, date,
+              d.listItemSectionIds(s['listPath'] as String));
+          expect(id, s['expectId'], reason: 'addGen id');
+          final path =
+              d.addListItem(s['listPath'] as String, sectionId: id);
+          expect(path, s['expectPath'], reason: 'addGen path');
+        case 'sectionIds':
+          expect(d.listItemSectionIds(s['listPath'] as String),
+              (s['expect'] as List).cast<String>());
+        case 'removeListItem':
+          expect(d.removeListItem(s['itemPath'] as String), s['expect']);
+        case 'override':
+          d.setItemSectionId(s['itemPath'] as String, s['id'] as String);
+        case 'overrideThrows':
+          expect(
+              () => d.setItemSectionId(s['itemPath'] as String, s['id'] as String),
+              throwsA(isA<SpecSectionIdCollision>()));
+        case 'addExplicitThrows':
+          expect(
+              () => d.addListItem(s['listPath'] as String, sectionId: s['id'] as String),
+              throwsA(isA<SpecSectionIdCollision>()));
+        default:
+          fail('unknown section-id op ${s['op']}');
+      }
+    }
+  });
+
+  // AA1 criterion 7: members serialize in @SerializationOrder, not alphabetical.
+  test('serialization-order case matches the committed expectations', () {
+    final c = jsonDecode(read('serialization_order_cases.json'))
+        as Map<String, dynamic>;
+    final orderModel = SpecModel.fromJson(c['model'] as Map<String, dynamic>);
+    final order = SpecSerializationOrder(orderModel);
+    expect(order.orderPaths((c['contentPaths'] as List).cast<String>()),
+        (c['expectedOrder'] as List).cast<String>());
+    expect(
+        order.orderFormFields(
+            c['formPath'] as String, (c['formFields'] as List).cast<String>()),
+        (c['expectedFormOrder'] as List).cast<String>());
   });
 }
 
@@ -411,3 +489,213 @@ List<Map<String, dynamic>> _operationsScript() => [
       {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-3'},
       {'op': 'removeListItem', 'itemPath': 'A/l-9', 'expect': false},
     ];
+
+/// The section-id corpus (AA1 criteria 3–6). `twoLetterDate` and `generate` pin
+/// the two pure algorithms; `documentOps` replays the document-level id
+/// semantics (unique-override, same-day reuse on last-item delete, no-renumber
+/// on middle delete). Dates use the fixed year 2026 (year is irrelevant to the
+/// two-letter code). Generated ids use the pattern `DEMO-ITEM-xxx` on 4 March
+/// (`C` = month 3, `D` = day 4 → day code `CD`).
+Map<String, dynamic> _sectionIdCases() => {
+      'twoLetterDate': [
+        {'month': 1, 'day': 1, 'expect': 'AA'},
+        {'month': 1, 'day': 26, 'expect': 'AZ'},
+        {'month': 1, 'day': 27, 'expect': 'A0'},
+        {'month': 1, 'day': 31, 'expect': 'A4'},
+        {'month': 2, 'day': 1, 'expect': 'BA'},
+        {'month': 6, 'day': 15, 'expect': 'FO'},
+        {'month': 10, 'day': 10, 'expect': 'JJ'},
+        {'month': 12, 'day': 26, 'expect': 'LZ'},
+        {'month': 12, 'day': 27, 'expect': 'L0'},
+        {'month': 12, 'day': 31, 'expect': 'L4'},
+      ],
+      'generate': [
+        {
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'existing': <String>[],
+          'expect': 'DEMO-ITEM-CD1'
+        },
+        {
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'existing': <String>['DEMO-ITEM-CD1'],
+          'expect': 'DEMO-ITEM-CD2'
+        },
+        // Middle deleted (CD2 gone): max is still 3, so the next id is CD4 —
+        // numbering stays non-consecutive, nothing is renumbered.
+        {
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3'],
+          'expect': 'DEMO-ITEM-CD4'
+        },
+        // A different day starts its own numbering, ignoring other days' ids.
+        {
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 5,
+          'existing': <String>['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2'],
+          'expect': 'DEMO-ITEM-CE1'
+        },
+        {
+          'pattern': 'CUOPME-OPER-xxx',
+          'month': 12,
+          'day': 31,
+          'existing': <String>[],
+          'expect': 'CUOPME-OPER-L41'
+        },
+      ],
+      'documentOps': <Map<String, dynamic>>[
+        {
+          'op': 'addGen',
+          'listPath': 'DEMO/items',
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'expectId': 'DEMO-ITEM-CD1',
+          'expectPath': 'DEMO/items-1'
+        },
+        {
+          'op': 'addGen',
+          'listPath': 'DEMO/items',
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'expectId': 'DEMO-ITEM-CD2',
+          'expectPath': 'DEMO/items-2'
+        },
+        {
+          'op': 'addGen',
+          'listPath': 'DEMO/items',
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'expectId': 'DEMO-ITEM-CD3',
+          'expectPath': 'DEMO/items-3'
+        },
+        {
+          'op': 'sectionIds',
+          'listPath': 'DEMO/items',
+          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD2', 'DEMO-ITEM-CD3']
+        },
+        // Delete the MIDDLE item (CD2): the others keep their ids …
+        {'op': 'removeListItem', 'itemPath': 'DEMO/items-2', 'expect': true},
+        {
+          'op': 'sectionIds',
+          'listPath': 'DEMO/items',
+          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3']
+        },
+        // … and a new same-day item takes CD4 (not the freed CD2): no renumber.
+        {
+          'op': 'addGen',
+          'listPath': 'DEMO/items',
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'expectId': 'DEMO-ITEM-CD4',
+          'expectPath': 'DEMO/items-4'
+        },
+        // Delete the LAST item (CD4) …
+        {'op': 'removeListItem', 'itemPath': 'DEMO/items-4', 'expect': true},
+        // … a new same-day item REUSES CD4 (criterion 6, same-day reuse).
+        {
+          'op': 'addGen',
+          'listPath': 'DEMO/items',
+          'pattern': 'DEMO-ITEM-xxx',
+          'month': 3,
+          'day': 4,
+          'expectId': 'DEMO-ITEM-CD4',
+          'expectPath': 'DEMO/items-5'
+        },
+        // Criterion 5: an arbitrary override is accepted …
+        {
+          'op': 'override',
+          'itemPath': 'DEMO/items-5',
+          'id': 'DEMO-ITEM-CUSTOM'
+        },
+        {
+          'op': 'sectionIds',
+          'listPath': 'DEMO/items',
+          'expect': ['DEMO-ITEM-CD1', 'DEMO-ITEM-CD3', 'DEMO-ITEM-CUSTOM']
+        },
+        // … but a colliding override is rejected …
+        {
+          'op': 'overrideThrows',
+          'itemPath': 'DEMO/items-1',
+          'id': 'DEMO-ITEM-CUSTOM'
+        },
+        // … as is adding an explicit id that already exists in the list.
+        {
+          'op': 'addExplicitThrows',
+          'listPath': 'DEMO/items',
+          'id': 'DEMO-ITEM-CD1'
+        },
+      ],
+    };
+
+/// The serialization-order corpus (AA1 criterion 7). A small model whose fields
+/// declare `@SerializationOrder` in reverse-alphabetical order, so a correct
+/// emission (ZETA, MID, ALPHA) is visibly different from the alphabetical
+/// default. Form fields follow their declared order (title before author).
+/// Expected results are computed live so `UPDATE_CORPUS` keeps them honest.
+Map<String, dynamic> _serializationOrderCase() {
+  final meta = <String, dynamic>{
+    'metaSchemaVersion': 1,
+    'modelVersion': 1,
+    'roots': [
+      {'type': 'Root', 'title': 'Demo', 'sectionId': 'DEMO'}
+    ],
+    'classes': {
+      'Root': {
+        'name': 'Root',
+        'sectionId': 'DEMO',
+        'fields': [
+          {
+            'name': 'head',
+            'kind': 'form',
+            'sectionId': 'HEAD',
+            'serializationOrder': 0,
+            'formFields': [
+              {'name': 'title', 'label': 'Title', 'type': 'String'},
+              {'name': 'author', 'label': 'Author', 'type': 'String'},
+            ],
+          },
+          {
+            'name': 'zeta',
+            'kind': 'content',
+            'sectionId': 'ZETA',
+            'serializationOrder': 1
+          },
+          {
+            'name': 'mid',
+            'kind': 'content',
+            'sectionId': 'MID',
+            'serializationOrder': 2
+          },
+          {
+            'name': 'alpha',
+            'kind': 'content',
+            'sectionId': 'ALPHA',
+            'serializationOrder': 3
+          },
+        ],
+      },
+    },
+  };
+  final model = SpecModel.fromJson(meta);
+  final order = SpecSerializationOrder(model);
+  const contentPaths = ['DEMO/ALPHA', 'DEMO/MID', 'DEMO/ZETA'];
+  const formFields = ['author', 'title'];
+  return {
+    'model': meta,
+    'contentPaths': contentPaths,
+    'expectedOrder': order.orderPaths(contentPaths),
+    'formPath': 'DEMO/HEAD',
+    'formFields': formFields,
+    'expectedFormOrder': order.orderFormFields('DEMO/HEAD', formFields),
+  };
+}

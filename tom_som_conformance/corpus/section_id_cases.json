@@ -1,0 +1,197 @@
+{
+  "twoLetterDate": [
+    {
+      "month": 1,
+      "day": 1,
+      "expect": "AA"
+    },
+    {
+      "month": 1,
+      "day": 26,
+      "expect": "AZ"
+    },
+    {
+      "month": 1,
+      "day": 27,
+      "expect": "A0"
+    },
+    {
+      "month": 1,
+      "day": 31,
+      "expect": "A4"
+    },
+    {
+      "month": 2,
+      "day": 1,
+      "expect": "BA"
+    },
+    {
+      "month": 6,
+      "day": 15,
+      "expect": "FO"
+    },
+    {
+      "month": 10,
+      "day": 10,
+      "expect": "JJ"
+    },
+    {
+      "month": 12,
+      "day": 26,
+      "expect": "LZ"
+    },
+    {
+      "month": 12,
+      "day": 27,
+      "expect": "L0"
+    },
+    {
+      "month": 12,
+      "day": 31,
+      "expect": "L4"
+    }
+  ],
+  "generate": [
+    {
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "existing": [],
+      "expect": "DEMO-ITEM-CD1"
+    },
+    {
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "existing": [
+        "DEMO-ITEM-CD1"
+      ],
+      "expect": "DEMO-ITEM-CD2"
+    },
+    {
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "existing": [
+        "DEMO-ITEM-CD1",
+        "DEMO-ITEM-CD3"
+      ],
+      "expect": "DEMO-ITEM-CD4"
+    },
+    {
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 5,
+      "existing": [
+        "DEMO-ITEM-CD1",
+        "DEMO-ITEM-CD2"
+      ],
+      "expect": "DEMO-ITEM-CE1"
+    },
+    {
+      "pattern": "CUOPME-OPER-xxx",
+      "month": 12,
+      "day": 31,
+      "existing": [],
+      "expect": "CUOPME-OPER-L41"
+    }
+  ],
+  "documentOps": [
+    {
+      "op": "addGen",
+      "listPath": "DEMO/items",
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "expectId": "DEMO-ITEM-CD1",
+      "expectPath": "DEMO/items-1"
+    },
+    {
+      "op": "addGen",
+      "listPath": "DEMO/items",
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "expectId": "DEMO-ITEM-CD2",
+      "expectPath": "DEMO/items-2"
+    },
+    {
+      "op": "addGen",
+      "listPath": "DEMO/items",
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "expectId": "DEMO-ITEM-CD3",
+      "expectPath": "DEMO/items-3"
+    },
+    {
+      "op": "sectionIds",
+      "listPath": "DEMO/items",
+      "expect": [
+        "DEMO-ITEM-CD1",
+        "DEMO-ITEM-CD2",
+        "DEMO-ITEM-CD3"
+      ]
+    },
+    {
+      "op": "removeListItem",
+      "itemPath": "DEMO/items-2",
+      "expect": true
+    },
+    {
+      "op": "sectionIds",
+      "listPath": "DEMO/items",
+      "expect": [
+        "DEMO-ITEM-CD1",
+        "DEMO-ITEM-CD3"
+      ]
+    },
+    {
+      "op": "addGen",
+      "listPath": "DEMO/items",
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "expectId": "DEMO-ITEM-CD4",
+      "expectPath": "DEMO/items-4"
+    },
+    {
+      "op": "removeListItem",
+      "itemPath": "DEMO/items-4",
+      "expect": true
+    },
+    {
+      "op": "addGen",
+      "listPath": "DEMO/items",
+      "pattern": "DEMO-ITEM-xxx",
+      "month": 3,
+      "day": 4,
+      "expectId": "DEMO-ITEM-CD4",
+      "expectPath": "DEMO/items-5"
+    },
+    {
+      "op": "override",
+      "itemPath": "DEMO/items-5",
+      "id": "DEMO-ITEM-CUSTOM"
+    },
+    {
+      "op": "sectionIds",
+      "listPath": "DEMO/items",
+      "expect": [
+        "DEMO-ITEM-CD1",
+        "DEMO-ITEM-CD3",
+        "DEMO-ITEM-CUSTOM"
+      ]
+    },
+    {
+      "op": "overrideThrows",
+      "itemPath": "DEMO/items-1",
+      "id": "DEMO-ITEM-CUSTOM"
+    },
+    {
+      "op": "addExplicitThrows",
+      "listPath": "DEMO/items",
+      "id": "DEMO-ITEM-CD1"
+    }
+  ]
+}

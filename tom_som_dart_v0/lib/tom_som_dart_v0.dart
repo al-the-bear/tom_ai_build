@@ -11,7 +11,7 @@ class AcceptanceCriteriaList extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× DeliveryAcceptanceCriterion.
-  SomList<DeliveryAcceptanceCriterionEntry> get items => SomList<DeliveryAcceptanceCriterionEntry>(doc, '$path/DACEN-ITEM-LST', (d, p) => DeliveryAcceptanceCriterionEntry(d, p));
+  SomList<DeliveryAcceptanceCriterionEntry> get items => SomList<DeliveryAcceptanceCriterionEntry>(doc, '$path/DACEN-ITEM-LST', (d, p) => DeliveryAcceptanceCriterionEntry(d, p), pattern: 'DACEN-ITEM-xxx');
 }
 
 /// 11.7. Acceptance Criteria Summary.
@@ -115,7 +115,7 @@ class AcceptanceProcess extends SomNode {
   // (skipped: processNarrative has no target type)
 
   /// Contains 0+× AcceptanceStep.
-  SomList<AcceptanceStepEntry> get steps => SomList<AcceptanceStepEntry>(doc, '$path/ACST-STEP-LST', (d, p) => AcceptanceStepEntry(d, p));
+  SomList<AcceptanceStepEntry> get steps => SomList<AcceptanceStepEntry>(doc, '$path/ACST-STEP-LST', (d, p) => AcceptanceStepEntry(d, p), pattern: 'ACST-STEP-xxx');
 }
 
 /// Decision framework.
@@ -205,7 +205,7 @@ class AccessChannels extends SomNode {
   set channelDiagram(String value) => doc.setContent('$path/channelDiagram', value);
 
   /// Channel entries — contains 1+× InteractionChannelEntry.
-  SomList<InteractionChannelEntry> get channels => SomList<InteractionChannelEntry>(doc, '$path/ICE-CHAN-LST', (d, p) => InteractionChannelEntry(d, p));
+  SomList<InteractionChannelEntry> get channels => SomList<InteractionChannelEntry>(doc, '$path/ICE-CHAN-LST', (d, p) => InteractionChannelEntry(d, p), pattern: 'ICE-CHAN-xxx');
 }
 
 /// Access Constraint Policies (form).
@@ -289,7 +289,7 @@ class AccessLevels extends SomNode {
   set accessLevelDiagram(String value) => doc.setContent('$path/accessLevelDiagram', value);
 
   /// Access level entries — contains 1+× AccessLevelEntry.
-  SomList<AccessLevelEntry> get levels => SomList<AccessLevelEntry>(doc, '$path/ACLV-LEVE-LST', (d, p) => AccessLevelEntry(d, p));
+  SomList<AccessLevelEntry> get levels => SomList<AccessLevelEntry>(doc, '$path/ACLV-LEVE-LST', (d, p) => AccessLevelEntry(d, p), pattern: 'ACLV-LEVE-xxx');
 
   /// Permission matrix linking access levels to features.
   String get permissionMatrix => doc.content('$path/permissionMatrix') ?? '';
@@ -313,7 +313,7 @@ class AccessUserCategories extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× UserCategoryDefinition.
-  SomList<UserCategoryDefinition> get items => SomList<UserCategoryDefinition>(doc, '$path/USCDF-ITEM-LST', (d, p) => UserCategoryDefinition(d, p));
+  SomList<UserCategoryDefinition> get items => SomList<UserCategoryDefinition>(doc, '$path/USCDF-ITEM-LST', (d, p) => UserCategoryDefinition(d, p), pattern: 'USCDF-ITEM-xxx');
 }
 
 /// 10.9. Accessibility.
@@ -402,7 +402,7 @@ class AccessibilityChecklist extends SomNode {
   // (skipped: checklistOverview has no target type)
 
   /// Contains 0+× AccessibilityCheck.
-  SomList<AccessibilityCheckEntry> get items => SomList<AccessibilityCheckEntry>(doc, '$path/ACCH-ITEM-LST', (d, p) => AccessibilityCheckEntry(d, p));
+  SomList<AccessibilityCheckEntry> get items => SomList<AccessibilityCheckEntry>(doc, '$path/ACCH-ITEM-LST', (d, p) => AccessibilityCheckEntry(d, p), pattern: 'ACCH-ITEM-xxx');
 }
 
 /// Accessibility standard entry (WCAG, Section 508, ADA).
@@ -605,10 +605,10 @@ class ActorEntry extends SomNode {
   ActorCharacteristics get characteristics => ActorCharacteristics(doc, '$path/characteristics');
 
   /// Actor goals (Cockburn style).
-  SomList<ActorGoals> get goals => SomList<ActorGoals>(doc, '$path/ACGO-GOAL-LST', (d, p) => ActorGoals(d, p));
+  SomList<ActorGoals> get goals => SomList<ActorGoals>(doc, '$path/ACGO-GOAL-LST', (d, p) => ActorGoals(d, p), pattern: 'ACGO-GOAL-xxx');
 
   /// Actor permissions and access.
-  SomList<ActorPermissions> get permissions => SomList<ActorPermissions>(doc, '$path/ACPE-PERM-LST', (d, p) => ActorPermissions(d, p));
+  SomList<ActorPermissions> get permissions => SomList<ActorPermissions>(doc, '$path/ACPE-PERM-LST', (d, p) => ActorPermissions(d, p), pattern: 'ACPE-PERM-xxx');
 
   /// Actor technology profile.
   ActorTechnologyProfile get technology => ActorTechnologyProfile(doc, '$path/technology');
@@ -652,7 +652,7 @@ class ActorOverview extends SomNode {
   ActorOverviewNarrative get overview => ActorOverviewNarrative(doc, '$path/overview');
 
   /// Contains 1+× Actor.
-  SomList<ActorEntry> get actors => SomList<ActorEntry>(doc, '$path/ACEN-ACTO-LST', (d, p) => ActorEntry(d, p));
+  SomList<ActorEntry> get actors => SomList<ActorEntry>(doc, '$path/ACEN-ACTO-LST', (d, p) => ActorEntry(d, p), pattern: 'ACEN-ACTO-xxx');
 
   /// Actor categorization summary.
   ActorCategorizationSummary get categorization => ActorCategorizationSummary(doc, '$path/categorization');
@@ -987,13 +987,13 @@ class AlertingConfiguration extends SomNode {
   AlertNotificationChannels get notificationChannels => AlertNotificationChannels(doc, '$path/notificationChannels');
 
   /// Alert rules catalog.
-  SomList<AlertRuleEntry> get alertRules => SomList<AlertRuleEntry>(doc, '$path/ALRUEN-ALER-LST', (d, p) => AlertRuleEntry(d, p));
+  SomList<AlertRuleEntry> get alertRules => SomList<AlertRuleEntry>(doc, '$path/ALRUEN-ALER-LST', (d, p) => AlertRuleEntry(d, p), pattern: 'ALRUEN-ALER-xxx');
 
   /// Escalation policies.
   AlertEscalationPolicies get escalationPolicies => AlertEscalationPolicies(doc, '$path/escalationPolicies');
 
   /// Alert suppression and maintenance windows.
-  SomList<AlertSuppressionRules> get suppressionRules => SomList<AlertSuppressionRules>(doc, '$path/ALSURU-SUPP-LST', (d, p) => AlertSuppressionRules(d, p));
+  SomList<AlertSuppressionRules> get suppressionRules => SomList<AlertSuppressionRules>(doc, '$path/ALSURU-SUPP-LST', (d, p) => AlertSuppressionRules(d, p), pattern: 'ALSURU-SUPP-xxx');
 
   /// On-call schedule.
   OnCallScheduleConfig get onCallSchedule => OnCallScheduleConfig(doc, '$path/onCallSchedule');
@@ -1053,7 +1053,7 @@ class AlternativeFlowEntry extends SomNode {
   AlternativeFlowEntryContentForm get content => AlternativeFlowEntryContentForm(doc, '$path/content');
 
   /// Contains 0+× Scenario Step.
-  SomList<AlternativeStepEntry> get steps => SomList<AlternativeStepEntry>(doc, '$path/ALST-STEP-LST', (d, p) => AlternativeStepEntry(d, p));
+  SomList<AlternativeStepEntry> get steps => SomList<AlternativeStepEntry>(doc, '$path/ALST-STEP-LST', (d, p) => AlternativeStepEntry(d, p), pattern: 'ALST-STEP-xxx');
 }
 
 /// An alternative step entry.
@@ -1308,7 +1308,7 @@ class ApplicableRegulationEntry extends SomNode {
   ApplicableRegulationEntryContentForm get content => ApplicableRegulationEntryContentForm(doc, '$path/content');
 
   /// Specific compliance measures for this regulation.
-  SomList<ComplianceMeasureEntry> get complianceMeasures => SomList<ComplianceMeasureEntry>(doc, '$path/COMPL-COMP-LST', (d, p) => ComplianceMeasureEntry(d, p));
+  SomList<ComplianceMeasureEntry> get complianceMeasures => SomList<ComplianceMeasureEntry>(doc, '$path/COMPL-COMP-LST', (d, p) => ComplianceMeasureEntry(d, p), pattern: 'COMPL-COMP-xxx');
 }
 
 /// Application diagnostics.
@@ -1669,13 +1669,13 @@ class ArchitectureStyle extends SomNode {
   ArchitectureOverview get overview => ArchitectureOverview(doc, '$path/overview');
 
   /// Architecture principles guiding design decisions.
-  SomList<ArchitecturePrincipleEntry> get principles => SomList<ArchitecturePrincipleEntry>(doc, '$path/ARPR-PRIN-LST', (d, p) => ArchitecturePrincipleEntry(d, p));
+  SomList<ArchitecturePrincipleEntry> get principles => SomList<ArchitecturePrincipleEntry>(doc, '$path/ARPR-PRIN-LST', (d, p) => ArchitecturePrincipleEntry(d, p), pattern: 'ARPR-PRIN-xxx');
 
   /// System component organization and boundaries.
   ComponentOrganization get componentOrganization => ComponentOrganization(doc, '$path/componentOrganization');
 
   /// Component/service catalog.
-  SomList<ArchitectureComponentEntry> get components => SomList<ArchitectureComponentEntry>(doc, '$path/ARCM-COMP-LST', (d, p) => ArchitectureComponentEntry(d, p));
+  SomList<ArchitectureComponentEntry> get components => SomList<ArchitectureComponentEntry>(doc, '$path/ARCM-COMP-LST', (d, p) => ArchitectureComponentEntry(d, p), pattern: 'ARCM-COMP-xxx');
 
   /// Communication patterns between components.
   CommunicationPatterns get communicationPatterns => CommunicationPatterns(doc, '$path/communicationPatterns');
@@ -1693,7 +1693,7 @@ class ArchitectureStyle extends SomNode {
   DeploymentTopology get deploymentTopology => DeploymentTopology(doc, '$path/deploymentTopology');
 
   /// Architecture decision records.
-  SomList<ArchitectureDecisionRecord> get decisionRecords => SomList<ArchitectureDecisionRecord>(doc, '$path/ARDE-DECI-LST', (d, p) => ArchitectureDecisionRecord(d, p));
+  SomList<ArchitectureDecisionRecord> get decisionRecords => SomList<ArchitectureDecisionRecord>(doc, '$path/ARDE-DECI-LST', (d, p) => ArchitectureDecisionRecord(d, p), pattern: 'ARDE-DECI-xxx');
 }
 
 /// A consolidated register of assumptions and constraints.
@@ -1704,14 +1704,14 @@ class AssumptionConstraintDependencyRegister extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Assumptions the solution depends on being true.
-  SomList<AssumptionRegisterEntry> get assumptions => SomList<AssumptionRegisterEntry>(doc, '$path/ACRG-ASMP-LST', (d, p) => AssumptionRegisterEntry(d, p));
+  SomList<AssumptionRegisterEntry> get assumptions => SomList<AssumptionRegisterEntry>(doc, '$path/ACRG-ASMP-LST', (d, p) => AssumptionRegisterEntry(d, p), pattern: 'ACRG-ASMP-xxx');
 
   /// Constraints the solution must operate within.
-  SomList<ConstraintRegisterEntry> get constraints => SomList<ConstraintRegisterEntry>(doc, '$path/ACRG-CONS-LST', (d, p) => ConstraintRegisterEntry(d, p));
+  SomList<ConstraintRegisterEntry> get constraints => SomList<ConstraintRegisterEntry>(doc, '$path/ACRG-CONS-LST', (d, p) => ConstraintRegisterEntry(d, p), pattern: 'ACRG-CONS-xxx');
 
   /// Dependencies the solution relies on (external systems, teams, vendors,
   /// prerequisite deliverables, framework conditions).
-  SomList<DependencyRegisterEntry> get dependencies => SomList<DependencyRegisterEntry>(doc, '$path/ACRG-DEPS-LST', (d, p) => DependencyRegisterEntry(d, p));
+  SomList<DependencyRegisterEntry> get dependencies => SomList<DependencyRegisterEntry>(doc, '$path/ACRG-DEPS-LST', (d, p) => DependencyRegisterEntry(d, p), pattern: 'ACRG-DEPS-xxx');
 }
 
 /// A single assumption register entry (form).
@@ -1779,7 +1779,7 @@ class AuditEvidenceRequirements extends SomNode {
   AuditEvidenceRequirementsContentForm get content => AuditEvidenceRequirementsContentForm(doc, '$path/content');
 
   /// Evidence types required.
-  SomList<AuditEvidenceTypeEntry> get evidenceTypes => SomList<AuditEvidenceTypeEntry>(doc, '$path/AUEVTY-EVID-LST', (d, p) => AuditEvidenceTypeEntry(d, p));
+  SomList<AuditEvidenceTypeEntry> get evidenceTypes => SomList<AuditEvidenceTypeEntry>(doc, '$path/AUEVTY-EVID-LST', (d, p) => AuditEvidenceTypeEntry(d, p), pattern: 'AUEVTY-EVID-xxx');
 }
 
 /// An audit evidence type entry.
@@ -1825,7 +1825,7 @@ class AuditRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Planned audits — contains 0+× Audit Entry.
-  SomList<AuditEntry> get audits => SomList<AuditEntry>(doc, '$path/AUD-AUDI-LST', (d, p) => AuditEntry(d, p));
+  SomList<AuditEntry> get audits => SomList<AuditEntry>(doc, '$path/AUD-AUDI-LST', (d, p) => AuditEntry(d, p), pattern: 'AUD-AUDI-xxx');
 
   /// Audit evidence requirements.
   AuditEvidenceRequirements get evidenceRequirements => AuditEvidenceRequirements(doc, '$path/evidenceRequirements');
@@ -1914,7 +1914,7 @@ class AuthenticationFlow extends SomNode {
   StepUpAuthenticationPolicy get stepUpAuthentication => StepUpAuthenticationPolicy(doc, '$path/stepUpAuthentication');
 
   /// Contains 0+× Login Flow Step.
-  SomList<LoginFlowStepEntry> get loginFlowSteps => SomList<LoginFlowStepEntry>(doc, '$path/LGFLS-LOGI-LST', (d, p) => LoginFlowStepEntry(d, p));
+  SomList<LoginFlowStepEntry> get loginFlowSteps => SomList<LoginFlowStepEntry>(doc, '$path/LGFLS-LOGI-LST', (d, p) => LoginFlowStepEntry(d, p), pattern: 'LGFLS-LOGI-xxx');
 }
 
 /// An authentication method entry (form).
@@ -1998,7 +1998,7 @@ class AuthenticationMethods extends SomNode {
   ApiKeyManagementPolicy get apiKeyManagement => ApiKeyManagementPolicy(doc, '$path/apiKeyManagement');
 
   /// Contains 0+× AuthenticationMethod.
-  SomList<AuthenticationMethodEntry> get items => SomList<AuthenticationMethodEntry>(doc, '$path/ATME-ITEM-LST', (d, p) => AuthenticationMethodEntry(d, p));
+  SomList<AuthenticationMethodEntry> get items => SomList<AuthenticationMethodEntry>(doc, '$path/ATME-ITEM-LST', (d, p) => AuthenticationMethodEntry(d, p), pattern: 'ATME-ITEM-xxx');
 }
 
 /// Authorization event policy (form).
@@ -2020,7 +2020,7 @@ class AuthorizationGroupEntry extends SomNode {
   AuthorizationGroupEntryContentForm get content => AuthorizationGroupEntryContentForm(doc, '$path/content');
 
   /// Contains 0+× RoleReference.
-  SomList<RoleReferenceEntry> get containedRoles => SomList<RoleReferenceEntry>(doc, '$path/ROLREF-CONT-LST', (d, p) => RoleReferenceEntry(d, p));
+  SomList<RoleReferenceEntry> get containedRoles => SomList<RoleReferenceEntry>(doc, '$path/ROLREF-CONT-LST', (d, p) => RoleReferenceEntry(d, p), pattern: 'ROLREF-CONT-xxx');
 }
 
 /// 9.4.1. Authorization Model.
@@ -2077,22 +2077,22 @@ class AuthorizationRoleEntry extends SomNode {
   AuthorizationRoleEntryStatus get status => AuthorizationRoleEntryStatus(doc, '$path/status');
 
   /// Contains 0+× ResponsibilityReference.
-  SomList<ResponsibilityReferenceEntry> get responsibilities => SomList<ResponsibilityReferenceEntry>(doc, '$path/RSPREF-RESP-LST', (d, p) => ResponsibilityReferenceEntry(d, p));
+  SomList<ResponsibilityReferenceEntry> get responsibilities => SomList<ResponsibilityReferenceEntry>(doc, '$path/RSPREF-RESP-LST', (d, p) => ResponsibilityReferenceEntry(d, p), pattern: 'RSPREF-RESP-xxx');
 
   /// Contains 0+× EntitlementReference.
-  SomList<EntitlementReferenceEntry> get entitlementReferences => SomList<EntitlementReferenceEntry>(doc, '$path/ENREFE-ENTI-LST', (d, p) => EntitlementReferenceEntry(d, p));
+  SomList<EntitlementReferenceEntry> get entitlementReferences => SomList<EntitlementReferenceEntry>(doc, '$path/ENREFE-ENTI-LST', (d, p) => EntitlementReferenceEntry(d, p), pattern: 'ENREFE-ENTI-xxx');
 
   /// Contains 0+× RolePermission.
-  SomList<RolePermissionEntry> get directPermissions => SomList<RolePermissionEntry>(doc, '$path/ROLPERM-DIRE-LST', (d, p) => RolePermissionEntry(d, p));
+  SomList<RolePermissionEntry> get directPermissions => SomList<RolePermissionEntry>(doc, '$path/ROLPERM-DIRE-LST', (d, p) => RolePermissionEntry(d, p), pattern: 'ROLPERM-DIRE-xxx');
 
   /// Contains 0+× RoleDataScope.
-  SomList<RoleDataScopeEntry> get dataScopes => SomList<RoleDataScopeEntry>(doc, '$path/ROLDSCP-DATA-LST', (d, p) => RoleDataScopeEntry(d, p));
+  SomList<RoleDataScopeEntry> get dataScopes => SomList<RoleDataScopeEntry>(doc, '$path/ROLDSCP-DATA-LST', (d, p) => RoleDataScopeEntry(d, p), pattern: 'ROLDSCP-DATA-xxx');
 
   /// Contains 0+× RoleExclusion.
-  SomList<RoleExclusionEntry> get mutualExclusions => SomList<RoleExclusionEntry>(doc, '$path/ROLEXC-MUTU-LST', (d, p) => RoleExclusionEntry(d, p));
+  SomList<RoleExclusionEntry> get mutualExclusions => SomList<RoleExclusionEntry>(doc, '$path/ROLEXC-MUTU-LST', (d, p) => RoleExclusionEntry(d, p), pattern: 'ROLEXC-MUTU-xxx');
 
   /// Contains 0+× RoleHolder.
-  SomList<RoleHolderEntry> get typicalHolders => SomList<RoleHolderEntry>(doc, '$path/ROLHLD-TYPI-LST', (d, p) => RoleHolderEntry(d, p));
+  SomList<RoleHolderEntry> get typicalHolders => SomList<RoleHolderEntry>(doc, '$path/ROLHLD-TYPI-LST', (d, p) => RoleHolderEntry(d, p), pattern: 'ROLHLD-TYPI-xxx');
 }
 
 /// Risk and activation controls.
@@ -2190,7 +2190,7 @@ class BackupAndRecoverySection extends SomNode {
   BackupDataClassification get dataClassification => BackupDataClassification(doc, '$path/dataClassification');
 
   /// Backup policies by data type.
-  SomList<BackupPolicyEntry> get backupPolicies => SomList<BackupPolicyEntry>(doc, '$path/BAPOEN-BACK-LST', (d, p) => BackupPolicyEntry(d, p));
+  SomList<BackupPolicyEntry> get backupPolicies => SomList<BackupPolicyEntry>(doc, '$path/BAPOEN-BACK-LST', (d, p) => BackupPolicyEntry(d, p), pattern: 'BAPOEN-BACK-xxx');
 
   /// RPO and RTO requirements.
   RpoRtoRequirements get rpoRtoRequirements => RpoRtoRequirements(doc, '$path/rpoRtoRequirements');
@@ -2631,7 +2631,7 @@ class BoundaryAssumptions extends SomNode {
   // (skipped: assumptionApproach has no target type)
 
   /// Contains 0+× BoundaryAssumptionEntry.
-  SomList<BoundaryAssumptionEntry> get items => SomList<BoundaryAssumptionEntry>(doc, '$path/BOASEN-ITEM-LST', (d, p) => BoundaryAssumptionEntry(d, p));
+  SomList<BoundaryAssumptionEntry> get items => SomList<BoundaryAssumptionEntry>(doc, '$path/BOASEN-ITEM-LST', (d, p) => BoundaryAssumptionEntry(d, p), pattern: 'BOASEN-ITEM-xxx');
 }
 
 /// 4.5.5. Boundary Interaction Patterns.
@@ -2709,7 +2709,7 @@ class BreakpointConfiguration extends SomNode {
   BreakpointConfigurationBreakpointOverviewForm get breakpointOverview => BreakpointConfigurationBreakpointOverviewForm(doc, '$path/breakpointOverview');
 
   /// Breakpoint entries.
-  SomList<BreakpointEntry> get breakpoints => SomList<BreakpointEntry>(doc, '$path/BRE-BREA-LST', (d, p) => BreakpointEntry(d, p));
+  SomList<BreakpointEntry> get breakpoints => SomList<BreakpointEntry>(doc, '$path/BRE-BREA-LST', (d, p) => BreakpointEntry(d, p), pattern: 'BRE-BREA-xxx');
 }
 
 /// A breakpoint entry.
@@ -3115,7 +3115,7 @@ class BusinessGoals extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Business goals list — contains 1+× Business Goal.
-  SomList<BusinessGoalEntry> get goals => SomList<BusinessGoalEntry>(doc, '$path/BGE-GOAL-LST', (d, p) => BusinessGoalEntry(d, p));
+  SomList<BusinessGoalEntry> get goals => SomList<BusinessGoalEntry>(doc, '$path/BGE-GOAL-LST', (d, p) => BusinessGoalEntry(d, p), pattern: 'BGE-GOAL-xxx');
 }
 
 /// Business metrics specification.
@@ -3218,29 +3218,29 @@ class BusinessObjectEntry extends SomNode {
 
   BusinessObjectEntryLifecycleSummaryForm get lifecycleSummary => BusinessObjectEntryLifecycleSummaryForm(doc, '$path/lifecycleSummary');
 
-  SomList<BehaviorRuleEntry> get behaviorRules => SomList<BehaviorRuleEntry>(doc, '$path/BEHAV-BEHA-LST', (d, p) => BehaviorRuleEntry(d, p));
+  SomList<BehaviorRuleEntry> get behaviorRules => SomList<BehaviorRuleEntry>(doc, '$path/BEHAV-BEHA-LST', (d, p) => BehaviorRuleEntry(d, p), pattern: 'BEHAV-BEHA-xxx');
 
   BusinessObjectEntryOwnershipForm get ownership => BusinessObjectEntryOwnershipForm(doc, '$path/ownership');
 
-  SomList<IntegrationPointEntry> get integrationPoints => SomList<IntegrationPointEntry>(doc, '$path/INTEG-INTE-LST', (d, p) => IntegrationPointEntry(d, p));
+  SomList<IntegrationPointEntry> get integrationPoints => SomList<IntegrationPointEntry>(doc, '$path/INTEG-INTE-LST', (d, p) => IntegrationPointEntry(d, p), pattern: 'INTEG-INTE-xxx');
 
   /// Contains 0+× BusinessObjectAttribute.
-  SomList<BusinessObjectAttributeEntry> get attributes => SomList<BusinessObjectAttributeEntry>(doc, '$path/BIOBAT-ATTR-LST', (d, p) => BusinessObjectAttributeEntry(d, p));
+  SomList<BusinessObjectAttributeEntry> get attributes => SomList<BusinessObjectAttributeEntry>(doc, '$path/BIOBAT-ATTR-LST', (d, p) => BusinessObjectAttributeEntry(d, p), pattern: 'BIOBAT-ATTR-xxx');
 
   /// Contains 0+× ObjectState.
-  SomList<ObjectStateEntry> get keyStates => SomList<ObjectStateEntry>(doc, '$path/OBST-KEYS-LST', (d, p) => ObjectStateEntry(d, p));
+  SomList<ObjectStateEntry> get keyStates => SomList<ObjectStateEntry>(doc, '$path/OBST-KEYS-LST', (d, p) => ObjectStateEntry(d, p), pattern: 'OBST-KEYS-xxx');
 
   /// Contains 0+× BusinessRuleReference.
-  SomList<BusinessRuleReferenceEntry> get keyBusinessRules => SomList<BusinessRuleReferenceEntry>(doc, '$path/BIRURE-KEYB-LST', (d, p) => BusinessRuleReferenceEntry(d, p));
+  SomList<BusinessRuleReferenceEntry> get keyBusinessRules => SomList<BusinessRuleReferenceEntry>(doc, '$path/BIRURE-KEYB-LST', (d, p) => BusinessRuleReferenceEntry(d, p), pattern: 'BIRURE-KEYB-xxx');
 
   /// Contains 0+× LifecycleTransition.
-  SomList<LifecycleTransitionEntry> get lifecycleTransitions => SomList<LifecycleTransitionEntry>(doc, '$path/LFTRS-LIFE-LST', (d, p) => LifecycleTransitionEntry(d, p));
+  SomList<LifecycleTransitionEntry> get lifecycleTransitions => SomList<LifecycleTransitionEntry>(doc, '$path/LFTRS-LIFE-LST', (d, p) => LifecycleTransitionEntry(d, p), pattern: 'LFTRS-LIFE-xxx');
 
   /// Contains 0+× ObjectOperation.
-  SomList<ObjectOperationEntry> get operations => SomList<ObjectOperationEntry>(doc, '$path/OBOP-OPER-LST', (d, p) => ObjectOperationEntry(d, p));
+  SomList<ObjectOperationEntry> get operations => SomList<ObjectOperationEntry>(doc, '$path/OBOP-OPER-LST', (d, p) => ObjectOperationEntry(d, p), pattern: 'OBOP-OPER-xxx');
 
   /// Contains 0+× ObjectInvariant.
-  SomList<ObjectInvariantEntry> get invariants => SomList<ObjectInvariantEntry>(doc, '$path/OBINV-INVA-LST', (d, p) => ObjectInvariantEntry(d, p));
+  SomList<ObjectInvariantEntry> get invariants => SomList<ObjectInvariantEntry>(doc, '$path/OBINV-INVA-LST', (d, p) => ObjectInvariantEntry(d, p), pattern: 'OBINV-INVA-xxx');
 }
 
 /// 7.2. Business Object Model.
@@ -3251,7 +3251,7 @@ class BusinessObjectModel extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// 7.2.1. Object Catalog — contains 1+× Business Object.
-  SomList<BusinessObjectEntry> get objects => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
+  SomList<BusinessObjectEntry> get objects => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p), pattern: 'BJOEN-OBJE-xxx');
 
   /// 7.2.2. Business Object Diagram (mermaid).
   // (skipped: objectDiagram has no target type)
@@ -3271,7 +3271,7 @@ class BusinessPainPoints extends SomNode {
   BusinessPainPointsSummary get categorySummary => BusinessPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/BUPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/BUPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p), pattern: 'BUPAPO-ITEM-xxx');
 }
 
 /// Summary specific to business pain points.
@@ -3311,7 +3311,7 @@ class BusinessProcessDescriptions extends SomNode {
   ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
 
   /// 6.1.7. Detailed Process Workflows.
-  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p));
+  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p), pattern: 'DEPRWO-DETA-xxx');
 
   /// 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
@@ -3320,7 +3320,7 @@ class BusinessProcessDescriptions extends SomNode {
   ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
 
   /// 6.1.10. Process Metrics and KPIs.
-  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p));
+  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p), pattern: 'PMAK-PROC-xxx');
 }
 
 /// A business process entry.
@@ -3379,13 +3379,13 @@ class BusinessRuleEntry extends SomNode {
   BusinessRuleEntryGovernanceForm get governance => BusinessRuleEntryGovernanceForm(doc, '$path/governance');
 
   /// Contains 0+× AffectedObject.
-  SomList<AffectedObjectEntry> get affectedObjects => SomList<AffectedObjectEntry>(doc, '$path/AFOB-AFFE-LST', (d, p) => AffectedObjectEntry(d, p));
+  SomList<AffectedObjectEntry> get affectedObjects => SomList<AffectedObjectEntry>(doc, '$path/AFOB-AFFE-LST', (d, p) => AffectedObjectEntry(d, p), pattern: 'AFOB-AFFE-xxx');
 
   /// Contains 0+× AffectedFunction.
-  SomList<AffectedFunctionEntry> get affectedFunctions => SomList<AffectedFunctionEntry>(doc, '$path/AFFN-AFFE-LST', (d, p) => AffectedFunctionEntry(d, p));
+  SomList<AffectedFunctionEntry> get affectedFunctions => SomList<AffectedFunctionEntry>(doc, '$path/AFFN-AFFE-LST', (d, p) => AffectedFunctionEntry(d, p), pattern: 'AFFN-AFFE-xxx');
 
   /// Contains 0+× RuleExample.
-  SomList<RuleExampleEntry> get examples => SomList<RuleExampleEntry>(doc, '$path/RULEXM-EXAM-LST', (d, p) => RuleExampleEntry(d, p));
+  SomList<RuleExampleEntry> get examples => SomList<RuleExampleEntry>(doc, '$path/RULEXM-EXAM-LST', (d, p) => RuleExampleEntry(d, p), pattern: 'RULEXM-EXAM-xxx');
 }
 
 /// A business rule reference entry (form).
@@ -3726,7 +3726,7 @@ class ChangeControlBoard extends SomNode {
   ChangeControlBoardRecords get records => ChangeControlBoardRecords(doc, '$path/records');
 
   /// CCB members — contains 1+× CCB Member.
-  SomList<CcbMemberEntry> get members => SomList<CcbMemberEntry>(doc, '$path/CCME-MEMB-LST', (d, p) => CcbMemberEntry(d, p));
+  SomList<CcbMemberEntry> get members => SomList<CcbMemberEntry>(doc, '$path/CCME-MEMB-LST', (d, p) => CcbMemberEntry(d, p), pattern: 'CCME-MEMB-xxx');
 }
 
 /// Decision-making and emergency governance.
@@ -3768,10 +3768,10 @@ class ChangeImpactCriteria extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Impact level definitions.
-  SomList<ImpactLevelDefinitions> get impactLevels => SomList<ImpactLevelDefinitions>(doc, '$path/IMLEDE-IMPA-LST', (d, p) => ImpactLevelDefinitions(d, p));
+  SomList<ImpactLevelDefinitions> get impactLevels => SomList<ImpactLevelDefinitions>(doc, '$path/IMLEDE-IMPA-LST', (d, p) => ImpactLevelDefinitions(d, p), pattern: 'IMLEDE-IMPA-xxx');
 
   /// Contains 0+× ChangeImpactCriterion.
-  SomList<ChangeImpactCriterionEntry> get items => SomList<ChangeImpactCriterionEntry>(doc, '$path/CHIMCR-ITEM-LST', (d, p) => ChangeImpactCriterionEntry(d, p));
+  SomList<ChangeImpactCriterionEntry> get items => SomList<ChangeImpactCriterionEntry>(doc, '$path/CHIMCR-ITEM-LST', (d, p) => ChangeImpactCriterionEntry(d, p), pattern: 'CHIMCR-ITEM-xxx');
 }
 
 /// A change impact criterion entry (form).
@@ -3854,7 +3854,7 @@ class ChangeProcedure extends SomNode {
   ChangeControlBoard get changeControlBoard => ChangeControlBoard(doc, '$path/changeControlBoard');
 
   /// 3.4.4. Change Categories — contains 0+× Category.
-  SomList<ChangeCategoryEntry> get changeCategories => SomList<ChangeCategoryEntry>(doc, '$path/CHCA-CHAN-LST', (d, p) => ChangeCategoryEntry(d, p));
+  SomList<ChangeCategoryEntry> get changeCategories => SomList<ChangeCategoryEntry>(doc, '$path/CHCA-CHAN-LST', (d, p) => ChangeCategoryEntry(d, p), pattern: 'CHCA-CHAN-xxx');
 }
 
 /// Change procedure summary and metrics.
@@ -3877,16 +3877,16 @@ class ChangeProcess extends SomNode {
   // (skipped: overviewDiagram has no target type)
 
   /// Process steps — ordered list of change process steps — contains 0+× ChangeStep.
-  SomList<ChangeStepEntry> get steps => SomList<ChangeStepEntry>(doc, '$path/CHST-STEP-LST', (d, p) => ChangeStepEntry(d, p));
+  SomList<ChangeStepEntry> get steps => SomList<ChangeStepEntry>(doc, '$path/CHST-STEP-LST', (d, p) => ChangeStepEntry(d, p), pattern: 'CHST-STEP-xxx');
 
   /// Roles involved in the change process — contains 0+× ChangeRole.
-  SomList<ChangeRoleEntry> get roles => SomList<ChangeRoleEntry>(doc, '$path/CHRO-ROLE-LST', (d, p) => ChangeRoleEntry(d, p));
+  SomList<ChangeRoleEntry> get roles => SomList<ChangeRoleEntry>(doc, '$path/CHRO-ROLE-LST', (d, p) => ChangeRoleEntry(d, p), pattern: 'CHRO-ROLE-xxx');
 
   /// Decision criteria for change approval.
   ChangeDecisionCriteria get decisionCriteria => ChangeDecisionCriteria(doc, '$path/decisionCriteria');
 
   /// Notification rules during change process.
-  SomList<ChangeNotificationRules> get notificationRules => SomList<ChangeNotificationRules>(doc, '$path/CHNORU-NOTI-LST', (d, p) => ChangeNotificationRules(d, p));
+  SomList<ChangeNotificationRules> get notificationRules => SomList<ChangeNotificationRules>(doc, '$path/CHNORU-NOTI-LST', (d, p) => ChangeNotificationRules(d, p), pattern: 'CHNORU-NOTI-xxx');
 }
 
 /// Change readiness assessment approach.
@@ -3897,7 +3897,7 @@ class ChangeReadinessAssessment extends SomNode {
   ChangeReadinessOverview get overview => ChangeReadinessOverview(doc, '$path/overview');
 
   /// Readiness criteria per stakeholder group.
-  SomList<ReadinessCriteriaEntry> get readinessCriteria => SomList<ReadinessCriteriaEntry>(doc, '$path/RDRCE-READ-LST', (d, p) => ReadinessCriteriaEntry(d, p));
+  SomList<ReadinessCriteriaEntry> get readinessCriteria => SomList<ReadinessCriteriaEntry>(doc, '$path/RDRCE-READ-LST', (d, p) => ReadinessCriteriaEntry(d, p), pattern: 'RDRCE-READ-xxx');
 }
 
 /// Overview of change readiness assessment.
@@ -3971,13 +3971,13 @@ class ChangedRoleCompetencies extends SomNode {
   ChangedRoleCompetencies(super.doc, super.path);
 
   /// New competencies required.
-  SomList<RoleCompetencyEntry> get newCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-NEWC-LST', (d, p) => RoleCompetencyEntry(d, p));
+  SomList<RoleCompetencyEntry> get newCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-NEWC-LST', (d, p) => RoleCompetencyEntry(d, p), pattern: 'ROLCP-NEWC-xxx');
 
   /// Competencies no longer required.
-  SomList<RoleCompetencyEntry> get removedCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-REMO-LST', (d, p) => RoleCompetencyEntry(d, p));
+  SomList<RoleCompetencyEntry> get removedCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-REMO-LST', (d, p) => RoleCompetencyEntry(d, p), pattern: 'ROLCP-REMO-xxx');
 
   /// Competencies with changed proficiency levels.
-  SomList<CompetencyLevelChangeEntry> get changedLevels => SomList<CompetencyLevelChangeEntry>(doc, '$path/COLVCH-CHAN-LST', (d, p) => CompetencyLevelChangeEntry(d, p));
+  SomList<CompetencyLevelChangeEntry> get changedLevels => SomList<CompetencyLevelChangeEntry>(doc, '$path/COLVCH-CHAN-LST', (d, p) => CompetencyLevelChangeEntry(d, p), pattern: 'COLVCH-CHAN-xxx');
 
   /// Overall competency gap assessment.
   CompetencyGapAssessment get gapAssessment => CompetencyGapAssessment(doc, '$path/gapAssessment');
@@ -4048,13 +4048,13 @@ class ChangedRoleResponsibilities extends SomNode {
   ChangedRoleResponsibilities(super.doc, super.path);
 
   /// Responsibilities being added.
-  SomList<ResponsibilityChangeEntry> get addedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-ADDE-LST', (d, p) => ResponsibilityChangeEntry(d, p));
+  SomList<ResponsibilityChangeEntry> get addedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-ADDE-LST', (d, p) => ResponsibilityChangeEntry(d, p), pattern: 'RSPCH-ADDE-xxx');
 
   /// Responsibilities being removed.
-  SomList<ResponsibilityChangeEntry> get removedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-REMO-LST', (d, p) => ResponsibilityChangeEntry(d, p));
+  SomList<ResponsibilityChangeEntry> get removedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-REMO-LST', (d, p) => ResponsibilityChangeEntry(d, p), pattern: 'RSPCH-REMO-xxx');
 
   /// Responsibilities being modified.
-  SomList<ResponsibilityChangeEntry> get modifiedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-MODI-LST', (d, p) => ResponsibilityChangeEntry(d, p));
+  SomList<ResponsibilityChangeEntry> get modifiedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-MODI-LST', (d, p) => ResponsibilityChangeEntry(d, p), pattern: 'RSPCH-MODI-xxx');
 
   /// Net impact summary.
   ResponsibilityImpactSummary get impactSummary => ResponsibilityImpactSummary(doc, '$path/impactSummary');
@@ -4111,7 +4111,7 @@ class ChangesFromCurrentStructure extends SomNode {
   // (skipped: orgChartComparison has no target type)
 
   /// Contains 0+× OrganizationalChange.
-  SomList<OrganizationalChangeEntry> get items => SomList<OrganizationalChangeEntry>(doc, '$path/ORGCE-ITEM-LST', (d, p) => OrganizationalChangeEntry(d, p));
+  SomList<OrganizationalChangeEntry> get items => SomList<OrganizationalChangeEntry>(doc, '$path/ORGCE-ITEM-LST', (d, p) => OrganizationalChangeEntry(d, p), pattern: 'ORGCE-ITEM-xxx');
 }
 
 /// Channel-specific integration requirements.
@@ -4139,13 +4139,13 @@ class CiCdPipelineConfiguration extends SomNode {
   CiCdPipelineConfigurationContentForm get content => CiCdPipelineConfigurationContentForm(doc, '$path/content');
 
   /// Pipeline stages.
-  SomList<PipelineStageEntry> get stages => SomList<PipelineStageEntry>(doc, '$path/PISTEN-STAG-LST', (d, p) => PipelineStageEntry(d, p));
+  SomList<PipelineStageEntry> get stages => SomList<PipelineStageEntry>(doc, '$path/PISTEN-STAG-LST', (d, p) => PipelineStageEntry(d, p), pattern: 'PISTEN-STAG-xxx');
 
   /// Build jobs.
-  SomList<PipelineJobEntry> get jobs => SomList<PipelineJobEntry>(doc, '$path/PIJOEN-JOBS-LST', (d, p) => PipelineJobEntry(d, p));
+  SomList<PipelineJobEntry> get jobs => SomList<PipelineJobEntry>(doc, '$path/PIJOEN-JOBS-LST', (d, p) => PipelineJobEntry(d, p), pattern: 'PIJOEN-JOBS-xxx');
 
   /// Deployment environments.
-  SomList<DeploymentEnvironmentEntry> get environments => SomList<DeploymentEnvironmentEntry>(doc, '$path/DEENEN-ENVI-LST', (d, p) => DeploymentEnvironmentEntry(d, p));
+  SomList<DeploymentEnvironmentEntry> get environments => SomList<DeploymentEnvironmentEntry>(doc, '$path/DEENEN-ENVI-LST', (d, p) => DeploymentEnvironmentEntry(d, p), pattern: 'DEENEN-ENVI-xxx');
 }
 
 /// CI/CD pipeline requirements.
@@ -4350,13 +4350,13 @@ class ClientRequirementsSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// Web browser requirements.
-  SomList<BrowserRequirementEntry> get browserRequirements => SomList<BrowserRequirementEntry>(doc, '$path/BRREEN-BROW-LST', (d, p) => BrowserRequirementEntry(d, p));
+  SomList<BrowserRequirementEntry> get browserRequirements => SomList<BrowserRequirementEntry>(doc, '$path/BRREEN-BROW-LST', (d, p) => BrowserRequirementEntry(d, p), pattern: 'BRREEN-BROW-xxx');
 
   /// Desktop operating system requirements.
-  SomList<DesktopOsRequirementEntry> get desktopOsRequirements => SomList<DesktopOsRequirementEntry>(doc, '$path/DORE1-DESK-LST', (d, p) => DesktopOsRequirementEntry(d, p));
+  SomList<DesktopOsRequirementEntry> get desktopOsRequirements => SomList<DesktopOsRequirementEntry>(doc, '$path/DORE1-DESK-LST', (d, p) => DesktopOsRequirementEntry(d, p), pattern: 'DORE1-DESK-xxx');
 
   /// Mobile device requirements.
-  SomList<MobileDeviceRequirementEntry> get mobileRequirements => SomList<MobileDeviceRequirementEntry>(doc, '$path/MDRE-MOBI-LST', (d, p) => MobileDeviceRequirementEntry(d, p));
+  SomList<MobileDeviceRequirementEntry> get mobileRequirements => SomList<MobileDeviceRequirementEntry>(doc, '$path/MDRE-MOBI-LST', (d, p) => MobileDeviceRequirementEntry(d, p), pattern: 'MDRE-MOBI-xxx');
 
   /// Display and screen requirements.
   DisplayRequirements get displayRequirements => DisplayRequirements(doc, '$path/displayRequirements');
@@ -4756,7 +4756,7 @@ class CommitteeMemberEntry extends SomNode {
   CommitteeMemberEntryContentForm get content => CommitteeMemberEntryContentForm(doc, '$path/content');
 
   /// Specific responsibilities of this member.
-  SomList<CommitteeResponsibilityEntry> get responsibilities => SomList<CommitteeResponsibilityEntry>(doc, '$path/COMRS-RESP-LST', (d, p) => CommitteeResponsibilityEntry(d, p));
+  SomList<CommitteeResponsibilityEntry> get responsibilities => SomList<CommitteeResponsibilityEntry>(doc, '$path/COMRS-RESP-LST', (d, p) => CommitteeResponsibilityEntry(d, p), pattern: 'COMRS-RESP-xxx');
 }
 
 /// A committee member responsibility entry.
@@ -4817,7 +4817,7 @@ class CommunicationMatrix extends SomNode {
   set communicationFlowDiagram(String value) => doc.setContent('$path/communicationFlowDiagram', value);
 
   /// Communication types and their distribution rules.
-  SomList<CommunicationTypeEntry> get communicationTypes => SomList<CommunicationTypeEntry>(doc, '$path/COTY-COMM-LST', (d, p) => CommunicationTypeEntry(d, p));
+  SomList<CommunicationTypeEntry> get communicationTypes => SomList<CommunicationTypeEntry>(doc, '$path/COTY-COMM-LST', (d, p) => CommunicationTypeEntry(d, p), pattern: 'COTY-COMM-xxx');
 }
 
 /// Communication patterns between components.
@@ -4942,28 +4942,28 @@ class CompatibilityRequirementsSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// Operating system compatibility requirements.
-  SomList<OsCompatibilityEntry> get osCompatibility => SomList<OsCompatibilityEntry>(doc, '$path/OSCOEN-OSCO-LST', (d, p) => OsCompatibilityEntry(d, p));
+  SomList<OsCompatibilityEntry> get osCompatibility => SomList<OsCompatibilityEntry>(doc, '$path/OSCOEN-OSCO-LST', (d, p) => OsCompatibilityEntry(d, p), pattern: 'OSCOEN-OSCO-xxx');
 
   /// Browser compatibility requirements.
-  SomList<BrowserCompatibilityEntry> get browserCompatibility => SomList<BrowserCompatibilityEntry>(doc, '$path/BRCOEN-BROW-LST', (d, p) => BrowserCompatibilityEntry(d, p));
+  SomList<BrowserCompatibilityEntry> get browserCompatibility => SomList<BrowserCompatibilityEntry>(doc, '$path/BRCOEN-BROW-LST', (d, p) => BrowserCompatibilityEntry(d, p), pattern: 'BRCOEN-BROW-xxx');
 
   /// Database compatibility requirements.
-  SomList<DatabaseCompatibilityEntry> get databaseCompatibility => SomList<DatabaseCompatibilityEntry>(doc, '$path/DACOEN-DATA-LST', (d, p) => DatabaseCompatibilityEntry(d, p));
+  SomList<DatabaseCompatibilityEntry> get databaseCompatibility => SomList<DatabaseCompatibilityEntry>(doc, '$path/DACOEN-DATA-LST', (d, p) => DatabaseCompatibilityEntry(d, p), pattern: 'DACOEN-DATA-xxx');
 
   /// Enterprise system compatibility requirements.
-  SomList<EnterpriseSystemCompatibilityEntry> get enterpriseSystemCompatibility => SomList<EnterpriseSystemCompatibilityEntry>(doc, '$path/ESCE-ENTE-LST', (d, p) => EnterpriseSystemCompatibilityEntry(d, p));
+  SomList<EnterpriseSystemCompatibilityEntry> get enterpriseSystemCompatibility => SomList<EnterpriseSystemCompatibilityEntry>(doc, '$path/ESCE-ENTE-LST', (d, p) => EnterpriseSystemCompatibilityEntry(d, p), pattern: 'ESCE-ENTE-xxx');
 
   /// API and protocol compatibility requirements.
-  SomList<ApiCompatibilityEntry> get apiCompatibility => SomList<ApiCompatibilityEntry>(doc, '$path/APCP-APIC-LST', (d, p) => ApiCompatibilityEntry(d, p));
+  SomList<ApiCompatibilityEntry> get apiCompatibility => SomList<ApiCompatibilityEntry>(doc, '$path/APCP-APIC-LST', (d, p) => ApiCompatibilityEntry(d, p), pattern: 'APCP-APIC-xxx');
 
   /// Legacy system compatibility requirements.
-  SomList<LegacyCompatibilityEntry> get legacyCompatibility => SomList<LegacyCompatibilityEntry>(doc, '$path/LECOEN-LEGA-LST', (d, p) => LegacyCompatibilityEntry(d, p));
+  SomList<LegacyCompatibilityEntry> get legacyCompatibility => SomList<LegacyCompatibilityEntry>(doc, '$path/LECOEN-LEGA-LST', (d, p) => LegacyCompatibilityEntry(d, p), pattern: 'LECOEN-LEGA-xxx');
 
   /// Mobile device compatibility requirements.
-  SomList<MobileCompatibilityEntry> get mobileCompatibility => SomList<MobileCompatibilityEntry>(doc, '$path/MOCOEN-MOBI-LST', (d, p) => MobileCompatibilityEntry(d, p));
+  SomList<MobileCompatibilityEntry> get mobileCompatibility => SomList<MobileCompatibilityEntry>(doc, '$path/MOCOEN-MOBI-LST', (d, p) => MobileCompatibilityEntry(d, p), pattern: 'MOCOEN-MOBI-xxx');
 
   /// Third-party software compatibility requirements.
-  SomList<ThirdPartyCompatibilityEntry> get thirdPartyCompatibility => SomList<ThirdPartyCompatibilityEntry>(doc, '$path/TPCE-THIR-LST', (d, p) => ThirdPartyCompatibilityEntry(d, p));
+  SomList<ThirdPartyCompatibilityEntry> get thirdPartyCompatibility => SomList<ThirdPartyCompatibilityEntry>(doc, '$path/TPCE-THIR-LST', (d, p) => ThirdPartyCompatibilityEntry(d, p), pattern: 'TPCE-THIR-xxx');
 
   /// Data format and encoding compatibility.
   DataFormatCompatibility get dataFormatCompatibility => DataFormatCompatibility(doc, '$path/dataFormatCompatibility');
@@ -4990,13 +4990,13 @@ class CompetencyFramework extends SomNode {
   CompetencyFrameworkOverview get overview => CompetencyFrameworkOverview(doc, '$path/overview');
 
   /// Core competencies required across all roles.
-  SomList<CompetencyEntry> get coreCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-CORE-LST', (d, p) => CompetencyEntry(d, p));
+  SomList<CompetencyEntry> get coreCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-CORE-LST', (d, p) => CompetencyEntry(d, p), pattern: 'COMPE-CORE-xxx');
 
   /// Technical/functional competencies by role family.
-  SomList<CompetencyEntry> get technicalCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-TECH-LST', (d, p) => CompetencyEntry(d, p));
+  SomList<CompetencyEntry> get technicalCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-TECH-LST', (d, p) => CompetencyEntry(d, p), pattern: 'COMPE-TECH-xxx');
 
   /// Leadership competencies for management roles.
-  SomList<CompetencyEntry> get leadershipCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-LEAD-LST', (d, p) => CompetencyEntry(d, p));
+  SomList<CompetencyEntry> get leadershipCompetencies => SomList<CompetencyEntry>(doc, '$path/COMPE-LEAD-LST', (d, p) => CompetencyEntry(d, p), pattern: 'COMPE-LEAD-xxx');
 }
 
 /// Competency framework overview.
@@ -5280,10 +5280,10 @@ class ComponentEntry extends SomNode {
   ComponentRisk get risk => ComponentRisk(doc, '$path/risk');
 
   /// Documentation.
-  SomList<ComponentDocs> get docs => SomList<ComponentDocs>(doc, '$path/CODO-DOCS-LST', (d, p) => ComponentDocs(d, p));
+  SomList<ComponentDocs> get docs => SomList<ComponentDocs>(doc, '$path/CODO-DOCS-LST', (d, p) => ComponentDocs(d, p), pattern: 'CODO-DOCS-xxx');
 
   /// Interfaces — contains 0+× ComponentInterface.
-  SomList<ComponentInterfaceEntry> get interfaces => SomList<ComponentInterfaceEntry>(doc, '$path/CMIF-INTE-LST', (d, p) => ComponentInterfaceEntry(d, p));
+  SomList<ComponentInterfaceEntry> get interfaces => SomList<ComponentInterfaceEntry>(doc, '$path/CMIF-INTE-LST', (d, p) => ComponentInterfaceEntry(d, p), pattern: 'CMIF-INTE-xxx');
 
   /// Licensing (form).
   ComponentLicensingEntry get licensing => ComponentLicensingEntry(doc, '$path/licensing');
@@ -5292,7 +5292,7 @@ class ComponentEntry extends SomNode {
   // (skipped: usageRights has no target type)
 
   /// Responsibilities (form).
-  SomList<ComponentResponsibilitiesEntry> get responsibilities => SomList<ComponentResponsibilitiesEntry>(doc, '$path/COREEN-RESP-LST', (d, p) => ComponentResponsibilitiesEntry(d, p));
+  SomList<ComponentResponsibilitiesEntry> get responsibilities => SomList<ComponentResponsibilitiesEntry>(doc, '$path/COREEN-RESP-LST', (d, p) => ComponentResponsibilitiesEntry(d, p), pattern: 'COREEN-RESP-xxx');
 }
 
 /// A component family entry.
@@ -5307,7 +5307,7 @@ class ComponentFamilyEntry extends SomNode {
   // (skipped: familyNarrative has no target type)
 
   /// Components in this family.
-  SomList<FamilyComponentRef> get components => SomList<FamilyComponentRef>(doc, '$path/FAMREF-COMP-LST', (d, p) => FamilyComponentRef(d, p));
+  SomList<FamilyComponentRef> get components => SomList<FamilyComponentRef>(doc, '$path/FAMREF-COMP-LST', (d, p) => FamilyComponentRef(d, p), pattern: 'FAMREF-COMP-xxx');
 }
 
 /// Component governance and maintenance policies.
@@ -5423,7 +5423,7 @@ class ComponentInterfaceEntrySla extends SomNode {
 class ComponentLibrary extends SomNode {
   ComponentLibrary(super.doc, super.path);
 
-  SomList<DesignFoundationEntry> get designFoundations => SomList<DesignFoundationEntry>(doc, '$path/DESIG-DESI-LST', (d, p) => DesignFoundationEntry(d, p));
+  SomList<DesignFoundationEntry> get designFoundations => SomList<DesignFoundationEntry>(doc, '$path/DESIG-DESI-LST', (d, p) => DesignFoundationEntry(d, p), pattern: 'DESIG-DESI-xxx');
 
   /// Color system.
   ComponentLibraryColors get colors => ComponentLibraryColors(doc, '$path/colors');
@@ -5447,10 +5447,10 @@ class ComponentLibrary extends SomNode {
   // (skipped: designTokenCatalog has no target type)
 
   /// Color palette specification.
-  SomList<ColorPaletteEntry> get colorPalettes => SomList<ColorPaletteEntry>(doc, '$path/COPA-COLO-LST', (d, p) => ColorPaletteEntry(d, p));
+  SomList<ColorPaletteEntry> get colorPalettes => SomList<ColorPaletteEntry>(doc, '$path/COPA-COLO-LST', (d, p) => ColorPaletteEntry(d, p), pattern: 'COPA-COLO-xxx');
 
   /// Typography styles.
-  SomList<TypographyStyleEntry> get typographyStyles => SomList<TypographyStyleEntry>(doc, '$path/TYST-TYPO-LST', (d, p) => TypographyStyleEntry(d, p));
+  SomList<TypographyStyleEntry> get typographyStyles => SomList<TypographyStyleEntry>(doc, '$path/TYST-TYPO-LST', (d, p) => TypographyStyleEntry(d, p), pattern: 'TYST-TYPO-xxx');
 }
 
 /// Borders and corners.
@@ -5733,7 +5733,7 @@ class ComponentRiskAssessment extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// 12.6.1. Component Risks — contains 0+× Risk.
-  SomList<ComponentRiskEntry> get risks => SomList<ComponentRiskEntry>(doc, '$path/CMRS-RISK-LST', (d, p) => ComponentRiskEntry(d, p));
+  SomList<ComponentRiskEntry> get risks => SomList<ComponentRiskEntry>(doc, '$path/CMRS-RISK-LST', (d, p) => ComponentRiskEntry(d, p), pattern: 'CMRS-RISK-xxx');
 
   /// 12.6.2. Contingency Plans.
   ContingencyPlans get contingencyPlans => ContingencyPlans(doc, '$path/contingencyPlans');
@@ -5876,7 +5876,7 @@ class ComponentStrategy extends SomNode {
   ComponentStrategyPlanning get planning => ComponentStrategyPlanning(doc, '$path/planning');
 
   /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
-  SomList<ReuseGoalEntry> get reuseGoals => SomList<ReuseGoalEntry>(doc, '$path/RGUSE-REUS-LST', (d, p) => ReuseGoalEntry(d, p));
+  SomList<ReuseGoalEntry> get reuseGoals => SomList<ReuseGoalEntry>(doc, '$path/RGUSE-REUS-LST', (d, p) => ReuseGoalEntry(d, p), pattern: 'RGUSE-REUS-xxx');
 
   /// 12.1.2. Evaluation Criteria.
   EvaluationCriteria get evaluationCriteria => EvaluationCriteria(doc, '$path/evaluationCriteria');
@@ -5986,7 +5986,7 @@ class ComponentsAndDependencies extends SomNode {
   ComponentStrategy get strategy => ComponentStrategy(doc, '$path/strategy');
 
   /// 12.2. Component Catalog — contains 0+× Component.
-  SomList<ComponentEntry> get componentCatalog => SomList<ComponentEntry>(doc, '$path/CMPNT-COMP-LST', (d, p) => ComponentEntry(d, p));
+  SomList<ComponentEntry> get componentCatalog => SomList<ComponentEntry>(doc, '$path/CMPNT-COMP-LST', (d, p) => ComponentEntry(d, p), pattern: 'CMPNT-COMP-xxx');
 
   /// 12.3. Component Role In System.
   // (skipped: componentRoleInSystem has no target type)
@@ -6106,7 +6106,7 @@ class ConfidentialityRequirements extends SomNode {
   ConfidentialityRequirementsContentForm get content => ConfidentialityRequirementsContentForm(doc, '$path/content');
 
   /// Confidential information categories.
-  SomList<ConfidentialInfoCategoryEntry> get categories => SomList<ConfidentialInfoCategoryEntry>(doc, '$path/COINCA-CATE-LST', (d, p) => ConfidentialInfoCategoryEntry(d, p));
+  SomList<ConfidentialInfoCategoryEntry> get categories => SomList<ConfidentialInfoCategoryEntry>(doc, '$path/COINCA-CATE-LST', (d, p) => ConfidentialInfoCategoryEntry(d, p), pattern: 'COINCA-CATE-xxx');
 
   /// Data handling procedures.
   DataHandlingProcedures get dataHandling => DataHandlingProcedures(doc, '$path/dataHandling');
@@ -6334,7 +6334,7 @@ class ContextualHelp extends SomNode {
   // (skipped: contextualHelpNarrative has no target type)
 
   /// Field help catalog.
-  SomList<FieldHelpEntry> get fieldHelpCatalog => SomList<FieldHelpEntry>(doc, '$path/FLDHP-FIEL-LST', (d, p) => FieldHelpEntry(d, p));
+  SomList<FieldHelpEntry> get fieldHelpCatalog => SomList<FieldHelpEntry>(doc, '$path/FLDHP-FIEL-LST', (d, p) => FieldHelpEntry(d, p), pattern: 'FLDHP-FIEL-xxx');
 }
 
 /// Inline help behavior.
@@ -6454,7 +6454,7 @@ class ContingencyPlans extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× ContingencyPlan.
-  SomList<ContingencyPlanEntry> get items => SomList<ContingencyPlanEntry>(doc, '$path/COPL-ITEM-LST', (d, p) => ContingencyPlanEntry(d, p));
+  SomList<ContingencyPlanEntry> get items => SomList<ContingencyPlanEntry>(doc, '$path/COPL-ITEM-LST', (d, p) => ContingencyPlanEntry(d, p), pattern: 'COPL-ITEM-xxx');
 }
 
 /// 11.2.3. Correctness quality.
@@ -6667,10 +6667,10 @@ class CurrentArchitecture extends SomNode {
   set deploymentTopology(String value) => doc.setContent('$path/deploymentTopology', value);
 
   /// Integration patterns used.
-  SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/IPE-INTE-LST', (d, p) => IntegrationPatternEntry(d, p));
+  SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/IPE-INTE-LST', (d, p) => IntegrationPatternEntry(d, p), pattern: 'IPE-INTE-xxx');
 
   /// Shared services inventory.
-  SomList<SharedServiceEntry> get sharedServices => SomList<SharedServiceEntry>(doc, '$path/SHARE-SHAR-LST', (d, p) => SharedServiceEntry(d, p));
+  SomList<SharedServiceEntry> get sharedServices => SomList<SharedServiceEntry>(doc, '$path/SHARE-SHAR-LST', (d, p) => SharedServiceEntry(d, p), pattern: 'SHARE-SHAR-xxx');
 }
 
 /// A current business process.
@@ -6721,7 +6721,7 @@ class CurrentBusinessProcesses extends SomNode {
   ProcessPerformanceSummary get performanceSummary => ProcessPerformanceSummary(doc, '$path/performanceSummary');
 
   /// 1.2.nn. Business Processes — contains 1+× Business Process.
-  SomList<CurrentBusinessProcess> get processes => SomList<CurrentBusinessProcess>(doc, '$path/CUBIPR-PROC-LST', (d, p) => CurrentBusinessProcess(d, p));
+  SomList<CurrentBusinessProcess> get processes => SomList<CurrentBusinessProcess>(doc, '$path/CUBIPR-PROC-LST', (d, p) => CurrentBusinessProcess(d, p), pattern: 'CUBIPR-PROC-xxx');
 }
 
 /// 1.4.8. Data Classification.
@@ -6738,10 +6738,10 @@ class CurrentDataClassification extends SomNode {
   DataClassificationSummary get classificationSummary => DataClassificationSummary(doc, '$path/classificationSummary');
 
   /// Classification levels defined.
-  SomList<DataClassificationLevelEntry> get classificationLevels => SomList<DataClassificationLevelEntry>(doc, '$path/DCLE-CLAS-LST', (d, p) => DataClassificationLevelEntry(d, p));
+  SomList<DataClassificationLevelEntry> get classificationLevels => SomList<DataClassificationLevelEntry>(doc, '$path/DCLE-CLAS-LST', (d, p) => DataClassificationLevelEntry(d, p), pattern: 'DCLE-CLAS-xxx');
 
   /// Classification status by data domain.
-  SomList<DataClassificationStatusEntry> get classificationStatus => SomList<DataClassificationStatusEntry>(doc, '$path/DCSE-CLAS-LST', (d, p) => DataClassificationStatusEntry(d, p));
+  SomList<DataClassificationStatusEntry> get classificationStatus => SomList<DataClassificationStatusEntry>(doc, '$path/DCSE-CLAS-LST', (d, p) => DataClassificationStatusEntry(d, p), pattern: 'DCSE-CLAS-xxx');
 }
 
 /// 1.4. Current Data Landscape.
@@ -6820,7 +6820,7 @@ class CurrentLandscape extends SomNode {
   CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
 
   /// 1.5. Operational Metrics.
-  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p));
+  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p), pattern: 'CUOPME-OPER-xxx');
 
   /// 1.6. Current State Risks.
   CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
@@ -6873,28 +6873,28 @@ class CurrentWorkflowEntry extends SomNode {
   WorkflowTriggers get triggers => WorkflowTriggers(doc, '$path/triggers');
 
   /// Workflow steps in sequence.
-  SomList<WorkflowStepEntry> get steps => SomList<WorkflowStepEntry>(doc, '$path/WSE-STEP-LST', (d, p) => WorkflowStepEntry(d, p));
+  SomList<WorkflowStepEntry> get steps => SomList<WorkflowStepEntry>(doc, '$path/WSE-STEP-LST', (d, p) => WorkflowStepEntry(d, p), pattern: 'WSE-STEP-xxx');
 
   /// Workflow actors and responsibilities.
-  SomList<WorkflowActorEntry> get actors => SomList<WorkflowActorEntry>(doc, '$path/WFAC-ACTO-LST', (d, p) => WorkflowActorEntry(d, p));
+  SomList<WorkflowActorEntry> get actors => SomList<WorkflowActorEntry>(doc, '$path/WFAC-ACTO-LST', (d, p) => WorkflowActorEntry(d, p), pattern: 'WFAC-ACTO-xxx');
 
   /// Workflow inputs.
-  SomList<WorkflowInputEntry> get inputs => SomList<WorkflowInputEntry>(doc, '$path/WOINEN-INPU-LST', (d, p) => WorkflowInputEntry(d, p));
+  SomList<WorkflowInputEntry> get inputs => SomList<WorkflowInputEntry>(doc, '$path/WOINEN-INPU-LST', (d, p) => WorkflowInputEntry(d, p), pattern: 'WOINEN-INPU-xxx');
 
   /// Workflow outputs.
-  SomList<WorkflowOutputEntry> get outputs => SomList<WorkflowOutputEntry>(doc, '$path/WOOUEN-OUTP-LST', (d, p) => WorkflowOutputEntry(d, p));
+  SomList<WorkflowOutputEntry> get outputs => SomList<WorkflowOutputEntry>(doc, '$path/WOOUEN-OUTP-LST', (d, p) => WorkflowOutputEntry(d, p), pattern: 'WOOUEN-OUTP-xxx');
 
   /// Decision points within the workflow.
-  SomList<WorkflowDecisionPoint> get decisionPoints => SomList<WorkflowDecisionPoint>(doc, '$path/WODEPO-DECI-LST', (d, p) => WorkflowDecisionPoint(d, p));
+  SomList<WorkflowDecisionPoint> get decisionPoints => SomList<WorkflowDecisionPoint>(doc, '$path/WODEPO-DECI-LST', (d, p) => WorkflowDecisionPoint(d, p), pattern: 'WODEPO-DECI-xxx');
 
   /// Business rules governing the workflow.
-  SomList<WorkflowBusinessRule> get businessRules => SomList<WorkflowBusinessRule>(doc, '$path/WOBURU-BUSI-LST', (d, p) => WorkflowBusinessRule(d, p));
+  SomList<WorkflowBusinessRule> get businessRules => SomList<WorkflowBusinessRule>(doc, '$path/WOBURU-BUSI-LST', (d, p) => WorkflowBusinessRule(d, p), pattern: 'WOBURU-BUSI-xxx');
 
   /// Manual steps requiring human intervention.
-  SomList<WorkflowStepEntry> get manualSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-MANU-LST', (d, p) => WorkflowStepEntry(d, p));
+  SomList<WorkflowStepEntry> get manualSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-MANU-LST', (d, p) => WorkflowStepEntry(d, p), pattern: 'WSE-MANU-xxx');
 
   /// Error-prone steps with high failure rates.
-  SomList<WorkflowStepEntry> get errorProneSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-ERRO-LST', (d, p) => WorkflowStepEntry(d, p));
+  SomList<WorkflowStepEntry> get errorProneSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-ERRO-LST', (d, p) => WorkflowStepEntry(d, p), pattern: 'WSE-ERRO-xxx');
 
   /// Workflow timing and performance.
   WorkflowTiming get timing => WorkflowTiming(doc, '$path/timing');
@@ -6910,7 +6910,7 @@ class CustomDistributionGroup extends SomNode {
   CustomDistributionGroupContentForm get content => CustomDistributionGroupContentForm(doc, '$path/content');
 
   /// Group members.
-  SomList<DistributionRecipientEntry> get members => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-MEMB-LST', (d, p) => DistributionRecipientEntry(d, p));
+  SomList<DistributionRecipientEntry> get members => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-MEMB-LST', (d, p) => DistributionRecipientEntry(d, p), pattern: 'DSRC-MEMB-xxx');
 }
 
 /// A custom metric entry.
@@ -7033,7 +7033,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
   CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
 
   /// Current operational metrics.
-  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p));
+  SomList<CurrentOperationalMetric> get operationalMetrics => SomList<CurrentOperationalMetric>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetric(d, p), pattern: 'CUOPME-OPER-xxx');
 
   /// Current-state risk assessment.
   CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
@@ -7089,7 +7089,7 @@ class D02TargetOperatingModel extends SomNode {
   ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
 
   /// Detailed process workflows.
-  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p));
+  SomList<DetailedProcessWorkflow> get detailedWorkflows => SomList<DetailedProcessWorkflow>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflow(d, p), pattern: 'DEPRWO-DETA-xxx');
 
   /// Cross-process analysis.
   CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
@@ -7098,7 +7098,7 @@ class D02TargetOperatingModel extends SomNode {
   ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
 
   /// Process metrics and KPIs.
-  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p));
+  SomList<ProcessMetric> get processMetricsAndKpis => SomList<ProcessMetric>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetric(d, p), pattern: 'PMAK-PROC-xxx');
 }
 
 /// IFM00 Information Model.
@@ -7128,7 +7128,7 @@ class D03InformationModel extends SomNode {
   DocumentHeader get header => DocumentHeader(doc, '$path/header');
 
   /// Entity inventory (list).
-  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
+  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p), pattern: 'DAENT-ENTI-xxx');
 
   /// Entity relationships.
   EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
@@ -7140,19 +7140,19 @@ class D03InformationModel extends SomNode {
   DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
 
   /// Business object catalog (list).
-  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
+  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p), pattern: 'BJOEN-OBJE-xxx');
 
   /// Business object diagram.
   // (skipped: objectDiagram has no target type)
 
   /// Function decomposition (list).
-  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
+  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p), pattern: 'FUNCT-FUNC-xxx');
 
   /// Function-to-data matrix (list).
-  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p));
+  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p), pattern: 'FNDMX-FUNC-xxx');
 
   /// Business rules catalog (list).
-  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
+  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p), pattern: 'BIRU-BUSI-xxx');
 
   /// Data dictionary.
   DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
@@ -7217,7 +7217,7 @@ class D04RequirementsSpecification extends SomNode {
   set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
 
   /// Requirement relationships.
-  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
+  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p), pattern: 'RERE-REQU-xxx');
 
   /// Requirement coverage.
   RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
@@ -7264,7 +7264,7 @@ class D05InteractionScenarios extends SomNode {
   ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
 
   /// End-to-end test scenarios.
-  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p));
+  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p), pattern: 'ETETS-ENDT-xxx');
 
   /// Use case traceability.
   UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
@@ -7371,7 +7371,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
   SystemLandscapeInventory get systemInventory => SystemLandscapeInventory(doc, '$path/systemInventory');
 
   /// Boundary interaction patterns.
-  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p));
+  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p), pattern: 'BOINPA-INTE-xxx');
 
   /// Interaction testing strategy.
   InteractionTestingStrategy get testingStrategy => InteractionTestingStrategy(doc, '$path/testingStrategy');
@@ -7380,10 +7380,10 @@ class D07IntegrationInterfaceSpecification extends SomNode {
   InteractionDependencyAnalysis get dependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/dependencyAnalysis');
 
   /// Migration interactions.
-  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
+  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p), pattern: 'MIIN-MIGR-xxx');
 
   /// Cross-boundary operational considerations.
-  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
+  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p), pattern: 'CBOC-OPER-xxx');
 
   /// Cross-boundary error handling.
   CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
@@ -7620,7 +7620,7 @@ class D11DeliveryRoadmap extends SomNode {
   StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
 
   /// Stages (list).
-  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
+  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p), pattern: 'STAGE-STAG-xxx');
 
   /// Feature prioritization.
   FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
@@ -7896,7 +7896,7 @@ class DataAttributeEntry extends SomNode {
 
   DataAttributeEntryDataTypeSpecForm get dataTypeSpec => DataAttributeEntryDataTypeSpecForm(doc, '$path/dataTypeSpec');
 
-  SomList<DataAttributeConstraintEntry> get constraints => SomList<DataAttributeConstraintEntry>(doc, '$path/DATAA-CONS-LST', (d, p) => DataAttributeConstraintEntry(d, p));
+  SomList<DataAttributeConstraintEntry> get constraints => SomList<DataAttributeConstraintEntry>(doc, '$path/DATAA-CONS-LST', (d, p) => DataAttributeConstraintEntry(d, p), pattern: 'DATAA-CONS-xxx');
 
   DataAttributeEntryDerivationForm get derivation => DataAttributeEntryDerivationForm(doc, '$path/derivation');
 
@@ -7904,7 +7904,7 @@ class DataAttributeEntry extends SomNode {
 
   DataAttributeEntryMigrationLineageForm get migrationLineage => DataAttributeEntryMigrationLineageForm(doc, '$path/migrationLineage');
 
-  SomList<DisplayPropertyEntry> get displayProperties => SomList<DisplayPropertyEntry>(doc, '$path/DISPL-DISP-LST', (d, p) => DisplayPropertyEntry(d, p));
+  SomList<DisplayPropertyEntry> get displayProperties => SomList<DisplayPropertyEntry>(doc, '$path/DISPL-DISP-LST', (d, p) => DisplayPropertyEntry(d, p), pattern: 'DISPL-DISP-xxx');
 }
 
 /// 7.1.4. Data Classification.
@@ -7914,7 +7914,7 @@ class DataClassification extends SomNode {
   DataClassificationOverviewForm get overview => DataClassificationOverviewForm(doc, '$path/overview');
 
   /// Contains 0+× DataClassificationEntry.
-  SomList<DataClassificationEntry> get items => SomList<DataClassificationEntry>(doc, '$path/DCLSE-ITEM-LST', (d, p) => DataClassificationEntry(d, p));
+  SomList<DataClassificationEntry> get items => SomList<DataClassificationEntry>(doc, '$path/DCLSE-ITEM-LST', (d, p) => DataClassificationEntry(d, p), pattern: 'DCLSE-ITEM-xxx');
 }
 
 /// A data classification entry (form).
@@ -7934,10 +7934,10 @@ class DataClassificationEntry extends SomNode {
   DataClassificationEntryComplianceForm get compliance => DataClassificationEntryComplianceForm(doc, '$path/compliance');
 
   /// Contains 0+× HandlingRequirement.
-  SomList<HandlingRequirementEntry> get handlingRequirements => SomList<HandlingRequirementEntry>(doc, '$path/HNDRE-HAND-LST', (d, p) => HandlingRequirementEntry(d, p));
+  SomList<HandlingRequirementEntry> get handlingRequirements => SomList<HandlingRequirementEntry>(doc, '$path/HNDRE-HAND-LST', (d, p) => HandlingRequirementEntry(d, p), pattern: 'HNDRE-HAND-xxx');
 
   /// Contains 0+× AccessRestriction.
-  SomList<AccessRestrictionEntry> get accessRestrictions => SomList<AccessRestrictionEntry>(doc, '$path/ACRSE-ACCE-LST', (d, p) => AccessRestrictionEntry(d, p));
+  SomList<AccessRestrictionEntry> get accessRestrictions => SomList<AccessRestrictionEntry>(doc, '$path/ACRSE-ACCE-LST', (d, p) => AccessRestrictionEntry(d, p), pattern: 'ACRSE-ACCE-xxx');
 }
 
 /// A data classification level definition.
@@ -7990,7 +7990,7 @@ class DataDuplicationAnalysis extends SomNode {
   set duplicationDiagram(String value) => doc.setContent('$path/duplicationDiagram', value);
 
   /// Individual duplication instances.
-  SomList<DataDuplicationEntry> get duplicationInstances => SomList<DataDuplicationEntry>(doc, '$path/DADU-DUPL-LST', (d, p) => DataDuplicationEntry(d, p));
+  SomList<DataDuplicationEntry> get duplicationInstances => SomList<DataDuplicationEntry>(doc, '$path/DADU-DUPL-LST', (d, p) => DataDuplicationEntry(d, p), pattern: 'DADU-DUPL-xxx');
 }
 
 /// A data duplication instance entry.
@@ -8048,30 +8048,30 @@ class DataEntityEntry extends SomNode {
 
   DataEntityEntryClassificationForm get classification => DataEntityEntryClassificationForm(doc, '$path/classification');
 
-  SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p));
+  SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p), pattern: 'VOLUM-VOLU-xxx');
 
   DataEntityEntryLifecyclePolicyForm get lifecyclePolicy => DataEntityEntryLifecyclePolicyForm(doc, '$path/lifecyclePolicy');
 
-  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p));
+  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p), pattern: 'CRE-COMP-xxx');
 
   DataEntityEntryRelationshipSummaryForm get relationshipSummary => DataEntityEntryRelationshipSummaryForm(doc, '$path/relationshipSummary');
 
-  SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p));
+  SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p), pattern: 'TECHN-TECH-xxx');
 
   /// Contains 0+× DataAttribute.
-  SomList<DataAttributeEntry> get attributes => SomList<DataAttributeEntry>(doc, '$path/DAATT-ATTR-LST', (d, p) => DataAttributeEntry(d, p));
+  SomList<DataAttributeEntry> get attributes => SomList<DataAttributeEntry>(doc, '$path/DAATT-ATTR-LST', (d, p) => DataAttributeEntry(d, p), pattern: 'DAATT-ATTR-xxx');
 
   /// Contains 0+× KeyAttribute.
-  SomList<KeyAttributeEntry> get keyAttributes => SomList<KeyAttributeEntry>(doc, '$path/KEATT-KEYA-LST', (d, p) => KeyAttributeEntry(d, p));
+  SomList<KeyAttributeEntry> get keyAttributes => SomList<KeyAttributeEntry>(doc, '$path/KEATT-KEYA-LST', (d, p) => KeyAttributeEntry(d, p), pattern: 'KEATT-KEYA-xxx');
 
   /// Contains 0+× EntityIndex.
-  SomList<EntityIndexEntry> get indexes => SomList<EntityIndexEntry>(doc, '$path/ENIDX-INDE-LST', (d, p) => EntityIndexEntry(d, p));
+  SomList<EntityIndexEntry> get indexes => SomList<EntityIndexEntry>(doc, '$path/ENIDX-INDE-LST', (d, p) => EntityIndexEntry(d, p), pattern: 'ENIDX-INDE-xxx');
 
   /// Contains 0+× EntityConstraint.
-  SomList<EntityConstraintEntry> get constraints => SomList<EntityConstraintEntry>(doc, '$path/ENCNS-CONS-LST', (d, p) => EntityConstraintEntry(d, p));
+  SomList<EntityConstraintEntry> get constraints => SomList<EntityConstraintEntry>(doc, '$path/ENCNS-CONS-LST', (d, p) => EntityConstraintEntry(d, p), pattern: 'ENCNS-CONS-xxx');
 
   /// Contains 0+× MigrationMapping for data migration planning.
-  SomList<MigrationMappingEntry> get migrationMappings => SomList<MigrationMappingEntry>(doc, '$path/MIGME-MIGR-LST', (d, p) => MigrationMappingEntry(d, p));
+  SomList<MigrationMappingEntry> get migrationMappings => SomList<MigrationMappingEntry>(doc, '$path/MIGME-MIGR-LST', (d, p) => MigrationMappingEntry(d, p), pattern: 'MIGME-MIGR-xxx');
 }
 
 /// A data entity migration entry.
@@ -8155,7 +8155,7 @@ class DataGovernance extends SomNode {
   set governanceOrgChart(String value) => doc.setContent('$path/governanceOrgChart', value);
 
   /// Data governance policies.
-  SomList<DataGovernancePolicyEntry> get governancePolicies => SomList<DataGovernancePolicyEntry>(doc, '$path/DGPE-GOVE-LST', (d, p) => DataGovernancePolicyEntry(d, p));
+  SomList<DataGovernancePolicyEntry> get governancePolicies => SomList<DataGovernancePolicyEntry>(doc, '$path/DGPE-GOVE-LST', (d, p) => DataGovernancePolicyEntry(d, p), pattern: 'DGPE-GOVE-xxx');
 }
 
 /// Data governance maturity assessment.
@@ -8311,7 +8311,7 @@ class DataIntegrationPoints extends SomNode {
   set dataFlowDiagram(String value) => doc.setContent('$path/dataFlowDiagram', value);
 
   /// Data integration points inventory.
-  SomList<DataIntegrationEntry> get integrationPoints => SomList<DataIntegrationEntry>(doc, '$path/DAIN-INTE-LST', (d, p) => DataIntegrationEntry(d, p));
+  SomList<DataIntegrationEntry> get integrationPoints => SomList<DataIntegrationEntry>(doc, '$path/DAIN-INTE-LST', (d, p) => DataIntegrationEntry(d, p), pattern: 'DAIN-INTE-xxx');
 }
 
 /// Summary of data integration landscape.
@@ -8396,7 +8396,7 @@ class DataMigrationStrategy extends SomNode {
   MigrationScope get scope => MigrationScope(doc, '$path/scope');
 
   /// Source and target system details.
-  SomList<MigrationSystems> get systems => SomList<MigrationSystems>(doc, '$path/MISY-SYST-LST', (d, p) => MigrationSystems(d, p));
+  SomList<MigrationSystems> get systems => SomList<MigrationSystems>(doc, '$path/MISY-SYST-LST', (d, p) => MigrationSystems(d, p), pattern: 'MISY-SYST-xxx');
 
   /// Data quality strategy.
   MigrationDataQuality get dataQuality => MigrationDataQuality(doc, '$path/dataQuality');
@@ -8405,7 +8405,7 @@ class DataMigrationStrategy extends SomNode {
   MigrationTooling get tooling => MigrationTooling(doc, '$path/tooling');
 
   /// Environment strategy.
-  SomList<MigrationEnvironments> get environments => SomList<MigrationEnvironments>(doc, '$path/MIEN-ENVI-LST', (d, p) => MigrationEnvironments(d, p));
+  SomList<MigrationEnvironments> get environments => SomList<MigrationEnvironments>(doc, '$path/MIEN-ENVI-LST', (d, p) => MigrationEnvironments(d, p), pattern: 'MIEN-ENVI-xxx');
 
   /// Cutover planning.
   MigrationCutover get cutover => MigrationCutover(doc, '$path/cutover');
@@ -8420,10 +8420,10 @@ class DataMigrationStrategy extends SomNode {
   MigrationMetrics get metrics => MigrationMetrics(doc, '$path/metrics');
 
   /// Stakeholder communication.
-  SomList<MigrationStakeholders> get stakeholders => SomList<MigrationStakeholders>(doc, '$path/MIST-STAK-LST', (d, p) => MigrationStakeholders(d, p));
+  SomList<MigrationStakeholders> get stakeholders => SomList<MigrationStakeholders>(doc, '$path/MIST-STAK-LST', (d, p) => MigrationStakeholders(d, p), pattern: 'MIST-STAK-xxx');
 
   /// Budget and resources.
-  SomList<StageMigrationResources> get resources => SomList<StageMigrationResources>(doc, '$path/STMIRE-RESO-LST', (d, p) => StageMigrationResources(d, p));
+  SomList<StageMigrationResources> get resources => SomList<StageMigrationResources>(doc, '$path/STMIRE-RESO-LST', (d, p) => StageMigrationResources(d, p), pattern: 'STMIRE-RESO-xxx');
 
   /// Schedule overview.
   MigrationSchedule get schedule => MigrationSchedule(doc, '$path/schedule');
@@ -8446,7 +8446,7 @@ class DataModel extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// 7.1.1. Entity Overview — contains 1+× Data Entity.
-  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
+  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p), pattern: 'DAENT-ENTI-xxx');
 
   /// 7.1.2. Entity Relationships.
   EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
@@ -8491,7 +8491,7 @@ class DataOwnership extends SomNode {
   set ownershipMatrixDiagram(String value) => doc.setContent('$path/ownershipMatrixDiagram', value);
 
   /// Data ownership assignments by domain.
-  SomList<DataOwnershipEntry> get ownershipAssignments => SomList<DataOwnershipEntry>(doc, '$path/DAOWEN-OWNE-LST', (d, p) => DataOwnershipEntry(d, p));
+  SomList<DataOwnershipEntry> get ownershipAssignments => SomList<DataOwnershipEntry>(doc, '$path/DAOWEN-OWNE-LST', (d, p) => DataOwnershipEntry(d, p), pattern: 'DAOWEN-OWNE-xxx');
 }
 
 /// Data ownership assignment for a domain or asset.
@@ -8680,10 +8680,10 @@ class DataQualityAssessment extends SomNode {
   set qualityIssuesSeverityChart(String value) => doc.setContent('$path/qualityIssuesSeverityChart', value);
 
   /// Data quality issues inventory.
-  SomList<DataQualityIssueEntry> get qualityIssues => SomList<DataQualityIssueEntry>(doc, '$path/DAQLIS-QUAL-LST', (d, p) => DataQualityIssueEntry(d, p));
+  SomList<DataQualityIssueEntry> get qualityIssues => SomList<DataQualityIssueEntry>(doc, '$path/DAQLIS-QUAL-LST', (d, p) => DataQualityIssueEntry(d, p), pattern: 'DAQLIS-QUAL-xxx');
 
   /// Quality improvement initiatives in progress.
-  SomList<DataQualityInitiativeEntry> get improvementInitiatives => SomList<DataQualityInitiativeEntry>(doc, '$path/DQIE-IMPR-LST', (d, p) => DataQualityInitiativeEntry(d, p));
+  SomList<DataQualityInitiativeEntry> get improvementInitiatives => SomList<DataQualityInitiativeEntry>(doc, '$path/DQIE-IMPR-LST', (d, p) => DataQualityInitiativeEntry(d, p), pattern: 'DQIE-IMPR-xxx');
 }
 
 /// Summary of data quality across standard dimensions.
@@ -8788,7 +8788,7 @@ class DataRetentionPolicies extends SomNode {
   RetentionPolicySummary get policySummary => RetentionPolicySummary(doc, '$path/policySummary');
 
   /// Retention policies by data category.
-  SomList<RetentionPolicyEntry> get retentionPolicies => SomList<RetentionPolicyEntry>(doc, '$path/REPOL-RETE-LST', (d, p) => RetentionPolicyEntry(d, p));
+  SomList<RetentionPolicyEntry> get retentionPolicies => SomList<RetentionPolicyEntry>(doc, '$path/REPOL-RETE-LST', (d, p) => RetentionPolicyEntry(d, p), pattern: 'REPOL-RETE-xxx');
 }
 
 /// Classification for data source.
@@ -8839,7 +8839,7 @@ class DataSourceEntry extends SomNode {
   DataSourceRetentionPolicy get retentionPolicy => DataSourceRetentionPolicy(doc, '$path/retentionPolicy');
 
   /// Key data entities in this source.
-  SomList<DataSourceEntityEntry> get keyEntities => SomList<DataSourceEntityEntry>(doc, '$path/DSEE-KEYE-LST', (d, p) => DataSourceEntityEntry(d, p));
+  SomList<DataSourceEntityEntry> get keyEntities => SomList<DataSourceEntityEntry>(doc, '$path/DSEE-KEYE-LST', (d, p) => DataSourceEntityEntry(d, p), pattern: 'DSEE-KEYE-xxx');
 }
 
 /// Integration for data source.
@@ -8864,7 +8864,7 @@ class DataSourceInventory extends SomNode {
   set dataSourceMapDiagram(String value) => doc.setContent('$path/dataSourceMapDiagram', value);
 
   /// Contains 0+× DataSource.
-  SomList<DataSourceEntry> get dataSources => SomList<DataSourceEntry>(doc, '$path/DASR-DATA-LST', (d, p) => DataSourceEntry(d, p));
+  SomList<DataSourceEntry> get dataSources => SomList<DataSourceEntry>(doc, '$path/DASR-DATA-LST', (d, p) => DataSourceEntry(d, p), pattern: 'DASR-DATA-xxx');
 }
 
 /// Lifecycle for data source.
@@ -9041,7 +9041,7 @@ class DataVolumesAndGrowth extends SomNode {
   set growthTrendChart(String value) => doc.setContent('$path/growthTrendChart', value);
 
   /// Volume details by data source.
-  SomList<DataVolumeEntry> get volumeBySource => SomList<DataVolumeEntry>(doc, '$path/DAVOEN-VOLU-LST', (d, p) => DataVolumeEntry(d, p));
+  SomList<DataVolumeEntry> get volumeBySource => SomList<DataVolumeEntry>(doc, '$path/DAVOEN-VOLU-LST', (d, p) => DataVolumeEntry(d, p), pattern: 'DAVOEN-VOLU-xxx');
 }
 
 /// Database access policy (form).
@@ -9297,7 +9297,7 @@ class DecisionPointEntryResolution extends SomNode {
   // (skipped: decisionNarrative has no target type)
 
   /// Contains 0+× DecisionOptionEntry.
-  SomList<DecisionOptionEntry> get options => SomList<DecisionOptionEntry>(doc, '$path/DEOPEN-OPTI-LST', (d, p) => DecisionOptionEntry(d, p));
+  SomList<DecisionOptionEntry> get options => SomList<DecisionOptionEntry>(doc, '$path/DEOPEN-OPTI-LST', (d, p) => DecisionOptionEntry(d, p), pattern: 'DEOPEN-OPTI-xxx');
 }
 
 /// Stakeholder assignments for decision point.
@@ -9322,7 +9322,7 @@ class DecisionPoints extends SomNode {
   // (skipped: decisionFrameworkNarrative has no target type)
 
   /// Contains 0+× DecisionPointEntry.
-  SomList<DecisionPointEntry> get items => SomList<DecisionPointEntry>(doc, '$path/DEPOEN-ITEM-LST', (d, p) => DecisionPointEntry(d, p));
+  SomList<DecisionPointEntry> get items => SomList<DecisionPointEntry>(doc, '$path/DEPOEN-ITEM-LST', (d, p) => DecisionPointEntry(d, p), pattern: 'DEPOEN-ITEM-xxx');
 }
 
 /// A deep link pattern entry (form).
@@ -9345,7 +9345,7 @@ class DeepLinking extends SomNode {
   // (skipped: strategy has no target type)
 
   /// Contains 0+× DeepLinkPattern.
-  SomList<DeepLinkPatternEntry> get patterns => SomList<DeepLinkPatternEntry>(doc, '$path/DELNPT-PATT-LST', (d, p) => DeepLinkPatternEntry(d, p));
+  SomList<DeepLinkPatternEntry> get patterns => SomList<DeepLinkPatternEntry>(doc, '$path/DELNPT-PATT-LST', (d, p) => DeepLinkPatternEntry(d, p), pattern: 'DELNPT-PATT-xxx');
 }
 
 /// 14.2.4. Defect Resolution.
@@ -9449,7 +9449,7 @@ class DeliverableEntry extends SomNode {
   DeliverableOwnership get ownership => DeliverableOwnership(doc, '$path/ownership');
 
   /// Dependencies.
-  SomList<DeliverableDependencies> get dependencies => SomList<DeliverableDependencies>(doc, '$path/DLVDP-DEPE-LST', (d, p) => DeliverableDependencies(d, p));
+  SomList<DeliverableDependencies> get dependencies => SomList<DeliverableDependencies>(doc, '$path/DLVDP-DEPE-LST', (d, p) => DeliverableDependencies(d, p), pattern: 'DLVDP-DEPE-xxx');
 
   /// Licensing and legal.
   DeliverableLegal get legal => DeliverableLegal(doc, '$path/legal');
@@ -10184,7 +10184,7 @@ class DesignGoals extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× DesignGoal.
-  SomList<DesignGoalEntry> get items => SomList<DesignGoalEntry>(doc, '$path/DGOEN-ITEM-LST', (d, p) => DesignGoalEntry(d, p));
+  SomList<DesignGoalEntry> get items => SomList<DesignGoalEntry>(doc, '$path/DGOEN-ITEM-LST', (d, p) => DesignGoalEntry(d, p), pattern: 'DGOEN-ITEM-xxx');
 }
 
 /// Design pattern entry — a specific design pattern to be used.
@@ -10258,16 +10258,16 @@ class DesignPatternsAndStandards extends SomNode {
   // (skipped: overview has no target type)
 
   /// Required design patterns catalog.
-  SomList<DesignPatternEntry> get designPatterns => SomList<DesignPatternEntry>(doc, '$path/DSPT-DESI-LST', (d, p) => DesignPatternEntry(d, p));
+  SomList<DesignPatternEntry> get designPatterns => SomList<DesignPatternEntry>(doc, '$path/DSPT-DESI-LST', (d, p) => DesignPatternEntry(d, p), pattern: 'DSPT-DESI-xxx');
 
   /// Coding standards and style guidelines.
-  SomList<CodingStandardEntry> get codingStandards => SomList<CodingStandardEntry>(doc, '$path/COSTEN-CODI-LST', (d, p) => CodingStandardEntry(d, p));
+  SomList<CodingStandardEntry> get codingStandards => SomList<CodingStandardEntry>(doc, '$path/COSTEN-CODI-LST', (d, p) => CodingStandardEntry(d, p), pattern: 'COSTEN-CODI-xxx');
 
   /// Development conventions and best practices.
-  SomList<DevelopmentConventionEntry> get developmentConventions => SomList<DevelopmentConventionEntry>(doc, '$path/DECOEN-DEVE-LST', (d, p) => DevelopmentConventionEntry(d, p));
+  SomList<DevelopmentConventionEntry> get developmentConventions => SomList<DevelopmentConventionEntry>(doc, '$path/DECOEN-DEVE-LST', (d, p) => DevelopmentConventionEntry(d, p), pattern: 'DECOEN-DEVE-xxx');
 
   /// Industry standards compliance requirements.
-  SomList<IndustryStandardEntry> get industryStandards => SomList<IndustryStandardEntry>(doc, '$path/INSTEN-INDU-LST', (d, p) => IndustryStandardEntry(d, p));
+  SomList<IndustryStandardEntry> get industryStandards => SomList<IndustryStandardEntry>(doc, '$path/INSTEN-INDU-LST', (d, p) => IndustryStandardEntry(d, p), pattern: 'INSTEN-INDU-xxx');
 
   /// Code quality metrics and thresholds.
   CodeQualityMetrics get codeQualityMetrics => CodeQualityMetrics(doc, '$path/codeQualityMetrics');
@@ -10305,7 +10305,7 @@ class DesignPrinciples extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× UiDesignPrinciple.
-  SomList<DesignPrincipleEntry> get items => SomList<DesignPrincipleEntry>(doc, '$path/UDPEN-ITEM-LST', (d, p) => DesignPrincipleEntry(d, p));
+  SomList<DesignPrincipleEntry> get items => SomList<DesignPrincipleEntry>(doc, '$path/UDPEN-ITEM-LST', (d, p) => DesignPrincipleEntry(d, p), pattern: 'UDPEN-ITEM-xxx');
 }
 
 /// Design principles overview.
@@ -10521,7 +10521,7 @@ class DevelopmentEnvironment extends SomNode {
   // (skipped: overview has no target type)
 
   /// IDE and editor requirements.
-  SomList<IdeRequirementEntry> get ideRequirements => SomList<IdeRequirementEntry>(doc, '$path/IDREEN-IDER-LST', (d, p) => IdeRequirementEntry(d, p));
+  SomList<IdeRequirementEntry> get ideRequirements => SomList<IdeRequirementEntry>(doc, '$path/IDREEN-IDER-LST', (d, p) => IdeRequirementEntry(d, p), pattern: 'IDREEN-IDER-xxx');
 
   /// Build tools and automation.
   BuildToolsConfiguration get buildTools => BuildToolsConfiguration(doc, '$path/buildTools');
@@ -10819,7 +10819,7 @@ class DistributionList extends SomNode {
   ExecutiveSummaryDistribution get executiveSummary => ExecutiveSummaryDistribution(doc, '$path/executiveSummary');
 
   /// 3.3.3. Custom Distribution Groups — contains 0+× Group.
-  SomList<CustomDistributionGroup> get customGroups => SomList<CustomDistributionGroup>(doc, '$path/CSDSGR-CUST-LST', (d, p) => CustomDistributionGroup(d, p));
+  SomList<CustomDistributionGroup> get customGroups => SomList<CustomDistributionGroup>(doc, '$path/CSDSGR-CUST-LST', (d, p) => CustomDistributionGroup(d, p), pattern: 'CSDSGR-CUST-xxx');
 }
 
 /// Access and information scope.
@@ -10856,7 +10856,7 @@ class DistributionRecipientEntry extends SomNode {
   DistributionRecipientContact get contact => DistributionRecipientContact(doc, '$path/contact');
 
   /// Distribution preferences.
-  SomList<DistributionRecipientPreferences> get preferences => SomList<DistributionRecipientPreferences>(doc, '$path/DIREPR-PREF-LST', (d, p) => DistributionRecipientPreferences(d, p));
+  SomList<DistributionRecipientPreferences> get preferences => SomList<DistributionRecipientPreferences>(doc, '$path/DIREPR-PREF-LST', (d, p) => DistributionRecipientPreferences(d, p), pattern: 'DIREPR-PREF-xxx');
 
   /// Access and information scope.
   DistributionRecipientAccess get access => DistributionRecipientAccess(doc, '$path/access');
@@ -11027,7 +11027,7 @@ class DocumentControl extends SomNode {
   RevisionHistory get revisionHistory => RevisionHistory(doc, '$path/revisionHistory');
 
   /// Formal approvals (sign-offs) recorded for this document.
-  SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p));
+  SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p), pattern: 'DOCTL-APRV-xxx');
 
   /// Reference documents — the catalogue of documents this specification draws
   /// on (standards, policies, regulations, related specs). Re-homed here from
@@ -11056,7 +11056,7 @@ class DocumentRelationships extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Related document entries.
-  SomList<RelatedDocumentEntry> get relatedDocuments => SomList<RelatedDocumentEntry>(doc, '$path/REDOEN-RELA-LST', (d, p) => RelatedDocumentEntry(d, p));
+  SomList<RelatedDocumentEntry> get relatedDocuments => SomList<RelatedDocumentEntry>(doc, '$path/REDOEN-RELA-LST', (d, p) => RelatedDocumentEntry(d, p), pattern: 'REDOEN-RELA-xxx');
 }
 
 /// Key sections within a reference document relevant to the project.
@@ -11066,7 +11066,7 @@ class DocumentRelevantSections extends SomNode {
   DocumentRelevantSectionsContentForm get content => DocumentRelevantSectionsContentForm(doc, '$path/content');
 
   /// Individual relevant section entries.
-  SomList<RelevantSectionEntry> get sections => SomList<RelevantSectionEntry>(doc, '$path/RESEEN-SECT-LST', (d, p) => RelevantSectionEntry(d, p));
+  SomList<RelevantSectionEntry> get sections => SomList<RelevantSectionEntry>(doc, '$path/RESEEN-SECT-LST', (d, p) => RelevantSectionEntry(d, p), pattern: 'RESEEN-SECT-xxx');
 }
 
 /// Documentation deliverables provided to users.
@@ -11091,7 +11091,7 @@ class DocumentationDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DCDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DCDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p), pattern: 'DCDLV-ITEM-xxx');
 }
 
 /// 11.10. Documentation Quality (ISO/IEC 26514 annex).
@@ -11251,7 +11251,7 @@ class DomainBoundaries extends SomNode {
   set outsideScope(String value) => doc.setContent('$path/outsideScope', value);
 
   /// Domain interfaces — contains 0+× DomainInterfaceEntry.
-  SomList<DomainInterfaceEntry> get interfaces => SomList<DomainInterfaceEntry>(doc, '$path/DIE-INTE-LST', (d, p) => DomainInterfaceEntry(d, p));
+  SomList<DomainInterfaceEntry> get interfaces => SomList<DomainInterfaceEntry>(doc, '$path/DIE-INTE-LST', (d, p) => DomainInterfaceEntry(d, p), pattern: 'DIE-INTE-xxx');
 }
 
 /// A domain business rule entry (form).
@@ -11292,7 +11292,7 @@ class DomainBusinessRules extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Business rule entries — contains 0+× BusinessRuleEntry.
-  SomList<DomainBusinessRuleEntry> get rules => SomList<DomainBusinessRuleEntry>(doc, '$path/DOBIRU-RULE-LST', (d, p) => DomainBusinessRuleEntry(d, p));
+  SomList<DomainBusinessRuleEntry> get rules => SomList<DomainBusinessRuleEntry>(doc, '$path/DOBIRU-RULE-LST', (d, p) => DomainBusinessRuleEntry(d, p), pattern: 'DOBIRU-RULE-xxx');
 }
 
 /// A domain event entry (form).
@@ -11313,7 +11313,7 @@ class DomainEvents extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Domain event entries — contains 0+× DomainEventEntry.
-  SomList<DomainEventEntry> get events => SomList<DomainEventEntry>(doc, '$path/DOEV-EVEN-LST', (d, p) => DomainEventEntry(d, p));
+  SomList<DomainEventEntry> get events => SomList<DomainEventEntry>(doc, '$path/DOEV-EVEN-LST', (d, p) => DomainEventEntry(d, p), pattern: 'DOEV-EVEN-xxx');
 }
 
 /// A domain interface entry (form).
@@ -11382,7 +11382,7 @@ class DomainProcesses extends SomNode {
   set processOverviewDiagram(String value) => doc.setContent('$path/processOverviewDiagram', value);
 
   /// Domain process entries — contains 0+× DomainProcessEntry.
-  SomList<DomainProcessEntry> get processes => SomList<DomainProcessEntry>(doc, '$path/DOPR-PROC-LST', (d, p) => DomainProcessEntry(d, p));
+  SomList<DomainProcessEntry> get processes => SomList<DomainProcessEntry>(doc, '$path/DOPR-PROC-LST', (d, p) => DomainProcessEntry(d, p), pattern: 'DOPR-PROC-xxx');
 }
 
 /// A domain term entry (form).
@@ -11403,7 +11403,7 @@ class DomainVocabulary extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Vocabulary entries — contains 1+× DomainTermEntry.
-  SomList<DomainTermEntry> get terms => SomList<DomainTermEntry>(doc, '$path/DTE-TERM-LST', (d, p) => DomainTermEntry(d, p));
+  SomList<DomainTermEntry> get terms => SomList<DomainTermEntry>(doc, '$path/DTE-TERM-LST', (d, p) => DomainTermEntry(d, p), pattern: 'DTE-TERM-xxx');
 }
 
 /// 11.3.1. Efficiency quality.
@@ -11519,7 +11519,7 @@ class EncryptionAtRest extends SomNode {
   EncryptionAtRestPolicy get encryptionPolicy => EncryptionAtRestPolicy(doc, '$path/encryptionPolicy');
 
   /// Contains 0+× EncryptedDataCategory.
-  SomList<EncryptedDataCategoryEntry> get encryptedDataCategories => SomList<EncryptedDataCategoryEntry>(doc, '$path/ENDACA-ENCR-LST', (d, p) => EncryptedDataCategoryEntry(d, p));
+  SomList<EncryptedDataCategoryEntry> get encryptedDataCategories => SomList<EncryptedDataCategoryEntry>(doc, '$path/ENDACA-ENCR-LST', (d, p) => EncryptedDataCategoryEntry(d, p), pattern: 'ENDACA-ENCR-xxx');
 
   /// Database Encryption Policy.
   DatabaseEncryptionPolicy get databaseEncryption => DatabaseEncryptionPolicy(doc, '$path/databaseEncryption');
@@ -11568,7 +11568,7 @@ class EncryptionInTransit extends SomNode {
   CertificateManagementPolicy get certificateManagement => CertificateManagementPolicy(doc, '$path/certificateManagement');
 
   /// Contains 0+× CommunicationChannelEncryption.
-  SomList<CommunicationChannelEncryptionEntry> get communicationChannels => SomList<CommunicationChannelEncryptionEntry>(doc, '$path/COCHEN-COMM-LST', (d, p) => CommunicationChannelEncryptionEntry(d, p));
+  SomList<CommunicationChannelEncryptionEntry> get communicationChannels => SomList<CommunicationChannelEncryptionEntry>(doc, '$path/COCHEN-COMM-LST', (d, p) => CommunicationChannelEncryptionEntry(d, p), pattern: 'COCHEN-COMM-xxx');
 
   /// Mutual TLS Policy.
   MutualTlsPolicy get mutualTlsPolicy => MutualTlsPolicy(doc, '$path/mutualTlsPolicy');
@@ -11645,7 +11645,7 @@ class EntitlementEntry extends SomNode {
   EntitlementEntryContentForm get content => EntitlementEntryContentForm(doc, '$path/content');
 
   /// Contains 0+× ResourceKeyReference.
-  SomList<ResourceKeyReferenceEntry> get resourceKeyReferences => SomList<ResourceKeyReferenceEntry>(doc, '$path/RESKREF-RESO-LST', (d, p) => ResourceKeyReferenceEntry(d, p));
+  SomList<ResourceKeyReferenceEntry> get resourceKeyReferences => SomList<ResourceKeyReferenceEntry>(doc, '$path/RESKREF-RESO-LST', (d, p) => ResourceKeyReferenceEntry(d, p), pattern: 'RESKREF-RESO-xxx');
 }
 
 /// An entitlement reference entry (form).
@@ -11681,7 +11681,7 @@ class EntityRelationshipEntry extends SomNode {
 
   EntityRelationshipEntryIdentityForm get identity => EntityRelationshipEntryIdentityForm(doc, '$path/identity');
 
-  SomList<ParticipantEntry> get participants => SomList<ParticipantEntry>(doc, '$path/PARTI-PART-LST', (d, p) => ParticipantEntry(d, p));
+  SomList<ParticipantEntry> get participants => SomList<ParticipantEntry>(doc, '$path/PARTI-PART-LST', (d, p) => ParticipantEntry(d, p), pattern: 'PARTI-PART-xxx');
 
   EntityRelationshipEntryCardinalityForm get cardinality => EntityRelationshipEntryCardinalityForm(doc, '$path/cardinality');
 
@@ -11689,7 +11689,7 @@ class EntityRelationshipEntry extends SomNode {
 
   EntityRelationshipEntryNavigationForm get navigation => EntityRelationshipEntryNavigationForm(doc, '$path/navigation');
 
-  SomList<RelationshipAttributeEntry> get relationshipAttributes => SomList<RelationshipAttributeEntry>(doc, '$path/RELAT-RELA-LST', (d, p) => RelationshipAttributeEntry(d, p));
+  SomList<RelationshipAttributeEntry> get relationshipAttributes => SomList<RelationshipAttributeEntry>(doc, '$path/RELAT-RELA-LST', (d, p) => RelationshipAttributeEntry(d, p), pattern: 'RELAT-RELA-xxx');
 
   String get sourceEntityRef => doc.content('$path/sourceEntityRef') ?? '';
   set sourceEntityRef(String value) => doc.setContent('$path/sourceEntityRef', value);
@@ -11706,7 +11706,7 @@ class EntityRelationships extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× EntityRelationship.
-  SomList<EntityRelationshipEntry> get items => SomList<EntityRelationshipEntry>(doc, '$path/ENRLE-ITEM-LST', (d, p) => EntityRelationshipEntry(d, p));
+  SomList<EntityRelationshipEntry> get items => SomList<EntityRelationshipEntry>(doc, '$path/ENRLE-ITEM-LST', (d, p) => EntityRelationshipEntry(d, p), pattern: 'ENRLE-ITEM-xxx');
 }
 
 /// An entry point entry (form).
@@ -11965,7 +11965,7 @@ class Environments extends SomNode {
   EnvironmentsContentForm get content => EnvironmentsContentForm(doc, '$path/content');
 
   /// Contains 0+× Environment.
-  SomList<EnvironmentEntry> get items => SomList<EnvironmentEntry>(doc, '$path/ENVEN-ITEM-LST', (d, p) => EnvironmentEntry(d, p));
+  SomList<EnvironmentEntry> get items => SomList<EnvironmentEntry>(doc, '$path/ENVEN-ITEM-LST', (d, p) => EnvironmentEntry(d, p), pattern: 'ENVEN-ITEM-xxx');
 }
 
 /// Equipment overview and standards.
@@ -11985,22 +11985,22 @@ class EquipmentRequirements extends SomNode {
   EquipmentOverview get overview => EquipmentOverview(doc, '$path/overview');
 
   /// Primary computing equipment.
-  SomList<ComputingEquipmentEntry> get primaryComputing => SomList<ComputingEquipmentEntry>(doc, '$path/COEQ-PRIM-LST', (d, p) => ComputingEquipmentEntry(d, p));
+  SomList<ComputingEquipmentEntry> get primaryComputing => SomList<ComputingEquipmentEntry>(doc, '$path/COEQ-PRIM-LST', (d, p) => ComputingEquipmentEntry(d, p), pattern: 'COEQ-PRIM-xxx');
 
   /// Display and monitors.
-  SomList<DisplayEquipmentEntry> get displays => SomList<DisplayEquipmentEntry>(doc, '$path/DSEQ-DISP-LST', (d, p) => DisplayEquipmentEntry(d, p));
+  SomList<DisplayEquipmentEntry> get displays => SomList<DisplayEquipmentEntry>(doc, '$path/DSEQ-DISP-LST', (d, p) => DisplayEquipmentEntry(d, p), pattern: 'DSEQ-DISP-xxx');
 
   /// Input devices.
-  SomList<InputDeviceEntry> get inputDevices => SomList<InputDeviceEntry>(doc, '$path/INPDE-INPU-LST', (d, p) => InputDeviceEntry(d, p));
+  SomList<InputDeviceEntry> get inputDevices => SomList<InputDeviceEntry>(doc, '$path/INPDE-INPU-LST', (d, p) => InputDeviceEntry(d, p), pattern: 'INPDE-INPU-xxx');
 
   /// Peripheral equipment.
-  SomList<PeripheralEquipmentEntry> get peripherals => SomList<PeripheralEquipmentEntry>(doc, '$path/PEREQ-PERI-LST', (d, p) => PeripheralEquipmentEntry(d, p));
+  SomList<PeripheralEquipmentEntry> get peripherals => SomList<PeripheralEquipmentEntry>(doc, '$path/PEREQ-PERI-LST', (d, p) => PeripheralEquipmentEntry(d, p), pattern: 'PEREQ-PERI-xxx');
 
   /// Mobile devices.
-  SomList<MobileDeviceEntry> get mobileDevices => SomList<MobileDeviceEntry>(doc, '$path/MOBDE-MOBI-LST', (d, p) => MobileDeviceEntry(d, p));
+  SomList<MobileDeviceEntry> get mobileDevices => SomList<MobileDeviceEntry>(doc, '$path/MOBDE-MOBI-LST', (d, p) => MobileDeviceEntry(d, p), pattern: 'MOBDE-MOBI-xxx');
 
   /// Specialized equipment.
-  SomList<SpecializedEquipmentEntry> get specializedEquipment => SomList<SpecializedEquipmentEntry>(doc, '$path/SPEQ-SPEC-LST', (d, p) => SpecializedEquipmentEntry(d, p));
+  SomList<SpecializedEquipmentEntry> get specializedEquipment => SomList<SpecializedEquipmentEntry>(doc, '$path/SPEQ-SPEC-LST', (d, p) => SpecializedEquipmentEntry(d, p), pattern: 'SPEQ-SPEC-xxx');
 }
 
 /// Error budget tracking.
@@ -12196,10 +12196,10 @@ class ErrorRecovery extends SomNode {
   // (skipped: recoveryNarrative has no target type)
 
   /// Recovery flow diagrams.
-  SomList<RecoveryFlowEntry> get recoveryFlows => SomList<RecoveryFlowEntry>(doc, '$path/RECOV-RECO-LST', (d, p) => RecoveryFlowEntry(d, p));
+  SomList<RecoveryFlowEntry> get recoveryFlows => SomList<RecoveryFlowEntry>(doc, '$path/RECOV-RECO-LST', (d, p) => RecoveryFlowEntry(d, p), pattern: 'RECOV-RECO-xxx');
 
   /// Common recovery scenarios.
-  SomList<RecoveryScenarioEntry> get recoveryScenarios => SomList<RecoveryScenarioEntry>(doc, '$path/RCVSCN-RECO-LST', (d, p) => RecoveryScenarioEntry(d, p));
+  SomList<RecoveryScenarioEntry> get recoveryScenarios => SomList<RecoveryScenarioEntry>(doc, '$path/RCVSCN-RECO-LST', (d, p) => RecoveryScenarioEntry(d, p), pattern: 'RCVSCN-RECO-xxx');
 }
 
 /// Data preservation: draft auto-save settings.
@@ -12256,7 +12256,7 @@ class EvaluationCriteria extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× EvaluationCriterion.
-  SomList<EvaluationCriterionEntry> get items => SomList<EvaluationCriterionEntry>(doc, '$path/EVCEN-ITEM-LST', (d, p) => EvaluationCriterionEntry(d, p));
+  SomList<EvaluationCriterionEntry> get items => SomList<EvaluationCriterionEntry>(doc, '$path/EVCEN-ITEM-LST', (d, p) => EvaluationCriterionEntry(d, p), pattern: 'EVCEN-ITEM-xxx');
 }
 
 /// An evaluation criterion entry (form).
@@ -12325,7 +12325,7 @@ class ExecutiveSummaryDistribution extends SomNode {
   DistributionGroupSummary get groupSummary => DistributionGroupSummary(doc, '$path/groupSummary');
 
   /// Contains 0+× DistributionRecipient.
-  SomList<DistributionRecipientEntry> get items => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-ITEM-LST', (d, p) => DistributionRecipientEntry(d, p));
+  SomList<DistributionRecipientEntry> get items => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-ITEM-LST', (d, p) => DistributionRecipientEntry(d, p), pattern: 'DSRC-ITEM-xxx');
 }
 
 /// Business context for an existing system.
@@ -12363,7 +12363,7 @@ class ExistingSystemEntry extends SomNode {
   ExistingSystemInfrastructure get infrastructure => ExistingSystemInfrastructure(doc, '$path/infrastructure');
 
   /// Contains 0+× Limitation.
-  SomList<LimitationEntry> get knownLimitations => SomList<LimitationEntry>(doc, '$path/LIMET-KNOW-LST', (d, p) => LimitationEntry(d, p));
+  SomList<LimitationEntry> get knownLimitations => SomList<LimitationEntry>(doc, '$path/LIMET-KNOW-LST', (d, p) => LimitationEntry(d, p), pattern: 'LIMET-KNOW-xxx');
 
   /// Quality and risk assessment.
   ExistingSystemQuality get quality => ExistingSystemQuality(doc, '$path/quality');
@@ -12585,7 +12585,7 @@ class ExportFormatEntry extends SomNode {
   ExportDataFormat get dataFormat => ExportDataFormat(doc, '$path/dataFormat');
 
   /// Size and splitting.
-  SomList<ExportSizeSettings> get sizeSettings => SomList<ExportSizeSettings>(doc, '$path/EXSISE-SIZE-LST', (d, p) => ExportSizeSettings(d, p));
+  SomList<ExportSizeSettings> get sizeSettings => SomList<ExportSizeSettings>(doc, '$path/EXSISE-SIZE-LST', (d, p) => ExportSizeSettings(d, p), pattern: 'EXSISE-SIZE-xxx');
 
   /// Security settings.
   ExportSecurity get security => ExportSecurity(doc, '$path/security');
@@ -12597,7 +12597,7 @@ class ExportFormatEntry extends SomNode {
   ExportAccess get access => ExportAccess(doc, '$path/access');
 
   /// Contains 0+× Export Field Mapping.
-  SomList<ExportFieldMappingEntry> get fieldMappings => SomList<ExportFieldMappingEntry>(doc, '$path/EFME-FIEL-LST', (d, p) => ExportFieldMappingEntry(d, p));
+  SomList<ExportFieldMappingEntry> get fieldMappings => SomList<ExportFieldMappingEntry>(doc, '$path/EFME-FIEL-LST', (d, p) => ExportFieldMappingEntry(d, p), pattern: 'EFME-FIEL-xxx');
 }
 
 /// Export identity and data source.
@@ -12682,7 +12682,7 @@ class ExtensionEntry extends SomNode {
   ExtensionEntryContentForm get content => ExtensionEntryContentForm(doc, '$path/content');
 
   /// Extension steps — contains 0+× Scenario Step.
-  SomList<ExtensionStepEntry> get steps => SomList<ExtensionStepEntry>(doc, '$path/EXTST-STEP-LST', (d, p) => ExtensionStepEntry(d, p));
+  SomList<ExtensionStepEntry> get steps => SomList<ExtensionStepEntry>(doc, '$path/EXTST-STEP-LST', (d, p) => ExtensionStepEntry(d, p), pattern: 'EXTST-STEP-xxx');
 }
 
 /// An extension step entry.
@@ -12705,7 +12705,7 @@ class ExternalActorEntry extends SomNode {
   ExternalActorEntryContext get context => ExternalActorEntryContext(doc, '$path/context');
 
   /// Interaction scenarios for this actor.
-  SomList<InteractionScenarioEntry> get interactionScenarios => SomList<InteractionScenarioEntry>(doc, '$path/INTER-INTE-LST', (d, p) => InteractionScenarioEntry(d, p));
+  SomList<InteractionScenarioEntry> get interactionScenarios => SomList<InteractionScenarioEntry>(doc, '$path/INTER-INTE-LST', (d, p) => InteractionScenarioEntry(d, p), pattern: 'INTER-INTE-xxx');
 }
 
 /// Access, authentication, and context details.
@@ -12733,7 +12733,7 @@ class ExternalActors extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Actor entries — contains 1+× ExternalActorEntry.
-  SomList<ExternalActorEntry> get actors => SomList<ExternalActorEntry>(doc, '$path/EAE-ACTO-LST', (d, p) => ExternalActorEntry(d, p));
+  SomList<ExternalActorEntry> get actors => SomList<ExternalActorEntry>(doc, '$path/EAE-ACTO-LST', (d, p) => ExternalActorEntry(d, p), pattern: 'EAE-ACTO-xxx');
 }
 
 /// 8.6.2. External Connectivity.
@@ -12747,7 +12747,7 @@ class ExternalConnectivitySection extends SomNode {
   // (skipped: overview has no target type)
 
   /// External partner connections — contains 0+× ExternalPartnerConnection.
-  SomList<ExternalPartnerConnectionEntry> get partnerConnections => SomList<ExternalPartnerConnectionEntry>(doc, '$path/EPCE-PART-LST', (d, p) => ExternalPartnerConnectionEntry(d, p));
+  SomList<ExternalPartnerConnectionEntry> get partnerConnections => SomList<ExternalPartnerConnectionEntry>(doc, '$path/EPCE-PART-LST', (d, p) => ExternalPartnerConnectionEntry(d, p), pattern: 'EPCE-PART-xxx');
 
   /// Cloud service integrations.
   CloudServiceIntegrations get cloudServices => CloudServiceIntegrations(doc, '$path/cloudServices');
@@ -12822,7 +12822,7 @@ class ExternalInterfaces extends SomNode {
   // (skipped: governanceModel has no target type)
 
   /// Contains 0+× ExternalInterfaceEntry.
-  SomList<ExternalInterfaceEntry> get interfaces => SomList<ExternalInterfaceEntry>(doc, '$path/EXINEN-INTE-LST', (d, p) => ExternalInterfaceEntry(d, p));
+  SomList<ExternalInterfaceEntry> get interfaces => SomList<ExternalInterfaceEntry>(doc, '$path/EXINEN-INTE-LST', (d, p) => ExternalInterfaceEntry(d, p), pattern: 'EXINEN-INTE-xxx');
 }
 
 /// External network requirements.
@@ -12901,7 +12901,7 @@ class ExternalPartnerConnectionEntry extends SomNode {
   ExternalPartnerDataHandling get dataHandling => ExternalPartnerDataHandling(doc, '$path/dataHandling');
 
   /// Operations and contacts.
-  SomList<ExternalPartnerOperations> get operations => SomList<ExternalPartnerOperations>(doc, '$path/EXPAOP-OPER-LST', (d, p) => ExternalPartnerOperations(d, p));
+  SomList<ExternalPartnerOperations> get operations => SomList<ExternalPartnerOperations>(doc, '$path/EXPAOP-OPER-LST', (d, p) => ExternalPartnerOperations(d, p), pattern: 'EXPAOP-OPER-xxx');
 }
 
 /// Data handling.
@@ -12950,7 +12950,7 @@ class ExternalServiceDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× External Service Dependency.
-  SomList<ExternalServiceDependencyEntry> get items => SomList<ExternalServiceDependencyEntry>(doc, '$path/EXSDE-ITEM-LST', (d, p) => ExternalServiceDependencyEntry(d, p));
+  SomList<ExternalServiceDependencyEntry> get items => SomList<ExternalServiceDependencyEntry>(doc, '$path/EXSDE-ITEM-LST', (d, p) => ExternalServiceDependencyEntry(d, p), pattern: 'EXSDE-ITEM-xxx');
 }
 
 /// An external service dependency entry (form).
@@ -13046,7 +13046,7 @@ class ExternalSystemsContext extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// External system entries — contains 0+× ExternalSystemContextEntry.
-  SomList<ExternalSystemContextEntry> get systems => SomList<ExternalSystemContextEntry>(doc, '$path/EXSYCOEN-SYST-LST', (d, p) => ExternalSystemContextEntry(d, p));
+  SomList<ExternalSystemContextEntry> get systems => SomList<ExternalSystemContextEntry>(doc, '$path/EXSYCOEN-SYST-LST', (d, p) => ExternalSystemContextEntry(d, p), pattern: 'EXSYCOEN-SYST-xxx');
 }
 
 /// A component reference within a family.
@@ -13076,7 +13076,7 @@ class FeatureDependencies extends SomNode {
   // (skipped: dependencyAnalysis has no target type)
 
   /// Contains 0+× FeatureDependencyEntry.
-  SomList<FeatureDependencyEntry> get items => SomList<FeatureDependencyEntry>(doc, '$path/FEDEEN-ITEM-LST', (d, p) => FeatureDependencyEntry(d, p));
+  SomList<FeatureDependencyEntry> get items => SomList<FeatureDependencyEntry>(doc, '$path/FEDEEN-ITEM-LST', (d, p) => FeatureDependencyEntry(d, p), pattern: 'FEDEEN-ITEM-xxx');
 }
 
 /// Dependencies info for a feature priority entry.
@@ -13284,7 +13284,7 @@ class FeaturePriorityEntry extends SomNode {
   FeatureDependenciesInfo get dependencies => FeatureDependenciesInfo(doc, '$path/dependencies');
 
   /// Stakeholders.
-  SomList<FeatureStakeholders> get stakeholders => SomList<FeatureStakeholders>(doc, '$path/FEST-STAK-LST', (d, p) => FeatureStakeholders(d, p));
+  SomList<FeatureStakeholders> get stakeholders => SomList<FeatureStakeholders>(doc, '$path/FEST-STAK-LST', (d, p) => FeatureStakeholders(d, p), pattern: 'FEST-STAK-xxx');
 
   /// Traceability.
   FeatureTraceability get traceability => FeatureTraceability(doc, '$path/traceability');
@@ -13304,7 +13304,7 @@ class FeaturePriorityRegister extends SomNode {
   FeaturePriorityRegisterContentForm get content => FeaturePriorityRegisterContentForm(doc, '$path/content');
 
   /// Contains 1+× FeaturePriorityEntry.
-  SomList<FeaturePriorityEntry> get items => SomList<FeaturePriorityEntry>(doc, '$path/FEPREN-ITEM-LST', (d, p) => FeaturePriorityEntry(d, p));
+  SomList<FeaturePriorityEntry> get items => SomList<FeaturePriorityEntry>(doc, '$path/FEPREN-ITEM-LST', (d, p) => FeaturePriorityEntry(d, p), pattern: 'FEPREN-ITEM-xxx');
 }
 
 /// Priority scoring for a feature priority entry.
@@ -13384,7 +13384,7 @@ class FeatureStageMatrix extends SomNode {
   // (skipped: matrixNarrative has no target type)
 
   /// Contains 0+× FeatureStageMapping.
-  SomList<FeatureStageMapping> get items => SomList<FeatureStageMapping>(doc, '$path/FESTM1-ITEM-LST', (d, p) => FeatureStageMapping(d, p));
+  SomList<FeatureStageMapping> get items => SomList<FeatureStageMapping>(doc, '$path/FESTM1-ITEM-LST', (d, p) => FeatureStageMapping(d, p), pattern: 'FESTM1-ITEM-xxx');
 }
 
 /// Stakeholders for a feature priority entry.
@@ -13408,7 +13408,7 @@ class FeatureTourEntry extends SomNode {
   FeatureTourEntryContentForm get content => FeatureTourEntryContentForm(doc, '$path/content');
 
   /// Tour steps.
-  SomList<TourStepEntry> get steps => SomList<TourStepEntry>(doc, '$path/TURST-STEP-LST', (d, p) => TourStepEntry(d, p));
+  SomList<TourStepEntry> get steps => SomList<TourStepEntry>(doc, '$path/TURST-STEP-LST', (d, p) => TourStepEntry(d, p), pattern: 'TURST-STEP-xxx');
 }
 
 /// Traceability for a feature priority entry.
@@ -13731,7 +13731,7 @@ class FullDistribution extends SomNode {
   DistributionGroupSummary get groupSummary => DistributionGroupSummary(doc, '$path/groupSummary');
 
   /// Contains 0+× DistributionRecipient.
-  SomList<DistributionRecipientEntry> get items => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-ITEM-LST', (d, p) => DistributionRecipientEntry(d, p));
+  SomList<DistributionRecipientEntry> get items => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-ITEM-LST', (d, p) => DistributionRecipientEntry(d, p), pattern: 'DSRC-ITEM-xxx');
 }
 
 /// A function-to-data matrix entry (form).
@@ -13761,7 +13761,7 @@ class FunctionEntry extends SomNode {
   FunctionEntryImplementation get implementation => FunctionEntryImplementation(doc, '$path/implementation');
 
   /// Sub-functions — contains 0+× SubFunction.
-  SomList<SubFunctionEntry> get subFunctions => SomList<SubFunctionEntry>(doc, '$path/SUFN-SUBF-LST', (d, p) => SubFunctionEntry(d, p));
+  SomList<SubFunctionEntry> get subFunctions => SomList<SubFunctionEntry>(doc, '$path/SUFN-SUBF-LST', (d, p) => SubFunctionEntry(d, p), pattern: 'SUFN-SUBF-xxx');
 }
 
 /// Decomposition position and classification.
@@ -13796,13 +13796,13 @@ class FunctionModel extends SomNode {
   FunctionModelMatrixOverviewForm get matrixOverview => FunctionModelMatrixOverviewForm(doc, '$path/matrixOverview');
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
-  SomList<FunctionEntry> get functions => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
+  SomList<FunctionEntry> get functions => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p), pattern: 'FUNCT-FUNC-xxx');
 
   /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
-  SomList<FunctionDataMatrixEntry> get matrixEntries => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-MATR-LST', (d, p) => FunctionDataMatrixEntry(d, p));
+  SomList<FunctionDataMatrixEntry> get matrixEntries => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-MATR-LST', (d, p) => FunctionDataMatrixEntry(d, p), pattern: 'FNDMX-MATR-xxx');
 
   /// 7.3.3. Business Rules — contains 1+× Business Rule.
-  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
+  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p), pattern: 'BIRU-BUSI-xxx');
 }
 
 /// 11.2.2. Functional completeness quality.
@@ -13923,7 +13923,7 @@ class FunctionalRequirements extends SomNode {
   FunctionalRequirementsSummaryFormForm get summaryForm => FunctionalRequirementsSummaryFormForm(doc, '$path/summaryForm');
 
   /// Functional requirements list — contains 1+× Functional Requirement.
-  SomList<FunctionalRequirementEntry> get requirements => SomList<FunctionalRequirementEntry>(doc, '$path/FRE-REQU-LST', (d, p) => FunctionalRequirementEntry(d, p));
+  SomList<FunctionalRequirementEntry> get requirements => SomList<FunctionalRequirementEntry>(doc, '$path/FRE-REQU-LST', (d, p) => FunctionalRequirementEntry(d, p), pattern: 'FRE-REQU-xxx');
 }
 
 /// 4.6.2. Functional Responsibilities.
@@ -13941,7 +13941,7 @@ class FunctionalResponsibilities extends SomNode {
   // (skipped: matrixOverview has no target type)
 
   /// Contains 0+× Responsibility.
-  SomList<ResponsibilityEntry> get items => SomList<ResponsibilityEntry>(doc, '$path/REEN1-ITEM-LST', (d, p) => ResponsibilityEntry(d, p));
+  SomList<ResponsibilityEntry> get items => SomList<ResponsibilityEntry>(doc, '$path/REEN1-ITEM-LST', (d, p) => ResponsibilityEntry(d, p), pattern: 'REEN1-ITEM-xxx');
 }
 
 /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
@@ -14023,7 +14023,7 @@ class Gaps extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Gap.
-  SomList<GapEntry> get items => SomList<GapEntry>(doc, '$path/GAPE-ITEM-LST', (d, p) => GapEntry(d, p));
+  SomList<GapEntry> get items => SomList<GapEntry>(doc, '$path/GAPE-ITEM-LST', (d, p) => GapEntry(d, p), pattern: 'GAPE-ITEM-xxx');
 }
 
 /// Geographic distribution requirements.
@@ -14099,7 +14099,7 @@ class Glossary extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// One entry per defined term or acronym.
-  SomList<GlossaryEntry> get entries => SomList<GlossaryEntry>(doc, '$path/GLOSS-ENTR-LST', (d, p) => GlossaryEntry(d, p));
+  SomList<GlossaryEntry> get entries => SomList<GlossaryEntry>(doc, '$path/GLOSS-ENTR-LST', (d, p) => GlossaryEntry(d, p), pattern: 'GLOSS-ENTR-xxx');
 }
 
 /// SBP.3 Glossary & Abbreviations.
@@ -14130,7 +14130,7 @@ class GoalDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Dependency entries — contains 0+× GoalDependencyEntry.
-  SomList<GoalDependencyEntry> get items => SomList<GoalDependencyEntry>(doc, '$path/GOLDE-ITEM-LST', (d, p) => GoalDependencyEntry(d, p));
+  SomList<GoalDependencyEntry> get items => SomList<GoalDependencyEntry>(doc, '$path/GOLDE-ITEM-LST', (d, p) => GoalDependencyEntry(d, p), pattern: 'GOLDE-ITEM-xxx');
 }
 
 /// A goal dependency entry (form).
@@ -14155,7 +14155,7 @@ class GoalKeyResults extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Key result entries — contains 0+× KeyResultEntry.
-  SomList<KeyResultEntry> get items => SomList<KeyResultEntry>(doc, '$path/KRE-ITEM-LST', (d, p) => KeyResultEntry(d, p));
+  SomList<KeyResultEntry> get items => SomList<KeyResultEntry>(doc, '$path/KRE-ITEM-LST', (d, p) => KeyResultEntry(d, p), pattern: 'KRE-ITEM-xxx');
 }
 
 /// A goal milestone entry (form).
@@ -14175,7 +14175,7 @@ class GoalMilestones extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Milestone entries — contains 0+× GoalMilestoneEntry.
-  SomList<GoalMilestoneEntry> get items => SomList<GoalMilestoneEntry>(doc, '$path/GOLMS-ITEM-LST', (d, p) => GoalMilestoneEntry(d, p));
+  SomList<GoalMilestoneEntry> get items => SomList<GoalMilestoneEntry>(doc, '$path/GOLMS-ITEM-LST', (d, p) => GoalMilestoneEntry(d, p), pattern: 'GOLMS-ITEM-xxx');
 }
 
 /// 4.2.1.n.5. Resources.
@@ -14191,7 +14191,7 @@ class GoalResources extends SomNode {
   GoalResourcesResourcesFormForm get resourcesForm => GoalResourcesResourcesFormForm(doc, '$path/resourcesForm');
 
   /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
-  SomList<ResourceAllocationEntry> get items => SomList<ResourceAllocationEntry>(doc, '$path/REARS-ITEM-LST', (d, p) => ResourceAllocationEntry(d, p));
+  SomList<ResourceAllocationEntry> get items => SomList<ResourceAllocationEntry>(doc, '$path/REARS-ITEM-LST', (d, p) => ResourceAllocationEntry(d, p), pattern: 'REARS-ITEM-xxx');
 }
 
 /// A goal risk entry (form).
@@ -14231,7 +14231,7 @@ class GoalRisks extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Risk entries — contains 0+× GoalRiskEntry.
-  SomList<GoalRiskEntry> get items => SomList<GoalRiskEntry>(doc, '$path/GOLRS-ITEM-LST', (d, p) => GoalRiskEntry(d, p));
+  SomList<GoalRiskEntry> get items => SomList<GoalRiskEntry>(doc, '$path/GOLRS-ITEM-LST', (d, p) => GoalRiskEntry(d, p), pattern: 'GOLRS-ITEM-xxx');
 }
 
 /// 4.2. Goals.
@@ -14267,7 +14267,7 @@ class GovernanceModel extends SomNode {
   GovernanceModelContentForm get content => GovernanceModelContentForm(doc, '$path/content');
 
   /// Decision authority matrix.
-  SomList<DecisionAuthorityEntry> get decisionAuthorities => SomList<DecisionAuthorityEntry>(doc, '$path/DCAUT-DECI-LST', (d, p) => DecisionAuthorityEntry(d, p));
+  SomList<DecisionAuthorityEntry> get decisionAuthorities => SomList<DecisionAuthorityEntry>(doc, '$path/DCAUT-DECI-LST', (d, p) => DecisionAuthorityEntry(d, p), pattern: 'DCAUT-DECI-xxx');
 }
 
 /// A data handling requirement entry (form).
@@ -14455,13 +14455,13 @@ class Identification extends SomNode {
   IdentificationContentForm get content => IdentificationContentForm(doc, '$path/content');
 
   /// Identity Sources — contains 0+× Identity Source.
-  SomList<IdentitySourceEntry> get identitySources => SomList<IdentitySourceEntry>(doc, '$path/IDTSR-IDEN-LST', (d, p) => IdentitySourceEntry(d, p));
+  SomList<IdentitySourceEntry> get identitySources => SomList<IdentitySourceEntry>(doc, '$path/IDTSR-IDEN-LST', (d, p) => IdentitySourceEntry(d, p), pattern: 'IDTSR-IDEN-xxx');
 
   /// Identity Verification.
   IdentityVerificationPolicy get identityVerification => IdentityVerificationPolicy(doc, '$path/identityVerification');
 
   /// Identity Providers — contains 0+× Identity Provider.
-  SomList<IdentityProviderEntry> get identityProviders => SomList<IdentityProviderEntry>(doc, '$path/IDTPV-IDEN-LST', (d, p) => IdentityProviderEntry(d, p));
+  SomList<IdentityProviderEntry> get identityProviders => SomList<IdentityProviderEntry>(doc, '$path/IDTPV-IDEN-LST', (d, p) => IdentityProviderEntry(d, p), pattern: 'IDTPV-IDEN-xxx');
 
   /// Single Sign-On.
   SingleSignOnPolicy get singleSignOn => SingleSignOnPolicy(doc, '$path/singleSignOn');
@@ -14470,7 +14470,7 @@ class Identification extends SomNode {
   SelfRegistrationPolicy get selfRegistration => SelfRegistrationPolicy(doc, '$path/selfRegistration');
 
   /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
-  SomList<IdentityAttributeMappingEntry> get attributeMappings => SomList<IdentityAttributeMappingEntry>(doc, '$path/IDTAM-ATTR-LST', (d, p) => IdentityAttributeMappingEntry(d, p));
+  SomList<IdentityAttributeMappingEntry> get attributeMappings => SomList<IdentityAttributeMappingEntry>(doc, '$path/IDTAM-ATTR-LST', (d, p) => IdentityAttributeMappingEntry(d, p), pattern: 'IDTAM-ATTR-xxx');
 }
 
 /// 9.2. Identification and Authentication.
@@ -14551,10 +14551,10 @@ class IdentityProviderEntry extends SomNode {
   IdentityProviderEntryContentForm get content => IdentityProviderEntryContentForm(doc, '$path/content');
 
   /// Provider details.
-  SomList<IdentityProviderDetails> get details => SomList<IdentityProviderDetails>(doc, '$path/IDPRDE-DETA-LST', (d, p) => IdentityProviderDetails(d, p));
+  SomList<IdentityProviderDetails> get details => SomList<IdentityProviderDetails>(doc, '$path/IDPRDE-DETA-LST', (d, p) => IdentityProviderDetails(d, p), pattern: 'IDPRDE-DETA-xxx');
 
   /// Endpoint configuration.
-  SomList<IdentityProviderEndpoints> get endpoints => SomList<IdentityProviderEndpoints>(doc, '$path/IDPREN-ENDP-LST', (d, p) => IdentityProviderEndpoints(d, p));
+  SomList<IdentityProviderEndpoints> get endpoints => SomList<IdentityProviderEndpoints>(doc, '$path/IDPREN-ENDP-LST', (d, p) => IdentityProviderEndpoints(d, p), pattern: 'IDPREN-ENDP-xxx');
 
   /// Attribute mapping.
   IdentityProviderMapping get mapping => IdentityProviderMapping(doc, '$path/mapping');
@@ -14947,7 +14947,7 @@ class InformationArchitecture extends SomNode {
   // (skipped: navigationStructure has no target type)
 
   /// Global entry points.
-  SomList<GlobalEntryPointEntry> get globalEntryPoints => SomList<GlobalEntryPointEntry>(doc, '$path/GLOBA-GLOB-LST', (d, p) => GlobalEntryPointEntry(d, p));
+  SomList<GlobalEntryPointEntry> get globalEntryPoints => SomList<GlobalEntryPointEntry>(doc, '$path/GLOBA-GLOB-LST', (d, p) => GlobalEntryPointEntry(d, p), pattern: 'GLOBA-GLOB-xxx');
 
   /// 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
@@ -15249,10 +15249,10 @@ class InsuranceLiabilityRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Insurance requirements — contains 0+× Insurance Entry.
-  SomList<InsuranceEntry> get insuranceRequirements => SomList<InsuranceEntry>(doc, '$path/INSURE-INSU-LST', (d, p) => InsuranceEntry(d, p));
+  SomList<InsuranceEntry> get insuranceRequirements => SomList<InsuranceEntry>(doc, '$path/INSURE-INSU-LST', (d, p) => InsuranceEntry(d, p), pattern: 'INSURE-INSU-xxx');
 
   /// Liability limitations.
-  SomList<LiabilityLimitations> get liabilityLimitations => SomList<LiabilityLimitations>(doc, '$path/LILI-LIAB-LST', (d, p) => LiabilityLimitations(d, p));
+  SomList<LiabilityLimitations> get liabilityLimitations => SomList<LiabilityLimitations>(doc, '$path/LILI-LIAB-LST', (d, p) => LiabilityLimitations(d, p), pattern: 'LILI-LIAB-xxx');
 }
 
 /// Integration architecture with external systems.
@@ -15371,7 +15371,7 @@ class IntegrationHealthSummary extends SomNode {
   IntegrationHealthSummaryContentForm get content => IntegrationHealthSummaryContentForm(doc, '$path/content');
 
   /// Fragile integration points requiring attention.
-  SomList<FragilePointEntry> get fragilePoints => SomList<FragilePointEntry>(doc, '$path/FRAGI-FRAG-LST', (d, p) => FragilePointEntry(d, p));
+  SomList<FragilePointEntry> get fragilePoints => SomList<FragilePointEntry>(doc, '$path/FRAGI-FRAG-LST', (d, p) => FragilePointEntry(d, p), pattern: 'FRAGI-FRAG-xxx');
 }
 
 /// A single integration pattern entry.
@@ -15400,7 +15400,7 @@ class Integrations extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× SystemIntegration.
-  SomList<SystemIntegrationEntry> get items => SomList<SystemIntegrationEntry>(doc, '$path/SYIN-ITEM-LST', (d, p) => SystemIntegrationEntry(d, p));
+  SomList<SystemIntegrationEntry> get items => SomList<SystemIntegrationEntry>(doc, '$path/SYIN-ITEM-LST', (d, p) => SystemIntegrationEntry(d, p), pattern: 'SYIN-ITEM-xxx');
 }
 
 /// 7.1.7. Integrity Constraints.
@@ -15422,7 +15422,7 @@ class IntellectualPropertyRequirements extends SomNode {
   IntellectualPropertyRequirementsContentForm get content => IntellectualPropertyRequirementsContentForm(doc, '$path/content');
 
   /// IP ownership details — contains 0+× IP Ownership Entry.
-  SomList<IpOwnershipEntry> get ownershipDetails => SomList<IpOwnershipEntry>(doc, '$path/IPOWN-OWNE-LST', (d, p) => IpOwnershipEntry(d, p));
+  SomList<IpOwnershipEntry> get ownershipDetails => SomList<IpOwnershipEntry>(doc, '$path/IPOWN-OWNE-LST', (d, p) => IpOwnershipEntry(d, p), pattern: 'IPOWN-OWNE-xxx');
 }
 
 /// Business rules triggered by this interaction.
@@ -15464,7 +15464,7 @@ class InteractionCatalog extends SomNode {
   InteractionCatalogOverview get overview => InteractionCatalogOverview(doc, '$path/overview');
 
   /// Contains 1+× Interaction.
-  SomList<InteractionEntry> get interactions => SomList<InteractionEntry>(doc, '$path/INEN-INTE-LST', (d, p) => InteractionEntry(d, p));
+  SomList<InteractionEntry> get interactions => SomList<InteractionEntry>(doc, '$path/INEN-INTE-LST', (d, p) => InteractionEntry(d, p), pattern: 'INEN-INTE-xxx');
 
   /// Interaction prioritization matrix.
   InteractionPrioritization get prioritization => InteractionPrioritization(doc, '$path/prioritization');
@@ -15502,7 +15502,7 @@ class InteractionChannelEntry extends SomNode {
   ChannelUxSpecification get uxSpecification => ChannelUxSpecification(doc, '$path/uxSpecification');
 
   /// Channel-specific integration requirements.
-  SomList<ChannelIntegrations> get integrations => SomList<ChannelIntegrations>(doc, '$path/CI-INTE-LST', (d, p) => ChannelIntegrations(d, p));
+  SomList<ChannelIntegrations> get integrations => SomList<ChannelIntegrations>(doc, '$path/CI-INTE-LST', (d, p) => ChannelIntegrations(d, p), pattern: 'CI-INTE-xxx');
 }
 
 /// Access and sync for interaction channel.
@@ -15558,13 +15558,13 @@ class InteractionEntry extends SomNode {
   UseCaseScopeContext get scopeContext => UseCaseScopeContext(doc, '$path/scopeContext');
 
   /// Stakeholders and interests.
-  SomList<StakeholdersAndInterests> get stakeholders => SomList<StakeholdersAndInterests>(doc, '$path/STANIN-STAK-LST', (d, p) => StakeholdersAndInterests(d, p));
+  SomList<StakeholdersAndInterests> get stakeholders => SomList<StakeholdersAndInterests>(doc, '$path/STANIN-STAK-LST', (d, p) => StakeholdersAndInterests(d, p), pattern: 'STANIN-STAK-xxx');
 
   /// Preconditions and triggers.
-  SomList<PreconditionsAndTriggers> get preconditions => SomList<PreconditionsAndTriggers>(doc, '$path/PRANTR-PREC-LST', (d, p) => PreconditionsAndTriggers(d, p));
+  SomList<PreconditionsAndTriggers> get preconditions => SomList<PreconditionsAndTriggers>(doc, '$path/PRANTR-PREC-LST', (d, p) => PreconditionsAndTriggers(d, p), pattern: 'PRANTR-PREC-xxx');
 
   /// Postconditions and guarantees.
-  SomList<PostconditionsAndGuarantees> get postconditions => SomList<PostconditionsAndGuarantees>(doc, '$path/POANGU-POST-LST', (d, p) => PostconditionsAndGuarantees(d, p));
+  SomList<PostconditionsAndGuarantees> get postconditions => SomList<PostconditionsAndGuarantees>(doc, '$path/POANGU-POST-LST', (d, p) => PostconditionsAndGuarantees(d, p), pattern: 'POANGU-POST-xxx');
 
   /// Main success scenario (basic flow).
   MainSuccessScenario get mainScenario => MainSuccessScenario(doc, '$path/mainScenario');
@@ -15573,7 +15573,7 @@ class InteractionEntry extends SomNode {
   UseCaseExtensions get extensions => UseCaseExtensions(doc, '$path/extensions');
 
   /// Technology and data variations.
-  SomList<TechnologyDataVariations> get variations => SomList<TechnologyDataVariations>(doc, '$path/TEDAVA-VARI-LST', (d, p) => TechnologyDataVariations(d, p));
+  SomList<TechnologyDataVariations> get variations => SomList<TechnologyDataVariations>(doc, '$path/TEDAVA-VARI-LST', (d, p) => TechnologyDataVariations(d, p), pattern: 'TEDAVA-VARI-xxx');
 
   /// UI requirements preview.
   UIRequirementsPreview get uiPreview => UIRequirementsPreview(doc, '$path/uiPreview');
@@ -15585,7 +15585,7 @@ class InteractionEntry extends SomNode {
   InteractionSecurity get security => InteractionSecurity(doc, '$path/security');
 
   /// Business rules triggered.
-  SomList<InteractionBusinessRules> get businessRules => SomList<InteractionBusinessRules>(doc, '$path/INBURU-BUSI-LST', (d, p) => InteractionBusinessRules(d, p));
+  SomList<InteractionBusinessRules> get businessRules => SomList<InteractionBusinessRules>(doc, '$path/INBURU-BUSI-LST', (d, p) => InteractionBusinessRules(d, p), pattern: 'INBURU-BUSI-xxx');
 
   /// Related elements and traceability.
   InteractionTraceability get traceability => InteractionTraceability(doc, '$path/traceability');
@@ -15659,7 +15659,7 @@ class InteractionPatterns extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Pattern entries — contains 1+× InteractionPatternEntry.
-  SomList<InteractionPatternEntry> get patterns => SomList<InteractionPatternEntry>(doc, '$path/INPTN-PATT-LST', (d, p) => InteractionPatternEntry(d, p));
+  SomList<InteractionPatternEntry> get patterns => SomList<InteractionPatternEntry>(doc, '$path/INPTN-PATT-LST', (d, p) => InteractionPatternEntry(d, p), pattern: 'INPTN-PATT-xxx');
 }
 
 /// Interaction performance requirements.
@@ -15716,7 +15716,7 @@ class InterfaceBusinessContext extends SomNode {
   InterfaceBusinessContextContentForm get content => InterfaceBusinessContextContentForm(doc, '$path/content');
 
   /// Business processes that depend on this interface.
-  SomList<InterfaceBusinessProcessEntry> get dependentProcesses => SomList<InterfaceBusinessProcessEntry>(doc, '$path/IBPE-DEPE-LST', (d, p) => InterfaceBusinessProcessEntry(d, p));
+  SomList<InterfaceBusinessProcessEntry> get dependentProcesses => SomList<InterfaceBusinessProcessEntry>(doc, '$path/IBPE-DEPE-LST', (d, p) => InterfaceBusinessProcessEntry(d, p), pattern: 'IBPE-DEPE-xxx');
 }
 
 /// Business process dependency entry.
@@ -15740,13 +15740,13 @@ class InterfaceDataSpec extends SomNode {
   InterfaceDataSpecContentForm get content => InterfaceDataSpecContentForm(doc, '$path/content');
 
   /// Data entities exchanged.
-  SomList<InterfaceDataEntityEntry> get dataEntities => SomList<InterfaceDataEntityEntry>(doc, '$path/IDEE-DATA-LST', (d, p) => InterfaceDataEntityEntry(d, p));
+  SomList<InterfaceDataEntityEntry> get dataEntities => SomList<InterfaceDataEntityEntry>(doc, '$path/IDEE-DATA-LST', (d, p) => InterfaceDataEntityEntry(d, p), pattern: 'IDEE-DATA-xxx');
 
   /// Data mapping and transformation rules.
-  SomList<MappingRuleEntry> get mappingRules => SomList<MappingRuleEntry>(doc, '$path/MAPPI-MAPP-LST', (d, p) => MappingRuleEntry(d, p));
+  SomList<MappingRuleEntry> get mappingRules => SomList<MappingRuleEntry>(doc, '$path/MAPPI-MAPP-LST', (d, p) => MappingRuleEntry(d, p), pattern: 'MAPPI-MAPP-xxx');
 
   /// Data validation rules.
-  SomList<ValidationRuleEntry> get validationRules => SomList<ValidationRuleEntry>(doc, '$path/VALID-VALI-LST', (d, p) => ValidationRuleEntry(d, p));
+  SomList<ValidationRuleEntry> get validationRules => SomList<ValidationRuleEntry>(doc, '$path/VALID-VALI-LST', (d, p) => ValidationRuleEntry(d, p), pattern: 'VALID-VALI-xxx');
 }
 
 /// Error handling specification.
@@ -15765,7 +15765,7 @@ class InterfaceErrorHandling extends SomNode {
   InterfaceErrorHandlingTimeout get timeout => InterfaceErrorHandlingTimeout(doc, '$path/timeout');
 
   /// Error handling procedures.
-  SomList<ErrorProcedureEntry> get errorProcedures => SomList<ErrorProcedureEntry>(doc, '$path/ERROR-ERRO-LST', (d, p) => ErrorProcedureEntry(d, p));
+  SomList<ErrorProcedureEntry> get errorProcedures => SomList<ErrorProcedureEntry>(doc, '$path/ERROR-ERRO-LST', (d, p) => ErrorProcedureEntry(d, p), pattern: 'ERROR-ERRO-xxx');
 }
 
 /// Fallback behavior and manual recovery.
@@ -15842,7 +15842,7 @@ class InterfaceOperational extends SomNode {
   InterfaceOperationalSupport get support => InterfaceOperationalSupport(doc, '$path/support');
 
   /// Operational dependencies.
-  SomList<DependencyEntry> get dependencies => SomList<DependencyEntry>(doc, '$path/DEPEN-DEPE-LST', (d, p) => DependencyEntry(d, p));
+  SomList<DependencyEntry> get dependencies => SomList<DependencyEntry>(doc, '$path/DEPEN-DEPE-LST', (d, p) => DependencyEntry(d, p), pattern: 'DEPEN-DEPE-xxx');
 }
 
 /// Monitoring configuration.
@@ -15966,7 +15966,7 @@ class InterfaceTechnicalSpec extends SomNode {
   InterfaceTechnicalSpecEndpoints get endpoints => InterfaceTechnicalSpecEndpoints(doc, '$path/endpoints');
 
   /// API operations/methods exposed or consumed.
-  SomList<InterfaceOperationEntry> get operations => SomList<InterfaceOperationEntry>(doc, '$path/INOPEN-OPER-LST', (d, p) => InterfaceOperationEntry(d, p));
+  SomList<InterfaceOperationEntry> get operations => SomList<InterfaceOperationEntry>(doc, '$path/INOPEN-OPER-LST', (d, p) => InterfaceOperationEntry(d, p), pattern: 'INOPEN-OPER-xxx');
 
   /// Webhook/callback configurations if applicable.
   InterfaceWebhookSpec get webhookSpec => InterfaceWebhookSpec(doc, '$path/webhookSpec');
@@ -16006,7 +16006,7 @@ class InterfaceTesting extends SomNode {
   InterfaceTestingStrategy get strategy => InterfaceTestingStrategy(doc, '$path/strategy');
 
   /// Test scenarios.
-  SomList<InterfaceTestScenarioEntry> get testScenarios => SomList<InterfaceTestScenarioEntry>(doc, '$path/ITSE1-TEST-LST', (d, p) => InterfaceTestScenarioEntry(d, p));
+  SomList<InterfaceTestScenarioEntry> get testScenarios => SomList<InterfaceTestScenarioEntry>(doc, '$path/ITSE1-TEST-LST', (d, p) => InterfaceTestScenarioEntry(d, p), pattern: 'ITSE1-TEST-xxx');
 }
 
 /// Test data strategy.
@@ -16040,7 +16040,7 @@ class InternalDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Internal System Dependency.
-  SomList<SystemDependencyEntry> get items => SomList<SystemDependencyEntry>(doc, '$path/SYDE-ITEM-LST', (d, p) => SystemDependencyEntry(d, p));
+  SomList<SystemDependencyEntry> get items => SomList<SystemDependencyEntry>(doc, '$path/SYDE-ITEM-LST', (d, p) => SystemDependencyEntry(d, p), pattern: 'SYDE-ITEM-xxx');
 }
 
 /// Internal network requirements.
@@ -16200,7 +16200,7 @@ class Iso25010Coverage extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// One entry per ISO/IEC 25010:2023 characteristic addressed.
-  SomList<Iso25010CoverageEntry> get characteristics => SomList<Iso25010CoverageEntry>(doc, '$path/I25CV-CHAR-LST', (d, p) => Iso25010CoverageEntry(d, p));
+  SomList<Iso25010CoverageEntry> get characteristics => SomList<Iso25010CoverageEntry>(doc, '$path/I25CV-CHAR-LST', (d, p) => Iso25010CoverageEntry(d, p), pattern: 'I25CV-CHAR-xxx');
 }
 
 /// A single ISO/IEC 25010:2023 coverage entry (form).
@@ -16285,7 +16285,7 @@ class ItSecurityStandardsSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// Security standards and frameworks — contains 0+× SecurityStandard.
-  SomList<SecurityStandardEntry> get standards => SomList<SecurityStandardEntry>(doc, '$path/SESTEN-STAN-LST', (d, p) => SecurityStandardEntry(d, p));
+  SomList<SecurityStandardEntry> get standards => SomList<SecurityStandardEntry>(doc, '$path/SESTEN-STAN-LST', (d, p) => SecurityStandardEntry(d, p), pattern: 'SESTEN-STAN-xxx');
 
   /// Application security requirements (OWASP).
   ApplicationSecurityRequirements get applicationSecurity => ApplicationSecurityRequirements(doc, '$path/applicationSecurity');
@@ -16372,13 +16372,13 @@ class JobDescriptionsAndStaffing extends SomNode {
   JobDescriptionsOverview get overview => JobDescriptionsOverview(doc, '$path/overview');
 
   /// 5.2.1. New Roles — contains 0+× New Role.
-  SomList<NewRoleEntry> get newRoles => SomList<NewRoleEntry>(doc, '$path/NWROL-NEWR-LST', (d, p) => NewRoleEntry(d, p));
+  SomList<NewRoleEntry> get newRoles => SomList<NewRoleEntry>(doc, '$path/NWROL-NEWR-LST', (d, p) => NewRoleEntry(d, p), pattern: 'NWROL-NEWR-xxx');
 
   /// 5.2.2. Changed Roles — contains 0+× Changed Role.
-  SomList<ChangedRoleEntry> get changedRoles => SomList<ChangedRoleEntry>(doc, '$path/CHAROL-CHAN-LST', (d, p) => ChangedRoleEntry(d, p));
+  SomList<ChangedRoleEntry> get changedRoles => SomList<ChangedRoleEntry>(doc, '$path/CHAROL-CHAN-LST', (d, p) => ChangedRoleEntry(d, p), pattern: 'CHAROL-CHAN-xxx');
 
   /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
-  SomList<RemovedRoleEntry> get removedRoles => SomList<RemovedRoleEntry>(doc, '$path/REMROL-REMO-LST', (d, p) => RemovedRoleEntry(d, p));
+  SomList<RemovedRoleEntry> get removedRoles => SomList<RemovedRoleEntry>(doc, '$path/REMROL-REMO-LST', (d, p) => RemovedRoleEntry(d, p), pattern: 'REMROL-REMO-xxx');
 
   /// 5.2.4. Staffing Plan.
   StaffingPlan get staffingPlan => StaffingPlan(doc, '$path/staffingPlan');
@@ -16493,7 +16493,7 @@ class KeyConcepts extends SomNode {
   set conceptualModelDiagram(String value) => doc.setContent('$path/conceptualModelDiagram', value);
 
   /// Key concept entries — contains 1+× KeyConceptEntry.
-  SomList<KeyConceptEntry> get concepts => SomList<KeyConceptEntry>(doc, '$path/KECON-CONC-LST', (d, p) => KeyConceptEntry(d, p));
+  SomList<KeyConceptEntry> get concepts => SomList<KeyConceptEntry>(doc, '$path/KECON-CONC-LST', (d, p) => KeyConceptEntry(d, p), pattern: 'KECON-CONC-xxx');
 }
 
 /// Key escrow and backup policy (form).
@@ -16589,7 +16589,7 @@ class KeyScenarios extends SomNode {
   ScenarioOverview get overview => ScenarioOverview(doc, '$path/overview');
 
   /// Contains 1+× Scenario.
-  SomList<ScenarioEntry> get scenarios => SomList<ScenarioEntry>(doc, '$path/SCNRY-SCEN-LST', (d, p) => ScenarioEntry(d, p));
+  SomList<ScenarioEntry> get scenarios => SomList<ScenarioEntry>(doc, '$path/SCNRY-SCEN-LST', (d, p) => ScenarioEntry(d, p), pattern: 'SCNRY-SCEN-xxx');
 }
 
 /// Key storage policy (form).
@@ -16756,22 +16756,22 @@ class LayeringAndModuleStructure extends SomNode {
   // (skipped: overview has no target type)
 
   /// Software layer definitions.
-  SomList<SoftwareLayerEntry> get softwareLayers => SomList<SoftwareLayerEntry>(doc, '$path/SOLAEN-SOFT-LST', (d, p) => SoftwareLayerEntry(d, p));
+  SomList<SoftwareLayerEntry> get softwareLayers => SomList<SoftwareLayerEntry>(doc, '$path/SOLAEN-SOFT-LST', (d, p) => SoftwareLayerEntry(d, p), pattern: 'SOLAEN-SOFT-xxx');
 
   /// Layer communication rules and constraints.
   LayerCommunicationRules get layerCommunicationRules => LayerCommunicationRules(doc, '$path/layerCommunicationRules');
 
   /// Bounded contexts (DDD) definitions.
-  SomList<BoundedContextEntry> get boundedContexts => SomList<BoundedContextEntry>(doc, '$path/BOCOEN-BOUN-LST', (d, p) => BoundedContextEntry(d, p));
+  SomList<BoundedContextEntry> get boundedContexts => SomList<BoundedContextEntry>(doc, '$path/BOCOEN-BOUN-LST', (d, p) => BoundedContextEntry(d, p), pattern: 'BOCOEN-BOUN-xxx');
 
   /// Package organization and structure.
   PackageOrganization get packageOrganization => PackageOrganization(doc, '$path/packageOrganization');
 
   /// Module catalog with dependency information.
-  SomList<ModuleEntry> get modules => SomList<ModuleEntry>(doc, '$path/MOEN1-MODU-LST', (d, p) => ModuleEntry(d, p));
+  SomList<ModuleEntry> get modules => SomList<ModuleEntry>(doc, '$path/MOEN1-MODU-LST', (d, p) => ModuleEntry(d, p), pattern: 'MOEN1-MODU-xxx');
 
   /// Shared libraries and common code.
-  SomList<SharedLibraryEntry> get sharedLibraries => SomList<SharedLibraryEntry>(doc, '$path/SHLIB-SHAR-LST', (d, p) => SharedLibraryEntry(d, p));
+  SomList<SharedLibraryEntry> get sharedLibraries => SomList<SharedLibraryEntry>(doc, '$path/SHLIB-SHAR-LST', (d, p) => SharedLibraryEntry(d, p), pattern: 'SHLIB-SHAR-xxx');
 
   /// Dependency injection configuration.
   DependencyInjectionStructure get dependencyInjection => DependencyInjectionStructure(doc, '$path/dependencyInjection');
@@ -16780,7 +16780,7 @@ class LayeringAndModuleStructure extends SomNode {
   CrossCuttingConcerns get crossCuttingConcerns => CrossCuttingConcerns(doc, '$path/crossCuttingConcerns');
 
   /// Feature module definitions (vertical slices).
-  SomList<FeatureModuleEntry> get featureModules => SomList<FeatureModuleEntry>(doc, '$path/FTRMOD-FEAT-LST', (d, p) => FeatureModuleEntry(d, p));
+  SomList<FeatureModuleEntry> get featureModules => SomList<FeatureModuleEntry>(doc, '$path/FTRMOD-FEAT-LST', (d, p) => FeatureModuleEntry(d, p), pattern: 'FTRMOD-FEAT-xxx');
 
   /// Module versioning and compatibility strategy.
   ModuleVersioningStrategy get moduleVersioningStrategy => ModuleVersioningStrategy(doc, '$path/moduleVersioningStrategy');
@@ -16860,7 +16860,7 @@ class LegalAndContractualRequirements extends SomNode {
   InsuranceLiabilityRequirements get insuranceLiability => InsuranceLiabilityRequirements(doc, '$path/insuranceLiability');
 
   /// 3.6.6. Other Agreements — contains 0+× Agreement.
-  SomList<OtherAgreementEntry> get otherAgreements => SomList<OtherAgreementEntry>(doc, '$path/OTAGR-OTHE-LST', (d, p) => OtherAgreementEntry(d, p));
+  SomList<OtherAgreementEntry> get otherAgreements => SomList<OtherAgreementEntry>(doc, '$path/OTAGR-OTHE-LST', (d, p) => OtherAgreementEntry(d, p), pattern: 'OTAGR-OTHE-xxx');
 }
 
 /// Liability limitations.
@@ -17293,7 +17293,7 @@ class MainSuccessScenario extends SomNode {
   MainSuccessScenarioContentForm get content => MainSuccessScenarioContentForm(doc, '$path/content');
 
   /// Main scenario steps — contains 1+× Scenario Step.
-  SomList<MainScenarioStepEntry> get steps => SomList<MainScenarioStepEntry>(doc, '$path/MNSST-STEP-LST', (d, p) => MainScenarioStepEntry(d, p));
+  SomList<MainScenarioStepEntry> get steps => SomList<MainScenarioStepEntry>(doc, '$path/MNSST-STEP-LST', (d, p) => MainScenarioStepEntry(d, p), pattern: 'MNSST-STEP-xxx');
 }
 
 /// 11.3.5. Maintainability quality.
@@ -17421,7 +17421,7 @@ class MaintenanceDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Maintenance Dependency.
-  SomList<MaintenanceDependencyEntry> get items => SomList<MaintenanceDependencyEntry>(doc, '$path/MNDEP-ITEM-LST', (d, p) => MaintenanceDependencyEntry(d, p));
+  SomList<MaintenanceDependencyEntry> get items => SomList<MaintenanceDependencyEntry>(doc, '$path/MNDEP-ITEM-LST', (d, p) => MaintenanceDependencyEntry(d, p), pattern: 'MNDEP-ITEM-xxx');
 }
 
 /// A maintenance dependency entry (form).
@@ -17573,7 +17573,7 @@ class MaintenanceWindowsSection extends SomNode {
   ScheduledMaintenancePolicy get scheduledMaintenance => ScheduledMaintenancePolicy(doc, '$path/scheduledMaintenance');
 
   /// Maintenance window definitions.
-  SomList<MaintenanceWindowEntry> get maintenanceWindows => SomList<MaintenanceWindowEntry>(doc, '$path/MAWIEN-MAIN-LST', (d, p) => MaintenanceWindowEntry(d, p));
+  SomList<MaintenanceWindowEntry> get maintenanceWindows => SomList<MaintenanceWindowEntry>(doc, '$path/MAWIEN-MAIN-LST', (d, p) => MaintenanceWindowEntry(d, p), pattern: 'MAWIEN-MAIN-xxx');
 
   /// Emergency maintenance procedures.
   EmergencyMaintenanceProcedures get emergencyMaintenance => EmergencyMaintenanceProcedures(doc, '$path/emergencyMaintenance');
@@ -17647,7 +17647,7 @@ class MasterDataManagement extends SomNode {
   MdmSummary get mdmSummary => MdmSummary(doc, '$path/mdmSummary');
 
   /// Master data domains.
-  SomList<MasterDataDomainEntry> get masterDataDomains => SomList<MasterDataDomainEntry>(doc, '$path/MSDDO-MAST-LST', (d, p) => MasterDataDomainEntry(d, p));
+  SomList<MasterDataDomainEntry> get masterDataDomains => SomList<MasterDataDomainEntry>(doc, '$path/MSDDO-MAST-LST', (d, p) => MasterDataDomainEntry(d, p), pattern: 'MSDDO-MAST-xxx');
 }
 
 /// Summary of MDM status and maturity.
@@ -17736,7 +17736,7 @@ class MetricsAndObservability extends SomNode {
   DistributedTracingSpec get distributedTracing => DistributedTracingSpec(doc, '$path/distributedTracing');
 
   /// Custom metrics catalog.
-  SomList<CustomMetricEntry> get customMetrics => SomList<CustomMetricEntry>(doc, '$path/CUMEEN-CUST-LST', (d, p) => CustomMetricEntry(d, p));
+  SomList<CustomMetricEntry> get customMetrics => SomList<CustomMetricEntry>(doc, '$path/CUMEEN-CUST-LST', (d, p) => CustomMetricEntry(d, p), pattern: 'CUMEEN-CUST-xxx');
 }
 
 /// A baseline entry for tracking metric changes.
@@ -17754,7 +17754,7 @@ class MetricsBaselineTable extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Baseline entries.
-  SomList<MetricsBaselineEntry> get entries => SomList<MetricsBaselineEntry>(doc, '$path/MEBAEN-ENTR-LST', (d, p) => MetricsBaselineEntry(d, p));
+  SomList<MetricsBaselineEntry> get entries => SomList<MetricsBaselineEntry>(doc, '$path/MEBAEN-ENTR-LST', (d, p) => MetricsBaselineEntry(d, p), pattern: 'MEBAEN-ENTR-xxx');
 }
 
 /// Metrics collection requirements.
@@ -17862,7 +17862,7 @@ class MfaConfiguration extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// MFA Implementation Details (text).
-  SomList<MfaDetailEntry> get mfaDetails => SomList<MfaDetailEntry>(doc, '$path/MFADE-MFAD-LST', (d, p) => MfaDetailEntry(d, p));
+  SomList<MfaDetailEntry> get mfaDetails => SomList<MfaDetailEntry>(doc, '$path/MFADE-MFAD-LST', (d, p) => MfaDetailEntry(d, p), pattern: 'MFADE-MFAD-xxx');
 }
 
 /// A single mfa detail entry.
@@ -17910,7 +17910,7 @@ class MigrationConsiderations extends SomNode {
   // (skipped: timeline has no target type)
 
   /// Migration milestones.
-  SomList<MigrationMilestoneEntry> get milestones => SomList<MigrationMilestoneEntry>(doc, '$path/MGMLS-MILE-LST', (d, p) => MigrationMilestoneEntry(d, p));
+  SomList<MigrationMilestoneEntry> get milestones => SomList<MigrationMilestoneEntry>(doc, '$path/MGMLS-MILE-LST', (d, p) => MigrationMilestoneEntry(d, p), pattern: 'MGMLS-MILE-xxx');
 
   /// Cross-system data mapping considerations.
   // (skipped: dataMapping has no target type)
@@ -17928,7 +17928,7 @@ class MigrationConsiderations extends SomNode {
   // (skipped: communicationPlan has no target type)
 
   /// Escalation procedures during migration.
-  SomList<EscalationProcedureEntry> get escalationProcedures => SomList<EscalationProcedureEntry>(doc, '$path/ESCAL-ESCA-LST', (d, p) => EscalationProcedureEntry(d, p));
+  SomList<EscalationProcedureEntry> get escalationProcedures => SomList<EscalationProcedureEntry>(doc, '$path/ESCAL-ESCA-LST', (d, p) => EscalationProcedureEntry(d, p), pattern: 'ESCAL-ESCA-xxx');
 }
 
 /// Cutover planning for migration.
@@ -18036,7 +18036,7 @@ class MigrationPhaseEntry extends SomNode {
   MigrationPhaseSchedule get schedule => MigrationPhaseSchedule(doc, '$path/schedule');
 
   /// Dry runs.
-  SomList<MigrationPhaseDryRuns> get dryRuns => SomList<MigrationPhaseDryRuns>(doc, '$path/MPDR-DRYR-LST', (d, p) => MigrationPhaseDryRuns(d, p));
+  SomList<MigrationPhaseDryRuns> get dryRuns => SomList<MigrationPhaseDryRuns>(doc, '$path/MPDR-DRYR-LST', (d, p) => MigrationPhaseDryRuns(d, p), pattern: 'MPDR-DRYR-xxx');
 
   /// Validation and reconciliation.
   MigrationPhaseValidation get validation => MigrationPhaseValidation(doc, '$path/validation');
@@ -18048,7 +18048,7 @@ class MigrationPhaseEntry extends SomNode {
   MigrationPhaseRollback get rollback => MigrationPhaseRollback(doc, '$path/rollback');
 
   /// Resources.
-  SomList<MigrationPhaseResources> get resources => SomList<MigrationPhaseResources>(doc, '$path/MIPHRE-RESO-LST', (d, p) => MigrationPhaseResources(d, p));
+  SomList<MigrationPhaseResources> get resources => SomList<MigrationPhaseResources>(doc, '$path/MIPHRE-RESO-LST', (d, p) => MigrationPhaseResources(d, p), pattern: 'MIPHRE-RESO-xxx');
 
   /// Status.
   MigrationPhaseStatus get status => MigrationPhaseStatus(doc, '$path/status');
@@ -18125,7 +18125,7 @@ class MigrationPhases extends SomNode {
   // (skipped: phaseOverview has no target type)
 
   /// Contains 1+× MigrationPhaseEntry.
-  SomList<MigrationPhaseEntry> get items => SomList<MigrationPhaseEntry>(doc, '$path/MGPHS-ITEM-LST', (d, p) => MigrationPhaseEntry(d, p));
+  SomList<MigrationPhaseEntry> get items => SomList<MigrationPhaseEntry>(doc, '$path/MGPHS-ITEM-LST', (d, p) => MigrationPhaseEntry(d, p), pattern: 'MGPHS-ITEM-xxx');
 }
 
 /// 15.2. Migration Plan.
@@ -18191,7 +18191,7 @@ class MigrationRiskEntry extends SomNode {
   MigrationRiskContingency get contingency => MigrationRiskContingency(doc, '$path/contingency');
 
   /// Risk indicators and monitoring.
-  SomList<MigrationRiskIndicators> get indicators => SomList<MigrationRiskIndicators>(doc, '$path/MIRIIN-INDI-LST', (d, p) => MigrationRiskIndicators(d, p));
+  SomList<MigrationRiskIndicators> get indicators => SomList<MigrationRiskIndicators>(doc, '$path/MIRIIN-INDI-LST', (d, p) => MigrationRiskIndicators(d, p), pattern: 'MIRIIN-INDI-xxx');
 
   /// Ownership and tracking.
   MigrationRiskTracking get tracking => MigrationRiskTracking(doc, '$path/tracking');
@@ -18302,16 +18302,16 @@ class MigrationRisks extends SomNode {
   // (skipped: assessmentMethodology has no target type)
 
   /// Risk categories and taxonomy.
-  SomList<RiskCategoryEntry> get riskCategories => SomList<RiskCategoryEntry>(doc, '$path/RISKC-RISK-LST', (d, p) => RiskCategoryEntry(d, p));
+  SomList<RiskCategoryEntry> get riskCategories => SomList<RiskCategoryEntry>(doc, '$path/RISKC-RISK-LST', (d, p) => RiskCategoryEntry(d, p), pattern: 'RISKC-RISK-xxx');
 
   /// Risk-based decision making criteria.
-  SomList<RiskBasedDecisionEntry> get riskBasedDecisions => SomList<RiskBasedDecisionEntry>(doc, '$path/RISKB-RISK-LST', (d, p) => RiskBasedDecisionEntry(d, p));
+  SomList<RiskBasedDecisionEntry> get riskBasedDecisions => SomList<RiskBasedDecisionEntry>(doc, '$path/RISKB-RISK-LST', (d, p) => RiskBasedDecisionEntry(d, p), pattern: 'RISKB-RISK-xxx');
 
   /// Risk monitoring and control procedures.
-  SomList<MonitoringProcedureEntry> get monitoringProcedures => SomList<MonitoringProcedureEntry>(doc, '$path/MONIT-MONI-LST', (d, p) => MonitoringProcedureEntry(d, p));
+  SomList<MonitoringProcedureEntry> get monitoringProcedures => SomList<MonitoringProcedureEntry>(doc, '$path/MONIT-MONI-LST', (d, p) => MonitoringProcedureEntry(d, p), pattern: 'MONIT-MONI-xxx');
 
   /// Risk response strategies by category.
-  SomList<ResponseStrategyEntry> get responseStrategies => SomList<ResponseStrategyEntry>(doc, '$path/RESPO-RESP-LST', (d, p) => ResponseStrategyEntry(d, p));
+  SomList<ResponseStrategyEntry> get responseStrategies => SomList<ResponseStrategyEntry>(doc, '$path/RESPO-RESP-LST', (d, p) => ResponseStrategyEntry(d, p), pattern: 'RESPO-RESP-xxx');
 
   /// Risk aggregation and portfolio view.
   // (skipped: riskAggregation has no target type)
@@ -18323,7 +18323,7 @@ class MigrationRisks extends SomNode {
   // (skipped: riskTimeline has no target type)
 
   /// Contains 0+× MigrationRiskEntry.
-  SomList<MigrationRiskEntry> get items => SomList<MigrationRiskEntry>(doc, '$path/MGRSK-ITEM-LST', (d, p) => MigrationRiskEntry(d, p));
+  SomList<MigrationRiskEntry> get items => SomList<MigrationRiskEntry>(doc, '$path/MGRSK-ITEM-LST', (d, p) => MigrationRiskEntry(d, p), pattern: 'MGRSK-ITEM-xxx');
 }
 
 /// Assessment methodology settings.
@@ -18685,7 +18685,7 @@ class MonitoringAndAlertingSection extends SomNode {
   AlertingRequirements get alerting => AlertingRequirements(doc, '$path/alerting');
 
   /// Alert definitions.
-  SomList<AlertDefinitionEntry> get alertDefinitions => SomList<AlertDefinitionEntry>(doc, '$path/ALDEEN-ALER-LST', (d, p) => AlertDefinitionEntry(d, p));
+  SomList<AlertDefinitionEntry> get alertDefinitions => SomList<AlertDefinitionEntry>(doc, '$path/ALDEEN-ALER-LST', (d, p) => AlertDefinitionEntry(d, p), pattern: 'ALDEEN-ALER-xxx');
 
   /// Dashboard requirements.
   DashboardRequirements get dashboards => DashboardRequirements(doc, '$path/dashboards');
@@ -18726,10 +18726,10 @@ class MonitoringDashboards extends SomNode {
   // (skipped: overviewNarrative has no target type)
 
   /// Dashboard catalog.
-  SomList<DashboardEntry> get dashboards => SomList<DashboardEntry>(doc, '$path/DAEN-DASH-LST', (d, p) => DashboardEntry(d, p));
+  SomList<DashboardEntry> get dashboards => SomList<DashboardEntry>(doc, '$path/DAEN-DASH-LST', (d, p) => DashboardEntry(d, p), pattern: 'DAEN-DASH-xxx');
 
   /// Dashboard template specifications.
-  SomList<DashboardTemplates> get dashboardTemplates => SomList<DashboardTemplates>(doc, '$path/DATE-DASH-LST', (d, p) => DashboardTemplates(d, p));
+  SomList<DashboardTemplates> get dashboardTemplates => SomList<DashboardTemplates>(doc, '$path/DATE-DASH-LST', (d, p) => DashboardTemplates(d, p), pattern: 'DATE-DASH-xxx');
 }
 
 /// Monitoring infrastructure requirements.
@@ -18797,7 +18797,7 @@ class MoscowAnalysis extends SomNode {
   // (skipped: moscowRationale has no target type)
 
   /// Contains 0+× MoscowEntry.
-  SomList<MoscowEntry> get items => SomList<MoscowEntry>(doc, '$path/MOEN-ITEM-LST', (d, p) => MoscowEntry(d, p));
+  SomList<MoscowEntry> get items => SomList<MoscowEntry>(doc, '$path/MOEN-ITEM-LST', (d, p) => MoscowEntry(d, p), pattern: 'MOEN-ITEM-xxx');
 }
 
 /// A MoSCoW classification entry (form).
@@ -18883,7 +18883,7 @@ class MultiLanguageSupport extends SomNode {
   LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
 
   /// Supported locale entries.
-  SomList<SupportedLocaleEntry> get supportedLocales => SomList<SupportedLocaleEntry>(doc, '$path/SULOEN-SUPP-LST', (d, p) => SupportedLocaleEntry(d, p));
+  SomList<SupportedLocaleEntry> get supportedLocales => SomList<SupportedLocaleEntry>(doc, '$path/SULOEN-SUPP-LST', (d, p) => SupportedLocaleEntry(d, p), pattern: 'SULOEN-SUPP-xxx');
 }
 
 /// 11.7.1. Must-Pass Criteria.
@@ -18898,7 +18898,7 @@ class MustPassCriteria extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× MustPassCriterion.
-  SomList<MustPassCriterionEntry> get items => SomList<MustPassCriterionEntry>(doc, '$path/MSTPCR-ITEM-LST', (d, p) => MustPassCriterionEntry(d, p));
+  SomList<MustPassCriterionEntry> get items => SomList<MustPassCriterionEntry>(doc, '$path/MSTPCR-ITEM-LST', (d, p) => MustPassCriterionEntry(d, p), pattern: 'MSTPCR-ITEM-xxx');
 }
 
 /// A must-pass criterion entry (form).
@@ -19031,7 +19031,7 @@ class NavigationGroupEntry extends SomNode {
   NavigationGroupEntryStructure get structure => NavigationGroupEntryStructure(doc, '$path/structure');
 
   /// Contains 0+× NavigationItem.
-  SomList<NavigationItemEntry> get items => SomList<NavigationItemEntry>(doc, '$path/NAVIIT-ITEM-LST', (d, p) => NavigationItemEntry(d, p));
+  SomList<NavigationItemEntry> get items => SomList<NavigationItemEntry>(doc, '$path/NAVIIT-ITEM-LST', (d, p) => NavigationItemEntry(d, p), pattern: 'NAVIIT-ITEM-xxx');
 }
 
 /// Access-control settings.
@@ -19095,7 +19095,7 @@ class NavigationGuards extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× NavigationGuard.
-  SomList<NavigationGuardEntry> get guards => SomList<NavigationGuardEntry>(doc, '$path/NAVGRD-GUAR-LST', (d, p) => NavigationGuardEntry(d, p));
+  SomList<NavigationGuardEntry> get guards => SomList<NavigationGuardEntry>(doc, '$path/NAVGRD-GUAR-LST', (d, p) => NavigationGuardEntry(d, p), pattern: 'NAVGRD-GUAR-xxx');
 }
 
 /// 10.3.1.2. Navigation Hierarchy.
@@ -19111,7 +19111,7 @@ class NavigationHierarchy extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× NavigationGroup.
-  SomList<NavigationGroupEntry> get groups => SomList<NavigationGroupEntry>(doc, '$path/NAVGRP-GROU-LST', (d, p) => NavigationGroupEntry(d, p));
+  SomList<NavigationGroupEntry> get groups => SomList<NavigationGroupEntry>(doc, '$path/NAVGRP-GROU-LST', (d, p) => NavigationGroupEntry(d, p), pattern: 'NAVGRP-GROU-xxx');
 }
 
 /// A navigation item entry (form).
@@ -19397,7 +19397,7 @@ class NetworkRequirementsSection extends SomNode {
   NetworkAvailabilityRequirements get availabilityRequirements => NetworkAvailabilityRequirements(doc, '$path/availabilityRequirements');
 
   /// VPN requirements.
-  SomList<VpnRequirementEntry> get vpnRequirements => SomList<VpnRequirementEntry>(doc, '$path/VPREEN-VPNR-LST', (d, p) => VpnRequirementEntry(d, p));
+  SomList<VpnRequirementEntry> get vpnRequirements => SomList<VpnRequirementEntry>(doc, '$path/VPREEN-VPNR-LST', (d, p) => VpnRequirementEntry(d, p), pattern: 'VPREEN-VPNR-xxx');
 
   /// Firewall rules and policies.
   FirewallRequirements get firewallRequirements => FirewallRequirements(doc, '$path/firewallRequirements');
@@ -19608,7 +19608,7 @@ class NewRoleQualifications extends SomNode {
   NewRoleQualificationsScreening get screening => NewRoleQualificationsScreening(doc, '$path/screening');
 
   /// Contains 0+× required competency.
-  SomList<RoleCompetencyEntry> get requiredCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-REQU-LST', (d, p) => RoleCompetencyEntry(d, p));
+  SomList<RoleCompetencyEntry> get requiredCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-REQU-LST', (d, p) => RoleCompetencyEntry(d, p), pattern: 'ROLCP-REQU-xxx');
 }
 
 /// Credential and mobility requirements.
@@ -19630,10 +19630,10 @@ class NewRoleResponsibilities extends SomNode {
   NewRoleResponsibilities(super.doc, super.path);
 
   /// Primary responsibilities (key accountabilities).
-  SomList<ResponsibilityDetailEntry> get primaryResponsibilities => SomList<ResponsibilityDetailEntry>(doc, '$path/RSPDT-PRIM-LST', (d, p) => ResponsibilityDetailEntry(d, p));
+  SomList<ResponsibilityDetailEntry> get primaryResponsibilities => SomList<ResponsibilityDetailEntry>(doc, '$path/RSPDT-PRIM-LST', (d, p) => ResponsibilityDetailEntry(d, p), pattern: 'RSPDT-PRIM-xxx');
 
   /// Secondary responsibilities (supporting duties).
-  SomList<ResponsibilityDetailEntry> get secondaryResponsibilities => SomList<ResponsibilityDetailEntry>(doc, '$path/RSPDT-SECO-LST', (d, p) => ResponsibilityDetailEntry(d, p));
+  SomList<ResponsibilityDetailEntry> get secondaryResponsibilities => SomList<ResponsibilityDetailEntry>(doc, '$path/RSPDT-SECO-LST', (d, p) => ResponsibilityDetailEntry(d, p), pattern: 'RSPDT-SECO-xxx');
 
   /// Decision-making authority.
   RoleDecisionAuthority get decisionAuthority => RoleDecisionAuthority(doc, '$path/decisionAuthority');
@@ -19672,13 +19672,13 @@ class NotificationModel extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Notification channel entries — contains 1+× NotificationChannelEntry.
-  SomList<NotificationChannelEntry> get channels => SomList<NotificationChannelEntry>(doc, '$path/NTFCH-CHAN-LST', (d, p) => NotificationChannelEntry(d, p));
+  SomList<NotificationChannelEntry> get channels => SomList<NotificationChannelEntry>(doc, '$path/NTFCH-CHAN-LST', (d, p) => NotificationChannelEntry(d, p), pattern: 'NTFCH-CHAN-xxx');
 
   /// Notification type entries — contains 1+× NotificationTypeEntry.
-  SomList<NotificationTypeEntry> get notificationTypes => SomList<NotificationTypeEntry>(doc, '$path/NTFTY-NOTI-LST', (d, p) => NotificationTypeEntry(d, p));
+  SomList<NotificationTypeEntry> get notificationTypes => SomList<NotificationTypeEntry>(doc, '$path/NTFTY-NOTI-LST', (d, p) => NotificationTypeEntry(d, p), pattern: 'NTFTY-NOTI-xxx');
 
   /// User notification preferences.
-  SomList<UserNotificationPreferences> get preferences => SomList<UserNotificationPreferences>(doc, '$path/UNP-PREF-LST', (d, p) => UserNotificationPreferences(d, p));
+  SomList<UserNotificationPreferences> get preferences => SomList<UserNotificationPreferences>(doc, '$path/UNP-PREF-LST', (d, p) => UserNotificationPreferences(d, p), pattern: 'UNP-PREF-xxx');
 }
 
 /// A notification type entry.
@@ -19852,7 +19852,7 @@ class OnboardingHelp extends SomNode {
   // (skipped: onboardingNarrative has no target type)
 
   /// Feature tour definitions.
-  SomList<FeatureTourEntry> get featureTours => SomList<FeatureTourEntry>(doc, '$path/FTRTUR-FEAT-LST', (d, p) => FeatureTourEntry(d, p));
+  SomList<FeatureTourEntry> get featureTours => SomList<FeatureTourEntry>(doc, '$path/FTRTUR-FEAT-LST', (d, p) => FeatureTourEntry(d, p), pattern: 'FTRTUR-FEAT-xxx');
 }
 
 /// Getting started checklist configuration.
@@ -19988,7 +19988,7 @@ class OperationalPainPoints extends SomNode {
   OperationalPainPointsSummary get categorySummary => OperationalPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/OPPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/OPPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p), pattern: 'OPPAPO-ITEM-xxx');
 }
 
 /// Summary specific to operational pain points.
@@ -20101,7 +20101,7 @@ class OrgRequirementImplementationPlan extends SomNode {
   OrgRequirementImplementationPlanPlanFormForm get planForm => OrgRequirementImplementationPlanPlanFormForm(doc, '$path/planForm');
 
   /// Implementation activities — contains 0+× OrgImplementationActivity.
-  SomList<OrgImplementationActivity> get activities => SomList<OrgImplementationActivity>(doc, '$path/ORGIM-ACTI-LST', (d, p) => OrgImplementationActivity(d, p));
+  SomList<OrgImplementationActivity> get activities => SomList<OrgImplementationActivity>(doc, '$path/ORGIM-ACTI-LST', (d, p) => OrgImplementationActivity(d, p), pattern: 'ORGIM-ACTI-xxx');
 }
 
 /// 3.1.1. Organization Structure.
@@ -20143,7 +20143,7 @@ class OrganizationalChangeEntry extends SomNode {
   OrgChangeTransition get transition => OrgChangeTransition(doc, '$path/transition');
 
   /// Risks and mitigations.
-  SomList<OrgChangeRisks> get risks => SomList<OrgChangeRisks>(doc, '$path/OCRSK-RISK-LST', (d, p) => OrgChangeRisks(d, p));
+  SomList<OrgChangeRisks> get risks => SomList<OrgChangeRisks>(doc, '$path/OCRSK-RISK-LST', (d, p) => OrgChangeRisks(d, p), pattern: 'OCRSK-RISK-xxx');
 
   /// Status tracking.
   OrgChangeStatus get status => OrgChangeStatus(doc, '$path/status');
@@ -20160,7 +20160,7 @@ class OrganizationalContext extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
-  SomList<OrganizationalUnitContextEntry> get organizationalUnits => SomList<OrganizationalUnitContextEntry>(doc, '$path/OUCE-ORGA-LST', (d, p) => OrganizationalUnitContextEntry(d, p));
+  SomList<OrganizationalUnitContextEntry> get organizationalUnits => SomList<OrganizationalUnitContextEntry>(doc, '$path/OUCE-ORGA-LST', (d, p) => OrganizationalUnitContextEntry(d, p), pattern: 'OUCE-ORGA-xxx');
 
   /// Business process coverage.
   String get businessProcessCoverage => doc.content('$path/businessProcessCoverage') ?? '';
@@ -20188,25 +20188,25 @@ class OrganizationalEnvironment extends SomNode {
   // (skipped: structure has no target type)
 
   /// Departments and business units affected.
-  SomList<AffectedDepartmentEntry> get affectedDepartments => SomList<AffectedDepartmentEntry>(doc, '$path/AFDEEN-AFFE-LST', (d, p) => AffectedDepartmentEntry(d, p));
+  SomList<AffectedDepartmentEntry> get affectedDepartments => SomList<AffectedDepartmentEntry>(doc, '$path/AFDEEN-AFFE-LST', (d, p) => AffectedDepartmentEntry(d, p), pattern: 'AFDEEN-AFFE-xxx');
 
   /// Decision making processes and authority.
   // (skipped: decisionMaking has no target type)
 
   /// Key decision makers and their roles.
-  SomList<DecisionMakerEntry> get decisionMakers => SomList<DecisionMakerEntry>(doc, '$path/DEMAEN-DECI-LST', (d, p) => DecisionMakerEntry(d, p));
+  SomList<DecisionMakerEntry> get decisionMakers => SomList<DecisionMakerEntry>(doc, '$path/DEMAEN-DECI-LST', (d, p) => DecisionMakerEntry(d, p), pattern: 'DEMAEN-DECI-xxx');
 
   /// Cultural considerations and organizational dynamics.
-  SomList<CulturalConsiderationEntry> get culturalConsiderations => SomList<CulturalConsiderationEntry>(doc, '$path/CULTU-CULT-LST', (d, p) => CulturalConsiderationEntry(d, p));
+  SomList<CulturalConsiderationEntry> get culturalConsiderations => SomList<CulturalConsiderationEntry>(doc, '$path/CULTU-CULT-LST', (d, p) => CulturalConsiderationEntry(d, p), pattern: 'CULTU-CULT-xxx');
 
   /// Stakeholder communication preferences.
-  SomList<CommunicationPreferenceEntry> get communicationPreferences => SomList<CommunicationPreferenceEntry>(doc, '$path/COMMU-COMM-LST', (d, p) => CommunicationPreferenceEntry(d, p));
+  SomList<CommunicationPreferenceEntry> get communicationPreferences => SomList<CommunicationPreferenceEntry>(doc, '$path/COMMU-COMM-LST', (d, p) => CommunicationPreferenceEntry(d, p), pattern: 'COMMU-COMM-xxx');
 
   /// Political dynamics and influence patterns.
   // (skipped: politicalLandscape has no target type)
 
   /// Change champions and sponsors.
-  SomList<ChangeAdvocateEntry> get changeAdvocates => SomList<ChangeAdvocateEntry>(doc, '$path/CHANG-CHAN-LST', (d, p) => ChangeAdvocateEntry(d, p));
+  SomList<ChangeAdvocateEntry> get changeAdvocates => SomList<ChangeAdvocateEntry>(doc, '$path/CHANG-CHAN-LST', (d, p) => ChangeAdvocateEntry(d, p), pattern: 'CHANG-CHAN-xxx');
 }
 
 /// Decision-making context.
@@ -20247,7 +20247,7 @@ class OrganizationalFramework extends SomNode {
   JobDescriptionsAndStaffing get jobDescriptions => JobDescriptionsAndStaffing(doc, '$path/jobDescriptions');
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
-  SomList<WorkplaceDescriptionEntry> get workplaceDescriptions => SomList<WorkplaceDescriptionEntry>(doc, '$path/WPDE-WORK-LST', (d, p) => WorkplaceDescriptionEntry(d, p));
+  SomList<WorkplaceDescriptionEntry> get workplaceDescriptions => SomList<WorkplaceDescriptionEntry>(doc, '$path/WPDE-WORK-LST', (d, p) => WorkplaceDescriptionEntry(d, p), pattern: 'WPDE-WORK-xxx');
 }
 
 /// An organizational requirement entry.
@@ -20315,7 +20315,7 @@ class OrganizationalRequirements extends SomNode {
   OrganizationalRequirementsSummaryFormForm get summaryForm => OrganizationalRequirementsSummaryFormForm(doc, '$path/summaryForm');
 
   /// Organizational requirements list — contains 0+× Organizational Requirement.
-  SomList<OrganizationalRequirementEntry> get requirements => SomList<OrganizationalRequirementEntry>(doc, '$path/ORRQ-REQU-LST', (d, p) => OrganizationalRequirementEntry(d, p));
+  SomList<OrganizationalRequirementEntry> get requirements => SomList<OrganizationalRequirementEntry>(doc, '$path/ORRQ-REQU-LST', (d, p) => OrganizationalRequirementEntry(d, p), pattern: 'ORRQ-REQU-xxx');
 }
 
 /// 5.1.2. Organizational Transition Timeline.
@@ -20330,10 +20330,10 @@ class OrganizationalTransitionTimeline extends SomNode {
   TransitionOverview get overview => TransitionOverview(doc, '$path/overview');
 
   /// Transition phases with milestones and durations.
-  SomList<TransitionPhaseEntry> get phases => SomList<TransitionPhaseEntry>(doc, '$path/TRPHE-PHAS-LST', (d, p) => TransitionPhaseEntry(d, p));
+  SomList<TransitionPhaseEntry> get phases => SomList<TransitionPhaseEntry>(doc, '$path/TRPHE-PHAS-LST', (d, p) => TransitionPhaseEntry(d, p), pattern: 'TRPHE-PHAS-xxx');
 
   /// Key transition milestones and decision gates.
-  SomList<TransitionMilestoneEntry> get milestones => SomList<TransitionMilestoneEntry>(doc, '$path/TRMIL-MILE-LST', (d, p) => TransitionMilestoneEntry(d, p));
+  SomList<TransitionMilestoneEntry> get milestones => SomList<TransitionMilestoneEntry>(doc, '$path/TRMIL-MILE-LST', (d, p) => TransitionMilestoneEntry(d, p), pattern: 'TRMIL-MILE-xxx');
 
   /// Change readiness assessment approach.
   ChangeReadinessAssessment get changeReadiness => ChangeReadinessAssessment(doc, '$path/changeReadiness');
@@ -20348,7 +20348,7 @@ class OrganizationalTransitionTimeline extends SomNode {
   TransitionSuccessMetrics get successMetrics => TransitionSuccessMetrics(doc, '$path/successMetrics');
 
   /// Risks specific to the organizational transition.
-  SomList<TransitionRiskEntry> get transitionRisks => SomList<TransitionRiskEntry>(doc, '$path/TRRS-TRAN-LST', (d, p) => TransitionRiskEntry(d, p));
+  SomList<TransitionRiskEntry> get transitionRisks => SomList<TransitionRiskEntry>(doc, '$path/TRRS-TRAN-LST', (d, p) => TransitionRiskEntry(d, p), pattern: 'TRRS-TRAN-xxx');
 }
 
 /// An organizational unit context entry (form).
@@ -20424,7 +20424,7 @@ class OutOfScope extends SomNode {
   // (skipped: scopePhilosophy has no target type)
 
   /// Contains 0+× OutOfScopeEntry.
-  SomList<OutOfScopeEntry> get items => SomList<OutOfScopeEntry>(doc, '$path/OOSE-ITEM-LST', (d, p) => OutOfScopeEntry(d, p));
+  SomList<OutOfScopeEntry> get items => SomList<OutOfScopeEntry>(doc, '$path/OOSE-ITEM-LST', (d, p) => OutOfScopeEntry(d, p), pattern: 'OOSE-ITEM-xxx');
 }
 
 /// An out-of-scope entry (form).
@@ -20537,7 +20537,7 @@ class PainPointEntry extends SomNode {
   PainPointResolution get resolution => PainPointResolution(doc, '$path/resolution');
 
   /// Relationships.
-  SomList<PainPointRelationships> get relationships => SomList<PainPointRelationships>(doc, '$path/PAPOR1-RELA-LST', (d, p) => PainPointRelationships(d, p));
+  SomList<PainPointRelationships> get relationships => SomList<PainPointRelationships>(doc, '$path/PAPOR1-RELA-LST', (d, p) => PainPointRelationships(d, p), pattern: 'PAPOR1-RELA-xxx');
 }
 
 /// Evidence for pain point.
@@ -20559,7 +20559,7 @@ class PainPointGapCorrelation extends SomNode {
   set correlationDiagram(String value) => doc.setContent('$path/correlationDiagram', value);
 
   /// Tabular correlation data.
-  SomList<PainPointGapCorrelationEntry> get correlationEntries => SomList<PainPointGapCorrelationEntry>(doc, '$path/PPGCE-CORR-LST', (d, p) => PainPointGapCorrelationEntry(d, p));
+  SomList<PainPointGapCorrelationEntry> get correlationEntries => SomList<PainPointGapCorrelationEntry>(doc, '$path/PPGCE-CORR-LST', (d, p) => PainPointGapCorrelationEntry(d, p), pattern: 'PPGCE-CORR-xxx');
 }
 
 /// Individual pain point to gap correlation entry.
@@ -20693,7 +20693,7 @@ class PasswordAndCredentialPolicy extends SomNode {
   ServiceAccountCredentialPolicy get serviceAccountCredentials => ServiceAccountCredentialPolicy(doc, '$path/serviceAccountCredentials');
 
   /// Contains 0+× MFA Enforcement per User Category.
-  SomList<MfaCategoryRequirementEntry> get mfaCategoryRequirements => SomList<MfaCategoryRequirementEntry>(doc, '$path/MFACRQ-MFAC-LST', (d, p) => MfaCategoryRequirementEntry(d, p));
+  SomList<MfaCategoryRequirementEntry> get mfaCategoryRequirements => SomList<MfaCategoryRequirementEntry>(doc, '$path/MFACRQ-MFAC-LST', (d, p) => MfaCategoryRequirementEntry(d, p), pattern: 'MFACRQ-MFAC-xxx');
 }
 
 /// Password lifecycle policy (form).
@@ -20963,7 +20963,7 @@ class PersonaGoals extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× PersonaGoal.
-  SomList<PersonaGoalEntry> get items => SomList<PersonaGoalEntry>(doc, '$path/PGOEN-ITEM-LST', (d, p) => PersonaGoalEntry(d, p));
+  SomList<PersonaGoalEntry> get items => SomList<PersonaGoalEntry>(doc, '$path/PGOEN-ITEM-LST', (d, p) => PersonaGoalEntry(d, p), pattern: 'PGOEN-ITEM-xxx');
 }
 
 /// A pain point entry (form).
@@ -20981,7 +20981,7 @@ class PersonaPainPoints extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× PersonaPainPoint.
-  SomList<PersonaPainPointEntry> get items => SomList<PersonaPainPointEntry>(doc, '$path/PPPEN-ITEM-LST', (d, p) => PersonaPainPointEntry(d, p));
+  SomList<PersonaPainPointEntry> get items => SomList<PersonaPainPointEntry>(doc, '$path/PPPEN-ITEM-LST', (d, p) => PersonaPainPointEntry(d, p), pattern: 'PPPEN-ITEM-xxx');
 }
 
 /// A persona scenario entry (form).
@@ -21001,7 +21001,7 @@ class PersonaScenarios extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× PersonaScenario.
-  SomList<PersonaScenarioEntry> get items => SomList<PersonaScenarioEntry>(doc, '$path/PSCEN-ITEM-LST', (d, p) => PersonaScenarioEntry(d, p));
+  SomList<PersonaScenarioEntry> get items => SomList<PersonaScenarioEntry>(doc, '$path/PSCEN-ITEM-LST', (d, p) => PersonaScenarioEntry(d, p), pattern: 'PSCEN-ITEM-xxx');
 }
 
 /// Authority and participants.
@@ -21070,7 +21070,7 @@ class PhaseGateReviewEntry extends SomNode {
   // (skipped: gateNarrative has no target type)
 
   /// Contains 0+× ReviewCriterionEntry.
-  SomList<ReviewCriterionEntry> get reviewCriteria => SomList<ReviewCriterionEntry>(doc, '$path/RVCRI-REVI-LST', (d, p) => ReviewCriterionEntry(d, p));
+  SomList<ReviewCriterionEntry> get reviewCriteria => SomList<ReviewCriterionEntry>(doc, '$path/RVCRI-REVI-LST', (d, p) => ReviewCriterionEntry(d, p), pattern: 'RVCRI-REVI-xxx');
 }
 
 /// 13.6.1. Phase Gate Reviews.
@@ -21093,7 +21093,7 @@ class PhaseGateReviews extends SomNode {
   // (skipped: gateReviewNarrative has no target type)
 
   /// Contains 0+× PhaseGateReviewEntry.
-  SomList<PhaseGateReviewEntry> get items => SomList<PhaseGateReviewEntry>(doc, '$path/PGRE-ITEM-LST', (d, p) => PhaseGateReviewEntry(d, p));
+  SomList<PhaseGateReviewEntry> get items => SomList<PhaseGateReviewEntry>(doc, '$path/PGRE-ITEM-LST', (d, p) => PhaseGateReviewEntry(d, p), pattern: 'PGRE-ITEM-xxx');
 }
 
 /// Gate decision outcomes and follow-up rules.
@@ -21262,19 +21262,19 @@ class PlatformAndLanguage extends SomNode {
   // (skipped: overview has no target type)
 
   /// Target platforms (operating systems, runtimes, containers).
-  SomList<TargetPlatformEntry> get targetPlatforms => SomList<TargetPlatformEntry>(doc, '$path/TGPLT-TARG-LST', (d, p) => TargetPlatformEntry(d, p));
+  SomList<TargetPlatformEntry> get targetPlatforms => SomList<TargetPlatformEntry>(doc, '$path/TGPLT-TARG-LST', (d, p) => TargetPlatformEntry(d, p), pattern: 'TGPLT-TARG-xxx');
 
   /// Programming language requirements.
-  SomList<ProgrammingLanguageEntry> get programmingLanguages => SomList<ProgrammingLanguageEntry>(doc, '$path/PLGEN-PROG-LST', (d, p) => ProgrammingLanguageEntry(d, p));
+  SomList<ProgrammingLanguageEntry> get programmingLanguages => SomList<ProgrammingLanguageEntry>(doc, '$path/PLGEN-PROG-LST', (d, p) => ProgrammingLanguageEntry(d, p), pattern: 'PLGEN-PROG-xxx');
 
   /// Framework and library requirements.
-  SomList<FrameworkRequirementEntry> get frameworks => SomList<FrameworkRequirementEntry>(doc, '$path/FWREN-FRAM-LST', (d, p) => FrameworkRequirementEntry(d, p));
+  SomList<FrameworkRequirementEntry> get frameworks => SomList<FrameworkRequirementEntry>(doc, '$path/FWREN-FRAM-LST', (d, p) => FrameworkRequirementEntry(d, p), pattern: 'FWREN-FRAM-xxx');
 
   /// Build toolchain requirements.
-  SomList<BuildToolchainEntry> get buildToolchain => SomList<BuildToolchainEntry>(doc, '$path/BTCEN-BUIL-LST', (d, p) => BuildToolchainEntry(d, p));
+  SomList<BuildToolchainEntry> get buildToolchain => SomList<BuildToolchainEntry>(doc, '$path/BTCEN-BUIL-LST', (d, p) => BuildToolchainEntry(d, p), pattern: 'BTCEN-BUIL-xxx');
 
   /// Deployment target specifications.
-  SomList<DeploymentTargetEntry> get deploymentTargets => SomList<DeploymentTargetEntry>(doc, '$path/DETAEN-DEPL-LST', (d, p) => DeploymentTargetEntry(d, p));
+  SomList<DeploymentTargetEntry> get deploymentTargets => SomList<DeploymentTargetEntry>(doc, '$path/DETAEN-DEPL-LST', (d, p) => DeploymentTargetEntry(d, p), pattern: 'DETAEN-DEPL-xxx');
 
   /// Dependency management requirements.
   DependencyManagement get dependencyManagement => DependencyManagement(doc, '$path/dependencyManagement');
@@ -21415,14 +21415,14 @@ class PrintAndExportLayout extends SomNode {
   PrintLayoutArchive get archive => PrintLayoutArchive(doc, '$path/archive');
 
   /// 10.4.1. Reports — contains 0+× Report.
-  SomList<ReportEntry> get reports => SomList<ReportEntry>(doc, '$path/REEN-REPO-LST', (d, p) => ReportEntry(d, p));
+  SomList<ReportEntry> get reports => SomList<ReportEntry>(doc, '$path/REEN-REPO-LST', (d, p) => ReportEntry(d, p), pattern: 'REEN-REPO-xxx');
 
   /// 10.4.2. Export Formats — contains 0+× Export Format.
-  SomList<ExportFormatEntry> get exportFormats => SomList<ExportFormatEntry>(doc, '$path/EXFOEN-EXPO-LST', (d, p) => ExportFormatEntry(d, p));
+  SomList<ExportFormatEntry> get exportFormats => SomList<ExportFormatEntry>(doc, '$path/EXFOEN-EXPO-LST', (d, p) => ExportFormatEntry(d, p), pattern: 'EXFOEN-EXPO-xxx');
 
   /// 10.4.3. Export Templates — contains 0+× Export
   /// Template.
-  SomList<ExportTemplateEntry> get exportTemplates => SomList<ExportTemplateEntry>(doc, '$path/EXTEEN-EXPO-LST', (d, p) => ExportTemplateEntry(d, p));
+  SomList<ExportTemplateEntry> get exportTemplates => SomList<ExportTemplateEntry>(doc, '$path/EXTEEN-EXPO-LST', (d, p) => ExportTemplateEntry(d, p), pattern: 'EXTEEN-EXPO-xxx');
 }
 
 /// Archive and batch settings.
@@ -21570,7 +21570,7 @@ class ProblemStatement extends SomNode {
   ProblemStatementProblemDetailsForm get problemDetails => ProblemStatementProblemDetailsForm(doc, '$path/problemDetails');
 
   /// Related pain points from Current State Analysis.
-  SomList<RelatedPainPointEntry> get relatedPainPoints => SomList<RelatedPainPointEntry>(doc, '$path/RPPE-RELA-LST', (d, p) => RelatedPainPointEntry(d, p));
+  SomList<RelatedPainPointEntry> get relatedPainPoints => SomList<RelatedPainPointEntry>(doc, '$path/RPPE-RELA-LST', (d, p) => RelatedPainPointEntry(d, p), pattern: 'RPPE-RELA-xxx');
 }
 
 /// Details for process adjustment.
@@ -21594,7 +21594,7 @@ class ProcessAdjustmentEntry extends SomNode {
   ProcessAdjustmentIdentity get identity => ProcessAdjustmentIdentity(doc, '$path/identity');
 
   /// Adjustment details.
-  SomList<ProcessAdjustmentDetails> get details => SomList<ProcessAdjustmentDetails>(doc, '$path/PCAED-DETA-LST', (d, p) => ProcessAdjustmentDetails(d, p));
+  SomList<ProcessAdjustmentDetails> get details => SomList<ProcessAdjustmentDetails>(doc, '$path/PCAED-DETA-LST', (d, p) => ProcessAdjustmentDetails(d, p), pattern: 'PCAED-DETA-xxx');
 
   /// Rationale.
   ProcessAdjustmentRationale get rationale => ProcessAdjustmentRationale(doc, '$path/rationale');
@@ -21670,7 +21670,7 @@ class ProcessAdjustments extends SomNode {
   set processFlowDiagram(String value) => doc.setContent('$path/processFlowDiagram', value);
 
   /// Contains 0+× ProcessAdjustment.
-  SomList<ProcessAdjustmentEntry> get items => SomList<ProcessAdjustmentEntry>(doc, '$path/PCAJE-ITEM-LST', (d, p) => ProcessAdjustmentEntry(d, p));
+  SomList<ProcessAdjustmentEntry> get items => SomList<ProcessAdjustmentEntry>(doc, '$path/PCAJE-ITEM-LST', (d, p) => ProcessAdjustmentEntry(d, p), pattern: 'PCAJE-ITEM-xxx');
 }
 
 /// 6.1.3. Process Catalog.
@@ -21686,7 +21686,7 @@ class ProcessCatalog extends SomNode {
   ProcessClassification get classification => ProcessClassification(doc, '$path/classification');
 
   /// Contains 1+× Business Process.
-  SomList<BusinessProcessEntry> get processes => SomList<BusinessProcessEntry>(doc, '$path/BPREN-PROC-LST', (d, p) => BusinessProcessEntry(d, p));
+  SomList<BusinessProcessEntry> get processes => SomList<BusinessProcessEntry>(doc, '$path/BPREN-PROC-LST', (d, p) => BusinessProcessEntry(d, p), pattern: 'BPREN-PROC-xxx');
 }
 
 /// Process catalog overview.
@@ -21772,7 +21772,7 @@ class ProcessControls extends SomNode {
   ProcessControlsOverview get overview => ProcessControlsOverview(doc, '$path/overview');
 
   /// Contains 0+× process control.
-  SomList<ProcessControlEntry> get controls => SomList<ProcessControlEntry>(doc, '$path/PCCTL-CONT-LST', (d, p) => ProcessControlEntry(d, p));
+  SomList<ProcessControlEntry> get controls => SomList<ProcessControlEntry>(doc, '$path/PCCTL-CONT-LST', (d, p) => ProcessControlEntry(d, p), pattern: 'PCCTL-CONT-xxx');
 }
 
 /// Process controls overview.
@@ -21806,7 +21806,7 @@ class ProcessDesignPrinciples extends SomNode {
   DesignPrinciplesOverview get overview => DesignPrinciplesOverview(doc, '$path/overview');
 
   /// Contains 0+× Design Principle.
-  SomList<ProcessDesignPrincipleEntry> get principles => SomList<ProcessDesignPrincipleEntry>(doc, '$path/PDPEN-PRIN-LST', (d, p) => ProcessDesignPrincipleEntry(d, p));
+  SomList<ProcessDesignPrincipleEntry> get principles => SomList<ProcessDesignPrincipleEntry>(doc, '$path/PDPEN-PRIN-LST', (d, p) => ProcessDesignPrincipleEntry(d, p), pattern: 'PDPEN-PRIN-xxx');
 }
 
 /// Process diagram overview.
@@ -21868,7 +21868,7 @@ class ProcessExceptions extends SomNode {
   ProcessExceptionsOverview get overview => ProcessExceptionsOverview(doc, '$path/overview');
 
   /// Contains 0+× exception scenario.
-  SomList<ProcessExceptionEntry> get exceptions => SomList<ProcessExceptionEntry>(doc, '$path/PCEXC-EXCE-LST', (d, p) => ProcessExceptionEntry(d, p));
+  SomList<ProcessExceptionEntry> get exceptions => SomList<ProcessExceptionEntry>(doc, '$path/PCEXC-EXCE-LST', (d, p) => ProcessExceptionEntry(d, p), pattern: 'PCEXC-EXCE-xxx');
 }
 
 /// Process exceptions overview.
@@ -21952,7 +21952,7 @@ class ProcessImprovementSummary extends SomNode {
   ImprovementOverview get overview => ImprovementOverview(doc, '$path/overview');
 
   /// Contains 0+× improvement item.
-  SomList<ProcessImprovementEntry> get improvements => SomList<ProcessImprovementEntry>(doc, '$path/PCIMV-IMPR-LST', (d, p) => ProcessImprovementEntry(d, p));
+  SomList<ProcessImprovementEntry> get improvements => SomList<ProcessImprovementEntry>(doc, '$path/PCIMV-IMPR-LST', (d, p) => ProcessImprovementEntry(d, p), pattern: 'PCIMV-IMPR-xxx');
 
   /// Business case summary.
   ImprovementBusinessCase get businessCase => ImprovementBusinessCase(doc, '$path/businessCase');
@@ -21973,10 +21973,10 @@ class ProcessInputsOutputs extends SomNode {
   InputsOutputsOverview get overview => InputsOutputsOverview(doc, '$path/overview');
 
   /// Contains 0+× process input.
-  SomList<ProcessInputEntry> get inputs => SomList<ProcessInputEntry>(doc, '$path/PCINP-INPU-LST', (d, p) => ProcessInputEntry(d, p));
+  SomList<ProcessInputEntry> get inputs => SomList<ProcessInputEntry>(doc, '$path/PCINP-INPU-LST', (d, p) => ProcessInputEntry(d, p), pattern: 'PCINP-INPU-xxx');
 
   /// Contains 0+× process output.
-  SomList<ProcessOutputEntry> get outputs => SomList<ProcessOutputEntry>(doc, '$path/PCOUT-OUTP-LST', (d, p) => ProcessOutputEntry(d, p));
+  SomList<ProcessOutputEntry> get outputs => SomList<ProcessOutputEntry>(doc, '$path/PCOUT-OUTP-LST', (d, p) => ProcessOutputEntry(d, p), pattern: 'PCOUT-OUTP-xxx');
 }
 
 /// Process interdependency matrix showing how processes interact.
@@ -21991,7 +21991,7 @@ class ProcessInterdependencyMatrix extends SomNode {
   set dependencyDiagram(String value) => doc.setContent('$path/dependencyDiagram', value);
 
   /// Individual process dependencies.
-  SomList<ProcessDependencyEntry> get dependencies => SomList<ProcessDependencyEntry>(doc, '$path/PRDEEN-DEPE-LST', (d, p) => ProcessDependencyEntry(d, p));
+  SomList<ProcessDependencyEntry> get dependencies => SomList<ProcessDependencyEntry>(doc, '$path/PRDEEN-DEPE-LST', (d, p) => ProcessDependencyEntry(d, p), pattern: 'PRDEEN-DEPE-xxx');
 }
 
 /// A process KPI entry.
@@ -22039,7 +22039,7 @@ class ProcessMetricCategory extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Metrics in this category.
-  SomList<ProcessMetricEntry> get metrics => SomList<ProcessMetricEntry>(doc, '$path/PME-METR-LST', (d, p) => ProcessMetricEntry(d, p));
+  SomList<ProcessMetricEntry> get metrics => SomList<ProcessMetricEntry>(doc, '$path/PME-METR-LST', (d, p) => ProcessMetricEntry(d, p), pattern: 'PME-METR-xxx');
 }
 
 /// A process metric entry (form).
@@ -22087,22 +22087,22 @@ class ProcessMetrics extends SomNode {
   MetricsDashboardSummary get dashboardSummary => MetricsDashboardSummary(doc, '$path/dashboardSummary');
 
   /// Efficiency metrics.
-  SomList<ProcessMetricCategory> get efficiencyMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-EFFI-LST', (d, p) => ProcessMetricCategory(d, p));
+  SomList<ProcessMetricCategory> get efficiencyMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-EFFI-LST', (d, p) => ProcessMetricCategory(d, p), pattern: 'PRMECA-EFFI-xxx');
 
   /// Quality metrics.
-  SomList<ProcessMetricCategory> get qualityMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-QUAL-LST', (d, p) => ProcessMetricCategory(d, p));
+  SomList<ProcessMetricCategory> get qualityMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-QUAL-LST', (d, p) => ProcessMetricCategory(d, p), pattern: 'PRMECA-QUAL-xxx');
 
   /// Volume metrics.
-  SomList<ProcessMetricCategory> get volumeMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-VOLU-LST', (d, p) => ProcessMetricCategory(d, p));
+  SomList<ProcessMetricCategory> get volumeMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-VOLU-LST', (d, p) => ProcessMetricCategory(d, p), pattern: 'PRMECA-VOLU-xxx');
 
   /// Cost metrics.
-  SomList<ProcessMetricCategory> get costMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-COST-LST', (d, p) => ProcessMetricCategory(d, p));
+  SomList<ProcessMetricCategory> get costMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-COST-LST', (d, p) => ProcessMetricCategory(d, p), pattern: 'PRMECA-COST-xxx');
 
   /// Manual intervention metrics.
-  SomList<ProcessMetricCategory> get manualInterventionMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-MANU-LST', (d, p) => ProcessMetricCategory(d, p));
+  SomList<ProcessMetricCategory> get manualInterventionMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-MANU-LST', (d, p) => ProcessMetricCategory(d, p), pattern: 'PRMECA-MANU-xxx');
 
   /// Individual metric entries.
-  SomList<ProcessMetricEntry> get items => SomList<ProcessMetricEntry>(doc, '$path/PME-ITEM-LST', (d, p) => ProcessMetricEntry(d, p));
+  SomList<ProcessMetricEntry> get items => SomList<ProcessMetricEntry>(doc, '$path/PME-ITEM-LST', (d, p) => ProcessMetricEntry(d, p), pattern: 'PME-ITEM-xxx');
 
   /// Baseline comparison table.
   MetricsBaselineTable get baselineTable => MetricsBaselineTable(doc, '$path/baselineTable');
@@ -22142,7 +22142,7 @@ class ProcessPainPoints extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Process improvement opportunities.
-  SomList<CurrentProcessImprovementEntry> get improvements => SomList<CurrentProcessImprovementEntry>(doc, '$path/CPIE-IMPR-LST', (d, p) => CurrentProcessImprovementEntry(d, p));
+  SomList<CurrentProcessImprovementEntry> get improvements => SomList<CurrentProcessImprovementEntry>(doc, '$path/CPIE-IMPR-LST', (d, p) => CurrentProcessImprovementEntry(d, p), pattern: 'CPIE-IMPR-xxx');
 }
 
 /// Process performance metrics.
@@ -22153,10 +22153,10 @@ class ProcessPerformance extends SomNode {
   ProcessPerformanceOverview get overview => ProcessPerformanceOverview(doc, '$path/overview');
 
   /// Contains 0+× performance metric.
-  SomList<ProcessKpiEntry> get kpis => SomList<ProcessKpiEntry>(doc, '$path/PCKPI-KPIS-LST', (d, p) => ProcessKpiEntry(d, p));
+  SomList<ProcessKpiEntry> get kpis => SomList<ProcessKpiEntry>(doc, '$path/PCKPI-KPIS-LST', (d, p) => ProcessKpiEntry(d, p), pattern: 'PCKPI-KPIS-xxx');
 
   /// Service Level Agreements.
-  SomList<ProcessSlaEntry> get slas => SomList<ProcessSlaEntry>(doc, '$path/PCSLA-SLAS-LST', (d, p) => ProcessSlaEntry(d, p));
+  SomList<ProcessSlaEntry> get slas => SomList<ProcessSlaEntry>(doc, '$path/PCSLA-SLAS-LST', (d, p) => ProcessSlaEntry(d, p), pattern: 'PCSLA-SLAS-xxx');
 }
 
 /// Process performance overview.
@@ -22173,7 +22173,7 @@ class ProcessPerformanceSummary extends SomNode {
   ProcessPerformanceSummaryContentForm get content => ProcessPerformanceSummaryContentForm(doc, '$path/content');
 
   /// Key metrics summary.
-  SomList<ProcessMetricEntry> get keyMetrics => SomList<ProcessMetricEntry>(doc, '$path/PME-KEYM-LST', (d, p) => ProcessMetricEntry(d, p));
+  SomList<ProcessMetricEntry> get keyMetrics => SomList<ProcessMetricEntry>(doc, '$path/PME-KEYM-LST', (d, p) => ProcessMetricEntry(d, p), pattern: 'PME-KEYM-xxx');
 }
 
 /// A process relationship entry.
@@ -22191,7 +22191,7 @@ class ProcessRelationships extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× process relationship.
-  SomList<ProcessRelationshipEntry> get relationships => SomList<ProcessRelationshipEntry>(doc, '$path/PCRLT-RELA-LST', (d, p) => ProcessRelationshipEntry(d, p));
+  SomList<ProcessRelationshipEntry> get relationships => SomList<ProcessRelationshipEntry>(doc, '$path/PCRLT-RELA-LST', (d, p) => ProcessRelationshipEntry(d, p), pattern: 'PCRLT-RELA-xxx');
 }
 
 /// A process role entry.
@@ -22229,7 +22229,7 @@ class ProcessRoles extends SomNode {
   ProcessRolesOverview get overview => ProcessRolesOverview(doc, '$path/overview');
 
   /// Contains 0+× process role.
-  SomList<ProcessRoleEntry> get roles => SomList<ProcessRoleEntry>(doc, '$path/PCROL-ROLE-LST', (d, p) => ProcessRoleEntry(d, p));
+  SomList<ProcessRoleEntry> get roles => SomList<ProcessRoleEntry>(doc, '$path/PCROL-ROLE-LST', (d, p) => ProcessRoleEntry(d, p), pattern: 'PCROL-ROLE-xxx');
 }
 
 /// Process roles overview.
@@ -22253,10 +22253,10 @@ class ProcessScopeSummary extends SomNode {
   ProcessScopeSummaryContentForm get content => ProcessScopeSummaryContentForm(doc, '$path/content');
 
   /// Processes in scope.
-  SomList<ProcessScopeEntry> get inScopeProcesses => SomList<ProcessScopeEntry>(doc, '$path/PRSCEN-INSC-LST', (d, p) => ProcessScopeEntry(d, p));
+  SomList<ProcessScopeEntry> get inScopeProcesses => SomList<ProcessScopeEntry>(doc, '$path/PRSCEN-INSC-LST', (d, p) => ProcessScopeEntry(d, p), pattern: 'PRSCEN-INSC-xxx');
 
   /// Processes explicitly out of scope.
-  SomList<ProcessScopeEntry> get outOfScopeProcesses => SomList<ProcessScopeEntry>(doc, '$path/PRSCEN-OUTO-LST', (d, p) => ProcessScopeEntry(d, p));
+  SomList<ProcessScopeEntry> get outOfScopeProcesses => SomList<ProcessScopeEntry>(doc, '$path/PRSCEN-OUTO-LST', (d, p) => ProcessScopeEntry(d, p), pattern: 'PRSCEN-OUTO-xxx');
 }
 
 /// A process SLA entry.
@@ -22293,7 +22293,7 @@ class ProcessStepsAndActorInteractions extends SomNode {
   ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
 
   /// 6.2.4. End-to-End Test Scenarios..
-  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p));
+  SomList<EndToEndTestScenario> get endToEndTestScenarios => SomList<EndToEndTestScenario>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenario(d, p), pattern: 'ETETS-ENDT-xxx');
 
   /// 6.2.5. Use Case Traceability.
   UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
@@ -22355,10 +22355,10 @@ class ProcessTriggers extends SomNode {
   TriggerOverview get overview => TriggerOverview(doc, '$path/overview');
 
   /// Contains 0+× process trigger.
-  SomList<ProcessTriggerEntry> get triggers => SomList<ProcessTriggerEntry>(doc, '$path/PTREN-TRIG-LST', (d, p) => ProcessTriggerEntry(d, p));
+  SomList<ProcessTriggerEntry> get triggers => SomList<ProcessTriggerEntry>(doc, '$path/PTREN-TRIG-LST', (d, p) => ProcessTriggerEntry(d, p), pattern: 'PTREN-TRIG-xxx');
 
   /// Process end events (outcomes).
-  SomList<ProcessEndEventEntry> get endEvents => SomList<ProcessEndEventEntry>(doc, '$path/PEEVT-ENDE-LST', (d, p) => ProcessEndEventEntry(d, p));
+  SomList<ProcessEndEventEntry> get endEvents => SomList<ProcessEndEventEntry>(doc, '$path/PEEVT-ENDE-LST', (d, p) => ProcessEndEventEntry(d, p), pattern: 'PEEVT-ENDE-xxx');
 }
 
 /// 6.1.1. Process Vision.
@@ -22374,7 +22374,7 @@ class ProcessVision extends SomNode {
   // (skipped: visionNarrative has no target type)
 
   /// Expected improvements over current state.
-  SomList<ExpectedImprovements> get expectedImprovements => SomList<ExpectedImprovements>(doc, '$path/EXIPR-EXPE-LST', (d, p) => ExpectedImprovements(d, p));
+  SomList<ExpectedImprovements> get expectedImprovements => SomList<ExpectedImprovements>(doc, '$path/EXIPR-EXPE-LST', (d, p) => ExpectedImprovements(d, p), pattern: 'EXIPR-EXPE-xxx');
 
   /// Success criteria for process transformation.
   ProcessSuccessCriteria get successCriteria => ProcessSuccessCriteria(doc, '$path/successCriteria');
@@ -22503,10 +22503,10 @@ class ProjectTeamStaffing extends SomNode {
   TeamStructureOverview get teamStructure => TeamStructureOverview(doc, '$path/teamStructure');
 
   /// Team members — contains 1+× Team Member.
-  SomList<TeamMemberEntry> get members => SomList<TeamMemberEntry>(doc, '$path/TMMBE-MEMB-LST', (d, p) => TeamMemberEntry(d, p));
+  SomList<TeamMemberEntry> get members => SomList<TeamMemberEntry>(doc, '$path/TMMBE-MEMB-LST', (d, p) => TeamMemberEntry(d, p), pattern: 'TMMBE-MEMB-xxx');
 
   /// Resource requirements not yet filled.
-  SomList<ResourceRequirementEntry> get openRequirements => SomList<ResourceRequirementEntry>(doc, '$path/RREQE-OPEN-LST', (d, p) => ResourceRequirementEntry(d, p));
+  SomList<ResourceRequirementEntry> get openRequirements => SomList<ResourceRequirementEntry>(doc, '$path/RREQE-OPEN-LST', (d, p) => ResourceRequirementEntry(d, p), pattern: 'RREQE-OPEN-xxx');
 }
 
 /// Protocol compliance requirements.
@@ -22564,7 +22564,7 @@ class ProtocolsAndStandardsSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// Protocol catalog — contains 0+× Protocol.
-  SomList<ProtocolEntry> get protocols => SomList<ProtocolEntry>(doc, '$path/PREN-PROT-LST', (d, p) => ProtocolEntry(d, p));
+  SomList<ProtocolEntry> get protocols => SomList<ProtocolEntry>(doc, '$path/PREN-PROT-LST', (d, p) => ProtocolEntry(d, p), pattern: 'PREN-PROT-xxx');
 
   /// TLS/SSL requirements.
   TlsRequirements get tlsRequirements => TlsRequirements(doc, '$path/tlsRequirements');
@@ -22644,7 +22644,7 @@ class PrototypeFeatureSubset extends SomNode {
   // (skipped: featureNarrative has no target type)
 
   /// Prototype feature entries.
-  SomList<PrototypeFeatureEntry> get features => SomList<PrototypeFeatureEntry>(doc, '$path/PRFEEN-FEAT-LST', (d, p) => PrototypeFeatureEntry(d, p));
+  SomList<PrototypeFeatureEntry> get features => SomList<PrototypeFeatureEntry>(doc, '$path/PRFEEN-FEAT-LST', (d, p) => PrototypeFeatureEntry(d, p), pattern: 'PRFEEN-FEAT-xxx');
 }
 
 /// Fidelity expectations for the prototype.
@@ -22686,7 +22686,7 @@ class PrototypeGoals extends SomNode {
   // (skipped: goalsNarrative has no target type)
 
   /// Individual goal entries.
-  SomList<PrototypeGoalEntry> get goals => SomList<PrototypeGoalEntry>(doc, '$path/PRGOEN-GOAL-LST', (d, p) => PrototypeGoalEntry(d, p));
+  SomList<PrototypeGoalEntry> get goals => SomList<PrototypeGoalEntry>(doc, '$path/PRGOEN-GOAL-LST', (d, p) => PrototypeGoalEntry(d, p), pattern: 'PRGOEN-GOAL-xxx');
 }
 
 /// User feedback objectives and intake.
@@ -22884,10 +22884,10 @@ class QualityFramework extends SomNode {
   // (skipped: objectivesBreakdown has no target type)
 
   /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
-  SomList<QualityCategoryEntry> get qualityCategories => SomList<QualityCategoryEntry>(doc, '$path/QCATE-QUAL-LST', (d, p) => QualityCategoryEntry(d, p));
+  SomList<QualityCategoryEntry> get qualityCategories => SomList<QualityCategoryEntry>(doc, '$path/QCATE-QUAL-LST', (d, p) => QualityCategoryEntry(d, p), pattern: 'QCATE-QUAL-xxx');
 
   /// Quality dependencies map.
-  SomList<CategoryDependencyEntry> get categoryDependencies => SomList<CategoryDependencyEntry>(doc, '$path/CATEG-CATE-LST', (d, p) => CategoryDependencyEntry(d, p));
+  SomList<CategoryDependencyEntry> get categoryDependencies => SomList<CategoryDependencyEntry>(doc, '$path/CATEG-CATE-LST', (d, p) => CategoryDependencyEntry(d, p), pattern: 'CATEG-CATE-xxx');
 }
 
 /// Quality objective structure and alignment.
@@ -22929,7 +22929,7 @@ class QualityGateAdjustmentEntry extends SomNode {
   QualityGateAdjustmentEntryContentForm get content => QualityGateAdjustmentEntryContentForm(doc, '$path/content');
 
   /// Gate details.
-  SomList<QualityGateAdjustmentDetails> get details => SomList<QualityGateAdjustmentDetails>(doc, '$path/QGAED-DETA-LST', (d, p) => QualityGateAdjustmentDetails(d, p));
+  SomList<QualityGateAdjustmentDetails> get details => SomList<QualityGateAdjustmentDetails>(doc, '$path/QGAED-DETA-LST', (d, p) => QualityGateAdjustmentDetails(d, p), pattern: 'QGAED-DETA-xxx');
 
   /// Rationale.
   QualityGateAdjustmentRationale get rationale => QualityGateAdjustmentRationale(doc, '$path/rationale');
@@ -22988,7 +22988,7 @@ class QualityGateAdjustments extends SomNode {
   set gateFlowDiagram(String value) => doc.setContent('$path/gateFlowDiagram', value);
 
   /// Contains 0+× QualityGateAdjustment.
-  SomList<QualityGateAdjustmentEntry> get items => SomList<QualityGateAdjustmentEntry>(doc, '$path/QGAJE-ITEM-LST', (d, p) => QualityGateAdjustmentEntry(d, p));
+  SomList<QualityGateAdjustmentEntry> get items => SomList<QualityGateAdjustmentEntry>(doc, '$path/QGAJE-ITEM-LST', (d, p) => QualityGateAdjustmentEntry(d, p), pattern: 'QGAJE-ITEM-xxx');
 }
 
 /// A quality gate check entry (form).
@@ -23060,7 +23060,7 @@ class QualityGateChecklist extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× QualityGateCheck.
-  SomList<QualityGateCheckEntry> get items => SomList<QualityGateCheckEntry>(doc, '$path/QGCHK-ITEM-LST', (d, p) => QualityGateCheckEntry(d, p));
+  SomList<QualityGateCheckEntry> get items => SomList<QualityGateCheckEntry>(doc, '$path/QGCHK-ITEM-LST', (d, p) => QualityGateCheckEntry(d, p), pattern: 'QGCHK-ITEM-xxx');
 }
 
 /// Baseline and target settings.
@@ -23128,7 +23128,7 @@ class QualityScenarios extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Quality scenario entries — contains 0+× QualityScenarioEntry.
-  SomList<QualityScenarioEntry> get items => SomList<QualityScenarioEntry>(doc, '$path/QLSCN-ITEM-LST', (d, p) => QualityScenarioEntry(d, p));
+  SomList<QualityScenarioEntry> get items => SomList<QualityScenarioEntry>(doc, '$path/QLSCN-ITEM-LST', (d, p) => QualityScenarioEntry(d, p), pattern: 'QLSCN-ITEM-xxx');
 }
 
 /// Quality standard entry (CMMI, ISO 9001).
@@ -23423,7 +23423,7 @@ class ReferenceDocuments extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Reference document entries — contains 0+× Reference Document.
-  SomList<ReferenceDocumentEntry> get documents => SomList<ReferenceDocumentEntry>(doc, '$path/RFDOC-DOCU-LST', (d, p) => ReferenceDocumentEntry(d, p));
+  SomList<ReferenceDocumentEntry> get documents => SomList<ReferenceDocumentEntry>(doc, '$path/RFDOC-DOCU-LST', (d, p) => ReferenceDocumentEntry(d, p), pattern: 'RFDOC-DOCU-xxx');
 }
 
 /// Regulatory audit support (form).
@@ -23495,10 +23495,10 @@ class RegulatoryComplianceRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Regulatory requirements — contains 0+× Regulatory Requirement.
-  SomList<RegulatoryRequirementEntry> get requirements => SomList<RegulatoryRequirementEntry>(doc, '$path/REGRQ-REQU-LST', (d, p) => RegulatoryRequirementEntry(d, p));
+  SomList<RegulatoryRequirementEntry> get requirements => SomList<RegulatoryRequirementEntry>(doc, '$path/REGRQ-REQU-LST', (d, p) => RegulatoryRequirementEntry(d, p), pattern: 'REGRQ-REQU-xxx');
 
   /// Compliance milestones.
-  SomList<ComplianceMilestoneEntry> get milestones => SomList<ComplianceMilestoneEntry>(doc, '$path/CPML-MILE-LST', (d, p) => ComplianceMilestoneEntry(d, p));
+  SomList<ComplianceMilestoneEntry> get milestones => SomList<ComplianceMilestoneEntry>(doc, '$path/CPML-MILE-LST', (d, p) => ComplianceMilestoneEntry(d, p), pattern: 'CPML-MILE-xxx');
 }
 
 /// 4.1.2.8. Regulatory Context.
@@ -23512,7 +23512,7 @@ class RegulatoryContext extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Applicable regulations — contains 0+× ApplicableRegulationEntry.
-  SomList<ApplicableRegulationEntry> get regulations => SomList<ApplicableRegulationEntry>(doc, '$path/ARE-REGU-LST', (d, p) => ApplicableRegulationEntry(d, p));
+  SomList<ApplicableRegulationEntry> get regulations => SomList<ApplicableRegulationEntry>(doc, '$path/ARE-REGU-LST', (d, p) => ApplicableRegulationEntry(d, p), pattern: 'ARE-REGU-xxx');
 }
 
 /// A regulatory requirement entry.
@@ -23752,7 +23752,7 @@ class ReplacementInventory extends SomNode {
   // (skipped: prioritizationCriteria has no target type)
 
   /// Contains 0+× SystemToReplaceEntry.
-  SomList<SystemToReplaceEntry> get systems => SomList<SystemToReplaceEntry>(doc, '$path/SYTORE-SYST-LST', (d, p) => SystemToReplaceEntry(d, p));
+  SomList<SystemToReplaceEntry> get systems => SomList<SystemToReplaceEntry>(doc, '$path/SYTORE-SYST-LST', (d, p) => SystemToReplaceEntry(d, p), pattern: 'SYTORE-SYST-xxx');
 }
 
 /// A replacement phase entry.
@@ -23793,7 +23793,7 @@ class ReportChartEntry extends SomNode {
   ReportChartEntryContentForm get content => ReportChartEntryContentForm(doc, '$path/content');
 
   /// Axes configuration.
-  SomList<ReportChartAxes> get axes => SomList<ReportChartAxes>(doc, '$path/RECHAX-AXES-LST', (d, p) => ReportChartAxes(d, p));
+  SomList<ReportChartAxes> get axes => SomList<ReportChartAxes>(doc, '$path/RECHAX-AXES-LST', (d, p) => ReportChartAxes(d, p), pattern: 'RECHAX-AXES-xxx');
 
   /// Series and colors.
   ReportChartSeries get series => ReportChartSeries(doc, '$path/series');
@@ -23971,19 +23971,19 @@ class ReportEntry extends SomNode {
   ReportLifecycle get lifecycle => ReportLifecycle(doc, '$path/lifecycle');
 
   /// Contains 0+× Report Section.
-  SomList<ReportSectionEntry> get sections => SomList<ReportSectionEntry>(doc, '$path/RESEE1-SECT-LST', (d, p) => ReportSectionEntry(d, p));
+  SomList<ReportSectionEntry> get sections => SomList<ReportSectionEntry>(doc, '$path/RESEE1-SECT-LST', (d, p) => ReportSectionEntry(d, p), pattern: 'RESEE1-SECT-xxx');
 
   /// Contains 0+× Report Filter.
-  SomList<ReportFilterEntry> get filters => SomList<ReportFilterEntry>(doc, '$path/REFIEN-FILT-LST', (d, p) => ReportFilterEntry(d, p));
+  SomList<ReportFilterEntry> get filters => SomList<ReportFilterEntry>(doc, '$path/REFIEN-FILT-LST', (d, p) => ReportFilterEntry(d, p), pattern: 'REFIEN-FILT-xxx');
 
   /// Contains 0+× Report Schedule.
-  SomList<ReportScheduleEntry> get schedules => SomList<ReportScheduleEntry>(doc, '$path/RESCEN-SCHE-LST', (d, p) => ReportScheduleEntry(d, p));
+  SomList<ReportScheduleEntry> get schedules => SomList<ReportScheduleEntry>(doc, '$path/RESCEN-SCHE-LST', (d, p) => ReportScheduleEntry(d, p), pattern: 'RESCEN-SCHE-xxx');
 
   /// Contains 0+× Report Distribution.
-  SomList<ReportDistributionEntry> get distributions => SomList<ReportDistributionEntry>(doc, '$path/REDIEN-DIST-LST', (d, p) => ReportDistributionEntry(d, p));
+  SomList<ReportDistributionEntry> get distributions => SomList<ReportDistributionEntry>(doc, '$path/REDIEN-DIST-LST', (d, p) => ReportDistributionEntry(d, p), pattern: 'REDIEN-DIST-xxx');
 
   /// Contains 0+× Recipient.
-  SomList<ReportRecipientEntry> get recipients => SomList<ReportRecipientEntry>(doc, '$path/REREEN-RECI-LST', (d, p) => ReportRecipientEntry(d, p));
+  SomList<ReportRecipientEntry> get recipients => SomList<ReportRecipientEntry>(doc, '$path/REREEN-RECI-LST', (d, p) => ReportRecipientEntry(d, p), pattern: 'REREEN-RECI-xxx');
 }
 
 /// A filter parameter for a report (form).
@@ -24204,10 +24204,10 @@ class ReportSectionEntry extends SomNode {
   ReportSectionAggregation get aggregation => ReportSectionAggregation(doc, '$path/aggregation');
 
   /// Contains 0+× Report Column.
-  SomList<ReportColumnEntry> get columns => SomList<ReportColumnEntry>(doc, '$path/RECOE1-COLU-LST', (d, p) => ReportColumnEntry(d, p));
+  SomList<ReportColumnEntry> get columns => SomList<ReportColumnEntry>(doc, '$path/RECOE1-COLU-LST', (d, p) => ReportColumnEntry(d, p), pattern: 'RECOE1-COLU-xxx');
 
   /// Contains 0+× Report Chart.
-  SomList<ReportChartEntry> get charts => SomList<ReportChartEntry>(doc, '$path/RECHEN-CHAR-LST', (d, p) => ReportChartEntry(d, p));
+  SomList<ReportChartEntry> get charts => SomList<ReportChartEntry>(doc, '$path/RECHEN-CHAR-LST', (d, p) => ReportChartEntry(d, p), pattern: 'RECHEN-CHAR-xxx');
 }
 
 /// Layout and page settings.
@@ -24250,7 +24250,7 @@ class RequirementAcceptanceCriteria extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
-  SomList<AcceptanceCriterionEntry> get criteria => SomList<AcceptanceCriterionEntry>(doc, '$path/ACCR-CRIT-LST', (d, p) => AcceptanceCriterionEntry(d, p));
+  SomList<AcceptanceCriterionEntry> get criteria => SomList<AcceptanceCriterionEntry>(doc, '$path/ACCR-CRIT-LST', (d, p) => AcceptanceCriterionEntry(d, p), pattern: 'ACCR-CRIT-xxx');
 }
 
 /// A business rule entry (form).
@@ -24270,7 +24270,7 @@ class RequirementBusinessRules extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Business rule entries — contains 0+× RequirementBusinessRuleEntry.
-  SomList<RequirementBusinessRuleEntry> get rules => SomList<RequirementBusinessRuleEntry>(doc, '$path/RQBIRU-RULE-LST', (d, p) => RequirementBusinessRuleEntry(d, p));
+  SomList<RequirementBusinessRuleEntry> get rules => SomList<RequirementBusinessRuleEntry>(doc, '$path/RQBIRU-RULE-LST', (d, p) => RequirementBusinessRuleEntry(d, p), pattern: 'RQBIRU-RULE-xxx');
 }
 
 /// 4.3.6. Requirement Coverage.
@@ -24293,7 +24293,7 @@ class RequirementDataRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Data entity entries — contains 0+× DataEntityReferenceEntry.
-  SomList<DataEntityReferenceEntry> get entities => SomList<DataEntityReferenceEntry>(doc, '$path/DAENRE-ENTI-LST', (d, p) => DataEntityReferenceEntry(d, p));
+  SomList<DataEntityReferenceEntry> get entities => SomList<DataEntityReferenceEntry>(doc, '$path/DAENRE-ENTI-LST', (d, p) => DataEntityReferenceEntry(d, p), pattern: 'DAENRE-ENTI-xxx');
 }
 
 /// 4.3.1.n.5. Dependencies.
@@ -24306,7 +24306,7 @@ class RequirementDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Dependency entries — contains 0+× RequirementDependencyEntry.
-  SomList<RequirementDependencyEntry> get items => SomList<RequirementDependencyEntry>(doc, '$path/RQDEP-ITEM-LST', (d, p) => RequirementDependencyEntry(d, p));
+  SomList<RequirementDependencyEntry> get items => SomList<RequirementDependencyEntry>(doc, '$path/RQDEP-ITEM-LST', (d, p) => RequirementDependencyEntry(d, p), pattern: 'RQDEP-ITEM-xxx');
 }
 
 /// A requirement dependency entry (form).
@@ -24338,7 +24338,7 @@ class RequirementScreenActionEntry extends SomNode {
   RequirementScreenActionEntryContentForm get content => RequirementScreenActionEntryContentForm(doc, '$path/content');
 
   /// Action parameters — contains 0+× ActionParameterEntry.
-  SomList<ActionParameterEntry> get parameters => SomList<ActionParameterEntry>(doc, '$path/ACPR-PARA-LST', (d, p) => ActionParameterEntry(d, p));
+  SomList<ActionParameterEntry> get parameters => SomList<ActionParameterEntry>(doc, '$path/ACPR-PARA-LST', (d, p) => ActionParameterEntry(d, p), pattern: 'ACPR-PARA-xxx');
 }
 
 /// A test case entry for requirement verification (form).
@@ -24381,7 +24381,7 @@ class RequirementTestCases extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Test case entries — contains 0+× RequirementTestCaseEntry.
-  SomList<RequirementTestCaseEntry> get testCases => SomList<RequirementTestCaseEntry>(doc, '$path/RQTSC-TEST-LST', (d, p) => RequirementTestCaseEntry(d, p));
+  SomList<RequirementTestCaseEntry> get testCases => SomList<RequirementTestCaseEntry>(doc, '$path/RQTSC-TEST-LST', (d, p) => RequirementTestCaseEntry(d, p), pattern: 'RQTSC-TEST-xxx');
 }
 
 /// 4.3.1.n.6. Traceability.
@@ -24440,13 +24440,13 @@ class RequirementUiSpecification extends SomNode {
   set mockupDescription(String value) => doc.setContent('$path/mockupDescription', value);
 
   /// Screen field entries — contains 0+× ScreenFieldEntry.
-  SomList<ScreenFieldEntry> get fields => SomList<ScreenFieldEntry>(doc, '$path/SCFLD-FIEL-LST', (d, p) => ScreenFieldEntry(d, p));
+  SomList<ScreenFieldEntry> get fields => SomList<ScreenFieldEntry>(doc, '$path/SCFLD-FIEL-LST', (d, p) => ScreenFieldEntry(d, p), pattern: 'SCFLD-FIEL-xxx');
 
   /// Screen action entries — contains 0+× RequirementScreenActionEntry.
-  SomList<RequirementScreenActionEntry> get actions => SomList<RequirementScreenActionEntry>(doc, '$path/RQSCAC-ACTI-LST', (d, p) => RequirementScreenActionEntry(d, p));
+  SomList<RequirementScreenActionEntry> get actions => SomList<RequirementScreenActionEntry>(doc, '$path/RQSCAC-ACTI-LST', (d, p) => RequirementScreenActionEntry(d, p), pattern: 'RQSCAC-ACTI-xxx');
 
   /// Screen behavior entries — contains 0+× ScreenBehaviorEntry.
-  SomList<ScreenBehaviorEntry> get behaviors => SomList<ScreenBehaviorEntry>(doc, '$path/SCBHV-BEHA-LST', (d, p) => ScreenBehaviorEntry(d, p));
+  SomList<ScreenBehaviorEntry> get behaviors => SomList<ScreenBehaviorEntry>(doc, '$path/SCBHV-BEHA-LST', (d, p) => ScreenBehaviorEntry(d, p), pattern: 'SCBHV-BEHA-xxx');
 }
 
 /// SBP.9 Requirements.
@@ -24503,7 +24503,7 @@ class RequirementsOverview extends SomNode {
   OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
 
   /// 4.3.5. Requirement Relationships.
-  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
+  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p), pattern: 'RERE-REQU-xxx');
 
   /// 4.3.6. Requirement Coverage.
   RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
@@ -24641,16 +24641,16 @@ class ResponsibilityEntry extends SomNode {
   ResponsibilityEntryContentForm get content => ResponsibilityEntryContentForm(doc, '$path/content');
 
   /// Function details and scope.
-  SomList<ResponsibilityFunctionDetails> get functionDetails => SomList<ResponsibilityFunctionDetails>(doc, '$path/REFUDE-FUNC-LST', (d, p) => ResponsibilityFunctionDetails(d, p));
+  SomList<ResponsibilityFunctionDetails> get functionDetails => SomList<ResponsibilityFunctionDetails>(doc, '$path/REFUDE-FUNC-LST', (d, p) => ResponsibilityFunctionDetails(d, p), pattern: 'REFUDE-FUNC-xxx');
 
   /// RACI assignment.
   ResponsibilityRaci get raci => ResponsibilityRaci(doc, '$path/raci');
 
   /// Key contacts.
-  SomList<ResponsibilityContacts> get contacts => SomList<ResponsibilityContacts>(doc, '$path/RECO-CONT-LST', (d, p) => ResponsibilityContacts(d, p));
+  SomList<ResponsibilityContacts> get contacts => SomList<ResponsibilityContacts>(doc, '$path/RECO-CONT-LST', (d, p) => ResponsibilityContacts(d, p), pattern: 'RECO-CONT-xxx');
 
   /// Related systems and data.
-  SomList<ResponsibilitySystems> get systems => SomList<ResponsibilitySystems>(doc, '$path/RESY-SYST-LST', (d, p) => ResponsibilitySystems(d, p));
+  SomList<ResponsibilitySystems> get systems => SomList<ResponsibilitySystems>(doc, '$path/RESY-SYST-LST', (d, p) => ResponsibilitySystems(d, p), pattern: 'RESY-SYST-xxx');
 
   /// Governance and transition.
   ResponsibilityGovernance get governance => ResponsibilityGovernance(doc, '$path/governance');
@@ -24722,7 +24722,7 @@ class ResponsiveBehavior extends SomNode {
   // (skipped: behaviorNarrative has no target type)
 
   /// Screen-specific responsive rules.
-  SomList<ResponsiveScreenRuleEntry> get screenRules => SomList<ResponsiveScreenRuleEntry>(doc, '$path/RESPSR-SCRE-LST', (d, p) => ResponsiveScreenRuleEntry(d, p));
+  SomList<ResponsiveScreenRuleEntry> get screenRules => SomList<ResponsiveScreenRuleEntry>(doc, '$path/RESPSR-SCRE-LST', (d, p) => ResponsiveScreenRuleEntry(d, p), pattern: 'RESPSR-SCRE-xxx');
 }
 
 /// Content reflow rules.
@@ -24887,19 +24887,19 @@ class ReusableComponentsSection extends SomNode {
   ReusabilityPrinciples get principles => ReusabilityPrinciples(doc, '$path/principles');
 
   /// Shared component library catalog.
-  SomList<SharedLibraryComponentEntry> get sharedLibraries => SomList<SharedLibraryComponentEntry>(doc, '$path/SHLCP-SHAR-LST', (d, p) => SharedLibraryComponentEntry(d, p));
+  SomList<SharedLibraryComponentEntry> get sharedLibraries => SomList<SharedLibraryComponentEntry>(doc, '$path/SHLCP-SHAR-LST', (d, p) => SharedLibraryComponentEntry(d, p), pattern: 'SHLCP-SHAR-xxx');
 
   /// UI component library entries.
-  SomList<ReusableUiComponentEntry> get uiComponents => SomList<ReusableUiComponentEntry>(doc, '$path/RUICMP-UICO-LST', (d, p) => ReusableUiComponentEntry(d, p));
+  SomList<ReusableUiComponentEntry> get uiComponents => SomList<ReusableUiComponentEntry>(doc, '$path/RUICMP-UICO-LST', (d, p) => ReusableUiComponentEntry(d, p), pattern: 'RUICMP-UICO-xxx');
 
   /// Business logic components.
-  SomList<BusinessComponentEntry> get businessComponents => SomList<BusinessComponentEntry>(doc, '$path/BUCOEN-BUSI-LST', (d, p) => BusinessComponentEntry(d, p));
+  SomList<BusinessComponentEntry> get businessComponents => SomList<BusinessComponentEntry>(doc, '$path/BUCOEN-BUSI-LST', (d, p) => BusinessComponentEntry(d, p), pattern: 'BUCOEN-BUSI-xxx');
 
   /// Infrastructure components.
-  SomList<InfrastructureComponentEntry> get infrastructureComponents => SomList<InfrastructureComponentEntry>(doc, '$path/INCOEN-INFR-LST', (d, p) => InfrastructureComponentEntry(d, p));
+  SomList<InfrastructureComponentEntry> get infrastructureComponents => SomList<InfrastructureComponentEntry>(doc, '$path/INCOEN-INFR-LST', (d, p) => InfrastructureComponentEntry(d, p), pattern: 'INCOEN-INFR-xxx');
 
   /// Third-party frameworks and libraries.
-  SomList<ThirdPartyLibraryEntry> get thirdPartyLibraries => SomList<ThirdPartyLibraryEntry>(doc, '$path/THPALI-THIR-LST', (d, p) => ThirdPartyLibraryEntry(d, p));
+  SomList<ThirdPartyLibraryEntry> get thirdPartyLibraries => SomList<ThirdPartyLibraryEntry>(doc, '$path/THPALI-THIR-LST', (d, p) => ThirdPartyLibraryEntry(d, p), pattern: 'THPALI-THIR-xxx');
 
   /// Component governance and maintenance.
   ComponentGovernance get governance => ComponentGovernance(doc, '$path/governance');
@@ -25092,7 +25092,7 @@ class RevisionHistory extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// One entry per published revision of the document.
-  SomList<RevisionEntry> get revisions => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p));
+  SomList<RevisionEntry> get revisions => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p), pattern: 'RVHST-REVS-xxx');
 }
 
 /// Risk analysis — probability, impact, and risk scoring.
@@ -25172,7 +25172,7 @@ class RiskEntry extends SomNode {
   RiskBusinessImpact get businessImpact => RiskBusinessImpact(doc, '$path/businessImpact');
 
   /// Relationships to other risks, assumptions, and project elements.
-  SomList<RiskRelationships> get relationships => SomList<RiskRelationships>(doc, '$path/RR-RELA-LST', (d, p) => RiskRelationships(d, p));
+  SomList<RiskRelationships> get relationships => SomList<RiskRelationships>(doc, '$path/RR-RELA-LST', (d, p) => RiskRelationships(d, p), pattern: 'RR-RELA-xxx');
 }
 
 /// Risk identification details.
@@ -25289,7 +25289,7 @@ class RisksAndAssumptions extends SomNode {
   RisksOverview get overview => RisksOverview(doc, '$path/overview');
 
   /// 4.7.1. Key Risks — contains 0+× Risk.
-  SomList<RiskEntry> get keyRisks => SomList<RiskEntry>(doc, '$path/RIEN-KEYR-LST', (d, p) => RiskEntry(d, p));
+  SomList<RiskEntry> get keyRisks => SomList<RiskEntry>(doc, '$path/RIEN-KEYR-LST', (d, p) => RiskEntry(d, p), pattern: 'RIEN-KEYR-xxx');
 }
 
 /// Overview of the risk management approach.
@@ -25386,7 +25386,7 @@ class RoleAdjustments extends SomNode {
   set roleComparisonDiagram(String value) => doc.setContent('$path/roleComparisonDiagram', value);
 
   /// Contains 0+× RoleAdjustment.
-  SomList<RoleAdjustmentEntry> get items => SomList<RoleAdjustmentEntry>(doc, '$path/RLAJE-ITEM-LST', (d, p) => RoleAdjustmentEntry(d, p));
+  SomList<RoleAdjustmentEntry> get items => SomList<RoleAdjustmentEntry>(doc, '$path/RLAJE-ITEM-LST', (d, p) => RoleAdjustmentEntry(d, p), pattern: 'RLAJE-ITEM-xxx');
 }
 
 /// Role Certification Policy (form).
@@ -25459,13 +25459,13 @@ class RoleHierarchy extends SomNode {
   RoleHierarchyPolicy get hierarchyPolicy => RoleHierarchyPolicy(doc, '$path/hierarchyPolicy');
 
   /// Contains 0+× RoleInheritanceRule.
-  SomList<RoleInheritanceRuleEntry> get inheritanceRules => SomList<RoleInheritanceRuleEntry>(doc, '$path/RLINH-INHE-LST', (d, p) => RoleInheritanceRuleEntry(d, p));
+  SomList<RoleInheritanceRuleEntry> get inheritanceRules => SomList<RoleInheritanceRuleEntry>(doc, '$path/RLINH-INHE-LST', (d, p) => RoleInheritanceRuleEntry(d, p), pattern: 'RLINH-INHE-xxx');
 
   /// Contains 0+× RoleCombinationConstraint.
-  SomList<RoleCombinationConstraintEntry> get combinationConstraints => SomList<RoleCombinationConstraintEntry>(doc, '$path/RLCMB-COMB-LST', (d, p) => RoleCombinationConstraintEntry(d, p));
+  SomList<RoleCombinationConstraintEntry> get combinationConstraints => SomList<RoleCombinationConstraintEntry>(doc, '$path/RLCMB-COMB-LST', (d, p) => RoleCombinationConstraintEntry(d, p), pattern: 'RLCMB-COMB-xxx');
 
   /// Contains 0+× GlobalRoleExclusion.
-  SomList<GlobalRoleExclusionEntry> get globalExclusions => SomList<GlobalRoleExclusionEntry>(doc, '$path/GBRLX-GLOB-LST', (d, p) => GlobalRoleExclusionEntry(d, p));
+  SomList<GlobalRoleExclusionEntry> get globalExclusions => SomList<GlobalRoleExclusionEntry>(doc, '$path/GBRLX-GLOB-LST', (d, p) => GlobalRoleExclusionEntry(d, p), pattern: 'GBRLX-GLOB-xxx');
 
   /// Role Certification and Review.
   RoleCertificationPolicy get roleCertification => RoleCertificationPolicy(doc, '$path/roleCertification');
@@ -25691,7 +25691,7 @@ class RuntimeDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Runtime Dependency.
-  SomList<RuntimeDependencyEntry> get items => SomList<RuntimeDependencyEntry>(doc, '$path/RNDEP-ITEM-LST', (d, p) => RuntimeDependencyEntry(d, p));
+  SomList<RuntimeDependencyEntry> get items => SomList<RuntimeDependencyEntry>(doc, '$path/RNDEP-ITEM-LST', (d, p) => RuntimeDependencyEntry(d, p), pattern: 'RNDEP-ITEM-xxx');
 }
 
 /// A runtime dependency entry (form).
@@ -26019,10 +26019,10 @@ class ScenarioEntry extends SomNode {
   ScenarioContext get context => ScenarioContext(doc, '$path/context');
 
   /// Contains 1+× Scenario Step.
-  SomList<ScenarioStepEntry> get steps => SomList<ScenarioStepEntry>(doc, '$path/SCNST-STEP-LST', (d, p) => ScenarioStepEntry(d, p));
+  SomList<ScenarioStepEntry> get steps => SomList<ScenarioStepEntry>(doc, '$path/SCNST-STEP-LST', (d, p) => ScenarioStepEntry(d, p), pattern: 'SCNST-STEP-xxx');
 
   /// Alternative flows — contains 0+× Alternative Flow.
-  SomList<AlternativeFlowEntry> get alternativeFlows => SomList<AlternativeFlowEntry>(doc, '$path/ALFL-ALTE-LST', (d, p) => AlternativeFlowEntry(d, p));
+  SomList<AlternativeFlowEntry> get alternativeFlows => SomList<AlternativeFlowEntry>(doc, '$path/ALFL-ALTE-LST', (d, p) => AlternativeFlowEntry(d, p), pattern: 'ALFL-ALTE-xxx');
 
   /// Scenario data.
   ScenarioData get scenarioData => ScenarioData(doc, '$path/scenarioData');
@@ -26155,16 +26155,16 @@ class ScopeBoundaries extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// In-Scope Items — contains 1+× ScopeItem.
-  SomList<ScopeItemEntry> get inScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-INSC-LST', (d, p) => ScopeItemEntry(d, p));
+  SomList<ScopeItemEntry> get inScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-INSC-LST', (d, p) => ScopeItemEntry(d, p), pattern: 'SCITE-INSC-xxx');
 
   /// Out-of-Scope Items — contains 0+× ScopeItem.
-  SomList<ScopeItemEntry> get outOfScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-OUTO-LST', (d, p) => ScopeItemEntry(d, p));
+  SomList<ScopeItemEntry> get outOfScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-OUTO-LST', (d, p) => ScopeItemEntry(d, p), pattern: 'SCITE-OUTO-xxx');
 
   /// Deferred Items — contains 0+× ScopeItem.
-  SomList<DeferredScopeItemEntry> get deferredItems => SomList<DeferredScopeItemEntry>(doc, '$path/DFSCP-DEFE-LST', (d, p) => DeferredScopeItemEntry(d, p));
+  SomList<DeferredScopeItemEntry> get deferredItems => SomList<DeferredScopeItemEntry>(doc, '$path/DFSCP-DEFE-LST', (d, p) => DeferredScopeItemEntry(d, p), pattern: 'DFSCP-DEFE-xxx');
 
   /// Scope Assumptions.
-  SomList<ScopeAssumptionEntry> get scopeAssumptions => SomList<ScopeAssumptionEntry>(doc, '$path/SCOPE-SCOP-LST', (d, p) => ScopeAssumptionEntry(d, p));
+  SomList<ScopeAssumptionEntry> get scopeAssumptions => SomList<ScopeAssumptionEntry>(doc, '$path/SCOPE-SCOP-LST', (d, p) => ScopeAssumptionEntry(d, p), pattern: 'SCOPE-SCOP-xxx');
 }
 
 /// A scope item entry (in-scope or out-of-scope).
@@ -26223,7 +26223,7 @@ class ScreenActions extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× ScreenAction.
-  SomList<ScreenActionEntry> get items => SomList<ScreenActionEntry>(doc, '$path/SCRAC-ITEM-LST', (d, p) => ScreenActionEntry(d, p));
+  SomList<ScreenActionEntry> get items => SomList<ScreenActionEntry>(doc, '$path/SCRAC-ITEM-LST', (d, p) => ScreenActionEntry(d, p), pattern: 'SCRAC-ITEM-xxx');
 }
 
 /// A screen behavior entry (form).
@@ -26339,7 +26339,7 @@ class ScreenElementEntry extends SomNode {
   ScreenElementDataDisplay get dataDisplay => ScreenElementDataDisplay(doc, '$path/dataDisplay');
 
   /// Contains 0+× ElementValidationRule.
-  SomList<ElementValidationRuleEntry> get validationRules => SomList<ElementValidationRuleEntry>(doc, '$path/EVRE-VALI-LST', (d, p) => ElementValidationRuleEntry(d, p));
+  SomList<ElementValidationRuleEntry> get validationRules => SomList<ElementValidationRuleEntry>(doc, '$path/EVRE-VALI-LST', (d, p) => ElementValidationRuleEntry(d, p), pattern: 'EVRE-VALI-xxx');
 }
 
 /// Visibility and permission rules for screen element.
@@ -26453,13 +26453,13 @@ class ScreenEntry extends SomNode {
   ScreenStates get states => ScreenStates(doc, '$path/states');
 
   /// Contains 0+× ScreenUserCategory.
-  SomList<ScreenUserCategoryEntry> get userCategories => SomList<ScreenUserCategoryEntry>(doc, '$path/SCRUSC-USER-LST', (d, p) => ScreenUserCategoryEntry(d, p));
+  SomList<ScreenUserCategoryEntry> get userCategories => SomList<ScreenUserCategoryEntry>(doc, '$path/SCRUSC-USER-LST', (d, p) => ScreenUserCategoryEntry(d, p), pattern: 'SCRUSC-USER-xxx');
 
   /// Contains 0+× EntryPoint.
-  SomList<EntryPointEntry> get entryPoints => SomList<EntryPointEntry>(doc, '$path/EPNT-ENTR-LST', (d, p) => EntryPointEntry(d, p));
+  SomList<EntryPointEntry> get entryPoints => SomList<EntryPointEntry>(doc, '$path/EPNT-ENTR-LST', (d, p) => EntryPointEntry(d, p), pattern: 'EPNT-ENTR-xxx');
 
   /// Contains 0+× ScreenResponsiveRule.
-  SomList<ScreenResponsiveRuleEntry> get responsiveRules => SomList<ScreenResponsiveRuleEntry>(doc, '$path/SRRE-RESP-LST', (d, p) => ScreenResponsiveRuleEntry(d, p));
+  SomList<ScreenResponsiveRuleEntry> get responsiveRules => SomList<ScreenResponsiveRuleEntry>(doc, '$path/SRRE-RESP-LST', (d, p) => ScreenResponsiveRuleEntry(d, p), pattern: 'SRRE-RESP-xxx');
 }
 
 /// Access control settings.
@@ -26525,7 +26525,7 @@ class ScreenFieldEntry extends SomNode {
   ScreenFieldLayout get layout => ScreenFieldLayout(doc, '$path/layout');
 
   /// Field validation rules — contains 0+× FieldValidationRule.
-  SomList<FieldValidationRule> get validationRules => SomList<FieldValidationRule>(doc, '$path/FLDVL-VALI-LST', (d, p) => FieldValidationRule(d, p));
+  SomList<FieldValidationRule> get validationRules => SomList<FieldValidationRule>(doc, '$path/FLDVL-VALI-LST', (d, p) => FieldValidationRule(d, p), pattern: 'FLDVL-VALI-xxx');
 }
 
 /// UI and layout.
@@ -26570,7 +26570,7 @@ class ScreenInventory extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 1+× Screen.
-  SomList<ScreenEntry> get items => SomList<ScreenEntry>(doc, '$path/SCREN-ITEM-LST', (d, p) => ScreenEntry(d, p));
+  SomList<ScreenEntry> get items => SomList<ScreenEntry>(doc, '$path/SCREN-ITEM-LST', (d, p) => ScreenEntry(d, p), pattern: 'SCREN-ITEM-xxx');
 }
 
 /// A responsive rule entry (form).
@@ -26597,7 +26597,7 @@ class ScreenSectionEntry extends SomNode {
   ScreenSectionEntryBehavior get behavior => ScreenSectionEntryBehavior(doc, '$path/behavior');
 
   /// Contains 0+× ScreenElement within this section.
-  SomList<ScreenElementEntry> get elements => SomList<ScreenElementEntry>(doc, '$path/SCREL-ELEM-LST', (d, p) => ScreenElementEntry(d, p));
+  SomList<ScreenElementEntry> get elements => SomList<ScreenElementEntry>(doc, '$path/SCREL-ELEM-LST', (d, p) => ScreenElementEntry(d, p), pattern: 'SCREL-ELEM-xxx');
 }
 
 /// Visibility and collapse behavior.
@@ -26624,7 +26624,7 @@ class ScreenSections extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× ScreenSection.
-  SomList<ScreenSectionEntry> get items => SomList<ScreenSectionEntry>(doc, '$path/SCRSC-ITEM-LST', (d, p) => ScreenSectionEntry(d, p));
+  SomList<ScreenSectionEntry> get items => SomList<ScreenSectionEntry>(doc, '$path/SCRSC-ITEM-LST', (d, p) => ScreenSectionEntry(d, p), pattern: 'SCRSC-ITEM-xxx');
 }
 
 /// A screen state entry (form).
@@ -26646,7 +26646,7 @@ class ScreenStates extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× ScreenState.
-  SomList<ScreenStateEntry> get items => SomList<ScreenStateEntry>(doc, '$path/SCRST-ITEM-LST', (d, p) => ScreenStateEntry(d, p));
+  SomList<ScreenStateEntry> get items => SomList<ScreenStateEntry>(doc, '$path/SCRST-ITEM-LST', (d, p) => ScreenStateEntry(d, p), pattern: 'SCRST-ITEM-xxx');
 }
 
 /// A user category entry (form).
@@ -26669,7 +26669,7 @@ class SecondaryNavigation extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× TabBarDefinition.
-  SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p));
+  SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p), pattern: 'TBDE-TABB-xxx');
 }
 
 /// 11.3.4. Security quality.
@@ -26796,7 +26796,7 @@ class SecurityAuditRequirementsSection extends SomNode {
   SecurityTestingAutomation get securityTestingAutomation => SecurityTestingAutomation(doc, '$path/securityTestingAutomation');
 
   /// Individual security audit requirement entries — contains 0+× SecurityAudit.
-  SomList<SecurityAuditEntry> get auditEntries => SomList<SecurityAuditEntry>(doc, '$path/SEAUEN-AUDI-LST', (d, p) => SecurityAuditEntry(d, p));
+  SomList<SecurityAuditEntry> get auditEntries => SomList<SecurityAuditEntry>(doc, '$path/SEAUEN-AUDI-LST', (d, p) => SecurityAuditEntry(d, p), pattern: 'SEAUEN-AUDI-xxx');
 }
 
 /// Authentication controls.
@@ -26973,7 +26973,7 @@ class SecurityControls extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Security control entries — contains 0+× SecurityControlEntry.
-  SomList<SecurityControlEntry> get controls => SomList<SecurityControlEntry>(doc, '$path/SECCT-CONT-LST', (d, p) => SecurityControlEntry(d, p));
+  SomList<SecurityControlEntry> get controls => SomList<SecurityControlEntry>(doc, '$path/SECCT-CONT-LST', (d, p) => SecurityControlEntry(d, p), pattern: 'SECCT-CONT-xxx');
 }
 
 /// Security development lifecycle.
@@ -27063,7 +27063,7 @@ class SecurityEventsDefinition extends SomNode {
   AdministrativeEventPolicy get administrativeEvents => AdministrativeEventPolicy(doc, '$path/administrativeEvents');
 
   /// Custom Security Events — contains 0+× Security Event Entry.
-  SomList<SecurityEventEntry> get customEvents => SomList<SecurityEventEntry>(doc, '$path/SEVT-CUST-LST', (d, p) => SecurityEventEntry(d, p));
+  SomList<SecurityEventEntry> get customEvents => SomList<SecurityEventEntry>(doc, '$path/SEVT-CUST-LST', (d, p) => SecurityEventEntry(d, p), pattern: 'SEVT-CUST-xxx');
 }
 
 /// A security requirement entry.
@@ -27144,7 +27144,7 @@ class SecurityRequirements extends SomNode {
   SecurityRequirementsSummaryFormForm get summaryForm => SecurityRequirementsSummaryFormForm(doc, '$path/summaryForm');
 
   /// Security requirements list — contains 0+× Security Requirement.
-  SomList<SecurityRequirementEntry> get requirements => SomList<SecurityRequirementEntry>(doc, '$path/SECRQ-REQU-LST', (d, p) => SecurityRequirementEntry(d, p));
+  SomList<SecurityRequirementEntry> get requirements => SomList<SecurityRequirementEntry>(doc, '$path/SECRQ-REQU-LST', (d, p) => SecurityRequirementEntry(d, p), pattern: 'SECRQ-REQU-xxx');
 }
 
 /// Security standard compliance entry (SOC2, ISO 27001, CIS).
@@ -27500,10 +27500,10 @@ class ServerRequirementsSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// Server environment tiers (dev, staging, production, DR).
-  SomList<ServerEnvironmentEntry> get environments => SomList<ServerEnvironmentEntry>(doc, '$path/SEENEN-ENVI-LST', (d, p) => ServerEnvironmentEntry(d, p));
+  SomList<ServerEnvironmentEntry> get environments => SomList<ServerEnvironmentEntry>(doc, '$path/SEENEN-ENVI-LST', (d, p) => ServerEnvironmentEntry(d, p), pattern: 'SEENEN-ENVI-xxx');
 
   /// Server role definitions (app server, db server, web server).
-  SomList<ServerRoleEntry> get serverRoles => SomList<ServerRoleEntry>(doc, '$path/SEROEN-SERV-LST', (d, p) => ServerRoleEntry(d, p));
+  SomList<ServerRoleEntry> get serverRoles => SomList<ServerRoleEntry>(doc, '$path/SEROEN-SERV-LST', (d, p) => ServerRoleEntry(d, p), pattern: 'SEROEN-SERV-xxx');
 
   /// Compute resource requirements.
   ComputeResourceRequirements get computeResources => ComputeResourceRequirements(doc, '$path/computeResources');
@@ -27677,7 +27677,7 @@ class ServiceLevel extends SomNode {
   // (skipped: narrative has no target type)
 
   /// Service Level Agreement entries.
-  SomList<ServiceLevelAgreementEntry> get slaEntries => SomList<ServiceLevelAgreementEntry>(doc, '$path/SLAE-SLAE-LST', (d, p) => ServiceLevelAgreementEntry(d, p));
+  SomList<ServiceLevelAgreementEntry> get slaEntries => SomList<ServiceLevelAgreementEntry>(doc, '$path/SLAE-SLAE-LST', (d, p) => ServiceLevelAgreementEntry(d, p), pattern: 'SLAE-SLAE-xxx');
 }
 
 /// A service level agreement entry.
@@ -27940,7 +27940,7 @@ class SharedInfrastructureDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Shared Infrastructure Component.
-  SomList<SharedInfrastructureEntry> get items => SomList<SharedInfrastructureEntry>(doc, '$path/SHIEN-ITEM-LST', (d, p) => SharedInfrastructureEntry(d, p));
+  SomList<SharedInfrastructureEntry> get items => SomList<SharedInfrastructureEntry>(doc, '$path/SHIEN-ITEM-LST', (d, p) => SharedInfrastructureEntry(d, p), pattern: 'SHIEN-ITEM-xxx');
 }
 
 /// A shared infrastructure entry (form).
@@ -28206,7 +28206,7 @@ class SlaAndSloMonitoring extends SomNode {
   ServiceLevelIndicators get slis => ServiceLevelIndicators(doc, '$path/slis');
 
   /// SLO catalog.
-  SomList<SloEntry> get slos => SomList<SloEntry>(doc, '$path/SLEN-SLOS-LST', (d, p) => SloEntry(d, p));
+  SomList<SloEntry> get slos => SomList<SloEntry>(doc, '$path/SLEN-SLOS-LST', (d, p) => SloEntry(d, p), pattern: 'SLEN-SLOS-xxx');
 
   /// Error budget tracking.
   ErrorBudgetTracking get errorBudget => ErrorBudgetTracking(doc, '$path/errorBudget');
@@ -28294,7 +28294,7 @@ class SoftwareDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SWDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SWDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p), pattern: 'SWDLV-ITEM-xxx');
 }
 
 /// 8.2. Software Design Requirements.
@@ -28511,7 +28511,7 @@ class StaffingPlan extends SomNode {
   StaffingBudget get budget => StaffingBudget(doc, '$path/budget');
 
   /// Contains 0+× Staffing entry.
-  SomList<StaffingEntry> get items => SomList<StaffingEntry>(doc, '$path/STFE-ITEM-LST', (d, p) => StaffingEntry(d, p));
+  SomList<StaffingEntry> get items => SomList<StaffingEntry>(doc, '$path/STFE-ITEM-LST', (d, p) => StaffingEntry(d, p), pattern: 'STFE-ITEM-xxx');
 
   /// Recruitment timeline.
   RecruitmentTimeline get recruitmentTimeline => RecruitmentTimeline(doc, '$path/recruitmentTimeline');
@@ -28560,10 +28560,10 @@ class StageEntry extends SomNode {
   StageScope get scope => StageScope(doc, '$path/scope');
 
   /// Dependencies.
-  SomList<StageDependencies> get dependencies => SomList<StageDependencies>(doc, '$path/STDE-DEPE-LST', (d, p) => StageDependencies(d, p));
+  SomList<StageDependencies> get dependencies => SomList<StageDependencies>(doc, '$path/STDE-DEPE-LST', (d, p) => StageDependencies(d, p), pattern: 'STDE-DEPE-xxx');
 
   /// Resources and budget.
-  SomList<StageResources> get resources => SomList<StageResources>(doc, '$path/STRE-RESO-LST', (d, p) => StageResources(d, p));
+  SomList<StageResources> get resources => SomList<StageResources>(doc, '$path/STRE-RESO-LST', (d, p) => StageResources(d, p), pattern: 'STRE-RESO-xxx');
 
   /// Quality and governance.
   StageQuality get quality => StageQuality(doc, '$path/quality');
@@ -28572,7 +28572,7 @@ class StageEntry extends SomNode {
   StageDeployment get deployment => StageDeployment(doc, '$path/deployment');
 
   /// Stakeholders and communication.
-  SomList<StageStakeholders> get stakeholders => SomList<StageStakeholders>(doc, '$path/STST-STAK-LST', (d, p) => StageStakeholders(d, p));
+  SomList<StageStakeholders> get stakeholders => SomList<StageStakeholders>(doc, '$path/STST-STAK-LST', (d, p) => StageStakeholders(d, p), pattern: 'STST-STAK-xxx');
 
   /// Risk.
   StageRisk get risk => StageRisk(doc, '$path/risk');
@@ -28584,13 +28584,13 @@ class StageEntry extends SomNode {
   // (skipped: featureScope has no target type)
 
   /// Sub-stages and Milestones — contains 0+× SubStage.
-  SomList<SubStageEntry> get subStagesAndMilestones => SomList<SubStageEntry>(doc, '$path/SUSST-SUBS-LST', (d, p) => SubStageEntry(d, p));
+  SomList<SubStageEntry> get subStagesAndMilestones => SomList<SubStageEntry>(doc, '$path/SUSST-SUBS-LST', (d, p) => SubStageEntry(d, p), pattern: 'SUSST-SUBS-xxx');
 
   /// Timeline narrative.
   // (skipped: timelineNarrative has no target type)
 
   /// Success Criteria — contains 0+× StageSuccessCriterion.
-  SomList<StageSuccessCriterionEntry> get successCriteria => SomList<StageSuccessCriterionEntry>(doc, '$path/STGSUC-SUCC-LST', (d, p) => StageSuccessCriterionEntry(d, p));
+  SomList<StageSuccessCriterionEntry> get successCriteria => SomList<StageSuccessCriterionEntry>(doc, '$path/STGSUC-SUCC-LST', (d, p) => StageSuccessCriterionEntry(d, p), pattern: 'STGSUC-SUCC-xxx');
 
   /// Rollout Plan narrative.
   // (skipped: rolloutPlan has no target type)
@@ -28816,7 +28816,7 @@ class StageMigrationRisks extends SomNode {
   // (skipped: riskSummary has no target type)
 
   /// Contains 1+× StageMigrationRiskEntry.
-  SomList<StageMigrationRiskEntry> get items => SomList<StageMigrationRiskEntry>(doc, '$path/STGMRS-ITEM-LST', (d, p) => StageMigrationRiskEntry(d, p));
+  SomList<StageMigrationRiskEntry> get items => SomList<StageMigrationRiskEntry>(doc, '$path/STGMRS-ITEM-LST', (d, p) => StageMigrationRiskEntry(d, p), pattern: 'STGMRS-ITEM-xxx');
 }
 
 /// 13.2. Stage Overview.
@@ -28867,7 +28867,7 @@ class StageOverview extends SomNode {
 
   /// 13.2.1. Stage Summary — contains 1+× Stage
   /// Summary Entry.
-  SomList<StageSummaryEntry> get stageSummaries => SomList<StageSummaryEntry>(doc, '$path/STAGSE-STAG-LST', (d, p) => StageSummaryEntry(d, p));
+  SomList<StageSummaryEntry> get stageSummaries => SomList<StageSummaryEntry>(doc, '$path/STAGSE-STAG-LST', (d, p) => StageSummaryEntry(d, p), pattern: 'STAGSE-STAG-xxx');
 
   /// Stage Summary narrative.
   // (skipped: stageSummaryNarrative has no target type)
@@ -29091,10 +29091,10 @@ class StageSummaryEntry extends SomNode {
   StageSummaryScope get scope => StageSummaryScope(doc, '$path/scope');
 
   /// Resources and budget.
-  SomList<StageSummaryResources> get resources => SomList<StageSummaryResources>(doc, '$path/STSURE-RESO-LST', (d, p) => StageSummaryResources(d, p));
+  SomList<StageSummaryResources> get resources => SomList<StageSummaryResources>(doc, '$path/STSURE-RESO-LST', (d, p) => StageSummaryResources(d, p), pattern: 'STSURE-RESO-xxx');
 
   /// Dependencies and risks.
-  SomList<StageSummaryDependencies> get dependencies => SomList<StageSummaryDependencies>(doc, '$path/STSUDE-DEPE-LST', (d, p) => StageSummaryDependencies(d, p));
+  SomList<StageSummaryDependencies> get dependencies => SomList<StageSummaryDependencies>(doc, '$path/STSUDE-DEPE-LST', (d, p) => StageSummaryDependencies(d, p), pattern: 'STSUDE-DEPE-xxx');
 
   /// Quality and acceptance.
   StageSummaryQuality get quality => StageSummaryQuality(doc, '$path/quality');
@@ -29249,7 +29249,7 @@ class StagingStrategy extends SomNode {
   StagingRationale get rationale => StagingRationale(doc, '$path/rationale');
 
   /// Key drivers and constraints.
-  SomList<StagingDrivers> get drivers => SomList<StagingDrivers>(doc, '$path/STAGDR-DRIV-LST', (d, p) => StagingDrivers(d, p));
+  SomList<StagingDrivers> get drivers => SomList<StagingDrivers>(doc, '$path/STAGDR-DRIV-LST', (d, p) => StagingDrivers(d, p), pattern: 'STAGDR-DRIV-xxx');
 
   /// Risk assessment.
   StagingRiskAssessment get riskAssessment => StagingRiskAssessment(doc, '$path/riskAssessment');
@@ -29273,7 +29273,7 @@ class StagingStrategy extends SomNode {
   StagingFrameworkAlignment get frameworkAlignment => StagingFrameworkAlignment(doc, '$path/frameworkAlignment');
 
   /// Dependencies and prerequisites.
-  SomList<StagingDependencies> get dependencies => SomList<StagingDependencies>(doc, '$path/STAGDP-DEPE-LST', (d, p) => StagingDependencies(d, p));
+  SomList<StagingDependencies> get dependencies => SomList<StagingDependencies>(doc, '$path/STAGDP-DEPE-LST', (d, p) => StagingDependencies(d, p), pattern: 'STAGDP-DEPE-xxx');
 
   /// Governance and approvals.
   StagingGovernance get governance => StagingGovernance(doc, '$path/governance');
@@ -29285,10 +29285,10 @@ class StagingStrategy extends SomNode {
   // (skipped: rationaleNarrative has no target type)
 
   /// 13.1.3. Key Assumptions.
-  SomList<KeyAssumptionEntry> get keyAssumptions => SomList<KeyAssumptionEntry>(doc, '$path/KEYAS-KEYA-LST', (d, p) => KeyAssumptionEntry(d, p));
+  SomList<KeyAssumptionEntry> get keyAssumptions => SomList<KeyAssumptionEntry>(doc, '$path/KEYAS-KEYA-LST', (d, p) => KeyAssumptionEntry(d, p), pattern: 'KEYAS-KEYA-xxx');
 
   /// 13.1.4. Constraints.
-  SomList<StagingStrategyConstraintEntry> get constraints => SomList<StagingStrategyConstraintEntry>(doc, '$path/STAGI-CONS-LST', (d, p) => StagingStrategyConstraintEntry(d, p));
+  SomList<StagingStrategyConstraintEntry> get constraints => SomList<StagingStrategyConstraintEntry>(doc, '$path/STAGI-CONS-LST', (d, p) => StagingStrategyConstraintEntry(d, p), pattern: 'STAGI-CONS-xxx');
 }
 
 /// A single constraint entry.
@@ -29330,7 +29330,7 @@ class StakeholderRegister extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// One entry per stakeholder or stakeholder group.
-  SomList<StakeholderRegisterEntry> get stakeholders => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p));
+  SomList<StakeholderRegisterEntry> get stakeholders => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p), pattern: 'STKRG-STAK-xxx');
 }
 
 /// A single stakeholder register entry (form).
@@ -29357,10 +29357,10 @@ class StakeholdersAndBeneficiaries extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
-  SomList<StakeholderEntry> get primaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-PRIM-LST', (d, p) => StakeholderEntry(d, p));
+  SomList<StakeholderEntry> get primaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-PRIM-LST', (d, p) => StakeholderEntry(d, p), pattern: 'STKNT-PRIM-xxx');
 
   /// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
-  SomList<StakeholderEntry> get secondaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-SECO-LST', (d, p) => StakeholderEntry(d, p));
+  SomList<StakeholderEntry> get secondaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-SECO-LST', (d, p) => StakeholderEntry(d, p), pattern: 'STKNT-SECO-xxx');
 }
 
 /// SBP.4 Stakeholders & Governance.
@@ -29432,25 +29432,25 @@ class StandardsComplianceSection extends SomNode {
   // (skipped: overview has no target type)
 
   /// IT standards compliance (ISO, IEEE, NIST).
-  SomList<ItStandardComplianceEntry> get itStandards => SomList<ItStandardComplianceEntry>(doc, '$path/ISCE-ITST-LST', (d, p) => ItStandardComplianceEntry(d, p));
+  SomList<ItStandardComplianceEntry> get itStandards => SomList<ItStandardComplianceEntry>(doc, '$path/ISCE-ITST-LST', (d, p) => ItStandardComplianceEntry(d, p), pattern: 'ISCE-ITST-xxx');
 
   /// Industry protocols compliance.
-  SomList<IndustryProtocolComplianceEntry> get industryProtocols => SomList<IndustryProtocolComplianceEntry>(doc, '$path/IPCE-INDU-LST', (d, p) => IndustryProtocolComplianceEntry(d, p));
+  SomList<IndustryProtocolComplianceEntry> get industryProtocols => SomList<IndustryProtocolComplianceEntry>(doc, '$path/IPCE-INDU-LST', (d, p) => IndustryProtocolComplianceEntry(d, p), pattern: 'IPCE-INDU-xxx');
 
   /// Interface specification standards.
-  SomList<InterfaceSpecificationEntry> get interfaceSpecifications => SomList<InterfaceSpecificationEntry>(doc, '$path/INSPEN-INTE-LST', (d, p) => InterfaceSpecificationEntry(d, p));
+  SomList<InterfaceSpecificationEntry> get interfaceSpecifications => SomList<InterfaceSpecificationEntry>(doc, '$path/INSPEN-INTE-LST', (d, p) => InterfaceSpecificationEntry(d, p), pattern: 'INSPEN-INTE-xxx');
 
   /// Regulatory compliance requirements.
-  SomList<RegulatoryComplianceEntry> get regulatoryCompliance => SomList<RegulatoryComplianceEntry>(doc, '$path/RECOEN-REGU-LST', (d, p) => RegulatoryComplianceEntry(d, p));
+  SomList<RegulatoryComplianceEntry> get regulatoryCompliance => SomList<RegulatoryComplianceEntry>(doc, '$path/RECOEN-REGU-LST', (d, p) => RegulatoryComplianceEntry(d, p), pattern: 'RECOEN-REGU-xxx');
 
   /// Security standards compliance.
-  SomList<SecurityStandardComplianceEntry> get securityStandards => SomList<SecurityStandardComplianceEntry>(doc, '$path/SSCE-SECU-LST', (d, p) => SecurityStandardComplianceEntry(d, p));
+  SomList<SecurityStandardComplianceEntry> get securityStandards => SomList<SecurityStandardComplianceEntry>(doc, '$path/SSCE-SECU-LST', (d, p) => SecurityStandardComplianceEntry(d, p), pattern: 'SSCE-SECU-xxx');
 
   /// Accessibility standards compliance.
-  SomList<AccessibilityStandardEntry> get accessibilityStandards => SomList<AccessibilityStandardEntry>(doc, '$path/ACCSTD-ACCE-LST', (d, p) => AccessibilityStandardEntry(d, p));
+  SomList<AccessibilityStandardEntry> get accessibilityStandards => SomList<AccessibilityStandardEntry>(doc, '$path/ACCSTD-ACCE-LST', (d, p) => AccessibilityStandardEntry(d, p), pattern: 'ACCSTD-ACCE-xxx');
 
   /// Quality management standards.
-  SomList<QualityStandardEntry> get qualityStandards => SomList<QualityStandardEntry>(doc, '$path/QLSTD-QUAL-LST', (d, p) => QualityStandardEntry(d, p));
+  SomList<QualityStandardEntry> get qualityStandards => SomList<QualityStandardEntry>(doc, '$path/QLSTD-QUAL-LST', (d, p) => QualityStandardEntry(d, p), pattern: 'QLSTD-QUAL-xxx');
 
   /// Documentation standards.
   DocumentationStandardsSection get documentationStandards => DocumentationStandardsSection(doc, '$path/documentationStandards');
@@ -29478,7 +29478,7 @@ class SteeringCommittee extends SomNode {
   CommitteeCharter get charter => CommitteeCharter(doc, '$path/charter');
 
   /// Steering committee members — contains 1+× Committee Member.
-  SomList<CommitteeMemberEntry> get members => SomList<CommitteeMemberEntry>(doc, '$path/COMMB-MEMB-LST', (d, p) => CommitteeMemberEntry(d, p));
+  SomList<CommitteeMemberEntry> get members => SomList<CommitteeMemberEntry>(doc, '$path/COMMB-MEMB-LST', (d, p) => CommitteeMemberEntry(d, p), pattern: 'COMMB-MEMB-xxx');
 }
 
 /// Step-up and adaptive authentication policy (form).
@@ -29492,7 +29492,7 @@ class StepUpAuthenticationPolicy extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Step-Up Authentication Details (text).
-  SomList<StepUpDetailEntry> get stepUpDetails => SomList<StepUpDetailEntry>(doc, '$path/STEPU-STEP-LST', (d, p) => StepUpDetailEntry(d, p));
+  SomList<StepUpDetailEntry> get stepUpDetails => SomList<StepUpDetailEntry>(doc, '$path/STEPU-STEP-LST', (d, p) => StepUpDetailEntry(d, p), pattern: 'STEPU-STEP-xxx');
 }
 
 /// A single step up detail entry.
@@ -29636,7 +29636,7 @@ class SuccessCriteria extends SomNode {
   SuccessCriteriaFramework get framework => SuccessCriteriaFramework(doc, '$path/framework');
 
   /// Success criterion entries — contains 1+× SuccessCriterionEntry.
-  SomList<SuccessCriterionEntry> get items => SomList<SuccessCriterionEntry>(doc, '$path/SCE-ITEM-LST', (d, p) => SuccessCriterionEntry(d, p));
+  SomList<SuccessCriterionEntry> get items => SomList<SuccessCriterionEntry>(doc, '$path/SCE-ITEM-LST', (d, p) => SuccessCriterionEntry(d, p), pattern: 'SCE-ITEM-xxx');
 
   /// Success criteria by category.
   SuccessCriteriaByCategory get byCategory => SuccessCriteriaByCategory(doc, '$path/byCategory');
@@ -29714,7 +29714,7 @@ class SuccessCriterionEntry extends SomNode {
   SuccessCriterionImportance get importance => SuccessCriterionImportance(doc, '$path/importance');
 
   /// Relationships.
-  SomList<SuccessCriterionRelationships> get relationships => SomList<SuccessCriterionRelationships>(doc, '$path/SUCRRE-RELA-LST', (d, p) => SuccessCriterionRelationships(d, p));
+  SomList<SuccessCriterionRelationships> get relationships => SomList<SuccessCriterionRelationships>(doc, '$path/SUCRRE-RELA-LST', (d, p) => SuccessCriterionRelationships(d, p), pattern: 'SUCRRE-RELA-xxx');
 
   /// Status.
   SuccessCriterionStatus get status => SuccessCriterionStatus(doc, '$path/status');
@@ -29830,7 +29830,7 @@ class SupportDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SPDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/SPDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p), pattern: 'SPDLV-ITEM-xxx');
 }
 
 /// A supported locale entry.
@@ -29899,7 +29899,7 @@ class SystemBoundaries extends SomNode {
   SystemLandscapeInventory get systemLandscapeInventory => SystemLandscapeInventory(doc, '$path/systemLandscapeInventory');
 
   /// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
-  SomList<BoundaryInteractionPatterns> get boundaryInteractionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-BOUN-LST', (d, p) => BoundaryInteractionPatterns(d, p));
+  SomList<BoundaryInteractionPatterns> get boundaryInteractionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-BOUN-LST', (d, p) => BoundaryInteractionPatterns(d, p), pattern: 'BOINPA-BOUN-xxx');
 
   /// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
   InteractionTestingStrategy get interactionTestingStrategy => InteractionTestingStrategy(doc, '$path/interactionTestingStrategy');
@@ -29908,10 +29908,10 @@ class SystemBoundaries extends SomNode {
   InteractionDependencyAnalysis get interactionDependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/interactionDependencyAnalysis');
 
   /// 4.5.8. Migration Interactions. Covers IIS-MIG.
-  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
+  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p), pattern: 'MIIN-MIGR-xxx');
 
   /// 4.5.9. Cross-Boundary Operational Considerations.
-  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
+  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p), pattern: 'CBOC-OPER-xxx');
 
   /// 4.5.10. Cross-Boundary Error Handling.
   CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
@@ -29930,10 +29930,10 @@ class SystemBusinessCriticality extends SomNode {
   SystemBusinessCriticalityGovernance get governance => SystemBusinessCriticalityGovernance(doc, '$path/governance');
 
   /// Business units and departments using this system.
-  SomList<SystemBusinessUnitEntry> get businessUnits => SomList<SystemBusinessUnitEntry>(doc, '$path/SBUE-BUSI-LST', (d, p) => SystemBusinessUnitEntry(d, p));
+  SomList<SystemBusinessUnitEntry> get businessUnits => SomList<SystemBusinessUnitEntry>(doc, '$path/SBUE-BUSI-LST', (d, p) => SystemBusinessUnitEntry(d, p), pattern: 'SBUE-BUSI-xxx');
 
   /// Business processes supported by this system.
-  SomList<SystemBusinessProcessEntry> get supportedProcesses => SomList<SystemBusinessProcessEntry>(doc, '$path/SBPE-SUPP-LST', (d, p) => SystemBusinessProcessEntry(d, p));
+  SomList<SystemBusinessProcessEntry> get supportedProcesses => SomList<SystemBusinessProcessEntry>(doc, '$path/SBPE-SUPP-LST', (d, p) => SystemBusinessProcessEntry(d, p), pattern: 'SBPE-SUPP-xxx');
 }
 
 /// Delivery and compliance constraints.
@@ -30070,7 +30070,7 @@ class SystemCostAnalysis extends SomNode {
   // (skipped: costBreakdown has no target type)
 
   /// Non-financial benefits to include in ROI.
-  SomList<NonFinancialBenefitEntry> get nonFinancialBenefits => SomList<NonFinancialBenefitEntry>(doc, '$path/NONFI-NONF-LST', (d, p) => NonFinancialBenefitEntry(d, p));
+  SomList<NonFinancialBenefitEntry> get nonFinancialBenefits => SomList<NonFinancialBenefitEntry>(doc, '$path/NONFI-NONF-LST', (d, p) => NonFinancialBenefitEntry(d, p), pattern: 'NONFI-NONF-xxx');
 }
 
 /// Target-state cost and ROI indicators.
@@ -30107,10 +30107,10 @@ class SystemDataScope extends SomNode {
   SystemDataScopeMigration get migration => SystemDataScopeMigration(doc, '$path/migration');
 
   /// Data entities to migrate.
-  SomList<DataEntityMigrationEntry> get entities => SomList<DataEntityMigrationEntry>(doc, '$path/DEME-ENTI-LST', (d, p) => DataEntityMigrationEntry(d, p));
+  SomList<DataEntityMigrationEntry> get entities => SomList<DataEntityMigrationEntry>(doc, '$path/DEME-ENTI-LST', (d, p) => DataEntityMigrationEntry(d, p), pattern: 'DEME-ENTI-xxx');
 
   /// Data quality issues to address.
-  SomList<KnownQualityIssueEntry> get knownQualityIssues => SomList<KnownQualityIssueEntry>(doc, '$path/KNOWN-KNOW-LST', (d, p) => KnownQualityIssueEntry(d, p));
+  SomList<KnownQualityIssueEntry> get knownQualityIssues => SomList<KnownQualityIssueEntry>(doc, '$path/KNOWN-KNOW-LST', (d, p) => KnownQualityIssueEntry(d, p), pattern: 'KNOWN-KNOW-xxx');
 }
 
 /// Data sensitivity and quality posture.
@@ -30206,7 +30206,7 @@ class SystemDescription extends SomNode {
   BusinessDomain get businessDomain => BusinessDomain(doc, '$path/businessDomain');
 
   /// 4.1.4. User Categories — contains 1+× User Category.
-  SomList<UserCategoryEntry> get userCategories => SomList<UserCategoryEntry>(doc, '$path/USCA-USER-LST', (d, p) => UserCategoryEntry(d, p));
+  SomList<UserCategoryEntry> get userCategories => SomList<UserCategoryEntry>(doc, '$path/USCA-USER-LST', (d, p) => UserCategoryEntry(d, p), pattern: 'USCA-USER-xxx');
 
   /// 4.1.5. User Interaction Model.
   UserInteractionModel get userInteractionModel => UserInteractionModel(doc, '$path/userInteractionModel');
@@ -30313,10 +30313,10 @@ class SystemErrorDisplay extends SomNode {
   // (skipped: systemErrorNarrative has no target type)
 
   /// Error page designs.
-  SomList<ErrorPageDesignEntry> get errorPageDesigns => SomList<ErrorPageDesignEntry>(doc, '$path/EPDE-ERRO-LST', (d, p) => ErrorPageDesignEntry(d, p));
+  SomList<ErrorPageDesignEntry> get errorPageDesigns => SomList<ErrorPageDesignEntry>(doc, '$path/EPDE-ERRO-LST', (d, p) => ErrorPageDesignEntry(d, p), pattern: 'EPDE-ERRO-xxx');
 
   /// Error codes catalog.
-  SomList<SystemErrorCodeEntry> get errorCodes => SomList<SystemErrorCodeEntry>(doc, '$path/SECE-ERRO-LST', (d, p) => SystemErrorCodeEntry(d, p));
+  SomList<SystemErrorCodeEntry> get errorCodes => SomList<SystemErrorCodeEntry>(doc, '$path/SECE-ERRO-LST', (d, p) => SystemErrorCodeEntry(d, p), pattern: 'SECE-ERRO-xxx');
 }
 
 /// Content options for system error display.
@@ -30433,7 +30433,7 @@ class SystemInventory extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 1+× Existing System.
-  SomList<ExistingSystemEntry> get systems => SomList<ExistingSystemEntry>(doc, '$path/ESENT-SYST-LST', (d, p) => ExistingSystemEntry(d, p));
+  SomList<ExistingSystemEntry> get systems => SomList<ExistingSystemEntry>(doc, '$path/ESENT-SYST-LST', (d, p) => ExistingSystemEntry(d, p), pattern: 'ESENT-SYST-xxx');
 }
 
 /// Knowledge transfer status.
@@ -30443,7 +30443,7 @@ class SystemKnowledgeTransfer extends SomNode {
   SystemKnowledgeTransferContentForm get content => SystemKnowledgeTransferContentForm(doc, '$path/content');
 
   /// Critical knowledge areas to preserve.
-  SomList<CriticalKnowledgeAreaEntry> get criticalKnowledgeAreas => SomList<CriticalKnowledgeAreaEntry>(doc, '$path/CRITI-CRIT-LST', (d, p) => CriticalKnowledgeAreaEntry(d, p));
+  SomList<CriticalKnowledgeAreaEntry> get criticalKnowledgeAreas => SomList<CriticalKnowledgeAreaEntry>(doc, '$path/CRITI-CRIT-LST', (d, p) => CriticalKnowledgeAreaEntry(d, p), pattern: 'CRITI-CRIT-xxx');
 
   /// Knowledge transfer plan if SME risk is high.
   // (skipped: knowledgeTransferPlan has no target type)
@@ -30472,7 +30472,7 @@ class SystemMigrationPlan extends SomNode {
   SystemMigrationPlanCutover get cutover => SystemMigrationPlanCutover(doc, '$path/cutover');
 
   /// Contains 0+× MigrationRiskEntry — per-system migration risks.
-  SomList<SystemMigrationRiskEntry> get risks => SomList<SystemMigrationRiskEntry>(doc, '$path/SMRE-RISK-LST', (d, p) => SystemMigrationRiskEntry(d, p));
+  SomList<SystemMigrationRiskEntry> get risks => SomList<SystemMigrationRiskEntry>(doc, '$path/SMRE-RISK-LST', (d, p) => SystemMigrationRiskEntry(d, p), pattern: 'SMRE-RISK-xxx');
 
   /// Rollback strategy and procedures.
   // (skipped: rollbackStrategy has no target type)
@@ -30513,7 +30513,7 @@ class SystemOperation extends SomNode {
   AdministrationRequirementsSection get administrationRequirements => AdministrationRequirementsSection(doc, '$path/administrationRequirements');
 
   /// Maintenance Procedures.
-  SomList<MaintenanceProcedureEntry> get maintenanceProcedures => SomList<MaintenanceProcedureEntry>(doc, '$path/MAINT-MAIN-LST', (d, p) => MaintenanceProcedureEntry(d, p));
+  SomList<MaintenanceProcedureEntry> get maintenanceProcedures => SomList<MaintenanceProcedureEntry>(doc, '$path/MAINT-MAIN-LST', (d, p) => MaintenanceProcedureEntry(d, p), pattern: 'MAINT-MAIN-xxx');
 }
 
 /// 8.7. System Operation and Monitoring.
@@ -30601,7 +30601,7 @@ class SystemQualityGoals extends SomNode {
   // (skipped: qaStrategy has no target type)
 
   /// Quality attribute interdependencies.
-  SomList<AttributeInterdependencyEntry> get attributeInterdependencies => SomList<AttributeInterdependencyEntry>(doc, '$path/ATTRI-ATTR-LST', (d, p) => AttributeInterdependencyEntry(d, p));
+  SomList<AttributeInterdependencyEntry> get attributeInterdependencies => SomList<AttributeInterdependencyEntry>(doc, '$path/ATTRI-ATTR-LST', (d, p) => AttributeInterdependencyEntry(d, p), pattern: 'ATTRI-ATTR-xxx');
 
   /// Quality attribute priority radar.
   // (skipped: qualityRadar has no target type)
@@ -30661,10 +30661,10 @@ class SystemReplacementStrategy extends SomNode {
   SystemReplacementStrategyCutover get cutover => SystemReplacementStrategyCutover(doc, '$path/cutover');
 
   /// Replacement phases if phased approach.
-  SomList<ReplacementPhaseEntry> get phases => SomList<ReplacementPhaseEntry>(doc, '$path/REPPHS-PHAS-LST', (d, p) => ReplacementPhaseEntry(d, p));
+  SomList<ReplacementPhaseEntry> get phases => SomList<ReplacementPhaseEntry>(doc, '$path/REPPHS-PHAS-LST', (d, p) => ReplacementPhaseEntry(d, p), pattern: 'REPPHS-PHAS-xxx');
 
   /// Predecessor systems that must be addressed first.
-  SomList<PredecessorDependencyEntry> get predecessorDependencies => SomList<PredecessorDependencyEntry>(doc, '$path/PREDE-PRED-LST', (d, p) => PredecessorDependencyEntry(d, p));
+  SomList<PredecessorDependencyEntry> get predecessorDependencies => SomList<PredecessorDependencyEntry>(doc, '$path/PREDE-PRED-LST', (d, p) => PredecessorDependencyEntry(d, p), pattern: 'PREDE-PRED-xxx');
 
   /// Success criteria for replacement completion.
   // (skipped: successCriteria has no target type)
@@ -30762,7 +30762,7 @@ class SystemStagePlan extends SomNode {
   StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
 
   /// 13.3. Stages — contains 1+× Stage.
-  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
+  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p), pattern: 'STAGE-STAG-xxx');
 
   /// 13.4. Feature Prioritization.
   FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
@@ -30821,10 +30821,10 @@ class SystemTaskEntry extends SomNode {
   set relatedUseCase(String value) => doc.setContent('$path/relatedUseCase', value);
 
   /// Task workflow steps.
-  SomList<SystemTaskWorkflowStepEntry> get workflowSteps => SomList<SystemTaskWorkflowStepEntry>(doc, '$path/SYSTE-WORK-LST', (d, p) => SystemTaskWorkflowStepEntry(d, p));
+  SomList<SystemTaskWorkflowStepEntry> get workflowSteps => SomList<SystemTaskWorkflowStepEntry>(doc, '$path/SYSTE-WORK-LST', (d, p) => SystemTaskWorkflowStepEntry(d, p), pattern: 'SYSTE-WORK-xxx');
 
   /// Variations and exceptions.
-  SomList<VariationsAndExceptionEntry> get variationsAndExceptions => SomList<VariationsAndExceptionEntry>(doc, '$path/VARIA-VARI-LST', (d, p) => VariationsAndExceptionEntry(d, p));
+  SomList<VariationsAndExceptionEntry> get variationsAndExceptions => SomList<VariationsAndExceptionEntry>(doc, '$path/VARIA-VARI-LST', (d, p) => VariationsAndExceptionEntry(d, p), pattern: 'VARIA-VARI-xxx');
 }
 
 /// Tooling and linked artifacts for a system task.
@@ -30872,10 +30872,10 @@ class SystemTechnicalAssessment extends SomNode {
   SystemTechnicalAssessmentQuality get quality => SystemTechnicalAssessmentQuality(doc, '$path/quality');
 
   /// Known technical issues and deficiencies.
-  SomList<KnownIssueEntry> get knownIssues => SomList<KnownIssueEntry>(doc, '$path/KIE-KNOW-LST', (d, p) => KnownIssueEntry(d, p));
+  SomList<KnownIssueEntry> get knownIssues => SomList<KnownIssueEntry>(doc, '$path/KIE-KNOW-LST', (d, p) => KnownIssueEntry(d, p), pattern: 'KIE-KNOW-xxx');
 
   /// Security vulnerabilities and compliance gaps.
-  SomList<SecurityConcernEntry> get securityConcerns => SomList<SecurityConcernEntry>(doc, '$path/SECUR-SECU-LST', (d, p) => SecurityConcernEntry(d, p));
+  SomList<SecurityConcernEntry> get securityConcerns => SomList<SecurityConcernEntry>(doc, '$path/SECUR-SECU-LST', (d, p) => SecurityConcernEntry(d, p), pattern: 'SECUR-SECU-xxx');
 }
 
 /// Support and lifecycle details.
@@ -30929,7 +30929,7 @@ class SystemToReplaceEntry extends SomNode {
   SystemDataScope get dataScope => SystemDataScope(doc, '$path/dataScope');
 
   /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
-  SomList<ReplacementSystemDependencyEntry> get dependencies => SomList<ReplacementSystemDependencyEntry>(doc, '$path/REPSDEP-DEPE-LST', (d, p) => ReplacementSystemDependencyEntry(d, p));
+  SomList<ReplacementSystemDependencyEntry> get dependencies => SomList<ReplacementSystemDependencyEntry>(doc, '$path/REPSDEP-DEPE-LST', (d, p) => ReplacementSystemDependencyEntry(d, p), pattern: 'REPSDEP-DEPE-xxx');
 
   /// User impact and change management needs.
   SystemUserImpact get userImpact => SystemUserImpact(doc, '$path/userImpact');
@@ -31011,7 +31011,7 @@ class SystemUserImpact extends SomNode {
   SystemUserImpactAdoption get adoption => SystemUserImpactAdoption(doc, '$path/adoption');
 
   /// User groups requiring specific handling.
-  SomList<UserGroupImpactEntry> get userGroups => SomList<UserGroupImpactEntry>(doc, '$path/UGIE-USER-LST', (d, p) => UserGroupImpactEntry(d, p));
+  SomList<UserGroupImpactEntry> get userGroups => SomList<UserGroupImpactEntry>(doc, '$path/UGIE-USER-LST', (d, p) => UserGroupImpactEntry(d, p), pattern: 'UGIE-USER-xxx');
 }
 
 /// Communication and adoption support for impacted users.
@@ -31069,7 +31069,7 @@ class TabBarDefinitionEntry extends SomNode {
   TabBarDefinitionEntryLoading get loading => TabBarDefinitionEntryLoading(doc, '$path/loading');
 
   /// Contains 1+× TabItem.
-  SomList<TabItemEntry> get tabs => SomList<TabItemEntry>(doc, '$path/TAITEN-TABS-LST', (d, p) => TabItemEntry(d, p));
+  SomList<TabItemEntry> get tabs => SomList<TabItemEntry>(doc, '$path/TAITEN-TABS-LST', (d, p) => TabItemEntry(d, p), pattern: 'TAITEN-TABS-xxx');
 }
 
 /// Position and selection behavior.
@@ -31200,7 +31200,7 @@ class TeamMemberEntry extends SomNode {
   TeamMemberAvailability get availability => TeamMemberAvailability(doc, '$path/availability');
 
   /// Role-specific responsibilities.
-  SomList<TeamMemberResponsibilityEntry> get responsibilities => SomList<TeamMemberResponsibilityEntry>(doc, '$path/TMMRP-RESP-LST', (d, p) => TeamMemberResponsibilityEntry(d, p));
+  SomList<TeamMemberResponsibilityEntry> get responsibilities => SomList<TeamMemberResponsibilityEntry>(doc, '$path/TMMRP-RESP-LST', (d, p) => TeamMemberResponsibilityEntry(d, p), pattern: 'TMMRP-RESP-xxx');
 }
 
 /// Allocation and scheduling details.
@@ -31245,7 +31245,7 @@ class TeamMemberSkills extends SomNode {
   TeamMemberSkillsContentForm get content => TeamMemberSkillsContentForm(doc, '$path/content');
 
   /// Individual skill entries.
-  SomList<TeamMemberSkillEntry> get skillDetails => SomList<TeamMemberSkillEntry>(doc, '$path/TMSKE-SKIL-LST', (d, p) => TeamMemberSkillEntry(d, p));
+  SomList<TeamMemberSkillEntry> get skillDetails => SomList<TeamMemberSkillEntry>(doc, '$path/TMSKE-SKIL-LST', (d, p) => TeamMemberSkillEntry(d, p), pattern: 'TMSKE-SKIL-xxx');
 }
 
 /// Team structure overview.
@@ -31307,7 +31307,7 @@ class TechnicalEnvironment extends SomNode {
   // (skipped: existingInfrastructure has no target type)
 
   /// Data center and hosting environment details.
-  SomList<DatacenterEntry> get datacenters => SomList<DatacenterEntry>(doc, '$path/DATAC-DATA-LST', (d, p) => DatacenterEntry(d, p));
+  SomList<DatacenterEntry> get datacenters => SomList<DatacenterEntry>(doc, '$path/DATAC-DATA-LST', (d, p) => DatacenterEntry(d, p), pattern: 'DATAC-DATA-xxx');
 
   /// Network topology and connectivity constraints.
   // (skipped: networkTopology has no target type)
@@ -31316,13 +31316,13 @@ class TechnicalEnvironment extends SomNode {
   // (skipped: standardsOverview has no target type)
 
   /// Technology standards — contains 0+× TechnologyStandard.
-  SomList<TechnologyStandardEntry> get technologyStandards => SomList<TechnologyStandardEntry>(doc, '$path/TESTEN-TECH-LST', (d, p) => TechnologyStandardEntry(d, p));
+  SomList<TechnologyStandardEntry> get technologyStandards => SomList<TechnologyStandardEntry>(doc, '$path/TESTEN-TECH-LST', (d, p) => TechnologyStandardEntry(d, p), pattern: 'TESTEN-TECH-xxx');
 
   /// Integration constraints overview.
   // (skipped: integrationOverview has no target type)
 
   /// Integration constraints — contains 0+× IntegrationConstraint.
-  SomList<IntegrationConstraintEntry> get integrationConstraints => SomList<IntegrationConstraintEntry>(doc, '$path/INCOE1-INTE-LST', (d, p) => IntegrationConstraintEntry(d, p));
+  SomList<IntegrationConstraintEntry> get integrationConstraints => SomList<IntegrationConstraintEntry>(doc, '$path/INCOE1-INTE-LST', (d, p) => IntegrationConstraintEntry(d, p), pattern: 'INCOE1-INTE-xxx');
 }
 
 /// Architecture governance context.
@@ -31339,10 +31339,10 @@ class TechnicalEnvironmentNetwork extends SomNode {
   TechnicalEnvironmentNetworkContentForm get content => TechnicalEnvironmentNetworkContentForm(doc, '$path/content');
 
   /// DevOps and deployment standards.
-  SomList<DevopsStandardEntry> get devopsStandards => SomList<DevopsStandardEntry>(doc, '$path/DEVOP-DEVO-LST', (d, p) => DevopsStandardEntry(d, p));
+  SomList<DevopsStandardEntry> get devopsStandards => SomList<DevopsStandardEntry>(doc, '$path/DEVOP-DEVO-LST', (d, p) => DevopsStandardEntry(d, p), pattern: 'DEVOP-DEVO-xxx');
 
   /// Monitoring and observability requirements.
-  SomList<ObservabilityRequirementEntry> get observabilityRequirements => SomList<ObservabilityRequirementEntry>(doc, '$path/OBSER-OBSE-LST', (d, p) => ObservabilityRequirementEntry(d, p));
+  SomList<ObservabilityRequirementEntry> get observabilityRequirements => SomList<ObservabilityRequirementEntry>(doc, '$path/OBSER-OBSE-LST', (d, p) => ObservabilityRequirementEntry(d, p), pattern: 'OBSER-OBSE-xxx');
 
   /// Disaster recovery and business continuity requirements.
   // (skipped: disasterRecovery has no target type)
@@ -31407,7 +31407,7 @@ class TechnicalGoalConstraints extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Constraint entries — contains 0+× TechnicalConstraintEntry.
-  SomList<TechnicalConstraintEntry> get items => SomList<TechnicalConstraintEntry>(doc, '$path/TECN-ITEM-LST', (d, p) => TechnicalConstraintEntry(d, p));
+  SomList<TechnicalConstraintEntry> get items => SomList<TechnicalConstraintEntry>(doc, '$path/TECN-ITEM-LST', (d, p) => TechnicalConstraintEntry(d, p), pattern: 'TECN-ITEM-xxx');
 }
 
 /// 4.2.2.n.3. Dependencies.
@@ -31420,7 +31420,7 @@ class TechnicalGoalDependencies extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Dependency entries — contains 0+× TechnicalDependencyEntry.
-  SomList<TechnicalDependencyEntry> get items => SomList<TechnicalDependencyEntry>(doc, '$path/TEDE-ITEM-LST', (d, p) => TechnicalDependencyEntry(d, p));
+  SomList<TechnicalDependencyEntry> get items => SomList<TechnicalDependencyEntry>(doc, '$path/TEDE-ITEM-LST', (d, p) => TechnicalDependencyEntry(d, p), pattern: 'TEDE-ITEM-xxx');
 }
 
 /// A technical goal entry.
@@ -31485,7 +31485,7 @@ class TechnicalGoalTestCriteria extends SomNode {
   TechnicalGoalTestCriteriaTestCriteriaFormForm get testCriteriaForm => TechnicalGoalTestCriteriaTestCriteriaFormForm(doc, '$path/testCriteriaForm');
 
   /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
-  SomList<TechnicalGoalTestCaseEntry> get items => SomList<TechnicalGoalTestCaseEntry>(doc, '$path/TEGOTS-ITEM-LST', (d, p) => TechnicalGoalTestCaseEntry(d, p));
+  SomList<TechnicalGoalTestCaseEntry> get items => SomList<TechnicalGoalTestCaseEntry>(doc, '$path/TEGOTS-ITEM-LST', (d, p) => TechnicalGoalTestCaseEntry(d, p), pattern: 'TEGOTS-ITEM-xxx');
 }
 
 /// 4.2.2. Technical Goals.
@@ -31500,7 +31500,7 @@ class TechnicalGoals extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Technical goals list — contains 1+× Technical Goal.
-  SomList<TechnicalGoalEntry> get goals => SomList<TechnicalGoalEntry>(doc, '$path/TGE-GOAL-LST', (d, p) => TechnicalGoalEntry(d, p));
+  SomList<TechnicalGoalEntry> get goals => SomList<TechnicalGoalEntry>(doc, '$path/TGE-GOAL-LST', (d, p) => TechnicalGoalEntry(d, p), pattern: 'TGE-GOAL-xxx');
 }
 
 /// Technical infrastructure requirements.
@@ -31517,7 +31517,7 @@ class TechnicalInfrastructure extends SomNode {
   RemoteAccessRequirements get remoteAccess => RemoteAccessRequirements(doc, '$path/remoteAccess');
 
   /// Communication tools.
-  SomList<CommunicationToolsRequirements> get communicationTools => SomList<CommunicationToolsRequirements>(doc, '$path/COTORE-COMM-LST', (d, p) => CommunicationToolsRequirements(d, p));
+  SomList<CommunicationToolsRequirements> get communicationTools => SomList<CommunicationToolsRequirements>(doc, '$path/COTORE-COMM-LST', (d, p) => CommunicationToolsRequirements(d, p), pattern: 'COTORE-COMM-xxx');
 }
 
 /// 1.3.3. Technical Pain Points.
@@ -31535,7 +31535,7 @@ class TechnicalPainPoints extends SomNode {
   TechnicalPainPointsSummary get categorySummary => TechnicalPainPointsSummary(doc, '$path/categorySummary');
 
   /// Contains 0+× PainPoint.
-  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/TEPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p));
+  SomList<PainPointEntry> get items => SomList<PainPointEntry>(doc, '$path/TEPAPO-ITEM-LST', (d, p) => PainPointEntry(d, p), pattern: 'TEPAPO-ITEM-xxx');
 }
 
 /// Summary specific to technical pain points.
@@ -31630,7 +31630,7 @@ class TechnicalRequirements extends SomNode {
   TechnicalRequirementsSummaryFormForm get summaryForm => TechnicalRequirementsSummaryFormForm(doc, '$path/summaryForm');
 
   /// Technical requirements list — contains 0+× Technical Requirement.
-  SomList<TechnicalRequirementEntry> get requirements => SomList<TechnicalRequirementEntry>(doc, '$path/TERQ-REQU-LST', (d, p) => TechnicalRequirementEntry(d, p));
+  SomList<TechnicalRequirementEntry> get requirements => SomList<TechnicalRequirementEntry>(doc, '$path/TERQ-REQU-LST', (d, p) => TechnicalRequirementEntry(d, p), pattern: 'TERQ-REQU-xxx');
 }
 
 /// 8.8. Security Requirements.
@@ -31787,7 +31787,7 @@ class TenantIsolation extends SomNode {
   CrossTenantAccessPolicy get crossTenantAccessPolicy => CrossTenantAccessPolicy(doc, '$path/crossTenantAccessPolicy');
 
   /// Contains 0+× TenantCustomization.
-  SomList<TenantCustomizationEntry> get tenantCustomizations => SomList<TenantCustomizationEntry>(doc, '$path/TNCS-TENA-LST', (d, p) => TenantCustomizationEntry(d, p));
+  SomList<TenantCustomizationEntry> get tenantCustomizations => SomList<TenantCustomizationEntry>(doc, '$path/TNCS-TENA-LST', (d, p) => TenantCustomizationEntry(d, p), pattern: 'TNCS-TENA-xxx');
 
   /// Tenant Onboarding Policy.
   TenantOnboardingPolicy get tenantOnboardingPolicy => TenantOnboardingPolicy(doc, '$path/tenantOnboardingPolicy');
@@ -31852,10 +31852,10 @@ class TestScenarioEntry extends SomNode {
   TestScenarioPostExecution get postExecution => TestScenarioPostExecution(doc, '$path/postExecution');
 
   /// Notes.
-  SomList<TestScenarioNotes> get notes => SomList<TestScenarioNotes>(doc, '$path/TESCNO-NOTE-LST', (d, p) => TestScenarioNotes(d, p));
+  SomList<TestScenarioNotes> get notes => SomList<TestScenarioNotes>(doc, '$path/TESCNO-NOTE-LST', (d, p) => TestScenarioNotes(d, p), pattern: 'TESCNO-NOTE-xxx');
 
   /// Contains 0+× UatTestStep for this scenario.
-  SomList<UatTestStepEntry> get testSteps => SomList<UatTestStepEntry>(doc, '$path/UATSST-TEST-LST', (d, p) => UatTestStepEntry(d, p));
+  SomList<UatTestStepEntry> get testSteps => SomList<UatTestStepEntry>(doc, '$path/UATSST-TEST-LST', (d, p) => UatTestStepEntry(d, p), pattern: 'UATSST-TEST-xxx');
 }
 
 /// Execution for test scenario.
@@ -32426,7 +32426,7 @@ class Tooling extends SomNode {
   // (skipped: strategyNarrative has no target type)
 
   /// Contains 0+× Tool.
-  SomList<ToolEntry> get items => SomList<ToolEntry>(doc, '$path/TOLEN-ITEM-LST', (d, p) => ToolEntry(d, p));
+  SomList<ToolEntry> get items => SomList<ToolEntry>(doc, '$path/TOLEN-ITEM-LST', (d, p) => ToolEntry(d, p), pattern: 'TOLEN-ITEM-xxx');
 }
 
 /// 2.4. Tooling and Environments.
@@ -32543,7 +32543,7 @@ class TradeOffDecisions extends SomNode {
   // (skipped: tradeOffOverview has no target type)
 
   /// Contains 0+× TradeOffDecision.
-  SomList<TradeOffDecisionEntry> get items => SomList<TradeOffDecisionEntry>(doc, '$path/TODE-ITEM-LST', (d, p) => TradeOffDecisionEntry(d, p));
+  SomList<TradeOffDecisionEntry> get items => SomList<TradeOffDecisionEntry>(doc, '$path/TODE-ITEM-LST', (d, p) => TradeOffDecisionEntry(d, p), pattern: 'TODE-ITEM-xxx');
 }
 
 /// Training assessment and evaluation.
@@ -32601,7 +32601,7 @@ class TrainingDeliverableRequirements extends SomNode {
   // (skipped: trainingNarrative has no target type)
 
   /// Training module entries.
-  SomList<TrainingModuleEntry> get trainingModules => SomList<TrainingModuleEntry>(doc, '$path/TRMOEN-TRAI-LST', (d, p) => TrainingModuleEntry(d, p));
+  SomList<TrainingModuleEntry> get trainingModules => SomList<TrainingModuleEntry>(doc, '$path/TRMOEN-TRAI-LST', (d, p) => TrainingModuleEntry(d, p), pattern: 'TRMOEN-TRAI-xxx');
 }
 
 /// 14.1.3. Training Deliverables.
@@ -32612,7 +32612,7 @@ class TrainingDeliverables extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× Deliverable.
-  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/TRDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+  SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/TRDLV-ITEM-LST', (d, p) => DeliverableEntry(d, p), pattern: 'TRDLV-ITEM-xxx');
 }
 
 /// Training & Enablement requirements.
@@ -32725,16 +32725,16 @@ class TrainingRequirements extends SomNode {
   TrainingOverview get overview => TrainingOverview(doc, '$path/overview');
 
   /// Initial/onboarding training.
-  SomList<InitialTrainingEntry> get initialTraining => SomList<InitialTrainingEntry>(doc, '$path/INITR-INIT-LST', (d, p) => InitialTrainingEntry(d, p));
+  SomList<InitialTrainingEntry> get initialTraining => SomList<InitialTrainingEntry>(doc, '$path/INITR-INIT-LST', (d, p) => InitialTrainingEntry(d, p), pattern: 'INITR-INIT-xxx');
 
   /// Ongoing/refresher training.
-  SomList<OngoingTrainingEntry> get ongoingTraining => SomList<OngoingTrainingEntry>(doc, '$path/ONGTR-ONGO-LST', (d, p) => OngoingTrainingEntry(d, p));
+  SomList<OngoingTrainingEntry> get ongoingTraining => SomList<OngoingTrainingEntry>(doc, '$path/ONGTR-ONGO-LST', (d, p) => OngoingTrainingEntry(d, p), pattern: 'ONGTR-ONGO-xxx');
 
   /// System-specific training.
-  SomList<SystemTrainingEntry> get systemTraining => SomList<SystemTrainingEntry>(doc, '$path/SYTR-SYST-LST', (d, p) => SystemTrainingEntry(d, p));
+  SomList<SystemTrainingEntry> get systemTraining => SomList<SystemTrainingEntry>(doc, '$path/SYTR-SYST-LST', (d, p) => SystemTrainingEntry(d, p), pattern: 'SYTR-SYST-xxx');
 
   /// Certification requirements.
-  SomList<CertificationEntry> get certifications => SomList<CertificationEntry>(doc, '$path/CRT-CERT-LST', (d, p) => CertificationEntry(d, p));
+  SomList<CertificationEntry> get certifications => SomList<CertificationEntry>(doc, '$path/CRT-CERT-LST', (d, p) => CertificationEntry(d, p), pattern: 'CRT-CERT-xxx');
 
   /// Training materials and resources.
   TrainingMaterials get trainingMaterials => TrainingMaterials(doc, '$path/trainingMaterials');
@@ -32765,10 +32765,10 @@ class TransitionCommunicationPlan extends SomNode {
   TransitionCommunicationStrategy get strategy => TransitionCommunicationStrategy(doc, '$path/strategy');
 
   /// Specific communication events/activities.
-  SomList<CommunicationEventEntry> get communicationEvents => SomList<CommunicationEventEntry>(doc, '$path/COEV-COMM-LST', (d, p) => CommunicationEventEntry(d, p));
+  SomList<CommunicationEventEntry> get communicationEvents => SomList<CommunicationEventEntry>(doc, '$path/COEV-COMM-LST', (d, p) => CommunicationEventEntry(d, p), pattern: 'COEV-COMM-xxx');
 
   /// Communication channels and their use.
-  SomList<TransitionCommunicationChannels> get channels => SomList<TransitionCommunicationChannels>(doc, '$path/TRCOCH-CHAN-LST', (d, p) => TransitionCommunicationChannels(d, p));
+  SomList<TransitionCommunicationChannels> get channels => SomList<TransitionCommunicationChannels>(doc, '$path/TRCOCH-CHAN-LST', (d, p) => TransitionCommunicationChannels(d, p), pattern: 'TRCOCH-CHAN-xxx');
 }
 
 /// Communication strategy overview.
@@ -32900,10 +32900,10 @@ class TransitionPhaseEntry extends SomNode {
   TransitionPhaseIdentification get identification => TransitionPhaseIdentification(doc, '$path/identification');
 
   /// Activities and deliverables for this phase.
-  SomList<TransitionPhaseActivities> get activities => SomList<TransitionPhaseActivities>(doc, '$path/TPACT-ACTI-LST', (d, p) => TransitionPhaseActivities(d, p));
+  SomList<TransitionPhaseActivities> get activities => SomList<TransitionPhaseActivities>(doc, '$path/TPACT-ACTI-LST', (d, p) => TransitionPhaseActivities(d, p), pattern: 'TPACT-ACTI-xxx');
 
   /// Stakeholder engagement for this phase.
-  SomList<TransitionPhaseStakeholders> get stakeholders => SomList<TransitionPhaseStakeholders>(doc, '$path/TPSTK-STAK-LST', (d, p) => TransitionPhaseStakeholders(d, p));
+  SomList<TransitionPhaseStakeholders> get stakeholders => SomList<TransitionPhaseStakeholders>(doc, '$path/TPSTK-STAK-LST', (d, p) => TransitionPhaseStakeholders(d, p), pattern: 'TPSTK-STAK-xxx');
 
   /// Exit criteria and phase completion conditions.
   TransitionPhaseExitCriteria get exitCriteria => TransitionPhaseExitCriteria(doc, '$path/exitCriteria');
@@ -32985,7 +32985,7 @@ class TransitionSuccessMetrics extends SomNode {
   TransitionMetricsOverview get overview => TransitionMetricsOverview(doc, '$path/overview');
 
   /// Specific success metrics.
-  SomList<TransitionMetricEntry> get metrics => SomList<TransitionMetricEntry>(doc, '$path/TRME-METR-LST', (d, p) => TransitionMetricEntry(d, p));
+  SomList<TransitionMetricEntry> get metrics => SomList<TransitionMetricEntry>(doc, '$path/TRME-METR-LST', (d, p) => TransitionMetricEntry(d, p), pattern: 'TRME-METR-xxx');
 }
 
 /// Support structure overview.
@@ -33010,10 +33010,10 @@ class TransitionSupportStructure extends SomNode {
   TransitionSupportOverview get overview => TransitionSupportOverview(doc, '$path/overview');
 
   /// Support resources available.
-  SomList<TransitionSupportResourceEntry> get supportResources => SomList<TransitionSupportResourceEntry>(doc, '$path/TRSPRE-SUPP-LST', (d, p) => TransitionSupportResourceEntry(d, p));
+  SomList<TransitionSupportResourceEntry> get supportResources => SomList<TransitionSupportResourceEntry>(doc, '$path/TRSPRE-SUPP-LST', (d, p) => TransitionSupportResourceEntry(d, p), pattern: 'TRSPRE-SUPP-xxx');
 
   /// Escalation paths for support.
-  SomList<TransitionEscalationPaths> get escalationPaths => SomList<TransitionEscalationPaths>(doc, '$path/TRESPA-ESCA-LST', (d, p) => TransitionEscalationPaths(d, p));
+  SomList<TransitionEscalationPaths> get escalationPaths => SomList<TransitionEscalationPaths>(doc, '$path/TRESPA-ESCA-LST', (d, p) => TransitionEscalationPaths(d, p), pattern: 'TRESPA-ESCA-xxx');
 }
 
 /// Ongoing localization operations.
@@ -33047,7 +33047,7 @@ class TranslationProcess extends SomNode {
   // (skipped: translationNarrative has no target type)
 
   /// Translation vendor entries.
-  SomList<TranslationVendorEntry> get vendors => SomList<TranslationVendorEntry>(doc, '$path/TRVEEN-VEND-LST', (d, p) => TranslationVendorEntry(d, p));
+  SomList<TranslationVendorEntry> get vendors => SomList<TranslationVendorEntry>(doc, '$path/TRVEEN-VEND-LST', (d, p) => TranslationVendorEntry(d, p), pattern: 'TRVEEN-VEND-xxx');
 }
 
 /// Quality assurance.
@@ -33200,7 +33200,7 @@ class TrustBoundaries extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Trust boundary entries — contains 0+× TrustBoundaryEntry.
-  SomList<TrustBoundaryEntry> get boundaries => SomList<TrustBoundaryEntry>(doc, '$path/TRBN-BOUN-LST', (d, p) => TrustBoundaryEntry(d, p));
+  SomList<TrustBoundaryEntry> get boundaries => SomList<TrustBoundaryEntry>(doc, '$path/TRBN-BOUN-LST', (d, p) => TrustBoundaryEntry(d, p), pattern: 'TRBN-BOUN-xxx');
 }
 
 /// A trust boundary entry (form).
@@ -33401,19 +33401,19 @@ class UiComponentEntry extends SomNode {
   // (skipped: behaviorNarrative has no target type)
 
   /// Contains 0+× ComponentState.
-  SomList<ComponentStateEntry> get states => SomList<ComponentStateEntry>(doc, '$path/CMST-STAT-LST', (d, p) => ComponentStateEntry(d, p));
+  SomList<ComponentStateEntry> get states => SomList<ComponentStateEntry>(doc, '$path/CMST-STAT-LST', (d, p) => ComponentStateEntry(d, p), pattern: 'CMST-STAT-xxx');
 
   /// Contains 0+× ComponentVariant.
-  SomList<ComponentVariantEntry> get variants => SomList<ComponentVariantEntry>(doc, '$path/CMVN-VARI-LST', (d, p) => ComponentVariantEntry(d, p));
+  SomList<ComponentVariantEntry> get variants => SomList<ComponentVariantEntry>(doc, '$path/CMVN-VARI-LST', (d, p) => ComponentVariantEntry(d, p), pattern: 'CMVN-VARI-xxx');
 
   /// Contains 0+× ComponentAction.
-  SomList<ComponentActionEntry> get actions => SomList<ComponentActionEntry>(doc, '$path/CMAC-ACTI-LST', (d, p) => ComponentActionEntry(d, p));
+  SomList<ComponentActionEntry> get actions => SomList<ComponentActionEntry>(doc, '$path/CMAC-ACTI-LST', (d, p) => ComponentActionEntry(d, p), pattern: 'CMAC-ACTI-xxx');
 
   /// Contains 0+× ComponentSlot.
-  SomList<ComponentSlotEntry> get slots => SomList<ComponentSlotEntry>(doc, '$path/CMSL-SLOT-LST', (d, p) => ComponentSlotEntry(d, p));
+  SomList<ComponentSlotEntry> get slots => SomList<ComponentSlotEntry>(doc, '$path/CMSL-SLOT-LST', (d, p) => ComponentSlotEntry(d, p), pattern: 'CMSL-SLOT-xxx');
 
   /// Contains 0+× ComponentProperty.
-  SomList<ComponentPropertyEntry> get properties => SomList<ComponentPropertyEntry>(doc, '$path/CMPR-PROP-LST', (d, p) => ComponentPropertyEntry(d, p));
+  SomList<ComponentPropertyEntry> get properties => SomList<ComponentPropertyEntry>(doc, '$path/CMPR-PROP-LST', (d, p) => ComponentPropertyEntry(d, p), pattern: 'CMPR-PROP-xxx');
 }
 
 /// Animation behavior.
@@ -33495,10 +33495,10 @@ class UiComponents extends SomNode {
   ComponentLibrary get componentLibrary => ComponentLibrary(doc, '$path/componentLibrary');
 
   /// 10.11.2. Component Specifications — contains 0+×.
-  SomList<UiComponentEntry> get componentSpecs => SomList<UiComponentEntry>(doc, '$path/UICOEN-COMP-LST', (d, p) => UiComponentEntry(d, p));
+  SomList<UiComponentEntry> get componentSpecs => SomList<UiComponentEntry>(doc, '$path/UICOEN-COMP-LST', (d, p) => UiComponentEntry(d, p), pattern: 'UICOEN-COMP-xxx');
 
   /// 10.11.3. Component Families — contains 0+×.
-  SomList<ComponentFamilyEntry> get componentFamilies => SomList<ComponentFamilyEntry>(doc, '$path/CMFA-COMP-LST', (d, p) => ComponentFamilyEntry(d, p));
+  SomList<ComponentFamilyEntry> get componentFamilies => SomList<ComponentFamilyEntry>(doc, '$path/CMFA-COMP-LST', (d, p) => ComponentFamilyEntry(d, p), pattern: 'CMFA-COMP-xxx');
 }
 
 /// 13.8. Upgrade Cycle Framework.
@@ -33579,7 +33579,7 @@ class UseCaseExtensions extends SomNode {
   UseCaseExtensionsContentForm get content => UseCaseExtensionsContentForm(doc, '$path/content');
 
   /// Extension entries — contains 0+× Extension.
-  SomList<ExtensionEntry> get extensions => SomList<ExtensionEntry>(doc, '$path/EXTEN-EXTE-LST', (d, p) => ExtensionEntry(d, p));
+  SomList<ExtensionEntry> get extensions => SomList<ExtensionEntry>(doc, '$path/EXTEN-EXTE-LST', (d, p) => ExtensionEntry(d, p), pattern: 'EXTEN-EXTE-xxx');
 }
 
 /// Use case scope and context (Cockburn style).
@@ -33647,10 +33647,10 @@ class UserAcceptanceTesting extends SomNode {
   // (skipped: uatOverview has no target type)
 
   /// Contains 0+× UatTestCycle.
-  SomList<UatTestCycleEntry> get testCycles => SomList<UatTestCycleEntry>(doc, '$path/UATCY-TEST-LST', (d, p) => UatTestCycleEntry(d, p));
+  SomList<UatTestCycleEntry> get testCycles => SomList<UatTestCycleEntry>(doc, '$path/UATCY-TEST-LST', (d, p) => UatTestCycleEntry(d, p), pattern: 'UATCY-TEST-xxx');
 
   /// Contains 0+× TestScenario.
-  SomList<TestScenarioEntry> get testScenarios => SomList<TestScenarioEntry>(doc, '$path/TSSC-TEST-LST', (d, p) => TestScenarioEntry(d, p));
+  SomList<TestScenarioEntry> get testScenarios => SomList<TestScenarioEntry>(doc, '$path/TSSC-TEST-LST', (d, p) => TestScenarioEntry(d, p), pattern: 'TSSC-TEST-xxx');
 }
 
 /// 4.1.4.n.4. Access and Permissions.
@@ -33672,7 +33672,7 @@ class UserAccessPermissions extends SomNode {
   UserAccessPermissionsGovernance get governance => UserAccessPermissionsGovernance(doc, '$path/governance');
 
   /// Permission matrix entries — contains 0+× PermissionMatrixEntry.
-  SomList<PermissionMatrixEntry> get permissionMatrix => SomList<PermissionMatrixEntry>(doc, '$path/PRMTX-PERM-LST', (d, p) => PermissionMatrixEntry(d, p));
+  SomList<PermissionMatrixEntry> get permissionMatrix => SomList<PermissionMatrixEntry>(doc, '$path/PRMTX-PERM-LST', (d, p) => PermissionMatrixEntry(d, p), pattern: 'PRMTX-PERM-xxx');
 }
 
 /// Session and audit controls.
@@ -33776,7 +33776,7 @@ class UserAttributes extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× UserAttribute.
-  SomList<UserAttributeEntry> get items => SomList<UserAttributeEntry>(doc, '$path/USATE-ITEM-LST', (d, p) => UserAttributeEntry(d, p));
+  SomList<UserAttributeEntry> get items => SomList<UserAttributeEntry>(doc, '$path/USATE-ITEM-LST', (d, p) => UserAttributeEntry(d, p), pattern: 'USATE-ITEM-xxx');
 }
 
 /// 9.4. User Authorization.
@@ -33792,16 +33792,16 @@ class UserAuthorization extends SomNode {
   AuthorizationModel get authorizationModel => AuthorizationModel(doc, '$path/authorizationModel');
 
   /// 9.4.2. Authorization Groups — contains 0+× Group.
-  SomList<AuthorizationGroupEntry> get groups => SomList<AuthorizationGroupEntry>(doc, '$path/AZGR-GROU-LST', (d, p) => AuthorizationGroupEntry(d, p));
+  SomList<AuthorizationGroupEntry> get groups => SomList<AuthorizationGroupEntry>(doc, '$path/AZGR-GROU-LST', (d, p) => AuthorizationGroupEntry(d, p), pattern: 'AZGR-GROU-xxx');
 
   /// 9.4.3. Role Definitions — contains 1+× Role.
-  SomList<AuthorizationRoleEntry> get roleDefinitions => SomList<AuthorizationRoleEntry>(doc, '$path/AZRO-ROLE-LST', (d, p) => AuthorizationRoleEntry(d, p));
+  SomList<AuthorizationRoleEntry> get roleDefinitions => SomList<AuthorizationRoleEntry>(doc, '$path/AZRO-ROLE-LST', (d, p) => AuthorizationRoleEntry(d, p), pattern: 'AZRO-ROLE-xxx');
 
   /// 9.4.4. Entitlements — contains 1+× Entitlement.
-  SomList<EntitlementEntry> get entitlements => SomList<EntitlementEntry>(doc, '$path/ENT-ENTI-LST', (d, p) => EntitlementEntry(d, p));
+  SomList<EntitlementEntry> get entitlements => SomList<EntitlementEntry>(doc, '$path/ENT-ENTI-LST', (d, p) => EntitlementEntry(d, p), pattern: 'ENT-ENTI-xxx');
 
   /// 9.4.5. Resource Keys — contains 0+× Resource Key.
-  SomList<ResourceKeyEntry> get resourceKeys => SomList<ResourceKeyEntry>(doc, '$path/RESKEY-RESO-LST', (d, p) => ResourceKeyEntry(d, p));
+  SomList<ResourceKeyEntry> get resourceKeys => SomList<ResourceKeyEntry>(doc, '$path/RESKEY-RESO-LST', (d, p) => ResourceKeyEntry(d, p), pattern: 'RESKEY-RESO-xxx');
 
   /// 9.4.6. Role Hierarchy.
   RoleHierarchy get roleHierarchy => RoleHierarchy(doc, '$path/roleHierarchy');
@@ -33839,7 +33839,7 @@ class UserCategoryEntry extends SomNode {
   UserCategoryRoleEntry get role => UserCategoryRoleEntry(doc, '$path/role');
 
   /// 4.1.4.n.3. System Tasks — contains 1+× System Task.
-  SomList<SystemTaskEntry> get systemTasks => SomList<SystemTaskEntry>(doc, '$path/SYTS-SYST-LST', (d, p) => SystemTaskEntry(d, p));
+  SomList<SystemTaskEntry> get systemTasks => SomList<SystemTaskEntry>(doc, '$path/SYTS-SYST-LST', (d, p) => SystemTaskEntry(d, p), pattern: 'SYTS-SYST-xxx');
 
   /// 4.1.4.n.4. Access and Permissions.
   UserAccessPermissions get accessPermissions => UserAccessPermissions(doc, '$path/accessPermissions');
@@ -34000,13 +34000,13 @@ class UserJourney extends SomNode {
   set journeyDiagram(String value) => doc.setContent('$path/journeyDiagram', value);
 
   /// Journey stage entries — contains 0+× JourneyStageEntry.
-  SomList<JourneyStageEntry> get stages => SomList<JourneyStageEntry>(doc, '$path/JRNST-STAG-LST', (d, p) => JourneyStageEntry(d, p));
+  SomList<JourneyStageEntry> get stages => SomList<JourneyStageEntry>(doc, '$path/JRNST-STAG-LST', (d, p) => JourneyStageEntry(d, p), pattern: 'JRNST-STAG-xxx');
 
   /// Key touchpoints.
-  SomList<KeyTouchpointEntry> get keyTouchpoints => SomList<KeyTouchpointEntry>(doc, '$path/KEYTO-KEYT-LST', (d, p) => KeyTouchpointEntry(d, p));
+  SomList<KeyTouchpointEntry> get keyTouchpoints => SomList<KeyTouchpointEntry>(doc, '$path/KEYTO-KEYT-LST', (d, p) => KeyTouchpointEntry(d, p), pattern: 'KEYTO-KEYT-xxx');
 
   /// Pain points in the journey.
-  SomList<UserJourneyPainPointEntry> get painPoints => SomList<UserJourneyPainPointEntry>(doc, '$path/USERJ-PAIN-LST', (d, p) => UserJourneyPainPointEntry(d, p));
+  SomList<UserJourneyPainPointEntry> get painPoints => SomList<UserJourneyPainPointEntry>(doc, '$path/USERJ-PAIN-LST', (d, p) => UserJourneyPainPointEntry(d, p), pattern: 'USERJ-PAIN-xxx');
 
   /// Opportunities for delight.
   String get opportunitiesForDelight => doc.content('$path/opportunitiesForDelight') ?? '';
@@ -34060,7 +34060,7 @@ class UserLifecycle extends SomNode {
   SelfServiceAccountManagement get selfService => SelfServiceAccountManagement(doc, '$path/selfService');
 
   /// 9.1.2.9. Service Account Lifecycle.
-  SomList<ServiceAccountLifecycle> get serviceAccounts => SomList<ServiceAccountLifecycle>(doc, '$path/SACLC-SERV-LST', (d, p) => ServiceAccountLifecycle(d, p));
+  SomList<ServiceAccountLifecycle> get serviceAccounts => SomList<ServiceAccountLifecycle>(doc, '$path/SACLC-SERV-LST', (d, p) => ServiceAccountLifecycle(d, p), pattern: 'SACLC-SERV-xxx');
 }
 
 /// A lifecycle transition entry (form).
@@ -34120,7 +34120,7 @@ class UserLifecycleTransitions extends SomNode {
   // (skipped: lifecycleStateDiagram has no target type)
 
   /// Contains 0+× UserLifecycleTransitionEntry.
-  SomList<UserLifecycleTransitionEntry> get items => SomList<UserLifecycleTransitionEntry>(doc, '$path/ULTRE-ITEM-LST', (d, p) => UserLifecycleTransitionEntry(d, p));
+  SomList<UserLifecycleTransitionEntry> get items => SomList<UserLifecycleTransitionEntry>(doc, '$path/ULTRE-ITEM-LST', (d, p) => UserLifecycleTransitionEntry(d, p), pattern: 'ULTRE-ITEM-xxx');
 }
 
 /// 9.1. User Management.
@@ -34192,7 +34192,7 @@ class UserPersonaDetails extends SomNode {
   set visualRepresentation(String value) => doc.setContent('$path/visualRepresentation', value);
 
   /// Key quotes that represent this persona's mindset.
-  SomList<RepresentativeQuoteEntry> get representativeQuotes => SomList<RepresentativeQuoteEntry>(doc, '$path/REPRE-REPR-LST', (d, p) => RepresentativeQuoteEntry(d, p));
+  SomList<RepresentativeQuoteEntry> get representativeQuotes => SomList<RepresentativeQuoteEntry>(doc, '$path/REPRE-REPR-LST', (d, p) => RepresentativeQuoteEntry(d, p), pattern: 'REPRE-REPR-xxx');
 }
 
 /// Preferences and behavior.
@@ -34230,7 +34230,7 @@ class UserPersonas extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 1+× Persona.
-  SomList<PersonaEntry> get items => SomList<PersonaEntry>(doc, '$path/PEREN-ITEM-LST', (d, p) => PersonaEntry(d, p));
+  SomList<PersonaEntry> get items => SomList<PersonaEntry>(doc, '$path/PEREN-ITEM-LST', (d, p) => PersonaEntry(d, p), pattern: 'PEREN-ITEM-xxx');
 }
 
 /// User provisioning and management tools.
@@ -34300,7 +34300,7 @@ class UserTrainingRequirements extends SomNode {
   UserTrainingRequirementsTrainingFormForm get trainingForm => UserTrainingRequirementsTrainingFormForm(doc, '$path/trainingForm');
 
   /// Training topics — contains 0+× TrainingTopicEntry.
-  SomList<TrainingTopicEntry> get trainingTopics => SomList<TrainingTopicEntry>(doc, '$path/TRTP-TRAI-LST', (d, p) => TrainingTopicEntry(d, p));
+  SomList<TrainingTopicEntry> get trainingTopics => SomList<TrainingTopicEntry>(doc, '$path/TRTP-TRAI-LST', (d, p) => TrainingTopicEntry(d, p), pattern: 'TRTP-TRAI-xxx');
 }
 
 /// A utility menu item entry (form).
@@ -34342,7 +34342,7 @@ class UtilityNavigation extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Contains 0+× UtilityNavigationItem.
-  SomList<UtilityNavigationItemEntry> get items => SomList<UtilityNavigationItemEntry>(doc, '$path/UNIE-ITEM-LST', (d, p) => UtilityNavigationItemEntry(d, p));
+  SomList<UtilityNavigationItemEntry> get items => SomList<UtilityNavigationItemEntry>(doc, '$path/UNIE-ITEM-LST', (d, p) => UtilityNavigationItemEntry(d, p), pattern: 'UNIE-ITEM-xxx');
 }
 
 /// A utility navigation item entry (form).
@@ -34361,7 +34361,7 @@ class UtilityNavigationItemEntry extends SomNode {
   UtilityNavigationItemEntryBehavior get behavior => UtilityNavigationItemEntryBehavior(doc, '$path/behavior');
 
   /// Contains 0+× UtilityMenuItem.
-  SomList<UtilityMenuItemEntry> get menuItems => SomList<UtilityMenuItemEntry>(doc, '$path/UMIE-MENU-LST', (d, p) => UtilityMenuItemEntry(d, p));
+  SomList<UtilityMenuItemEntry> get menuItems => SomList<UtilityMenuItemEntry>(doc, '$path/UMIE-MENU-LST', (d, p) => UtilityMenuItemEntry(d, p), pattern: 'UMIE-MENU-xxx');
 }
 
 /// Badge and interaction behavior.
@@ -34414,10 +34414,10 @@ class ValidationFeedback extends SomNode {
   // (skipped: validationNarrative has no target type)
 
   /// Validation message templates.
-  SomList<ValidationMessageTemplate> get messageTemplates => SomList<ValidationMessageTemplate>(doc, '$path/VAMETE-MESS-LST', (d, p) => ValidationMessageTemplate(d, p));
+  SomList<ValidationMessageTemplate> get messageTemplates => SomList<ValidationMessageTemplate>(doc, '$path/VAMETE-MESS-LST', (d, p) => ValidationMessageTemplate(d, p), pattern: 'VAMETE-MESS-xxx');
 
   /// Field validation rules by type.
-  SomList<FieldValidationRuleEntry> get fieldValidationRules => SomList<FieldValidationRuleEntry>(doc, '$path/FIELD-FIEL-LST', (d, p) => FieldValidationRuleEntry(d, p));
+  SomList<FieldValidationRuleEntry> get fieldValidationRules => SomList<FieldValidationRuleEntry>(doc, '$path/FIELD-FIEL-LST', (d, p) => FieldValidationRuleEntry(d, p), pattern: 'FIELD-FIEL-xxx');
 }
 
 /// Animation and focus behavior.
@@ -34483,7 +34483,7 @@ class ValueProposition extends SomNode {
   ValuePropositionReturnProfile get returnProfile => ValuePropositionReturnProfile(doc, '$path/returnProfile');
 
   /// Key Performance Indicators for value measurement.
-  SomList<KpiEntry> get kpis => SomList<KpiEntry>(doc, '$path/KPIEN-KPIS-LST', (d, p) => KpiEntry(d, p));
+  SomList<KpiEntry> get kpis => SomList<KpiEntry>(doc, '$path/KPIEN-KPIS-LST', (d, p) => KpiEntry(d, p), pattern: 'KPIEN-KPIS-xxx');
 }
 
 /// Financial and efficiency benefits.
@@ -34755,7 +34755,7 @@ class WarrantyTerms extends SomNode {
   WarrantyCoverage get coverage => WarrantyCoverage(doc, '$path/coverage');
 
   /// Service levels.
-  SomList<WarrantyServiceLevels> get serviceLevels => SomList<WarrantyServiceLevels>(doc, '$path/WASELE-SERV-LST', (d, p) => WarrantyServiceLevels(d, p));
+  SomList<WarrantyServiceLevels> get serviceLevels => SomList<WarrantyServiceLevels>(doc, '$path/WASELE-SERV-LST', (d, p) => WarrantyServiceLevels(d, p), pattern: 'WASELE-SERV-xxx');
 
   /// Process for defect handling.
   WarrantyProcess get process => WarrantyProcess(doc, '$path/process');
@@ -34796,7 +34796,7 @@ class WcagCompliance extends SomNode {
   // (skipped: wcagNarrative has no target type)
 
   /// WCAG success criteria mapping.
-  SomList<WcagSuccessCriterionEntry> get successCriteria => SomList<WcagSuccessCriterionEntry>(doc, '$path/WSCE-SUCC-LST', (d, p) => WcagSuccessCriterionEntry(d, p));
+  SomList<WcagSuccessCriterionEntry> get successCriteria => SomList<WcagSuccessCriterionEntry>(doc, '$path/WSCE-SUCC-LST', (d, p) => WcagSuccessCriterionEntry(d, p), pattern: 'WSCE-SUCC-xxx');
 }
 
 /// Operable principles.
@@ -34837,7 +34837,7 @@ class WeightedQualityMatrix extends SomNode {
   // (skipped: matrixNarrative has no target type)
 
   /// Quality attribute weight entries.
-  SomList<QualityWeightEntry> get weights => SomList<QualityWeightEntry>(doc, '$path/QLWGT-WEIG-LST', (d, p) => QualityWeightEntry(d, p));
+  SomList<QualityWeightEntry> get weights => SomList<QualityWeightEntry>(doc, '$path/QLWGT-WEIG-LST', (d, p) => QualityWeightEntry(d, p), pattern: 'QLWGT-WEIG-xxx');
 
   /// Quality matrix visualization.
   // (skipped: matrixVisualization has no target type)
@@ -34901,7 +34901,7 @@ class WorkflowDescriptions extends SomNode {
   WorkflowSummaryTable get summaryTable => WorkflowSummaryTable(doc, '$path/summaryTable');
 
   /// Individual workflow entries.
-  SomList<CurrentWorkflowEntry> get workflows => SomList<CurrentWorkflowEntry>(doc, '$path/CUWF-WORK-LST', (d, p) => CurrentWorkflowEntry(d, p));
+  SomList<CurrentWorkflowEntry> get workflows => SomList<CurrentWorkflowEntry>(doc, '$path/CUWF-WORK-LST', (d, p) => CurrentWorkflowEntry(d, p), pattern: 'CUWF-WORK-xxx');
 }
 
 /// A workflow exception type.
@@ -34919,7 +34919,7 @@ class WorkflowExceptions extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Exception entries.
-  SomList<WorkflowExceptionEntry> get exceptions => SomList<WorkflowExceptionEntry>(doc, '$path/WOEXEN-EXCE-LST', (d, p) => WorkflowExceptionEntry(d, p));
+  SomList<WorkflowExceptionEntry> get exceptions => SomList<WorkflowExceptionEntry>(doc, '$path/WOEXEN-EXCE-LST', (d, p) => WorkflowExceptionEntry(d, p), pattern: 'WOEXEN-EXCE-xxx');
 }
 
 /// A workflow input.
@@ -34945,19 +34945,19 @@ class WorkflowStepEntry extends SomNode {
   WorkflowStepEntryContentForm get content => WorkflowStepEntryContentForm(doc, '$path/content');
 
   /// Systems used in this step.
-  SomList<WorkflowStepSystem> get systemsUsed => SomList<WorkflowStepSystem>(doc, '$path/WOSTSY-SYST-LST', (d, p) => WorkflowStepSystem(d, p));
+  SomList<WorkflowStepSystem> get systemsUsed => SomList<WorkflowStepSystem>(doc, '$path/WOSTSY-SYST-LST', (d, p) => WorkflowStepSystem(d, p), pattern: 'WOSTSY-SYST-xxx');
 
   /// Step inputs.
-  SomList<WorkflowInputEntry> get inputs => SomList<WorkflowInputEntry>(doc, '$path/WOINEN-INPU-LST', (d, p) => WorkflowInputEntry(d, p));
+  SomList<WorkflowInputEntry> get inputs => SomList<WorkflowInputEntry>(doc, '$path/WOINEN-INPU-LST', (d, p) => WorkflowInputEntry(d, p), pattern: 'WOINEN-INPU-xxx');
 
   /// Step outputs.
-  SomList<WorkflowOutputEntry> get outputs => SomList<WorkflowOutputEntry>(doc, '$path/WOOUEN-OUTP-LST', (d, p) => WorkflowOutputEntry(d, p));
+  SomList<WorkflowOutputEntry> get outputs => SomList<WorkflowOutputEntry>(doc, '$path/WOOUEN-OUTP-LST', (d, p) => WorkflowOutputEntry(d, p), pattern: 'WOOUEN-OUTP-xxx');
 
   /// Step-specific business rules.
-  SomList<WorkflowBusinessRule> get businessRules => SomList<WorkflowBusinessRule>(doc, '$path/WOBURU-BUSI-LST', (d, p) => WorkflowBusinessRule(d, p));
+  SomList<WorkflowBusinessRule> get businessRules => SomList<WorkflowBusinessRule>(doc, '$path/WOBURU-BUSI-LST', (d, p) => WorkflowBusinessRule(d, p), pattern: 'WOBURU-BUSI-xxx');
 
   /// Known issues with this step.
-  SomList<WorkflowStepIssue> get knownIssues => SomList<WorkflowStepIssue>(doc, '$path/WOSTIS-KNOW-LST', (d, p) => WorkflowStepIssue(d, p));
+  SomList<WorkflowStepIssue> get knownIssues => SomList<WorkflowStepIssue>(doc, '$path/WOSTIS-KNOW-LST', (d, p) => WorkflowStepIssue(d, p), pattern: 'WOSTIS-KNOW-xxx');
 }
 
 /// Known issue with a workflow step.
@@ -34989,7 +34989,7 @@ class WorkflowSummaryTable extends SomNode {
   WorkflowSummaryTableContentForm get content => WorkflowSummaryTableContentForm(doc, '$path/content');
 
   /// Summary entries per workflow.
-  SomList<WorkflowSummaryEntry> get entries => SomList<WorkflowSummaryEntry>(doc, '$path/WOSUEN-ENTR-LST', (d, p) => WorkflowSummaryEntry(d, p));
+  SomList<WorkflowSummaryEntry> get entries => SomList<WorkflowSummaryEntry>(doc, '$path/WOSUEN-ENTR-LST', (d, p) => WorkflowSummaryEntry(d, p), pattern: 'WOSUEN-ENTR-xxx');
 }
 
 /// Workflow timing and performance characteristics.
@@ -35014,7 +35014,7 @@ class WorkflowTriggers extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Trigger entries.
-  SomList<WorkflowTriggerEntry> get triggers => SomList<WorkflowTriggerEntry>(doc, '$path/WOTREN-TRIG-LST', (d, p) => WorkflowTriggerEntry(d, p));
+  SomList<WorkflowTriggerEntry> get triggers => SomList<WorkflowTriggerEntry>(doc, '$path/WOTREN-TRIG-LST', (d, p) => WorkflowTriggerEntry(d, p), pattern: 'WOTREN-TRIG-xxx');
 }
 
 /// A workplace description entry (form, per user category).

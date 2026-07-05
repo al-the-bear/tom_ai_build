@@ -44,6 +44,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'risks',
               'kind': 'list',
               'sectionId': 'risks',
+              'sectionIdPattern': 'RISK-ITEM-xxx',
               'elementType': 'Risk',
               'elementIsComplex': true,
               'min': 2,
@@ -276,6 +277,22 @@ dependencies:
         expect(decls, contains(typeName),
             reason: 'getter references undeclared form class $typeName');
       }
+    });
+
+    test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '
+        'does not (AA1 criteria 3–5)', () {
+      final source = SomDartEmitter(_fixtureModel()).generateLibrary();
+      // The complex `risks` list carries a pattern → the SomList is constructed
+      // with the `pattern:` argument so the facade can generate section ids.
+      expect(source,
+          contains("SomList<Risk> get risks => SomList<Risk>(doc, "));
+      expect(
+          RegExp(r"get risks =>.*pattern: 'RISK-ITEM-xxx'\)").hasMatch(source),
+          isTrue,
+          reason: 'risks getter must pass pattern: to SomList');
+      // The pattern-less scalar `tags` list must NOT get a pattern argument.
+      final tagsLine = RegExp(r'get tags =>.*;').firstMatch(source)!.group(0)!;
+      expect(tagsLine, isNot(contains('pattern:')));
     });
 
     test('documentRoots subsets the generated classes', () {

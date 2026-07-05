@@ -14,6 +14,15 @@ class _Root extends SomNode {
 
   SomList<SomScalar> get tags =>
       SomList<SomScalar>(doc, '$path/tags', (d, p) => SomScalar(d, p));
+
+  /// A pattern-bearing list — mirrors what the emitter generates for a field
+  /// carrying a `@SectionIdPattern`.
+  SomList<_Item> get risks => SomList<_Item>(
+        doc,
+        '$path/RISK',
+        (d, p) => _Item(d, p),
+        pattern: 'RISK-ITEM-xxx',
+      );
 }
 
 class _Item extends SomNode {
@@ -76,6 +85,61 @@ void main() {
       root.tags.add().value = 'x';
       expect(root.tags[0].value, 'x');
       expect(doc.listItemCount('PD00/tags'), 1);
+    });
+  });
+
+  group('SomList section ids (AA1 criteria 3–6)', () {
+    final date = DateTime(2026, 1, 2); // AB
+
+    test('add generates a section id from the pattern (criteria 3, 4)', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      final item = root.risks.add(date: date);
+      expect(item.$sectionId, 'RISK-ITEM-AB1');
+      // Visible both ways.
+      expect(doc.itemSectionId(item.path), 'RISK-ITEM-AB1');
+    });
+
+    test('add accepts a section-id override, validated unique (criterion 5)',
+        () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.risks.add(sectionId: 'RISK-ITEM-CUSTOM');
+      expect(root.risks.sectionIds, ['RISK-ITEM-CUSTOM']);
+      expect(
+        () => root.risks.add(sectionId: 'RISK-ITEM-CUSTOM'),
+        throwsA(isA<SpecSectionIdCollision>()),
+      );
+    });
+
+    test(r'overriding an item id via SomNode.$sectionId (criterion 5)', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      final item = root.risks.add(date: date);
+      item.$sectionId = 'RISK-ITEM-OVR';
+      expect(root.risks.sectionIds, ['RISK-ITEM-OVR']);
+    });
+
+    test('delete-last then same-day add reuses the freed id (criterion 6)', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.risks.add(date: date); // AB1
+      root.risks.add(date: date); // AB2
+      root.risks.removeAt(1); // delete last
+      final reused = root.risks.add(date: date);
+      expect(reused.$sectionId, 'RISK-ITEM-AB2');
+    });
+
+    test('delete-middle keeps ids, numbering non-consecutive (criterion 6)', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.risks.add(date: date); // AB1
+      root.risks.add(date: date); // AB2
+      root.risks.add(date: date); // AB3
+      root.risks.removeAt(1); // delete AB2
+      expect(root.risks.sectionIds, ['RISK-ITEM-AB1', 'RISK-ITEM-AB3']);
+      final next = root.risks.add(date: date);
+      expect(next.$sectionId, 'RISK-ITEM-AB4');
     });
   });
 

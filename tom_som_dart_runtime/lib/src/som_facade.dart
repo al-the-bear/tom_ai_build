@@ -11,6 +11,7 @@
 library;
 
 import 'spec_document.dart';
+import 'spec_section_id.dart';
 
 /// The base class every generated typed facade class extends.
 ///
@@ -26,6 +27,26 @@ abstract class SomNode {
   final String path;
 
   SomNode(this.doc, this.path);
+
+  /// This node's section id when it is a list item (AA1 criterion 1 read),
+  /// or `null` for non-list nodes (roots, complex/section children — their id
+  /// is the fixed `@SectionId` already embedded in [path]).
+  ///
+  /// Named with a `$` prefix so this structural accessor can never collide with
+  /// a typed field a generated subclass emits from a model field. Model field
+  /// accessors are plain Dart identifiers (never `$`-prefixed), so a `@Form`
+  /// section that happens to carry a field literally named `sectionId` keeps its
+  /// own `sectionId` getter/setter alongside this one.
+  String? get $sectionId => doc.itemSectionId(path);
+
+  /// Overrides this list item's section id (AA1 criterion 5): an arbitrary
+  /// suffix, validated unique within the owning list. Raises
+  /// [SpecSectionIdCollision] on a duplicate, or [ArgumentError] if this node
+  /// is not a live list item.
+  set $sectionId(String? id) {
+    if (id == null) return;
+    doc.setItemSectionId(path, id);
+  }
 }
 
 /// A scalar list item — a bare string value held in the document's content
@@ -56,7 +77,12 @@ class SomList<T> {
 
   final T Function(SpecDocument doc, String itemPath) _factory;
 
-  SomList(this.doc, this.listPath, this._factory);
+  /// The list field's `@SectionIdPattern` (e.g. `DACEN-ITEM-xxx`), or `null`
+  /// for a pattern-less (scalar) list. Drives section-id generation on [add]
+  /// (AA1 criteria 3–5).
+  final String? pattern;
+
+  SomList(this.doc, this.listPath, this._factory, {this.pattern});
 
   /// The number of items currently in the list.
   int get length => doc.listItemCount(listPath);
@@ -68,8 +94,23 @@ class SomList<T> {
   /// The element facade for the item at [index].
   T operator [](int index) => _factory(doc, doc.listItems(listPath)[index]);
 
+  /// The section ids currently assigned within this list, in item order.
+  List<String> get sectionIds => doc.listItemSectionIds(listPath);
+
   /// Appends a new item and returns its element facade.
-  T add() => _factory(doc, doc.addListItem(listPath));
+  ///
+  /// When the list has a [pattern], the new item is assigned a section id
+  /// (AA1 criteria 3–5): [sectionId] if given (an override, validated unique —
+  /// raises [SpecSectionIdCollision] on a collision), otherwise one generated
+  /// from the pattern using [date] (defaulting to now) for the two-letter-date
+  /// component. A pattern-less list ignores both arguments.
+  T add({String? sectionId, DateTime? date}) {
+    if (pattern == null) return _factory(doc, doc.addListItem(listPath));
+    final id = sectionId ??
+        generateListItemSectionId(
+            pattern!, date ?? DateTime.now(), doc.listItemSectionIds(listPath));
+    return _factory(doc, doc.addListItem(listPath, sectionId: id));
+  }
 
   /// Removes the item at [index] and every value nested beneath it.
   void removeAt(int index) =>

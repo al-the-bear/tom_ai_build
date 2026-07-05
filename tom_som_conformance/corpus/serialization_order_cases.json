@@ -1,0 +1,76 @@
+{
+  "model": {
+    "metaSchemaVersion": 1,
+    "modelVersion": 1,
+    "roots": [
+      {
+        "type": "Root",
+        "title": "Demo",
+        "sectionId": "DEMO"
+      }
+    ],
+    "classes": {
+      "Root": {
+        "name": "Root",
+        "sectionId": "DEMO",
+        "fields": [
+          {
+            "name": "head",
+            "kind": "form",
+            "sectionId": "HEAD",
+            "serializationOrder": 0,
+            "formFields": [
+              {
+                "name": "title",
+                "label": "Title",
+                "type": "String"
+              },
+              {
+                "name": "author",
+                "label": "Author",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "zeta",
+            "kind": "content",
+            "sectionId": "ZETA",
+            "serializationOrder": 1
+          },
+          {
+            "name": "mid",
+            "kind": "content",
+            "sectionId": "MID",
+            "serializationOrder": 2
+          },
+          {
+            "name": "alpha",
+            "kind": "content",
+            "sectionId": "ALPHA",
+            "serializationOrder": 3
+          }
+        ]
+      }
+    }
+  },
+  "contentPaths": [
+    "DEMO/ALPHA",
+    "DEMO/MID",
+    "DEMO/ZETA"
+  ],
+  "expectedOrder": [
+    "DEMO/ZETA",
+    "DEMO/MID",
+    "DEMO/ALPHA"
+  ],
+  "formPath": "DEMO/HEAD",
+  "formFields": [
+    "author",
+    "title"
+  ],
+  "expectedFormOrder": [
+    "title",
+    "author"
+  ]
+}

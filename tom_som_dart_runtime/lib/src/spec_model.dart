@@ -99,6 +99,11 @@ class SpecField {
   final String? sectionId;
   final String? sectionIdPattern;
 
+  /// The member's serialization ordinal from `@SerializationOrder(n)` (SOM
+  /// source declaration order), or `null` when unannotated. Drives the YAML
+  /// member emission order (AA1 criterion 7).
+  final int? serializationOrder;
+
   // list
   final String? elementType;
   final bool elementIsComplex;
@@ -130,6 +135,7 @@ class SpecField {
     this.help,
     this.sectionId,
     this.sectionIdPattern,
+    this.serializationOrder,
     this.elementType,
     this.elementIsComplex = false,
     this.min,
@@ -150,6 +156,7 @@ class SpecField {
       help: j['help'] as String?,
       sectionId: j['sectionId'] as String?,
       sectionIdPattern: j['sectionIdPattern'] as String?,
+      serializationOrder: (j['serializationOrder'] as num?)?.toInt(),
       elementType: j['elementType'] as String?,
       elementIsComplex: j['elementIsComplex'] as bool? ?? false,
       min: j['min'] as int?,

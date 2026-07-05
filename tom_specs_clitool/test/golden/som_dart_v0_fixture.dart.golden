@@ -57,7 +57,7 @@ class SolutionBlueprint extends SomNode {
 
   SolutionBlueprintOwnerForm get owner => SolutionBlueprintOwnerForm(doc, '$path/owner');
 
-  SomList<Risk> get risks => SomList<Risk>(doc, '$path/risks', (d, p) => Risk(d, p));
+  SomList<Risk> get risks => SomList<Risk>(doc, '$path/risks', (d, p) => Risk(d, p), pattern: 'RISK-ITEM-xxx');
 
   SomList<SomScalar> get tags => SomList<SomScalar>(doc, '$path/tags', (d, p) => SomScalar(d, p));
 

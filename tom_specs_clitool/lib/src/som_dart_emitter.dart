@@ -276,13 +276,17 @@ class SomDartEmitter {
         }
         break;
       case SpecFieldKind.list:
+        final patternArg = f.sectionIdPattern != null
+            ? ", pattern: '${_escape(f.sectionIdPattern!)}'"
+            : '';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           b.writeln('  SomList<$et> get ${f.name} => '
-              'SomList<$et>(doc, $childPath, (d, p) => $et(d, p));');
+              'SomList<$et>(doc, $childPath, (d, p) => $et(d, p)$patternArg);');
         } else {
           b.writeln('  SomList<SomScalar> get ${f.name} => '
-              'SomList<SomScalar>(doc, $childPath, (d, p) => SomScalar(d, p));');
+              'SomList<SomScalar>(doc, $childPath, (d, p) => SomScalar(d, p)'
+              '$patternArg);');
         }
         break;
       case SpecFieldKind.form:

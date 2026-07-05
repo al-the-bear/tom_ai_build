@@ -20,6 +20,7 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
+import 'spec_section_id.dart';
 
 /// Why an attempted node creation is illegal against the model.
 enum SpecCreationCode {
@@ -31,9 +32,14 @@ enum SpecCreationCode {
   /// The requested child segment names no field on the parent's class.
   unknownChild,
 
-  /// A caller-proposed list-item id does not match the list's
-  /// `@SectionIdPattern`.
+  /// A caller-proposed list-item id does not keep the prefix mandated by the
+  /// list's `@SectionIdPattern` (AA1 criterion 3/5: an override replaces the
+  /// suffix, the pattern prefix stays).
   patternMismatch,
+
+  /// A caller-proposed list-item id collides with another item's section id in
+  /// the same list (AA1 criterion 5: section ids within a list must be unique).
+  duplicateSectionId,
 
   /// A single-valued (non-list) child already holds a value — only one is
   /// allowed.
@@ -111,14 +117,20 @@ SpecCreationError? checkAddNode(
   final childPath = specPathJoin(parentPath, childSegment);
 
   if (field.kind == SpecFieldKind.list) {
-    // 3. List item: validate a caller-proposed id against the field pattern.
-    //    Lists have no upper bound, so there is no cardinality check.
+    // 3. List item: validate a caller-proposed id. Lists have no upper bound,
+    //    so there is no cardinality check. A missing id is generated later
+    //    (criterion 3); an explicit override must keep the pattern prefix
+    //    (criterion 3) and stay unique within the list (criterion 5).
     final pattern = field.sectionIdPattern;
     if (itemId != null && pattern != null) {
-      final re = RegExp('^${pattern}\$');
-      if (!re.hasMatch(itemId)) {
+      final prefix = sectionIdPatternPrefix(pattern);
+      if (!itemId.startsWith(prefix)) {
         return err(SpecCreationCode.patternMismatch,
-            'item id "$itemId" does not match pattern "$pattern"');
+            'item id "$itemId" does not keep the pattern prefix "$prefix"');
+      }
+      if (document.listItemSectionIds(childPath).contains(itemId)) {
+        return err(SpecCreationCode.duplicateSectionId,
+            'item id "$itemId" is already used in list "$childPath"');
       }
     }
     return null;
@@ -145,13 +157,18 @@ class SpecNodeCreator {
   const SpecNodeCreator(this.model, this.document);
 
   /// Adds child [childSegment] under [parentPath] and returns the new node's
-  /// path. For a list field this appends a fresh item (`…/<segment>-<seq>`);
-  /// for a single-valued field it returns the child path without mutating the
-  /// sparse store (the caller then sets its value).
+  /// path. For a list field this appends a fresh item (`…/<segment>-<seq>`),
+  /// assigning its **section id** (AA1 criteria 3–5): [itemId] if given
+  /// (override), otherwise one generated from the field's `@SectionIdPattern`
+  /// using [date] (defaulting to now) for the two-letter-date component. Lists
+  /// with no pattern (scalar lists) get no section id. For a single-valued
+  /// field it returns the child path without mutating the sparse store (the
+  /// caller then sets its value).
   ///
   /// Throws [SpecCreationError] — leaving the document untouched — when the add
   /// violates a structural rule (see [SpecCreationCode]).
-  String add(String parentPath, String childSegment, {String? itemId}) {
+  String add(String parentPath, String childSegment,
+      {String? itemId, DateTime? date}) {
     final error = checkAddNode(model, document, parentPath, childSegment,
         itemId: itemId);
     if (error != null) throw error;
@@ -160,7 +177,12 @@ class SpecNodeCreator {
     final field = _fieldForSegment(
         SpecReflection(model).resolve(parentPath)!.targetClass!, childSegment)!;
     if (field.kind == SpecFieldKind.list) {
-      return document.addListItem(childPath);
+      final pattern = field.sectionIdPattern;
+      if (pattern == null) return document.addListItem(childPath);
+      final id = itemId ??
+          generateListItemSectionId(pattern, date ?? DateTime.now(),
+              document.listItemSectionIds(childPath));
+      return document.addListItem(childPath, sectionId: id);
     }
     return childPath;
   }

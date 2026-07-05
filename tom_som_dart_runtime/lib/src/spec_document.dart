@@ -1,3 +1,5 @@
+import 'spec_section_id.dart';
+
 /// A sparse, live instance of a TomSpecs document (§8, §13).
 ///
 /// The structure is defined by the `SpecModel` class graph; this holds only the
@@ -14,11 +16,22 @@
 /// counter ([_listSeq]). The counter never reuses a number, so a path is stable
 /// for the item's lifetime and never silently re-points after a removal — the
 /// `-1`, `-2` suffixes in the spec are these sequence numbers (D3).
+///
+/// Each list item also carries a **section id** (AA1 criteria 3–6): the
+/// document-semantic identity generated from the list field's
+/// `@SectionIdPattern` (prefix + two-letter-date + within-day number, see
+/// [generateListItemSectionId]). This is distinct from the internal `-$seq`
+/// path key: the seq path keeps nested values attached across edits (never
+/// renumbered), while the section id is what the document exposes and may be
+/// overridden ([setItemSectionId], criterion 5) or reused same-day after the
+/// last item is deleted (criterion 6). Section ids live in [_itemSectionId],
+/// keyed by the internal item path.
 class SpecDocument {
   final Map<String, String> _content = {};
   final Map<String, Map<String, String>> _form = {};
   final Map<String, List<String>> _listItems = {};
   final Map<String, int> _listSeq = {};
+  final Map<String, String> _itemSectionId = {};
 
   /// The content string at [path], or `null` if unset.
   String? content(String path) => _content[path];
@@ -52,12 +65,69 @@ class SpecDocument {
       List.unmodifiable(_listItems[listPath] ?? const []);
 
   /// Appends a new item to the list at [listPath] and returns its stable path.
-  String addListItem(String listPath) {
+  ///
+  /// When [sectionId] is given it becomes the item's section id after a
+  /// uniqueness check against the list's other items (AA1 criterion 5); a
+  /// collision raises [SpecSectionIdCollision]. Section-id *generation* from a
+  /// `@SectionIdPattern` lives in the caller (it needs the pattern); this layer
+  /// only stores and guards uniqueness.
+  String addListItem(String listPath, {String? sectionId}) {
+    if (sectionId != null) _assertSectionIdFree(listPath, sectionId, null);
     final seq = (_listSeq[listPath] ?? 0) + 1;
     _listSeq[listPath] = seq;
     final itemPath = '$listPath-$seq';
     _listItems.putIfAbsent(listPath, () => []).add(itemPath);
+    if (sectionId != null) _itemSectionId[itemPath] = sectionId;
     return itemPath;
+  }
+
+  /// The section id assigned to the list item at [itemPath], or `null` if none
+  /// has been set (AA1 criterion 1 read path).
+  String? itemSectionId(String itemPath) => _itemSectionId[itemPath];
+
+  /// Overrides the section id of the list item at [itemPath] (AA1 criterion 5).
+  ///
+  /// Validates that the new [id] is unique among the *other* items of the same
+  /// owning list; a collision raises [SpecSectionIdCollision]. Assigning an id
+  /// equal to the item's current id is a no-op. Throws [ArgumentError] if
+  /// [itemPath] is not a live list item.
+  void setItemSectionId(String itemPath, String id) {
+    final owningList = _owningListOf(itemPath);
+    if (owningList == null) {
+      throw ArgumentError.value(
+          itemPath, 'itemPath', 'not a live list item');
+    }
+    if (_itemSectionId[itemPath] == id) return;
+    _assertSectionIdFree(owningList, id, itemPath);
+    _itemSectionId[itemPath] = id;
+  }
+
+  /// The section ids currently assigned within the list at [listPath], in item
+  /// order (items without an id are skipped). Feeds both id generation
+  /// (`existingIds`) and uniqueness checks.
+  List<String> listItemSectionIds(String listPath) => [
+        for (final itemPath in _listItems[listPath] ?? const [])
+          if (_itemSectionId[itemPath] != null) _itemSectionId[itemPath]!,
+      ];
+
+  /// The internal `_listItems` entry that owns [itemPath], or `null`.
+  String? _owningListOf(String itemPath) {
+    for (final entry in _listItems.entries) {
+      if (entry.value.contains(itemPath)) return entry.key;
+    }
+    return null;
+  }
+
+  /// Throws [SpecSectionIdCollision] if [id] is already used by an item of
+  /// [listPath] other than [exceptItemPath].
+  void _assertSectionIdFree(
+      String listPath, String id, String? exceptItemPath) {
+    for (final itemPath in _listItems[listPath] ?? const []) {
+      if (itemPath == exceptItemPath) continue;
+      if (_itemSectionId[itemPath] == id) {
+        throw SpecSectionIdCollision(id, listPath);
+      }
+    }
   }
 
   /// Removes the list item at [itemPath] along with every value nested beneath
@@ -92,6 +162,7 @@ class SpecDocument {
     _form.removeWhere((k, _) => isUnder(k));
     _listItems.removeWhere((k, _) => isUnder(k));
     _listSeq.removeWhere((k, _) => isUnder(k));
+    _itemSectionId.removeWhere((k, _) => isUnder(k));
   }
 
   /// Whether the document holds no values at all.
@@ -162,6 +233,12 @@ class SpecDocument {
             k: {
               'seq': _listSeq[k] ?? _listItems[k]!.length,
               'items': List.of(_listItems[k]!),
+              if (_listItems[k]!.any(_itemSectionId.containsKey))
+                'ids': {
+                  for (final itemPath in _listItems[k]!)
+                    if (_itemSectionId.containsKey(itemPath))
+                      itemPath: _itemSectionId[itemPath],
+                },
             },
         },
     };
@@ -176,6 +253,7 @@ class SpecDocument {
     _form.clear();
     _listItems.clear();
     _listSeq.clear();
+    _itemSectionId.clear();
 
     final content = json['content'];
     if (content is Map) {
@@ -213,6 +291,12 @@ class SpecDocument {
           _listSeq['$k'] = seq is int
               ? seq
               : (seq is String ? int.tryParse(seq) ?? list.length : list.length);
+          final ids = spec['ids'];
+          if (ids is Map) {
+            ids.forEach((itemPath, id) {
+              if (id != null) _itemSectionId['$itemPath'] = '$id';
+            });
+          }
         }
       });
     }
@@ -227,6 +311,7 @@ class SpecDocument {
         form: {for (final e in _form.entries) e.key: Map.of(e.value)},
         listItems: {for (final e in _listItems.entries) e.key: List.of(e.value)},
         listSeq: Map.of(_listSeq),
+        itemSectionId: Map.of(_itemSectionId),
       );
 
   /// Replaces the document's contents with a previously [captureState]d
@@ -246,6 +331,9 @@ class SpecDocument {
     _listSeq
       ..clear()
       ..addAll(state._listSeq);
+    _itemSectionId
+      ..clear()
+      ..addAll(state._itemSectionId);
   }
 }
 
@@ -259,16 +347,19 @@ class SpecDocumentState {
   final Map<String, Map<String, String>> _form;
   final Map<String, List<String>> _listItems;
   final Map<String, int> _listSeq;
+  final Map<String, String> _itemSectionId;
 
   SpecDocumentState._({
     required Map<String, String> content,
     required Map<String, Map<String, String>> form,
     required Map<String, List<String>> listItems,
     required Map<String, int> listSeq,
+    required Map<String, String> itemSectionId,
   })  : _content = content,
         _form = form,
         _listItems = listItems,
-        _listSeq = listSeq;
+        _listSeq = listSeq,
+        _itemSectionId = itemSectionId;
 
   /// The content value at [path] as of this snapshot (the review's base pane).
   String? contentAt(String path) => _content[path];
@@ -290,6 +381,11 @@ class SpecDocumentState {
     final listFlat = <String, Object?>{
       for (final e in _listItems.entries) e.key: e.value.join(','),
     };
-    return [enc(_content), enc(formFlat), enc(listFlat)].join('\u0002');
+    return [
+      enc(_content),
+      enc(formFlat),
+      enc(listFlat),
+      enc(_itemSectionId),
+    ].join('\u0002');
   }
 }

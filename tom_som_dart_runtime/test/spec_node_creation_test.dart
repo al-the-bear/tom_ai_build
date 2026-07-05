@@ -41,7 +41,7 @@ SpecModel _model() {
         name: 'risks',
         kind: SpecFieldKind.list,
         sectionId: 'PD00-RISK',
-        sectionIdPattern: r'PD00-RISK-\d+',
+        sectionIdPattern: 'PD00-RISK-xxx',
         elementType: 'Risk',
         elementIsComplex: true,
         min: 1,
@@ -100,6 +100,12 @@ void main() {
     test('a list item with a conforming explicit id is accepted', () {
       final path = creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
       expect(path, 'PD00/PD00-RISK-1');
+      expect(doc.itemSectionId(path), 'PD00-RISK-7');
+    });
+
+    test('an added list item without an id gets a generated section id', () {
+      final path = creator.add('PD00', 'PD00-RISK', date: DateTime(2026, 1, 2));
+      expect(doc.itemSectionId(path), 'PD00-RISK-AB1');
     });
 
     test('materialises a single-valued complex child without mutating', () {
@@ -148,7 +154,7 @@ void main() {
   });
 
   group('rejection: pattern mismatch', () {
-    test('rejects an explicit list-item id that violates the pattern', () {
+    test('rejects an explicit list-item id that drops the pattern prefix', () {
       final err = checkAddNode(model, doc, 'PD00', 'PD00-RISK', itemId: 'WRONG');
       expect(err!.code, SpecCreationCode.patternMismatch);
     });
@@ -160,6 +166,25 @@ void main() {
             .having((e) => e.code, 'code', SpecCreationCode.patternMismatch)),
       );
       expect(doc.listItemCount('PD00/PD00-RISK'), 0);
+    });
+  });
+
+  group('rejection: duplicate section id (AA1 criterion 5)', () {
+    test('rejects an explicit id already used by another item', () {
+      creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
+      final err =
+          checkAddNode(model, doc, 'PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
+      expect(err!.code, SpecCreationCode.duplicateSectionId);
+    });
+
+    test('add throws on a duplicate id and does not append', () {
+      creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7');
+      expect(
+        () => creator.add('PD00', 'PD00-RISK', itemId: 'PD00-RISK-7'),
+        throwsA(isA<SpecCreationError>().having(
+            (e) => e.code, 'code', SpecCreationCode.duplicateSectionId)),
+      );
+      expect(doc.listItemCount('PD00/PD00-RISK'), 1);
     });
   });
 

@@ -28,6 +28,7 @@ import 'dart:convert';
 import 'package:yaml/yaml.dart';
 
 import 'spec_document.dart';
+import 'spec_serialization_order.dart';
 
 /// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
 /// [SpecDocument.loadJson]-shaped map, the `review:` pass as a raw map (the
@@ -63,10 +64,18 @@ class SpecDocumentYaml {
   /// `document:` pass. The full editor file appends a `review:` pass via the
   /// shared [writeScalar] / [yamlKey] helpers; the runtime's own round-trip is
   /// document-only.
-  static String encode({required SpecDocument document, String? modelVersion}) {
+  ///
+  /// When [order] is supplied, members are emitted in `@SerializationOrder`
+  /// order (AA1 criterion 7); otherwise keys stay alphabetical (the diff-stable
+  /// default the editor relies on).
+  static String encode({
+    required SpecDocument document,
+    String? modelVersion,
+    SpecSerializationOrder? order,
+  }) {
     final b = StringBuffer();
     writeHeader(b, modelVersion: modelVersion);
-    writeDocumentPass(b, document.toJson());
+    writeDocumentPass(b, document.toJson(), order: order);
     return b.toString();
   }
 
@@ -86,7 +95,15 @@ class SpecDocumentYaml {
   }
 
   /// Writes the `document:` pass from a [SpecDocument.toJson]-shaped [doc].
-  static void writeDocumentPass(StringBuffer b, Map<String, Object?> doc) {
+  ///
+  /// With [order] supplied, section keys (and form fields) follow
+  /// `@SerializationOrder`; without it they stay alphabetical.
+  static void writeDocumentPass(StringBuffer b, Map<String, Object?> doc,
+      {SpecSerializationOrder? order}) {
+    List<String> orderKeys(Map map) => order == null
+        ? sortedStringKeys(map)
+        : order.orderPaths(map.keys.map((k) => '$k'));
+
     final content = doc['content'];
     final forms = doc['forms'];
     final lists = doc['lists'];
@@ -98,18 +115,21 @@ class SpecDocumentYaml {
 
     if (content is Map && content.isNotEmpty) {
       b.writeln('  content:');
-      for (final k in sortedStringKeys(content)) {
+      for (final k in orderKeys(content)) {
         writeScalar(b, 4, k, '${content[k]}');
       }
     }
 
     if (forms is Map && forms.isNotEmpty) {
       b.writeln('  forms:');
-      for (final k in sortedStringKeys(forms)) {
+      for (final k in orderKeys(forms)) {
         final fields = forms[k];
         if (fields is! Map || fields.isEmpty) continue;
         b.writeln('    ${yamlKey(k)}:');
-        for (final f in sortedStringKeys(fields)) {
+        final fieldKeys = order == null
+            ? sortedStringKeys(fields)
+            : order.orderFormFields(k, fields.keys.map((f) => '$f'));
+        for (final f in fieldKeys) {
           writeScalar(b, 6, f, '${fields[f]}');
         }
       }
@@ -117,7 +137,7 @@ class SpecDocumentYaml {
 
     if (lists is Map && lists.isNotEmpty) {
       b.writeln('  lists:');
-      for (final k in sortedStringKeys(lists)) {
+      for (final k in orderKeys(lists)) {
         final spec = lists[k];
         if (spec is! Map) continue;
         b.writeln('    ${yamlKey(k)}:');
