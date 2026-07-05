@@ -10,6 +10,13 @@ import '../document_stubs.dart';
 
 
 /// 7. Business Object and Data Model. Seeds → IFM.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'Captures the complete information and data model for the target system, seeding the Information Model (IFM) document.',
+)
 @SectionId('INDM')
 @Comment('Seeds → IFM')
 @MapsTo(D03InformationModel)
@@ -52,6 +59,14 @@ IFM (Information Model) document.
 // ---------------------------------------------------------------------------
 
 /// 7.1. Data Model.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ER modeling (Chen / Barker notation)',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'Defines the conceptual data model: entities, attributes, relationships, and constraints representing core business data.',
+)
 @SectionId('DATMD')
 @MapsTo(D03InformationModel)
 class DataModel {
@@ -78,9 +93,17 @@ attributes, relationships, and constraints that represent core business data.
   String? content;
 
   /// 7.1.1. Entity Overview — contains 1+× Data Entity.
+  @StandardReferences(
+    [
+      'ER modeling (Chen / Barker notation)',
+      'DAMA-DMBOK2 — data management body of knowledge',
+    ],
+    'The data entities that make up the logical data model.',
+  )
   @SectionId('DAENT-ENTI-LST')
   @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per data entity.')
   @SerializationOrder(1)
   List<DataEntityEntry> entities = [];
 
@@ -119,6 +142,14 @@ attributes, relationships, and constraints that represent core business data.
 ///
 /// Comprehensive entity specification following data modeling best practices.
 /// Captures conceptual, logical, and physical design aspects.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'Domain-Driven Design — aggregates/entities/value objects',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics.',
+)
 @SectionId('DAENT')
 class DataEntityEntry {
   // ---------------------------------------------------------------------------
@@ -165,8 +196,16 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Volume and Growth (6 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.',
+  )
   @SectionId('VOLUM-VOLU-LST')
   @SectionIdPattern('VOLUM-VOLU-xxx')
+  @ContentHelp('Add one entry per volume metric.')
   @SerializationOrder(2)
   List<VolumeMetricEntry> volumeMetrics = [];
 
@@ -197,8 +236,16 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Compliance and Security (6 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+      'ISO/IEC 27001 / NIST — data classification',
+    ],
+    'Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.',
+  )
   @SectionId('CRE-COMP-LST')
   @SectionIdPattern('CRE-COMP-xxx')
+  @ContentHelp('Add one entry per compliance requirement.')
   @SerializationOrder(4)
   List<ComplianceRequirementEntry> complianceRequirements = [];
 
@@ -221,38 +268,86 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Technical Characteristics (6 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.',
+  )
   @SectionId('TECHN-TECH-LST')
   @SectionIdPattern('TECHN-TECH-xxx')
+  @ContentHelp('Add one entry per technical characteristic.')
   @SerializationOrder(6)
   List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
   /// Contains 0+× DataAttribute.
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+      'DAMA-DMBOK2 — data management body of knowledge',
+    ],
+    'The data attributes (fields) that belong to this entity.',
+  )
   @SectionId('DAATT-ATTR-LST')
   @SectionIdPattern('DAATT-ATTR-xxx')
+  @ContentHelp('Add one entry per data attribute.')
   @SerializationOrder(7)
   List<DataAttributeEntry> attributes = [];
 
   /// Contains 0+× KeyAttribute.
+  @StandardReferences(
+    [
+      'ER modeling (Chen / Barker notation)',
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+    ],
+    'The key attributes (primary, foreign, alternate, composite) that identify or reference this entity.',
+  )
   @SectionId('KEATT-KEYA-LST')
   @SectionIdPattern('KEATT-KEYA-xxx')
+  @ContentHelp('Add one entry per key attribute.')
   @SerializationOrder(8)
   List<KeyAttributeEntry> keyAttributes = [];
 
   /// Contains 0+× EntityIndex.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'The database indexes defined on this entity for query optimization.',
+  )
   @SectionId('ENIDX-INDE-LST')
   @SectionIdPattern('ENIDX-INDE-xxx')
+  @ContentHelp('Add one entry per entity index.')
   @SerializationOrder(9)
   List<EntityIndexEntry> indexes = [];
 
   /// Contains 0+× EntityConstraint.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints.',
+  )
   @SectionId('ENCNS-CONS-LST')
   @SectionIdPattern('ENCNS-CONS-xxx')
+  @ContentHelp('Add one entry per entity constraint.')
   @SerializationOrder(10)
   List<EntityConstraintEntry> constraints = [];
 
   /// Contains 0+× MigrationMapping for data migration planning.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Source-to-target field mappings for planning the migration of data into this entity.',
+  )
   @SectionId('MIGME-MIGR-LST')
   @SectionIdPattern('MIGME-MIGR-xxx')
+  @ContentHelp('Add one entry per migration mapping.')
   @SerializationOrder(11)
   List<MigrationMappingEntry> migrationMappings = [];
 }
@@ -260,6 +355,14 @@ class DataEntityEntry {
 /// A data attribute entry (form).
 ///
 /// Comprehensive attribute specification for data dictionary and schema design.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties.',
+)
 @SectionId('DAATT')
 class DataAttributeEntry {
   // ---------------------------------------------------------------------------
@@ -307,8 +410,16 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.',
+  )
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
+  @ContentHelp('Add one entry per attribute constraint.')
   @SerializationOrder(2)
   List<DataAttributeConstraintEntry> constraints = [];
 
@@ -367,8 +478,15 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // UI and Display (4 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+    ],
+    'UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.',
+  )
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
+  @ContentHelp('Add one entry per display property.')
   @SerializationOrder(6)
   List<DisplayPropertyEntry> displayProperties = [];
 }
@@ -376,6 +494,13 @@ class DataAttributeEntry {
 /// A key attribute entry (form).
 ///
 /// Specification for primary, foreign, alternate, and composite keys.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'A single key attribute defining a primary, foreign, alternate, or composite key with its generation, reference, and governance settings.',
+)
 @SectionId('KEATT')
 class KeyAttributeEntry {
   @Form([
@@ -409,6 +534,13 @@ class KeyAttributeEntry {
 }
 
 /// Key generation settings.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'The key-value generation strategy (auto, sequence, UUID, natural) for a key attribute.',
+)
 @SectionId('KEAGN')
 class KeyAttributeEntryGeneration {
   @Form([
@@ -424,6 +556,13 @@ class KeyAttributeEntryGeneration {
 }
 
 /// Foreign-key reference and cascade behavior.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'The foreign-key reference target and its referential cascade behavior (on delete/update) for a key attribute.',
+)
 @SectionId('KEARF')
 class KeyAttributeEntryReference {
   @Form([
@@ -441,6 +580,13 @@ class KeyAttributeEntryReference {
 }
 
 /// Constraint semantics and business meaning.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'ER modeling (Chen / Barker notation)',
+  ],
+  'The constraint semantics and business governance meaning of a key attribute, such as deferrability.',
+)
 @SectionId('KEAGV')
 class KeyAttributeEntryGovernance {
   @Form([
@@ -454,6 +600,13 @@ class KeyAttributeEntryGovernance {
 /// An entity index entry (form).
 ///
 /// Database index specification for query optimization.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'A single database index specification (type, columns, uniqueness, clustering) for query optimization.',
+)
 @SectionId('ENIDX')
 class EntityIndexEntry {
   @Form([
@@ -483,6 +636,13 @@ class EntityIndexEntry {
 /// An entity constraint entry (form).
 ///
 /// Business and technical constraints beyond keys.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference.',
+)
 @SectionId('ENCNS')
 class EntityConstraintEntry {
   @Form([
@@ -508,6 +668,13 @@ class EntityConstraintEntry {
 /// A migration mapping entry (form).
 ///
 /// Maps source system data to target entity for data migration planning.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'A single source-to-target mapping (with transformation and validation rules) for planning data migration.',
+)
 @SectionId('MIGME')
 class MigrationMappingEntry {
   @Form([
@@ -537,6 +704,13 @@ class MigrationMappingEntry {
 }
 
 /// 7.1.2. Entity Relationships.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'Specifies the relationships between data entities, capturing cardinality, referential integrity, and navigation patterns.',
+)
 @SectionId('ENREL')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-REL')
@@ -563,8 +737,16 @@ referential integrity rules, and navigation patterns.
   String? content;
 
   /// Contains 0+× EntityRelationship.
+  @StandardReferences(
+    [
+      'ER modeling (Chen / Barker notation)',
+      'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+    ],
+    'The individual entity-relationship entries that make up the relationship model.',
+  )
   @SectionId('ENRLE-ITEM-LST')
   @SectionIdPattern('ENRLE-ITEM-xxx')
+  @ContentHelp('Add one entry per entity relationship.')
   @SerializationOrder(1)
   List<EntityRelationshipEntry> items = [];
 }
@@ -572,6 +754,14 @@ referential integrity rules, and navigation patterns.
 /// An entity relationship entry (form).
 ///
 /// Comprehensive relationship specification following ER modeling best practices.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+    'Domain-Driven Design — aggregates/entities/value objects',
+  ],
+  'A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes.',
+)
 @SectionId('ENRLE')
 class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
@@ -595,8 +785,16 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Participating Entities (4 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'ER modeling (Chen / Barker notation)',
+      'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+    ],
+    'The entities participating in this relationship, with their role names.',
+  )
   @SectionId('PARTI-PART-LST')
   @SectionIdPattern('PARTI-PART-xxx')
+  @ContentHelp('Add one entry per participating entity.')
   @SerializationOrder(1)
   List<ParticipantEntry> participants = [];
 
@@ -661,8 +859,16 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Relationship Attributes (3 fields) — for relationships with properties
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'ER modeling (Chen / Barker notation)',
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+    ],
+    'Attributes that belong to the relationship itself, for relationships that carry their own properties.',
+  )
   @SectionId('RELAT-RELA-LST')
   @SectionIdPattern('RELAT-RELA-xxx')
+  @ContentHelp('Add one entry per relationship attribute.')
   @SerializationOrder(5)
   List<RelationshipAttributeEntry> relationshipAttributes = [];
 
@@ -676,6 +882,13 @@ class EntityRelationshipEntry {
 }
 
 /// 7.1.4. Data Classification.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+  ],
+  'Defines the data classification framework, its sensitivity levels, and the handling requirements for classified data.',
+)
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-CLA')
@@ -697,8 +910,16 @@ class DataClassification {
   String? overview;
 
   /// Contains 0+× DataClassificationEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 / NIST — data classification',
+      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+    ],
+    'The individual data-classification entries (sensitivity levels) that make up the classification scheme.',
+  )
   @SectionId('DCLSE-ITEM-LST')
   @SectionIdPattern('DCLSE-ITEM-xxx')
+  @ContentHelp('Add one entry per data classification level.')
   @SerializationOrder(1)
   List<DataClassificationEntry> items = [];
 }
@@ -706,6 +927,13 @@ class DataClassification {
 /// A data classification entry (form).
 ///
 /// Comprehensive data classification for security and compliance.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+  ],
+  'A single data-classification level with its storage, access control, retention, compliance, handling, and access-restriction rules.',
+)
 @SectionId('DCLSE')
 class DataClassificationEntry {
   // ---------------------------------------------------------------------------
@@ -797,14 +1025,30 @@ class DataClassificationEntry {
   String? compliance;
 
   /// Contains 0+× HandlingRequirement.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 / NIST — data classification',
+      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+    ],
+    'The handling procedures required for data at this classification level.',
+  )
   @SectionId('HNDRE-HAND-LST')
   @SectionIdPattern('HNDRE-HAND-xxx')
+  @ContentHelp('Add one entry per handling requirement.')
   @SerializationOrder(5)
   List<HandlingRequirementEntry> handlingRequirements = [];
 
   /// Contains 0+× AccessRestriction.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 / NIST — data classification',
+      'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+    ],
+    'The access restrictions that apply to data at this classification level.',
+  )
   @SectionId('ACRSE-ACCE-LST')
   @SectionIdPattern('ACRSE-ACCE-xxx')
+  @ContentHelp('Add one entry per access restriction.')
   @SerializationOrder(6)
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
@@ -812,6 +1056,13 @@ class DataClassificationEntry {
 /// A data handling requirement entry (form).
 ///
 /// Specific handling procedures for classified data.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+  ],
+  'A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement.',
+)
 @SectionId('HNDRE')
 class HandlingRequirementEntry {
   @Form([
@@ -837,6 +1088,13 @@ class HandlingRequirementEntry {
 /// An access restriction entry (form).
 ///
 /// Specific access restrictions for classified data.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+  ],
+  'A single access restriction (role, geographic, temporal, contextual) with its scope, enforcement, and override policy.',
+)
 @SectionId('ACRSE')
 class AccessRestrictionEntry {
   @Form([
@@ -864,6 +1122,13 @@ class AccessRestrictionEntry {
 // ---------------------------------------------------------------------------
 
 /// 7.2. Business Object Model.
+@StandardReferences(
+  [
+    'Domain-Driven Design — aggregates/entities/value objects',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'The catalog of key business objects with their attributes, states, behaviors and lifecycles, modeled in the domain-driven design style.',
+)
 @SectionId('BJOMD')
 @MapsTo(D03InformationModel)
 class BusinessObjectModel {
@@ -891,9 +1156,17 @@ Domain-Driven Design patterns for rich domain modeling.
   String? content;
 
   /// 7.2.1. Object Catalog — contains 1+× Business Object.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — aggregates/entities/value objects',
+      'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+    ],
+    'The business objects that make up the domain model.',
+  )
   @SectionId('BJOEN-OBJE-LST')
   @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per business object.')
   @SerializationOrder(1)
   List<BusinessObjectEntry> objects = [];
 
@@ -907,6 +1180,13 @@ Domain-Driven Design patterns for rich domain modeling.
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
 /// state, and business rules.
+@StandardReferences(
+  [
+    'Domain-Driven Design — aggregates/entities/value objects',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'A single business object in the domain model, with its identity, attributes, states, rules and operations.',
+)
 @SectionId('BJOEN')
 class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
@@ -968,8 +1248,16 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Behavior and Rules (5 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'Domain-Driven Design — aggregates/entities/value objects',
+    ],
+    'The behavior rules that govern how this object acts.',
+  )
   @SectionId('BEHAV-BEHA-LST')
   @SectionIdPattern('BEHAV-BEHA-xxx')
+  @ContentHelp('Add one entry per behavior rule.')
   @SerializationOrder(3)
   List<BehaviorRuleEntry> behaviorRules = [];
 
@@ -994,44 +1282,97 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Integration Points (4 fields)
   // ---------------------------------------------------------------------------
+  @StandardReferences(
+    [
+      'Domain-Driven Design — aggregates/entities/value objects',
+      'BPMN 2.0 — business process model & notation',
+    ],
+    'The integration points where this object exposes APIs or publishes and subscribes to events.',
+  )
   @SectionId('INTEG-INTE-LST')
   @SectionIdPattern('INTEG-INTE-xxx')
+  @ContentHelp('Add one entry per integration point.')
   @SerializationOrder(5)
   List<IntegrationPointEntry> integrationPoints = [];
 
   /// Contains 0+× BusinessObjectAttribute.
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+      'Domain-Driven Design — aggregates/entities/value objects',
+    ],
+    'The business-level attributes that describe this object.',
+  )
   @SectionId('BIOBAT-ATTR-LST')
   @SectionIdPattern('BIOBAT-ATTR-xxx')
+  @ContentHelp('Add one entry per business object attribute.')
   @SerializationOrder(6)
   List<BusinessObjectAttributeEntry> attributes = [];
 
   /// Contains 0+× ObjectState.
+  @StandardReferences(
+    [
+      'UML state machines — object lifecycle/state modeling',
+    ],
+    'The key lifecycle states this object can occupy.',
+  )
   @SectionId('OBST-KEYS-LST')
   @SectionIdPattern('OBST-KEYS-xxx')
+  @ContentHelp('Add one entry per object state.')
   @SerializationOrder(7)
   List<ObjectStateEntry> keyStates = [];
 
   /// Contains 0+× BusinessRuleReference.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+    ],
+    'The business rules that govern this object.',
+  )
   @SectionId('BIRURE-KEYB-LST')
   @SectionIdPattern('BIRURE-KEYB-xxx')
+  @ContentHelp('Add one entry per business rule reference.')
   @SerializationOrder(8)
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
   /// Contains 0+× LifecycleTransition.
+  @StandardReferences(
+    [
+      'UML state machines — object lifecycle/state modeling',
+    ],
+    'The allowed state transitions in this object lifecycle.',
+  )
   @SectionId('LFTRS-LIFE-LST')
   @SectionIdPattern('LFTRS-LIFE-xxx')
+  @ContentHelp('Add one entry per lifecycle transition.')
   @SerializationOrder(9)
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 
   /// Contains 0+× ObjectOperation.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — aggregates/entities/value objects',
+      'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+    ],
+    'The domain operations that can be performed on this object.',
+  )
   @SectionId('OBOP-OPER-LST')
   @SectionIdPattern('OBOP-OPER-xxx')
+  @ContentHelp('Add one entry per object operation.')
   @SerializationOrder(10)
   List<ObjectOperationEntry> operations = [];
 
   /// Contains 0+× ObjectInvariant.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'Domain-Driven Design — aggregates/entities/value objects',
+    ],
+    'The invariants that must always hold true for this object.',
+  )
   @SectionId('OBINV-INVA-LST')
   @SectionIdPattern('OBINV-INVA-xxx')
+  @ContentHelp('Add one entry per object invariant.')
   @SerializationOrder(11)
   List<ObjectInvariantEntry> invariants = [];
 }
@@ -1039,6 +1380,13 @@ class BusinessObjectEntry {
 /// A business object attribute entry (form).
 ///
 /// Business-level attribute specification focusing on business meaning and rules.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'Domain-Driven Design — aggregates/entities/value objects',
+  ],
+  'A single business-level attribute of an object, describing its meaning, type and rules.',
+)
 @SectionId('BIOBAT')
 class BusinessObjectAttributeEntry {
   @Form([
@@ -1069,6 +1417,12 @@ class BusinessObjectAttributeEntry {
 }
 
 /// Format and requirement details for a business object attribute.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'The format, requirement level and default value details of a business object attribute.',
+)
 @SectionId('BOAED')
 class BusinessObjectAttributeEntryDefinition {
   @Form([
@@ -1084,6 +1438,13 @@ class BusinessObjectAttributeEntryDefinition {
 }
 
 /// Validation and derivation rules for a business object attribute.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'The validation rules, allowed values and derivation logic that constrain a business object attribute.',
+)
 @SectionId('BOAEV')
 class BusinessObjectAttributeEntryValidation {
   @Form([
@@ -1101,6 +1462,13 @@ class BusinessObjectAttributeEntryValidation {
 }
 
 /// Sensitivity and presentation guidance for a business object attribute.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'The sensitivity classification and presentation ordering that govern a business object attribute.',
+)
 @SectionId('BOAEG')
 class BusinessObjectAttributeEntryGovernance {
   @Form([
@@ -1116,6 +1484,12 @@ class BusinessObjectAttributeEntryGovernance {
 /// An object state entry (form).
 ///
 /// Detailed state specification for business object lifecycle.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+  ],
+  'A single lifecycle state of a business object, with its entry/exit conditions and allowed operations.',
+)
 @SectionId('OBST')
 class ObjectStateEntry {
   @Form([
@@ -1147,6 +1521,12 @@ class ObjectStateEntry {
 /// A business rule reference entry (form).
 ///
 /// Reference to business rules that govern this object.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+  ],
+  'A reference to a business rule that governs this object, including its trigger and consequence on violation.',
+)
 @SectionId('BIRURE')
 class BusinessRuleReferenceEntry {
   @Form([
@@ -1178,6 +1558,12 @@ class BusinessRuleReferenceEntry {
 /// A lifecycle transition entry (form).
 ///
 /// Detailed state transition specification.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+  ],
+  'A single state transition in an object lifecycle, from a source state to a target state.',
+)
 @SectionId('LFTRS')
 class LifecycleTransitionEntry {
   @Form([
@@ -1209,6 +1595,12 @@ class LifecycleTransitionEntry {
 }
 
 /// Triggering event details.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+  ],
+  'The event that triggers a lifecycle transition and its trigger type.',
+)
 @SectionId('LTET')
 class LifecycleTransitionEntryTrigger {
   @Form([
@@ -1222,6 +1614,13 @@ class LifecycleTransitionEntryTrigger {
 }
 
 /// Transition conditions and guarantees.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+    'SBVR — business rule statements',
+  ],
+  'The guard, pre- and post-conditions that constrain and guarantee a lifecycle transition.',
+)
 @SectionId('LTEC')
 class LifecycleTransitionEntryConditions {
   @Form([
@@ -1237,6 +1636,13 @@ class LifecycleTransitionEntryConditions {
 }
 
 /// Actions, actors, and rollback handling.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+    'BPMN 2.0 — business process model & notation',
+  ],
+  'The actions, side effects, allowed actors and rollback strategy executed during a lifecycle transition.',
+)
 @SectionId('LTEE')
 class LifecycleTransitionEntryExecution {
   @Form([
@@ -1256,6 +1662,13 @@ class LifecycleTransitionEntryExecution {
 /// An object operation entry (form).
 ///
 /// Business operations that can be performed on the object.
+@StandardReferences(
+  [
+    'Domain-Driven Design — aggregates/entities/value objects',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'A single domain operation that can be performed on the object, as a command, query or event.',
+)
 @SectionId('OBOP')
 class ObjectOperationEntry {
   @Form([
@@ -1284,6 +1697,13 @@ class ObjectOperationEntry {
 }
 
 /// Execution contract for an object operation.
+@StandardReferences(
+  [
+    'Domain-Driven Design — aggregates/entities/value objects',
+    'SBVR — business rule statements',
+  ],
+  'The pre- and post-conditions, inputs and outputs that form the execution contract of an object operation.',
+)
 @SectionId('OOEE')
 class ObjectOperationEntryExecution {
   @Form([
@@ -1301,6 +1721,13 @@ class ObjectOperationEntryExecution {
 }
 
 /// State and event lifecycle details for an object operation.
+@StandardReferences(
+  [
+    'UML state machines — object lifecycle/state modeling',
+    'Domain-Driven Design — aggregates/entities/value objects',
+  ],
+  'The business rules applied, state transitions and domain events produced when an object operation runs.',
+)
 @SectionId('OOEL')
 class ObjectOperationEntryLifecycle {
   @Form([
@@ -1316,6 +1743,13 @@ class ObjectOperationEntryLifecycle {
 }
 
 /// Authorization and usage boundaries for an object operation.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 / NIST — data classification',
+    'UML state machines — object lifecycle/state modeling',
+  ],
+  'The states in which an object operation is permitted, who may perform it and whether it is idempotent.',
+)
 @SectionId('OOEG')
 class ObjectOperationEntryGovernance {
   @Form([
@@ -1333,6 +1767,13 @@ class ObjectOperationEntryGovernance {
 /// An object invariant entry (form).
 ///
 /// Business invariants that must always hold true.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'Domain-Driven Design — aggregates/entities/value objects',
+  ],
+  'A single business invariant that must always hold true, with its expression, scope and violation action.',
+)
 @SectionId('OBINV')
 class ObjectInvariantEntry {
   @Form([
@@ -1362,6 +1803,14 @@ class ObjectInvariantEntry {
 /// 7.3. Function Model.
 ///
 /// Business functions, their decomposition, and relationships to data objects.
+@StandardReferences(
+  [
+    'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+    'CRUD matrix — function/data interaction mapping',
+  ],
+  'The function model decomposes the system into business functions and maps how they interact with data.',
+)
 @SectionId('FUMO')
 @MapsTo(D03InformationModel)
 class FunctionModel {
@@ -1398,21 +1847,44 @@ class FunctionModel {
   String? matrixOverview;
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
+  @StandardReferences(
+    [
+      'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+      'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+    ],
+    'The business functions the system provides, decomposed hierarchically.',
+  )
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
+  @ContentHelp('Add one entry per function.')
   @SerializationOrder(2)
   List<FunctionEntry> functions = [];
 
   /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
+  @StandardReferences(
+    [
+      'CRUD matrix — function/data interaction mapping',
+    ],
+    'The rows of the CRUD matrix mapping each function to the data entities it accesses.',
+  )
   @SectionId('FNDMX-MATR-LST')
   @SectionIdPattern('FNDMX-MATR-xxx')
+  @ContentHelp('Add one entry per function/data matrix mapping.')
   @SerializationOrder(3)
   List<FunctionDataMatrixEntry> matrixEntries = [];
 
   /// 7.3.3. Business Rules — contains 1+× Business Rule.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+    ],
+    'The business rules that govern the behaviour of the system.',
+  )
   @SectionId('BIRU-BUSI-LST')
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per business rule.')
   @SerializationOrder(4)
   List<BusinessRuleEntry> businessRules = [];
 }
@@ -1420,6 +1892,13 @@ class FunctionModel {
 /// A function entry (form).
 ///
 /// Business function specification in the functional decomposition.
+@StandardReferences(
+  [
+    'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+  ],
+  'A single business function, described by name, purpose, and its place in the hierarchy.',
+)
 @SectionId('FUNCT')
 class FunctionEntry {
   @Form([
@@ -1448,13 +1927,26 @@ class FunctionEntry {
   FunctionEntryImplementation implementation = FunctionEntryImplementation();
 
   /// Sub-functions — contains 0+× SubFunction.
+  @StandardReferences(
+    [
+      'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+    ],
+    'The lower-level sub-functions this function decomposes into.',
+  )
   @SectionId('SUFN-SUBF-LST')
   @SectionIdPattern('SUFN-SUBF-xxx')
+  @ContentHelp('Add one entry per sub-function.')
   @SerializationOrder(4)
   List<SubFunctionEntry> subFunctions = [];
 }
 
 /// Decomposition position and classification.
+@StandardReferences(
+  [
+    'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+  ],
+  'The hierarchy level, function type, and owning process of a function.',
+)
 @SectionId('FUENCL')
 class FunctionEntryClassification {
   @Form([
@@ -1470,6 +1962,12 @@ class FunctionEntryClassification {
 }
 
 /// Execution profile and criticality.
+@StandardReferences(
+  [
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+  ],
+  'The execution frequency, volume, and business criticality of a function.',
+)
 @SectionId('FUENOP')
 class FunctionEntryOperations {
   @Form([
@@ -1485,6 +1983,13 @@ class FunctionEntryOperations {
 }
 
 /// Automation and data handling summary.
+@StandardReferences(
+  [
+    'CRUD matrix — function/data interaction mapping',
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+  ],
+  'The automation level and data entities a function accesses.',
+)
 @SectionId('FUENIM')
 class FunctionEntryImplementation {
   @Form([
@@ -1500,6 +2005,12 @@ class FunctionEntryImplementation {
 /// A sub-function entry (form).
 ///
 /// Lower-level function in the decomposition.
+@StandardReferences(
+  [
+    'Structured Analysis (DeMarco/Yourdon) — functional decomposition',
+  ],
+  'A lower-level sub-function within the functional decomposition.',
+)
 @SectionId('SUFN')
 class SubFunctionEntry {
   @Form([
@@ -1519,6 +2030,12 @@ class SubFunctionEntry {
 /// A function-to-data matrix entry (form).
 ///
 /// Maps a function to the data entities it accesses.
+@StandardReferences(
+  [
+    'CRUD matrix — function/data interaction mapping',
+  ],
+  'A single cell of the CRUD matrix, recording how one function accesses one data entity.',
+)
 @SectionId('FNDMX')
 class FunctionDataMatrixEntry {
   @Form([
@@ -1542,6 +2059,13 @@ class FunctionDataMatrixEntry {
 /// A business rule entry (form).
 ///
 /// Comprehensive business rule specification following SBVR-like patterns.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+  ],
+  'A single business rule with its logic, enforcement, exceptions, and governance.',
+)
 @SectionId('BIRU')
 class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
@@ -1649,20 +2173,42 @@ class BusinessRuleEntry {
   String? governance;
 
   /// Contains 0+× AffectedObject.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+    ],
+    'The business objects this rule validates, constrains, or modifies.',
+  )
   @SectionId('AFOB-AFFE-LST')
   @SectionIdPattern('AFOB-AFFE-xxx')
+  @ContentHelp('Add one entry per affected object.')
   @SerializationOrder(6)
   List<AffectedObjectEntry> affectedObjects = [];
 
   /// Contains 0+× AffectedFunction.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+      'CRUD matrix — function/data interaction mapping',
+    ],
+    'The functions where this rule is triggered and applied.',
+  )
   @SectionId('AFFN-AFFE-LST')
   @SectionIdPattern('AFFN-AFFE-xxx')
+  @ContentHelp('Add one entry per affected function.')
   @SerializationOrder(7)
   List<AffectedFunctionEntry> affectedFunctions = [];
 
   /// Contains 0+× RuleExample.
+  @StandardReferences(
+    [
+      'SBVR — business rule statements',
+    ],
+    'Worked examples that illustrate how this rule evaluates.',
+  )
   @SectionId('RULEXM-EXAM-LST')
   @SectionIdPattern('RULEXM-EXAM-xxx')
+  @ContentHelp('Add one entry per rule example.')
   @SerializationOrder(8)
   List<RuleExampleEntry> examples = [];
 }
@@ -1670,6 +2216,12 @@ class BusinessRuleEntry {
 /// An affected object reference entry (form).
 ///
 /// Business objects affected by this rule.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+  ],
+  'A business object affected by a rule, and how it is impacted.',
+)
 @SectionId('AFOB')
 class AffectedObjectEntry {
   @Form([
@@ -1693,6 +2245,13 @@ class AffectedObjectEntry {
 /// An affected function reference entry (form).
 ///
 /// Functions where this rule applies.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements',
+  ],
+  'A function where a rule applies, with its trigger point and impact.',
+)
 @SectionId('AFFN')
 class AffectedFunctionEntry {
   @Form([
@@ -1716,6 +2275,12 @@ class AffectedFunctionEntry {
 /// A rule example entry (form).
 ///
 /// Examples illustrating rule application.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+  ],
+  'A worked example illustrating how a rule evaluates for given inputs.',
+)
 @SectionId('RULEXM')
 class RuleExampleEntry {
   @Form([
@@ -1742,6 +2307,13 @@ class RuleExampleEntry {
 ///
 /// Attribute-level dictionary that complements the entity overview
 ///..
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'An authoritative registry of the data attributes used across the model, each with its definition, type, and provenance.',
+)
 @SectionId('DADI')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-DIC')
@@ -1771,6 +2343,13 @@ Single authoritative registry for data attributes across the system.
 /// Cross-entity validation policy. Per-field validation lives in entity
 /// form fields; this section captures rules that span multiple fields or
 /// entities.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'Business-level validation rules that span multiple fields or entities, distinct from schema and per-field UI checks.',
+)
 @SectionId('VACO')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-VAL')
@@ -1799,6 +2378,13 @@ constraints (which are database-level) and from per-field form hints
 /// 7.1.7. Integrity Constraints.
 ///
 /// Cross-entity integrity rules beyond simple referential integrity.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'SBVR — business rule statements',
+  ],
+  'Cross-entity invariants (referential, uniqueness, temporal, conservation) that must hold in every persistent state.',
+)
 @SectionId('INCO')
 @DetailedIn(D03InformationModel)
 @SecondLevelSectionId(D03InformationModel, 'IFM-CON')
@@ -1821,6 +2407,13 @@ integrity constraints must hold in every persistent state.
 }
 
 /// A single behavior rule entry.
+@StandardReferences(
+  [
+    'SBVR — business rule statements',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'The business rules, invariants, key operations, and derived properties that govern a domain object\'s behavior.',
+)
 @SectionId('BEHAV')
 class BehaviorRuleEntry {
   @Form([
@@ -1840,6 +2433,12 @@ class BehaviorRuleEntry {
 }
 
 /// A single integration point entry.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings.',
+)
 @SectionId('INTEG')
 class IntegrationPointEntry {
   @Form([
@@ -1857,6 +2456,13 @@ class IntegrationPointEntry {
 }
 
 /// A single constraint entry.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'ISO/IEC 25012 — data quality',
+  ],
+  'The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions.',
+)
 @SectionId('DATAA')
 class DataAttributeConstraintEntry {
   @Form([
@@ -1882,6 +2488,12 @@ class DataAttributeConstraintEntry {
 }
 
 /// A single display property entry.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'How an attribute is presented in the UI: its label, ordering, grouping, and help text.',
+)
 @SectionId('DISPL')
 class DisplayPropertyEntry {
   @Form([
@@ -1899,6 +2511,12 @@ class DisplayPropertyEntry {
 }
 
 /// A single volume metric entry.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'The expected data volumes for an entity: record counts, growth rate, peak transaction volume, and storage estimates for capacity planning.',
+)
 @SectionId('VOLUM')
 class VolumeMetricEntry {
   @Form([
@@ -1920,6 +2538,13 @@ class VolumeMetricEntry {
 }
 
 /// A single compliance requirement entry.
+@StandardReferences(
+  [
+    'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
+    'ISO/IEC 27001 / NIST — data classification',
+  ],
+  'The compliance profile of an entity: its sensitivity level, PII/PHI content, applicable frameworks, and encryption and access requirements.',
+)
 @SectionId('CRE')
 class ComplianceRequirementEntry {
   @Form([
@@ -1941,6 +2566,12 @@ class ComplianceRequirementEntry {
 }
 
 /// A single technical characteristic entry.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'The technical implementation traits of an entity: indexing, caching, consistency, replication, backup, and scaling strategies.',
+)
 @SectionId('TECHN')
 class TechnicalCharacteristicEntry {
   @Form([
@@ -1962,6 +2593,13 @@ class TechnicalCharacteristicEntry {
 }
 
 /// A single participant entry.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'The two ends of a relationship: the source and target entities and the role each plays.',
+)
 @SectionId('PARTI')
 class ParticipantEntry {
   @Form([
@@ -1979,6 +2617,13 @@ class ParticipantEntry {
 }
 
 /// A single relationship attribute entry.
+@StandardReferences(
+  [
+    'ER modeling (Chen / Barker notation)',
+    'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
+  ],
+  'Attributes carried by the relationship itself (as on an association class), including any temporal or versioning aspects.',
+)
 @SectionId('RELAT')
 class RelationshipAttributeEntry {
   @Form([

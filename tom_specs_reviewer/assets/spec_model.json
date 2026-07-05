@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T09:38:03.437590Z",
+  "generatedAt": "2026-07-05T10:07:43.966212Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -2200,7 +2200,24 @@
       "name": "AccessRestrictionEntry",
       "sectionId": "ACRSE",
       "doc": "An access restriction entry (form).\n\nSpecific access restrictions for classified data.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+        ],
+        "connotation": "A single access restriction (role, geographic, temporal, contextual) with its scope, enforcement, and override policy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "A single access restriction (role, geographic, temporal, contextual) with its scope, enforcement, and override policy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -6343,7 +6360,24 @@
       "name": "AffectedFunctionEntry",
       "sectionId": "AFFN",
       "doc": "An affected function reference entry (form).\n\nFunctions where this rule applies.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+        ],
+        "connotation": "A function where a rule applies, with its trigger point and impact."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "A function where a rule applies, with its trigger point and impact."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -6427,7 +6461,22 @@
       "name": "AffectedObjectEntry",
       "sectionId": "AFOB",
       "doc": "An affected object reference entry (form).\n\nBusiness objects affected by this rule.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements"
+        ],
+        "connotation": "A business object affected by a rule, and how it is impacted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "A business object affected by a rule, and how it is impacted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -19035,7 +19084,24 @@
       "name": "BehaviorRuleEntry",
       "sectionId": "BEHAV",
       "doc": "A single behavior rule entry.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "The business rules, invariants, key operations, and derived properties that govern a domain object's behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The business rules, invariants, key operations, and derived properties that govern a domain object's behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23565,7 +23631,24 @@
       "name": "BusinessObjectAttributeEntry",
       "sectionId": "BIOBAT",
       "doc": "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "Domain-Driven Design — aggregates/entities/value objects"
+        ],
+        "connotation": "A single business-level attribute of an object, describing its meaning, type and rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "A single business-level attribute of an object, describing its meaning, type and rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23667,7 +23750,22 @@
       "name": "BusinessObjectAttributeEntryDefinition",
       "sectionId": "BOAED",
       "doc": "Format and requirement details for a business object attribute.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "The format, requirement level and default value details of a business object attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The format, requirement level and default value details of a business object attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23724,7 +23822,24 @@
       "name": "BusinessObjectAttributeEntryGovernance",
       "sectionId": "BOAEG",
       "doc": "Sensitivity and presentation guidance for a business object attribute.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The sensitivity classification and presentation ordering that govern a business object attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The sensitivity classification and presentation ordering that govern a business object attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23774,7 +23889,24 @@
       "name": "BusinessObjectAttributeEntryValidation",
       "sectionId": "BOAEV",
       "doc": "Validation and derivation rules for a business object attribute.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "The validation rules, allowed values and derivation logic that constrain a business object attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The validation rules, allowed values and derivation logic that constrain a business object attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23838,7 +23970,24 @@
       "name": "BusinessObjectEntry",
       "sectionId": "BJOEN",
       "doc": "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — aggregates/entities/value objects",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "A single business object in the domain model, with its identity, attributes, states, rules and operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "A single business object in the domain model, with its identity, attributes, states, rules and operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -24025,10 +24174,28 @@
         {
           "name": "behaviorRules",
           "kind": "list",
+          "help": "Add one entry per behavior rule.",
           "sectionId": "BEHAV-BEHA-LST",
           "sectionIdPattern": "BEHAV-BEHA-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "The behavior rules that govern how this object acts."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "Domain-Driven Design — aggregates/entities/value objects"
+                ],
+                "connotation": "The behavior rules that govern how this object acts."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24039,6 +24206,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BEHAV-BEHA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per behavior rule."
               }
             },
             {
@@ -24110,10 +24283,28 @@
         {
           "name": "integrationPoints",
           "kind": "list",
+          "help": "Add one entry per integration point.",
           "sectionId": "INTEG-INTE-LST",
           "sectionIdPattern": "INTEG-INTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "The integration points where this object exposes APIs or publishes and subscribes to events."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — aggregates/entities/value objects",
+                  "BPMN 2.0 — business process model & notation"
+                ],
+                "connotation": "The integration points where this object exposes APIs or publishes and subscribes to events."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24124,6 +24315,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INTEG-INTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per integration point."
               }
             },
             {
@@ -24140,10 +24337,28 @@
           "name": "attributes",
           "kind": "list",
           "doc": "Contains 0+× BusinessObjectAttribute.",
+          "help": "Add one entry per business object attribute.",
           "sectionId": "BIOBAT-ATTR-LST",
           "sectionIdPattern": "BIOBAT-ATTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "The business-level attributes that describe this object."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / data element definitions",
+                  "Domain-Driven Design — aggregates/entities/value objects"
+                ],
+                "connotation": "The business-level attributes that describe this object."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24154,6 +24369,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BIOBAT-ATTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business object attribute."
               }
             },
             {
@@ -24170,10 +24391,26 @@
           "name": "keyStates",
           "kind": "list",
           "doc": "Contains 0+× ObjectState.",
+          "help": "Add one entry per object state.",
           "sectionId": "OBST-KEYS-LST",
           "sectionIdPattern": "OBST-KEYS-xxx",
+          "standardReferences": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "The key lifecycle states this object can occupy."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "UML state machines — object lifecycle/state modeling"
+                ],
+                "connotation": "The key lifecycle states this object can occupy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24184,6 +24421,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OBST-KEYS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per object state."
               }
             },
             {
@@ -24200,10 +24443,26 @@
           "name": "keyBusinessRules",
           "kind": "list",
           "doc": "Contains 0+× BusinessRuleReference.",
+          "help": "Add one entry per business rule reference.",
           "sectionId": "BIRURE-KEYB-LST",
           "sectionIdPattern": "BIRURE-KEYB-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "The business rules that govern this object."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements"
+                ],
+                "connotation": "The business rules that govern this object."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24214,6 +24473,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BIRURE-KEYB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business rule reference."
               }
             },
             {
@@ -24230,10 +24495,26 @@
           "name": "lifecycleTransitions",
           "kind": "list",
           "doc": "Contains 0+× LifecycleTransition.",
+          "help": "Add one entry per lifecycle transition.",
           "sectionId": "LFTRS-LIFE-LST",
           "sectionIdPattern": "LFTRS-LIFE-xxx",
+          "standardReferences": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "The allowed state transitions in this object lifecycle."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "UML state machines — object lifecycle/state modeling"
+                ],
+                "connotation": "The allowed state transitions in this object lifecycle."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24244,6 +24525,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "LFTRS-LIFE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per lifecycle transition."
               }
             },
             {
@@ -24260,10 +24547,28 @@
           "name": "operations",
           "kind": "list",
           "doc": "Contains 0+× ObjectOperation.",
+          "help": "Add one entry per object operation.",
           "sectionId": "OBOP-OPER-LST",
           "sectionIdPattern": "OBOP-OPER-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The domain operations that can be performed on this object."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — aggregates/entities/value objects",
+                  "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+                ],
+                "connotation": "The domain operations that can be performed on this object."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24274,6 +24579,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OBOP-OPER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per object operation."
               }
             },
             {
@@ -24290,10 +24601,28 @@
           "name": "invariants",
           "kind": "list",
           "doc": "Contains 0+× ObjectInvariant.",
+          "help": "Add one entry per object invariant.",
           "sectionId": "OBINV-INVA-LST",
           "sectionIdPattern": "OBINV-INVA-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "The invariants that must always hold true for this object."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "Domain-Driven Design — aggregates/entities/value objects"
+                ],
+                "connotation": "The invariants that must always hold true for this object."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24304,6 +24633,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OBINV-INVA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per object invariant."
               }
             },
             {
@@ -24323,7 +24658,24 @@
       "sectionId": "BJOMD",
       "doc": "7.2. Business Object Model.",
       "mapsTo": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — aggregates/entities/value objects",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "The catalog of key business objects with their attributes, states, behaviors and lifecycles, modeled in the domain-driven design style."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The catalog of key business objects with their attributes, states, behaviors and lifecycles, modeled in the domain-driven design style."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -24363,10 +24715,28 @@
           "name": "objects",
           "kind": "list",
           "doc": "7.2.1. Object Catalog — contains 1+× Business Object.",
+          "help": "Add one entry per business object.",
           "sectionId": "BJOEN-OBJE-LST",
           "sectionIdPattern": "BJOEN-OBJE-xxx",
+          "standardReferences": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The business objects that make up the domain model."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Domain-Driven Design — aggregates/entities/value objects",
+                  "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+                ],
+                "connotation": "The business objects that make up the domain model."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -24383,6 +24753,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business object."
               }
             },
             {
@@ -25111,7 +25487,24 @@
       "name": "BusinessRuleEntry",
       "sectionId": "BIRU",
       "doc": "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+        ],
+        "connotation": "A single business rule with its logic, enforcement, exceptions, and governance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "A single business rule with its logic, enforcement, exceptions, and governance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -25446,10 +25839,26 @@
           "name": "affectedObjects",
           "kind": "list",
           "doc": "Contains 0+× AffectedObject.",
+          "help": "Add one entry per affected object.",
           "sectionId": "AFOB-AFFE-LST",
           "sectionIdPattern": "AFOB-AFFE-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "The business objects this rule validates, constrains, or modifies."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements"
+                ],
+                "connotation": "The business objects this rule validates, constrains, or modifies."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -25460,6 +25869,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AFOB-AFFE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per affected object."
               }
             },
             {
@@ -25476,10 +25891,28 @@
           "name": "affectedFunctions",
           "kind": "list",
           "doc": "Contains 0+× AffectedFunction.",
+          "help": "Add one entry per affected function.",
           "sectionId": "AFFN-AFFE-LST",
           "sectionIdPattern": "AFFN-AFFE-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "CRUD matrix — function/data interaction mapping"
+            ],
+            "connotation": "The functions where this rule is triggered and applied."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "CRUD matrix — function/data interaction mapping"
+                ],
+                "connotation": "The functions where this rule is triggered and applied."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -25490,6 +25923,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AFFN-AFFE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per affected function."
               }
             },
             {
@@ -25506,10 +25945,26 @@
           "name": "examples",
           "kind": "list",
           "doc": "Contains 0+× RuleExample.",
+          "help": "Add one entry per rule example.",
           "sectionId": "RULEXM-EXAM-LST",
           "sectionIdPattern": "RULEXM-EXAM-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "Worked examples that illustrate how this rule evaluates."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements"
+                ],
+                "connotation": "Worked examples that illustrate how this rule evaluates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -25520,6 +25975,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RULEXM-EXAM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per rule example."
               }
             },
             {
@@ -25538,7 +25999,22 @@
       "name": "BusinessRuleReferenceEntry",
       "sectionId": "BIRURE",
       "doc": "A business rule reference entry (form).\n\nReference to business rules that govern this object.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements"
+        ],
+        "connotation": "A reference to a business rule that governs this object, including its trigger and consequence on violation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "A reference to a business rule that governs this object, including its trigger and consequence on violation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -39758,7 +40234,24 @@
       "name": "ComplianceRequirementEntry",
       "sectionId": "CRE",
       "doc": "A single compliance requirement entry.",
+      "standardReferences": {
+        "standards": [
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+          "ISO/IEC 27001 / NIST — data classification"
+        ],
+        "connotation": "The compliance profile of an entity: its sensitivity level, PII/PHI content, applicable frameworks, and encryption and access requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+              "ISO/IEC 27001 / NIST — data classification"
+            ],
+            "connotation": "The compliance profile of an entity: its sensitivity level, PII/PHI content, applicable frameworks, and encryption and access requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57165,7 +57658,24 @@
       "name": "DataAttributeConstraintEntry",
       "sectionId": "DATAA",
       "doc": "A single constraint entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57257,7 +57767,26 @@
       "name": "DataAttributeEntry",
       "sectionId": "DAATT",
       "doc": "A data attribute entry (form).\n\nComprehensive attribute specification for data dictionary and schema design.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "A single data attribute with its data type, constraints, derivation, security classification, lineage, and display properties."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57402,10 +57931,28 @@
         {
           "name": "constraints",
           "kind": "list",
+          "help": "Add one entry per attribute constraint.",
           "sectionId": "DATAA-CONS-LST",
           "sectionIdPattern": "DATAA-CONS-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -57416,6 +57963,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DATAA-CONS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per attribute constraint."
               }
             },
             {
@@ -57592,10 +58145,26 @@
         {
           "name": "displayProperties",
           "kind": "list",
+          "help": "Add one entry per display property.",
           "sectionId": "DISPL-DISP-LST",
           "sectionIdPattern": "DISPL-DISP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -57606,6 +58175,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DISPL-DISP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per display property."
               }
             },
             {
@@ -57625,7 +58200,24 @@
       "sectionId": "DATCL",
       "doc": "7.1.4. Data Classification.",
       "detailedIn": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+        ],
+        "connotation": "Defines the data classification framework, its sensitivity levels, and the handling requirements for classified data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "Defines the data classification framework, its sensitivity levels, and the handling requirements for classified data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57700,10 +58292,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DataClassificationEntry.",
+          "help": "Add one entry per data classification level.",
           "sectionId": "DCLSE-ITEM-LST",
           "sectionIdPattern": "DCLSE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "The individual data-classification entries (sensitivity levels) that make up the classification scheme."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 / NIST — data classification",
+                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+                ],
+                "connotation": "The individual data-classification entries (sensitivity levels) that make up the classification scheme."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -57714,6 +58324,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DCLSE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data classification level."
               }
             },
             {
@@ -57732,7 +58348,24 @@
       "name": "DataClassificationEntry",
       "sectionId": "DCLSE",
       "doc": "A data classification entry (form).\n\nComprehensive data classification for security and compliance.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+        ],
+        "connotation": "A single data-classification level with its storage, access control, retention, compliance, handling, and access-restriction rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "A single data-classification level with its storage, access control, retention, compliance, handling, and access-restriction rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58018,10 +58651,28 @@
           "name": "handlingRequirements",
           "kind": "list",
           "doc": "Contains 0+× HandlingRequirement.",
+          "help": "Add one entry per handling requirement.",
           "sectionId": "HNDRE-HAND-LST",
           "sectionIdPattern": "HNDRE-HAND-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "The handling procedures required for data at this classification level."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 / NIST — data classification",
+                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+                ],
+                "connotation": "The handling procedures required for data at this classification level."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -58032,6 +58683,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "HNDRE-HAND-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per handling requirement."
               }
             },
             {
@@ -58048,10 +58705,28 @@
           "name": "accessRestrictions",
           "kind": "list",
           "doc": "Contains 0+× AccessRestriction.",
+          "help": "Add one entry per access restriction.",
           "sectionId": "ACRSE-ACCE-LST",
           "sectionIdPattern": "ACRSE-ACCE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "The access restrictions that apply to data at this classification level."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001 / NIST — data classification",
+                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+                ],
+                "connotation": "The access restrictions that apply to data at this classification level."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -58062,6 +58737,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ACRSE-ACCE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per access restriction."
               }
             },
             {
@@ -58413,7 +59094,24 @@
       "sectionId": "DADI",
       "doc": "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..",
       "detailedIn": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "An authoritative registry of the data attributes used across the model, each with its definition, type, and provenance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "An authoritative registry of the data attributes used across the model, each with its definition, type, and provenance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59051,7 +59749,26 @@
       "name": "DataEntityEntry",
       "sectionId": "DAENT",
       "doc": "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "Domain-Driven Design — aggregates/entities/value objects",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "A single data entity with its identity, classification, volume, lifecycle, compliance, and technical characteristics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59182,10 +59899,28 @@
         {
           "name": "volumeMetrics",
           "kind": "list",
+          "help": "Add one entry per volume metric.",
           "sectionId": "VOLUM-VOLU-LST",
           "sectionIdPattern": "VOLUM-VOLU-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59196,6 +59931,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "VOLUM-VOLU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per volume metric."
               }
             },
             {
@@ -59288,10 +60029,28 @@
         {
           "name": "complianceRequirements",
           "kind": "list",
+          "help": "Add one entry per compliance requirement.",
           "sectionId": "CRE-COMP-LST",
           "sectionIdPattern": "CRE-COMP-xxx",
+          "standardReferences": {
+            "standards": [
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+              "ISO/IEC 27001 / NIST — data classification"
+            ],
+            "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)",
+                  "ISO/IEC 27001 / NIST — data classification"
+                ],
+                "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59302,6 +60061,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CRE-COMP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per compliance requirement."
               }
             },
             {
@@ -59366,10 +60131,28 @@
         {
           "name": "technicalCharacteristics",
           "kind": "list",
+          "help": "Add one entry per technical characteristic.",
           "sectionId": "TECHN-TECH-LST",
           "sectionIdPattern": "TECHN-TECH-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59380,6 +60163,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TECHN-TECH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per technical characteristic."
               }
             },
             {
@@ -59396,10 +60185,28 @@
           "name": "attributes",
           "kind": "list",
           "doc": "Contains 0+× DataAttribute.",
+          "help": "Add one entry per data attribute.",
           "sectionId": "DAATT-ATTR-LST",
           "sectionIdPattern": "DAATT-ATTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The data attributes (fields) that belong to this entity."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / data element definitions",
+                  "DAMA-DMBOK2 — data management body of knowledge"
+                ],
+                "connotation": "The data attributes (fields) that belong to this entity."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59410,6 +60217,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DAATT-ATTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data attribute."
               }
             },
             {
@@ -59426,10 +60239,28 @@
           "name": "keyAttributes",
           "kind": "list",
           "doc": "Contains 0+× KeyAttribute.",
+          "help": "Add one entry per key attribute.",
           "sectionId": "KEATT-KEYA-LST",
           "sectionIdPattern": "KEATT-KEYA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ER modeling (Chen / Barker notation)",
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59440,6 +60271,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "KEATT-KEYA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per key attribute."
               }
             },
             {
@@ -59456,10 +60293,28 @@
           "name": "indexes",
           "kind": "list",
           "doc": "Contains 0+× EntityIndex.",
+          "help": "Add one entry per entity index.",
           "sectionId": "ENIDX-INDE-LST",
           "sectionIdPattern": "ENIDX-INDE-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "The database indexes defined on this entity for query optimization."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "The database indexes defined on this entity for query optimization."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59470,6 +60325,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENIDX-INDE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entity index."
               }
             },
             {
@@ -59486,10 +60347,28 @@
           "name": "constraints",
           "kind": "list",
           "doc": "Contains 0+× EntityConstraint.",
+          "help": "Add one entry per entity constraint.",
           "sectionId": "ENCNS-CONS-LST",
           "sectionIdPattern": "ENCNS-CONS-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59500,6 +60379,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENCNS-CONS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entity constraint."
               }
             },
             {
@@ -59516,10 +60401,28 @@
           "name": "migrationMappings",
           "kind": "list",
           "doc": "Contains 0+× MigrationMapping for data migration planning.",
+          "help": "Add one entry per migration mapping.",
           "sectionId": "MIGME-MIGR-LST",
           "sectionIdPattern": "MIGME-MIGR-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — data management body of knowledge",
+                  "ISO/IEC 25012 — data quality"
+                ],
+                "connotation": "Source-to-target field mappings for planning the migration of data into this entity."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -59530,6 +60433,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MIGME-MIGR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration mapping."
               }
             },
             {
@@ -62498,7 +63407,26 @@
       "sectionId": "DATMD",
       "doc": "7.1. Data Model.",
       "mapsTo": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "ER modeling (Chen / Barker notation)",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "Defines the conceptual data model: entities, attributes, relationships, and constraints representing core business data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ER modeling (Chen / Barker notation)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "Defines the conceptual data model: entities, attributes, relationships, and constraints representing core business data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62538,10 +63466,28 @@
           "name": "entities",
           "kind": "list",
           "doc": "7.1.1. Entity Overview — contains 1+× Data Entity.",
+          "help": "Add one entry per data entity.",
           "sectionId": "DAENT-ENTI-LST",
           "sectionIdPattern": "DAENT-ENTI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The data entities that make up the logical data model."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ER modeling (Chen / Barker notation)",
+                  "DAMA-DMBOK2 — data management body of knowledge"
+                ],
+                "connotation": "The data entities that make up the logical data model."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -62558,6 +63504,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data entity."
               }
             },
             {
@@ -79240,7 +80192,22 @@
       "name": "DisplayPropertyEntry",
       "sectionId": "DISPL",
       "doc": "A single display property entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "How an attribute is presented in the UI: its label, ordering, grouping, and help text."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "How an attribute is presented in the UI: its label, ordering, grouping, and help text."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -86962,7 +87929,24 @@
       "name": "EntityConstraintEntry",
       "sectionId": "ENCNS",
       "doc": "An entity constraint entry (form).\n\nBusiness and technical constraints beyond keys.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87047,7 +88031,24 @@
       "name": "EntityIndexEntry",
       "sectionId": "ENIDX",
       "doc": "An entity index entry (form).\n\nDatabase index specification for query optimization.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "A single database index specification (type, columns, uniqueness, clustering) for query optimization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "A single database index specification (type, columns, uniqueness, clustering) for query optimization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87146,7 +88147,26 @@
       "name": "EntityRelationshipEntry",
       "sectionId": "ENRLE",
       "doc": "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling",
+          "Domain-Driven Design — aggregates/entities/value objects"
+        ],
+        "connotation": "A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87214,10 +88234,28 @@
         {
           "name": "participants",
           "kind": "list",
+          "help": "Add one entry per participating entity.",
           "sectionId": "PARTI-PART-LST",
           "sectionIdPattern": "PARTI-PART-xxx",
+          "standardReferences": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The entities participating in this relationship, with their role names."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ER modeling (Chen / Barker notation)",
+                  "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+                ],
+                "connotation": "The entities participating in this relationship, with their role names."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -87228,6 +88266,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PARTI-PART-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per participating entity."
               }
             },
             {
@@ -87425,10 +88469,28 @@
         {
           "name": "relationshipAttributes",
           "kind": "list",
+          "help": "Add one entry per relationship attribute.",
           "sectionId": "RELAT-RELA-LST",
           "sectionIdPattern": "RELAT-RELA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "Attributes that belong to the relationship itself, for relationships that carry their own properties."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ER modeling (Chen / Barker notation)",
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "Attributes that belong to the relationship itself, for relationships that carry their own properties."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -87439,6 +88501,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RELAT-RELA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per relationship attribute."
               }
             },
             {
@@ -87498,7 +88566,24 @@
       "sectionId": "ENREL",
       "doc": "7.1.2. Entity Relationships.",
       "detailedIn": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "Specifies the relationships between data entities, capturing cardinality, referential integrity, and navigation patterns."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "Specifies the relationships between data entities, capturing cardinality, referential integrity, and navigation patterns."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87545,10 +88630,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× EntityRelationship.",
+          "help": "Add one entry per entity relationship.",
           "sectionId": "ENRLE-ITEM-LST",
           "sectionIdPattern": "ENRLE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The individual entity-relationship entries that make up the relationship model."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ER modeling (Chen / Barker notation)",
+                  "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+                ],
+                "connotation": "The individual entity-relationship entries that make up the relationship model."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -87559,6 +88662,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENRLE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entity relationship."
               }
             },
             {
@@ -103512,7 +104621,22 @@
       "name": "FunctionDataMatrixEntry",
       "sectionId": "FNDMX",
       "doc": "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.",
+      "standardReferences": {
+        "standards": [
+          "CRUD matrix — function/data interaction mapping"
+        ],
+        "connotation": "A single cell of the CRUD matrix, recording how one function accesses one data entity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CRUD matrix — function/data interaction mapping"
+            ],
+            "connotation": "A single cell of the CRUD matrix, recording how one function accesses one data entity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103590,7 +104714,24 @@
       "name": "FunctionEntry",
       "sectionId": "FUNCT",
       "doc": "A function entry (form).\n\nBusiness function specification in the functional decomposition.",
+      "standardReferences": {
+        "standards": [
+          "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+        ],
+        "connotation": "A single business function, described by name, purpose, and its place in the hierarchy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "A single business function, described by name, purpose, and its place in the hierarchy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103697,10 +104838,26 @@
           "name": "subFunctions",
           "kind": "list",
           "doc": "Sub-functions — contains 0+× SubFunction.",
+          "help": "Add one entry per sub-function.",
           "sectionId": "SUFN-SUBF-LST",
           "sectionIdPattern": "SUFN-SUBF-xxx",
+          "standardReferences": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+            ],
+            "connotation": "The lower-level sub-functions this function decomposes into."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+                ],
+                "connotation": "The lower-level sub-functions this function decomposes into."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103711,6 +104868,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SUFN-SUBF-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per sub-function."
               }
             },
             {
@@ -103729,7 +104892,22 @@
       "name": "FunctionEntryClassification",
       "sectionId": "FUENCL",
       "doc": "Decomposition position and classification.",
+      "standardReferences": {
+        "standards": [
+          "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+        ],
+        "connotation": "The hierarchy level, function type, and owning process of a function."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+            ],
+            "connotation": "The hierarchy level, function type, and owning process of a function."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103786,7 +104964,24 @@
       "name": "FunctionEntryImplementation",
       "sectionId": "FUENIM",
       "doc": "Automation and data handling summary.",
+      "standardReferences": {
+        "standards": [
+          "CRUD matrix — function/data interaction mapping",
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+        ],
+        "connotation": "The automation level and data entities a function accesses."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "CRUD matrix — function/data interaction mapping",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "The automation level and data entities a function accesses."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103836,7 +105031,22 @@
       "name": "FunctionEntryOperations",
       "sectionId": "FUENOP",
       "doc": "Execution profile and criticality.",
+      "standardReferences": {
+        "standards": [
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+        ],
+        "connotation": "The execution frequency, volume, and business criticality of a function."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "The execution frequency, volume, and business criticality of a function."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103894,7 +105104,26 @@
       "sectionId": "FUMO",
       "doc": "7.3. Function Model.\n\nBusiness functions, their decomposition, and relationships to data objects.",
       "mapsTo": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+          "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements",
+          "CRUD matrix — function/data interaction mapping"
+        ],
+        "connotation": "The function model decomposes the system into business functions and maps how they interact with data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements",
+              "CRUD matrix — function/data interaction mapping"
+            ],
+            "connotation": "The function model decomposes the system into business functions and maps how they interact with data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104011,10 +105240,28 @@
           "name": "functions",
           "kind": "list",
           "doc": "7.3.1. Function Decomposition — contains 0+× Function.",
+          "help": "Add one entry per function.",
           "sectionId": "FUNCT-FUNC-LST",
           "sectionIdPattern": "FUNCT-FUNC-xxx",
+          "standardReferences": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "The business functions the system provides, decomposed hierarchically."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Structured Analysis (DeMarco/Yourdon) — functional decomposition",
+                  "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+                ],
+                "connotation": "The business functions the system provides, decomposed hierarchically."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -104025,6 +105272,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FUNCT-FUNC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per function."
               }
             },
             {
@@ -104041,10 +105294,26 @@
           "name": "matrixEntries",
           "kind": "list",
           "doc": "7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.",
+          "help": "Add one entry per function/data matrix mapping.",
           "sectionId": "FNDMX-MATR-LST",
           "sectionIdPattern": "FNDMX-MATR-xxx",
+          "standardReferences": {
+            "standards": [
+              "CRUD matrix — function/data interaction mapping"
+            ],
+            "connotation": "The rows of the CRUD matrix mapping each function to the data entities it accesses."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "CRUD matrix — function/data interaction mapping"
+                ],
+                "connotation": "The rows of the CRUD matrix mapping each function to the data entities it accesses."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -104055,6 +105324,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FNDMX-MATR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per function/data matrix mapping."
               }
             },
             {
@@ -104071,10 +105346,28 @@
           "name": "businessRules",
           "kind": "list",
           "doc": "7.3.3. Business Rules — contains 1+× Business Rule.",
+          "help": "Add one entry per business rule.",
           "sectionId": "BIRU-BUSI-LST",
           "sectionIdPattern": "BIRU-BUSI-xxx",
+          "standardReferences": {
+            "standards": [
+              "SBVR — business rule statements",
+              "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+            ],
+            "connotation": "The business rules that govern the behaviour of the system."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SBVR — business rule statements",
+                  "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"
+                ],
+                "connotation": "The business rules that govern the behaviour of the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -104091,6 +105384,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business rule."
               }
             },
             {
@@ -108058,7 +109357,24 @@
       "name": "HandlingRequirementEntry",
       "sectionId": "HNDRE",
       "doc": "A data handling requirement entry (form).\n\nSpecific handling procedures for classified data.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+        ],
+        "connotation": "A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"
+            ],
+            "connotation": "A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -112949,7 +114265,24 @@
       "sectionId": "INDM",
       "doc": "7. Business Object and Data Model. Seeds → IFM.",
       "mapsTo": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "Captures the complete information and data model for the target system, seeding the Information Model (IFM) document."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "Captures the complete information and data model for the target system, seeding the Information Model (IFM) document."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116560,7 +117893,22 @@
       "name": "IntegrationPointEntry",
       "sectionId": "INTEG",
       "doc": "A single integration point entry.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116735,7 +118083,24 @@
       "sectionId": "INCO",
       "doc": "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.",
       "detailedIn": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "SBVR — business rule statements"
+        ],
+        "connotation": "Cross-entity invariants (referential, uniqueness, temporal, conservation) that must hold in every persistent state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "SBVR — business rule statements"
+            ],
+            "connotation": "Cross-entity invariants (referential, uniqueness, temporal, conservation) that must hold in every persistent state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125820,7 +127185,24 @@
       "name": "KeyAttributeEntry",
       "sectionId": "KEATT",
       "doc": "A key attribute entry (form).\n\nSpecification for primary, foreign, alternate, and composite keys.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "A single key attribute defining a primary, foreign, alternate, or composite key with its generation, reference, and governance settings."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "A single key attribute defining a primary, foreign, alternate, or composite key with its generation, reference, and governance settings."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -125949,7 +127331,24 @@
       "name": "KeyAttributeEntryGeneration",
       "sectionId": "KEAGN",
       "doc": "Key generation settings.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "The key-value generation strategy (auto, sequence, UUID, natural) for a key attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The key-value generation strategy (auto, sequence, UUID, natural) for a key attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126006,7 +127405,24 @@
       "name": "KeyAttributeEntryGovernance",
       "sectionId": "KEAGV",
       "doc": "Constraint semantics and business meaning.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "ER modeling (Chen / Barker notation)"
+        ],
+        "connotation": "The constraint semantics and business governance meaning of a key attribute, such as deferrability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ER modeling (Chen / Barker notation)"
+            ],
+            "connotation": "The constraint semantics and business governance meaning of a key attribute, such as deferrability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126049,7 +127465,24 @@
       "name": "KeyAttributeEntryReference",
       "sectionId": "KEARF",
       "doc": "Foreign-key reference and cascade behavior.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "The foreign-key reference target and its referential cascade behavior (on delete/update) for a key attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The foreign-key reference target and its referential cascade behavior (on delete/update) for a key attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -129085,7 +130518,22 @@
       "name": "LifecycleTransitionEntry",
       "sectionId": "LFTRS",
       "doc": "A lifecycle transition entry (form).\n\nDetailed state transition specification.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling"
+        ],
+        "connotation": "A single state transition in an object lifecycle, from a source state to a target state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "A single state transition in an object lifecycle, from a source state to a target state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -129194,7 +130642,24 @@
       "name": "LifecycleTransitionEntryConditions",
       "sectionId": "LTEC",
       "doc": "Transition conditions and guarantees.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling",
+          "SBVR — business rule statements"
+        ],
+        "connotation": "The guard, pre- and post-conditions that constrain and guarantee a lifecycle transition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling",
+              "SBVR — business rule statements"
+            ],
+            "connotation": "The guard, pre- and post-conditions that constrain and guarantee a lifecycle transition."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -129251,7 +130716,24 @@
       "name": "LifecycleTransitionEntryExecution",
       "sectionId": "LTEE",
       "doc": "Actions, actors, and rollback handling.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling",
+          "BPMN 2.0 — business process model & notation"
+        ],
+        "connotation": "The actions, side effects, allowed actors and rollback strategy executed during a lifecycle transition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling",
+              "BPMN 2.0 — business process model & notation"
+            ],
+            "connotation": "The actions, side effects, allowed actors and rollback strategy executed during a lifecycle transition."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -129315,7 +130797,22 @@
       "name": "LifecycleTransitionEntryTrigger",
       "sectionId": "LTET",
       "doc": "Triggering event details.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling"
+        ],
+        "connotation": "The event that triggers a lifecycle transition and its trigger type."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "The event that triggers a lifecycle transition and its trigger type."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -137530,7 +139027,24 @@
       "name": "MigrationMappingEntry",
       "sectionId": "MIGME",
       "doc": "A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "A single source-to-target mapping (with transformation and validation rules) for planning data migration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "A single source-to-target mapping (with transformation and validation rules) for planning data migration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -151765,7 +153279,24 @@
       "name": "ObjectInvariantEntry",
       "sectionId": "OBINV",
       "doc": "An object invariant entry (form).\n\nBusiness invariants that must always hold true.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "Domain-Driven Design — aggregates/entities/value objects"
+        ],
+        "connotation": "A single business invariant that must always hold true, with its expression, scope and violation action."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "A single business invariant that must always hold true, with its expression, scope and violation action."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -151850,7 +153381,24 @@
       "name": "ObjectOperationEntry",
       "sectionId": "OBOP",
       "doc": "An object operation entry (form).\n\nBusiness operations that can be performed on the object.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — aggregates/entities/value objects",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "A single domain operation that can be performed on the object, as a command, query or event."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "A single domain operation that can be performed on the object, as a command, query or event."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -151952,7 +153500,24 @@
       "name": "ObjectOperationEntryExecution",
       "sectionId": "OOEE",
       "doc": "Execution contract for an object operation.",
+      "standardReferences": {
+        "standards": [
+          "Domain-Driven Design — aggregates/entities/value objects",
+          "SBVR — business rule statements"
+        ],
+        "connotation": "The pre- and post-conditions, inputs and outputs that form the execution contract of an object operation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Domain-Driven Design — aggregates/entities/value objects",
+              "SBVR — business rule statements"
+            ],
+            "connotation": "The pre- and post-conditions, inputs and outputs that form the execution contract of an object operation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152016,7 +153581,24 @@
       "name": "ObjectOperationEntryGovernance",
       "sectionId": "OOEG",
       "doc": "Authorization and usage boundaries for an object operation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 / NIST — data classification",
+          "UML state machines — object lifecycle/state modeling"
+        ],
+        "connotation": "The states in which an object operation is permitted, who may perform it and whether it is idempotent."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 / NIST — data classification",
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "The states in which an object operation is permitted, who may perform it and whether it is idempotent."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152073,7 +153655,24 @@
       "name": "ObjectOperationEntryLifecycle",
       "sectionId": "OOEL",
       "doc": "State and event lifecycle details for an object operation.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling",
+          "Domain-Driven Design — aggregates/entities/value objects"
+        ],
+        "connotation": "The business rules applied, state transitions and domain events produced when an object operation runs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling",
+              "Domain-Driven Design — aggregates/entities/value objects"
+            ],
+            "connotation": "The business rules applied, state transitions and domain events produced when an object operation runs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152130,7 +153729,22 @@
       "name": "ObjectStateEntry",
       "sectionId": "OBST",
       "doc": "An object state entry (form).\n\nDetailed state specification for business object lifecycle.",
+      "standardReferences": {
+        "standards": [
+          "UML state machines — object lifecycle/state modeling"
+        ],
+        "connotation": "A single lifecycle state of a business object, with its entry/exit conditions and allowed operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML state machines — object lifecycle/state modeling"
+            ],
+            "connotation": "A single lifecycle state of a business object, with its entry/exit conditions and allowed operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160010,7 +161624,24 @@
       "name": "ParticipantEntry",
       "sectionId": "PARTI",
       "doc": "A single participant entry.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "The two ends of a relationship: the source and target entities and the role each plays."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "The two ends of a relationship: the source and target entities and the role each plays."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184894,7 +186525,24 @@
       "name": "RelationshipAttributeEntry",
       "sectionId": "RELAT",
       "doc": "A single relationship attribute entry.",
+      "standardReferences": {
+        "standards": [
+          "ER modeling (Chen / Barker notation)",
+          "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+        ],
+        "connotation": "Attributes carried by the relationship itself (as on an association class), including any temporal or versioning aspects."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ER modeling (Chen / Barker notation)",
+              "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
+            ],
+            "connotation": "Attributes carried by the relationship itself (as on an association class), including any temporal or versioning aspects."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202981,7 +204629,22 @@
       "name": "RuleExampleEntry",
       "sectionId": "RULEXM",
       "doc": "A rule example entry (form).\n\nExamples illustrating rule application.",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements"
+        ],
+        "connotation": "A worked example illustrating how a rule evaluates for given inputs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements"
+            ],
+            "connotation": "A worked example illustrating how a rule evaluates for given inputs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -232299,7 +233962,22 @@
       "name": "SubFunctionEntry",
       "sectionId": "SUFN",
       "doc": "A sub-function entry (form).\n\nLower-level function in the decomposition.",
+      "standardReferences": {
+        "standards": [
+          "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+        ],
+        "connotation": "A lower-level sub-function within the functional decomposition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Structured Analysis (DeMarco/Yourdon) — functional decomposition"
+            ],
+            "connotation": "A lower-level sub-function within the functional decomposition."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -246113,7 +247791,22 @@
       "name": "TechnicalCharacteristicEntry",
       "sectionId": "TECHN",
       "doc": "A single technical characteristic entry.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The technical implementation traits of an entity: indexing, caching, consistency, replication, backup, and scaling strategies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The technical implementation traits of an entity: indexing, caching, consistency, replication, backup, and scaling strategies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -272138,7 +273831,24 @@
       "sectionId": "VACO",
       "doc": "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.",
       "detailedIn": "D03InformationModel",
+      "standardReferences": {
+        "standards": [
+          "SBVR — business rule statements",
+          "ISO/IEC 25012 — data quality"
+        ],
+        "connotation": "Business-level validation rules that span multiple fields or entities, distinct from schema and per-field UI checks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SBVR — business rule statements",
+              "ISO/IEC 25012 — data quality"
+            ],
+            "connotation": "Business-level validation rules that span multiple fields or entities, distinct from schema and per-field UI checks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -273889,7 +275599,22 @@
       "name": "VolumeMetricEntry",
       "sectionId": "VOLUM",
       "doc": "A single volume metric entry.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The expected data volumes for an entity: record counts, growth rate, peak transaction volume, and storage estimates for capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The expected data volumes for an entity: record counts, growth rate, peak transaction volume, and storage estimates for capacity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

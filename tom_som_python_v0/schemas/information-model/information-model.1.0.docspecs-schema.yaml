@@ -7,30 +7,31 @@ section-types:
     pattern-check-id:
       pattern: ^biobat_attr_lst-\d+$
       error-message: ID must match biobat_attr_lst-NNN
-    description: Contains 0+× BusinessObjectAttribute.
+    description: Add one entry per business object attribute.
   BIRURE-KEYB-LST:
     prefix: birure_keyb_lst
     pattern-check-id:
       pattern: ^birure_keyb_lst-\d+$
       error-message: ID must match birure_keyb_lst-NNN
-    description: Contains 0+× BusinessRuleReference.
+    description: Add one entry per business rule reference.
   RULEXM-EXAM-LST:
     prefix: rulexm_exam_lst
     pattern-check-id:
       pattern: ^rulexm_exam_lst-\d+$
       error-message: ID must match rulexm_exam_lst-NNN
-    description: Contains 0+× RuleExample.
+    description: Add one entry per rule example.
   ACRSE-ACCE-LST:
     prefix: acrse_acce_lst
     pattern-check-id:
       pattern: ^acrse_acce_lst-\d+$
       error-message: ID must match acrse_acce_lst-NNN
-    description: Contains 0+× AccessRestriction.
+    description: Add one entry per access restriction.
   BEHAV-BEHA-LST:
     prefix: behav_beha_lst
     pattern-check-id:
       pattern: ^behav_beha_lst-\d+$
       error-message: ID must match behav_beha_lst-NNN
+    description: Add one entry per behavior rule.
   BJOEN-OBJE-LST:
     prefix: bjoen_obje_lst
     min-count-in-document: 1
@@ -43,7 +44,7 @@ section-types:
     pattern-check-id:
       pattern: ^daatt_attr_lst-\d+$
       error-message: ID must match daatt_attr_lst-NNN
-    description: Contains 0+× DataAttribute.
+    description: Add one entry per data attribute.
   DAENT-ENTI-LST:
     prefix: daent_enti_lst
     min-count-in-document: 1
@@ -56,35 +57,37 @@ section-types:
     pattern-check-id:
       pattern: ^dataa_cons_lst-\d+$
       error-message: ID must match dataa_cons_lst-NNN
+    description: Add one entry per attribute constraint.
   DCLSE-ITEM-LST:
     prefix: dclse_item_lst
     pattern-check-id:
       pattern: ^dclse_item_lst-\d+$
       error-message: ID must match dclse_item_lst-NNN
-    description: Contains 0+× DataClassificationEntry.
+    description: Add one entry per data classification level.
   DISPL-DISP-LST:
     prefix: displ_disp_lst
     pattern-check-id:
       pattern: ^displ_disp_lst-\d+$
       error-message: ID must match displ_disp_lst-NNN
+    description: Add one entry per display property.
   ENCNS-CONS-LST:
     prefix: encns_cons_lst
     pattern-check-id:
       pattern: ^encns_cons_lst-\d+$
       error-message: ID must match encns_cons_lst-NNN
-    description: Contains 0+× EntityConstraint.
+    description: Add one entry per entity constraint.
   ENIDX-INDE-LST:
     prefix: enidx_inde_lst
     pattern-check-id:
       pattern: ^enidx_inde_lst-\d+$
       error-message: ID must match enidx_inde_lst-NNN
-    description: Contains 0+× EntityIndex.
+    description: Add one entry per entity index.
   ENRLE-ITEM-LST:
     prefix: enrle_item_lst
     pattern-check-id:
       pattern: ^enrle_item_lst-\d+$
       error-message: ID must match enrle_item_lst-NNN
-    description: Contains 0+× EntityRelationship.
+    description: Add one entry per entity relationship.
   FNDMX-FUNC-LST:
     prefix: fndmx_func_lst
     pattern-check-id:
@@ -102,68 +105,73 @@ section-types:
     pattern-check-id:
       pattern: ^hndre_hand_lst-\d+$
       error-message: ID must match hndre_hand_lst-NNN
-    description: Contains 0+× HandlingRequirement.
+    description: Add one entry per handling requirement.
   INTEG-INTE-LST:
     prefix: integ_inte_lst
     pattern-check-id:
       pattern: ^integ_inte_lst-\d+$
       error-message: ID must match integ_inte_lst-NNN
+    description: Add one entry per integration point.
   KEATT-KEYA-LST:
     prefix: keatt_keya_lst
     pattern-check-id:
       pattern: ^keatt_keya_lst-\d+$
       error-message: ID must match keatt_keya_lst-NNN
-    description: Contains 0+× KeyAttribute.
+    description: Add one entry per key attribute.
   LFTRS-LIFE-LST:
     prefix: lftrs_life_lst
     pattern-check-id:
       pattern: ^lftrs_life_lst-\d+$
       error-message: ID must match lftrs_life_lst-NNN
-    description: Contains 0+× LifecycleTransition.
+    description: Add one entry per lifecycle transition.
   MIGME-MIGR-LST:
     prefix: migme_migr_lst
     pattern-check-id:
       pattern: ^migme_migr_lst-\d+$
       error-message: ID must match migme_migr_lst-NNN
-    description: Contains 0+× MigrationMapping for data migration planning.
+    description: Add one entry per migration mapping.
   OBINV-INVA-LST:
     prefix: obinv_inva_lst
     pattern-check-id:
       pattern: ^obinv_inva_lst-\d+$
       error-message: ID must match obinv_inva_lst-NNN
-    description: Contains 0+× ObjectInvariant.
+    description: Add one entry per object invariant.
   PARTI-PART-LST:
     prefix: parti_part_lst
     pattern-check-id:
       pattern: ^parti_part_lst-\d+$
       error-message: ID must match parti_part_lst-NNN
+    description: Add one entry per participating entity.
   RELAT-RELA-LST:
     prefix: relat_rela_lst
     pattern-check-id:
       pattern: ^relat_rela_lst-\d+$
       error-message: ID must match relat_rela_lst-NNN
+    description: Add one entry per relationship attribute.
   TECHN-TECH-LST:
     prefix: techn_tech_lst
     pattern-check-id:
       pattern: ^techn_tech_lst-\d+$
       error-message: ID must match techn_tech_lst-NNN
+    description: Add one entry per technical characteristic.
   VOLUM-VOLU-LST:
     prefix: volum_volu_lst
     pattern-check-id:
       pattern: ^volum_volu_lst-\d+$
       error-message: ID must match volum_volu_lst-NNN
+    description: Add one entry per volume metric.
   AFFN-AFFE-LST:
     prefix: affn_affe_lst
     pattern-check-id:
       pattern: ^affn_affe_lst-\d+$
       error-message: ID must match affn_affe_lst-NNN
-    description: Contains 0+× AffectedFunction.
+    description: Add one entry per affected function.
   AFOB-AFFE-LST:
     prefix: afob_affe_lst
     pattern-check-id:
       pattern: ^afob_affe_lst-\d+$
       error-message: ID must match afob_affe_lst-NNN
-    description: Contains 0+× AffectedObject.
+    description: Add one entry per affected object.
   BIRU-BUSI-LST:
     prefix: biru_busi_lst
     min-count-in-document: 1
@@ -176,24 +184,25 @@ section-types:
     pattern-check-id:
       pattern: ^obop_oper_lst-\d+$
       error-message: ID must match obop_oper_lst-NNN
-    description: Contains 0+× ObjectOperation.
+    description: Add one entry per object operation.
   OBST-KEYS-LST:
     prefix: obst_keys_lst
     pattern-check-id:
       pattern: ^obst_keys_lst-\d+$
       error-message: ID must match obst_keys_lst-NNN
-    description: Contains 0+× ObjectState.
+    description: Add one entry per object state.
   SUFN-SUBF-LST:
     prefix: sufn_subf_lst
     pattern-check-id:
       pattern: ^sufn_subf_lst-\d+$
       error-message: ID must match sufn_subf_lst-NNN
-    description: Sub-functions — contains 0+× SubFunction.
+    description: Add one entry per sub-function.
   CRE-COMP-LST:
     prefix: cre_comp_lst
     pattern-check-id:
       pattern: ^cre_comp_lst-\d+$
       error-message: ID must match cre_comp_lst-NNN
+    description: Add one entry per compliance requirement.
   BIOBAT:
     prefix: biobat
     description: A business object attribute entry (form).
