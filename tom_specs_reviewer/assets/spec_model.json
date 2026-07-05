@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T14:28:21.772213Z",
+  "generatedAt": "2026-07-05T15:01:01.965909Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -2302,7 +2302,26 @@
       "name": "AccessUserCategories",
       "sectionId": "AUSCT",
       "doc": "9.1.1. User Categories.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "SOC 2 — CC6.1 through CC6.3 logical access controls"
+        ],
+        "connotation": "Defines the distinct categories of users who interact with the system and their trust levels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "SOC 2 — CC6.1 through CC6.3 logical access controls"
+            ],
+            "connotation": "Defines the distinct categories of users who interact with the system and their trust levels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2336,10 +2355,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× UserCategoryDefinition.",
+          "help": "Add one entry per user-category definition.",
           "sectionId": "USCDF-ITEM-LST",
           "sectionIdPattern": "USCDF-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "The catalog of user category definitions."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 24760 — IAM: a framework for identity management"
+                ],
+                "connotation": "The catalog of user category definitions."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -2350,6 +2385,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "USCDF-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user-category definition."
               }
             },
             {
@@ -3647,11 +3688,30 @@
       "name": "AccountActivationPolicy",
       "sectionId": "ACACT",
       "doc": "9.1.2.3. Account Activation (form).\n\nDefines the steps required to move a newly registered account from pending\nto active status, including verification, approval, and provisioning.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines the steps to move a newly registered account from pending to active status."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines the steps to move a newly registered account from pending to active status."
           }
         },
         {
@@ -3698,11 +3758,28 @@
       "name": "AccountDeactivationPolicy",
       "sectionId": "ACDEA",
       "doc": "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons, effects,\nreactivation conditions, and the difference between suspension and deactivation.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines temporary or permanent disabling of user accounts, their effects, and reactivation conditions."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines temporary or permanent disabling of user accounts, their effects, and reactivation conditions."
           }
         },
         {
@@ -3749,11 +3826,28 @@
       "name": "AccountDeletionPolicy",
       "sectionId": "ACDEL",
       "doc": "9.1.2.6. Account Deletion and Data Retention (form).\n\nDefines permanent account removal, data anonymization, data retention\nobligations, and right-to-be-forgotten compliance.",
+      "standardReferences": {
+        "standards": [
+          "GDPR — Article 17 right to erasure",
+          "ISO/IEC 27555 — deletion of personally identifiable information"
+        ],
+        "connotation": "Defines permanent account removal, data anonymization, retention obligations, and right-to-be-forgotten compliance."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "GDPR — Article 17 right to erasure",
+              "ISO/IEC 27555 — deletion of personally identifiable information"
+            ],
+            "connotation": "Defines permanent account removal, data anonymization, retention obligations, and right-to-be-forgotten compliance."
           }
         },
         {
@@ -3800,11 +3894,28 @@
       "name": "AccountLockoutPolicy",
       "sectionId": "ALP",
       "doc": "Account lockout and throttling policy (form).\n\nDefines how failed authentication attempts are rate-limited and how\naccounts are locked and unlocked. Aligned with NIST SP 800-63B\nthrottling requirements (max 100 consecutive failures).",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines how failed authentication attempts are rate-limited and how accounts are locked and unlocked."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines how failed authentication attempts are rate-limited and how accounts are locked and unlocked."
           }
         },
         {
@@ -3851,11 +3962,28 @@
       "name": "AccountModificationPolicy",
       "sectionId": "ACMOD",
       "doc": "9.1.2.4. Account Modification (form).\n\nDefines what user account attributes can be changed, by whom, under what\nconditions, and what re-verification is needed after changes.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines which account attributes can be changed, by whom, and what re-verification is required after changes."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines which account attributes can be changed, by whom, and what re-verification is required after changes."
           }
         },
         {
@@ -10028,11 +10156,28 @@
       "name": "ApiKeyManagementPolicy",
       "sectionId": "AKMP",
       "doc": "API key management policy (form).\n\nDefines lifecycle management for API keys, service tokens, and\nmachine-to-machine authentication credentials.",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 RFC 6749 — delegated authorization framework",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines lifecycle management for API keys, service tokens, and machine-to-machine authentication credentials."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 RFC 6749 — delegated authorization framework",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines lifecycle management for API keys, service tokens, and machine-to-machine authentication credentials."
           }
         },
         {
@@ -15437,7 +15582,26 @@
       "name": "Authentication",
       "sectionId": "AUTHEN",
       "doc": "9.2.2. Authentication.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 29115 — entity authentication assurance framework",
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the authentication subsystem including supported methods, credential policies, session management, and authentication flows."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 29115 — entity authentication assurance framework",
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the authentication subsystem including supported methods, credential policies, session management, and authentication flows."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15533,11 +15697,30 @@
       "name": "AuthenticationErrorHandling",
       "sectionId": "AEH",
       "doc": "Authentication error handling (form).\n\nDefines how authentication failures, lockouts, and security events are\nhandled in the authentication flow.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines how authentication failures, lockouts, and brute-force security events are handled in the authentication flow."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines how authentication failures, lockouts, and brute-force security events are handled in the authentication flow."
           }
         },
         {
@@ -15685,7 +15868,26 @@
       "name": "AuthenticationFlow",
       "sectionId": "AUFL",
       "doc": "9.2.2.2. Authentication Flow.\n\nComprehensive authentication flow specification covering the complete\nlogin lifecycle: credential submission, validation, multi-factor challenges,\ntoken issuance, session establishment, redirect handling, and error\nrecovery. Aligned with OAuth 2.0/OIDC and NIST SP 800-63B flow patterns.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OAuth 2.0 RFC 6749 — delegated authorization framework",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the end-to-end authentication flow from credential submission through token issuance and session establishment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OAuth 2.0 RFC 6749 — delegated authorization framework",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the end-to-end authentication flow from credential submission through token issuance and session establishment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15841,10 +16043,28 @@
           "name": "loginFlowSteps",
           "kind": "list",
           "doc": "Contains 0+× Login Flow Step.",
+          "help": "Add one entry per login flow step.",
           "sectionId": "LGFLS-LOGI-LST",
           "sectionIdPattern": "LGFLS-LOGI-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "The catalog of login flow step entries defining the authentication sequence."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63B — authentication and authenticator lifecycle",
+                  "OWASP ASVS V2 — authentication verification requirements"
+                ],
+                "connotation": "The catalog of login flow step entries defining the authentication sequence."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -15855,6 +16075,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "LGFLS-LOGI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per login flow step."
               }
             },
             {
@@ -15873,7 +16099,26 @@
       "name": "AuthenticationMethodEntry",
       "sectionId": "ATME",
       "doc": "An authentication method entry (form).\n\nDetailed per-method specification aligned with NIST SP 800-63B\nauthenticator types (password, OTP, cryptographic, out-of-band).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 29115 — entity authentication assurance framework",
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Provides a detailed per-method specification for a single authentication method aligned with NIST authenticator types."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 29115 — entity authentication assurance framework",
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Provides a detailed per-method specification for a single authentication method aligned with NIST authenticator types."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15990,7 +16235,24 @@
       "name": "AuthenticationMethodEntryApplicability",
       "sectionId": "AMEA",
       "doc": "Usage scope of the authentication method.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Describes the usage scope of an authentication method including applicable user categories and its role in the flow."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Describes the usage scope of an authentication method including applicable user categories and its role in the flow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16040,7 +16302,24 @@
       "name": "AuthenticationMethodEntryEnrollment",
       "sectionId": "AMEE",
       "doc": "Enrollment and activation workflow.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Describes the enrollment and activation workflow for an authentication method."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Describes the enrollment and activation workflow for an authentication method."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16104,7 +16383,24 @@
       "name": "AuthenticationMethodEntryOperations",
       "sectionId": "AMEO",
       "doc": "Operational controls and lifecycle settings.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the operational controls and lifecycle settings such as lockout and reauthentication timeout for an authentication method."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the operational controls and lifecycle settings such as lockout and reauthentication timeout for an authentication method."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16168,7 +16464,26 @@
       "name": "AuthenticationMethodEntrySecurity",
       "sectionId": "AMES",
       "doc": "Security posture of the authentication method.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "ISO/IEC 29115 — entity authentication assurance framework",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the security posture of an authentication method including assurance level and phishing resistance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "ISO/IEC 29115 — entity authentication assurance framework",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the security posture of an authentication method including assurance level and phishing resistance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16246,7 +16561,26 @@
       "name": "AuthenticationMethods",
       "sectionId": "AUME",
       "doc": "9.2.2.1. Authentication Methods.\n\nComprehensive authentication methods specification aligned with\nNIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).\nCovers all authenticator types: passwords, MFA, SSO, certificates,\nbiometrics, API keys, and cryptographic authenticators.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 29115 — entity authentication assurance framework",
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the supported authentication methods and their assurance levels across all authenticator types."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 29115 — entity authentication assurance framework",
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the supported authentication methods and their assurance levels across all authenticator types."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16371,10 +16705,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× AuthenticationMethod.",
+          "help": "Add one entry per authentication method.",
           "sectionId": "ATME-ITEM-LST",
           "sectionIdPattern": "ATME-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "The catalog of supported authentication method entries."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63B — authentication and authenticator lifecycle",
+                  "ISO/IEC 29115 — entity authentication assurance framework"
+                ],
+                "connotation": "The catalog of supported authentication method entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -16385,6 +16737,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ATME-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per authentication method."
               }
             },
             {
@@ -21299,11 +21657,28 @@
       "name": "BiometricAuthenticationPolicy",
       "sectionId": "BAP",
       "doc": "Biometric authentication policy (form).\n\nDefines requirements for biometric authentication factors aligned with\nNIST SP 800-63B Section 3.2.3: biometrics as activation factor for\nmulti-factor authenticators, not standalone authentication.",
+      "standardReferences": {
+        "standards": [
+          "FIDO2 / W3C WebAuthn — phishing-resistant authentication",
+          "NIST SP 800-63B — authentication and authenticator lifecycle"
+        ],
+        "connotation": "Defines requirements for biometric authentication factors used as activation factors for multi-factor authenticators."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "FIDO2 / W3C WebAuthn — phishing-resistant authentication",
+              "NIST SP 800-63B — authentication and authenticator lifecycle"
+            ],
+            "connotation": "Defines requirements for biometric authentication factors used as activation factors for multi-factor authenticators."
           }
         },
         {
@@ -29540,11 +29915,28 @@
       "name": "CertificateAuthenticationPolicy",
       "sectionId": "CAP",
       "doc": "Certificate-based authentication policy (form).\n\nDefines requirements for X.509 certificate authentication including\nmTLS, PIV/CAC cards, and client certificate authentication.",
+      "standardReferences": {
+        "standards": [
+          "FIDO2 / W3C WebAuthn — phishing-resistant authentication",
+          "NIST SP 800-63B — authentication and authenticator lifecycle"
+        ],
+        "connotation": "Defines requirements for X.509 certificate authentication including mutual TLS, PIV, and smart-card credentials."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "FIDO2 / W3C WebAuthn — phishing-resistant authentication",
+              "NIST SP 800-63B — authentication and authenticator lifecycle"
+            ],
+            "connotation": "Defines requirements for X.509 certificate authentication including mutual TLS, PIV, and smart-card credentials."
           }
         },
         {
@@ -52240,11 +52632,28 @@
       "name": "ConcurrentSessionPolicy",
       "sectionId": "CSP",
       "doc": "Concurrent session policy (form).\n\nDefines how the application handles multiple simultaneous sessions\nfrom the same user account, including limits, notifications, and\nconflict resolution strategies.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines how multiple simultaneous sessions per account are limited, notified, and resolved."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines how multiple simultaneous sessions per account are limited, notified, and resolved."
           }
         },
         {
@@ -55395,11 +55804,28 @@
       "name": "CredentialCompromiseDetectionPolicy",
       "sectionId": "CCDP",
       "doc": "Credential compromise detection policy (form).\n\nDefines how compromised credentials are detected and how the system\nresponds, including breach database monitoring and proactive scanning.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines how compromised credentials are detected via breach monitoring and how the system responds."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines how compromised credentials are detected via breach monitoring and how the system responds."
           }
         },
         {
@@ -55446,11 +55872,28 @@
       "name": "CredentialRecoveryPolicy",
       "sectionId": "CRP",
       "doc": "Credential recovery policy (form).\n\nDefines how users recover access when they lose credentials, including\npassword reset flows, recovery codes, and identity re-verification.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines how users recover access when they lose credentials through reset flows and identity re-verification."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines how users recover access when they lose credentials through reset flows and identity re-verification."
           }
         },
         {
@@ -120291,7 +120734,26 @@
       "name": "Identification",
       "sectionId": "IDENT",
       "doc": "9.2.1. Identification.\n\nDefines the identity management model: how identities are created,\nsourced, verified, federated, and mapped. Covers identity sources,\nidentity providers, verification/proofing, SSO, self-registration,\nand attribute mapping between systems.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Describes how user identities are established, sourced, verified, federated, and mapped within the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Describes how user identities are established, sourced, verified, federated, and mapped within the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120395,10 +120857,28 @@
           "name": "identitySources",
           "kind": "list",
           "doc": "Identity Sources — contains 0+× Identity Source.",
+          "help": "Add one entry per identifier source.",
           "sectionId": "IDTSR-IDEN-LST",
           "sectionIdPattern": "IDTSR-IDEN-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "The catalog of identifier source entries from which identities are obtained."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 24760 — IAM: a framework for identity management",
+                  "NIST SP 800-63A — enrollment and identity proofing"
+                ],
+                "connotation": "The catalog of identifier source entries from which identities are obtained."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -120409,6 +120889,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDTSR-IDEN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per identifier source."
               }
             },
             {
@@ -120440,10 +120926,28 @@
           "name": "identityProviders",
           "kind": "list",
           "doc": "Identity Providers — contains 0+× Identity Provider.",
+          "help": "Add one entry per identity-provider entry.",
           "sectionId": "IDTPV-IDEN-LST",
           "sectionIdPattern": "IDTPV-IDEN-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "The catalog of external identity provider entries configured for the system."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63C — federation and assertions",
+                  "SAML 2.0 — OASIS security assertion markup language"
+                ],
+                "connotation": "The catalog of external identity provider entries configured for the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -120454,6 +120958,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDTPV-IDEN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per identity-provider entry."
               }
             },
             {
@@ -120500,10 +121010,28 @@
           "name": "attributeMappings",
           "kind": "list",
           "doc": "Attribute Mappings — contains 0+× Identity Attribute Mapping.",
+          "help": "Add one entry per identity-attribute mapping.",
           "sectionId": "IDTAM-ATTR-LST",
           "sectionIdPattern": "IDTAM-ATTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "The catalog of identity-attribute mappings between sources and the application."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+                  "ISO/IEC 24760 — IAM: a framework for identity management"
+                ],
+                "connotation": "The catalog of identity-attribute mappings between sources and the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -120514,6 +121042,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDTAM-ATTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per identity-attribute mapping."
               }
             },
             {
@@ -120533,7 +121067,26 @@
       "sectionId": "IDAUT",
       "doc": "9.2. Identification and Authentication.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Describes how users are identified and how they prove that identity as the foundation of access control."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Describes how users are identified and how they prove that identity as the foundation of access control."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120612,7 +121165,24 @@
       "name": "IdentityAttributeMappingEntry",
       "sectionId": "IDTAM",
       "doc": "An identity attribute mapping entry (form).\n\nDefines how attributes map between identity sources and the application:\nsource/target field, data type, transformation, sync direction.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines how a single attribute is mapped between an identity source and the application."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines how a single attribute is mapped between an identity source and the application."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120721,7 +121291,24 @@
       "name": "IdentityAttributeMappingEntryGovernance",
       "sectionId": "IAMEG",
       "doc": "Validation, classification, and purpose.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Governs validation, sensitivity classification, and the intended purpose of a mapped identity attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Governs validation, sensitivity classification, and the intended purpose of a mapped identity attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120771,7 +121358,24 @@
       "name": "IdentityAttributeMappingEntrySynchronization",
       "sectionId": "IAMES",
       "doc": "Synchronization and conflict handling.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the synchronization direction and conflict-resolution behavior for a mapped identity attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the synchronization direction and conflict-resolution behavior for a mapped identity attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120828,7 +121432,24 @@
       "name": "IdentityAttributeMappingEntryTransformation",
       "sectionId": "IAMET",
       "doc": "Transformation and defaulting behavior.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Describes how a mapped identity attribute is transformed and defaulted when moving between systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Describes how a mapped identity attribute is transformed and defaulted when moving between systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120892,7 +121513,24 @@
       "name": "IdentityProviderDetails",
       "sectionId": "IDPRDE",
       "doc": "Provider details.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Captures the product, protocol version, and descriptive details of an identity provider."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Captures the product, protocol version, and descriptive details of an identity provider."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120949,7 +121587,24 @@
       "name": "IdentityProviderEndpoints",
       "sectionId": "IDPREN",
       "doc": "Endpoint configuration.",
+      "standardReferences": {
+        "standards": [
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Defines the authentication endpoints, metadata URL, issuer, and client identifiers for an identity provider."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Defines the authentication endpoints, metadata URL, issuer, and client identifiers for an identity provider."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121020,7 +121675,26 @@
       "name": "IdentityProviderEntry",
       "sectionId": "IDTPV",
       "doc": "An identity provider entry (form).\n\nConfiguration for a single Identity Provider (IdP): protocol, endpoints,\nattribute mapping, trust level, certificate management.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "SAML 2.0 — OASIS security assertion markup language",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+        ],
+        "connotation": "Configures a single external identity provider including protocol, endpoints, mapping, and trust."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+            ],
+            "connotation": "Configures a single external identity provider including protocol, endpoints, mapping, and trust."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121075,10 +121749,28 @@
           "name": "details",
           "kind": "list",
           "doc": "Provider details.",
+          "help": "Add one entry per provider-detail entry.",
           "sectionId": "IDPRDE-DETA-LST",
           "sectionIdPattern": "IDPRDE-DETA-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "The catalog of provider-detail entries for this identity provider."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63C — federation and assertions",
+                  "SAML 2.0 — OASIS security assertion markup language"
+                ],
+                "connotation": "The catalog of provider-detail entries for this identity provider."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -121089,6 +121781,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDPRDE-DETA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per provider-detail entry."
               }
             },
             {
@@ -121105,10 +121803,28 @@
           "name": "endpoints",
           "kind": "list",
           "doc": "Endpoint configuration.",
+          "help": "Add one entry per provider-endpoint entry.",
           "sectionId": "IDPREN-ENDP-LST",
           "sectionIdPattern": "IDPREN-ENDP-xxx",
+          "standardReferences": {
+            "standards": [
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "The catalog of endpoint configurations for this identity provider."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+                  "SAML 2.0 — OASIS security assertion markup language"
+                ],
+                "connotation": "The catalog of endpoint configurations for this identity provider."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -121119,6 +121835,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IDPREN-ENDP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per provider-endpoint entry."
               }
             },
             {
@@ -121182,7 +121904,24 @@
       "name": "IdentityProviderMapping",
       "sectionId": "IDPRMA",
       "doc": "Attribute mapping.",
+      "standardReferences": {
+        "standards": [
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines how identity provider claims map to application attributes, roles, and account linking."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines how identity provider claims map to application attributes, roles, and account linking."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121253,7 +121992,24 @@
       "name": "IdentityProviderSecurity",
       "sectionId": "IDPRSE",
       "doc": "Certificates and encryption.",
+      "standardReferences": {
+        "standards": [
+          "SAML 2.0 — OASIS security assertion markup language",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+        ],
+        "connotation": "Defines certificate management, token signing algorithms, and assertion encryption for an identity provider."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAML 2.0 — OASIS security assertion markup language",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+            ],
+            "connotation": "Defines certificate management, token signing algorithms, and assertion encryption for an identity provider."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121310,7 +122066,24 @@
       "name": "IdentityProviderTrust",
       "sectionId": "IDPRTR",
       "doc": "Trust and security.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Defines the trust level, federation agreement, and MFA capability governing an identity provider."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Defines the trust level, federation agreement, and MFA capability governing an identity provider."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121374,7 +122147,24 @@
       "name": "IdentitySourceEntry",
       "sectionId": "IDTSR",
       "doc": "An identity source entry (form).\n\nDefines one source from which identities are obtained, e.g.\ninternal directory, LDAP, external IdP, HR system, self-registration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing"
+        ],
+        "connotation": "Defines a single source from which identities are obtained, such as a directory, IdP, or HR system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "Defines a single source from which identities are obtained, such as a directory, IdP, or HR system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121491,7 +122281,24 @@
       "name": "IdentitySourceEntryConnection",
       "sectionId": "IDSOENCO",
       "doc": "Connectivity and trust details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing"
+        ],
+        "connotation": "Defines the connection endpoint, protocol, precedence, and trust level for an identity source."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "Defines the connection endpoint, protocol, precedence, and trust level for an identity source."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121562,7 +122369,24 @@
       "name": "IdentitySourceEntryLifecycle",
       "sectionId": "ISEL",
       "doc": "Synchronization and provisioning details.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the synchronization, provisioning, and deprovisioning behavior for an identity source."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the synchronization, provisioning, and deprovisioning behavior for an identity source."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121633,7 +122457,24 @@
       "name": "IdentitySourceEntryMapping",
       "sectionId": "ISEM",
       "doc": "Attribute mapping details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines which attributes and groups are imported from an identity source."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines which attributes and groups are imported from an identity source."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121683,7 +122524,24 @@
       "name": "IdentitySourceEntryOperations",
       "sectionId": "ISEO",
       "doc": "Operational behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing"
+        ],
+        "connotation": "Defines the operational behavior of an identity source such as failover handling and activation state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "Defines the operational behavior of an identity source such as failover handling and activation state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121740,7 +122598,24 @@
       "name": "IdentityVerificationPolicy",
       "sectionId": "IDVEPO",
       "doc": "Identity verification/proofing policy (form).\n\nDefines how identity claims are verified: verification level, required\ndocuments, automation, proofing standards (NIST IAL), and re-verification.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines the identity-proofing policy including assurance level, verification mode, and re-verification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines the identity-proofing policy including assurance level, verification mode, and re-verification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121888,7 +122763,24 @@
       "name": "IdentityVerificationPolicyDocuments",
       "sectionId": "IVPD",
       "doc": "Required proofing artifacts.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines the documents, verification methods, and biometrics required as identity-proofing evidence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines the documents, verification methods, and biometrics required as identity-proofing evidence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121945,7 +122837,24 @@
       "name": "IdentityVerificationPolicyFailure",
       "sectionId": "IVPF",
       "doc": "Failure handling rules.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines how failed identity-proofing attempts are handled, including retry limits and escalation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines how failed identity-proofing attempts are handled, including retry limits and escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121995,7 +122904,24 @@
       "name": "IdentityVerificationPolicyLifecycle",
       "sectionId": "IVPL",
       "doc": "Reverification and retention settings.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines re-verification triggers, periods, and retention of identity-proofing evidence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines re-verification triggers, periods, and retention of identity-proofing evidence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122052,7 +122978,24 @@
       "name": "IdentityVerificationPolicyMethods",
       "sectionId": "IVPM",
       "doc": "Contact and provider verification.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines email and phone verification requirements and the third-party proofing provider used."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines email and phone verification requirements and the third-party proofing provider used."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -122109,7 +123052,24 @@
       "name": "IdentityVerificationPolicyWorkflow",
       "sectionId": "IVPW",
       "doc": "Workflow and approval settings.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines the ordered proofing steps, approval requirements, and proofing channels for identity verification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines the ordered proofing steps, approval requirements, and proofing channels for identity verification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144654,11 +145614,30 @@
       "name": "LoginFlowConfiguration",
       "sectionId": "LFC",
       "doc": "Login flow configuration (form).\n\nDefines the overall login flow structure: entry points, credential\nsubmission method, pre-authentication checks, and post-authentication\nactions.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines the overall login flow structure including entry points, credential submission, and post-authentication actions."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines the overall login flow structure including entry points, credential submission, and post-authentication actions."
           }
         },
         {
@@ -144705,7 +145684,24 @@
       "name": "LoginFlowStepEntry",
       "sectionId": "LGFLS",
       "doc": "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines an individual step in the authentication flow sequence from initial request to authenticated session."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines an individual step in the authentication flow sequence from initial request to authenticated session."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144814,7 +145810,24 @@
       "name": "LoginFlowStepEntryBehavior",
       "sectionId": "LFSEB",
       "doc": "Outcomes and optional execution rules.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the success and failure outcomes and conditional execution rules of a login flow step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the success and failure outcomes and conditional execution rules of a login flow step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144878,7 +145891,24 @@
       "name": "LoginFlowStepEntryProtocol",
       "sectionId": "LFSEP",
       "doc": "Protocol-level and descriptive details.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Captures the protocol-level message and descriptive details of a login flow step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Captures the protocol-level message and descriptive details of a login flow step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -144928,7 +145958,24 @@
       "name": "LoginFlowStepEntryValidation",
       "sectionId": "LFSEV",
       "doc": "Inputs and validation behavior.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Describes the required inputs and validation actions performed during a login flow step."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Describes the required inputs and validation actions performed during a login flow step."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149790,7 +150837,24 @@
       "name": "MfaCategoryRequirementEntry",
       "sectionId": "MFACRQ",
       "doc": "An MFA enforcement per user category entry (form).\n\nDefines MFA requirements for a specific user category, allowing\ndifferent authentication assurance levels per role or access tier.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authenticator and verifier requirements",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines the MFA enforcement requirements for a specific user category and target assurance level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authenticator and verifier requirements",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines the MFA enforcement requirements for a specific user category and target assurance level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149892,7 +150956,24 @@
       "name": "MfaCategoryRequirementEntryAuthenticators",
       "sectionId": "MCREA",
       "doc": "Allowed authenticators and phishing-resistance rules.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authenticator and verifier requirements",
+          "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+        ],
+        "connotation": "Captures the allowed authenticator types and phishing-resistance rules for MFA credentials."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authenticator and verifier requirements",
+              "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+            ],
+            "connotation": "Captures the allowed authenticator types and phishing-resistance rules for MFA credentials."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -149942,7 +151023,24 @@
       "name": "MfaCategoryRequirementEntryOperations",
       "sectionId": "MCREO",
       "doc": "Fallback, timeouts, and rationale.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authenticator and verifier requirements",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Captures MFA fallback mechanisms, reauthentication timeouts, and the rationale per user category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authenticator and verifier requirements",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Captures MFA fallback mechanisms, reauthentication timeouts, and the rationale per user category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -150006,7 +151104,24 @@
       "name": "MfaCategoryRequirementEntryTiming",
       "sectionId": "MCRET",
       "doc": "Enrollment and remembered-device timing.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authenticator and verifier requirements",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Captures MFA enrollment deadlines, grace periods, and remembered-device timing rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authenticator and verifier requirements",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Captures MFA enrollment deadlines, grace periods, and remembered-device timing rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -150070,11 +151185,30 @@
       "name": "MfaConfiguration",
       "sectionId": "MC",
       "doc": "Multi-Factor Authentication (MFA) configuration (form).\n\nDefines MFA requirements aligned with NIST SP 800-63B AAL2/AAL3:\nproof of possession and control of two distinct authentication factors.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "ISO/IEC 29115 — entity authentication assurance framework",
+          "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+        ],
+        "connotation": "Defines multi-factor authentication requirements based on proof of possession and control of two distinct authentication factors."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "ISO/IEC 29115 — entity authentication assurance framework",
+              "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+            ],
+            "connotation": "Defines multi-factor authentication requirements based on proof of possession and control of two distinct authentication factors."
           }
         },
         {
@@ -150103,10 +151237,28 @@
           "name": "mfaDetails",
           "kind": "list",
           "doc": "MFA Implementation Details (text).",
+          "help": "Add one entry per MFA method definition.",
           "sectionId": "MFADE-MFAD-LST",
           "sectionIdPattern": "MFADE-MFAD-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+            ],
+            "connotation": "The catalog of multi-factor authentication method definitions."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63B — authentication and authenticator lifecycle",
+                  "FIDO2 / W3C WebAuthn — phishing-resistant authentication"
+                ],
+                "connotation": "The catalog of multi-factor authentication method definitions."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -150117,6 +151269,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MFADE-MFAD-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per MFA method definition."
               }
             },
             {
@@ -174998,7 +176156,26 @@
       "name": "PasswordAndCredentialPolicy",
       "sectionId": "PACP",
       "doc": "9.2.3. Password and Credential Policy.\n\nComprehensive password and credential policy aligned with NIST SP 800-63B\n(Revision 4). Covers password requirements, storage, lifecycle, account\nlockout, credential recovery, MFA enforcement per user category,\ncredential compromise detection, and service account credential management.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements",
+          "ISO/IEC 27001:2022 — control A.5.17 authentication information"
+        ],
+        "connotation": "Captures the complete password and credential policy including storage, lifecycle, lockout, recovery, and MFA enforcement."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements",
+              "ISO/IEC 27001:2022 — control A.5.17 authentication information"
+            ],
+            "connotation": "Captures the complete password and credential policy including storage, lifecycle, lockout, recovery, and MFA enforcement."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -175153,10 +176330,26 @@
           "name": "mfaCategoryRequirements",
           "kind": "list",
           "doc": "Contains 0+× MFA Enforcement per User Category.",
+          "help": "Add one entry per MFA credential requirement.",
           "sectionId": "MFACRQ-MFAC-LST",
           "sectionIdPattern": "MFACRQ-MFAC-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63B — authenticator and verifier requirements"
+            ],
+            "connotation": "The catalog of multi-factor credential requirements per user category."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63B — authenticator and verifier requirements"
+                ],
+                "connotation": "The catalog of multi-factor credential requirements per user category."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -175167,6 +176360,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MFACRQ-MFAC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per MFA credential requirement."
               }
             },
             {
@@ -175185,11 +176384,28 @@
       "name": "PasswordLifecyclePolicy",
       "sectionId": "PLP",
       "doc": "Password lifecycle policy (form).\n\nDefines the lifecycle of passwords: creation, rotation, expiry, and\nhistory. NIST SP 800-63B recommends against periodic rotation and\nonly forces changes on evidence of compromise.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "ISO/IEC 27001:2022 — control A.5.17 authentication information"
+        ],
+        "connotation": "Defines the password lifecycle covering creation, rotation, expiry, and history."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "ISO/IEC 27001:2022 — control A.5.17 authentication information"
+            ],
+            "connotation": "Defines the password lifecycle covering creation, rotation, expiry, and history."
           }
         },
         {
@@ -175236,11 +176452,28 @@
       "name": "PasswordRequirementsPolicy",
       "sectionId": "PRP",
       "doc": "Password requirements policy (form).\n\nDefines the rules for password creation, including length, complexity,\ncharacter set, and user guidance. Aligned with NIST SP 800-63B which\nrecommends length over complexity and prohibits composition rules.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines password creation rules including length, character set, blocklists, and user guidance."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines password creation rules including length, character set, blocklists, and user guidance."
           }
         },
         {
@@ -175287,11 +176520,28 @@
       "name": "PasswordStoragePolicy",
       "sectionId": "PSP",
       "doc": "Password storage and verification policy (form).\n\nDefines how passwords are stored, hashed, salted, and verified.\nAligned with NIST SP 800-63B and OWASP password storage recommendations.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — memorized secret (password) requirements",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines how passwords are stored, hashed, salted, and verified against timing attacks."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — memorized secret (password) requirements",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines how passwords are stored, hashed, salted, and verified against timing attacks."
           }
         },
         {
@@ -199540,11 +200790,30 @@
       "name": "RedirectHandlingPolicy",
       "sectionId": "RHP",
       "doc": "Redirect and callback handling policy (form).\n\nDefines how authentication redirects, OAuth/OIDC callbacks, deep links,\nand error redirects are managed in the authentication flow.",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 RFC 6749 — delegated authorization framework",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines how authentication redirects, OAuth and OIDC callbacks, deep links, and error redirects are managed in the authentication flow."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 RFC 6749 — delegated authorization framework",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines how authentication redirects, OAuth and OIDC callbacks, deep links, and error redirects are managed in the authentication flow."
           }
         },
         {
@@ -202332,11 +203601,28 @@
       "name": "RememberMePolicy",
       "sectionId": "RMP",
       "doc": "Remember-me and persistent session policy (form).\n\nDefines the remember-me (persistent login) functionality, device trust,\nand long-lived session token management. Persistent sessions trade\nsecurity for convenience and must be carefully scoped.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — session management (reauthentication and timeout)",
+          "OWASP ASVS V3 — session management verification requirements"
+        ],
+        "connotation": "Defines remember-me persistent login, device trust, and long-lived session token management."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — session management (reauthentication and timeout)",
+              "OWASP ASVS V3 — session management verification requirements"
+            ],
+            "connotation": "Defines remember-me persistent login, device trust, and long-lived session token management."
           }
         },
         {
@@ -228528,7 +229814,26 @@
       "sectionId": "ACAZ",
       "doc": "9. Security & Access Model. Seeds → SAS.",
       "mapsTo": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "ISO/IEC 27001:2022 — control A.5.16 identity management",
+          "SOC 2 — CC6.1 through CC6.3 logical access controls"
+        ],
+        "connotation": "Provides the high-level overview of application security for protecting data and functions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "ISO/IEC 27001:2022 — control A.5.16 identity management",
+              "SOC 2 — CC6.1 through CC6.3 logical access controls"
+            ],
+            "connotation": "Provides the high-level overview of application security for protecting data and functions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233585,7 +234890,24 @@
       "name": "SelfRegistrationPolicy",
       "sectionId": "SEREPO",
       "doc": "Self-registration policy (form).\n\nDefines self-service identity creation: registration flow, required\nfields, verification, approval, rate limiting, and domain restrictions.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the self-service identity creation policy covering registration flow, verification, approval, and abuse controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the self-service identity creation policy covering registration flow, verification, approval, and abuse controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233733,7 +235055,24 @@
       "name": "SelfRegistrationPolicyApproval",
       "sectionId": "SRPA",
       "doc": "Approval workflow for self-registration.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the approval workflow and default role or group assigned to newly self-registered identities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the approval workflow and default role or group assigned to newly self-registered identities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233811,7 +235150,24 @@
       "name": "SelfRegistrationPolicyBotProtection",
       "sectionId": "SRPBP",
       "doc": "Bot protection settings for self-registration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication",
+          "NIST SP 800-63A — enrollment and identity proofing"
+        ],
+        "connotation": "Defines bot and automated-abuse protection such as CAPTCHA applied to self-registration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "Defines bot and automated-abuse protection such as CAPTCHA applied to self-registration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233861,7 +235217,24 @@
       "name": "SelfRegistrationPolicyFields",
       "sectionId": "SRPF",
       "doc": "Field configuration for self-registration.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines which optional fields and terms acceptance are configured for the self-registration form."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines which optional fields and terms acceptance are configured for the self-registration form."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233911,7 +235284,24 @@
       "name": "SelfRegistrationPolicySecurity",
       "sectionId": "SRPS",
       "doc": "Security restrictions for self-registration.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines security restrictions on self-registration such as domain allow/block lists, duplicate detection, and rate limiting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines security restrictions on self-registration such as domain allow/block lists, duplicate detection, and rate limiting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233975,7 +235365,24 @@
       "name": "SelfRegistrationPolicyVerification",
       "sectionId": "SRPV",
       "doc": "Verification requirements for self-registration.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 29115 — entity authentication assurance framework"
+        ],
+        "connotation": "Defines email and phone verification requirements applied during self-registration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 29115 — entity authentication assurance framework"
+            ],
+            "connotation": "Defines email and phone verification requirements applied during self-registration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -234039,11 +235446,28 @@
       "name": "SelfServiceAccountManagement",
       "sectionId": "SSACM",
       "doc": "9.1.2.8. Self-Service Account Management (form).\n\nDefines what lifecycle actions users can perform on their own accounts\nwithout administrator involvement.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the lifecycle actions users can perform on their own accounts without administrator involvement."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the lifecycle actions users can perform on their own accounts without administrator involvement."
           }
         },
         {
@@ -236234,11 +237658,28 @@
       "name": "ServiceAccountCredentialPolicy",
       "sectionId": "SACP",
       "doc": "Service account and API credential policy (form).\n\nDefines credential management for non-human identities: service accounts,\nAPI keys, machine-to-machine tokens, and automation credentials.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.17 authentication information",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines credential management for non-human identities such as service accounts, API keys, and machine tokens."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.17 authentication information",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines credential management for non-human identities such as service accounts, API keys, and machine tokens."
           }
         },
         {
@@ -236285,11 +237726,28 @@
       "name": "ServiceAccountLifecycle",
       "sectionId": "SACLC",
       "doc": "9.1.2.9. Service Account Lifecycle (form).\n\nDefines lifecycle management for non-human accounts — APIs, bots, system\nintegrations — which have different lifecycle rules than human users.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "ISO/IEC 27001:2022 — control A.5.16 identity management"
+        ],
+        "connotation": "Defines lifecycle management for non-human service accounts such as APIs, bots, and system integrations."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "ISO/IEC 27001:2022 — control A.5.16 identity management"
+            ],
+            "connotation": "Defines lifecycle management for non-human service accounts such as APIs, bots, and system integrations."
           }
         },
         {
@@ -237509,11 +238967,30 @@
       "name": "SessionCreationPolicy",
       "sectionId": "SCP",
       "doc": "Session creation policy (form).\n\nDefines how authenticated sessions are established after successful\nauthentication: session binding, device binding, and session properties.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines how authenticated sessions are established after successful authentication including session binding and device binding."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines how authenticated sessions are established after successful authentication including session binding and device binding."
           }
         },
         {
@@ -237560,11 +239037,28 @@
       "name": "SessionLifecycleMonitoring",
       "sectionId": "SLM",
       "doc": "Session lifecycle monitoring (form).\n\nDefines how session events are logged, monitored, and audited\nthroughout the session lifecycle: creation, usage, renewal,\nand destruction.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "NIST SP 800-63B — session management (reauthentication and timeout)"
+        ],
+        "connotation": "Defines how session events are logged, monitored, and audited across the full session lifecycle."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "NIST SP 800-63B — session management (reauthentication and timeout)"
+            ],
+            "connotation": "Defines how session events are logged, monitored, and audited across the full session lifecycle."
           }
         },
         {
@@ -237611,7 +239105,24 @@
       "name": "SessionManagement",
       "sectionId": "SEMA",
       "doc": "9.2.4. Session Management.\n\nComprehensive session management policy covering session timeouts,\nconcurrent session control, session revocation, remember-me functionality,\nsession security hardening, and session lifecycle monitoring.\nAligned with OWASP Session Management Cheat Sheet and NIST SP 800-63B\nsession requirements by Authentication Assurance Level (AAL).",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "NIST SP 800-63B — session management (reauthentication and timeout)"
+        ],
+        "connotation": "Captures the comprehensive session management policy covering timeouts, concurrency, revocation, and hardening."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "NIST SP 800-63B — session management (reauthentication and timeout)"
+            ],
+            "connotation": "Captures the comprehensive session management policy covering timeouts, concurrency, revocation, and hardening."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -238055,11 +239566,28 @@
       "name": "SessionRevocationPolicy",
       "sectionId": "SRP",
       "doc": "Session revocation policy (form).\n\nDefines how sessions are explicitly invalidated: logout behavior,\nadministrative termination, privilege change handling, and\nbulk revocation scenarios.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "NIST SP 800-63B — session management (reauthentication and timeout)"
+        ],
+        "connotation": "Defines how sessions are explicitly invalidated on logout, privilege change, and bulk revocation."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "NIST SP 800-63B — session management (reauthentication and timeout)"
+            ],
+            "connotation": "Defines how sessions are explicitly invalidated on logout, privilege change, and bulk revocation."
           }
         },
         {
@@ -238106,11 +239634,28 @@
       "name": "SessionSecurityPolicy",
       "sectionId": "SSP",
       "doc": "Session security hardening policy (form).\n\nDefines session fixation protection, session binding to user properties,\nsession anomaly detection, and content caching policies.\nAligned with OWASP Session Management Cheat Sheet recommendations.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines session fixation protection, session binding, anomaly detection, and transport hardening."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines session fixation protection, session binding, anomaly detection, and transport hardening."
           }
         },
         {
@@ -238157,11 +239702,28 @@
       "name": "SessionTimeoutPolicy",
       "sectionId": "STP",
       "doc": "Session timeout policy (form).\n\nDefines idle timeout, absolute timeout, and renewal timeout\nparameters including per-AAL differentiation. OWASP recommends\nidle timeouts of 2–5 min for high-value and 15–30 min for low-risk\napplications. Absolute timeouts limit maximum session duration.",
+      "standardReferences": {
+        "standards": [
+          "OWASP ASVS V3 — session management verification requirements",
+          "NIST SP 800-63B — session management (reauthentication and timeout)"
+        ],
+        "connotation": "Defines idle, absolute, and renewal timeout parameters including per-AAL differentiation."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OWASP ASVS V3 — session management verification requirements",
+              "NIST SP 800-63B — session management (reauthentication and timeout)"
+            ],
+            "connotation": "Defines idle, absolute, and renewal timeout parameters including per-AAL differentiation."
           }
         },
         {
@@ -240012,7 +241574,26 @@
       "name": "SingleSignOnPolicy",
       "sectionId": "SSOP",
       "doc": "Single Sign-On policy (form).\n\nDefines SSO scope, protocol, session propagation, federation,\nlogout propagation, and platform-specific SSO strategies.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Defines the Single Sign-On policy including scope, protocol, session propagation, and federation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Defines the Single Sign-On policy including scope, protocol, session propagation, and federation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240145,7 +241726,24 @@
       "name": "SingleSignOnPolicyAccess",
       "sectionId": "SSOPA",
       "doc": "Access and consent behavior.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+        ],
+        "connotation": "Defines account linking, consent requirements, and SSO bypass rules for federated access."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+            ],
+            "connotation": "Defines account linking, consent requirements, and SSO bypass rules for federated access."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240209,7 +241807,24 @@
       "name": "SingleSignOnPolicyFederation",
       "sectionId": "SSOPF",
       "doc": "Gateway and federation setup.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Defines the SSO gateway, session propagation, and cross-domain federation trust model."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Defines the SSO gateway, session propagation, and cross-domain federation trust model."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240273,7 +241888,24 @@
       "name": "SingleSignOnPolicyOperations",
       "sectionId": "SSOPO",
       "doc": "Platform integration and monitoring.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+        ],
+        "connotation": "Defines platform-specific SSO integration and monitoring for desktop and mobile clients."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"
+            ],
+            "connotation": "Defines platform-specific SSO integration and monitoring for desktop and mobile clients."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240330,7 +241962,24 @@
       "name": "SingleSignOnPolicySession",
       "sectionId": "SSOPS",
       "doc": "Session and logout behavior.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "SAML 2.0 — OASIS security assertion markup language"
+        ],
+        "connotation": "Defines SSO session lifetime, idle timeout, and single-logout propagation across connected applications."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "SAML 2.0 — OASIS security assertion markup language"
+            ],
+            "connotation": "Defines SSO session lifetime, idle timeout, and single-logout propagation across connected applications."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -242354,11 +244003,30 @@
       "name": "SsoPolicy",
       "sectionId": "SP",
       "doc": "Single Sign-On (SSO) policy (form).\n\nDefines federation and SSO configuration for centralized authentication\nacross multiple applications via identity providers.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63C — federation and assertions",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "OAuth 2.0 RFC 6749 — delegated authorization framework"
+        ],
+        "connotation": "Defines federation and single sign-on configuration for centralized authentication across multiple applications via identity providers."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63C — federation and assertions",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "OAuth 2.0 RFC 6749 — delegated authorization framework"
+            ],
+            "connotation": "Defines federation and single sign-on configuration for centralized authentication across multiple applications via identity providers."
           }
         },
         {
@@ -251165,11 +252833,30 @@
       "name": "StepUpAuthenticationPolicy",
       "sectionId": "SUAP",
       "doc": "Step-up and adaptive authentication policy (form).\n\nDefines when and how authentication level is elevated for sensitive\noperations, including risk-based and context-aware authentication.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-63B — authentication and authenticator lifecycle",
+          "OWASP ASVS V2 — authentication verification requirements",
+          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+        ],
+        "connotation": "Defines when and how authentication assurance is elevated for sensitive operations including risk-based and context-aware authentication."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements",
+              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
+            ],
+            "connotation": "Defines when and how authentication assurance is elevated for sensitive operations including risk-based and context-aware authentication."
           }
         },
         {
@@ -251198,10 +252885,28 @@
           "name": "stepUpDetails",
           "kind": "list",
           "doc": "Step-Up Authentication Details (text).",
+          "help": "Add one entry per step-up authentication step.",
           "sectionId": "STEPU-STEP-LST",
           "sectionIdPattern": "STEPU-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-63B — authentication and authenticator lifecycle",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "The catalog of step-up authentication detail entries."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-63B — authentication and authenticator lifecycle",
+                  "OWASP ASVS V2 — authentication verification requirements"
+                ],
+                "connotation": "The catalog of step-up authentication detail entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -251212,6 +252917,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STEPU-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per step-up authentication step."
               }
             },
             {
@@ -273726,11 +275437,30 @@
       "name": "TokenManagementPolicy",
       "sectionId": "TMP",
       "doc": "Token management policy (form).\n\nDefines token issuance, refresh, storage, and revocation policies for\nauthentication tokens (JWT, opaque, refresh tokens, ID tokens).",
+      "standardReferences": {
+        "standards": [
+          "OAuth 2.0 RFC 6749 — delegated authorization framework",
+          "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+          "OWASP ASVS V2 — authentication verification requirements"
+        ],
+        "connotation": "Defines token issuance, refresh, storage, and revocation policies for authentication tokens."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "OAuth 2.0 RFC 6749 — delegated authorization framework",
+              "OpenID Connect Core 1.0 — identity layer over OAuth 2.0",
+              "OWASP ASVS V2 — authentication verification requirements"
+            ],
+            "connotation": "Defines token issuance, refresh, storage, and revocation policies for authentication tokens."
           }
         },
         {
@@ -287305,11 +289035,28 @@
       "name": "UserAccountStatesDefinition",
       "sectionId": "UACST",
       "doc": "9.1.2.1. Account States (form).\n\nDefines the possible states a user account can be in throughout its\nlifecycle, from provisional creation to permanent deletion.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines the possible states a user account can be in throughout its lifecycle."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines the possible states a user account can be in throughout its lifecycle."
           }
         },
         {
@@ -287683,7 +289430,24 @@
       "name": "UserAttributeEntry",
       "sectionId": "USATE",
       "doc": "A user attribute entry (form).",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines a single user profile attribute together with its data type, source, and whether it is mandatory."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines a single user profile attribute together with its data type, source, and whether it is mandatory."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287714,24 +289478,28 @@
             {
               "name": "attributeName",
               "label": "Attribute Name",
+              "hint": "Name of the user attribute.",
               "type": "String",
               "required": true
             },
             {
               "name": "dataType",
               "label": "Data Type",
+              "hint": "Data type of the attribute value.",
               "type": "String",
               "required": false
             },
             {
               "name": "source",
               "label": "Source",
+              "hint": "System of record that supplies this attribute.",
               "type": "String",
               "required": false
             },
             {
               "name": "required",
               "label": "Required",
+              "hint": "Whether this attribute is mandatory.",
               "type": "String",
               "required": false
             }
@@ -287743,7 +289511,24 @@
       "name": "UserAttributes",
       "sectionId": "USATT",
       "doc": "9.1.3. User Attributes.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "ISO/IEC 24760 — IAM: a framework for identity management"
+        ],
+        "connotation": "Defines the user profile attributes captured and managed to support authentication, authorization, and compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "Defines the user profile attributes captured and managed to support authentication, authorization, and compliance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287777,10 +289562,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× UserAttribute.",
+          "help": "Add one entry per user-attribute entry.",
           "sectionId": "USATE-ITEM-LST",
           "sectionIdPattern": "USATE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "The catalog of user attribute entries."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+                ],
+                "connotation": "The catalog of user attribute entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -287791,6 +289592,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "USATE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user-attribute entry."
               }
             },
             {
@@ -288188,7 +289995,24 @@
       "name": "UserCategoryDefinition",
       "sectionId": "USCDF",
       "doc": "A user category definition (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing"
+        ],
+        "connotation": "Defines a single user category together with its access level and estimated population."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing"
+            ],
+            "connotation": "Defines a single user category together with its access level and estimated population."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -288219,24 +290043,28 @@
             {
               "name": "categoryName",
               "label": "Category Name",
+              "hint": "Name of the user category.",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Short description",
+              "hint": "Brief description of this category.",
               "type": "String",
               "required": false
             },
             {
               "name": "accessLevel",
               "label": "Access Level",
+              "hint": "Typical access level for this category.",
               "type": "String",
               "required": false
             },
             {
               "name": "estimatedCount",
               "label": "Estimated Count",
+              "hint": "Estimated number of users in this category.",
               "type": "String",
               "required": false
             }
@@ -289880,7 +291708,26 @@
       "name": "UserLifecycle",
       "sectionId": "USLCS",
       "doc": "9.1.2. User Lifecycle.\n\nDefines the complete user account lifecycle: states, transitions between\nstates, approval requirements for each transition, and operational policies\nfor registration, activation, modification, deactivation, and deletion.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines the complete user account lifecycle from creation through permanent deletion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines the complete user account lifecycle from creation through permanent deletion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290050,10 +291897,26 @@
           "name": "serviceAccounts",
           "kind": "list",
           "doc": "9.1.2.9. Service Account Lifecycle.",
+          "help": "Add one entry per service-account lifecycle entry.",
           "sectionId": "SACLC-SERV-LST",
           "sectionIdPattern": "SACLC-SERV-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management"
+            ],
+            "connotation": "The catalog of service account lifecycle entries."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 24760 — IAM: a framework for identity management"
+                ],
+                "connotation": "The catalog of service account lifecycle entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -290064,6 +291927,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SACLC-SERV-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per service-account lifecycle entry."
               }
             },
             {
@@ -290082,7 +291951,24 @@
       "name": "UserLifecycleTransitionEntry",
       "sectionId": "ULTRE",
       "doc": "A lifecycle transition entry (form).\n\nDefines a single permissible transition between two lifecycle states,\nincluding trigger, approval, and side effects.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines a single permissible transition between two lifecycle states, including its trigger and approval."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines a single permissible transition between two lifecycle states, including its trigger and approval."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290198,7 +292084,24 @@
       "name": "UserLifecycleTransitionEntryApproval",
       "sectionId": "ULTAP",
       "doc": "Approval requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines the approval requirements and approver role for a lifecycle transition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines the approval requirements and approver role for a lifecycle transition."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290255,7 +292158,24 @@
       "name": "UserLifecycleTransitionEntryAutomation",
       "sectionId": "ULTAU",
       "doc": "Reversal and automation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines whether a lifecycle transition can be reversed and whether it can be automated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines whether a lifecycle transition can be reversed and whether it can be automated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290312,7 +292232,24 @@
       "name": "UserLifecycleTransitionEntryEffects",
       "sectionId": "ULTEF",
       "doc": "Side effects and notifications.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines the side effects performed and the notifications sent when a lifecycle transition occurs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines the side effects performed and the notifications sent when a lifecycle transition occurs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -290369,11 +292306,28 @@
       "name": "UserLifecycleTransitions",
       "sectionId": "ULTRS",
       "doc": "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can trigger\neach transition, and the approval workflow required.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.18 access rights",
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+        ],
+        "connotation": "Defines the permissible transitions between lifecycle states and the approval workflow each transition requires."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights",
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning"
+            ],
+            "connotation": "Defines the permissible transitions between lifecycle states and the approval workflow each transition requires."
           }
         },
         {
@@ -290434,10 +292388,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× UserLifecycleTransitionEntry.",
+          "help": "Add one entry per user-lifecycle transition entry.",
           "sectionId": "ULTRE-ITEM-LST",
           "sectionIdPattern": "ULTRE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "The catalog of user lifecycle transition entries."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001:2022 — control A.5.18 access rights"
+                ],
+                "connotation": "The catalog of user lifecycle transition entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -290448,6 +292418,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ULTRE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user-lifecycle transition entry."
               }
             },
             {
@@ -290467,7 +292443,26 @@
       "sectionId": "USMGT",
       "doc": "9.1. User Management.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 24760 — IAM: a framework for identity management",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "SOC 2 — CC6.1 through CC6.3 logical access controls"
+        ],
+        "connotation": "Describes how users are organized, categorized, and managed across their relationship with the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 24760 — IAM: a framework for identity management",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "SOC 2 — CC6.1 through CC6.3 logical access controls"
+            ],
+            "connotation": "Describes how users are organized, categorized, and managed across their relationship with the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -291589,11 +293584,30 @@
       "name": "UserRegistrationProcess",
       "sectionId": "URREG",
       "doc": "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing requirements.",
+      "standardReferences": {
+        "standards": [
+          "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+          "NIST SP 800-63A — enrollment and identity proofing",
+          "ISO/IEC 27001:2022 — control A.5.18 access rights"
+        ],
+        "connotation": "Defines how new user accounts are created, including registration methods and identity proofing requirements."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
+              "NIST SP 800-63A — enrollment and identity proofing",
+              "ISO/IEC 27001:2022 — control A.5.18 access rights"
+            ],
+            "connotation": "Defines how new user accounts are created, including registration methods and identity proofing requirements."
           }
         },
         {

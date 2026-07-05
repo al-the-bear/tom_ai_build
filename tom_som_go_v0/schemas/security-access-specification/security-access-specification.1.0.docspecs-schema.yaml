@@ -43,19 +43,19 @@ section-types:
     pattern-check-id:
       pattern: ^idprde_deta_lst-\d+$
       error-message: ID must match idprde_deta_lst-NNN
-    description: Provider details.
+    description: Add one entry per provider-detail entry.
   IDPREN-ENDP-LST:
     prefix: idpren_endp_lst
     pattern-check-id:
       pattern: ^idpren_endp_lst-\d+$
       error-message: ID must match idpren_endp_lst-NNN
-    description: Endpoint configuration.
+    description: Add one entry per provider-endpoint entry.
   MFACRQ-MFAC-LST:
     prefix: mfacrq_mfac_lst
     pattern-check-id:
       pattern: ^mfacrq_mfac_lst-\d+$
       error-message: ID must match mfacrq_mfac_lst-NNN
-    description: Contains 0+× MFA Enforcement per User Category.
+    description: Add one entry per MFA credential requirement.
   RESKEY-RESO-LST:
     prefix: reskey_reso_lst
     pattern-check-id:
@@ -97,31 +97,31 @@ section-types:
     pattern-check-id:
       pattern: ^idtam_attr_lst-\d+$
       error-message: ID must match idtam_attr_lst-NNN
-    description: Attribute Mappings — contains 0+× Identity Attribute Mapping.
+    description: Add one entry per identity-attribute mapping.
   IDTPV-IDEN-LST:
     prefix: idtpv_iden_lst
     pattern-check-id:
       pattern: ^idtpv_iden_lst-\d+$
       error-message: ID must match idtpv_iden_lst-NNN
-    description: Identity Providers — contains 0+× Identity Provider.
+    description: Add one entry per identity-provider entry.
   IDTSR-IDEN-LST:
     prefix: idtsr_iden_lst
     pattern-check-id:
       pattern: ^idtsr_iden_lst-\d+$
       error-message: ID must match idtsr_iden_lst-NNN
-    description: Identity Sources — contains 0+× Identity Source.
+    description: Add one entry per identifier source.
   LGFLS-LOGI-LST:
     prefix: lgfls_logi_lst
     pattern-check-id:
       pattern: ^lgfls_logi_lst-\d+$
       error-message: ID must match lgfls_logi_lst-NNN
-    description: Contains 0+× Login Flow Step.
+    description: Add one entry per login flow step.
   MFADE-MFAD-LST:
     prefix: mfade_mfad_lst
     pattern-check-id:
       pattern: ^mfade_mfad_lst-\d+$
       error-message: ID must match mfade_mfad_lst-NNN
-    description: MFA Implementation Details (text).
+    description: Add one entry per MFA method definition.
   RLCMB-COMB-LST:
     prefix: rlcmb_comb_lst
     pattern-check-id:
@@ -139,37 +139,37 @@ section-types:
     pattern-check-id:
       pattern: ^saclc_serv_lst-\d+$
       error-message: ID must match saclc_serv_lst-NNN
-    description: 9.1.2.9. Service Account Lifecycle.
+    description: Add one entry per service-account lifecycle entry.
   STEPU-STEP-LST:
     prefix: stepu_step_lst
     pattern-check-id:
       pattern: ^stepu_step_lst-\d+$
       error-message: ID must match stepu_step_lst-NNN
-    description: Step-Up Authentication Details (text).
+    description: Add one entry per step-up authentication step.
   ULTRE-ITEM-LST:
     prefix: ultre_item_lst
     pattern-check-id:
       pattern: ^ultre_item_lst-\d+$
       error-message: ID must match ultre_item_lst-NNN
-    description: Contains 0+× UserLifecycleTransitionEntry.
+    description: Add one entry per user-lifecycle transition entry.
   USATE-ITEM-LST:
     prefix: usate_item_lst
     pattern-check-id:
       pattern: ^usate_item_lst-\d+$
       error-message: ID must match usate_item_lst-NNN
-    description: Contains 0+× UserAttribute.
+    description: Add one entry per user-attribute entry.
   USCDF-ITEM-LST:
     prefix: uscdf_item_lst
     pattern-check-id:
       pattern: ^uscdf_item_lst-\d+$
       error-message: ID must match uscdf_item_lst-NNN
-    description: Contains 0+× UserCategoryDefinition.
+    description: Add one entry per user-category definition.
   ATME-ITEM-LST:
     prefix: atme_item_lst
     pattern-check-id:
       pattern: ^atme_item_lst-\d+$
       error-message: ID must match atme_item_lst-NNN
-    description: Contains 0+× AuthenticationMethod.
+    description: Add one entry per authentication method.
   AZGR-GROU-LST:
     prefix: azgr_grou_lst
     pattern-check-id:
