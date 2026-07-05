@@ -15283,7 +15283,22 @@
       "name": "AssumptionConstraintDependencyRegister",
       "sectionId": "ACRG",
       "doc": "A consolidated register of assumptions and constraints.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+        ],
+        "connotation": "The consolidated register of assumptions, constraints, and dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+            ],
+            "connotation": "The consolidated register of assumptions, constraints, and dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15426,7 +15441,22 @@
       "name": "AssumptionRegisterEntry",
       "sectionId": "ASMRE",
       "doc": "A single assumption register entry (form).\n\nNamed `AssumptionRegisterEntry` to avoid collision with the pre-existing\n`AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+        ],
+        "connotation": "A single assumption the solution depends on, with its impact and validation approach."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+            ],
+            "connotation": "A single assumption the solution depends on, with its impact and validation approach."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -56921,7 +56951,22 @@
       "name": "ConstraintRegisterEntry",
       "sectionId": "CONRE",
       "doc": "A single constraint register entry (form).\n\nNamed `ConstraintRegisterEntry` to avoid collision with the pre-existing\n`ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+        ],
+        "connotation": "A single constraint the solution must operate within, with its type and source."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+            ],
+            "connotation": "A single constraint the solution must operate within, with its type and source."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62111,7 +62156,24 @@
       "name": "D00SolutionBlueprint",
       "sectionId": "SBP",
       "doc": "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — specification document structure",
+          "BABOK v3 — solution scope and blueprint"
+        ],
+        "connotation": "The umbrella specification aggregating every Solution Blueprint section, from current landscape through target operating model, architecture, quality, and delivery and transition."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — specification document structure",
+              "BABOK v3 — solution scope and blueprint"
+            ],
+            "connotation": "The umbrella specification aggregating every Solution Blueprint section, from current landscape through target operating model, architecture, quality, and delivery and transition."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -84748,7 +84810,22 @@
       "name": "DependencyRegisterEntry",
       "sectionId": "DEPRE",
       "doc": "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+        ],
+        "connotation": "A single external dependency the solution relies on, with its type and criticality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+            ],
+            "connotation": "A single external dependency the solution relies on, with its type and criticality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123777,7 +123854,22 @@
       "name": "Glossary",
       "sectionId": "GLOSS",
       "doc": "An ordered collection of glossary entries.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+        ],
+        "connotation": "The ordered collection of defined terms and abbreviations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+            ],
+            "connotation": "The ordered collection of defined terms and abbreviations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -123912,7 +124004,22 @@
       "name": "GlossaryEntry",
       "sectionId": "GLENT",
       "doc": "A single glossary entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+        ],
+        "connotation": "A single defined term or acronym with its definition and related terms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+            ],
+            "connotation": "A single defined term or acronym with its definition and related terms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143355,7 +143462,22 @@
       "name": "Iso25010Coverage",
       "sectionId": "I25CV",
       "doc": "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — product quality model"
+        ],
+        "connotation": "A derived coverage view mapping the quality goals onto the eight ISO/IEC 25010:2023 product-quality characteristics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — product quality model"
+            ],
+            "connotation": "A derived coverage view mapping the quality goals onto the eight ISO/IEC 25010:2023 product-quality characteristics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143428,7 +143550,22 @@
       "name": "Iso25010CoverageEntry",
       "sectionId": "I25CE",
       "doc": "A single ISO/IEC 25010:2023 coverage entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — product quality model"
+        ],
+        "connotation": "A single coverage entry: one ISO/IEC 25010:2023 characteristic and how it is addressed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — product quality model"
+            ],
+            "connotation": "A single coverage entry: one ISO/IEC 25010:2023 characteristic and how it is addressed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -265565,7 +265702,7 @@
         "standards": [
           "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
         ],
-        "connotation": "The canonical source of truth for each stakeholder's role, interest, influence, concerns, and engagement strategy."
+        "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
       },
       "annotations": [
         {
@@ -265574,7 +265711,7 @@
             "standards": [
               "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
             ],
-            "connotation": "The canonical source of truth for each stakeholder's role, interest, influence, concerns, and engagement strategy."
+            "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
           }
         },
         {
@@ -265645,7 +265782,22 @@
       "name": "StakeholderRegisterEntry",
       "sectionId": "STKRE",
       "doc": "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+        ],
+        "connotation": "A single stakeholder register entry: role, interest, influence, concerns, and engagement strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+            ],
+            "connotation": "A single stakeholder register entry: role, interest, influence, concerns, and engagement strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

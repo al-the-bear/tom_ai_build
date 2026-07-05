@@ -46,6 +46,11 @@ class QualityAndAcceptanceModel {
 /// [Iso25010Characteristic] enum) and records which quality goals / NFRs
 /// address it and the target metric — so coverage of any 25010:2023
 /// characteristic (e.g. compatibility, flexibility) cannot be silently missed.
+@StandardReferences(
+  ['ISO/IEC 25010:2023 — product quality model'],
+  'A derived coverage view mapping the quality goals onto the eight ISO/IEC '
+  '25010:2023 product-quality characteristics.',
+)
 @SectionId('I25CV')
 class Iso25010Coverage {
   @ContentType('description', 'Summarize how the quality goals cover the '
@@ -67,6 +72,11 @@ class Iso25010Coverage {
 }
 
 /// A single ISO/IEC 25010:2023 coverage entry (form).
+@StandardReferences(
+  ['ISO/IEC 25010:2023 — product quality model'],
+  'A single coverage entry: one ISO/IEC 25010:2023 characteristic and how it '
+  'is addressed.',
+)
 @SectionId('I25CE')
 class Iso25010CoverageEntry {
   @Form([

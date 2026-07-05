@@ -26,6 +26,10 @@ class GlossaryAndAbbreviations {
 }
 
 /// An ordered collection of glossary entries.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations'],
+  'The ordered collection of defined terms and abbreviations.',
+)
 @SectionId('GLOSS')
 class Glossary {
   @Unused()
@@ -41,6 +45,10 @@ class Glossary {
 }
 
 /// A single glossary entry (form).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations'],
+  'A single defined term or acronym with its definition and related terms.',
+)
 @SectionId('GLENT')
 class GlossaryEntry {
   @Form([

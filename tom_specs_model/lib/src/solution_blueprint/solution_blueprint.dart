@@ -52,6 +52,15 @@ import 'target_operating_model.dart';
 ///
 /// Contains a [DocumentControl] header block and the SBP sections, sequenced
 /// per the public-standards order (§4 of the redesign proposal).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 §6 — specification document structure',
+    'BABOK v3 — solution scope and blueprint',
+  ],
+  'The umbrella specification aggregating every Solution Blueprint section, '
+  'from current landscape through target operating model, architecture, '
+  'quality, and delivery and transition.',
+)
 @Document(
   name: 'Solution Blueprint',
   description: 'Comprehensive specification document covering all aspects of '

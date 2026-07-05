@@ -79,8 +79,8 @@ from standard organizational project governance procedures.
 /// references this register rather than restating its attributes.
 @StandardReferences(
   ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
-  'The canonical source of truth for each stakeholder\'s role, interest, '
-  'influence, concerns, and engagement strategy.',
+  'The canonical source of truth for the role, interest, influence, concerns, '
+  'and engagement strategy of each stakeholder.',
 )
 @SectionId('STKRG')
 class StakeholderRegister {
@@ -100,6 +100,11 @@ class StakeholderRegister {
 ///
 /// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
 /// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+@StandardReferences(
+  ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
+  'A single stakeholder register entry: role, interest, influence, concerns, '
+  'and engagement strategy.',
+)
 @SectionId('STKRE')
 class StakeholderRegisterEntry {
   @Form([

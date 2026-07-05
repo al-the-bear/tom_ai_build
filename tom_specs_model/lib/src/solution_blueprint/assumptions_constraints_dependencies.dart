@@ -27,6 +27,10 @@ class AssumptionsConstraintsDependencies {
 }
 
 /// A consolidated register of assumptions and constraints.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
+  'The consolidated register of assumptions, constraints, and dependencies.',
+)
 @SectionId('ACRG')
 class AssumptionConstraintDependencyRegister {
   @Unused()
@@ -60,6 +64,11 @@ class AssumptionConstraintDependencyRegister {
 ///
 /// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
 /// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
+  'A single assumption the solution depends on, with its impact and validation '
+  'approach.',
+)
 @SectionId('ASMRE')
 class AssumptionRegisterEntry {
   @Form([
@@ -77,6 +86,11 @@ class AssumptionRegisterEntry {
 ///
 /// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
 /// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
+  'A single constraint the solution must operate within, with its type and '
+  'source.',
+)
 @SectionId('CONRE')
 class ConstraintRegisterEntry {
   @Form([
@@ -97,6 +111,11 @@ class ConstraintRegisterEntry {
 /// dependency content otherwise scattered across SBP.2 / framework conditions
 /// has a canonical home in SBP.6 (the prerequisite destination for the L34C-4
 /// dependency re-home).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
+  'A single external dependency the solution relies on, with its type and '
+  'criticality.',
+)
 @SectionId('DEPRE')
 class DependencyRegisterEntry {
   @Form([
