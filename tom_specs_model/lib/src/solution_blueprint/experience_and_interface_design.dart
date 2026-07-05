@@ -10486,6 +10486,13 @@ class SupportedLocaleEntryRollout {
 ///
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design produces prototypes so design solutions can be evaluated iteratively before commitment',
+    'ISO 9241-11:2018 — usability is examined through prototyping in terms of effectiveness, efficiency, and satisfaction',
+  ],
+  'The prototype-planning configuration covering goals, feature selection, prototype type, and evaluation.',
+)
 @SectionId('PROTOT')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -10544,6 +10551,12 @@ class Prototype {
 }
 
 /// Prototype timing commitments.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — iterative design activities are scheduled so prototyping and evaluation fit the project timeline',
+  ],
+  'The timing commitments for the prototype phase and its evaluation window.',
+)
 @SectionId('PRTI')
 class PrototypeTimeline {
     @Form([
@@ -10559,6 +10572,12 @@ class PrototypeTimeline {
 }
 
 /// Prototype staffing and environment.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment',
+  ],
+  'The staffing, budget, and environment allocated to building the prototype.',
+)
 @SectionId('PRORES')
 class PrototypeResources {
     @Form([
@@ -10574,6 +10593,12 @@ class PrototypeResources {
 }
 
 /// Approval and progression criteria.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — acceptance of a design solution is decided against agreed criteria with stakeholder involvement',
+  ],
+  'The approval and progression criteria that decide whether the prototype may proceed.',
+)
 @SectionId('PRGO')
 class PrototypeGovernance {
     @Form([
@@ -10589,6 +10614,13 @@ class PrototypeGovernance {
 /// 10.13.1. Prototype Goals.
 ///
 /// What the prototype should validate.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — prototyping goals state what the design solution must validate before further investment',
+    'ISO 9241-11:2018 — goals frame usability outcomes to be confirmed through evaluation',
+  ],
+  'The goals the prototype is intended to validate.',
+)
 @SectionId('PG')
 class PrototypeGoals {
   @Form([
@@ -10620,13 +10652,26 @@ class PrototypeGoals {
   TextSection goalsNarrative = TextSection();
 
   /// Individual goal entries.
+  @StandardReferences(
+    [
+      'ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them',
+    ],
+    'The collection of individual prototype-goal entries.',
+  )
   @SectionId('PRGOEN-GOAL-LST')
   @SectionIdPattern('PRGOEN-GOAL-xxx')
+  @ContentHelp('Add one entry per prototype goal.')
   @SerializationOrder(4)
   List<PrototypeGoalEntry> goals = [];
 }
 
 /// Risk reduction and assumption testing.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — prototyping reduces risk by testing assumptions and resolving unknowns early',
+  ],
+  'The risks, unknowns, and assumptions the prototype is meant to reduce.',
+)
 @SectionId('PRGORI')
 class PrototypeGoalsRisk {
     @Form([
@@ -10642,6 +10687,12 @@ class PrototypeGoalsRisk {
 }
 
 /// User feedback objectives and intake.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design',
+  ],
+  'The user-feedback objectives and how feedback from the prototype is collected.',
+)
 @SectionId('PRGOFE')
 class PrototypeGoalsFeedback {
     @Form([
@@ -10657,11 +10708,19 @@ class PrototypeGoalsFeedback {
 }
 
 /// A prototype goal entry.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — each prototyping goal is described with a validation method and success measure',
+  ],
+  'A single prototype-goal entry with its category, validation method, and success metric.',
+)
 @SectionId('PGE')
 class PrototypeGoalEntry {
   @Form([
-    Field('goalId', String, 'Goal ID', required: true),
-    Field('goalDescription', String, 'Goal Description', required: true),
+    Field('goalId', String, 'Goal ID', required: true,
+        hint: 'Unique identifier for the goal'),
+    Field('goalDescription', String, 'Goal Description', required: true,
+        hint: 'What the goal validates'),
     Field('goalCategory', String, 'Goal Category',
         hint: 'Usability, technical, business'),
     Field('validationMethod', String, 'Validation Method',
@@ -10682,6 +10741,12 @@ class PrototypeGoalEntry {
 /// 10.13.2. Selected Feature Subset.
 ///
 /// Features included in the prototype.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — a representative subset of features is prototyped so the riskiest and most valuable parts are evaluated first',
+  ],
+  'The set of features selected for inclusion in the prototype.',
+)
 @SectionId('PRFESU')
 class PrototypeFeatureSubset {
   @Form([
@@ -10712,13 +10777,26 @@ class PrototypeFeatureSubset {
   TextSection featureNarrative = TextSection();
 
   /// Prototype feature entries.
+  @StandardReferences(
+    [
+      'ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature',
+    ],
+    'The collection of prototype-feature entries.',
+  )
   @SectionId('PRFEEN-FEAT-LST')
   @SectionIdPattern('PRFEEN-FEAT-xxx')
+  @ContentHelp('Add one entry per prototype feature.')
   @SerializationOrder(4)
   List<PrototypeFeatureEntry> features = [];
 }
 
 /// Included and excluded feature scope.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — the scope of the prototype is bounded by stating which features are included, excluded, or partial',
+  ],
+  'The included, excluded, and partially implemented features of the prototype.',
+)
 @SectionId('PFSS')
 class PrototypeFeatureSubsetScope {
     @Form([
@@ -10734,6 +10812,12 @@ class PrototypeFeatureSubsetScope {
 }
 
 /// Fidelity expectations for the prototype.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer',
+  ],
+  'The fidelity expectations for interactivity, data, and visuals in the prototype.',
+)
 @SectionId('PFSF')
 class PrototypeFeatureSubsetFidelity {
     @Form([
@@ -10751,11 +10835,19 @@ class PrototypeFeatureSubsetFidelity {
 }
 
 /// A prototype feature entry.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — each prototyped feature is described with its inclusion reason, fidelity, and completeness',
+  ],
+  'A single prototype-feature entry with fidelity and completeness details.',
+)
 @SectionId('PFE')
 class PrototypeFeatureEntry {
   @Form([
-    Field('featureId', String, 'Feature ID', required: true),
-    Field('featureName', String, 'Feature Name', required: true),
+    Field('featureId', String, 'Feature ID', required: true,
+        hint: 'Unique identifier for the feature'),
+    Field('featureName', String, 'Feature Name', required: true,
+        hint: 'Name of the feature'),
     Field('inclusionReason', String, 'Inclusion Reason',
         hint: 'Why this feature is included'),
     Field('fidelityLevel', String, 'Fidelity Level',
@@ -10764,8 +10856,10 @@ class PrototypeFeatureEntry {
         hint: 'Full, partial, stub'),
     Field('relatedGoals', String, 'Related Goals',
         hint: 'Prototype goals this addresses'),
-    Field('implementationNotes', String, 'Implementation Notes'),
-    Field('knownLimitations', String, 'Known Limitations'),
+    Field('implementationNotes', String, 'Implementation Notes',
+        hint: 'Notes on how the feature is built in the prototype'),
+    Field('knownLimitations', String, 'Known Limitations',
+        hint: 'Known limitations of the prototyped feature'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10774,6 +10868,12 @@ class PrototypeFeatureEntry {
 /// 10.13.3. Prototype Type.
 ///
 /// Classification and implications of the prototype type.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — the prototype type is classified so its cost, quality, and reuse implications are made explicit',
+  ],
+  'The classification of the prototype and the implications of that choice.',
+)
 @SectionId('PRTYSE')
 class PrototypeType {
   @Form([
@@ -10809,6 +10909,13 @@ class PrototypeType {
 /// 10.13.3.1. Reusable Prototype.
 ///
 /// Prototype that becomes part of the final product.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — an evolutionary prototype that becomes part of the product is held to production design and quality standards',
+    'ISO/IEC 25010:2023 — reusable prototype code is expected to support maintainability through quality and testability',
+  ],
+  'A reusable prototype that becomes part of the final product.',
+)
 @SectionId('REUPRO')
 class ReusablePrototype {
   @Form([
@@ -10816,8 +10923,10 @@ class ReusablePrototype {
         hint: 'Standards prototype code must meet'),
     Field('testCoverageRequirement', String, 'Test Coverage Requirement',
         hint: 'Required test coverage'),
-    Field('codeReviewRequired', bool, 'Code Review Required'),
-    Field('documentationRequired', bool, 'Documentation Required'),
+    Field('codeReviewRequired', bool, 'Code Review Required',
+        hint: 'Whether code review is required'),
+    Field('documentationRequired', bool, 'Documentation Required',
+        hint: 'Whether documentation is required'),
   ])
   @SerializationOrder(0)
   String? reusableContent;
@@ -10842,6 +10951,12 @@ class ReusablePrototype {
 }
 
 /// Architecture alignment and refactoring expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the prototype aligns with the target architecture to support maintainability and limit technical debt',
+  ],
+  'The architecture alignment and refactoring expectations for a reusable prototype.',
+)
 @SectionId('REPRAR')
 class ReusablePrototypeArchitecture {
     @Form([
@@ -10857,6 +10972,12 @@ class ReusablePrototypeArchitecture {
 }
 
 /// Integration and merge strategy.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the prototype is integrated into the product under defined merge criteria to protect maintainability',
+  ],
+  'The integration and merge strategy for bringing reusable prototype code into the product.',
+)
 @SectionId('REPRIN')
 class ReusablePrototypeIntegration {
     @Form([
@@ -10872,10 +10993,17 @@ class ReusablePrototypeIntegration {
 }
 
 /// Transition and handoff planning.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — handoff of the design solution to the development team is planned as part of iterative design',
+  ],
+  'The transition and handoff planning for a reusable prototype.',
+)
 @SectionId('REPRTR')
 class ReusablePrototypeTransition {
     @Form([
-        Field('transitionTimeline', String, 'Transition Timeline'),
+        Field('transitionTimeline', String, 'Transition Timeline',
+                hint: 'When the transition to the product occurs'),
         Field('teamHandoff', String, 'Team Handoff',
                 hint: 'Handoff to development team'),
     ])
@@ -10886,6 +11014,12 @@ class ReusablePrototypeTransition {
 /// 10.13.3.2. Training Prototype.
 ///
 /// Prototype where concepts are reused but not code.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — a learning-oriented prototype preserves design decisions and lessons even when its code is not reused',
+  ],
+  'A training prototype whose concepts, not code, are carried forward.',
+)
 @SectionId('TP')
 class TrainingPrototype {
   @Form([
@@ -10914,6 +11048,12 @@ class TrainingPrototype {
 }
 
 /// Code disposition and reimplementation planning.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — the disposition of prototype code and any reimplementation are planned after learning is captured',
+  ],
+  'The code disposition and reimplementation planning for a training prototype.',
+)
 @SectionId('TRPRDI')
 class TrainingPrototypeDisposition {
     @Form([
@@ -10929,6 +11069,12 @@ class TrainingPrototypeDisposition {
 }
 
 /// Documentation outputs and team learning.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — documentation and design outputs from the prototype are captured so team learning is retained',
+  ],
+  'The documentation outputs and team learning produced by a training prototype.',
+)
 @SectionId('TRPROU')
 class TrainingPrototypeOutputs {
     @Form([
@@ -10950,6 +11096,12 @@ class TrainingPrototypeOutputs {
 /// 10.13.3.3. Throwaway Prototype.
 ///
 /// Prototype evaluated and then discarded.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — a throwaway prototype supports formative evaluation and is discarded once its questions are answered',
+  ],
+  'A throwaway prototype that is evaluated and then discarded.',
+)
 @SectionId('THPR')
 class ThrowawayPrototype {
   @Form([
@@ -10959,7 +11111,8 @@ class ThrowawayPrototype {
         hint: 'How prototype is evaluated'),
     Field('evaluationParticipants', String, 'Evaluation Participants',
         hint: 'Who participates in evaluation'),
-    Field('evaluationTimeline', String, 'Evaluation Timeline'),
+    Field('evaluationTimeline', String, 'Evaluation Timeline',
+        hint: 'When evaluation takes place'),
   ])
   @SerializationOrder(0)
   String? throwawayContent;
@@ -10982,6 +11135,12 @@ class ThrowawayPrototype {
 }
 
 /// Findings and decisions captured from evaluation.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design',
+  ],
+  'The findings and decisions captured from evaluating a throwaway prototype.',
+)
 @SectionId('THPRFI')
 class ThrowawayPrototypeFindings {
     @Form([
@@ -10997,6 +11156,12 @@ class ThrowawayPrototypeFindings {
 }
 
 /// Disposal and follow-up handling.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — disposal and follow-up of the discarded prototype are handled deliberately',
+  ],
+  'The disposal and follow-up handling for a throwaway prototype.',
+)
 @SectionId('THPRDI')
 class ThrowawayPrototypeDisposition {
     @Form([
@@ -11012,6 +11177,12 @@ class ThrowawayPrototypeDisposition {
 }
 
 /// Long-term value retained from the prototype.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — insights worth retaining are preserved even when the prototype itself is discarded',
+  ],
+  'The long-term value and insights retained from a throwaway prototype.',
+)
 @SectionId('THPRVA')
 class ThrowawayPrototypeValue {
     @Form([
@@ -11032,6 +11203,13 @@ class ThrowawayPrototypeValue {
 ///
 /// Wireframe and mockup inventory beyond individual screen descriptions.
 ///.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — candidate design solutions are produced as wireframes and mockups so they can be evaluated before build',
+    'ISO 9241-125:2017 — the visual presentation of information is planned so layouts communicate content clearly',
+  ],
+  'The catalog of wireframes and mockups that visualise the interface beyond individual screen descriptions.',
+)
 @SectionId('WIANMO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -11055,12 +11233,20 @@ comparison, and narrative-flow views.
 }
 
 /// A single design foundation entry.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual attributes such as colour, typography, and spacing are defined so information is presented consistently',
+    'ISO/IEC 25010:2023 — shared visual foundations support maintainability through consistency and reuse',
+  ],
+  'A single design-foundation entry recording a colour, font, and spacing choice for the interface.',
+)
 @SectionId('DESIG')
 class DesignFoundationEntry {
   @Form([
     Field('primaryColor', String, 'Primary Color',
         hint: 'Primary brand color (hex or semantic name)'),
-    Field('fontFamilyPrimary', String, 'Primary Font Family'),
+    Field('fontFamilyPrimary', String, 'Primary Font Family',
+        hint: 'Primary font family (typeface name)'),
     Field('spacingScale', String, 'Spacing Scale',
         hint: '4px base, 8px base, custom scale'),
   ])
@@ -11069,6 +11255,12 @@ class DesignFoundationEntry {
 }
 
 /// A single recovery flow entry.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task',
+  ],
+  'A single recovery-flow entry describing how users regain access or recover from an interrupted task.',
+)
 @SectionId('RECOV')
 class RecoveryFlowEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -11077,6 +11269,12 @@ class RecoveryFlowEntry {
 }
 
 /// A single global entry point entry.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point',
+  ],
+  'A single global entry-point entry describing a top-level way users enter the system.',
+)
 @SectionId('GLOBA')
 class GlobalEntryPointEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -11085,6 +11283,12 @@ class GlobalEntryPointEntry {
 }
 
 /// A single error page design entry.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly',
+  ],
+  'A single error-page design entry describing how an error state is presented to the user.',
+)
 @SectionId('EPDE')
 class ErrorPageDesignEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -11093,6 +11297,12 @@ class ErrorPageDesignEntry {
 }
 
 /// A single field validation rule entry.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry',
+  ],
+  'A single field-validation rule entry describing how one input field is checked and corrected.',
+)
 @SectionId('FIELD')
 class FieldValidationRuleEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')

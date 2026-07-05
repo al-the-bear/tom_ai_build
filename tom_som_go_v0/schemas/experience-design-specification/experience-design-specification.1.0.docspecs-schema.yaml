@@ -61,13 +61,13 @@ section-types:
     pattern-check-id:
       pattern: ^prfeen_feat_lst-\d+$
       error-message: ID must match prfeen_feat_lst-NNN
-    description: Prototype feature entries.
+    description: Add one entry per prototype feature.
   PRGOEN-GOAL-LST:
     prefix: prgoen_goal_lst
     pattern-check-id:
       pattern: ^prgoen_goal_lst-\d+$
       error-message: ID must match prgoen_goal_lst-NNN
-    description: Individual goal entries.
+    description: Add one entry per prototype goal.
   RCVSCN-RECO-LST:
     prefix: rcvscn_reco_lst
     pattern-check-id:

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T18:10:09.927620Z",
+  "generatedAt": "2026-07-05T18:25:39.177415Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -85804,7 +85804,24 @@
       "name": "DesignFoundationEntry",
       "sectionId": "DESIG",
       "doc": "A single design foundation entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual attributes such as colour, typography, and spacing are defined so information is presented consistently",
+          "ISO/IEC 25010:2023 — shared visual foundations support maintainability through consistency and reuse"
+        ],
+        "connotation": "A single design-foundation entry recording a colour, font, and spacing choice for the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual attributes such as colour, typography, and spacing are defined so information is presented consistently",
+              "ISO/IEC 25010:2023 — shared visual foundations support maintainability through consistency and reuse"
+            ],
+            "connotation": "A single design-foundation entry recording a colour, font, and spacing choice for the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -85842,6 +85859,7 @@
             {
               "name": "fontFamilyPrimary",
               "label": "Primary Font Family",
+              "hint": "Primary font family (typeface name)",
               "type": "String",
               "required": false
             },
@@ -103826,7 +103844,22 @@
       "name": "ErrorPageDesignEntry",
       "sectionId": "EPDE",
       "doc": "A single error page design entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly"
+        ],
+        "connotation": "A single error-page design entry describing how an error state is presented to the user."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly"
+            ],
+            "connotation": "A single error-page design entry describing how an error state is presented to the user."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115298,7 +115331,22 @@
       "name": "FieldValidationRuleEntry",
       "sectionId": "FIELD",
       "doc": "A single field validation rule entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry"
+        ],
+        "connotation": "A single field-validation rule entry describing how one input field is checked and corrected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry"
+            ],
+            "connotation": "A single field-validation rule entry describing how one input field is checked and corrected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120506,7 +120554,22 @@
       "name": "GlobalEntryPointEntry",
       "sectionId": "GLOBA",
       "doc": "A single global entry point entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point"
+        ],
+        "connotation": "A single global entry-point entry describing a top-level way users enter the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point"
+            ],
+            "connotation": "A single global entry-point entry describing a top-level way users enter the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -198866,7 +198929,24 @@
       "doc": "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design produces prototypes so design solutions can be evaluated iteratively before commitment",
+          "ISO 9241-11:2018 — usability is examined through prototyping in terms of effectiveness, efficiency, and satisfaction"
+        ],
+        "connotation": "The prototype-planning configuration covering goals, feature selection, prototype type, and evaluation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design produces prototypes so design solutions can be evaluated iteratively before commitment",
+              "ISO 9241-11:2018 — usability is examined through prototyping in terms of effectiveness, efficiency, and satisfaction"
+            ],
+            "connotation": "The prototype-planning configuration covering goals, feature selection, prototype type, and evaluation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199085,7 +199165,22 @@
       "name": "PrototypeFeatureEntry",
       "sectionId": "PFE",
       "doc": "A prototype feature entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — each prototyped feature is described with its inclusion reason, fidelity, and completeness"
+        ],
+        "connotation": "A single prototype-feature entry with fidelity and completeness details."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — each prototyped feature is described with its inclusion reason, fidelity, and completeness"
+            ],
+            "connotation": "A single prototype-feature entry with fidelity and completeness details."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199116,12 +199211,14 @@
             {
               "name": "featureId",
               "label": "Feature ID",
+              "hint": "Unique identifier for the feature",
               "type": "String",
               "required": true
             },
             {
               "name": "featureName",
               "label": "Feature Name",
+              "hint": "Name of the feature",
               "type": "String",
               "required": true
             },
@@ -199156,12 +199253,14 @@
             {
               "name": "implementationNotes",
               "label": "Implementation Notes",
+              "hint": "Notes on how the feature is built in the prototype",
               "type": "String",
               "required": false
             },
             {
               "name": "knownLimitations",
               "label": "Known Limitations",
+              "hint": "Known limitations of the prototyped feature",
               "type": "String",
               "required": false
             }
@@ -199173,7 +199272,22 @@
       "name": "PrototypeFeatureSubset",
       "sectionId": "PRFESU",
       "doc": "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — a representative subset of features is prototyped so the riskiest and most valuable parts are evaluated first"
+        ],
+        "connotation": "The set of features selected for inclusion in the prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — a representative subset of features is prototyped so the riskiest and most valuable parts are evaluated first"
+            ],
+            "connotation": "The set of features selected for inclusion in the prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199281,10 +199395,26 @@
           "name": "features",
           "kind": "list",
           "doc": "Prototype feature entries.",
+          "help": "Add one entry per prototype feature.",
           "sectionId": "PRFEEN-FEAT-LST",
           "sectionIdPattern": "PRFEEN-FEAT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature"
+            ],
+            "connotation": "The collection of prototype-feature entries."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature"
+                ],
+                "connotation": "The collection of prototype-feature entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -199295,6 +199425,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRFEEN-FEAT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per prototype feature."
               }
             },
             {
@@ -199313,7 +199449,22 @@
       "name": "PrototypeFeatureSubsetFidelity",
       "sectionId": "PFSF",
       "doc": "Fidelity expectations for the prototype.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer"
+        ],
+        "connotation": "The fidelity expectations for interactivity, data, and visuals in the prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer"
+            ],
+            "connotation": "The fidelity expectations for interactivity, data, and visuals in the prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199377,7 +199528,22 @@
       "name": "PrototypeFeatureSubsetScope",
       "sectionId": "PFSS",
       "doc": "Included and excluded feature scope.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — the scope of the prototype is bounded by stating which features are included, excluded, or partial"
+        ],
+        "connotation": "The included, excluded, and partially implemented features of the prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — the scope of the prototype is bounded by stating which features are included, excluded, or partial"
+            ],
+            "connotation": "The included, excluded, and partially implemented features of the prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199434,7 +199600,22 @@
       "name": "PrototypeGoalEntry",
       "sectionId": "PGE",
       "doc": "A prototype goal entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — each prototyping goal is described with a validation method and success measure"
+        ],
+        "connotation": "A single prototype-goal entry with its category, validation method, and success metric."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — each prototyping goal is described with a validation method and success measure"
+            ],
+            "connotation": "A single prototype-goal entry with its category, validation method, and success metric."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199465,12 +199646,14 @@
             {
               "name": "goalId",
               "label": "Goal ID",
+              "hint": "Unique identifier for the goal",
               "type": "String",
               "required": true
             },
             {
               "name": "goalDescription",
               "label": "Goal Description",
+              "hint": "What the goal validates",
               "type": "String",
               "required": true
             },
@@ -199524,7 +199707,24 @@
       "name": "PrototypeGoals",
       "sectionId": "PG",
       "doc": "10.13.1. Prototype Goals.\n\nWhat the prototype should validate.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — prototyping goals state what the design solution must validate before further investment",
+          "ISO 9241-11:2018 — goals frame usability outcomes to be confirmed through evaluation"
+        ],
+        "connotation": "The goals the prototype is intended to validate."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — prototyping goals state what the design solution must validate before further investment",
+              "ISO 9241-11:2018 — goals frame usability outcomes to be confirmed through evaluation"
+            ],
+            "connotation": "The goals the prototype is intended to validate."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199639,10 +199839,26 @@
           "name": "goals",
           "kind": "list",
           "doc": "Individual goal entries.",
+          "help": "Add one entry per prototype goal.",
           "sectionId": "PRGOEN-GOAL-LST",
           "sectionIdPattern": "PRGOEN-GOAL-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them"
+            ],
+            "connotation": "The collection of individual prototype-goal entries."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them"
+                ],
+                "connotation": "The collection of individual prototype-goal entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -199653,6 +199869,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRGOEN-GOAL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per prototype goal."
               }
             },
             {
@@ -199671,7 +199893,22 @@
       "name": "PrototypeGoalsFeedback",
       "sectionId": "PRGOFE",
       "doc": "User feedback objectives and intake.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design"
+        ],
+        "connotation": "The user-feedback objectives and how feedback from the prototype is collected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design"
+            ],
+            "connotation": "The user-feedback objectives and how feedback from the prototype is collected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199728,7 +199965,22 @@
       "name": "PrototypeGoalsRisk",
       "sectionId": "PRGORI",
       "doc": "Risk reduction and assumption testing.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — prototyping reduces risk by testing assumptions and resolving unknowns early"
+        ],
+        "connotation": "The risks, unknowns, and assumptions the prototype is meant to reduce."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — prototyping reduces risk by testing assumptions and resolving unknowns early"
+            ],
+            "connotation": "The risks, unknowns, and assumptions the prototype is meant to reduce."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199785,7 +200037,22 @@
       "name": "PrototypeGovernance",
       "sectionId": "PRGO",
       "doc": "Approval and progression criteria.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — acceptance of a design solution is decided against agreed criteria with stakeholder involvement"
+        ],
+        "connotation": "The approval and progression criteria that decide whether the prototype may proceed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — acceptance of a design solution is decided against agreed criteria with stakeholder involvement"
+            ],
+            "connotation": "The approval and progression criteria that decide whether the prototype may proceed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199835,7 +200102,22 @@
       "name": "PrototypeResources",
       "sectionId": "PRORES",
       "doc": "Prototype staffing and environment.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment"
+        ],
+        "connotation": "The staffing, budget, and environment allocated to building the prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment"
+            ],
+            "connotation": "The staffing, budget, and environment allocated to building the prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199892,7 +200174,22 @@
       "name": "PrototypeTimeline",
       "sectionId": "PRTI",
       "doc": "Prototype timing commitments.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — iterative design activities are scheduled so prototyping and evaluation fit the project timeline"
+        ],
+        "connotation": "The timing commitments for the prototype phase and its evaluation window."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — iterative design activities are scheduled so prototyping and evaluation fit the project timeline"
+            ],
+            "connotation": "The timing commitments for the prototype phase and its evaluation window."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -199949,7 +200246,22 @@
       "name": "PrototypeType",
       "sectionId": "PRTYSE",
       "doc": "10.13.3. Prototype Type.\n\nClassification and implications of the prototype type.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — the prototype type is classified so its cost, quality, and reuse implications are made explicit"
+        ],
+        "connotation": "The classification of the prototype and the implications of that choice."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — the prototype type is classified so its cost, quality, and reuse implications are made explicit"
+            ],
+            "connotation": "The classification of the prototype and the implications of that choice."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204695,7 +205007,22 @@
       "name": "RecoveryFlowEntry",
       "sectionId": "RECOV",
       "doc": "A single recovery flow entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task"
+        ],
+        "connotation": "A single recovery-flow entry describing how users regain access or recover from an interrupted task."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task"
+            ],
+            "connotation": "A single recovery-flow entry describing how users regain access or recover from an interrupted task."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220639,7 +220966,24 @@
       "name": "ReusablePrototype",
       "sectionId": "REUPRO",
       "doc": "10.13.3.1. Reusable Prototype.\n\nPrototype that becomes part of the final product.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — an evolutionary prototype that becomes part of the product is held to production design and quality standards",
+          "ISO/IEC 25010:2023 — reusable prototype code is expected to support maintainability through quality and testability"
+        ],
+        "connotation": "A reusable prototype that becomes part of the final product."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — an evolutionary prototype that becomes part of the product is held to production design and quality standards",
+              "ISO/IEC 25010:2023 — reusable prototype code is expected to support maintainability through quality and testability"
+            ],
+            "connotation": "A reusable prototype that becomes part of the final product."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220684,12 +221028,14 @@
             {
               "name": "codeReviewRequired",
               "label": "Code Review Required",
+              "hint": "Whether code review is required",
               "type": "bool",
               "required": false
             },
             {
               "name": "documentationRequired",
               "label": "Documentation Required",
+              "hint": "Whether documentation is required",
               "type": "bool",
               "required": false
             }
@@ -220762,7 +221108,22 @@
       "name": "ReusablePrototypeArchitecture",
       "sectionId": "REPRAR",
       "doc": "Architecture alignment and refactoring expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the prototype aligns with the target architecture to support maintainability and limit technical debt"
+        ],
+        "connotation": "The architecture alignment and refactoring expectations for a reusable prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the prototype aligns with the target architecture to support maintainability and limit technical debt"
+            ],
+            "connotation": "The architecture alignment and refactoring expectations for a reusable prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220819,7 +221180,22 @@
       "name": "ReusablePrototypeIntegration",
       "sectionId": "REPRIN",
       "doc": "Integration and merge strategy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the prototype is integrated into the product under defined merge criteria to protect maintainability"
+        ],
+        "connotation": "The integration and merge strategy for bringing reusable prototype code into the product."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the prototype is integrated into the product under defined merge criteria to protect maintainability"
+            ],
+            "connotation": "The integration and merge strategy for bringing reusable prototype code into the product."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220876,7 +221252,22 @@
       "name": "ReusablePrototypeTransition",
       "sectionId": "REPRTR",
       "doc": "Transition and handoff planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — handoff of the design solution to the development team is planned as part of iterative design"
+        ],
+        "connotation": "The transition and handoff planning for a reusable prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — handoff of the design solution to the development team is planned as part of iterative design"
+            ],
+            "connotation": "The transition and handoff planning for a reusable prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220907,6 +221298,7 @@
             {
               "name": "transitionTimeline",
               "label": "Transition Timeline",
+              "hint": "When the transition to the product occurs",
               "type": "String",
               "required": false
             },
@@ -282371,7 +282763,22 @@
       "name": "ThrowawayPrototype",
       "sectionId": "THPR",
       "doc": "10.13.3.3. Throwaway Prototype.\n\nPrototype evaluated and then discarded.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — a throwaway prototype supports formative evaluation and is discarded once its questions are answered"
+        ],
+        "connotation": "A throwaway prototype that is evaluated and then discarded."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — a throwaway prototype supports formative evaluation and is discarded once its questions are answered"
+            ],
+            "connotation": "A throwaway prototype that is evaluated and then discarded."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -282423,6 +282830,7 @@
             {
               "name": "evaluationTimeline",
               "label": "Evaluation Timeline",
+              "hint": "When evaluation takes place",
               "type": "String",
               "required": false
             }
@@ -282495,7 +282903,22 @@
       "name": "ThrowawayPrototypeDisposition",
       "sectionId": "THPRDI",
       "doc": "Disposal and follow-up handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — disposal and follow-up of the discarded prototype are handled deliberately"
+        ],
+        "connotation": "The disposal and follow-up handling for a throwaway prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — disposal and follow-up of the discarded prototype are handled deliberately"
+            ],
+            "connotation": "The disposal and follow-up handling for a throwaway prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -282552,7 +282975,22 @@
       "name": "ThrowawayPrototypeFindings",
       "sectionId": "THPRFI",
       "doc": "Findings and decisions captured from evaluation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design"
+        ],
+        "connotation": "The findings and decisions captured from evaluating a throwaway prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design"
+            ],
+            "connotation": "The findings and decisions captured from evaluating a throwaway prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -282609,7 +283047,22 @@
       "name": "ThrowawayPrototypeValue",
       "sectionId": "THPRVA",
       "doc": "Long-term value retained from the prototype.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — insights worth retaining are preserved even when the prototype itself is discarded"
+        ],
+        "connotation": "The long-term value and insights retained from a throwaway prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — insights worth retaining are preserved even when the prototype itself is discarded"
+            ],
+            "connotation": "The long-term value and insights retained from a throwaway prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287460,7 +287913,22 @@
       "name": "TrainingPrototype",
       "sectionId": "TP",
       "doc": "10.13.3.2. Training Prototype.\n\nPrototype where concepts are reused but not code.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — a learning-oriented prototype preserves design decisions and lessons even when its code is not reused"
+        ],
+        "connotation": "A training prototype whose concepts, not code, are carried forward."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — a learning-oriented prototype preserves design decisions and lessons even when its code is not reused"
+            ],
+            "connotation": "A training prototype whose concepts, not code, are carried forward."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287563,7 +288031,22 @@
       "name": "TrainingPrototypeDisposition",
       "sectionId": "TRPRDI",
       "doc": "Code disposition and reimplementation planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — the disposition of prototype code and any reimplementation are planned after learning is captured"
+        ],
+        "connotation": "The code disposition and reimplementation planning for a training prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — the disposition of prototype code and any reimplementation are planned after learning is captured"
+            ],
+            "connotation": "The code disposition and reimplementation planning for a training prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287620,7 +288103,22 @@
       "name": "TrainingPrototypeOutputs",
       "sectionId": "TRPROU",
       "doc": "Documentation outputs and team learning.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — documentation and design outputs from the prototype are captured so team learning is retained"
+        ],
+        "connotation": "The documentation outputs and team learning produced by a training prototype."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — documentation and design outputs from the prototype are captured so team learning is retained"
+            ],
+            "connotation": "The documentation outputs and team learning produced by a training prototype."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -307472,7 +307970,24 @@
       "doc": "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — candidate design solutions are produced as wireframes and mockups so they can be evaluated before build",
+          "ISO 9241-125:2017 — the visual presentation of information is planned so layouts communicate content clearly"
+        ],
+        "connotation": "The catalog of wireframes and mockups that visualise the interface beyond individual screen descriptions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — candidate design solutions are produced as wireframes and mockups so they can be evaluated before build",
+              "ISO 9241-125:2017 — the visual presentation of information is planned so layouts communicate content clearly"
+            ],
+            "connotation": "The catalog of wireframes and mockups that visualise the interface beyond individual screen descriptions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
