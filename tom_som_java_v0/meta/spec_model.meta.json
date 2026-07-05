@@ -2447,7 +2447,24 @@
       "doc": "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — content is perceivable, operable, understandable, and robust for all users",
+          "EN 301 549 — European ICT accessibility requirements apply to the interactive product"
+        ],
+        "connotation": "The accessibility configuration describing how the interface serves users with disabilities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — content is perceivable, operable, understandable, and robust for all users",
+              "EN 301 549 — European ICT accessibility requirements apply to the interactive product"
+            ],
+            "connotation": "The accessibility configuration describing how the interface serves users with disabilities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2697,7 +2714,24 @@
       "name": "AccessibilityCheckEntry",
       "sectionId": "ACCH",
       "doc": "An accessibility check entry (form).",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — each checklist item verifies a testable success criterion of the interactive product",
+          "EN 301 549 — the product is checked against the applicable accessibility requirements"
+        ],
+        "connotation": "A single accessibility checklist entry describing what is verified and how."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — each checklist item verifies a testable success criterion of the interactive product",
+              "EN 301 549 — the product is checked against the applicable accessibility requirements"
+            ],
+            "connotation": "A single accessibility checklist entry describing what is verified and how."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2728,6 +2762,7 @@
             {
               "name": "checkId",
               "label": "Check ID",
+              "hint": "Unique identifier for this check (e.g., ACCH-001)",
               "type": "String",
               "required": true
             },
@@ -2805,7 +2840,24 @@
       "name": "AccessibilityCheckEntryCompliance",
       "sectionId": "ACEC",
       "doc": "WCAG mapping and compliance classification.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — each check maps to a success criterion at conformance level A, AA, or AAA",
+          "EN 301 549 — accessibility requirements are mapped to the applicable success criteria"
+        ],
+        "connotation": "The mapping of an accessibility check to its WCAG success criterion and conformance level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — each check maps to a success criterion at conformance level A, AA, or AAA",
+              "EN 301 549 — accessibility requirements are mapped to the applicable success criteria"
+            ],
+            "connotation": "The mapping of an accessibility check to its WCAG success criterion and conformance level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2862,7 +2914,24 @@
       "name": "AccessibilityCheckEntryExecution",
       "sectionId": "ACEE",
       "doc": "Testing execution ownership and status.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — conformance is verified by testing each success criterion for the interactive product",
+          "EN 301 549 — accessibility conformance is evaluated and the results are recorded"
+        ],
+        "connotation": "The ownership, tooling, and status of executing an accessibility check."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — conformance is verified by testing each success criterion for the interactive product",
+              "EN 301 549 — accessibility conformance is evaluated and the results are recorded"
+            ],
+            "connotation": "The ownership, tooling, and status of executing an accessibility check."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2914,12 +2983,14 @@
             {
               "name": "testDate",
               "label": "Test Date",
+              "hint": "Date the check was performed",
               "type": "String",
               "required": false
             },
             {
               "name": "testedBy",
               "label": "Tested By",
+              "hint": "Name or role of the tester",
               "type": "String",
               "required": false
             }
@@ -2931,7 +3002,24 @@
       "name": "AccessibilityCheckEntryRemediation",
       "sectionId": "ACER",
       "doc": "Issue tracking and remediation details.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — accessibility conformance failures are documented and remediated to meet the success criteria",
+          "EN 301 549 — the interactive product records and resolves accessibility non-conformances"
+        ],
+        "connotation": "The record of accessibility issues found during checking and the plan to remediate them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — accessibility conformance failures are documented and remediated to meet the success criteria",
+              "EN 301 549 — the interactive product records and resolves accessibility non-conformances"
+            ],
+            "connotation": "The record of accessibility issues found during checking and the plan to remediate them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -2981,7 +3069,24 @@
       "name": "AccessibilityChecklist",
       "sectionId": "ACCHLS",
       "doc": "10.9.2. Accessibility Checklist.\n\nComprehensive accessibility verification checklist.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — the checklist covers the success criteria across the four POUR principles",
+          "EN 301 549 — accessibility verification follows the applicable European ICT requirements"
+        ],
+        "connotation": "The comprehensive checklist used to verify accessibility conformance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — the checklist covers the success criteria across the four POUR principles",
+              "EN 301 549 — accessibility verification follows the applicable European ICT requirements"
+            ],
+            "connotation": "The comprehensive checklist used to verify accessibility conformance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -3087,10 +3192,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× AccessibilityCheck.",
+          "help": "Add one entry per accessibility check.",
           "sectionId": "ACCH-ITEM-LST",
           "sectionIdPattern": "ACCH-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C WCAG 2.2 — the checklist enumerates testable success criteria for the interactive product",
+              "EN 301 549 — accessibility requirements are enumerated as verifiable checklist items"
+            ],
+            "connotation": "The collection of accessibility checklist entries."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C WCAG 2.2 — the checklist enumerates testable success criteria for the interactive product",
+                  "EN 301 549 — accessibility requirements are enumerated as verifiable checklist items"
+                ],
+                "connotation": "The collection of accessibility checklist entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -3101,6 +3224,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ACCH-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per accessibility check."
               }
             },
             {
@@ -3553,7 +3682,24 @@
       "name": "AccessibilityStrategy",
       "sectionId": "ACSTGY",
       "doc": "Ownership and inclusive design philosophy.",
+      "standardReferences": {
+        "standards": [
+          "ISO 30071-1:2019 — accessibility is embedded into the organization through defined ownership and inclusive design practices",
+          "W3C WCAG 2.2 — an inclusive design strategy delivers an equivalent experience for users with disabilities"
+        ],
+        "connotation": "The organizational strategy for accessibility including ownership, philosophy, and team training."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 30071-1:2019 — accessibility is embedded into the organization through defined ownership and inclusive design practices",
+              "W3C WCAG 2.2 — an inclusive design strategy delivers an equivalent experience for users with disabilities"
+            ],
+            "connotation": "The organizational strategy for accessibility including ownership, philosophy, and team training."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -3610,7 +3756,24 @@
       "name": "AccessibilitySupport",
       "sectionId": "ACSU",
       "doc": "Supported assistive technologies and platform features.",
+      "standardReferences": {
+        "standards": [
+          "W3C WAI-ARIA — user interface semantics are exposed so screen readers and other assistive technologies can convey them",
+          "ISO 9241-171:2008 — software provides support for assistive technologies and platform accessibility features"
+        ],
+        "connotation": "The assistive technologies and platform accessibility features the interface supports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WAI-ARIA — user interface semantics are exposed so screen readers and other assistive technologies can convey them",
+              "ISO 9241-171:2008 — software provides support for assistive technologies and platform accessibility features"
+            ],
+            "connotation": "The assistive technologies and platform accessibility features the interface supports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -3660,7 +3823,24 @@
       "name": "AccessibilityTesting",
       "sectionId": "ACTE",
       "doc": "Accessibility testing approach.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — conformance is evaluated by testing each success criterion with automated and manual methods",
+          "EN 301 549 — accessibility is verified through testing including evaluation with assistive technologies"
+        ],
+        "connotation": "The approach for testing accessibility through automated tools, manual review, and user testing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — conformance is evaluated by testing each success criterion with automated and manual methods",
+              "EN 301 549 — accessibility is verified through testing including evaluation with assistive technologies"
+            ],
+            "connotation": "The approach for testing accessibility through automated tools, manual review, and user testing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23332,7 +23512,24 @@
       "name": "BreakpointConfiguration",
       "sectionId": "BC",
       "doc": "10.10.1. Breakpoints.\n\nBreakpoint definitions for responsive layouts.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Media Queries — breakpoints define the viewport widths at which the layout changes",
+          "ISO 9241-125:2017 — the presentation adapts the layout to the available display area"
+        ],
+        "connotation": "The configuration of viewport breakpoints, their units, and density handling for responsive layouts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Media Queries — breakpoints define the viewport widths at which the layout changes",
+              "ISO 9241-125:2017 — the presentation adapts the layout to the available display area"
+            ],
+            "connotation": "The configuration of viewport breakpoints, their units, and density handling for responsive layouts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23436,10 +23633,26 @@
           "name": "breakpoints",
           "kind": "list",
           "doc": "Breakpoint entries.",
+          "help": "Add one entry per layout breakpoint.",
           "sectionId": "BRE-BREA-LST",
           "sectionIdPattern": "BRE-BREA-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"
+            ],
+            "connotation": "The collection of layout breakpoint entries."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"
+                ],
+                "connotation": "The collection of layout breakpoint entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -23450,6 +23663,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BRE-BREA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per layout breakpoint."
               }
             },
             {
@@ -23468,7 +23687,24 @@
       "name": "BreakpointEntry",
       "sectionId": "BE",
       "doc": "A breakpoint entry.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS Media Queries — a breakpoint marks a viewport width range at which the layout changes",
+          "ISO 9241-125:2017 — the presentation adapts to the display area within the defined width range"
+        ],
+        "connotation": "A single breakpoint entry defining a viewport width range and its associated layout and scaling rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS Media Queries — a breakpoint marks a viewport width range at which the layout changes",
+              "ISO 9241-125:2017 — the presentation adapts to the display area within the defined width range"
+            ],
+            "connotation": "A single breakpoint entry defining a viewport width range and its associated layout and scaling rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23562,7 +23798,24 @@
       "name": "BreakpointEntryLayout",
       "sectionId": "BRENLA",
       "doc": "Grid and layout rules for this breakpoint.",
+      "standardReferences": {
+        "standards": [
+          "W3C CSS — the grid layout adapts columns, gutters, and margins to the viewport at each breakpoint",
+          "ISO 9241-125:2017 — the presentation arranges information within the available display area"
+        ],
+        "connotation": "The grid columns, gutter, margin, and layout behavior applied at a given breakpoint."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C CSS — the grid layout adapts columns, gutters, and margins to the viewport at each breakpoint",
+              "ISO 9241-125:2017 — the presentation arranges information within the available display area"
+            ],
+            "connotation": "The grid columns, gutter, margin, and layout behavior applied at a given breakpoint."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23626,7 +23879,24 @@
       "name": "BreakpointEntryScaling",
       "sectionId": "BRENSC",
       "doc": "Navigation and visual scaling rules.",
+      "standardReferences": {
+        "standards": [
+          "WCAG 2.2 SC 1.4.4 Resize text — typography scales without loss of content or function",
+          "ISO/IEC 25010:2023 — adaptability tailors navigation and visual scaling to the display environment"
+        ],
+        "connotation": "The navigation pattern and typography, spacing, and icon scaling applied at a given breakpoint."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "WCAG 2.2 SC 1.4.4 Resize text — typography scales without loss of content or function",
+              "ISO/IEC 25010:2023 — adaptability tailors navigation and visual scaling to the display environment"
+            ],
+            "connotation": "The navigation pattern and typography, spacing, and icon scaling applied at a given breakpoint."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217438,7 +217708,26 @@
       "name": "ResponsiveBehavior",
       "sectionId": "REBE",
       "doc": "10.10.2. Responsive Behavior.\n\nHow the UI adapts across breakpoints.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — the presentation of information adapts the layout to the available display area",
+          "W3C Responsive Web Design — the interface responds to viewport changes across the full range of breakpoints",
+          "WCAG 2.2 SC 1.4.10 Reflow — content adapts without loss at small viewports and high zoom"
+        ],
+        "connotation": "The specification of how the interface adapts its layout, navigation, visibility, touch, and content across breakpoints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — the presentation of information adapts the layout to the available display area",
+              "W3C Responsive Web Design — the interface responds to viewport changes across the full range of breakpoints",
+              "WCAG 2.2 SC 1.4.10 Reflow — content adapts without loss at small viewports and high zoom"
+            ],
+            "connotation": "The specification of how the interface adapts its layout, navigation, visibility, touch, and content across breakpoints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217576,10 +217865,26 @@
           "name": "screenRules",
           "kind": "list",
           "doc": "Screen-specific responsive rules.",
+          "help": "Add one entry per screen with distinct responsive rules.",
           "sectionId": "RESPSR-SCRE-LST",
           "sectionIdPattern": "RESPSR-SCRE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information adapts per screen to the available display area"
+            ],
+            "connotation": "The collection of screen-specific responsive rule entries."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-125:2017 — presentation of information adapts per screen to the available display area"
+                ],
+                "connotation": "The collection of screen-specific responsive rule entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -217590,6 +217895,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESPSR-SCRE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen with distinct responsive rules."
               }
             },
             {
@@ -217608,7 +217919,24 @@
       "name": "ResponsiveBehaviorContent",
       "sectionId": "REBECO",
       "doc": "Content reflow rules.",
+      "standardReferences": {
+        "standards": [
+          "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
+          "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
+        ],
+        "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports",
+              "W3C Responsive Web Design — content adapts fluidly as the viewport changes"
+            ],
+            "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217672,7 +218000,24 @@
       "name": "ResponsiveBehaviorNavigation",
       "sectionId": "REBENA",
       "doc": "Navigation patterns per device class.",
+      "standardReferences": {
+        "standards": [
+          "W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class",
+          "ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment"
+        ],
+        "connotation": "The navigation patterns chosen for mobile, tablet, and desktop device classes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class",
+              "ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment"
+            ],
+            "connotation": "The navigation patterns chosen for mobile, tablet, and desktop device classes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217729,7 +218074,24 @@
       "name": "ResponsiveBehaviorTouch",
       "sectionId": "REBETO",
       "doc": "Touch and interaction optimizations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use",
+          "WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices"
+        ],
+        "connotation": "The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use",
+              "WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices"
+            ],
+            "connotation": "The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217786,7 +218148,24 @@
       "name": "ResponsiveBehaviorVisibility",
       "sectionId": "REBEVI",
       "doc": "Visibility rules.",
+      "standardReferences": {
+        "standards": [
+          "WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function",
+          "ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment"
+        ],
+        "connotation": "The rules describing which elements are shown or hidden at each device class to keep the interface usable."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function",
+              "ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment"
+            ],
+            "connotation": "The rules describing which elements are shown or hidden at each device class to keep the interface usable."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -217824,12 +218203,14 @@
             {
               "name": "tabletHiddenElements",
               "label": "Tablet Hidden Elements",
+              "hint": "Elements hidden on tablet",
               "type": "String",
               "required": false
             },
             {
               "name": "desktopOnlyElements",
               "label": "Desktop Only Elements",
+              "hint": "Elements shown only on desktop",
               "type": "String",
               "required": false
             }
@@ -217843,7 +218224,26 @@
       "doc": "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — presentation of information adapts the layout to the available display area",
+          "W3C CSS — media queries let the interface respond to viewport size and capabilities",
+          "WCAG 2.2 SC 1.4.10 Reflow — content reflows without loss of information or function at small viewports"
+        ],
+        "connotation": "The responsive-design configuration describing how the interface adapts across viewports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information adapts the layout to the available display area",
+              "W3C CSS — media queries let the interface respond to viewport size and capabilities",
+              "WCAG 2.2 SC 1.4.10 Reflow — content reflows without loss of information or function at small viewports"
+            ],
+            "connotation": "The responsive-design configuration describing how the interface adapts across viewports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -218007,7 +218407,24 @@
       "name": "ResponsiveScreenRuleEntry",
       "sectionId": "RESPSR",
       "doc": "A screen-specific responsive rule entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — the presentation of information adapts to the available display area for a given screen",
+          "WCAG 2.2 SC 1.4.10 Reflow — the screen content reflows at small viewports without loss of information or function"
+        ],
+        "connotation": "A single screen-specific responsive rule describing how one screen adapts across mobile, tablet, and desktop layouts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — the presentation of information adapts to the available display area for a given screen",
+              "WCAG 2.2 SC 1.4.10 Reflow — the screen content reflows at small viewports without loss of information or function"
+            ],
+            "connotation": "A single screen-specific responsive rule describing how one screen adapts across mobile, tablet, and desktop layouts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -218038,36 +218455,42 @@
             {
               "name": "screenId",
               "label": "Screen ID",
+              "hint": "Unique identifier of the screen this rule applies to",
               "type": "String",
               "required": true
             },
             {
               "name": "screenName",
               "label": "Screen Name",
+              "hint": "Human-readable name of the screen",
               "type": "String",
               "required": true
             },
             {
               "name": "mobileLayout",
               "label": "Mobile Layout",
+              "hint": "How this screen is laid out on mobile",
               "type": "String",
               "required": false
             },
             {
               "name": "tabletLayout",
               "label": "Tablet Layout",
+              "hint": "How this screen is laid out on tablet",
               "type": "String",
               "required": false
             },
             {
               "name": "desktopLayout",
               "label": "Desktop Layout",
+              "hint": "How this screen is laid out on desktop",
               "type": "String",
               "required": false
             },
             {
               "name": "specialConsiderations",
               "label": "Special Considerations",
+              "hint": "Any screen-specific responsive notes or exceptions",
               "type": "String",
               "required": false
             }
@@ -304757,7 +305180,24 @@
       "name": "WcagCompliance",
       "sectionId": "WCCO",
       "doc": "10.9.1. WCAG Compliance Level.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — conformance is claimed at level A, AA, or AAA against the success criteria",
+          "ISO/IEC 40500:2012 — WCAG adopted as an international standard for web content accessibility"
+        ],
+        "connotation": "The overall WCAG conformance level and the mapping of success criteria for the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — conformance is claimed at level A, AA, or AAA against the success criteria",
+              "ISO/IEC 40500:2012 — WCAG adopted as an international standard for web content accessibility"
+            ],
+            "connotation": "The overall WCAG conformance level and the mapping of success criteria for the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -304880,10 +305320,28 @@
           "name": "successCriteria",
           "kind": "list",
           "doc": "WCAG success criteria mapping.",
+          "help": "Add one entry per WCAG success criterion.",
           "sectionId": "WSCE-SUCC-LST",
           "sectionIdPattern": "WSCE-SUCC-xxx",
+          "standardReferences": {
+            "standards": [
+              "W3C WCAG 2.2 — each success criterion states a testable accessibility requirement",
+              "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"
+            ],
+            "connotation": "The collection of WCAG success-criterion entries."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "W3C WCAG 2.2 — each success criterion states a testable accessibility requirement",
+                  "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"
+                ],
+                "connotation": "The collection of WCAG success-criterion entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -304894,6 +305352,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WSCE-SUCC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per WCAG success criterion."
               }
             },
             {
@@ -304912,7 +305376,24 @@
       "name": "WcagComplianceOperable",
       "sectionId": "WCCOOP",
       "doc": "Operable principles.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — user interface components and navigation are operable by all users",
+          "EN 301 549 — the interactive product supports keyboard operation, adjustable timing, and safe input modalities"
+        ],
+        "connotation": "The WCAG operable principle requirements covering keyboard access, timing, navigation, and input modalities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — user interface components and navigation are operable by all users",
+              "EN 301 549 — the interactive product supports keyboard operation, adjustable timing, and safe input modalities"
+            ],
+            "connotation": "The WCAG operable principle requirements covering keyboard access, timing, navigation, and input modalities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -304983,7 +305464,24 @@
       "name": "WcagComplianceRobust",
       "sectionId": "WCCORO",
       "doc": "Robustness requirements.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies",
+          "W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components"
+        ],
+        "connotation": "The WCAG robust principle requirements ensuring compatibility with assistive technologies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies",
+              "W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components"
+            ],
+            "connotation": "The WCAG robust principle requirements ensuring compatibility with assistive technologies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -305026,7 +305524,24 @@
       "name": "WcagComplianceUnderstandable",
       "sectionId": "WCCOUN",
       "doc": "Understandable principles.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — information and the operation of the user interface are understandable to all users",
+          "EN 301 549 — the interactive product presents readable, predictable content with input assistance"
+        ],
+        "connotation": "The WCAG understandable principle requirements covering readability, predictability, and input assistance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — information and the operation of the user interface are understandable to all users",
+              "EN 301 549 — the interactive product presents readable, predictable content with input assistance"
+            ],
+            "connotation": "The WCAG understandable principle requirements covering readability, predictability, and input assistance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -305083,7 +305598,24 @@
       "name": "WcagSuccessCriterionEntry",
       "sectionId": "WCSUCREN",
       "doc": "A WCAG success criterion entry.",
+      "standardReferences": {
+        "standards": [
+          "W3C WCAG 2.2 — each success criterion states a single testable requirement at level A, AA, or AAA",
+          "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"
+        ],
+        "connotation": "A single WCAG success criterion with its level, applicability, and conformance status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "W3C WCAG 2.2 — each success criterion states a single testable requirement at level A, AA, or AAA",
+              "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"
+            ],
+            "connotation": "A single WCAG success criterion with its level, applicability, and conformance status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -305121,6 +305653,7 @@
             {
               "name": "criterionName",
               "label": "Criterion Name",
+              "hint": "Name of the success criterion (e.g., Contrast Minimum)",
               "type": "String",
               "required": true
             },

@@ -7312,6 +7312,13 @@ class SupportAccessSelfService {
 ///
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — content is perceivable, operable, understandable, and robust for all users',
+    'EN 301 549 — European ICT accessibility requirements apply to the interactive product',
+  ],
+  'The accessibility configuration describing how the interface serves users with disabilities.',
+)
 @SectionId('ACCESS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -7379,6 +7386,13 @@ class Accessibility {
 }
 
 /// Ownership and inclusive design philosophy.
+@StandardReferences(
+  [
+    'ISO 30071-1:2019 — accessibility is embedded into the organization through defined ownership and inclusive design practices',
+    'W3C WCAG 2.2 — an inclusive design strategy delivers an equivalent experience for users with disabilities',
+  ],
+  'The organizational strategy for accessibility including ownership, philosophy, and team training.',
+)
 @SectionId('ACSTGY')
 class AccessibilityStrategy {
     @Form([
@@ -7394,6 +7408,13 @@ class AccessibilityStrategy {
 }
 
 /// Accessibility testing approach.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — conformance is evaluated by testing each success criterion with automated and manual methods',
+    'EN 301 549 — accessibility is verified through testing including evaluation with assistive technologies',
+  ],
+  'The approach for testing accessibility through automated tools, manual review, and user testing.',
+)
 @SectionId('ACTE')
 class AccessibilityTesting {
     @Form([
@@ -7411,6 +7432,13 @@ class AccessibilityTesting {
 }
 
 /// Supported assistive technologies and platform features.
+@StandardReferences(
+  [
+    'W3C WAI-ARIA — user interface semantics are exposed so screen readers and other assistive technologies can convey them',
+    'ISO 9241-171:2008 — software provides support for assistive technologies and platform accessibility features',
+  ],
+  'The assistive technologies and platform accessibility features the interface supports.',
+)
 @SectionId('ACSU')
 class AccessibilitySupport {
     @Form([
@@ -7424,6 +7452,13 @@ class AccessibilitySupport {
 }
 
 /// 10.9.1. WCAG Compliance Level.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — conformance is claimed at level A, AA, or AAA against the success criteria',
+    'ISO/IEC 40500:2012 — WCAG adopted as an international standard for web content accessibility',
+  ],
+  'The overall WCAG conformance level and the mapping of success criteria for the interface.',
+)
 @SectionId('WCCO')
 class WcagCompliance {
   @Form([
@@ -7457,13 +7492,28 @@ class WcagCompliance {
   TextSection wcagNarrative = TextSection();
 
   /// WCAG success criteria mapping.
+  @StandardReferences(
+    [
+      'W3C WCAG 2.2 — each success criterion states a testable accessibility requirement',
+      'ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard',
+    ],
+    'The collection of WCAG success-criterion entries.',
+  )
   @SectionId('WSCE-SUCC-LST')
   @SectionIdPattern('WSCE-SUCC-xxx')
+  @ContentHelp('Add one entry per WCAG success criterion.')
   @SerializationOrder(5)
   List<WcagSuccessCriterionEntry> successCriteria = [];
 }
 
 /// Operable principles.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — user interface components and navigation are operable by all users',
+    'EN 301 549 — the interactive product supports keyboard operation, adjustable timing, and safe input modalities',
+  ],
+  'The WCAG operable principle requirements covering keyboard access, timing, navigation, and input modalities.',
+)
 @SectionId('WCCOOP')
 class WcagComplianceOperable {
     @Form([
@@ -7483,6 +7533,13 @@ class WcagComplianceOperable {
 }
 
 /// Understandable principles.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — information and the operation of the user interface are understandable to all users',
+    'EN 301 549 — the interactive product presents readable, predictable content with input assistance',
+  ],
+  'The WCAG understandable principle requirements covering readability, predictability, and input assistance.',
+)
 @SectionId('WCCOUN')
 class WcagComplianceUnderstandable {
     @Form([
@@ -7498,6 +7555,13 @@ class WcagComplianceUnderstandable {
 }
 
 /// Robustness requirements.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies',
+    'W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components',
+  ],
+  'The WCAG robust principle requirements ensuring compatibility with assistive technologies.',
+)
 @SectionId('WCCORO')
 class WcagComplianceRobust {
     @Form([
@@ -7509,12 +7573,20 @@ class WcagComplianceRobust {
 }
 
 /// A WCAG success criterion entry.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — each success criterion states a single testable requirement at level A, AA, or AAA',
+    'ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard',
+  ],
+  'A single WCAG success criterion with its level, applicability, and conformance status.',
+)
 @SectionId('WCSUCREN')
 class WcagSuccessCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID', required: true,
         hint: 'WCAG SC ID (e.g., 1.4.3)'),
-    Field('criterionName', String, 'Criterion Name', required: true),
+    Field('criterionName', String, 'Criterion Name', required: true,
+        hint: 'Name of the success criterion (e.g., Contrast Minimum)'),
     Field('level', String, 'Level',
         hint: 'A, AA, AAA'),
     Field('applicability', String, 'Applicability',
@@ -7535,6 +7607,13 @@ class WcagSuccessCriterionEntry {
 /// 10.9.2. Accessibility Checklist.
 ///
 /// Comprehensive accessibility verification checklist.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — the checklist covers the success criteria across the four POUR principles',
+    'EN 301 549 — accessibility verification follows the applicable European ICT requirements',
+  ],
+  'The comprehensive checklist used to verify accessibility conformance.',
+)
 @SectionId('ACCHLS')
 class AccessibilityChecklist {
   @Form([
@@ -7563,17 +7642,33 @@ class AccessibilityChecklist {
   TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
+  @StandardReferences(
+    [
+      'W3C WCAG 2.2 — the checklist enumerates testable success criteria for the interactive product',
+      'EN 301 549 — accessibility requirements are enumerated as verifiable checklist items',
+    ],
+    'The collection of accessibility checklist entries.',
+  )
   @SectionId('ACCH-ITEM-LST')
   @SectionIdPattern('ACCH-ITEM-xxx')
+  @ContentHelp('Add one entry per accessibility check.')
   @SerializationOrder(2)
   List<AccessibilityCheckEntry> items = [];
 }
 
 /// An accessibility check entry (form).
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — each checklist item verifies a testable success criterion of the interactive product',
+    'EN 301 549 — the product is checked against the applicable accessibility requirements',
+  ],
+  'A single accessibility checklist entry describing what is verified and how.',
+)
 @SectionId('ACCH')
 class AccessibilityCheckEntry {
   @Form([
-    Field('checkId', String, 'Check ID', required: true),
+    Field('checkId', String, 'Check ID', required: true,
+        hint: 'Unique identifier for this check (e.g., ACCH-001)'),
     Field('checkItem', String, 'Check Item', required: true,
         hint: 'What is being checked'),
     Field('checkDescription', String, 'Check Description',
@@ -7601,6 +7696,13 @@ class AccessibilityCheckEntry {
 }
 
 /// WCAG mapping and compliance classification.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — each check maps to a success criterion at conformance level A, AA, or AAA',
+    'EN 301 549 — accessibility requirements are mapped to the applicable success criteria',
+  ],
+  'The mapping of an accessibility check to its WCAG success criterion and conformance level.',
+)
 @SectionId('ACEC')
 class AccessibilityCheckEntryCompliance {
   @Form([
@@ -7616,6 +7718,13 @@ class AccessibilityCheckEntryCompliance {
 }
 
 /// Testing execution ownership and status.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — conformance is verified by testing each success criterion for the interactive product',
+    'EN 301 549 — accessibility conformance is evaluated and the results are recorded',
+  ],
+  'The ownership, tooling, and status of executing an accessibility check.',
+)
 @SectionId('ACEE')
 class AccessibilityCheckEntryExecution {
   @Form([
@@ -7625,14 +7734,23 @@ class AccessibilityCheckEntryExecution {
         hint: 'Developer, QA, accessibility specialist'),
     Field('checkStatus', String, 'Check Status',
         hint: 'Not tested, passed, failed, n/a'),
-    Field('testDate', String, 'Test Date'),
-    Field('testedBy', String, 'Tested By'),
+    Field('testDate', String, 'Test Date',
+        hint: 'Date the check was performed'),
+    Field('testedBy', String, 'Tested By',
+        hint: 'Name or role of the tester'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Issue tracking and remediation details.
+@StandardReferences(
+  [
+    'W3C WCAG 2.2 — accessibility conformance failures are documented and remediated to meet the success criteria',
+    'EN 301 549 — the interactive product records and resolves accessibility non-conformances',
+  ],
+  'The record of accessibility issues found during checking and the plan to remediate them.',
+)
 @SectionId('ACER')
 class AccessibilityCheckEntryRemediation {
   @Form([
@@ -7653,6 +7771,14 @@ class AccessibilityCheckEntryRemediation {
 ///
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — presentation of information adapts the layout to the available display area',
+    'W3C CSS — media queries let the interface respond to viewport size and capabilities',
+    'WCAG 2.2 SC 1.4.10 Reflow — content reflows without loss of information or function at small viewports',
+  ],
+  'The responsive-design configuration describing how the interface adapts across viewports.',
+)
 @SectionId('REDE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -7703,6 +7829,13 @@ class ResponsiveDesign {
 /// 10.10.1. Breakpoints.
 ///
 /// Breakpoint definitions for responsive layouts.
+@StandardReferences(
+  [
+    'W3C CSS Media Queries — breakpoints define the viewport widths at which the layout changes',
+    'ISO 9241-125:2017 — the presentation adapts the layout to the available display area',
+  ],
+  'The configuration of viewport breakpoints, their units, and density handling for responsive layouts.',
+)
 @SectionId('BC')
 class BreakpointConfiguration {
   @Form([
@@ -7734,13 +7867,27 @@ class BreakpointConfiguration {
   String? breakpointOverview;
 
   /// Breakpoint entries.
+  @StandardReferences(
+    [
+      'W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes',
+    ],
+    'The collection of layout breakpoint entries.',
+  )
   @SectionId('BRE-BREA-LST')
   @SectionIdPattern('BRE-BREA-xxx')
+  @ContentHelp('Add one entry per layout breakpoint.')
   @SerializationOrder(1)
   List<BreakpointEntry> breakpoints = [];
 }
 
 /// A breakpoint entry.
+@StandardReferences(
+  [
+    'W3C CSS Media Queries — a breakpoint marks a viewport width range at which the layout changes',
+    'ISO 9241-125:2017 — the presentation adapts to the display area within the defined width range',
+  ],
+  'A single breakpoint entry defining a viewport width range and its associated layout and scaling rules.',
+)
 @SectionId('BE')
 class BreakpointEntry {
   @Form([
@@ -7766,6 +7913,13 @@ class BreakpointEntry {
 }
 
 /// Grid and layout rules for this breakpoint.
+@StandardReferences(
+  [
+    'W3C CSS — the grid layout adapts columns, gutters, and margins to the viewport at each breakpoint',
+    'ISO 9241-125:2017 — the presentation arranges information within the available display area',
+  ],
+  'The grid columns, gutter, margin, and layout behavior applied at a given breakpoint.',
+)
 @SectionId('BRENLA')
 class BreakpointEntryLayout {
   @Form([
@@ -7783,6 +7937,13 @@ class BreakpointEntryLayout {
 }
 
 /// Navigation and visual scaling rules.
+@StandardReferences(
+  [
+    'WCAG 2.2 SC 1.4.4 Resize text — typography scales without loss of content or function',
+    'ISO/IEC 25010:2023 — adaptability tailors navigation and visual scaling to the display environment',
+  ],
+  'The navigation pattern and typography, spacing, and icon scaling applied at a given breakpoint.',
+)
 @SectionId('BRENSC')
 class BreakpointEntryScaling {
   @Form([
@@ -7802,6 +7963,14 @@ class BreakpointEntryScaling {
 /// 10.10.2. Responsive Behavior.
 ///
 /// How the UI adapts across breakpoints.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — the presentation of information adapts the layout to the available display area',
+    'W3C Responsive Web Design — the interface responds to viewport changes across the full range of breakpoints',
+    'WCAG 2.2 SC 1.4.10 Reflow — content adapts without loss at small viewports and high zoom',
+  ],
+  'The specification of how the interface adapts its layout, navigation, visibility, touch, and content across breakpoints.',
+)
 @SectionId('REBE')
 class ResponsiveBehavior {
   // ─────────────────────────────────────────────────────────────────────────
@@ -7841,13 +8010,27 @@ class ResponsiveBehavior {
   TextSection behaviorNarrative = TextSection();
 
   /// Screen-specific responsive rules.
+  @StandardReferences(
+    [
+      'ISO 9241-125:2017 — presentation of information adapts per screen to the available display area',
+    ],
+    'The collection of screen-specific responsive rule entries.',
+  )
   @SectionId('RESPSR-SCRE-LST')
   @SectionIdPattern('RESPSR-SCRE-xxx')
+  @ContentHelp('Add one entry per screen with distinct responsive rules.')
   @SerializationOrder(6)
   List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
 /// Navigation patterns per device class.
+@StandardReferences(
+  [
+    'W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class',
+    'ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment',
+  ],
+  'The navigation patterns chosen for mobile, tablet, and desktop device classes.',
+)
 @SectionId('REBENA')
 class ResponsiveBehaviorNavigation {
     @Form([
@@ -7863,19 +8046,35 @@ class ResponsiveBehaviorNavigation {
 }
 
 /// Visibility rules.
+@StandardReferences(
+  [
+    'WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function',
+    'ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment',
+  ],
+  'The rules describing which elements are shown or hidden at each device class to keep the interface usable.',
+)
 @SectionId('REBEVI')
 class ResponsiveBehaviorVisibility {
     @Form([
         Field('mobileHiddenElements', String, 'Mobile Hidden Elements',
                 hint: 'Elements hidden on mobile'),
-        Field('tabletHiddenElements', String, 'Tablet Hidden Elements'),
-        Field('desktopOnlyElements', String, 'Desktop Only Elements'),
+        Field('tabletHiddenElements', String, 'Tablet Hidden Elements',
+                hint: 'Elements hidden on tablet'),
+        Field('desktopOnlyElements', String, 'Desktop Only Elements',
+                hint: 'Elements shown only on desktop'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Touch and interaction optimizations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use',
+    'WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices',
+  ],
+  'The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.',
+)
 @SectionId('REBETO')
 class ResponsiveBehaviorTouch {
     @Form([
@@ -7891,6 +8090,13 @@ class ResponsiveBehaviorTouch {
 }
 
 /// Content reflow rules.
+@StandardReferences(
+  [
+    'WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports',
+    'W3C Responsive Web Design — content adapts fluidly as the viewport changes',
+  ],
+  'The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints.',
+)
 @SectionId('REBECO')
 class ResponsiveBehaviorContent {
     @Form([
@@ -7908,15 +8114,28 @@ class ResponsiveBehaviorContent {
 }
 
 /// A screen-specific responsive rule entry.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — the presentation of information adapts to the available display area for a given screen',
+    'WCAG 2.2 SC 1.4.10 Reflow — the screen content reflows at small viewports without loss of information or function',
+  ],
+  'A single screen-specific responsive rule describing how one screen adapts across mobile, tablet, and desktop layouts.',
+)
 @SectionId('RESPSR')
 class ResponsiveScreenRuleEntry {
   @Form([
-    Field('screenId', String, 'Screen ID', required: true),
-    Field('screenName', String, 'Screen Name', required: true),
-    Field('mobileLayout', String, 'Mobile Layout'),
-    Field('tabletLayout', String, 'Tablet Layout'),
-    Field('desktopLayout', String, 'Desktop Layout'),
-    Field('specialConsiderations', String, 'Special Considerations'),
+    Field('screenId', String, 'Screen ID', required: true,
+        hint: 'Unique identifier of the screen this rule applies to'),
+    Field('screenName', String, 'Screen Name', required: true,
+        hint: 'Human-readable name of the screen'),
+    Field('mobileLayout', String, 'Mobile Layout',
+        hint: 'How this screen is laid out on mobile'),
+    Field('tabletLayout', String, 'Tablet Layout',
+        hint: 'How this screen is laid out on tablet'),
+    Field('desktopLayout', String, 'Desktop Layout',
+        hint: 'How this screen is laid out on desktop'),
+    Field('specialConsiderations', String, 'Special Considerations',
+        hint: 'Any screen-specific responsive notes or exceptions'),
   ])
   @SerializationOrder(0)
   String? content;

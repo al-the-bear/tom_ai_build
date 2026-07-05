@@ -127,7 +127,7 @@ section-types:
     pattern-check-id:
       pattern: ^respsr_scre_lst-\d+$
       error-message: ID must match respsr_scre_lst-NNN
-    description: Screen-specific responsive rules.
+    description: Add one entry per screen with distinct responsive rules.
   SCRUSC-USER-LST:
     prefix: scrusc_user_lst
     pattern-check-id:
@@ -261,7 +261,7 @@ section-types:
     pattern-check-id:
       pattern: ^acch_item_lst-\d+$
       error-message: ID must match acch_item_lst-NNN
-    description: Contains 0+× AccessibilityCheck.
+    description: Add one entry per accessibility check.
   CMAC-ACTI-LST:
     prefix: cmac_acti_lst
     pattern-check-id:
@@ -375,13 +375,13 @@ section-types:
     pattern-check-id:
       pattern: ^wsce_succ_lst-\d+$
       error-message: ID must match wsce_succ_lst-NNN
-    description: WCAG success criteria mapping.
+    description: Add one entry per WCAG success criterion.
   BRE-BREA-LST:
     prefix: bre_brea_lst
     pattern-check-id:
       pattern: ^bre_brea_lst-\d+$
       error-message: ID must match bre_brea_lst-NNN
-    description: Breakpoint entries.
+    description: Add one entry per layout breakpoint.
   COMSTAENT:
     prefix: comstaent
     description: A component state entry.
