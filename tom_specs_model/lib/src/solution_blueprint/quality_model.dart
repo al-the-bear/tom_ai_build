@@ -2413,6 +2413,13 @@ class ItSecurityOperationsIncident {
 /// retained as a documentation-quality annex aligned to ISO/IEC 26514
 /// (systems & software engineering — design and development of information for
 /// users) rather than re-homed under a 25010:2023 characteristic.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information for users is designed and developed to defined quality criteria covering completeness, accuracy, and usability',
+    'ISO/IEC/IEEE 26515:2018 — information for users is planned and produced iteratively alongside the product',
+  ],
+  'Captures the overall quality criteria governing user and technical documentation.',
+)
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DOC')
@@ -2461,6 +2468,12 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.5.1. Readability quality.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience',
+  ],
+  'Captures readability requirements for user documentation.',
+)
 @SectionId('REQU1')
 class Readability {
   @Form([
@@ -2497,6 +2510,12 @@ class Readability {
 }
 
 /// Identifiability and navigation.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information is structured with navigation aids so that users can locate relevant topics',
+  ],
+  'Captures identifiability and navigation aids that help users locate topics.',
+)
 @SectionId('REQUNA')
 class ReadabilityNavigation {
   @Form([
@@ -2512,6 +2531,12 @@ class ReadabilityNavigation {
 }
 
 /// Comprehensibility requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — content is presented at a reading level and in a format appropriate to the intended user',
+  ],
+  'Captures reading level and format requirements for comprehensible documentation.',
+)
 @SectionId('REQUCO')
 class ReadabilityComprehensibility {
   @Form([
@@ -2527,6 +2552,12 @@ class ReadabilityComprehensibility {
 }
 
 /// Document structure rules.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information is organised into a consistent structure with a defined information hierarchy',
+  ],
+  'Captures the structural template and information hierarchy for documentation.',
+)
 @SectionId('REQUST')
 class ReadabilityStructure {
   @Form([
@@ -2542,6 +2573,12 @@ class ReadabilityStructure {
 }
 
 /// Style guide alignment.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — a documented style guide governs terminology, writing voice, and formatting conventions',
+  ],
+  'Captures alignment of documentation with a defined style guide.',
+)
 @SectionId('REQUS1')
 class ReadabilityStyle {
   @Form([
@@ -2557,6 +2594,12 @@ class ReadabilityStyle {
 }
 
 /// 11.5.2. Documentation completeness quality.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product',
+  ],
+  'Captures whether documentation covers all tasks and topics users need.',
+)
 @SectionId('DOCOQU')
 class DocCompleteness {
   @Form([
@@ -2594,6 +2637,12 @@ class DocCompleteness {
 }
 
 /// 11.5.3. Documentation correctness quality.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product',
+  ],
+  'Captures correctness of documentation as verified against the product.',
+)
 @SectionId('DOCOQ1')
 class DocCorrectness {
   @Form([
@@ -2626,6 +2675,12 @@ class DocCorrectness {
 }
 
 /// Formatting and implementation alignment.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information is kept consistent across documents and aligned with the corresponding product version',
+  ],
+  'Captures formatting consistency and alignment of documentation with the product.',
+)
 @SectionId('DCQA')
 class DocCorrectnessAlignment {
     @Form([
@@ -2645,6 +2700,12 @@ class DocCorrectnessAlignment {
 }
 
 /// Verification and feedback handling.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information is reviewed and validated, and user feedback is incorporated into revisions',
+  ],
+  'Captures verification of documentation and the handling of user feedback.',
+)
 @SectionId('DCQV')
 class DocCorrectnessVerification {
     @Form([
@@ -2658,6 +2719,12 @@ class DocCorrectnessVerification {
 }
 
 /// 11.5.4. Documentation changeability quality.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — information for users is maintained and updated as the product evolves through successive iterations',
+  ],
+  'Captures how documentation is kept current as the product changes over time.',
+)
 @SectionId('DOCHQU')
 class DocChangeability {
   @Form([
@@ -2692,6 +2759,12 @@ class DocChangeability {
 }
 
 /// Extensibility and localization readiness.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information is structured to support extension and translation into other languages',
+  ],
+  'Captures how documentation supports extension and readiness for localization.',
+)
 @SectionId('DCQE')
 class DocChangeabilityExtensibility {
   @Form([
@@ -2707,6 +2780,12 @@ class DocChangeabilityExtensibility {
 }
 
 /// Sizing and structural consistency rules.
+@StandardReferences(
+  [
+    'ISO/IEC 26514:2008 — information units are sized and made granular so that topics remain manageable and consistent',
+  ],
+  'Captures document sizing, topic granularity, and structural consistency rules.',
+)
 @SectionId('DCQS')
 class DocChangeabilityStructure {
   @Form([
@@ -2724,6 +2803,12 @@ class DocChangeabilityStructure {
 }
 
 /// Review and retirement maintenance process.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate',
+  ],
+  'Captures the review cadence and retirement process for user documentation.',
+)
 @SectionId('DCQM')
 class DocChangeabilityMaintenance {
   @Form([
@@ -2740,6 +2825,13 @@ class DocChangeabilityMaintenance {
 ///
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — quality characteristics can conflict, so their relative importance is established to guide decisions',
+    'ISO/IEC 25030:2019 — quality requirements are prioritised against stakeholder needs and constraints',
+  ],
+  'Captures how quality attributes are prioritised and balanced across weighted matrices and trade-off decisions.',
+)
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRI')
@@ -2780,6 +2872,12 @@ class QualityPrioritization {
 }
 
 /// 11.6.1. Weighted Quality Matrix.
+@StandardReferences(
+  [
+    'ISO/IEC 25030:2019 — quality requirements are weighted to reflect their relative importance to stakeholders',
+  ],
+  'Captures the weighted quality matrix that reflects the relative importance of quality requirements to stakeholders.',
+)
 @SectionId('WEQUMA')
 class WeightedQualityMatrix {
   @Form([
@@ -2789,7 +2887,8 @@ class WeightedQualityMatrix {
         hint: '1-5, 1-10, percentage'),
     Field('totalWeightRequirement', String, 'Total Weight Requirement',
         hint: 'Sum to 100%, relative weights'),
-    Field('weightJustificationRequired', bool, 'Weight Justification Required'),
+    Field('weightJustificationRequired', bool, 'Weight Justification Required',
+        hint: 'Whether each weight needs a documented justification'),
     Field('matrixUpdateProcess', String, 'Matrix Update Process',
         hint: 'How weights are updated'),
   ])
@@ -2803,8 +2902,15 @@ class WeightedQualityMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Quality attribute weight entries.
+  @StandardReferences(
+    [
+      'ISO/IEC 25030:2019 — each weighted quality requirement is enumerated with its assigned relative weight',
+    ],
+    'Enumerates each weighted quality requirement with its assigned relative weight.',
+  )
   @SectionId('QLWGT-WEIG-LST')
   @SectionIdPattern('QLWGT-WEIG-xxx')
+  @ContentHelp('Add one entry per quality attribute weight.')
   @SerializationOrder(2)
   List<QualityWeightEntry> weights = [];
 
@@ -2815,13 +2921,20 @@ class WeightedQualityMatrix {
 }
 
 /// A quality weight entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — a relative weight expresses the importance of a quality attribute when attributes compete',
+  ],
+  'Captures the relative weight expressing the importance of one quality attribute when attributes compete.',
+)
 @SectionId('QLWGT')
 class QualityWeightEntry {
   @Form([
     Field('qualityAttribute', String, 'Quality Attribute', required: true),
     Field('qualityCategory', String, 'Category',
         hint: 'User, Technical, Operations, Documentation'),
-    Field('weight', int, 'Weight (1-100)'),
+    Field('weight', int, 'Weight (1-100)',
+        hint: 'Numeric weight from 1 to 100'),
     Field('priority', String, 'Priority',
         hint: 'Critical, high, medium, low'),
     Field('rationale', String, 'Rationale',
@@ -2838,6 +2951,12 @@ class QualityWeightEntry {
 /// 11.6.2. Trade-off Decisions.
 ///
 /// Explicit trade-off decisions between quality attributes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — improving one quality characteristic can degrade another, so trade-off decisions are made explicit',
+  ],
+  'Captures explicit trade-off decisions made when improving one quality attribute degrades another.',
+)
 @SectionId('TROFDE')
 class TradeOffDecisions {
   @Form([
@@ -2860,13 +2979,26 @@ class TradeOffDecisions {
   TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — each trade-off between competing quality characteristics is enumerated as a discrete decision',
+    ],
+    'Enumerates each trade-off between competing quality characteristics as a discrete decision.',
+  )
   @SectionId('TODE-ITEM-LST')
   @SectionIdPattern('TODE-ITEM-xxx')
+  @ContentHelp('Add one entry per trade-off decision.')
   @SerializationOrder(2)
   List<TradeOffDecisionEntry> items = [];
 }
 
 /// A trade-off decision entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — each trade-off decision is recorded with the qualities in conflict and its rationale',
+  ],
+  'Captures a single trade-off decision with the qualities in conflict and its rationale.',
+)
 @SectionId('TODE')
 class TradeOffDecisionEntry {
   @Form([
@@ -2908,6 +3040,12 @@ class TradeOffDecisionEntry {
 }
 
 /// Qualities in conflict for trade-off decision.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the quality characteristics prioritised and deprioritised in a trade-off are identified',
+  ],
+  'Captures the quality attributes prioritised and deprioritised within a trade-off.',
+)
 @SectionId('TODEQ')
 class TradeOffDecisionEntryQualities {
   @Form([
@@ -2923,6 +3061,12 @@ class TradeOffDecisionEntryQualities {
 }
 
 /// Rationale for trade-off decision.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the business and technical rationale for a quality trade-off is documented',
+  ],
+  'Captures the business and technical rationale behind a quality trade-off decision.',
+)
 @SectionId('TODER')
 class TradeOffDecisionEntryRationale {
   @Form([
@@ -2940,6 +3084,12 @@ class TradeOffDecisionEntryRationale {
 }
 
 /// Impact assessment for trade-off decision.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — the impact of a quality trade-off on requirements, architecture, schedule, and cost is assessed',
+  ],
+  'Captures the assessed impact of a quality trade-off across requirements, architecture, schedule, and cost.',
+)
 @SectionId('TODEI')
 class TradeOffDecisionEntryImpact {
   @Form([
@@ -2959,6 +3109,12 @@ class TradeOffDecisionEntryImpact {
 }
 
 /// Mitigation measures for trade-off decision.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — measures are defined to mitigate the effect of a deprioritised quality characteristic',
+  ],
+  'Captures measures that mitigate the effect of a deprioritised quality attribute.',
+)
 @SectionId('TODEM')
 class TradeOffDecisionEntryMitigation {
   @Form([
@@ -2974,10 +3130,17 @@ class TradeOffDecisionEntryMitigation {
 }
 
 /// Approval and governance for trade-off decision.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders',
+  ],
+  'Captures approval and governance details for a quality trade-off decision.',
+)
 @SectionId('TODEA')
 class TradeOffDecisionEntryApproval {
   @Form([
-    Field('decisionDate', String, 'Decision Date'),
+    Field('decisionDate', String, 'Decision Date',
+        hint: 'Date the trade-off decision was made'),
     Field('approvedBy', String, 'Approved By',
         hint: 'Who approved the trade-off'),
     Field('stakeholdersConsulted', String, 'Stakeholders Consulted',
@@ -2998,6 +3161,13 @@ class TradeOffDecisionEntryApproval {
 /// (ACRITL / QAP-CRI) under the acceptance plan, which this summary references
 /// explicitly via [detailedCriteria] (SR-54: one canonical spine, summary
 /// referencing list).
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the product quality evaluation concludes by judging the product against defined acceptance criteria',
+    'ISO/IEC/IEEE 29119 — completion of testing is assessed against a defined set of acceptance criteria',
+  ],
+  'Summarizes the acceptance criteria against which the product is judged and testing completion is assessed.',
+)
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ACC')
@@ -3055,12 +3225,19 @@ class AcceptanceCriteriaSummary {
 /// 11.7.1. Must-Pass Criteria.
 ///
 /// Criteria that must be met for the system to be accepted.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — acceptance defines the criteria that must be satisfied for the product to be accepted',
+  ],
+  'Captures the must-pass criteria that must be satisfied for the product to be accepted.',
+)
 @SectionId('MUPACR')
 class MustPassCriteria {
   @Form([
     Field('mustPassPhilosophy', String, 'Must-Pass Philosophy',
         hint: 'All must pass, weighted approach'),
-    Field('mustPassCount', int, 'Number of Must-Pass Criteria'),
+    Field('mustPassCount', int, 'Number of Must-Pass Criteria',
+        hint: 'Total count of must-pass criteria'),
     Field('criticalityDefinition', String, 'Criticality Definition',
         hint: 'What makes a criterion must-pass'),
     Field('waiverProcess', String, 'Waiver Process',
@@ -3078,13 +3255,26 @@ class MustPassCriteria {
   TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — each acceptance criterion is enumerated as a discrete item with a defined verification method',
+    ],
+    'Enumerates the must-pass criteria as discrete items, each with a defined verification method.',
+  )
   @SectionId('MSTPCR-ITEM-LST')
   @SectionIdPattern('MSTPCR-ITEM-xxx')
+  @ContentHelp('Add one entry per must-pass criterion.')
   @SerializationOrder(2)
   List<MustPassCriterionEntry> items = [];
 }
 
 /// A must-pass criterion entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — each criterion defines the condition to be met and the method used to verify it',
+  ],
+  'Captures a single must-pass criterion including the condition to be met and the method used to verify it.',
+)
 @SectionId('MSTPCR')
 class MustPassCriterionEntry {
   @Form([
@@ -3124,6 +3314,12 @@ class MustPassCriterionEntry {
 }
 
 /// Classification and intent of the criterion.
+@StandardReferences(
+  [
+    'ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category',
+  ],
+  'Captures the classification and intent of the criterion including its quality category and attribute.',
+)
 @SectionId('MPCED')
 class MustPassCriterionEntryDefinition {
   @Form([
@@ -3139,6 +3335,12 @@ class MustPassCriterionEntryDefinition {
 }
 
 /// Verification and threshold details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — a verification procedure and pass or fail threshold are defined for each criterion',
+  ],
+  'Captures the verification procedure, evidence, and pass or fail threshold for a criterion.',
+)
 @SectionId('MPCEV')
 class MustPassCriterionEntryVerification {
   @Form([
@@ -3158,6 +3360,12 @@ class MustPassCriterionEntryVerification {
 }
 
 /// Responsibility and dependency information.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned',
+  ],
+  'Captures who is responsible for performing, reviewing, and approving verification of the criterion.',
+)
 @SectionId('MPCEG')
 class MustPassCriterionEntryGovernance {
   @Form([
@@ -3177,13 +3385,21 @@ class MustPassCriterionEntryGovernance {
 }
 
 /// Execution status and defects.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — the test status and associated defects are recorded against each criterion',
+  ],
+  'Captures the execution status, test outcome, and defects recorded for a must-pass criterion.',
+)
 @SectionId('MPCES')
 class MustPassCriterionEntryStatus {
   @Form([
     Field('criterionStatus', String, 'Status',
         hint: 'Not tested, passed, failed, waived'),
-    Field('testDate', String, 'Test Date'),
-    Field('testResult', String, 'Test Result'),
+    Field('testDate', String, 'Test Date',
+        hint: 'Date the criterion was tested'),
+    Field('testResult', String, 'Test Result',
+        hint: 'Outcome of the test (pass or fail)'),
     Field('defectIds', String, 'Defect IDs',
         hint: 'Defects blocking pass'),
   ])
@@ -3194,6 +3410,13 @@ class MustPassCriterionEntryStatus {
 /// 11.7.2. Quality Gate Checklist.
 ///
 /// Quality gate checklist used during acceptance.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — the product quality evaluation process includes gate reviews that assess the product against defined checks',
+    'ISO/IEC/IEEE 29119 — completion of testing is judged against a defined set of checks and criteria',
+  ],
+  'Captures the quality gate checklist used to assess the product during acceptance.',
+)
 @SectionId('QUGACH')
 class QualityGateChecklist {
   @Form([
@@ -3217,13 +3440,26 @@ class QualityGateChecklist {
   TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — each gate check is enumerated as a discrete item with a defined verification method',
+    ],
+    'Enumerates each gate check as a discrete item with its verification method.',
+  )
   @SectionId('QGCHK-ITEM-LST')
   @SectionIdPattern('QGCHK-ITEM-xxx')
+  @ContentHelp('Add one entry per quality gate check.')
   @SerializationOrder(2)
   List<QualityGateCheckEntry> items = [];
 }
 
 /// A quality gate check entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it',
+  ],
+  'Defines the item being verified and the method used to verify it.',
+)
 @SectionId('QGCHK')
 class QualityGateCheckEntry {
   @Form([
@@ -3261,6 +3497,12 @@ class QualityGateCheckEntry {
 }
 
 /// Check definition and categorization.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation',
+  ],
+  'Categorises a check and relates it to a quality category.',
+)
 @SectionId('QGCED')
 class QualityGateCheckEntryDefinition {
   @Form([
@@ -3276,6 +3518,12 @@ class QualityGateCheckEntryDefinition {
 }
 
 /// Verification criteria and evidence.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — pass and fail criteria and the evidence required are defined for each check',
+  ],
+  'Defines pass and fail criteria and the evidence required for a check.',
+)
 @SectionId('QGCEV')
 class QualityGateCheckEntryVerification {
   @Form([
@@ -3291,6 +3539,12 @@ class QualityGateCheckEntryVerification {
 }
 
 /// Responsibility and timing.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — responsibility, timing, and dependencies for performing a check are assigned',
+  ],
+  'Assigns responsibility, timing, and dependencies for performing a check.',
+)
 @SectionId('QGCEE')
 class QualityGateCheckEntryExecution {
   @Form([
@@ -3310,13 +3564,21 @@ class QualityGateCheckEntryExecution {
 }
 
 /// Status and observations.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — the result and observations of a check are recorded as evidence of completion',
+  ],
+  'Records the status, result, and observations for a gate check.',
+)
 @SectionId('QGCES')
 class QualityGateCheckEntryStatus {
   @Form([
     Field('checkStatus', String, 'Status',
         hint: 'Not started, in progress, passed, failed'),
-    Field('checkDate', String, 'Check Date'),
-    Field('checkResult', String, 'Check Result'),
+    Field('checkDate', String, 'Check Date',
+        hint: 'Date the gate check was performed'),
+    Field('checkResult', String, 'Check Result',
+        hint: 'Outcome of the gate check (pass or fail)'),
     Field('checkNotes', String, 'Notes',
         hint: 'Additional observations'),
   ])
@@ -3325,6 +3587,12 @@ class QualityGateCheckEntryStatus {
 }
 
 /// Blocking behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25040:2011 — a gate check may block acceptance when the evaluated result does not meet the required level',
+  ],
+  'Captures whether a failed check blocks acceptance and the rationale.',
+)
 @SectionId('QGCEB')
 class QualityGateCheckEntryBlocking {
   @Form([
@@ -3344,6 +3612,13 @@ class QualityGateCheckEntryBlocking {
 /// 11.8. Test Strategy.
 ///
 /// Overall test strategy for the project..
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — a test strategy defines the overall approach, test levels, and coverage for verifying the system',
+    'ISO/IEC/IEEE 29119 — testing spans unit, integration, system, and acceptance levels within an organised process',
+  ],
+  'Defines the overall testing approach, levels, and coverage for the project.',
+)
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TST')

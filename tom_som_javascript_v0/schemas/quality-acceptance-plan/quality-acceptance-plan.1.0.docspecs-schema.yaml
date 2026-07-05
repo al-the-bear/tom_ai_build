@@ -7,7 +7,7 @@ section-types:
     pattern-check-id:
       pattern: ^mstpcr_item_lst-\d+$
       error-message: ID must match mstpcr_item_lst-NNN
-    description: Contains 0+× MustPassCriterion.
+    description: Add one entry per must-pass criterion.
   TESCNO-NOTE-LST:
     prefix: tescno_note_lst
     pattern-check-id:
@@ -49,13 +49,13 @@ section-types:
     pattern-check-id:
       pattern: ^qgchk_item_lst-\d+$
       error-message: ID must match qgchk_item_lst-NNN
-    description: Contains 0+× QualityGateCheck.
+    description: Add one entry per quality gate check.
   QLWGT-WEIG-LST:
     prefix: qlwgt_weig_lst
     pattern-check-id:
       pattern: ^qlwgt_weig_lst-\d+$
       error-message: ID must match qlwgt_weig_lst-NNN
-    description: Quality attribute weight entries.
+    description: Add one entry per quality attribute weight.
   UATCY-TEST-LST:
     prefix: uatcy_test_lst
     pattern-check-id:
@@ -79,7 +79,7 @@ section-types:
     pattern-check-id:
       pattern: ^tode_item_lst-\d+$
       error-message: ID must match tode_item_lst-NNN
-    description: Contains 0+× TradeOffDecision.
+    description: Add one entry per trade-off decision.
   TSSC-TEST-LST:
     prefix: tssc_test_lst
     pattern-check-id:

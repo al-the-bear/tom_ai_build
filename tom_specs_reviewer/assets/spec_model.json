@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T18:59:00.925703Z",
+  "generatedAt": "2026-07-05T19:16:31.622149Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -185,7 +185,24 @@
       "sectionId": "ACCRSU",
       "doc": "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the product quality evaluation concludes by judging the product against defined acceptance criteria",
+          "ISO/IEC/IEEE 29119 — completion of testing is assessed against a defined set of acceptance criteria"
+        ],
+        "connotation": "Summarizes the acceptance criteria against which the product is judged and testing completion is assessed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the product quality evaluation concludes by judging the product against defined acceptance criteria",
+              "ISO/IEC/IEEE 29119 — completion of testing is assessed against a defined set of acceptance criteria"
+            ],
+            "connotation": "Summarizes the acceptance criteria against which the product is judged and testing completion is assessed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92790,7 +92807,22 @@
       "name": "DocChangeability",
       "sectionId": "DOCHQU",
       "doc": "11.5.4. Documentation changeability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — information for users is maintained and updated as the product evolves through successive iterations"
+        ],
+        "connotation": "Captures how documentation is kept current as the product changes over time."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — information for users is maintained and updated as the product evolves through successive iterations"
+            ],
+            "connotation": "Captures how documentation is kept current as the product changes over time."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92908,7 +92940,22 @@
       "name": "DocChangeabilityExtensibility",
       "sectionId": "DCQE",
       "doc": "Extensibility and localization readiness.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information is structured to support extension and translation into other languages"
+        ],
+        "connotation": "Captures how documentation supports extension and readiness for localization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information is structured to support extension and translation into other languages"
+            ],
+            "connotation": "Captures how documentation supports extension and readiness for localization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -92965,7 +93012,22 @@
       "name": "DocChangeabilityMaintenance",
       "sectionId": "DCQM",
       "doc": "Review and retirement maintenance process.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate"
+        ],
+        "connotation": "Captures the review cadence and retirement process for user documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate"
+            ],
+            "connotation": "Captures the review cadence and retirement process for user documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93015,7 +93077,22 @@
       "name": "DocChangeabilityStructure",
       "sectionId": "DCQS",
       "doc": "Sizing and structural consistency rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information units are sized and made granular so that topics remain manageable and consistent"
+        ],
+        "connotation": "Captures document sizing, topic granularity, and structural consistency rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information units are sized and made granular so that topics remain manageable and consistent"
+            ],
+            "connotation": "Captures document sizing, topic granularity, and structural consistency rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93079,7 +93156,22 @@
       "name": "DocCompleteness",
       "sectionId": "DOCOQU",
       "doc": "11.5.2. Documentation completeness quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product"
+        ],
+        "connotation": "Captures whether documentation covers all tasks and topics users need."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product"
+            ],
+            "connotation": "Captures whether documentation covers all tasks and topics users need."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93201,7 +93293,22 @@
       "name": "DocCorrectness",
       "sectionId": "DOCOQ1",
       "doc": "11.5.3. Documentation correctness quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product"
+        ],
+        "connotation": "Captures correctness of documentation as verified against the product."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product"
+            ],
+            "connotation": "Captures correctness of documentation as verified against the product."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93311,7 +93418,22 @@
       "name": "DocCorrectnessAlignment",
       "sectionId": "DCQA",
       "doc": "Formatting and implementation alignment.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information is kept consistent across documents and aligned with the corresponding product version"
+        ],
+        "connotation": "Captures formatting consistency and alignment of documentation with the product."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information is kept consistent across documents and aligned with the corresponding product version"
+            ],
+            "connotation": "Captures formatting consistency and alignment of documentation with the product."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -93382,7 +93504,22 @@
       "name": "DocCorrectnessVerification",
       "sectionId": "DCQV",
       "doc": "Verification and feedback handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information is reviewed and validated, and user feedback is incorporated into revisions"
+        ],
+        "connotation": "Captures verification of documentation and the handling of user feedback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information is reviewed and validated, and user feedback is incorporated into revisions"
+            ],
+            "connotation": "Captures verification of documentation and the handling of user feedback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -94335,7 +94472,24 @@
       "sectionId": "DOQUCR",
       "doc": "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information for users is designed and developed to defined quality criteria covering completeness, accuracy, and usability",
+          "ISO/IEC/IEEE 26515:2018 — information for users is planned and produced iteratively alongside the product"
+        ],
+        "connotation": "Captures the overall quality criteria governing user and technical documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information for users is designed and developed to defined quality criteria covering completeness, accuracy, and usability",
+              "ISO/IEC/IEEE 26515:2018 — information for users is planned and produced iteratively alongside the product"
+            ],
+            "connotation": "Captures the overall quality criteria governing user and technical documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164759,7 +164913,22 @@
       "name": "MustPassCriteria",
       "sectionId": "MUPACR",
       "doc": "11.7.1. Must-Pass Criteria.\n\nCriteria that must be met for the system to be accepted.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — acceptance defines the criteria that must be satisfied for the product to be accepted"
+        ],
+        "connotation": "Captures the must-pass criteria that must be satisfied for the product to be accepted."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — acceptance defines the criteria that must be satisfied for the product to be accepted"
+            ],
+            "connotation": "Captures the must-pass criteria that must be satisfied for the product to be accepted."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164797,6 +164966,7 @@
             {
               "name": "mustPassCount",
               "label": "Number of Must-Pass Criteria",
+              "hint": "Total count of must-pass criteria",
               "type": "int",
               "required": false
             },
@@ -164850,10 +165020,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× MustPassCriterion.",
+          "help": "Add one entry per must-pass criterion.",
           "sectionId": "MSTPCR-ITEM-LST",
           "sectionIdPattern": "MSTPCR-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — each acceptance criterion is enumerated as a discrete item with a defined verification method"
+            ],
+            "connotation": "Enumerates the must-pass criteria as discrete items, each with a defined verification method."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 — each acceptance criterion is enumerated as a discrete item with a defined verification method"
+                ],
+                "connotation": "Enumerates the must-pass criteria as discrete items, each with a defined verification method."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -164864,6 +165050,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MSTPCR-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per must-pass criterion."
               }
             },
             {
@@ -164882,7 +165074,22 @@
       "name": "MustPassCriterionEntry",
       "sectionId": "MSTPCR",
       "doc": "A must-pass criterion entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — each criterion defines the condition to be met and the method used to verify it"
+        ],
+        "connotation": "Captures a single must-pass criterion including the condition to be met and the method used to verify it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — each criterion defines the condition to be met and the method used to verify it"
+            ],
+            "connotation": "Captures a single must-pass criterion including the condition to be met and the method used to verify it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165021,7 +165228,22 @@
       "name": "MustPassCriterionEntryDefinition",
       "sectionId": "MPCED",
       "doc": "Classification and intent of the criterion.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category"
+        ],
+        "connotation": "Captures the classification and intent of the criterion including its quality category and attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category"
+            ],
+            "connotation": "Captures the classification and intent of the criterion including its quality category and attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165078,7 +165300,22 @@
       "name": "MustPassCriterionEntryGovernance",
       "sectionId": "MPCEG",
       "doc": "Responsibility and dependency information.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned"
+        ],
+        "connotation": "Captures who is responsible for performing, reviewing, and approving verification of the criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned"
+            ],
+            "connotation": "Captures who is responsible for performing, reviewing, and approving verification of the criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165149,7 +165386,22 @@
       "name": "MustPassCriterionEntryStatus",
       "sectionId": "MPCES",
       "doc": "Execution status and defects.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — the test status and associated defects are recorded against each criterion"
+        ],
+        "connotation": "Captures the execution status, test outcome, and defects recorded for a must-pass criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — the test status and associated defects are recorded against each criterion"
+            ],
+            "connotation": "Captures the execution status, test outcome, and defects recorded for a must-pass criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165187,12 +165439,14 @@
             {
               "name": "testDate",
               "label": "Test Date",
+              "hint": "Date the criterion was tested",
               "type": "String",
               "required": false
             },
             {
               "name": "testResult",
               "label": "Test Result",
+              "hint": "Outcome of the test (pass or fail)",
               "type": "String",
               "required": false
             },
@@ -165211,7 +165465,22 @@
       "name": "MustPassCriterionEntryVerification",
       "sectionId": "MPCEV",
       "doc": "Verification and threshold details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — a verification procedure and pass or fail threshold are defined for each criterion"
+        ],
+        "connotation": "Captures the verification procedure, evidence, and pass or fail threshold for a criterion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — a verification procedure and pass or fail threshold are defined for each criterion"
+            ],
+            "connotation": "Captures the verification procedure, evidence, and pass or fail threshold for a criterion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203286,7 +203555,22 @@
       "name": "QualityGateCheckEntry",
       "sectionId": "QGCHK",
       "doc": "A quality gate check entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it"
+        ],
+        "connotation": "Defines the item being verified and the method used to verify it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it"
+            ],
+            "connotation": "Defines the item being verified and the method used to verify it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203418,7 +203702,22 @@
       "name": "QualityGateCheckEntryBlocking",
       "sectionId": "QGCEB",
       "doc": "Blocking behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — a gate check may block acceptance when the evaluated result does not meet the required level"
+        ],
+        "connotation": "Captures whether a failed check blocks acceptance and the rationale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — a gate check may block acceptance when the evaluated result does not meet the required level"
+            ],
+            "connotation": "Captures whether a failed check blocks acceptance and the rationale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203468,7 +203767,22 @@
       "name": "QualityGateCheckEntryDefinition",
       "sectionId": "QGCED",
       "doc": "Check definition and categorization.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation"
+        ],
+        "connotation": "Categorises a check and relates it to a quality category."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation"
+            ],
+            "connotation": "Categorises a check and relates it to a quality category."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203525,7 +203839,22 @@
       "name": "QualityGateCheckEntryExecution",
       "sectionId": "QGCEE",
       "doc": "Responsibility and timing.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — responsibility, timing, and dependencies for performing a check are assigned"
+        ],
+        "connotation": "Assigns responsibility, timing, and dependencies for performing a check."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — responsibility, timing, and dependencies for performing a check are assigned"
+            ],
+            "connotation": "Assigns responsibility, timing, and dependencies for performing a check."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203596,7 +203925,22 @@
       "name": "QualityGateCheckEntryStatus",
       "sectionId": "QGCES",
       "doc": "Status and observations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — the result and observations of a check are recorded as evidence of completion"
+        ],
+        "connotation": "Records the status, result, and observations for a gate check."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — the result and observations of a check are recorded as evidence of completion"
+            ],
+            "connotation": "Records the status, result, and observations for a gate check."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203634,12 +203978,14 @@
             {
               "name": "checkDate",
               "label": "Check Date",
+              "hint": "Date the gate check was performed",
               "type": "String",
               "required": false
             },
             {
               "name": "checkResult",
               "label": "Check Result",
+              "hint": "Outcome of the gate check (pass or fail)",
               "type": "String",
               "required": false
             },
@@ -203658,7 +204004,22 @@
       "name": "QualityGateCheckEntryVerification",
       "sectionId": "QGCEV",
       "doc": "Verification criteria and evidence.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — pass and fail criteria and the evidence required are defined for each check"
+        ],
+        "connotation": "Defines pass and fail criteria and the evidence required for a check."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — pass and fail criteria and the evidence required are defined for each check"
+            ],
+            "connotation": "Defines pass and fail criteria and the evidence required for a check."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203715,7 +204076,24 @@
       "name": "QualityGateChecklist",
       "sectionId": "QUGACH",
       "doc": "11.7.2. Quality Gate Checklist.\n\nQuality gate checklist used during acceptance.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25040:2011 — the product quality evaluation process includes gate reviews that assess the product against defined checks",
+          "ISO/IEC/IEEE 29119 — completion of testing is judged against a defined set of checks and criteria"
+        ],
+        "connotation": "Captures the quality gate checklist used to assess the product during acceptance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25040:2011 — the product quality evaluation process includes gate reviews that assess the product against defined checks",
+              "ISO/IEC/IEEE 29119 — completion of testing is judged against a defined set of checks and criteria"
+            ],
+            "connotation": "Captures the quality gate checklist used to assess the product during acceptance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203807,10 +204185,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× QualityGateCheck.",
+          "help": "Add one entry per quality gate check.",
           "sectionId": "QGCHK-ITEM-LST",
           "sectionIdPattern": "QGCHK-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — each gate check is enumerated as a discrete item with a defined verification method"
+            ],
+            "connotation": "Enumerates each gate check as a discrete item with its verification method."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 — each gate check is enumerated as a discrete item with a defined verification method"
+                ],
+                "connotation": "Enumerates each gate check as a discrete item with its verification method."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -203821,6 +204215,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "QGCHK-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per quality gate check."
               }
             },
             {
@@ -204156,7 +204556,24 @@
       "sectionId": "QUPR",
       "doc": "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — quality characteristics can conflict, so their relative importance is established to guide decisions",
+          "ISO/IEC 25030:2019 — quality requirements are prioritised against stakeholder needs and constraints"
+        ],
+        "connotation": "Captures how quality attributes are prioritised and balanced across weighted matrices and trade-off decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality characteristics can conflict, so their relative importance is established to guide decisions",
+              "ISO/IEC 25030:2019 — quality requirements are prioritised against stakeholder needs and constraints"
+            ],
+            "connotation": "Captures how quality attributes are prioritised and balanced across weighted matrices and trade-off decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204981,7 +205398,22 @@
       "name": "QualityWeightEntry",
       "sectionId": "QLWGT",
       "doc": "A quality weight entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — a relative weight expresses the importance of a quality attribute when attributes compete"
+        ],
+        "connotation": "Captures the relative weight expressing the importance of one quality attribute when attributes compete."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — a relative weight expresses the importance of a quality attribute when attributes compete"
+            ],
+            "connotation": "Captures the relative weight expressing the importance of one quality attribute when attributes compete."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205025,6 +205457,7 @@
             {
               "name": "weight",
               "label": "Weight (1-100)",
+              "hint": "Numeric weight from 1 to 100",
               "type": "int",
               "required": false
             },
@@ -205404,7 +205837,22 @@
       "name": "Readability",
       "sectionId": "REQU1",
       "doc": "11.5.1. Readability quality.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience"
+        ],
+        "connotation": "Captures readability requirements for user documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience"
+            ],
+            "connotation": "Captures readability requirements for user documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205537,7 +205985,22 @@
       "name": "ReadabilityComprehensibility",
       "sectionId": "REQUCO",
       "doc": "Comprehensibility requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — content is presented at a reading level and in a format appropriate to the intended user"
+        ],
+        "connotation": "Captures reading level and format requirements for comprehensible documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — content is presented at a reading level and in a format appropriate to the intended user"
+            ],
+            "connotation": "Captures reading level and format requirements for comprehensible documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205594,7 +206057,22 @@
       "name": "ReadabilityNavigation",
       "sectionId": "REQUNA",
       "doc": "Identifiability and navigation.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information is structured with navigation aids so that users can locate relevant topics"
+        ],
+        "connotation": "Captures identifiability and navigation aids that help users locate topics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information is structured with navigation aids so that users can locate relevant topics"
+            ],
+            "connotation": "Captures identifiability and navigation aids that help users locate topics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205651,7 +206129,22 @@
       "name": "ReadabilityStructure",
       "sectionId": "REQUST",
       "doc": "Document structure rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — information is organised into a consistent structure with a defined information hierarchy"
+        ],
+        "connotation": "Captures the structural template and information hierarchy for documentation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — information is organised into a consistent structure with a defined information hierarchy"
+            ],
+            "connotation": "Captures the structural template and information hierarchy for documentation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -205708,7 +206201,22 @@
       "name": "ReadabilityStyle",
       "sectionId": "REQUS1",
       "doc": "Style guide alignment.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 26514:2008 — a documented style guide governs terminology, writing voice, and formatting conventions"
+        ],
+        "connotation": "Captures alignment of documentation with a defined style guide."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 26514:2008 — a documented style guide governs terminology, writing voice, and formatting conventions"
+            ],
+            "connotation": "Captures alignment of documentation with a defined style guide."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -281917,7 +282425,24 @@
       "sectionId": "TEST",
       "doc": "11.8. Test Strategy.\n\nOverall test strategy for the project..",
       "detailedIn": "D10QualityAcceptancePlan",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — a test strategy defines the overall approach, test levels, and coverage for verifying the system",
+          "ISO/IEC/IEEE 29119 — testing spans unit, integration, system, and acceptance levels within an organised process"
+        ],
+        "connotation": "Defines the overall testing approach, levels, and coverage for the project."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — a test strategy defines the overall approach, test levels, and coverage for verifying the system",
+              "ISO/IEC/IEEE 29119 — testing spans unit, integration, system, and acceptance levels within an organised process"
+            ],
+            "connotation": "Defines the overall testing approach, levels, and coverage for the project."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287432,7 +287957,22 @@
       "name": "TradeOffDecisionEntry",
       "sectionId": "TODE",
       "doc": "A trade-off decision entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — each trade-off decision is recorded with the qualities in conflict and its rationale"
+        ],
+        "connotation": "Captures a single trade-off decision with the qualities in conflict and its rationale."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — each trade-off decision is recorded with the qualities in conflict and its rationale"
+            ],
+            "connotation": "Captures a single trade-off decision with the qualities in conflict and its rationale."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287586,7 +288126,22 @@
       "name": "TradeOffDecisionEntryApproval",
       "sectionId": "TODEA",
       "doc": "Approval and governance for trade-off decision.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders"
+        ],
+        "connotation": "Captures approval and governance details for a quality trade-off decision."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders"
+            ],
+            "connotation": "Captures approval and governance details for a quality trade-off decision."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287617,6 +288172,7 @@
             {
               "name": "decisionDate",
               "label": "Decision Date",
+              "hint": "Date the trade-off decision was made",
               "type": "String",
               "required": false
             },
@@ -287649,7 +288205,22 @@
       "name": "TradeOffDecisionEntryImpact",
       "sectionId": "TODEI",
       "doc": "Impact assessment for trade-off decision.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the impact of a quality trade-off on requirements, architecture, schedule, and cost is assessed"
+        ],
+        "connotation": "Captures the assessed impact of a quality trade-off across requirements, architecture, schedule, and cost."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the impact of a quality trade-off on requirements, architecture, schedule, and cost is assessed"
+            ],
+            "connotation": "Captures the assessed impact of a quality trade-off across requirements, architecture, schedule, and cost."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287720,7 +288291,22 @@
       "name": "TradeOffDecisionEntryMitigation",
       "sectionId": "TODEM",
       "doc": "Mitigation measures for trade-off decision.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — measures are defined to mitigate the effect of a deprioritised quality characteristic"
+        ],
+        "connotation": "Captures measures that mitigate the effect of a deprioritised quality attribute."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — measures are defined to mitigate the effect of a deprioritised quality characteristic"
+            ],
+            "connotation": "Captures measures that mitigate the effect of a deprioritised quality attribute."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287777,7 +288363,22 @@
       "name": "TradeOffDecisionEntryQualities",
       "sectionId": "TODEQ",
       "doc": "Qualities in conflict for trade-off decision.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the quality characteristics prioritised and deprioritised in a trade-off are identified"
+        ],
+        "connotation": "Captures the quality attributes prioritised and deprioritised within a trade-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the quality characteristics prioritised and deprioritised in a trade-off are identified"
+            ],
+            "connotation": "Captures the quality attributes prioritised and deprioritised within a trade-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287834,7 +288435,22 @@
       "name": "TradeOffDecisionEntryRationale",
       "sectionId": "TODER",
       "doc": "Rationale for trade-off decision.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — the business and technical rationale for a quality trade-off is documented"
+        ],
+        "connotation": "Captures the business and technical rationale behind a quality trade-off decision."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — the business and technical rationale for a quality trade-off is documented"
+            ],
+            "connotation": "Captures the business and technical rationale behind a quality trade-off decision."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287898,7 +288514,22 @@
       "name": "TradeOffDecisions",
       "sectionId": "TROFDE",
       "doc": "11.6.2. Trade-off Decisions.\n\nExplicit trade-off decisions between quality attributes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — improving one quality characteristic can degrade another, so trade-off decisions are made explicit"
+        ],
+        "connotation": "Captures explicit trade-off decisions made when improving one quality attribute degrades another."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — improving one quality characteristic can degrade another, so trade-off decisions are made explicit"
+            ],
+            "connotation": "Captures explicit trade-off decisions made when improving one quality attribute degrades another."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -287983,10 +288614,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× TradeOffDecision.",
+          "help": "Add one entry per trade-off decision.",
           "sectionId": "TODE-ITEM-LST",
           "sectionIdPattern": "TODE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010:2023 — each trade-off between competing quality characteristics is enumerated as a discrete decision"
+            ],
+            "connotation": "Enumerates each trade-off between competing quality characteristics as a discrete decision."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010:2023 — each trade-off between competing quality characteristics is enumerated as a discrete decision"
+                ],
+                "connotation": "Enumerates each trade-off between competing quality characteristics as a discrete decision."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -287997,6 +288644,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TODE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per trade-off decision."
               }
             },
             {
@@ -309146,7 +309799,22 @@
       "name": "WeightedQualityMatrix",
       "sectionId": "WEQUMA",
       "doc": "11.6.1. Weighted Quality Matrix.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25030:2019 — quality requirements are weighted to reflect their relative importance to stakeholders"
+        ],
+        "connotation": "Captures the weighted quality matrix that reflects the relative importance of quality requirements to stakeholders."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25030:2019 — quality requirements are weighted to reflect their relative importance to stakeholders"
+            ],
+            "connotation": "Captures the weighted quality matrix that reflects the relative importance of quality requirements to stakeholders."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -309198,6 +309866,7 @@
             {
               "name": "weightJustificationRequired",
               "label": "Weight Justification Required",
+              "hint": "Whether each weight needs a documented justification",
               "type": "bool",
               "required": false
             },
@@ -309237,10 +309906,26 @@
           "name": "weights",
           "kind": "list",
           "doc": "Quality attribute weight entries.",
+          "help": "Add one entry per quality attribute weight.",
           "sectionId": "QLWGT-WEIG-LST",
           "sectionIdPattern": "QLWGT-WEIG-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25030:2019 — each weighted quality requirement is enumerated with its assigned relative weight"
+            ],
+            "connotation": "Enumerates each weighted quality requirement with its assigned relative weight."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25030:2019 — each weighted quality requirement is enumerated with its assigned relative weight"
+                ],
+                "connotation": "Enumerates each weighted quality requirement with its assigned relative weight."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -309251,6 +309936,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "QLWGT-WEIG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per quality attribute weight."
               }
             },
             {

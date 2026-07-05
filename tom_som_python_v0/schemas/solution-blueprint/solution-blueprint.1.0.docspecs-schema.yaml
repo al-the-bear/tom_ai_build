@@ -492,7 +492,7 @@ section-types:
     pattern-check-id:
       pattern: ^mstpcr_item_lst-\d+$
       error-message: ID must match mstpcr_item_lst-NNN
-    description: Contains 0+× MustPassCriterion.
+    description: Add one entry per must-pass criterion.
   NAVGRD-GUAR-LST:
     prefix: navgrd_guar_lst
     pattern-check-id:
@@ -1852,7 +1852,7 @@ section-types:
     pattern-check-id:
       pattern: ^qgchk_item_lst-\d+$
       error-message: ID must match qgchk_item_lst-NNN
-    description: Contains 0+× QualityGateCheck.
+    description: Add one entry per quality gate check.
   QLSCN-ITEM-LST:
     prefix: qlscn_item_lst
     pattern-check-id:
@@ -1870,7 +1870,7 @@ section-types:
     pattern-check-id:
       pattern: ^qlwgt_weig_lst-\d+$
       error-message: ID must match qlwgt_weig_lst-NNN
-    description: Quality attribute weight entries.
+    description: Add one entry per quality attribute weight.
   RDRCE-READ-LST:
     prefix: rdrce_read_lst
     pattern-check-id:
@@ -3108,7 +3108,7 @@ section-types:
     pattern-check-id:
       pattern: ^tode_item_lst-\d+$
       error-message: ID must match tode_item_lst-NNN
-    description: Contains 0+× TradeOffDecision.
+    description: Add one entry per trade-off decision.
   TPCE-THIR-LST:
     prefix: tpce_thir_lst
     pattern-check-id:
