@@ -7,7 +7,7 @@ section-types:
     pattern-check-id:
       pattern: ^accstd_acce_lst-\d+$
       error-message: ID must match accstd_acce_lst-NNN
-    description: Accessibility standards compliance.
+    description: Add one entry per accessibility standard.
   ALDEEN-ALER-LST:
     prefix: aldeen_aler_lst
     pattern-check-id:
@@ -43,13 +43,13 @@ section-types:
     pattern-check-id:
       pattern: ^brcoen_brow_lst-\d+$
       error-message: ID must match brcoen_brow_lst-NNN
-    description: Browser compatibility requirements.
+    description: Add one entry per supported browser.
   BRREEN-BROW-LST:
     prefix: brreen_brow_lst
     pattern-check-id:
       pattern: ^brreen_brow_lst-\d+$
       error-message: ID must match brreen_brow_lst-NNN
-    description: Web browser requirements.
+    description: Add one entry per supported web browser.
   BUCOEN-BUSI-LST:
     prefix: bucoen_busi_lst
     pattern-check-id:
@@ -79,7 +79,7 @@ section-types:
     pattern-check-id:
       pattern: ^dacoen_data_lst-\d+$
       error-message: ID must match dacoen_data_lst-NNN
-    description: Database compatibility requirements.
+    description: Add one entry per supported database.
   DECOEN-DEVE-LST:
     prefix: decoen_deve_lst
     pattern-check-id:
@@ -133,7 +133,7 @@ section-types:
     pattern-check-id:
       pattern: ^inspen_inte_lst-\d+$
       error-message: ID must match inspen_inte_lst-NNN
-    description: Interface specification standards.
+    description: Add one entry per interface specification.
   INSTEN-INDU-LST:
     prefix: insten_indu_lst
     pattern-check-id:
@@ -145,7 +145,7 @@ section-types:
     pattern-check-id:
       pattern: ^lecoen_lega_lst-\d+$
       error-message: ID must match lecoen_lega_lst-NNN
-    description: Legacy system compatibility requirements.
+    description: Add one entry per legacy system.
   MAWIEN-MAIN-LST:
     prefix: mawien_main_lst
     pattern-check-id:
@@ -157,13 +157,13 @@ section-types:
     pattern-check-id:
       pattern: ^mocoen_mobi_lst-\d+$
       error-message: ID must match mocoen_mobi_lst-NNN
-    description: Mobile device compatibility requirements.
+    description: Add one entry per supported mobile platform.
   OSCOEN-OSCO-LST:
     prefix: oscoen_osco_lst
     pattern-check-id:
       pattern: ^oscoen_osco_lst-\d+$
       error-message: ID must match oscoen_osco_lst-NNN
-    description: Operating system compatibility requirements.
+    description: Add one entry per supported operating system.
   PIJOEN-JOBS-LST:
     prefix: pijoen_jobs_lst
     pattern-check-id:
@@ -181,7 +181,7 @@ section-types:
     pattern-check-id:
       pattern: ^recoen_regu_lst-\d+$
       error-message: ID must match recoen_regu_lst-NNN
-    description: Regulatory compliance requirements.
+    description: Add one entry per regulation.
   RUICMP-UICO-LST:
     prefix: ruicmp_uico_lst
     pattern-check-id:
@@ -199,13 +199,13 @@ section-types:
     pattern-check-id:
       pattern: ^seenen_envi_lst-\d+$
       error-message: ID must match seenen_envi_lst-NNN
-    description: "Server environment tiers (dev, staging, production, DR)."
+    description: Add one entry per server environment.
   SEROEN-SERV-LST:
     prefix: seroen_serv_lst
     pattern-check-id:
       pattern: ^seroen_serv_lst-\d+$
       error-message: ID must match seroen_serv_lst-NNN
-    description: "Server role definitions (app server, db server, web server)."
+    description: Add one entry per server role.
   SESTEN-STAN-LST:
     prefix: sesten_stan_lst
     pattern-check-id:
@@ -235,7 +235,7 @@ section-types:
     pattern-check-id:
       pattern: ^vpreen_vpnr_lst-\d+$
       error-message: ID must match vpreen_vpnr_lst-NNN
-    description: VPN requirements.
+    description: Add one entry per VPN requirement.
   BTCEN-BUIL-LST:
     prefix: btcen_buil_lst
     pattern-check-id:
@@ -265,7 +265,7 @@ section-types:
     pattern-check-id:
       pattern: ^dore1_desk_lst-\d+$
       error-message: ID must match dore1_desk_lst-NNN
-    description: Desktop operating system requirements.
+    description: Add one entry per supported desktop operating system.
   EVCEN-ITEM-LST:
     prefix: evcen_item_lst
     pattern-check-id:
@@ -313,7 +313,7 @@ section-types:
     pattern-check-id:
       pattern: ^qlstd_qual_lst-\d+$
       error-message: ID must match qlstd_qual_lst-NNN
-    description: Quality management standards.
+    description: Add one entry per quality standard.
   RGUSE-REUS-LST:
     prefix: rguse_reus_lst
     pattern-check-id:
@@ -349,7 +349,7 @@ section-types:
     pattern-check-id:
       pattern: ^apcp_apic_lst-\d+$
       error-message: ID must match apcp_apic_lst-NNN
-    description: API and protocol compatibility requirements.
+    description: Add one entry per API or protocol.
   ARCM-COMP-LST:
     prefix: arcm_comp_lst
     pattern-check-id:
@@ -421,25 +421,25 @@ section-types:
     pattern-check-id:
       pattern: ^esce_ente_lst-\d+$
       error-message: ID must match esce_ente_lst-NNN
-    description: Enterprise system compatibility requirements.
+    description: Add one entry per enterprise system.
   IPCE-INDU-LST:
     prefix: ipce_indu_lst
     pattern-check-id:
       pattern: ^ipce_indu_lst-\d+$
       error-message: ID must match ipce_indu_lst-NNN
-    description: Industry protocols compliance.
+    description: Add one entry per industry protocol.
   ISCE-ITST-LST:
     prefix: isce_itst_lst
     pattern-check-id:
       pattern: ^isce_itst_lst-\d+$
       error-message: ID must match isce_itst_lst-NNN
-    description: "IT standards compliance (ISO, IEEE, NIST)."
+    description: Add one entry per IT standard.
   MDRE-MOBI-LST:
     prefix: mdre_mobi_lst
     pattern-check-id:
       pattern: ^mdre_mobi_lst-\d+$
       error-message: ID must match mdre_mobi_lst-NNN
-    description: Mobile device requirements.
+    description: Add one entry per supported mobile platform.
   PREN-PROT-LST:
     prefix: pren_prot_lst
     pattern-check-id:
@@ -457,13 +457,13 @@ section-types:
     pattern-check-id:
       pattern: ^ssce_secu_lst-\d+$
       error-message: ID must match ssce_secu_lst-NNN
-    description: Security standards compliance.
+    description: Add one entry per security standard.
   TPCE-THIR-LST:
     prefix: tpce_thir_lst
     pattern-check-id:
       pattern: ^tpce_thir_lst-\d+$
       error-message: ID must match tpce_thir_lst-NNN
-    description: Third-party software compatibility requirements.
+    description: Add one entry per third-party software product.
   COMLICENTCON:
     prefix: comlicentcon
     description: Contract termination terms.

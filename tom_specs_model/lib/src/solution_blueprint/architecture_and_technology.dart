@@ -9030,6 +9030,13 @@ avoids costly surprises during deployment.
 - Client version compatibility windows
 - Feature flags for gradual rollouts
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the compatibility requirements with existing OS, browsers, databases, enterprise and legacy systems, and third-party software.',
+)
 @SectionId('CRS')
 class CompatibilityRequirementsSection {
   @ContentHelp('''
@@ -9057,50 +9064,114 @@ Provide an overview of compatibility requirements and testing strategy.
   TextSection overview = TextSection();
 
   /// Operating system compatibility requirements.
+  @StandardReferences(
+    [
+      'POSIX / ISO/IEC 9945 — operating-system interface',
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    ],
+    'The operating systems the system must support.',
+  )
   @SectionId('OSCOEN-OSCO-LST')
   @SectionIdPattern('OSCOEN-OSCO-xxx')
+  @ContentHelp('Add one entry per supported operating system.')
   @SerializationOrder(2)
   List<OsCompatibilityEntry> osCompatibility = [];
 
   /// Browser compatibility requirements.
+  @StandardReferences(
+    [
+      'WHATWG / W3C — web platform / browser standards',
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    ],
+    'The browsers the system must support.',
+  )
   @SectionId('BRCOEN-BROW-LST')
   @SectionIdPattern('BRCOEN-BROW-xxx')
+  @ContentHelp('Add one entry per supported browser.')
   @SerializationOrder(3)
   List<BrowserCompatibilityEntry> browserCompatibility = [];
 
   /// Database compatibility requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 9075 (SQL) — relational database standard',
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    ],
+    'The databases the system must remain compatible with.',
+  )
   @SectionId('DACOEN-DATA-LST')
   @SectionIdPattern('DACOEN-DATA-xxx')
+  @ContentHelp('Add one entry per supported database.')
   @SerializationOrder(4)
   List<DatabaseCompatibilityEntry> databaseCompatibility = [];
 
   /// Enterprise system compatibility requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The enterprise systems the system must integrate with.',
+  )
   @SectionId('ESCE-ENTE-LST')
   @SectionIdPattern('ESCE-ENTE-xxx')
+  @ContentHelp('Add one entry per enterprise system.')
   @SerializationOrder(5)
   List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
 
   /// API and protocol compatibility requirements.
+  @StandardReferences(
+    [
+      'OpenAPI / REST — API interoperability',
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    ],
+    'The APIs and protocols the system must remain compatible with.',
+  )
   @SectionId('APCP-APIC-LST')
   @SectionIdPattern('APCP-APIC-xxx')
+  @ContentHelp('Add one entry per API or protocol.')
   @SerializationOrder(6)
   List<ApiCompatibilityEntry> apiCompatibility = [];
 
   /// Legacy system compatibility requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The legacy systems the system must remain compatible with.',
+  )
   @SectionId('LECOEN-LEGA-LST')
   @SectionIdPattern('LECOEN-LEGA-xxx')
+  @ContentHelp('Add one entry per legacy system.')
   @SerializationOrder(7)
   List<LegacyCompatibilityEntry> legacyCompatibility = [];
 
   /// Mobile device compatibility requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The mobile platforms the system must support.',
+  )
   @SectionId('MOCOEN-MOBI-LST')
   @SectionIdPattern('MOCOEN-MOBI-xxx')
+  @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(8)
   List<MobileCompatibilityEntry> mobileCompatibility = [];
 
   /// Third-party software compatibility requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The third-party software the system must co-exist with.',
+  )
   @SectionId('TPCE-THIR-LST')
   @SectionIdPattern('TPCE-THIR-xxx')
+  @ContentHelp('Add one entry per third-party software product.')
   @SerializationOrder(9)
   List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
 
@@ -9119,6 +9190,13 @@ Provide an overview of compatibility requirements and testing strategy.
 }
 
 /// Operating system compatibility entry.
+@StandardReferences(
+  [
+    'POSIX / ISO/IEC 9945 — operating-system interface',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Describes an operating system and version range the system must remain compatible with.',
+)
 @SectionId('OCE')
 class OsCompatibilityEntry {
   @Form([
@@ -9153,6 +9231,13 @@ class OsCompatibilityEntry {
 }
 
 /// Support level and prioritization.
+@StandardReferences(
+  [
+    'POSIX / ISO/IEC 9945 — operating-system interface',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the support level, priority, and target market share for the operating system.',
+)
 @SectionId('OCES')
 class OsCompatibilityEntrySupport {
   @Form([
@@ -9168,6 +9253,13 @@ class OsCompatibilityEntrySupport {
 }
 
 /// Platform requirements.
+@StandardReferences(
+  [
+    'POSIX / ISO/IEC 9945 — operating-system interface',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the CPU architectures, memory, storage, and prerequisites required on the operating system.',
+)
 @SectionId('OCER')
 class OsCompatibilityEntryRequirements {
   @Form([
@@ -9185,6 +9277,13 @@ class OsCompatibilityEntryRequirements {
 }
 
 /// Testing expectations.
+@StandardReferences(
+  [
+    'POSIX / ISO/IEC 9945 — operating-system interface',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the test environment, frequency, and known issues for the operating system.',
+)
 @SectionId('OCET')
 class OsCompatibilityEntryTesting {
   @Form([
@@ -9200,6 +9299,13 @@ class OsCompatibilityEntryTesting {
 }
 
 /// Lifecycle notes.
+@StandardReferences(
+  [
+    'POSIX / ISO/IEC 9945 — operating-system interface',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures special handling and end-of-life planning for the operating system.',
+)
 @SectionId('OCEL')
 class OsCompatibilityEntryLifecycle {
   @Form([
@@ -9214,6 +9320,13 @@ class OsCompatibilityEntryLifecycle {
 }
 
 /// Browser compatibility entry.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Describes a browser and version range the system must remain compatible with.',
+)
 @SectionId('BROCOMENT')
 class BrowserCompatibilityEntry {
   @Form([
@@ -9247,6 +9360,13 @@ class BrowserCompatibilityEntry {
 }
 
 /// Support level and priority.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the support level, priority, and expected user share for the browser.',
+)
 @SectionId('BRCOENSU')
 class BrowserCompatibilityEntrySupport {
   @Form([
@@ -9262,6 +9382,13 @@ class BrowserCompatibilityEntrySupport {
 }
 
 /// Feature support requirements.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the required browser features, polyfills, and graceful-degradation strategy.',
+)
 @SectionId('BCEF')
 class BrowserCompatibilityEntryFeatures {
   @Form([
@@ -9277,6 +9404,13 @@ class BrowserCompatibilityEntryFeatures {
 }
 
 /// Mobile and PWA support.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures mobile-browser support, PWA capability, and offline support requirements.',
+)
 @SectionId('BCEM')
 class BrowserCompatibilityEntryMobile {
   @Form([
@@ -9292,6 +9426,13 @@ class BrowserCompatibilityEntryMobile {
 }
 
 /// Testing notes.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures where and how the browser is tested, including automation and known issues.',
+)
 @SectionId('BRCOENTE')
 class BrowserCompatibilityEntryTesting {
   @Form([
@@ -9309,6 +9450,13 @@ class BrowserCompatibilityEntryTesting {
 }
 
 /// Database compatibility entry.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Describes a database engine and version range the system must remain compatible with.',
+)
 @SectionId('DATCOMENT')
 class DatabaseCompatibilityEntry {
   @Form([
@@ -9346,6 +9494,13 @@ class DatabaseCompatibilityEntry {
 }
 
 /// Support options.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the support level and cloud-hosted variants for the database.',
+)
 @SectionId('DCES')
 class DatabaseCompatibilityEntrySupport {
   @Form([
@@ -9359,6 +9514,13 @@ class DatabaseCompatibilityEntrySupport {
 }
 
 /// Feature requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the required and optional database features and extensions the system depends on.',
+)
 @SectionId('DCEF')
 class DatabaseCompatibilityEntryFeatures {
   @Form([
@@ -9374,6 +9536,13 @@ class DatabaseCompatibilityEntryFeatures {
 }
 
 /// Connection requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the connection driver, pooling, and SSL/TLS requirements for the database.',
+)
 @SectionId('DCEC')
 class DatabaseCompatibilityEntryConnection {
   @Form([
@@ -9389,6 +9558,13 @@ class DatabaseCompatibilityEntryConnection {
 }
 
 /// Performance and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures database-specific performance notes, scaling considerations, and known limitations.',
+)
 @SectionId('DCEP')
 class DatabaseCompatibilityEntryPerformance {
   @Form([
@@ -9406,6 +9582,13 @@ class DatabaseCompatibilityEntryPerformance {
 }
 
 /// Enterprise system compatibility entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes an enterprise system (ERP, CRM, etc.) the solution must integrate and remain compatible with.',
+)
 @SectionId('ENSYCOEN')
 class EnterpriseSystemCompatibilityEntry {
   @Form([
@@ -9441,6 +9624,13 @@ class EnterpriseSystemCompatibilityEntry {
 }
 
 /// Integration details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the integration method, protocol, data exchanged, and frequency for the enterprise system.',
+)
 @SectionId('ESCEI')
 class EnterpriseSystemCompatibilityEntryIntegration {
   @Form([
@@ -9458,6 +9648,13 @@ class EnterpriseSystemCompatibilityEntryIntegration {
 }
 
 /// Authentication and access.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the authentication, authorization, and SSO integration with the enterprise system.',
+)
 @SectionId('ESCES')
 class EnterpriseSystemCompatibilityEntrySecurity {
   @Form([
@@ -9473,6 +9670,13 @@ class EnterpriseSystemCompatibilityEntrySecurity {
 }
 
 /// Setup requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the prerequisites, configuration, and customization needed to integrate the enterprise system.',
+)
 @SectionId('ESCER')
 class EnterpriseSystemCompatibilityEntryRequirements {
   @Form([
@@ -9488,6 +9692,13 @@ class EnterpriseSystemCompatibilityEntryRequirements {
 }
 
 /// Testing and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the test environment and approach for verifying enterprise-system integration.',
+)
 @SectionId('ESCET')
 class EnterpriseSystemCompatibilityEntryTesting {
   @Form([
@@ -9503,6 +9714,13 @@ class EnterpriseSystemCompatibilityEntryTesting {
 }
 
 /// API and protocol compatibility entry.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Describes an API or protocol and version range the system must remain compatible with.',
+)
 @SectionId('APCP')
 class ApiCompatibilityEntry {
   @Form([
@@ -9536,6 +9754,13 @@ class ApiCompatibilityEntry {
 }
 
 /// Compatibility policy.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the API versioning strategy, backwards-compatibility stance, and deprecation policy.',
+)
 @SectionId('APCOENPO')
 class ApiCompatibilityEntryPolicy {
   @Form([
@@ -9551,6 +9776,13 @@ class ApiCompatibilityEntryPolicy {
 }
 
 /// Data-format requirements.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the data format, encoding, and compression the API must interoperate with.',
+)
 @SectionId('ACEF')
 class ApiCompatibilityEntryFormat {
   @Form([
@@ -9566,6 +9798,13 @@ class ApiCompatibilityEntryFormat {
 }
 
 /// Transport requirements.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the transport, security, and authentication requirements for the API.',
+)
 @SectionId('APCOENTR')
 class ApiCompatibilityEntryTransport {
   @Form([
@@ -9581,6 +9820,13 @@ class ApiCompatibilityEntryTransport {
 }
 
 /// Specification references.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the API specification references, schema validation, and conformance level required.',
+)
 @SectionId('ACES')
 class ApiCompatibilityEntrySpecification {
   @Form([
@@ -9597,6 +9843,13 @@ class ApiCompatibilityEntrySpecification {
 }
 
 /// Legacy system compatibility entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a legacy system the solution must remain compatible with, including its age and technology.',
+)
 @SectionId('LCE')
 class LegacyCompatibilityEntry {
   @Form([
@@ -9631,6 +9884,13 @@ class LegacyCompatibilityEntry {
 }
 
 /// Integration approach.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures how the system integrates with the legacy system, including the adapter approach and data access.',
+)
 @SectionId('LCEI')
 class LegacyCompatibilityEntryIntegration {
   @Form([
@@ -9646,6 +9906,13 @@ class LegacyCompatibilityEntryIntegration {
 }
 
 /// Constraints and limitations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the constraints, limitations, and performance impact of integrating with the legacy system.',
+)
 @SectionId('LCEC')
 class LegacyCompatibilityEntryConstraints {
   @Form([
@@ -9661,6 +9928,13 @@ class LegacyCompatibilityEntryConstraints {
 }
 
 /// Migration planning.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the migration path away from the legacy system, coexistence period, and data-sync approach.',
+)
 @SectionId('LCEM')
 class LegacyCompatibilityEntryMigration {
   @Form([
@@ -9676,6 +9950,13 @@ class LegacyCompatibilityEntryMigration {
 }
 
 /// Risk management.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the risks of integrating with the legacy system and the fallback plan if integration fails.',
+)
 @SectionId('LCER')
 class LegacyCompatibilityEntryRisk {
   @Form([
@@ -9691,6 +9972,13 @@ class LegacyCompatibilityEntryRisk {
 }
 
 /// Mobile device compatibility entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a mobile platform and OS-version range the system must remain compatible with.',
+)
 @SectionId('MOBCOMENT')
 class MobileCompatibilityEntry {
   @Form([
@@ -9725,6 +10013,13 @@ class MobileCompatibilityEntry {
 }
 
 /// Supported devices.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the device types, screen sizes, and specific named devices the mobile app must support.',
+)
 @SectionId('MCED')
 class MobileCompatibilityEntryDevices {
   @Form([
@@ -9740,6 +10035,13 @@ class MobileCompatibilityEntryDevices {
 }
 
 /// Hardware requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the minimum device hardware (RAM, storage, sensors) required on the mobile platform.',
+)
 @SectionId('MCEH')
 class MobileCompatibilityEntryHardware {
   @Form([
@@ -9754,6 +10056,13 @@ class MobileCompatibilityEntryHardware {
 }
 
 /// Platform capabilities.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the mobile-platform capabilities the app relies on, such as permissions, background mode, and push.',
+)
 @SectionId('MCEC')
 class MobileCompatibilityEntryCapabilities {
   @Form([
@@ -9771,6 +10080,13 @@ class MobileCompatibilityEntryCapabilities {
 }
 
 /// Distribution details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the app-store and enterprise distribution channels for the mobile platform.',
+)
 @SectionId('MOCOENDI')
 class MobileCompatibilityEntryDistribution {
   @Form([
@@ -9785,6 +10101,13 @@ class MobileCompatibilityEntryDistribution {
 }
 
 /// Third-party software compatibility entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a third-party product the system must co-exist with, such as antivirus, firewall, or MDM software.',
+)
 @SectionId('THPACOEN')
 class ThirdPartyCompatibilityEntry {
   @Form([
@@ -9820,6 +10143,13 @@ class ThirdPartyCompatibilityEntry {
 }
 
 /// Compatibility characteristics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the compatibility level, co-existence behavior, and known conflicts with third-party software.',
+)
 @SectionId('TPCEC')
 class ThirdPartyCompatibilityEntryCompatibility {
   @Form([
@@ -9835,6 +10165,13 @@ class ThirdPartyCompatibilityEntryCompatibility {
 }
 
 /// Integration characteristics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the integration points, shared data, and operational coordination with third-party software.',
+)
 @SectionId('TPCEI')
 class ThirdPartyCompatibilityEntryIntegration {
   @Form([
@@ -9850,6 +10187,13 @@ class ThirdPartyCompatibilityEntryIntegration {
 }
 
 /// Testing and certification details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the test matrix, vendor certification status, and testing cadence for third-party co-existence.',
+)
 @SectionId('TPCET')
 class ThirdPartyCompatibilityEntryTesting {
   @Form([
@@ -9865,6 +10209,13 @@ class ThirdPartyCompatibilityEntryTesting {
 }
 
 /// Support and escalation.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the joint support arrangement and escalation path for co-existing third-party software.',
+)
 @SectionId('TPCES')
 class ThirdPartyCompatibilityEntrySupport {
   @Form([
@@ -9880,6 +10231,13 @@ class ThirdPartyCompatibilityEntrySupport {
 }
 
 /// Data format and encoding compatibility.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the character encodings and data formats the system must accept and produce for interoperability.',
+)
 @SectionId('DAFOCO')
 class DataFormatCompatibility {
   @Form([
@@ -9911,6 +10269,13 @@ class DataFormatCompatibility {
 }
 
 /// Data format compatibility.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'OpenAPI / REST — API interoperability',
+  ],
+  'Captures the primary and supported data formats and how the system converts between them.',
+)
 @SectionId('DFCF')
 class DataFormatCompatibilityFormats {
   @Form([
@@ -9926,6 +10291,13 @@ class DataFormatCompatibilityFormats {
 }
 
 /// Date and time formatting.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures date/time formats, time-zone handling, and calendar systems the system must remain compatible with.',
+)
 @SectionId('DFCDT')
 class DataFormatCompatibilityDateTime {
   @Form([
@@ -9941,6 +10313,13 @@ class DataFormatCompatibilityDateTime {
 }
 
 /// Numeric formatting.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures number, currency, and precision formatting the system must interoperate with.',
+)
 @SectionId('DFCN')
 class DataFormatCompatibilityNumbers {
   @Form([
@@ -9956,6 +10335,13 @@ class DataFormatCompatibilityNumbers {
 }
 
 /// Locale settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures locale handling, right-to-left support, and the Unicode version the system supports.',
+)
 @SectionId('DFCL')
 class DataFormatCompatibilityLocale {
   @Form([
@@ -9973,6 +10359,13 @@ class DataFormatCompatibilityLocale {
 }
 
 /// Backwards compatibility requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures the policy for supporting older versions, breaking changes, and deprecation timelines.',
+)
 @SectionId('BACORE')
 class BackwardsCompatibilityRequirements {
   @Form([
@@ -10008,6 +10401,13 @@ class BackwardsCompatibilityRequirements {
 }
 
 /// Data compatibility requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures how stored data formats stay compatible across versions, including migration and rollback support.',
+)
 @SectionId('BCRD')
 class BackwardsCompatibilityRequirementsData {
   @Form([
@@ -10023,6 +10423,13 @@ class BackwardsCompatibilityRequirementsData {
 }
 
 /// API compatibility requirements.
+@StandardReferences(
+  [
+    'OpenAPI / REST — API interoperability',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures the API versioning approach, multi-version support, and client grace periods for backwards compatibility.',
+)
 @SectionId('BCRA')
 class BackwardsCompatibilityRequirementsApi {
   @Form([
@@ -10038,6 +10445,13 @@ class BackwardsCompatibilityRequirementsApi {
 }
 
 /// Database compatibility requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 9075 (SQL) — relational database standard',
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+  ],
+  'Captures how database schema evolution, data migration, and backfill preserve backwards compatibility.',
+)
 @SectionId('BACOREDA')
 class BackwardsCompatibilityRequirementsDatabase {
   @Form([
@@ -10053,6 +10467,13 @@ class BackwardsCompatibilityRequirementsDatabase {
 }
 
 /// Communication and support requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC 12207 — software lifecycle processes',
+  ],
+  'Captures how backwards-compatibility changes are communicated, documented, and supported for consumers.',
+)
 @SectionId('BCRC')
 class BackwardsCompatibilityRequirementsCommunication {
   @Form([
@@ -10070,6 +10491,13 @@ class BackwardsCompatibilityRequirementsCommunication {
 }
 
 /// System interoperability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the overall interoperability strategy, integration patterns, and communication protocols with other systems.',
+)
 @SectionId('INRE')
 class InteroperabilityRequirements {
   @Form([
@@ -10105,6 +10533,13 @@ class InteroperabilityRequirements {
 }
 
 /// Data-exchange definitions.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'OpenAPI / REST — API interoperability',
+  ],
+  'Captures the data-exchange formats, schema registry, and data contracts used for interoperability.',
+)
 @SectionId('IRDE')
 class InteroperabilityRequirementsDataExchange {
   @Form([
@@ -10120,6 +10555,13 @@ class InteroperabilityRequirementsDataExchange {
 }
 
 /// Standards and certifications.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the industry and open standards the system conforms to and any interoperability certifications.',
+)
 @SectionId('INREST')
 class InteroperabilityRequirementsStandards {
   @Form([
@@ -10135,6 +10577,13 @@ class InteroperabilityRequirementsStandards {
 }
 
 /// Interoperability testing.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'OpenAPI / REST — API interoperability',
+  ],
+  'Captures how interoperability is verified, including partner testing and conformance to standards.',
+)
 @SectionId('INRETE')
 class InteroperabilityRequirementsTesting {
   @Form([
@@ -10150,6 +10599,13 @@ class InteroperabilityRequirementsTesting {
 }
 
 /// Governance and fallback behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures how interface changes are managed and how the system degrades when interoperability fails.',
+)
 @SectionId('INREGO')
 class InteroperabilityRequirementsGovernance {
   @Form([
@@ -10202,6 +10658,13 @@ is often mandatory for enterprise and regulated industries.
 - Industry-specific certifications
 - Third-party security assessments
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Describes the IT, industry, regulatory, security, accessibility, and quality standards the system must comply with.',
+)
 @SectionId('STCOSE')
 class StandardsComplianceSection {
   @ContentHelp('''
@@ -10229,44 +10692,97 @@ Provide an overview of standards compliance strategy and roadmap.
   TextSection overview = TextSection();
 
   /// IT standards compliance (ISO, IEEE, NIST).
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality model',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The IT standards the system must comply with.',
+  )
   @SectionId('ISCE-ITST-LST')
   @SectionIdPattern('ISCE-ITST-xxx')
+  @ContentHelp('Add one entry per IT standard.')
   @SerializationOrder(2)
   List<ItStandardComplianceEntry> itStandards = [];
 
   /// Industry protocols compliance.
+  @StandardReferences(
+    [
+      'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+      'ISO 9001 — quality management systems',
+    ],
+    'The industry protocols the system must comply with.',
+  )
   @SectionId('IPCE-INDU-LST')
   @SectionIdPattern('IPCE-INDU-xxx')
+  @ContentHelp('Add one entry per industry protocol.')
   @SerializationOrder(3)
   List<IndustryProtocolComplianceEntry> industryProtocols = [];
 
   /// Interface specification standards.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality model',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The interface specification standards the system must follow.',
+  )
   @SectionId('INSPEN-INTE-LST')
   @SectionIdPattern('INSPEN-INTE-xxx')
+  @ContentHelp('Add one entry per interface specification.')
   @SerializationOrder(4)
   List<InterfaceSpecificationEntry> interfaceSpecifications = [];
 
   /// Regulatory compliance requirements.
+  @StandardReferences(
+    [
+      'GDPR — data protection regulation',
+      'ISO/IEC 27001 — information security management',
+    ],
+    'The regulatory frameworks the system must comply with.',
+  )
   @SectionId('RECOEN-REGU-LST')
   @SectionIdPattern('RECOEN-REGU-xxx')
+  @ContentHelp('Add one entry per regulation.')
   @SerializationOrder(5)
   List<RegulatoryComplianceEntry> regulatoryCompliance = [];
 
   /// Security standards compliance.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 — information security management',
+      'ISO/IEC 27002 — information security controls',
+    ],
+    'The security standards the system must comply with.',
+  )
   @SectionId('SSCE-SECU-LST')
   @SectionIdPattern('SSCE-SECU-xxx')
+  @ContentHelp('Add one entry per security standard.')
   @SerializationOrder(6)
   List<SecurityStandardComplianceEntry> securityStandards = [];
 
   /// Accessibility standards compliance.
+  @StandardReferences(
+    ['WCAG 2.2 — web content accessibility'],
+    'The accessibility standards the system must conform to.',
+  )
   @SectionId('ACCSTD-ACCE-LST')
   @SectionIdPattern('ACCSTD-ACCE-xxx')
+  @ContentHelp('Add one entry per accessibility standard.')
   @SerializationOrder(7)
   List<AccessibilityStandardEntry> accessibilityStandards = [];
 
   /// Quality management standards.
+  @StandardReferences(
+    [
+      'ISO 9001 — quality management systems',
+      'ISO/IEC 25010 — product quality model',
+    ],
+    'The quality management standards the system must comply with.',
+  )
   @SectionId('QLSTD-QUAL-LST')
   @SectionIdPattern('QLSTD-QUAL-xxx')
+  @ContentHelp('Add one entry per quality standard.')
   @SerializationOrder(8)
   List<QualityStandardEntry> qualityStandards = [];
 
@@ -10291,6 +10807,13 @@ Provide an overview of standards compliance strategy and roadmap.
 }
 
 /// IT standard compliance entry (ISO, IEEE, NIST, OASIS).
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a single IT standard the system must comply with.',
+)
 @SectionId('ITSTCOEN')
 class ItStandardComplianceEntry {
   @Form([
@@ -10331,6 +10854,13 @@ class ItStandardComplianceEntry {
 }
 
 /// Applicability and priority.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the applicability scope and priority of an IT standard.',
+)
 @SectionId('ISCES')
 class ItStandardComplianceEntryScope {
   @Form([
@@ -10346,6 +10876,13 @@ class ItStandardComplianceEntryScope {
 }
 
 /// Control requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the applicable controls and exclusions for an IT standard.',
+)
 @SectionId('ISCER')
 class ItStandardComplianceEntryRequirements {
   @Form([
@@ -10361,6 +10898,13 @@ class ItStandardComplianceEntryRequirements {
 }
 
 /// Compliance timeline.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the target date and current status for IT standard compliance.',
+)
 @SectionId('ISCET')
 class ItStandardComplianceEntryTimeline {
   @Form([
@@ -10376,6 +10920,13 @@ class ItStandardComplianceEntryTimeline {
 }
 
 /// Ownership and support.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the compliance owner and external support for an IT standard.',
+)
 @SectionId('ISCEO')
 class ItStandardComplianceEntryOwnership {
   @Form([
@@ -10389,6 +10940,13 @@ class ItStandardComplianceEntryOwnership {
 }
 
 /// Evidence and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the evidence required to demonstrate IT standard compliance.',
+)
 @SectionId('ISCEE')
 class ItStandardComplianceEntryEvidence {
   @Form([
@@ -10402,6 +10960,13 @@ class ItStandardComplianceEntryEvidence {
 }
 
 /// Industry protocol compliance entry.
+@StandardReferences(
+  [
+    'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+    'ISO 9001 — quality management systems',
+  ],
+  'Describes a single industry protocol the system complies with.',
+)
 @SectionId('INPRCOEN')
 class IndustryProtocolComplianceEntry {
   @Form([
@@ -10439,6 +11004,13 @@ class IndustryProtocolComplianceEntry {
 }
 
 /// Compliance scope and features.
+@StandardReferences(
+  [
+    'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures the mandatory and optional protocol features implemented.',
+)
 @SectionId('IPCES')
 class IndustryProtocolComplianceEntryScope {
   @Form([
@@ -10456,6 +11028,13 @@ class IndustryProtocolComplianceEntryScope {
 }
 
 /// Implementation details.
+@StandardReferences(
+  [
+    'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures the implementation library and performance profile for a protocol.',
+)
 @SectionId('IPCEI')
 class IndustryProtocolComplianceEntryImplementation {
   @Form([
@@ -10471,6 +11050,13 @@ class IndustryProtocolComplianceEntryImplementation {
 }
 
 /// Testing details.
+@StandardReferences(
+  [
+    'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures how protocol conformance is tested and certified.',
+)
 @SectionId('IPCET')
 class IndustryProtocolComplianceEntryTesting {
   @Form([
@@ -10486,6 +11072,13 @@ class IndustryProtocolComplianceEntryTesting {
 }
 
 /// Interoperability notes.
+@StandardReferences(
+  [
+    'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures the interoperability partners and known issues for a protocol.',
+)
 @SectionId('INPRCOENIN')
 class IndustryProtocolComplianceEntryInteroperability {
   @Form([
@@ -10501,6 +11094,13 @@ class IndustryProtocolComplianceEntryInteroperability {
 }
 
 /// Interface specification entry (REST, GraphQL, gRPC, SOAP).
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a single interface specification the system implements.',
+)
 @SectionId('INTSPEENT')
 class InterfaceSpecificationEntry {
   @Form([
@@ -10536,6 +11136,13 @@ class InterfaceSpecificationEntry {
 }
 
 /// Definition storage and validation.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures how an interface definition is stored and validated.',
+)
 @SectionId('ISED')
 class InterfaceSpecificationEntryDefinition {
   @Form([
@@ -10551,6 +11158,13 @@ class InterfaceSpecificationEntryDefinition {
 }
 
 /// Interface conventions.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the naming, versioning, and error-handling conventions for an interface.',
+)
 @SectionId('INSPENCO')
 class InterfaceSpecificationEntryConventions {
   @Form([
@@ -10568,6 +11182,13 @@ class InterfaceSpecificationEntryConventions {
 }
 
 /// Documentation expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the documentation expectations for an interface specification.',
+)
 @SectionId('INSPENDO')
 class InterfaceSpecificationEntryDocumentation {
   @Form([
@@ -10583,6 +11204,13 @@ class InterfaceSpecificationEntryDocumentation {
 }
 
 /// Tooling and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the tooling supporting an interface specification.',
+)
 @SectionId('ISET')
 class InterfaceSpecificationEntryTooling {
   @Form([
@@ -10600,6 +11228,14 @@ class InterfaceSpecificationEntryTooling {
 }
 
 /// Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).
+@StandardReferences(
+  [
+    'GDPR — data protection regulation',
+    'PCI DSS — payment card data security',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Describes a single regulation the system must comply with.',
+)
 @SectionId('RCE')
 class RegulatoryComplianceEntry {
   @Form([
@@ -10637,6 +11273,13 @@ class RegulatoryComplianceEntry {
 }
 
 /// Applicability analysis.
+@StandardReferences(
+  [
+    'GDPR — data protection regulation',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures why a regulation applies and the data categories it covers.',
+)
 @SectionId('RECOENAP')
 class RegulatoryComplianceEntryApplicability {
   @Form([
@@ -10654,6 +11297,13 @@ class RegulatoryComplianceEntryApplicability {
 }
 
 /// Compliance requirements.
+@StandardReferences(
+  [
+    'GDPR — data protection regulation',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the technical and procedural controls required by a regulation.',
+)
 @SectionId('RECOENRE')
 class RegulatoryComplianceEntryRequirements {
   @Form([
@@ -10671,6 +11321,13 @@ class RegulatoryComplianceEntryRequirements {
 }
 
 /// Penalties and reporting.
+@StandardReferences(
+  [
+    'GDPR — data protection regulation',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the penalties and breach reporting obligations for a regulation.',
+)
 @SectionId('RCEP')
 class RegulatoryComplianceEntryPenalties {
   @Form([
@@ -10684,6 +11341,13 @@ class RegulatoryComplianceEntryPenalties {
 }
 
 /// Ownership and review.
+@StandardReferences(
+  [
+    'GDPR — data protection regulation',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the compliance officer and legal review for a regulation.',
+)
 @SectionId('RCEO')
 class RegulatoryComplianceEntryOwnership {
   @Form([
@@ -10699,6 +11363,13 @@ class RegulatoryComplianceEntryOwnership {
 }
 
 /// Security standard compliance entry (SOC2, ISO 27001, CIS).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'Describes a single security standard the system must comply with.',
+)
 @SectionId('SESTCOEN')
 class SecurityStandardComplianceEntry {
   @Form([
@@ -10735,6 +11406,13 @@ class SecurityStandardComplianceEntry {
 }
 
 /// Scope details.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'Captures the systems and data in scope for a security standard.',
+)
 @SectionId('SESTCOENSC')
 class SecurityStandardComplianceEntryScope {
   @Form([
@@ -10750,6 +11428,13 @@ class SecurityStandardComplianceEntryScope {
 }
 
 /// Control definitions.
+@StandardReferences(
+  [
+    'ISO/IEC 27002 — information security controls',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the control framework and categories for a security standard.',
+)
 @SectionId('SSCEC')
 class SecurityStandardComplianceEntryControls {
   @Form([
@@ -10767,6 +11452,13 @@ class SecurityStandardComplianceEntryControls {
 }
 
 /// Assessment schedule.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'Captures the assessment schedule and auditor for a security standard.',
+)
 @SectionId('SSCEA')
 class SecurityStandardComplianceEntryAssessment {
   @Form([
@@ -10784,6 +11476,13 @@ class SecurityStandardComplianceEntryAssessment {
 }
 
 /// Overall status.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management',
+    'ISO/IEC 27002 — information security controls',
+  ],
+  'Captures the overall compliance status for a security standard.',
+)
 @SectionId('SESTCOENST')
 class SecurityStandardComplianceEntryStatus {
   @Form([
@@ -10797,6 +11496,10 @@ class SecurityStandardComplianceEntryStatus {
 }
 
 /// Accessibility standard entry (WCAG, Section 508, ADA).
+@StandardReferences(
+  ['WCAG 2.2 — web content accessibility'],
+  'Describes a single accessibility standard the system must conform to.',
+)
 @SectionId('ACCSTD')
 class AccessibilityStandardEntry {
   @Form([
@@ -10831,6 +11534,10 @@ class AccessibilityStandardEntry {
 }
 
 /// Scope and affected users.
+@StandardReferences(
+  ['WCAG 2.2 — web content accessibility'],
+  'Captures the content scope and user groups an accessibility standard covers.',
+)
 @SectionId('ASES')
 class AccessibilityStandardEntryScope {
   @Form([
@@ -10846,6 +11553,10 @@ class AccessibilityStandardEntryScope {
 }
 
 /// Conformance requirements.
+@StandardReferences(
+  ['WCAG 2.2 — web content accessibility'],
+  'Captures the perceivable, operable, understandable, and robust conformance requirements.',
+)
 @SectionId('ASER')
 class AccessibilityStandardEntryRequirements {
   @Form([
@@ -10863,6 +11574,10 @@ class AccessibilityStandardEntryRequirements {
 }
 
 /// Testing approach.
+@StandardReferences(
+  ['WCAG 2.2 — web content accessibility'],
+  'Captures the testing approach and tools used to verify accessibility.',
+)
 @SectionId('ASET')
 class AccessibilityStandardEntryTesting {
   @Form([
@@ -10878,6 +11593,10 @@ class AccessibilityStandardEntryTesting {
 }
 
 /// Documentation artifacts.
+@StandardReferences(
+  ['WCAG 2.2 — web content accessibility'],
+  'Captures the accessibility conformance reports and statements produced.',
+)
 @SectionId('ASED')
 class AccessibilityStandardEntryDocumentation {
   @Form([
@@ -10893,6 +11612,13 @@ class AccessibilityStandardEntryDocumentation {
 }
 
 /// Quality standard entry (CMMI, ISO 9001).
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Describes a single quality standard the system must comply with.',
+)
 @SectionId('QLSTD')
 class QualityStandardEntry {
   @Form([
@@ -10928,6 +11654,13 @@ class QualityStandardEntry {
 }
 
 /// Process coverage.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the process areas and quality objectives covered by a quality standard.',
+)
 @SectionId('QSEP')
 class QualityStandardEntryProcesses {
   @Form([
@@ -10943,6 +11676,13 @@ class QualityStandardEntryProcesses {
 }
 
 /// Improvement implementation.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the maturity gap analysis and improvement plan for a quality standard.',
+)
 @SectionId('QSEI')
 class QualityStandardEntryImplementation {
   @Form([
@@ -10960,6 +11700,13 @@ class QualityStandardEntryImplementation {
 }
 
 /// Certification status.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the certification status for a quality standard.',
+)
 @SectionId('QSEC')
 class QualityStandardEntryCertification {
   @Form([
@@ -10975,6 +11722,13 @@ class QualityStandardEntryCertification {
 }
 
 /// Maintenance expectations.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the audit frequency and continuous improvement for a quality standard.',
+)
 @SectionId('QSEM')
 class QualityStandardEntryMaintenance {
   @Form([
@@ -10990,6 +11744,13 @@ class QualityStandardEntryMaintenance {
 }
 
 /// Documentation standards section.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Describes the documentation standards the project must follow.',
+)
 @SectionId('DOSTSE')
 class DocumentationStandardsSection {
   @Form([
@@ -11026,6 +11787,13 @@ class DocumentationStandardsSection {
 }
 
 /// Technical documentation standards.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the standards for technical documentation and API docs.',
+)
 @SectionId('DSST')
 class DocumentationStandardsSectionTechnical {
   @Form([
@@ -11043,6 +11811,13 @@ class DocumentationStandardsSectionTechnical {
 }
 
 /// User documentation standards.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the standards for user-facing documentation and help systems.',
+)
 @SectionId('DSSU')
 class DocumentationStandardsSectionUser {
   @Form([
@@ -11058,6 +11833,13 @@ class DocumentationStandardsSectionUser {
 }
 
 /// Documentation process rules.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the review, versioning, and archival process for documentation.',
+)
 @SectionId('DSSP')
 class DocumentationStandardsSectionProcess {
   @Form([
@@ -11073,6 +11855,13 @@ class DocumentationStandardsSectionProcess {
 }
 
 /// Documentation quality rules.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the quality rules documentation must satisfy.',
+)
 @SectionId('DSSQ')
 class DocumentationStandardsSectionQuality {
   @Form([
@@ -11088,6 +11877,13 @@ class DocumentationStandardsSectionQuality {
 }
 
 /// Coding standards section.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Describes the coding standards and conventions the codebase must follow.',
+)
 @SectionId('COSTSE')
 class CodingStandardsSection {
   @Form([
@@ -11125,6 +11921,13 @@ class CodingStandardsSection {
 }
 
 /// Formatting and layout rules.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the formatting and layout rules for source code.',
+)
 @SectionId('CSSF')
 class CodingStandardsSectionFormatting {
   @Form([
@@ -11140,6 +11943,13 @@ class CodingStandardsSectionFormatting {
 }
 
 /// Naming and structure rules.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the naming conventions and directory structure rules for code.',
+)
 @SectionId('CSSN')
 class CodingStandardsSectionNaming {
   @Form([
@@ -11155,6 +11965,13 @@ class CodingStandardsSectionNaming {
 }
 
 /// Static quality checks.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures the static analysis and complexity checks applied to code.',
+)
 @SectionId('CSSQ')
 class CodingStandardsSectionQuality {
   @Form([
@@ -11168,6 +11985,13 @@ class CodingStandardsSectionQuality {
 }
 
 /// Development practices.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the development practices for error handling, logging, testing, and security.',
+)
 @SectionId('CSSP')
 class CodingStandardsSectionPractices {
   @Form([
@@ -11185,6 +12009,13 @@ class CodingStandardsSectionPractices {
 }
 
 /// Review expectations.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 25010 — product quality model',
+  ],
+  'Captures the code review expectations and checklists.',
+)
 @SectionId('CSSR')
 class CodingStandardsSectionReview {
   @Form([
@@ -11200,6 +12031,13 @@ class CodingStandardsSectionReview {
 }
 
 /// Certification requirements section.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Describes the certifications the system must obtain and maintain.',
+)
 @SectionId('CERESE')
 class CertificationRequirementsSection {
   @Form([
@@ -11235,6 +12073,13 @@ class CertificationRequirementsSection {
 }
 
 /// Certification process.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the process steps for achieving certification.',
+)
 @SectionId('CRSP')
 class CertificationRequirementsSectionProcess {
   @Form([
@@ -11252,6 +12097,13 @@ class CertificationRequirementsSectionProcess {
 }
 
 /// Timeline requirements.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the timeline and renewal schedule for certification.',
+)
 @SectionId('CRST')
 class CertificationRequirementsSectionTimeline {
   @Form([
@@ -11267,6 +12119,13 @@ class CertificationRequirementsSectionTimeline {
 }
 
 /// Cost requirements.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the budget and resource requirements for certification.',
+)
 @SectionId('CRSC')
 class CertificationRequirementsSectionCosts {
   @Form([
@@ -11282,6 +12141,13 @@ class CertificationRequirementsSectionCosts {
 }
 
 /// Marketing and notes.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures how achieved certifications are displayed and used in marketing.',
+)
 @SectionId('CRSM')
 class CertificationRequirementsSectionMarketing {
   @Form([
@@ -11297,6 +12163,13 @@ class CertificationRequirementsSectionMarketing {
 }
 
 /// Compliance verification section.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Describes how compliance is verified through review, auditing, and reporting.',
+)
 @SectionId('COVESE')
 class ComplianceVerificationSection {
   @Form([
@@ -11337,6 +12210,13 @@ class ComplianceVerificationSection {
 }
 
 /// Manual review procedures.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the manual review procedures for verifying compliance.',
+)
 @SectionId('CVSR')
 class ComplianceVerificationSectionReview {
   @Form([
@@ -11348,6 +12228,13 @@ class ComplianceVerificationSectionReview {
 }
 
 /// Tooling and dashboards.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security management',
+    'ISO 9001 — quality management systems',
+  ],
+  'Captures the tooling and dashboards used to track compliance.',
+)
 @SectionId('CVST')
 class ComplianceVerificationSectionTools {
   @Form([
@@ -11363,6 +12250,13 @@ class ComplianceVerificationSectionTools {
 }
 
 /// Audit procedures.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures the internal and external audit procedures for compliance verification.',
+)
 @SectionId('CVSA')
 class ComplianceVerificationSectionAuditing {
   @Form([
@@ -11380,6 +12274,13 @@ class ComplianceVerificationSectionAuditing {
 }
 
 /// Reporting requirements.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures compliance, management, and regulatory reporting requirements.',
+)
 @SectionId('COVESERE')
 class ComplianceVerificationSectionReporting {
   @Form([
@@ -11395,6 +12296,13 @@ class ComplianceVerificationSectionReporting {
 }
 
 /// Continuous monitoring and improvement.
+@StandardReferences(
+  [
+    'ISO 9001 — quality management systems',
+    'ISO/IEC 27001 — information security management',
+  ],
+  'Captures continuous monitoring and improvement of compliance posture.',
+)
 @SectionId('CVSC')
 class ComplianceVerificationSectionContinuous {
   @Form([
@@ -11439,6 +12347,13 @@ and operational complexity.
 - Burst capacity requirements
 - Geographic distribution needs
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality model',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the hardware infrastructure requirements for servers, clients, and network.',
+)
 @SectionId('HR')
 class HardwareRequirements {
   @ContentHelp('''
@@ -11515,6 +12430,14 @@ performance, cost, and reliability.
 - Managed Kubernetes: EKS, GKE, AKS
 - Serverless: Lambda, Cloud Functions, Azure Functions
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'IaaS / cloud infrastructure — server provisioning',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the overall server infrastructure requirements: compute, storage, scaling, and high availability.',
+)
 @SectionId('SRS')
 class ServerRequirementsSection {
   @ContentHelp('''
@@ -11542,14 +12465,24 @@ Provide an overview of server infrastructure strategy.
   TextSection overview = TextSection();
 
   /// Server environment tiers (dev, staging, production, DR).
+  @StandardReferences(
+    ['IaaS / cloud infrastructure — server provisioning'],
+    'The server environments the system is deployed to.',
+  )
   @SectionId('SEENEN-ENVI-LST')
   @SectionIdPattern('SEENEN-ENVI-xxx')
+  @ContentHelp('Add one entry per server environment.')
   @SerializationOrder(2)
   List<ServerEnvironmentEntry> environments = [];
 
   /// Server role definitions (app server, db server, web server).
+  @StandardReferences(
+    ['ISO/IEC/IEEE 42010 — architecture description'],
+    'The server roles that make up the deployment.',
+  )
   @SectionId('SEROEN-SERV-LST')
   @SectionIdPattern('SEROEN-SERV-xxx')
+  @ContentHelp('Add one entry per server role.')
   @SerializationOrder(3)
   List<ServerRoleEntry> serverRoles = [];
 
@@ -11587,6 +12520,13 @@ Provide an overview of server infrastructure strategy.
 }
 
 /// Server environment entry (development, staging, production, DR).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment diagrams',
+  ],
+  'Captures a single server environment tier and its location, scale, and lifecycle.',
+)
 @SectionId('SEE')
 class ServerEnvironmentEntry {
   @Form([
@@ -11620,6 +12560,13 @@ class ServerEnvironmentEntry {
 }
 
 /// Location details.
+@StandardReferences(
+  [
+    'TIA-942 — data center infrastructure',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the region, data center, and availability zone for a server environment.',
+)
 @SectionId('SEEL')
 class ServerEnvironmentEntryLocation {
   @Form([
@@ -11637,6 +12584,12 @@ class ServerEnvironmentEntryLocation {
 }
 
 /// Scale expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the server count, expected users, and load for a server environment.',
+)
 @SectionId('SEES')
 class ServerEnvironmentEntryScale {
   @Form([
@@ -11652,6 +12605,12 @@ class ServerEnvironmentEntryScale {
 }
 
 /// Access rules.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+  ],
+  'Captures the access restrictions, network segment, and VPN requirements for a server environment.',
+)
 @SectionId('SEEA')
 class ServerEnvironmentEntryAccess {
   @Form([
@@ -11667,6 +12626,13 @@ class ServerEnvironmentEntryAccess {
 }
 
 /// Lifecycle rules.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the refresh schedule and retention policy for a server environment.',
+)
 @SectionId('SEENENLI')
 class ServerEnvironmentEntryLifecycle {
   @Form([
@@ -11682,6 +12648,13 @@ class ServerEnvironmentEntryLifecycle {
 }
 
 /// Server role entry (application server, database server, web server).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment diagrams',
+  ],
+  'Captures a single server role definition and its associated capacity and networking.',
+)
 @SectionId('SRE')
 class ServerRoleEntry {
   @Form([
@@ -11713,6 +12686,13 @@ class ServerRoleEntry {
 }
 
 /// Software stack details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment diagrams',
+  ],
+  'Captures the software stack, runtime, and OS for a server role.',
+)
 @SectionId('SRES')
 class ServerRoleEntrySoftware {
   @Form([
@@ -11728,6 +12708,12 @@ class ServerRoleEntrySoftware {
 }
 
 /// Capacity requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the CPU architecture and memory sizing for a server role.',
+)
 @SectionId('SREC')
 class ServerRoleEntryCapacity {
   @Form([
@@ -11743,6 +12729,13 @@ class ServerRoleEntryCapacity {
 }
 
 /// Storage requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the storage type, capacity, and IOPS for a server role.',
+)
 @SectionId('SEROENST')
 class ServerRoleEntryStorage {
   @Form([
@@ -11758,6 +12751,13 @@ class ServerRoleEntryStorage {
 }
 
 /// Networking requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+    'C4 model — deployment diagrams',
+  ],
+  'Captures the network bandwidth and exposed ports for a server role.',
+)
 @SectionId('SREN')
 class ServerRoleEntryNetworking {
   @Form([
@@ -11772,6 +12772,12 @@ class ServerRoleEntryNetworking {
 }
 
 /// Compute resource requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the CPU core, architecture, and benchmark requirements for server compute.',
+)
 @SectionId('CORERE')
 class ComputeResourceRequirements {
   @Form([
@@ -11805,6 +12811,12 @@ class ComputeResourceRequirements {
 }
 
 /// Memory requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the server memory sizing, type, and ECC requirements.',
+)
 @SectionId('CRRM')
 class ComputeResourceRequirementsMemory {
   @Form([
@@ -11822,6 +12834,12 @@ class ComputeResourceRequirementsMemory {
 }
 
 /// GPU requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the GPU type, memory, and count required for compute-intensive workloads.',
+)
 @SectionId('CRRG')
 class ComputeResourceRequirementsGpu {
   @Form([
@@ -11839,6 +12857,13 @@ class ComputeResourceRequirementsGpu {
 }
 
 /// Special hardware requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC 27033 — network / infrastructure security',
+  ],
+  'Captures special hardware needs such as TPM and secure enclave requirements.',
+)
 @SectionId('CRRS')
 class ComputeResourceRequirementsSpecial {
   @Form([
@@ -11854,6 +12879,13 @@ class ComputeResourceRequirementsSpecial {
 }
 
 /// Server storage requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the primary server storage type, capacity, IOPS, and read/write profile.',
+)
 @SectionId('SESTRE')
 class ServerStorageRequirements {
   @Form([
@@ -11890,6 +12922,13 @@ class ServerStorageRequirements {
 }
 
 /// Database storage requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the database storage type, capacity, and IOPS requirements.',
+)
 @SectionId('SSRD')
 class ServerStorageRequirementsDatabase {
   @Form([
@@ -11904,6 +12943,13 @@ class ServerStorageRequirementsDatabase {
 }
 
 /// File storage requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the file storage type, capacity, and network file system requirements.',
+)
 @SectionId('SSRFS')
 class ServerStorageRequirementsFileStorage {
   @Form([
@@ -11919,6 +12965,13 @@ class ServerStorageRequirementsFileStorage {
 }
 
 /// Backup storage requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the backup storage medium, capacity, and retention requirements.',
+)
 @SectionId('SSRB')
 class ServerStorageRequirementsBackup {
   @Form([
@@ -11934,6 +12987,12 @@ class ServerStorageRequirementsBackup {
 }
 
 /// Performance requirements and notes.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the storage throughput and latency performance requirements.',
+)
 @SectionId('SSRP')
 class ServerStorageRequirementsPerformance {
   @Form([
@@ -11948,6 +13007,12 @@ class ServerStorageRequirementsPerformance {
 }
 
 /// Load profile requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the user and load profile that sizes the server capacity plan.',
+)
 @SectionId('LOPRRE')
 class LoadProfileRequirements {
   @Form([
@@ -11979,6 +13044,12 @@ class LoadProfileRequirements {
 }
 
 /// Request volume assumptions.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the request-rate and payload-size assumptions that drive server load.',
+)
 @SectionId('LPRRL')
 class LoadProfileRequirementsRequestLoad {
   @Form([
@@ -11996,6 +13067,12 @@ class LoadProfileRequirementsRequestLoad {
 }
 
 /// Temporal and seasonal patterns.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the temporal, seasonal, and event-driven load patterns for capacity planning.',
+)
 @SectionId('LPRP')
 class LoadProfileRequirementsPatterns {
   @Form([
@@ -12011,6 +13088,12 @@ class LoadProfileRequirementsPatterns {
 }
 
 /// Performance target metrics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the response-time percentile targets that the server tier must meet.',
+)
 @SectionId('LPRPT')
 class LoadProfileRequirementsPerformanceTargets {
   @Form([
@@ -12028,6 +13111,13 @@ class LoadProfileRequirementsPerformanceTargets {
 }
 
 /// Scaling requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the overall scaling strategy, approach, and triggers for the server tier.',
+)
 @SectionId('SCRE')
 class ScalingRequirements {
   @Form([
@@ -12061,6 +13151,13 @@ class ScalingRequirements {
 }
 
 /// Horizontal scaling configuration.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the horizontal-scaling instance bounds, startup time, and session handling.',
+)
 @SectionId('SCREHO')
 class ScalingRequirementsHorizontal {
   @Form([
@@ -12078,6 +13175,13 @@ class ScalingRequirementsHorizontal {
 }
 
 /// Vertical scaling configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the vertical-scaling limits for CPU and memory upgrades.',
+)
 @SectionId('SCREVE')
 class ScalingRequirementsVertical {
   @Form([
@@ -12093,6 +13197,13 @@ class ScalingRequirementsVertical {
 }
 
 /// Auto-scaling thresholds.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the auto-scaling thresholds, cooldown, and scale-down policy.',
+)
 @SectionId('SRAS')
 class ScalingRequirementsAutoScaling {
   @Form([
@@ -12110,6 +13221,13 @@ class ScalingRequirementsAutoScaling {
 }
 
 /// Budget and timing constraints.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the budget and timing constraints that bound scaling decisions.',
+)
 @SectionId('SCRECO')
 class ScalingRequirementsConstraints {
   @Form([
@@ -12124,6 +13242,13 @@ class ScalingRequirementsConstraints {
 }
 
 /// High availability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the overall availability target, downtime budget, and maintenance windows.',
+)
 @SectionId('HIAVRE')
 class HighAvailabilityRequirements {
   @Form([
@@ -12159,6 +13284,13 @@ class HighAvailabilityRequirements {
 }
 
 /// Redundancy model.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the redundancy level, scope, and geographic/active-active model for resilience.',
+)
 @SectionId('HARR')
 class HighAvailabilityRequirementsRedundancy {
   @Form([
@@ -12176,6 +13308,13 @@ class HighAvailabilityRequirementsRedundancy {
 }
 
 /// Failover behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the failover type, timing, failback procedure, and health-check interval.',
+)
 @SectionId('HARF')
 class HighAvailabilityRequirementsFailover {
   @Form([
@@ -12193,6 +13332,13 @@ class HighAvailabilityRequirementsFailover {
 }
 
 /// Load balancing behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the load-balancer type, algorithm, and health-check behavior for high availability.',
+)
 @SectionId('HARLB')
 class HighAvailabilityRequirementsLoadBalancing {
   @Form([
@@ -12208,6 +13354,13 @@ class HighAvailabilityRequirementsLoadBalancing {
 }
 
 /// Disaster recovery alignment.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Captures the disaster-recovery site and replication method that back the high-availability model.',
+)
 @SectionId('HARDR')
 class HighAvailabilityRequirementsDisasterRecovery {
   @Form([
@@ -12222,6 +13375,13 @@ class HighAvailabilityRequirementsDisasterRecovery {
 }
 
 /// Virtualization and containerization requirements.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native deployment',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the deployment model and virtualization/containerization platform choices.',
+)
 @SectionId('VIRE')
 class VirtualizationRequirements {
   @Form([
@@ -12256,6 +13416,13 @@ class VirtualizationRequirements {
 }
 
 /// VM requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the virtual-machine hypervisor, image format, and template requirements.',
+)
 @SectionId('VIREVM')
 class VirtualizationRequirementsVm {
   @Form([
@@ -12271,6 +13438,13 @@ class VirtualizationRequirementsVm {
 }
 
 /// Container requirements.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native deployment',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the container runtime, base image, registry, and image-scanning requirements.',
+)
 @SectionId('VIRECO')
 class VirtualizationRequirementsContainer {
   @Form([
@@ -12288,6 +13462,13 @@ class VirtualizationRequirementsContainer {
 }
 
 /// Kubernetes requirements.
+@StandardReferences(
+  [
+    'Twelve-Factor App — cloud-native deployment',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the Kubernetes version, distribution, namespace strategy, and resource quotas.',
+)
 @SectionId('VIREKU')
 class VirtualizationRequirementsKubernetes {
   @Form([
@@ -12305,6 +13486,13 @@ class VirtualizationRequirementsKubernetes {
 }
 
 /// Networking requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+    'C4 model — deployment diagrams',
+  ],
+  'Captures the virtualization networking layer such as service mesh and ingress control.',
+)
 @SectionId('VIRENE')
 class VirtualizationRequirementsNetworking {
   @Form([
@@ -12320,6 +13508,13 @@ class VirtualizationRequirementsNetworking {
 }
 
 /// Cloud provider requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the cloud provider selection and multi-cloud strategy for hosting the system.',
+)
 @SectionId('CLPRRE')
 class CloudProviderRequirements {
   @Form([
@@ -12355,6 +13550,13 @@ class CloudProviderRequirements {
 }
 
 /// Account-structure requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the cloud account structure, environment separation, and billing model.',
+)
 @SectionId('CPRA')
 class CloudProviderRequirementsAccounts {
   @Form([
@@ -12370,6 +13572,13 @@ class CloudProviderRequirementsAccounts {
 }
 
 /// Service requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures the cloud provider services required for compute, storage, database, and networking.',
+)
 @SectionId('CPRS')
 class CloudProviderRequirementsServices {
   @Form([
@@ -12387,6 +13596,13 @@ class CloudProviderRequirementsServices {
 }
 
 /// Compliance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures cloud compliance requirements such as data sovereignty, certifications, and encryption.',
+)
 @SectionId('CPRC')
 class CloudProviderRequirementsCompliance {
   @Form([
@@ -12402,6 +13618,13 @@ class CloudProviderRequirementsCompliance {
 }
 
 /// Governance requirements.
+@StandardReferences(
+  [
+    'IaaS / cloud infrastructure — server provisioning',
+    'Twelve-Factor App — cloud-native deployment',
+  ],
+  'Captures cloud governance requirements such as resource tagging and cost management.',
+)
 @SectionId('CPRG')
 class CloudProviderRequirementsGovernance {
   @Form([
@@ -12417,6 +13640,13 @@ class CloudProviderRequirementsGovernance {
 }
 
 /// Server operating system requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the server operating-system requirements including distribution, version, and support level.',
+)
 @SectionId('SEOSRE')
 class ServerOsRequirements {
   @Form([
@@ -12450,6 +13680,13 @@ class ServerOsRequirements {
 }
 
 /// Hardening requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the server operating-system hardening standard, patching cadence, and update policy.',
+)
 @SectionId('SORH')
 class ServerOsRequirementsHardening {
   @Form([
@@ -12465,6 +13702,13 @@ class ServerOsRequirementsHardening {
 }
 
 /// Security controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network / infrastructure security',
+    'TIA-942 — data center infrastructure',
+  ],
+  'Captures the server operating-system security controls such as firewall, mandatory access control, and auditing.',
+)
 @SectionId('SORS')
 class ServerOsRequirementsSecurity {
   @Form([
@@ -12482,6 +13726,13 @@ class ServerOsRequirementsSecurity {
 }
 
 /// Monitoring setup.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC 27033 — network / infrastructure security',
+  ],
+  'Captures the server operating-system monitoring, logging, and performance-observability setup.',
+)
 @SectionId('SORM')
 class ServerOsRequirementsMonitoring {
   @Form([
@@ -12497,6 +13748,13 @@ class ServerOsRequirementsMonitoring {
 }
 
 /// Licensing details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'IaaS / cloud infrastructure — server provisioning',
+  ],
+  'Captures the operating-system licensing model and license counts for servers.',
+)
 @SectionId('SORL')
 class ServerOsRequirementsLicensing {
   @Form([
@@ -12553,6 +13811,13 @@ define the user experience boundary conditions.
 - Keyboard navigation
 - Color contrast and visual accommodations
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
+)
 @SectionId('CLRESE')
 class ClientRequirementsSection {
   @ContentHelp('''
@@ -12580,20 +13845,35 @@ Provide an overview of client requirements and support strategy.
   TextSection overview = TextSection();
 
   /// Web browser requirements.
+  @StandardReferences(
+    ['WHATWG / W3C — web platform / browser standards'],
+    'The web browsers the client must support.',
+  )
   @SectionId('BRREEN-BROW-LST')
   @SectionIdPattern('BRREEN-BROW-xxx')
+  @ContentHelp('Add one entry per supported web browser.')
   @SerializationOrder(2)
   List<BrowserRequirementEntry> browserRequirements = [];
 
   /// Desktop operating system requirements.
+  @StandardReferences(
+    ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+    'The desktop operating systems the client must support.',
+  )
   @SectionId('DORE1-DESK-LST')
   @SectionIdPattern('DORE1-DESK-xxx')
+  @ContentHelp('Add one entry per supported desktop operating system.')
   @SerializationOrder(3)
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
 
   /// Mobile device requirements.
+  @StandardReferences(
+    ['Android CDD / Apple HIG — mobile device platform requirements'],
+    'The mobile platforms and devices the client must support.',
+  )
   @SectionId('MDRE-MOBI-LST')
   @SectionIdPattern('MDRE-MOBI-xxx')
+  @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(4)
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
 
@@ -12628,6 +13908,13 @@ Provide an overview of client requirements and support strategy.
 }
 
 /// Browser requirement entry.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes a single browser requirement entry across support, features, testing, and known issues.',
+)
 @SectionId('BROREQENT')
 class BrowserRequirementEntry {
   @Form([
@@ -12661,6 +13948,10 @@ class BrowserRequirementEntry {
 }
 
 /// Support level and user share.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the browser support level, priority, and expected user share for the client.',
+)
 @SectionId('BRES')
 class BrowserRequirementEntrySupport {
   @Form([
@@ -12676,6 +13967,10 @@ class BrowserRequirementEntrySupport {
 }
 
 /// Required and optional features.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the required and optional browser platform features such as JS/CSS features, polyfills, and CSS support.',
+)
 @SectionId('BREF')
 class BrowserRequirementEntryFeatures {
   @Form([
@@ -12693,6 +13988,13 @@ class BrowserRequirementEntryFeatures {
 }
 
 /// Testing strategy.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the browser testing strategy such as test platform, automation, and manual testing frequency.',
+)
 @SectionId('BRET')
 class BrowserRequirementEntryTesting {
   @Form([
@@ -12708,6 +14010,10 @@ class BrowserRequirementEntryTesting {
 }
 
 /// Known issues and workarounds.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the browser-specific known limitations and workarounds for the client.',
+)
 @SectionId('BREI')
 class BrowserRequirementEntryIssues {
   @Form([
@@ -12723,6 +14029,13 @@ class BrowserRequirementEntryIssues {
 }
 
 /// Desktop operating system requirement entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes a single desktop operating-system requirement entry across support, hardware, software, and testing.',
+)
 @SectionId('DEOSREEN')
 class DesktopOsRequirementEntry {
   @Form([
@@ -12759,6 +14072,10 @@ class DesktopOsRequirementEntry {
 }
 
 /// Support prioritization.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the desktop OS support prioritization such as support level, priority, and expected user share.',
+)
 @SectionId('DORES')
 class DesktopOsRequirementEntrySupport {
   @Form([
@@ -12774,6 +14091,10 @@ class DesktopOsRequirementEntrySupport {
 }
 
 /// Hardware and display requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the desktop OS hardware and display requirements such as architecture, RAM, storage, and display driver.',
+)
 @SectionId('DORER')
 class DesktopOsRequirementEntryRequirements {
   @Form([
@@ -12791,6 +14112,10 @@ class DesktopOsRequirementEntryRequirements {
 }
 
 /// Software prerequisites.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the desktop OS software prerequisites such as runtime dependencies and additional required software.',
+)
 @SectionId('DEOSREENSO')
 class DesktopOsRequirementEntrySoftware {
   @Form([
@@ -12804,6 +14129,10 @@ class DesktopOsRequirementEntrySoftware {
 }
 
 /// Testing and known issues.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the desktop OS testing environment, automation, and known issues for the client platform.',
+)
 @SectionId('DORET')
 class DesktopOsRequirementEntryTesting {
   @Form([
@@ -12821,6 +14150,13 @@ class DesktopOsRequirementEntryTesting {
 }
 
 /// Mobile device requirement entry.
+@StandardReferences(
+  [
+    'Android CDD / Apple HIG — mobile device platform requirements',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes a single mobile-platform requirement entry across support, device coverage, hardware, and capabilities.',
+)
 @SectionId('MODEREEN')
 class MobileDeviceRequirementEntry {
   @Form([
@@ -12856,6 +14192,10 @@ class MobileDeviceRequirementEntry {
 }
 
 /// Support prioritization.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the mobile device support prioritization such as support level, priority, and expected user share.',
+)
 @SectionId('MDRES')
 class MobileDeviceRequirementEntrySupport {
   @Form([
@@ -12871,6 +14211,10 @@ class MobileDeviceRequirementEntrySupport {
 }
 
 /// Device coverage.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the mobile device coverage such as device types, specific named devices, and supported screen sizes.',
+)
 @SectionId('MDRED')
 class MobileDeviceRequirementEntryDevices {
   @Form([
@@ -12886,6 +14230,13 @@ class MobileDeviceRequirementEntryDevices {
 }
 
 /// Hardware expectations.
+@StandardReferences(
+  [
+    'Android CDD / Apple HIG — mobile device platform requirements',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the mobile device hardware expectations such as minimum RAM, storage, required sensors, and hardware acceleration.',
+)
 @SectionId('MDREH')
 class MobileDeviceRequirementEntryHardware {
   @Form([
@@ -12903,6 +14254,10 @@ class MobileDeviceRequirementEntryHardware {
 }
 
 /// Capability requirements.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the mobile device capability requirements such as permissions, background execution, and push notifications.',
+)
 @SectionId('MDREC')
 class MobileDeviceRequirementEntryCapabilities {
   @Form([
@@ -12920,6 +14275,13 @@ class MobileDeviceRequirementEntryCapabilities {
 }
 
 /// Display and screen requirements.
+@StandardReferences(
+  [
+    'ISO 9241 — ergonomics of human-system interaction',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Describes the client display and screen requirements across resolution, layout, scaling, color, and multi-display support.',
+)
 @SectionId('DIRE')
 class DisplayRequirements {
   @Form([
@@ -12952,6 +14314,10 @@ class DisplayRequirements {
 }
 
 /// Aspect ratio and layout support.
+@StandardReferences(
+  ['ISO 9241 — ergonomics of human-system interaction'],
+  'Captures the client display layout support such as aspect ratios, responsive breakpoints, and fluid layout.',
+)
 @SectionId('DIRELA')
 class DisplayRequirementsLayout {
   @Form([
@@ -12967,6 +14333,10 @@ class DisplayRequirementsLayout {
 }
 
 /// DPI and scaling support.
+@StandardReferences(
+  ['ISO 9241 — ergonomics of human-system interaction'],
+  'Captures the client display DPI and scaling support such as minimum DPI, HiDPI, scaling factors, and vector graphics.',
+)
 @SectionId('DIRESC')
 class DisplayRequirementsScaling {
   @Form([
@@ -12984,6 +14354,13 @@ class DisplayRequirementsScaling {
 }
 
 /// Color and contrast support.
+@StandardReferences(
+  [
+    'ISO 9241 — ergonomics of human-system interaction',
+    'WCAG 2.2 — accessible client experience',
+  ],
+  'Captures the client display color and contrast support such as color depth, color space, dark mode, and high contrast.',
+)
 @SectionId('DIREC1')
 class DisplayRequirementsColor {
   @Form([
@@ -13001,6 +14378,10 @@ class DisplayRequirementsColor {
 }
 
 /// Multi-display support.
+@StandardReferences(
+  ['ISO 9241 — ergonomics of human-system interaction'],
+  'Captures the client multi-display support such as multi-monitor and projector/presentation modes.',
+)
 @SectionId('DRMD')
 class DisplayRequirementsMultiDisplay {
   @Form([
@@ -13016,6 +14397,13 @@ class DisplayRequirementsMultiDisplay {
 }
 
 /// Client network requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the client-side network requirements across bandwidth, latency, connection type, protocols, and proxy/firewall.',
+)
 @SectionId('CLNERE')
 class ClientNetworkRequirements {
   @Form([
@@ -13051,6 +14439,10 @@ class ClientNetworkRequirements {
 }
 
 /// Latency requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client network latency requirements such as maximum latency, recommended latency, and jitter tolerance.',
+)
 @SectionId('CNRL')
 class ClientNetworkRequirementsLatency {
   @Form([
@@ -13066,6 +14458,10 @@ class ClientNetworkRequirementsLatency {
 }
 
 /// Connection-type requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client connection-type requirements such as supported networks, offline capability, and low-bandwidth mode.',
+)
 @SectionId('CNRC')
 class ClientNetworkRequirementsConnection {
   @Form([
@@ -13081,6 +14477,13 @@ class ClientNetworkRequirementsConnection {
 }
 
 /// Protocol requirements.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the client network protocol requirements such as HTTP/2, TLS version, and WebRTC support.',
+)
 @SectionId('CNRP')
 class ClientNetworkRequirementsProtocols {
   @Form([
@@ -13096,6 +14499,10 @@ class ClientNetworkRequirementsProtocols {
 }
 
 /// Proxy and firewall requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client-side proxy and firewall requirements such as proxy support and required outbound ports.',
+)
 @SectionId('CLNEREPR')
 class ClientNetworkRequirementsProxy {
   @Form([
@@ -13111,6 +14518,13 @@ class ClientNetworkRequirementsProxy {
 }
 
 /// Client hardware requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the minimum client hardware requirements across CPU, memory, storage, graphics, and peripherals.',
+)
 @SectionId('CLHARE')
 class ClientHardwareRequirements {
   @Form([
@@ -13147,6 +14561,10 @@ class ClientHardwareRequirements {
 }
 
 /// Memory requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client memory requirements such as minimum RAM, recommended RAM, and app memory usage.',
+)
 @SectionId('CHRM')
 class ClientHardwareRequirementsMemory {
   @Form([
@@ -13162,6 +14580,10 @@ class ClientHardwareRequirementsMemory {
 }
 
 /// Storage requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client storage requirements such as free space, install size, cache size, and storage type.',
+)
 @SectionId('CHRS')
 class ClientHardwareRequirementsStorage {
   @Form([
@@ -13179,6 +14601,10 @@ class ClientHardwareRequirementsStorage {
 }
 
 /// Graphics requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client graphics requirements such as GPU need, hardware acceleration, and video decoding.',
+)
 @SectionId('CHRG')
 class ClientHardwareRequirementsGraphics {
   @Form([
@@ -13194,6 +14620,13 @@ class ClientHardwareRequirementsGraphics {
 }
 
 /// Peripheral requirements.
+@StandardReferences(
+  [
+    'USB / Bluetooth — peripheral connectivity standards',
+    'ISO 9241 — ergonomics of human-system interaction',
+  ],
+  'Captures the client peripheral requirements such as input devices and audio I/O.',
+)
 @SectionId('CHRP')
 class ClientHardwareRequirementsPeripherals {
   @Form([
@@ -13209,6 +14642,13 @@ class ClientHardwareRequirementsPeripherals {
 }
 
 /// Client accessibility requirements.
+@StandardReferences(
+  [
+    'WCAG 2.2 — accessible client experience',
+    'ISO 9241 — ergonomics of human-system interaction',
+  ],
+  'Describes the accessibility requirements the end-user client must satisfy across visual, motor, cognitive support, and conformance standards.',
+)
 @SectionId('CLACRE')
 class ClientAccessibilityRequirements {
   @Form([
@@ -13244,6 +14684,13 @@ class ClientAccessibilityRequirements {
 }
 
 /// Visual accessibility support.
+@StandardReferences(
+  [
+    'WCAG 2.2 — accessible client experience',
+    'ISO 9241 — ergonomics of human-system interaction',
+  ],
+  'Captures the visual accessibility support such as color-blind friendliness, high contrast, zoom, and font scaling in the client.',
+)
 @SectionId('CARV')
 class ClientAccessibilityRequirementsVisual {
   @Form([
@@ -13261,6 +14708,13 @@ class ClientAccessibilityRequirementsVisual {
 }
 
 /// Motor accessibility support.
+@StandardReferences(
+  [
+    'WCAG 2.2 — accessible client experience',
+    'ISO 9241 — ergonomics of human-system interaction',
+  ],
+  'Captures the motor accessibility support such as keyboard navigation, focus indicators, and touch target sizing in the client.',
+)
 @SectionId('CARM')
 class ClientAccessibilityRequirementsMotor {
   @Form([
@@ -13278,6 +14732,13 @@ class ClientAccessibilityRequirementsMotor {
 }
 
 /// Cognitive accessibility support.
+@StandardReferences(
+  [
+    'WCAG 2.2 — accessible client experience',
+    'ISO 9241 — ergonomics of human-system interaction',
+  ],
+  'Captures the cognitive accessibility support such as simplified mode, reading level, and reduced motion in the client.',
+)
 @SectionId('CARC')
 class ClientAccessibilityRequirementsCognitive {
   @Form([
@@ -13293,6 +14754,10 @@ class ClientAccessibilityRequirementsCognitive {
 }
 
 /// Standards and notes.
+@StandardReferences(
+  ['WCAG 2.2 — accessible client experience'],
+  'Captures the accessibility conformance standards such as WCAG level and Section 508 the client targets.',
+)
 @SectionId('CARS')
 class ClientAccessibilityRequirementsStandards {
   @Form([
@@ -13308,6 +14773,13 @@ class ClientAccessibilityRequirementsStandards {
 }
 
 /// Progressive Web App (PWA) requirements.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the Progressive Web App requirements the browser client must satisfy across manifest, icons, installation, offline, and updates.',
+)
 @SectionId('PWRE')
 class PwaRequirements {
   @Form([
@@ -13343,6 +14815,10 @@ class PwaRequirements {
 }
 
 /// Icon requirements.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the PWA icon sizes, maskable icons, and splash-screen requirements in the browser client.',
+)
 @SectionId('PWREIC')
 class PwaRequirementsIcons {
   @Form([
@@ -13358,6 +14834,10 @@ class PwaRequirementsIcons {
 }
 
 /// Installation behavior.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the PWA installation prompt and standalone-mode behavior in the browser client.',
+)
 @SectionId('PWREIN')
 class PwaRequirementsInstallation {
   @Form([
@@ -13373,6 +14853,10 @@ class PwaRequirementsInstallation {
 }
 
 /// Offline support.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the PWA offline support via service workers and background sync in the browser client.',
+)
 @SectionId('PWREOF')
 class PwaRequirementsOffline {
   @Form([
@@ -13388,6 +14872,10 @@ class PwaRequirementsOffline {
 }
 
 /// Update handling.
+@StandardReferences(
+  ['WHATWG / W3C — web platform / browser standards'],
+  'Captures the PWA update and cache-versioning strategy in the browser client.',
+)
 @SectionId('PWREUP')
 class PwaRequirementsUpdates {
   @Form([
@@ -13403,6 +14891,13 @@ class PwaRequirementsUpdates {
 }
 
 /// Native app requirements.
+@StandardReferences(
+  [
+    'Android CDD / Apple HIG — mobile device platform requirements',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the native mobile app requirements the client must satisfy across distribution, stores, SDK versions, performance, and deep-linking.',
+)
 @SectionId('NAAPRE')
 class NativeAppRequirements {
   @Form([
@@ -13435,6 +14930,10 @@ class NativeAppRequirements {
 }
 
 /// Store presence requirements.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the app-store presence requirements across Apple, Google, and other native distribution channels.',
+)
 @SectionId('NARS')
 class NativeAppRequirementsStores {
   @Form([
@@ -13450,6 +14949,10 @@ class NativeAppRequirementsStores {
 }
 
 /// SDK and version requirements.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the native app minimum, target, and compile SDK version requirements for the client platform.',
+)
 @SectionId('NARV')
 class NativeAppRequirementsVersions {
   @Form([
@@ -13465,6 +14968,13 @@ class NativeAppRequirementsVersions {
 }
 
 /// Size and performance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+    'Android CDD / Apple HIG — mobile device platform requirements',
+  ],
+  'Captures the native app size, startup time, and memory performance targets on the client device.',
+)
 @SectionId('NARP')
 class NativeAppRequirementsPerformance {
   @Form([
@@ -13479,6 +14989,10 @@ class NativeAppRequirementsPerformance {
 }
 
 /// Deep-linking support.
+@StandardReferences(
+  ['Android CDD / Apple HIG — mobile device platform requirements'],
+  'Captures the native app deep-linking and universal-link support on the client device.',
+)
 @SectionId('NARL')
 class NativeAppRequirementsLinking {
   @Form([
@@ -13494,6 +15008,13 @@ class NativeAppRequirementsLinking {
 }
 
 /// Client security requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Describes the security requirements the end-user client must satisfy across storage, authentication, device, network, and code protection.',
+)
 @SectionId('CLSERE')
 class ClientSecurityRequirements {
   @Form([
@@ -13528,6 +15049,13 @@ class ClientSecurityRequirements {
 }
 
 /// Authentication requirements.
+@StandardReferences(
+  [
+    'Android CDD / Apple HIG — mobile device platform requirements',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the client-side authentication requirements such as biometrics, device passcode, and auto-lock.',
+)
 @SectionId('CSRA')
 class ClientSecurityRequirementsAuthentication {
   @Form([
@@ -13545,6 +15073,13 @@ class ClientSecurityRequirementsAuthentication {
 }
 
 /// Device security controls.
+@StandardReferences(
+  [
+    'Android CDD / Apple HIG — mobile device platform requirements',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the device-level security controls such as jailbreak detection and certificate pinning on the client device.',
+)
 @SectionId('CSRD')
 class ClientSecurityRequirementsDevice {
   @Form([
@@ -13562,6 +15097,13 @@ class ClientSecurityRequirementsDevice {
 }
 
 /// Network security controls.
+@StandardReferences(
+  [
+    'WHATWG / W3C — web platform / browser standards',
+    'ISO/IEC 25010 — performance efficiency / resource utilization',
+  ],
+  'Captures the client-side network security controls such as HTTPS enforcement and TLS versioning.',
+)
 @SectionId('CSRN')
 class ClientSecurityRequirementsNetwork {
   @Form([
@@ -13577,6 +15119,10 @@ class ClientSecurityRequirementsNetwork {
 }
 
 /// Code protection controls.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency / resource utilization'],
+  'Captures the client-side code protection controls such as obfuscation and tamper detection.',
+)
 @SectionId('CSRCP')
 class ClientSecurityRequirementsCodeProtection {
   @Form([
@@ -13634,6 +15180,14 @@ underpins system performance and reliability.
 - Data residency constraints
 - Multi-region deployment topology
 ''')
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 27033 — network security',
+    'TCP/IP — internet protocol suite',
+  ],
+  'Captures the network infrastructure requirements: architecture, bandwidth, latency, availability, and security.',
+)
 @SectionId('NRS')
 class NetworkRequirementsSection {
   @ContentHelp('''
@@ -13682,8 +15236,13 @@ Provide an overview of network strategy and architecture.
       NetworkAvailabilityRequirements();
 
   /// VPN requirements.
+  @StandardReferences(
+    ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+    'The VPN requirements the network must satisfy.',
+  )
   @SectionId('VPREEN-VPNR-LST')
   @SectionIdPattern('VPREEN-VPNR-xxx')
+  @ContentHelp('Add one entry per VPN requirement.')
   @SerializationOrder(7)
   List<VpnRequirementEntry> vpnRequirements = [];
 
@@ -13711,6 +15270,14 @@ Provide an overview of network strategy and architecture.
 }
 
 /// Internal network requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment / infrastructure diagrams',
+    'IEEE 802 — LAN/WLAN networking standards',
+  ],
+  'Internal network requirements covering topology, VPC/VLAN structure, subnets, and CIDR ranges.',
+)
 @SectionId('INNERE')
 class InternalNetworkRequirements {
   @Form([
@@ -13748,6 +15315,10 @@ class InternalNetworkRequirements {
 }
 
 /// Segmentation and isolation.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Internal network segmentation and isolation via DMZ, security zones, and trust boundaries.',
+)
 @SectionId('INRS')
 class InternalNetworkRequirementsSegmentation {
   @Form([
@@ -13763,6 +15334,13 @@ class InternalNetworkRequirementsSegmentation {
 }
 
 /// Routing and service discovery.
+@StandardReferences(
+  [
+    'TCP/IP — internet protocol suite',
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+  ],
+  'Internal routing and service discovery covering routing protocols, service discovery, and service mesh.',
+)
 @SectionId('INRR')
 class InternalNetworkRequirementsRouting {
   @Form([
@@ -13778,6 +15356,13 @@ class InternalNetworkRequirementsRouting {
 }
 
 /// Inter-service communication controls.
+@StandardReferences(
+  [
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+    'ISO/IEC 27033 — network security',
+  ],
+  'Inter-service communication controls including protocols, encryption in transit, and certificate management.',
+)
 @SectionId('INRIS')
 class InternalNetworkRequirementsInterService {
   @Form([
@@ -13793,6 +15378,10 @@ class InternalNetworkRequirementsInterService {
 }
 
 /// Monitoring and notes.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Internal network monitoring requirements including tooling and flow logging.',
+)
 @SectionId('INRM')
 class InternalNetworkRequirementsMonitoring {
   @Form([
@@ -13807,6 +15396,13 @@ class InternalNetworkRequirementsMonitoring {
 }
 
 /// External network requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment / infrastructure diagrams',
+  ],
+  'External network requirements covering internet access, ISP redundancy, dedicated lines, and peering.',
+)
 @SectionId('EXNERE')
 class ExternalNetworkRequirements {
   @Form([
@@ -13843,6 +15439,13 @@ class ExternalNetworkRequirements {
 }
 
 /// Public endpoint requirements.
+@StandardReferences(
+  [
+    'TCP/IP — internet protocol suite',
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+  ],
+  'Public endpoint requirements covering public-facing services, static IPs, IPv6, and DNS records.',
+)
 @SectionId('ENRP')
 class ExternalNetworkRequirementsPublic {
   @Form([
@@ -13860,6 +15463,13 @@ class ExternalNetworkRequirementsPublic {
 }
 
 /// Third-party connectivity.
+@StandardReferences(
+  [
+    'TCP/IP — internet protocol suite',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Third-party connectivity requirements covering B2B connections, API gateways, and webhooks.',
+)
 @SectionId('EXNEREPA')
 class ExternalNetworkRequirementsPartners {
   @Form([
@@ -13875,6 +15485,13 @@ class ExternalNetworkRequirementsPartners {
 }
 
 /// Cloud connectivity.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment / infrastructure diagrams',
+  ],
+  'Cloud connectivity requirements such as direct connect and hybrid cloud networking.',
+)
 @SectionId('ENRC')
 class ExternalNetworkRequirementsCloud {
   @Form([
@@ -13888,6 +15505,10 @@ class ExternalNetworkRequirementsCloud {
 }
 
 /// Security controls.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'External network security controls including DDoS protection and web application firewall.',
+)
 @SectionId('ENRS')
 class ExternalNetworkRequirementsSecurity {
   @Form([
@@ -13903,6 +15524,10 @@ class ExternalNetworkRequirementsSecurity {
 }
 
 /// Bandwidth requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Bandwidth requirements covering total, peak, average, and burst capacity.',
+)
 @SectionId('BARE')
 class BandwidthRequirements {
   @Form([
@@ -13936,6 +15561,10 @@ class BandwidthRequirements {
 }
 
 /// Directional bandwidth requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Directional bandwidth requirements for ingress, egress, and east-west traffic.',
+)
 @SectionId('BAREDI')
 class BandwidthRequirementsDirection {
   @Form([
@@ -13951,6 +15580,10 @@ class BandwidthRequirementsDirection {
 }
 
 /// Per-connection bandwidth requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Per-connection bandwidth requirements including concurrency and connection pooling.',
+)
 @SectionId('BARECO')
 class BandwidthRequirementsConnection {
   @Form([
@@ -13966,6 +15599,10 @@ class BandwidthRequirementsConnection {
 }
 
 /// Traffic-pattern requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Bandwidth traffic-pattern requirements including streaming and large file transfers.',
+)
 @SectionId('BARETR')
 class BandwidthRequirementsTraffic {
   @Form([
@@ -13981,6 +15618,10 @@ class BandwidthRequirementsTraffic {
 }
 
 /// QoS requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Bandwidth quality-of-service requirements and traffic prioritization rules.',
+)
 @SectionId('BAREQO')
 class BandwidthRequirementsQos {
   @Form([
@@ -13996,6 +15637,10 @@ class BandwidthRequirementsQos {
 }
 
 /// Network latency requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network latency requirements covering maximum, target, and percentile latency budgets.',
+)
 @SectionId('NELARE')
 class NetworkLatencyRequirements {
   @Form([
@@ -14033,6 +15678,10 @@ class NetworkLatencyRequirements {
 }
 
 /// Segment-level latency budgets.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Segment-level latency budgets across client-edge, edge-origin, internal, and database hops.',
+)
 @SectionId('NLRS')
 class NetworkLatencyRequirementsSegments {
   @Form([
@@ -14050,6 +15699,10 @@ class NetworkLatencyRequirementsSegments {
 }
 
 /// Geographic latency budgets.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Geographic latency budgets across regional, cross-regional, and global scopes.',
+)
 @SectionId('NLRG')
 class NetworkLatencyRequirementsGeographic {
   @Form([
@@ -14065,6 +15718,10 @@ class NetworkLatencyRequirementsGeographic {
 }
 
 /// Stability tolerances.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network stability tolerances such as jitter, packet loss, and connection stability.',
+)
 @SectionId('NELAREST')
 class NetworkLatencyRequirementsStability {
   @Form([
@@ -14080,6 +15737,10 @@ class NetworkLatencyRequirementsStability {
 }
 
 /// Optimization strategies.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network latency optimization strategies and related notes.',
+)
 @SectionId('NLRO')
 class NetworkLatencyRequirementsOptimization {
   @Form([
@@ -14092,6 +15753,13 @@ class NetworkLatencyRequirementsOptimization {
 }
 
 /// Network availability requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (network throughput / latency)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Network availability requirements covering uptime targets, downtime budgets, and maintenance windows.',
+)
 @SectionId('NEAVRE')
 class NetworkAvailabilityRequirements {
   @Form([
@@ -14127,6 +15795,10 @@ class NetworkAvailabilityRequirements {
 }
 
 /// Redundancy configuration.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network redundancy configuration across paths, ISPs, links, and devices.',
+)
 @SectionId('NARR')
 class NetworkAvailabilityRequirementsRedundancy {
   @Form([
@@ -14144,6 +15816,10 @@ class NetworkAvailabilityRequirementsRedundancy {
 }
 
 /// Failover configuration.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network failover configuration covering mechanism, time, health checks, and rerouting.',
+)
 @SectionId('NARF')
 class NetworkAvailabilityRequirementsFailover {
   @Form([
@@ -14161,6 +15837,10 @@ class NetworkAvailabilityRequirementsFailover {
 }
 
 /// Recovery objectives.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network recovery objectives such as RPO, RTO, and DR-site connectivity.',
+)
 @SectionId('NEAVRERE')
 class NetworkAvailabilityRequirementsRecovery {
   @Form([
@@ -14176,6 +15856,10 @@ class NetworkAvailabilityRequirementsRecovery {
 }
 
 /// Testing and notes.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Network availability failover testing frequency and related notes.',
+)
 @SectionId('NART')
 class NetworkAvailabilityRequirementsTesting {
   @Form([
@@ -14189,6 +15873,13 @@ class NetworkAvailabilityRequirementsTesting {
 }
 
 /// VPN requirement entry.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network security',
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+  ],
+  'A single VPN requirement entry covering its name, type, and purpose.',
+)
 @SectionId('VRE')
 class VpnRequirementEntry {
   @Form([
@@ -14223,6 +15914,10 @@ class VpnRequirementEntry {
 }
 
 /// Endpoint configuration.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'VPN endpoint configuration covering local, remote, and reachable networks.',
+)
 @SectionId('VREE')
 class VpnRequirementEntryEndpoints {
   @Form([
@@ -14238,6 +15933,13 @@ class VpnRequirementEntryEndpoints {
 }
 
 /// Protocol and cryptography.
+@StandardReferences(
+  [
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+    'ISO/IEC 27033 — network security',
+  ],
+  'VPN protocol and cryptography settings including protocol, encryption, and authentication.',
+)
 @SectionId('VREP')
 class VpnRequirementEntryProtocol {
   @Form([
@@ -14255,6 +15957,10 @@ class VpnRequirementEntryProtocol {
 }
 
 /// Performance expectations.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'VPN performance expectations such as bandwidth, max connections, and split tunneling.',
+)
 @SectionId('VPREENPE')
 class VpnRequirementEntryPerformance {
   @Form([
@@ -14270,6 +15976,10 @@ class VpnRequirementEntryPerformance {
 }
 
 /// Availability and notes.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'VPN availability and redundancy expectations for a single VPN requirement.',
+)
 @SectionId('VREA')
 class VpnRequirementEntryAvailability {
   @Form([
@@ -14284,6 +15994,13 @@ class VpnRequirementEntryAvailability {
 }
 
 /// Firewall requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network security',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Firewall requirements covering architecture, vendor/product, and management model.',
+)
 @SectionId('FIRE')
 class FirewallRequirements {
   @Form([
@@ -14315,6 +16032,10 @@ class FirewallRequirements {
 }
 
 /// Rule definitions.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Firewall rule definitions covering default policy and inbound/outbound/internal rules.',
+)
 @SectionId('FIRERU')
 class FirewallRequirementsRules {
   @Form([
@@ -14332,6 +16053,13 @@ class FirewallRequirementsRules {
 }
 
 /// Port requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network security',
+    'TCP/IP — internet protocol suite',
+  ],
+  'Firewall port requirements covering required, blocked, and dynamic port ranges.',
+)
 @SectionId('FIREPO')
 class FirewallRequirementsPorts {
   @Form([
@@ -14347,6 +16075,10 @@ class FirewallRequirementsPorts {
 }
 
 /// Advanced inspection features.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Advanced firewall inspection features such as IDS/IPS, deep packet inspection, and threat intelligence.',
+)
 @SectionId('FIREAD')
 class FirewallRequirementsAdvanced {
   @Form([
@@ -14364,6 +16096,10 @@ class FirewallRequirementsAdvanced {
 }
 
 /// Logging and alerts.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Firewall logging and alerting requirements including log retention.',
+)
 @SectionId('FIRELO')
 class FirewallRequirementsLogging {
   @Form([
@@ -14379,6 +16115,13 @@ class FirewallRequirementsLogging {
 }
 
 /// Geographic distribution requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'C4 model — deployment / infrastructure diagrams',
+  ],
+  'Geographic distribution requirements covering regions, edge locations, and data residency.',
+)
 @SectionId('GEDIRE')
 class GeographicDistributionRequirements {
   @Form([
@@ -14416,6 +16159,10 @@ class GeographicDistributionRequirements {
 }
 
 /// CDN requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Content delivery network requirements including provider, cached content, and TTL.',
+)
 @SectionId('GDRC')
 class GeographicDistributionRequirementsCdn {
   @Form([
@@ -14434,6 +16181,10 @@ class GeographicDistributionRequirementsCdn {
 }
 
 /// Traffic routing requirements.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Geographic traffic routing strategy, failover routing, and traffic steering.',
+)
 @SectionId('GDRR')
 class GeographicDistributionRequirementsRouting {
   @Form([
@@ -14449,6 +16200,13 @@ class GeographicDistributionRequirementsRouting {
 }
 
 /// Anycast and global load balancing.
+@StandardReferences(
+  [
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+    'TCP/IP — internet protocol suite',
+  ],
+  'Anycast addressing and global server load balancing requirements.',
+)
 @SectionId('GDRA')
 class GeographicDistributionRequirementsAnycast {
   @Form([
@@ -14461,6 +16219,10 @@ class GeographicDistributionRequirementsAnycast {
 }
 
 /// Performance considerations.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Geographic distribution performance considerations such as edge caching.',
+)
 @SectionId('GDRP')
 class GeographicDistributionRequirementsPerformance {
   @Form([
@@ -14474,6 +16236,13 @@ class GeographicDistributionRequirementsPerformance {
 }
 
 /// DNS requirements.
+@StandardReferences(
+  [
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+    'TCP/IP — internet protocol suite',
+  ],
+  'DNS requirements covering provider, hosting model, and DNSSEC.',
+)
 @SectionId('DNRE')
 class DnsRequirements {
   @Form([
@@ -14505,6 +16274,10 @@ class DnsRequirements {
 }
 
 /// Zone requirements.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'DNS zone requirements including public, private, and split-horizon zones.',
+)
 @SectionId('DNREZO')
 class DnsRequirementsZones {
   @Form([
@@ -14520,6 +16293,10 @@ class DnsRequirementsZones {
 }
 
 /// Record requirements.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'DNS record requirements covering record types, TTL policy, and dynamic DNS.',
+)
 @SectionId('DNRERE')
 class DnsRequirementsRecords {
   @Form([
@@ -14535,6 +16312,10 @@ class DnsRequirementsRecords {
 }
 
 /// Availability requirements.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'DNS availability requirements such as redundancy, resolution SLA, and failover.',
+)
 @SectionId('DNREAV')
 class DnsRequirementsAvailability {
   @Form([
@@ -14550,6 +16331,10 @@ class DnsRequirementsAvailability {
 }
 
 /// Health-check settings.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'DNS health-check settings including endpoints, checks, and failover actions.',
+)
 @SectionId('DRHC')
 class DnsRequirementsHealthChecks {
   @Form([
@@ -14567,6 +16352,13 @@ class DnsRequirementsHealthChecks {
 }
 
 /// Network load balancing requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency (network throughput / latency)',
+    'ISO/IEC/IEEE 42010 — architecture description',
+  ],
+  'Network load balancing requirements covering load balancer type, product, and deployment model.',
+)
 @SectionId('NLBR')
 class NetworkLoadBalancingRequirements {
   @Form([
@@ -14602,6 +16394,10 @@ class NetworkLoadBalancingRequirements {
 }
 
 /// Routing strategy.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Load balancer routing strategy such as algorithm, session persistence, and weighted routing.',
+)
 @SectionId('NLBRR')
 class NetworkLoadBalancingRequirementsRouting {
   @Form([
@@ -14617,6 +16413,10 @@ class NetworkLoadBalancingRequirementsRouting {
 }
 
 /// Health-check behavior.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Load balancer health-check behavior including protocol, path, interval, and thresholds.',
+)
 @SectionId('NLBRHC')
 class NetworkLoadBalancingRequirementsHealthChecks {
   @Form([
@@ -14636,6 +16436,10 @@ class NetworkLoadBalancingRequirementsHealthChecks {
 }
 
 /// TLS settings.
+@StandardReferences(
+  ['IETF RFCs (DNS / TLS / IPsec) — network protocol standards'],
+  'Load balancer TLS settings covering SSL termination, certificates, and HTTP/2 support.',
+)
 @SectionId('NLBRT')
 class NetworkLoadBalancingRequirementsTls {
   @Form([
@@ -14651,6 +16455,10 @@ class NetworkLoadBalancingRequirementsTls {
 }
 
 /// Availability settings.
+@StandardReferences(
+  ['ISO/IEC 25010 — performance efficiency (network throughput / latency)'],
+  'Load balancer high-availability settings such as redundancy and cross-zone balancing.',
+)
 @SectionId('NLBRA')
 class NetworkLoadBalancingRequirementsAvailability {
   @Form([
@@ -14666,6 +16474,13 @@ class NetworkLoadBalancingRequirementsAvailability {
 }
 
 /// Network security requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27033 — network security',
+    'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
+  ],
+  'Network security requirements including encryption in transit, TLS versions, and certificate authorities.',
+)
 @SectionId('NESERE')
 class NetworkSecurityRequirements {
   @Form([
@@ -14701,6 +16516,10 @@ class NetworkSecurityRequirements {
 }
 
 /// Access-control settings.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Network access controls: ACLs, security groups, and IP allow/deny lists.',
+)
 @SectionId('NSRA')
 class NetworkSecurityRequirementsAccess {
   @Form([
@@ -14718,6 +16537,10 @@ class NetworkSecurityRequirementsAccess {
 }
 
 /// Monitoring controls.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Network intrusion detection, traffic analysis, and anomaly detection controls.',
+)
 @SectionId('NSRM')
 class NetworkSecurityRequirementsMonitoring {
   @Form([
@@ -14733,6 +16556,10 @@ class NetworkSecurityRequirementsMonitoring {
 }
 
 /// DDoS protection controls.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'DDoS mitigation, rate limiting, and geo-blocking controls for the network.',
+)
 @SectionId('NSRD')
 class NetworkSecurityRequirementsDdos {
   @Form([
@@ -14748,6 +16575,10 @@ class NetworkSecurityRequirementsDdos {
 }
 
 /// Compliance settings.
+@StandardReferences(
+  ['ISO/IEC 27033 — network security'],
+  'Network security compliance requirements such as PCI-DSS and audit logging.',
+)
 @SectionId('NSRC')
 class NetworkSecurityRequirementsCompliance {
   @Form([
@@ -14803,6 +16634,14 @@ restate it here.
 
 **Reference**: Google SRE book, DORA metrics, ITIL practices.
 ''')
+@StandardReferences(
+  [
+    'ITIL 4 — IT service management',
+    'ISO/IEC 20000 — IT service management system',
+    'Google SRE — site reliability engineering',
+  ],
+  'Captures the operational requirements for running and maintaining the system in production.',
+)
 @SectionId('OPRE')
 class OperationsRequirements {
   @ContentHelp('''
