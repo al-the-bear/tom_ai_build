@@ -10,6 +10,14 @@ import '../document_stubs.dart';
 
 
 /// 10. Experience & Interface Design. Seeds → XDS.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design for interactive systems across the whole experience',
+    'ISO 9241-11:2018 — usability defined by effectiveness, efficiency, and satisfaction in context of use',
+    'ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic',
+  ],
+  'The complete specification of how users experience and interact with the application across every screen and interface concern.',
+)
 @SectionId('XID')
 @Comment('Seeds → XDS')
 class ExperienceAndInterfaceDesign {
@@ -129,6 +137,13 @@ to pixel-perfect designs with exact typography and spacing.
 ///
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — plan and apply human-centred design throughout the interactive system lifecycle',
+    'ISO 9241-11:2018 — usability is framed by users, their goals, and the operating environment',
+  ],
+  'The overall human-centred design vision that governs every UI decision through goals, principles, and personas.',
+)
 @SectionId('DEVIZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -179,6 +194,13 @@ library will be configured and extended to express this vision.
 ///
 /// Primary design objectives that the UI must achieve: simplicity, efficiency,
 /// accessibility, consistency, delight. Goals are prioritized for the project.
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability comprises effectiveness, efficiency, and satisfaction as measurable objectives',
+    'ISO 9241-210:2019 — human-centred design defines and prioritises usability goals',
+  ],
+  'The prioritized set of measurable usability objectives the interface must achieve.',
+)
 @SectionId('DEGOL')
 class DesignGoals {
   @ContentHelp('''
@@ -211,8 +233,16 @@ accessibility goals → semantic labels and focus management.
   TextSection overview = TextSection();
 
   /// Contains 0+× DesignGoal.
+  @StandardReferences(
+    [
+      'ISO 9241-11:2018 — measurable usability objectives for the interface',
+      'ISO 9241-210:2019 — human-centred design sets and tracks usability goals',
+    ],
+    'The collection of individual design-goal entries for the interface.',
+  )
   @SectionId('DGOEN-ITEM-LST')
   @SectionIdPattern('DGOEN-ITEM-xxx')
+  @ContentHelp('Add one entry per design goal.')
   @SerializationOrder(2)
   List<DesignGoalEntry> items = [];
 }
@@ -220,10 +250,18 @@ accessibility goals → semantic labels and focus management.
 /// A design goal entry (form).
 ///
 /// Each goal represents a measurable UI objective with success criteria.
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability objectives are stated as measurable effectiveness and efficiency targets',
+    'ISO 9241-210:2019 — human-centred design sets measurable usability goals',
+  ],
+  'A single measurable UI objective with success criteria and a target metric.',
+)
 @SectionId('DGOEN')
 class DesignGoalEntry {
   @Form([
-    Field('goalName', String, 'Goal Name', required: true),
+    Field('goalName', String, 'Goal Name', required: true,
+        hint: 'A concise label for the design goal'),
     Field('description', String, 'Goal Description',
         hint: 'What this goal means for the UI'),
     Field('priority', String, 'Priority',
@@ -249,6 +287,13 @@ class DesignGoalEntry {
 ///
 /// Guiding principles for all UI decisions: progressive disclosure, direct
 /// manipulation, feedback, consistency, error prevention.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — interaction principles such as self-descriptiveness, controllability, and use error tolerance',
+    'ISO 9241-210:2019 — human-centred design is guided by established interaction principles',
+  ],
+  'The guiding interaction principles that govern all UI decisions across the interface.',
+)
 @SectionId('DEPRI')
 class DesignPrinciples {
   @ContentHelp('''
@@ -284,8 +329,16 @@ Principles configure shared behaviors:
   TextSection overview = TextSection();
 
   /// Contains 0+× UiDesignPrinciple.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — the set of interaction principles guiding dialogue design',
+      'ISO 9241-210:2019 — human-centred design applies established interaction principles',
+    ],
+    'The collection of individual design-principle entries for the interface.',
+  )
   @SectionId('UDPEN-ITEM-LST')
   @SectionIdPattern('UDPEN-ITEM-xxx')
+  @ContentHelp('Add one entry per design principle.')
   @SerializationOrder(2)
   List<DesignPrincipleEntry> items = [];
 }
@@ -293,10 +346,18 @@ Principles configure shared behaviors:
 /// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — interaction principles such as suitability for the task and conformity with user expectations',
+    'ISO 9241-210:2019 — human-centred design applies established interaction principles',
+  ],
+  'A single guiding interaction principle that shapes UI decisions with rationale and examples.',
+)
 @SectionId('UDPEN')
 class DesignPrincipleEntry {
   @Form([
-    Field('principleName', String, 'Principle Name', required: true),
+    Field('principleName', String, 'Principle Name', required: true,
+        hint: 'A clear name for the design principle'),
     Field('description', String, 'Description',
         hint: 'What this principle means'),
     Field('rationale', String, 'Rationale',
@@ -324,6 +385,13 @@ class DesignPrincipleEntry {
 ///
 /// Container for user persona definitions. Each persona represents a distinct
 /// user archetype with goals, pain points, and context.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — understand and specify the context of use including user characteristics',
+    'ISO 9241-11:2018 — context of use comprises users goals and operating environment',
+  ],
+  'The set of distinct user archetypes the interface is designed to serve.',
+)
 @SectionId('USPER')
 class UserPersonas {
   @ContentHelp('''
@@ -360,8 +428,16 @@ Personas inform:
   TextSection overview = TextSection();
 
   /// Contains 1+× Persona.
+  @StandardReferences(
+    [
+      'ISO 9241-210:2019 — the characteristics of users form part of the context of use',
+      'ISO 9241-11:2018 — usability is defined relative to specified users',
+    ],
+    'The collection of individual user-persona entries for the interface.',
+  )
   @SectionId('PEREN-ITEM-LST')
   @SectionIdPattern('PEREN-ITEM-xxx')
+  @ContentHelp('Add one entry per user persona.')
   @Min(1)
   @SerializationOrder(2)
   List<PersonaEntry> items = [];
@@ -370,6 +446,13 @@ Personas inform:
 /// A user persona entry (form).
 ///
 /// Represents a distinct user archetype with detailed context for UI design.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — specify the context of use including the characteristics of users',
+    'ISO 9241-11:2018 — usability is defined relative to specified users and their goals',
+  ],
+  'A single distinct user archetype with the detailed context that guides interface design.',
+)
 @SectionId('PEREN')
 class PersonaEntry {
   @Form([
@@ -409,6 +492,13 @@ class PersonaEntry {
 }
 
 /// Background and capability profile.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — user characteristics such as knowledge and skills form the context of use',
+    'ISO 9241-11:2018 — usability depends on the capabilities of specified users',
+  ],
+  'The background, technical proficiency, and accessibility profile of a persona.',
+)
 @SectionId('PEPRF')
 class PersonaEntryProfile {
     @Form([
@@ -424,6 +514,13 @@ class PersonaEntryProfile {
 }
 
 /// Usage environment and device context.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — context of use includes the technical and physical environment',
+    'ISO 9241-11:2018 — operating environment is part of the context in which usability is achieved',
+  ],
+  'The usage environment and device context in which a persona interacts with the system.',
+)
 @SectionId('PECTX')
 class PersonaEntryContext {
     @Form([
@@ -441,6 +538,13 @@ class PersonaEntryContext {
 }
 
 /// Motivations, frustrations, and success markers.
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability accounts for the needs and satisfaction of specified users',
+    'ISO 9241-210:2019 — user characteristics form part of the context of use',
+  ],
+  'The motivations, frustrations, and success markers that characterise what a persona needs.',
+)
 @SectionId('PENDS')
 class PersonaEntryNeeds {
     @Form([
@@ -458,6 +562,13 @@ class PersonaEntryNeeds {
 }
 
 /// 10.1.3.n.1. Persona Goals.
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability is defined relative to specified users and their goals',
+    'ISO 9241-210:2019 — specify the context of use including the goals users pursue',
+  ],
+  'The set of specific goals a persona pursues that drive feature requirements.',
+)
 @SectionId('PERGL')
 class PersonaGoals {
   @ContentHelp('''
@@ -479,17 +590,33 @@ High-priority goals drive primary screen actions and dashboard widgets.
   String? content;
 
   /// Contains 0+× PersonaGoal.
+  @StandardReferences(
+    [
+      'ISO 9241-11:2018 — usability is measured against the goals of specified users',
+      'ISO 9241-210:2019 — context of use records the goals users pursue',
+    ],
+    'The collection of individual goal entries for a persona.',
+  )
   @SectionId('PGOEN-ITEM-LST')
   @SectionIdPattern('PGOEN-ITEM-xxx')
+  @ContentHelp('Add one entry per persona goal.')
   @SerializationOrder(1)
   List<PersonaGoalEntry> items = [];
 }
 
 /// A persona goal entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability is defined relative to specified users and their goals',
+    'ISO 9241-210:2019 — context of use captures the goals users pursue with the system',
+  ],
+  'A single objective a persona wants to achieve that shapes feature requirements.',
+)
 @SectionId('PGOEN')
 class PersonaGoalEntry {
   @Form([
-    Field('goal', String, 'Goal', required: true),
+    Field('goal', String, 'Goal', required: true,
+        hint: 'The concrete action or outcome the persona wants to achieve'),
     Field('priority', String, 'Priority',
         hint: 'Critical/High/Medium/Low'),
     Field('frequency', String, 'Frequency',
@@ -504,6 +631,13 @@ class PersonaGoalEntry {
 }
 
 /// 10.1.3.n.2. Persona Pain Points.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — specify the context of use including the problems users encounter',
+    'ISO 9241-11:2018 — usability addresses obstacles to users goals and environment',
+  ],
+  'The set of frustrations and obstacles a persona faces that the design should address.',
+)
 @SectionId('PEPPT')
 class PersonaPainPoints {
   @ContentHelp('''
@@ -529,17 +663,33 @@ High-severity pain points become design priorities:
   String? content;
 
   /// Contains 0+× PersonaPainPoint.
+  @StandardReferences(
+    [
+      'ISO 9241-210:2019 — context of use records the problems and constraints users face',
+      'ISO 9241-11:2018 — usability considers obstacles to users goals and environment',
+    ],
+    'The collection of individual pain-point entries for a persona.',
+  )
   @SectionId('PPPEN-ITEM-LST')
   @SectionIdPattern('PPPEN-ITEM-xxx')
+  @ContentHelp('Add one entry per persona pain point.')
   @SerializationOrder(1)
   List<PersonaPainPointEntry> items = [];
 }
 
 /// A pain point entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — context of use includes the problems and constraints users experience',
+    'ISO 9241-11:2018 — usability addresses obstacles to users goals in their environment',
+  ],
+  'A single frustration or obstacle a persona faces that the interface should help relieve.',
+)
 @SectionId('PPPEN')
 class PersonaPainPointEntry {
   @Form([
-    Field('painPoint', String, 'Pain Point', required: true),
+    Field('painPoint', String, 'Pain Point', required: true,
+        hint: 'The specific frustration or obstacle the persona encounters'),
     Field('severity', String, 'Severity',
         hint: 'Critical/High/Medium/Low'),
     Field('frequency', String, 'Frequency',
@@ -558,6 +708,13 @@ class PersonaPainPointEntry {
 /// 10.1.3.n.3. Persona Scenarios.
 ///
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — specify the context of use through representative task scenarios',
+    'ISO 9241-11:2018 — context of use comprises users goals and operating environment',
+  ],
+  'The set of key usage scenarios that connect a persona to the screens and flows they need.',
+)
 @SectionId('PERSC')
 class PersonaScenarios {
   @ContentHelp('''
@@ -583,17 +740,33 @@ Scenarios link to:
   String? content;
 
   /// Contains 0+× PersonaScenario.
+  @StandardReferences(
+    [
+      'ISO 9241-210:2019 — context of use is described through representative task scenarios',
+      'ISO 9241-11:2018 — scenarios ground usability in users goals and environment',
+    ],
+    'The collection of individual usage-scenario entries for a persona.',
+  )
   @SectionId('PSCEN-ITEM-LST')
   @SectionIdPattern('PSCEN-ITEM-xxx')
+  @ContentHelp('Add one entry per persona scenario.')
   @SerializationOrder(1)
   List<PersonaScenarioEntry> items = [];
 }
 
 /// A persona scenario entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — context of use describes the tasks users perform with the system',
+    'ISO 9241-11:2018 — usability context comprises users goals and operating environment',
+  ],
+  'A single key usage scenario capturing how one persona accomplishes a task with the system.',
+)
 @SectionId('PSCEN')
 class PersonaScenarioEntry {
   @Form([
-    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('scenarioName', String, 'Scenario Name', required: true,
+        hint: 'A short action-oriented name for the scenario'),
     Field('description', String, 'Description',
         hint: 'What the persona is trying to accomplish'),
     Field('frequency', String, 'Frequency',
@@ -616,6 +789,13 @@ class PersonaScenarioEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.2. Screen Descriptions.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — the structure and content of screens in the user interface',
+    'ISO 9241-210:2019 — human-centred specification of screens for the users tasks',
+  ],
+  'The comprehensive specification of every screen in the application and its information architecture.',
+)
 @SectionId('SCRDZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -665,6 +845,13 @@ Each screen should have enough detail to generate:
 ///
 /// Container for screen definitions. Each entry fully describes one application
 /// screen including its purpose, layout zones, elements, actions, and states.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — the complete catalogue and structure of interface screens',
+    'ISO 9241-112:2017 — organisation of screen content for presentation to the user',
+  ],
+  'The complete catalogue of application screens with each screen fully described.',
+)
 @SectionId('SCRINV')
 class ScreenInventory {
   @ContentHelp('''
@@ -706,9 +893,17 @@ Screens generate TomScaffold configurations with:
   TextSection overview = TextSection();
 
   /// Contains 1+× Screen.
+  @StandardReferences(
+    [
+      'ISO 9241-151:2008 — the catalogue of screens that make up the user interface',
+      'ISO 9241-210:2019 — the full set of screens supporting the user tasks',
+    ],
+    'The catalogue of individual screen entries that make up the application.',
+  )
   @SectionId('SCREN-ITEM-LST')
   @SectionIdPattern('SCREN-ITEM-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per screen.')
   @SerializationOrder(2)
   List<ScreenEntry> items = [];
 }
@@ -717,6 +912,13 @@ Screens generate TomScaffold configurations with:
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — the content objects and structure of a single interface screen',
+    'ISO 9241-210:2019 — the user tasks a screen must support in its context of use',
+  ],
+  'A single application screen with its identity, purpose, layout, and behavior fully specified.',
+)
 @SectionId('SCREN')
 class ScreenEntry {
   @Form([
@@ -763,25 +965,56 @@ class ScreenEntry {
   ScreenStates states = ScreenStates();
 
   /// Contains 0+× ScreenUserCategory.
+  @StandardReferences(
+    [
+      'ISO 9241-11:2018 — the categories of users and their context of use for a screen',
+      'ISO 9241-210:2019 — user groups whose tasks the interface must support',
+    ],
+    'The collection of user categories that describe who uses this screen and in what context.',
+  )
   @SectionId('SCRUSC-USER-LST')
   @SectionIdPattern('SCRUSC-USER-xxx')
+  @ContentHelp('Add one entry per user category.')
   @SerializationOrder(9)
   List<ScreenUserCategoryEntry> userCategories = [];
 
   /// Contains 0+× EntryPoint.
+  @StandardReferences(
+    [
+      'ISO 9241-151:2008 — navigation entry points into the user interface',
+      'ISO 9241-210:2019 — the paths by which users reach a screen to perform their tasks',
+    ],
+    'The collection of navigation entry points from which users can reach this screen.',
+  )
   @SectionId('EPNT-ENTR-LST')
   @SectionIdPattern('EPNT-ENTR-xxx')
+  @ContentHelp('Add one entry per entry point.')
   @SerializationOrder(10)
   List<EntryPointEntry> entryPoints = [];
 
   /// Contains 0+× ScreenResponsiveRule.
+  @StandardReferences(
+    [
+      'ISO 9241-125:2017 — adaptation of visual presentation to different display conditions',
+      'ISO 9241-112:2017 — presentation of information across varying contexts of use',
+    ],
+    'The collection of responsive rules that adapt a screen layout to different device sizes.',
+  )
   @SectionId('SRRE-RESP-LST')
   @SectionIdPattern('SRRE-RESP-xxx')
+  @ContentHelp('Add one entry per responsive rule.')
   @SerializationOrder(11)
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
 }
 
 /// Classification and routing metadata.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — navigation structure and routing within the user interface',
+    'ISO 9241-112:2017 — categorisation of information for structured presentation',
+  ],
+  'The classification and routing metadata that categorises a screen and locates it in the navigation structure.',
+)
 @SectionId('SCECL')
 class ScreenEntryClassification {
   @Form([
@@ -798,6 +1031,13 @@ class ScreenEntryClassification {
 }
 
 /// Access control settings.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability governing who may access an interface',
+    'ISO/IEC 25010:2023 — interaction capability constrained by authorization',
+  ],
+  'The access-control settings that determine which roles and permissions may reach a screen.',
+)
 @SectionId('SCEAC')
 class ScreenEntryAccess {
   @Form([
@@ -815,6 +1055,13 @@ class ScreenEntryAccess {
 }
 
 /// Traceability metadata.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve',
+    'ISO/IEC 25010:2023 — interaction capability traced to product requirements',
+  ],
+  'The traceability metadata linking a screen to the use cases, requirements, and data entities it serves.',
+)
 @SectionId('SCETR')
 class ScreenEntryTraceability {
   @Form([
@@ -834,6 +1081,13 @@ class ScreenEntryTraceability {
 }
 
 /// Presentation metadata.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information',
+    'ISO 9241-125:2017 — visual presentation and layout of the screen',
+  ],
+  'The presentation metadata such as title, icon, and layout that defines how a screen appears.',
+)
 @SectionId('SCENPR')
 class ScreenEntryPresentation {
   @Form([
@@ -858,6 +1112,13 @@ class ScreenEntryPresentation {
 /// 10.2.1.n.1. Screen Sections.
 ///
 /// Logical zones within a screen that group related elements.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — organisation of presented information into structured zones',
+    'ISO 9241-151:2008 — information architecture and content structure of the interface',
+  ],
+  'The container that holds the logical zones grouping related elements within a screen.',
+)
 @SectionId('SCSE')
 class ScreenSections {
   @ContentHelp('''
@@ -890,8 +1151,16 @@ Sections map to Flutter layout widgets:
   String? content;
 
   /// Contains 0+× ScreenSection.
+  @StandardReferences(
+    [
+      'ISO 9241-112:2017 — the set of information zones that structure a display',
+      'ISO 9241-151:2008 — content structure and layout of the user interface',
+    ],
+    'The collection of logical zones that partition a screen into grouped areas.',
+  )
   @SectionId('SCRSC-ITEM-LST')
   @SectionIdPattern('SCRSC-ITEM-xxx')
+  @ContentHelp('Add one entry per screen section.')
   @SerializationOrder(1)
   List<ScreenSectionEntry> items = [];
 }
@@ -899,6 +1168,13 @@ Sections map to Flutter layout widgets:
 /// A screen section entry (form).
 ///
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — grouping and structuring of information into presentation zones',
+    'ISO 9241-125:2017 — spatial organisation of content within a display',
+  ],
+  'A single logical zone within a screen that groups related elements together.',
+)
 @SectionId('SCRSC')
 class ScreenSectionEntry {
   @Form([
@@ -924,13 +1200,28 @@ class ScreenSectionEntry {
   ScreenSectionEntryBehavior behavior = ScreenSectionEntryBehavior();
 
   /// Contains 0+× ScreenElement within this section.
+  @StandardReferences(
+    [
+      'ISO 9241-161:2016 — the set of visual user-interface elements contained in a display region',
+      'ISO 9241-112:2017 — grouping of related information elements for presentation',
+    ],
+    'The collection of interactive and display elements that belong to this screen section.',
+  )
   @SectionId('SCREL-ELEM-LST')
   @SectionIdPattern('SCREL-ELEM-xxx')
+  @ContentHelp('Add one entry per screen element.')
   @SerializationOrder(3)
   List<ScreenElementEntry> elements = [];
 }
 
 /// Layout and ordering for the section.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — spatial layout and ordering of presented information',
+    'ISO 9241-112:2017 — organisation of information within a display area',
+  ],
+  'The layout direction, order, and border styling that arrange a screen section within its screen.',
+)
 @SectionId('SSEL')
 class ScreenSectionEntryLayout {
     @Form([
@@ -948,6 +1239,13 @@ class ScreenSectionEntryLayout {
 }
 
 /// Visibility and collapse behavior.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — collapsible and expandable states of user-interface containers',
+    'ISO 9241-110:2020 — controllability over the visibility of interface zones',
+  ],
+  'The visibility and collapse behavior that governs when and how a screen section is shown.',
+)
 @SectionId('SSEB')
 class ScreenSectionEntryBehavior {
     @Form([
@@ -966,6 +1264,13 @@ class ScreenSectionEntryBehavior {
 ///
 /// Any interactive or display element within a screen section: buttons, fields,
 /// data displays, icons, labels, status indicators.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — the catalogue of visual user-interface elements such as buttons, fields, and displays',
+    'ISO 9241-143:2012 — form fields and input controls within a screen',
+  ],
+  'A single interactive or display element within a screen section together with its type and behavior.',
+)
 @SectionId('SCREL')
 class ScreenElementEntry {
   @Form([
@@ -1012,13 +1317,28 @@ class ScreenElementEntry {
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — validation of user input in form-based interaction',
+      'ISO 9241-110:2020 — use error tolerance through input validation',
+    ],
+    'The collection of validation rules that constrain and check the input for a screen element.',
+  )
   @SectionId('EVRE-VALI-LST')
   @SectionIdPattern('EVRE-VALI-xxx')
+  @ContentHelp('Add one entry per validation rule.')
   @SerializationOrder(8)
   List<ElementValidationRuleEntry> validationRules = [];
 }
 
 /// Labels and icon resources for screen element.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements',
+    'ISO 9241-112:2017 — presentation of labels and identifying information to the user',
+  ],
+  'The label, hint, description, and icon resources that identify a screen element to the user.',
+)
 @SectionId('SEER')
 class ScreenElementEntryResources {
   @Form([
@@ -1038,6 +1358,13 @@ class ScreenElementEntryResources {
 }
 
 /// Placement and layout settings for screen element.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — placement and layout of visual user-interface elements',
+    'ISO 9241-125:2017 — spatial arrangement of information for visual presentation',
+  ],
+  'The placement, sizing, and alignment settings that position a screen element within its section.',
+)
 @SectionId('SCELENLA')
 class ScreenElementEntryLayout {
   @Form([
@@ -1053,6 +1380,13 @@ class ScreenElementEntryLayout {
 }
 
 /// Visibility and permission rules for screen element.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only',
+    'ISO 9241-110:2020 — controllability governing when an element is interactive',
+  ],
+  'The visibility, enablement, and permission rules that determine when a screen element can be seen or used.',
+)
 @SectionId('SEEB')
 class ScreenElementEntryBehavior {
   @Form([
@@ -1072,6 +1406,13 @@ class ScreenElementEntryBehavior {
 }
 
 /// Styling and data binding for screen element.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation attributes such as style and colour of information',
+    'ISO 9241-112:2017 — coding of information through visual style variants',
+  ],
+  'The styling and data-binding attributes that govern how a screen element appears and connects to data.',
+)
 @SectionId('SCELENPR')
 class ScreenElementEntryPresentation {
   @Form([
@@ -1093,6 +1434,13 @@ class ScreenElementEntryPresentation {
 /// Action specification for an action-type element (form).
 ///
 /// Defines button/link behavior: action reference, confirmation, navigation.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — command and action user-interface elements such as buttons and links',
+    'ISO 9241-110:2020 — controllability over action-type element behavior',
+  ],
+  'The specification of button or link behavior for an action-type element including its reference and effect.',
+)
 @SectionId('SCELAC')
 class ScreenElementAction {
   @Form([
@@ -1124,6 +1472,13 @@ class ScreenElementAction {
 }
 
 /// Confirmation and execution feedback behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use error tolerance and feedback during action execution',
+    'ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback',
+  ],
+  'The confirmation and execution-feedback behavior that governs how an action element runs and reports.',
+)
 @SectionId('SEAE')
 class ScreenElementActionExecution {
   @Form([
@@ -1144,6 +1499,13 @@ class ScreenElementActionExecution {
 }
 
 /// Post-action navigation rules.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — navigation between screens following an action',
+    'ISO 9241-110:2020 — conformity with user expectations for post-action navigation',
+  ],
+  'The navigation rules that determine where the user is taken after an action completes.',
+)
 @SectionId('SEAN')
 class ScreenElementActionNavigation {
   @Form([
@@ -1161,6 +1523,13 @@ class ScreenElementActionNavigation {
 /// Field specification for an input-type element (form).
 ///
 /// Defines input behavior: data type, constraints, validation trigger, masks.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — form-based interaction and input-field behavior',
+    'ISO 9241-110:2020 — suitability for the task in accepting user input',
+  ],
+  'The specification of input behavior for an input-type element including data type and constraints.',
+)
 @SectionId('SEFS')
 class ScreenElementFieldSpec {
   @Form([
@@ -1198,6 +1567,13 @@ class ScreenElementFieldSpec {
 }
 
 /// Prefix, suffix, and formatting for field spec.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — formatting and affordances for form-field input',
+    'ISO 9241-112:2017 — presentation of formatted information such as masks and prefixes',
+  ],
+  'The prefix, suffix, and formatting that shape how a form field displays and accepts input.',
+)
 @SectionId('SEFSF')
 class ScreenElementFieldSpecFormatting {
   @Form([
@@ -1215,6 +1591,13 @@ class ScreenElementFieldSpecFormatting {
 }
 
 /// Length and value constraints for field spec.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — constraints on form-field input such as length and value ranges',
+    'ISO 9241-110:2020 — use error tolerance through bounded input constraints',
+  ],
+  'The length and value constraints that bound acceptable input for a form field.',
+)
 @SectionId('SEFSC')
 class ScreenElementFieldSpecConstraints {
   @Form([
@@ -1234,6 +1617,13 @@ class ScreenElementFieldSpecConstraints {
 }
 
 /// Validation behavior for field spec.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use error tolerance through input validation and error display',
+    'ISO 9241-143:2012 — validation behavior for form fields',
+  ],
+  'The validation behavior for a form field including trigger, required rules, and error display.',
+)
 @SectionId('SEFSV')
 class ScreenElementFieldSpecValidation {
   @Form([
@@ -1253,6 +1643,13 @@ class ScreenElementFieldSpecValidation {
 }
 
 /// Selection and input assistance for field spec.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — form fields with selection and input assistance',
+    'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups',
+  ],
+  'The selection and input-assistance behavior for a form field such as autocomplete and option sources.',
+)
 @SectionId('SEFSS')
 class ScreenElementFieldSpecSelection {
   @Form([
@@ -1274,6 +1671,13 @@ class ScreenElementFieldSpecSelection {
 /// Data display specification for display-type elements (form).
 ///
 /// Defines how data is presented: format, empty state, refresh, drill-down.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — principles for the presentation of information',
+    'ISO 9241-125:2017 — visual presentation of information to the user',
+  ],
+  'The specification of how data is presented for a display-type element including format and empty state.',
+)
 @SectionId('SEDD')
 class ScreenElementDataDisplay {
   @Form([
@@ -1300,6 +1704,13 @@ class ScreenElementDataDisplay {
 }
 
 /// Refresh and drill-down behavior.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information as it refreshes and updates',
+    'ISO 9241-151:2008 — navigation such as drill-down between related views',
+  ],
+  'The refresh and drill-down behavior that governs how displayed data updates and navigates deeper.',
+)
 @SectionId('SEDDB')
 class ScreenElementDataDisplayBehavior {
   @Form([
@@ -1313,6 +1724,13 @@ class ScreenElementDataDisplayBehavior {
 }
 
 /// Table/list interaction controls.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — form and table interaction controls such as sorting and filtering',
+    'ISO 9241-112:2017 — presentation of tabular and list information',
+  ],
+  'The interaction controls for tables and lists such as sorting, filtering, pagination, and selection.',
+)
 @SectionId('SEDDO')
 class ScreenElementDataDisplayOptions {
   @Form([
@@ -1332,6 +1750,13 @@ class ScreenElementDataDisplayOptions {
 }
 
 /// A validation rule entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use error tolerance through validation of user input',
+    'ISO 9241-143:2012 — form-based interaction and input validation',
+  ],
+  'A single validation rule describing how one input constraint is checked and reported.',
+)
 @SectionId('ELVARUEN')
 class ElementValidationRuleEntry {
   @Form([
@@ -1359,6 +1784,13 @@ class ElementValidationRuleEntry {
 /// 10.2.1.n.2. Screen Actions.
 ///
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability over available top-level screen actions',
+    'ISO 9241-161:2016 — command and action user-interface elements',
+  ],
+  'The set of top-level actions available on the screen through the toolbar, app bar, or FAB.',
+)
 @SectionId('SCAC')
 class ScreenActions {
   @ContentHelp('''
@@ -1384,8 +1816,16 @@ Actions integrate with `TomAction` system:
   String? content;
 
   /// Contains 0+× ScreenAction.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — controllability over the set of available screen actions',
+      'ISO 9241-161:2016 — command and action user-interface elements',
+    ],
+    'The collection of individual screen-action entries for this screen.',
+  )
   @SectionId('SCRAC-ITEM-LST')
   @SectionIdPattern('SCRAC-ITEM-xxx')
+  @ContentHelp('Add one entry per screen action.')
   @SerializationOrder(1)
   List<ScreenActionEntry> items = [];
 }
@@ -1393,6 +1833,13 @@ Actions integrate with `TomAction` system:
 /// A screen action entry (form).
 ///
 /// A top-level action available on the screen via toolbar, app bar, or FAB.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability over the sequence and pace of screen actions',
+    'ISO 9241-161:2016 — command and action user-interface elements',
+  ],
+  'A single top-level screen action available via toolbar, app bar, or floating action button.',
+)
 @SectionId('SCRAC')
 class ScreenActionEntry {
   @Form([
@@ -1421,6 +1868,13 @@ class ScreenActionEntry {
 }
 
 /// Visual presentation of the action.
+@StandardReferences(
+  [
+    'ISO 9241-161:2016 — visual presentation of command and action elements',
+    'ISO 9241-125:2017 — visual presentation of information such as labels and icons',
+  ],
+  'The visual presentation of a screen action including its label, icon, placement, and style.',
+)
 @SectionId('SAEV')
 class ScreenActionEntryVisual {
   @Form([
@@ -1438,6 +1892,13 @@ class ScreenActionEntryVisual {
 }
 
 /// Visibility, enablement, and permission rules.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability over when an action is available to the user',
+    'ISO 9241-161:2016 — states of command and action elements such as enabled or hidden',
+  ],
+  'The visibility, enablement, and permission rules that determine when a screen action is available.',
+)
 @SectionId('SAEC')
 class ScreenActionEntryConditions {
   @Form([
@@ -1453,6 +1914,13 @@ class ScreenActionEntryConditions {
 }
 
 /// Confirmation, navigation, and feedback behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — controllability and use error tolerance for action execution',
+    'ISO 9241-161:2016 — command and action user-interface elements',
+  ],
+  'The confirmation, navigation, and feedback behavior that governs how a screen action executes.',
+)
 @SectionId('SAEB')
 class ScreenActionEntryBehavior {
   @Form([
@@ -1478,6 +1946,13 @@ class ScreenActionEntryBehavior {
 /// 10.2.1.n.3. Screen States.
 ///
 /// Different visual/behavioral states the screen can be in.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — self-descriptiveness and use error tolerance across interface states',
+    'ISO 9241-161:2016 — visual user-interface elements and their states',
+  ],
+  'The set of visual and behavioral states the screen can present to the user.',
+)
 @SectionId('SCST')
 class ScreenStates {
   @ContentHelp('''
@@ -1509,8 +1984,16 @@ empty states, and error displays.
   String? content;
 
   /// Contains 0+× ScreenState.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — self-descriptiveness of the available screen states',
+      'ISO 9241-161:2016 — visual elements representing interface states',
+    ],
+    'The collection of individual screen-state entries for this screen.',
+  )
   @SectionId('SCRST-ITEM-LST')
   @SectionIdPattern('SCRST-ITEM-xxx')
+  @ContentHelp('Add one entry per screen state.')
   @SerializationOrder(1)
   List<ScreenStateEntry> items = [];
 }
@@ -1518,6 +2001,13 @@ empty states, and error displays.
 /// A screen state entry (form).
 ///
 /// A specific state the screen can be in: loading, empty, error, permission-denied.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use error tolerance and controllability through clear state feedback',
+    'ISO 9241-161:2016 — visual user-interface elements conveying interface states',
+  ],
+  'A single screen state describing one visual or behavioral condition the screen can be in.',
+)
 @SectionId('SCRST')
 class ScreenStateEntry {
   @Form([
@@ -1544,10 +2034,18 @@ class ScreenStateEntry {
 }
 
 /// A user category entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-11:2018 — usability for a specified group of users and context of use',
+    'ISO 9241-210:2019 — human-centred design accounting for distinct user groups',
+  ],
+  'A single user category describing how screen content varies for one class of users.',
+)
 @SectionId('SUCE')
 class ScreenUserCategoryEntry {
   @Form([
-    Field('categoryName', String, 'Category Name', required: true),
+    Field('categoryName', String, 'Category Name', required: true,
+        hint: 'The name of this user category'),
     Field('description', String, 'Description',
         hint: 'What this user category sees/can do'),
     Field('contentVariations', String, 'Content Variations',
@@ -1558,6 +2056,13 @@ class ScreenUserCategoryEntry {
 }
 
 /// An entry point entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — navigation and entry points into the user interface',
+    'ISO 9241-11:2018 — context of use from which the user arrives',
+  ],
+  'A single entry point describing where a user comes from when reaching this screen.',
+)
 @SectionId('EPNT')
 class EntryPointEntry {
   @Form([
@@ -1575,6 +2080,13 @@ class EntryPointEntry {
 /// A responsive rule entry (form).
 ///
 /// How the screen adapts at different breakpoints.
+@StandardReferences(
+  [
+    'ISO 9241-112:2017 — presentation of information adapted to the display context',
+    'ISO 9241-125:2017 — visual presentation of information across viewports',
+  ],
+  'A single responsive-adaptation rule describing how the screen changes at a given breakpoint.',
+)
 @SectionId('SCRERUEN')
 class ScreenResponsiveRuleEntry {
   @Form([
@@ -1602,6 +2114,13 @@ class ScreenResponsiveRuleEntry {
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
 /// and how content is organized across the application.
+@StandardReferences(
+  [
+    'ISO 9241-151:2008 — information architecture and navigation structure for user interfaces',
+    'ISO 9241-11:2018 — usability across the full context of use',
+  ],
+  'The overall organization of content and navigation that relates screens to one another across the application.',
+)
 @SectionId('IA')
 class InformationArchitecture {
   @ContentHelp('''
@@ -1638,8 +2157,16 @@ Overall content organization and navigation structure.
   TextSection navigationStructure = TextSection();
 
   /// Global entry points.
+  @StandardReferences(
+    [
+      'ISO 9241-151:2008 — information architecture and navigation entry points to the site',
+      'ISO 9241-11:2018 — context of use in which users reach the system',
+    ],
+    'The collection of global access points through which users enter the application.',
+  )
   @SectionId('GLOBA-GLOB-LST')
   @SectionIdPattern('GLOBA-GLOB-xxx')
+  @ContentHelp('Add one entry per global entry point.')
   @SerializationOrder(4)
   List<GlobalEntryPointEntry> globalEntryPoints = [];
 

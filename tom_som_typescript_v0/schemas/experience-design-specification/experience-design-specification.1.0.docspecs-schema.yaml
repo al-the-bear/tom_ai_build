@@ -133,7 +133,7 @@ section-types:
     pattern-check-id:
       pattern: ^scrusc_user_lst-\d+$
       error-message: ID must match scrusc_user_lst-NNN
-    description: Contains 0+× ScreenUserCategory.
+    description: Add one entry per user category.
   TAITEN-TABS-LST:
     prefix: taiten_tabs_lst
     min-count-in-document: 1
@@ -163,7 +163,7 @@ section-types:
     pattern-check-id:
       pattern: ^dgoen_item_lst-\d+$
       error-message: ID must match dgoen_item_lst-NNN
-    description: Contains 0+× DesignGoal.
+    description: Add one entry per design goal.
   FIELD-FIEL-LST:
     prefix: field_fiel_lst
     pattern-check-id:
@@ -181,32 +181,32 @@ section-types:
     pattern-check-id:
       pattern: ^globa_glob_lst-\d+$
       error-message: ID must match globa_glob_lst-NNN
-    description: Global entry points.
+    description: Add one entry per global entry point.
   PEREN-ITEM-LST:
     prefix: peren_item_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^peren_item_lst-\d+$
       error-message: ID must match peren_item_lst-NNN
-    description: Contains 1+× Persona.
+    description: Add one entry per user persona.
   PGOEN-ITEM-LST:
     prefix: pgoen_item_lst
     pattern-check-id:
       pattern: ^pgoen_item_lst-\d+$
       error-message: ID must match pgoen_item_lst-NNN
-    description: Contains 0+× PersonaGoal.
+    description: Add one entry per persona goal.
   PPPEN-ITEM-LST:
     prefix: pppen_item_lst
     pattern-check-id:
       pattern: ^pppen_item_lst-\d+$
       error-message: ID must match pppen_item_lst-NNN
-    description: Contains 0+× PersonaPainPoint.
+    description: Add one entry per persona pain point.
   PSCEN-ITEM-LST:
     prefix: pscen_item_lst
     pattern-check-id:
       pattern: ^pscen_item_lst-\d+$
       error-message: ID must match pscen_item_lst-NNN
-    description: Contains 0+× PersonaScenario.
+    description: Add one entry per persona scenario.
   RECOV-RECO-LST:
     prefix: recov_reco_lst
     pattern-check-id:
@@ -218,32 +218,32 @@ section-types:
     pattern-check-id:
       pattern: ^scrac_item_lst-\d+$
       error-message: ID must match scrac_item_lst-NNN
-    description: Contains 0+× ScreenAction.
+    description: Add one entry per screen action.
   SCREL-ELEM-LST:
     prefix: screl_elem_lst
     pattern-check-id:
       pattern: ^screl_elem_lst-\d+$
       error-message: ID must match screl_elem_lst-NNN
-    description: Contains 0+× ScreenElement within this section.
+    description: Add one entry per screen element.
   SCREN-ITEM-LST:
     prefix: scren_item_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^scren_item_lst-\d+$
       error-message: ID must match scren_item_lst-NNN
-    description: Contains 1+× Screen.
+    description: Add one entry per screen.
   SCRSC-ITEM-LST:
     prefix: scrsc_item_lst
     pattern-check-id:
       pattern: ^scrsc_item_lst-\d+$
       error-message: ID must match scrsc_item_lst-NNN
-    description: Contains 0+× ScreenSection.
+    description: Add one entry per screen section.
   SCRST-ITEM-LST:
     prefix: scrst_item_lst
     pattern-check-id:
       pattern: ^scrst_item_lst-\d+$
       error-message: ID must match scrst_item_lst-NNN
-    description: Contains 0+× ScreenState.
+    description: Add one entry per screen state.
   TURST-STEP-LST:
     prefix: turst_step_lst
     pattern-check-id:
@@ -255,7 +255,7 @@ section-types:
     pattern-check-id:
       pattern: ^udpen_item_lst-\d+$
       error-message: ID must match udpen_item_lst-NNN
-    description: Contains 0+× UiDesignPrinciple.
+    description: Add one entry per design principle.
   ACCH-ITEM-LST:
     prefix: acch_item_lst
     pattern-check-id:
@@ -321,13 +321,13 @@ section-types:
     pattern-check-id:
       pattern: ^epnt_entr_lst-\d+$
       error-message: ID must match epnt_entr_lst-NNN
-    description: Contains 0+× EntryPoint.
+    description: Add one entry per entry point.
   EVRE-VALI-LST:
     prefix: evre_vali_lst
     pattern-check-id:
       pattern: ^evre_vali_lst-\d+$
       error-message: ID must match evre_vali_lst-NNN
-    description: Contains 0+× ElementValidationRule.
+    description: Add one entry per validation rule.
   REEN-REPO-LST:
     prefix: reen_repo_lst
     pattern-check-id:
@@ -345,7 +345,7 @@ section-types:
     pattern-check-id:
       pattern: ^srre_resp_lst-\d+$
       error-message: ID must match srre_resp_lst-NNN
-    description: Contains 0+× ScreenResponsiveRule.
+    description: Add one entry per responsive rule.
   TBDE-TABB-LST:
     prefix: tbde_tabb_lst
     pattern-check-id:

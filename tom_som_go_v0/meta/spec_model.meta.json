@@ -84819,7 +84819,24 @@
       "name": "DesignGoalEntry",
       "sectionId": "DGOEN",
       "doc": "A design goal entry (form).\n\nEach goal represents a measurable UI objective with success criteria.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability objectives are stated as measurable effectiveness and efficiency targets",
+          "ISO 9241-210:2019 — human-centred design sets measurable usability goals"
+        ],
+        "connotation": "A single measurable UI objective with success criteria and a target metric."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability objectives are stated as measurable effectiveness and efficiency targets",
+              "ISO 9241-210:2019 — human-centred design sets measurable usability goals"
+            ],
+            "connotation": "A single measurable UI objective with success criteria and a target metric."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84850,6 +84867,7 @@
             {
               "name": "goalName",
               "label": "Goal Name",
+              "hint": "A concise label for the design goal",
               "type": "String",
               "required": true
             },
@@ -84903,7 +84921,24 @@
       "name": "DesignGoals",
       "sectionId": "DEGOL",
       "doc": "10.1.1. Design Goals.\n\nPrimary design objectives that the UI must achieve: simplicity, efficiency,\naccessibility, consistency, delight. Goals are prioritized for the project.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability comprises effectiveness, efficiency, and satisfaction as measurable objectives",
+          "ISO 9241-210:2019 — human-centred design defines and prioritises usability goals"
+        ],
+        "connotation": "The prioritized set of measurable usability objectives the interface must achieve."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability comprises effectiveness, efficiency, and satisfaction as measurable objectives",
+              "ISO 9241-210:2019 — human-centred design defines and prioritises usability goals"
+            ],
+            "connotation": "The prioritized set of measurable usability objectives the interface must achieve."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -84953,10 +84988,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× DesignGoal.",
+          "help": "Add one entry per design goal.",
           "sectionId": "DGOEN-ITEM-LST",
           "sectionIdPattern": "DGOEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-11:2018 — measurable usability objectives for the interface",
+              "ISO 9241-210:2019 — human-centred design sets and tracks usability goals"
+            ],
+            "connotation": "The collection of individual design-goal entries for the interface."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-11:2018 — measurable usability objectives for the interface",
+                  "ISO 9241-210:2019 — human-centred design sets and tracks usability goals"
+                ],
+                "connotation": "The collection of individual design-goal entries for the interface."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -84967,6 +85020,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DGOEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per design goal."
               }
             },
             {
@@ -85855,7 +85914,24 @@
       "name": "DesignPrincipleEntry",
       "sectionId": "UDPEN",
       "doc": "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — interaction principles such as suitability for the task and conformity with user expectations",
+          "ISO 9241-210:2019 — human-centred design applies established interaction principles"
+        ],
+        "connotation": "A single guiding interaction principle that shapes UI decisions with rationale and examples."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — interaction principles such as suitability for the task and conformity with user expectations",
+              "ISO 9241-210:2019 — human-centred design applies established interaction principles"
+            ],
+            "connotation": "A single guiding interaction principle that shapes UI decisions with rationale and examples."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -85886,6 +85962,7 @@
             {
               "name": "principleName",
               "label": "Principle Name",
+              "hint": "A clear name for the design principle",
               "type": "String",
               "required": true
             },
@@ -85946,7 +86023,24 @@
       "name": "DesignPrinciples",
       "sectionId": "DEPRI",
       "doc": "10.1.2. Design Principles.\n\nGuiding principles for all UI decisions: progressive disclosure, direct\nmanipulation, feedback, consistency, error prevention.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — interaction principles such as self-descriptiveness, controllability, and use error tolerance",
+          "ISO 9241-210:2019 — human-centred design is guided by established interaction principles"
+        ],
+        "connotation": "The guiding interaction principles that govern all UI decisions across the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — interaction principles such as self-descriptiveness, controllability, and use error tolerance",
+              "ISO 9241-210:2019 — human-centred design is guided by established interaction principles"
+            ],
+            "connotation": "The guiding interaction principles that govern all UI decisions across the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -85996,10 +86090,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× UiDesignPrinciple.",
+          "help": "Add one entry per design principle.",
           "sectionId": "UDPEN-ITEM-LST",
           "sectionIdPattern": "UDPEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — the set of interaction principles guiding dialogue design",
+              "ISO 9241-210:2019 — human-centred design applies established interaction principles"
+            ],
+            "connotation": "The collection of individual design-principle entries for the interface."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — the set of interaction principles guiding dialogue design",
+                  "ISO 9241-210:2019 — human-centred design applies established interaction principles"
+                ],
+                "connotation": "The collection of individual design-principle entries for the interface."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -86010,6 +86122,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "UDPEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per design principle."
               }
             },
             {
@@ -86109,7 +86227,24 @@
       "doc": "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — plan and apply human-centred design throughout the interactive system lifecycle",
+          "ISO 9241-11:2018 — usability is framed by users, their goals, and the operating environment"
+        ],
+        "connotation": "The overall human-centred design vision that governs every UI decision through goals, principles, and personas."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — plan and apply human-centred design throughout the interactive system lifecycle",
+              "ISO 9241-11:2018 — usability is framed by users, their goals, and the operating environment"
+            ],
+            "connotation": "The overall human-centred design vision that governs every UI decision through goals, principles, and personas."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96071,7 +96206,24 @@
       "name": "ElementValidationRuleEntry",
       "sectionId": "ELVARUEN",
       "doc": "A validation rule entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use error tolerance through validation of user input",
+          "ISO 9241-143:2012 — form-based interaction and input validation"
+        ],
+        "connotation": "A single validation rule describing how one input constraint is checked and reported."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use error tolerance through validation of user input",
+              "ISO 9241-143:2012 — form-based interaction and input validation"
+            ],
+            "connotation": "A single validation rule describing how one input constraint is checked and reported."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -98513,7 +98665,24 @@
       "name": "EntryPointEntry",
       "sectionId": "EPNT",
       "doc": "An entry point entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — navigation and entry points into the user interface",
+          "ISO 9241-11:2018 — context of use from which the user arrives"
+        ],
+        "connotation": "A single entry point describing where a user comes from when reaching this screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation and entry points into the user interface",
+              "ISO 9241-11:2018 — context of use from which the user arrives"
+            ],
+            "connotation": "A single entry point describing where a user comes from when reaching this screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -104978,7 +105147,26 @@
       "name": "ExperienceAndInterfaceDesign",
       "sectionId": "XID",
       "doc": "10. Experience & Interface Design. Seeds → XDS.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design for interactive systems across the whole experience",
+          "ISO 9241-11:2018 — usability defined by effectiveness, efficiency, and satisfaction in context of use",
+          "ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic"
+        ],
+        "connotation": "The complete specification of how users experience and interact with the application across every screen and interface concern."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design for interactive systems across the whole experience",
+              "ISO 9241-11:2018 — usability defined by effectiveness, efficiency, and satisfaction in context of use",
+              "ISO/IEC 25010:2023 — interaction capability as a product-quality characteristic"
+            ],
+            "connotation": "The complete specification of how users experience and interact with the application across every screen and interface concern."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126422,7 +126610,24 @@
       "name": "InformationArchitecture",
       "sectionId": "IA",
       "doc": "10.2.2. Information Architecture.\n\nOverall information architecture: site map, content hierarchy, navigation\nstructure, and entry points. Describes how screens relate to each other\nand how content is organized across the application.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — information architecture and navigation structure for user interfaces",
+          "ISO 9241-11:2018 — usability across the full context of use"
+        ],
+        "connotation": "The overall organization of content and navigation that relates screens to one another across the application."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — information architecture and navigation structure for user interfaces",
+              "ISO 9241-11:2018 — usability across the full context of use"
+            ],
+            "connotation": "The overall organization of content and navigation that relates screens to one another across the application."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126504,10 +126709,28 @@
           "name": "globalEntryPoints",
           "kind": "list",
           "doc": "Global entry points.",
+          "help": "Add one entry per global entry point.",
           "sectionId": "GLOBA-GLOB-LST",
           "sectionIdPattern": "GLOBA-GLOB-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-151:2008 — information architecture and navigation entry points to the site",
+              "ISO 9241-11:2018 — context of use in which users reach the system"
+            ],
+            "connotation": "The collection of global access points through which users enter the application."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-151:2008 — information architecture and navigation entry points to the site",
+                  "ISO 9241-11:2018 — context of use in which users reach the system"
+                ],
+                "connotation": "The collection of global access points through which users enter the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -126518,6 +126741,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "GLOBA-GLOB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per global entry point."
               }
             },
             {
@@ -179249,7 +179478,24 @@
       "name": "PersonaEntry",
       "sectionId": "PEREN",
       "doc": "A user persona entry (form).\n\nRepresents a distinct user archetype with detailed context for UI design.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — specify the context of use including the characteristics of users",
+          "ISO 9241-11:2018 — usability is defined relative to specified users and their goals"
+        ],
+        "connotation": "A single distinct user archetype with the detailed context that guides interface design."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — specify the context of use including the characteristics of users",
+              "ISO 9241-11:2018 — usability is defined relative to specified users and their goals"
+            ],
+            "connotation": "A single distinct user archetype with the detailed context that guides interface design."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179396,7 +179642,24 @@
       "name": "PersonaEntryContext",
       "sectionId": "PECTX",
       "doc": "Usage environment and device context.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — context of use includes the technical and physical environment",
+          "ISO 9241-11:2018 — operating environment is part of the context in which usability is achieved"
+        ],
+        "connotation": "The usage environment and device context in which a persona interacts with the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — context of use includes the technical and physical environment",
+              "ISO 9241-11:2018 — operating environment is part of the context in which usability is achieved"
+            ],
+            "connotation": "The usage environment and device context in which a persona interacts with the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179460,7 +179723,24 @@
       "name": "PersonaEntryNeeds",
       "sectionId": "PENDS",
       "doc": "Motivations, frustrations, and success markers.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability accounts for the needs and satisfaction of specified users",
+          "ISO 9241-210:2019 — user characteristics form part of the context of use"
+        ],
+        "connotation": "The motivations, frustrations, and success markers that characterise what a persona needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability accounts for the needs and satisfaction of specified users",
+              "ISO 9241-210:2019 — user characteristics form part of the context of use"
+            ],
+            "connotation": "The motivations, frustrations, and success markers that characterise what a persona needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179524,7 +179804,24 @@
       "name": "PersonaEntryProfile",
       "sectionId": "PEPRF",
       "doc": "Background and capability profile.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — user characteristics such as knowledge and skills form the context of use",
+          "ISO 9241-11:2018 — usability depends on the capabilities of specified users"
+        ],
+        "connotation": "The background, technical proficiency, and accessibility profile of a persona."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — user characteristics such as knowledge and skills form the context of use",
+              "ISO 9241-11:2018 — usability depends on the capabilities of specified users"
+            ],
+            "connotation": "The background, technical proficiency, and accessibility profile of a persona."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179581,7 +179878,24 @@
       "name": "PersonaGoalEntry",
       "sectionId": "PGOEN",
       "doc": "A persona goal entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability is defined relative to specified users and their goals",
+          "ISO 9241-210:2019 — context of use captures the goals users pursue with the system"
+        ],
+        "connotation": "A single objective a persona wants to achieve that shapes feature requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability is defined relative to specified users and their goals",
+              "ISO 9241-210:2019 — context of use captures the goals users pursue with the system"
+            ],
+            "connotation": "A single objective a persona wants to achieve that shapes feature requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179612,6 +179926,7 @@
             {
               "name": "goal",
               "label": "Goal",
+              "hint": "The concrete action or outcome the persona wants to achieve",
               "type": "String",
               "required": true
             },
@@ -179651,7 +179966,24 @@
       "name": "PersonaGoals",
       "sectionId": "PERGL",
       "doc": "10.1.3.n.1. Persona Goals.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability is defined relative to specified users and their goals",
+          "ISO 9241-210:2019 — specify the context of use including the goals users pursue"
+        ],
+        "connotation": "The set of specific goals a persona pursues that drive feature requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability is defined relative to specified users and their goals",
+              "ISO 9241-210:2019 — specify the context of use including the goals users pursue"
+            ],
+            "connotation": "The set of specific goals a persona pursues that drive feature requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179685,10 +180017,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PersonaGoal.",
+          "help": "Add one entry per persona goal.",
           "sectionId": "PGOEN-ITEM-LST",
           "sectionIdPattern": "PGOEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-11:2018 — usability is measured against the goals of specified users",
+              "ISO 9241-210:2019 — context of use records the goals users pursue"
+            ],
+            "connotation": "The collection of individual goal entries for a persona."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-11:2018 — usability is measured against the goals of specified users",
+                  "ISO 9241-210:2019 — context of use records the goals users pursue"
+                ],
+                "connotation": "The collection of individual goal entries for a persona."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -179699,6 +180049,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PGOEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per persona goal."
               }
             },
             {
@@ -179717,7 +180073,24 @@
       "name": "PersonaPainPointEntry",
       "sectionId": "PPPEN",
       "doc": "A pain point entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — context of use includes the problems and constraints users experience",
+          "ISO 9241-11:2018 — usability addresses obstacles to users goals in their environment"
+        ],
+        "connotation": "A single frustration or obstacle a persona faces that the interface should help relieve."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — context of use includes the problems and constraints users experience",
+              "ISO 9241-11:2018 — usability addresses obstacles to users goals in their environment"
+            ],
+            "connotation": "A single frustration or obstacle a persona faces that the interface should help relieve."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179748,6 +180121,7 @@
             {
               "name": "painPoint",
               "label": "Pain Point",
+              "hint": "The specific frustration or obstacle the persona encounters",
               "type": "String",
               "required": true
             },
@@ -179794,7 +180168,24 @@
       "name": "PersonaPainPoints",
       "sectionId": "PEPPT",
       "doc": "10.1.3.n.2. Persona Pain Points.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — specify the context of use including the problems users encounter",
+          "ISO 9241-11:2018 — usability addresses obstacles to users goals and environment"
+        ],
+        "connotation": "The set of frustrations and obstacles a persona faces that the design should address."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — specify the context of use including the problems users encounter",
+              "ISO 9241-11:2018 — usability addresses obstacles to users goals and environment"
+            ],
+            "connotation": "The set of frustrations and obstacles a persona faces that the design should address."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179828,10 +180219,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PersonaPainPoint.",
+          "help": "Add one entry per persona pain point.",
           "sectionId": "PPPEN-ITEM-LST",
           "sectionIdPattern": "PPPEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-210:2019 — context of use records the problems and constraints users face",
+              "ISO 9241-11:2018 — usability considers obstacles to users goals and environment"
+            ],
+            "connotation": "The collection of individual pain-point entries for a persona."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-210:2019 — context of use records the problems and constraints users face",
+                  "ISO 9241-11:2018 — usability considers obstacles to users goals and environment"
+                ],
+                "connotation": "The collection of individual pain-point entries for a persona."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -179842,6 +180251,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PPPEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per persona pain point."
               }
             },
             {
@@ -179860,7 +180275,24 @@
       "name": "PersonaScenarioEntry",
       "sectionId": "PSCEN",
       "doc": "A persona scenario entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — context of use describes the tasks users perform with the system",
+          "ISO 9241-11:2018 — usability context comprises users goals and operating environment"
+        ],
+        "connotation": "A single key usage scenario capturing how one persona accomplishes a task with the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — context of use describes the tasks users perform with the system",
+              "ISO 9241-11:2018 — usability context comprises users goals and operating environment"
+            ],
+            "connotation": "A single key usage scenario capturing how one persona accomplishes a task with the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179891,6 +180323,7 @@
             {
               "name": "scenarioName",
               "label": "Scenario Name",
+              "hint": "A short action-oriented name for the scenario",
               "type": "String",
               "required": true
             },
@@ -179944,7 +180377,24 @@
       "name": "PersonaScenarios",
       "sectionId": "PERSC",
       "doc": "10.1.3.n.3. Persona Scenarios.\n\nKey usage scenarios for this persona — helps map personas to screens/flows.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — specify the context of use through representative task scenarios",
+          "ISO 9241-11:2018 — context of use comprises users goals and operating environment"
+        ],
+        "connotation": "The set of key usage scenarios that connect a persona to the screens and flows they need."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — specify the context of use through representative task scenarios",
+              "ISO 9241-11:2018 — context of use comprises users goals and operating environment"
+            ],
+            "connotation": "The set of key usage scenarios that connect a persona to the screens and flows they need."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -179978,10 +180428,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PersonaScenario.",
+          "help": "Add one entry per persona scenario.",
           "sectionId": "PSCEN-ITEM-LST",
           "sectionIdPattern": "PSCEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-210:2019 — context of use is described through representative task scenarios",
+              "ISO 9241-11:2018 — scenarios ground usability in users goals and environment"
+            ],
+            "connotation": "The collection of individual usage-scenario entries for a persona."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-210:2019 — context of use is described through representative task scenarios",
+                  "ISO 9241-11:2018 — scenarios ground usability in users goals and environment"
+                ],
+                "connotation": "The collection of individual usage-scenario entries for a persona."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -179992,6 +180460,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PSCEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per persona scenario."
               }
             },
             {
@@ -227584,7 +228058,24 @@
       "name": "ScreenActionEntry",
       "sectionId": "SCRAC",
       "doc": "A screen action entry (form).\n\nA top-level action available on the screen via toolbar, app bar, or FAB.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability over the sequence and pace of screen actions",
+          "ISO 9241-161:2016 — command and action user-interface elements"
+        ],
+        "connotation": "A single top-level screen action available via toolbar, app bar, or floating action button."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability over the sequence and pace of screen actions",
+              "ISO 9241-161:2016 — command and action user-interface elements"
+            ],
+            "connotation": "A single top-level screen action available via toolbar, app bar, or floating action button."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227686,7 +228177,24 @@
       "name": "ScreenActionEntryBehavior",
       "sectionId": "SAEB",
       "doc": "Confirmation, navigation, and feedback behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability and use error tolerance for action execution",
+          "ISO 9241-161:2016 — command and action user-interface elements"
+        ],
+        "connotation": "The confirmation, navigation, and feedback behavior that governs how a screen action executes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability and use error tolerance for action execution",
+              "ISO 9241-161:2016 — command and action user-interface elements"
+            ],
+            "connotation": "The confirmation, navigation, and feedback behavior that governs how a screen action executes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227757,7 +228265,24 @@
       "name": "ScreenActionEntryConditions",
       "sectionId": "SAEC",
       "doc": "Visibility, enablement, and permission rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability over when an action is available to the user",
+          "ISO 9241-161:2016 — states of command and action elements such as enabled or hidden"
+        ],
+        "connotation": "The visibility, enablement, and permission rules that determine when a screen action is available."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability over when an action is available to the user",
+              "ISO 9241-161:2016 — states of command and action elements such as enabled or hidden"
+            ],
+            "connotation": "The visibility, enablement, and permission rules that determine when a screen action is available."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227814,7 +228339,24 @@
       "name": "ScreenActionEntryVisual",
       "sectionId": "SAEV",
       "doc": "Visual presentation of the action.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — visual presentation of command and action elements",
+          "ISO 9241-125:2017 — visual presentation of information such as labels and icons"
+        ],
+        "connotation": "The visual presentation of a screen action including its label, icon, placement, and style."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — visual presentation of command and action elements",
+              "ISO 9241-125:2017 — visual presentation of information such as labels and icons"
+            ],
+            "connotation": "The visual presentation of a screen action including its label, icon, placement, and style."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227878,7 +228420,24 @@
       "name": "ScreenActions",
       "sectionId": "SCAC",
       "doc": "10.2.1.n.2. Screen Actions.\n\nTop-level actions available on the screen (toolbar, app bar, FAB).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability over available top-level screen actions",
+          "ISO 9241-161:2016 — command and action user-interface elements"
+        ],
+        "connotation": "The set of top-level actions available on the screen through the toolbar, app bar, or FAB."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability over available top-level screen actions",
+              "ISO 9241-161:2016 — command and action user-interface elements"
+            ],
+            "connotation": "The set of top-level actions available on the screen through the toolbar, app bar, or FAB."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -227912,10 +228471,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× ScreenAction.",
+          "help": "Add one entry per screen action.",
           "sectionId": "SCRAC-ITEM-LST",
           "sectionIdPattern": "SCRAC-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability over the set of available screen actions",
+              "ISO 9241-161:2016 — command and action user-interface elements"
+            ],
+            "connotation": "The collection of individual screen-action entries for this screen."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — controllability over the set of available screen actions",
+                  "ISO 9241-161:2016 — command and action user-interface elements"
+                ],
+                "connotation": "The collection of individual screen-action entries for this screen."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -227926,6 +228503,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SCRAC-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen action."
               }
             },
             {
@@ -228069,7 +228652,24 @@
       "doc": "10.2. Screen Descriptions.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — the structure and content of screens in the user interface",
+          "ISO 9241-210:2019 — human-centred specification of screens for the users tasks"
+        ],
+        "connotation": "The comprehensive specification of every screen in the application and its information architecture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — the structure and content of screens in the user interface",
+              "ISO 9241-210:2019 — human-centred specification of screens for the users tasks"
+            ],
+            "connotation": "The comprehensive specification of every screen in the application and its information architecture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228154,7 +228754,24 @@
       "name": "ScreenElementAction",
       "sectionId": "SCELAC",
       "doc": "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — command and action user-interface elements such as buttons and links",
+          "ISO 9241-110:2020 — controllability over action-type element behavior"
+        ],
+        "connotation": "The specification of button or link behavior for an action-type element including its reference and effect."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — command and action user-interface elements such as buttons and links",
+              "ISO 9241-110:2020 — controllability over action-type element behavior"
+            ],
+            "connotation": "The specification of button or link behavior for an action-type element including its reference and effect."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228262,7 +228879,24 @@
       "name": "ScreenElementActionExecution",
       "sectionId": "SEAE",
       "doc": "Confirmation and execution feedback behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use error tolerance and feedback during action execution",
+          "ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback"
+        ],
+        "connotation": "The confirmation and execution-feedback behavior that governs how an action element runs and reports."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use error tolerance and feedback during action execution",
+              "ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback"
+            ],
+            "connotation": "The confirmation and execution-feedback behavior that governs how an action element runs and reports."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228333,7 +228967,24 @@
       "name": "ScreenElementActionNavigation",
       "sectionId": "SEAN",
       "doc": "Post-action navigation rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — navigation between screens following an action",
+          "ISO 9241-110:2020 — conformity with user expectations for post-action navigation"
+        ],
+        "connotation": "The navigation rules that determine where the user is taken after an action completes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation between screens following an action",
+              "ISO 9241-110:2020 — conformity with user expectations for post-action navigation"
+            ],
+            "connotation": "The navigation rules that determine where the user is taken after an action completes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228390,7 +229041,24 @@
       "name": "ScreenElementDataDisplay",
       "sectionId": "SEDD",
       "doc": "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — principles for the presentation of information",
+          "ISO 9241-125:2017 — visual presentation of information to the user"
+        ],
+        "connotation": "The specification of how data is presented for a display-type element including format and empty state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — principles for the presentation of information",
+              "ISO 9241-125:2017 — visual presentation of information to the user"
+            ],
+            "connotation": "The specification of how data is presented for a display-type element including format and empty state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228484,7 +229152,24 @@
       "name": "ScreenElementDataDisplayBehavior",
       "sectionId": "SEDDB",
       "doc": "Refresh and drill-down behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information as it refreshes and updates",
+          "ISO 9241-151:2008 — navigation such as drill-down between related views"
+        ],
+        "connotation": "The refresh and drill-down behavior that governs how displayed data updates and navigates deeper."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information as it refreshes and updates",
+              "ISO 9241-151:2008 — navigation such as drill-down between related views"
+            ],
+            "connotation": "The refresh and drill-down behavior that governs how displayed data updates and navigates deeper."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228534,7 +229219,24 @@
       "name": "ScreenElementDataDisplayOptions",
       "sectionId": "SEDDO",
       "doc": "Table/list interaction controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — form and table interaction controls such as sorting and filtering",
+          "ISO 9241-112:2017 — presentation of tabular and list information"
+        ],
+        "connotation": "The interaction controls for tables and lists such as sorting, filtering, pagination, and selection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — form and table interaction controls such as sorting and filtering",
+              "ISO 9241-112:2017 — presentation of tabular and list information"
+            ],
+            "connotation": "The interaction controls for tables and lists such as sorting, filtering, pagination, and selection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228605,7 +229307,24 @@
       "name": "ScreenElementEntry",
       "sectionId": "SCREL",
       "doc": "A screen element entry (form).\n\nAny interactive or display element within a screen section: buttons, fields,\ndata displays, icons, labels, status indicators.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — the catalogue of visual user-interface elements such as buttons, fields, and displays",
+          "ISO 9241-143:2012 — form fields and input controls within a screen"
+        ],
+        "connotation": "A single interactive or display element within a screen section together with its type and behavior."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — the catalogue of visual user-interface elements such as buttons, fields, and displays",
+              "ISO 9241-143:2012 — form fields and input controls within a screen"
+            ],
+            "connotation": "A single interactive or display element within a screen section together with its type and behavior."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228765,10 +229484,28 @@
           "name": "validationRules",
           "kind": "list",
           "doc": "Contains 0+× ElementValidationRule.",
+          "help": "Add one entry per validation rule.",
           "sectionId": "EVRE-VALI-LST",
           "sectionIdPattern": "EVRE-VALI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — validation of user input in form-based interaction",
+              "ISO 9241-110:2020 — use error tolerance through input validation"
+            ],
+            "connotation": "The collection of validation rules that constrain and check the input for a screen element."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — validation of user input in form-based interaction",
+                  "ISO 9241-110:2020 — use error tolerance through input validation"
+                ],
+                "connotation": "The collection of validation rules that constrain and check the input for a screen element."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -228779,6 +229516,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EVRE-VALI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per validation rule."
               }
             },
             {
@@ -228797,7 +229540,24 @@
       "name": "ScreenElementEntryBehavior",
       "sectionId": "SEEB",
       "doc": "Visibility and permission rules for screen element.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only",
+          "ISO 9241-110:2020 — controllability governing when an element is interactive"
+        ],
+        "connotation": "The visibility, enablement, and permission rules that determine when a screen element can be seen or used."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only",
+              "ISO 9241-110:2020 — controllability governing when an element is interactive"
+            ],
+            "connotation": "The visibility, enablement, and permission rules that determine when a screen element can be seen or used."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228868,7 +229628,24 @@
       "name": "ScreenElementEntryLayout",
       "sectionId": "SCELENLA",
       "doc": "Placement and layout settings for screen element.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — placement and layout of visual user-interface elements",
+          "ISO 9241-125:2017 — spatial arrangement of information for visual presentation"
+        ],
+        "connotation": "The placement, sizing, and alignment settings that position a screen element within its section."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — placement and layout of visual user-interface elements",
+              "ISO 9241-125:2017 — spatial arrangement of information for visual presentation"
+            ],
+            "connotation": "The placement, sizing, and alignment settings that position a screen element within its section."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228925,7 +229702,24 @@
       "name": "ScreenElementEntryPresentation",
       "sectionId": "SCELENPR",
       "doc": "Styling and data binding for screen element.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation attributes such as style and colour of information",
+          "ISO 9241-112:2017 — coding of information through visual style variants"
+        ],
+        "connotation": "The styling and data-binding attributes that govern how a screen element appears and connects to data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation attributes such as style and colour of information",
+              "ISO 9241-112:2017 — coding of information through visual style variants"
+            ],
+            "connotation": "The styling and data-binding attributes that govern how a screen element appears and connects to data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228996,7 +229790,24 @@
       "name": "ScreenElementEntryResources",
       "sectionId": "SEER",
       "doc": "Labels and icon resources for screen element.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements",
+          "ISO 9241-112:2017 — presentation of labels and identifying information to the user"
+        ],
+        "connotation": "The label, hint, description, and icon resources that identify a screen element to the user."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements",
+              "ISO 9241-112:2017 — presentation of labels and identifying information to the user"
+            ],
+            "connotation": "The label, hint, description, and icon resources that identify a screen element to the user."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229067,7 +229878,24 @@
       "name": "ScreenElementFieldSpec",
       "sectionId": "SEFS",
       "doc": "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — form-based interaction and input-field behavior",
+          "ISO 9241-110:2020 — suitability for the task in accepting user input"
+        ],
+        "connotation": "The specification of input behavior for an input-type element including data type and constraints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — form-based interaction and input-field behavior",
+              "ISO 9241-110:2020 — suitability for the task in accepting user input"
+            ],
+            "connotation": "The specification of input behavior for an input-type element including data type and constraints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229184,7 +230012,24 @@
       "name": "ScreenElementFieldSpecConstraints",
       "sectionId": "SEFSC",
       "doc": "Length and value constraints for field spec.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — constraints on form-field input such as length and value ranges",
+          "ISO 9241-110:2020 — use error tolerance through bounded input constraints"
+        ],
+        "connotation": "The length and value constraints that bound acceptable input for a form field."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — constraints on form-field input such as length and value ranges",
+              "ISO 9241-110:2020 — use error tolerance through bounded input constraints"
+            ],
+            "connotation": "The length and value constraints that bound acceptable input for a form field."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229255,7 +230100,24 @@
       "name": "ScreenElementFieldSpecFormatting",
       "sectionId": "SEFSF",
       "doc": "Prefix, suffix, and formatting for field spec.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — formatting and affordances for form-field input",
+          "ISO 9241-112:2017 — presentation of formatted information such as masks and prefixes"
+        ],
+        "connotation": "The prefix, suffix, and formatting that shape how a form field displays and accepts input."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — formatting and affordances for form-field input",
+              "ISO 9241-112:2017 — presentation of formatted information such as masks and prefixes"
+            ],
+            "connotation": "The prefix, suffix, and formatting that shape how a form field displays and accepts input."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229319,7 +230181,24 @@
       "name": "ScreenElementFieldSpecSelection",
       "sectionId": "SEFSS",
       "doc": "Selection and input assistance for field spec.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — form fields with selection and input assistance",
+          "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"
+        ],
+        "connotation": "The selection and input-assistance behavior for a form field such as autocomplete and option sources."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — form fields with selection and input assistance",
+              "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"
+            ],
+            "connotation": "The selection and input-assistance behavior for a form field such as autocomplete and option sources."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229383,7 +230262,24 @@
       "name": "ScreenElementFieldSpecValidation",
       "sectionId": "SEFSV",
       "doc": "Validation behavior for field spec.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use error tolerance through input validation and error display",
+          "ISO 9241-143:2012 — validation behavior for form fields"
+        ],
+        "connotation": "The validation behavior for a form field including trigger, required rules, and error display."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use error tolerance through input validation and error display",
+              "ISO 9241-143:2012 — validation behavior for form fields"
+            ],
+            "connotation": "The validation behavior for a form field including trigger, required rules, and error display."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229454,7 +230350,24 @@
       "name": "ScreenEntry",
       "sectionId": "SCREN",
       "doc": "A screen entry (form).\n\nComprehensive specification of a single application screen, covering\nidentity, purpose, authorization, layout, elements, and behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — the content objects and structure of a single interface screen",
+          "ISO 9241-210:2019 — the user tasks a screen must support in its context of use"
+        ],
+        "connotation": "A single application screen with its identity, purpose, layout, and behavior fully specified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — the content objects and structure of a single interface screen",
+              "ISO 9241-210:2019 — the user tasks a screen must support in its context of use"
+            ],
+            "connotation": "A single application screen with its identity, purpose, layout, and behavior fully specified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229630,10 +230543,28 @@
           "name": "userCategories",
           "kind": "list",
           "doc": "Contains 0+× ScreenUserCategory.",
+          "help": "Add one entry per user category.",
           "sectionId": "SCRUSC-USER-LST",
           "sectionIdPattern": "SCRUSC-USER-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-11:2018 — the categories of users and their context of use for a screen",
+              "ISO 9241-210:2019 — user groups whose tasks the interface must support"
+            ],
+            "connotation": "The collection of user categories that describe who uses this screen and in what context."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-11:2018 — the categories of users and their context of use for a screen",
+                  "ISO 9241-210:2019 — user groups whose tasks the interface must support"
+                ],
+                "connotation": "The collection of user categories that describe who uses this screen and in what context."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -229644,6 +230575,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SCRUSC-USER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user category."
               }
             },
             {
@@ -229660,10 +230597,28 @@
           "name": "entryPoints",
           "kind": "list",
           "doc": "Contains 0+× EntryPoint.",
+          "help": "Add one entry per entry point.",
           "sectionId": "EPNT-ENTR-LST",
           "sectionIdPattern": "EPNT-ENTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation entry points into the user interface",
+              "ISO 9241-210:2019 — the paths by which users reach a screen to perform their tasks"
+            ],
+            "connotation": "The collection of navigation entry points from which users can reach this screen."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-151:2008 — navigation entry points into the user interface",
+                  "ISO 9241-210:2019 — the paths by which users reach a screen to perform their tasks"
+                ],
+                "connotation": "The collection of navigation entry points from which users can reach this screen."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -229674,6 +230629,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EPNT-ENTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per entry point."
               }
             },
             {
@@ -229690,10 +230651,28 @@
           "name": "responsiveRules",
           "kind": "list",
           "doc": "Contains 0+× ScreenResponsiveRule.",
+          "help": "Add one entry per responsive rule.",
           "sectionId": "SRRE-RESP-LST",
           "sectionIdPattern": "SRRE-RESP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-125:2017 — adaptation of visual presentation to different display conditions",
+              "ISO 9241-112:2017 — presentation of information across varying contexts of use"
+            ],
+            "connotation": "The collection of responsive rules that adapt a screen layout to different device sizes."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-125:2017 — adaptation of visual presentation to different display conditions",
+                  "ISO 9241-112:2017 — presentation of information across varying contexts of use"
+                ],
+                "connotation": "The collection of responsive rules that adapt a screen layout to different device sizes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -229704,6 +230683,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SRRE-RESP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per responsive rule."
               }
             },
             {
@@ -229722,7 +230707,24 @@
       "name": "ScreenEntryAccess",
       "sectionId": "SCEAC",
       "doc": "Access control settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — controllability governing who may access an interface",
+          "ISO/IEC 25010:2023 — interaction capability constrained by authorization"
+        ],
+        "connotation": "The access-control settings that determine which roles and permissions may reach a screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — controllability governing who may access an interface",
+              "ISO/IEC 25010:2023 — interaction capability constrained by authorization"
+            ],
+            "connotation": "The access-control settings that determine which roles and permissions may reach a screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229786,7 +230788,24 @@
       "name": "ScreenEntryClassification",
       "sectionId": "SCECL",
       "doc": "Classification and routing metadata.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — navigation structure and routing within the user interface",
+          "ISO 9241-112:2017 — categorisation of information for structured presentation"
+        ],
+        "connotation": "The classification and routing metadata that categorises a screen and locates it in the navigation structure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — navigation structure and routing within the user interface",
+              "ISO 9241-112:2017 — categorisation of information for structured presentation"
+            ],
+            "connotation": "The classification and routing metadata that categorises a screen and locates it in the navigation structure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229843,7 +230862,24 @@
       "name": "ScreenEntryPresentation",
       "sectionId": "SCENPR",
       "doc": "Presentation metadata.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information",
+          "ISO 9241-125:2017 — visual presentation and layout of the screen"
+        ],
+        "connotation": "The presentation metadata such as title, icon, and layout that defines how a screen appears."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information",
+              "ISO 9241-125:2017 — visual presentation and layout of the screen"
+            ],
+            "connotation": "The presentation metadata such as title, icon, and layout that defines how a screen appears."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229907,7 +230943,24 @@
       "name": "ScreenEntryTraceability",
       "sectionId": "SCETR",
       "doc": "Traceability metadata.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve",
+          "ISO/IEC 25010:2023 — interaction capability traced to product requirements"
+        ],
+        "connotation": "The traceability metadata linking a screen to the use cases, requirements, and data entities it serves."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve",
+              "ISO/IEC 25010:2023 — interaction capability traced to product requirements"
+            ],
+            "connotation": "The traceability metadata linking a screen to the use cases, requirements, and data entities it serves."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230620,7 +231673,24 @@
       "name": "ScreenInventory",
       "sectionId": "SCRINV",
       "doc": "10.2.1. Screen Inventory.\n\nContainer for screen definitions. Each entry fully describes one application\nscreen including its purpose, layout zones, elements, actions, and states.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-151:2008 — the complete catalogue and structure of interface screens",
+          "ISO 9241-112:2017 — organisation of screen content for presentation to the user"
+        ],
+        "connotation": "The complete catalogue of application screens with each screen fully described."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-151:2008 — the complete catalogue and structure of interface screens",
+              "ISO 9241-112:2017 — organisation of screen content for presentation to the user"
+            ],
+            "connotation": "The complete catalogue of application screens with each screen fully described."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230670,10 +231740,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 1+× Screen.",
+          "help": "Add one entry per screen.",
           "sectionId": "SCREN-ITEM-LST",
           "sectionIdPattern": "SCREN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-151:2008 — the catalogue of screens that make up the user interface",
+              "ISO 9241-210:2019 — the full set of screens supporting the user tasks"
+            ],
+            "connotation": "The catalogue of individual screen entries that make up the application."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-151:2008 — the catalogue of screens that make up the user interface",
+                  "ISO 9241-210:2019 — the full set of screens supporting the user tasks"
+                ],
+                "connotation": "The catalogue of individual screen entries that make up the application."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -230693,6 +231781,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -230709,7 +231803,24 @@
       "name": "ScreenResponsiveRuleEntry",
       "sectionId": "SCRERUEN",
       "doc": "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — presentation of information adapted to the display context",
+          "ISO 9241-125:2017 — visual presentation of information across viewports"
+        ],
+        "connotation": "A single responsive-adaptation rule describing how the screen changes at a given breakpoint."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — presentation of information adapted to the display context",
+              "ISO 9241-125:2017 — visual presentation of information across viewports"
+            ],
+            "connotation": "A single responsive-adaptation rule describing how the screen changes at a given breakpoint."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230780,7 +231891,24 @@
       "name": "ScreenSectionEntry",
       "sectionId": "SCRSC",
       "doc": "A screen section entry (form).\n\nA logical zone within a screen: header, toolbar, content area, sidebar, etc.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — grouping and structuring of information into presentation zones",
+          "ISO 9241-125:2017 — spatial organisation of content within a display"
+        ],
+        "connotation": "A single logical zone within a screen that groups related elements together."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — grouping and structuring of information into presentation zones",
+              "ISO 9241-125:2017 — spatial organisation of content within a display"
+            ],
+            "connotation": "A single logical zone within a screen that groups related elements together."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230872,10 +232000,28 @@
           "name": "elements",
           "kind": "list",
           "doc": "Contains 0+× ScreenElement within this section.",
+          "help": "Add one entry per screen element.",
           "sectionId": "SCREL-ELEM-LST",
           "sectionIdPattern": "SCREL-ELEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-161:2016 — the set of visual user-interface elements contained in a display region",
+              "ISO 9241-112:2017 — grouping of related information elements for presentation"
+            ],
+            "connotation": "The collection of interactive and display elements that belong to this screen section."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-161:2016 — the set of visual user-interface elements contained in a display region",
+                  "ISO 9241-112:2017 — grouping of related information elements for presentation"
+                ],
+                "connotation": "The collection of interactive and display elements that belong to this screen section."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -230886,6 +232032,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SCREL-ELEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen element."
               }
             },
             {
@@ -230904,7 +232056,24 @@
       "name": "ScreenSectionEntryBehavior",
       "sectionId": "SSEB",
       "doc": "Visibility and collapse behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-161:2016 — collapsible and expandable states of user-interface containers",
+          "ISO 9241-110:2020 — controllability over the visibility of interface zones"
+        ],
+        "connotation": "The visibility and collapse behavior that governs when and how a screen section is shown."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-161:2016 — collapsible and expandable states of user-interface containers",
+              "ISO 9241-110:2020 — controllability over the visibility of interface zones"
+            ],
+            "connotation": "The visibility and collapse behavior that governs when and how a screen section is shown."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -230961,7 +232130,24 @@
       "name": "ScreenSectionEntryLayout",
       "sectionId": "SSEL",
       "doc": "Layout and ordering for the section.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — spatial layout and ordering of presented information",
+          "ISO 9241-112:2017 — organisation of information within a display area"
+        ],
+        "connotation": "The layout direction, order, and border styling that arrange a screen section within its screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — spatial layout and ordering of presented information",
+              "ISO 9241-112:2017 — organisation of information within a display area"
+            ],
+            "connotation": "The layout direction, order, and border styling that arrange a screen section within its screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231025,7 +232211,24 @@
       "name": "ScreenSections",
       "sectionId": "SCSE",
       "doc": "10.2.1.n.1. Screen Sections.\n\nLogical zones within a screen that group related elements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-112:2017 — organisation of presented information into structured zones",
+          "ISO 9241-151:2008 — information architecture and content structure of the interface"
+        ],
+        "connotation": "The container that holds the logical zones grouping related elements within a screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-112:2017 — organisation of presented information into structured zones",
+              "ISO 9241-151:2008 — information architecture and content structure of the interface"
+            ],
+            "connotation": "The container that holds the logical zones grouping related elements within a screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231059,10 +232262,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× ScreenSection.",
+          "help": "Add one entry per screen section.",
           "sectionId": "SCRSC-ITEM-LST",
           "sectionIdPattern": "SCRSC-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-112:2017 — the set of information zones that structure a display",
+              "ISO 9241-151:2008 — content structure and layout of the user interface"
+            ],
+            "connotation": "The collection of logical zones that partition a screen into grouped areas."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-112:2017 — the set of information zones that structure a display",
+                  "ISO 9241-151:2008 — content structure and layout of the user interface"
+                ],
+                "connotation": "The collection of logical zones that partition a screen into grouped areas."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -231073,6 +232294,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SCRSC-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen section."
               }
             },
             {
@@ -231091,7 +232318,24 @@
       "name": "ScreenStateEntry",
       "sectionId": "SCRST",
       "doc": "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use error tolerance and controllability through clear state feedback",
+          "ISO 9241-161:2016 — visual user-interface elements conveying interface states"
+        ],
+        "connotation": "A single screen state describing one visual or behavioral condition the screen can be in."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use error tolerance and controllability through clear state feedback",
+              "ISO 9241-161:2016 — visual user-interface elements conveying interface states"
+            ],
+            "connotation": "A single screen state describing one visual or behavioral condition the screen can be in."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231183,7 +232427,24 @@
       "name": "ScreenStates",
       "sectionId": "SCST",
       "doc": "10.2.1.n.3. Screen States.\n\nDifferent visual/behavioral states the screen can be in.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — self-descriptiveness and use error tolerance across interface states",
+          "ISO 9241-161:2016 — visual user-interface elements and their states"
+        ],
+        "connotation": "The set of visual and behavioral states the screen can present to the user."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — self-descriptiveness and use error tolerance across interface states",
+              "ISO 9241-161:2016 — visual user-interface elements and their states"
+            ],
+            "connotation": "The set of visual and behavioral states the screen can present to the user."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231217,10 +232478,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× ScreenState.",
+          "help": "Add one entry per screen state.",
           "sectionId": "SCRST-ITEM-LST",
           "sectionIdPattern": "SCRST-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — self-descriptiveness of the available screen states",
+              "ISO 9241-161:2016 — visual elements representing interface states"
+            ],
+            "connotation": "The collection of individual screen-state entries for this screen."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — self-descriptiveness of the available screen states",
+                  "ISO 9241-161:2016 — visual elements representing interface states"
+                ],
+                "connotation": "The collection of individual screen-state entries for this screen."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -231231,6 +232510,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SCRST-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per screen state."
               }
             },
             {
@@ -231249,7 +232534,24 @@
       "name": "ScreenUserCategoryEntry",
       "sectionId": "SUCE",
       "doc": "A user category entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-11:2018 — usability for a specified group of users and context of use",
+          "ISO 9241-210:2019 — human-centred design accounting for distinct user groups"
+        ],
+        "connotation": "A single user category describing how screen content varies for one class of users."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-11:2018 — usability for a specified group of users and context of use",
+              "ISO 9241-210:2019 — human-centred design accounting for distinct user groups"
+            ],
+            "connotation": "A single user category describing how screen content varies for one class of users."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -231280,6 +232582,7 @@
             {
               "name": "categoryName",
               "label": "Category Name",
+              "hint": "The name of this user category",
               "type": "String",
               "required": true
             },
@@ -295299,7 +296602,24 @@
       "name": "UserPersonas",
       "sectionId": "USPER",
       "doc": "10.1.3. User Personas.\n\nContainer for user persona definitions. Each persona represents a distinct\nuser archetype with goals, pain points, and context.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — understand and specify the context of use including user characteristics",
+          "ISO 9241-11:2018 — context of use comprises users goals and operating environment"
+        ],
+        "connotation": "The set of distinct user archetypes the interface is designed to serve."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — understand and specify the context of use including user characteristics",
+              "ISO 9241-11:2018 — context of use comprises users goals and operating environment"
+            ],
+            "connotation": "The set of distinct user archetypes the interface is designed to serve."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -295349,10 +296669,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 1+× Persona.",
+          "help": "Add one entry per user persona.",
           "sectionId": "PEREN-ITEM-LST",
           "sectionIdPattern": "PEREN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-210:2019 — the characteristics of users form part of the context of use",
+              "ISO 9241-11:2018 — usability is defined relative to specified users"
+            ],
+            "connotation": "The collection of individual user-persona entries for the interface."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-210:2019 — the characteristics of users form part of the context of use",
+                  "ISO 9241-11:2018 — usability is defined relative to specified users"
+                ],
+                "connotation": "The collection of individual user-persona entries for the interface."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -295363,6 +296701,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PEREN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user persona."
               }
             },
             {
