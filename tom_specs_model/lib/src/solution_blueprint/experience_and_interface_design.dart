@@ -5736,6 +5736,14 @@ class ExportTemplateEntryAccess {
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance and error management help users prevent, detect, and recover from errors',
+    'ISO 9241-13:1998 — user guidance provides feedback and error messages throughout interaction',
+    'ISO/IEC 25010:2023 — fault tolerance and recoverability underpin graceful error recovery',
+  ],
+  'The error-handling configuration governing validation feedback, system errors, and recovery flows.',
+)
 @SectionId('ERHACO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -5805,6 +5813,13 @@ class ErrorHandling {
 }
 
 /// Error categorization and display priority.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance orders feedback so the most important errors are noticed first',
+    'ISO/IEC 25010:2023 — fault tolerance benefits from classifying errors by category and severity',
+  ],
+  'The error-handling classification configuration governing categories and display priority.',
+)
 @SectionId('EHCC')
 class ErrorHandlingClassification {
     @Form([
@@ -5826,6 +5841,13 @@ class ErrorHandlingClassification {
 /// those targets to error states (screen-reader announcements, contrast,
 /// non-color indicators) — reference §10.9, do not restate the conformance
 /// levels here.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation ensures error cues remain perceivable through non-colour indicators',
+    'ISO/IEC 25010:2023 — appropriateness recognisability supports inclusive error cues for all users',
+  ],
+  'The error-handling accessibility configuration governing inclusive error cues.',
+)
 @SectionId('EHCA')
 class ErrorHandlingAccessibility {
     @Form([
@@ -5841,6 +5863,13 @@ class ErrorHandlingAccessibility {
 }
 
 /// Localization and analytics behavior.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance presents error messages in the language and terms of the user',
+    'ISO/IEC 25010:2023 — user error protection and reliability inform the tracking of recurring input errors',
+  ],
+  'The error-handling operations configuration governing localisation and error analytics.',
+)
 @SectionId('EHCO')
 class ErrorHandlingOperations {
     @Form([
@@ -5860,6 +5889,13 @@ class ErrorHandlingOperations {
 /// 10.7.1. Validation Feedback.
 ///
 /// Field validation error display and feedback mechanisms.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance helps users avoid and correct input errors',
+    'ISO 9241-143:2012 — forms give feedback that guides correction of invalid input',
+  ],
+  'The validation-feedback configuration governing how input errors are surfaced.',
+)
 @SectionId('VAFE')
 class ValidationFeedback {
   @Form([
@@ -5896,19 +5932,41 @@ class ValidationFeedback {
   TextSection validationNarrative = TextSection();
 
   /// Validation message templates.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — forms present specific validation messages for input fields',
+    ],
+    'The collection of validation-message template entries.',
+  )
   @SectionId('VAMETE-MESS-LST')
   @SectionIdPattern('VAMETE-MESS-xxx')
+  @ContentHelp('Add one entry per validation message template.')
   @SerializationOrder(6)
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field',
+      'ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data',
+    ],
+    'The collection of field validation rule entries organised by field type.',
+  )
   @SectionId('FIELD-FIEL-LST')
   @SectionIdPattern('FIELD-FIEL-xxx')
+  @ContentHelp('Add one entry per field validation rule.')
   @SerializationOrder(7)
   List<FieldValidationRuleEntry> fieldValidationRules = [];
 }
 
 /// Display placement details.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation governs the placement of feedback near the relevant field',
+    'ISO 9241-143:2012 — forms position validation feedback where users can readily associate it with a field',
+  ],
+  'The validation-feedback placement configuration governing where error indicators appear.',
+)
 @SectionId('VAFEPL')
 class ValidationFeedbackPlacement {
     @Form([
@@ -5928,6 +5986,13 @@ class ValidationFeedbackPlacement {
 }
 
 /// Message formatting details.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — forms present specific validation messages for input fields',
+    'ISO 9241-13:1998 — user guidance provides clear and concise error messages',
+  ],
+  'The validation-feedback message configuration governing formatting of error messages.',
+)
 @SectionId('VAFEME')
 class ValidationFeedbackMessages {
     @Form([
@@ -5945,6 +6010,13 @@ class ValidationFeedbackMessages {
 }
 
 /// Guidance settings.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — self-descriptiveness helps users understand what valid input looks like',
+    'ISO 9241-143:2012 — forms offer requirements and examples that guide correct entry',
+  ],
+  'The validation-feedback guidance configuration governing requirements, suggestions, and examples.',
+)
 @SectionId('VAFEGU')
 class ValidationFeedbackGuidance {
     @Form([
@@ -5960,6 +6032,13 @@ class ValidationFeedbackGuidance {
 }
 
 /// Animation and focus behavior.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — forms move focus toward fields that need correction after validation',
+    'ISO 9241-13:1998 — user guidance draws attention to the location of an input error',
+  ],
+  'The validation-feedback behaviour configuration governing animation and focus on errors.',
+)
 @SectionId('VAFEBE')
 class ValidationFeedbackBehavior {
     @Form([
@@ -5977,6 +6056,13 @@ class ValidationFeedbackBehavior {
 }
 
 /// A validation message template.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — forms present specific validation messages that guide correction of invalid input',
+    'ISO 9241-13:1998 — user guidance provides clear and constructive error messages',
+  ],
+  'The validation-message template configuration defining reusable error message content.',
+)
 @SectionId('VMT')
 class ValidationMessageTemplate {
   @Form([
@@ -6009,6 +6095,14 @@ class ValidationMessageTemplate {
 ///
 /// System error presentation including server errors, network issues,
 /// and timeouts.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — presentation of information governs how system errors are shown to users',
+    'ISO 9241-13:1998 — user guidance presents clear and specific system error messages',
+    'ISO/IEC 25010:2023 — fault tolerance and recoverability shape graceful degradation on failure',
+  ],
+  'The system-error display configuration governing how errors are shown to users.',
+)
 @SectionId('SYERDI')
 class SystemErrorDisplay {
   // ─────────────────────────────────────────────────────────────────────────
@@ -6048,19 +6142,42 @@ class SystemErrorDisplay {
   TextSection systemErrorNarrative = TextSection();
 
   /// Error page designs.
+  @StandardReferences(
+    [
+      'ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs',
+      'ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback',
+    ],
+    'The collection of error-page design entries.',
+  )
   @SectionId('EPDE-ERRO-LST')
   @SectionIdPattern('EPDE-ERRO-xxx')
+  @ContentHelp('Add one entry per error page design.')
   @SerializationOrder(6)
   List<ErrorPageDesignEntry> errorPageDesigns = [];
 
   /// Error codes catalog.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
+      'ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message',
+    ],
+    'The collection of catalogued system error code entries.',
+  )
   @SectionId('SECE-ERRO-LST')
   @SectionIdPattern('SECE-ERRO-xxx')
+  @ContentHelp('Add one entry per system error code.')
   @SerializationOrder(7)
   List<SystemErrorCodeEntry> errorCodes = [];
 }
 
 /// Error type handling configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled',
+    'ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition',
+  ],
+  'The per-type handling configuration for different classes of system error.',
+)
 @SectionId('SEDET')
 class SystemErrorDisplayErrorTypes {
   @Form([
@@ -6080,6 +6197,13 @@ class SystemErrorDisplayErrorTypes {
 }
 
 /// Display method settings for system errors.
+@StandardReferences(
+  [
+    'ISO 9241-125:2017 — visual presentation of information governs how error modals, banners, and pages are laid out',
+    'ISO 9241-13:1998 — user guidance ensures error feedback is presented in a noticeable and readable way',
+  ],
+  'The display-method settings that decide how a system error is shown on screen.',
+)
 @SectionId('SEDM')
 class SystemErrorDisplayMethods {
   @Form([
@@ -6099,14 +6223,24 @@ class SystemErrorDisplayMethods {
 }
 
 /// Content options for system error display.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance presents clear and specific error message content',
+    'ISO 9241-125:2017 — presentation of information governs which error details are shown to users',
+  ],
+  'The content options that decide what information an error display presents.',
+)
 @SectionId('SEDC')
 class SystemErrorDisplayContent {
   @Form([
     Field('showTechnicalDetails', bool, 'Show Technical Details',
         hint: 'Display error codes, request IDs'),
-    Field('showRetryOption', bool, 'Show Retry Option'),
-    Field('showContactSupport', bool, 'Show Contact Support'),
-    Field('showStatusPageLink', bool, 'Show Status Page Link'),
+    Field('showRetryOption', bool, 'Show Retry Option',
+        hint: 'Offer a retry button on the error'),
+    Field('showContactSupport', bool, 'Show Contact Support',
+        hint: 'Show a link to contact support'),
+    Field('showStatusPageLink', bool, 'Show Status Page Link',
+        hint: 'Show a link to the service status page'),
     Field('offlineModeMessage', String, 'Offline Mode Message',
         hint: 'Message when app detects offline state'),
   ])
@@ -6115,6 +6249,13 @@ class SystemErrorDisplayContent {
 }
 
 /// Fallback behavior for system errors.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks',
+    'ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs',
+  ],
+  'The fallback behaviour applied when a system error prevents normal operation.',
+)
 @SectionId('SEDF')
 class SystemErrorDisplayFallback {
   @Form([
@@ -6122,14 +6263,23 @@ class SystemErrorDisplayFallback {
         hint: 'Show stale data with indicator'),
     Field('retryStrategy', String, 'Retry Strategy',
         hint: 'Automatic retry with backoff'),
-    Field('maxRetryAttempts', int, 'Max Retry Attempts'),
-    Field('retryDelaySeconds', int, 'Retry Delay (seconds)'),
+    Field('maxRetryAttempts', int, 'Max Retry Attempts',
+        hint: 'Number of retries before giving up'),
+    Field('retryDelaySeconds', int, 'Retry Delay (seconds)',
+        hint: 'Seconds to wait between retries'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A system error code entry.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
+    'ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message',
+  ],
+  'A single catalogued system error code with its user message and handling.',
+)
 @SectionId('SYERCOEN')
 class SystemErrorCodeEntry {
   @Form([
@@ -6156,6 +6306,13 @@ class SystemErrorCodeEntry {
 }
 
 /// Recovery and display guidance.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance offers clear suggested actions for recovering from an error',
+    'ISO/IEC 25010:2023 — fault tolerance keeps the system usable through retry and recovery guidance',
+  ],
+  'The recovery and display guidance for a system error code.',
+)
 @SectionId('SECEH')
 class SystemErrorCodeEntryHandling {
   @Form([
@@ -6175,6 +6332,13 @@ class SystemErrorCodeEntryHandling {
 }
 
 /// Operational support and logging controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — event logging records error events at the appropriate severity level',
+    'ISO/IEC 20000-1:2018 — incident handling routes error notifications to support functions',
+  ],
+  'The operational support and logging controls for a system error code.',
+)
 @SectionId('SECEO')
 class SystemErrorCodeEntryOperations {
   @Form([
@@ -6191,6 +6355,13 @@ class SystemErrorCodeEntryOperations {
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance lets users recover from errors with minimal effort',
+    'ISO/IEC 25010:2023 — recoverability restores state and recovers affected data after a failure',
+  ],
+  'The error-recovery configuration covering data preservation, retry, and guided recovery.',
+)
 @SectionId('ERRE')
 class ErrorRecovery {
   // ─────────────────────────────────────────────────────────────────────────
@@ -6237,19 +6408,42 @@ class ErrorRecovery {
   TextSection recoveryNarrative = TextSection();
 
   /// Recovery flow diagrams.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs',
+      'ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data',
+    ],
+    'The collection of recovery-flow entries.',
+  )
   @SectionId('RECOV-RECO-LST')
   @SectionIdPattern('RECOV-RECO-xxx')
+  @ContentHelp('Add one entry per recovery flow.')
   @SerializationOrder(7)
   List<RecoveryFlowEntry> recoveryFlows = [];
 
   /// Common recovery scenarios.
+  @StandardReferences(
+    [
+      'ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery',
+      'ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure',
+    ],
+    'The collection of common recovery-scenario entries.',
+  )
   @SectionId('RCVSCN-RECO-LST')
   @SectionIdPattern('RCVSCN-RECO-xxx')
+  @ContentHelp('Add one entry per common recovery scenario.')
   @SerializationOrder(8)
   List<RecoveryScenarioEntry> recoveryScenarios = [];
 }
 
 /// Data preservation: draft auto-save settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability restores affected data after a failure so user work is not lost',
+    'ISO 9241-110:2020 — use-error tolerance preserves user input so recovery requires minimal effort',
+  ],
+  'The data-preservation configuration describing draft auto-save so user input survives failures.',
+)
 @SectionId('ERDP')
 class ErrorRecoveryDataPreservation {
   @Form([
@@ -6269,14 +6463,24 @@ class ErrorRecoveryDataPreservation {
 }
 
 /// Retry mechanisms configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — fault tolerance keeps the system operating as intended despite faults by retrying failed operations',
+    'ISO 9241-110:2020 — use-error tolerance allows users to reattempt an operation after a transient failure',
+  ],
+  'The retry-mechanism configuration describing automatic and manual reattempts after a failed operation.',
+)
 @SectionId('ERRM')
 class ErrorRecoveryRetryMechanisms {
   @Form([
-    Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled'),
+    Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled',
+        hint: 'Whether failed operations are retried automatically'),
     Field('retryBackoffStrategy', String, 'Retry Backoff Strategy',
         hint: 'Exponential, linear, fixed'),
-    Field('maxAutomaticRetries', int, 'Max Automatic Retries'),
-    Field('manualRetryButton', bool, 'Manual Retry Button'),
+    Field('maxAutomaticRetries', int, 'Max Automatic Retries',
+        hint: 'Maximum number of automatic retry attempts'),
+    Field('manualRetryButton', bool, 'Manual Retry Button',
+        hint: 'Whether a user-triggered retry button is shown'),
     Field('retryButtonLabel', String, 'Retry Button Label',
         hint: 'Button text (e.g., "Try Again")'),
     Field('retryFeedback', String, 'Retry Feedback',
@@ -6287,6 +6491,13 @@ class ErrorRecoveryRetryMechanisms {
 }
 
 /// Guided recovery options.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — use-error tolerance guides users through corrective steps with minimal effort',
+    'ISO 9241-13:1998 — user guidance offers constructive suggestions for recovering from an error',
+  ],
+  'The guided-recovery configuration describing step-by-step assistance and alternative actions after a failure.',
+)
 @SectionId('ERGR')
 class ErrorRecoveryGuidedRecovery {
   @Form([
@@ -6304,6 +6515,13 @@ class ErrorRecoveryGuidedRecovery {
 }
 
 /// Support contact details.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation',
+    'ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved',
+  ],
+  'The support-contact configuration describing availability and error-report submission to reach assistance.',
+)
 @SectionId('ERSC')
 class ErrorRecoverySupportContact {
   @Form([
@@ -6319,6 +6537,13 @@ class ErrorRecoverySupportContact {
 }
 
 /// Session handling configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure',
+    'ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context',
+  ],
+  'The session-handling configuration describing reauthentication and context preservation after errors.',
+)
 @SectionId('ERSH')
 class ErrorRecoverySessionHandling {
   @Form([
@@ -6332,10 +6557,18 @@ class ErrorRecoverySessionHandling {
 }
 
 /// A recovery scenario entry.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — recoverability restores affected data and re-establishes the desired system state after a failure',
+    'ISO 9241-110:2020 — use-error tolerance helps users recover from errors with minimal effort',
+  ],
+  'The configuration for a single recovery scenario describing its trigger, impact, and recovery steps.',
+)
 @SectionId('RCVSCN')
 class RecoveryScenarioEntry {
   @Form([
-    Field('scenarioId', String, 'Scenario ID', required: true),
+    Field('scenarioId', String, 'Scenario ID', required: true,
+        hint: 'Unique identifier for this recovery scenario'),
     Field('scenarioName', String, 'Scenario Name', required: true,
         hint: 'Descriptive name'),
     Field('triggerCondition', String, 'Trigger Condition',
@@ -6370,6 +6603,14 @@ class RecoveryScenarioEntry {
 ///
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance provides help prompts and feedback on request',
+    'ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance',
+    'ISO/IEC 25010:2023 — learnability and operability let users get help and succeed',
+  ],
+  'The user-assistance configuration root for the in-app help system.',
+)
 @SectionId('HECO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
@@ -6426,6 +6667,13 @@ class UserAssistance {
 }
 
 /// Content stewardship and help affordances.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — user assistance content is owned, maintained, and kept current',
+    'ISO 9241-13:1998 — user guidance uses consistent help icons and tooltips',
+  ],
+  'The delivery settings covering help-content stewardship and help affordances.',
+)
 @SectionId('HECODE')
 class UserAssistanceDelivery {
     @Form([
@@ -6445,6 +6693,13 @@ class UserAssistanceDelivery {
 }
 
 /// Analytics and improvement feedback.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26515:2018 — agile user assistance improves from usage feedback',
+    'ISO/IEC 25010:2023 — learnability and operability are refined through analytics',
+  ],
+  'The insights settings that track help usage and gather improvement feedback.',
+)
 @SectionId('HECOIN')
 class UserAssistanceInsights {
     @Form([
@@ -6458,6 +6713,14 @@ class UserAssistanceInsights {
 }
 
 /// 10.8.1. Contextual Help.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance provides help prompts and feedback in context',
+    'ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance',
+    'ISO 9241-110:2020 — self-descriptiveness lets the interface explain itself in place',
+  ],
+  'The contextual-help configuration providing on-screen assistance in context.',
+)
 @SectionId('COHE')
 class ContextualHelp {
   @Form([
@@ -6496,13 +6759,28 @@ class ContextualHelp {
   TextSection contextualHelpNarrative = TextSection();
 
   /// Field help catalog.
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — forms provide field help for input controls',
+      'ISO 9241-13:1998 — user guidance offers field-level help for input elements',
+    ],
+    'The collection of field-help entries for the input fields in the interface.',
+  )
   @SectionId('FLDHP-FIEL-LST')
   @SectionIdPattern('FLDHP-FIEL-xxx')
+  @ContentHelp('Add one entry per field that needs contextual help.')
   @SerializationOrder(6)
   List<FieldHelpEntry> fieldHelpCatalog = [];
 }
 
 /// Inline help behavior.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance embeds prompts alongside the input elements',
+    'ISO 9241-110:2020 — self-descriptiveness places explanatory text near the controls',
+  ],
+  'The inline-help settings that place explanatory text next to fields and labels.',
+)
 @SectionId('COHEIN')
 class ContextualHelpInline {
     @Form([
@@ -6518,6 +6796,13 @@ class ContextualHelpInline {
 }
 
 /// Help panel behavior.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — embedded user assistance presents help in a dedicated pane',
+    'ISO 9241-125:2017 — visual presentation positions help panels relative to content',
+  ],
+  'The help-panel settings that govern a slide-out pane of contextual assistance.',
+)
 @SectionId('COHEPA')
 class ContextualHelpPanels {
     @Form([
@@ -6533,6 +6818,13 @@ class ContextualHelpPanels {
 }
 
 /// What's-this mode settings.
+@StandardReferences(
+  [
+    'ISO 9241-13:1998 — user guidance supplies point-and-ask help on request',
+    'ISO 9241-110:2020 — self-descriptiveness lets the interface explain its elements on demand',
+  ],
+  'The what-this help-mode settings that let users ask about any element directly.',
+)
 @SectionId('CHWT')
 class ContextualHelpWhatsThis {
     @Form([
@@ -6546,6 +6838,13 @@ class ContextualHelpWhatsThis {
 }
 
 /// Rich help media settings.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — embedded user assistance uses illustrations and multimedia',
+    'ISO 9241-125:2017 — visual presentation governs images and rich media in help',
+  ],
+  'The rich-media settings that add screenshots, videos, and animations to help.',
+)
 @SectionId('COHERI')
 class ContextualHelpRich {
     @Form([
@@ -6561,11 +6860,20 @@ class ContextualHelpRich {
 }
 
 /// A field help entry.
+@StandardReferences(
+  [
+    'ISO 9241-143:2012 — forms provide help for individual input fields',
+    'ISO 9241-13:1998 — user guidance offers field-level help for input elements',
+  ],
+  'A single field-help entry describing the assistance for one input field.',
+)
 @SectionId('FLDHP')
 class FieldHelpEntry {
   @Form([
-    Field('fieldId', String, 'Field ID', required: true),
-    Field('fieldLabel', String, 'Field Label', required: true),
+    Field('fieldId', String, 'Field ID',
+        required: true, hint: 'Unique identifier of the field'),
+    Field('fieldLabel', String, 'Field Label',
+        required: true, hint: 'Display label of the field'),
     Field('tooltipText', String, 'Tooltip Text',
         hint: 'Brief tooltip content'),
     Field('inlineHelpText', String, 'Inline Help Text',
@@ -6584,13 +6892,22 @@ class FieldHelpEntry {
 }
 
 /// 10.8.2. Onboarding Help.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — designs and develops user assistance and onboarding content',
+    'ISO/IEC 25010:2023 — learnability lets users learn to operate the system with ease',
+  ],
+  'A single onboarding-help configuration guiding new users through the interface.',
+)
 @SectionId('ONHE')
 class OnboardingHelp {
   @Form([
-    Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled'),
+    Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled',
+        hint: 'Whether the welcome flow is enabled'),
     Field('welcomeFlowStyle', String, 'Welcome Flow Style',
         hint: 'Modal wizard, full-page, inline'),
-    Field('welcomeFlowSkippable', bool, 'Welcome Flow Skippable'),
+    Field('welcomeFlowSkippable', bool, 'Welcome Flow Skippable',
+        hint: 'Whether users can skip the welcome flow'),
     Field('welcomeFlowDuration', String, 'Welcome Flow Duration',
         hint: 'Expected completion time'),
   ])
@@ -6622,17 +6939,32 @@ class OnboardingHelp {
   TextSection onboardingNarrative = TextSection();
 
   /// Feature tour definitions.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26514:2022 — develops a set of guided tutorials that introduce product features',
+    ],
+    'The collection of feature-tour definitions offered during onboarding.',
+  )
   @SectionId('FTRTUR-FEAT-LST')
   @SectionIdPattern('FTRTUR-FEAT-xxx')
+  @ContentHelp('Add one entry per feature tour.')
   @SerializationOrder(7)
   List<FeatureTourEntry> featureTours = [];
 }
 
 /// Feature tour settings.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — configures guided feature tours as a form of interactive user assistance',
+    'ISO 9241-13:1998 — presents guidance and prompts that orient users to available features',
+  ],
+  'The feature-tour settings controlling tour style, trigger, and progress display.',
+)
 @SectionId('ONHETO')
 class OnboardingHelpTours {
     @Form([
-        Field('featureToursEnabled', bool, 'Feature Tours Enabled'),
+        Field('featureToursEnabled', bool, 'Feature Tours Enabled',
+                hint: 'Whether feature tours are enabled'),
         Field('featureTourStyle', String, 'Feature Tour Style',
                 hint: 'Spotlight, coach marks, carousel'),
         Field('featureTourTrigger', String, 'Feature Tour Trigger',
@@ -6645,10 +6977,18 @@ class OnboardingHelpTours {
 }
 
 /// Sample data settings.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — supplies example data so users can learn the system through hands-on exploration',
+    'ISO/IEC 25010:2023 — supports learnability by letting users practise with representative sample content',
+  ],
+  'The sample-data settings that let new users explore the system with example content.',
+)
 @SectionId('OHSD')
 class OnboardingHelpSampleData {
     @Form([
-        Field('sampleDataAvailable', bool, 'Sample Data Available'),
+        Field('sampleDataAvailable', bool, 'Sample Data Available',
+                hint: 'Whether sample data is provided'),
         Field('sampleDataScope', String, 'Sample Data Scope',
                 hint: 'What sample data is provided'),
         Field('sampleDataClear', String, 'Sample Data Clear',
@@ -6659,10 +6999,18 @@ class OnboardingHelpSampleData {
 }
 
 /// Getting started checklist configuration.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — presents onboarding tasks as a checklist that guides new users to completion',
+    'ISO/IEC 25010:2023 — supports learnability by tracking progress through initial setup tasks',
+  ],
+  'The getting-started checklist configuration guiding new users through setup tasks.',
+)
 @SectionId('ONHECH')
 class OnboardingHelpChecklist {
     @Form([
-        Field('gettingStartedChecklist', bool, 'Getting Started Checklist'),
+        Field('gettingStartedChecklist', bool, 'Getting Started Checklist',
+                hint: 'Show a getting-started checklist to new users'),
         Field('checklistItems', String, 'Checklist Items',
                 hint: 'Setup tasks to complete'),
         Field('checklistProgress', String, 'Checklist Progress',
@@ -6675,6 +7023,13 @@ class OnboardingHelpChecklist {
 }
 
 /// Progressive disclosure configuration.
+@StandardReferences(
+  [
+    'ISO 9241-110:2020 — reveals functionality progressively to keep the interface suitable for learning',
+    'ISO/IEC 25010:2023 — adapts to user skill level to improve learnability and operability',
+  ],
+  'The progressive-disclosure configuration that reveals features as users gain skill.',
+)
 @SectionId('ONHEDI')
 class OnboardingHelpDisclosure {
     @Form([
@@ -6688,6 +7043,13 @@ class OnboardingHelpDisclosure {
 }
 
 /// Returning user experience.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — provides ongoing assistance that re-engages returning users with new content',
+    'ISO/IEC 25010:2023 — supports appropriateness recognisability so returning users recognise what changed',
+  ],
+  'The re-engagement experience shown to returning users, including new-feature highlights.',
+)
 @SectionId('ONHERE')
 class OnboardingHelpReengagement {
     @Form([
@@ -6701,19 +7063,32 @@ class OnboardingHelpReengagement {
 }
 
 /// A feature tour entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — develops guided tutorials that walk users through product features',
+    'ISO/IEC 25010:2023 — supports learnability so users can learn to operate the feature with ease',
+  ],
+  'A single feature-tour definition, including audience, trigger, and steps.',
+)
 @SectionId('FTRTUR')
 class FeatureTourEntry {
   @Form([
-    Field('tourId', String, 'Tour ID', required: true),
-    Field('tourName', String, 'Tour Name', required: true),
-    Field('tourDescription', String, 'Tour Description'),
+    Field('tourId', String, 'Tour ID', required: true,
+        hint: 'Unique identifier for this tour'),
+    Field('tourName', String, 'Tour Name', required: true,
+        hint: 'Display name of the tour'),
+    Field('tourDescription', String, 'Tour Description',
+        hint: 'Short summary of what the tour covers'),
     Field('targetAudience', String, 'Target Audience',
         hint: 'New users, specific role, all'),
     Field('triggerCondition', String, 'Trigger Condition',
         hint: 'When tour is shown'),
-    Field('stepCount', int, 'Step Count'),
-    Field('estimatedDuration', String, 'Estimated Duration'),
-    Field('skippable', bool, 'Skippable'),
+    Field('stepCount', int, 'Step Count',
+        hint: 'Number of steps in the tour'),
+    Field('estimatedDuration', String, 'Estimated Duration',
+        hint: 'Expected time to complete the tour'),
+    Field('skippable', bool, 'Skippable',
+        hint: 'Whether users can skip the tour'),
     Field('repeatPolicy', String, 'Repeat Policy',
         hint: 'Once only, on request, periodic'),
   ])
@@ -6721,21 +7096,38 @@ class FeatureTourEntry {
   String? content;
 
   /// Tour steps.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26514:2022 — organises assistance into sequential guided steps',
+    ],
+    'The collection of guided-tour step entries for this feature tour.',
+  )
   @SectionId('TURST-STEP-LST')
   @SectionIdPattern('TURST-STEP-xxx')
+  @ContentHelp('Add one entry per guided-tour step.')
   @SerializationOrder(1)
   List<TourStepEntry> steps = [];
 }
 
 /// A tour step entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — presents guided assistance as ordered steps that highlight interface elements',
+    'ISO 9241-13:1998 — delivers context-sensitive prompts and guidance at each step of a task',
+  ],
+  'A single step within a guided feature tour, targeting one interface element.',
+)
 @SectionId('TURST')
 class TourStepEntry {
   @Form([
-    Field('stepOrder', int, 'Step Order', required: true),
+    Field('stepOrder', int, 'Step Order', required: true,
+        hint: 'Sequence position of this step'),
     Field('targetElement', String, 'Target Element',
         hint: 'Element to highlight'),
-    Field('stepTitle', String, 'Step Title'),
-    Field('stepContent', String, 'Step Content', required: true),
+    Field('stepTitle', String, 'Step Title',
+        hint: 'Short title shown for this step'),
+    Field('stepContent', String, 'Step Content', required: true,
+        hint: 'Explanatory text shown for this step'),
     Field('placement', String, 'Placement',
         hint: 'Position of coach mark'),
     Field('actionRequired', String, 'Action Required',
@@ -6748,12 +7140,22 @@ class TourStepEntry {
 }
 
 /// 10.8.3. Support Access.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — establishes the support channels through which users request assistance and report incidents',
+    'ISO/IEC/IEEE 26511:2018 — manages the assistance and support made available to users of the system',
+  ],
+  'The overall support-access configuration spanning help centre, live support, tickets, contacts, and self-service.',
+)
 @SectionId('SUAC')
 class SupportAccess {
   @Form([
-    Field('helpCenterAvailable', bool, 'Help Center Available'),
-    Field('liveChatAvailable', bool, 'Live Chat Available'),
-    Field('ticketSubmission', bool, 'Ticket Submission'),
+    Field('helpCenterAvailable', bool, 'Help Center Available',
+        hint: 'Whether a help centre is provided'),
+    Field('liveChatAvailable', bool, 'Live Chat Available',
+        hint: 'Whether live chat support is provided'),
+    Field('ticketSubmission', bool, 'Ticket Submission',
+        hint: 'Whether users can submit support tickets'),
   ])
   @SerializationOrder(0)
   String? supportAccessContent;
@@ -6784,6 +7186,13 @@ class SupportAccess {
 }
 
 /// Help center configuration.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — organises user assistance into a searchable, categorised help repository',
+    'ISO/IEC 20000-1:2018 — offers a knowledge base as a self-service support channel',
+  ],
+  'The help-centre configuration covering location, search, and article categories.',
+)
 @SectionId('SAHC')
 class SupportAccessHelpCenter {
   @Form([
@@ -6799,6 +7208,13 @@ class SupportAccessHelpCenter {
 }
 
 /// Live support settings.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — provides interactive support channels staffed within defined availability hours',
+    'ISO/IEC/IEEE 26514:2022 — supplements documented assistance with real-time support interactions',
+  ],
+  'The live-support settings covering chat hours and chatbot handling.',
+)
 @SectionId('SALS')
 class SupportAccessLiveSupport {
   @Form([
@@ -6814,6 +7230,12 @@ class SupportAccessLiveSupport {
 }
 
 /// Ticket system configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — records requests and incidents as tickets and manages them to resolution within agreed targets',
+  ],
+  'The support-ticket system configuration for submitting and tracking requests.',
+)
 @SectionId('SUACTI')
 class SupportAccessTickets {
   @Form([
@@ -6829,26 +7251,48 @@ class SupportAccessTickets {
 }
 
 /// Contact methods.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — makes support contact channels available so users can reach the service provider',
+    'ISO/IEC/IEEE 26511:2018 — identifies the channels through which users obtain assistance',
+  ],
+  'The contact methods through which users can reach support.',
+)
 @SectionId('SACM')
 class SupportAccessContactMethods {
   @Form([
-    Field('emailSupport', bool, 'Email Support'),
-    Field('phoneSupport', bool, 'Phone Support'),
-    Field('phoneNumber', String, 'Phone Number'),
-    Field('communityForum', bool, 'Community Forum'),
+    Field('emailSupport', bool, 'Email Support',
+        hint: 'Offer support by email'),
+    Field('phoneSupport', bool, 'Phone Support',
+        hint: 'Offer support by phone'),
+    Field('phoneNumber', String, 'Phone Number',
+        hint: 'Published support phone number'),
+    Field('communityForum', bool, 'Community Forum',
+        hint: 'Offer a community forum for peer support'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Self-service and feedback options.
+@StandardReferences(
+  [
+    'ISO/IEC 20000-1:2018 — provides self-service channels so users can resolve requests without agent involvement',
+    'ISO/IEC/IEEE 26514:2022 — supplies self-help assistance content such as FAQs and troubleshooting guides',
+  ],
+  'The self-service and feedback options offered alongside assisted support.',
+)
 @SectionId('SASS')
 class SupportAccessSelfService {
   @Form([
-    Field('faqSection', bool, 'FAQ Section'),
-    Field('troubleshootingGuides', bool, 'Troubleshooting Guides'),
-    Field('videoTutorials', bool, 'Video Tutorials'),
-    Field('releaseNotes', bool, 'Release Notes'),
+    Field('faqSection', bool, 'FAQ Section',
+        hint: 'Offer a frequently asked questions section'),
+    Field('troubleshootingGuides', bool, 'Troubleshooting Guides',
+        hint: 'Provide step-by-step troubleshooting guides'),
+    Field('videoTutorials', bool, 'Video Tutorials',
+        hint: 'Offer instructional video tutorials'),
+    Field('releaseNotes', bool, 'Release Notes',
+        hint: 'Publish release notes for updates'),
     Field('feedbackButton', bool, 'Feedback Button',
         hint: 'Always-visible feedback option'),
     Field('featureRequests', bool, 'Feature Requests',

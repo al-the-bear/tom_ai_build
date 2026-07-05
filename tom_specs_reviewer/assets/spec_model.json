@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T17:00:35.768960Z",
+  "generatedAt": "2026-07-05T17:23:41.519951Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -55228,7 +55228,26 @@
       "name": "ContextualHelp",
       "sectionId": "COHE",
       "doc": "10.8.1. Contextual Help.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance provides help prompts and feedback in context",
+          "ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance",
+          "ISO 9241-110:2020 — self-descriptiveness lets the interface explain itself in place"
+        ],
+        "connotation": "The contextual-help configuration providing on-screen assistance in context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance provides help prompts and feedback in context",
+              "ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance",
+              "ISO 9241-110:2020 — self-descriptiveness lets the interface explain itself in place"
+            ],
+            "connotation": "The contextual-help configuration providing on-screen assistance in context."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55373,10 +55392,28 @@
           "name": "fieldHelpCatalog",
           "kind": "list",
           "doc": "Field help catalog.",
+          "help": "Add one entry per field that needs contextual help.",
           "sectionId": "FLDHP-FIEL-LST",
           "sectionIdPattern": "FLDHP-FIEL-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — forms provide field help for input controls",
+              "ISO 9241-13:1998 — user guidance offers field-level help for input elements"
+            ],
+            "connotation": "The collection of field-help entries for the input fields in the interface."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — forms provide field help for input controls",
+                  "ISO 9241-13:1998 — user guidance offers field-level help for input elements"
+                ],
+                "connotation": "The collection of field-help entries for the input fields in the interface."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -55387,6 +55424,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FLDHP-FIEL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per field that needs contextual help."
               }
             },
             {
@@ -55405,7 +55448,24 @@
       "name": "ContextualHelpInline",
       "sectionId": "COHEIN",
       "doc": "Inline help behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance embeds prompts alongside the input elements",
+          "ISO 9241-110:2020 — self-descriptiveness places explanatory text near the controls"
+        ],
+        "connotation": "The inline-help settings that place explanatory text next to fields and labels."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance embeds prompts alongside the input elements",
+              "ISO 9241-110:2020 — self-descriptiveness places explanatory text near the controls"
+            ],
+            "connotation": "The inline-help settings that place explanatory text next to fields and labels."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55462,7 +55522,24 @@
       "name": "ContextualHelpPanels",
       "sectionId": "COHEPA",
       "doc": "Help panel behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — embedded user assistance presents help in a dedicated pane",
+          "ISO 9241-125:2017 — visual presentation positions help panels relative to content"
+        ],
+        "connotation": "The help-panel settings that govern a slide-out pane of contextual assistance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — embedded user assistance presents help in a dedicated pane",
+              "ISO 9241-125:2017 — visual presentation positions help panels relative to content"
+            ],
+            "connotation": "The help-panel settings that govern a slide-out pane of contextual assistance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55519,7 +55596,24 @@
       "name": "ContextualHelpRich",
       "sectionId": "COHERI",
       "doc": "Rich help media settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — embedded user assistance uses illustrations and multimedia",
+          "ISO 9241-125:2017 — visual presentation governs images and rich media in help"
+        ],
+        "connotation": "The rich-media settings that add screenshots, videos, and animations to help."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — embedded user assistance uses illustrations and multimedia",
+              "ISO 9241-125:2017 — visual presentation governs images and rich media in help"
+            ],
+            "connotation": "The rich-media settings that add screenshots, videos, and animations to help."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55576,7 +55670,24 @@
       "name": "ContextualHelpWhatsThis",
       "sectionId": "CHWT",
       "doc": "What's-this mode settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance supplies point-and-ask help on request",
+          "ISO 9241-110:2020 — self-descriptiveness lets the interface explain its elements on demand"
+        ],
+        "connotation": "The what-this help-mode settings that let users ask about any element directly."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance supplies point-and-ask help on request",
+              "ISO 9241-110:2020 — self-descriptiveness lets the interface explain its elements on demand"
+            ],
+            "connotation": "The what-this help-mode settings that let users ask about any element directly."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -101826,7 +101937,26 @@
       "doc": "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance and error management help users prevent, detect, and recover from errors",
+          "ISO 9241-13:1998 — user guidance provides feedback and error messages throughout interaction",
+          "ISO/IEC 25010:2023 — fault tolerance and recoverability underpin graceful error recovery"
+        ],
+        "connotation": "The error-handling configuration governing validation feedback, system errors, and recovery flows."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance and error management help users prevent, detect, and recover from errors",
+              "ISO 9241-13:1998 — user guidance provides feedback and error messages throughout interaction",
+              "ISO/IEC 25010:2023 — fault tolerance and recoverability underpin graceful error recovery"
+            ],
+            "connotation": "The error-handling configuration governing validation feedback, system errors, and recovery flows."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102068,7 +102198,24 @@
       "name": "ErrorHandlingAccessibility",
       "sectionId": "EHCA",
       "doc": "Accessibility and inclusive error cues.\n\nThe authoritative WCAG conformance targets (AA/AAA levels, success\ncriteria) are defined in §10.9 `Accessibility`. This section *applies*\nthose targets to error states (screen-reader announcements, contrast,\nnon-color indicators) — reference §10.9, do not restate the conformance\nlevels here.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation ensures error cues remain perceivable through non-colour indicators",
+          "ISO/IEC 25010:2023 — appropriateness recognisability supports inclusive error cues for all users"
+        ],
+        "connotation": "The error-handling accessibility configuration governing inclusive error cues."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation ensures error cues remain perceivable through non-colour indicators",
+              "ISO/IEC 25010:2023 — appropriateness recognisability supports inclusive error cues for all users"
+            ],
+            "connotation": "The error-handling accessibility configuration governing inclusive error cues."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102125,7 +102272,24 @@
       "name": "ErrorHandlingClassification",
       "sectionId": "EHCC",
       "doc": "Error categorization and display priority.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance orders feedback so the most important errors are noticed first",
+          "ISO/IEC 25010:2023 — fault tolerance benefits from classifying errors by category and severity"
+        ],
+        "connotation": "The error-handling classification configuration governing categories and display priority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance orders feedback so the most important errors are noticed first",
+              "ISO/IEC 25010:2023 — fault tolerance benefits from classifying errors by category and severity"
+            ],
+            "connotation": "The error-handling classification configuration governing categories and display priority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102182,7 +102346,24 @@
       "name": "ErrorHandlingOperations",
       "sectionId": "EHCO",
       "doc": "Localization and analytics behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance presents error messages in the language and terms of the user",
+          "ISO/IEC 25010:2023 — user error protection and reliability inform the tracking of recurring input errors"
+        ],
+        "connotation": "The error-handling operations configuration governing localisation and error analytics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance presents error messages in the language and terms of the user",
+              "ISO/IEC 25010:2023 — user error protection and reliability inform the tracking of recurring input errors"
+            ],
+            "connotation": "The error-handling operations configuration governing localisation and error analytics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102837,7 +103018,24 @@
       "name": "ErrorRecovery",
       "sectionId": "ERRE",
       "doc": "10.7.3. Error Recovery.\n\nError recovery flows including data preservation, retry mechanisms,\nand guided recovery steps.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance lets users recover from errors with minimal effort",
+          "ISO/IEC 25010:2023 — recoverability restores state and recovers affected data after a failure"
+        ],
+        "connotation": "The error-recovery configuration covering data preservation, retry, and guided recovery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance lets users recover from errors with minimal effort",
+              "ISO/IEC 25010:2023 — recoverability restores state and recovers affected data after a failure"
+            ],
+            "connotation": "The error-recovery configuration covering data preservation, retry, and guided recovery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -102990,10 +103188,28 @@
           "name": "recoveryFlows",
           "kind": "list",
           "doc": "Recovery flow diagrams.",
+          "help": "Add one entry per recovery flow.",
           "sectionId": "RECOV-RECO-LST",
           "sectionIdPattern": "RECOV-RECO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs",
+              "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"
+            ],
+            "connotation": "The collection of recovery-flow entries."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs",
+                  "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"
+                ],
+                "connotation": "The collection of recovery-flow entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103004,6 +103220,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RECOV-RECO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per recovery flow."
               }
             },
             {
@@ -103020,10 +103242,28 @@
           "name": "recoveryScenarios",
           "kind": "list",
           "doc": "Common recovery scenarios.",
+          "help": "Add one entry per common recovery scenario.",
           "sectionId": "RCVSCN-RECO-LST",
           "sectionIdPattern": "RCVSCN-RECO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery",
+              "ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure"
+            ],
+            "connotation": "The collection of common recovery-scenario entries."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery",
+                  "ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure"
+                ],
+                "connotation": "The collection of common recovery-scenario entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103034,6 +103274,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RCVSCN-RECO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per common recovery scenario."
               }
             },
             {
@@ -103052,7 +103298,24 @@
       "name": "ErrorRecoveryDataPreservation",
       "sectionId": "ERDP",
       "doc": "Data preservation: draft auto-save settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability restores affected data after a failure so user work is not lost",
+          "ISO 9241-110:2020 — use-error tolerance preserves user input so recovery requires minimal effort"
+        ],
+        "connotation": "The data-preservation configuration describing draft auto-save so user input survives failures."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability restores affected data after a failure so user work is not lost",
+              "ISO 9241-110:2020 — use-error tolerance preserves user input so recovery requires minimal effort"
+            ],
+            "connotation": "The data-preservation configuration describing draft auto-save so user input survives failures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103123,7 +103386,24 @@
       "name": "ErrorRecoveryGuidedRecovery",
       "sectionId": "ERGR",
       "doc": "Guided recovery options.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance guides users through corrective steps with minimal effort",
+          "ISO 9241-13:1998 — user guidance offers constructive suggestions for recovering from an error"
+        ],
+        "connotation": "The guided-recovery configuration describing step-by-step assistance and alternative actions after a failure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance guides users through corrective steps with minimal effort",
+              "ISO 9241-13:1998 — user guidance offers constructive suggestions for recovering from an error"
+            ],
+            "connotation": "The guided-recovery configuration describing step-by-step assistance and alternative actions after a failure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103187,7 +103467,24 @@
       "name": "ErrorRecoveryRetryMechanisms",
       "sectionId": "ERRM",
       "doc": "Retry mechanisms configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — fault tolerance keeps the system operating as intended despite faults by retrying failed operations",
+          "ISO 9241-110:2020 — use-error tolerance allows users to reattempt an operation after a transient failure"
+        ],
+        "connotation": "The retry-mechanism configuration describing automatic and manual reattempts after a failed operation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — fault tolerance keeps the system operating as intended despite faults by retrying failed operations",
+              "ISO 9241-110:2020 — use-error tolerance allows users to reattempt an operation after a transient failure"
+            ],
+            "connotation": "The retry-mechanism configuration describing automatic and manual reattempts after a failed operation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103218,6 +103515,7 @@
             {
               "name": "automaticRetryEnabled",
               "label": "Automatic Retry Enabled",
+              "hint": "Whether failed operations are retried automatically",
               "type": "bool",
               "required": false
             },
@@ -103231,12 +103529,14 @@
             {
               "name": "maxAutomaticRetries",
               "label": "Max Automatic Retries",
+              "hint": "Maximum number of automatic retry attempts",
               "type": "int",
               "required": false
             },
             {
               "name": "manualRetryButton",
               "label": "Manual Retry Button",
+              "hint": "Whether a user-triggered retry button is shown",
               "type": "bool",
               "required": false
             },
@@ -103262,7 +103562,24 @@
       "name": "ErrorRecoverySessionHandling",
       "sectionId": "ERSH",
       "doc": "Session handling configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure",
+          "ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context"
+        ],
+        "connotation": "The session-handling configuration describing reauthentication and context preservation after errors."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure",
+              "ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context"
+            ],
+            "connotation": "The session-handling configuration describing reauthentication and context preservation after errors."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103312,7 +103629,24 @@
       "name": "ErrorRecoverySupportContact",
       "sectionId": "ERSC",
       "doc": "Support contact details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation",
+          "ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved"
+        ],
+        "connotation": "The support-contact configuration describing availability and error-report submission to reach assistance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation",
+              "ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved"
+            ],
+            "connotation": "The support-contact configuration describing availability and error-report submission to reach assistance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113629,7 +113963,24 @@
       "name": "FeatureTourEntry",
       "sectionId": "FTRTUR",
       "doc": "A feature tour entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — develops guided tutorials that walk users through product features",
+          "ISO/IEC 25010:2023 — supports learnability so users can learn to operate the feature with ease"
+        ],
+        "connotation": "A single feature-tour definition, including audience, trigger, and steps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — develops guided tutorials that walk users through product features",
+              "ISO/IEC 25010:2023 — supports learnability so users can learn to operate the feature with ease"
+            ],
+            "connotation": "A single feature-tour definition, including audience, trigger, and steps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113660,18 +114011,21 @@
             {
               "name": "tourId",
               "label": "Tour ID",
+              "hint": "Unique identifier for this tour",
               "type": "String",
               "required": true
             },
             {
               "name": "tourName",
               "label": "Tour Name",
+              "hint": "Display name of the tour",
               "type": "String",
               "required": true
             },
             {
               "name": "tourDescription",
               "label": "Tour Description",
+              "hint": "Short summary of what the tour covers",
               "type": "String",
               "required": false
             },
@@ -113692,18 +114046,21 @@
             {
               "name": "stepCount",
               "label": "Step Count",
+              "hint": "Number of steps in the tour",
               "type": "int",
               "required": false
             },
             {
               "name": "estimatedDuration",
               "label": "Estimated Duration",
+              "hint": "Expected time to complete the tour",
               "type": "String",
               "required": false
             },
             {
               "name": "skippable",
               "label": "Skippable",
+              "hint": "Whether users can skip the tour",
               "type": "bool",
               "required": false
             },
@@ -113720,10 +114077,26 @@
           "name": "steps",
           "kind": "list",
           "doc": "Tour steps.",
+          "help": "Add one entry per guided-tour step.",
           "sectionId": "TURST-STEP-LST",
           "sectionIdPattern": "TURST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — organises assistance into sequential guided steps"
+            ],
+            "connotation": "The collection of guided-tour step entries for this feature tour."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514:2022 — organises assistance into sequential guided steps"
+                ],
+                "connotation": "The collection of guided-tour step entries for this feature tour."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -113734,6 +114107,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TURST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per guided-tour step."
               }
             },
             {
@@ -113823,7 +114202,24 @@
       "name": "FieldHelpEntry",
       "sectionId": "FLDHP",
       "doc": "A field help entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — forms provide help for individual input fields",
+          "ISO 9241-13:1998 — user guidance offers field-level help for input elements"
+        ],
+        "connotation": "A single field-help entry describing the assistance for one input field."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — forms provide help for individual input fields",
+              "ISO 9241-13:1998 — user guidance offers field-level help for input elements"
+            ],
+            "connotation": "A single field-help entry describing the assistance for one input field."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113854,12 +114250,14 @@
             {
               "name": "fieldId",
               "label": "Field ID",
+              "hint": "Unique identifier of the field",
               "type": "String",
               "required": true
             },
             {
               "name": "fieldLabel",
               "label": "Field Label",
+              "hint": "Display label of the field",
               "type": "String",
               "required": true
             },
@@ -171092,7 +171490,24 @@
       "name": "OnboardingHelp",
       "sectionId": "ONHE",
       "doc": "10.8.2. Onboarding Help.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — designs and develops user assistance and onboarding content",
+          "ISO/IEC 25010:2023 — learnability lets users learn to operate the system with ease"
+        ],
+        "connotation": "A single onboarding-help configuration guiding new users through the interface."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops user assistance and onboarding content",
+              "ISO/IEC 25010:2023 — learnability lets users learn to operate the system with ease"
+            ],
+            "connotation": "A single onboarding-help configuration guiding new users through the interface."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171123,6 +171538,7 @@
             {
               "name": "welcomeFlowEnabled",
               "label": "Welcome Flow Enabled",
+              "hint": "Whether the welcome flow is enabled",
               "type": "bool",
               "required": false
             },
@@ -171136,6 +171552,7 @@
             {
               "name": "welcomeFlowSkippable",
               "label": "Welcome Flow Skippable",
+              "hint": "Whether users can skip the welcome flow",
               "type": "bool",
               "required": false
             },
@@ -171243,10 +171660,26 @@
           "name": "featureTours",
           "kind": "list",
           "doc": "Feature tour definitions.",
+          "help": "Add one entry per feature tour.",
           "sectionId": "FTRTUR-FEAT-LST",
           "sectionIdPattern": "FTRTUR-FEAT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — develops a set of guided tutorials that introduce product features"
+            ],
+            "connotation": "The collection of feature-tour definitions offered during onboarding."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514:2022 — develops a set of guided tutorials that introduce product features"
+                ],
+                "connotation": "The collection of feature-tour definitions offered during onboarding."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -171257,6 +171690,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FTRTUR-FEAT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per feature tour."
               }
             },
             {
@@ -171275,7 +171714,24 @@
       "name": "OnboardingHelpChecklist",
       "sectionId": "ONHECH",
       "doc": "Getting started checklist configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — presents onboarding tasks as a checklist that guides new users to completion",
+          "ISO/IEC 25010:2023 — supports learnability by tracking progress through initial setup tasks"
+        ],
+        "connotation": "The getting-started checklist configuration guiding new users through setup tasks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — presents onboarding tasks as a checklist that guides new users to completion",
+              "ISO/IEC 25010:2023 — supports learnability by tracking progress through initial setup tasks"
+            ],
+            "connotation": "The getting-started checklist configuration guiding new users through setup tasks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171306,6 +171762,7 @@
             {
               "name": "gettingStartedChecklist",
               "label": "Getting Started Checklist",
+              "hint": "Show a getting-started checklist to new users",
               "type": "bool",
               "required": false
             },
@@ -171338,7 +171795,24 @@
       "name": "OnboardingHelpDisclosure",
       "sectionId": "ONHEDI",
       "doc": "Progressive disclosure configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — reveals functionality progressively to keep the interface suitable for learning",
+          "ISO/IEC 25010:2023 — adapts to user skill level to improve learnability and operability"
+        ],
+        "connotation": "The progressive-disclosure configuration that reveals features as users gain skill."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — reveals functionality progressively to keep the interface suitable for learning",
+              "ISO/IEC 25010:2023 — adapts to user skill level to improve learnability and operability"
+            ],
+            "connotation": "The progressive-disclosure configuration that reveals features as users gain skill."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171388,7 +171862,24 @@
       "name": "OnboardingHelpReengagement",
       "sectionId": "ONHERE",
       "doc": "Returning user experience.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — provides ongoing assistance that re-engages returning users with new content",
+          "ISO/IEC 25010:2023 — supports appropriateness recognisability so returning users recognise what changed"
+        ],
+        "connotation": "The re-engagement experience shown to returning users, including new-feature highlights."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — provides ongoing assistance that re-engages returning users with new content",
+              "ISO/IEC 25010:2023 — supports appropriateness recognisability so returning users recognise what changed"
+            ],
+            "connotation": "The re-engagement experience shown to returning users, including new-feature highlights."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171438,7 +171929,24 @@
       "name": "OnboardingHelpSampleData",
       "sectionId": "OHSD",
       "doc": "Sample data settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — supplies example data so users can learn the system through hands-on exploration",
+          "ISO/IEC 25010:2023 — supports learnability by letting users practise with representative sample content"
+        ],
+        "connotation": "The sample-data settings that let new users explore the system with example content."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — supplies example data so users can learn the system through hands-on exploration",
+              "ISO/IEC 25010:2023 — supports learnability by letting users practise with representative sample content"
+            ],
+            "connotation": "The sample-data settings that let new users explore the system with example content."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171469,6 +171977,7 @@
             {
               "name": "sampleDataAvailable",
               "label": "Sample Data Available",
+              "hint": "Whether sample data is provided",
               "type": "bool",
               "required": false
             },
@@ -171494,7 +172003,24 @@
       "name": "OnboardingHelpTours",
       "sectionId": "ONHETO",
       "doc": "Feature tour settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — configures guided feature tours as a form of interactive user assistance",
+          "ISO 9241-13:1998 — presents guidance and prompts that orient users to available features"
+        ],
+        "connotation": "The feature-tour settings controlling tour style, trigger, and progress display."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — configures guided feature tours as a form of interactive user assistance",
+              "ISO 9241-13:1998 — presents guidance and prompts that orient users to available features"
+            ],
+            "connotation": "The feature-tour settings controlling tour style, trigger, and progress display."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -171525,6 +172051,7 @@
             {
               "name": "featureToursEnabled",
               "label": "Feature Tours Enabled",
+              "hint": "Whether feature tours are enabled",
               "type": "bool",
               "required": false
             },
@@ -203509,7 +204036,24 @@
       "name": "RecoveryScenarioEntry",
       "sectionId": "RCVSCN",
       "doc": "A recovery scenario entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — recoverability restores affected data and re-establishes the desired system state after a failure",
+          "ISO 9241-110:2020 — use-error tolerance helps users recover from errors with minimal effort"
+        ],
+        "connotation": "The configuration for a single recovery scenario describing its trigger, impact, and recovery steps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — recoverability restores affected data and re-establishes the desired system state after a failure",
+              "ISO 9241-110:2020 — use-error tolerance helps users recover from errors with minimal effort"
+            ],
+            "connotation": "The configuration for a single recovery scenario describing its trigger, impact, and recovery steps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203540,6 +204084,7 @@
             {
               "name": "scenarioId",
               "label": "Scenario ID",
+              "hint": "Unique identifier for this recovery scenario",
               "type": "String",
               "required": true
             },
@@ -260217,7 +260762,24 @@
       "name": "SupportAccess",
       "sectionId": "SUAC",
       "doc": "10.8.3. Support Access.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — establishes the support channels through which users request assistance and report incidents",
+          "ISO/IEC/IEEE 26511:2018 — manages the assistance and support made available to users of the system"
+        ],
+        "connotation": "The overall support-access configuration spanning help centre, live support, tickets, contacts, and self-service."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — establishes the support channels through which users request assistance and report incidents",
+              "ISO/IEC/IEEE 26511:2018 — manages the assistance and support made available to users of the system"
+            ],
+            "connotation": "The overall support-access configuration spanning help centre, live support, tickets, contacts, and self-service."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260248,18 +260810,21 @@
             {
               "name": "helpCenterAvailable",
               "label": "Help Center Available",
+              "hint": "Whether a help centre is provided",
               "type": "bool",
               "required": false
             },
             {
               "name": "liveChatAvailable",
               "label": "Live Chat Available",
+              "hint": "Whether live chat support is provided",
               "type": "bool",
               "required": false
             },
             {
               "name": "ticketSubmission",
               "label": "Ticket Submission",
+              "hint": "Whether users can submit support tickets",
               "type": "bool",
               "required": false
             }
@@ -260362,7 +260927,24 @@
       "name": "SupportAccessContactMethods",
       "sectionId": "SACM",
       "doc": "Contact methods.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — makes support contact channels available so users can reach the service provider",
+          "ISO/IEC/IEEE 26511:2018 — identifies the channels through which users obtain assistance"
+        ],
+        "connotation": "The contact methods through which users can reach support."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — makes support contact channels available so users can reach the service provider",
+              "ISO/IEC/IEEE 26511:2018 — identifies the channels through which users obtain assistance"
+            ],
+            "connotation": "The contact methods through which users can reach support."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260393,24 +260975,28 @@
             {
               "name": "emailSupport",
               "label": "Email Support",
+              "hint": "Offer support by email",
               "type": "bool",
               "required": false
             },
             {
               "name": "phoneSupport",
               "label": "Phone Support",
+              "hint": "Offer support by phone",
               "type": "bool",
               "required": false
             },
             {
               "name": "phoneNumber",
               "label": "Phone Number",
+              "hint": "Published support phone number",
               "type": "String",
               "required": false
             },
             {
               "name": "communityForum",
               "label": "Community Forum",
+              "hint": "Offer a community forum for peer support",
               "type": "bool",
               "required": false
             }
@@ -260422,7 +261008,24 @@
       "name": "SupportAccessHelpCenter",
       "sectionId": "SAHC",
       "doc": "Help center configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — organises user assistance into a searchable, categorised help repository",
+          "ISO/IEC 20000-1:2018 — offers a knowledge base as a self-service support channel"
+        ],
+        "connotation": "The help-centre configuration covering location, search, and article categories."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — organises user assistance into a searchable, categorised help repository",
+              "ISO/IEC 20000-1:2018 — offers a knowledge base as a self-service support channel"
+            ],
+            "connotation": "The help-centre configuration covering location, search, and article categories."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260479,7 +261082,24 @@
       "name": "SupportAccessLiveSupport",
       "sectionId": "SALS",
       "doc": "Live support settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — provides interactive support channels staffed within defined availability hours",
+          "ISO/IEC/IEEE 26514:2022 — supplements documented assistance with real-time support interactions"
+        ],
+        "connotation": "The live-support settings covering chat hours and chatbot handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — provides interactive support channels staffed within defined availability hours",
+              "ISO/IEC/IEEE 26514:2022 — supplements documented assistance with real-time support interactions"
+            ],
+            "connotation": "The live-support settings covering chat hours and chatbot handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260536,7 +261156,24 @@
       "name": "SupportAccessSelfService",
       "sectionId": "SASS",
       "doc": "Self-service and feedback options.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — provides self-service channels so users can resolve requests without agent involvement",
+          "ISO/IEC/IEEE 26514:2022 — supplies self-help assistance content such as FAQs and troubleshooting guides"
+        ],
+        "connotation": "The self-service and feedback options offered alongside assisted support."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — provides self-service channels so users can resolve requests without agent involvement",
+              "ISO/IEC/IEEE 26514:2022 — supplies self-help assistance content such as FAQs and troubleshooting guides"
+            ],
+            "connotation": "The self-service and feedback options offered alongside assisted support."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260567,24 +261204,28 @@
             {
               "name": "faqSection",
               "label": "FAQ Section",
+              "hint": "Offer a frequently asked questions section",
               "type": "bool",
               "required": false
             },
             {
               "name": "troubleshootingGuides",
               "label": "Troubleshooting Guides",
+              "hint": "Provide step-by-step troubleshooting guides",
               "type": "bool",
               "required": false
             },
             {
               "name": "videoTutorials",
               "label": "Video Tutorials",
+              "hint": "Offer instructional video tutorials",
               "type": "bool",
               "required": false
             },
             {
               "name": "releaseNotes",
               "label": "Release Notes",
+              "hint": "Publish release notes for updates",
               "type": "bool",
               "required": false
             },
@@ -260617,7 +261258,22 @@
       "name": "SupportAccessTickets",
       "sectionId": "SUACTI",
       "doc": "Ticket system configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 20000-1:2018 — records requests and incidents as tickets and manages them to resolution within agreed targets"
+        ],
+        "connotation": "The support-ticket system configuration for submitting and tracking requests."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 20000-1:2018 — records requests and incidents as tickets and manages them to resolution within agreed targets"
+            ],
+            "connotation": "The support-ticket system configuration for submitting and tracking requests."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264446,7 +265102,24 @@
       "name": "SystemErrorCodeEntry",
       "sectionId": "SYERCOEN",
       "doc": "A system error code entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated",
+          "ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message"
+        ],
+        "connotation": "A single catalogued system error code with its user message and handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated",
+              "ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message"
+            ],
+            "connotation": "A single catalogued system error code with its user message and handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264540,7 +265213,24 @@
       "name": "SystemErrorCodeEntryHandling",
       "sectionId": "SECEH",
       "doc": "Recovery and display guidance.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance offers clear suggested actions for recovering from an error",
+          "ISO/IEC 25010:2023 — fault tolerance keeps the system usable through retry and recovery guidance"
+        ],
+        "connotation": "The recovery and display guidance for a system error code."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance offers clear suggested actions for recovering from an error",
+              "ISO/IEC 25010:2023 — fault tolerance keeps the system usable through retry and recovery guidance"
+            ],
+            "connotation": "The recovery and display guidance for a system error code."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264611,7 +265301,24 @@
       "name": "SystemErrorCodeEntryOperations",
       "sectionId": "SECEO",
       "doc": "Operational support and logging controls.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — event logging records error events at the appropriate severity level",
+          "ISO/IEC 20000-1:2018 — incident handling routes error notifications to support functions"
+        ],
+        "connotation": "The operational support and logging controls for a system error code."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — event logging records error events at the appropriate severity level",
+              "ISO/IEC 20000-1:2018 — incident handling routes error notifications to support functions"
+            ],
+            "connotation": "The operational support and logging controls for a system error code."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264661,7 +265368,26 @@
       "name": "SystemErrorDisplay",
       "sectionId": "SYERDI",
       "doc": "10.7.2. System Error Display.\n\nSystem error presentation including server errors, network issues,\nand timeouts.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — presentation of information governs how system errors are shown to users",
+          "ISO 9241-13:1998 — user guidance presents clear and specific system error messages",
+          "ISO/IEC 25010:2023 — fault tolerance and recoverability shape graceful degradation on failure"
+        ],
+        "connotation": "The system-error display configuration governing how errors are shown to users."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — presentation of information governs how system errors are shown to users",
+              "ISO 9241-13:1998 — user guidance presents clear and specific system error messages",
+              "ISO/IEC 25010:2023 — fault tolerance and recoverability shape graceful degradation on failure"
+            ],
+            "connotation": "The system-error display configuration governing how errors are shown to users."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264799,10 +265525,28 @@
           "name": "errorPageDesigns",
           "kind": "list",
           "doc": "Error page designs.",
+          "help": "Add one entry per error page design.",
           "sectionId": "EPDE-ERRO-LST",
           "sectionIdPattern": "EPDE-ERRO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs",
+              "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"
+            ],
+            "connotation": "The collection of error-page design entries."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs",
+                  "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"
+                ],
+                "connotation": "The collection of error-page design entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -264813,6 +265557,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EPDE-ERRO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per error page design."
               }
             },
             {
@@ -264829,10 +265579,28 @@
           "name": "errorCodes",
           "kind": "list",
           "doc": "Error codes catalog.",
+          "help": "Add one entry per system error code.",
           "sectionId": "SECE-ERRO-LST",
           "sectionIdPattern": "SECE-ERRO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated",
+              "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"
+            ],
+            "connotation": "The collection of catalogued system error code entries."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated",
+                  "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"
+                ],
+                "connotation": "The collection of catalogued system error code entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -264843,6 +265611,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SECE-ERRO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per system error code."
               }
             },
             {
@@ -264861,7 +265635,24 @@
       "name": "SystemErrorDisplayContent",
       "sectionId": "SEDC",
       "doc": "Content options for system error display.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance presents clear and specific error message content",
+          "ISO 9241-125:2017 — presentation of information governs which error details are shown to users"
+        ],
+        "connotation": "The content options that decide what information an error display presents."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance presents clear and specific error message content",
+              "ISO 9241-125:2017 — presentation of information governs which error details are shown to users"
+            ],
+            "connotation": "The content options that decide what information an error display presents."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264899,18 +265690,21 @@
             {
               "name": "showRetryOption",
               "label": "Show Retry Option",
+              "hint": "Offer a retry button on the error",
               "type": "bool",
               "required": false
             },
             {
               "name": "showContactSupport",
               "label": "Show Contact Support",
+              "hint": "Show a link to contact support",
               "type": "bool",
               "required": false
             },
             {
               "name": "showStatusPageLink",
               "label": "Show Status Page Link",
+              "hint": "Show a link to the service status page",
               "type": "bool",
               "required": false
             },
@@ -264929,7 +265723,24 @@
       "name": "SystemErrorDisplayErrorTypes",
       "sectionId": "SEDET",
       "doc": "Error type handling configuration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled",
+          "ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition"
+        ],
+        "connotation": "The per-type handling configuration for different classes of system error."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled",
+              "ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition"
+            ],
+            "connotation": "The per-type handling configuration for different classes of system error."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -265000,7 +265811,24 @@
       "name": "SystemErrorDisplayFallback",
       "sectionId": "SEDF",
       "doc": "Fallback behavior for system errors.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks",
+          "ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs"
+        ],
+        "connotation": "The fallback behaviour applied when a system error prevents normal operation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks",
+              "ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs"
+            ],
+            "connotation": "The fallback behaviour applied when a system error prevents normal operation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -265045,12 +265873,14 @@
             {
               "name": "maxRetryAttempts",
               "label": "Max Retry Attempts",
+              "hint": "Number of retries before giving up",
               "type": "int",
               "required": false
             },
             {
               "name": "retryDelaySeconds",
               "label": "Retry Delay (seconds)",
+              "hint": "Seconds to wait between retries",
               "type": "int",
               "required": false
             }
@@ -265062,7 +265892,24 @@
       "name": "SystemErrorDisplayMethods",
       "sectionId": "SEDM",
       "doc": "Display method settings for system errors.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation of information governs how error modals, banners, and pages are laid out",
+          "ISO 9241-13:1998 — user guidance ensures error feedback is presented in a noticeable and readable way"
+        ],
+        "connotation": "The display-method settings that decide how a system error is shown on screen."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation of information governs how error modals, banners, and pages are laid out",
+              "ISO 9241-13:1998 — user guidance ensures error feedback is presented in a noticeable and readable way"
+            ],
+            "connotation": "The display-method settings that decide how a system error is shown on screen."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -283449,7 +284296,24 @@
       "name": "TourStepEntry",
       "sectionId": "TURST",
       "doc": "A tour step entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — presents guided assistance as ordered steps that highlight interface elements",
+          "ISO 9241-13:1998 — delivers context-sensitive prompts and guidance at each step of a task"
+        ],
+        "connotation": "A single step within a guided feature tour, targeting one interface element."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — presents guided assistance as ordered steps that highlight interface elements",
+              "ISO 9241-13:1998 — delivers context-sensitive prompts and guidance at each step of a task"
+            ],
+            "connotation": "A single step within a guided feature tour, targeting one interface element."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -283480,6 +284344,7 @@
             {
               "name": "stepOrder",
               "label": "Step Order",
+              "hint": "Sequence position of this step",
               "type": "int",
               "required": true
             },
@@ -283493,12 +284358,14 @@
             {
               "name": "stepTitle",
               "label": "Step Title",
+              "hint": "Short title shown for this step",
               "type": "String",
               "required": false
             },
             {
               "name": "stepContent",
               "label": "Step Content",
+              "hint": "Explanatory text shown for this step",
               "type": "String",
               "required": true
             },
@@ -294651,7 +295518,26 @@
       "doc": "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-13:1998 — user guidance provides help prompts and feedback on request",
+          "ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance",
+          "ISO/IEC 25010:2023 — learnability and operability let users get help and succeed"
+        ],
+        "connotation": "The user-assistance configuration root for the in-app help system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-13:1998 — user guidance provides help prompts and feedback on request",
+              "ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance",
+              "ISO/IEC 25010:2023 — learnability and operability let users get help and succeed"
+            ],
+            "connotation": "The user-assistance configuration root for the in-app help system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -294855,7 +295741,24 @@
       "name": "UserAssistanceDelivery",
       "sectionId": "HECODE",
       "doc": "Content stewardship and help affordances.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — user assistance content is owned, maintained, and kept current",
+          "ISO 9241-13:1998 — user guidance uses consistent help icons and tooltips"
+        ],
+        "connotation": "The delivery settings covering help-content stewardship and help affordances."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — user assistance content is owned, maintained, and kept current",
+              "ISO 9241-13:1998 — user guidance uses consistent help icons and tooltips"
+            ],
+            "connotation": "The delivery settings covering help-content stewardship and help affordances."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -294926,7 +295829,24 @@
       "name": "UserAssistanceInsights",
       "sectionId": "HECOIN",
       "doc": "Analytics and improvement feedback.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26515:2018 — agile user assistance improves from usage feedback",
+          "ISO/IEC 25010:2023 — learnability and operability are refined through analytics"
+        ],
+        "connotation": "The insights settings that track help usage and gather improvement feedback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26515:2018 — agile user assistance improves from usage feedback",
+              "ISO/IEC 25010:2023 — learnability and operability are refined through analytics"
+            ],
+            "connotation": "The insights settings that track help usage and gather improvement feedback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300319,7 +301239,24 @@
       "name": "ValidationFeedback",
       "sectionId": "VAFE",
       "doc": "10.7.1. Validation Feedback.\n\nField validation error display and feedback mechanisms.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — use-error tolerance helps users avoid and correct input errors",
+          "ISO 9241-143:2012 — forms give feedback that guides correction of invalid input"
+        ],
+        "connotation": "The validation-feedback configuration governing how input errors are surfaced."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — use-error tolerance helps users avoid and correct input errors",
+              "ISO 9241-143:2012 — forms give feedback that guides correction of invalid input"
+            ],
+            "connotation": "The validation-feedback configuration governing how input errors are surfaced."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300457,10 +301394,26 @@
           "name": "messageTemplates",
           "kind": "list",
           "doc": "Validation message templates.",
+          "help": "Add one entry per validation message template.",
           "sectionId": "VAMETE-MESS-LST",
           "sectionIdPattern": "VAMETE-MESS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — forms present specific validation messages for input fields"
+            ],
+            "connotation": "The collection of validation-message template entries."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — forms present specific validation messages for input fields"
+                ],
+                "connotation": "The collection of validation-message template entries."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -300471,6 +301424,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "VAMETE-MESS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per validation message template."
               }
             },
             {
@@ -300487,10 +301446,28 @@
           "name": "fieldValidationRules",
           "kind": "list",
           "doc": "Field validation rules by type.",
+          "help": "Add one entry per field validation rule.",
           "sectionId": "FIELD-FIEL-LST",
           "sectionIdPattern": "FIELD-FIEL-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field",
+              "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"
+            ],
+            "connotation": "The collection of field validation rule entries organised by field type."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field",
+                  "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"
+                ],
+                "connotation": "The collection of field validation rule entries organised by field type."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -300501,6 +301478,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FIELD-FIEL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per field validation rule."
               }
             },
             {
@@ -300519,7 +301502,24 @@
       "name": "ValidationFeedbackBehavior",
       "sectionId": "VAFEBE",
       "doc": "Animation and focus behavior.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — forms move focus toward fields that need correction after validation",
+          "ISO 9241-13:1998 — user guidance draws attention to the location of an input error"
+        ],
+        "connotation": "The validation-feedback behaviour configuration governing animation and focus on errors."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — forms move focus toward fields that need correction after validation",
+              "ISO 9241-13:1998 — user guidance draws attention to the location of an input error"
+            ],
+            "connotation": "The validation-feedback behaviour configuration governing animation and focus on errors."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300583,7 +301583,24 @@
       "name": "ValidationFeedbackGuidance",
       "sectionId": "VAFEGU",
       "doc": "Guidance settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110:2020 — self-descriptiveness helps users understand what valid input looks like",
+          "ISO 9241-143:2012 — forms offer requirements and examples that guide correct entry"
+        ],
+        "connotation": "The validation-feedback guidance configuration governing requirements, suggestions, and examples."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110:2020 — self-descriptiveness helps users understand what valid input looks like",
+              "ISO 9241-143:2012 — forms offer requirements and examples that guide correct entry"
+            ],
+            "connotation": "The validation-feedback guidance configuration governing requirements, suggestions, and examples."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300640,7 +301657,24 @@
       "name": "ValidationFeedbackMessages",
       "sectionId": "VAFEME",
       "doc": "Message formatting details.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — forms present specific validation messages for input fields",
+          "ISO 9241-13:1998 — user guidance provides clear and concise error messages"
+        ],
+        "connotation": "The validation-feedback message configuration governing formatting of error messages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — forms present specific validation messages for input fields",
+              "ISO 9241-13:1998 — user guidance provides clear and concise error messages"
+            ],
+            "connotation": "The validation-feedback message configuration governing formatting of error messages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300704,7 +301738,24 @@
       "name": "ValidationFeedbackPlacement",
       "sectionId": "VAFEPL",
       "doc": "Display placement details.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-125:2017 — visual presentation governs the placement of feedback near the relevant field",
+          "ISO 9241-143:2012 — forms position validation feedback where users can readily associate it with a field"
+        ],
+        "connotation": "The validation-feedback placement configuration governing where error indicators appear."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-125:2017 — visual presentation governs the placement of feedback near the relevant field",
+              "ISO 9241-143:2012 — forms position validation feedback where users can readily associate it with a field"
+            ],
+            "connotation": "The validation-feedback placement configuration governing where error indicators appear."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -300775,7 +301826,24 @@
       "name": "ValidationMessageTemplate",
       "sectionId": "VMT",
       "doc": "A validation message template.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-143:2012 — forms present specific validation messages that guide correction of invalid input",
+          "ISO 9241-13:1998 — user guidance provides clear and constructive error messages"
+        ],
+        "connotation": "The validation-message template configuration defining reusable error message content."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-143:2012 — forms present specific validation messages that guide correction of invalid input",
+              "ISO 9241-13:1998 — user guidance provides clear and constructive error messages"
+            ],
+            "connotation": "The validation-message template configuration defining reusable error message content."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

@@ -37,7 +37,7 @@ section-types:
     pattern-check-id:
       pattern: ^ftrtur_feat_lst-\d+$
       error-message: ID must match ftrtur_feat_lst-NNN
-    description: Feature tour definitions.
+    description: Add one entry per feature tour.
   NAVGRD-GUAR-LST:
     prefix: navgrd_guar_lst
     pattern-check-id:
@@ -73,7 +73,7 @@ section-types:
     pattern-check-id:
       pattern: ^rcvscn_reco_lst-\d+$
       error-message: ID must match rcvscn_reco_lst-NNN
-    description: Common recovery scenarios.
+    description: Add one entry per common recovery scenario.
   RECHAX-AXES-LST:
     prefix: rechax_axes_lst
     pattern-check-id:
@@ -152,7 +152,7 @@ section-types:
     pattern-check-id:
       pattern: ^vamete_mess_lst-\d+$
       error-message: ID must match vamete_mess_lst-NNN
-    description: Validation message templates.
+    description: Add one entry per validation message template.
   DESIG-DESI-LST:
     prefix: desig_desi_lst
     pattern-check-id:
@@ -169,13 +169,13 @@ section-types:
     pattern-check-id:
       pattern: ^field_fiel_lst-\d+$
       error-message: ID must match field_fiel_lst-NNN
-    description: Field validation rules by type.
+    description: Add one entry per field validation rule.
   FLDHP-FIEL-LST:
     prefix: fldhp_fiel_lst
     pattern-check-id:
       pattern: ^fldhp_fiel_lst-\d+$
       error-message: ID must match fldhp_fiel_lst-NNN
-    description: Field help catalog.
+    description: Add one entry per field that needs contextual help.
   GLOBA-GLOB-LST:
     prefix: globa_glob_lst
     pattern-check-id:
@@ -212,7 +212,7 @@ section-types:
     pattern-check-id:
       pattern: ^recov_reco_lst-\d+$
       error-message: ID must match recov_reco_lst-NNN
-    description: Recovery flow diagrams.
+    description: Add one entry per recovery flow.
   SCRAC-ITEM-LST:
     prefix: scrac_item_lst
     pattern-check-id:
@@ -249,7 +249,7 @@ section-types:
     pattern-check-id:
       pattern: ^turst_step_lst-\d+$
       error-message: ID must match turst_step_lst-NNN
-    description: Tour steps.
+    description: Add one entry per guided-tour step.
   UDPEN-ITEM-LST:
     prefix: udpen_item_lst
     pattern-check-id:
@@ -315,7 +315,7 @@ section-types:
     pattern-check-id:
       pattern: ^epde_erro_lst-\d+$
       error-message: ID must match epde_erro_lst-NNN
-    description: Error page designs.
+    description: Add one entry per error page design.
   EPNT-ENTR-LST:
     prefix: epnt_entr_lst
     pattern-check-id:
@@ -339,7 +339,7 @@ section-types:
     pattern-check-id:
       pattern: ^sece_erro_lst-\d+$
       error-message: ID must match sece_erro_lst-NNN
-    description: Error codes catalog.
+    description: Add one entry per system error code.
   SRRE-RESP-LST:
     prefix: srre_resp_lst
     pattern-check-id:
