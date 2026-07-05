@@ -22,6 +22,12 @@ public final class SpecField {
   public final String type;
   public final List<FormFieldSpec> formFields;
   public final List<SpecAnnotation> annotations;
+  /**
+   * The field's {@code @SerializationOrder} ordinal (SOM source declaration
+   * order), or {@code null} when unannotated. Drives opt-in member ordering in
+   * {@link SpecSerializationOrder} (AA1 criterion 7).
+   */
+  public final Integer serializationOrder;
 
   public SpecField(
       String name,
@@ -39,7 +45,8 @@ public final class SpecField {
       List<String> enumValues,
       String type,
       List<FormFieldSpec> formFields,
-      List<SpecAnnotation> annotations) {
+      List<SpecAnnotation> annotations,
+      Integer serializationOrder) {
     this.name = name;
     this.kind = kind;
     this.doc = doc;
@@ -56,6 +63,7 @@ public final class SpecField {
     this.type = type;
     this.formFields = formFields;
     this.annotations = annotations;
+    this.serializationOrder = serializationOrder;
   }
 
   @SuppressWarnings("unchecked")
@@ -75,6 +83,7 @@ public final class SpecField {
       }
     }
     Object min = j.get("min");
+    Object serializationOrder = j.get("serializationOrder");
     return new SpecField(
         (String) j.get("name"),
         SpecFieldKind.parse((String) j.get("kind")),
@@ -91,7 +100,8 @@ public final class SpecField {
         enumValues,
         (String) j.get("type"),
         formFields,
-        SpecAnnotation.listFromJson(j.get("annotations")));
+        SpecAnnotation.listFromJson(j.get("annotations")),
+        serializationOrder instanceof Number ? ((Number) serializationOrder).intValue() : null);
   }
 
   /** Whether expanding this field reveals further tree nodes. */

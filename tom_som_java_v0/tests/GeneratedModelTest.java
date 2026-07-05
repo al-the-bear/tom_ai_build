@@ -20,8 +20,11 @@
 // Zero external deps: a plain `main()` that exits 0 on success (no JUnit), run
 // by `run_tests.sh`.
 
+import java.time.LocalDate;
+
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecSectionIdCollision;
 import tom_som_java_v0.TomSomV0;
 
 public final class GeneratedModelTest {
@@ -120,10 +123,85 @@ public final class GeneratedModelTest {
     }
   }
 
+  // A fresh operationalMetrics list (a `@SectionIdPattern` list, CUOPME-OPER-xxx)
+  // anchored under the SBP root.
+  private static TomSomV0.CurrentLandscape freshLandscape() {
+    return new TomSomV0.D00SolutionBlueprint(new SpecDocument()).currentLandscape();
+  }
+
+  private static final LocalDate MAR5 = LocalDate.of(2026, 3, 5); // month 3 → C, day 5 → E
+
+  // Criteria 3–6: pattern-generated section ids, override + uniqueness, and the
+  // delete-renumbering rules, all through the real generated pattern list.
+  private static void testSectionIds() {
+    // Criterion 3 + 4: generated id = prefix + two-letter-date + within-day number.
+    {
+      TomSomV0.CurrentLandscape csa = freshLandscape();
+      String id1 = csa.operationalMetrics().add(null, MAR5).$sectionId();
+      String id2 = csa.operationalMetrics().add(null, MAR5).$sectionId();
+      check("sid.gen.first", "CUOPME-OPER-CE1".equals(id1), id1);
+      check("sid.gen.second", "CUOPME-OPER-CE2".equals(id2), id2);
+    }
+
+    // Criterion 5: override to an arbitrary-but-unique suffix succeeds; a
+    // duplicate raises SpecSectionIdCollision.
+    {
+      TomSomV0.CurrentLandscape csa = freshLandscape();
+      csa.operationalMetrics().add(null, MAR5); // CUOPME-OPER-CE1
+      TomSomV0.CurrentOperationalMetric second = csa.operationalMetrics().add(null, MAR5);
+      second.$sectionId("CUOPME-OPER-ZZ9");
+      check("sid.override.unique",
+          csa.operationalMetrics().sectionIds().contains("CUOPME-OPER-ZZ9"),
+          String.valueOf(csa.operationalMetrics().sectionIds()));
+      try {
+        csa.operationalMetrics().get(0).$sectionId("CUOPME-OPER-ZZ9");
+        check("sid.override.collision", false, "expected SpecSectionIdCollision");
+      } catch (SpecSectionIdCollision e) {
+        check("sid.override.collision", true);
+      }
+      // Add-time override collision also raises.
+      try {
+        csa.operationalMetrics().add("CUOPME-OPER-ZZ9");
+        check("sid.add.collision", false, "expected SpecSectionIdCollision");
+      } catch (SpecSectionIdCollision e) {
+        check("sid.add.collision", true);
+      }
+    }
+
+    // Criterion 6a: deleting a *middle* item does NOT renumber — a later same-day
+    // add takes max+1, so numbering may stay non-consecutive.
+    {
+      TomSomV0.CurrentLandscape csa = freshLandscape();
+      csa.operationalMetrics().add(null, MAR5); // CE1
+      csa.operationalMetrics().add(null, MAR5); // CE2
+      csa.operationalMetrics().add(null, MAR5); // CE3
+      csa.operationalMetrics().removeAt(1); // remove CE2
+      check("sid.delete-middle.no-renumber",
+          csa.operationalMetrics().sectionIds().equals(
+              java.util.Arrays.asList("CUOPME-OPER-CE1", "CUOPME-OPER-CE3")),
+          String.valueOf(csa.operationalMetrics().sectionIds()));
+      String next = csa.operationalMetrics().add(null, MAR5).$sectionId();
+      check("sid.delete-middle.next", "CUOPME-OPER-CE4".equals(next), next);
+    }
+
+    // Criterion 6b: deleting the *last* item frees its number; a same-day add
+    // reuses it.
+    {
+      TomSomV0.CurrentLandscape csa = freshLandscape();
+      csa.operationalMetrics().add(null, MAR5); // CE1
+      csa.operationalMetrics().add(null, MAR5); // CE2
+      csa.operationalMetrics().add(null, MAR5); // CE3
+      csa.operationalMetrics().removeAt(2); // remove last (CE3)
+      String reused = csa.operationalMetrics().add(null, MAR5).$sectionId();
+      check("sid.delete-last.reuse", "CUOPME-OPER-CE3".equals(reused), reused);
+    }
+  }
+
   public static void main(String[] args) {
     testRootAndParity();
     testModelVersion();
     testVersionCheck();
+    testSectionIds();
 
     int total = passed + failures.size();
     if (!failures.isEmpty()) {

@@ -116,11 +116,16 @@ public final class SpecDocumentYaml {
   }
 
   private static List<String> sortedStringKeys(Map<?, ?> m) {
+    List<String> keys = keyStrings(m);
+    Collections.sort(keys);
+    return keys;
+  }
+
+  private static List<String> keyStrings(Map<?, ?> m) {
     List<String> keys = new ArrayList<>();
     for (Object k : m.keySet()) {
       keys.add(String.valueOf(k));
     }
-    Collections.sort(keys);
     return keys;
   }
 
@@ -135,8 +140,20 @@ public final class SpecDocumentYaml {
     }
   }
 
+  private static List<String> orderedKeys(Map<?, ?> m, SpecSerializationOrder order) {
+    if (order == null) {
+      return sortedStringKeys(m);
+    }
+    List<String> keys = new ArrayList<>();
+    for (Object k : m.keySet()) {
+      keys.add(String.valueOf(k));
+    }
+    return order.orderPaths(keys);
+  }
+
   @SuppressWarnings("unchecked")
-  private static void writeDocumentPass(StringBuilder b, Map<String, Object> doc) {
+  private static void writeDocumentPass(
+      StringBuilder b, Map<String, Object> doc, SpecSerializationOrder order) {
     Object content = doc.get("content");
     Object forms = doc.get("forms");
     Object lists = doc.get("lists");
@@ -149,7 +166,7 @@ public final class SpecDocumentYaml {
     if (content instanceof Map && !((Map<?, ?>) content).isEmpty()) {
       Map<String, Object> cm = (Map<String, Object>) content;
       b.append("  content:\n");
-      for (String k : sortedStringKeys(cm)) {
+      for (String k : orderedKeys(cm, order)) {
         writeScalar(b, 4, k, String.valueOf(cm.get(k)));
       }
     }
@@ -157,14 +174,18 @@ public final class SpecDocumentYaml {
     if (forms instanceof Map && !((Map<?, ?>) forms).isEmpty()) {
       Map<String, Object> fm = (Map<String, Object>) forms;
       b.append("  forms:\n");
-      for (String k : sortedStringKeys(fm)) {
+      for (String k : orderedKeys(fm, order)) {
         Object fields = fm.get(k);
         if (!(fields instanceof Map) || ((Map<?, ?>) fields).isEmpty()) {
           continue;
         }
         Map<String, Object> fields2 = (Map<String, Object>) fields;
         b.append("    ").append(yamlKey(k)).append(":\n");
-        for (String f : sortedStringKeys(fields2)) {
+        List<String> fieldKeys =
+            order == null
+                ? sortedStringKeys(fields2)
+                : order.orderFormFields(k, keyStrings(fields2));
+        for (String f : fieldKeys) {
           writeScalar(b, 6, f, String.valueOf(fields2.get(f)));
         }
       }
@@ -173,7 +194,7 @@ public final class SpecDocumentYaml {
     if (lists instanceof Map && !((Map<?, ?>) lists).isEmpty()) {
       Map<String, Object> lm = (Map<String, Object>) lists;
       b.append("  lists:\n");
-      for (String k : sortedStringKeys(lm)) {
+      for (String k : orderedKeys(lm, order)) {
         Object specObj = lm.get(k);
         if (!(specObj instanceof Map)) {
           continue;
@@ -200,12 +221,24 @@ public final class SpecDocumentYaml {
 
   /**
    * Serializes {@code document} to a header + {@code version:} (+
-   * {@code modelVersion:}) + {@code document:} pass.
+   * {@code modelVersion:}) + {@code document:} pass. Keys stay alphabetical (the
+   * diff-stable default the editor relies on).
    */
   public static String encode(SpecDocument document, String modelVersion) {
+    return encode(document, modelVersion, null);
+  }
+
+  /**
+   * Serializes {@code document} with optional {@code @SerializationOrder}-based
+   * member ordering (AA1 criterion 7). When {@code order} is supplied, members
+   * are emitted in declaration order; otherwise keys stay alphabetical (the
+   * diff-stable default).
+   */
+  public static String encode(
+      SpecDocument document, String modelVersion, SpecSerializationOrder order) {
     StringBuilder b = new StringBuilder();
     writeHeader(b, modelVersion);
-    writeDocumentPass(b, document.toJson());
+    writeDocumentPass(b, document.toJson(), order);
     return b.toString();
   }
 

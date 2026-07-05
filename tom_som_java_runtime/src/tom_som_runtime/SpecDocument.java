@@ -24,6 +24,11 @@ public final class SpecDocument {
   private final Map<String, Map<String, String>> form = new LinkedHashMap<>();
   private final Map<String, List<String>> listItems = new LinkedHashMap<>();
   private final Map<String, Integer> listSeq = new LinkedHashMap<>();
+  // Item path → document section id (AA1 criteria 3–6). Distinct from the
+  // internal `-<seq>` path key: the seq path keeps nested values attached across
+  // edits (never renumbered), while the section id is what the document exposes
+  // and may be overridden or reused same-day after the last item is deleted.
+  private final Map<String, String> itemSectionId = new LinkedHashMap<>();
 
   // --- content ------------------------------------------------------------
 
@@ -72,11 +77,101 @@ public final class SpecDocument {
 
   /** Appends a new item to the list at {@code listPath} and returns its path. */
   public String addListItem(String listPath) {
+    return addListItem(listPath, null);
+  }
+
+  /**
+   * Appends a new item to the list at {@code listPath} and returns its stable
+   * path.
+   *
+   * <p>When {@code sectionId} is given it becomes the item's section id after a
+   * uniqueness check against the list's other items (AA1 criterion 5); a
+   * collision raises {@link SpecSectionIdCollision}. Section-id <i>generation</i>
+   * from a {@code @SectionIdPattern} lives in the caller (it needs the pattern);
+   * this layer only stores and guards uniqueness.
+   */
+  public String addListItem(String listPath, String sectionId) {
+    if (sectionId != null) {
+      assertSectionIdFree(listPath, sectionId, null);
+    }
     int seq = listSeq.getOrDefault(listPath, 0) + 1;
     listSeq.put(listPath, seq);
     String itemPath = listPath + "-" + seq;
     listItems.computeIfAbsent(listPath, k -> new ArrayList<>()).add(itemPath);
+    if (sectionId != null) {
+      itemSectionId.put(itemPath, sectionId);
+    }
     return itemPath;
+  }
+
+  /**
+   * The section id assigned to the list item at {@code itemPath}, or {@code null}
+   * if none has been set (AA1 criterion 1 read path).
+   */
+  public String itemSectionId(String itemPath) {
+    return itemSectionId.get(itemPath);
+  }
+
+  /**
+   * Overrides the section id of the list item at {@code itemPath} (AA1 criterion
+   * 5). Validates that the new {@code id} is unique among the <i>other</i> items
+   * of the same owning list; a collision raises {@link SpecSectionIdCollision}.
+   * Assigning an id equal to the item's current id is a no-op. Throws
+   * {@link IllegalArgumentException} if {@code itemPath} is not a live list item.
+   */
+  public void setItemSectionId(String itemPath, String id) {
+    String owningList = owningListOf(itemPath);
+    if (owningList == null) {
+      throw new IllegalArgumentException("\"" + itemPath + "\" is not a live list item");
+    }
+    if (id.equals(itemSectionId.get(itemPath))) {
+      return;
+    }
+    assertSectionIdFree(owningList, id, itemPath);
+    itemSectionId.put(itemPath, id);
+  }
+
+  /**
+   * The section ids currently assigned within the list at {@code listPath}, in
+   * item order (items without an id are skipped). Feeds both id generation
+   * (existing ids) and uniqueness checks.
+   */
+  public List<String> listItemSectionIds(String listPath) {
+    List<String> out = new ArrayList<>();
+    List<String> items = listItems.get(listPath);
+    if (items != null) {
+      for (String itemPath : items) {
+        String id = itemSectionId.get(itemPath);
+        if (id != null) {
+          out.add(id);
+        }
+      }
+    }
+    return out;
+  }
+
+  private String owningListOf(String itemPath) {
+    for (Map.Entry<String, List<String>> e : listItems.entrySet()) {
+      if (e.getValue().contains(itemPath)) {
+        return e.getKey();
+      }
+    }
+    return null;
+  }
+
+  private void assertSectionIdFree(String listPath, String id, String exceptItemPath) {
+    List<String> items = listItems.get(listPath);
+    if (items == null) {
+      return;
+    }
+    for (String itemPath : items) {
+      if (itemPath.equals(exceptItemPath)) {
+        continue;
+      }
+      if (id.equals(itemSectionId.get(itemPath))) {
+        throw new SpecSectionIdCollision(id, listPath);
+      }
+    }
   }
 
   /**
@@ -115,6 +210,7 @@ public final class SpecDocument {
     form.keySet().removeIf(k -> isUnder(k, prefix));
     listItems.keySet().removeIf(k -> isUnder(k, prefix));
     listSeq.keySet().removeIf(k -> isUnder(k, prefix));
+    itemSectionId.keySet().removeIf(k -> isUnder(k, prefix));
   }
 
   // --- queries ------------------------------------------------------------
@@ -194,6 +290,16 @@ public final class SpecDocument {
         Map<String, Object> spec = new LinkedHashMap<>();
         spec.put("seq", listSeq.getOrDefault(e.getKey(), e.getValue().size()));
         spec.put("items", new ArrayList<>(e.getValue()));
+        Map<String, Object> ids = new TreeMap<>();
+        for (String itemPath : e.getValue()) {
+          String id = itemSectionId.get(itemPath);
+          if (id != null) {
+            ids.put(itemPath, id);
+          }
+        }
+        if (!ids.isEmpty()) {
+          spec.put("ids", ids);
+        }
         lists.put(e.getKey(), spec);
       }
       out.put("lists", lists);
@@ -211,6 +317,7 @@ public final class SpecDocument {
     form.clear();
     listItems.clear();
     listSeq.clear();
+    itemSectionId.clear();
 
     Object rawContent = json.get("content");
     if (rawContent instanceof Map) {
@@ -261,6 +368,14 @@ public final class SpecDocument {
             listSeq.put(e.getKey(), Integer.parseInt((String) seq));
           } else {
             listSeq.put(e.getKey(), itemList.size());
+          }
+          Object ids = spec.get("ids");
+          if (ids instanceof Map) {
+            for (Map.Entry<String, Object> ie : ((Map<String, Object>) ids).entrySet()) {
+              if (ie.getValue() != null) {
+                itemSectionId.put(ie.getKey(), ie.getValue().toString());
+              }
+            }
           }
         }
       }

@@ -38,9 +38,9 @@ public final class ATypedAccess {
     csa.content("Three legacy systems with no shared customer record.");
 
     // 3) The typed collection API: append two list items and edit each.
-    TomSomV0.CurrentOperationalMetrics m0 = csa.operationalMetrics().add();
+    TomSomV0.CurrentOperationalMetric m0 = csa.operationalMetrics().add();
     m0.content("Average order turnaround: 4.2 days.");
-    TomSomV0.CurrentOperationalMetrics m1 = csa.operationalMetrics().add();
+    TomSomV0.CurrentOperationalMetric m1 = csa.operationalMetrics().add();
     m1.content("Manual reconciliation: ~12 hours / week.");
 
     // Read everything back through the typed accessors.

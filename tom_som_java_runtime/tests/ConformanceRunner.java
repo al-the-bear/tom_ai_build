@@ -20,6 +20,9 @@ import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
 import tom_som_runtime.SpecRoot;
+import tom_som_runtime.SpecSectionId;
+import tom_som_runtime.SpecSectionIdCollision;
+import tom_som_runtime.SpecSerializationOrder;
 import tom_som_runtime.SpecValidationError;
 import tom_som_runtime.SpecValidator;
 import tom_som_runtime.SpecYamlContents;
@@ -324,6 +327,151 @@ public final class ConformanceRunner {
     }
   }
 
+  @SuppressWarnings("unchecked")
+  private static List<String> stringList(Object array) {
+    List<String> out = new ArrayList<>();
+    for (Object o : (List<Object>) array) {
+      out.add((String) o);
+    }
+    return out;
+  }
+
+  private static int intAt(Map<String, Object> m, String key) {
+    return ((Number) m.get(key)).intValue();
+  }
+
+  /**
+   * AA1 criteria 3–6: two-letter-date encoding, list-item id generation
+   * (within-day numbering), same-day reuse on last-item deletion, and
+   * unique-id enforcement on override — replayed from the shared corpus so
+   * every port reproduces the identical id semantics.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testSectionId() throws IOException {
+    Map<String, Object> cases = readJsonObject("section_id_cases.json");
+
+    // Criterion 4: the two-letter day code.
+    for (Object caseObj : (List<Object>) cases.get("twoLetterDate")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      int month = intAt(c, "month");
+      int day = intAt(c, "day");
+      String got = SpecSectionId.encodeTwoLetterDate(month, day);
+      check(
+          "sectionId.twoLetterDate[" + month + "/" + day + "]",
+          got.equals(c.get("expect")),
+          got + " != " + c.get("expect"));
+    }
+
+    // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+    for (Object caseObj : (List<Object>) cases.get("generate")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String pattern = (String) c.get("pattern");
+      String got =
+          SpecSectionId.generateListItemSectionId(
+              pattern, intAt(c, "month"), intAt(c, "day"), stringList(c.get("existing")));
+      check(
+          "sectionId.generate[" + pattern + "]",
+          got.equals(c.get("expect")),
+          got + " != " + c.get("expect"));
+    }
+
+    // Criteria 5 & 6 at the document level: override keeps ids unique,
+    // deleting the last same-day item frees its number for reuse, deleting a
+    // middle one never renumbers the rest.
+    SpecDocument doc = new SpecDocument();
+    List<Object> docOps = (List<Object>) cases.get("documentOps");
+    for (int i = 0; i < docOps.size(); i++) {
+      Map<String, Object> s = (Map<String, Object>) docOps.get(i);
+      String op = (String) s.get("op");
+      switch (op) {
+        case "addGen": {
+          String genId =
+              SpecSectionId.generateListItemSectionId(
+                  (String) s.get("pattern"),
+                  intAt(s, "month"),
+                  intAt(s, "day"),
+                  doc.listItemSectionIds((String) s.get("listPath")));
+          check(
+              "sectionId.op[" + i + "].addGen.id",
+              genId.equals(s.get("expectId")),
+              genId + " != " + s.get("expectId"));
+          String path = doc.addListItem((String) s.get("listPath"), genId);
+          check(
+              "sectionId.op[" + i + "].addGen.path",
+              path.equals(s.get("expectPath")),
+              path + " != " + s.get("expectPath"));
+          break;
+        }
+        case "sectionIds": {
+          List<String> got = doc.listItemSectionIds((String) s.get("listPath"));
+          List<String> want = stringList(s.get("expect"));
+          check(
+              "sectionId.op[" + i + "].sectionIds",
+              got.equals(want),
+              got + " != " + want);
+          break;
+        }
+        case "removeListItem": {
+          boolean got = doc.removeListItem((String) s.get("itemPath"));
+          check(
+              "sectionId.op[" + i + "].removeListItem",
+              got == Boolean.TRUE.equals(s.get("expect")),
+              "");
+          break;
+        }
+        case "override":
+          doc.setItemSectionId((String) s.get("itemPath"), (String) s.get("id"));
+          break;
+        case "overrideThrows":
+          check(
+              "sectionId.op[" + i + "].overrideThrows",
+              raisesCollision(
+                  () -> doc.setItemSectionId((String) s.get("itemPath"), (String) s.get("id"))),
+              "");
+          break;
+        case "addExplicitThrows":
+          check(
+              "sectionId.op[" + i + "].addExplicitThrows",
+              raisesCollision(
+                  () -> doc.addListItem((String) s.get("listPath"), (String) s.get("id"))),
+              "");
+          break;
+        default:
+          check("sectionId.op[" + i + "].unknown", false, op);
+      }
+    }
+  }
+
+  /** Whether {@code fn} raises {@link SpecSectionIdCollision} (criterion-5 guard). */
+  private static boolean raisesCollision(Runnable fn) {
+    try {
+      fn.run();
+      return false;
+    } catch (SpecSectionIdCollision e) {
+      return true;
+    }
+  }
+
+  /** AA1 criterion 7: members serialize in {@code @SerializationOrder}, not alphabetical. */
+  @SuppressWarnings("unchecked")
+  private static void testSerializationOrder() throws IOException {
+    Map<String, Object> c = readJsonObject("serialization_order_cases.json");
+    SpecModel orderModel = SpecModel.fromJson((Map<String, Object>) c.get("model"));
+    SpecSerializationOrder order = new SpecSerializationOrder(orderModel);
+
+    List<String> gotPaths = order.orderPaths(stringList(c.get("contentPaths")));
+    List<String> wantPaths = stringList(c.get("expectedOrder"));
+    check("serialOrder.orderPaths", gotPaths.equals(wantPaths), gotPaths + " != " + wantPaths);
+
+    List<String> gotFields =
+        order.orderFormFields((String) c.get("formPath"), stringList(c.get("formFields")));
+    List<String> wantFields = stringList(c.get("expectedFormOrder"));
+    check(
+        "serialOrder.orderFormFields",
+        gotFields.equals(wantFields),
+        gotFields + " != " + wantFields);
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -344,6 +492,8 @@ public final class ConformanceRunner {
     testReflection(model);
     testValidation(model);
     testOperations();
+    testSectionId();
+    testSerializationOrder();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {
