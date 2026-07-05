@@ -408,7 +408,7 @@ section-types:
     pattern-check-id:
       pattern: ^inburu_busi_lst-\d+$
       error-message: ID must match inburu_busi_lst-NNN
-    description: Business rules triggered.
+    description: Add one entry per business-rule group.
   INCOE1-INTE-LST:
     prefix: incoe1_inte_lst
     pattern-check-id:
@@ -546,13 +546,13 @@ section-types:
     pattern-check-id:
       pattern: ^poangu_post_lst-\d+$
       error-message: ID must match poangu_post_lst-NNN
-    description: Postconditions and guarantees.
+    description: Add one entry per postcondition/guarantee set.
   PRANTR-PREC-LST:
     prefix: prantr_prec_lst
     pattern-check-id:
       pattern: ^prantr_prec_lst-\d+$
       error-message: ID must match prantr_prec_lst-NNN
-    description: Preconditions and triggers.
+    description: Add one entry per precondition/trigger set.
   PRDEEN-DEPE-LST:
     prefix: prdeen_depe_lst
     pattern-check-id:
@@ -823,7 +823,7 @@ section-types:
     pattern-check-id:
       pattern: ^stanin_stak_lst-\d+$
       error-message: ID must match stanin_stak_lst-NNN
-    description: Stakeholders and interests.
+    description: Add one entry per stakeholder interest.
   STGMRS-ITEM-LST:
     prefix: stgmrs_item_lst
     min-count-in-document: 1
@@ -885,7 +885,7 @@ section-types:
     pattern-check-id:
       pattern: ^tedava_vari_lst-\d+$
       error-message: ID must match tedava_vari_lst-NNN
-    description: Technology and data variations.
+    description: Add one entry per variation.
   TEGOTS-ITEM-LST:
     prefix: tegots_item_lst
     pattern-check-id:
@@ -1288,7 +1288,7 @@ section-types:
     pattern-check-id:
       pattern: ^etets_endt_lst-\d+$
       error-message: ID must match etets_endt_lst-NNN
-    description: 6.2.4. End-to-End Test Scenarios..
+    description: Add one entry per end-to-end test scenario.
   EVCEN-ITEM-LST:
     prefix: evcen_item_lst
     pattern-check-id:
@@ -1312,13 +1312,13 @@ section-types:
     pattern-check-id:
       pattern: ^exten_exte_lst-\d+$
       error-message: ID must match exten_exte_lst-NNN
-    description: Extension entries — contains 0+× Extension.
+    description: Add one entry per extension flow.
   EXTST-STEP-LST:
     prefix: extst_step_lst
     pattern-check-id:
       pattern: ^extst_step_lst-\d+$
       error-message: ID must match extst_step_lst-NNN
-    description: Extension steps — contains 0+× Scenario Step.
+    description: Add one entry per extension step.
   FIELD-FIEL-LST:
     prefix: field_fiel_lst
     pattern-check-id:
@@ -1585,7 +1585,7 @@ section-types:
     pattern-check-id:
       pattern: ^mnsst_step_lst-\d+$
       error-message: ID must match mnsst_step_lst-NNN
-    description: Main scenario steps — contains 1+× Scenario Step.
+    description: Add one entry per numbered step.
   MOBDE-MOBI-LST:
     prefix: mobde_mobi_lst
     pattern-check-id:
@@ -2082,14 +2082,14 @@ section-types:
     pattern-check-id:
       pattern: ^scnry_scen_lst-\d+$
       error-message: ID must match scnry_scen_lst-NNN
-    description: Contains 1+× Scenario.
+    description: Add one entry per key scenario.
   SCNST-STEP-LST:
     prefix: scnst_step_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^scnst_step_lst-\d+$
       error-message: ID must match scnst_step_lst-NNN
-    description: Contains 1+× Scenario Step.
+    description: "Add one entry per main-flow step, in order."
   SCOPE-SCOP-LST:
     prefix: scope_scop_lst
     pattern-check-id:
@@ -2374,13 +2374,13 @@ section-types:
     pattern-check-id:
       pattern: ^acen_acto_lst-\d+$
       error-message: ID must match acen_acto_lst-NNN
-    description: Contains 1+× Actor.
+    description: Add one entry per actor.
   ACGO-GOAL-LST:
     prefix: acgo_goal_lst
     pattern-check-id:
       pattern: ^acgo_goal_lst-\d+$
       error-message: ID must match acgo_goal_lst-NNN
-    description: Actor goals (Cockburn style).
+    description: Add one entry per actor goal.
   ACLV-LEVE-LST:
     prefix: aclv_leve_lst
     min-count-in-document: 1
@@ -2393,7 +2393,7 @@ section-types:
     pattern-check-id:
       pattern: ^acpe_perm_lst-\d+$
       error-message: ID must match acpe_perm_lst-NNN
-    description: Actor permissions and access.
+    description: Add one entry per actor permission set.
   ACPR-PARA-LST:
     prefix: acpr_para_lst
     pattern-check-id:
@@ -2441,13 +2441,13 @@ section-types:
     pattern-check-id:
       pattern: ^alfl_alte_lst-\d+$
       error-message: ID must match alfl_alte_lst-NNN
-    description: Alternative flows — contains 0+× Alternative Flow.
+    description: Add one entry per alternative or exception flow.
   ALST-STEP-LST:
     prefix: alst_step_lst
     pattern-check-id:
       pattern: ^alst_step_lst-\d+$
       error-message: ID must match alst_step_lst-NNN
-    description: Contains 0+× Scenario Step.
+    description: "Add one entry per step of this alternative flow, in order."
   APCP-APIC-LST:
     prefix: apcp_apic_lst
     pattern-check-id:
@@ -2804,7 +2804,7 @@ section-types:
     pattern-check-id:
       pattern: ^inen_inte_lst-\d+$
       error-message: ID must match inen_inte_lst-NNN
-    description: Contains 1+× Interaction.
+    description: Add one entry per interaction.
   IPCE-INDU-LST:
     prefix: ipce_indu_lst
     pattern-check-id:

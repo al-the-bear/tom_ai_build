@@ -3891,7 +3891,24 @@
       "name": "ActorCategorizationSummary",
       "sectionId": "ACCASU",
       "doc": "Actor categorization summary.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships"
+        ],
+        "connotation": "Groups the actors by category — primary, secondary, offstage, system and timer/scheduled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships"
+            ],
+            "connotation": "Groups the actors by category — primary, secondary, offstage, system and timer/scheduled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -3922,30 +3939,35 @@
             {
               "name": "primaryActors",
               "label": "Primary Actors — actors who initiate interactions",
+              "hint": "List the actors that initiate interactions",
               "type": "String",
               "required": false
             },
             {
               "name": "secondaryActors",
               "label": "Secondary Actors — actors who support primary actors",
+              "hint": "List the actors that support primary actors",
               "type": "String",
               "required": false
             },
             {
               "name": "offstageActors",
               "label": "Offstage Actors — stakeholders with interests but no direct interaction",
+              "hint": "List stakeholders with interests but no direct interaction",
               "type": "String",
               "required": false
             },
             {
               "name": "systemActors",
               "label": "System Actors — external systems",
+              "hint": "List external systems acting as actors",
               "type": "String",
               "required": false
             },
             {
               "name": "timerActors",
               "label": "Timer/Scheduled Actors — time-triggered actions",
+              "hint": "List time-triggered or scheduled actors",
               "type": "String",
               "required": false
             }
@@ -3957,7 +3979,24 @@
       "name": "ActorCharacteristics",
       "sectionId": "ACTCHA",
       "doc": "Actor characteristics.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder & actor analysis",
+          "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+        ],
+        "connotation": "Captures an actor’s knowledge, skills and usage profile that shape how they engage with the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder & actor analysis",
+              "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+            ],
+            "connotation": "Captures an actor’s knowledge, skills and usage profile that shape how they engage with the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -3988,24 +4027,28 @@
             {
               "name": "domainKnowledge",
               "label": "Domain Knowledge — expertise level required",
+              "hint": "Describe the business/domain expertise the actor needs",
               "type": "String",
               "required": false
             },
             {
               "name": "technicalSkills",
               "label": "Technical Skills — IT proficiency",
+              "hint": "Rate the actor’s general IT and tooling proficiency",
               "type": "String",
               "required": false
             },
             {
               "name": "trainingRequired",
               "label": "Training Required — onboarding needs",
+              "hint": "List onboarding or training the actor requires",
               "type": "String",
               "required": false
             },
             {
               "name": "usageFrequency",
               "label": "Usage Frequency — daily, weekly, monthly, occasional",
+              "hint": "State how often the actor uses the system",
               "type": "String",
               "required": false
             }
@@ -4047,7 +4090,24 @@
       "name": "ActorCharacteristicsSupport",
       "sectionId": "ACCHSU",
       "doc": "Communication and accessibility profile.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder & actor analysis",
+          "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+        ],
+        "connotation": "Records how an actor is supervised and reached, and the language and accessibility accommodations they require."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder & actor analysis",
+              "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+            ],
+            "connotation": "Records how an actor is supervised and reached, and the language and accessibility accommodations they require."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4078,24 +4138,28 @@
             {
               "name": "supervisionLevel",
               "label": "Supervision Level — how closely monitored",
+              "hint": "State how closely the actor’s work is supervised",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationPreference",
               "label": "Communication Preference — how to reach this actor",
+              "hint": "Note preferred channels for reaching the actor",
               "type": "String",
               "required": false
             },
             {
               "name": "languageRequirements",
               "label": "Language Requirements — languages needed",
+              "hint": "List the languages the actor needs supported",
               "type": "String",
               "required": false
             },
             {
               "name": "accessibilityNeeds",
               "label": "Accessibility Needs — special accommodations",
+              "hint": "Describe any accessibility accommodations required",
               "type": "String",
               "required": false
             }
@@ -4107,7 +4171,24 @@
       "name": "ActorCharacteristicsUsage",
       "sectionId": "ACCHUS",
       "doc": "Usage patterns and decision scope.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder & actor analysis",
+          "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+        ],
+        "connotation": "Describes when and how intensively an actor uses the system and the scope of decisions they may take."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder & actor analysis",
+              "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+            ],
+            "connotation": "Describes when and how intensively an actor uses the system and the scope of decisions they may take."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4138,24 +4219,28 @@
             {
               "name": "usageDuration",
               "label": "Usage Duration — typical session length",
+              "hint": "Estimate the length of a typical working session",
               "type": "String",
               "required": false
             },
             {
               "name": "peakUsageTimes",
               "label": "Peak Usage Times — when most active",
+              "hint": "Note the times of day or periods of heaviest use",
               "type": "String",
               "required": false
             },
             {
               "name": "taskComplexity",
               "label": "Task Complexity — simple, moderate, expert",
+              "hint": "Characterise the complexity of the actor’s tasks",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionAuthority",
               "label": "Decision Authority — what decisions can be made",
+              "hint": "State the decisions the actor is authorised to make",
               "type": "String",
               "required": false
             }
@@ -4167,7 +4252,24 @@
       "name": "ActorDiagramOverview",
       "sectionId": "ACDIOV",
       "doc": "Actor diagram overview.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "BPMN 2.0 — collaboration / pools & lanes (participants)"
+        ],
+        "connotation": "Explains the purpose, categories and notation of the actor relationship diagram."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "BPMN 2.0 — collaboration / pools & lanes (participants)"
+            ],
+            "connotation": "Explains the purpose, categories and notation of the actor relationship diagram."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4198,24 +4300,28 @@
             {
               "name": "diagramPurpose",
               "label": "Diagram Purpose — show actor relationships",
+              "hint": "State what the diagram is meant to communicate",
               "type": "String",
               "required": false
             },
             {
               "name": "actorCategories",
               "label": "Actor Categories — primary, secondary, supporting",
+              "hint": "List the actor categories shown in the diagram",
               "type": "String",
               "required": false
             },
             {
               "name": "systemBoundary",
               "label": "System Boundary — what is inside/outside",
+              "hint": "Define what lies inside vs outside the system",
               "type": "String",
               "required": false
             },
             {
               "name": "notation",
               "label": "Notation — UML use case, custom",
+              "hint": "Name the diagram notation used",
               "type": "String",
               "required": false
             }
@@ -4227,7 +4333,26 @@
       "name": "ActorEntry",
       "sectionId": "ACEN",
       "doc": "An actor entry.\n\nComprehensive actor definition following UML and Cockburn conventions.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+          "BABOK v3 — stakeholder & actor analysis"
+        ],
+        "connotation": "Defines a single actor comprehensively, bundling identification, characteristics, goals, permissions, technology and interactions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+              "BABOK v3 — stakeholder & actor analysis"
+            ],
+            "connotation": "Defines a single actor comprehensively, bundling identification, characteristics, goals, permissions, technology and interactions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4270,10 +4395,26 @@
           "name": "goals",
           "kind": "list",
           "doc": "Actor goals (Cockburn style).",
+          "help": "Add one entry per actor goal.",
           "sectionId": "ACGO-GOAL-LST",
           "sectionIdPattern": "ACGO-GOAL-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "The set of goals an actor seeks to achieve through the system."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+                ],
+                "connotation": "The set of goals an actor seeks to achieve through the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -4284,6 +4425,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ACGO-GOAL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per actor goal."
               }
             },
             {
@@ -4300,10 +4447,28 @@
           "name": "permissions",
           "kind": "list",
           "doc": "Actor permissions and access.",
+          "help": "Add one entry per actor permission set.",
           "sectionId": "ACPE-PERM-LST",
           "sectionIdPattern": "ACPE-PERM-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST RBAC — role-based access (actor permissions)",
+              "ISO/IEC 27001 A.9 — access control (actor authorization)"
+            ],
+            "connotation": "The access rights and authorization levels granted to an actor."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST RBAC — role-based access (actor permissions)",
+                  "ISO/IEC 27001 A.9 — access control (actor authorization)"
+                ],
+                "connotation": "The access rights and authorization levels granted to an actor."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -4314,6 +4479,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ACPE-PERM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per actor permission set."
               }
             },
             {
@@ -4362,7 +4533,24 @@
       "name": "ActorGoals",
       "sectionId": "ACGO",
       "doc": "Actor goals (Cockburn-style goal hierarchy).",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+          "BABOK v3 — stakeholder & actor analysis"
+        ],
+        "connotation": "Enumerates the summary, user and subfunction goals an actor pursues, plus their success measures and motivations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+              "BABOK v3 — stakeholder & actor analysis"
+            ],
+            "connotation": "Enumerates the summary, user and subfunction goals an actor pursues, plus their success measures and motivations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4393,48 +4581,56 @@
             {
               "name": "summaryGoals",
               "label": "Summary Goals — high-level organizational goals",
+              "hint": "Capture high-level organisational goals at summary level",
               "type": "String",
               "required": false
             },
             {
               "name": "userGoals",
               "label": "User Goals — main goals actor wants to achieve",
+              "hint": "List the actor’s main user-level goals",
               "type": "String",
               "required": false
             },
             {
               "name": "subfunctionGoals",
               "label": "Subfunction Goals — supporting goals",
+              "hint": "Note supporting subfunction-level goals",
               "type": "String",
               "required": false
             },
             {
               "name": "successMeasures",
               "label": "Success Measures — how actor knows goals are met",
+              "hint": "Define how the actor knows a goal is achieved",
               "type": "String",
               "required": false
             },
             {
               "name": "failureConcerns",
               "label": "Failure Concerns — what actor wants to avoid",
+              "hint": "List outcomes the actor wants to avoid",
               "type": "String",
               "required": false
             },
             {
               "name": "motivations",
               "label": "Motivations — why actor uses the system",
+              "hint": "Explain what motivates the actor to use the system",
               "type": "String",
               "required": false
             },
             {
               "name": "painPoints",
               "label": "Pain Points — current frustrations",
+              "hint": "Describe the actor’s current frustrations",
               "type": "String",
               "required": false
             },
             {
               "name": "desiredImprovements",
               "label": "Desired Improvements — what actor wants better",
+              "hint": "State improvements the actor would like to see",
               "type": "String",
               "required": false
             }
@@ -4446,7 +4642,24 @@
       "name": "ActorIdentification",
       "sectionId": "ACID",
       "doc": "Actor identification.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "BABOK v3 — stakeholder & actor analysis"
+        ],
+        "connotation": "Uniquely identifies and classifies an actor, capturing type, category and real-world population."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "BABOK v3 — stakeholder & actor analysis"
+            ],
+            "connotation": "Uniquely identifies and classifies an actor, capturing type, category and real-world population."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4477,54 +4690,63 @@
             {
               "name": "actorId",
               "label": "Actor ID (e.g., ACT-001)",
+              "hint": "Use a stable unique code such as ACT-001",
               "type": "String",
               "required": true
             },
             {
               "name": "actorName",
               "label": "Actor Name",
+              "hint": "Give the role a clear, recognisable name",
               "type": "String",
               "required": true
             },
             {
               "name": "actorType",
               "label": "Actor Type — human user, system, external system, scheduled",
+              "hint": "State whether the actor is a person, system or scheduled job",
               "type": "String",
               "required": false
             },
             {
               "name": "category",
               "label": "Category — primary, secondary, supporting, offstage",
+              "hint": "Classify using Cockburn primary/secondary/supporting/offstage",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Description — role purpose",
+              "hint": "Explain the actor’s purpose in one or two sentences",
               "type": "String",
               "required": false
             },
             {
               "name": "realWorldExamples",
               "label": "Real World Examples — who fills this role",
+              "hint": "Name concrete job titles or people that fill this role",
               "type": "String",
               "required": false
             },
             {
               "name": "organizationalUnit",
               "label": "Organizational Unit — department or team",
+              "hint": "Identify the department or team the actor belongs to",
               "type": "String",
               "required": false
             },
             {
               "name": "estimatedCount",
               "label": "Estimated Count — how many users in this role",
+              "hint": "Estimate the number of individuals in this role",
               "type": "String",
               "required": false
             },
             {
               "name": "geographicDistribution",
               "label": "Geographic Distribution — where actors are located",
+              "hint": "Note the locations or regions where actors operate",
               "type": "String",
               "required": false
             }
@@ -4536,7 +4758,24 @@
       "name": "ActorInteractionsSummary",
       "sectionId": "ACINSU",
       "doc": "Actor interactions summary.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+        ],
+        "connotation": "Summarises the use-case interactions an actor participates in, their frequency, criticality and handoff points."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "Summarises the use-case interactions an actor participates in, their frequency, criticality and handoff points."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4567,42 +4806,49 @@
             {
               "name": "primaryInteractions",
               "label": "Primary Interactions — main use cases",
+              "hint": "List the main use cases the actor initiates or drives",
               "type": "String",
               "required": false
             },
             {
               "name": "secondaryInteractions",
               "label": "Secondary Interactions — supporting use cases",
+              "hint": "List supporting use cases the actor takes part in",
               "type": "String",
               "required": false
             },
             {
               "name": "interactionFrequency",
               "label": "Interaction Frequency — how often each type",
+              "hint": "State how often each interaction type occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "criticalInteractions",
               "label": "Critical Interactions — most important",
+              "hint": "Highlight the actor’s most important interactions",
               "type": "String",
               "required": false
             },
             {
               "name": "complexInteractions",
               "label": "Complex Interactions — most challenging",
+              "hint": "Note the actor’s most challenging interactions",
               "type": "String",
               "required": false
             },
             {
               "name": "collaborativeInteractions",
               "label": "Collaborative Interactions — involves other actors",
+              "hint": "List interactions that involve other actors",
               "type": "String",
               "required": false
             },
             {
               "name": "handoffPoints",
               "label": "Handoff Points — where work passes to others",
+              "hint": "Identify points where work is handed off to others",
               "type": "String",
               "required": false
             }
@@ -4615,7 +4861,26 @@
       "sectionId": "ACOV",
       "doc": "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+          "BABOK v3 — stakeholder & actor analysis"
+        ],
+        "connotation": "Enumerates the actors (roles) that interact with the system, with their categories, goals and permissions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+              "BABOK v3 — stakeholder & actor analysis"
+            ],
+            "connotation": "Enumerates the actors (roles) that interact with the system, with their categories, goals and permissions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4677,10 +4942,28 @@
           "name": "actors",
           "kind": "list",
           "doc": "Contains 1+× Actor.",
+          "help": "Add one entry per actor.",
           "sectionId": "ACEN-ACTO-LST",
           "sectionIdPattern": "ACEN-ACTO-xxx",
+          "standardReferences": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "The set of actor entries defining the roles that interact with the system."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+                  "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+                ],
+                "connotation": "The set of actor entries defining the roles that interact with the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -4697,6 +4980,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per actor."
               }
             },
             {
@@ -4731,7 +5020,24 @@
       "name": "ActorOverviewNarrative",
       "sectionId": "ACOVNA",
       "doc": "Actor overview narrative.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder & actor analysis",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+        ],
+        "connotation": "Summarises the actor population — counts by type and how actors were identified, prioritised and aligned to business goals."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder & actor analysis",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "Summarises the actor population — counts by type and how actors were identified, prioritised and aligned to business goals."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4762,42 +5068,49 @@
             {
               "name": "totalActorCount",
               "label": "Total Actor Count",
+              "hint": "Enter the total number of actors",
               "type": "int",
               "required": false
             },
             {
               "name": "humanActorCount",
               "label": "Human Actor Count",
+              "hint": "Enter how many actors are human users",
               "type": "int",
               "required": false
             },
             {
               "name": "systemActorCount",
               "label": "System Actor Count",
+              "hint": "Enter how many actors are internal systems",
               "type": "int",
               "required": false
             },
             {
               "name": "externalActorCount",
               "label": "External Actor Count",
+              "hint": "Enter how many actors are external systems",
               "type": "int",
               "required": false
             },
             {
               "name": "actorIdentificationApproach",
               "label": "Actor Identification Approach — how actors were identified",
+              "hint": "Describe the method used to discover actors",
               "type": "String",
               "required": false
             },
             {
               "name": "actorPrioritization",
               "label": "Actor Prioritization — which actors are most important",
+              "hint": "State which actors matter most and why",
               "type": "String",
               "required": false
             },
             {
               "name": "actorGoalAlignment",
               "label": "Actor Goal Alignment — how actor goals align with business goals",
+              "hint": "Explain how actor goals map to business goals",
               "type": "String",
               "required": false
             }
@@ -4809,7 +5122,24 @@
       "name": "ActorPermissions",
       "sectionId": "ACPE",
       "doc": "Actor permissions and access levels.",
+      "standardReferences": {
+        "standards": [
+          "NIST RBAC — role-based access (actor permissions)",
+          "ISO/IEC 27001 A.9 — access control (actor authorization)"
+        ],
+        "connotation": "Specifies an actor’s clearance, RBAC roles, data scope and approval limits along with audit requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST RBAC — role-based access (actor permissions)",
+              "ISO/IEC 27001 A.9 — access control (actor authorization)"
+            ],
+            "connotation": "Specifies an actor’s clearance, RBAC roles, data scope and approval limits along with audit requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4840,48 +5170,56 @@
             {
               "name": "securityClearance",
               "label": "Security Clearance — data access level",
+              "hint": "State the actor’s security clearance or data access level",
               "type": "String",
               "required": false
             },
             {
               "name": "roleBasedPermissions",
               "label": "Role-Based Permissions — RBAC roles",
+              "hint": "List the RBAC roles assigned to the actor",
               "type": "String",
               "required": false
             },
             {
               "name": "dataAccessScope",
               "label": "Data Access Scope — own, team, department, all",
+              "hint": "Define the breadth of data the actor may access",
               "type": "String",
               "required": false
             },
             {
               "name": "functionalPermissions",
               "label": "Functional Permissions — what functions can access",
+              "hint": "List the functions or operations the actor may perform",
               "type": "String",
               "required": false
             },
             {
               "name": "approvalLimits",
               "label": "Approval Limits — transaction/decision limits",
+              "hint": "State the transaction or decision limits the actor may approve",
               "type": "String",
               "required": false
             },
             {
               "name": "delegationRights",
               "label": "Delegation Rights — can delegate to others",
+              "hint": "Note whether the actor can delegate rights to others",
               "type": "String",
               "required": false
             },
             {
               "name": "temporaryElevation",
               "label": "Temporary Elevation — can request higher access",
+              "hint": "Describe any temporary privilege-elevation the actor may request",
               "type": "String",
               "required": false
             },
             {
               "name": "auditRequirements",
               "label": "Audit Requirements — what actions are logged",
+              "hint": "List the actor actions that must be logged for audit",
               "type": "String",
               "required": false
             }
@@ -4894,7 +5232,24 @@
       "sectionId": "ACREDI",
       "doc": "6.2. Actor Relationship Diagram.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "BPMN 2.0 — collaboration / pools & lanes (participants)"
+        ],
+        "connotation": "Visualises the actor hierarchy and actor-system interactions as generalization and collaboration diagrams."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "BPMN 2.0 — collaboration / pools & lanes (participants)"
+            ],
+            "connotation": "Visualises the actor hierarchy and actor-system interactions as generalization and collaboration diagrams."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -4969,7 +5324,24 @@
       "name": "ActorTechnologyProfile",
       "sectionId": "ACTEPR",
       "doc": "Actor technology profile.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context",
+          "BABOK v3 — stakeholder & actor analysis"
+        ],
+        "connotation": "Describes the channels, devices, connectivity and authentication through which an actor accesses the system."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context",
+              "BABOK v3 — stakeholder & actor analysis"
+            ],
+            "connotation": "Describes the channels, devices, connectivity and authentication through which an actor accesses the system."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5000,54 +5372,63 @@
             {
               "name": "primaryAccessChannel",
               "label": "Primary Access Channel — web, mobile app, desktop, API",
+              "hint": "Name the main channel the actor uses to access the system",
               "type": "String",
               "required": false
             },
             {
               "name": "secondaryAccessChannels",
               "label": "Secondary Access Channels — alternative channels",
+              "hint": "List alternative channels the actor may use",
               "type": "String",
               "required": false
             },
             {
               "name": "deviceTypes",
               "label": "Device Types — desktop, laptop, tablet, smartphone",
+              "hint": "List the device types the actor uses",
               "type": "String",
               "required": false
             },
             {
               "name": "operatingSystems",
               "label": "Operating Systems — Windows, macOS, iOS, Android",
+              "hint": "List the operating systems the actor runs",
               "type": "String",
               "required": false
             },
             {
               "name": "browserRequirements",
               "label": "Browser Requirements — supported browsers",
+              "hint": "Note the browsers that must be supported",
               "type": "String",
               "required": false
             },
             {
               "name": "networkConnectivity",
               "label": "Network Connectivity — always online, occasionally offline",
+              "hint": "Describe the actor’s typical network connectivity",
               "type": "String",
               "required": false
             },
             {
               "name": "bandwidthExpectations",
               "label": "Bandwidth Expectations — high-speed, limited",
+              "hint": "State the bandwidth the actor typically has available",
               "type": "String",
               "required": false
             },
             {
               "name": "integratedTools",
               "label": "Integrated Tools — other tools actor uses",
+              "hint": "List other tools the actor integrates with",
               "type": "String",
               "required": false
             },
             {
               "name": "authenticationMethod",
               "label": "Authentication Method — password, SSO, MFA, biometric",
+              "hint": "State how the actor authenticates to the system",
               "type": "String",
               "required": false
             }
@@ -7982,7 +8363,24 @@
       "name": "AlternativeFlowEntry",
       "sectionId": "ALFL",
       "doc": "An alternative flow entry.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: extensions & alternative flows",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+        ],
+        "connotation": "Defines a single alternative, exception, or error flow that branches from the main scenario path."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions & alternative flows",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+            ],
+            "connotation": "Defines a single alternative, exception, or error flow that branches from the main scenario path."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8013,60 +8411,70 @@
             {
               "name": "flowId",
               "label": "Flow ID (e.g., AFL-001)",
+              "hint": "Stable code such as AFL-001",
               "type": "String",
               "required": true
             },
             {
               "name": "flowName",
               "label": "Flow Name",
+              "hint": "Short descriptive name for the flow",
               "type": "String",
               "required": true
             },
             {
               "name": "flowType",
               "label": "Flow Type — alternative, exception, error",
+              "hint": "One of alternative, exception, or error",
               "type": "String",
               "required": false
             },
             {
               "name": "branchPoint",
               "label": "Branch Point — step where flow branches",
+              "hint": "Main-flow step number where this diverges",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerCondition",
               "label": "Trigger Condition — when this occurs",
+              "hint": "Condition that activates this flow",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Description — what happens",
+              "hint": "Narrative of what happens in this flow",
               "type": "String",
               "required": false
             },
             {
               "name": "outcome",
               "label": "Outcome — how flow ends",
+              "hint": "The end state this flow reaches",
               "type": "String",
               "required": false
             },
             {
               "name": "returnPoint",
               "label": "Return Point — step to return to",
+              "hint": "Main-flow step to resume at, if any",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — how often this occurs",
+              "hint": "How often this flow is expected to occur",
               "type": "String",
               "required": false
             },
             {
               "name": "businessImpact",
               "label": "Business Impact — effect on business",
+              "hint": "Business consequence of this flow",
               "type": "String",
               "required": false
             }
@@ -8076,10 +8484,28 @@
           "name": "steps",
           "kind": "list",
           "doc": "Contains 0+× Scenario Step.",
+          "help": "Add one entry per step of this alternative flow, in order.",
           "sectionId": "ALST-STEP-LST",
           "sectionIdPattern": "ALST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — sequence flow / activities (scenario steps)",
+              "Gherkin / BDD — given-when-then scenario steps"
+            ],
+            "connotation": "The ordered steps that make up this alternative flow, each pairing an action with its response."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — sequence flow / activities (scenario steps)",
+                  "Gherkin / BDD — given-when-then scenario steps"
+                ],
+                "connotation": "The ordered steps that make up this alternative flow, each pairing an action with its response."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -8090,6 +8516,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ALST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per step of this alternative flow, in order."
               }
             },
             {
@@ -8108,7 +8540,24 @@
       "name": "AlternativeStepEntry",
       "sectionId": "ALST",
       "doc": "An alternative step entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — sequence flow / activities (scenario steps)",
+          "Gherkin / BDD — given-when-then scenario steps"
+        ],
+        "connotation": "A single step within an alternative flow, pairing an action with its system response and expected result."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — sequence flow / activities (scenario steps)",
+              "Gherkin / BDD — given-when-then scenario steps"
+            ],
+            "connotation": "A single step within an alternative flow, pairing an action with its system response and expected result."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -8139,24 +8588,28 @@
             {
               "name": "stepNumber",
               "label": "Step Number",
+              "hint": "Sequential position within the alternative flow",
               "type": "String",
               "required": false
             },
             {
               "name": "action",
               "label": "Action",
+              "hint": "The action taken in this step",
               "type": "String",
               "required": false
             },
             {
               "name": "response",
               "label": "Response",
+              "hint": "How the system responds to the action",
               "type": "String",
               "required": false
             },
             {
               "name": "expectedResult",
               "label": "Expected Result",
+              "hint": "The observable outcome after the step",
               "type": "String",
               "required": false
             }
@@ -85931,7 +86384,24 @@
       "sectionId": "ETETS",
       "doc": "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing (test scenarios)",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+        ],
+        "connotation": "Defines a single end-to-end test scenario exercising a complete user journey across processes and use cases."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing (test scenarios)",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "Defines a single end-to-end test scenario exercising a complete user journey across processes and use cases."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -94969,7 +95439,24 @@
       "name": "ExtensionEntry",
       "sectionId": "EXTEN",
       "doc": "An extension entry.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: extensions",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "One extension flow — the branch point, condition, type and outcome of an alternative or exception path."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "One extension flow — the branch point, condition, type and outcome of an alternative or exception path."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95000,54 +95487,63 @@
             {
               "name": "extensionId",
               "label": "Extension ID (e.g., 3a)",
+              "hint": "Cockburn-style id such as 3a",
               "type": "String",
               "required": true
             },
             {
               "name": "branchPoint",
               "label": "Branch Point — step number",
+              "hint": "Main-scenario step where this branch occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "condition",
               "label": "Condition — when this extension triggers",
+              "hint": "Condition under which the branch is taken",
               "type": "String",
               "required": false
             },
             {
               "name": "extensionType",
               "label": "Extension Type — alternative, exception, error",
+              "hint": "Classify: alternative, exception or error",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Description — what happens",
+              "hint": "What happens along this extension path",
               "type": "String",
               "required": false
             },
             {
               "name": "outcome",
               "label": "Outcome — how it ends",
+              "hint": "Result reached when the branch completes",
               "type": "String",
               "required": false
             },
             {
               "name": "returnPoint",
               "label": "Return Point — step to return to, or end",
+              "hint": "Main-scenario step to resume at, or \"end\"",
               "type": "String",
               "required": false
             },
             {
               "name": "frequency",
               "label": "Frequency — how often this occurs",
+              "hint": "How often this branch is expected to occur",
               "type": "String",
               "required": false
             },
             {
               "name": "severity",
               "label": "Severity — impact level (for exceptions)",
+              "hint": "Impact level for exception/error branches",
               "type": "String",
               "required": false
             }
@@ -95057,10 +95553,26 @@
           "name": "steps",
           "kind": "list",
           "doc": "Extension steps — contains 0+× Scenario Step.",
+          "help": "Add one entry per extension step.",
           "sectionId": "EXTST-STEP-LST",
           "sectionIdPattern": "EXTST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions"
+            ],
+            "connotation": "The ordered steps that make up this extension flow."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: extensions"
+                ],
+                "connotation": "The ordered steps that make up this extension flow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -95071,6 +95583,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXTST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per extension step."
               }
             },
             {
@@ -95089,7 +95607,24 @@
       "name": "ExtensionStepEntry",
       "sectionId": "EXTST",
       "doc": "An extension step entry.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: extensions",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "One numbered step within an extension flow — its actor action and system response."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "One numbered step within an extension flow — its actor action and system response."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -95120,18 +95655,21 @@
             {
               "name": "stepNumber",
               "label": "Step Number (e.g., 3a1)",
+              "hint": "Extension step id such as 3a1",
               "type": "String",
               "required": false
             },
             {
               "name": "action",
               "label": "Action",
+              "hint": "What the actor does in this extension step",
               "type": "String",
               "required": false
             },
             {
               "name": "response",
               "label": "Response",
+              "hint": "How the system responds in this step",
               "type": "String",
               "required": false
             }
@@ -116388,7 +116926,24 @@
       "name": "InteractionBusinessRules",
       "sectionId": "INBURU",
       "doc": "Business rules triggered by this interaction.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — business rules",
+          "ISO 9001:2015 §4.4 — process interactions"
+        ],
+        "connotation": "Lists the business rules — validation, calculation, authorization, workflow, notification and integration — invoked by this interaction."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — business rules",
+              "ISO 9001:2015 §4.4 — process interactions"
+            ],
+            "connotation": "Lists the business rules — validation, calculation, authorization, workflow, notification and integration — invoked by this interaction."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116419,36 +116974,42 @@
             {
               "name": "validationRules",
               "label": "Validation Rules — BR-xxx for validation",
+              "hint": "BR-xxx rules governing input validation",
               "type": "String",
               "required": false
             },
             {
               "name": "calculationRules",
               "label": "Calculation Rules — BR-xxx for calculations",
+              "hint": "BR-xxx rules governing calculations",
               "type": "String",
               "required": false
             },
             {
               "name": "authorizationRules",
               "label": "Authorization Rules — BR-xxx for permissions",
+              "hint": "BR-xxx rules governing permissions",
               "type": "String",
               "required": false
             },
             {
               "name": "workflowRules",
               "label": "Workflow Rules — BR-xxx for flow",
+              "hint": "BR-xxx rules governing flow and routing",
               "type": "String",
               "required": false
             },
             {
               "name": "notificationRules",
               "label": "Notification Rules — BR-xxx for notifications",
+              "hint": "BR-xxx rules governing notifications",
               "type": "String",
               "required": false
             },
             {
               "name": "integrationRules",
               "label": "Integration Rules — BR-xxx for integrations",
+              "hint": "BR-xxx rules governing external integrations",
               "type": "String",
               "required": false
             }
@@ -116591,7 +117152,26 @@
       "sectionId": "INCA",
       "doc": "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use cases",
+          "Cockburn — Writing Effective Use Cases: fully dressed use-case template",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Catalogs the key actor-system interactions of the system, each seeding a fully dressed use case."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use cases",
+              "Cockburn — Writing Effective Use Cases: fully dressed use-case template",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Catalogs the key actor-system interactions of the system, each seeding a fully dressed use case."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116653,10 +117233,26 @@
           "name": "interactions",
           "kind": "list",
           "doc": "Contains 1+× Interaction.",
+          "help": "Add one entry per interaction.",
           "sectionId": "INEN-INTE-LST",
           "sectionIdPattern": "INEN-INTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "The set of actor-system interactions (use cases) the system supports."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "UML 2.5.1 (ISO/IEC 19505) — use cases"
+                ],
+                "connotation": "The set of actor-system interactions (use cases) the system supports."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -116673,6 +117269,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per interaction."
               }
             },
             {
@@ -116707,7 +117309,24 @@
       "name": "InteractionCatalogOverview",
       "sectionId": "INCAOV",
       "doc": "Interaction catalog overview.",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use cases",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Summarizes the interaction catalog — counts, coverage, identification method and traceability across all documented use cases."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use cases",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Summarizes the interaction catalog — counts, coverage, identification method and traceability across all documented use cases."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116738,48 +117357,56 @@
             {
               "name": "totalInteractionCount",
               "label": "Total Interaction Count",
+              "hint": "Count of all documented interactions",
               "type": "int",
               "required": false
             },
             {
               "name": "highPriorityCount",
               "label": "High Priority Count",
+              "hint": "Number of must-have interactions",
               "type": "int",
               "required": false
             },
             {
               "name": "mediumPriorityCount",
               "label": "Medium Priority Count",
+              "hint": "Number of should-have interactions",
               "type": "int",
               "required": false
             },
             {
               "name": "lowPriorityCount",
               "label": "Low Priority Count",
+              "hint": "Number of could-have interactions",
               "type": "int",
               "required": false
             },
             {
               "name": "coverageStatement",
               "label": "Coverage Statement — what interactions are covered",
+              "hint": "State which processes and goals the catalog covers",
               "type": "String",
               "required": false
             },
             {
               "name": "identificationMethod",
               "label": "Identification Method — how interactions were identified",
+              "hint": "e.g. actor-goal analysis, event storming, process decomposition",
               "type": "String",
               "required": false
             },
             {
               "name": "prioritizationCriteria",
               "label": "Prioritization Criteria — how priority was determined",
+              "hint": "e.g. MoSCoW, business value vs. effort",
               "type": "String",
               "required": false
             },
             {
               "name": "traceabilityToProcesses",
               "label": "Traceability to Processes — link to BP section",
+              "hint": "Reference the TOM-xxx process each interaction realizes",
               "type": "String",
               "required": false
             }
@@ -117380,7 +118007,26 @@
       "name": "InteractionEntry",
       "sectionId": "INEN",
       "doc": "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: fully dressed use-case template",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+        ],
+        "connotation": "Fully describes a single actor-system interaction as a fully dressed use case — identity, scope, stakeholders, pre/postconditions, flows and rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: fully dressed use-case template",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+            ],
+            "connotation": "Fully describes a single actor-system interaction as a fully dressed use case — identity, scope, stakeholders, pre/postconditions, flows and rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117423,10 +118069,28 @@
           "name": "stakeholders",
           "kind": "list",
           "doc": "Stakeholders and interests.",
+          "help": "Add one entry per stakeholder interest.",
           "sectionId": "STANIN-STAK-LST",
           "sectionIdPattern": "STANIN-STAK-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: stakeholders and interests",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "The stakeholders of this interaction and the interests each of them wants protected."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: stakeholders and interests",
+                  "BABOK v3 — use cases & scenarios"
+                ],
+                "connotation": "The stakeholders of this interaction and the interests each of them wants protected."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -117437,6 +118101,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STANIN-STAK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per stakeholder interest."
               }
             },
             {
@@ -117453,10 +118123,28 @@
           "name": "preconditions",
           "kind": "list",
           "doc": "Preconditions and triggers.",
+          "help": "Add one entry per precondition/trigger set.",
           "sectionId": "PRANTR-PREC-LST",
           "sectionIdPattern": "PRANTR-PREC-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: preconditions and triggers",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "The conditions that must hold before this interaction and the events that trigger it."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: preconditions and triggers",
+                  "UML 2.5.1 (ISO/IEC 19505) — use cases"
+                ],
+                "connotation": "The conditions that must hold before this interaction and the events that trigger it."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -117467,6 +118155,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRANTR-PREC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per precondition/trigger set."
               }
             },
             {
@@ -117483,10 +118177,28 @@
           "name": "postconditions",
           "kind": "list",
           "doc": "Postconditions and guarantees.",
+          "help": "Add one entry per postcondition/guarantee set.",
           "sectionId": "POANGU-POST-LST",
           "sectionIdPattern": "POANGU-POST-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: minimal and success guarantees",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "The minimal and success guarantees describing the system state after this interaction completes."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: minimal and success guarantees",
+                  "UML 2.5.1 (ISO/IEC 19505) — use cases"
+                ],
+                "connotation": "The minimal and success guarantees describing the system state after this interaction completes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -117497,6 +118209,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "POANGU-POST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per postcondition/guarantee set."
               }
             },
             {
@@ -117543,10 +118261,28 @@
           "name": "variations",
           "kind": "list",
           "doc": "Technology and data variations.",
+          "help": "Add one entry per variation.",
           "sectionId": "TEDAVA-VARI-LST",
           "sectionIdPattern": "TEDAVA-VARI-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: technology & data variations",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+            ],
+            "connotation": "The data, technology and channel variations under which this interaction may play out."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: technology & data variations",
+                  "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+                ],
+                "connotation": "The data, technology and channel variations under which this interaction may play out."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -117557,6 +118293,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TEDAVA-VARI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per variation."
               }
             },
             {
@@ -117618,10 +118360,28 @@
           "name": "businessRules",
           "kind": "list",
           "doc": "Business rules triggered.",
+          "help": "Add one entry per business-rule group.",
           "sectionId": "INBURU-BUSI-LST",
           "sectionIdPattern": "INBURU-BUSI-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 — business rules",
+              "Cockburn — Writing Effective Use Cases: main success scenario"
+            ],
+            "connotation": "The business rules invoked while executing this interaction."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 — business rules",
+                  "Cockburn — Writing Effective Use Cases: main success scenario"
+                ],
+                "connotation": "The business rules invoked while executing this interaction."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -117632,6 +118392,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INBURU-BUSI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business-rule group."
               }
             },
             {
@@ -117665,7 +118431,24 @@
       "name": "InteractionIdentification",
       "sectionId": "INID",
       "doc": "Interaction identification (use case header).",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: use-case identity & scope",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "Identifies a use case by id, name, actors, goal level and design scope — its header attributes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: use-case identity & scope",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "Identifies a use case by id, name, actors, goal level and design scope — its header attributes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -117696,54 +118479,63 @@
             {
               "name": "interactionId",
               "label": "Interaction ID (e.g., INT-001)",
+              "hint": "Stable code such as INT-001",
               "type": "String",
               "required": true
             },
             {
               "name": "useCaseName",
               "label": "Use Case Name — active verb goal phrase",
+              "hint": "Active-verb goal, e.g. \"Place order\"",
               "type": "String",
               "required": true
             },
             {
               "name": "processReference",
               "label": "Process Reference — TOM-xxx",
+              "hint": "The TOM-xxx process this use case realizes",
               "type": "String",
               "required": false
             },
             {
               "name": "briefDescription",
               "label": "Brief Description — one sentence",
+              "hint": "One-sentence summary of the goal",
               "type": "String",
               "required": false
             },
             {
               "name": "fullDescription",
               "label": "Full Description — complete explanation",
+              "hint": "Fuller narrative of what the interaction achieves",
               "type": "String",
               "required": false
             },
             {
               "name": "primaryActor",
               "label": "Primary Actor — who initiates",
+              "hint": "The actor with the goal who starts the interaction",
               "type": "String",
               "required": false
             },
             {
               "name": "supportingActors",
               "label": "Supporting Actors — who else participates",
+              "hint": "Other actors or systems that contribute",
               "type": "String",
               "required": false
             },
             {
               "name": "goalLevel",
               "label": "Goal Level — summary (+), user goal (!), subfunction (-)",
+              "hint": "Cockburn level: + summary, ! user goal, - subfunction",
               "type": "String",
               "required": false
             },
             {
               "name": "designScope",
               "label": "Design Scope — organization, system, subsystem, component",
+              "hint": "Boundary in view: organization, system, subsystem, component",
               "type": "String",
               "required": false
             }
@@ -118299,7 +119091,24 @@
       "name": "InteractionPerformance",
       "sectionId": "INPE",
       "doc": "Interaction performance requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+        ],
+        "connotation": "States the performance targets for the interaction — frequency, volume, response time, throughput and availability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+            ],
+            "connotation": "States the performance targets for the interaction — frequency, volume, response time, throughput and availability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118330,42 +119139,49 @@
             {
               "name": "expectedFrequency",
               "label": "Expected Frequency — times per day/week",
+              "hint": "How often the interaction runs, e.g. per day",
               "type": "String",
               "required": false
             },
             {
               "name": "peakVolume",
               "label": "Peak Volume — maximum concurrent",
+              "hint": "Maximum concurrent load expected",
               "type": "String",
               "required": false
             },
             {
               "name": "responseTimeTarget",
               "label": "Response Time Target — max acceptable",
+              "hint": "Maximum acceptable response time",
               "type": "String",
               "required": false
             },
             {
               "name": "throughputTarget",
               "label": "Throughput Target — transactions per second",
+              "hint": "Required transactions per second",
               "type": "String",
               "required": false
             },
             {
               "name": "availabilityRequirement",
               "label": "Availability Requirement — uptime needed",
+              "hint": "Required uptime, e.g. 99.9%",
               "type": "String",
               "required": false
             },
             {
               "name": "concurrencyExpectation",
               "label": "Concurrency Expectation — simultaneous users",
+              "hint": "Expected number of simultaneous users",
               "type": "String",
               "required": false
             },
             {
               "name": "dataVolumeHandled",
               "label": "Data Volume Handled — typical data size",
+              "hint": "Typical data size processed per run",
               "type": "String",
               "required": false
             }
@@ -118377,7 +119193,24 @@
       "name": "InteractionPrioritization",
       "sectionId": "INPR",
       "doc": "Interaction prioritization matrix.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — use cases & scenarios",
+          "Cockburn — Writing Effective Use Cases: use-case identity & scope"
+        ],
+        "connotation": "Prioritizes the catalog of interactions using MoSCoW and phasing to guide delivery sequencing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — use cases & scenarios",
+              "Cockburn — Writing Effective Use Cases: use-case identity & scope"
+            ],
+            "connotation": "Prioritizes the catalog of interactions using MoSCoW and phasing to guide delivery sequencing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118408,42 +119241,49 @@
             {
               "name": "mustHaveInteractions",
               "label": "Must-Have Interactions — essential for MVP",
+              "hint": "List interactions the MVP cannot ship without",
               "type": "String",
               "required": false
             },
             {
               "name": "shouldHaveInteractions",
               "label": "Should-Have Interactions — important but deferrable",
+              "hint": "Important but can slip to a later release",
               "type": "String",
               "required": false
             },
             {
               "name": "couldHaveInteractions",
               "label": "Could-Have Interactions — nice to have",
+              "hint": "Desirable if capacity allows",
               "type": "String",
               "required": false
             },
             {
               "name": "wontHaveInteractions",
               "label": "Wont-Have Interactions — out of scope",
+              "hint": "Explicitly out of scope for this effort",
               "type": "String",
               "required": false
             },
             {
               "name": "phaseOneInteractions",
               "label": "Phase One Interactions",
+              "hint": "Interactions targeted for the first delivery phase",
               "type": "String",
               "required": false
             },
             {
               "name": "phaseTwoInteractions",
               "label": "Phase Two Interactions",
+              "hint": "Interactions targeted for the second delivery phase",
               "type": "String",
               "required": false
             },
             {
               "name": "futureInteractions",
               "label": "Future Interactions",
+              "hint": "Interactions deferred to an unscheduled future phase",
               "type": "String",
               "required": false
             }
@@ -118491,7 +119331,24 @@
       "name": "InteractionSecurity",
       "sectionId": "INSE",
       "doc": "Interaction security requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001 A.9 — access control",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+        ],
+        "connotation": "States the security requirements for the interaction — authentication, authorization, data protection, auditing and compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001 A.9 — access control",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+            ],
+            "connotation": "States the security requirements for the interaction — authentication, authorization, data protection, auditing and compliance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118522,42 +119379,49 @@
             {
               "name": "authenticationRequired",
               "label": "Authentication Required — auth needed",
+              "hint": "Whether and how the actor must authenticate",
               "type": "String",
               "required": false
             },
             {
               "name": "authorizationRules",
               "label": "Authorization Rules — who can do this",
+              "hint": "Which roles are permitted to perform this",
               "type": "String",
               "required": false
             },
             {
               "name": "dataClassification",
               "label": "Data Classification — sensitivity level",
+              "hint": "Sensitivity level of the data handled",
               "type": "String",
               "required": false
             },
             {
               "name": "encryptionRequirements",
               "label": "Encryption Requirements — data protection",
+              "hint": "Encryption needed in transit and at rest",
               "type": "String",
               "required": false
             },
             {
               "name": "auditLogging",
               "label": "Audit Logging — what is logged",
+              "hint": "Security-relevant events to log",
               "type": "String",
               "required": false
             },
             {
               "name": "sessionRequirements",
               "label": "Session Requirements — timeout, renewal",
+              "hint": "Session timeout and renewal rules",
               "type": "String",
               "required": false
             },
             {
               "name": "complianceRequirements",
               "label": "Compliance Requirements — GDPR, HIPAA",
+              "hint": "Regulations to satisfy, e.g. GDPR, HIPAA",
               "type": "String",
               "required": false
             }
@@ -118619,7 +119483,24 @@
       "name": "InteractionTraceability",
       "sectionId": "INTR",
       "doc": "Interaction traceability to other elements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Traces the interaction to related processes, requirements, data, business objects, rules, integrations and test cases."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Traces the interaction to related processes, requirements, data, business objects, rules, integrations and test cases."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -118650,48 +119531,56 @@
             {
               "name": "relatedProcess",
               "label": "Related Process — TOM-xxx",
+              "hint": "TOM-xxx process this interaction realizes",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedRequirements",
               "label": "Related Requirements — REQ-xxx",
+              "hint": "REQ-xxx requirements satisfied here",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedUseCase",
               "label": "Related Use Case — ISC-xxx in ISC document",
+              "hint": "ISC-xxx use case in the ISC document",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedDataEntities",
               "label": "Related Data Entities — entity names",
+              "hint": "Data entities read or written",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedBusinessObjects",
               "label": "Related Business Objects — BO-xxx",
+              "hint": "BO-xxx business objects involved",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedBusinessRules",
               "label": "Related Business Rules — BR-xxx",
+              "hint": "BR-xxx business rules referenced",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedIntegrations",
               "label": "Related Integrations — INT-xxx",
+              "hint": "INT-xxx integrations touched",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedTestCases",
               "label": "Related Test Cases — TC-xxx",
+              "hint": "TC-xxx test cases covering this",
               "type": "String",
               "required": false
             }
@@ -126170,7 +127059,26 @@
       "sectionId": "KESC",
       "doc": "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Collects the key end-to-end scenarios that show how users achieve business goals through complete sequences of interactions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Collects the key end-to-end scenarios that show how users achieve business goals through complete sequences of interactions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126232,10 +127140,26 @@
           "name": "scenarios",
           "kind": "list",
           "doc": "Contains 1+× Scenario.",
+          "help": "Add one entry per key scenario.",
           "sectionId": "SCNRY-SCEN-LST",
           "sectionIdPattern": "SCNRY-SCEN-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario & extensions"
+            ],
+            "connotation": "The set of key end-to-end scenarios that illustrate how actors achieve their business goals through the system."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: main success scenario & extensions"
+                ],
+                "connotation": "The set of key end-to-end scenarios that illustrate how actors achieve their business goals through the system."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -126252,6 +127176,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per key scenario."
               }
             },
             {
@@ -131161,7 +132091,24 @@
       "name": "MainScenarioStepEntry",
       "sectionId": "MNSST",
       "doc": "A main scenario step entry.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: main success scenario",
+          "BPMN 2.0 — collaboration / message flow (actor-system interaction)"
+        ],
+        "connotation": "One numbered step of the main scenario — the actor action and the system response, with the data, rules and UI involved."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario",
+              "BPMN 2.0 — collaboration / message flow (actor-system interaction)"
+            ],
+            "connotation": "One numbered step of the main scenario — the actor action and the system response, with the data, rules and UI involved."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131192,48 +132139,56 @@
             {
               "name": "stepNumber",
               "label": "Step Number",
+              "hint": "Sequential step number within the flow",
               "type": "int",
               "required": true
             },
             {
               "name": "actorAction",
               "label": "Actor Action — what actor does",
+              "hint": "What the actor does in this step",
               "type": "String",
               "required": false
             },
             {
               "name": "systemResponse",
               "label": "System Response — what system does",
+              "hint": "How the system responds to the action",
               "type": "String",
               "required": false
             },
             {
               "name": "dataInvolved",
               "label": "Data Involved — data read/written",
+              "hint": "Data read or written during the step",
               "type": "String",
               "required": false
             },
             {
               "name": "businessRuleApplied",
               "label": "Business Rule Applied — BR-xxx reference",
+              "hint": "BR-xxx rule enforced at this step",
               "type": "String",
               "required": false
             },
             {
               "name": "uiElementUsed",
               "label": "UI Element Used — screen/component",
+              "hint": "Screen or component the actor interacts with",
               "type": "String",
               "required": false
             },
             {
               "name": "validationPerformed",
               "label": "Validation Performed — checks done",
+              "hint": "Validations run during this step",
               "type": "String",
               "required": false
             },
             {
               "name": "expectedDuration",
               "label": "Expected Duration — time for this step",
+              "hint": "Expected time to complete this step",
               "type": "String",
               "required": false
             }
@@ -131245,7 +132200,24 @@
       "name": "MainSuccessScenario",
       "sectionId": "MASUSC",
       "doc": "Main success scenario (basic flow).",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: main success scenario",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "Describes the happy-path flow — the numbered steps by which the interaction reaches its goal without deviation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "Describes the happy-path flow — the numbered steps by which the interaction reaches its goal without deviation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -131276,18 +132248,21 @@
             {
               "name": "scenarioSummary",
               "label": "Scenario Summary — overview",
+              "hint": "One-paragraph overview of the happy path",
               "type": "String",
               "required": false
             },
             {
               "name": "estimatedDuration",
               "label": "Estimated Duration — typical completion time",
+              "hint": "Typical time to complete the whole flow",
               "type": "String",
               "required": false
             },
             {
               "name": "stepCount",
               "label": "Step Count — number of steps",
+              "hint": "How many numbered steps the flow has",
               "type": "int",
               "required": false
             }
@@ -131297,10 +132272,26 @@
           "name": "steps",
           "kind": "list",
           "doc": "Main scenario steps — contains 1+× Scenario Step.",
+          "help": "Add one entry per numbered step.",
           "sectionId": "MNSST-STEP-LST",
           "sectionIdPattern": "MNSST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario"
+            ],
+            "connotation": "The ordered steps of the main success scenario."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: main success scenario"
+                ],
+                "connotation": "The ordered steps of the main success scenario."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -131317,6 +132308,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per numbered step."
               }
             },
             {
@@ -163770,7 +164767,24 @@
       "name": "PostconditionsAndGuarantees",
       "sectionId": "POANGU",
       "doc": "Postconditions and guarantees.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: minimal and success guarantees",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "Specifies the guarantees — minimal and on success — and the resulting actor, system and data state after the interaction."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: minimal and success guarantees",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "Specifies the guarantees — minimal and on success — and the resulting actor, system and data state after the interaction."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163801,42 +164815,49 @@
             {
               "name": "minimalGuarantees",
               "label": "Minimal Guarantees — always true after, even on failure",
+              "hint": "What the system promises even when the flow fails",
               "type": "String",
               "required": false
             },
             {
               "name": "successGuarantees",
               "label": "Success Guarantees — true after successful completion",
+              "hint": "What holds true only after successful completion",
               "type": "String",
               "required": false
             },
             {
               "name": "primaryActorPostcondition",
               "label": "Primary Actor Postcondition — actor state after",
+              "hint": "The primary actor's state once the flow ends",
               "type": "String",
               "required": false
             },
             {
               "name": "systemPostcondition",
               "label": "System Postcondition — system state after",
+              "hint": "The system's state once the flow ends",
               "type": "String",
               "required": false
             },
             {
               "name": "dataPostcondition",
               "label": "Data Postcondition — data changes",
+              "hint": "Persistent data created, updated or removed",
               "type": "String",
               "required": false
             },
             {
               "name": "notificationsGenerated",
               "label": "Notifications Generated — who is notified",
+              "hint": "Notifications sent and their recipients",
               "type": "String",
               "required": false
             },
             {
               "name": "auditTrail",
               "label": "Audit Trail — what is logged",
+              "hint": "Audit records written for this interaction",
               "type": "String",
               "required": false
             }
@@ -163848,7 +164869,24 @@
       "name": "PreconditionsAndTriggers",
       "sectionId": "PRANTR",
       "doc": "Preconditions and triggers.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: preconditions and triggers",
+          "BPMN 2.0 — collaboration / message flow (actor-system interaction)"
+        ],
+        "connotation": "Defines what must be true before the interaction and the event that sets it in motion."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: preconditions and triggers",
+              "BPMN 2.0 — collaboration / message flow (actor-system interaction)"
+            ],
+            "connotation": "Defines what must be true before the interaction and the event that sets it in motion."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -163879,42 +164917,49 @@
             {
               "name": "precondition",
               "label": "Preconditions — must be true before",
+              "hint": "State assumed true before the interaction starts",
               "type": "String",
               "required": false
             },
             {
               "name": "trigger",
               "label": "Trigger — what initiates this use case",
+              "hint": "The event that starts the interaction",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerType",
               "label": "Trigger Type — user action, system event, timer, message",
+              "hint": "Classify the trigger: user, system, timer, message",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerSource",
               "label": "Trigger Source — where trigger originates",
+              "hint": "Actor or system emitting the trigger",
               "type": "String",
               "required": false
             },
             {
               "name": "triggerData",
               "label": "Trigger Data — data available at trigger",
+              "hint": "Payload carried by the trigger",
               "type": "String",
               "required": false
             },
             {
               "name": "frequencyOfTrigger",
               "label": "Frequency of Trigger — how often triggered",
+              "hint": "Expected trigger rate, e.g. per day/hour",
               "type": "String",
               "required": false
             },
             {
               "name": "validationBeforeStart",
               "label": "Validation Before Start — checks before proceeding",
+              "hint": "Guard checks performed before the main flow",
               "type": "String",
               "required": false
             }
@@ -173217,7 +174262,26 @@
       "sectionId": "PSAAI",
       "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
       "mapsTo": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+          "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+        ],
+        "connotation": "Captures the key process steps and how actors interact with the system, seeding full use cases with actors, interaction catalog and scenarios."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)",
+              "ISO/IEC/IEEE 29148 §6 — stakeholders & operational context"
+            ],
+            "connotation": "Captures the key process steps and how actors interact with the system, seeding full use cases with actors, interaction catalog and scenarios."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -173338,10 +174402,28 @@
           "name": "endToEndTestScenarios",
           "kind": "list",
           "doc": "6.2.4. End-to-End Test Scenarios..",
+          "help": "Add one entry per end-to-end test scenario.",
           "sectionId": "ETETS-ENDT-LST",
           "sectionIdPattern": "ETETS-ENDT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing (test scenarios)",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "The set of end-to-end test scenarios that exercise complete user journeys across processes and use cases."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29119 — software testing (test scenarios)",
+                  "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+                ],
+                "connotation": "The set of end-to-end test scenarios that exercise complete user journeys across processes and use cases."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -173352,6 +174434,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ETETS-ENDT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per end-to-end test scenario."
               }
             },
             {
@@ -173386,7 +174474,24 @@
       "sectionId": "PRSTOV",
       "doc": "6.2. Process Steps Overview.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+          "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+        ],
+        "connotation": "Frames the scope, actor focus and notation conventions used for the process steps and actor-interaction modeling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships",
+              "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"
+            ],
+            "connotation": "Frames the scope, actor focus and notation conventions used for the process steps and actor-interaction modeling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -173430,48 +174535,56 @@
             {
               "name": "useCaseScope",
               "label": "Use Case Scope — system, organization, subsystem",
+              "hint": "State the design scope of the use cases",
               "type": "String",
               "required": false
             },
             {
               "name": "primaryActorFocus",
               "label": "Primary Actor Focus — main user types",
+              "hint": "Name the main actor types the interactions center on",
               "type": "String",
               "required": false
             },
             {
               "name": "interactionCoverage",
               "label": "Interaction Coverage — scope of interactions",
+              "hint": "Describe how much of the interaction space is covered",
               "type": "String",
               "required": false
             },
             {
               "name": "scenarioCoverage",
               "label": "Scenario Coverage — what scenarios are included",
+              "hint": "List which end-to-end scenarios are in scope",
               "type": "String",
               "required": false
             },
             {
               "name": "useCaseNamingConvention",
               "label": "Use Case Naming Convention — ISC-xxx pattern",
+              "hint": "State the naming/ID pattern for use cases",
               "type": "String",
               "required": false
             },
             {
               "name": "traceabilityApproach",
               "label": "Traceability Approach — link to TOM, ISC documents",
+              "hint": "Explain how interactions trace to TOM and ISC",
               "type": "String",
               "required": false
             },
             {
               "name": "detailLevel",
               "label": "Detail Level — brief, casual, fully dressed",
+              "hint": "Choose the Cockburn detail level applied",
               "type": "String",
               "required": false
             },
             {
               "name": "notationStandard",
               "label": "Notation Standard — Cockburn, Fowler, RUP",
+              "hint": "Name the use-case notation standard followed",
               "type": "String",
               "required": false
             }
@@ -204148,7 +205261,24 @@
       "name": "ScenarioContext",
       "sectionId": "SCCO",
       "doc": "Scenario context.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: preconditions, triggers & guarantees",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+        ],
+        "connotation": "Establishes the surrounding conditions of the scenario: preconditions, trigger, success/failure conditions, and scope."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: preconditions, triggers & guarantees",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+            ],
+            "connotation": "Establishes the surrounding conditions of the scenario: preconditions, trigger, success/failure conditions, and scope."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204179,42 +205309,49 @@
             {
               "name": "preconditions",
               "label": "Preconditions — required initial state",
+              "hint": "State that must hold before the scenario starts",
               "type": "String",
               "required": false
             },
             {
               "name": "trigger",
               "label": "Trigger — what starts the scenario",
+              "hint": "The event that initiates the scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "successCondition",
               "label": "Success Condition — how to know it worked",
+              "hint": "Observable state indicating success",
               "type": "String",
               "required": false
             },
             {
               "name": "failureCondition",
               "label": "Failure Condition — how to know it failed",
+              "hint": "Observable state indicating failure",
               "type": "String",
               "required": false
             },
             {
               "name": "assumptions",
               "label": "Assumptions — what is assumed true",
+              "hint": "Assumptions taken as given for this scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "outOfScope",
               "label": "Out of Scope — what is not included",
+              "hint": "What this scenario deliberately excludes",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedInteractions",
               "label": "Related Interactions — INT-xxx references",
+              "hint": "INT-xxx interactions referenced by this scenario",
               "type": "String",
               "required": false
             }
@@ -204226,7 +205363,24 @@
       "name": "ScenarioData",
       "sectionId": "SCDA",
       "doc": "Scenario data requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing (scenario validation)",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Specifies the input, output, test, and sample data the scenario consumes, produces, and transforms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing (scenario validation)",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Specifies the input, output, test, and sample data the scenario consumes, produces, and transforms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204257,36 +205411,42 @@
             {
               "name": "inputData",
               "label": "Input Data — data needed to start",
+              "hint": "Data required before the scenario can run",
               "type": "String",
               "required": false
             },
             {
               "name": "outputData",
               "label": "Output Data — data produced",
+              "hint": "Data the scenario produces on completion",
               "type": "String",
               "required": false
             },
             {
               "name": "testDataRequirements",
               "label": "Test Data Requirements — data for testing",
+              "hint": "Data needed to exercise this scenario in tests",
               "type": "String",
               "required": false
             },
             {
               "name": "dataTransformations",
               "label": "Data Transformations — how data changes",
+              "hint": "How data is transformed through the scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "dataValidations",
               "label": "Data Validations — checks performed",
+              "hint": "Validation checks applied to the data",
               "type": "String",
               "required": false
             },
             {
               "name": "sampleDataValues",
               "label": "Sample Data Values — example input/output",
+              "hint": "Concrete example values for input/output",
               "type": "String",
               "required": false
             }
@@ -204298,7 +205458,24 @@
       "name": "ScenarioEntry",
       "sectionId": "SCNRY",
       "doc": "A scenario entry.\n\nComprehensive scenario definition for end-to-end user journey.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+        ],
+        "connotation": "A comprehensive definition of one end-to-end scenario, bundling its identity, context, steps, alternative flows, data, timing, and validation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+            ],
+            "connotation": "A comprehensive definition of one end-to-end scenario, bundling its identity, context, steps, alternative flows, data, timing, and validation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204341,10 +205518,28 @@
           "name": "steps",
           "kind": "list",
           "doc": "Contains 1+× Scenario Step.",
+          "help": "Add one entry per main-flow step, in order.",
           "sectionId": "SCNST-STEP-LST",
           "sectionIdPattern": "SCNST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BPMN 2.0 — sequence flow / activities (scenario steps)",
+              "Gherkin / BDD — given-when-then scenario steps"
+            ],
+            "connotation": "The ordered main-success steps of the scenario, each pairing an actor action with the system response."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BPMN 2.0 — sequence flow / activities (scenario steps)",
+                  "Gherkin / BDD — given-when-then scenario steps"
+                ],
+                "connotation": "The ordered main-success steps of the scenario, each pairing an actor action with the system response."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -204364,6 +205559,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per main-flow step, in order."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -204378,10 +205579,26 @@
           "name": "alternativeFlows",
           "kind": "list",
           "doc": "Alternative flows — contains 0+× Alternative Flow.",
+          "help": "Add one entry per alternative or exception flow.",
           "sectionId": "ALFL-ALTE-LST",
           "sectionIdPattern": "ALFL-ALTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+            ],
+            "connotation": "The valid variations and exception branches that diverge from the main success path of the scenario."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+                ],
+                "connotation": "The valid variations and exception branches that diverge from the main success path of the scenario."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -204392,6 +205609,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ALFL-ALTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per alternative or exception flow."
               }
             },
             {
@@ -204455,7 +205678,24 @@
       "name": "ScenarioIdentification",
       "sectionId": "SCID",
       "doc": "Scenario identification.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: scenarios & scenario identity",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+        ],
+        "connotation": "Captures the identifying attributes of a single key end-to-end scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: scenarios & scenario identity",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+            ],
+            "connotation": "Captures the identifying attributes of a single key end-to-end scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204486,54 +205726,63 @@
             {
               "name": "scenarioId",
               "label": "Scenario ID (e.g., SCE-001)",
+              "hint": "Stable code such as SCE-001",
               "type": "String",
               "required": true
             },
             {
               "name": "scenarioName",
               "label": "Scenario Name",
+              "hint": "Short descriptive name for the scenario",
               "type": "String",
               "required": true
             },
             {
               "name": "scenarioType",
               "label": "Scenario Type — happy path, alternative, exception",
+              "hint": "One of happy path, alternative, or exception",
               "type": "String",
               "required": false
             },
             {
               "name": "description",
               "label": "Description — narrative summary",
+              "hint": "One-paragraph narrative of the journey",
               "type": "String",
               "required": false
             },
             {
               "name": "businessGoal",
               "label": "Business Goal — what is achieved",
+              "hint": "The outcome the actor is trying to reach",
               "type": "String",
               "required": false
             },
             {
               "name": "primaryActor",
               "label": "Primary Actor — who performs scenario",
+              "hint": "The main actor driving the scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "supportingActors",
               "label": "Supporting Actors — who else",
+              "hint": "Other actors or systems that participate",
               "type": "String",
               "required": false
             },
             {
               "name": "priority",
               "label": "Priority — critical, high, medium, low",
+              "hint": "Business priority of this scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "complexity",
               "label": "Complexity — simple, moderate, complex",
+              "hint": "Relative implementation/test complexity",
               "type": "String",
               "required": false
             }
@@ -204545,7 +205794,24 @@
       "name": "ScenarioOverview",
       "sectionId": "SCOV",
       "doc": "Scenario overview.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Summarises the overall set of key scenarios, their coverage, types, and how they map to tests."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Summarises the overall set of key scenarios, their coverage, types, and how they map to tests."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204576,30 +205842,35 @@
             {
               "name": "totalScenarioCount",
               "label": "Total Scenario Count",
+              "hint": "Number of scenarios documented",
               "type": "int",
               "required": false
             },
             {
               "name": "scenarioCoverage",
               "label": "Scenario Coverage — what user journeys are covered",
+              "hint": "Which end-to-end journeys the scenarios span",
               "type": "String",
               "required": false
             },
             {
               "name": "scenarioTypes",
               "label": "Scenario Types — happy path, error handling, edge case",
+              "hint": "Mix of happy-path, error, and edge-case scenarios",
               "type": "String",
               "required": false
             },
             {
               "name": "scenarioPrioritization",
               "label": "Scenario Prioritization — which are most important",
+              "hint": "How scenarios are ranked by importance",
               "type": "String",
               "required": false
             },
             {
               "name": "scenarioToTestMapping",
               "label": "Scenario to Test Mapping — how scenarios map to tests",
+              "hint": "How each scenario traces to TC-xxx test cases",
               "type": "String",
               "required": false
             }
@@ -204611,7 +205882,24 @@
       "name": "ScenarioStepEntry",
       "sectionId": "SCNST",
       "doc": "A scenario step entry.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — sequence flow / activities (scenario steps)",
+          "Gherkin / BDD — given-when-then scenario steps"
+        ],
+        "connotation": "A single numbered step of the main flow, pairing an actor action with the resulting system response."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — sequence flow / activities (scenario steps)",
+              "Gherkin / BDD — given-when-then scenario steps"
+            ],
+            "connotation": "A single numbered step of the main flow, pairing an actor action with the resulting system response."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204642,24 +205930,28 @@
             {
               "name": "stepNumber",
               "label": "Step Number",
+              "hint": "Sequential position of this step",
               "type": "int",
               "required": true
             },
             {
               "name": "actor",
               "label": "Actor — who performs this step",
+              "hint": "The actor performing this step",
               "type": "String",
               "required": false
             },
             {
               "name": "action",
               "label": "Action — what actor does",
+              "hint": "The action the actor takes",
               "type": "String",
               "required": false
             },
             {
               "name": "systemResponse",
               "label": "System Response — what system does",
+              "hint": "How the system responds to the action",
               "type": "String",
               "required": false
             }
@@ -204701,7 +205993,24 @@
       "name": "ScenarioStepEntryContext",
       "sectionId": "SSEC",
       "doc": "Expected outcome and referenced artifacts.",
+      "standardReferences": {
+        "standards": [
+          "Gherkin / BDD — given-when-then scenario steps",
+          "BPMN 2.0 — sequence flow / activities (scenario steps)"
+        ],
+        "connotation": "Records the expected result of a scenario step and the artifacts, data, and UI elements it references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Gherkin / BDD — given-when-then scenario steps",
+              "BPMN 2.0 — sequence flow / activities (scenario steps)"
+            ],
+            "connotation": "Records the expected result of a scenario step and the artifacts, data, and UI elements it references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204732,24 +206041,28 @@
             {
               "name": "expectedResult",
               "label": "Expected Result — observable outcome",
+              "hint": "The observable outcome after the step",
               "type": "String",
               "required": false
             },
             {
               "name": "interactionReference",
               "label": "Interaction Reference — INT-xxx if detailed",
+              "hint": "INT-xxx interaction detailing this step",
               "type": "String",
               "required": false
             },
             {
               "name": "dataInvolved",
               "label": "Data Involved — input/output data",
+              "hint": "Data read or written during the step",
               "type": "String",
               "required": false
             },
             {
               "name": "uiElement",
               "label": "UI Element — screen/component used",
+              "hint": "Screen or component the actor uses",
               "type": "String",
               "required": false
             }
@@ -204761,7 +206074,24 @@
       "name": "ScenarioStepEntryExecution",
       "sectionId": "SCSTENEX",
       "doc": "Branching, timing, and notes.",
+      "standardReferences": {
+        "standards": [
+          "BPMN 2.0 — sequence flow / activities (scenario steps)",
+          "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+        ],
+        "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BPMN 2.0 — sequence flow / activities (scenario steps)",
+              "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+            ],
+            "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204792,18 +206122,21 @@
             {
               "name": "decisionPoint",
               "label": "Decision Point — if branching occurs here",
+              "hint": "Condition under which the flow branches here",
               "type": "String",
               "required": false
             },
             {
               "name": "timing",
               "label": "Timing — expected duration",
+              "hint": "Expected time this step takes",
               "type": "String",
               "required": false
             },
             {
               "name": "notes",
               "label": "Notes — clarifications",
+              "hint": "Additional clarifications for this step",
               "type": "String",
               "required": false
             }
@@ -204815,7 +206148,24 @@
       "name": "ScenarioTiming",
       "sectionId": "SCTI",
       "doc": "Scenario timing expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — performance efficiency",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+        ],
+        "connotation": "Defines the timing expectations of the scenario: total duration, user/system time, wait time, constraints, and timeout handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — performance efficiency",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios"
+            ],
+            "connotation": "Defines the timing expectations of the scenario: total duration, user/system time, wait time, constraints, and timeout handling."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204846,36 +206196,42 @@
             {
               "name": "totalDuration",
               "label": "Total Duration — end-to-end time",
+              "hint": "Expected end-to-end elapsed time",
               "type": "String",
               "required": false
             },
             {
               "name": "userActiveTime",
               "label": "User Active Time — user effort",
+              "hint": "Time the user is actively engaged",
               "type": "String",
               "required": false
             },
             {
               "name": "systemProcessingTime",
               "label": "System Processing Time — system work",
+              "hint": "Time the system spends processing",
               "type": "String",
               "required": false
             },
             {
               "name": "waitTime",
               "label": "Wait Time — delays for external factors",
+              "hint": "Delays waiting on external factors",
               "type": "String",
               "required": false
             },
             {
               "name": "timeConstraints",
               "label": "Time Constraints — deadlines, SLAs",
+              "hint": "Deadlines or SLAs the scenario must meet",
               "type": "String",
               "required": false
             },
             {
               "name": "timeoutHandling",
               "label": "Timeout Handling — what if too slow",
+              "hint": "What happens if timing limits are exceeded",
               "type": "String",
               "required": false
             }
@@ -204887,7 +206243,24 @@
       "name": "ScenarioValidation",
       "sectionId": "SCVA",
       "doc": "Scenario validation criteria.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119 — software testing (scenario validation)",
+          "Cockburn — Writing Effective Use Cases: success guarantees"
+        ],
+        "connotation": "Defines how the scenario is validated: acceptance criteria, test references, verification method, and expected metrics."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119 — software testing (scenario validation)",
+              "Cockburn — Writing Effective Use Cases: success guarantees"
+            ],
+            "connotation": "Defines how the scenario is validated: acceptance criteria, test references, verification method, and expected metrics."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -204918,36 +206291,42 @@
             {
               "name": "acceptanceCriteria",
               "label": "Acceptance Criteria — how success is verified",
+              "hint": "Criteria that confirm the scenario succeeded",
               "type": "String",
               "required": false
             },
             {
               "name": "testScenarios",
               "label": "Test Scenarios — TC-xxx references",
+              "hint": "TC-xxx test cases covering this scenario",
               "type": "String",
               "required": false
             },
             {
               "name": "verificationMethod",
               "label": "Verification Method — manual, automated",
+              "hint": "How the scenario is verified: manual or automated",
               "type": "String",
               "required": false
             },
             {
               "name": "validationData",
               "label": "Validation Data — data to check",
+              "hint": "Data checked to validate the outcome",
               "type": "String",
               "required": false
             },
             {
               "name": "expectedMetrics",
               "label": "Expected Metrics — performance targets",
+              "hint": "Performance or quality targets to meet",
               "type": "String",
               "required": false
             },
             {
               "name": "knownIssues",
               "label": "Known Issues — documented problems",
+              "hint": "Documented problems or limitations",
               "type": "String",
               "required": false
             }
@@ -229934,7 +231313,24 @@
       "name": "StakeholdersAndInterests",
       "sectionId": "STANIN",
       "doc": "Stakeholders and interests.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: stakeholders and interests",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Records each stakeholder of the interaction and the interest they want the system to protect."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: stakeholders and interests",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Records each stakeholder of the interaction and the interest they want the system to protect."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -229965,36 +231361,42 @@
             {
               "name": "primaryActorInterest",
               "label": "Primary Actor Interest — what they want",
+              "hint": "The goal the initiating actor is pursuing",
               "type": "String",
               "required": false
             },
             {
               "name": "systemOwnerInterest",
               "label": "System Owner Interest — business value",
+              "hint": "The business value the owner expects",
               "type": "String",
               "required": false
             },
             {
               "name": "regulatorInterest",
               "label": "Regulator Interest — compliance needs",
+              "hint": "Compliance or legal interests to satisfy",
               "type": "String",
               "required": false
             },
             {
               "name": "operationsInterest",
               "label": "Operations Interest — operational needs",
+              "hint": "Operational concerns such as monitoring or SLAs",
               "type": "String",
               "required": false
             },
             {
               "name": "supportStaffInterest",
               "label": "Support Staff Interest — support needs",
+              "hint": "What support staff need to diagnose and assist",
               "type": "String",
               "required": false
             },
             {
               "name": "otherStakeholders",
               "label": "Other Stakeholders — additional interested parties",
+              "hint": "Any further parties and their interests",
               "type": "String",
               "required": false
             }
@@ -248274,7 +249676,24 @@
       "name": "TechnologyDataVariations",
       "sectionId": "TEDAVA",
       "doc": "Technology and data variations.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: technology & data variations",
+          "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+        ],
+        "connotation": "Records the data, technology, channel and accessibility variations under which the same interaction may run."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: technology & data variations",
+              "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"
+            ],
+            "connotation": "Records the data, technology, channel and accessibility variations under which the same interaction may run."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -248305,36 +249724,42 @@
             {
               "name": "dataVariations",
               "label": "Data Variations — different data formats, sources",
+              "hint": "Different data formats or sources handled",
               "type": "String",
               "required": false
             },
             {
               "name": "technologyVariations",
               "label": "Technology Variations — different platforms, devices",
+              "hint": "Platform or device differences to support",
               "type": "String",
               "required": false
             },
             {
               "name": "channelVariations",
               "label": "Channel Variations — web, mobile, API differences",
+              "hint": "Behavior differences across web, mobile, API",
               "type": "String",
               "required": false
             },
             {
               "name": "localizationVariations",
               "label": "Localization Variations — language, regional",
+              "hint": "Language and regional adaptations required",
               "type": "String",
               "required": false
             },
             {
               "name": "accessibilityVariations",
               "label": "Accessibility Variations — screen reader, keyboard",
+              "hint": "Screen-reader and keyboard-only accommodations",
               "type": "String",
               "required": false
             },
             {
               "name": "offlineVariations",
               "label": "Offline Variations — handling offline state",
+              "hint": "How the interaction behaves while offline",
               "type": "String",
               "required": false
             }
@@ -261537,7 +262962,24 @@
       "name": "UIRequirementsPreview",
       "sectionId": "UIRP",
       "doc": "UI requirements preview for this interaction.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — interface requirements",
+          "Cockburn — Writing Effective Use Cases: main success scenario"
+        ],
+        "connotation": "Previews the UI needs of the interaction — screens, key fields, actions, feedback and layout — ahead of full UI design."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — interface requirements",
+              "Cockburn — Writing Effective Use Cases: main success scenario"
+            ],
+            "connotation": "Previews the UI needs of the interaction — screens, key fields, actions, feedback and layout — ahead of full UI design."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261568,48 +263010,56 @@
             {
               "name": "primaryScreen",
               "label": "Primary Screen — main UI screen",
+              "hint": "The main screen where the interaction happens",
               "type": "String",
               "required": false
             },
             {
               "name": "screenFlow",
               "label": "Screen Flow — navigation path",
+              "hint": "Navigation path across screens",
               "type": "String",
               "required": false
             },
             {
               "name": "keyFormFields",
               "label": "Key Form Fields — input fields",
+              "hint": "Important input fields the user completes",
               "type": "String",
               "required": false
             },
             {
               "name": "keyActions",
               "label": "Key Actions — buttons, links",
+              "hint": "Primary buttons or links the user activates",
               "type": "String",
               "required": false
             },
             {
               "name": "keyDisplayElements",
               "label": "Key Display Elements — data shown",
+              "hint": "Important data displayed to the user",
               "type": "String",
               "required": false
             },
             {
               "name": "feedbackMechanisms",
               "label": "Feedback Mechanisms — success/error messages",
+              "hint": "How success and error are communicated",
               "type": "String",
               "required": false
             },
             {
               "name": "layoutConsiderations",
               "label": "Layout Considerations — responsive, orientation",
+              "hint": "Responsive and orientation considerations",
               "type": "String",
               "required": false
             },
             {
               "name": "interactionPatterns",
               "label": "Interaction Patterns — drag-drop, swipe",
+              "hint": "Gesture or interaction patterns used",
               "type": "String",
               "required": false
             }
@@ -264661,7 +266111,24 @@
       "name": "UseCaseExtensions",
       "sectionId": "USCAEX",
       "doc": "Use case extensions (alternative and exception flows).",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: extensions",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "Collects the alternative and exception flows that branch from the main success scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "Collects the alternative and exception flows that branch from the main success scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264692,12 +266159,14 @@
             {
               "name": "extensionSummary",
               "label": "Extension Summary — overview of variations",
+              "hint": "Overview of the alternative and exception flows",
               "type": "String",
               "required": false
             },
             {
               "name": "extensionCount",
               "label": "Extension Count — number of extensions",
+              "hint": "How many extensions are documented",
               "type": "int",
               "required": false
             }
@@ -264707,10 +266176,26 @@
           "name": "extensions",
           "kind": "list",
           "doc": "Extension entries — contains 0+× Extension.",
+          "help": "Add one entry per extension flow.",
           "sectionId": "EXTEN-EXTE-LST",
           "sectionIdPattern": "EXTEN-EXTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions"
+            ],
+            "connotation": "The alternative and exception flows that branch off the main scenario."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: extensions"
+                ],
+                "connotation": "The alternative and exception flows that branch off the main scenario."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -264721,6 +266206,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXTEN-EXTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per extension flow."
               }
             },
             {
@@ -264739,7 +266230,24 @@
       "name": "UseCaseScopeContext",
       "sectionId": "UCSC",
       "doc": "Use case scope and context (Cockburn style).",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: scope, level and context",
+          "UML 2.5.1 (ISO/IEC 19505) — use cases"
+        ],
+        "connotation": "Sets the boundary, level and surrounding context — assumptions, dependencies and related use cases — for this interaction."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: scope, level and context",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "Sets the boundary, level and surrounding context — assumptions, dependencies and related use cases — for this interaction."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -264770,48 +266278,56 @@
             {
               "name": "systemUnderDiscussion",
               "label": "System Under Discussion — SuD name",
+              "hint": "Name the system whose behavior is being described",
               "type": "String",
               "required": false
             },
             {
               "name": "systemBoundary",
               "label": "System Boundary — what is inside/outside",
+              "hint": "State what falls inside vs. outside the system",
               "type": "String",
               "required": false
             },
             {
               "name": "level",
               "label": "Level — sea level/user goal, fish/subfunction",
+              "hint": "Cockburn altitude: sea (user goal), fish (subfunction)",
               "type": "String",
               "required": false
             },
             {
               "name": "context",
               "label": "Context — business context",
+              "hint": "Business situation in which this use case occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "assumption",
               "label": "Assumptions — what is assumed true",
+              "hint": "Facts assumed true but not verified in the flow",
               "type": "String",
               "required": false
             },
             {
               "name": "dependency",
               "label": "Dependencies — what this depends on",
+              "hint": "External systems or use cases this relies on",
               "type": "String",
               "required": false
             },
             {
               "name": "constraint",
               "label": "Constraints — limitations",
+              "hint": "Limitations bounding how the use case may work",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedUseCases",
               "label": "Related Use Cases — includes, extends",
+              "hint": "Use cases this one includes or extends",
               "type": "String",
               "required": false
             }
@@ -264824,7 +266340,24 @@
       "sectionId": "USCATR",
       "doc": "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.",
       "detailedIn": "D05InteractionScenarios",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — requirements traceability",
+          "BABOK v3 — use cases & scenarios"
+        ],
+        "connotation": "Provides the traceability matrix linking use cases to requirements, processes, and tests so every use case is justified and covered."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — requirements traceability",
+              "BABOK v3 — use cases & scenarios"
+            ],
+            "connotation": "Provides the traceability matrix linking use cases to requirements, processes, and tests so every use case is justified and covered."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

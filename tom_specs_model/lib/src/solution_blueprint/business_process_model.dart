@@ -2080,6 +2080,15 @@ class ProcessRelationshipEntry {
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
 /// postconditions in the ISC document. Follows Cockburn-style use case modeling.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+    'ISO/IEC/IEEE 29148 §6 — stakeholders & operational context',
+  ],
+  'Captures the key process steps and how actors interact with the system, '
+  'seeding full use cases with actors, interaction catalog and scenarios.',
+)
 @SectionId('PSAAI')
 @Comment('Seeds → ISC')
 @MapsTo(D05InteractionScenarios)
@@ -2127,8 +2136,17 @@ postconditions in the ISC (Interaction Scenarios) document.
       ActorRelationshipDiagram();
 
   /// 6.2.4. End-to-End Test Scenarios..
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — software testing (test scenarios)',
+      'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+    ],
+    'The set of end-to-end test scenarios that exercise complete user journeys '
+    'across processes and use cases.',
+  )
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
+  @ContentHelp('Add one entry per end-to-end test scenario.')
   @SerializationOrder(6)
   List<EndToEndTestScenario> endToEndTestScenarios = [];
 
@@ -2138,33 +2156,57 @@ postconditions in the ISC (Interaction Scenarios) document.
 }
 
 /// 6.2. Process Steps Overview.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+  ],
+  'Frames the scope, actor focus and notation conventions used for the process '
+  'steps and actor-interaction modeling.',
+)
 @SectionId('PRSTOV')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-OVE')
 class ProcessStepsOverview {
   @Form([
     Field('useCaseScope', String,
-        'Use Case Scope — system, organization, subsystem'),
+        'Use Case Scope — system, organization, subsystem',
+        hint: 'State the design scope of the use cases'),
     Field('primaryActorFocus', String,
-        'Primary Actor Focus — main user types'),
+        'Primary Actor Focus — main user types',
+        hint: 'Name the main actor types the interactions center on'),
     Field('interactionCoverage', String,
-        'Interaction Coverage — scope of interactions'),
+        'Interaction Coverage — scope of interactions',
+        hint: 'Describe how much of the interaction space is covered'),
     Field('scenarioCoverage', String,
-        'Scenario Coverage — what scenarios are included'),
+        'Scenario Coverage — what scenarios are included',
+        hint: 'List which end-to-end scenarios are in scope'),
     Field('useCaseNamingConvention', String,
-        'Use Case Naming Convention — ISC-xxx pattern'),
+        'Use Case Naming Convention — ISC-xxx pattern',
+        hint: 'State the naming/ID pattern for use cases'),
     Field('traceabilityApproach', String,
-        'Traceability Approach — link to TOM, ISC documents'),
+        'Traceability Approach — link to TOM, ISC documents',
+        hint: 'Explain how interactions trace to TOM and ISC'),
     Field('detailLevel', String,
-        'Detail Level — brief, casual, fully dressed'),
+        'Detail Level — brief, casual, fully dressed',
+        hint: 'Choose the Cockburn detail level applied'),
     Field('notationStandard', String,
-        'Notation Standard — Cockburn, Fowler, RUP'),
+        'Notation Standard — Cockburn, Fowler, RUP',
+        hint: 'Name the use-case notation standard followed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// 6.2. Actor Relationship Diagram.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'BPMN 2.0 — collaboration / pools & lanes (participants)',
+  ],
+  'Visualises the actor hierarchy and actor-system interactions as '
+  'generalization and collaboration diagrams.',
+)
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-DIA')
@@ -2296,6 +2338,14 @@ process recovery.
 ///
 /// Test scenarios that exercise complete user journeys across processes
 /// and use cases..
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing (test scenarios)',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+  ],
+  'Defines a single end-to-end test scenario exercising a complete user journey '
+  'across processes and use cases.',
+)
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-E2E')
@@ -2317,15 +2367,27 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 }
 
 /// Actor diagram overview.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'BPMN 2.0 — collaboration / pools & lanes (participants)',
+  ],
+  'Explains the purpose, categories and notation of the actor relationship '
+  'diagram.',
+)
 @SectionId('ACDIOV')
 class ActorDiagramOverview {
   @Form([
     Field('diagramPurpose', String,
-        'Diagram Purpose — show actor relationships'),
+        'Diagram Purpose — show actor relationships',
+        hint: 'State what the diagram is meant to communicate'),
     Field('actorCategories', String,
-        'Actor Categories — primary, secondary, supporting'),
-    Field('systemBoundary', String, 'System Boundary — what is inside/outside'),
-    Field('notation', String, 'Notation — UML use case, custom'),
+        'Actor Categories — primary, secondary, supporting',
+        hint: 'List the actor categories shown in the diagram'),
+    Field('systemBoundary', String, 'System Boundary — what is inside/outside',
+        hint: 'Define what lies inside vs outside the system'),
+    Field('notation', String, 'Notation — UML use case, custom',
+        hint: 'Name the diagram notation used'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2339,6 +2401,15 @@ class ActorDiagramOverview {
 ///
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+    'BABOK v3 — stakeholder & actor analysis',
+  ],
+  'Enumerates the actors (roles) that interact with the system, with their '
+  'categories, goals and permissions.',
+)
 @SectionId('ACOV')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-ACT')
@@ -2369,9 +2440,17 @@ modeling conventions with Cockburn-style goal and scope annotations.
   ActorOverviewNarrative overview = ActorOverviewNarrative();
 
   /// Contains 1+× Actor.
+  @StandardReferences(
+    [
+      'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+      'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+    ],
+    'The set of actor entries defining the roles that interact with the system.',
+  )
   @SectionId('ACEN-ACTO-LST')
   @SectionIdPattern('ACEN-ACTO-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per actor.')
   @SerializationOrder(2)
   List<ActorEntry> actors = [];
 
@@ -2381,37 +2460,65 @@ modeling conventions with Cockburn-style goal and scope annotations.
 }
 
 /// Actor overview narrative.
+@StandardReferences(
+  [
+    'BABOK v3 — stakeholder & actor analysis',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+  ],
+  'Summarises the actor population — counts by type and how actors were '
+  'identified, prioritised and aligned to business goals.',
+)
 @SectionId('ACOVNA')
 class ActorOverviewNarrative {
   @Form([
-    Field('totalActorCount', int, 'Total Actor Count'),
-    Field('humanActorCount', int, 'Human Actor Count'),
-    Field('systemActorCount', int, 'System Actor Count'),
-    Field('externalActorCount', int, 'External Actor Count'),
+    Field('totalActorCount', int, 'Total Actor Count',
+        hint: 'Enter the total number of actors'),
+    Field('humanActorCount', int, 'Human Actor Count',
+        hint: 'Enter how many actors are human users'),
+    Field('systemActorCount', int, 'System Actor Count',
+        hint: 'Enter how many actors are internal systems'),
+    Field('externalActorCount', int, 'External Actor Count',
+        hint: 'Enter how many actors are external systems'),
     Field('actorIdentificationApproach', String,
-        'Actor Identification Approach — how actors were identified'),
+        'Actor Identification Approach — how actors were identified',
+        hint: 'Describe the method used to discover actors'),
     Field('actorPrioritization', String,
-        'Actor Prioritization — which actors are most important'),
+        'Actor Prioritization — which actors are most important',
+        hint: 'State which actors matter most and why'),
     Field('actorGoalAlignment', String,
-        'Actor Goal Alignment — how actor goals align with business goals'),
+        'Actor Goal Alignment — how actor goals align with business goals',
+        hint: 'Explain how actor goals map to business goals'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor categorization summary.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+  ],
+  'Groups the actors by category — primary, secondary, offstage, system and '
+  'timer/scheduled.',
+)
 @SectionId('ACCASU')
 class ActorCategorizationSummary {
   @Form([
     Field('primaryActors', String,
-        'Primary Actors — actors who initiate interactions'),
+        'Primary Actors — actors who initiate interactions',
+        hint: 'List the actors that initiate interactions'),
     Field('secondaryActors', String,
-        'Secondary Actors — actors who support primary actors'),
+        'Secondary Actors — actors who support primary actors',
+        hint: 'List the actors that support primary actors'),
     Field('offstageActors', String,
-        'Offstage Actors — stakeholders with interests but no direct interaction'),
-    Field('systemActors', String, 'System Actors — external systems'),
+        'Offstage Actors — stakeholders with interests but no direct interaction',
+        hint: 'List stakeholders with interests but no direct interaction'),
+    Field('systemActors', String, 'System Actors — external systems',
+        hint: 'List external systems acting as actors'),
     Field('timerActors', String,
-        'Timer/Scheduled Actors — time-triggered actions'),
+        'Timer/Scheduled Actors — time-triggered actions',
+        hint: 'List time-triggered or scheduled actors'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2420,6 +2527,16 @@ class ActorCategorizationSummary {
 /// An actor entry.
 ///
 /// Comprehensive actor definition following UML and Cockburn conventions.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels '
+        '(primary/secondary/offstage)',
+    'BABOK v3 — stakeholder & actor analysis',
+  ],
+  'Defines a single actor comprehensively, bundling identification, '
+  'characteristics, goals, permissions, technology and interactions.',
+)
 @SectionId('ACEN')
 class ActorEntry {
   /// Actor identification.
@@ -2431,14 +2548,30 @@ class ActorEntry {
   ActorCharacteristics characteristics = ActorCharacteristics();
 
   /// Actor goals (Cockburn style).
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: actor goals & levels '
+          '(primary/secondary/offstage)',
+    ],
+    'The set of goals an actor seeks to achieve through the system.',
+  )
   @SectionId('ACGO-GOAL-LST')
   @SectionIdPattern('ACGO-GOAL-xxx')
+  @ContentHelp('Add one entry per actor goal.')
   @SerializationOrder(2)
   List<ActorGoals> goals = [];
 
   /// Actor permissions and access.
+  @StandardReferences(
+    [
+      'NIST RBAC — role-based access (actor permissions)',
+      'ISO/IEC 27001 A.9 — access control (actor authorization)',
+    ],
+    'The access rights and authorization levels granted to an actor.',
+  )
   @SectionId('ACPE-PERM-LST')
   @SectionIdPattern('ACPE-PERM-xxx')
+  @ContentHelp('Add one entry per actor permission set.')
   @SerializationOrder(3)
   List<ActorPermissions> permissions = [];
 
@@ -2452,39 +2585,68 @@ class ActorEntry {
 }
 
 /// Actor identification.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'BABOK v3 — stakeholder & actor analysis',
+  ],
+  'Uniquely identifies and classifies an actor, capturing type, category and '
+  'real-world population.',
+)
 @SectionId('ACID')
 class ActorIdentification {
   @Form([
-    Field('actorId', String, 'Actor ID (e.g., ACT-001)', required: true),
-    Field('actorName', String, 'Actor Name', required: true),
+    Field('actorId', String, 'Actor ID (e.g., ACT-001)', required: true,
+        hint: 'Use a stable unique code such as ACT-001'),
+    Field('actorName', String, 'Actor Name', required: true,
+        hint: 'Give the role a clear, recognisable name'),
     Field('actorType', String,
-        'Actor Type — human user, system, external system, scheduled'),
+        'Actor Type — human user, system, external system, scheduled',
+        hint: 'State whether the actor is a person, system or scheduled job'),
     Field('category', String,
-        'Category — primary, secondary, supporting, offstage'),
-    Field('description', String, 'Description — role purpose'),
+        'Category — primary, secondary, supporting, offstage',
+        hint: 'Classify using Cockburn primary/secondary/supporting/offstage'),
+    Field('description', String, 'Description — role purpose',
+        hint: 'Explain the actor’s purpose in one or two sentences'),
     Field('realWorldExamples', String,
-        'Real World Examples — who fills this role'),
+        'Real World Examples — who fills this role',
+        hint: 'Name concrete job titles or people that fill this role'),
     Field('organizationalUnit', String,
-        'Organizational Unit — department or team'),
+        'Organizational Unit — department or team',
+        hint: 'Identify the department or team the actor belongs to'),
     Field('estimatedCount', String,
-        'Estimated Count — how many users in this role'),
+        'Estimated Count — how many users in this role',
+        hint: 'Estimate the number of individuals in this role'),
     Field('geographicDistribution', String,
-        'Geographic Distribution — where actors are located'),
+        'Geographic Distribution — where actors are located',
+        hint: 'Note the locations or regions where actors operate'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor characteristics.
+@StandardReferences(
+  [
+    'BABOK v3 — stakeholder & actor analysis',
+    'ISO/IEC/IEEE 29148 §6 — stakeholders & operational context',
+  ],
+  'Captures an actor’s knowledge, skills and usage profile that shape how they '
+  'engage with the system.',
+)
 @SectionId('ACTCHA')
 class ActorCharacteristics {
   @Form([
     Field('domainKnowledge', String,
-        'Domain Knowledge — expertise level required'),
-    Field('technicalSkills', String, 'Technical Skills — IT proficiency'),
-    Field('trainingRequired', String, 'Training Required — onboarding needs'),
+        'Domain Knowledge — expertise level required',
+        hint: 'Describe the business/domain expertise the actor needs'),
+    Field('technicalSkills', String, 'Technical Skills — IT proficiency',
+        hint: 'Rate the actor’s general IT and tooling proficiency'),
+    Field('trainingRequired', String, 'Training Required — onboarding needs',
+        hint: 'List onboarding or training the actor requires'),
     Field('usageFrequency', String,
-        'Usage Frequency — daily, weekly, monthly, occasional'),
+        'Usage Frequency — daily, weekly, monthly, occasional',
+        hint: 'State how often the actor uses the system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2499,129 +2661,219 @@ class ActorCharacteristics {
 }
 
 /// Usage patterns and decision scope.
+@StandardReferences(
+  [
+    'BABOK v3 — stakeholder & actor analysis',
+    'ISO/IEC/IEEE 29148 §6 — stakeholders & operational context',
+  ],
+  'Describes when and how intensively an actor uses the system and the scope '
+  'of decisions they may take.',
+)
 @SectionId('ACCHUS')
 class ActorCharacteristicsUsage {
   @Form([
   Field('usageDuration', String,
-    'Usage Duration — typical session length'),
-  Field('peakUsageTimes', String, 'Peak Usage Times — when most active'),
+    'Usage Duration — typical session length',
+    hint: 'Estimate the length of a typical working session'),
+  Field('peakUsageTimes', String, 'Peak Usage Times — when most active',
+    hint: 'Note the times of day or periods of heaviest use'),
   Field('taskComplexity', String,
-    'Task Complexity — simple, moderate, expert'),
+    'Task Complexity — simple, moderate, expert',
+    hint: 'Characterise the complexity of the actor’s tasks'),
   Field('decisionAuthority', String,
-    'Decision Authority — what decisions can be made'),
+    'Decision Authority — what decisions can be made',
+    hint: 'State the decisions the actor is authorised to make'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Communication and accessibility profile.
+@StandardReferences(
+  [
+    'BABOK v3 — stakeholder & actor analysis',
+    'ISO/IEC/IEEE 29148 §6 — stakeholders & operational context',
+  ],
+  'Records how an actor is supervised and reached, and the language and '
+  'accessibility accommodations they require.',
+)
 @SectionId('ACCHSU')
 class ActorCharacteristicsSupport {
   @Form([
   Field('supervisionLevel', String,
-    'Supervision Level — how closely monitored'),
+    'Supervision Level — how closely monitored',
+    hint: 'State how closely the actor’s work is supervised'),
   Field('communicationPreference', String,
-    'Communication Preference — how to reach this actor'),
+    'Communication Preference — how to reach this actor',
+    hint: 'Note preferred channels for reaching the actor'),
   Field('languageRequirements', String,
-    'Language Requirements — languages needed'),
+    'Language Requirements — languages needed',
+    hint: 'List the languages the actor needs supported'),
   Field('accessibilityNeeds', String,
-    'Accessibility Needs — special accommodations'),
+    'Accessibility Needs — special accommodations',
+    hint: 'Describe any accessibility accommodations required'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor goals (Cockburn-style goal hierarchy).
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: actor goals & levels '
+        '(primary/secondary/offstage)',
+    'BABOK v3 — stakeholder & actor analysis',
+  ],
+  'Enumerates the summary, user and subfunction goals an actor pursues, plus '
+  'their success measures and motivations.',
+)
 @SectionId('ACGO')
 class ActorGoals {
   @Form([
     Field('summaryGoals', String,
-        'Summary Goals — high-level organizational goals'),
-    Field('userGoals', String, 'User Goals — main goals actor wants to achieve'),
+        'Summary Goals — high-level organizational goals',
+        hint: 'Capture high-level organisational goals at summary level'),
+    Field('userGoals', String, 'User Goals — main goals actor wants to achieve',
+        hint: 'List the actor’s main user-level goals'),
     Field('subfunctionGoals', String,
-        'Subfunction Goals — supporting goals'),
+        'Subfunction Goals — supporting goals',
+        hint: 'Note supporting subfunction-level goals'),
     Field('successMeasures', String,
-        'Success Measures — how actor knows goals are met'),
+        'Success Measures — how actor knows goals are met',
+        hint: 'Define how the actor knows a goal is achieved'),
     Field('failureConcerns', String,
-        'Failure Concerns — what actor wants to avoid'),
-    Field('motivations', String, 'Motivations — why actor uses the system'),
-    Field('painPoints', String, 'Pain Points — current frustrations'),
+        'Failure Concerns — what actor wants to avoid',
+        hint: 'List outcomes the actor wants to avoid'),
+    Field('motivations', String, 'Motivations — why actor uses the system',
+        hint: 'Explain what motivates the actor to use the system'),
+    Field('painPoints', String, 'Pain Points — current frustrations',
+        hint: 'Describe the actor’s current frustrations'),
     Field('desiredImprovements', String,
-        'Desired Improvements — what actor wants better'),
+        'Desired Improvements — what actor wants better',
+        hint: 'State improvements the actor would like to see'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor permissions and access levels.
+@StandardReferences(
+  [
+    'NIST RBAC — role-based access (actor permissions)',
+    'ISO/IEC 27001 A.9 — access control (actor authorization)',
+  ],
+  'Specifies an actor’s clearance, RBAC roles, data scope and approval limits '
+  'along with audit requirements.',
+)
 @SectionId('ACPE')
 class ActorPermissions {
   @Form([
     Field('securityClearance', String,
-        'Security Clearance — data access level'),
+        'Security Clearance — data access level',
+        hint: 'State the actor’s security clearance or data access level'),
     Field('roleBasedPermissions', String,
-        'Role-Based Permissions — RBAC roles'),
+        'Role-Based Permissions — RBAC roles',
+        hint: 'List the RBAC roles assigned to the actor'),
     Field('dataAccessScope', String,
-        'Data Access Scope — own, team, department, all'),
+        'Data Access Scope — own, team, department, all',
+        hint: 'Define the breadth of data the actor may access'),
     Field('functionalPermissions', String,
-        'Functional Permissions — what functions can access'),
+        'Functional Permissions — what functions can access',
+        hint: 'List the functions or operations the actor may perform'),
     Field('approvalLimits', String,
-        'Approval Limits — transaction/decision limits'),
+        'Approval Limits — transaction/decision limits',
+        hint: 'State the transaction or decision limits the actor may approve'),
     Field('delegationRights', String,
-        'Delegation Rights — can delegate to others'),
+        'Delegation Rights — can delegate to others',
+        hint: 'Note whether the actor can delegate rights to others'),
     Field('temporaryElevation', String,
-        'Temporary Elevation — can request higher access'),
+        'Temporary Elevation — can request higher access',
+        hint: 'Describe any temporary privilege-elevation the actor may request'),
     Field('auditRequirements', String,
-        'Audit Requirements — what actions are logged'),
+        'Audit Requirements — what actions are logged',
+        hint: 'List the actor actions that must be logged for audit'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor technology profile.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — stakeholders & operational context',
+    'BABOK v3 — stakeholder & actor analysis',
+  ],
+  'Describes the channels, devices, connectivity and authentication through '
+  'which an actor accesses the system.',
+)
 @SectionId('ACTEPR')
 class ActorTechnologyProfile {
   @Form([
     Field('primaryAccessChannel', String,
-        'Primary Access Channel — web, mobile app, desktop, API'),
+        'Primary Access Channel — web, mobile app, desktop, API',
+        hint: 'Name the main channel the actor uses to access the system'),
     Field('secondaryAccessChannels', String,
-        'Secondary Access Channels — alternative channels'),
+        'Secondary Access Channels — alternative channels',
+        hint: 'List alternative channels the actor may use'),
     Field('deviceTypes', String,
-        'Device Types — desktop, laptop, tablet, smartphone'),
+        'Device Types — desktop, laptop, tablet, smartphone',
+        hint: 'List the device types the actor uses'),
     Field('operatingSystems', String,
-        'Operating Systems — Windows, macOS, iOS, Android'),
-    Field('browserRequirements', String, 'Browser Requirements — supported browsers'),
+        'Operating Systems — Windows, macOS, iOS, Android',
+        hint: 'List the operating systems the actor runs'),
+    Field('browserRequirements', String, 'Browser Requirements — supported browsers',
+        hint: 'Note the browsers that must be supported'),
     Field('networkConnectivity', String,
-        'Network Connectivity — always online, occasionally offline'),
+        'Network Connectivity — always online, occasionally offline',
+        hint: 'Describe the actor’s typical network connectivity'),
     Field('bandwidthExpectations', String,
-        'Bandwidth Expectations — high-speed, limited'),
+        'Bandwidth Expectations — high-speed, limited',
+        hint: 'State the bandwidth the actor typically has available'),
     Field('integratedTools', String,
-        'Integrated Tools — other tools actor uses'),
+        'Integrated Tools — other tools actor uses',
+        hint: 'List other tools the actor integrates with'),
     Field('authenticationMethod', String,
-        'Authentication Method — password, SSO, MFA, biometric'),
+        'Authentication Method — password, SSO, MFA, biometric',
+        hint: 'State how the actor authenticates to the system'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Actor interactions summary.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels '
+        '(primary/secondary/offstage)',
+  ],
+  'Summarises the use-case interactions an actor participates in, their '
+  'frequency, criticality and handoff points.',
+)
 @SectionId('ACINSU')
 class ActorInteractionsSummary {
   @Form([
     Field('primaryInteractions', String,
-        'Primary Interactions — main use cases'),
+        'Primary Interactions — main use cases',
+        hint: 'List the main use cases the actor initiates or drives'),
     Field('secondaryInteractions', String,
-        'Secondary Interactions — supporting use cases'),
+        'Secondary Interactions — supporting use cases',
+        hint: 'List supporting use cases the actor takes part in'),
     Field('interactionFrequency', String,
-        'Interaction Frequency — how often each type'),
+        'Interaction Frequency — how often each type',
+        hint: 'State how often each interaction type occurs'),
     Field('criticalInteractions', String,
-        'Critical Interactions — most important'),
+        'Critical Interactions — most important',
+        hint: 'Highlight the actor’s most important interactions'),
     Field('complexInteractions', String,
-        'Complex Interactions — most challenging'),
+        'Complex Interactions — most challenging',
+        hint: 'Note the actor’s most challenging interactions'),
     Field('collaborativeInteractions', String,
-        'Collaborative Interactions — involves other actors'),
+        'Collaborative Interactions — involves other actors',
+        hint: 'List interactions that involve other actors'),
     Field('handoffPoints', String,
-        'Handoff Points — where work passes to others'),
+        'Handoff Points — where work passes to others',
+        hint: 'Identify points where work is handed off to others'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2635,6 +2887,15 @@ class ActorInteractionsSummary {
 ///
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    'Cockburn — Writing Effective Use Cases: fully dressed use-case template',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Catalogs the key actor-system interactions of the system, each seeding a '
+  'fully dressed use case.',
+)
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-INT')
@@ -2669,9 +2930,14 @@ following Cockburn's fully dressed use case template.
   InteractionCatalogOverview overview = InteractionCatalogOverview();
 
   /// Contains 1+× Interaction.
+  @StandardReferences(
+    ['UML 2.5.1 (ISO/IEC 19505) — use cases'],
+    'The set of actor-system interactions (use cases) the system supports.',
+  )
   @SectionId('INEN-INTE-LST')
   @SectionIdPattern('INEN-INTE-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per interaction.')
   @SerializationOrder(2)
   List<InteractionEntry> interactions = [];
 
@@ -2681,41 +2947,72 @@ following Cockburn's fully dressed use case template.
 }
 
 /// Interaction catalog overview.
+@StandardReferences(
+  [
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Summarizes the interaction catalog — counts, coverage, identification method '
+  'and traceability across all documented use cases.',
+)
 @SectionId('INCAOV')
 class InteractionCatalogOverview {
   @Form([
-    Field('totalInteractionCount', int, 'Total Interaction Count'),
-    Field('highPriorityCount', int, 'High Priority Count'),
-    Field('mediumPriorityCount', int, 'Medium Priority Count'),
-    Field('lowPriorityCount', int, 'Low Priority Count'),
+    Field('totalInteractionCount', int, 'Total Interaction Count',
+        hint: 'Count of all documented interactions'),
+    Field('highPriorityCount', int, 'High Priority Count',
+        hint: 'Number of must-have interactions'),
+    Field('mediumPriorityCount', int, 'Medium Priority Count',
+        hint: 'Number of should-have interactions'),
+    Field('lowPriorityCount', int, 'Low Priority Count',
+        hint: 'Number of could-have interactions'),
     Field('coverageStatement', String,
-        'Coverage Statement — what interactions are covered'),
+        'Coverage Statement — what interactions are covered',
+        hint: 'State which processes and goals the catalog covers'),
     Field('identificationMethod', String,
-        'Identification Method — how interactions were identified'),
+        'Identification Method — how interactions were identified',
+        hint: 'e.g. actor-goal analysis, event storming, process decomposition'),
     Field('prioritizationCriteria', String,
-        'Prioritization Criteria — how priority was determined'),
+        'Prioritization Criteria — how priority was determined',
+        hint: 'e.g. MoSCoW, business value vs. effort'),
     Field('traceabilityToProcesses', String,
-        'Traceability to Processes — link to BP section'),
+        'Traceability to Processes — link to BP section',
+        hint: 'Reference the TOM-xxx process each interaction realizes'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Interaction prioritization matrix.
+@StandardReferences(
+  [
+    'BABOK v3 — use cases & scenarios',
+    'Cockburn — Writing Effective Use Cases: use-case identity & scope',
+  ],
+  'Prioritizes the catalog of interactions using MoSCoW and phasing to guide '
+  'delivery sequencing.',
+)
 @SectionId('INPR')
 class InteractionPrioritization {
   @Form([
     Field('mustHaveInteractions', String,
-        'Must-Have Interactions — essential for MVP'),
+        'Must-Have Interactions — essential for MVP',
+        hint: 'List interactions the MVP cannot ship without'),
     Field('shouldHaveInteractions', String,
-        'Should-Have Interactions — important but deferrable'),
+        'Should-Have Interactions — important but deferrable',
+        hint: 'Important but can slip to a later release'),
     Field('couldHaveInteractions', String,
-        'Could-Have Interactions — nice to have'),
+        'Could-Have Interactions — nice to have',
+        hint: 'Desirable if capacity allows'),
     Field('wontHaveInteractions', String,
-        'Wont-Have Interactions — out of scope'),
-    Field('phaseOneInteractions', String, 'Phase One Interactions'),
-    Field('phaseTwoInteractions', String, 'Phase Two Interactions'),
-    Field('futureInteractions', String, 'Future Interactions'),
+        'Wont-Have Interactions — out of scope',
+        hint: 'Explicitly out of scope for this effort'),
+    Field('phaseOneInteractions', String, 'Phase One Interactions',
+        hint: 'Interactions targeted for the first delivery phase'),
+    Field('phaseTwoInteractions', String, 'Phase Two Interactions',
+        hint: 'Interactions targeted for the second delivery phase'),
+    Field('futureInteractions', String, 'Future Interactions',
+        hint: 'Interactions deferred to an unscheduled future phase'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2725,6 +3022,15 @@ class InteractionPrioritization {
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the ISC (Interaction Scenarios) document.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: fully dressed use-case template',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+  ],
+  'Fully describes a single actor-system interaction as a fully dressed use '
+  'case — identity, scope, stakeholders, pre/postconditions, flows and rules.',
+)
 @SectionId('INEN')
 class InteractionEntry {
   /// Interaction identification (use case header).
@@ -2736,20 +3042,47 @@ class InteractionEntry {
   UseCaseScopeContext scopeContext = UseCaseScopeContext();
 
   /// Stakeholders and interests.
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: stakeholders and interests',
+      'BABOK v3 — use cases & scenarios',
+    ],
+    'The stakeholders of this interaction and the interests each of them wants '
+    'protected.',
+  )
   @SectionId('STANIN-STAK-LST')
   @SectionIdPattern('STANIN-STAK-xxx')
+  @ContentHelp('Add one entry per stakeholder interest.')
   @SerializationOrder(2)
   List<StakeholdersAndInterests> stakeholders = [];
 
   /// Preconditions and triggers.
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: preconditions and triggers',
+      'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    ],
+    'The conditions that must hold before this interaction and the events that '
+    'trigger it.',
+  )
   @SectionId('PRANTR-PREC-LST')
   @SectionIdPattern('PRANTR-PREC-xxx')
+  @ContentHelp('Add one entry per precondition/trigger set.')
   @SerializationOrder(3)
   List<PreconditionsAndTriggers> preconditions = [];
 
   /// Postconditions and guarantees.
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: minimal and success guarantees',
+      'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    ],
+    'The minimal and success guarantees describing the system state after this '
+    'interaction completes.',
+  )
   @SectionId('POANGU-POST-LST')
   @SectionIdPattern('POANGU-POST-xxx')
+  @ContentHelp('Add one entry per postcondition/guarantee set.')
   @SerializationOrder(4)
   List<PostconditionsAndGuarantees> postconditions = [];
 
@@ -2762,8 +3095,17 @@ class InteractionEntry {
   UseCaseExtensions extensions = UseCaseExtensions();
 
   /// Technology and data variations.
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: technology & data variations',
+      'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+    ],
+    'The data, technology and channel variations under which this interaction '
+    'may play out.',
+  )
   @SectionId('TEDAVA-VARI-LST')
   @SectionIdPattern('TEDAVA-VARI-xxx')
+  @ContentHelp('Add one entry per variation.')
   @SerializationOrder(7)
   List<TechnologyDataVariations> variations = [];
 
@@ -2780,8 +3122,16 @@ class InteractionEntry {
   InteractionSecurity security = InteractionSecurity();
 
   /// Business rules triggered.
+  @StandardReferences(
+    [
+      'BABOK v3 — business rules',
+      'Cockburn — Writing Effective Use Cases: main success scenario',
+    ],
+    'The business rules invoked while executing this interaction.',
+  )
   @SectionId('INBURU-BUSI-LST')
   @SectionIdPattern('INBURU-BUSI-xxx')
+  @ContentHelp('Add one entry per business-rule group.')
   @SerializationOrder(11)
   List<InteractionBusinessRules> businessRules = [];
 
@@ -2791,243 +3141,428 @@ class InteractionEntry {
 }
 
 /// Interaction identification (use case header).
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: use-case identity & scope',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'Identifies a use case by id, name, actors, goal level and design scope — its '
+  'header attributes.',
+)
 @SectionId('INID')
 class InteractionIdentification {
   @Form([
     Field('interactionId', String, 'Interaction ID (e.g., INT-001)',
-        required: true),
+        required: true, hint: 'Stable code such as INT-001'),
     Field('useCaseName', String, 'Use Case Name — active verb goal phrase',
-        required: true),
-    Field('processReference', String, 'Process Reference — TOM-xxx'),
-    Field('briefDescription', String, 'Brief Description — one sentence'),
+        required: true, hint: 'Active-verb goal, e.g. "Place order"'),
+    Field('processReference', String, 'Process Reference — TOM-xxx',
+        hint: 'The TOM-xxx process this use case realizes'),
+    Field('briefDescription', String, 'Brief Description — one sentence',
+        hint: 'One-sentence summary of the goal'),
     Field('fullDescription', String,
-        'Full Description — complete explanation'),
-    Field('primaryActor', String, 'Primary Actor — who initiates'),
+        'Full Description — complete explanation',
+        hint: 'Fuller narrative of what the interaction achieves'),
+    Field('primaryActor', String, 'Primary Actor — who initiates',
+        hint: 'The actor with the goal who starts the interaction'),
     Field('supportingActors', String,
-        'Supporting Actors — who else participates'),
+        'Supporting Actors — who else participates',
+        hint: 'Other actors or systems that contribute'),
     Field('goalLevel', String,
-        'Goal Level — summary (+), user goal (!), subfunction (-)'),
+        'Goal Level — summary (+), user goal (!), subfunction (-)',
+        hint: 'Cockburn level: + summary, ! user goal, - subfunction'),
     Field('designScope', String,
-        'Design Scope — organization, system, subsystem, component'),
+        'Design Scope — organization, system, subsystem, component',
+        hint: 'Boundary in view: organization, system, subsystem, component'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Use case scope and context (Cockburn style).
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: scope, level and context',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'Sets the boundary, level and surrounding context — assumptions, dependencies '
+  'and related use cases — for this interaction.',
+)
 @SectionId('UCSC')
 class UseCaseScopeContext {
   @Form([
     Field('systemUnderDiscussion', String,
-        'System Under Discussion — SuD name'),
+        'System Under Discussion — SuD name',
+        hint: 'Name the system whose behavior is being described'),
     Field('systemBoundary', String,
-        'System Boundary — what is inside/outside'),
-    Field('level', String, 'Level — sea level/user goal, fish/subfunction'),
-    Field('context', String, 'Context — business context'),
-    Field('assumption', String, 'Assumptions — what is assumed true'),
-    Field('dependency', String, 'Dependencies — what this depends on'),
-    Field('constraint', String, 'Constraints — limitations'),
-    Field('relatedUseCases', String, 'Related Use Cases — includes, extends'),
+        'System Boundary — what is inside/outside',
+        hint: 'State what falls inside vs. outside the system'),
+    Field('level', String, 'Level — sea level/user goal, fish/subfunction',
+        hint: 'Cockburn altitude: sea (user goal), fish (subfunction)'),
+    Field('context', String, 'Context — business context',
+        hint: 'Business situation in which this use case occurs'),
+    Field('assumption', String, 'Assumptions — what is assumed true',
+        hint: 'Facts assumed true but not verified in the flow'),
+    Field('dependency', String, 'Dependencies — what this depends on',
+        hint: 'External systems or use cases this relies on'),
+    Field('constraint', String, 'Constraints — limitations',
+        hint: 'Limitations bounding how the use case may work'),
+    Field('relatedUseCases', String, 'Related Use Cases — includes, extends',
+        hint: 'Use cases this one includes or extends'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Stakeholders and interests.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: stakeholders and interests',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Records each stakeholder of the interaction and the interest they want the '
+  'system to protect.',
+)
 @SectionId('STANIN')
 class StakeholdersAndInterests {
   @Form([
     Field('primaryActorInterest', String,
-        'Primary Actor Interest — what they want'),
+        'Primary Actor Interest — what they want',
+        hint: 'The goal the initiating actor is pursuing'),
     Field('systemOwnerInterest', String,
-        'System Owner Interest — business value'),
+        'System Owner Interest — business value',
+        hint: 'The business value the owner expects'),
     Field('regulatorInterest', String,
-        'Regulator Interest — compliance needs'),
+        'Regulator Interest — compliance needs',
+        hint: 'Compliance or legal interests to satisfy'),
     Field('operationsInterest', String,
-        'Operations Interest — operational needs'),
+        'Operations Interest — operational needs',
+        hint: 'Operational concerns such as monitoring or SLAs'),
     Field('supportStaffInterest', String,
-        'Support Staff Interest — support needs'),
+        'Support Staff Interest — support needs',
+        hint: 'What support staff need to diagnose and assist'),
     Field('otherStakeholders', String,
-        'Other Stakeholders — additional interested parties'),
+        'Other Stakeholders — additional interested parties',
+        hint: 'Any further parties and their interests'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Preconditions and triggers.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: preconditions and triggers',
+    'BPMN 2.0 — collaboration / message flow (actor-system interaction)',
+  ],
+  'Defines what must be true before the interaction and the event that sets it '
+  'in motion.',
+)
 @SectionId('PRANTR')
 class PreconditionsAndTriggers {
   @Form([
-    Field('precondition', String, 'Preconditions — must be true before'),
-    Field('trigger', String, 'Trigger — what initiates this use case'),
+    Field('precondition', String, 'Preconditions — must be true before',
+        hint: 'State assumed true before the interaction starts'),
+    Field('trigger', String, 'Trigger — what initiates this use case',
+        hint: 'The event that starts the interaction'),
     Field('triggerType', String,
-        'Trigger Type — user action, system event, timer, message'),
-    Field('triggerSource', String, 'Trigger Source — where trigger originates'),
-    Field('triggerData', String, 'Trigger Data — data available at trigger'),
+        'Trigger Type — user action, system event, timer, message',
+        hint: 'Classify the trigger: user, system, timer, message'),
+    Field('triggerSource', String, 'Trigger Source — where trigger originates',
+        hint: 'Actor or system emitting the trigger'),
+    Field('triggerData', String, 'Trigger Data — data available at trigger',
+        hint: 'Payload carried by the trigger'),
     Field('frequencyOfTrigger', String,
-        'Frequency of Trigger — how often triggered'),
+        'Frequency of Trigger — how often triggered',
+        hint: 'Expected trigger rate, e.g. per day/hour'),
     Field('validationBeforeStart', String,
-        'Validation Before Start — checks before proceeding'),
+        'Validation Before Start — checks before proceeding',
+        hint: 'Guard checks performed before the main flow'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Postconditions and guarantees.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: minimal and success guarantees',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'Specifies the guarantees — minimal and on success — and the resulting actor, '
+  'system and data state after the interaction.',
+)
 @SectionId('POANGU')
 class PostconditionsAndGuarantees {
   @Form([
     Field('minimalGuarantees', String,
-        'Minimal Guarantees — always true after, even on failure'),
+        'Minimal Guarantees — always true after, even on failure',
+        hint: 'What the system promises even when the flow fails'),
     Field('successGuarantees', String,
-        'Success Guarantees — true after successful completion'),
+        'Success Guarantees — true after successful completion',
+        hint: 'What holds true only after successful completion'),
     Field('primaryActorPostcondition', String,
-        'Primary Actor Postcondition — actor state after'),
+        'Primary Actor Postcondition — actor state after',
+        hint: 'The primary actor\'s state once the flow ends'),
     Field('systemPostcondition', String,
-        'System Postcondition — system state after'),
-    Field('dataPostcondition', String, 'Data Postcondition — data changes'),
+        'System Postcondition — system state after',
+        hint: 'The system\'s state once the flow ends'),
+    Field('dataPostcondition', String, 'Data Postcondition — data changes',
+        hint: 'Persistent data created, updated or removed'),
     Field('notificationsGenerated', String,
-        'Notifications Generated — who is notified'),
-    Field('auditTrail', String, 'Audit Trail — what is logged'),
+        'Notifications Generated — who is notified',
+        hint: 'Notifications sent and their recipients'),
+    Field('auditTrail', String, 'Audit Trail — what is logged',
+        hint: 'Audit records written for this interaction'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Main success scenario (basic flow).
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'Describes the happy-path flow — the numbered steps by which the interaction '
+  'reaches its goal without deviation.',
+)
 @SectionId('MASUSC')
 class MainSuccessScenario {
   @Form([
-    Field('scenarioSummary', String, 'Scenario Summary — overview'),
+    Field('scenarioSummary', String, 'Scenario Summary — overview',
+        hint: 'One-paragraph overview of the happy path'),
     Field('estimatedDuration', String,
-        'Estimated Duration — typical completion time'),
-    Field('stepCount', int, 'Step Count — number of steps'),
+        'Estimated Duration — typical completion time',
+        hint: 'Typical time to complete the whole flow'),
+    Field('stepCount', int, 'Step Count — number of steps',
+        hint: 'How many numbered steps the flow has'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Main scenario steps — contains 1+× Scenario Step.
+  @StandardReferences(
+    ['Cockburn — Writing Effective Use Cases: main success scenario'],
+    'The ordered steps of the main success scenario.',
+  )
   @SectionId('MNSST-STEP-LST')
   @SectionIdPattern('MNSST-STEP-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per numbered step.')
   @SerializationOrder(1)
   List<MainScenarioStepEntry> steps = [];
 }
 
 /// A main scenario step entry.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario',
+    'BPMN 2.0 — collaboration / message flow (actor-system interaction)',
+  ],
+  'One numbered step of the main scenario — the actor action and the system '
+  'response, with the data, rules and UI involved.',
+)
 @SectionId('MNSST')
 class MainScenarioStepEntry {
   @Form([
-    Field('stepNumber', int, 'Step Number', required: true),
-    Field('actorAction', String, 'Actor Action — what actor does'),
-    Field('systemResponse', String, 'System Response — what system does'),
-    Field('dataInvolved', String, 'Data Involved — data read/written'),
+    Field('stepNumber', int, 'Step Number', required: true,
+        hint: 'Sequential step number within the flow'),
+    Field('actorAction', String, 'Actor Action — what actor does',
+        hint: 'What the actor does in this step'),
+    Field('systemResponse', String, 'System Response — what system does',
+        hint: 'How the system responds to the action'),
+    Field('dataInvolved', String, 'Data Involved — data read/written',
+        hint: 'Data read or written during the step'),
     Field('businessRuleApplied', String,
-        'Business Rule Applied — BR-xxx reference'),
-    Field('uiElementUsed', String, 'UI Element Used — screen/component'),
+        'Business Rule Applied — BR-xxx reference',
+        hint: 'BR-xxx rule enforced at this step'),
+    Field('uiElementUsed', String, 'UI Element Used — screen/component',
+        hint: 'Screen or component the actor interacts with'),
     Field('validationPerformed', String,
-        'Validation Performed — checks done'),
+        'Validation Performed — checks done',
+        hint: 'Validations run during this step'),
     Field('expectedDuration', String,
-        'Expected Duration — time for this step'),
+        'Expected Duration — time for this step',
+        hint: 'Expected time to complete this step'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Use case extensions (alternative and exception flows).
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: extensions',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'Collects the alternative and exception flows that branch from the main '
+  'success scenario.',
+)
 @SectionId('USCAEX')
 class UseCaseExtensions {
   @Form([
     Field('extensionSummary', String,
-        'Extension Summary — overview of variations'),
-    Field('extensionCount', int, 'Extension Count — number of extensions'),
+        'Extension Summary — overview of variations',
+        hint: 'Overview of the alternative and exception flows'),
+    Field('extensionCount', int, 'Extension Count — number of extensions',
+        hint: 'How many extensions are documented'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Extension entries — contains 0+× Extension.
+  @StandardReferences(
+    ['Cockburn — Writing Effective Use Cases: extensions'],
+    'The alternative and exception flows that branch off the main scenario.',
+  )
   @SectionId('EXTEN-EXTE-LST')
   @SectionIdPattern('EXTEN-EXTE-xxx')
+  @ContentHelp('Add one entry per extension flow.')
   @SerializationOrder(1)
   List<ExtensionEntry> extensions = [];
 }
 
 /// An extension entry.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: extensions',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'One extension flow — the branch point, condition, type and outcome of an '
+  'alternative or exception path.',
+)
 @SectionId('EXTEN')
 class ExtensionEntry {
   @Form([
-    Field('extensionId', String, 'Extension ID (e.g., 3a)', required: true),
-    Field('branchPoint', String, 'Branch Point — step number'),
-    Field('condition', String, 'Condition — when this extension triggers'),
+    Field('extensionId', String, 'Extension ID (e.g., 3a)', required: true,
+        hint: 'Cockburn-style id such as 3a'),
+    Field('branchPoint', String, 'Branch Point — step number',
+        hint: 'Main-scenario step where this branch occurs'),
+    Field('condition', String, 'Condition — when this extension triggers',
+        hint: 'Condition under which the branch is taken'),
     Field('extensionType', String,
-        'Extension Type — alternative, exception, error'),
-    Field('description', String, 'Description — what happens'),
-    Field('outcome', String, 'Outcome — how it ends'),
+        'Extension Type — alternative, exception, error',
+        hint: 'Classify: alternative, exception or error'),
+    Field('description', String, 'Description — what happens',
+        hint: 'What happens along this extension path'),
+    Field('outcome', String, 'Outcome — how it ends',
+        hint: 'Result reached when the branch completes'),
     Field('returnPoint', String,
-        'Return Point — step to return to, or end'),
-    Field('frequency', String, 'Frequency — how often this occurs'),
+        'Return Point — step to return to, or end',
+        hint: 'Main-scenario step to resume at, or "end"'),
+    Field('frequency', String, 'Frequency — how often this occurs',
+        hint: 'How often this branch is expected to occur'),
     Field('severity', String,
-        'Severity — impact level (for exceptions)'),
+        'Severity — impact level (for exceptions)',
+        hint: 'Impact level for exception/error branches'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Extension steps — contains 0+× Scenario Step.
+  @StandardReferences(
+    ['Cockburn — Writing Effective Use Cases: extensions'],
+    'The ordered steps that make up this extension flow.',
+  )
   @SectionId('EXTST-STEP-LST')
   @SectionIdPattern('EXTST-STEP-xxx')
+  @ContentHelp('Add one entry per extension step.')
   @SerializationOrder(1)
   List<ExtensionStepEntry> steps = [];
 }
 
 /// An extension step entry.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: extensions',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ],
+  'One numbered step within an extension flow — its actor action and system '
+  'response.',
+)
 @SectionId('EXTST')
 class ExtensionStepEntry {
   @Form([
-    Field('stepNumber', String, 'Step Number (e.g., 3a1)'),
-    Field('action', String, 'Action'),
-    Field('response', String, 'Response'),
+    Field('stepNumber', String, 'Step Number (e.g., 3a1)',
+        hint: 'Extension step id such as 3a1'),
+    Field('action', String, 'Action',
+        hint: 'What the actor does in this extension step'),
+    Field('response', String, 'Response',
+        hint: 'How the system responds in this step'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Technology and data variations.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: technology & data variations',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+  ],
+  'Records the data, technology, channel and accessibility variations under '
+  'which the same interaction may run.',
+)
 @SectionId('TEDAVA')
 class TechnologyDataVariations {
   @Form([
     Field('dataVariations', String,
-        'Data Variations — different data formats, sources'),
+        'Data Variations — different data formats, sources',
+        hint: 'Different data formats or sources handled'),
     Field('technologyVariations', String,
-        'Technology Variations — different platforms, devices'),
+        'Technology Variations — different platforms, devices',
+        hint: 'Platform or device differences to support'),
     Field('channelVariations', String,
-        'Channel Variations — web, mobile, API differences'),
+        'Channel Variations — web, mobile, API differences',
+        hint: 'Behavior differences across web, mobile, API'),
     Field('localizationVariations', String,
-        'Localization Variations — language, regional'),
+        'Localization Variations — language, regional',
+        hint: 'Language and regional adaptations required'),
     Field('accessibilityVariations', String,
-        'Accessibility Variations — screen reader, keyboard'),
+        'Accessibility Variations — screen reader, keyboard',
+        hint: 'Screen-reader and keyboard-only accommodations'),
     Field('offlineVariations', String,
-        'Offline Variations — handling offline state'),
+        'Offline Variations — handling offline state',
+        hint: 'How the interaction behaves while offline'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// UI requirements preview for this interaction.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — interface requirements',
+    'Cockburn — Writing Effective Use Cases: main success scenario',
+  ],
+  'Previews the UI needs of the interaction — screens, key fields, actions, '
+  'feedback and layout — ahead of full UI design.',
+)
 @SectionId('UIRP')
 class UIRequirementsPreview {
   @Form([
-    Field('primaryScreen', String, 'Primary Screen — main UI screen'),
-    Field('screenFlow', String, 'Screen Flow — navigation path'),
-    Field('keyFormFields', String, 'Key Form Fields — input fields'),
-    Field('keyActions', String, 'Key Actions — buttons, links'),
+    Field('primaryScreen', String, 'Primary Screen — main UI screen',
+        hint: 'The main screen where the interaction happens'),
+    Field('screenFlow', String, 'Screen Flow — navigation path',
+        hint: 'Navigation path across screens'),
+    Field('keyFormFields', String, 'Key Form Fields — input fields',
+        hint: 'Important input fields the user completes'),
+    Field('keyActions', String, 'Key Actions — buttons, links',
+        hint: 'Primary buttons or links the user activates'),
     Field('keyDisplayElements', String,
-        'Key Display Elements — data shown'),
+        'Key Display Elements — data shown',
+        hint: 'Important data displayed to the user'),
     Field('feedbackMechanisms', String,
-        'Feedback Mechanisms — success/error messages'),
+        'Feedback Mechanisms — success/error messages',
+        hint: 'How success and error are communicated'),
     Field('layoutConsiderations', String,
-        'Layout Considerations — responsive, orientation'),
+        'Layout Considerations — responsive, orientation',
+        hint: 'Responsive and orientation considerations'),
     Field('interactionPatterns', String,
-        'Interaction Patterns — drag-drop, swipe'),
+        'Interaction Patterns — drag-drop, swipe',
+        hint: 'Gesture or interaction patterns used'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -3038,82 +3573,142 @@ class UIRequirementsPreview {
 }
 
 /// Interaction performance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+  ],
+  'States the performance targets for the interaction — frequency, volume, '
+  'response time, throughput and availability.',
+)
 @SectionId('INPE')
 class InteractionPerformance {
   @Form([
     Field('expectedFrequency', String,
-        'Expected Frequency — times per day/week'),
-    Field('peakVolume', String, 'Peak Volume — maximum concurrent'),
+        'Expected Frequency — times per day/week',
+        hint: 'How often the interaction runs, e.g. per day'),
+    Field('peakVolume', String, 'Peak Volume — maximum concurrent',
+        hint: 'Maximum concurrent load expected'),
     Field('responseTimeTarget', String,
-        'Response Time Target — max acceptable'),
+        'Response Time Target — max acceptable',
+        hint: 'Maximum acceptable response time'),
     Field('throughputTarget', String,
-        'Throughput Target — transactions per second'),
+        'Throughput Target — transactions per second',
+        hint: 'Required transactions per second'),
     Field('availabilityRequirement', String,
-        'Availability Requirement — uptime needed'),
+        'Availability Requirement — uptime needed',
+        hint: 'Required uptime, e.g. 99.9%'),
     Field('concurrencyExpectation', String,
-        'Concurrency Expectation — simultaneous users'),
+        'Concurrency Expectation — simultaneous users',
+        hint: 'Expected number of simultaneous users'),
     Field('dataVolumeHandled', String,
-        'Data Volume Handled — typical data size'),
+        'Data Volume Handled — typical data size',
+        hint: 'Typical data size processed per run'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Interaction security requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 A.9 — access control',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+  ],
+  'States the security requirements for the interaction — authentication, '
+  'authorization, data protection, auditing and compliance.',
+)
 @SectionId('INSE')
 class InteractionSecurity {
   @Form([
     Field('authenticationRequired', String,
-        'Authentication Required — auth needed'),
+        'Authentication Required — auth needed',
+        hint: 'Whether and how the actor must authenticate'),
     Field('authorizationRules', String,
-        'Authorization Rules — who can do this'),
+        'Authorization Rules — who can do this',
+        hint: 'Which roles are permitted to perform this'),
     Field('dataClassification', String,
-        'Data Classification — sensitivity level'),
+        'Data Classification — sensitivity level',
+        hint: 'Sensitivity level of the data handled'),
     Field('encryptionRequirements', String,
-        'Encryption Requirements — data protection'),
-    Field('auditLogging', String, 'Audit Logging — what is logged'),
+        'Encryption Requirements — data protection',
+        hint: 'Encryption needed in transit and at rest'),
+    Field('auditLogging', String, 'Audit Logging — what is logged',
+        hint: 'Security-relevant events to log'),
     Field('sessionRequirements', String,
-        'Session Requirements — timeout, renewal'),
+        'Session Requirements — timeout, renewal',
+        hint: 'Session timeout and renewal rules'),
     Field('complianceRequirements', String,
-        'Compliance Requirements — GDPR, HIPAA'),
+        'Compliance Requirements — GDPR, HIPAA',
+        hint: 'Regulations to satisfy, e.g. GDPR, HIPAA'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Business rules triggered by this interaction.
+@StandardReferences(
+  [
+    'BABOK v3 — business rules',
+    'ISO 9001:2015 §4.4 — process interactions',
+  ],
+  'Lists the business rules — validation, calculation, authorization, workflow, '
+  'notification and integration — invoked by this interaction.',
+)
 @SectionId('INBURU')
 class InteractionBusinessRules {
   @Form([
     Field('validationRules', String,
-        'Validation Rules — BR-xxx for validation'),
+        'Validation Rules — BR-xxx for validation',
+        hint: 'BR-xxx rules governing input validation'),
     Field('calculationRules', String,
-        'Calculation Rules — BR-xxx for calculations'),
+        'Calculation Rules — BR-xxx for calculations',
+        hint: 'BR-xxx rules governing calculations'),
     Field('authorizationRules', String,
-        'Authorization Rules — BR-xxx for permissions'),
-    Field('workflowRules', String, 'Workflow Rules — BR-xxx for flow'),
+        'Authorization Rules — BR-xxx for permissions',
+        hint: 'BR-xxx rules governing permissions'),
+    Field('workflowRules', String, 'Workflow Rules — BR-xxx for flow',
+        hint: 'BR-xxx rules governing flow and routing'),
     Field('notificationRules', String,
-        'Notification Rules — BR-xxx for notifications'),
+        'Notification Rules — BR-xxx for notifications',
+        hint: 'BR-xxx rules governing notifications'),
     Field('integrationRules', String,
-        'Integration Rules — BR-xxx for integrations'),
+        'Integration Rules — BR-xxx for integrations',
+        hint: 'BR-xxx rules governing external integrations'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Interaction traceability to other elements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Traces the interaction to related processes, requirements, data, business '
+  'objects, rules, integrations and test cases.',
+)
 @SectionId('INTR')
 class InteractionTraceability {
   @Form([
-    Field('relatedProcess', String, 'Related Process — TOM-xxx'),
-    Field('relatedRequirements', String, 'Related Requirements — REQ-xxx'),
-    Field('relatedUseCase', String, 'Related Use Case — ISC-xxx in ISC document'),
-    Field('relatedDataEntities', String, 'Related Data Entities — entity names'),
+    Field('relatedProcess', String, 'Related Process — TOM-xxx',
+        hint: 'TOM-xxx process this interaction realizes'),
+    Field('relatedRequirements', String, 'Related Requirements — REQ-xxx',
+        hint: 'REQ-xxx requirements satisfied here'),
+    Field('relatedUseCase', String, 'Related Use Case — ISC-xxx in ISC document',
+        hint: 'ISC-xxx use case in the ISC document'),
+    Field('relatedDataEntities', String, 'Related Data Entities — entity names',
+        hint: 'Data entities read or written'),
     Field('relatedBusinessObjects', String,
-        'Related Business Objects — BO-xxx'),
-    Field('relatedBusinessRules', String, 'Related Business Rules — BR-xxx'),
-    Field('relatedIntegrations', String, 'Related Integrations — INT-xxx'),
-    Field('relatedTestCases', String, 'Related Test Cases — TC-xxx'),
+        'Related Business Objects — BO-xxx',
+        hint: 'BO-xxx business objects involved'),
+    Field('relatedBusinessRules', String, 'Related Business Rules — BR-xxx',
+        hint: 'BR-xxx business rules referenced'),
+    Field('relatedIntegrations', String, 'Related Integrations — INT-xxx',
+        hint: 'INT-xxx integrations touched'),
+    Field('relatedTestCases', String, 'Related Test Cases — TC-xxx',
+        hint: 'TC-xxx test cases covering this'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -3127,6 +3722,14 @@ class InteractionTraceability {
 ///
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Collects the key end-to-end scenarios that show how users achieve business goals through complete sequences of interactions.',
+)
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-SCE')
@@ -3162,26 +3765,44 @@ and places their first order."
   ScenarioOverview overview = ScenarioOverview();
 
   /// Contains 1+× Scenario.
+  @StandardReferences(
+    ['Cockburn — Writing Effective Use Cases: main success scenario & extensions'],
+    'The set of key end-to-end scenarios that illustrate how actors achieve '
+    'their business goals through the system.',
+  )
   @SectionId('SCNRY-SCEN-LST')
   @SectionIdPattern('SCNRY-SCEN-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per key scenario.')
   @SerializationOrder(2)
   List<ScenarioEntry> scenarios = [];
 }
 
 /// Scenario overview.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Summarises the overall set of key scenarios, their coverage, types, and how they map to tests.',
+)
 @SectionId('SCOV')
 class ScenarioOverview {
   @Form([
-    Field('totalScenarioCount', int, 'Total Scenario Count'),
+    Field('totalScenarioCount', int, 'Total Scenario Count',
+        hint: 'Number of scenarios documented'),
     Field('scenarioCoverage', String,
-        'Scenario Coverage — what user journeys are covered'),
+        'Scenario Coverage — what user journeys are covered',
+        hint: 'Which end-to-end journeys the scenarios span'),
     Field('scenarioTypes', String,
-        'Scenario Types — happy path, error handling, edge case'),
+        'Scenario Types — happy path, error handling, edge case',
+        hint: 'Mix of happy-path, error, and edge-case scenarios'),
     Field('scenarioPrioritization', String,
-        'Scenario Prioritization — which are most important'),
+        'Scenario Prioritization — which are most important',
+        hint: 'How scenarios are ranked by importance'),
     Field('scenarioToTestMapping', String,
-        'Scenario to Test Mapping — how scenarios map to tests'),
+        'Scenario to Test Mapping — how scenarios map to tests',
+        hint: 'How each scenario traces to TC-xxx test cases'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -3190,6 +3811,13 @@ class ScenarioOverview {
 /// A scenario entry.
 ///
 /// Comprehensive scenario definition for end-to-end user journey.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario, extensions, alternative flows',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+  ],
+  'A comprehensive definition of one end-to-end scenario, bundling its identity, context, steps, alternative flows, data, timing, and validation.',
+)
 @SectionId('SCNRY')
 class ScenarioEntry {
   /// Scenario identification.
@@ -3201,15 +3829,30 @@ class ScenarioEntry {
   ScenarioContext context = ScenarioContext();
 
   /// Contains 1+× Scenario Step.
+  @StandardReferences(
+    [
+      'BPMN 2.0 — sequence flow / activities (scenario steps)',
+      'Gherkin / BDD — given-when-then scenario steps',
+    ],
+    'The ordered main-success steps of the scenario, each pairing an actor '
+    'action with the system response.',
+  )
   @SectionId('SCNST-STEP-LST')
   @SectionIdPattern('SCNST-STEP-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per main-flow step, in order.')
   @SerializationOrder(2)
   List<ScenarioStepEntry> steps = [];
 
   /// Alternative flows — contains 0+× Alternative Flow.
+  @StandardReferences(
+    ['Cockburn — Writing Effective Use Cases: extensions & alternative flows'],
+    'The valid variations and exception branches that diverge from the main '
+    'success path of the scenario.',
+  )
   @SectionId('ALFL-ALTE-LST')
   @SectionIdPattern('ALFL-ALTE-xxx')
+  @ContentHelp('Add one entry per alternative or exception flow.')
   @SerializationOrder(3)
   List<AlternativeFlowEntry> alternativeFlows = [];
 
@@ -3227,51 +3870,92 @@ class ScenarioEntry {
 }
 
 /// Scenario identification.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: scenarios & scenario identity',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+  ],
+  'Captures the identifying attributes of a single key end-to-end scenario.',
+)
 @SectionId('SCID')
 class ScenarioIdentification {
   @Form([
-    Field('scenarioId', String, 'Scenario ID (e.g., SCE-001)', required: true),
-    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('scenarioId', String, 'Scenario ID (e.g., SCE-001)', required: true,
+        hint: 'Stable code such as SCE-001'),
+    Field('scenarioName', String, 'Scenario Name', required: true,
+        hint: 'Short descriptive name for the scenario'),
     Field('scenarioType', String,
-        'Scenario Type — happy path, alternative, exception'),
-    Field('description', String, 'Description — narrative summary'),
-    Field('businessGoal', String, 'Business Goal — what is achieved'),
-    Field('primaryActor', String, 'Primary Actor — who performs scenario'),
-    Field('supportingActors', String, 'Supporting Actors — who else'),
-    Field('priority', String, 'Priority — critical, high, medium, low'),
-    Field('complexity', String, 'Complexity — simple, moderate, complex'),
+        'Scenario Type — happy path, alternative, exception',
+        hint: 'One of happy path, alternative, or exception'),
+    Field('description', String, 'Description — narrative summary',
+        hint: 'One-paragraph narrative of the journey'),
+    Field('businessGoal', String, 'Business Goal — what is achieved',
+        hint: 'The outcome the actor is trying to reach'),
+    Field('primaryActor', String, 'Primary Actor — who performs scenario',
+        hint: 'The main actor driving the scenario'),
+    Field('supportingActors', String, 'Supporting Actors — who else',
+        hint: 'Other actors or systems that participate'),
+    Field('priority', String, 'Priority — critical, high, medium, low',
+        hint: 'Business priority of this scenario'),
+    Field('complexity', String, 'Complexity — simple, moderate, complex',
+        hint: 'Relative implementation/test complexity'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Scenario context.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: preconditions, triggers & guarantees',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+  ],
+  'Establishes the surrounding conditions of the scenario: preconditions, trigger, success/failure conditions, and scope.',
+)
 @SectionId('SCCO')
 class ScenarioContext {
   @Form([
-    Field('preconditions', String, 'Preconditions — required initial state'),
-    Field('trigger', String, 'Trigger — what starts the scenario'),
+    Field('preconditions', String, 'Preconditions — required initial state',
+        hint: 'State that must hold before the scenario starts'),
+    Field('trigger', String, 'Trigger — what starts the scenario',
+        hint: 'The event that initiates the scenario'),
     Field('successCondition', String,
-        'Success Condition — how to know it worked'),
+        'Success Condition — how to know it worked',
+        hint: 'Observable state indicating success'),
     Field('failureCondition', String,
-        'Failure Condition — how to know it failed'),
-    Field('assumptions', String, 'Assumptions — what is assumed true'),
-    Field('outOfScope', String, 'Out of Scope — what is not included'),
+        'Failure Condition — how to know it failed',
+        hint: 'Observable state indicating failure'),
+    Field('assumptions', String, 'Assumptions — what is assumed true',
+        hint: 'Assumptions taken as given for this scenario'),
+    Field('outOfScope', String, 'Out of Scope — what is not included',
+        hint: 'What this scenario deliberately excludes'),
     Field('relatedInteractions', String,
-        'Related Interactions — INT-xxx references'),
+        'Related Interactions — INT-xxx references',
+        hint: 'INT-xxx interactions referenced by this scenario'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A scenario step entry.
+@StandardReferences(
+  [
+    'BPMN 2.0 — sequence flow / activities (scenario steps)',
+    'Gherkin / BDD — given-when-then scenario steps',
+  ],
+  'A single numbered step of the main flow, pairing an actor action with the resulting system response.',
+)
 @SectionId('SCNST')
 class ScenarioStepEntry {
   @Form([
-    Field('stepNumber', int, 'Step Number', required: true),
-    Field('actor', String, 'Actor — who performs this step'),
-    Field('action', String, 'Action — what actor does'),
-    Field('systemResponse', String, 'System Response — what system does'),
+    Field('stepNumber', int, 'Step Number', required: true,
+        hint: 'Sequential position of this step'),
+    Field('actor', String, 'Actor — who performs this step',
+        hint: 'The actor performing this step'),
+    Field('action', String, 'Action — what actor does',
+        hint: 'The action the actor takes'),
+    Field('systemResponse', String, 'System Response — what system does',
+        hint: 'How the system responds to the action'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -3286,119 +3970,216 @@ class ScenarioStepEntry {
 }
 
 /// Expected outcome and referenced artifacts.
+@StandardReferences(
+  [
+    'Gherkin / BDD — given-when-then scenario steps',
+    'BPMN 2.0 — sequence flow / activities (scenario steps)',
+  ],
+  'Records the expected result of a scenario step and the artifacts, data, and UI elements it references.',
+)
 @SectionId('SSEC')
 class ScenarioStepEntryContext {
   @Form([
-    Field('expectedResult', String, 'Expected Result — observable outcome'),
+    Field('expectedResult', String, 'Expected Result — observable outcome',
+        hint: 'The observable outcome after the step'),
     Field('interactionReference', String,
-        'Interaction Reference — INT-xxx if detailed'),
-    Field('dataInvolved', String, 'Data Involved — input/output data'),
-    Field('uiElement', String, 'UI Element — screen/component used'),
+        'Interaction Reference — INT-xxx if detailed',
+        hint: 'INT-xxx interaction detailing this step'),
+    Field('dataInvolved', String, 'Data Involved — input/output data',
+        hint: 'Data read or written during the step'),
+    Field('uiElement', String, 'UI Element — screen/component used',
+        hint: 'Screen or component the actor uses'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Branching, timing, and notes.
+@StandardReferences(
+  [
+    'BPMN 2.0 — sequence flow / activities (scenario steps)',
+    'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
+  ],
+  'Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.',
+)
 @SectionId('SCSTENEX')
 class ScenarioStepEntryExecution {
   @Form([
     Field('decisionPoint', String,
-        'Decision Point — if branching occurs here'),
-    Field('timing', String, 'Timing — expected duration'),
-    Field('notes', String, 'Notes — clarifications'),
+        'Decision Point — if branching occurs here',
+        hint: 'Condition under which the flow branches here'),
+    Field('timing', String, 'Timing — expected duration',
+        hint: 'Expected time this step takes'),
+    Field('notes', String, 'Notes — clarifications',
+        hint: 'Additional clarifications for this step'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// An alternative flow entry.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+  ],
+  'Defines a single alternative, exception, or error flow that branches from the main scenario path.',
+)
 @SectionId('ALFL')
 class AlternativeFlowEntry {
   @Form([
-    Field('flowId', String, 'Flow ID (e.g., AFL-001)', required: true),
-    Field('flowName', String, 'Flow Name', required: true),
-    Field('flowType', String, 'Flow Type — alternative, exception, error'),
-    Field('branchPoint', String, 'Branch Point — step where flow branches'),
-    Field('triggerCondition', String, 'Trigger Condition — when this occurs'),
-    Field('description', String, 'Description — what happens'),
-    Field('outcome', String, 'Outcome — how flow ends'),
-    Field('returnPoint', String, 'Return Point — step to return to'),
-    Field('frequency', String, 'Frequency — how often this occurs'),
-    Field('businessImpact', String, 'Business Impact — effect on business'),
+    Field('flowId', String, 'Flow ID (e.g., AFL-001)', required: true,
+        hint: 'Stable code such as AFL-001'),
+    Field('flowName', String, 'Flow Name', required: true,
+        hint: 'Short descriptive name for the flow'),
+    Field('flowType', String, 'Flow Type — alternative, exception, error',
+        hint: 'One of alternative, exception, or error'),
+    Field('branchPoint', String, 'Branch Point — step where flow branches',
+        hint: 'Main-flow step number where this diverges'),
+    Field('triggerCondition', String, 'Trigger Condition — when this occurs',
+        hint: 'Condition that activates this flow'),
+    Field('description', String, 'Description — what happens',
+        hint: 'Narrative of what happens in this flow'),
+    Field('outcome', String, 'Outcome — how flow ends',
+        hint: 'The end state this flow reaches'),
+    Field('returnPoint', String, 'Return Point — step to return to',
+        hint: 'Main-flow step to resume at, if any'),
+    Field('frequency', String, 'Frequency — how often this occurs',
+        hint: 'How often this flow is expected to occur'),
+    Field('businessImpact', String, 'Business Impact — effect on business',
+        hint: 'Business consequence of this flow'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Scenario Step.
+  @StandardReferences(
+    [
+      'BPMN 2.0 — sequence flow / activities (scenario steps)',
+      'Gherkin / BDD — given-when-then scenario steps',
+    ],
+    'The ordered steps that make up this alternative flow, each pairing an '
+    'action with its response.',
+  )
   @SectionId('ALST-STEP-LST')
   @SectionIdPattern('ALST-STEP-xxx')
+  @ContentHelp('Add one entry per step of this alternative flow, in order.')
   @SerializationOrder(1)
   List<AlternativeStepEntry> steps = [];
 }
 
 /// An alternative step entry.
+@StandardReferences(
+  [
+    'BPMN 2.0 — sequence flow / activities (scenario steps)',
+    'Gherkin / BDD — given-when-then scenario steps',
+  ],
+  'A single step within an alternative flow, pairing an action with its system response and expected result.',
+)
 @SectionId('ALST')
 class AlternativeStepEntry {
   @Form([
-    Field('stepNumber', String, 'Step Number'),
-    Field('action', String, 'Action'),
-    Field('response', String, 'Response'),
-    Field('expectedResult', String, 'Expected Result'),
+    Field('stepNumber', String, 'Step Number',
+        hint: 'Sequential position within the alternative flow'),
+    Field('action', String, 'Action',
+        hint: 'The action taken in this step'),
+    Field('response', String, 'Response',
+        hint: 'How the system responds to the action'),
+    Field('expectedResult', String, 'Expected Result',
+        hint: 'The observable outcome after the step'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Scenario data requirements.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing (scenario validation)',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Specifies the input, output, test, and sample data the scenario consumes, produces, and transforms.',
+)
 @SectionId('SCDA')
 class ScenarioData {
   @Form([
-    Field('inputData', String, 'Input Data — data needed to start'),
-    Field('outputData', String, 'Output Data — data produced'),
+    Field('inputData', String, 'Input Data — data needed to start',
+        hint: 'Data required before the scenario can run'),
+    Field('outputData', String, 'Output Data — data produced',
+        hint: 'Data the scenario produces on completion'),
     Field('testDataRequirements', String,
-        'Test Data Requirements — data for testing'),
+        'Test Data Requirements — data for testing',
+        hint: 'Data needed to exercise this scenario in tests'),
     Field('dataTransformations', String,
-        'Data Transformations — how data changes'),
-    Field('dataValidations', String, 'Data Validations — checks performed'),
+        'Data Transformations — how data changes',
+        hint: 'How data is transformed through the scenario'),
+    Field('dataValidations', String, 'Data Validations — checks performed',
+        hint: 'Validation checks applied to the data'),
     Field('sampleDataValues', String,
-        'Sample Data Values — example input/output'),
+        'Sample Data Values — example input/output',
+        hint: 'Concrete example values for input/output'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Scenario timing expectations.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — performance efficiency',
+    'ISO/IEC/IEEE 29148 §6 — operational scenarios',
+  ],
+  'Defines the timing expectations of the scenario: total duration, user/system time, wait time, constraints, and timeout handling.',
+)
 @SectionId('SCTI')
 class ScenarioTiming {
   @Form([
-    Field('totalDuration', String, 'Total Duration — end-to-end time'),
-    Field('userActiveTime', String, 'User Active Time — user effort'),
+    Field('totalDuration', String, 'Total Duration — end-to-end time',
+        hint: 'Expected end-to-end elapsed time'),
+    Field('userActiveTime', String, 'User Active Time — user effort',
+        hint: 'Time the user is actively engaged'),
     Field('systemProcessingTime', String,
-        'System Processing Time — system work'),
+        'System Processing Time — system work',
+        hint: 'Time the system spends processing'),
     Field('waitTime', String,
-        'Wait Time — delays for external factors'),
+        'Wait Time — delays for external factors',
+        hint: 'Delays waiting on external factors'),
     Field('timeConstraints', String,
-        'Time Constraints — deadlines, SLAs'),
+        'Time Constraints — deadlines, SLAs',
+        hint: 'Deadlines or SLAs the scenario must meet'),
     Field('timeoutHandling', String,
-        'Timeout Handling — what if too slow'),
+        'Timeout Handling — what if too slow',
+        hint: 'What happens if timing limits are exceeded'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Scenario validation criteria.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing (scenario validation)',
+    'Cockburn — Writing Effective Use Cases: success guarantees',
+  ],
+  'Defines how the scenario is validated: acceptance criteria, test references, verification method, and expected metrics.',
+)
 @SectionId('SCVA')
 class ScenarioValidation {
   @Form([
     Field('acceptanceCriteria', String,
-        'Acceptance Criteria — how success is verified'),
-    Field('testScenarios', String, 'Test Scenarios — TC-xxx references'),
+        'Acceptance Criteria — how success is verified',
+        hint: 'Criteria that confirm the scenario succeeded'),
+    Field('testScenarios', String, 'Test Scenarios — TC-xxx references',
+        hint: 'TC-xxx test cases covering this scenario'),
     Field('verificationMethod', String,
-        'Verification Method — manual, automated'),
-    Field('validationData', String, 'Validation Data — data to check'),
-    Field('expectedMetrics', String, 'Expected Metrics — performance targets'),
-    Field('knownIssues', String, 'Known Issues — documented problems'),
+        'Verification Method — manual, automated',
+        hint: 'How the scenario is verified: manual or automated'),
+    Field('validationData', String, 'Validation Data — data to check',
+        hint: 'Data checked to validate the outcome'),
+    Field('expectedMetrics', String, 'Expected Metrics — performance targets',
+        hint: 'Performance or quality targets to meet'),
+    Field('knownIssues', String, 'Known Issues — documented problems',
+        hint: 'Documented problems or limitations'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -3444,6 +4225,13 @@ How each business process is measured for success once in production.
 /// 6.2.5. Use Case Traceability.
 ///
 /// Use case ↔ requirement ↔ process ↔ test traceability.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — requirements traceability',
+    'BABOK v3 — use cases & scenarios',
+  ],
+  'Provides the traceability matrix linking use cases to requirements, processes, and tests so every use case is justified and covered.',
+)
 @SectionId('USCATR')
 @DetailedIn(D05InteractionScenarios)
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-TRC')
