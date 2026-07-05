@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T15:29:02.190607Z",
+  "generatedAt": "2026-07-05T15:45:45.008486Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -6361,7 +6361,24 @@
       "name": "AdministrativeEventPolicy",
       "sectionId": "ADEVPO",
       "doc": "Administrative event policy (form).\n\nDefines which administrative events are logged.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "NIST SP 800-53 — control AU-12 audit record generation"
+        ],
+        "connotation": "This section defines which administrative events, such as configuration and user management changes, are logged."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "NIST SP 800-53 — control AU-12 audit record generation"
+            ],
+            "connotation": "This section defines which administrative events, such as configuration and user management changes, are logged."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -9457,7 +9474,26 @@
       "name": "AnomalyDetectionPolicy",
       "sectionId": "ANDEPO",
       "doc": "Anomaly detection policy (form).\n\nDefines automated anomaly detection and alerting.",
+      "standardReferences": {
+        "standards": [
+          "SOC 2 — CC7.2 system monitoring",
+          "ISO/IEC 27001:2022 — control A.8.16 monitoring activities",
+          "NIST SP 800-53 — control AU-6 audit record review and analysis"
+        ],
+        "connotation": "This section defines automated detection of anomalous access patterns and the alerting that follows, drawing on behavior baselines and thresholds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SOC 2 — CC7.2 system monitoring",
+              "ISO/IEC 27001:2022 — control A.8.16 monitoring activities",
+              "NIST SP 800-53 — control AU-6 audit record review and analysis"
+            ],
+            "connotation": "This section defines automated detection of anomalous access patterns and the alerting that follows, drawing on behavior baselines and thresholds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15110,7 +15146,26 @@
       "sectionId": "AUANLO",
       "doc": "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.15 logging",
+          "NIST SP 800-92 — guide to computer security log management",
+          "GDPR — Article 5(2) accountability"
+        ],
+        "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.15 logging",
+              "NIST SP 800-92 — guide to computer security log management",
+              "GDPR — Article 5(2) accountability"
+            ],
+            "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15514,7 +15569,26 @@
       "name": "AuditLogFormat",
       "sectionId": "AULOFO",
       "doc": "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-3 content of audit records",
+          "NIST SP 800-92 — guide to computer security log management",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines the structure and format of audit log entries so they are consistent, parsable, and useful for forensic investigation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-3 content of audit records",
+              "NIST SP 800-92 — guide to computer security log management",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines the structure and format of audit log entries so they are consistent, parsable, and useful for forensic investigation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -15936,7 +16010,24 @@
       "name": "AuthenticationEventPolicy",
       "sectionId": "AUEVPO",
       "doc": "Authentication event policy (form).\n\nDefines which authentication-related events are logged.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "NIST SP 800-53 — control AU-12 audit record generation"
+        ],
+        "connotation": "This section defines which authentication events, such as logins, password changes, and MFA activity, are logged."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "NIST SP 800-53 — control AU-12 audit record generation"
+            ],
+            "connotation": "This section defines which authentication events, such as logins, password changes, and MFA activity, are logged."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -16930,7 +17021,24 @@
       "name": "AuthorizationEventPolicy",
       "sectionId": "AUEVP1",
       "doc": "Authorization event policy (form).\n\nDefines which authorization-related events are logged.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "NIST SP 800-53 — control AU-12 audit record generation"
+        ],
+        "connotation": "This section defines which authorization events, such as access grants, denials, and privilege changes, are logged."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "NIST SP 800-53 — control AU-12 audit record generation"
+            ],
+            "connotation": "This section defines which authorization events, such as access grants, denials, and privilege changes, are logged."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -19299,11 +19407,28 @@
       "name": "BackupEncryptionPolicy",
       "sectionId": "BAENPO",
       "doc": "Backup Encryption Policy (form).\n\nDefines encryption requirements for backup data: backup encryption method,\nseparate key management for backups, retention of encrypted backups,\nand verification of backup encryption integrity.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.13 information backup"
+        ],
+        "connotation": "This section defines encryption requirements for backup data, covering the backup encryption method, separate key management, retention of encrypted backups, and verification of encryption integrity."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.13 information backup"
+            ],
+            "connotation": "This section defines encryption requirements for backup data, covering the backup encryption method, separate key management, retention of encrypted backups, and verification of encryption integrity."
           }
         },
         {
@@ -30793,11 +30918,28 @@
       "name": "CertificateManagementPolicy",
       "sectionId": "CEMAPO",
       "doc": "Certificate Management Policy (form).\n\nDefines how TLS certificates are managed: certificate authority selection,\nvalidation type, key strength, hashing algorithm, wildcard policy,\ncertificate lifecycle, and automated renewal.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-52 Rev. 2 — TLS implementation guidelines",
+          "NIST SP 800-53 — control SC-12 cryptographic key establishment and management"
+        ],
+        "connotation": "This section defines how TLS certificates are managed, covering certificate authority selection, validation type, key strength, hashing algorithm, wildcard policy, lifecycle, and automated renewal."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-52 Rev. 2 — TLS implementation guidelines",
+              "NIST SP 800-53 — control SC-12 cryptographic key establishment and management"
+            ],
+            "connotation": "This section defines how TLS certificates are managed, covering certificate authority selection, validation type, key strength, hashing algorithm, wildcard policy, lifecycle, and automated renewal."
           }
         },
         {
@@ -42285,7 +42427,24 @@
       "name": "CommunicationChannelEncryptionEntry",
       "sectionId": "COCHEN",
       "doc": "A communication channel encryption entry (form)\n.\n\nDefines encryption requirements for a specific communication channel\n(e.g. client-to-server HTTPS, server-to-database, inter-service,\nWebSocket, gRPC, message queue). Allows different channels to have\ndifferent TLS configurations and requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+          "RFC 8446 — TLS 1.3 protocol"
+        ],
+        "connotation": "This section defines encryption requirements for a specific communication channel, allowing different channels to have distinct TLS configurations and requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+              "RFC 8446 — TLS 1.3 protocol"
+            ],
+            "connotation": "This section defines encryption requirements for a specific communication channel, allowing different channels to have distinct TLS configurations and requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -45495,7 +45654,26 @@
       "name": "ComplianceReporting",
       "sectionId": "COMREP",
       "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+          "SOC 2 — CC7.2 system monitoring",
+          "GDPR — Article 30 records of processing activities"
+        ],
+        "connotation": "This section describes compliance reporting requirements that satisfy regulatory audits and internal governance across access reviews and anomaly detection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+              "SOC 2 — CC7.2 system monitoring",
+              "GDPR — Article 30 records of processing activities"
+            ],
+            "connotation": "This section describes compliance reporting requirements that satisfy regulatory audits and internal governance across access reviews and anomaly detection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63570,7 +63748,24 @@
       "name": "DataAccessEventPolicy",
       "sectionId": "DAEP",
       "doc": "Data access event policy (form).\n\nDefines which data access events are logged.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "GDPR — Article 30 records of processing activities"
+        ],
+        "connotation": "This section defines which data access events, including creation, modification, deletion, and export of sensitive data, are logged."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "GDPR — Article 30 records of processing activities"
+            ],
+            "connotation": "This section defines which data access events, including creation, modification, deletion, and export of sensitive data, are logged."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -76061,11 +76256,28 @@
       "name": "DatabaseEncryptionPolicy",
       "sectionId": "DAENPO",
       "doc": "Database Encryption Policy (form).\n\nDefines how database-level encryption is implemented: TDE configuration,\ncolumn-level encryption, index handling for encrypted columns, search\nstrategy for encrypted data, and database engine-specific settings.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines how database-level encryption is implemented, covering TDE configuration, column-level encryption, index handling for encrypted columns, and search strategy."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines how database-level encryption is implemented, covering TDE configuration, column-level encryption, index handling for encrypted columns, and search strategy."
           }
         },
         {
@@ -96259,7 +96471,24 @@
       "name": "EncryptedDataCategoryEntry",
       "sectionId": "ENDACA",
       "doc": "An encrypted data category entry (form).\n\nDefines a specific category of data that requires encryption at rest,\nincluding the data classification, encryption approach, algorithm override,\nand data minimization strategy. Allows specifying different encryption\nlevels for different data sensitivity tiers.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "GDPR — Article 32 security of processing"
+        ],
+        "connotation": "This section defines a specific category of data requiring encryption at rest, including its classification, encryption approach, algorithm override, and data minimization strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "GDPR — Article 32 security of processing"
+            ],
+            "connotation": "This section defines a specific category of data requiring encryption at rest, including its classification, encryption approach, algorithm override, and data minimization strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96351,7 +96580,24 @@
       "name": "EncryptionAtRest",
       "sectionId": "ENATRE",
       "doc": "9.5.1. Encryption At Rest.\n\nDefines encryption requirements for stored data: algorithms, key lengths,\nencryption layers (application, database, filesystem, hardware), field-level\nand full-disk encryption, encrypted data categories, backup encryption,\nand compliance requirements. Aligns with OWASP Cryptographic Storage\nCheat Sheet and NIST SP 800-111 (Storage Encryption).",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines encryption requirements for stored data, covering algorithms, key lengths, encryption layers, field-level and full-disk encryption, encrypted data categories, and backup encryption."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines encryption requirements for stored data, covering algorithms, key lengths, encryption layers, field-level and full-disk encryption, encrypted data categories, and backup encryption."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96400,10 +96646,26 @@
           "name": "encryptedDataCategories",
           "kind": "list",
           "doc": "Contains 0+× EncryptedDataCategory.",
+          "help": "Add one entry per encrypted data category.",
           "sectionId": "ENDACA-ENCR-LST",
           "sectionIdPattern": "ENDACA-ENCR-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest"
+            ],
+            "connotation": "The catalog of encrypted data categories, each mapping a data classification to its encryption requirements."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-53 — control SC-28 protection of information at rest"
+                ],
+                "connotation": "The catalog of encrypted data categories, each mapping a data classification to its encryption requirements."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -96414,6 +96676,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "ENDACA-ENCR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per encrypted data category."
               }
             },
             {
@@ -96493,11 +96761,28 @@
       "name": "EncryptionAtRestPolicy",
       "sectionId": "EARP",
       "doc": "Encryption At Rest Policy (form).\n\nGlobal settings governing how data at rest is encrypted: default algorithm,\nkey size, cipher mode, encryption layer strategy, field-level vs full-disk\nencryption, and compliance framework alignment.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines global settings governing how data at rest is encrypted, covering the default algorithm, key size, cipher mode, encryption layer strategy, and compliance framework alignment."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines global settings governing how data at rest is encrypted, covering the default algorithm, key size, cipher mode, encryption layer strategy, and compliance framework alignment."
           }
         },
         {
@@ -96544,7 +96829,24 @@
       "name": "EncryptionInTransit",
       "sectionId": "ENINTR",
       "doc": "9.5.2. Encryption In Transit.\n\nDefines encryption requirements for data in transit: TLS protocol versions,\ncipher suites, certificate management, HSTS policy, mutual TLS, certificate\npinning, and internal/service-to-service communication encryption. Aligns\nwith OWASP Transport Layer Security Cheat Sheet and NIST SP 800-52.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+          "NIST SP 800-52 Rev. 2 — TLS implementation guidelines"
+        ],
+        "connotation": "This section defines encryption requirements for data in transit, covering TLS protocol versions, cipher suites, certificate management, HSTS, mutual TLS, and service-to-service communication."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+              "NIST SP 800-52 Rev. 2 — TLS implementation guidelines"
+            ],
+            "connotation": "This section defines encryption requirements for data in transit, covering TLS protocol versions, cipher suites, certificate management, HSTS, mutual TLS, and service-to-service communication."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96608,10 +96910,26 @@
           "name": "communicationChannels",
           "kind": "list",
           "doc": "Contains 0+× CommunicationChannelEncryption.",
+          "help": "Add one entry per communication channel.",
           "sectionId": "COCHEN-COMM-LST",
           "sectionIdPattern": "COCHEN-COMM-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity"
+            ],
+            "connotation": "The catalog of communication channels, each with its own transport encryption requirements."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity"
+                ],
+                "connotation": "The catalog of communication channels, each with its own transport encryption requirements."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -96622,6 +96940,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COCHEN-COMM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per communication channel."
               }
             },
             {
@@ -103167,7 +103491,24 @@
       "name": "EventAttributePolicy",
       "sectionId": "EVATPO",
       "doc": "Event attribute policy (form).\n\nDefines which attributes are captured for each log event:\nwhen, where, who, and what information.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-3 content of audit records",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines which attributes are captured for each log event, covering when, where, who, and what information."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-3 content of audit records",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines which attributes are captured for each log event, covering when, where, who, and what information."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113322,11 +113663,28 @@
       "name": "FileStorageEncryptionPolicy",
       "sectionId": "FSEP",
       "doc": "File and Storage Encryption Policy (form).\n\nDefines how files, blobs, and other non-database storage are encrypted:\nfile-level vs volume-level encryption, cloud storage encryption, signed\nURL handling, and local device encryption requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-28 protection of information at rest",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines how files, blobs, and non-database storage are encrypted at rest, covering file-level versus volume-level encryption, cloud storage encryption, and local device encryption."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-28 protection of information at rest",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines how files, blobs, and non-database storage are encrypted at rest, covering file-level versus volume-level encryption, cloud storage encryption, and local device encryption."
           }
         },
         {
@@ -140038,7 +140396,24 @@
       "name": "KeyCompromiseRecoveryPolicy",
       "sectionId": "KCRP",
       "doc": "Key compromise and recovery policy (form).\n\nDefines procedures for detecting key compromise, notification,\nre-keying, revocation, impact assessment, and the documented\ncompromise-recovery plan.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines procedures for detecting key compromise, notifying stakeholders, re-keying, revocation, and recovering from a compromised cryptographic key."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines procedures for detecting key compromise, notifying stakeholders, re-keying, revocation, and recovering from a compromised cryptographic key."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140444,7 +140819,24 @@
       "name": "KeyEscrowAndBackupPolicy",
       "sectionId": "KEABP",
       "doc": "Key escrow and backup policy (form).\n\nDefines key escrow and backup procedures: whether escrow is used,\nwho holds escrowed keys, which key types are escrowed, backup\nencryption, storage location, and backup frequency.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "ISO/IEC 11770 — key management"
+        ],
+        "connotation": "This section defines key escrow and backup procedures, including who holds escrowed keys, which key types are backed up, and how backups are protected and stored."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "ISO/IEC 11770 — key management"
+            ],
+            "connotation": "This section defines key escrow and backup procedures, including who holds escrowed keys, which key types are backed up, and how backups are protected and stored."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140538,7 +140930,24 @@
       "name": "KeyGenerationPolicy",
       "sectionId": "KEGEPO",
       "doc": "Key generation policy (form).\n\nDefines how cryptographic keys are generated: approved algorithms,\ncryptographic module requirements (FIPS 140-2/140-3), random number\ngeneration, minimum key strengths, and key-purpose separation.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "FIPS 140-3 — security requirements for cryptographic modules"
+        ],
+        "connotation": "This section defines how cryptographic keys are generated, covering approved algorithms, cryptographic module requirements, random number generation, and minimum key strengths."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "FIPS 140-3 — security requirements for cryptographic modules"
+            ],
+            "connotation": "This section defines how cryptographic keys are generated, covering approved algorithms, cryptographic module requirements, random number generation, and minimum key strengths."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140639,7 +141048,24 @@
       "name": "KeyManagement",
       "sectionId": "KEMA",
       "doc": "9.5.3. Key Management.\n\nDefines cryptographic key management policies covering the full key\nlifecycle: generation, storage, rotation, escrow/backup, and compromise\nrecovery. Aligns with OWASP Key Management Cheat Sheet and\nNIST SP 800-57 (Recommendation for Key Management).",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "ISO/IEC 11770 — key management"
+        ],
+        "connotation": "This section defines cryptographic key management policies covering the full key lifecycle: generation, storage, rotation, escrow and backup, and compromise recovery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "ISO/IEC 11770 — key management"
+            ],
+            "connotation": "This section defines cryptographic key management policies covering the full key lifecycle: generation, storage, rotation, escrow and backup, and compromise recovery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -140889,7 +141315,24 @@
       "name": "KeyRotationPolicy",
       "sectionId": "KEROPO",
       "doc": "Key rotation policy (form).\n\nDefines key rotation schedules, automation, triggers, grace periods,\nversioning, and distribution of rotated keys.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "This section defines key rotation schedules, automation, triggers, grace periods, versioning, and distribution of rotated cryptographic keys."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "This section defines key rotation schedules, automation, triggers, grace periods, versioning, and distribution of rotated cryptographic keys."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -141126,7 +141569,24 @@
       "name": "KeyStoragePolicy",
       "sectionId": "KESTPO",
       "doc": "Key storage policy (form).\n\nDefines how cryptographic keys are stored: storage mechanisms (HSM,\nvault, KMS), key-encryption-key (KEK) requirements, plaintext\nprohibitions, integrity protection, access control, and memory\nmanagement considerations.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "FIPS 140-3 — security requirements for cryptographic modules"
+        ],
+        "connotation": "This section defines how cryptographic keys are stored, covering storage mechanisms, key-encryption-key requirements, plaintext prohibitions, integrity protection, and access control."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "FIPS 140-3 — security requirements for cryptographic modules"
+            ],
+            "connotation": "This section defines how cryptographic keys are stored, covering storage mechanisms, key-encryption-key requirements, plaintext prohibitions, integrity protection, and access control."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146072,7 +146532,24 @@
       "name": "LogProtectionPolicy",
       "sectionId": "LOPRPO",
       "doc": "Log protection policy (form).\n\nDefines tamper protection and integrity verification for logs.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-9 protection of audit information",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines tamper protection and integrity verification for audit logs, including write protection and deletion controls."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-9 protection of audit information",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines tamper protection and integrity verification for audit logs, including write protection and deletion controls."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146166,7 +146643,24 @@
       "name": "LogRetentionPolicy",
       "sectionId": "LOREPO",
       "doc": "Log retention policy (form).\n\nDefines how long logs are retained and disposal procedures.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-11 audit record retention",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines log retention periods, archival, and secure disposal, including handling of legal holds."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-11 audit record retention",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines log retention periods, archival, and secure disposal, including handling of legal holds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -146260,7 +146754,24 @@
       "name": "LogStoragePolicy",
       "sectionId": "LOSTPO",
       "doc": "Log storage policy (form).\n\nDefines where and how log data is stored.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-11 audit record retention",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines where and how log data is stored, including centralization, storage format, and encryption at rest."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-11 audit record retention",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines where and how log data is stored, including centralization, storage format, and encryption at rest."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161845,11 +162356,28 @@
       "name": "MutualTlsPolicy",
       "sectionId": "MUTLPO",
       "doc": "Mutual TLS Policy (form).\n\nDefines requirements for mutual TLS (mTLS) where both client and server\nauthenticate via certificates. Covers client certificate issuance,\nauthentication scope, revocation checking, and fallback behavior.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+          "RFC 8446 — TLS 1.3 protocol"
+        ],
+        "connotation": "This section defines mutual TLS requirements where both client and server authenticate via certificates, covering issuance, authentication scope, revocation checking, and fallback behavior."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+              "RFC 8446 — TLS 1.3 protocol"
+            ],
+            "connotation": "This section defines mutual TLS requirements where both client and server authenticate via certificates, covering issuance, authentication scope, revocation checking, and fallback behavior."
           }
         },
         {
@@ -178184,7 +178712,26 @@
       "name": "PeriodicReviewPolicy",
       "sectionId": "PEREPO",
       "doc": "Periodic review policy (form).\n\nDefines periodic reviews of access rights and security posture.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+          "SOC 2 — CC7.2 system monitoring",
+          "GDPR — Article 5(2) accountability"
+        ],
+        "connotation": "This section defines periodic recertification of access rights and security posture, including privileged and dormant account reviews."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+              "SOC 2 — CC7.2 system monitoring",
+              "GDPR — Article 5(2) accountability"
+            ],
+            "connotation": "This section defines periodic recertification of access rights and security posture, including privileged and dormant account reviews."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -184197,7 +184744,26 @@
       "name": "PrivilegeUsageReporting",
       "sectionId": "PRUSRE",
       "doc": "Privilege usage reporting (form).\n\nDefines reports on privileged access and administrative actions.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-6 audit record review and analysis",
+          "SOC 2 — CC7.2 system monitoring",
+          "ISO/IEC 27001:2022 — control A.8.16 monitoring activities"
+        ],
+        "connotation": "This section defines reporting on privileged and administrative activity, including escalation and break-glass usage, for oversight of high-risk access."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-6 audit record review and analysis",
+              "SOC 2 — CC7.2 system monitoring",
+              "ISO/IEC 27001:2022 — control A.8.16 monitoring activities"
+            ],
+            "connotation": "This section defines reporting on privileged and administrative activity, including escalation and break-glass usage, for oversight of high-risk access."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202173,7 +202739,26 @@
       "name": "RegulatoryAuditSupport",
       "sectionId": "REAUSU",
       "doc": "Regulatory audit support (form).\n\nDefines support for external regulatory audits.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+          "GDPR — Article 30 records of processing activities",
+          "SOC 2 — CC7.3 evaluation of security events"
+        ],
+        "connotation": "This section defines how the system supports external regulatory audits through audit trail availability, evidence preservation, and auditor access."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
+              "GDPR — Article 30 records of processing activities",
+              "SOC 2 — CC7.3 evaluation of security events"
+            ],
+            "connotation": "This section defines how the system supports external regulatory audits through audit trail availability, evidence preservation, and auditor access."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233583,7 +234168,24 @@
       "name": "SecurityEventEntry",
       "sectionId": "SEVT",
       "doc": "A custom security event entry (form).\n\nAllows defining additional application-specific security events\nbeyond the standard categories.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "NIST SP 800-53 — control AU-12 audit record generation"
+        ],
+        "connotation": "This section defines a single application-specific security event beyond the standard categories, with its trigger and response."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "NIST SP 800-53 — control AU-12 audit record generation"
+            ],
+            "connotation": "This section defines a single application-specific security event beyond the standard categories, with its trigger and response."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233668,7 +234270,24 @@
       "name": "SecurityEventLoggingPolicy",
       "sectionId": "SELP",
       "doc": "Security event logging policy (form).\n\nOverall policy for security event logging: default level, PII handling,\nevent classification scheme, and severity definitions.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-92 — guide to computer security log management",
+          "NIST SP 800-53 — control AU-2 event logging"
+        ],
+        "connotation": "This section defines the overall policy for security event logging, including default level, PII handling, and severity classification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-92 — guide to computer security log management",
+              "NIST SP 800-53 — control AU-2 event logging"
+            ],
+            "connotation": "This section defines the overall policy for security event logging, including default level, PII handling, and severity classification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233762,7 +234381,26 @@
       "name": "SecurityEventsDefinition",
       "sectionId": "SEEVDE",
       "doc": "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control AU-2 event logging",
+          "NIST SP 800-53 — control AU-12 audit record generation",
+          "ISO/IEC 27001:2022 — control A.8.15 logging"
+        ],
+        "connotation": "This section defines which security-relevant events must be captured in audit logs across authentication, authorization, data, and administrative categories."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging",
+              "NIST SP 800-53 — control AU-12 audit record generation",
+              "ISO/IEC 27001:2022 — control A.8.15 logging"
+            ],
+            "connotation": "This section defines which security-relevant events must be captured in audit logs across authentication, authorization, data, and administrative categories."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -233871,10 +234509,26 @@
           "name": "customEvents",
           "kind": "list",
           "doc": "Custom Security Events — contains 0+× Security Event Entry.",
+          "help": "Add one entry per custom security event.",
           "sectionId": "SEVT-CUST-LST",
           "sectionIdPattern": "SEVT-CUST-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-53 — control AU-2 event logging"
+            ],
+            "connotation": "The catalog of application-specific custom security events to be captured beyond the standard categories."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-53 — control AU-2 event logging"
+                ],
+                "connotation": "The catalog of application-specific custom security events to be captured beyond the standard categories."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -233885,6 +234539,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SEVT-CUST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per custom security event."
               }
             },
             {
@@ -236636,7 +237296,24 @@
       "sectionId": "SEDAEN",
       "doc": "9.5. Sensitive Data Encryption.",
       "detailedIn": "D08SecurityAccessSpecification",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography",
+          "GDPR — Article 32 security of processing"
+        ],
+        "connotation": "This section defines encryption requirements for sensitive data both at rest and in transit, together with the cryptographic key management that underpins them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography",
+              "GDPR — Article 32 security of processing"
+            ],
+            "connotation": "This section defines encryption requirements for sensitive data both at rest and in transit, together with the cryptographic key management that underpins them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -276238,11 +276915,28 @@
       "name": "TlsProtocolPolicy",
       "sectionId": "TLPRPO",
       "doc": "TLS Protocol Policy (form).\n\nGlobal settings for TLS protocol configuration: minimum and preferred\nprotocol versions, allowed cipher suites, Diffie-Hellman groups,\ncompression settings, and compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-52 Rev. 2 — TLS implementation guidelines",
+          "RFC 8446 — TLS 1.3 protocol"
+        ],
+        "connotation": "This section defines global TLS protocol configuration, covering minimum and preferred protocol versions, allowed cipher suites, Diffie-Hellman groups, and compression settings."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-52 Rev. 2 — TLS implementation guidelines",
+              "RFC 8446 — TLS 1.3 protocol"
+            ],
+            "connotation": "This section defines global TLS protocol configuration, covering minimum and preferred protocol versions, allowed cipher suites, Diffie-Hellman groups, and compression settings."
           }
         },
         {
@@ -285295,11 +285989,28 @@
       "name": "TransportSecurityPolicy",
       "sectionId": "TRSEPO",
       "doc": "HSTS and Transport Security Policy (form).\n\nDefines HTTP Strict Transport Security, HTTP-to-HTTPS redirect behavior,\nsecure cookie flags, mixed content prevention, and sensitive data caching\nrules.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+          "OWASP — HTTP strict transport security cheat sheet"
+        ],
+        "connotation": "This section defines HTTP Strict Transport Security, HTTP-to-HTTPS redirect behavior, secure cookie flags, mixed content prevention, and sensitive data caching rules."
+      },
       "annotations": [
         {
           "name": "Form",
           "arguments": {
             "fields": []
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-53 — control SC-8 transmission confidentiality and integrity",
+              "OWASP — HTTP strict transport security cheat sheet"
+            ],
+            "connotation": "This section defines HTTP Strict Transport Security, HTTP-to-HTTPS redirect behavior, secure cookie flags, mixed content prevention, and sensitive data caching rules."
           }
         },
         {

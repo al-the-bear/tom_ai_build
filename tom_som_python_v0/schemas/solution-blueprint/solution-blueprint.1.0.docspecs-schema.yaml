@@ -151,7 +151,7 @@ section-types:
     pattern-check-id:
       pattern: ^cochen_comm_lst-\d+$
       error-message: ID must match cochen_comm_lst-NNN
-    description: Contains 0+× CommunicationChannelEncryption.
+    description: Add one entry per communication channel.
   COINCA-CATE-LST:
     prefix: coinca_cate_lst
     pattern-check-id:
@@ -305,7 +305,7 @@ section-types:
     pattern-check-id:
       pattern: ^endaca_encr_lst-\d+$
       error-message: ID must match endaca_encr_lst-NNN
-    description: Contains 0+× EncryptedDataCategory.
+    description: Add one entry per encrypted data category.
   ENREFE-ENTI-LST:
     prefix: enrefe_enti_lst
     pattern-check-id:
@@ -2980,7 +2980,7 @@ section-types:
     pattern-check-id:
       pattern: ^sevt_cust_lst-\d+$
       error-message: ID must match sevt_cust_lst-NNN
-    description: Custom Security Events — contains 0+× Security Event Entry.
+    description: Add one entry per custom security event.
   SLAE-SLAE-LST:
     prefix: slae_slae_lst
     pattern-check-id:
