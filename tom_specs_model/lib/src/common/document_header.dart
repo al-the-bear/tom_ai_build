@@ -8,6 +8,10 @@ import '../snapshot/spec_node.dart';
 ///
 /// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
 /// an unchanged header by identity and [cloneShallow] needs no child handling.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 §6 — document front matter and identification'],
+  'The standard document control header identifying the document, its project, version, date, author, and status.',
+)
 @SectionId('DOCHD')
 class DocumentHeader with SpecNode {
   @Form([

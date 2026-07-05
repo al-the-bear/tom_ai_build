@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T21:55:09.227571Z",
+  "generatedAt": "2026-07-05T22:09:15.350476Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -96107,7 +96107,22 @@
       "name": "DocumentHeader",
       "sectionId": "DOCHD",
       "doc": "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — document front matter and identification"
+        ],
+        "connotation": "The standard document control header identifying the document, its project, version, date, author, and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — document front matter and identification"
+            ],
+            "connotation": "The standard document control header identifying the document, its project, version, date, author, and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219762,7 +219777,24 @@
       "name": "Requirement",
       "sectionId": "REQ",
       "doc": "Base requirement shared across documents.\n\nDocument-specific requirement types extend this with additional fields.\nFor example, Solution Blueprint functional requirements add\n[relatedUseCase], [relatedBusinessProcess], and [affectedDataEntities].",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §5 — requirement attributes",
+          "INCOSE Guide for Writing Requirements"
+        ],
+        "connotation": "The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §5 — requirement attributes",
+              "INCOSE Guide for Writing Requirements"
+            ],
+            "connotation": "The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228096,7 +228128,22 @@
       "name": "Risk",
       "sectionId": "RISK",
       "doc": "Risk entry shared across documents.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management"
+        ],
+        "connotation": "A single risk entry with its probability, impact, mitigation, owner, and review frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management"
+            ],
+            "connotation": "A single risk entry with its probability, impact, mitigation, owner, and review frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

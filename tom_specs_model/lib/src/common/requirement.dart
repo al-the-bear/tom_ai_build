@@ -8,6 +8,13 @@ import 'enums.dart';
 /// Document-specific requirement types extend this with additional fields.
 /// For example, Solution Blueprint functional requirements add
 /// [relatedUseCase], [relatedBusinessProcess], and [affectedDataEntities].
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 §5 — requirement attributes',
+    'INCOSE Guide for Writing Requirements',
+  ],
+  'The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status.',
+)
 @SectionId('REQ')
 class Requirement {
   @Form([

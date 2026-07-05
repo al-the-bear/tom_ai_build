@@ -4,6 +4,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import 'enums.dart';
 
 /// Risk entry shared across documents.
+@StandardReferences(
+  ['ISO 31000:2018 — risk management'],
+  'A single risk entry with its probability, impact, mitigation, owner, and review frequency.',
+)
 @SectionId('RISK')
 class Risk {
   @Form([
