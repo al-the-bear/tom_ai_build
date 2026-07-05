@@ -33,9 +33,9 @@ import 'experience_and_interface_design.dart'
     'ISO/IEC 25010:2023 — portability',
     'ISO/IEC/IEEE 26511/26514/26515 — information for use',
   ],
-  'The system\'s functional and non-functional requirements; currently homes '
-  'the framework-uncovered NFR sub-areas (localization, information-for-use, '
-  'training).',
+  'The functional and non-functional requirements of the system; currently '
+  'homes the framework-uncovered NFR sub-areas (localization, '
+  'information-for-use, training).',
 )
 @SectionId('REQS')
 class Requirements {
