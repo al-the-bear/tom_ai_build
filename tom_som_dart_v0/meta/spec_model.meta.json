@@ -257670,7 +257670,24 @@
       "sectionId": "STAGOV",
       "doc": "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the cross-stage overview governing aggregate metrics, critical path, resource and budget distribution, schedule, quality, risk, and plan health."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the cross-stage overview governing aggregate metrics, critical path, resource and budget distribution, schedule, quality, risk, and plan health."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257903,10 +257920,28 @@
           "name": "stageSummaries",
           "kind": "list",
           "doc": "13.2.1. Stage Summary — contains 1+× Stage\nSummary Entry.",
+          "help": "Add one entry per stage summary.",
           "sectionId": "STAGSE-STAG-LST",
           "sectionIdPattern": "STAGSE-STAG-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Holds one summary entry per stage giving an at-a-glance identification, timeline, scope, and status view across the full staging plan."
+          },
           "serializationOrder": 12,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+                  "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+                ],
+                "connotation": "Holds one summary entry per stage giving an at-a-glance identification, timeline, scope, and status view across the full staging plan."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -257923,6 +257958,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per stage summary."
               }
             },
             {
@@ -258057,7 +258098,24 @@
       "name": "StageOverviewBaseline",
       "sectionId": "SGOVBS",
       "doc": "Planning baseline for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the baseline version, approval details, planned start and end dates, revision history, and next scheduled review of the staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the baseline version, approval details, planned start and end dates, revision history, and next scheduled review of the staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258149,7 +258207,24 @@
       "name": "StageOverviewBudget",
       "sectionId": "SGOVBD",
       "doc": "Budget distribution for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery"
+        ],
+        "connotation": "Captures the budget distribution pattern, contingency and management reserves, burn rate, and capital versus operational split across stages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery"
+            ],
+            "connotation": "Captures the budget distribution pattern, contingency and management reserves, burn rate, and capital versus operational split across stages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258234,7 +258309,24 @@
       "name": "StageOverviewCommunication",
       "sectionId": "STOVCO",
       "doc": "Stakeholder communication for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the reporting cadence, primary audience, escalation thresholds, and dashboard availability for communicating stage plan progress."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the reporting cadence, primary audience, escalation thresholds, and dashboard availability for communicating stage plan progress."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258298,7 +258390,24 @@
       "name": "StageOverviewConstraints",
       "sectionId": "STOVC1",
       "doc": "Assumptions and constraints for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the key planning assumptions, external and internal constraints, and stage-overlap policy governing the overall staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the key planning assumptions, external and internal constraints, and stage-overlap policy governing the overall staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258369,7 +258478,24 @@
       "name": "StageOverviewDependencies",
       "sectionId": "SGOVDP",
       "doc": "Cross-stage dependencies for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the critical path summary and length, cross-stage and external dependency counts, longest lead-time item, and inter-stage buffer."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the critical path summary and length, cross-stage and external dependency counts, longest lead-time item, and inter-stage buffer."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258454,7 +258580,24 @@
       "name": "StageOverviewMetrics",
       "sectionId": "SGOVM",
       "doc": "Summary metrics for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the aggregate feature, epic, story, and effort totals plus average, shortest, and longest stage durations across the staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the aggregate feature, epic, story, and effort totals plus average, shortest, and longest stage durations across the staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258539,7 +258682,24 @@
       "name": "StageOverviewQuality",
       "sectionId": "STOVQU",
       "doc": "Quality and compliance targets for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the aggregate quality targets, compliance and audit checkpoints, quality gates, and regression testing approach across all stages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the aggregate quality targets, compliance and audit checkpoints, quality gates, and regression testing approach across all stages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258610,7 +258770,24 @@
       "name": "StageOverviewResources",
       "sectionId": "SGOVRS",
       "doc": "Resource allocation for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery"
+        ],
+        "connotation": "Captures the peak, minimum, and average team sizes, allocation pattern, internal versus external mix, key roles, and onboarding lead time across stages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery"
+            ],
+            "connotation": "Captures the peak, minimum, and average team sizes, allocation pattern, internal versus external mix, key roles, and onboarding lead time across stages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258702,7 +258879,24 @@
       "name": "StageOverviewRisk",
       "sectionId": "STOVRI",
       "doc": "Risk profile for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the aggregate schedule, budget, and scope risk profile, the highest-risk stage, mitigation investment, and top risks to the staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the aggregate schedule, budget, and scope risk profile, the highest-risk stage, mitigation investment, and top risks to the staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258787,7 +258981,24 @@
       "name": "StageOverviewSchedule",
       "sectionId": "SGOVSC",
       "doc": "Schedule analytics for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the total and free float, schedule compression options and limits, buffer allocation policy, and milestone count across the staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the total and free float, schedule compression options and limits, buffer allocation policy, and milestone count across the staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -258865,7 +259076,24 @@
       "name": "StageOverviewStatus",
       "sectionId": "STOVST",
       "doc": "Plan status and health for stage overview.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the overall plan status, schedule and budget variances, earned-value indices, and confidence level of the staging plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the overall plan status, schedule and budget variances, earned-value indices, and confidence level of the staging plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260577,7 +260805,24 @@
       "name": "StagingApproachSelection",
       "sectionId": "STAGAS",
       "doc": "Approach selection for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance covers selection and tailoring of the delivery approach for the project",
+          "ISO 21502:2020 — the guidance on project management describes choosing a life-cycle approach and evaluating alternatives"
+        ],
+        "connotation": "Captures the selected staging approach, the alternatives considered, and the criteria used to make the selection."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance covers selection and tailoring of the delivery approach for the project",
+              "ISO 21502:2020 — the guidance on project management describes choosing a life-cycle approach and evaluating alternatives"
+            ],
+            "connotation": "Captures the selected staging approach, the alternatives considered, and the criteria used to make the selection."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260634,7 +260879,24 @@
       "name": "StagingCommunication",
       "sectionId": "STAGCM",
       "doc": "Communication and change management for staging.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance addresses stakeholder communication and engagement across delivery phases",
+          "PRINCE2 2017 — the managing successful projects method defines the communication management approach and stakeholder engagement"
+        ],
+        "connotation": "Captures how staging progress is communicated and how the plan aligns with change management and feedback mechanisms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses stakeholder communication and engagement across delivery phases",
+              "PRINCE2 2017 — the managing successful projects method defines the communication management approach and stakeholder engagement"
+            ],
+            "connotation": "Captures how staging progress is communicated and how the plan aligns with change management and feedback mechanisms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260712,7 +260974,22 @@
       "name": "StagingComplexity",
       "sectionId": "STAGCX",
       "doc": "Complexity assessment for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance frames assessment of delivery complexity, integration, and change impact"
+        ],
+        "connotation": "Captures the complexity assessment covering integration, data migration, and user-impact factors that shape staging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance frames assessment of delivery complexity, integration, and change impact"
+            ],
+            "connotation": "Captures the complexity assessment covering integration, data migration, and user-impact factors that shape staging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260783,7 +261060,24 @@
       "name": "StagingCutover",
       "sectionId": "STAGCO",
       "doc": "Rollback and cutover strategy for staging.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework describes release strategies such as blue-green and canary that inform cutover methodology",
+          "PMBOK Guide 7th edition 2021 — the PMI guidance addresses transition, rollback, and parallel-operation planning for delivery"
+        ],
+        "connotation": "Captures the rollback strategy, parallel-operation approach, and cutover methodology for moving each stage into production."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework describes release strategies such as blue-green and canary that inform cutover methodology",
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses transition, rollback, and parallel-operation planning for delivery"
+            ],
+            "connotation": "Captures the rollback strategy, parallel-operation approach, and cutover methodology for moving each stage into production."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260882,7 +261176,24 @@
       "name": "StagingDependencies",
       "sectionId": "STAGDP",
       "doc": "Dependencies for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance addresses interdependencies and prerequisites across delivery phases",
+          "ISO 21502:2020 — the guidance on project management covers management of dependencies on external and internal parties"
+        ],
+        "connotation": "Captures critical prerequisites and external and internal dependencies that gate staged deployment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance addresses interdependencies and prerequisites across delivery phases",
+              "ISO 21502:2020 — the guidance on project management covers management of dependencies on external and internal parties"
+            ],
+            "connotation": "Captures critical prerequisites and external and internal dependencies that gate staged deployment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -260946,7 +261257,24 @@
       "name": "StagingDrivers",
       "sectionId": "STAGDR",
       "doc": "Key drivers for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21502:2020 — the guidance on project management covers the business, technical, and regulatory constraints that shape delivery",
+          "PMBOK Guide 7th edition 2021 — the PMI guidance frames the drivers and enterprise-environmental factors influencing staging"
+        ],
+        "connotation": "Captures the primary drivers and the business, technical, regulatory, geographic, and seasonal constraints on the staging approach."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management covers the business, technical, and regulatory constraints that shape delivery",
+              "PMBOK Guide 7th edition 2021 — the PMI guidance frames the drivers and enterprise-environmental factors influencing staging"
+            ],
+            "connotation": "Captures the primary drivers and the business, technical, regulatory, geographic, and seasonal constraints on the staging approach."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261024,7 +261352,24 @@
       "name": "StagingFrameworkAlignment",
       "sectionId": "STAGFA",
       "doc": "Framework alignment for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance frames selection of delivery approach and cadence for the project",
+          "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence and release train alignment"
+        ],
+        "connotation": "Captures how the staging plan aligns with the chosen project-management methodology and its planning and release cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance frames selection of delivery approach and cadence for the project",
+              "SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence and release train alignment"
+            ],
+            "connotation": "Captures how the staging plan aligns with the chosen project-management methodology and its planning and release cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261095,7 +261440,24 @@
       "name": "StagingGovernance",
       "sectionId": "STAGGV",
       "doc": "Governance for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PRINCE2 2017 — the managing successful projects method defines project governance, tolerances, and escalation through the management-stage structure",
+          "ISO 21502:2020 — the guidance on project management describes governance roles and decision authorities across the project life cycle"
+        ],
+        "connotation": "Captures how staging decisions are governed, who approves stage transitions, and how exceptions and escalations are handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PRINCE2 2017 — the managing successful projects method defines project governance, tolerances, and escalation through the management-stage structure",
+              "ISO 21502:2020 — the guidance on project management describes governance roles and decision authorities across the project life cycle"
+            ],
+            "connotation": "Captures how staging decisions are governed, who approves stage transitions, and how exceptions and escalations are handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261159,7 +261521,22 @@
       "name": "StagingRationale",
       "sectionId": "STAGRT",
       "doc": "Rationale and justification for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance frames justification of the delivery approach in terms of risk, value, and resources"
+        ],
+        "connotation": "Captures the rationale for the staging approach covering risk reduction, early value, resource optimization, and business continuity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance frames justification of the delivery approach in terms of risk, value, and resources"
+            ],
+            "connotation": "Captures the rationale for the staging approach covering risk reduction, early value, resource optimization, and business continuity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261223,7 +261600,24 @@
       "name": "StagingReadiness",
       "sectionId": "STAGRD",
       "doc": "Readiness and resources for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance addresses resource, skill, and organizational readiness for delivery",
+          "ISO 21502:2020 — the guidance on project management covers resourcing, competence, and organizational change readiness"
+        ],
+        "connotation": "Captures organizational readiness, resource and skill availability, training needs, and support capacity across staging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses resource, skill, and organizational readiness for delivery",
+              "ISO 21502:2020 — the guidance on project management covers resourcing, competence, and organizational change readiness"
+            ],
+            "connotation": "Captures organizational readiness, resource and skill availability, training needs, and support capacity across staging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261301,7 +261695,24 @@
       "name": "StagingRiskAssessment",
       "sectionId": "STAGRK",
       "doc": "Risk assessment for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance addresses risk identification, tolerance, and response planning for delivery",
+          "PRINCE2 2017 — the managing successful projects method defines the risk theme covering tolerance, mitigation, and contingency"
+        ],
+        "connotation": "Captures deployment risk factors, risk tolerance, mitigation and contingency strategies, and rollback triggers for staging."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses risk identification, tolerance, and response planning for delivery",
+              "PRINCE2 2017 — the managing successful projects method defines the risk theme covering tolerance, mitigation, and contingency"
+            ],
+            "connotation": "Captures deployment risk factors, risk tolerance, mitigation and contingency strategies, and rollback triggers for staging."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261373,7 +261784,24 @@
       "sectionId": "STAGST",
       "doc": "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance frames division of delivery work into sequential phases and stage gates",
+          "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+        ],
+        "connotation": "Captures the overall staging strategy including approach selection, rationale, drivers, risk, readiness, cutover, and governance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance frames division of delivery work into sequential phases and stage gates",
+              "PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls"
+            ],
+            "connotation": "Captures the overall staging strategy including approach selection, rationale, drivers, risk, readiness, cutover, and governance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -261471,10 +261899,26 @@
           "name": "drivers",
           "kind": "list",
           "doc": "Key drivers and constraints.",
+          "help": "Add one entry per staging driver.",
           "sectionId": "STAGDR-DRIV-LST",
           "sectionIdPattern": "STAGDR-DRIV-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management covers the drivers and constraints that shape the delivery approach"
+            ],
+            "connotation": "Lists the key drivers and constraints steering the staging strategy."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 21502:2020 — the guidance on project management covers the drivers and constraints that shape the delivery approach"
+                ],
+                "connotation": "Lists the key drivers and constraints steering the staging strategy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -261485,6 +261929,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STAGDR-DRIV-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per staging driver."
               }
             },
             {
@@ -261606,10 +262056,26 @@
           "name": "dependencies",
           "kind": "list",
           "doc": "Dependencies and prerequisites.",
+          "help": "Add one entry per staging dependency.",
           "sectionId": "STAGDP-DEPE-LST",
           "sectionIdPattern": "STAGDP-DEPE-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses interdependencies and prerequisites across delivery phases"
+            ],
+            "connotation": "Lists the dependencies and prerequisites gating the staging strategy."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI guidance addresses interdependencies and prerequisites across delivery phases"
+                ],
+                "connotation": "Lists the dependencies and prerequisites gating the staging strategy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -261620,6 +262086,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STAGDP-DEPE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per staging dependency."
               }
             },
             {
@@ -261697,10 +262169,26 @@
           "name": "keyAssumptions",
           "kind": "list",
           "doc": "13.1.3. Key Assumptions.",
+          "help": "Add one entry per key assumption.",
           "sectionId": "KEYAS-KEYA-LST",
           "sectionIdPattern": "KEYAS-KEYA-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"
+            ],
+            "connotation": "Lists the key assumptions underpinning the staging strategy."
+          },
           "serializationOrder": 15,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"
+                ],
+                "connotation": "Lists the key assumptions underpinning the staging strategy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -261711,6 +262199,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "KEYAS-KEYA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per key assumption."
               }
             },
             {
@@ -261727,10 +262221,26 @@
           "name": "constraints",
           "kind": "list",
           "doc": "13.1.4. Constraints.",
+          "help": "Add one entry per staging constraint.",
           "sectionId": "STAGI-CONS-LST",
           "sectionIdPattern": "STAGI-CONS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"
+            ],
+            "connotation": "Lists the constraints bounding the staging strategy."
+          },
           "serializationOrder": 16,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"
+                ],
+                "connotation": "Lists the constraints bounding the staging strategy."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -261741,6 +262251,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STAGI-CONS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per staging constraint."
               }
             },
             {
@@ -261795,7 +262311,24 @@
       "name": "StagingSuccessCriteria",
       "sectionId": "STAGSC",
       "doc": "Success criteria for staging strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI guidance defines phase-gate criteria and measures of success for delivery increments",
+          "ISO 21502:2020 — the guidance on project management describes stage gates, acceptance, and decision checkpoints"
+        ],
+        "connotation": "Captures the success criteria, metrics, and go or no-go checkpoints used to declare each stage complete."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI guidance defines phase-gate criteria and measures of success for delivery increments",
+              "ISO 21502:2020 — the guidance on project management describes stage gates, acceptance, and decision checkpoints"
+            ],
+            "connotation": "Captures the success criteria, metrics, and go or no-go checkpoints used to declare each stage complete."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

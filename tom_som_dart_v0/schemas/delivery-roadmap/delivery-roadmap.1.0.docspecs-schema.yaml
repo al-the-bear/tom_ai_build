@@ -44,20 +44,20 @@ section-types:
     pattern-check-id:
       pattern: ^stagdp_depe_lst-\d+$
       error-message: ID must match stagdp_depe_lst-NNN
-    description: Dependencies and prerequisites.
+    description: Add one entry per staging dependency.
   STAGDR-DRIV-LST:
     prefix: stagdr_driv_lst
     pattern-check-id:
       pattern: ^stagdr_driv_lst-\d+$
       error-message: ID must match stagdr_driv_lst-NNN
-    description: Key drivers and constraints.
+    description: Add one entry per staging driver.
   STAGSE-STAG-LST:
     prefix: stagse_stag_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^stagse_stag_lst-\d+$
       error-message: ID must match stagse_stag_lst-NNN
-    description: 13.2.1. Stage Summary — contains 1+× Stage
+    description: Add one entry per stage summary.
   STGMRS-ITEM-LST:
     prefix: stgmrs_item_lst
     min-count-in-document: 1
@@ -94,7 +94,7 @@ section-types:
     pattern-check-id:
       pattern: ^keyas_keya_lst-\d+$
       error-message: ID must match keyas_keya_lst-NNN
-    description: 13.1.3. Key Assumptions.
+    description: Add one entry per key assumption.
   MGPHS-ITEM-LST:
     prefix: mgphs_item_lst
     min-count-in-document: 1
@@ -120,7 +120,7 @@ section-types:
     pattern-check-id:
       pattern: ^stagi_cons_lst-\d+$
       error-message: ID must match stagi_cons_lst-NNN
-    description: 13.1.4. Constraints.
+    description: Add one entry per staging constraint.
   SUSST-SUBS-LST:
     prefix: susst_subs_lst
     pattern-check-id:

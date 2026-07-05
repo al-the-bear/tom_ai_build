@@ -161,6 +161,13 @@ class StagePlanReadiness {
 /// The staging strategy addresses how the system will be deployed in
 /// controlled increments, balancing risk mitigation with early value
 /// delivery.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the overall staging strategy including approach selection, rationale, drivers, risk, readiness, cutover, and governance.',
+)
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STR')
@@ -187,8 +194,15 @@ class StagingStrategy {
   StagingRationale rationale = StagingRationale();
 
   /// Key drivers and constraints.
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management covers the drivers and constraints that shape the delivery approach',
+    ],
+    'Lists the key drivers and constraints steering the staging strategy.',
+  )
   @SectionId('STAGDR-DRIV-LST')
   @SectionIdPattern('STAGDR-DRIV-xxx')
+  @ContentHelp('Add one entry per staging driver.')
   @SerializationOrder(3)
   List<StagingDrivers> drivers = [];
 
@@ -221,8 +235,15 @@ class StagingStrategy {
   StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
 
   /// Dependencies and prerequisites.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI guidance addresses interdependencies and prerequisites across delivery phases',
+    ],
+    'Lists the dependencies and prerequisites gating the staging strategy.',
+  )
   @SectionId('STAGDP-DEPE-LST')
   @SectionIdPattern('STAGDP-DEPE-xxx')
+  @ContentHelp('Add one entry per staging dependency.')
   @SerializationOrder(11)
   List<StagingDependencies> dependencies = [];
 
@@ -247,19 +268,40 @@ class StagingStrategy {
   TextSection rationaleNarrative = TextSection();
 
   /// 13.1.3. Key Assumptions.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions',
+    ],
+    'Lists the key assumptions underpinning the staging strategy.',
+  )
   @SectionId('KEYAS-KEYA-LST')
   @SectionIdPattern('KEYAS-KEYA-xxx')
+  @ContentHelp('Add one entry per key assumption.')
   @SerializationOrder(15)
   List<KeyAssumptionEntry> keyAssumptions = [];
 
   /// 13.1.4. Constraints.
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management covers identification and management of project constraints',
+    ],
+    'Lists the constraints bounding the staging strategy.',
+  )
   @SectionId('STAGI-CONS-LST')
   @SectionIdPattern('STAGI-CONS-xxx')
+  @ContentHelp('Add one entry per staging constraint.')
   @SerializationOrder(16)
   List<StagingStrategyConstraintEntry> constraints = [];
 }
 
 /// Approach selection for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance covers selection and tailoring of the delivery approach for the project',
+    'ISO 21502:2020 — the guidance on project management describes choosing a life-cycle approach and evaluating alternatives',
+  ],
+  'Captures the selected staging approach, the alternatives considered, and the criteria used to make the selection.',
+)
 @SectionId('STAGAS')
 class StagingApproachSelection {
   @Form([
@@ -275,6 +317,12 @@ class StagingApproachSelection {
 }
 
 /// Rationale and justification for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance frames justification of the delivery approach in terms of risk, value, and resources',
+  ],
+  'Captures the rationale for the staging approach covering risk reduction, early value, resource optimization, and business continuity.',
+)
 @SectionId('STAGRT')
 class StagingRationale {
   @Form([
@@ -292,6 +340,13 @@ class StagingRationale {
 }
 
 /// Key drivers for staging strategy.
+@StandardReferences(
+  [
+    'ISO 21502:2020 — the guidance on project management covers the business, technical, and regulatory constraints that shape delivery',
+    'PMBOK Guide 7th edition 2021 — the PMI guidance frames the drivers and enterprise-environmental factors influencing staging',
+  ],
+  'Captures the primary drivers and the business, technical, regulatory, geographic, and seasonal constraints on the staging approach.',
+)
 @SectionId('STAGDR')
 class StagingDrivers {
   @Form([
@@ -313,6 +368,13 @@ class StagingDrivers {
 }
 
 /// Risk assessment for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance addresses risk identification, tolerance, and response planning for delivery',
+    'PRINCE2 2017 — the managing successful projects method defines the risk theme covering tolerance, mitigation, and contingency',
+  ],
+  'Captures deployment risk factors, risk tolerance, mitigation and contingency strategies, and rollback triggers for staging.',
+)
 @SectionId('STAGRK')
 class StagingRiskAssessment {
   @Form([
@@ -332,6 +394,12 @@ class StagingRiskAssessment {
 }
 
 /// Complexity assessment for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance frames assessment of delivery complexity, integration, and change impact',
+  ],
+  'Captures the complexity assessment covering integration, data migration, and user-impact factors that shape staging.',
+)
 @SectionId('STAGCX')
 class StagingComplexity {
   @Form([
@@ -351,6 +419,13 @@ class StagingComplexity {
 }
 
 /// Readiness and resources for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance addresses resource, skill, and organizational readiness for delivery',
+    'ISO 21502:2020 — the guidance on project management covers resourcing, competence, and organizational change readiness',
+  ],
+  'Captures organizational readiness, resource and skill availability, training needs, and support capacity across staging.',
+)
 @SectionId('STAGRD')
 class StagingReadiness {
   @Form([
@@ -372,6 +447,13 @@ class StagingReadiness {
 }
 
 /// Rollback and cutover strategy for staging.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework describes release strategies such as blue-green and canary that inform cutover methodology',
+    'PMBOK Guide 7th edition 2021 — the PMI guidance addresses transition, rollback, and parallel-operation planning for delivery',
+  ],
+  'Captures the rollback strategy, parallel-operation approach, and cutover methodology for moving each stage into production.',
+)
 @SectionId('STAGCO')
 class StagingCutover {
   @Form([
@@ -399,6 +481,13 @@ class StagingCutover {
 }
 
 /// Success criteria for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance defines phase-gate criteria and measures of success for delivery increments',
+    'ISO 21502:2020 — the guidance on project management describes stage gates, acceptance, and decision checkpoints',
+  ],
+  'Captures the success criteria, metrics, and go or no-go checkpoints used to declare each stage complete.',
+)
 @SectionId('STAGSC')
 class StagingSuccessCriteria {
   @Form([
@@ -418,6 +507,13 @@ class StagingSuccessCriteria {
 }
 
 /// Communication and change management for staging.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance addresses stakeholder communication and engagement across delivery phases',
+    'PRINCE2 2017 — the managing successful projects method defines the communication management approach and stakeholder engagement',
+  ],
+  'Captures how staging progress is communicated and how the plan aligns with change management and feedback mechanisms.',
+)
 @SectionId('STAGCM')
 class StagingCommunication {
   @Form([
@@ -439,6 +535,13 @@ class StagingCommunication {
 }
 
 /// Framework alignment for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI guidance frames selection of delivery approach and cadence for the project',
+    'SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence and release train alignment',
+  ],
+  'Captures how the staging plan aligns with the chosen project-management methodology and its planning and release cadence.',
+)
 @SectionId('STAGFA')
 class StagingFrameworkAlignment {
   @Form([
@@ -458,6 +561,13 @@ class StagingFrameworkAlignment {
 }
 
 /// Dependencies for staging strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance addresses interdependencies and prerequisites across delivery phases',
+    'ISO 21502:2020 — the guidance on project management covers management of dependencies on external and internal parties',
+  ],
+  'Captures critical prerequisites and external and internal dependencies that gate staged deployment.',
+)
 @SectionId('STAGDP')
 class StagingDependencies {
   @Form([
@@ -475,6 +585,13 @@ class StagingDependencies {
 }
 
 /// Governance for staging strategy.
+@StandardReferences(
+  [
+    'PRINCE2 2017 — the managing successful projects method defines project governance, tolerances, and escalation through the management-stage structure',
+    'ISO 21502:2020 — the guidance on project management describes governance roles and decision authorities across the project life cycle',
+  ],
+  'Captures how staging decisions are governed, who approves stage transitions, and how exceptions and escalations are handled.',
+)
 @SectionId('STAGGV')
 class StagingGovernance {
   @Form([
@@ -499,6 +616,13 @@ class StagingGovernance {
 /// profile, and plan health. Draws from PMBOK phase-gate discipline,
 /// SAFe PI planning cadence, PRINCE2 stage boundary management, and
 /// TOGAF architecture road-mapping.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the cross-stage overview governing aggregate metrics, critical path, resource and budget distribution, schedule, quality, risk, and plan health.',
+)
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STA')
@@ -565,9 +689,17 @@ class StageOverview {
 
   /// 13.2.1. Stage Summary — contains 1+× Stage
   /// Summary Entry.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+      'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+    ],
+    'Holds one summary entry per stage giving an at-a-glance identification, timeline, scope, and status view across the full staging plan.',
+  )
   @SectionId('STAGSE-STAG-LST')
   @SectionIdPattern('STAGSE-STAG-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per stage summary.')
   @SerializationOrder(12)
   List<StageSummaryEntry> stageSummaries = [];
 
@@ -611,6 +743,13 @@ class StageOverview {
 }
 
 /// Summary metrics for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the aggregate feature, epic, story, and effort totals plus average, shortest, and longest stage durations across the staging plan.',
+)
 @SectionId('SGOVM')
 class StageOverviewMetrics {
   @Form([
@@ -643,6 +782,13 @@ class StageOverviewMetrics {
 }
 
 /// Planning baseline for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the baseline version, approval details, planned start and end dates, revision history, and next scheduled review of the staging plan.',
+)
 @SectionId('SGOVBS')
 class StageOverviewBaseline {
   @Form([
@@ -668,6 +814,13 @@ class StageOverviewBaseline {
 }
 
 /// Cross-stage dependencies for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the critical path summary and length, cross-stage and external dependency counts, longest lead-time item, and inter-stage buffer.',
+)
 @SectionId('SGOVDP')
 class StageOverviewDependencies {
   @Form([
@@ -691,6 +844,13 @@ class StageOverviewDependencies {
 }
 
 /// Resource allocation for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery',
+  ],
+  'Captures the peak, minimum, and average team sizes, allocation pattern, internal versus external mix, key roles, and onboarding lead time across stages.',
+)
 @SectionId('SGOVRS')
 class StageOverviewResources {
   @Form([
@@ -716,6 +876,13 @@ class StageOverviewResources {
 }
 
 /// Budget distribution for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'SAFe 6.0 — the Scaled Agile Framework defines program increment planning cadence for incremental multi-stage delivery',
+  ],
+  'Captures the budget distribution pattern, contingency and management reserves, burn rate, and capital versus operational split across stages.',
+)
 @SectionId('SGOVBD')
 class StageOverviewBudget {
   @Form([
@@ -739,6 +906,13 @@ class StageOverviewBudget {
 }
 
 /// Schedule analytics for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the total and free float, schedule compression options and limits, buffer allocation policy, and milestone count across the staging plan.',
+)
 @SectionId('SGOVSC')
 class StageOverviewSchedule {
   @Form([
@@ -760,6 +934,13 @@ class StageOverviewSchedule {
 }
 
 /// Quality and compliance targets for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the aggregate quality targets, compliance and audit checkpoints, quality gates, and regression testing approach across all stages.',
+)
 @SectionId('STOVQU')
 class StageOverviewQuality {
   @Form([
@@ -779,6 +960,13 @@ class StageOverviewQuality {
 }
 
 /// Risk profile for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the aggregate schedule, budget, and scope risk profile, the highest-risk stage, mitigation investment, and top risks to the staging plan.',
+)
 @SectionId('STOVRI')
 class StageOverviewRisk {
   @Form([
@@ -802,6 +990,13 @@ class StageOverviewRisk {
 }
 
 /// Plan status and health for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the overall plan status, schedule and budget variances, earned-value indices, and confidence level of the staging plan.',
+)
 @SectionId('STOVST')
 class StageOverviewStatus {
   @Form([
@@ -827,6 +1022,13 @@ class StageOverviewStatus {
 }
 
 /// Stakeholder communication for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the reporting cadence, primary audience, escalation thresholds, and dashboard availability for communicating stage plan progress.',
+)
 @SectionId('STOVCO')
 class StageOverviewCommunication {
   @Form([
@@ -844,6 +1046,13 @@ class StageOverviewCommunication {
 }
 
 /// Assumptions and constraints for stage overview.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and stage gates',
+    'PRINCE2 2017 — the managing successful projects method defines management stages and stage-boundary controls',
+  ],
+  'Captures the key planning assumptions, external and internal constraints, and stage-overlap policy governing the overall staging plan.',
+)
 @SectionId('STOVC1')
 class StageOverviewConstraints {
   @Form([
