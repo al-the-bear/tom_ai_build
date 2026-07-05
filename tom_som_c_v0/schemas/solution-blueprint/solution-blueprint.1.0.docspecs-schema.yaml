@@ -353,20 +353,20 @@ section-types:
     pattern-check-id:
       pattern: ^fedeen_item_lst-\d+$
       error-message: ID must match fedeen_item_lst-NNN
-    description: Contains 0+× FeatureDependencyEntry.
+    description: Add one entry per feature dependency.
   FEPREN-ITEM-LST:
     prefix: fepren_item_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^fepren_item_lst-\d+$
       error-message: ID must match fepren_item_lst-NNN
-    description: Contains 1+× FeaturePriorityEntry.
+    description: Add one entry per prioritized feature.
   FESTM1-ITEM-LST:
     prefix: festm1_item_lst
     pattern-check-id:
       pattern: ^festm1_item_lst-\d+$
       error-message: ID must match festm1_item_lst-NNN
-    description: Contains 0+× FeatureStageMapping.
+    description: Add one entry per feature-stage mapping.
   FTRMOD-FEAT-LST:
     prefix: ftrmod_feat_lst
     pattern-check-id:
@@ -474,7 +474,7 @@ section-types:
     pattern-check-id:
       pattern: ^miphre_reso_lst-\d+$
       error-message: ID must match miphre_reso_lst-NNN
-    description: Resources.
+    description: Add one entry per migration-phase resource.
   MIRIIN-INDI-LST:
     prefix: miriin_indi_lst
     pattern-check-id:
@@ -830,7 +830,7 @@ section-types:
     pattern-check-id:
       pattern: ^stgmrs_item_lst-\d+$
       error-message: ID must match stgmrs_item_lst-NNN
-    description: Contains 1+× StageMigrationRiskEntry.
+    description: Add one entry per migration risk.
   STGSUC-SUCC-LST:
     prefix: stgsuc_succ_lst
     pattern-check-id:
@@ -842,7 +842,7 @@ section-types:
     pattern-check-id:
       pattern: ^stmire_reso_lst-\d+$
       error-message: ID must match stmire_reso_lst-NNN
-    description: Budget and resources.
+    description: Add one entry per migration resource.
   STSUDE-DEPE-LST:
     prefix: stsude_depe_lst
     pattern-check-id:
@@ -1565,7 +1565,7 @@ section-types:
     pattern-check-id:
       pattern: ^mgphs_item_lst-\d+$
       error-message: ID must match mgphs_item_lst-NNN
-    description: Contains 1+× MigrationPhaseEntry.
+    description: Add one entry per migration phase.
   MGRSK-ITEM-LST:
     prefix: mgrsk_item_lst
     pattern-check-id:
@@ -2788,7 +2788,7 @@ section-types:
     pattern-check-id:
       pattern: ^fest_stak_lst-\d+$
       error-message: ID must match fest_stak_lst-NNN
-    description: Stakeholders.
+    description: Add one entry per feature stakeholder.
   GAPE-ITEM-LST:
     prefix: gape_item_lst
     pattern-check-id:
@@ -2843,7 +2843,7 @@ section-types:
     pattern-check-id:
       pattern: ^mien_envi_lst-\d+$
       error-message: ID must match mien_envi_lst-NNN
-    description: Environment strategy.
+    description: Add one entry per migration environment.
   MIIN-MIGR-LST:
     prefix: miin_migr_lst
     pattern-check-id:
@@ -2855,25 +2855,25 @@ section-types:
     pattern-check-id:
       pattern: ^mist_stak_lst-\d+$
       error-message: ID must match mist_stak_lst-NNN
-    description: Stakeholder communication.
+    description: Add one entry per migration stakeholder.
   MISY-SYST-LST:
     prefix: misy_syst_lst
     pattern-check-id:
       pattern: ^misy_syst_lst-\d+$
       error-message: ID must match misy_syst_lst-NNN
-    description: Source and target system details.
+    description: Add one entry per source system.
   MOEN-ITEM-LST:
     prefix: moen_item_lst
     pattern-check-id:
       pattern: ^moen_item_lst-\d+$
       error-message: ID must match moen_item_lst-NNN
-    description: Contains 0+× MoscowEntry.
+    description: Add one entry per MoSCoW-classified feature.
   MPDR-DRYR-LST:
     prefix: mpdr_dryr_lst
     pattern-check-id:
       pattern: ^mpdr_dryr_lst-\d+$
       error-message: ID must match mpdr_dryr_lst-NNN
-    description: Dry runs.
+    description: Add one entry per migration dry run.
   OBOP-OPER-LST:
     prefix: obop_oper_lst
     pattern-check-id:

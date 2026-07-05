@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T20:01:00.709334Z",
+  "generatedAt": "2026-07-05T20:32:38.279399Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -72064,7 +72064,24 @@
       "sectionId": "DAMIST",
       "doc": "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+        ],
+        "connotation": "Captures the comprehensive data migration strategy spanning approach, scope, systems, data quality, tooling, cutover, rollback, compliance, metrics, and stakeholder sign-off."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Captures the comprehensive data migration strategy spanning approach, scope, systems, data quality, tooling, cutover, rollback, compliance, metrics, and stakeholder sign-off."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -72162,10 +72179,26 @@
           "name": "systems",
           "kind": "list",
           "doc": "Source and target system details.",
+          "help": "Add one entry per source system.",
           "sectionId": "MISY-SYST-LST",
           "sectionIdPattern": "MISY-SYST-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Lists the source and target systems involved in the migration, with their transformation complexity and data model changes."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+                ],
+                "connotation": "Lists the source and target systems involved in the migration, with their transformation complexity and data model changes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -72176,6 +72209,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MISY-SYST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per source system."
               }
             },
             {
@@ -72222,10 +72261,28 @@
           "name": "environments",
           "kind": "list",
           "doc": "Environment strategy.",
+          "help": "Add one entry per migration environment.",
           "sectionId": "MIEN-ENVI-LST",
           "sectionIdPattern": "MIEN-ENVI-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+            ],
+            "connotation": "Lists the environments used across the migration, their data subsetting, readiness, and refresh cadence."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+                  "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+                ],
+                "connotation": "Lists the environments used across the migration, their data subsetting, readiness, and refresh cadence."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -72236,6 +72293,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MIEN-ENVI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration environment."
               }
             },
             {
@@ -72312,10 +72375,28 @@
           "name": "stakeholders",
           "kind": "list",
           "doc": "Stakeholder communication.",
+          "help": "Add one entry per migration stakeholder.",
           "sectionId": "MIST-STAK-LST",
           "sectionIdPattern": "MIST-STAK-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Lists the migration stakeholders, their sign-off responsibilities, and communication expectations."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+                ],
+                "connotation": "Lists the migration stakeholders, their sign-off responsibilities, and communication expectations."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -72326,6 +72407,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MIST-STAK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration stakeholder."
               }
             },
             {
@@ -72342,10 +72429,28 @@
           "name": "resources",
           "kind": "list",
           "doc": "Budget and resources.",
+          "help": "Add one entry per migration resource.",
           "sectionId": "STMIRE-RESO-LST",
           "sectionIdPattern": "STMIRE-RESO-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+            ],
+            "connotation": "Lists the resources allocated to migration, including budget, team roles, and vendor support."
+          },
           "serializationOrder": 12,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+                  "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+                ],
+                "connotation": "Lists the resources allocated to migration, including budget, team roles, and vendor support."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -72356,6 +72461,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "STMIRE-RESO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration resource."
               }
             },
             {
@@ -113499,7 +113610,24 @@
       "name": "FeatureBusinessValue",
       "sectionId": "FEBUVA",
       "doc": "Business value for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+        ],
+        "connotation": "Captures the business value score, revenue impact, cost of delay, strategic alignment, and regulatory drivers for a feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+            ],
+            "connotation": "Captures the business value score, revenue impact, cost of delay, strategic alignment, and regulatory drivers for a feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113619,7 +113747,24 @@
       "name": "FeatureDependencies",
       "sectionId": "FEDE",
       "doc": "13.4.4. Feature Dependencies.\n\nCross-feature dependencies affecting staging order, critical path\nanalysis, and delivery sequencing.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Captures cross-feature dependencies affecting staging order, critical-path analysis, and delivery sequencing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Captures cross-feature dependencies affecting staging order, critical-path analysis, and delivery sequencing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113711,10 +113856,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× FeatureDependencyEntry.",
+          "help": "Add one entry per feature dependency.",
           "sectionId": "FEDEEN-ITEM-LST",
           "sectionIdPattern": "FEDEEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Lists each inter-feature dependency that affects staging order and critical-path sequencing."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+                  "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+                ],
+                "connotation": "Lists each inter-feature dependency that affects staging order and critical-path sequencing."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -113725,6 +113888,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FEDEEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per feature dependency."
               }
             },
             {
@@ -113743,7 +113912,24 @@
       "name": "FeatureDependenciesInfo",
       "sectionId": "FEDEIN",
       "doc": "Dependencies info for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113807,7 +113993,24 @@
       "name": "FeatureDependencyEntry",
       "sectionId": "FDE",
       "doc": "A feature dependency entry (form).\n\nDescribes a single directional dependency between two features,\nincluding type, impact, and resolution strategy.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Describes a single directional dependency between two features, including its type, strength, impact, and resolution strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Describes a single directional dependency between two features, including its type, strength, impact, and resolution strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -113913,7 +114116,24 @@
       "name": "FeatureEffort",
       "sectionId": "FEEF",
       "doc": "Effort and complexity for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+        ],
+        "connotation": "Captures the estimated effort, complexity, risk, and integration factors for a feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+            ],
+            "connotation": "Captures the estimated effort, complexity, risk, and integration factors for a feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114005,7 +114225,24 @@
       "name": "FeatureIdentity",
       "sectionId": "FEID",
       "doc": "Feature identity for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+        ],
+        "connotation": "Captures the descriptive identity of a feature: its description, category, type, size, and parent epic."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+            ],
+            "connotation": "Captures the descriptive identity of a feature: its description, category, type, size, and parent epic."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114610,7 +114847,24 @@
       "sectionId": "FEPR",
       "doc": "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.",
       "detailedIn": "D11DeliveryRoadmap",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Provides the comprehensive feature prioritization framework for staged delivery, covering methodology, MoSCoW analysis, and feature-stage mapping."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Provides the comprehensive feature prioritization framework for staged delivery, covering methodology, MoSCoW analysis, and feature-stage mapping."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114853,7 +115107,24 @@
       "name": "FeaturePrioritizationBacklog",
       "sectionId": "FEPRBA",
       "doc": "Backlog health.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+        ],
+        "connotation": "Captures backlog health metrics such as total, prioritized, and unprioritized feature counts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+            ],
+            "connotation": "Captures backlog health metrics such as total, prioritized, and unprioritized feature counts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114924,7 +115195,24 @@
       "name": "FeaturePrioritizationCadence",
       "sectionId": "FEPRCA",
       "doc": "Cadence and triggers.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+        ],
+        "connotation": "Captures the review cadence and the triggers that force re-prioritization of features."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+            ],
+            "connotation": "Captures the review cadence and the triggers that force re-prioritization of features."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114981,7 +115269,24 @@
       "name": "FeaturePrioritizationCapacity",
       "sectionId": "FEPRC1",
       "doc": "Capacity constraints.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing"
+        ],
+        "connotation": "Captures capacity constraints such as team velocity, budget cap, and per-stage feature limits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing"
+            ],
+            "connotation": "Captures capacity constraints such as team velocity, budget cap, and per-stage feature limits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115045,7 +115350,24 @@
       "name": "FeaturePrioritizationMethodology",
       "sectionId": "FEPRME",
       "doc": "Methodology and scoring.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+        ],
+        "connotation": "Captures the prioritization methodology, scoring model, and weighted criteria used to rank features."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+            ],
+            "connotation": "Captures the prioritization methodology, scoring model, and weighted criteria used to rank features."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115109,7 +115431,24 @@
       "name": "FeaturePrioritizationStakeholder",
       "sectionId": "FEPRST",
       "doc": "Stakeholder involvement.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Captures which stakeholders participate in prioritization and how their votes and conflicts are resolved."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Captures which stakeholders participate in prioritization and how their votes and conflicts are resolved."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115166,7 +115505,24 @@
       "name": "FeaturePrioritizationTraceability",
       "sectionId": "FEPRTR",
       "doc": "Traceability.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures how prioritized features trace back to the business case and requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures how prioritized features trace back to the business case and requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115216,7 +115572,24 @@
       "name": "FeaturePriorityEntry",
       "sectionId": "FPE",
       "doc": "An individual feature priority entry (form).\n\nComprehensive record covering identity, classification, business\nvalue, effort, priority scoring, stage assignment, dependencies,\nstakeholders, traceability, and status.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "A comprehensive per-feature record covering identity, business value, effort, priority scoring, staging, dependencies, stakeholders, traceability, and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "A comprehensive per-feature record covering identity, business value, effort, priority scoring, staging, dependencies, stakeholders, traceability, and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115361,10 +115734,28 @@
           "name": "stakeholders",
           "kind": "list",
           "doc": "Stakeholders.",
+          "help": "Add one entry per feature stakeholder.",
           "sectionId": "FEST-STAK-LST",
           "sectionIdPattern": "FEST-STAK-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Lists the stakeholders associated with a feature priority entry."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+                  "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+                ],
+                "connotation": "Lists the stakeholders associated with a feature priority entry."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -115375,6 +115766,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FEST-STAK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per feature stakeholder."
               }
             },
             {
@@ -115423,7 +115820,24 @@
       "name": "FeaturePriorityRegister",
       "sectionId": "FEPRRE",
       "doc": "13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "The master register of all features with priority scoring, business value, effort, stakeholder ownership, and traceability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "The master register of all features with priority scoring, business value, effort, stakeholder ownership, and traceability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115478,10 +115892,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 1+× FeaturePriorityEntry.",
+          "help": "Add one entry per prioritized feature.",
           "sectionId": "FEPREN-ITEM-LST",
           "sectionIdPattern": "FEPREN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Lists each prioritized feature held in the register."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+                  "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+                ],
+                "connotation": "Lists each prioritized feature held in the register."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -115501,6 +115933,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per prioritized feature."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
@@ -115517,7 +115955,24 @@
       "name": "FeaturePriorityScoring",
       "sectionId": "FEPRSC",
       "doc": "Priority scoring for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Captures the weighted priority score, MoSCoW tier, WSJF score, and Kano classification for a feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Captures the weighted priority score, MoSCoW tier, WSJF score, and Kano classification for a feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115588,7 +116043,24 @@
       "name": "FeatureStageAssignment",
       "sectionId": "FESTAS",
       "doc": "Stage assignment for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Records the target, earliest possible, and fallback delivery stage for a feature and the rationale behind that assignment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Records the target, earliest possible, and fallback delivery stage for a feature and the rationale behind that assignment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115652,7 +116124,24 @@
       "name": "FeatureStageMapping",
       "sectionId": "FSM",
       "doc": "A feature-to-stage mapping entry (form).\n\nMaps a single feature or feature group to its delivery stage with\nreadiness, confidence, and dependency information.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Maps a single feature or feature group to its delivery stage with readiness, confidence, and dependency information."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Maps a single feature or feature group to its delivery stage with readiness, confidence, and dependency information."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115769,7 +116258,24 @@
       "name": "FeatureStageMappingAcceptance",
       "sectionId": "FESTMAAC",
       "doc": "Acceptance and notes.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures the acceptance criteria and definition of done for a feature within its assigned delivery stage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures the acceptance criteria and definition of done for a feature within its assigned delivery stage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115826,7 +116332,24 @@
       "name": "FeatureStageMappingAssignment",
       "sectionId": "FSMA",
       "doc": "Stage assignment details.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures the target stage, stage phase, and fallback stage assigned to a feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures the target stage, stage phase, and fallback stage assigned to a feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115883,7 +116406,24 @@
       "name": "FeatureStageMappingDependencies",
       "sectionId": "FSMD",
       "doc": "Dependencies.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115940,7 +116480,24 @@
       "name": "FeatureStageMappingReadiness",
       "sectionId": "FSMR",
       "doc": "Readiness and confidence.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures the readiness status and delivery confidence of a feature against its target stage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures the readiness status and delivery confidence of a feature against its target stage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -115997,7 +116554,24 @@
       "name": "FeatureStageMatrix",
       "sectionId": "FESTMA",
       "doc": "13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Maps every feature or feature group to its delivery stage, tracking readiness, confidence, dependencies, and acceptance criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Maps every feature or feature group to its delivery stage, tracking readiness, confidence, dependencies, and acceptance criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116096,10 +116670,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× FeatureStageMapping.",
+          "help": "Add one entry per feature-stage mapping.",
           "sectionId": "FESTM1-ITEM-LST",
           "sectionIdPattern": "FESTM1-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Holds the collection of feature-to-stage mapping entries that make up the matrix."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+                  "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+                ],
+                "connotation": "Holds the collection of feature-to-stage mapping entries that make up the matrix."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -116110,6 +116702,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FESTM1-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per feature-stage mapping."
               }
             },
             {
@@ -116128,7 +116726,24 @@
       "name": "FeatureStakeholders",
       "sectionId": "FEST",
       "doc": "Stakeholders for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Records who requested, owns, and approved a feature priority entry along with its approval status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Records who requested, owns, and approved a feature priority entry along with its approval status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116213,7 +116828,24 @@
       "name": "FeatureStatus",
       "sectionId": "FS",
       "doc": "Status for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+          "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+        ],
+        "connotation": "Records the prioritization and delivery status, confidence, and change history for a feature priority entry."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management",
+              "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"
+            ],
+            "connotation": "Records the prioritization and delivery status, confidence, and change history for a feature priority entry."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -116452,7 +117084,24 @@
       "name": "FeatureTraceability",
       "sectionId": "FETR",
       "doc": "Traceability for a feature priority entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+        ],
+        "connotation": "Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
+            ],
+            "connotation": "Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -156649,7 +157298,24 @@
       "name": "MigrationApproach",
       "sectionId": "MIAP",
       "doc": "Strategic approach for data migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO 31000:2018 — the risk management guidance covers migration risk assessment"
+        ],
+        "connotation": "Captures the strategic migration approach including the rationale for the chosen method and alternatives considered."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 31000:2018 — the risk management guidance covers migration risk assessment"
+            ],
+            "connotation": "Captures the strategic migration approach including the rationale for the chosen method and alternatives considered."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -156699,7 +157365,24 @@
       "name": "MigrationCompliance",
       "sectionId": "MICO",
       "doc": "Compliance and governance for migration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — the information security management standard covers protection of sensitive data during migration",
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+        ],
+        "connotation": "Captures data privacy compliance, residency and retention requirements, audit trails, and migration governance oversight."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — the information security management standard covers protection of sensitive data during migration",
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Captures data privacy compliance, residency and retention requirements, audit trails, and migration governance oversight."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157138,7 +157821,24 @@
       "name": "MigrationCutover",
       "sectionId": "MICU",
       "doc": "Cutover planning for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+        ],
+        "connotation": "Captures the cutover strategy, downtime window, runbook and pre-flight readiness, and go or no-go decision authority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+            ],
+            "connotation": "Captures the cutover strategy, downtime window, runbook and pre-flight readiness, and go or no-go decision authority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157223,7 +157923,24 @@
       "name": "MigrationDataQuality",
       "sectionId": "MIDAQU",
       "doc": "Data quality strategy for migration.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data",
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+        ],
+        "connotation": "Captures the data quality baseline, profiling tools, known issues, cleansing strategy, and quality thresholds for approval."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data",
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Captures the data quality baseline, profiling tools, known issues, cleansing strategy, and quality thresholds for approval."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157294,7 +158011,24 @@
       "name": "MigrationEnvironments",
       "sectionId": "MIEN",
       "doc": "Environment strategy for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+        ],
+        "connotation": "Captures the migration environment strategy including data subsetting, production-like readiness, and refresh cadence."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+            ],
+            "connotation": "Captures the migration environment strategy including data subsetting, production-like readiness, and refresh cadence."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157531,7 +158265,24 @@
       "name": "MigrationMetrics",
       "sectionId": "MIME",
       "doc": "Success metrics for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data"
+        ],
+        "connotation": "Captures success metrics such as data completeness and accuracy targets, performance benchmarks, and downtime limits."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data"
+            ],
+            "connotation": "Captures success metrics such as data completeness and accuracy targets, performance benchmarks, and downtime limits."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157697,7 +158448,24 @@
       "name": "MigrationPhaseAcceptance",
       "sectionId": "MIPHAC",
       "doc": "Acceptance criteria for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration acceptance and sign-off practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the acceptance criteria and sign-off ownership that gate completion of an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration acceptance and sign-off practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the acceptance criteria and sign-off ownership that gate completion of an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157754,7 +158522,24 @@
       "name": "MigrationPhaseDataScope",
       "sectionId": "MPDS",
       "doc": "Data scope for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data scoping, classification, and ownership practices",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+        ],
+        "connotation": "Captures the source systems, entities, volumes, classification, and ownership of the data in an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data scoping, classification, and ownership practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+            ],
+            "connotation": "Captures the source systems, entities, volumes, classification, and ownership of the data in an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157860,7 +158645,24 @@
       "name": "MigrationPhaseDryRuns",
       "sectionId": "MPDR",
       "doc": "Dry runs for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+        ],
+        "connotation": "Captures the dry run rehearsals, results, and issues discovered for an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+            ],
+            "connotation": "Captures the dry run rehearsals, results, and issues discovered for an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -157945,7 +158747,24 @@
       "name": "MigrationPhaseEntry",
       "sectionId": "MGPHS",
       "doc": "A migration phase entry (form).\n\nRepresents a single migration phase targeting a specific data domain,\nsource system, or entity group. Covers data scope analysis, migration\nmethod selection, transformation mapping, scheduling, dependency\ntracking, validation approach, acceptance criteria, and dry run\nresults.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+        ],
+        "connotation": "Captures a single migration phase covering its scope, method, transformation, schedule, validation, acceptance, and rollback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Captures a single migration phase covering its scope, method, transformation, schedule, validation, acceptance, and rollback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158075,10 +158894,28 @@
           "name": "dryRuns",
           "kind": "list",
           "doc": "Dry runs.",
+          "help": "Add one entry per migration dry run.",
           "sectionId": "MPDR-DRYR-LST",
           "sectionIdPattern": "MPDR-DRYR-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+            ],
+            "connotation": "Lists the dry run rehearsals conducted for this migration phase."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices",
+                  "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+                ],
+                "connotation": "Lists the dry run rehearsals conducted for this migration phase."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -158089,6 +158926,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MPDR-DRYR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration dry run."
               }
             },
             {
@@ -158150,10 +158993,28 @@
           "name": "resources",
           "kind": "list",
           "doc": "Resources.",
+          "help": "Add one entry per migration-phase resource.",
           "sectionId": "MIPHRE-RESO-LST",
           "sectionIdPattern": "MIPHRE-RESO-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration resource allocation practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Lists the resources assigned to this migration phase."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration resource allocation practices",
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+                ],
+                "connotation": "Lists the resources assigned to this migration phase."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -158164,6 +159025,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MIPHRE-RESO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration-phase resource."
               }
             },
             {
@@ -158197,7 +159064,24 @@
       "name": "MigrationPhaseIdentity",
       "sectionId": "MIPHID",
       "doc": "Phase identity for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the descriptive identity, objective, and linked project stage of an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the descriptive identity, objective, and linked project stage of an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158254,7 +159138,22 @@
       "name": "MigrationPhaseMethod",
       "sectionId": "MIPHME",
       "doc": "Migration method for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data extraction, load, and migration method practices"
+        ],
+        "connotation": "Captures the migration method, tooling, extraction approach, and load strategy for an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data extraction, load, and migration method practices"
+            ],
+            "connotation": "Captures the migration method, tooling, extraction approach, and load strategy for an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158325,7 +159224,24 @@
       "name": "MigrationPhaseResources",
       "sectionId": "MIPHRE",
       "doc": "Resources for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+        ],
+        "connotation": "Captures the team members and effort assigned to an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Captures the team members and effort assigned to an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158375,7 +159291,24 @@
       "name": "MigrationPhaseRollback",
       "sectionId": "MIPHRO",
       "doc": "Rollback for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration rollback and recovery practices",
+          "ISO 31000:2018 — the risk management guidance covers migration risk within phase planning"
+        ],
+        "connotation": "Captures the rollback strategy and time budget for reverting an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration rollback and recovery practices",
+              "ISO 31000:2018 — the risk management guidance covers migration risk within phase planning"
+            ],
+            "connotation": "Captures the rollback strategy and time budget for reverting an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158425,7 +159358,24 @@
       "name": "MigrationPhaseSchedule",
       "sectionId": "MIPHSC",
       "doc": "Schedule and dependencies for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the planned and actual schedule plus inter-phase and external dependencies for an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the planned and actual schedule plus inter-phase and external dependencies for an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158456,12 +159406,14 @@
             {
               "name": "plannedStartDate",
               "label": "Planned Start Date",
+              "hint": "Scheduled start of the migration phase, e.g. 2026-03-01",
               "type": "String",
               "required": true
             },
             {
               "name": "plannedEndDate",
               "label": "Planned End Date",
+              "hint": "Scheduled completion of the migration phase, e.g. 2026-03-21",
               "type": "String",
               "required": true
             },
@@ -158522,7 +159474,24 @@
       "name": "MigrationPhaseStatus",
       "sectionId": "MIPHST",
       "doc": "Status for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the current execution status and completion progress of an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the current execution status and completion progress of an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158579,7 +159548,24 @@
       "name": "MigrationPhaseTransformation",
       "sectionId": "MIPHTR",
       "doc": "Transformation and mapping for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data transformation, mapping, and cleansing practices",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+        ],
+        "connotation": "Captures the transformation rules, field mappings, cleansing, and enrichment applied during an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data transformation, mapping, and cleansing practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+            ],
+            "connotation": "Captures the transformation rules, field mappings, cleansing, and enrichment applied during an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158671,7 +159657,24 @@
       "name": "MigrationPhaseValidation",
       "sectionId": "MIPHVA",
       "doc": "Validation and reconciliation for migration phase.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration validation and reconciliation practices",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+        ],
+        "connotation": "Captures the validation approach, reconciliation checks, and integrity analysis for an individual migration phase."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration validation and reconciliation practices",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data"
+            ],
+            "connotation": "Captures the validation approach, reconciliation checks, and integrity analysis for an individual migration phase."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158770,7 +159773,24 @@
       "name": "MigrationPhases",
       "sectionId": "MIPH",
       "doc": "13.5.1. Migration Phases.\n\nStaged migration phases defining the sequential or overlapping\nexecution plan. Each phase targets a specific data domain or source\nsystem, with defined methods, transformation rules, validation\ncriteria, and dry run expectations.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+        ],
+        "connotation": "Captures the overall staged migration plan and its execution model across all migration phases."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"
+            ],
+            "connotation": "Captures the overall staged migration plan and its execution model across all migration phases."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158883,10 +159903,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 1+× MigrationPhaseEntry.",
+          "help": "Add one entry per migration phase.",
           "sectionId": "MGPHS-ITEM-LST",
           "sectionIdPattern": "MGPHS-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Lists the individual migration phases that make up the staged migration plan."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices",
+                  "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+                ],
+                "connotation": "Lists the individual migration phases that make up the staged migration plan."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -158903,6 +159941,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration phase."
               }
             },
             {
@@ -161262,7 +162306,24 @@
       "name": "MigrationRollback",
       "sectionId": "MIRO",
       "doc": "Rollback and recovery for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO 31000:2018 — the risk management guidance covers migration risk assessment"
+        ],
+        "connotation": "Captures the rollback strategy, time budget, triggers, testing status, and point of no return for migration recovery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 31000:2018 — the risk management guidance covers migration risk assessment"
+            ],
+            "connotation": "Captures the rollback strategy, time budget, triggers, testing status, and point of no return for migration recovery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161333,7 +162394,24 @@
       "name": "MigrationSchedule",
       "sectionId": "MS",
       "doc": "Schedule overview for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+        ],
+        "connotation": "Captures the overall migration schedule including start and end dates, dry run cadence, and hypercare duration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Captures the overall migration schedule including start and end dates, dry run cadence, and hypercare duration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161404,7 +162482,22 @@
       "name": "MigrationScope",
       "sectionId": "MISC",
       "doc": "Scope and data landscape for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+        ],
+        "connotation": "Captures the migration scope including the data landscape, source system counts, data volumes, classification, and exclusions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Captures the migration scope including the data landscape, source system counts, data volumes, classification, and exclusions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161482,7 +162575,24 @@
       "name": "MigrationStakeholders",
       "sectionId": "MIST",
       "doc": "Stakeholder communication for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+        ],
+        "connotation": "Captures stakeholder sign-off requirements, communication planning, and training for the migration team."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates"
+            ],
+            "connotation": "Captures stakeholder sign-off requirements, communication planning, and training for the migration team."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161546,7 +162656,22 @@
       "name": "MigrationSystems",
       "sectionId": "MISY",
       "doc": "Source and target systems for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+        ],
+        "connotation": "Captures the source system inventory, target platform description, schema transformation complexity, and data model changes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Captures the source system inventory, target platform description, schema transformation complexity, and data model changes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -161610,7 +162735,22 @@
       "name": "MigrationTooling",
       "sectionId": "MITO",
       "doc": "Tooling and technology for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+        ],
+        "connotation": "Captures the migration tooling stack including primary and secondary tools, CDC, orchestration, scripting, and version control."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices"
+            ],
+            "connotation": "Captures the migration tooling stack including primary and secondary tools, CDC, orchestration, scripting, and version control."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165188,7 +166328,24 @@
       "name": "MoscowAnalysis",
       "sectionId": "MOAN",
       "doc": "13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Classifies every feature using the MoSCoW method and maps each to its target delivery stage."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Classifies every feature using the MoSCoW method and maps each to its target delivery stage."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165308,10 +166465,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× MoscowEntry.",
+          "help": "Add one entry per MoSCoW-classified feature.",
           "sectionId": "MOEN-ITEM-LST",
           "sectionIdPattern": "MOEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Holds the collection of MoSCoW classification entries, one per feature."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+                  "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+                ],
+                "connotation": "Holds the collection of MoSCoW classification entries, one per feature."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -165322,6 +166497,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MOEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per MoSCoW-classified feature."
               }
             },
             {
@@ -165340,7 +166521,24 @@
       "name": "MoscowEntry",
       "sectionId": "ME",
       "doc": "A MoSCoW classification entry (form).\n\nMaps a single feature or feature group to its MoSCoW category and\ntarget delivery stage, with justification and cross-references.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Maps a single feature or feature group to its MoSCoW category and target delivery stage with justification and cross-references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Maps a single feature or feature group to its MoSCoW category and target delivery stage with justification and cross-references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165457,7 +166655,24 @@
       "name": "MoscowEntryClassification",
       "sectionId": "MOENCL",
       "doc": "MoSCoW classification details.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+        ],
+        "connotation": "Captures the MoSCoW category, justification, and reclassification risk for a single feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"
+            ],
+            "connotation": "Captures the MoSCoW category, justification, and reclassification risk for a single feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165514,7 +166729,24 @@
       "name": "MoscowEntryStageAssignment",
       "sectionId": "MESA",
       "doc": "Stage assignment.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+          "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+        ],
+        "connotation": "Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
+              "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"
+            ],
+            "connotation": "Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165564,7 +166796,24 @@
       "name": "MoscowEntryTraceability",
       "sectionId": "MOENTR",
       "doc": "Traceability and notes.",
+      "standardReferences": {
+        "standards": [
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+          "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition"
+        ],
+        "connotation": "Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
+              "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition"
+            ],
+            "connotation": "Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -165628,7 +166877,24 @@
       "name": "MoscowEntryValue",
       "sectionId": "MOENVA",
       "doc": "Value and effort estimates.",
+      "standardReferences": {
+        "standards": [
+          "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+          "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+        ],
+        "connotation": "Captures the business value, effort estimate, and cost of delay used to prioritize a feature."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization",
+              "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"
+            ],
+            "connotation": "Captures the business value, effort estimate, and cost of delay used to prioritize a feature."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -256813,7 +258079,24 @@
       "name": "StageMigrationResources",
       "sectionId": "STMIRE",
       "doc": "Budget and resources for migration.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+          "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+        ],
+        "connotation": "Captures the migration budget, team composition, and external vendor support arrangements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices",
+              "ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates"
+            ],
+            "connotation": "Captures the migration budget, team composition, and external vendor support arrangements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -256870,7 +258153,24 @@
       "name": "StageMigrationRiskContingency",
       "sectionId": "SMRC",
       "doc": "Contingency actions.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance covers contingency planning and fallback actions when treatment fails",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers contingency reserves and response triggers in project risk management"
+        ],
+        "connotation": "Captures the contingency plan, activation trigger, and reserved budget if a migration risk materializes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance covers contingency planning and fallback actions when treatment fails",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers contingency reserves and response triggers in project risk management"
+            ],
+            "connotation": "Captures the contingency plan, activation trigger, and reserved budget if a migration risk materializes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -256927,7 +258227,24 @@
       "name": "StageMigrationRiskEntry",
       "sectionId": "STGMRS",
       "doc": "A stage migration risk entry (form).\n\nIndividual risk in the data migration risk register. Covers risk\nidentification, categorization, probability/impact scoring,\nmitigation planning, contingency actions, trigger indicators,\nownership, monitoring approach, and residual risk after mitigation.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines a risk register entry covering identification, assessment, treatment, and monitoring",
+          "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+        ],
+        "connotation": "Captures a single entry in the data migration risk register spanning identity, scoring, mitigation, contingency, monitoring, ownership, residual, and status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines a risk register entry covering identification, assessment, treatment, and monitoring",
+              "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+            ],
+            "connotation": "Captures a single entry in the data migration risk register spanning identity, scoring, mitigation, contingency, monitoring, ownership, residual, and status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257104,7 +258421,22 @@
       "name": "StageMigrationRiskIdentity",
       "sectionId": "SMRI",
       "doc": "Risk identity and description.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines risk identification and description of risk scenarios"
+        ],
+        "connotation": "Captures the detailed description of an individual migration risk scenario."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines risk identification and description of risk scenarios"
+            ],
+            "connotation": "Captures the detailed description of an individual migration risk scenario."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257147,7 +258479,22 @@
       "name": "StageMigrationRiskMitigation",
       "sectionId": "SMRM",
       "doc": "Mitigation planning.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines risk treatment options to reduce probability or impact"
+        ],
+        "connotation": "Captures the mitigation strategy, owner, status, and deadline for treating a migration risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines risk treatment options to reduce probability or impact"
+            ],
+            "connotation": "Captures the mitigation strategy, owner, status, and deadline for treating a migration risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257211,7 +258558,22 @@
       "name": "StageMigrationRiskMonitoring",
       "sectionId": "STMIRIMO",
       "doc": "Monitoring and detection.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines monitoring, early-warning indicators, and detection of emerging risks"
+        ],
+        "connotation": "Captures the trigger indicators, monitoring approach, frequency, and alert thresholds used to detect a migration risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines monitoring, early-warning indicators, and detection of emerging risks"
+            ],
+            "connotation": "Captures the trigger indicators, monitoring approach, frequency, and alert thresholds used to detect a migration risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257275,7 +258637,24 @@
       "name": "StageMigrationRiskOwnership",
       "sectionId": "SMRO",
       "doc": "Ownership and accountability.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance assigns accountability and authority for managing each risk",
+          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers risk ownership and escalation within project risk management"
+        ],
+        "connotation": "Captures the accountable owner and escalation path for a migration risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance assigns accountability and authority for managing each risk",
+              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers risk ownership and escalation within project risk management"
+            ],
+            "connotation": "Captures the accountable owner and escalation path for a migration risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257325,7 +258704,24 @@
       "name": "StageMigrationRiskProbabilityImpact",
       "sectionId": "SMRPI",
       "doc": "Probability and impact assessment.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines risk analysis in terms of likelihood and consequence",
+          "ISO/IEC 25012:2008 — the data quality model defines characteristics used to assess the impact on migrated data"
+        ],
+        "connotation": "Captures the probability, impact, computed score, impacted areas, and affected phases for a migration risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines risk analysis in terms of likelihood and consequence",
+              "ISO/IEC 25012:2008 — the data quality model defines characteristics used to assess the impact on migrated data"
+            ],
+            "connotation": "Captures the probability, impact, computed score, impacted areas, and affected phases for a migration risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257396,7 +258792,22 @@
       "name": "StageMigrationRiskResidual",
       "sectionId": "SMRR",
       "doc": "Residual risk assessment.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance addresses residual risk remaining after treatment and whether it is acceptable"
+        ],
+        "connotation": "Captures the residual probability, impact, and acceptability of a migration risk after mitigation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance addresses residual risk remaining after treatment and whether it is acceptable"
+            ],
+            "connotation": "Captures the residual probability, impact, and acceptability of a migration risk after mitigation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257453,7 +258864,22 @@
       "name": "StageMigrationRiskStatus",
       "sectionId": "SMRS",
       "doc": "Status and review.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines monitoring and review of risks over their life-cycle"
+        ],
+        "connotation": "Captures the current status of a migration risk and the date it was last reviewed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines monitoring and review of risks over their life-cycle"
+            ],
+            "connotation": "Captures the current status of a migration risk and the date it was last reviewed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257510,7 +258936,24 @@
       "name": "StageMigrationRisks",
       "sectionId": "STMIRI",
       "doc": "13.5.2. Migration Risks.\n\nRisk register specific to data migration activities. Covers data\nloss, corruption, downtime overrun, compliance violations,\nperformance degradation, and organizational readiness risks.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — the risk management guidance defines risk identification, assessment, treatment, and monitoring for a risk register",
+          "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+        ],
+        "connotation": "Captures the migration-specific risk register summary including totals, methodology, tolerance policy, review cadence, and overall risk rating."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines risk identification, assessment, treatment, and monitoring for a risk register",
+              "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+            ],
+            "connotation": "Captures the migration-specific risk register summary including totals, methodology, tolerance policy, review cadence, and overall risk rating."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -257630,10 +259073,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 1+× StageMigrationRiskEntry.",
+          "help": "Add one entry per migration risk.",
           "sectionId": "STGMRS-ITEM-LST",
           "sectionIdPattern": "STGMRS-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 31000:2018 — the risk management guidance defines a risk register as a record of identified risks",
+              "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+            ],
+            "connotation": "Holds the list of individual migration risk entries making up the register."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 31000:2018 — the risk management guidance defines a risk register as a record of identified risks",
+                  "DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls"
+                ],
+                "connotation": "Holds the list of individual migration risk entries making up the register."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -257650,6 +259111,12 @@
               "name": "Min",
               "arguments": {
                 "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per migration risk."
               }
             },
             {

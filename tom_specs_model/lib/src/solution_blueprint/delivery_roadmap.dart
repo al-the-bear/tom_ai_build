@@ -1793,6 +1793,13 @@ class StageSuccessCriterionEntryStatus {
 /// mapping, individual feature priority scoring, and cross-feature
 /// dependency tracking. Aligns with SAFe WSJF, PMBOK value-driven
 /// delivery, MoSCoW (DSDM), and Kano model classification.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Provides the comprehensive feature prioritization framework for staged delivery, covering methodology, MoSCoW analysis, and feature-stage mapping.',
+)
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-FEA')
@@ -1867,6 +1874,13 @@ class FeaturePrioritization {
 }
 
 /// Methodology and scoring.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+  ],
+  'Captures the prioritization methodology, scoring model, and weighted criteria used to rank features.',
+)
 @SectionId('FEPRME')
 class FeaturePrioritizationMethodology {
   @Form([
@@ -1884,6 +1898,13 @@ class FeaturePrioritizationMethodology {
 }
 
 /// Stakeholder involvement.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Captures which stakeholders participate in prioritization and how their votes and conflicts are resolved.',
+)
 @SectionId('FEPRST')
 class FeaturePrioritizationStakeholder {
   @Form([
@@ -1899,6 +1920,13 @@ class FeaturePrioritizationStakeholder {
 }
 
 /// Cadence and triggers.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+  ],
+  'Captures the review cadence and the triggers that force re-prioritization of features.',
+)
 @SectionId('FEPRCA')
 class FeaturePrioritizationCadence {
   @Form([
@@ -1914,6 +1942,13 @@ class FeaturePrioritizationCadence {
 }
 
 /// Capacity constraints.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+  ],
+  'Captures capacity constraints such as team velocity, budget cap, and per-stage feature limits.',
+)
 @SectionId('FEPRC1')
 class FeaturePrioritizationCapacity {
   @Form([
@@ -1931,6 +1966,13 @@ class FeaturePrioritizationCapacity {
 }
 
 /// Backlog health.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+  ],
+  'Captures backlog health metrics such as total, prioritized, and unprioritized feature counts.',
+)
 @SectionId('FEPRBA')
 class FeaturePrioritizationBacklog {
   @Form([
@@ -1950,6 +1992,13 @@ class FeaturePrioritizationBacklog {
 }
 
 /// Traceability.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures how prioritized features trace back to the business case and requirements.',
+)
 @SectionId('FEPRTR')
 class FeaturePrioritizationTraceability {
   @Form([
@@ -1968,6 +2017,13 @@ class FeaturePrioritizationTraceability {
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
 /// Could / Won't) and maps each to its target delivery stage.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Classifies every feature using the MoSCoW method and maps each to its target delivery stage.',
+)
 @SectionId('MOAN')
 class MoscowAnalysis {
   @Form([
@@ -2010,8 +2066,16 @@ class MoscowAnalysis {
   TextSection moscowRationale = TextSection();
 
   /// Contains 0+× MoscowEntry.
+  @StandardReferences(
+    [
+      'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+      'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    ],
+    'Holds the collection of MoSCoW classification entries, one per feature.',
+  )
   @SectionId('MOEN-ITEM-LST')
   @SectionIdPattern('MOEN-ITEM-xxx')
+  @ContentHelp('Add one entry per MoSCoW-classified feature.')
   @SerializationOrder(2)
   List<MoscowEntry> items = [];
 }
@@ -2020,6 +2084,13 @@ class MoscowAnalysis {
 ///
 /// Maps a single feature or feature group to its MoSCoW category and
 /// target delivery stage, with justification and cross-references.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Maps a single feature or feature group to its MoSCoW category and target delivery stage with justification and cross-references.',
+)
 @SectionId('ME')
 class MoscowEntry {
   @Form([
@@ -2057,6 +2128,13 @@ class MoscowEntry {
 }
 
 /// MoSCoW classification details.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Captures the MoSCoW category, justification, and reclassification risk for a single feature.',
+)
 @SectionId('MOENCL')
 class MoscowEntryClassification {
   @Form([
@@ -2076,6 +2154,13 @@ class MoscowEntryClassification {
 }
 
 /// Value and effort estimates.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+  ],
+  'Captures the business value, effort estimate, and cost of delay used to prioritize a feature.',
+)
 @SectionId('MOENVA')
 class MoscowEntryValue {
   @Form([
@@ -2094,6 +2179,13 @@ class MoscowEntryValue {
 }
 
 /// Stage assignment.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature.',
+)
 @SectionId('MESA')
 class MoscowEntryStageAssignment {
   @Form([
@@ -2111,6 +2203,13 @@ class MoscowEntryStageAssignment {
 }
 
 /// Traceability and notes.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition',
+  ],
+  'Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.',
+)
 @SectionId('MOENTR')
 class MoscowEntryTraceability {
   @Form([
@@ -2133,6 +2232,13 @@ class MoscowEntryTraceability {
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Maps every feature or feature group to its delivery stage, tracking readiness, confidence, dependencies, and acceptance criteria.',
+)
 @SectionId('FESTMA')
 class FeatureStageMatrix {
   @Form([
@@ -2167,8 +2273,16 @@ class FeatureStageMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Contains 0+× FeatureStageMapping.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+      'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+    ],
+    'Holds the collection of feature-to-stage mapping entries that make up the matrix.',
+  )
   @SectionId('FESTM1-ITEM-LST')
   @SectionIdPattern('FESTM1-ITEM-xxx')
+  @ContentHelp('Add one entry per feature-stage mapping.')
   @SerializationOrder(2)
   List<FeatureStageMapping> items = [];
 }
@@ -2177,6 +2291,13 @@ class FeatureStageMatrix {
 ///
 /// Maps a single feature or feature group to its delivery stage with
 /// readiness, confidence, and dependency information.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Maps a single feature or feature group to its delivery stage with readiness, confidence, and dependency information.',
+)
 @SectionId('FSM')
 class FeatureStageMapping {
   @Form([
@@ -2213,6 +2334,13 @@ class FeatureStageMapping {
 }
 
 /// Stage assignment details.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures the target stage, stage phase, and fallback stage assigned to a feature.',
+)
 @SectionId('FSMA')
 class FeatureStageMappingAssignment {
   @Form([
@@ -2231,6 +2359,13 @@ class FeatureStageMappingAssignment {
 }
 
 /// Readiness and confidence.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures the readiness status and delivery confidence of a feature against its target stage.',
+)
 @SectionId('FSMR')
 class FeatureStageMappingReadiness {
   @Form([
@@ -2250,6 +2385,13 @@ class FeatureStageMappingReadiness {
 }
 
 /// Dependencies.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.',
+)
 @SectionId('FSMD')
 class FeatureStageMappingDependencies {
   @Form([
@@ -2270,6 +2412,13 @@ class FeatureStageMappingDependencies {
 }
 
 /// Acceptance and notes.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
+    'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
+  ],
+  'Captures the acceptance criteria and definition of done for a feature within its assigned delivery stage.',
+)
 @SectionId('FESTMAAC')
 class FeatureStageMappingAcceptance {
   @Form([
@@ -2292,6 +2441,13 @@ class FeatureStageMappingAcceptance {
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
 /// and traceability. Single source of truth for feature identity.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'The master register of all features with priority scoring, business value, effort, stakeholder ownership, and traceability.',
+)
 @SectionId('FEPRRE')
 class FeaturePriorityRegister {
   @Form([
@@ -2309,9 +2465,17 @@ class FeaturePriorityRegister {
   String? content;
 
   /// Contains 1+× FeaturePriorityEntry.
+  @StandardReferences(
+    [
+      'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+      'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    ],
+    'Lists each prioritized feature held in the register.',
+  )
   @SectionId('FEPREN-ITEM-LST')
   @SectionIdPattern('FEPREN-ITEM-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per prioritized feature.')
   @SerializationOrder(1)
   List<FeaturePriorityEntry> items = [];
 }
@@ -2321,6 +2485,13 @@ class FeaturePriorityRegister {
 /// Comprehensive record covering identity, classification, business
 /// value, effort, priority scoring, stage assignment, dependencies,
 /// stakeholders, traceability, and status.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'A comprehensive per-feature record covering identity, business value, effort, priority scoring, staging, dependencies, stakeholders, traceability, and status.',
+)
 @SectionId('FPE')
 class FeaturePriorityEntry {
   @Form([
@@ -2362,8 +2533,16 @@ class FeaturePriorityEntry {
   FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
 
   /// Stakeholders.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+      'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+    ],
+    'Lists the stakeholders associated with a feature priority entry.',
+  )
   @SectionId('FEST-STAK-LST')
   @SectionIdPattern('FEST-STAK-xxx')
+  @ContentHelp('Add one entry per feature stakeholder.')
   @SerializationOrder(7)
   List<FeatureStakeholders> stakeholders = [];
 
@@ -2377,6 +2556,13 @@ class FeaturePriorityEntry {
 }
 
 /// Feature identity for a feature priority entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+  ],
+  'Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.',
+)
 @SectionId('FEID')
 class FeatureIdentity {
   @Form([
@@ -2399,6 +2585,13 @@ class FeatureIdentity {
 }
 
 /// Business value for a feature priority entry.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+  ],
+  'Captures the business value score, revenue impact, cost of delay, strategic alignment, and regulatory drivers for a feature.',
+)
 @SectionId('FEBUVA')
 class FeatureBusinessValue {
   @Form([
@@ -2434,6 +2627,13 @@ class FeatureBusinessValue {
 }
 
 /// Effort and complexity for a feature priority entry.
+@StandardReferences(
+  [
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+  ],
+  'Captures the estimated effort, complexity, risk, and integration factors for a feature.',
+)
 @SectionId('FEEF')
 class FeatureEffort {
   @Form([
@@ -2461,6 +2661,13 @@ class FeatureEffort {
 }
 
 /// Priority scoring for a feature priority entry.
+@StandardReferences(
+  [
+    'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
+    'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
+  ],
+  'Captures the weighted priority score, MoSCoW tier, WSJF score, and Kano classification for a feature.',
+)
 @SectionId('FEPRSC')
 class FeaturePriorityScoring {
   @Form([
@@ -2482,6 +2689,13 @@ class FeaturePriorityScoring {
 }
 
 /// Stage assignment for a feature priority entry.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Records the target, earliest possible, and fallback delivery stage for a feature and the rationale behind that assignment.',
+)
 @SectionId('FESTAS')
 class FeatureStageAssignment {
   @Form([
@@ -2500,6 +2714,13 @@ class FeatureStageAssignment {
 }
 
 /// Dependencies info for a feature priority entry.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.',
+)
 @SectionId('FEDEIN')
 class FeatureDependenciesInfo {
   @Form([
@@ -2517,6 +2738,13 @@ class FeatureDependenciesInfo {
 }
 
 /// Stakeholders for a feature priority entry.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Records who requested, owns, and approved a feature priority entry along with its approval status.',
+)
 @SectionId('FEST')
 class FeatureStakeholders {
   @Form([
@@ -2541,6 +2769,13 @@ class FeatureStakeholders {
 }
 
 /// Traceability for a feature priority entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+  ],
+  'Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions.',
+)
 @SectionId('FETR')
 class FeatureTraceability {
   @Form([
@@ -2560,6 +2795,13 @@ class FeatureTraceability {
 }
 
 /// Status for a feature priority entry.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Records the prioritization and delivery status, confidence, and change history for a feature priority entry.',
+)
 @SectionId('FS')
 class FeatureStatus {
   @Form([
@@ -2583,6 +2825,13 @@ class FeatureStatus {
 ///
 /// Cross-feature dependencies affecting staging order, critical path
 /// analysis, and delivery sequencing.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Captures cross-feature dependencies affecting staging order, critical-path analysis, and delivery sequencing.',
+)
 @SectionId('FEDE')
 class FeatureDependencies {
   @Form([
@@ -2618,8 +2867,16 @@ class FeatureDependencies {
   TextSection dependencyAnalysis = TextSection();
 
   /// Contains 0+× FeatureDependencyEntry.
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+      'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+    ],
+    'Lists each inter-feature dependency that affects staging order and critical-path sequencing.',
+  )
   @SectionId('FEDEEN-ITEM-LST')
   @SectionIdPattern('FEDEEN-ITEM-xxx')
+  @ContentHelp('Add one entry per feature dependency.')
   @SerializationOrder(2)
   List<FeatureDependencyEntry> items = [];
 }
@@ -2628,6 +2885,13 @@ class FeatureDependencies {
 ///
 /// Describes a single directional dependency between two features,
 /// including type, impact, and resolution strategy.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
+    'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management',
+  ],
+  'Describes a single directional dependency between two features, including its type, strength, impact, and resolution strategy.',
+)
 @SectionId('FDE')
 class FeatureDependencyEntry {
   @Form([
@@ -2685,6 +2949,13 @@ class FeatureDependencyEntry {
 /// planning, rollback mechanisms, compliance requirements (GDPR, HIPAA),
 /// and stakeholder sign-off. Aligns with DAMA-DMBOK data management
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+  ],
+  'Captures the comprehensive data migration strategy spanning approach, scope, systems, data quality, tooling, cutover, rollback, compliance, metrics, and stakeholder sign-off.',
+)
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
 @SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-MIG')
@@ -2712,8 +2983,15 @@ class DataMigrationStrategy {
   MigrationScope scope = MigrationScope();
 
   /// Source and target system details.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    ],
+    'Lists the source and target systems involved in the migration, with their transformation complexity and data model changes.',
+  )
   @SectionId('MISY-SYST-LST')
   @SectionIdPattern('MISY-SYST-xxx')
+  @ContentHelp('Add one entry per source system.')
   @SerializationOrder(3)
   List<MigrationSystems> systems = [];
 
@@ -2726,8 +3004,16 @@ class DataMigrationStrategy {
   MigrationTooling tooling = MigrationTooling();
 
   /// Environment strategy.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+      'ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates',
+    ],
+    'Lists the environments used across the migration, their data subsetting, readiness, and refresh cadence.',
+  )
   @SectionId('MIEN-ENVI-LST')
   @SectionIdPattern('MIEN-ENVI-xxx')
+  @ContentHelp('Add one entry per migration environment.')
   @SerializationOrder(6)
   List<MigrationEnvironments> environments = [];
 
@@ -2748,14 +3034,30 @@ class DataMigrationStrategy {
   MigrationMetrics metrics = MigrationMetrics();
 
   /// Stakeholder communication.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+    ],
+    'Lists the migration stakeholders, their sign-off responsibilities, and communication expectations.',
+  )
   @SectionId('MIST-STAK-LST')
   @SectionIdPattern('MIST-STAK-xxx')
+  @ContentHelp('Add one entry per migration stakeholder.')
   @SerializationOrder(11)
   List<MigrationStakeholders> stakeholders = [];
 
   /// Budget and resources.
-    @SectionId('STMIRE-RESO-LST')
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+      'ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates',
+    ],
+    'Lists the resources allocated to migration, including budget, team roles, and vendor support.',
+  )
+  @SectionId('STMIRE-RESO-LST')
   @SectionIdPattern('STMIRE-RESO-xxx')
+  @ContentHelp('Add one entry per migration resource.')
   @SerializationOrder(12)
   List<StageMigrationResources> resources = [];
 
@@ -2781,6 +3083,13 @@ class DataMigrationStrategy {
 }
 
 /// Strategic approach for data migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO 31000:2018 — the risk management guidance covers migration risk assessment',
+  ],
+  'Captures the strategic migration approach including the rationale for the chosen method and alternatives considered.',
+)
 @SectionId('MIAP')
 class MigrationApproach {
   @Form([
@@ -2794,6 +3103,12 @@ class MigrationApproach {
 }
 
 /// Scope and data landscape for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+  ],
+  'Captures the migration scope including the data landscape, source system counts, data volumes, classification, and exclusions.',
+)
 @SectionId('MISC')
 class MigrationScope {
   @Form([
@@ -2817,6 +3132,12 @@ class MigrationScope {
 }
 
 /// Source and target systems for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+  ],
+  'Captures the source system inventory, target platform description, schema transformation complexity, and data model changes.',
+)
 @SectionId('MISY')
 class MigrationSystems {
   @Form([
@@ -2835,6 +3156,13 @@ class MigrationSystems {
 }
 
 /// Data quality strategy for migration.
+@StandardReferences(
+  [
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data',
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+  ],
+  'Captures the data quality baseline, profiling tools, known issues, cleansing strategy, and quality thresholds for approval.',
+)
 @SectionId('MIDAQU')
 class MigrationDataQuality {
   @Form([
@@ -2855,6 +3183,12 @@ class MigrationDataQuality {
 }
 
 /// Tooling and technology for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+  ],
+  'Captures the migration tooling stack including primary and secondary tools, CDC, orchestration, scripting, and version control.',
+)
 @SectionId('MITO')
 class MigrationTooling {
   @Form([
@@ -2877,6 +3211,13 @@ class MigrationTooling {
 }
 
 /// Environment strategy for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates',
+  ],
+  'Captures the migration environment strategy including data subsetting, production-like readiness, and refresh cadence.',
+)
 @SectionId('MIEN')
 class MigrationEnvironments {
   @Form([
@@ -2895,6 +3236,13 @@ class MigrationEnvironments {
 }
 
 /// Cutover planning for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates',
+  ],
+  'Captures the cutover strategy, downtime window, runbook and pre-flight readiness, and go or no-go decision authority.',
+)
 @SectionId('MICU')
 class MigrationCutover {
   @Form([
@@ -2920,6 +3268,13 @@ class MigrationCutover {
 }
 
 /// Rollback and recovery for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO 31000:2018 — the risk management guidance covers migration risk assessment',
+  ],
+  'Captures the rollback strategy, time budget, triggers, testing status, and point of no return for migration recovery.',
+)
 @SectionId('MIRO')
 class MigrationRollback {
   @Form([
@@ -2940,6 +3295,13 @@ class MigrationRollback {
 }
 
 /// Compliance and governance for migration.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — the information security management standard covers protection of sensitive data during migration',
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+  ],
+  'Captures data privacy compliance, residency and retention requirements, audit trails, and migration governance oversight.',
+)
 @SectionId('MICO')
 class MigrationCompliance {
   @Form([
@@ -2962,6 +3324,13 @@ class MigrationCompliance {
 }
 
 /// Success metrics for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to profile and validate migrated data',
+  ],
+  'Captures success metrics such as data completeness and accuracy targets, performance benchmarks, and downtime limits.',
+)
 @SectionId('MIME')
 class MigrationMetrics {
   @Form([
@@ -2982,6 +3351,13 @@ class MigrationMetrics {
 }
 
 /// Stakeholder communication for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+  ],
+  'Captures stakeholder sign-off requirements, communication planning, and training for the migration team.',
+)
 @SectionId('MIST')
 class MigrationStakeholders {
   @Form([
@@ -2999,6 +3375,13 @@ class MigrationStakeholders {
 }
 
 /// Budget and resources for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases and stage gates',
+  ],
+  'Captures the migration budget, team composition, and external vendor support arrangements.',
+)
 @SectionId('STMIRE')
 class StageMigrationResources {
   @Form([
@@ -3014,6 +3397,13 @@ class StageMigrationResources {
 }
 
 /// Schedule overview for migration.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration strategy, scope, and execution practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+  ],
+  'Captures the overall migration schedule including start and end dates, dry run cadence, and hypercare duration.',
+)
 @SectionId('MS')
 class MigrationSchedule {
   @Form([
@@ -3038,6 +3428,13 @@ class MigrationSchedule {
 /// execution plan. Each phase targets a specific data domain or source
 /// system, with defined methods, transformation rules, validation
 /// criteria, and dry run expectations.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the overall staged migration plan and its execution model across all migration phases.',
+)
 @SectionId('MIPH')
 class MigrationPhases {
   @Form([
@@ -3095,9 +3492,17 @@ class MigrationPhases {
   TextSection phaseOverview = TextSection();
 
   /// Contains 1+× MigrationPhaseEntry.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+    ],
+    'Lists the individual migration phases that make up the staged migration plan.',
+  )
   @SectionId('MGPHS-ITEM-LST')
   @SectionIdPattern('MGPHS-ITEM-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per migration phase.')
   @SerializationOrder(2)
   List<MigrationPhaseEntry> items = [];
 }
@@ -3109,6 +3514,13 @@ class MigrationPhases {
 /// method selection, transformation mapping, scheduling, dependency
 /// tracking, validation approach, acceptance criteria, and dry run
 /// results.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+  ],
+  'Captures a single migration phase covering its scope, method, transformation, schedule, validation, acceptance, and rollback.',
+)
 @SectionId('MGPHS')
 class MigrationPhaseEntry {
   @Form([
@@ -3146,8 +3558,16 @@ class MigrationPhaseEntry {
   MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
 
   /// Dry runs.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices',
+      'ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data',
+    ],
+    'Lists the dry run rehearsals conducted for this migration phase.',
+  )
   @SectionId('MPDR-DRYR-LST')
   @SectionIdPattern('MPDR-DRYR-xxx')
+  @ContentHelp('Add one entry per migration dry run.')
   @SerializationOrder(6)
   List<MigrationPhaseDryRuns> dryRuns = [];
 
@@ -3164,8 +3584,16 @@ class MigrationPhaseEntry {
   MigrationPhaseRollback rollback = MigrationPhaseRollback();
 
   /// Resources.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration resource allocation practices',
+      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+    ],
+    'Lists the resources assigned to this migration phase.',
+  )
   @SectionId('MIPHRE-RESO-LST')
   @SectionIdPattern('MIPHRE-RESO-xxx')
+  @ContentHelp('Add one entry per migration-phase resource.')
   @SerializationOrder(10)
   List<MigrationPhaseResources> resources = [];
 
@@ -3175,6 +3603,13 @@ class MigrationPhaseEntry {
 }
 
 /// Phase identity for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the descriptive identity, objective, and linked project stage of an individual migration phase.',
+)
 @SectionId('MIPHID')
 class MigrationPhaseIdentity {
   @Form([
@@ -3190,6 +3625,13 @@ class MigrationPhaseIdentity {
 }
 
 /// Data scope for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data scoping, classification, and ownership practices',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data',
+  ],
+  'Captures the source systems, entities, volumes, classification, and ownership of the data in an individual migration phase.',
+)
 @SectionId('MPDS')
 class MigrationPhaseDataScope {
   @Form([
@@ -3223,6 +3665,12 @@ class MigrationPhaseDataScope {
 }
 
 /// Migration method for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data extraction, load, and migration method practices',
+  ],
+  'Captures the migration method, tooling, extraction approach, and load strategy for an individual migration phase.',
+)
 @SectionId('MIPHME')
 class MigrationPhaseMethod {
   @Form([
@@ -3244,6 +3692,13 @@ class MigrationPhaseMethod {
 }
 
 /// Transformation and mapping for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data transformation, mapping, and cleansing practices',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data',
+  ],
+  'Captures the transformation rules, field mappings, cleansing, and enrichment applied during an individual migration phase.',
+)
 @SectionId('MIPHTR')
 class MigrationPhaseTransformation {
   @Form([
@@ -3270,12 +3725,21 @@ class MigrationPhaseTransformation {
 }
 
 /// Schedule and dependencies for migration phase.
+@StandardReferences(
+  [
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the planned and actual schedule plus inter-phase and external dependencies for an individual migration phase.',
+)
 @SectionId('MIPHSC')
 class MigrationPhaseSchedule {
   @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
+        hint: 'Scheduled start of the migration phase, e.g. 2026-03-01',
         required: true),
     Field('plannedEndDate', String, 'Planned End Date',
+        hint: 'Scheduled completion of the migration phase, e.g. 2026-03-21',
         required: true),
     Field('estimatedDuration', String, 'Estimated Duration',
         hint: 'e.g. 3 weeks, 10 business days'),
@@ -3297,6 +3761,13 @@ class MigrationPhaseSchedule {
 }
 
 /// Dry runs for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration dry run and rehearsal practices',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data',
+  ],
+  'Captures the dry run rehearsals, results, and issues discovered for an individual migration phase.',
+)
 @SectionId('MPDR')
 class MigrationPhaseDryRuns {
   @Form([
@@ -3320,6 +3791,13 @@ class MigrationPhaseDryRuns {
 }
 
 /// Validation and reconciliation for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration validation and reconciliation practices',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to validate migrated data',
+  ],
+  'Captures the validation approach, reconciliation checks, and integrity analysis for an individual migration phase.',
+)
 @SectionId('MIPHVA')
 class MigrationPhaseValidation {
   @Form([
@@ -3348,6 +3826,13 @@ class MigrationPhaseValidation {
 }
 
 /// Acceptance criteria for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration acceptance and sign-off practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the acceptance criteria and sign-off ownership that gate completion of an individual migration phase.',
+)
 @SectionId('MIPHAC')
 class MigrationPhaseAcceptance {
   @Form([
@@ -3364,6 +3849,13 @@ class MigrationPhaseAcceptance {
 }
 
 /// Rollback for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration rollback and recovery practices',
+    'ISO 31000:2018 — the risk management guidance covers migration risk within phase planning',
+  ],
+  'Captures the rollback strategy and time budget for reverting an individual migration phase.',
+)
 @SectionId('MIPHRO')
 class MigrationPhaseRollback {
   @Form([
@@ -3377,6 +3869,13 @@ class MigrationPhaseRollback {
 }
 
 /// Resources for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance frames division of delivery work into sequential phases and gates',
+  ],
+  'Captures the team members and effort assigned to an individual migration phase.',
+)
 @SectionId('MIPHRE')
 class MigrationPhaseResources {
   @Form([
@@ -3390,6 +3889,13 @@ class MigrationPhaseResources {
 }
 
 /// Status for migration phase.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices',
+    'ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews',
+  ],
+  'Captures the current execution status and completion progress of an individual migration phase.',
+)
 @SectionId('MIPHST')
 class MigrationPhaseStatus {
   @Form([
@@ -3409,6 +3915,13 @@ class MigrationPhaseStatus {
 /// Risk register specific to data migration activities. Covers data
 /// loss, corruption, downtime overrun, compliance violations,
 /// performance degradation, and organizational readiness risks.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines risk identification, assessment, treatment, and monitoring for a risk register',
+    'DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls',
+  ],
+  'Captures the migration-specific risk register summary including totals, methodology, tolerance policy, review cadence, and overall risk rating.',
+)
 @SectionId('STMIRI')
 class StageMigrationRisks {
   @Form([
@@ -3468,9 +3981,17 @@ class StageMigrationRisks {
   TextSection riskSummary = TextSection();
 
   /// Contains 1+× StageMigrationRiskEntry.
+  @StandardReferences(
+    [
+      'ISO 31000:2018 — the risk management guidance defines a risk register as a record of identified risks',
+      'DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls',
+    ],
+    'Holds the list of individual migration risk entries making up the register.',
+  )
   @SectionId('STGMRS-ITEM-LST')
   @SectionIdPattern('STGMRS-ITEM-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per migration risk.')
   @SerializationOrder(2)
   List<StageMigrationRiskEntry> items = [];
 }
@@ -3481,6 +4002,13 @@ class StageMigrationRisks {
 /// identification, categorization, probability/impact scoring,
 /// mitigation planning, contingency actions, trigger indicators,
 /// ownership, monitoring approach, and residual risk after mitigation.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines a risk register entry covering identification, assessment, treatment, and monitoring',
+    'DAMA-DMBOK2 2017 — the data management body of knowledge covers data migration risk and data quality controls',
+  ],
+  'Captures a single entry in the data migration risk register spanning identity, scoring, mitigation, contingency, monitoring, ownership, residual, and status.',
+)
 @SectionId('STGMRS')
 class StageMigrationRiskEntry {
   @Form([
@@ -3535,6 +4063,12 @@ class StageMigrationRiskEntry {
 }
 
 /// Risk identity and description.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines risk identification and description of risk scenarios',
+  ],
+  'Captures the detailed description of an individual migration risk scenario.',
+)
 @SectionId('SMRI')
 class StageMigrationRiskIdentity {
   @Form([
@@ -3547,6 +4081,13 @@ class StageMigrationRiskIdentity {
 }
 
 /// Probability and impact assessment.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines risk analysis in terms of likelihood and consequence',
+    'ISO/IEC 25012:2008 — the data quality model defines characteristics used to assess the impact on migrated data',
+  ],
+  'Captures the probability, impact, computed score, impacted areas, and affected phases for a migration risk.',
+)
 @SectionId('SMRPI')
 class StageMigrationRiskProbabilityImpact {
   @Form([
@@ -3568,6 +4109,12 @@ class StageMigrationRiskProbabilityImpact {
 }
 
 /// Mitigation planning.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines risk treatment options to reduce probability or impact',
+  ],
+  'Captures the mitigation strategy, owner, status, and deadline for treating a migration risk.',
+)
 @SectionId('SMRM')
 class StageMigrationRiskMitigation {
   @Form([
@@ -3586,6 +4133,13 @@ class StageMigrationRiskMitigation {
 }
 
 /// Contingency actions.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance covers contingency planning and fallback actions when treatment fails',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers contingency reserves and response triggers in project risk management',
+  ],
+  'Captures the contingency plan, activation trigger, and reserved budget if a migration risk materializes.',
+)
 @SectionId('SMRC')
 class StageMigrationRiskContingency {
   @Form([
@@ -3602,6 +4156,12 @@ class StageMigrationRiskContingency {
 }
 
 /// Monitoring and detection.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines monitoring, early-warning indicators, and detection of emerging risks',
+  ],
+  'Captures the trigger indicators, monitoring approach, frequency, and alert thresholds used to detect a migration risk.',
+)
 @SectionId('STMIRIMO')
 class StageMigrationRiskMonitoring {
   @Form([
@@ -3619,6 +4179,13 @@ class StageMigrationRiskMonitoring {
 }
 
 /// Ownership and accountability.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance assigns accountability and authority for managing each risk',
+    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers risk ownership and escalation within project risk management',
+  ],
+  'Captures the accountable owner and escalation path for a migration risk.',
+)
 @SectionId('SMRO')
 class StageMigrationRiskOwnership {
   @Form([
@@ -3633,6 +4200,12 @@ class StageMigrationRiskOwnership {
 }
 
 /// Residual risk assessment.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance addresses residual risk remaining after treatment and whether it is acceptable',
+  ],
+  'Captures the residual probability, impact, and acceptability of a migration risk after mitigation.',
+)
 @SectionId('SMRR')
 class StageMigrationRiskResidual {
   @Form([
@@ -3648,6 +4221,12 @@ class StageMigrationRiskResidual {
 }
 
 /// Status and review.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — the risk management guidance defines monitoring and review of risks over their life-cycle',
+  ],
+  'Captures the current status of a migration risk and the date it was last reviewed.',
+)
 @SectionId('SMRS')
 class StageMigrationRiskStatus {
   @Form([
