@@ -14,6 +14,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// Detailed use cases derived from the target process steps and actor
 /// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
 /// and traceability.
+@StandardReferences(
+  [
+    'Cockburn — writing effective use cases',
+    'BABOK v3 — future-state actor interactions',
+  ],
+  'The use-case model derived from the target process steps and actor interactions, with scenarios, end-to-end test scenarios, and traceability.',
+)
 @Document(
   name: 'Interaction Scenarios',
   description: 'Use cases derived from the target process steps and actor '

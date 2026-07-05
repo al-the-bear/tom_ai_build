@@ -16,6 +16,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// software / hardware / operations / communication / system-operation
 /// / security / architecture, plus components, framework conditions,
 /// and translation handling.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010:2022 — architecture description',
+    'arc42 — architecture documentation template',
+  ],
+  'The comprehensive technical requirements and architecture specification covering platform, software design, hardware, operations, communication, security, and components.',
+)
 @Document(
   name: 'Architecture & Technology Specification',
   description: 'Comprehensive technical requirements — platform, '

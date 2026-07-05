@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T21:44:19.651103Z",
+  "generatedAt": "2026-07-05T21:55:09.227571Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -62422,7 +62422,24 @@
       "name": "D01CurrentLandscapeAssessment",
       "sectionId": "CLA",
       "doc": "CLA00 Current Landscape Assessment.\n\nDetailed analysis of the current state: existing systems, business\nprocesses, pain points, data landscape, operational metrics, risks,\nand the inventory / migration plan for the systems being replaced.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — current-state analysis",
+          "ISO/IEC/IEEE 29148:2018 — as-is system constraints"
+        ],
+        "connotation": "The current-state analysis of the systems and processes the target system will replace, covering landscape, pain points, metrics, risks, and replacement inventory."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — current-state analysis",
+              "ISO/IEC/IEEE 29148:2018 — as-is system constraints"
+            ],
+            "connotation": "The current-state analysis of the systems and processes the target system will replace, covering landscape, pain points, metrics, risks, and replacement inventory."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -62618,7 +62635,24 @@
       "name": "D02TargetOperatingModel",
       "sectionId": "TOM",
       "doc": "TOM00 Target Operating Model.\n\nTarget business process specification — vision, principles, catalog,\ndiagrams, improvements, relationships, detailed workflows,\ncross-process analysis, exception handling, and KPIs.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — future-state definition",
+          "BPMN 2.0 — business process modeling"
+        ],
+        "connotation": "The target business process specification defining the future-state operating model, from process vision and design principles through detailed workflows and KPIs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — future-state definition",
+              "BPMN 2.0 — business process modeling"
+            ],
+            "connotation": "The target business process specification defining the future-state operating model, from process vision and design principles through detailed workflows and KPIs."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -62859,7 +62893,24 @@
       "name": "D03InformationModel",
       "sectionId": "IFM",
       "doc": "IFM00 Information Model.\n\nFull business data model: entities, relationships, ER diagram, data\nclassification, business objects, function decomposition, function-\nto-data matrix, business rules, data dictionary, and validation /\nintegrity constraints.",
+      "standardReferences": {
+        "standards": [
+          "DAMA-DMBOK — data modeling and management",
+          "ISO/IEC 19505:2012 — UML entity-relationship modeling"
+        ],
+        "connotation": "The complete business data model covering entities, relationships, business objects, functions, rules, dictionary, and validation constraints."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "DAMA-DMBOK — data modeling and management",
+              "ISO/IEC 19505:2012 — UML entity-relationship modeling"
+            ],
+            "connotation": "The complete business data model covering entities, relationships, business objects, functions, rules, dictionary, and validation constraints."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -63198,7 +63249,22 @@
       "name": "D04RequirementsSpecification",
       "sectionId": "RSP",
       "doc": "RSP00 Requirements Specification.\n\nFull requirements catalog covering functional, technical, security,\nand organizational requirements, plus traceability, relationships,\nand coverage analysis.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — software and system requirements specification"
+        ],
+        "connotation": "The complete requirements catalog covering functional, technical, security, and organizational requirements with traceability and coverage analysis."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — software and system requirements specification"
+            ],
+            "connotation": "The complete requirements catalog covering functional, technical, security, and organizational requirements with traceability and coverage analysis."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -63386,7 +63452,24 @@
       "name": "D05InteractionScenarios",
       "sectionId": "ISC",
       "doc": "ISC00 Interaction Scenarios.\n\nDetailed use cases derived from the target process steps and actor\ninteractions — Cockburn-style catalog, scenarios, end-to-end tests,\nand traceability.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — writing effective use cases",
+          "BABOK v3 — future-state actor interactions"
+        ],
+        "connotation": "The use-case model derived from the target process steps and actor interactions, with scenarios, end-to-end test scenarios, and traceability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — writing effective use cases",
+              "BABOK v3 — future-state actor interactions"
+            ],
+            "connotation": "The use-case model derived from the target process steps and actor interactions, with scenarios, end-to-end test scenarios, and traceability."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -63567,7 +63650,24 @@
       "name": "D06ArchitectureTechnologySpecification",
       "sectionId": "ATS",
       "doc": "ATS00 Architecture & Technology Specification.\n\nComprehensive technical requirements: basic / software / standard-\nsoftware / hardware / operations / communication / system-operation\n/ security / architecture, plus components, framework conditions,\nand translation handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010:2022 — architecture description",
+          "arc42 — architecture documentation template"
+        ],
+        "connotation": "The comprehensive technical requirements and architecture specification covering platform, software design, hardware, operations, communication, security, and components."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010:2022 — architecture description",
+              "arc42 — architecture documentation template"
+            ],
+            "connotation": "The comprehensive technical requirements and architecture specification covering platform, software design, hardware, operations, communication, security, and components."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -63808,7 +63908,22 @@
       "name": "D07IntegrationInterfaceSpecification",
       "sectionId": "IIS",
       "doc": "IIS00 Integration & Interface Specification.\n\nComplete interaction specification between the target system and\nexternal systems: inventory, patterns, testing, dependencies,\nmigration, operational concerns, and cross-boundary error handling.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — interface requirements"
+        ],
+        "connotation": "The complete specification of interactions between the target system and external systems, covering inventory, patterns, testing, dependencies, migration, and error handling."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — interface requirements"
+            ],
+            "connotation": "The complete specification of interactions between the target system and external systems, covering inventory, patterns, testing, dependencies, migration, and error handling."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -64064,7 +64179,24 @@
       "name": "D08SecurityAccessSpecification",
       "sectionId": "SAS",
       "doc": "SAS00 Security & Access Specification.\n\nComplete access and authorization specification — user management,\nidentification and authentication, resource protection, user\nauthorization, encryption, audit/logging, role matrix, and\ncompliance framework.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — information security management",
+          "NIST RBAC (INCITS 359) — role-based access control"
+        ],
+        "connotation": "The complete access and authorization specification covering user management, authentication, resource protection, authorization, encryption, audit, and compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — information security management",
+              "NIST RBAC (INCITS 359) — role-based access control"
+            ],
+            "connotation": "The complete access and authorization specification covering user management, authentication, resource protection, authorization, encryption, audit, and compliance."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -64245,7 +64377,24 @@
       "name": "D09ExperienceDesignSpecification",
       "sectionId": "XDS",
       "doc": "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-210:2019 — human-centred design for interactive systems",
+          "WCAG 2.2 — web content accessibility guidelines"
+        ],
+        "connotation": "The full UI design and prototype specification covering vision, screens, flow, accessibility, responsive design, components, localization, and wireframes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-210:2019 — human-centred design for interactive systems",
+              "WCAG 2.2 — web content accessibility guidelines"
+            ],
+            "connotation": "The full UI design and prototype specification covering vision, screens, flow, accessibility, responsive design, components, localization, and wireframes."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -64486,7 +64635,24 @@
       "name": "D10QualityAcceptancePlan",
       "sectionId": "QAP",
       "doc": "QAP00 Quality & Acceptance Plan.\n\nFull quality plan combining quality goals and the acceptance plan.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — product quality model",
+          "ISO/IEC/IEEE 29119 — software testing"
+        ],
+        "connotation": "The business-facing quality plan combining the eight product-quality characteristics, prioritization, acceptance criteria, test strategy, and the full acceptance plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — product quality model",
+              "ISO/IEC/IEEE 29119 — software testing"
+            ],
+            "connotation": "The business-facing quality plan combining the eight product-quality characteristics, prioritization, acceptance criteria, test strategy, and the full acceptance plan."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -64832,7 +64998,24 @@
       "name": "D11DeliveryRoadmap",
       "sectionId": "DRM",
       "doc": "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK Guide — project phasing and delivery roadmap",
+          "ISO/IEC/IEEE 29148:2018 — transition planning"
+        ],
+        "connotation": "The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK Guide — project phasing and delivery roadmap",
+              "ISO/IEC/IEEE 29148:2018 — transition planning"
+            ],
+            "connotation": "The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework."
+          }
+        },
         {
           "name": "Document",
           "arguments": {
@@ -65050,7 +65233,24 @@
       "name": "D12TransitionRolloutPlan",
       "sectionId": "TRP",
       "doc": "TRP00 Transition & Rollout Plan.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — transition requirements",
+          "ITIL 4 — release and change management"
+        ],
+        "connotation": "The end-to-end rollout specification covering localization, translation, documentation, training, rollout, migration, pilot, cutover, knowledge transfer, and warranty."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — transition requirements",
+              "ITIL 4 — release and change management"
+            ],
+            "connotation": "The end-to-end rollout specification covering localization, translation, documentation, training, rollout, migration, pilot, cutover, knowledge transfer, and warranty."
+          }
+        },
         {
           "name": "Document",
           "arguments": {

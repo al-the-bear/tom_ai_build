@@ -17,6 +17,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// classification, business objects, function decomposition, function-
 /// to-data matrix, business rules, data dictionary, and validation /
 /// integrity constraints.
+@StandardReferences(
+  [
+    'DAMA-DMBOK — data modeling and management',
+    'ISO/IEC 19505:2012 — UML entity-relationship modeling',
+  ],
+  'The complete business data model covering entities, relationships, business objects, functions, rules, dictionary, and validation constraints.',
+)
 @Document(
   name: 'Information Model',
   description: 'Complete business data model — entities, relationships, '

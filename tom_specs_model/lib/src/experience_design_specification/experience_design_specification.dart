@@ -15,6 +15,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// screen flow, print, error handling, help, accessibility, responsive,
 /// components, language/country selection, prototype, wireframes and
 /// mockups.
+@StandardReferences(
+  [
+    'ISO 9241-210:2019 — human-centred design for interactive systems',
+    'WCAG 2.2 — web content accessibility guidelines',
+  ],
+  'The full UI design and prototype specification covering vision, screens, flow, accessibility, responsive design, components, localization, and wireframes.',
+)
 @Document(
   name: 'Experience Design Specification',
   description: 'Full UI design and prototype specification — vision, '

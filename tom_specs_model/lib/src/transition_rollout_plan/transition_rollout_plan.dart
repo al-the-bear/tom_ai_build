@@ -16,6 +16,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// documentation and training, plus rollout plan, migration plan,
 /// user manuals, training materials, pilot, cutover, knowledge
 /// transfer, and warranty/support.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — transition requirements',
+    'ITIL 4 — release and change management',
+  ],
+  'The end-to-end rollout specification covering localization, translation, documentation, training, rollout, migration, pilot, cutover, knowledge transfer, and warranty.',
+)
 @Document(
   name: 'Transition & Rollout Plan',
   description: 'End-to-end rollout specification — localization, '

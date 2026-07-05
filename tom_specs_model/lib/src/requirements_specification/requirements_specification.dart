@@ -14,6 +14,10 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// Full requirements catalog covering functional, technical, security,
 /// and organizational requirements, plus traceability, relationships,
 /// and coverage analysis.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — software and system requirements specification'],
+  'The complete requirements catalog covering functional, technical, security, and organizational requirements with traceability and coverage analysis.',
+)
 @Document(
   name: 'Requirements Specification',
   description: 'Complete requirements catalog — functional, technical, '

@@ -16,6 +16,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// entries, feature prioritization, data migration, gate criteria,
 /// decision processes, initial development flow, and upgrade cycle
 /// framework.
+@StandardReferences(
+  [
+    'PMBOK Guide — project phasing and delivery roadmap',
+    'ISO/IEC/IEEE 29148:2018 — transition planning',
+  ],
+  'The comprehensive project phase plan covering staging strategy, stages, feature prioritization, migration, gates, decisions, and the upgrade cycle framework.',
+)
 @Document(
   name: 'Delivery Roadmap',
   description: 'Comprehensive project phase plan — staging strategy, '

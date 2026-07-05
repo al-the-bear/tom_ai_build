@@ -15,6 +15,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// Detailed analysis of the current state: existing systems, business
 /// processes, pain points, data landscape, operational metrics, risks,
 /// and the inventory / migration plan for the systems being replaced.
+@StandardReferences(
+  [
+    'BABOK v3 — current-state analysis',
+    'ISO/IEC/IEEE 29148:2018 — as-is system constraints',
+  ],
+  'The current-state analysis of the systems and processes the target system will replace, covering landscape, pain points, metrics, risks, and replacement inventory.',
+)
 @Document(
   name: 'Current Landscape Assessment',
   description: 'Detailed analysis of the current systems and processes the '

@@ -15,6 +15,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// identification and authentication, resource protection, user
 /// authorization, encryption, audit/logging, role matrix, and
 /// compliance framework.
+@StandardReferences(
+  [
+    'ISO/IEC 27001:2022 — information security management',
+    'NIST RBAC (INCITS 359) — role-based access control',
+  ],
+  'The complete access and authorization specification covering user management, authentication, resource protection, authorization, encryption, audit, and compliance.',
+)
 @Document(
   name: 'Security & Access Specification',
   description: 'Complete access and authorization specification — user '

@@ -14,6 +14,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// Target business process specification — vision, principles, catalog,
 /// diagrams, improvements, relationships, detailed workflows,
 /// cross-process analysis, exception handling, and KPIs.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state definition',
+    'BPMN 2.0 — business process modeling',
+  ],
+  'The target business process specification defining the future-state operating model, from process vision and design principles through detailed workflows and KPIs.',
+)
 @Document(
   name: 'Target Operating Model',
   description: 'Target business process specification — vision, design '

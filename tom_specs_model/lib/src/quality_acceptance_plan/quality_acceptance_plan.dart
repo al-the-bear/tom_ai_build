@@ -15,6 +15,13 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// QAP00 Quality & Acceptance Plan.
 ///
 /// Full quality plan combining quality goals and the acceptance plan.
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — product quality model',
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'The business-facing quality plan combining the eight product-quality characteristics, prioritization, acceptance criteria, test strategy, and the full acceptance plan.',
+)
 @Document(
   name: 'Quality & Acceptance Plan',
   description: 'Business-facing quality plan — quality framework, the '

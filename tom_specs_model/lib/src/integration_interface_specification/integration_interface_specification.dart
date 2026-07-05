@@ -14,6 +14,10 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// Complete interaction specification between the target system and
 /// external systems: inventory, patterns, testing, dependencies,
 /// migration, operational concerns, and cross-boundary error handling.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — interface requirements'],
+  'The complete specification of interactions between the target system and external systems, covering inventory, patterns, testing, dependencies, migration, and error handling.',
+)
 @Document(
   name: 'Integration & Interface Specification',
   description: 'Complete specification of interactions between the target '
