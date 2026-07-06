@@ -1,6 +1,7 @@
 #include "spec_document.hpp"
 
 #include "som_util.hpp"
+#include "spec_section_id.hpp"
 
 namespace som {
 
@@ -64,6 +65,15 @@ DocumentJson documentJsonFromJson(const JsonRef& v) {
         const std::string* s = jsonAsStr(jsonArrayAt(items, j));
         if (s != nullptr) {
           e.items.push_back(*s);
+        }
+      }
+      JsonRef ids = jsonGet(m.second, "ids");
+      if (ids != nullptr && ids->type == JsonType::Object) {
+        for (const auto& im : ids->object) {
+          const std::string* s = jsonAsStr(im.second);
+          if (s != nullptr) {
+            e.ids[im.first] = *s;
+          }
         }
       }
     }
@@ -145,7 +155,22 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d) {
         ii = false;
         b += jsonEncodeStr(it);
       }
-      b += "]}";
+      b.push_back(']');
+      if (!kv.second.ids.empty()) {
+        b += ",\"ids\":{";
+        bool di = true;
+        for (const auto& idkv : kv.second.ids) {
+          if (!di) {
+            b.push_back(',');
+          }
+          di = false;
+          b += jsonEncodeStr(idkv.first);
+          b.push_back(':');
+          b += jsonEncodeStr(idkv.second);
+        }
+        b.push_back('}');
+      }
+      b.push_back('}');
     }
     b.push_back('}');
   }
@@ -240,6 +265,86 @@ std::string SpecDocument::addListItem(const std::string& listPath) {
   return itemPath;
 }
 
+/* --- section ids --- */
+
+std::string SpecDocument::owningListOf(const std::string& itemPath) const {
+  for (const auto& kv : listItems_) {
+    for (const auto& v : kv.second) {
+      if (v == itemPath) {
+        return kv.first;
+      }
+    }
+  }
+  return "";
+}
+
+void SpecDocument::assertSectionIdFree(const std::string& listPath,
+                                       const std::string& id,
+                                       const std::string& exceptItemPath) const {
+  auto it = listItems_.find(listPath);
+  if (it == listItems_.end()) {
+    return;
+  }
+  for (const std::string& itemPath : it->second) {
+    if (!exceptItemPath.empty() && itemPath == exceptItemPath) {
+      continue;
+    }
+    auto cur = itemSectionId_.find(itemPath);
+    if (cur != itemSectionId_.end() && cur->second == id) {
+      throw SomSectionIdError::collision(id, listPath);
+    }
+  }
+}
+
+std::string SpecDocument::addListItemWithSectionId(const std::string& listPath,
+                                                   const std::string& sectionId) {
+  assertSectionIdFree(listPath, sectionId, "");
+  std::string itemPath = addListItem(listPath);
+  itemSectionId_[itemPath] = sectionId;
+  return itemPath;
+}
+
+const std::string* SpecDocument::itemSectionIdOpt(
+    const std::string& itemPath) const {
+  auto it = itemSectionId_.find(itemPath);
+  return it != itemSectionId_.end() ? &it->second : nullptr;
+}
+
+std::string SpecDocument::itemSectionId(const std::string& itemPath) const {
+  const std::string* v = itemSectionIdOpt(itemPath);
+  return v != nullptr ? *v : std::string();
+}
+
+void SpecDocument::setItemSectionId(const std::string& itemPath,
+                                    const std::string& id) {
+  std::string owning = owningListOf(itemPath);
+  if (owning.empty()) {
+    throw SomSectionIdError::notLiveItem(itemPath);
+  }
+  auto cur = itemSectionId_.find(itemPath);
+  if (cur != itemSectionId_.end() && cur->second == id) {
+    return;
+  }
+  assertSectionIdFree(owning, id, itemPath);
+  itemSectionId_[itemPath] = id;
+}
+
+std::vector<std::string> SpecDocument::listItemSectionIds(
+    const std::string& listPath) const {
+  std::vector<std::string> out;
+  auto it = listItems_.find(listPath);
+  if (it == listItems_.end()) {
+    return out;
+  }
+  for (const std::string& itemPath : it->second) {
+    const std::string* id = itemSectionIdOpt(itemPath);
+    if (id != nullptr) {
+      out.push_back(*id);
+    }
+  }
+  return out;
+}
+
 void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = content_.begin(); it != content_.end();) {
     if (isUnder(it->first, prefix)) {
@@ -265,6 +370,13 @@ void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = listSeq_.begin(); it != listSeq_.end();) {
     if (isUnder(it->first, prefix)) {
       it = listSeq_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+  for (auto it = itemSectionId_.begin(); it != itemSectionId_.end();) {
+    if (isUnder(it->first, prefix)) {
+      it = itemSectionId_.erase(it);
     } else {
       ++it;
     }
@@ -385,6 +497,12 @@ DocumentJson SpecDocument::toJson() const {
       e.seq = static_cast<long long>(kv.second.size());
     }
     e.items = kv.second;
+    for (const std::string& itemPath : kv.second) {
+      auto idit = itemSectionId_.find(itemPath);
+      if (idit != itemSectionId_.end()) {
+        e.ids[itemPath] = idit->second;
+      }
+    }
     out.lists[kv.first] = std::move(e);
   }
   return out;
@@ -395,6 +513,7 @@ void SpecDocument::loadJson(const DocumentJson& j) {
   forms_.clear();
   listItems_.clear();
   listSeq_.clear();
+  itemSectionId_.clear();
 
   content_ = j.content;
   for (const auto& kv : j.forms) {
@@ -412,6 +531,9 @@ void SpecDocument::loadJson(const DocumentJson& j) {
                         ? kv.second.seq
                         : static_cast<long long>(kv.second.items.size());
     listSeq_[kv.first] = seq;
+    for (const auto& idkv : kv.second.ids) {
+      itemSectionId_[idkv.first] = idkv.second;
+    }
   }
 }
 

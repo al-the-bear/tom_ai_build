@@ -20,6 +20,7 @@
 #include <string>
 
 #include "spec_document.hpp"
+#include "spec_serialization_order.hpp"
 
 namespace som {
 
@@ -31,9 +32,18 @@ struct SpecYamlContents {
   std::string modelVersion;  // "" when absent
 };
 
-/* Serializes `document` to header + version (+ modelVersion) + document pass. */
+/* Serializes `document` to header + version (+ modelVersion) + document pass,
+ * with members sorted alphabetically by section path (clean diffs). */
 std::string encodeYaml(const SpecDocument& document,
                        const std::string& modelVersion);
+
+/* Like encodeYaml but emits each class's members in `@SerializationOrder`
+ * (criterion 7). `order` may be null, in which case this is exactly encodeYaml
+ * (alphabetical). Section ids are not carried through YAML (lossy round-trip,
+ * matching the reference). */
+std::string encodeYamlOrdered(const SpecDocument& document,
+                              const std::string& modelVersion,
+                              const SpecSerializationOrder* order);
 
 /* Parses a `*.docspecs.yaml` document into its passes. A missing pass decodes
  * as empty rather than failing. */

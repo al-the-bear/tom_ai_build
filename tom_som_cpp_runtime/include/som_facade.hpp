@@ -35,6 +35,19 @@ class SomNode {
   SpecDocument& doc() const { return doc_; }
   const std::string& path() const { return path_; }
 
+  /* The document section id assigned to this node, or "" when none. Meaningful
+   * for a list item; "" for ordinary fixed-id sections. */
+  std::string sectionId() const { return doc_.itemSectionId(path_); }
+
+  /* Overrides this node's section id (criterion 5). An empty id is a no-op.
+   * Throws SomSectionIdError on a uniqueness collision or a non-live item. */
+  void setSectionId(const std::string& id) {
+    if (id.empty()) {
+      return;
+    }
+    doc_.setItemSectionId(path_, id);
+  }
+
  private:
   SpecDocument& doc_;  // borrowed; the document this node edits
   std::string path_;   // owned; the node's globally-unique section path
@@ -45,7 +58,13 @@ class SomNode {
 class SomList : public SomNode {
  public:
   SomList(SpecDocument& doc, std::string path)
-      : SomNode(doc, std::move(path)) {}
+      : SomNode(doc, std::move(path)), pattern_() {}
+
+  /* Constructor carrying the list field's `@SectionIdPattern` (empty when the
+   * field has none). The generated source passes it so add() can derive a
+   * section id for each new item (criteria 3–6). */
+  SomList(SpecDocument& doc, std::string path, std::string pattern)
+      : SomNode(doc, std::move(path)), pattern_(std::move(pattern)) {}
 
   /* Number of items in the list. */
   std::size_t length() const { return doc().listItemCount(path()); }
@@ -62,8 +81,23 @@ class SomList : public SomNode {
   /* Every item path, in order. */
   std::vector<std::string> itemPaths() const { return doc().listItems(path()); }
 
-  /* Appends a new item and returns its stable path. */
-  std::string add() { return doc().addListItem(path()); }
+  /* The section ids assigned to this list's items, in item order. */
+  std::vector<std::string> sectionIds() const {
+    return doc().listItemSectionIds(path());
+  }
+
+  /* Appends a new item and returns its stable path. When the list has a
+   * `@SectionIdPattern`, the item is assigned a generated section id for today's
+   * date (criteria 3–4, 6); otherwise it is a plain append. */
+  std::string add();
+
+  /* Like add() but for an explicit (month, day) — deterministic, clock-free. */
+  std::string addOn(long long month, long long day);
+
+  /* Appends a new item carrying the explicit `sectionId` (criterion 5). Throws
+   * SomSectionIdError (Collision) when the id is already used by a sibling.
+   * Returns the new item's stable path. */
+  std::string addWithId(const std::string& sectionId);
 
   /* Removes the item at `index` and everything nested beneath it. */
   void removeAt(std::size_t index) {
@@ -72,6 +106,13 @@ class SomList : public SomNode {
       doc().removeListItem(p);
     }
   }
+
+ private:
+  std::string pattern_;
+
+  /* Generates a section id from the pattern for `(month, day)` and appends an
+   * item carrying it. The generated id is unique by construction. */
+  std::string addGenerated(long long month, long long day);
 };
 
 /* ---- path join ---------------------------------------------------------- */

@@ -386,6 +386,159 @@ static void test_operations(Checker& c) {
   }
 }
 
+/* A JSON string array as a vector; non-string / missing entries drop out. */
+static std::vector<std::string> json_str_list(const som::JsonRef& arr) {
+  std::vector<std::string> out;
+  std::size_t n = som::jsonArrayLen(arr);
+  for (std::size_t i = 0; i < n; i++) {
+    const std::string* s = som::jsonAsStr(som::jsonArrayAt(arr, i));
+    if (s != nullptr) {
+      out.push_back(*s);
+    }
+  }
+  return out;
+}
+
+static std::string join(const std::vector<std::string>& v) {
+  std::string s;
+  for (std::size_t i = 0; i < v.size(); i++) {
+    if (i > 0) s.push_back(',');
+    s += v[i];
+  }
+  return s;
+}
+
+/* ---- section-id conformance (AA1 criteria 3–6) -------------------------- */
+
+static void test_section_id(Checker& c) {
+  som::JsonPtr cases = read_json("section_id_cases.json");
+
+  // Criterion 4: the two-letter day code.
+  som::JsonRef tld = som::jsonGet(cases, "twoLetterDate");
+  std::size_t tn = som::jsonArrayLen(tld);
+  for (std::size_t i = 0; i < tn; i++) {
+    som::JsonRef tc = som::jsonArrayAt(tld, i);
+    long long month = som::jsonAsI64(som::jsonGet(tc, "month")).value_or(0);
+    long long day = som::jsonAsI64(som::jsonGet(tc, "day")).value_or(0);
+    std::string expect = som::jsonStrOr(tc, "expect");
+    std::string got = som::specEncodeTwoLetterDate(month, day);
+    c.check("sectionId.twoLetterDate[" + std::to_string(month) + "/" +
+                std::to_string(day) + "]",
+            got == expect, got + " != " + expect);
+  }
+
+  // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+  som::JsonRef gen = som::jsonGet(cases, "generate");
+  std::size_t gn = som::jsonArrayLen(gen);
+  for (std::size_t i = 0; i < gn; i++) {
+    som::JsonRef tc = som::jsonArrayAt(gen, i);
+    std::string pattern = som::jsonStrOr(tc, "pattern");
+    long long month = som::jsonAsI64(som::jsonGet(tc, "month")).value_or(0);
+    long long day = som::jsonAsI64(som::jsonGet(tc, "day")).value_or(0);
+    std::vector<std::string> existing = json_str_list(som::jsonGet(tc, "existing"));
+    std::string expect = som::jsonStrOr(tc, "expect");
+    std::string got =
+        som::specGenerateListItemSectionId(pattern, month, day, existing);
+    c.check("sectionId.generate[" + pattern + "]", got == expect,
+            got + " != " + expect);
+  }
+
+  // Criteria 5 & 6 at the document level.
+  som::SpecDocument doc;
+  som::JsonRef ops = som::jsonGet(cases, "documentOps");
+  std::size_t on = som::jsonArrayLen(ops);
+  for (std::size_t i = 0; i < on; i++) {
+    som::JsonRef s = som::jsonArrayAt(ops, i);
+    std::string op = som::jsonStrOr(s, "op");
+    std::string tag = "sectionId.op[" + std::to_string(i) + "]." + op;
+
+    if (op == "addGen") {
+      std::string listPath = som::jsonStrOr(s, "listPath");
+      std::string pattern = som::jsonStrOr(s, "pattern");
+      long long month = som::jsonAsI64(som::jsonGet(s, "month")).value_or(0);
+      long long day = som::jsonAsI64(som::jsonGet(s, "day")).value_or(0);
+      std::string expectId = som::jsonStrOr(s, "expectId");
+      std::string expectPath = som::jsonStrOr(s, "expectPath");
+      std::vector<std::string> existing = doc.listItemSectionIds(listPath);
+      std::string genId =
+          som::specGenerateListItemSectionId(pattern, month, day, existing);
+      c.check(tag + ".id", genId == expectId, genId + " != " + expectId);
+      try {
+        std::string path = doc.addListItemWithSectionId(listPath, genId);
+        c.check(tag + ".path", path == expectPath, path + " != " + expectPath);
+      } catch (const som::SomSectionIdError&) {
+        c.check(tag + ".path", false, "unexpected add failure");
+      }
+    } else if (op == "sectionIds") {
+      std::vector<std::string> exp = json_str_list(som::jsonGet(s, "expect"));
+      std::vector<std::string> got =
+          doc.listItemSectionIds(som::jsonStrOr(s, "listPath"));
+      c.check(tag, got == exp, join(got));
+    } else if (op == "removeListItem") {
+      bool exp = som::jsonBoolOr(s, "expect");
+      c.check(tag, doc.removeListItem(som::jsonStrOr(s, "itemPath")) == exp, "");
+    } else if (op == "override") {
+      bool okv = true;
+      try {
+        doc.setItemSectionId(som::jsonStrOr(s, "itemPath"),
+                             som::jsonStrOr(s, "id"));
+      } catch (const som::SomSectionIdError&) {
+        okv = false;
+      }
+      c.check(tag, okv, "unexpected error");
+    } else if (op == "overrideThrows") {
+      bool collided = false;
+      try {
+        doc.setItemSectionId(som::jsonStrOr(s, "itemPath"),
+                             som::jsonStrOr(s, "id"));
+      } catch (const som::SomSectionIdError& e) {
+        collided = e.isCollision();
+      }
+      c.check(tag, collided, "expected collision");
+    } else if (op == "addExplicitThrows") {
+      bool collided = false;
+      try {
+        doc.addListItemWithSectionId(som::jsonStrOr(s, "listPath"),
+                                     som::jsonStrOr(s, "id"));
+      } catch (const som::SomSectionIdError& e) {
+        collided = e.isCollision();
+      }
+      c.check(tag, collided, "expected collision");
+    } else {
+      c.check(tag + ".unknown", false, op);
+    }
+  }
+}
+
+/* ---- serialization-order conformance (AA1 criterion 7) ------------------ */
+
+static void test_serialization_order(Checker& c) {
+  som::JsonPtr cases = read_json("serialization_order_cases.json");
+  auto model = som::SpecModel::fromJson(som::jsonGet(cases, "model"));
+  c.check("serialOrder.model", model != nullptr, "model failed to build");
+  if (model == nullptr) {
+    return;
+  }
+  som::SpecSerializationOrder order(*model);
+
+  std::vector<std::string> contentPaths =
+      json_str_list(som::jsonGet(cases, "contentPaths"));
+  std::vector<std::string> expectedOrder =
+      json_str_list(som::jsonGet(cases, "expectedOrder"));
+  std::vector<std::string> gotPaths = order.orderPaths(contentPaths);
+  c.check("serialOrder.orderPaths", gotPaths == expectedOrder,
+          join(gotPaths) + " != " + join(expectedOrder));
+
+  std::vector<std::string> formFields =
+      json_str_list(som::jsonGet(cases, "formFields"));
+  std::vector<std::string> expectedFormOrder =
+      json_str_list(som::jsonGet(cases, "expectedFormOrder"));
+  std::vector<std::string> gotFields =
+      order.orderFormFields(som::jsonStrOr(cases, "formPath"), formFields);
+  c.check("serialOrder.orderFormFields", gotFields == expectedFormOrder,
+          join(gotFields) + " != " + join(expectedFormOrder));
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -403,6 +556,8 @@ int main(int argc, char** argv) {
   test_reflection(c, *model);
   test_validation(c, *model);
   test_operations(c);
+  test_section_id(c);
+  test_serialization_order(c);
 
   return c.finish();
 }

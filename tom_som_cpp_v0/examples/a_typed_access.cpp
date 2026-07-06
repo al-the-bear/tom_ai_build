@@ -41,11 +41,11 @@ int main() {
   // 3) The path-based collection API: append two list items and edit each.
   som::SomList metrics = csa.operationalMetrics();
   const std::string p0 = metrics.add();
-  tom_som_v0::CurrentOperationalMetrics m0(doc, p0);
+  tom_som_v0::CurrentOperationalMetric m0(doc, p0);
   m0.setContent("Average order turnaround: 4.2 days.");
 
   const std::string p1 = metrics.add();
-  tom_som_v0::CurrentOperationalMetrics m1(doc, p1);
+  tom_som_v0::CurrentOperationalMetric m1(doc, p1);
   m1.setContent("Manual reconciliation: ~12 hours / week.");
 
   // Read everything back through the typed accessors.
@@ -54,7 +54,7 @@ int main() {
   std::cout << "operationalMetrics.length = " << metrics.length() << "\n";
 
   for (std::size_t i = 0; i < metrics.length(); i++) {
-    tom_som_v0::CurrentOperationalMetrics item(doc, metrics.itemPathAt(i));
+    tom_som_v0::CurrentOperationalMetric item(doc, metrics.itemPathAt(i));
     std::cout << "  metric[" << i << "] = " << item.content() << "\n";
   }
 

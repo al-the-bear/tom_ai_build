@@ -5,11 +5,39 @@
 
 #include "som_util.hpp"
 #include "spec_paths.hpp"
+#include "spec_section_id.hpp"
 
 namespace som {
 
 std::string joinPath(const std::string& parent, const std::string& segment) {
   return specPathJoin(parent, segment);
+}
+
+/* ---- SomList section-id-aware adds --------------------------------------- */
+
+std::string SomList::addGenerated(long long month, long long day) {
+  std::string id = specGenerateListItemSectionId(pattern_, month, day,
+                                                 doc().listItemSectionIds(path()));
+  return doc().addListItemWithSectionId(path(), id);
+}
+
+std::string SomList::add() {
+  if (pattern_.empty()) {
+    return doc().addListItem(path());
+  }
+  auto md = specTodayMonthDay();
+  return addGenerated(md.first, md.second);
+}
+
+std::string SomList::addOn(long long month, long long day) {
+  if (pattern_.empty()) {
+    return doc().addListItem(path());
+  }
+  return addGenerated(month, day);
+}
+
+std::string SomList::addWithId(const std::string& sectionId) {
+  return doc().addListItemWithSectionId(path(), sectionId);
 }
 
 /* ---- model-version guard ------------------------------------------------ */

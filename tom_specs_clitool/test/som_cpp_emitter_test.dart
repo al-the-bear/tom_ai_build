@@ -45,6 +45,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'risks',
               'kind': 'list',
               'sectionId': 'risks',
+              'sectionIdPattern': 'RISK-ITEM-xxx',
               'elementType': 'Risk',
               'elementIsComplex': true,
               'min': 2,
@@ -466,6 +467,28 @@ void main() {
       // The generated translation unit must compile (the recursion bug was a
       // compile-time -Winfinite-recursion under -Werror).
       _expectCppBuilds(header, source);
+    });
+
+    test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '
+        'does not (AA1 criteria 3–5)', () {
+      final source = SomCppEmitter(_fixtureModel()).generateSource();
+      // The complex `risks` list carries a pattern → SomList is constructed with
+      // the trailing pattern argument so the facade can generate ids.
+      expect(
+          RegExp(r'som::SomList SolutionBlueprint::risks\(\) const \{[\s\S]*?'
+                  r'return som::SomList\(doc\(\), [\s\S]*?'
+                  r'"RISK-ITEM-xxx"\);')
+              .hasMatch(source),
+          isTrue,
+          reason: 'risks getter must pass the pattern to som::SomList');
+      // The pattern-less scalar `tags` list must pass an empty pattern string.
+      final tagsBody = RegExp(
+              r'som::SomList SolutionBlueprint::tags\(\) const \{[\s\S]*?'
+              r'return som::SomList\(doc\(\), [\s\S]*?, ""\);')
+          .firstMatch(source);
+      expect(tagsBody, isNotNull,
+          reason: 'scalar tags list must pass an empty pattern string');
+      expect(tagsBody!.group(0)!, isNot(contains('RISK-ITEM-xxx')));
     });
 
     test('documentRoots subsets the generated classes', () {

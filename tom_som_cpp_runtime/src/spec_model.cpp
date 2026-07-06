@@ -88,6 +88,12 @@ static SpecField fieldFromJson(const JsonRef& f) {
 
   out.type = jsonStrOr(f, "type");
 
+  auto so = jsonAsI64(jsonGet(f, "serializationOrder"));
+  if (so.has_value()) {
+    out.hasSerializationOrder = true;
+    out.serializationOrder = *so;
+  }
+
   JsonRef ffs = jsonGet(f, "formFields");
   std::size_t fn = jsonArrayLen(ffs);
   for (std::size_t i = 0; i < fn; i++) {
@@ -127,12 +133,7 @@ static SpecClass classFromJson(const std::string& name, const JsonRef& cls) {
   return out;
 }
 
-std::unique_ptr<SpecModel> SpecModel::fromJsonStr(const std::string& data,
-                                                  std::string* err) {
-  JsonPtr root = jsonParse(data, err);
-  if (root == nullptr) {
-    return nullptr;
-  }
+std::unique_ptr<SpecModel> SpecModel::buildFromRoot(const JsonRef& root) {
   auto m = std::make_unique<SpecModel>();
   m->source_ = root;
 
@@ -164,6 +165,22 @@ std::unique_ptr<SpecModel> SpecModel::fromJsonStr(const std::string& data,
   m->modelVersion = mv.value_or(0);
   m->modelVersionLabel = jsonStrOr(root, "modelVersionLabel");
   return m;
+}
+
+std::unique_ptr<SpecModel> SpecModel::fromJsonStr(const std::string& data,
+                                                  std::string* err) {
+  JsonPtr root = jsonParse(data, err);
+  if (root == nullptr) {
+    return nullptr;
+  }
+  return buildFromRoot(std::const_pointer_cast<const Json>(root));
+}
+
+std::unique_ptr<SpecModel> SpecModel::fromJson(const JsonRef& root) {
+  if (root == nullptr) {
+    return nullptr;
+  }
+  return buildFromRoot(root);
 }
 
 }  // namespace som

@@ -124,7 +124,18 @@ static void writeHeader(std::string& out, const std::string& modelVersion) {
   }
 }
 
-static void writeDocumentPass(std::string& out, const DocumentJson& doc) {
+/* The keys of `keys` in serialization order when `order` is set, else as given
+ * (already byte-sorted, since the DocumentJson stores are std::maps). */
+static std::vector<std::string> orderedKeys(const std::vector<std::string>& keys,
+                                            const SpecSerializationOrder* order) {
+  if (order == nullptr) {
+    return keys;
+  }
+  return order->orderPaths(keys);
+}
+
+static void writeDocumentPass(std::string& out, const DocumentJson& doc,
+                              const SpecSerializationOrder* order) {
   if (doc.content.empty() && doc.forms.empty() && doc.lists.empty()) {
     out += "document: {}\n";
     return;
@@ -133,38 +144,59 @@ static void writeDocumentPass(std::string& out, const DocumentJson& doc) {
 
   if (!doc.content.empty()) {
     out += "  content:\n";
+    std::vector<std::string> keys;
     for (const auto& kv : doc.content) {
-      writeScalar(out, 4, kv.first, kv.second);
+      keys.push_back(kv.first);
+    }
+    for (const auto& key : orderedKeys(keys, order)) {
+      writeScalar(out, 4, key, doc.content.at(key));
     }
   }
 
   if (!doc.forms.empty()) {
     out += "  forms:\n";
+    std::vector<std::string> keys;
     for (const auto& kv : doc.forms) {
-      if (kv.second.empty()) {
+      keys.push_back(kv.first);
+    }
+    for (const auto& key : orderedKeys(keys, order)) {
+      const auto& fields = doc.forms.at(key);
+      if (fields.empty()) {
         continue;
       }
       out += "    ";
-      out += jsJsonString(kv.first);
+      out += jsJsonString(key);
       out += ":\n";
-      for (const auto& fv : kv.second) {
-        writeScalar(out, 6, fv.first, fv.second);
+      std::vector<std::string> fieldNames;
+      for (const auto& fv : fields) {
+        fieldNames.push_back(fv.first);
+      }
+      if (order != nullptr) {
+        fieldNames = order->orderFormFields(key, fieldNames);
+      }
+      for (const auto& fname : fieldNames) {
+        writeScalar(out, 6, fname, fields.at(fname));
       }
     }
   }
 
   if (!doc.lists.empty()) {
     out += "  lists:\n";
+    std::vector<std::string> keys;
     for (const auto& kv : doc.lists) {
+      keys.push_back(kv.first);
+    }
+    for (const auto& key : orderedKeys(keys, order)) {
+      const auto& entry = doc.lists.at(key);
       out += "    ";
-      out += jsJsonString(kv.first);
+      out += jsJsonString(key);
       out += ":\n";
       out += "      seq: ";
-      out += formatI64(kv.second.seq);
+      out += formatI64(entry.seq);
       out.push_back('\n');
-      if (!kv.second.items.empty()) {
+      if (!entry.items.empty()) {
         out += "      items:\n";
-        for (const auto& it : kv.second.items) {
+        for (const auto& it : entry.items) {
           out += "        - ";
           out += jsJsonString(it);
           out.push_back('\n');
@@ -176,13 +208,19 @@ static void writeDocumentPass(std::string& out, const DocumentJson& doc) {
   }
 }
 
-std::string encodeYaml(const SpecDocument& document,
-                       const std::string& modelVersion) {
+std::string encodeYamlOrdered(const SpecDocument& document,
+                              const std::string& modelVersion,
+                              const SpecSerializationOrder* order) {
   std::string out;
   writeHeader(out, modelVersion);
   DocumentJson dj = document.toJson();
-  writeDocumentPass(out, dj);
+  writeDocumentPass(out, dj, order);
   return out;
+}
+
+std::string encodeYaml(const SpecDocument& document,
+                       const std::string& modelVersion) {
+  return encodeYamlOrdered(document, modelVersion, nullptr);
 }
 
 /* Converts the parsed `document:` mapping into a DocumentJson. */

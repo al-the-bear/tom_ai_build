@@ -7,9 +7,14 @@
 CXX      ?= g++
 CXXFLAGS ?= -std=c++17 -Wall -Wextra -O2
 INCLUDE  := -Iinclude
+# -MMD -MP emit per-object .d files listing every header each .o depends on, so
+# editing a header recompiles its dependents. Without this the build silently
+# links objects compiled against different struct layouts (ABI mismatch).
+DEPFLAGS := -MMD -MP
 
 SRC := $(wildcard src/*.cpp)
 OBJ := $(patsubst src/%.cpp,build/%.o,$(SRC))
+DEP := $(OBJ:.o=.d) build/conformance.d
 
 LIB     := build/libtom_som_cpp_runtime.a
 HARNESS := build/conformance
@@ -23,16 +28,18 @@ build:
 	mkdir -p build
 
 build/%.o: src/%.cpp | build
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) $(INCLUDE) -c $< -o $@
 
 $(LIB): $(OBJ)
 	ar rcs $@ $(OBJ)
 
 $(HARNESS): tests/conformance.cpp $(LIB)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) tests/conformance.cpp $(LIB) -o $@
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -MF build/conformance.d $(INCLUDE) tests/conformance.cpp $(LIB) -o $@
 
 test: $(HARNESS)
 	$(HARNESS) $(CORPUS)
 
 clean:
 	rm -rf build
+
+-include $(DEP)

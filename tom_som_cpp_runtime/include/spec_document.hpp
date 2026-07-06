@@ -29,6 +29,9 @@ namespace som {
 struct DocListEntry {
   long long seq = 0;
   std::vector<std::string> items;
+  /* item path -> its assigned document section id (criteria 3–6). Emitted in
+   * canonical JSON only when non-empty; not carried through YAML. */
+  std::map<std::string, std::string> ids;
 };
 
 /* The byte-sorted std::maps give the deterministic iteration order the C port
@@ -83,6 +86,22 @@ class SpecDocument {
   std::string addListItem(const std::string& listPath);  // returns new item path
   bool removeListItem(const std::string& itemPath);
 
+  // section ids (criteria 3–6)
+  /* Appends a new item to `listPath` carrying `sectionId`. Throws
+   * SomSectionIdError (Collision) when `sectionId` is already used by another
+   * item of the same list. Returns the new item's stable path. */
+  std::string addListItemWithSectionId(const std::string& listPath,
+                                       const std::string& sectionId);
+  /* The document section id assigned to `itemPath`, or "" when none. */
+  std::string itemSectionId(const std::string& itemPath) const;
+  const std::string* itemSectionIdOpt(const std::string& itemPath) const;
+  /* Sets `itemPath`'s section id. Throws SomSectionIdError: NotLiveItem when the
+   * path is not a live list item; Collision when `id` is used by a sibling. */
+  void setItemSectionId(const std::string& itemPath, const std::string& id);
+  /* The section ids assigned to `listPath`'s items, in item order (items with no
+   * assigned id are skipped). */
+  std::vector<std::string> listItemSectionIds(const std::string& listPath) const;
+
   bool isEmpty() const;
   bool hasValuesUnder(const std::string& prefix) const;
 
@@ -101,8 +120,16 @@ class SpecDocument {
   std::map<std::string, std::map<std::string, std::string>> forms_;
   std::map<std::string, std::vector<std::string>> listItems_;
   std::map<std::string, long long> listSeq_;
+  std::map<std::string, std::string> itemSectionId_;  // item path -> section id
 
   void purgeUnder(const std::string& prefix);
+
+  /* Returns the listItems_ key that owns `itemPath`, or "" when none does. */
+  std::string owningListOf(const std::string& itemPath) const;
+  /* Throws SomSectionIdError(Collision) when `id` is already used by an item of
+   * `listPath` other than `exceptItemPath` (empty for none). */
+  void assertSectionIdFree(const std::string& listPath, const std::string& id,
+                           const std::string& exceptItemPath) const;
 };
 
 }  // namespace som

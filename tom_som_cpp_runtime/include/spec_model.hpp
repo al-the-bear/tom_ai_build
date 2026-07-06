@@ -62,6 +62,8 @@ struct SpecField {
   std::string enumType;
   std::vector<std::string> enumValues;
   std::string type;
+  bool hasSerializationOrder = false;
+  long long serializationOrder = 0;
   std::vector<FormFieldSpec> formFields;
   std::vector<SpecAnnotation> annotations;
 
@@ -107,7 +109,16 @@ class SpecModel {
   static std::unique_ptr<SpecModel> fromJsonStr(const std::string& data,
                                                 std::string* err);
 
+  /* Builds a model from an already-parsed meta-data JSON node. The node is
+   * retained (annotation arguments borrow from it) via shared ownership, so it
+   * stays alive for the model's lifetime. Mirrors the C `spec_model_from_json`. */
+  static std::unique_ptr<SpecModel> fromJson(const JsonRef& root);
+
  private:
+  // Shared builder for both fromJsonStr and fromJson: fills the model from an
+  // already-parsed root node and retains it (annotations borrow from it).
+  static std::unique_ptr<SpecModel> buildFromRoot(const JsonRef& root);
+
   // sorted-by-name map (std::map gives byte-ordered, binary-searchable access).
   std::map<std::string, SpecClass> classesByName_;
   JsonRef source_;  // owned parsed tree; annotations borrow from it

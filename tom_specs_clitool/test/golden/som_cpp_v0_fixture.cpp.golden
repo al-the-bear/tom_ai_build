@@ -61,10 +61,10 @@ SolutionBlueprintOwnerForm SolutionBlueprint::owner() const {
   return SolutionBlueprintOwnerForm(doc(), som::joinPath(path(), "owner"));
 }
 som::SomList SolutionBlueprint::risks() const {
-  return som::SomList(doc(), som::joinPath(path(), "risks"));
+  return som::SomList(doc(), som::joinPath(path(), "risks"), "RISK-ITEM-xxx");
 }
 som::SomList SolutionBlueprint::tags() const {
-  return som::SomList(doc(), som::joinPath(path(), "tags"));
+  return som::SomList(doc(), som::joinPath(path(), "tags"), "");
 }
 CurrentLandscapeAssessment SolutionBlueprint::situation() const {
   return CurrentLandscapeAssessment(doc(), som::joinPath(path(), "situation"));

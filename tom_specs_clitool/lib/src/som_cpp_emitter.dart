@@ -453,9 +453,10 @@ class SomCppEmitter {
           ..writeln('}');
         break;
       case SpecFieldKind.list:
+        final pat = _cppStr(f.sectionIdPattern ?? '');
         b
           ..writeln('som::SomList $t::$acc() const {')
-          ..writeln('  return som::SomList(doc(), $childPath);')
+          ..writeln('  return som::SomList(doc(), $childPath, "$pat");')
           ..writeln('}');
         break;
       case SpecFieldKind.form:
