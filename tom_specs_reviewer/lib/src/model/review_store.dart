@@ -60,7 +60,7 @@ enum ReviewScope {
 /// The review decision recorded against a single structural path.
 ///
 /// A path identifies a node in the *structure* (not a data instance), e.g.
-/// `ProjectDefinition/systemQualityGoals/§item/content`. The three visual
+/// `D00SolutionBlueprint/systemQualityGoals/§item/content`. The three visual
 /// instances rendered for a list therefore share one entry.
 class ReviewEntry {
   ReviewScope scope;
