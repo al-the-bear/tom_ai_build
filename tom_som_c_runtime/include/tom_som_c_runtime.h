@@ -16,6 +16,8 @@
 #include "spec_paths.h"
 #include "spec_model.h"
 #include "spec_reflection.h"
+#include "spec_section_id.h"
+#include "spec_serialization_order.h"
 #include "spec_document.h"
 #include "spec_validator.h"
 #include "yaml.h"

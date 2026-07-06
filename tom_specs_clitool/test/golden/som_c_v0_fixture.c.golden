@@ -101,14 +101,14 @@ SolutionBlueprintOwnerForm solution_blueprint_owner(const SolutionBlueprint *sel
 SomList solution_blueprint_risks(const SolutionBlueprint *self) {
   char *path = spec_path_join(self->node.path, "risks");
   SomList out;
-  som_list_init(&out, self->node.doc, path);
+  som_list_init_pattern(&out, self->node.doc, path, "");
   free(path);
   return out;
 }
 SomList solution_blueprint_tags(const SolutionBlueprint *self) {
   char *path = spec_path_join(self->node.path, "tags");
   SomList out;
-  som_list_init(&out, self->node.doc, path);
+  som_list_init_pattern(&out, self->node.doc, path, "");
   free(path);
   return out;
 }

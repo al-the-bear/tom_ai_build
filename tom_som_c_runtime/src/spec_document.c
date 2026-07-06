@@ -171,6 +171,7 @@ static DocListEntry *le_insert(DocListEntry **arr, size_t *len, size_t *cap,
   (*arr)[pos].key = som_strdup(key);
   (*arr)[pos].seq = 0;
   som_strlist_init(&(*arr)[pos].items);
+  som_map_init(&(*arr)[pos].ids);
   (*len)++;
   return &(*arr)[pos];
 }
@@ -199,6 +200,7 @@ void document_json_free(DocumentJson *d) {
   for (size_t i = 0; i < d->lists_len; i++) {
     free(d->lists[i].key);
     som_strlist_free(&d->lists[i].items);
+    som_map_free(&d->lists[i].ids);
   }
   free(d->lists);
   document_json_init(d);
@@ -252,6 +254,16 @@ void document_json_from_json(const SomJson *v, DocumentJson *out) {
         const char *s = som_json_as_str(som_json_array_at(items, j));
         if (s != NULL) {
           som_strlist_push_copy(&e->items, s);
+        }
+      }
+      const SomJson *ids = som_json_get(m->value, "ids");
+      if (ids != NULL && ids->type == SOM_JSON_OBJECT) {
+        for (size_t j = 0; j < ids->as.object.len; j++) {
+          const SomJsonMember *im = &ids->as.object.members[j];
+          const char *s = som_json_as_str(im->value);
+          if (s != NULL) {
+            som_map_set(&e->ids, im->key, s);
+          }
         }
       }
     }
@@ -348,7 +360,25 @@ char *document_json_to_canonical_json(const DocumentJson *d) {
         som_buf_puts(&b, it);
         free(it);
       }
-      som_buf_puts(&b, "]}");
+      som_buf_putc(&b, ']');
+      const SomMap *ids = &d->lists[i].ids;
+      if (ids->len > 0) {
+        som_buf_puts(&b, ",\"ids\":{");
+        for (size_t j = 0; j < ids->len; j++) {
+          if (j > 0) {
+            som_buf_putc(&b, ',');
+          }
+          char *ik = som_json_encode_str(ids->entries[j].key);
+          char *iv = som_json_encode_str(ids->entries[j].val);
+          som_buf_puts(&b, ik);
+          som_buf_putc(&b, ':');
+          som_buf_puts(&b, iv);
+          free(ik);
+          free(iv);
+        }
+        som_buf_putc(&b, '}');
+      }
+      som_buf_putc(&b, '}');
     }
     som_buf_putc(&b, '}');
   }
@@ -370,6 +400,7 @@ void spec_document_init(SpecDocument *d) {
   d->list_items_len = 0;
   d->list_items_cap = 0;
   som_map_init(&d->list_seq);
+  som_map_init(&d->item_section_id);
 }
 
 void spec_document_free(SpecDocument *d) {
@@ -385,6 +416,7 @@ void spec_document_free(SpecDocument *d) {
   }
   free(d->list_items);
   som_map_free(&d->list_seq);
+  som_map_free(&d->item_section_id);
   spec_document_init(d);
 }
 
@@ -463,6 +495,101 @@ char *spec_document_add_list_item(SpecDocument *d, const char *list_path) {
   return item_path;
 }
 
+/* --- section ids --- */
+
+/* Returns the list_items key that owns `item_path`, or NULL when none does. */
+static const char *owning_list_of(const SpecDocument *d, const char *item_path) {
+  for (size_t i = 0; i < d->list_items_len; i++) {
+    if (som_strlist_contains(&d->list_items[i].items, item_path)) {
+      return d->list_items[i].key;
+    }
+  }
+  return NULL;
+}
+
+/* Writes `*err` (COLLISION) and returns 0 when `id` is already used by an item
+ * of `list_path` other than `except_item_path` (NULL for none); else returns 1.
+ * `err` may be NULL. */
+static int assert_section_id_free(const SpecDocument *d, const char *list_path,
+                                  const char *id, const char *except_item_path,
+                                  SpecSectionIdError *err) {
+  DocListItems *e = li_get(d->list_items, d->list_items_len, list_path);
+  if (e != NULL) {
+    for (size_t i = 0; i < e->items.len; i++) {
+      const char *item_path = e->items.items[i];
+      if (except_item_path != NULL && strcmp(item_path, except_item_path) == 0) {
+        continue;
+      }
+      const char *cur = som_map_get(&d->item_section_id, item_path);
+      if (cur != NULL && strcmp(cur, id) == 0) {
+        if (err != NULL) {
+          err->kind = SPEC_SECTION_ID_COLLISION;
+          err->id = som_strdup(id);
+          err->list_path = som_strdup(list_path);
+        }
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+char *spec_document_add_list_item_with_section_id(SpecDocument *d,
+                                                  const char *list_path,
+                                                  const char *section_id,
+                                                  SpecSectionIdError *err) {
+  if (!assert_section_id_free(d, list_path, section_id, NULL, err)) {
+    return NULL;
+  }
+  char *item_path = spec_document_add_list_item(d, list_path);
+  som_map_set(&d->item_section_id, item_path, section_id);
+  return item_path;
+}
+
+const char *spec_document_item_section_id(const SpecDocument *d,
+                                          const char *item_path) {
+  return som_map_get(&d->item_section_id, item_path);
+}
+
+int spec_document_set_item_section_id(SpecDocument *d, const char *item_path,
+                                      const char *id, SpecSectionIdError *err) {
+  const char *owning = owning_list_of(d, item_path);
+  if (owning == NULL) {
+    if (err != NULL) {
+      err->kind = SPEC_SECTION_ID_NOT_LIVE_ITEM;
+      err->item_path = som_strdup(item_path);
+    }
+    return 0;
+  }
+  const char *cur = som_map_get(&d->item_section_id, item_path);
+  if (cur != NULL && strcmp(cur, id) == 0) {
+    return 1;
+  }
+  /* `owning` points into the store, which assert_section_id_free only reads;
+   * copy defensively is unnecessary since no mutation happens before the set. */
+  if (!assert_section_id_free(d, owning, id, item_path, err)) {
+    return 0;
+  }
+  som_map_set(&d->item_section_id, item_path, id);
+  return 1;
+}
+
+void spec_document_list_item_section_ids(const SpecDocument *d,
+                                         const char *list_path,
+                                         SomStrList *out) {
+  som_strlist_init(out);
+  DocListItems *e = li_get(d->list_items, d->list_items_len, list_path);
+  if (e == NULL) {
+    return;
+  }
+  for (size_t i = 0; i < e->items.len; i++) {
+    const char *id = som_map_get(&d->item_section_id, e->items.items[i]);
+    if (id != NULL) {
+      som_strlist_push_copy(out, id);
+    }
+  }
+}
+
 static void purge_under(SpecDocument *d, const char *prefix) {
   for (size_t i = 0; i < d->content.len;) {
     if (is_under(d->content.entries[i].key, prefix)) {
@@ -500,6 +627,17 @@ static void purge_under(SpecDocument *d, const char *prefix) {
       memmove(&d->list_seq.entries[i], &d->list_seq.entries[i + 1],
               (d->list_seq.len - i - 1) * sizeof(SomMapEntry));
       d->list_seq.len--;
+    } else {
+      i++;
+    }
+  }
+  for (size_t i = 0; i < d->item_section_id.len;) {
+    if (is_under(d->item_section_id.entries[i].key, prefix)) {
+      free(d->item_section_id.entries[i].key);
+      free(d->item_section_id.entries[i].val);
+      memmove(&d->item_section_id.entries[i], &d->item_section_id.entries[i + 1],
+              (d->item_section_id.len - i - 1) * sizeof(SomMapEntry));
+      d->item_section_id.len--;
     } else {
       i++;
     }
@@ -624,6 +762,13 @@ void spec_document_to_json(const SpecDocument *d, DocumentJson *out) {
     }
     e->seq = seq;
     som_strlist_copy(&e->items, &d->list_items[i].items);
+    for (size_t j = 0; j < d->list_items[i].items.len; j++) {
+      const char *item_path = d->list_items[i].items.items[j];
+      const char *id = som_map_get(&d->item_section_id, item_path);
+      if (id != NULL) {
+        som_map_set(&e->ids, item_path, id);
+      }
+    }
   }
 }
 
@@ -641,6 +786,7 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
   }
   d->list_items_len = 0;
   som_map_clear(&d->list_seq);
+  som_map_clear(&d->item_section_id);
 
   for (size_t i = 0; i < j->content.len; i++) {
     som_map_set(&d->content, j->content.entries[i].key,
@@ -670,5 +816,9 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
     char *seq_str = som_format_i64(seq);
     som_map_set(&d->list_seq, j->lists[i].key, seq_str);
     free(seq_str);
+    for (size_t k = 0; k < j->lists[i].ids.len; k++) {
+      som_map_set(&d->item_section_id, j->lists[i].ids.entries[k].key,
+                  j->lists[i].ids.entries[k].val);
+    }
   }
 }

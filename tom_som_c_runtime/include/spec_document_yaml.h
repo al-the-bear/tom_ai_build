@@ -18,6 +18,7 @@
 #define SPEC_DOCUMENT_YAML_H
 
 #include "spec_document.h"
+#include "spec_serialization_order.h"
 
 /* The on-disk format version (independent of the model-version stamp). */
 #define SPEC_YAML_FORMAT_VERSION 1
@@ -29,9 +30,15 @@ typedef struct {
 
 void spec_yaml_contents_free(SpecYamlContents *c);
 
-/* Serializes `document` to header + version (+ modelVersion) + document pass.
- * Owned result. */
+/* Serializes `document` to header + version (+ modelVersion) + document pass,
+ * with alphabetical member ordering (the diff-stable default). Owned result. */
 char *encode_yaml(const SpecDocument *document, const char *model_version);
+
+/* `encode_yaml` with an optional serialization order: when `order` is non-NULL
+ * each class's members are emitted in `@SerializationOrder` order (AA1
+ * criterion 7) instead of alphabetically. Owned result. */
+char *encode_yaml_ordered(const SpecDocument *document, const char *model_version,
+                          const SpecSerializationOrder *order);
 
 /* Parses a `*.docspecs.yaml` document into its passes, writing `*out` (its
  * members owned by the caller, freed via spec_yaml_contents_free). A missing

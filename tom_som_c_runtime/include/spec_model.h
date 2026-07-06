@@ -63,6 +63,8 @@ typedef struct {
   char *enum_type;
   SomStrList enum_values;
   char *type;
+  int has_serialization_order;
+  long long serialization_order;
   FormFieldSpec *form_fields;
   size_t form_fields_len;
   SpecAnnotationList annotations;
@@ -115,6 +117,12 @@ const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);
 /* Decodes a meta-data JSON document. On failure returns NULL and, when `err` is
  * non-NULL, writes an owned error message. */
 SpecModel *spec_model_from_json_str(const char *data, char **err);
+
+/* Builds a model from an already-parsed meta-data JSON node. The node is
+ * *borrowed* (annotation arguments point into it) and must outlive the model;
+ * `spec_model_free` does not free it (unlike `spec_model_from_json_str`, which
+ * owns the parsed tree). */
+SpecModel *spec_model_from_json(const SomJson *root);
 
 void spec_model_free(SpecModel *m);
 

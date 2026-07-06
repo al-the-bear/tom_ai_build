@@ -101,6 +101,11 @@ static void field_from_json(const SomJson *f, SpecField *out) {
     out->has_min = 1;
     out->min = min;
   }
+  long long so;
+  if (som_json_as_i64(som_json_get(f, "serializationOrder"), &so)) {
+    out->has_serialization_order = 1;
+    out->serialization_order = so;
+  }
   out->content_type = str_or_dup(f, "contentType");
   out->section_type = str_or_dup(f, "sectionType");
   out->enum_type = str_or_dup(f, "enumType");
@@ -165,14 +170,9 @@ static int class_entry_cmp(const void *a, const void *b) {
   return strcmp(ea->name, eb->name);
 }
 
-SpecModel *spec_model_from_json_str(const char *data, char **err) {
-  SomJson *root = som_json_parse(data, err);
-  if (root == NULL) {
-    return NULL;
-  }
-  SpecModel *m = (SpecModel *)calloc(1, sizeof(SpecModel));
-  m->source = root;
-
+/* Builds the roots/classes/version of `m` from an already-parsed meta-data
+ * node. `m->source` (ownership of `root`) is set by the caller. */
+static void populate_model(SpecModel *m, const SomJson *root) {
   const SomJson *roots = som_json_get(root, "roots");
   size_t rn = som_json_array_len(roots);
   if (rn > 0) {
@@ -209,6 +209,23 @@ SpecModel *spec_model_from_json_str(const char *data, char **err) {
   som_json_as_i64(som_json_get(root, "modelVersion"), &mv);
   m->model_version = mv;
   m->model_version_label = str_or_dup(root, "modelVersionLabel");
+}
+
+SpecModel *spec_model_from_json(const SomJson *root) {
+  SpecModel *m = (SpecModel *)calloc(1, sizeof(SpecModel));
+  m->source = NULL; /* borrowed node — not owned */
+  populate_model(m, root);
+  return m;
+}
+
+SpecModel *spec_model_from_json_str(const char *data, char **err) {
+  SomJson *root = som_json_parse(data, err);
+  if (root == NULL) {
+    return NULL;
+  }
+  SpecModel *m = (SpecModel *)calloc(1, sizeof(SpecModel));
+  m->source = root; /* owned parsed tree */
+  populate_model(m, root);
   return m;
 }
 
@@ -277,6 +294,8 @@ void spec_model_free(SpecModel *m) {
   }
   free(m->classes);
   free(m->model_version_label);
-  som_json_free(m->source);
+  if (m->source != NULL) {
+    som_json_free(m->source); /* NULL when built from a borrowed node */
+  }
   free(m);
 }

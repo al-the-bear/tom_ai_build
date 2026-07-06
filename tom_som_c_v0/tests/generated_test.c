@@ -109,29 +109,29 @@ static void test_typed_list(void) {
 
   /* Append two items, constructing the element facade from each new path. */
   char *p0 = som_list_add(&metrics);
-  CurrentOperationalMetrics m0;
-  current_operational_metrics_init(&m0, &doc, p0);
-  current_operational_metrics_set_content(&m0, "Average order turnaround: 4.2 days.");
-  current_operational_metrics_free(&m0);
+  CurrentOperationalMetric m0;
+  current_operational_metric_init(&m0, &doc, p0);
+  current_operational_metric_set_content(&m0, "Average order turnaround: 4.2 days.");
+  current_operational_metric_free(&m0);
   free(p0);
 
   char *p1 = som_list_add(&metrics);
-  CurrentOperationalMetrics m1;
-  current_operational_metrics_init(&m1, &doc, p1);
-  current_operational_metrics_set_content(&m1, "Manual reconciliation: ~12 hours / week.");
-  current_operational_metrics_free(&m1);
+  CurrentOperationalMetric m1;
+  current_operational_metric_init(&m1, &doc, p1);
+  current_operational_metric_set_content(&m1, "Manual reconciliation: ~12 hours / week.");
+  current_operational_metric_free(&m1);
   free(p1);
 
   ok(som_list_length(&metrics) == 2, "typed list length");
 
   /* Read the first item back through an element facade over its borrowed path. */
   const char *ip0 = som_list_item_path_at(&metrics, 0);
-  CurrentOperationalMetrics r0;
-  current_operational_metrics_init(&r0, &doc, ip0);
-  char *rc = current_operational_metrics_content(&r0);
+  CurrentOperationalMetric r0;
+  current_operational_metric_init(&r0, &doc, ip0);
+  char *rc = current_operational_metric_content(&r0);
   eq_str(rc, "Average order turnaround: 4.2 days.", "typed list item content");
   free(rc);
-  current_operational_metrics_free(&r0);
+  current_operational_metric_free(&r0);
 
   /* Typed list writes land in the generic list store under the same path. */
   ok(spec_document_list_item_count(
@@ -142,6 +142,156 @@ static void test_typed_list(void) {
   current_landscape_free(&csa);
   d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
+}
+
+/* A fixture bundling a fresh document with the typed facades bound to it, so
+ * the `operational_metrics` list is exercised end-to-end for the section-id
+ * scenarios. All facades hold pointers into `doc`, so the fixture is kept in
+ * place (init and free the same local) and never copied. */
+typedef struct {
+  SpecDocument doc;
+  D00SolutionBlueprint pd;
+  CurrentLandscape csa;
+  SomList metrics;
+} MetricsFixture;
+
+static void metrics_fixture_init(MetricsFixture *f) {
+  spec_document_init(&f->doc);
+  d00_solution_blueprint_new(&f->pd, &f->doc, "", NULL);
+  f->csa = d00_solution_blueprint_current_landscape(&f->pd);
+  f->metrics = current_landscape_operational_metrics(&f->csa);
+}
+
+static void metrics_fixture_free(MetricsFixture *f) {
+  som_list_free(&f->metrics);
+  current_landscape_free(&f->csa);
+  d00_solution_blueprint_free(&f->pd);
+  spec_document_free(&f->doc);
+}
+
+/* Appends a same-day item and asserts the generated section id of the new item
+ * (queried through the typed facade over its path). */
+static void add_on_expect(MetricsFixture *f, long long month, long long day,
+                          const char *want) {
+  char *path = som_list_add_on(&f->metrics, month, day);
+  SomNode n;
+  som_node_init(&n, &f->doc, path);
+  char *sid = som_node_section_id(&n);
+  eq_str(sid, want, "add_on section id");
+  free(sid);
+  som_node_free(&n);
+  free(path);
+}
+
+/* Sets the section id of the item at `index` through the typed facade node. */
+static int set_id_at(MetricsFixture *f, size_t index, const char *id,
+                     SpecSectionIdError *err) {
+  const char *path = som_list_item_path_at(&f->metrics, index);
+  SomNode n;
+  som_node_init(&n, &f->doc, path);
+  int rc = som_node_set_section_id(&n, id, err);
+  som_node_free(&n);
+  return rc;
+}
+
+/* Asserts the list's section ids equal `want[0..n)` in order. */
+static void expect_section_ids(MetricsFixture *f, const char *const *want,
+                               size_t n, const char *name) {
+  SomStrList ids;
+  som_list_section_ids(&f->metrics, &ids);
+  int match = ids.len == n;
+  for (size_t i = 0; match && i < n; i++) {
+    if (strcmp(ids.items[i], want[i]) != 0) {
+      match = 0;
+    }
+  }
+  ok(match, name);
+  if (!match) {
+    fprintf(stderr, "  got %zu ids:", ids.len);
+    for (size_t i = 0; i < ids.len; i++) fprintf(stderr, " %s", ids.items[i]);
+    fprintf(stderr, "\n");
+  }
+  som_strlist_free(&ids);
+}
+
+/* The generated typed facade drives section-id generation and the delete rules
+ * (AA1 criteria 3–6) end-to-end. March 5 → the two-letter day code "CE"
+ * (C = month 3, E = day 5). Mirrors the Rust v0 `section_ids` test. */
+static void test_section_ids(void) {
+  const long long MAR = 3, DAY = 5;
+
+  /* Generation: consecutive same-day items number CE1, CE2 (criteria 3–4). */
+  {
+    MetricsFixture f;
+    metrics_fixture_init(&f);
+    add_on_expect(&f, MAR, DAY, "CUOPME-OPER-CE1");
+    add_on_expect(&f, MAR, DAY, "CUOPME-OPER-CE2");
+    metrics_fixture_free(&f);
+  }
+
+  /* Override to an arbitrary suffix; a duplicate override or explicit add with
+   * the same id raises a collision (criterion 5). */
+  {
+    MetricsFixture f;
+    metrics_fixture_init(&f);
+    char *p0 = som_list_add_on(&f.metrics, MAR, DAY); /* CE1 */
+    free(p0);
+    char *p1 = som_list_add_on(&f.metrics, MAR, DAY); /* CE2 */
+    free(p1);
+
+    SpecSectionIdError e;
+    spec_section_id_error_init(&e);
+    ok(set_id_at(&f, 1, "CUOPME-OPER-ZZ9", &e) == 1, "override succeeds");
+    spec_section_id_error_free(&e);
+
+    const char *want[] = {"CUOPME-OPER-CE1", "CUOPME-OPER-ZZ9"};
+    expect_section_ids(&f, want, 2, "override applied, no renumber");
+
+    spec_section_id_error_init(&e);
+    ok(set_id_at(&f, 0, "CUOPME-OPER-ZZ9", &e) == 0 &&
+           spec_section_id_is_collision(&e),
+       "override collision rejected");
+    spec_section_id_error_free(&e);
+
+    spec_section_id_error_init(&e);
+    char *added = NULL;
+    ok(som_list_add_with_id(&f.metrics, "CUOPME-OPER-ZZ9", &added, &e) == 0 &&
+           spec_section_id_is_collision(&e),
+       "add-with-id collision rejected");
+    free(added);
+    spec_section_id_error_free(&e);
+
+    metrics_fixture_free(&f);
+  }
+
+  /* Delete a middle item: remaining ids never renumber, and a new same-day item
+   * takes the next free number (criterion 6). */
+  {
+    MetricsFixture f;
+    metrics_fixture_init(&f);
+    for (int i = 0; i < 3; i++) {  /* CE1, CE2, CE3 */
+      char *p = som_list_add_on(&f.metrics, MAR, DAY);
+      free(p);
+    }
+    som_list_remove_at(&f.metrics, 1); /* drop CE2 */
+    const char *want[] = {"CUOPME-OPER-CE1", "CUOPME-OPER-CE3"};
+    expect_section_ids(&f, want, 2, "delete-middle keeps ids");
+    add_on_expect(&f, MAR, DAY, "CUOPME-OPER-CE4");
+    metrics_fixture_free(&f);
+  }
+
+  /* Delete the last (max) item: a new same-day item reuses the freed number. */
+  {
+    MetricsFixture f;
+    metrics_fixture_init(&f);
+    for (int i = 0; i < 3; i++) {  /* CE1, CE2, CE3 */
+      char *p = som_list_add_on(&f.metrics, MAR, DAY);
+      free(p);
+    }
+    som_list_remove_at(&f.metrics, 2); /* drop CE3 (the max) */
+    add_on_expect(&f, MAR, DAY, "CUOPME-OPER-CE3");
+    metrics_fixture_free(&f);
+  }
 }
 
 /* The generated model version is reported by both the macro and the accessor. */
@@ -193,6 +343,7 @@ static void test_version_check(void) {
 int main(void) {
   test_root_and_parity();
   test_typed_list();
+  test_section_ids();
   test_model_version();
   test_version_check();
 

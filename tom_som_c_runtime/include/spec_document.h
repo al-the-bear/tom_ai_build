@@ -24,6 +24,7 @@
 
 #include "som_json.h"
 #include "som_util.h"
+#include "spec_section_id.h"
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
 
@@ -36,6 +37,7 @@ typedef struct {
   char *key; /* list path, owned */
   long long seq;
   SomStrList items;
+  SomMap ids; /* item path → assigned section id (empty for id-less lists) */
 } DocListEntry;
 
 typedef struct {
@@ -79,7 +81,8 @@ typedef struct {
   DocListItems *list_items;
   size_t list_items_len;
   size_t list_items_cap;
-  SomMap list_seq; /* list path → decimal seq counter */
+  SomMap list_seq;         /* list path → decimal seq counter */
+  SomMap item_section_id;  /* item path → assigned section id (criteria 3–6) */
 } SpecDocument;
 
 void spec_document_init(SpecDocument *d);
@@ -103,6 +106,28 @@ const SomStrList *spec_document_list_items(const SpecDocument *d,
 char *spec_document_add_list_item(SpecDocument *d, const char *list_path);
 /* Removes `item_path` and everything nested beneath it; 1 if removed. */
 int spec_document_remove_list_item(SpecDocument *d, const char *item_path);
+
+/* section ids (AA1 criteria 3–6):
+ * Appends a new item, assigns it `section_id`, and returns its stable path
+ * (owned). On a uniqueness collision writes `*err` (COLLISION), leaves the
+ * document untouched, and returns NULL. `err` may be NULL. */
+char *spec_document_add_list_item_with_section_id(SpecDocument *d,
+                                                  const char *list_path,
+                                                  const char *section_id,
+                                                  SpecSectionIdError *err);
+/* Returns the section id assigned to `item_path`, or NULL when unset. */
+const char *spec_document_item_section_id(const SpecDocument *d,
+                                          const char *item_path);
+/* Overrides the section id of the live list item at `item_path`. Assigning the
+ * current id is a no-op. On collision writes `*err` (COLLISION) and returns 0;
+ * if `item_path` is not a live item writes `*err` (NOT_LIVE_ITEM) and returns 0.
+ * Returns 1 on success. `err` may be NULL. */
+int spec_document_set_item_section_id(SpecDocument *d, const char *item_path,
+                                      const char *id, SpecSectionIdError *err);
+/* Writes the section ids currently assigned within `list_path` in item order
+ * (items without an id are skipped) into `out` (initialised by callee). */
+void spec_document_list_item_section_ids(const SpecDocument *d,
+                                         const char *list_path, SomStrList *out);
 
 int spec_document_is_empty(const SpecDocument *d);
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix);

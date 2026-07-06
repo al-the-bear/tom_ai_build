@@ -22,6 +22,19 @@ const char *som_node_path(const SomNode *n) { return n->path; }
 
 SpecDocument *som_node_doc(const SomNode *n) { return n->doc; }
 
+char *som_node_section_id(const SomNode *n) {
+  const char *id = spec_document_item_section_id(n->doc, n->path);
+  return som_strdup(id != NULL ? id : "");
+}
+
+int som_node_set_section_id(const SomNode *n, const char *id,
+                            SpecSectionIdError *err) {
+  if (id == NULL || id[0] == '\0') {
+    return 1;
+  }
+  return spec_document_set_item_section_id(n->doc, n->path, id, err);
+}
+
 /* ---- SomScalar ---------------------------------------------------------- */
 
 void som_scalar_init(SomScalar *s, SpecDocument *doc, const char *path) {
@@ -42,13 +55,21 @@ void som_scalar_set_value(SomScalar *s, const char *value) {
 /* ---- SomList ------------------------------------------------------------ */
 
 void som_list_init(SomList *l, SpecDocument *doc, const char *list_path) {
+  som_list_init_pattern(l, doc, list_path, "");
+}
+
+void som_list_init_pattern(SomList *l, SpecDocument *doc, const char *list_path,
+                           const char *pattern) {
   l->doc = doc;
   l->list_path = som_strdup(list_path != NULL ? list_path : "");
+  l->pattern = som_strdup(pattern != NULL ? pattern : "");
 }
 
 void som_list_free(SomList *l) {
   free(l->list_path);
+  free(l->pattern);
   l->list_path = NULL;
+  l->pattern = NULL;
   l->doc = NULL;
 }
 
@@ -75,8 +96,53 @@ void som_list_item_paths(const SomList *l, SomStrList *out) {
   }
 }
 
+void som_list_section_ids(const SomList *l, SomStrList *out) {
+  spec_document_list_item_section_ids(l->doc, l->list_path, out);
+}
+
+/* Generates a section id from the pattern using `(month, day)` and appends an
+ * item carrying it. The generated id is unique by construction, so the store's
+ * uniqueness guard never fires. Returns the item's stable path (owned). */
+static char *som_list_add_generated(SomList *l, long long month, long long day) {
+  SomStrList existing;
+  spec_document_list_item_section_ids(l->doc, l->list_path, &existing);
+  char *id = spec_generate_list_item_section_id(l->pattern, month, day, &existing);
+  som_strlist_free(&existing);
+  char *item_path = spec_document_add_list_item_with_section_id(
+      l->doc, l->list_path, id, NULL);
+  free(id);
+  return item_path;
+}
+
 char *som_list_add(SomList *l) {
-  return spec_document_add_list_item(l->doc, l->list_path);
+  if (l->pattern[0] == '\0') {
+    return spec_document_add_list_item(l->doc, l->list_path);
+  }
+  long long month, day;
+  spec_today_month_day(&month, &day);
+  return som_list_add_generated(l, month, day);
+}
+
+char *som_list_add_on(SomList *l, long long month, long long day) {
+  if (l->pattern[0] == '\0') {
+    return spec_document_add_list_item(l->doc, l->list_path);
+  }
+  return som_list_add_generated(l, month, day);
+}
+
+int som_list_add_with_id(SomList *l, const char *section_id,
+                         char **out_item_path, SpecSectionIdError *err) {
+  char *item_path = spec_document_add_list_item_with_section_id(
+      l->doc, l->list_path, section_id, err);
+  if (item_path == NULL) {
+    return 0;
+  }
+  if (out_item_path != NULL) {
+    *out_item_path = item_path;
+  } else {
+    free(item_path);
+  }
+  return 1;
 }
 
 void som_list_remove_at(SomList *l, size_t index) {

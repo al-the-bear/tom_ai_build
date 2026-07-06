@@ -152,7 +152,42 @@ static void write_header(SomBuf *out, const char *model_version) {
   }
 }
 
-static void write_document_pass(SomBuf *out, const DocumentJson *doc) {
+/* Orders `keys` by `@SerializationOrder` when `order` is non-NULL (AA1
+ * criterion 7), else copies them in the map's natural (alphabetical) order —
+ * the diff-stable default the editor relies on. `out` is initialised by callee. */
+static void ordered_keys(const SpecSerializationOrder *order,
+                         const SomStrList *keys, SomStrList *out) {
+  if (order != NULL) {
+    spec_serialization_order_paths(order, keys, out);
+  } else {
+    som_strlist_copy(out, keys);
+  }
+}
+
+/* Returns the form entry keyed `key`, or NULL. */
+static const DocFormEntry *find_form_entry(const DocumentJson *doc,
+                                           const char *key) {
+  for (size_t i = 0; i < doc->forms_len; i++) {
+    if (strcmp(doc->forms[i].key, key) == 0) {
+      return &doc->forms[i];
+    }
+  }
+  return NULL;
+}
+
+/* Returns the list entry keyed `key`, or NULL. */
+static const DocListEntry *find_list_entry(const DocumentJson *doc,
+                                           const char *key) {
+  for (size_t i = 0; i < doc->lists_len; i++) {
+    if (strcmp(doc->lists[i].key, key) == 0) {
+      return &doc->lists[i];
+    }
+  }
+  return NULL;
+}
+
+static void write_document_pass(SomBuf *out, const DocumentJson *doc,
+                                const SpecSerializationOrder *order) {
   if (doc->content.len == 0 && doc->forms_len == 0 && doc->lists_len == 0) {
     som_buf_puts(out, "document: {}\n");
     return;
@@ -161,17 +196,33 @@ static void write_document_pass(SomBuf *out, const DocumentJson *doc) {
 
   if (doc->content.len > 0) {
     som_buf_puts(out, "  content:\n");
+    SomStrList keys;
+    som_strlist_init(&keys);
     for (size_t i = 0; i < doc->content.len; i++) {
-      write_scalar(out, 4, doc->content.entries[i].key,
-                   doc->content.entries[i].val);
+      som_strlist_push_copy(&keys, doc->content.entries[i].key);
     }
+    SomStrList ordered;
+    ordered_keys(order, &keys, &ordered);
+    for (size_t i = 0; i < ordered.len; i++) {
+      write_scalar(out, 4, ordered.items[i],
+                   som_map_get(&doc->content, ordered.items[i]));
+    }
+    som_strlist_free(&ordered);
+    som_strlist_free(&keys);
   }
 
   if (doc->forms_len > 0) {
     som_buf_puts(out, "  forms:\n");
+    SomStrList keys;
+    som_strlist_init(&keys);
     for (size_t i = 0; i < doc->forms_len; i++) {
-      const DocFormEntry *e = &doc->forms[i];
-      if (e->fields.len == 0) {
+      som_strlist_push_copy(&keys, doc->forms[i].key);
+    }
+    SomStrList ordered;
+    ordered_keys(order, &keys, &ordered);
+    for (size_t i = 0; i < ordered.len; i++) {
+      const DocFormEntry *e = find_form_entry(doc, ordered.items[i]);
+      if (e == NULL || e->fields.len == 0) {
         continue;
       }
       char *ek = js_json_string(e->key);
@@ -179,17 +230,43 @@ static void write_document_pass(SomBuf *out, const DocumentJson *doc) {
       som_buf_puts(out, ek);
       som_buf_puts(out, ":\n");
       free(ek);
+      SomStrList field_keys;
+      som_strlist_init(&field_keys);
       for (size_t j = 0; j < e->fields.len; j++) {
-        write_scalar(out, 6, e->fields.entries[j].key,
-                     e->fields.entries[j].val);
+        som_strlist_push_copy(&field_keys, e->fields.entries[j].key);
       }
+      SomStrList ordered_fields;
+      if (order != NULL) {
+        spec_serialization_order_form_fields(order, e->key, &field_keys,
+                                             &ordered_fields);
+      } else {
+        som_strlist_copy(&ordered_fields, &field_keys);
+      }
+      for (size_t j = 0; j < ordered_fields.len; j++) {
+        write_scalar(out, 6, ordered_fields.items[j],
+                     som_map_get(&e->fields, ordered_fields.items[j]));
+      }
+      som_strlist_free(&ordered_fields);
+      som_strlist_free(&field_keys);
     }
+    som_strlist_free(&ordered);
+    som_strlist_free(&keys);
   }
 
   if (doc->lists_len > 0) {
     som_buf_puts(out, "  lists:\n");
+    SomStrList keys;
+    som_strlist_init(&keys);
     for (size_t i = 0; i < doc->lists_len; i++) {
-      const DocListEntry *e = &doc->lists[i];
+      som_strlist_push_copy(&keys, doc->lists[i].key);
+    }
+    SomStrList ordered;
+    ordered_keys(order, &keys, &ordered);
+    for (size_t i = 0; i < ordered.len; i++) {
+      const DocListEntry *e = find_list_entry(doc, ordered.items[i]);
+      if (e == NULL) {
+        continue;
+      }
       char *ek = js_json_string(e->key);
       som_buf_puts(out, "    ");
       som_buf_puts(out, ek);
@@ -211,16 +288,23 @@ static void write_document_pass(SomBuf *out, const DocumentJson *doc) {
         som_buf_puts(out, "      items: []\n");
       }
     }
+    som_strlist_free(&ordered);
+    som_strlist_free(&keys);
   }
 }
 
 char *encode_yaml(const SpecDocument *document, const char *model_version) {
+  return encode_yaml_ordered(document, model_version, NULL);
+}
+
+char *encode_yaml_ordered(const SpecDocument *document, const char *model_version,
+                          const SpecSerializationOrder *order) {
   SomBuf out;
   som_buf_init(&out);
   write_header(&out, model_version);
   DocumentJson dj;
   spec_document_to_json(document, &dj);
-  write_document_pass(&out, &dj);
+  write_document_pass(&out, &dj, order);
   document_json_free(&dj);
   return som_buf_take(&out);
 }

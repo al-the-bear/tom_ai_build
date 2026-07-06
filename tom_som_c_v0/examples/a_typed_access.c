@@ -53,19 +53,19 @@ int main(void) {
   /* 3) The path-based collection API: append two list items and edit each. */
   SomList metrics = current_landscape_operational_metrics(&csa);
   char *p0 = som_list_add(&metrics);
-  CurrentOperationalMetrics m0;
-  current_operational_metrics_init(&m0, &doc, p0);
-  current_operational_metrics_set_content(&m0,
+  CurrentOperationalMetric m0;
+  current_operational_metric_init(&m0, &doc, p0);
+  current_operational_metric_set_content(&m0,
                                           "Average order turnaround: 4.2 days.");
-  current_operational_metrics_free(&m0);
+  current_operational_metric_free(&m0);
   free(p0);
 
   char *p1 = som_list_add(&metrics);
-  CurrentOperationalMetrics m1;
-  current_operational_metrics_init(&m1, &doc, p1);
-  current_operational_metrics_set_content(
+  CurrentOperationalMetric m1;
+  current_operational_metric_init(&m1, &doc, p1);
+  current_operational_metric_set_content(
       &m1, "Manual reconciliation: ~12 hours / week.");
-  current_operational_metrics_free(&m1);
+  current_operational_metric_free(&m1);
   free(p1);
 
   /* Read everything back through the typed accessors. */
@@ -79,12 +79,12 @@ int main(void) {
 
   for (size_t i = 0; i < som_list_length(&metrics); i++) {
     const char *ip = som_list_item_path_at(&metrics, i);
-    CurrentOperationalMetrics item;
-    current_operational_metrics_init(&item, &doc, ip);
-    char *v = current_operational_metrics_content(&item);
+    CurrentOperationalMetric item;
+    current_operational_metric_init(&item, &doc, ip);
+    char *v = current_operational_metric_content(&item);
     printf("  metric[%zu] = %s\n", i, v);
     free(v);
-    current_operational_metrics_free(&item);
+    current_operational_metric_free(&item);
   }
 
   /* The typed path is the generic path: the same data is addressable through

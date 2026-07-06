@@ -526,11 +526,13 @@ class SomCEmitter {
           ..writeln('}');
         break;
       case SpecFieldKind.list:
+        final pat = _cStr(f.sectionIdPattern ?? '');
         b
           ..writeln('SomList $get(const $t *self) {')
           ..writeln('\tchar *path = spec_path_join(self->node.path, "$seg");')
           ..writeln('\tSomList out;')
-          ..writeln('\tsom_list_init(&out, self->node.doc, path);')
+          ..writeln('\tsom_list_init_pattern(&out, self->node.doc, path, '
+              '"$pat");')
           ..writeln('\tfree(path);')
           ..writeln('\treturn out;')
           ..writeln('}');

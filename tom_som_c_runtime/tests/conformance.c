@@ -175,6 +175,30 @@ static void doc_from_state(SpecDocument *doc, const DocumentJson *state) {
   spec_document_load_json(doc, state);
 }
 
+/* Builds a SomStrList from a JSON array of strings (init by callee). */
+static void json_str_list(const SomJson *arr, SomStrList *out) {
+  som_strlist_init(out);
+  size_t n = som_json_array_len(arr);
+  for (size_t i = 0; i < n; i++) {
+    const char *s = som_json_as_str(som_json_array_at(arr, i));
+    if (s != NULL) {
+      som_strlist_push_copy(out, s);
+    }
+  }
+}
+
+static int strlist_eq(const SomStrList *a, const SomStrList *b) {
+  if (a->len != b->len) {
+    return 0;
+  }
+  for (size_t i = 0; i < a->len; i++) {
+    if (strcmp(a->items[i], b->items[i]) != 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 /* ---- groups ------------------------------------------------------------- */
 
 static void test_model_meta(Checker *c, const SpecModel *model) {
@@ -547,6 +571,188 @@ static void test_operations(Checker *c) {
   spec_document_free(&doc);
 }
 
+/* ---- section-id conformance (AA1 criteria 3–6) -------------------------- */
+
+static void test_section_id(Checker *c) {
+  SomJson *cases = read_json("section_id_cases.json");
+
+  /* Criterion 4: the two-letter day code. */
+  const SomJson *tld = som_json_get(cases, "twoLetterDate");
+  size_t tn = som_json_array_len(tld);
+  for (size_t i = 0; i < tn; i++) {
+    const SomJson *tc = som_json_array_at(tld, i);
+    long long month = 0, day = 0;
+    som_json_as_i64(som_json_get(tc, "month"), &month);
+    som_json_as_i64(som_json_get(tc, "day"), &day);
+    const char *expect = som_json_str_or(tc, "expect");
+    char *got = spec_encode_two_letter_date(month, day);
+    char tag[128], detail[256];
+    snprintf(tag, sizeof(tag), "sectionId.twoLetterDate[%lld/%lld]", month, day);
+    snprintf(detail, sizeof(detail), "%s != %s", got, expect);
+    check(c, tag, strcmp(got, expect) == 0, detail);
+    free(got);
+  }
+
+  /* Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1). */
+  const SomJson *gen = som_json_get(cases, "generate");
+  size_t gn = som_json_array_len(gen);
+  for (size_t i = 0; i < gn; i++) {
+    const SomJson *tc = som_json_array_at(gen, i);
+    const char *pattern = som_json_str_or(tc, "pattern");
+    long long month = 0, day = 0;
+    som_json_as_i64(som_json_get(tc, "month"), &month);
+    som_json_as_i64(som_json_get(tc, "day"), &day);
+    SomStrList existing;
+    json_str_list(som_json_get(tc, "existing"), &existing);
+    const char *expect = som_json_str_or(tc, "expect");
+    char *got =
+        spec_generate_list_item_section_id(pattern, month, day, &existing);
+    char tag[256], detail[512];
+    snprintf(tag, sizeof(tag), "sectionId.generate[%s]", pattern);
+    snprintf(detail, sizeof(detail), "%s != %s", got, expect);
+    check(c, tag, strcmp(got, expect) == 0, detail);
+    free(got);
+    som_strlist_free(&existing);
+  }
+
+  /* Criteria 5 & 6 at the document level. */
+  SpecDocument doc;
+  spec_document_init(&doc);
+  const SomJson *ops = som_json_get(cases, "documentOps");
+  size_t on = som_json_array_len(ops);
+  for (size_t i = 0; i < on; i++) {
+    const SomJson *s = som_json_array_at(ops, i);
+    const char *op = som_json_str_or(s, "op");
+    char tag[256];
+    snprintf(tag, sizeof(tag), "sectionId.op[%zu].%s", i, op);
+    if (strcmp(op, "addGen") == 0) {
+      const char *list_path = som_json_str_or(s, "listPath");
+      const char *pattern = som_json_str_or(s, "pattern");
+      long long month = 0, day = 0;
+      som_json_as_i64(som_json_get(s, "month"), &month);
+      som_json_as_i64(som_json_get(s, "day"), &day);
+      const char *expect_id = som_json_str_or(s, "expectId");
+      const char *expect_path = som_json_str_or(s, "expectPath");
+      SomStrList existing;
+      spec_document_list_item_section_ids(&doc, list_path, &existing);
+      char *gen_id =
+          spec_generate_list_item_section_id(pattern, month, day, &existing);
+      som_strlist_free(&existing);
+      char idtag[288], iddetail[512];
+      snprintf(idtag, sizeof(idtag), "%s.id", tag);
+      snprintf(iddetail, sizeof(iddetail), "%s != %s", gen_id, expect_id);
+      check(c, idtag, strcmp(gen_id, expect_id) == 0, iddetail);
+      SpecSectionIdError err;
+      spec_section_id_error_init(&err);
+      char *path = spec_document_add_list_item_with_section_id(&doc, list_path,
+                                                               gen_id, &err);
+      char ptag[288];
+      snprintf(ptag, sizeof(ptag), "%s.path", tag);
+      if (path == NULL) {
+        check(c, ptag, 0, "unexpected add failure");
+      } else {
+        char pdetail[512];
+        snprintf(pdetail, sizeof(pdetail), "%s != %s", path, expect_path);
+        check(c, ptag, strcmp(path, expect_path) == 0, pdetail);
+        free(path);
+      }
+      spec_section_id_error_free(&err);
+      free(gen_id);
+    } else if (strcmp(op, "sectionIds") == 0) {
+      SomStrList exp;
+      json_str_list(som_json_get(s, "expect"), &exp);
+      SomStrList got;
+      spec_document_list_item_section_ids(&doc, som_json_str_or(s, "listPath"),
+                                          &got);
+      char *gj = som_strlist_join(&got, ",");
+      check(c, tag, strlist_eq(&got, &exp), gj);
+      free(gj);
+      som_strlist_free(&got);
+      som_strlist_free(&exp);
+    } else if (strcmp(op, "removeListItem") == 0) {
+      int exp = som_json_bool_or(s, "expect");
+      check(c, tag,
+            spec_document_remove_list_item(&doc, som_json_str_or(s, "itemPath")) ==
+                exp,
+            "");
+    } else if (strcmp(op, "override") == 0) {
+      SpecSectionIdError err;
+      spec_section_id_error_init(&err);
+      int ok = spec_document_set_item_section_id(
+          &doc, som_json_str_or(s, "itemPath"), som_json_str_or(s, "id"), &err);
+      check(c, tag, ok, "unexpected error");
+      spec_section_id_error_free(&err);
+    } else if (strcmp(op, "overrideThrows") == 0) {
+      SpecSectionIdError err;
+      spec_section_id_error_init(&err);
+      int ok = spec_document_set_item_section_id(
+          &doc, som_json_str_or(s, "itemPath"), som_json_str_or(s, "id"), &err);
+      check(c, tag, !ok && spec_section_id_is_collision(&err),
+            "expected collision");
+      spec_section_id_error_free(&err);
+    } else if (strcmp(op, "addExplicitThrows") == 0) {
+      SpecSectionIdError err;
+      spec_section_id_error_init(&err);
+      char *path = spec_document_add_list_item_with_section_id(
+          &doc, som_json_str_or(s, "listPath"), som_json_str_or(s, "id"), &err);
+      check(c, tag, path == NULL && spec_section_id_is_collision(&err),
+            "expected collision");
+      free(path);
+      spec_section_id_error_free(&err);
+    } else {
+      char t2[300];
+      snprintf(t2, sizeof(t2), "%s.unknown", tag);
+      check(c, t2, 0, op);
+    }
+  }
+  spec_document_free(&doc);
+  som_json_free(cases);
+}
+
+/* ---- serialization-order conformance (AA1 criterion 7) ------------------ */
+
+static void test_serialization_order(Checker *c) {
+  SomJson *cases = read_json("serialization_order_cases.json");
+  SpecModel *model = spec_model_from_json(som_json_get(cases, "model"));
+  SpecSerializationOrder order = spec_serialization_order_make(model);
+
+  SomStrList content_paths, expected_order, got_paths;
+  json_str_list(som_json_get(cases, "contentPaths"), &content_paths);
+  json_str_list(som_json_get(cases, "expectedOrder"), &expected_order);
+  spec_serialization_order_paths(&order, &content_paths, &got_paths);
+  char *gj = som_strlist_join(&got_paths, ",");
+  char *ej = som_strlist_join(&expected_order, ",");
+  char detail[1024];
+  snprintf(detail, sizeof(detail), "%s != %s", gj, ej);
+  check(c, "serialOrder.orderPaths", strlist_eq(&got_paths, &expected_order),
+        detail);
+  free(gj);
+  free(ej);
+  som_strlist_free(&content_paths);
+  som_strlist_free(&expected_order);
+  som_strlist_free(&got_paths);
+
+  SomStrList form_fields, expected_form_order, got_fields;
+  json_str_list(som_json_get(cases, "formFields"), &form_fields);
+  json_str_list(som_json_get(cases, "expectedFormOrder"), &expected_form_order);
+  spec_serialization_order_form_fields(&order, som_json_str_or(cases, "formPath"),
+                                       &form_fields, &got_fields);
+  char *gf = som_strlist_join(&got_fields, ",");
+  char *ef = som_strlist_join(&expected_form_order, ",");
+  char fdetail[1024];
+  snprintf(fdetail, sizeof(fdetail), "%s != %s", gf, ef);
+  check(c, "serialOrder.orderFormFields",
+        strlist_eq(&got_fields, &expected_form_order), fdetail);
+  free(gf);
+  free(ef);
+  som_strlist_free(&form_fields);
+  som_strlist_free(&expected_form_order);
+  som_strlist_free(&got_fields);
+
+  spec_model_free(model);
+  som_json_free(cases);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -565,6 +771,8 @@ int main(int argc, char **argv) {
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);
+  test_section_id(&c);
+  test_serialization_order(&c);
 
   int rc = checker_finish(&c);
   spec_model_free(model);
