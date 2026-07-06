@@ -171,4 +171,56 @@ void main() {
           throwsA(isA<SomVersionException>()));
     });
   });
+
+  group('somEditabilityFor (non-throwing §2.2 classification, item 8)', () {
+    test('a null/empty document stamp is editable', () {
+      expect(somEditabilityFor('0.0', null), SomEditability.editable);
+      expect(somEditabilityFor('0.0', ''), SomEditability.editable);
+    });
+
+    test('an older or equal same-major document is editable', () {
+      expect(somEditabilityFor('1.3', '1.0'), SomEditability.editable);
+      expect(somEditabilityFor('1.3', '1.3'), SomEditability.editable);
+    });
+
+    test('a newer same-major document is rejectedNewerMinor', () {
+      expect(somEditabilityFor('1.2', '1.5'),
+          SomEditability.rejectedNewerMinor);
+    });
+
+    test('a different major version is readOnlyCrossMajor', () {
+      expect(somEditabilityFor('1.0', '2.0'),
+          SomEditability.readOnlyCrossMajor);
+      expect(somEditabilityFor('1.0', '0.9'),
+          SomEditability.readOnlyCrossMajor);
+    });
+
+    test('an unparseable document stamp is invalidVersion', () {
+      expect(somEditabilityFor('1.0', 'not-a-version'),
+          SomEditability.invalidVersion);
+    });
+
+    test('never throws where checkSomModelVersion would throw', () {
+      for (final stamp in ['1.5', '2.0', '0.9', 'not-a-version']) {
+        expect(() => somEditabilityFor('1.0', stamp), returnsNormally);
+        expect(() => checkSomModelVersion('1.0', stamp),
+            throwsA(isA<SomVersionException>()));
+      }
+    });
+
+    test('classification agrees with the throwing checker', () {
+      for (final stamp in [null, '', '1.0', '0.5', '1.5', '2.0', 'bad']) {
+        final editable =
+            somEditabilityFor('1.0', stamp) == SomEditability.editable;
+        var threw = false;
+        try {
+          checkSomModelVersion('1.0', stamp);
+        } on SomVersionException {
+          threw = true;
+        }
+        expect(editable, !threw,
+            reason: 'stamp "$stamp": editable=$editable threw=$threw');
+      }
+    });
+  });
 }

@@ -6964,6 +6964,13 @@ class D00SolutionBlueprint extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7044,6 +7051,13 @@ class D01CurrentLandscapeAssessment extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7108,6 +7122,13 @@ class D02TargetOperatingModel extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7180,6 +7201,13 @@ class D03InformationModel extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7265,6 +7293,13 @@ class D04RequirementsSpecification extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7332,6 +7367,13 @@ class D05InteractionScenarios extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7394,6 +7436,13 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7472,6 +7521,13 @@ class D07IntegrationInterfaceSpecification extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7544,6 +7600,13 @@ class D08SecurityAccessSpecification extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7609,6 +7672,13 @@ class D09ExperienceDesignSpecification extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7687,6 +7757,13 @@ class D10QualityAcceptancePlan extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7787,6 +7864,13 @@ class D11DeliveryRoadmap extends SomNode {
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
 
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7855,6 +7939,13 @@ class D12TransitionRolloutPlan extends SomNode {
 
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);

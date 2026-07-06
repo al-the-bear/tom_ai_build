@@ -85,6 +85,34 @@ void main() {
     });
   });
 
+  group('tom_som_dart_v0 non-throwing editabilityFor (§ item 8)', () {
+    test('classifies every §2.2 outcome without throwing', () {
+      expect(D00SolutionBlueprint.editabilityFor(null), SomEditability.editable);
+      expect(
+          D00SolutionBlueprint.editabilityFor('1.0'), SomEditability.editable);
+      expect(D00SolutionBlueprint.editabilityFor('1.1'),
+          SomEditability.rejectedNewerMinor);
+      expect(D00SolutionBlueprint.editabilityFor('2.0'),
+          SomEditability.readOnlyCrossMajor);
+      expect(D00SolutionBlueprint.editabilityFor('nope'),
+          SomEditability.invalidVersion);
+    });
+
+    test('editable iff the constructor accepts the same stamp', () {
+      for (final stamp in [null, '1.0', '1.1', '2.0', 'nope']) {
+        final editable = D00SolutionBlueprint.editabilityFor(stamp) ==
+            SomEditability.editable;
+        var accepted = true;
+        try {
+          D00SolutionBlueprint(SpecDocument(), documentVersion: stamp);
+        } on SomVersionException {
+          accepted = false;
+        }
+        expect(editable, accepted, reason: 'stamp "$stamp"');
+      }
+    });
+  });
+
   group('shared sample: typed and generic access agree', () {
     // Loads the language-agnostic shared sample authored by
     // `tool/build_shared_sample.dart` and proves the concrete facade and the

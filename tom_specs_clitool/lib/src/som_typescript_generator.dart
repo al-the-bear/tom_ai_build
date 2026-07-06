@@ -244,7 +244,15 @@ String _tsconfig() {
       'skipLibCheck': true,
       'types': <String>['node'],
     },
-    'include': <String>['*.ts', 'tests/**/*.ts', 'examples/**/*.ts'],
+    // `tool/**/*.ts` covers the item-7b golden-harness generator so `tsc`
+    // typechecks it too; keeping it here makes regeneration idempotent against
+    // the tracked tsconfig instead of stripping the golden tool on every run.
+    'include': <String>[
+      '*.ts',
+      'tests/**/*.ts',
+      'examples/**/*.ts',
+      'tool/**/*.ts',
+    ],
   };
   return '${const JsonEncoder.withIndent('  ').convert(config)}\n';
 }

@@ -17,9 +17,10 @@
 ///   * [SpecNodeCreator] / [checkAddNode] — the meta-model-validated node
 ///     creation gate (allowed child kind / section-id pattern / cardinality),
 ///     so a document only ever grows in model-permitted ways;
-///   * [SomNode] / [SomList] / [SomScalar] / [checkSomModelVersion] — the
-///     hand-written support the generated `tom_som_dart_v0` typed facade
-///     extends (editing layer + instantiation-time version check).
+///   * [SomNode] / [SomList] / [SomScalar] / [checkSomModelVersion] /
+///     [somEditabilityFor] / [SomEditability] — the hand-written support the
+///     generated `tom_som_dart_v0` typed facade extends (editing layer +
+///     instantiation-time version check + its non-throwing editability query).
 ///
 /// Pure Dart, no Flutter dependency.
 library;

@@ -142,12 +142,55 @@ class SomVersionException implements Exception {
   String toString() => 'SomVersionException: $message';
 }
 
+/// The outcome of the §2.2 version check, as a value a read-only viewer can
+/// branch on instead of catching [SomVersionException] (§ item 8).
+///
+/// It is the non-throwing companion to [checkSomModelVersion]: the constructor
+/// throws on any value other than [editable], while [somEditabilityFor] returns
+/// the same classification without throwing so a consumer can decide *open for
+/// edit* vs *open read-only* up front.
+enum SomEditability {
+  /// The object model may edit the document in place — a `null`/empty stamp
+  /// (a brand-new document) or a same-major, minor-`≤` stamp.
+  editable,
+
+  /// The document was authored under a **different major** version; it may be
+  /// read/converted but never edited in place.
+  readOnlyCrossMajor,
+
+  /// The document is same-major but a **newer minor** than the object model; an
+  /// older model must not edit a newer document.
+  rejectedNewerMinor,
+
+  /// The document stamp is not a valid `major.minor` string.
+  invalidVersion,
+}
+
+/// Classifies a document's editability under the §2.2 rules **without
+/// throwing** (§ item 8). [generated] is the object model's own `major.minor`
+/// version; [documentVersion] is the document's recorded authoring stamp
+/// (`null`/empty for a brand-new, never-stamped document).
+///
+/// This is the single definition of the version rules; [checkSomModelVersion]
+/// throws based on the value returned here, so the two never diverge.
+SomEditability somEditabilityFor(String generated, String? documentVersion) {
+  if (documentVersion == null || documentVersion.isEmpty) {
+    return SomEditability.editable;
+  }
+  final gen = _SomVersion.parse(generated);
+  final doc = _SomVersion.tryParse(documentVersion);
+  if (doc == null) return SomEditability.invalidVersion;
+  if (doc.major != gen.major) return SomEditability.readOnlyCrossMajor;
+  if (doc.minor > gen.minor) return SomEditability.rejectedNewerMinor;
+  return SomEditability.editable;
+}
+
 /// The instantiation-time version check every generated root facade performs
 /// (§2.2). [generated] is the object model's own `major.minor` version;
 /// [documentVersion] is the document's recorded authoring stamp (`null`/empty
 /// for a brand-new, never-stamped document).
 ///
-/// Rules:
+/// Rules (see [somEditabilityFor], which this delegates to):
 ///   * a `null`/empty document stamp is always accepted — a new document is
 ///     stamped on first edit;
 ///   * within the **same major** version, a document whose minor is **≤** the
@@ -159,23 +202,23 @@ class SomVersionException implements Exception {
 ///
 /// Throws [SomVersionException] on any rejection or an unparseable stamp.
 void checkSomModelVersion(String generated, String? documentVersion) {
-  if (documentVersion == null || documentVersion.isEmpty) return;
-  final gen = _SomVersion.parse(generated);
-  final doc = _SomVersion.tryParse(documentVersion);
-  if (doc == null) {
-    throw SomVersionException(
-        'document model version "$documentVersion" is not a valid major.minor');
-  }
-  if (doc.major != gen.major) {
-    throw SomVersionException(
-        'document major version ${doc.major} differs from the object model '
-        'major version ${gen.major}; cross-major documents are read-only');
-  }
-  if (doc.minor > gen.minor) {
-    throw SomVersionException(
-        'document model version $documentVersion is newer than the object '
-        'model version $generated; an older object model cannot edit a newer '
-        'document');
+  switch (somEditabilityFor(generated, documentVersion)) {
+    case SomEditability.editable:
+      return;
+    case SomEditability.invalidVersion:
+      throw SomVersionException(
+          'document model version "$documentVersion" is not a valid major.minor');
+    case SomEditability.readOnlyCrossMajor:
+      final gen = _SomVersion.parse(generated);
+      final doc = _SomVersion.parse(documentVersion!);
+      throw SomVersionException(
+          'document major version ${doc.major} differs from the object model '
+          'major version ${gen.major}; cross-major documents are read-only');
+    case SomEditability.rejectedNewerMinor:
+      throw SomVersionException(
+          'document model version $documentVersion is newer than the object '
+          'model version $generated; an older object model cannot edit a newer '
+          'document');
   }
 }
 

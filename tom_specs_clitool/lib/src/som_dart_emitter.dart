@@ -233,7 +233,19 @@ class SomDartEmitter {
         ..writeln()
         ..writeln('  /// This object model\'s own model version (`major.minor`),'
             ' per spec §2.1.')
-        ..writeln('  String get objectModelVersion => modelVersion;');
+        ..writeln('  String get objectModelVersion => modelVersion;')
+        ..writeln()
+        ..writeln('  /// Classifies whether a document authored under '
+            '[documentVersion] is')
+        ..writeln('  /// editable by this object model, **without throwing** '
+            '(§ item 8) — the')
+        ..writeln('  /// non-throwing companion to the constructor\'s §2.2 '
+            'check, so a read-only')
+        ..writeln('  /// viewer can branch instead of catching '
+            '[SomVersionException].')
+        ..writeln('  static SomEditability editabilityFor(String? '
+            'documentVersion) =>')
+        ..writeln('      somEditabilityFor(modelVersion, documentVersion);');
     } else {
       b.writeln('  ${cls.name}(super.doc, super.path);');
     }
